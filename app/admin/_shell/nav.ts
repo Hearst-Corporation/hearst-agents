@@ -102,6 +102,12 @@ export const NAV_SECTIONS: NavSection[] = [
           "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM14 2v6h6M9 13h6M9 17h6M9 9h2",
       },
       {
+        href: "/admin/agent-driven-dev",
+        label: "Gouvernance",
+        iconPath:
+          "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4",
+      },
+      {
         href: "/admin/settings",
         label: "Settings",
         iconPath:

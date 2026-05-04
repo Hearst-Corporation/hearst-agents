@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-05-04T01:04:32.824Z",
+  "total": 2,
+  "counts": {
+    "verrouillé": 2,
+    "in_progress": 0,
+    "review": 0,
+    "active": 0,
+    "autres": 0
+  },
+  "totals": {
+    "invariants": 18,
+    "testsExistants": 6,
+    "testsManquants": 25,
+    "orphans": 2
+  },
+  "features": [
+    {
+      "id": "auth",
+      "file": "auth.md",
+      "href": "docs/features/auth.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-03",
+      "niveau": "P0",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. Email comme identifiant — INTERDIT",
+        "I-2. Dev bypass — guard production obligatoire",
+        "I-3. Chiffrement tokens",
+        "I-4. Auto-revoke après échecs",
+        "I-5. Scope canonique",
+        "I-6. Schéma Supabase `user_tokens`",
+        "I-7. Slack OAuth — PKCE S256 obligatoire",
+        "I-8. JWT strategy",
+        "I-9. Variables d'env critiques",
+        "I-10. `registerProviderUsage()` au signIn"
+      ],
+      "testsExistantsCount": 3,
+      "testsManquantsCount": 16,
+      "testGap": "élevé",
+      "orphansCount": 2
+    },
+    {
+      "id": "cockpit",
+      "file": "cockpit.md",
+      "href": "docs/features/cockpit.md",
+      "statut": "verrouillé",
+      "statutRaw": "in_progress (verrouillé sur invariants ci-dessous)",
+      "version": "1.2",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": null,
+      "invariantsCount": 8,
+      "invariantsTitles": [
+        "I-1. Contrat endpoint `/api/v2/cockpit/today`",
+        "I-2. Philosophie fail-soft",
+        "I-3. Honest empty state (Phase B3)",
+        "I-4. Cache live providers",
+        "I-5. Stage routing",
+        "I-6. Hero 3D (HearstLogo3D)",
+        "I-7. RSC prefetch + client refetch",
+        "I-8. *(libre)*"
+      ],
+      "testsExistantsCount": 3,
+      "testsManquantsCount": 9,
+      "testGap": "moyen",
+      "orphansCount": 0
+    }
+  ]
+}
