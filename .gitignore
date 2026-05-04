@@ -47,8 +47,11 @@ yarn-error.log*
 # vercel
 .vercel
 
-# Claude Code internal state
-.claude/
+# Claude Code internal state (state, settings locales, etc.)
+.claude/*
+# … sauf les slash commands partagées (ADD protocol, etc.)
+!.claude/commands/
+!.claude/commands/**
 
 # typescript
 *.tsbuildinfo

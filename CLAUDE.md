@@ -1,5 +1,11 @@
 # Hearst OS — Instructions Claude
 
+## 🚀 Commande à lancer avant de bosser : `/feature [feature-id]`
+
+Pour t'imprégner du protocole ADD avant de toucher à une feature, lance la slash command **`/feature`** (sans arg = briefing général, avec arg = briefing + spec ciblée).
+
+Elle vérifie le verrou, te fait lire le rapport maître et la spec de la feature, puis te rappelle les règles d'invariants.
+
 ## 🔒 Avant toute écriture : vérifier `docs/AGENT-LOCK.json`
 
 Lis [docs/AGENT-LOCK.json](docs/AGENT-LOCK.json) **avant tout appel à Edit, Write, NotebookEdit, ou Bash destructif** (rm, git commit, mv, etc.).

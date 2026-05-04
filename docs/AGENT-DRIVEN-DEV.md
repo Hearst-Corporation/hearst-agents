@@ -5,6 +5,8 @@
 
 ## Pour l'agent qui arrive (lecture obligatoire)
 
+**Raccourci** : si tu utilises Claude Code, lance la slash command **`/feature [feature-id]`** — elle te déroule automatiquement le protocole ci-dessous (lock check, lecture rapport maître, ouverture spec ciblée).
+
 Si tu es un agent (Claude, ChatGPT, Cursor, Copilot, etc.) et tu vas modifier ce repo :
 
 0. **VÉRIFIE LE VERROU AGENT** — lis [docs/AGENT-LOCK.json](AGENT-LOCK.json). Si `locked === true`, **refuse toute écriture** (Edit, Write, NotebookEdit) et toute action destructive (rm, git commit, mv, etc.). Informe l'utilisateur qu'il doit déverrouiller depuis `/admin/agent-driven-dev`. La lecture reste autorisée.
