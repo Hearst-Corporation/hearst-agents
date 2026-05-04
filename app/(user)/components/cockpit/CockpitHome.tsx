@@ -1,12 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { CockpitHeader } from "./CockpitHeader";
 import { ActivityStrip } from "./ActivityStrip";
 import { KPIStrip } from "./KPIStrip";
 import { CockpitAgenda } from "./CockpitAgenda";
 import { WatchlistMini } from "./WatchlistMini";
-import { HearstLogo3D } from "./HearstLogo3D";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+
+// Three.js manipule WebGL au mount → ssr:false obligatoire.
+const HearstParticlesCloud = dynamic(
+  () => import("./HearstParticlesCloud").then((m) => m.HearstParticlesCloud),
+  { ssr: false, loading: () => null },
+);
 
 interface CockpitHomeProps {
   data: CockpitTodayPayload;
@@ -15,8 +21,9 @@ interface CockpitHomeProps {
 /**
  * CockpitHome — home Cockpit (mode="cockpit").
  *
- * Layout : Header → ActivityStrip → HearstLogo3D (H 3D animé, hero central,
- * GLB local + R3F) → KPIStrip → Agenda/Veille repliable.
+ * Layout : Header → ActivityStrip → HearstParticlesCloud (nuage de
+ * particules formant le H, magnetic mouse-react) → KPIStrip → Agenda/Veille
+ * repliable.
  */
 export function CockpitHome({ data }: CockpitHomeProps) {
   return (
@@ -36,7 +43,7 @@ export function CockpitHome({ data }: CockpitHomeProps) {
           minHeight: "var(--space-48)",
         }}
       >
-        <HearstLogo3D />
+        <HearstParticlesCloud />
       </div>
 
       <div

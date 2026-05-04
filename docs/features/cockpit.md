@@ -8,7 +8,7 @@
 | **statut** | `in_progress` (verrouillé sur invariants ci-dessous) |
 | **owner** | Adrien |
 | **dernière revue** | 2026-05-04 |
-| **version spec** | 1.2 |
+| **version spec** | 1.3 |
 | **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
 
 ## Description
@@ -25,10 +25,10 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 
 ### Composants câblés (rendus actuellement)
 - [CockpitStage.tsx](../../app/(user)/components/stages/CockpitStage.tsx) — conteneur stage : fetch `/api/v2/cockpit/today`, gère loading/error/success, sync client même si RSC prefetch
-- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit (header → activity strip → **HearstLogo3D hero** → KPI strip → accordion agenda+watchlist)
+- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit (header → activity strip → **HearstParticlesCloud hero** → KPI strip → accordion agenda+watchlist)
 - [CockpitHeader.tsx](../../app/(user)/components/cockpit/CockpitHeader.tsx) — greeting prénom + date/heure + missions running count
 - [ActivityStrip.tsx](../../app/(user)/components/cockpit/ActivityStrip.tsx) — ticker live (dernier SSE event > dernier run > briefing > "no recent activity")
-- [HearstLogo3D.tsx](../../app/(user)/components/cockpit/HearstLogo3D.tsx) — H Hearst en 3D animé (R3F + GLB local `public/hearst-3d-emerald.glb`, 2.1MB), Float idle + rotation Y douce, lighting cykan, `flex-1` minHeight `--space-48`. Remplace HaloAgentCore Spline (v1.2)
+- [HearstParticlesCloud.tsx](../../app/(user)/components/cockpit/HearstParticlesCloud.tsx) — nuage de ~15k particules (Three.js Points + AdditiveBlending) formant le H Hearst par sampling alpha de `public/hearst-mark-h.svg`. Réactif souris (force répulsive cykan), ResizeObserver container-relative, `flex-1` minHeight `--space-48`. Remplace HearstLogo3D (v1.3)
 - [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 cartes Assets | Missions | Reports
 - [CockpitAgenda.tsx](../../app/(user)/components/cockpit/CockpitAgenda.tsx) — agenda du jour (max 4 items, empty CTA → /apps#calendar)
 - [WatchlistMini.tsx](../../app/(user)/components/cockpit/WatchlistMini.tsx) — watchlist compacte (max 3 items, sparkline 7pts, anomaly badge)
@@ -88,7 +88,7 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 - `CockpitTodayPayload` (défini dans [lib/cockpit/today.ts](../../lib/cockpit/today.ts)) — contrat frontend ↔ backend
 
 ### Dépendances externes
-- `three` + `@react-three/fiber` + `@react-three/drei` — scène 3D HearstLogo3D (R3F, GLB loader, Float, ContactShadows). Asset GLB local : `public/hearst-3d-emerald.glb` (2.1MB, partagé avec le projet Hearst-app marketing)
+- `three` (vanilla, sans R3F) — système de particules `HearstParticlesCloud`. Asset SVG local : `public/hearst-mark-h.svg` (778 B, partagé avec Hearst-app marketing) — sampling alpha pour positionner les particules en forme de H
 - Composio SDK (via `lib/connectors/composio/`) — Calendar / Stripe / HubSpot live data
 - `next-auth/react` — `useSession()` pour prénom dans Header / Hero
 - Anthropic SDK (Haiku) — narration d'anomalie watchlist
@@ -142,12 +142,13 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 - `CockpitStage` reste l'unique conteneur pour ce mode
 - Pas de fork "CockpitStageV2" sans spec
 
-### I-6. Hero 3D (HearstLogo3D)
-- Asset GLB obligatoire : `public/hearst-3d-emerald.glb` (synchronisé avec Hearst-app marketing)
-- Rendu R3F + drei (`useGLTF`, `<Float>`, `<ContactShadows>`) ; pas d'`<Environment>` HDRI (perf cockpit)
-- Couleur émissive lue runtime depuis `--cykan` (single source of truth, pas de hex hardcodé)
-- `Logo3DErrorBoundary` (class component isolant) obligatoire — un crash R3F ne doit jamais casser le cockpit
-- `dynamic(() => …, { ssr: false })` obligatoire — three.js manipule WebGL au mount
+### I-6. Hero particules (HearstParticlesCloud)
+- Asset SVG obligatoire : `public/hearst-mark-h.svg` (synchronisé avec Hearst-app marketing) — sampling pixel alpha pour la silhouette du H
+- Rendu vanilla `three` (`THREE.Points` + `BufferGeometry` + `PointsMaterial` + `AdditiveBlending`). Pas de R3F ni drei.
+- Couleur lue runtime depuis `--cykan` (parsing hex → int Three.js)
+- Sizing **container-relative** : `getBoundingClientRect()` + `ResizeObserver`, jamais `window.innerWidth/Height` (le cockpit est un panneau, pas un viewport)
+- `dynamic(() => …, { ssr: false })` obligatoire — Three.js manipule WebGL au mount
+- Particle count : 15k desktop / 6k mobile (override possible via prop) — ne pas remonter sans benchmark perf
 
 ### I-7. RSC prefetch + client refetch
 - La page reste un RSC qui prefetch côté serveur
@@ -191,7 +192,7 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 - **E2E Playwright cockpit** : aucun test e2e dédié `cockpit.spec.ts`. Le `happy-path.spec.ts` couvre indirectement.
 - **Test agenda-live** : aucun test sur `lib/cockpit/agenda-live.ts` (cache, time range, unwrap Composio response)
 - **Test composants UI** : aucun test sur `CockpitHeader`, `KPIStrip`, `WatchlistMini`, `CockpitAgenda`, `ActivityStrip`, `CockpitHome` (snapshot ou interaction)
-- **Test HearstLogo3D** : aucun test (R3F mock + ErrorBoundary trigger + GLB load fallback)
+- **Test HearstParticlesCloud** : aucun test (Three.js mock + ResizeObserver mock + image load fallback)
 - **Test CockpitStage** : aucun test (loading state, error state, refetch on mount, RSC initialData passthrough)
 - **Test QuickActionsGrid** : aucun test (priorité suggestions > favoris > universels, runSuggestion via hook)
 - **Test AgentsConstellation** : aucun test (tri actif > idle > pending > error, mode panel vs band)
@@ -231,5 +232,6 @@ app/(user)/components/cockpit/WatchlistMini.tsx     |  8 lignes
 - **Pivot 2026-04-29** : passage shell 3 colonnes → cockpit polymorphe avec PulseBar top + ChatDock bottom
 - **Vague 9 (anomaly detection)** : ajout narration Haiku sur deltas watchlist >5% vs 7-day baseline
 - **Migration 3D v1** (commits `2581e7d` → `ecd6997`) : Three.js abandonné au profit de Spline runtime pour HaloAgentCore (constellation 6 agents).
-- **Pivot 3D v1.2 (2026-05-04)** : Spline + HaloAgentCore retirés au profit de **HearstLogo3D** (R3F + GLB local `hearst-3d-emerald.glb` partagé avec Hearst-app marketing). Identité de marque (le H) plutôt que constellation générique. Six agents cliquables potentiellement à reconstruire autour du H en R3F si besoin.
+- **Pivot 3D v1.2 (2026-05-04)** : Spline + HaloAgentCore retirés au profit de HearstLogo3D (R3F + GLB local). Identité de marque (le H) plutôt que constellation générique.
+- **Pivot 3D v1.3 (2026-05-04)** : HearstLogo3D + GLB + R3F retirés au profit de **HearstParticlesCloud** (vanilla Three.js + sampling SVG H + AdditiveBlending). Effet "scintillement électrique" magnétique qui réagit à la souris. Asset partagé avec Hearst-app marketing (`hearst-mark-h.svg`). Stack 3D minimaliste : juste `three`, plus de drei/fiber/GLB.
 - **Phase B3** : suppression des mock fallbacks watchlist/agenda — empty state honnête à la place
