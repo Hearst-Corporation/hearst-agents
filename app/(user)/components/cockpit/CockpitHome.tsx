@@ -5,6 +5,7 @@ import { ActivityStrip } from "./ActivityStrip";
 import { KPIStrip } from "./KPIStrip";
 import { CockpitAgenda } from "./CockpitAgenda";
 import { WatchlistMini } from "./WatchlistMini";
+import { HaloAgentCore } from "./HaloAgentCore";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface CockpitHomeProps {
@@ -14,7 +15,9 @@ interface CockpitHomeProps {
 /**
  * CockpitHome — home Cockpit (mode="cockpit").
  *
- * Layout : Header → ActivityStrip → KPIStrip → Agenda/Veille repliable.
+ * Layout : Header → ActivityStrip → HaloAgentCore (hero 3D, panneau central
+ * dominant, 6 agents cliquables → routes/Stage) → KPIStrip → Agenda/Veille
+ * repliable.
  */
 export function CockpitHome({ data }: CockpitHomeProps) {
   return (
@@ -27,6 +30,15 @@ export function CockpitHome({ data }: CockpitHomeProps) {
     >
       <CockpitHeader data={data} />
       <ActivityStrip data={data} />
+
+      <div
+        className="relative flex-1 min-h-0"
+        style={{
+          minHeight: "var(--space-48)",
+        }}
+      >
+        <HaloAgentCore />
+      </div>
 
       <div
         className="flex flex-col shrink-0"

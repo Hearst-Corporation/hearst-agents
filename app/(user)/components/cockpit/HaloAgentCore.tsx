@@ -108,9 +108,14 @@ function applySceneAdjustments(app: Application) {
   const grid = app.findObjectByName("Grid");
   if (grid) grid.visible = false;
 
-  // Fond = couleur exacte du cockpit --bg (#050709) pour ne pas transparaître
-  // de différence de rendu à la jointure canvas/layout.
-  app.setBackgroundColor?.("#050709");
+  // Fond = token --bg lu au runtime pour ne pas transparaître de différence
+  // de rendu à la jointure canvas/layout (Spline attend une string hex/rgb).
+  if (typeof window !== "undefined") {
+    const bg = getComputedStyle(document.documentElement)
+      .getPropertyValue("--bg")
+      .trim();
+    if (bg) app.setBackgroundColor?.(bg);
+  }
 
   // Caméra : angle trop zénithal dans l'export par défaut.
   // Vue 3/4 haut (style isométrique référence) :

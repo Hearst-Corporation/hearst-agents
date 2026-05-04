@@ -7,8 +7,8 @@
 | **id** | `cockpit` |
 | **statut** | `in_progress` (verrouillé sur invariants ci-dessous) |
 | **owner** | Adrien |
-| **dernière revue** | 2026-05-03 |
-| **version spec** | 1.0 |
+| **dernière revue** | 2026-05-04 |
+| **version spec** | 1.1 |
 | **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
 
 ## Description
@@ -25,15 +25,15 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 
 ### Composants câblés (rendus actuellement)
 - [CockpitStage.tsx](../../app/(user)/components/stages/CockpitStage.tsx) — conteneur stage : fetch `/api/v2/cockpit/today`, gère loading/error/success, sync client même si RSC prefetch
-- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit (header → activity strip → KPI strip → accordion agenda+watchlist)
+- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit (header → activity strip → **HaloAgentCore hero 3D** → KPI strip → accordion agenda+watchlist)
 - [CockpitHeader.tsx](../../app/(user)/components/cockpit/CockpitHeader.tsx) — greeting prénom + date/heure + missions running count
 - [ActivityStrip.tsx](../../app/(user)/components/cockpit/ActivityStrip.tsx) — ticker live (dernier SSE event > dernier run > briefing > "no recent activity")
+- [HaloAgentCore.tsx](../../app/(user)/components/cockpit/HaloAgentCore.tsx) — constellation 3D Spline en hero central (6 agents : pilot, scribe, delve, pulse, warden, cortex), `flex-1` minHeight `--space-48` ; remplace l'ancienne grille de boutons quick actions
 - [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 cartes Assets | Missions | Reports
 - [CockpitAgenda.tsx](../../app/(user)/components/cockpit/CockpitAgenda.tsx) — agenda du jour (max 4 items, empty CTA → /apps#calendar)
 - [WatchlistMini.tsx](../../app/(user)/components/cockpit/WatchlistMini.tsx) — watchlist compacte (max 3 items, sparkline 7pts, anomaly badge)
 
 ### Composants code-ready non câblés (orphelins)
-- [HaloAgentCore.tsx](../../app/(user)/components/cockpit/HaloAgentCore.tsx) — constellation 3D Spline (6 agents : pilot, scribe, delve, pulse, warden, cortex). Récemment migré Three.js → Spline (commits `ecd6997`, `8b5ae6e`).
 - [QuickActionsGrid.tsx](../../app/(user)/components/cockpit/QuickActionsGrid.tsx) — grille 6 tiles (≤3 suggestions ML + ≤3 favoris reports + universels)
 - [AgentsConstellation.tsx](../../app/(user)/components/cockpit/AgentsConstellation.tsx) — grille services connectés (mode "panel" 4×3 ou "band" rangée)
 - [CockpitHero.tsx](../../app/(user)/components/stages/CockpitHero.tsx) — hero éditorial (briefing headline+body)
@@ -209,8 +209,7 @@ Ces composants existent, sont compilables, mais ne sont **pas importés** dans `
 
 | Composant | État | Plan présumé |
 |-----------|------|--------------|
-| [HaloAgentCore](../../app/(user)/components/cockpit/HaloAgentCore.tsx) | Migré Three.js → Spline (commits récents) | Câblage probable comme hero principal du cockpit (remplace ou complète CockpitHeader) |
-| [QuickActionsGrid](../../app/(user)/components/cockpit/QuickActionsGrid.tsx) | Logique complète (suggestions ML + favoris + universels) | Câblage à la place ou en plus du `<details>` accordion actuel |
+| [QuickActionsGrid](../../app/(user)/components/cockpit/QuickActionsGrid.tsx) | Logique complète (suggestions ML + favoris + universels) | Remplacé visuellement par le hero 3D HaloAgentCore (v1.1) ; à supprimer si non recâblé d'ici v1.2 |
 | [AgentsConstellation](../../app/(user)/components/cockpit/AgentsConstellation.tsx) | Modes panel et band prêts | Probablement pour ContextRail (mode panel) ou PulseBar (mode band) |
 | [CockpitHero](../../app/(user)/components/stages/CockpitHero.tsx) | Hero éditorial briefing | Alternative ou complément à CockpitHeader |
 
