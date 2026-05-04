@@ -7,8 +7,7 @@ import { useNavigationStore } from "@/stores/navigation";
 import { RelativeTime } from "../components/RelativeTime";
 import { RowActions, type RowAction } from "../components/RowActions";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { PageHeader } from "../components/PageHeader";
-import { Action, EmptyState, RowSkeleton } from "../components/ui";
+import { Action, ScreenShell } from "../components/ui";
 
 interface RunListItem {
   id: string;
@@ -190,39 +189,31 @@ export default function RunsPage() {
     loadRuns();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom">
-        <div className="max-w-5xl mx-auto">
-          <RowSkeleton count={6} height="var(--space-14)" />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden" style={{ background: "var(--bg-elev)" }}>
-      <PageHeader
+    <>
+      <ScreenShell
         title="Runs"
-        subtitle={`${runs.length} ${runs.length === 1 ? "exécution récente" : "exécutions récentes"}`}
+        subtitle={loading ? "Chargement…" : `${runs.length} ${runs.length === 1 ? "exécution récente" : "exécutions récentes"}`}
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Runs" }]}
         actions={
           <Action variant="link" tone="brand" onClick={handleNewReport}>
             Nouveau report
           </Action>
         }
-      />
-
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom">
+        loading={loading}
+        loadingVariant="rows"
+        empty={
+          !loading && runs.length === 0
+            ? {
+                title: "Pas encore de run",
+                description:
+                  "Chaque prompt envoyé et chaque mission exécutée laisse une trace ici — input, plan, sortie, durée.",
+              }
+            : undefined
+        }
+      >
         <div className="max-w-5xl mx-auto">
-          {runs.length === 0 ? (
-            <EmptyState
-              title="Pas encore de run"
-              description="Chaque prompt envoyé et chaque mission exécutée laisse une trace ici — input, plan, sortie, durée."
-            />
-          ) : (
-            <div>
+          <div>
               {actionError && (
                 <div
                   data-testid="runs-action-error"
@@ -324,10 +315,9 @@ export default function RunsPage() {
                   </div>
                 );
               })}
-            </div>
-          )}
         </div>
-      </div>
+        </div>
+      </ScreenShell>
 
       <ConfirmModal
         open={confirmDeleteId !== null}
@@ -340,6 +330,6 @@ export default function RunsPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDeleteId(null)}
       />
-    </div>
+    </>
   );
 }

@@ -16,8 +16,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import type { ApplicableReport } from "@/lib/reports/catalog";
 import { ReportCard, ReportCardSkeleton } from "@/app/(user)/components/reports/ReportCard";
-import { PageHeader } from "@/app/(user)/components/PageHeader";
-import { Action, EmptyState } from "@/app/(user)/components/ui";
+import { Action, EmptyState, ScreenShell } from "@/app/(user)/components/ui";
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -182,30 +181,24 @@ export default function ReportsDiscoveryPage() {
       : `${counts.total} disponible${counts.total > 1 ? "s" : ""} · ${counts.ready} prêt${counts.ready > 1 ? "s" : ""} · ${counts.needsConnection} à connecter${counts.custom > 0 ? ` · ${counts.custom} personnalisé${counts.custom > 1 ? "s" : ""}` : ""}`;
 
   return (
-    <div
-      data-testid="reports-page"
-      className="flex-1 flex flex-col min-h-0 overflow-auto no-scrollbar scroll-fade-bottom"
-      style={{ background: "var(--bg-elev)", color: "var(--text)" }}
+    <ScreenShell
+      testId="reports-page"
+      title="Rapports"
+      subtitle={subtitle}
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Rapports" }]}
+      actions={
+        <Action
+          variant="primary"
+          tone="brand"
+          size="sm"
+          onClick={() => router.push("/reports/studio")}
+          testId="reports-create-cta"
+        >
+          + Créer un rapport
+        </Action>
+      }
     >
-      <PageHeader
-        title="Rapports"
-        subtitle={subtitle}
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Rapports" }]}
-      />
-      <div className="flex flex-col gap-8 px-12 py-6 w-full" style={{ maxWidth: "var(--width-center-max)", margin: "0 auto" }}>
-
-        {/* ── CTA Créer un rapport ────────────────────────── */}
-        <div className="flex justify-end">
-          <Action
-            variant="primary"
-            tone="brand"
-            size="sm"
-            onClick={() => router.push("/reports/studio")}
-            testId="reports-create-cta"
-          >
-            + Créer un rapport
-          </Action>
-        </div>
+      <div className="flex flex-col gap-8 w-full" style={{ maxWidth: "var(--width-center-max)", margin: "0 auto" }}>
 
         {/* ── Filters ────────────────────────────────────────── */}
         <div className="flex flex-col gap-4">
@@ -392,6 +385,6 @@ export default function ReportsDiscoveryPage() {
         )}
 
       </div>
-    </div>
+    </ScreenShell>
   );
 }

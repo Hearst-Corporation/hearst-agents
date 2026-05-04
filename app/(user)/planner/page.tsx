@@ -6,8 +6,7 @@ import { toast } from "@/app/hooks/use-toast";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 import { useNavigationStore } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
-import { PageHeader } from "../components/PageHeader";
-import { Action, EmptyState, RowSkeleton } from "../components/ui";
+import { Action, ScreenShell } from "../components/ui";
 
 type PlanStatus = "draft" | "ready" | "awaiting_approval" | "executing" | "completed" | "failed" | "degraded";
 type PlanType = "one_shot" | "mission" | "monitoring";
@@ -101,28 +100,19 @@ export default function PlannerPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex-1 overflow-y-auto px-12 py-6 bg-[var(--bg)] no-scrollbar scroll-fade-bottom" style={{ '--scroll-fade-color': 'var(--bg)' } as React.CSSProperties}>
-        <RowSkeleton count={5} height="var(--space-20)" />
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-[var(--bg)]">
-      <PageHeader
-        title="Planner"
-        subtitle="Plans d'exécution et orchestration"
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Planner" }]}
-        actions={
-          <Action variant="primary" tone="brand" size="sm" onClick={handleNewPlan}>
-            Demander un plan
-          </Action>
-        }
-      />
-      <div className="px-12 py-4 border-b border-[var(--line)]">
-        <div className="flex items-center gap-2">
+    <ScreenShell
+      title="Planner"
+      subtitle="Plans d'exécution et orchestration"
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Planner" }]}
+      background="base"
+      actions={
+        <Action variant="primary" tone="brand" size="sm" onClick={handleNewPlan}>
+          Demander un plan
+        </Action>
+      }
+      stats={
+        <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           {(["all", "draft", "ready", "awaiting_approval", "executing", "completed", "failed"] as const).map((f) => (
             <button
               key={f}
@@ -138,16 +128,20 @@ export default function PlannerPage() {
             </button>
           ))}
         </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom">
-        {filtered.length === 0 ? (
-          <EmptyState
-            icon="◉"
-            title="Pas encore de plan"
-            description="Quand un run produit un plan d'exécution multi-étapes, il s'affiche ici avec sa progression."
-          />
-        ) : (
+      }
+      loading={loading}
+      loadingVariant="rows"
+      empty={
+        !loading && filtered.length === 0
+          ? {
+              icon: "◉",
+              title: "Pas encore de plan",
+              description:
+                "Quand un run produit un plan d'exécution multi-étapes, il s'affiche ici avec sa progression.",
+            }
+          : undefined
+      }
+    >
           <div className="space-y-3">
             {filtered.map((plan) => (
               <div
@@ -204,8 +198,6 @@ export default function PlannerPage() {
               </div>
             ))}
           </div>
-        )}
-      </div>
-    </div>
+    </ScreenShell>
   );
 }

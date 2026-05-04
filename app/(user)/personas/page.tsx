@@ -7,10 +7,9 @@
  */
 
 import { useEffect, useState } from "react";
-import { PageHeader } from "../components/PageHeader";
 import { PersonaABTestPanel } from "../components/PersonaABTestPanel";
 import { PublishTemplateModal } from "../components/marketplace/PublishTemplateModal";
-import { Action, EmptyState, CardSkeleton } from "../components/ui";
+import { Action, EmptyState, CardSkeleton, ScreenShell } from "../components/ui";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { PersonaCard } from "../components/personas/PersonaCard";
 import type { Persona, PersonaTone } from "@/lib/personas/types";
@@ -107,28 +106,26 @@ export default function PersonasPage() {
   }
 
   return (
-    <div className="h-full min-h-0 overflow-y-auto bg-[var(--bg-elev)] text-[var(--text)] no-scrollbar scroll-fade-bottom">
-      <PageHeader
-        title="Brand Voice — Personas"
-        subtitle="Voix éditoriales appliquées au LLM. Une persona = ton + vocabulaire + system prompt addon."
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Personas" }]}
-        actions={
-          <Action
-            variant="primary"
-            tone="brand"
-            size="sm"
-            onClick={() => {
-              setEditing(null);
-              setCreating(true);
-            }}
-          >
-            + Nouvelle persona
-          </Action>
-        }
-      />
-
+    <ScreenShell
+      title="Brand Voice — Personas"
+      subtitle="Voix éditoriales appliquées au LLM. Une persona = ton + vocabulaire + system prompt addon."
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Personas" }]}
+      actions={
+        <Action
+          variant="primary"
+          tone="brand"
+          size="sm"
+          onClick={() => {
+            setEditing(null);
+            setCreating(true);
+          }}
+        >
+          + Nouvelle persona
+        </Action>
+      }
+    >
       <div
-        className="px-12 py-6 mx-auto w-full flex flex-col"
+        className="mx-auto w-full flex flex-col"
         style={{ gap: "var(--space-6)", maxWidth: "var(--width-actions)" }}
       >
         {flash && (
@@ -220,7 +217,7 @@ export default function PersonasPage() {
           />
         )}
       </div>
-    </div>
+    </ScreenShell>
   );
 }
 

@@ -14,8 +14,7 @@
 import { useEffect, useState } from "react";
 import { useNotificationsStore } from "@/stores/notifications";
 import type { AppNotification } from "@/stores/notifications";
-import { PageHeader } from "../components/PageHeader";
-import { EmptyState, RowSkeleton } from "../components/ui";
+import { EmptyState, RowSkeleton, ScreenShell } from "../components/ui";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -104,33 +103,28 @@ export default function NotificationsPage() {
     : "Aucune notification non lue";
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 overflow-y-auto text-[var(--text)] no-scrollbar scroll-fade-bottom"
-      style={{ background: "var(--bg-elev)" }}
+    <ScreenShell
+      title="Notifications"
+      subtitle={subtitle}
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Notifications" }]}
+      actions={
+        unreadCount > 0 ? (
+          <button
+            type="button"
+            onClick={() => void markAllRead()}
+            className="t-11 font-medium px-3 py-2 rounded-md transition-colors text-[var(--cykan)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:text-[var(--text)] hover:border-[var(--cykan-border-hover)]"
+            style={{
+              transitionDuration: "var(--duration-fast)",
+              transitionTimingFunction: "var(--ease-standard)",
+            }}
+          >
+            Tout marquer lu
+          </button>
+        ) : null
+      }
     >
-      <PageHeader
-        title="Notifications"
-        subtitle={subtitle}
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Notifications" }]}
-        actions={
-          unreadCount > 0 ? (
-            <button
-              type="button"
-              onClick={() => void markAllRead()}
-              className="t-11 font-medium px-3 py-2 rounded-md transition-colors text-[var(--cykan)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:text-[var(--text)] hover:border-[var(--cykan-border-hover)]"
-              style={{
-                transitionDuration: "var(--duration-fast)",
-                transitionTimingFunction: "var(--ease-standard)",
-              }}
-            >
-              Tout marquer lu
-            </button>
-          ) : null
-        }
-      />
-
       <div
-        className="flex flex-col px-12 py-6"
+        className="flex flex-col"
         style={{ gap: "var(--space-4)" }}
       >
         {/* Filtres */}
@@ -231,7 +225,7 @@ export default function NotificationsPage() {
           </div>
         )}
       </div>
-    </div>
+    </ScreenShell>
   );
 }
 

@@ -6,9 +6,8 @@ import { useStageStore } from "@/stores/stage";
 import { useNavigationStore } from "@/stores/navigation";
 import { RelativeTime } from "../components/RelativeTime";
 import { toast } from "@/app/hooks/use-toast";
-import { PageHeader } from "../components/PageHeader";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { Action, EmptyState, RowSkeleton } from "../components/ui";
+import { Action, ScreenShell } from "../components/ui";
 
 // Format V2 retourné par GET /api/v2/assets (Asset canonique).
 interface AssetListItem {
@@ -108,39 +107,31 @@ export default function AssetsPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom">
-        <div className="max-w-4xl mx-auto">
-          <RowSkeleton count={6} height="var(--space-14)" />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden" style={{ background: "var(--bg-elev)" }}>
-      <PageHeader
+    <>
+      <ScreenShell
         title="Assets"
-        subtitle={`${assets.length} ${assets.length === 1 ? "fichier stocké" : "fichiers stockés"}`}
+        subtitle={loading ? "Chargement…" : `${assets.length} ${assets.length === 1 ? "fichier stocké" : "fichiers stockés"}`}
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Assets" }]}
         actions={
           <Action variant="link" tone="brand" onClick={handleNewAsset}>
             Nouvel asset
           </Action>
         }
-      />
-
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom">
+        loading={loading}
+        loadingVariant="rows"
+        empty={
+          !loading && assets.length === 0
+            ? {
+                title: "Pas encore d'asset",
+                description:
+                  "Demande un rapport, un brief ou un document via le chat — le livrable atterrira ici dès qu'il est prêt.",
+              }
+            : undefined
+        }
+      >
         <div className="max-w-4xl mx-auto">
-          {assets.length === 0 ? (
-            <EmptyState
-              title="Pas encore d'asset"
-              description="Demande un rapport, un brief ou un document via le chat — le livrable atterrira ici dès qu'il est prêt."
-            />
-          ) : (
-            <div>
+          <div>
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-[var(--text-l1)] border-b border-[var(--border-soft)]">
                 <span className="w-4" />
                 <span>Name</span>
@@ -198,10 +189,9 @@ export default function AssetsPage() {
                   </button>
                 </div>
               ))}
-            </div>
-          )}
         </div>
-      </div>
+        </div>
+      </ScreenShell>
 
       <ConfirmModal
         open={confirmDelete !== null}
@@ -213,6 +203,6 @@ export default function AssetsPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDelete(null)}
       />
-    </div>
+    </>
   );
 }

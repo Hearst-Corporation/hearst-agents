@@ -8,8 +8,7 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "../components/PageHeader";
-import { EmptyState, CardSkeleton } from "../components/ui";
+import { ScreenShell } from "../components/ui";
 import { MarketplaceTemplateCard } from "../components/marketplace/MarketplaceTemplateCard";
 import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
@@ -84,15 +83,24 @@ export default function MarketplacePage() {
   );
 
   return (
-    <div className="h-full min-h-0 overflow-y-auto bg-[var(--bg-elev)] text-[var(--text)] no-scrollbar scroll-fade-bottom">
-      <PageHeader
-        title="Marketplace"
-        subtitle="Templates communautaires — workflows, rapports, personas. Clone en un clic."
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Marketplace" }]}
-      />
-
+    <ScreenShell
+      title="Marketplace"
+      subtitle="Templates communautaires — workflows, rapports, personas. Clone en un clic."
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Marketplace" }]}
+      loading={isLoading}
+      loadingVariant="cards"
+      empty={
+        isEmpty
+          ? {
+              title: "Aucun template trouvé",
+              description:
+                "Sois le premier à publier — depuis le Studio, le Builder ou la page Personas.",
+            }
+          : undefined
+      }
+    >
       <div
-        className="px-12 py-6 mx-auto w-full flex flex-col"
+        className="mx-auto w-full flex flex-col"
         style={{ gap: "var(--space-6)", maxWidth: "var(--width-actions)" }}
       >
         {/* Filters */}
@@ -157,15 +165,7 @@ export default function MarketplacePage() {
           </p>
         )}
 
-        {isLoading ? (
-          <CardSkeleton count={6} columns={3} height="var(--space-32)" />
-        ) : isEmpty ? (
-          <EmptyState
-            title="Aucun template trouvé"
-            description="Sois le premier à publier — depuis le Studio, le Builder ou la page Personas."
-            density="compact"
-          />
-        ) : (
+        {!isLoading && !isEmpty && (
           <>
             {featured.length > 0 && (
               <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
@@ -186,7 +186,7 @@ export default function MarketplacePage() {
           </>
         )}
       </div>
-    </div>
+    </ScreenShell>
   );
 }
 

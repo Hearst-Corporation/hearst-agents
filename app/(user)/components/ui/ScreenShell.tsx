@@ -56,10 +56,11 @@ interface ScreenShellProps {
   // Contenu principal — rendu seulement si !loading et !empty
   children?: ReactNode;
 
-  // Background du shell. `surface` = `var(--bg-elev)` (défaut, écrans data
-  // type tableau / liste). `transparent` = laisse passer le shell parent
-  // (Stages dans cockpit polymorphe).
-  background?: "surface" | "transparent";
+  // Background du shell.
+  // - `surface` (défaut) = `var(--bg-elev)` — écrans data type tableau / liste
+  // - `base` = `var(--bg)` — écrans plus sombres (planner, runs)
+  // - `transparent` = laisse passer le shell parent (Stages dans cockpit)
+  background?: "surface" | "base" | "transparent";
 
   testId?: string;
 }
@@ -78,7 +79,10 @@ export function ScreenShell({
   background = "surface",
   testId,
 }: ScreenShellProps) {
-  const bg = background === "surface" ? "var(--bg-elev)" : "transparent";
+  const bg =
+    background === "surface" ? "var(--bg-elev)" :
+    background === "base" ? "var(--bg)" :
+    "transparent";
 
   return (
     <div
