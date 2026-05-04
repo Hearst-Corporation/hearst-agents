@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-04T03:49:46.783Z",
-  "total": 3,
+  "generatedAt": "2026-05-04T04:01:20.707Z",
+  "total": 4,
   "counts": {
-    "verrouillé": 3,
+    "verrouillé": 4,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 33,
-    "testsExistants": 8,
-    "testsManquants": 51,
+    "invariants": 51,
+    "testsExistants": 31,
+    "testsManquants": 78,
     "orphans": 2
   },
   "features": [
@@ -42,6 +42,42 @@
       "testsManquantsCount": 16,
       "testGap": "élevé",
       "orphansCount": 2
+    },
+    {
+      "id": "chat",
+      "file": "chat.md",
+      "href": "docs/features/chat.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P0",
+      "invariantsCount": 18,
+      "invariantsTitles": [
+        "I-1. Endpoint `POST /api/orchestrate`",
+        "I-2. Forme du payload entrant",
+        "I-3. SSE event types figés",
+        "I-4. Safety gate pre-LLM obligatoire",
+        "I-5. Mass action caps",
+        "I-6. Modèle par défaut `claude-sonnet-4-6`",
+        "I-7. Tools assemblés — 12 catégories",
+        "I-8. Abort registry — pattern figé",
+        "I-9. `runtime.events` cap 50, newest-first",
+        "I-10. ChatActionReceipts utilise `lastRunId` (pas `currentRunId`)",
+        "I-11. `stage_request` event respecte le tool override guard",
+        "I-12. Tool stream dedupe par stepId",
+        "I-13. WorkingDocument volatile, pas de persist",
+        "I-14. ChatContext chips persisted localStorage",
+        "I-15. Editorial blocks — 6 types détectés",
+        "I-16. ChatDock submit history limité à 10 derniers messages",
+        "I-17. ChatDock injecte `attached_asset_ids` depuis `attachedAssets`",
+        "I-18. ApprovalInline pour writes — flow obligatoire"
+      ],
+      "testsExistantsCount": 23,
+      "testsManquantsCount": 27,
+      "testGap": "élevé",
+      "orphansCount": 0
     },
     {
       "id": "cockpit",

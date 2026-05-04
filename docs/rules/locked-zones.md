@@ -46,6 +46,35 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Chat & Orchestration — `chat` · P0
+
+Spec : [docs/features/chat.md](../features/chat.md)
+
+**Invariants** (résumé — 18, détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | Endpoint `/api/orchestrate` SSE 300s + heartbeat 20s | `app/api/orchestrate/route.ts` |
+| I-2 | Forme du payload entrant figée (mission_id refusé) | `app/api/orchestrate/route.ts` |
+| I-3 | 11 SSE event types figés + heartbeat | `lib/engine/orchestrator/`, `app/(user)/components/ChatDock.tsx` |
+| I-4 | Safety gate pre-LLM **obligatoire** sur tout LLM call | `lib/engine/orchestrator/safety-gate.ts` |
+| I-5 | Mass action caps : >10 clarify, >50 refuse | `lib/engine/orchestrator/safety-gate.ts` |
+| I-6 | Modèle par défaut `claude-sonnet-4-6` + prompt caching ephemeral 5min | `lib/engine/orchestrator/system-prompt.ts`, `ai-pipeline.ts` |
+| I-7 | 12 catégories de tools assemblés | `lib/engine/orchestrator/ai-pipeline.ts` |
+| I-8 | Abort registry pattern figé + idempotence | `lib/engine/orchestrator/abort-registry.ts`, `app/api/orchestrate/abort/[runId]/route.ts` |
+| I-9 | `runtime.events` cap 50 newest-first | `stores/runtime.ts` |
+| I-10 | ChatActionReceipts utilise `lastRunId` (pas `currentRunId`) | `app/(user)/components/ChatActionReceipts.tsx`, `ChatConnectInline.tsx`, `ChatMissionRunInline.tsx` |
+| I-11 | `stage_request` event passe par `setModeFromTool` (guard 10s) | `app/(user)/components/ChatDock.tsx` |
+| I-12 | Tool stream dedupe par `stepId` | `app/(user)/components/chat/chat-tool-stream-reducer.ts` |
+| I-13 | WorkingDocument volatile (pas de persist) | `stores/working-document.ts` |
+| I-14 | ChatContext chips persisted localStorage `hearst-chat-context` | `stores/chat-context.ts` |
+| I-15 | Editorial blocks 6 types détectés | `app/(user)/components/chat/Block.tsx` |
+| I-16 | ChatDock submit history limité 10 derniers | `app/(user)/components/ChatDock.tsx` |
+| I-17 | `attached_asset_ids` par référence (pas inlined) | `app/(user)/components/ChatDock.tsx`, `ChatInput.tsx` |
+| I-18 | ApprovalInline obligatoire pour writes (pas de bypass UI) | `app/(user)/components/ApprovalInline.tsx`, backend write tools |
+
+---
+
 ### Stage System — `stage` · P0
 
 Spec : [docs/features/stage.md](../features/stage.md)
@@ -103,7 +132,7 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 
 1. ~~`auth` (P0)~~ — verrouillé v1.0
 2. ~~`stage` (P0)~~ — verrouillé v1.0
-3. `chat` (P0) — cœur produit, surface énorme
+3. ~~`chat` (P0)~~ — verrouillé v1.0
 4. `missions` (P1) — distributed lease Redis critique
 5. `assets` (P1) — hybrid storage
 6. `connections` (P1) — write-guard Composio

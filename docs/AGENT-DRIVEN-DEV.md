@@ -61,6 +61,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 
 - `auth` v1.0 (2026-05-03) — P0, première feature après pilote.
 - `stage` v1.0 (2026-05-04) — P0, routing UI central, 15 invariants.
+- `chat` v1.0 (2026-05-04) — P0, cœur produit, 18 invariants (orchestrator + SSE + UI chat).
 
 ## Tableau de bord features
 
@@ -68,7 +69,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 |---|----|----|----|----|----|----|
 | F-01 | **auth** | **verrouillé v1.0** | [auth.md](features/auth.md) | P0 | 3 fichiers | élevé (e2e login + crypto roundtrip + auto-revoke + multi-tenant) |
 | F-02 | **cockpit** | **verrouillé v1.0** | [cockpit.md](features/cockpit.md) | P1 | 3 fichiers | élevé (e2e + UI components + lifecycle) |
-| F-03 | chat | non verrouillé | — | P0 | bon (orchestrator) | moyen |
+| F-03 | **chat** | **verrouillé v1.0** | [chat.md](features/chat.md) | P0 | bon (orchestrator + chat reducer + stores) | moyen (safety gate, ChatDock SSE buffer, approval E2E) |
 | F-04 | missions | non verrouillé | — | P1 | bon | moyen |
 | F-05 | runs | non verrouillé | — | P1 | partiel | moyen |
 | F-06 | reports | non verrouillé | — | P1 | bon | faible |
@@ -112,19 +113,21 @@ P0 d'abord (bloque tout si régression), puis P1, puis P2.
 
 ```
 Verrouillés :
-  - cockpit (P1, pilote)         v1.0 — 2026-05-03
+  - cockpit (P1, pilote)         v1.x
   - auth    (P0)                 v1.0 — 2026-05-03
   - stage   (P0)                 v1.0 — 2026-05-04
+  - chat    (P0)                 v1.0 — 2026-05-04
 
 À faire (ordre proposé) :
-  1. chat      (P0) — cœur produit, surface large
-  2. missions  (P1) — distributed lease Redis
-  3. assets    (P1) — hybrid storage
-  4. connections (P1) — write-guard Composio
-  5. reports   (P1) — sharing token public
-  6. memory-kg (P1) — backfill destructif possible
-  7. (... reste à arbitrer après ces 6)
+  1. missions  (P1) — distributed lease Redis
+  2. assets    (P1) — hybrid storage
+  3. connections (P1) — write-guard Composio
+  4. reports   (P1) — sharing token public
+  5. memory-kg (P1) — backfill destructif possible
+  6. (... reste à arbitrer après ces 5)
 ```
+
+🎉 **Tous les P0 sont maintenant verrouillés.**
 
 ## Procédure pour verrouiller une nouvelle feature
 
@@ -182,3 +185,4 @@ M  app/globals.css
 | 2026-05-03 | Phase 2 — Pilote `cockpit` verrouillé v1.0 |
 | 2026-05-03 | `auth` verrouillé v1.0 (P0, première après pilote) |
 | 2026-05-04 | `stage` verrouillé v1.0 (P0, routing UI central, 15 invariants) |
+| 2026-05-04 | `chat` verrouillé v1.0 (P0, cœur produit, 18 invariants) — tous les P0 sont fait |
