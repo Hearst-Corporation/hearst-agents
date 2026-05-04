@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -147,14 +146,12 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
         </div>
 
         <div className="flex items-center gap-(--space-3) pt-(--space-2) border-t border-line">
-          <Link
-            href={`/${feature.href}`}
-            className="t-12 text-(--cykan) hover:underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Spec complète →
-          </Link>
+          <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Spec
+          </span>
+          <code className="t-11 font-mono px-(--space-1) py-(--space-1) bg-(--surface-2) rounded-(--radius-xs) text-text-muted">
+            {feature.href}
+          </code>
         </div>
       </div>
     </details>
@@ -199,14 +196,9 @@ export default async function AgentDrivenDevPage() {
           <h1 className="t-24 font-light text-text">Agent Driven Dev</h1>
           <p className="t-13 text-text-muted max-w-2xl">
             Tableau de bord du verrouillage features. Source de vérité :{" "}
-            <Link
-              href="/docs/AGENT-DRIVEN-DEV.md"
-              className="text-(--cykan) hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <code className="t-11 font-mono px-(--space-1) py-(--space-1) bg-(--surface-2) rounded-(--radius-xs)">
               docs/AGENT-DRIVEN-DEV.md
-            </Link>
+            </code>
             . Le manifest est régénéré via{" "}
             <code className="t-11 font-mono px-(--space-1) py-(--space-1) bg-(--surface-2) rounded-(--radius-xs)">
               npm run features:manifest
