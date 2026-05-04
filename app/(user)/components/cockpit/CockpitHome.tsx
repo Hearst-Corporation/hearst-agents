@@ -5,7 +5,7 @@ import { ActivityStrip } from "./ActivityStrip";
 import { KPIStrip } from "./KPIStrip";
 import { CockpitAgenda } from "./CockpitAgenda";
 import { WatchlistMini } from "./WatchlistMini";
-import { HaloAgentCore } from "./HaloAgentCore";
+import { HearstLogo3D } from "./HearstLogo3D";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface CockpitHomeProps {
@@ -15,9 +15,8 @@ interface CockpitHomeProps {
 /**
  * CockpitHome — home Cockpit (mode="cockpit").
  *
- * Layout : Header → ActivityStrip → HaloAgentCore (hero 3D, panneau central
- * dominant, 6 agents cliquables → routes/Stage) → KPIStrip → Agenda/Veille
- * repliable.
+ * Layout : Header → ActivityStrip → HearstLogo3D (H 3D animé, hero central,
+ * GLB local + R3F) → KPIStrip → Agenda/Veille repliable.
  */
 export function CockpitHome({ data }: CockpitHomeProps) {
   return (
@@ -37,7 +36,7 @@ export function CockpitHome({ data }: CockpitHomeProps) {
           minHeight: "var(--space-48)",
         }}
       >
-        <HaloAgentCore />
+        <HearstLogo3D />
       </div>
 
       <div
