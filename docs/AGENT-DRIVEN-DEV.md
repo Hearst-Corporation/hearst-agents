@@ -7,11 +7,28 @@
 
 Si tu es un agent (Claude, ChatGPT, Cursor, Copilot, etc.) et tu vas modifier ce repo :
 
+0. **VÉRIFIE LE VERROU AGENT** — lis [docs/AGENT-LOCK.json](AGENT-LOCK.json). Si `locked === true`, **refuse toute écriture** (Edit, Write, NotebookEdit) et toute action destructive (rm, git commit, mv, etc.). Informe l'utilisateur qu'il doit déverrouiller depuis `/admin/agent-driven-dev`. La lecture reste autorisée.
 1. **Lis ce fichier en entier.** Il te dit quelles zones sont verrouillées.
 2. **Avant toute modification d'une feature listée comme `locked` ci-dessous** : ouvre `docs/features/<id>.md`, lis la section "Invariants verrouillés", vérifie que ton changement n'en contredit aucun.
 3. **Si ton changement contredit un invariant** : tu dois proposer un update de spec à Adrien **avant** de coder. Pas d'exception.
 4. **Si la feature n'est pas encore verrouillée** : tu suis le mode autonomie défini dans [CLAUDE.md](../CLAUDE.md).
 5. **Quand tu finis du travail sur une feature spec'd** : mets à jour la section "dernière revue" dans `docs/features/<id>.md` et incrémente `version spec` si tu as touché aux invariants (avec validation préalable).
+
+## Verrou agent (kill-switch global)
+
+Adrien peut **verrouiller tous les agents** en un clic depuis `/admin/agent-driven-dev`. Cela écrit `locked: true` dans `docs/AGENT-LOCK.json` (fichier tracké dans le repo, donc visible par toutes les sessions).
+
+**Quand le verrou est actif** :
+- Aucun agent ne doit modifier de fichier
+- Aucun agent ne doit exécuter d'action destructive (`rm`, `git commit`, `git push`, `mv`, drop DB, etc.)
+- Lecture, recherche, analyse → autorisées
+- L'agent doit informer l'utilisateur et l'inviter à déverrouiller
+
+**Mécanisme d'application** :
+- **Honor system** (toujours actif) : l'agent lit le fichier en début de tâche et respecte
+- **Hook Claude Code** (optionnel, à activer dans `.claude/settings.json`) : bloque mécaniquement Edit/Write/NotebookEdit. Script disponible à [scripts/check-agent-lock.mjs](../scripts/check-agent-lock.mjs).
+
+**Déverrouillage** : Adrien retourne dans `/admin/agent-driven-dev` et clique sur "Déverrouiller". Aucun agent ne peut déverrouiller.
 
 ## Méthode
 

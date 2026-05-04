@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { getAgentLockState } from "@/lib/agent-lock";
+import AgentLockCard from "./_components/AgentLockCard";
 
 export const dynamic = "force-dynamic";
 
@@ -187,10 +189,15 @@ function Kpi({
 }
 
 export default async function AgentDrivenDevPage() {
-  const { manifest, error } = await loadManifest();
+  const [{ manifest, error }, lockState] = await Promise.all([
+    loadManifest(),
+    getAgentLockState(),
+  ]);
 
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft">
+      <AgentLockCard initial={lockState} />
+
       <div className="flex items-start justify-between gap-(--space-6)">
         <div className="space-y-(--space-2)">
           <h1 className="t-24 font-light text-text">Agent Driven Dev</h1>

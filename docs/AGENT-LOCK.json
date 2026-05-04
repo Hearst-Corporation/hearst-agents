@@ -1,0 +1,7 @@
+{
+  "locked": false,
+  "lockedAt": null,
+  "lockedBy": null,
+  "reason": null,
+  "_doc": "État du verrou agent. Si locked=true, AUCUN agent ne doit modifier de fichier (Edit, Write, NotebookEdit) ni exécuter d'action destructive (rm, git commit, etc.). Voir docs/AGENT-DRIVEN-DEV.md section 'Verrou agent'."
+}

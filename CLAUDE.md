@@ -1,5 +1,17 @@
 # Hearst OS — Instructions Claude
 
+## 🔒 Avant toute écriture : vérifier `docs/AGENT-LOCK.json`
+
+Lis [docs/AGENT-LOCK.json](docs/AGENT-LOCK.json) **avant tout appel à Edit, Write, NotebookEdit, ou Bash destructif** (rm, git commit, mv, etc.).
+
+Si `locked === true` :
+- **Refuse** toute modification de fichier ou exécution destructive
+- Informe l'utilisateur que les agents sont verrouillés (avec la `reason` si présente)
+- Indique-lui qu'il doit aller dans `/admin/agent-driven-dev` pour déverrouiller
+- Lecture (Read, Grep, Glob, Bash en lecture pure) reste autorisée
+
+Le verrou est posé/retiré uniquement par Adrien depuis la page admin Gouvernance.
+
 ## ⚠ Avant toute modification : lire `docs/AGENT-DRIVEN-DEV.md`
 
 [docs/AGENT-DRIVEN-DEV.md](docs/AGENT-DRIVEN-DEV.md) est le **document maître** qui liste les features verrouillées et les invariants à respecter. Avant de toucher à un fichier d'une feature listée comme `verrouillé`, ouvre `docs/features/<id>.md` et vérifie que tu ne contredis aucun invariant. Si tu en contredis un → demande update spec à Adrien avant de coder.
