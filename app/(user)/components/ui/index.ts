@@ -12,3 +12,4 @@ export { SectionHeader } from "./SectionHeader";
 export { RailSection } from "./RailSection";
 export { EmptyState } from "./EmptyState";
 export { RowSkeleton, CardSkeleton } from "./Skeleton";
+export { ScreenShell } from "./ScreenShell";

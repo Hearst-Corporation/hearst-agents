@@ -7,9 +7,8 @@ import { toast } from "@/app/hooks/use-toast";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 import { GhostIconX } from "../components/ghost-icons";
 import { useStageStore } from "@/stores/stage";
-import { PageHeader } from "../components/PageHeader";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { Action, EmptyState, RowSkeleton } from "../components/ui";
+import { Action, ScreenShell } from "../components/ui";
 import { MissionRow, type Mission, type MissionOpsStatus } from "../components/missions/MissionRow";
 
 function MissionsPageContent() {
@@ -250,87 +249,77 @@ function MissionsPageContent() {
     setEditingMission(null);
   };
 
-  if (loading) {
-    return (
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom" style={{ background: "var(--bg-elev)" }}>
-        <RowSkeleton count={5} height="var(--space-16)" />
+  // Stats compactes — chips visibles uniquement si compteur > 0 (pas de bruit
+  // "0 en cours · 0 échecs" sur écran vide).
+  const statChips = (() => {
+    const items = [
+      { count: missions.filter((m) => m.enabled).length, label: "activées", color: "var(--money)" as const, pulse: false },
+      { count: missions.filter((m) => m.opsStatus === "running").length, label: "en cours", color: "var(--cykan)" as const, pulse: true },
+      { count: missions.filter((m) => m.opsStatus === "failed").length, label: "échecs", color: "var(--danger)" as const, pulse: false },
+      { count: missions.filter((m) => m.opsStatus === "blocked").length, label: "bloqués", color: "var(--warn)" as const, pulse: false },
+    ].filter((s) => s.count > 0);
+    if (items.length === 0) return null;
+    return items.map((s) => (
+      <div key={s.label} className="flex items-center t-9" style={{ gap: "var(--space-2)" }}>
+        <span
+          className={`rounded-pill ${s.pulse ? "animate-pulse" : ""}`}
+          style={{ width: "var(--space-2)", height: "var(--space-2)", background: s.color }}
+        />
+        <span className="text-[var(--text-muted)]">{s.count} {s.label}</span>
       </div>
-    );
-  }
+    ));
+  })();
 
   return (
-    <div className="flex-1 flex flex-col min-h-0" style={{ background: "var(--bg-elev)" }}>
-      <PageHeader
+    <>
+      <ScreenShell
         title="Missions"
         subtitle="Automatisations planifiées"
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Missions" }]}
         actions={
-          <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
+          <>
             <Action variant="link" tone="neutral" onClick={() => router.push("/missions/builder")}>
               Builder visuel
             </Action>
             <Action variant="link" tone="brand" onClick={openNewMission}>
               Nouvelle mission
             </Action>
-          </div>
+          </>
         }
-      />
-
-      {/* Stats — chips visibles uniquement si compteur > 0, pour éviter le bruit
-          des "0 en cours · 0 échecs · 0 bloqués" qui saturait l'écran à vide. */}
-      {(() => {
-        const stats = [
-          { count: missions.filter((m) => m.enabled).length, label: "activées", color: "var(--money)" as const, pulse: false },
-          { count: missions.filter((m) => m.opsStatus === "running").length, label: "en cours", color: "var(--cykan)" as const, pulse: true },
-          { count: missions.filter((m) => m.opsStatus === "failed").length, label: "échecs", color: "var(--danger)" as const, pulse: false },
-          { count: missions.filter((m) => m.opsStatus === "blocked").length, label: "bloqués", color: "var(--warn)" as const, pulse: false },
-        ].filter((s) => s.count > 0);
-        if (stats.length === 0) return null;
-        return (
-          <div className="flex items-center gap-4 px-12 py-4 border-b border-[var(--border-shell)]">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-center gap-2 t-9">
-                <span
-                  className={`w-2 h-2 rounded-pill ${s.pulse ? "animate-pulse" : ""}`}
-                  style={{ background: s.color }}
-                />
-                <span className="text-[var(--text-muted)]">{s.count} {s.label}</span>
-              </div>
-            ))}
+        stats={statChips}
+        loading={loading}
+        loadingVariant="rows"
+        empty={
+          missions.length === 0
+            ? {
+                title: "Pas encore de mission",
+                description:
+                  "Une mission est une tâche récurrente — agenda matinal, rapport hebdo, alerte quotidienne. Lance-en une, elle s'exécutera seule selon ton calendrier.",
+                cta: { label: "Créer une mission", onClick: openNewMission },
+              }
+            : undefined
+        }
+      >
+        <div className="border-t border-[var(--line)]">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 gap-y-0 px-2 py-3 t-11 font-medium text-[var(--text-l1)] border-b border-[var(--border-soft)]">
+            <span>Référence</span>
+            <span className="text-right">État</span>
+            <span className="text-right">Actions</span>
           </div>
-        );
-      })()}
-
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto px-12 py-6 no-scrollbar scroll-fade-bottom">
-        {missions.length === 0 ? (
-          <EmptyState
-            title="Pas encore de mission"
-            description="Une mission est une tâche récurrente — agenda matinal, rapport hebdo, alerte quotidienne. Lance-en une, elle s'exécutera seule selon ton calendrier."
-            cta={{ label: "Créer une mission", onClick: openNewMission }}
-          />
-        ) : (
-          <div className="border-t border-[var(--line)]">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 gap-y-0 px-2 py-3 t-11 font-medium text-[var(--text-l1)] border-b border-[var(--border-soft)]">
-              <span>Référence</span>
-              <span className="text-right">État</span>
-              <span className="text-right">Actions</span>
-            </div>
-            {missions.map((mission) => (
-              <MissionRow
-                key={mission.id}
-                mission={mission}
-                currentTime={currentTime}
-                onToggle={handleToggle}
-                onOpen={handleRowOpen}
-                onEdit={openEditMission}
-                onRunNow={handleRunNow}
-                onDelete={setConfirmDelete}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+          {missions.map((mission) => (
+            <MissionRow
+              key={mission.id}
+              mission={mission}
+              currentTime={currentTime}
+              onToggle={handleToggle}
+              onOpen={handleRowOpen}
+              onEdit={openEditMission}
+              onRunNow={handleRunNow}
+              onDelete={setConfirmDelete}
+            />
+          ))}
+        </div>
+      </ScreenShell>
 
       <ConfirmModal
         open={confirmDelete !== null}
@@ -381,7 +370,7 @@ function MissionsPageContent() {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
 
