@@ -25,6 +25,27 @@ Hors invariants, le travail reste libre selon le mode autonomie défini dans [CL
 
 ## Index des features verrouillées
 
+### Auth & Session — `auth` · P0
+
+Spec : [docs/features/auth.md](../features/auth.md)
+
+**Invariants** (résumé — détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | Email comme identifiant interdit (UUID strict post-migration `0026`) | `lib/platform/auth/get-user-id.ts`, `user-resolver.ts` |
+| I-2 | Dev bypass guard prod obligatoire (403 si flag absent) + UUID `36914162-…` figé | `app/api/auth/dev-login/route.ts`, `lib/platform/auth/options.ts` |
+| I-3 | Tokens chiffrés AES-256-GCM, format `iv:tag:cipher`, KeyProvider abstraction | `lib/platform/auth/tokens.ts` |
+| I-4 | Auto-revoke à 5 échecs (`MAX_AUTH_FAILURES`) | `lib/platform/auth/tokens.ts` |
+| I-5 | Forme `requireScope()` figée : `{scope, error: null}` ou `{scope: null, error: {status: 401}}` | `lib/platform/auth/scope.ts` |
+| I-6 | Schéma `user_tokens` (uuid `user_id`, UNIQUE `(user_id, provider)`, RLS service_role only) | `supabase/migrations/`, `lib/platform/auth/tokens.ts` |
+| I-7 | Slack OAuth PKCE S256 obligatoire, state `{v,u,t,w}` figé | `app/api/auth/slack/route.ts`, `app/api/auth/callback/slack/route.ts` |
+| I-8 | NextAuth strategy = `jwt` (stateless) | `lib/platform/auth/options.ts` |
+| I-9 | Env vars critiques mandatoires en prod : `NEXTAUTH_SECRET`, `TOKEN_ENCRYPTION_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, au moins un provider OAuth | env config |
+| I-10 | `registerProviderUsage()` appelé au signIn jwt callback | `lib/platform/auth/options.ts` |
+
+---
+
 ### Cockpit — `cockpit` · P1
 
 Spec : [docs/features/cockpit.md](../features/cockpit.md)
@@ -52,11 +73,11 @@ Spec : [docs/features/cockpit.md](../features/cockpit.md)
 
 ## Features non encore verrouillées
 
-Les 31 autres features de l'inventaire restent en mode autonomie standard tant que leur spec n'est pas écrite. Ordre de priorité de verrouillage proposé :
+Les 30 autres features de l'inventaire restent en mode autonomie standard tant que leur spec n'est pas écrite. Ordre de priorité de verrouillage proposé :
 
-1. `auth` (P0) — risque max, surface petite
-2. `chat` (P0) — cœur produit, surface énorme
-3. `stage` (P0) — routing central UI
+1. ~~`auth` (P0)~~ — verrouillé v1.0
+2. `stage` (P0) — routing central UI
+3. `chat` (P0) — cœur produit, surface énorme
 4. `missions` (P1) — distributed lease Redis critique
 5. `assets` (P1) — hybrid storage
 6. `connections` (P1) — write-guard Composio

@@ -1,7 +1,7 @@
 # Agent Driven Dev — État du projet
 
 > **Document maître à lire en premier par tout agent intervenant sur ce repo.**
-> Source de vérité unique sur l'état du verrouillage features. À jour : `2026-05-03`.
+> Source de vérité unique sur l'état du verrouillage features. À jour : `2026-05-03` (auth verrouillé).
 
 ## Pour l'agent qui arrive (lecture obligatoire)
 
@@ -34,15 +34,19 @@ L'objectif est de mettre Hearst OS sous contrôle Agent Driven Dev sans casser l
 
 Ordre choisi : on verrouille **une feature à la fois**, on valide le format avec Adrien, puis on duplique aux suivantes.
 
-### Pilote
+### Pilote validé
 
-`cockpit` — verrouillé en version `1.0` le `2026-05-03`. En attente validation Adrien pour duplication aux features suivantes.
+`cockpit` v1.0 (2026-05-03) — pilote, format validé par Adrien.
+
+### Verrouillages successifs
+
+- `auth` v1.0 (2026-05-03) — P0, première feature après pilote.
 
 ## Tableau de bord features
 
 | # | id | Statut | Spec | Niveau | Tests existants | Gap tests |
 |---|----|----|----|----|----|----|
-| F-01 | auth | non verrouillé | — | P0 | partiel | élevé |
+| F-01 | **auth** | **verrouillé v1.0** | [auth.md](features/auth.md) | P0 | 3 fichiers | élevé (e2e login + crypto roundtrip + auto-revoke + multi-tenant) |
 | F-02 | **cockpit** | **verrouillé v1.0** | [cockpit.md](features/cockpit.md) | P1 | 3 fichiers | élevé (e2e + UI components + lifecycle) |
 | F-03 | chat | non verrouillé | — | P0 | bon (orchestrator) | moyen |
 | F-04 | missions | non verrouillé | — | P1 | bon | moyen |
@@ -87,17 +91,19 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 P0 d'abord (bloque tout si régression), puis P1, puis P2.
 
 ```
-Verrouillé : cockpit (P1, pilote)
-À faire :
-  1. auth      (P0) — risque max, surface petite, idéal après pilote
-  2. stage     (P0) — routing UI central
-  3. chat      (P0) — cœur produit, surface large
-  4. missions  (P1) — distributed lease Redis
-  5. assets    (P1) — hybrid storage
-  6. connections (P1) — write-guard Composio
-  7. reports   (P1) — sharing token public
-  8. memory-kg (P1) — backfill destructif possible
-  9. (... reste à arbitrer après ces 8)
+Verrouillés :
+  - cockpit (P1, pilote)         v1.0 — 2026-05-03
+  - auth    (P0)                 v1.0 — 2026-05-03
+
+À faire (ordre proposé) :
+  1. stage     (P0) — routing UI central
+  2. chat      (P0) — cœur produit, surface large
+  3. missions  (P1) — distributed lease Redis
+  4. assets    (P1) — hybrid storage
+  5. connections (P1) — write-guard Composio
+  6. reports   (P1) — sharing token public
+  7. memory-kg (P1) — backfill destructif possible
+  8. (... reste à arbitrer après ces 7)
 ```
 
 ## Procédure pour verrouiller une nouvelle feature
@@ -154,3 +160,4 @@ M  app/globals.css
 |------|-----------|
 | 2026-05-03 | Phase 1 — Inventaire 32 features |
 | 2026-05-03 | Phase 2 — Pilote `cockpit` verrouillé v1.0 |
+| 2026-05-03 | `auth` verrouillé v1.0 (P0, première après pilote) |
