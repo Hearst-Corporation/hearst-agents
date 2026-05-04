@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-04T01:04:32.824Z",
-  "total": 2,
+  "generatedAt": "2026-05-04T03:49:46.783Z",
+  "total": 3,
   "counts": {
-    "verrouillé": 2,
+    "verrouillé": 3,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 18,
-    "testsExistants": 6,
-    "testsManquants": 25,
+    "invariants": 33,
+    "testsExistants": 8,
+    "testsManquants": 51,
     "orphans": 2
   },
   "features": [
@@ -49,7 +49,7 @@
       "href": "docs/features/cockpit.md",
       "statut": "verrouillé",
       "statutRaw": "in_progress (verrouillé sur invariants ci-dessous)",
-      "version": "1.2",
+      "version": "1.3",
       "owner": "Adrien",
       "derniereRevue": "2026-05-04",
       "niveau": null,
@@ -60,13 +60,46 @@
         "I-3. Honest empty state (Phase B3)",
         "I-4. Cache live providers",
         "I-5. Stage routing",
-        "I-6. Hero 3D (HearstLogo3D)",
+        "I-6. Hero particules (HearstParticlesCloud)",
         "I-7. RSC prefetch + client refetch",
         "I-8. *(libre)*"
       ],
       "testsExistantsCount": 3,
       "testsManquantsCount": 9,
       "testGap": "moyen",
+      "orphansCount": 0
+    },
+    {
+      "id": "stage",
+      "file": "stage.md",
+      "href": "docs/features/stage.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P0",
+      "invariantsCount": 15,
+      "invariantsTitles": [
+        "I-1. `StageMode` discriminated union — 11 modes figés",
+        "I-2. `Stage.tsx` est l'**unique** router",
+        "I-3. Tool override guard 10s",
+        "I-4. History stack max 20, FIFO",
+        "I-5. No persistence",
+        "I-6. `lastAssetId` / `lastMissionId` mis à jour automatiquement",
+        "I-7. Pin-based focal lock",
+        "I-8. `isValidContent()` filtre les patterns d'erreur",
+        "I-9. Stage-data mirror pattern",
+        "I-10. STAGE_HOTKEYS figé",
+        "I-11. `mapFocalObject()` est l'**unique** validateur d'objets focal",
+        "I-12. Format `FocalObject`",
+        "I-13. Bundle statique des 11 sous-Stages",
+        "I-14. Pas d'animation wrappers",
+        "I-15. Cytoscape `ssr: false`"
+      ],
+      "testsExistantsCount": 2,
+      "testsManquantsCount": 26,
+      "testGap": "élevé",
       "orphansCount": 0
     }
   ]

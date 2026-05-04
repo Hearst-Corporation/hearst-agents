@@ -60,6 +60,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 ### Verrouillages successifs
 
 - `auth` v1.0 (2026-05-03) — P0, première feature après pilote.
+- `stage` v1.0 (2026-05-04) — P0, routing UI central, 15 invariants.
 
 ## Tableau de bord features
 
@@ -83,7 +84,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 | F-16 | commandeur | non verrouillé | — | P1 | manquant | élevé |
 | F-17 | timeline-rail | in_progress | — | P2 | manquant | élevé |
 | F-18 | context-rail | in_progress | — | P2 | partiel | élevé |
-| F-19 | stage | non verrouillé | — | P0 | bon | moyen |
+| F-19 | **stage** | **verrouillé v1.0** | [stage.md](features/stage.md) | P0 | partiel (stage store + focal store présent) | élevé (Stage routing, focal pin lock, mappers, sous-Stages, hotkeys) |
 | F-20 | admin | non verrouillé | — | P2 | partiel | moyen |
 | F-21 | notifications | non verrouillé | — | P2 | bon | faible |
 | F-22 | webhooks | non verrouillé | — | P2 | bon | faible |
@@ -113,16 +114,16 @@ P0 d'abord (bloque tout si régression), puis P1, puis P2.
 Verrouillés :
   - cockpit (P1, pilote)         v1.0 — 2026-05-03
   - auth    (P0)                 v1.0 — 2026-05-03
+  - stage   (P0)                 v1.0 — 2026-05-04
 
 À faire (ordre proposé) :
-  1. stage     (P0) — routing UI central
-  2. chat      (P0) — cœur produit, surface large
-  3. missions  (P1) — distributed lease Redis
-  4. assets    (P1) — hybrid storage
-  5. connections (P1) — write-guard Composio
-  6. reports   (P1) — sharing token public
-  7. memory-kg (P1) — backfill destructif possible
-  8. (... reste à arbitrer après ces 7)
+  1. chat      (P0) — cœur produit, surface large
+  2. missions  (P1) — distributed lease Redis
+  3. assets    (P1) — hybrid storage
+  4. connections (P1) — write-guard Composio
+  5. reports   (P1) — sharing token public
+  6. memory-kg (P1) — backfill destructif possible
+  7. (... reste à arbitrer après ces 6)
 ```
 
 ## Procédure pour verrouiller une nouvelle feature
@@ -180,3 +181,4 @@ M  app/globals.css
 | 2026-05-03 | Phase 1 — Inventaire 32 features |
 | 2026-05-03 | Phase 2 — Pilote `cockpit` verrouillé v1.0 |
 | 2026-05-03 | `auth` verrouillé v1.0 (P0, première après pilote) |
+| 2026-05-04 | `stage` verrouillé v1.0 (P0, routing UI central, 15 invariants) |

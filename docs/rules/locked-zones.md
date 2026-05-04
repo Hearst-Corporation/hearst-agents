@@ -46,6 +46,32 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Stage System — `stage` · P0
+
+Spec : [docs/features/stage.md](../features/stage.md)
+
+**Invariants** (résumé — détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | `StageMode` discriminated union, 11 modes figés | `stores/stage.ts`, `app/(user)/components/Stage.tsx` |
+| I-2 | `Stage.tsx` est l'unique router (pas de fork V2), default = `null` | `app/(user)/components/Stage.tsx` |
+| I-3 | Tool override guard 10s (`TOOL_OVERRIDE_GUARD_MS`) | `stores/stage.ts` |
+| I-4 | History stack cap 20 FIFO | `stores/stage.ts` |
+| I-5 | Pas de persistance — chaque mount = `cockpit` | `stores/stage.ts` |
+| I-6 | `lastAssetId` / `lastMissionId` mis à jour automatiquement par `setMode` | `stores/stage.ts` |
+| I-7 | Pin-based focal lock (`pinnedFocalKey`) | `stores/focal.ts` |
+| I-8 | `isValidContent()` filtre patterns d'erreur | `stores/focal.ts` |
+| I-9 | Stage-data mirror pattern : sous-Stages écrivent leur snapshot | `stores/stage-data.ts`, sous-Stages |
+| I-10 | `STAGE_HOTKEYS` ⌘0..9 figé | `stores/stage.ts`, `app/hooks/use-global-hotkeys.ts`, `components/MobileBottomNav.tsx` |
+| I-11 | `mapFocalObject()` validateur unique pour focals API | `lib/core/types/focal.ts` |
+| I-12 | `FocalObject` : 10 types + 8 statuts figés | `lib/core/types/focal.ts` |
+| I-13 | Bundle statique des 11 sous-Stages (no React.lazy) | `app/(user)/components/Stage.tsx` |
+| I-14 | Pas d'animation wrappers sur changement de mode | `app/(user)/components/Stage.tsx` |
+| I-15 | Cytoscape `ssr: false` (seule exception au bundle statique) | `app/(user)/components/stages/KnowledgeStage.tsx` |
+
+---
+
 ### Cockpit — `cockpit` · P1
 
 Spec : [docs/features/cockpit.md](../features/cockpit.md)
@@ -76,7 +102,7 @@ Spec : [docs/features/cockpit.md](../features/cockpit.md)
 Les 30 autres features de l'inventaire restent en mode autonomie standard tant que leur spec n'est pas écrite. Ordre de priorité de verrouillage proposé :
 
 1. ~~`auth` (P0)~~ — verrouillé v1.0
-2. `stage` (P0) — routing central UI
+2. ~~`stage` (P0)~~ — verrouillé v1.0
 3. `chat` (P0) — cœur produit, surface énorme
 4. `missions` (P1) — distributed lease Redis critique
 5. `assets` (P1) — hybrid storage
