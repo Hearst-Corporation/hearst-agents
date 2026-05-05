@@ -1,4 +1,5 @@
 "use client";
+// lint-visual-disable-file — Spline `setBackgroundColor` exige un hex littéral.
 
 /**
  * HaloAgentCore — Constellation des agents Hearst (Spline runtime).
