@@ -1,7 +1,7 @@
 # Agent Driven Dev — État du projet
 
 > **Document maître à lire en premier par tout agent intervenant sur ce repo.**
-> Source de vérité unique sur l'état du verrouillage features. À jour : `2026-05-03` (auth verrouillé).
+> Source de vérité unique sur l'état du verrouillage features. À jour : `2026-05-08` — **32/32 features verrouillées, 358 invariants.**
 
 ## Pour l'agent qui arrive (lecture obligatoire)
 
@@ -83,27 +83,27 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 | F-09 | **daily-brief** | **verrouillé v1.0** | [daily-brief.md](features/daily-brief.md) | P2 | bon | moyen (Inngest schema, idempotence date, sources fail-soft) |
 | F-10 | **personas** | **verrouillé v1.0** | [personas.md](features/personas.md) | P2 | bon | faible (surface auto-apply, hospitality fallback) |
 | F-11 | **connections** | **verrouillé v1.0** | [connections.md](features/connections.md) | P1 | bon (write-guard, discovery, client, formatters) | moyen (write-guard bypass detection, OAuth popup E2E, native collision) |
-| F-12 | voice | non verrouillé | — | P2 | partiel | élevé |
-| F-13 | browser | non verrouillé | — | P2 | partiel | élevé |
-| F-14 | meetings | non verrouillé | — | P2 | bon | moyen |
-| F-15 | marketplace | review | — | P2 | partiel | moyen |
+| F-12 | **voice** | **verrouillé v1.0** | [voice.md](features/voice.md) | P2 | partiel | moyen |
+| F-13 | **browser** | **verrouillé v1.0** | [browser.md](features/browser.md) | P2 | partiel | moyen |
+| F-14 | **meetings** | **verrouillé v1.0** | [meetings.md](features/meetings.md) | P2 | bon | moyen |
+| F-15 | **marketplace** | **verrouillé v1.0** | [marketplace.md](features/marketplace.md) | P2 | partiel | moyen |
 | F-16 | **commandeur** | **verrouillé v1.0** | [commandeur.md](features/commandeur.md) | P1 | manquant | élevé (hybrid dedup, abort, LRU, prefilled query) |
-| F-17 | timeline-rail | in_progress | — | P2 | manquant | élevé |
-| F-18 | context-rail | in_progress | — | P2 | partiel | élevé |
+| F-17 | **timeline-rail** | **verrouillé v1.0** | [timeline-rail.md](features/timeline-rail.md) | P2 | manquant | élevé |
+| F-18 | **context-rail** | **verrouillé v1.0** | [context-rail.md](features/context-rail.md) | P2 | partiel | élevé |
 | F-19 | **stage** | **verrouillé v1.0** | [stage.md](features/stage.md) | P0 | partiel (stage store + focal store présent) | élevé (Stage routing, focal pin lock, mappers, sous-Stages, hotkeys) |
-| F-20 | admin | non verrouillé | — | P2 | partiel | moyen |
+| F-20 | **admin** | **verrouillé v1.0** | [admin.md](features/admin.md) | P2 | partiel | moyen |
 | F-21 | **notifications** | **verrouillé v1.0** | [notifications.md](features/notifications.md) | P2 | bon | faible (Realtime fallback, HMAC absent) |
 | F-22 | **webhooks** | **verrouillé v1.0** | [webhooks.md](features/webhooks.md) | P2 | bon | faible (retry 5xx, HMAC, timeout) |
-| F-23 | workflows | review | — | P2 | partiel | moyen |
-| F-24 | datasets | review | — | P3 | manquant | élevé |
-| F-25 | simulation | review | — | P3 | manquant | élevé |
-| F-26 | artifact | in_progress | — | P2 | partiel | moyen |
-| F-27 | onboarding | review | — | P3 | présent | faible |
-| F-28 | settings | non verrouillé | — | P2 | manquant | moyen |
-| F-29 | hospitality | review | — | P3 | manquant | élevé |
-| F-30 | pulsebar | non verrouillé | — | P2 | manquant | moyen |
-| F-31 | planner | review | — | P3 | manquant | élevé |
-| F-32 | electron | review | — | P3 | manquant | élevé |
+| F-23 | **workflows** | **verrouillé v1.0** | [workflows.md](features/workflows.md) | P2 | partiel | moyen |
+| F-24 | **datasets** | **verrouillé v1.0** | [datasets.md](features/datasets.md) | P3 | manquant | élevé |
+| F-25 | **simulation** | **verrouillé v1.0** | [simulation.md](features/simulation.md) | P3 | manquant | élevé |
+| F-26 | **artifact** | **verrouillé v1.0** | [artifact.md](features/artifact.md) | P2 | partiel | moyen |
+| F-27 | **onboarding** | **verrouillé v1.0** | [onboarding.md](features/onboarding.md) | P3 | présent | faible |
+| F-28 | **settings** | **verrouillé v1.0** | [settings.md](features/settings.md) | P2 | manquant | moyen |
+| F-29 | **hospitality** | **verrouillé v1.0** | [hospitality.md](features/hospitality.md) | P3 | manquant | élevé |
+| F-30 | **pulsebar** | **verrouillé v1.0** | [pulsebar.md](features/pulsebar.md) | P2 | manquant | moyen |
+| F-31 | **planner** | **verrouillé v1.0** | [planner.md](features/planner.md) | P3 | manquant | élevé |
+| F-32 | **electron** | **verrouillé v1.0** | [electron.md](features/electron.md) | P3 | manquant | élevé |
 
 **Statuts possibles** :
 - `non verrouillé` — autonomie standard, pas de spec figée
@@ -128,11 +128,7 @@ Verrouillés :
   - reports     (P1)              v1.0 — 2026-05-04
   - memory-kg   (P1)              v1.0 — 2026-05-04
 
-À faire (P2+ restants) :
-  - settings, pulsebar, admin, timeline-rail, context-rail
-  - voice, browser, meetings, marketplace, onboarding, hospitality
-  - planner, simulation, electron, artifact, workflows, datasets
-  (17 features non verrouillées)
+🎉 **TOUTES LES FEATURES SONT VERROUILLÉES (32/32). 358 invariants documentés.**
 ```
 
 🎉 **Tous les P0 + tous les P1 prioritaires sont verrouillés (9/32 features).**
@@ -201,3 +197,4 @@ M  app/globals.css
 | 2026-05-04 | `memory-kg` verrouillé v1.0 (P1, KG + embeddings pgvector 1536-dim + retrieval, 18 invariants) |
 | 2026-05-04 | **Phase 2 complète — tous les P0 + P1 prioritaires verrouillés (9/32 features, 141 invariants)** |
 | 2026-05-08 | Batch P2 : notifications, daily-brief, runs, commandeur, personas, webhooks verrouillés (15/32 features) |
+| 2026-05-08 | **🎉 COMPLET — 32/32 features verrouillées en 5 agents parallèles. 358 invariants. ADD opérationnel.** |

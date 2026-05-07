@@ -289,7 +289,25 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 12. ~~`commandeur` (P1)~~ — verrouillé v1.0
 13. ~~`personas` (P2)~~ — verrouillé v1.0
 14. ~~`webhooks` (P2)~~ — verrouillé v1.0
-15. (… reste à arbitrer : settings, pulsebar, timeline-rail, context-rail, voice, browser, meetings, daily-brief inbox, admin, marketplace, onboarding, hospitality, planner, simulation, electron, artifact)
+15. ~~`settings` (P2)~~ — verrouillé v1.0
+16. ~~`pulsebar` (P2)~~ — verrouillé v1.0
+17. ~~`admin` (P2)~~ — verrouillé v1.0
+18. ~~`timeline-rail` (P2)~~ — verrouillé v1.0
+19. ~~`context-rail` (P2)~~ — verrouillé v1.0
+20. ~~`onboarding` (P2)~~ — verrouillé v1.0
+21. ~~`voice` (P2)~~ — verrouillé v1.0
+22. ~~`browser` (P2)~~ — verrouillé v1.0
+23. ~~`meetings` (P2)~~ — verrouillé v1.0
+24. ~~`marketplace` (review)~~ — verrouillé v1.0
+25. ~~`hospitality` (review)~~ — verrouillé v1.0
+26. ~~`planner` (review)~~ — verrouillé v1.0
+27. ~~`simulation` (review)~~ — verrouillé v1.0
+28. ~~`artifact` (P2)~~ — verrouillé v1.0
+29. ~~`workflows` (review)~~ — verrouillé v1.0
+30. ~~`datasets` (P3)~~ — verrouillé v1.0
+31. ~~`electron` (P3)~~ — verrouillé v1.0
+
+**TOUTES LES FEATURES SONT VERROUILLEES (32/32). 358 invariants documentes.**
 
 ## Chemins infrastructurels P0/P1 à surveiller (transversaux)
 
