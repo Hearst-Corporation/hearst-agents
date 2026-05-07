@@ -283,8 +283,13 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 6. ~~`connections` (P1)~~ — verrouillé v1.0
 7. ~~`reports` (P1)~~ — verrouillé v1.0
 8. ~~`memory-kg` (P1)~~ — verrouillé v1.0
-9. `notifications` (P2) — throttle flood
-10. (… reste à arbitrer)
+9. ~~`notifications` (P2)~~ — verrouillé v1.0
+10. ~~`daily-brief` (P2)~~ — verrouillé v1.0
+11. ~~`runs` (P1)~~ — verrouillé v1.0
+12. ~~`commandeur` (P1)~~ — verrouillé v1.0
+13. ~~`personas` (P2)~~ — verrouillé v1.0
+14. ~~`webhooks` (P2)~~ — verrouillé v1.0
+15. (… reste à arbitrer : settings, pulsebar, timeline-rail, context-rail, voice, browser, meetings, daily-brief inbox, admin, marketplace, onboarding, hospitality, planner, simulation, electron, artifact)
 
 ## Chemins infrastructurels P0/P1 à surveiller (transversaux)
 

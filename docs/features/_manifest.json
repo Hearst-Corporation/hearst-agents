@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-07T23:15:54.734Z",
-  "total": 9,
+  "generatedAt": "2026-05-07T23:25:20.679Z",
+  "total": 15,
   "counts": {
-    "verrouillé": 9,
+    "verrouillé": 15,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 141,
+    "invariants": 201,
     "testsExistants": 81,
     "testsManquants": 191,
     "orphans": 12
@@ -142,6 +142,34 @@
       "orphansCount": 0
     },
     {
+      "id": "commandeur",
+      "file": "commandeur.md",
+      "href": "docs/features/commandeur.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-08",
+      "niveau": "P1",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. Query min 1 char, max 120 chars — Zod validation",
+        "I-2. Debounce 200ms côté hook — pas de spam serveur",
+        "I-3. LRU cache 10 queries (module scope, pas Zustand)",
+        "I-4. Abort fetch précédente à chaque nouvelle query (AbortController)",
+        "I-5. Hybrid = sémantique (tête) + lexical comble, dedup par ID",
+        "I-6. Fail-soft par source — une table KO ne casse pas le reste",
+        "I-7. Cap 5 résultats par type de résultat",
+        "I-8. Empty query → reset immédiat, aucune fetch",
+        "I-9. `prefilledQuery` = pattern one-shot via `consumeCommandeurPrefilledQuery()` (read + clear)",
+        "I-10. OPENAI_API_KEY absent → mode lexical uniquement (pas d'erreur)"
+      ],
+      "testsExistantsCount": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
       "id": "connections",
       "file": "connections.md",
       "href": "docs/features/connections.md",
@@ -176,6 +204,34 @@
       "testsManquantsCount": 24,
       "testGap": "élevé",
       "orphansCount": 3
+    },
+    {
+      "id": "daily-brief",
+      "file": "daily-brief.md",
+      "href": "docs/features/daily-brief.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-08",
+      "niveau": "P2",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. Inngest function ID = `\"daily-brief\"`, retries = 2, event = `\"app/daily-brief.requested\"`",
+        "I-2. Modèle = `claude-sonnet-4-6` avec prompt caching (pas Haiku, pas Opus)",
+        "I-3. JSON output 4 sections minimum (lead, people, decisions, signals) + action optionnel",
+        "I-4. Idempotence par (userId, targetDate)",
+        "I-5. Assemblage fail-soft — source échoue → marquée dans `sources[]`",
+        "I-6. Limits par source figées",
+        "I-7. PDF stocké R2, signed URL valide 24h",
+        "I-8. `costUsd` calculé + stocké dans `contentRef` (metrics reporting)",
+        "I-9. Fallback inline si pas d'Inngest : timeout 120s maximum (Vercel)",
+        "I-10. `targetDate` format ISO `YYYY-MM-DD` strict (Zod)"
+      ],
+      "testsExistantsCount": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
+      "orphansCount": 0
     },
     {
       "id": "memory-kg",
@@ -250,6 +306,62 @@
       "orphansCount": 3
     },
     {
+      "id": "notifications",
+      "file": "notifications.md",
+      "href": "docs/features/notifications.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-08",
+      "niveau": "P2",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. Throttle window = 4h, clé `${tenantId}:${signalType}`",
+        "I-2. Severity floor default = \"critical\" avant dispatch",
+        "I-3. Canaux best-effort via `Promise.allSettled()`",
+        "I-4. Signature HMAC absent si aucun secret configuré",
+        "I-5. In-app auto-créé pour severity warning|critical",
+        "I-6. Realtime Supabase avec fallback polling 60s",
+        "I-7. Email sender injectable, stub log par défaut",
+        "I-8. Préférences via `getTenantSetting(category=\"integrations\", key=\"alerting.preferences\")`",
+        "I-9. `meta` JSON flexible (non typé strictement)",
+        "I-10. `user_id null` = broadcast tenant entier"
+      ],
+      "testsExistantsCount": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
+      "id": "personas",
+      "file": "personas.md",
+      "href": "docs/features/personas.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-08",
+      "niveau": "P2",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. Builtins IDs préfixés `builtin:` — immutables, non supprimables, fallback si Supabase down",
+        "I-2. Une seule `isDefault` par (user, tenant) — enforcement applicatif",
+        "I-3. `systemPromptAddon` max 1500 chars — cap strict (budget cache Anthropic)",
+        "I-4. Surface auto-apply order : DB match → builtin surface → vertical fallback → builtin:default",
+        "I-5. Vertical hospitality fallback = `builtin:hospitality-concierge` si industrie = \"hospitality\"",
+        "I-6. Addon format `<persona>...</persona>` — 5 sections max (nom, description, tone, vocab, style)",
+        "I-7. `PersonaTone` enum closed — `formal|casual|analytical|creative|direct` + null",
+        "I-8. `vocabulary.preferred` et `.avoid` max 12 items each",
+        "I-9. Custom personas always override builtins — jamais l'inverse",
+        "I-10. UNIQUE (user_id, tenant_id, name) — violation = 409 conflict"
+      ],
+      "testsExistantsCount": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
       "id": "reports",
       "file": "reports.md",
       "href": "docs/features/reports.md",
@@ -286,6 +398,34 @@
       "orphansCount": 0
     },
     {
+      "id": "runs",
+      "file": "runs.md",
+      "href": "docs/features/runs.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-08",
+      "niveau": "P1",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. In-memory store max 500 runs — LRU eviction au dépassement",
+        "I-2. Canonical source = Supabase — in-memory est fallback si Supabase vide",
+        "I-3. `normalizeRunEventsToTimeline()` déterministe — mêmes events → même timeline",
+        "I-4. Ownership check → 404 (pas 403) sur tous les endpoints `[id]`",
+        "I-5. Status transitions valides — completed/failed → running invalide",
+        "I-6. Assets stockés par référence uniquement (`RunAssetRef` : id, name, type, filePath)",
+        "I-7. `DELETE /runs/[id]` = stub (retourne `{ ok: true }`) — aucun DELETE DB",
+        "I-8. Rerun = nouveau run.id, même input, nouvelle exécution",
+        "I-9. `TimelineItemType` — 12 valeurs figées",
+        "I-10. `RunStatus` — 5 valeurs figées"
+      ],
+      "testsExistantsCount": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
       "id": "stage",
       "file": "stage.md",
       "href": "docs/features/stage.md",
@@ -316,6 +456,34 @@
       "testsExistantsCount": 2,
       "testsManquantsCount": 26,
       "testGap": "élevé",
+      "orphansCount": 0
+    },
+    {
+      "id": "webhooks",
+      "file": "webhooks.md",
+      "href": "docs/features/webhooks.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-08",
+      "niveau": "P2",
+      "invariantsCount": 10,
+      "invariantsTitles": [
+        "I-1. URL HTTPS obligatoire (sauf test NODE_ENV)",
+        "I-2. `events` array min 1",
+        "I-3. HMAC-SHA256 si secret — header `X-Hearst-Signature: sha256=<hex>`",
+        "I-4. HTTP timeout 5s strict via `AbortController`",
+        "I-5. Retry : 1 initial + 2 retries sur 5xx/réseau — jamais sur 4xx",
+        "I-6. Backoff constant 500ms entre retries (pas exponentiel)",
+        "I-7. `dispatchWebhookEvent()` fire-and-forget — jamais throw, jamais await au caller",
+        "I-8. `updateWebhookStatus()` best-effort — ne bloque pas le dispatch",
+        "I-9. Test endpoint utilise event `test.ping` (distinct des vrais événements)",
+        "I-10. Tenant isolation sur CRUD — update/delete vérifient tenantId owner"
+      ],
+      "testsExistantsCount": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
       "orphansCount": 0
     }
   ]

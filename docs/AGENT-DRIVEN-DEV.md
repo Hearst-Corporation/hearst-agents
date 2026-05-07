@@ -76,24 +76,24 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 | F-02 | **cockpit** | **verrouillé v1.0** | [cockpit.md](features/cockpit.md) | P1 | 3 fichiers | élevé (e2e + UI components + lifecycle) |
 | F-03 | **chat** | **verrouillé v1.0** | [chat.md](features/chat.md) | P0 | bon (orchestrator + chat reducer + stores) | moyen (safety gate, ChatDock SSE buffer, approval E2E) |
 | F-04 | **missions** | **verrouillé v1.0** | [missions.md](features/missions.md) | P1 | bon (lease + scheduler + export) | moyen (cron edge cases, ownership cross-user, mission context partial) |
-| F-05 | runs | non verrouillé | — | P1 | partiel | moyen |
+| F-05 | **runs** | **verrouillé v1.0** | [runs.md](features/runs.md) | P1 | partiel | moyen (LRU eviction, timeline determinisme, delete stub) |
 | F-06 | **reports** | **verrouillé v1.0** | [reports.md](features/reports.md) | P1 | bon (engine, catalog, export) | faible (sharing HMAC roundtrip, SSRF exhaustif, budget override) |
 | F-07 | **assets** | **verrouillé v1.0** | [assets.md](features/assets.md) | P1 | partiel (lineage + detail + diff) | moyen (storage providers, hybrid LRU/TTL, cleanup, variant lifecycle) |
 | F-08 | **memory-kg** | **verrouillé v1.0** | [memory-kg.md](features/memory-kg.md) | P1 | bon (ingest, embeddings, context) | moyen (backfill safety, scope isolation E2E, Redis resilience) |
-| F-09 | daily-brief | non verrouillé | — | P1 | bon | faible |
-| F-10 | personas | non verrouillé | — | P2 | bon | faible |
+| F-09 | **daily-brief** | **verrouillé v1.0** | [daily-brief.md](features/daily-brief.md) | P2 | bon | moyen (Inngest schema, idempotence date, sources fail-soft) |
+| F-10 | **personas** | **verrouillé v1.0** | [personas.md](features/personas.md) | P2 | bon | faible (surface auto-apply, hospitality fallback) |
 | F-11 | **connections** | **verrouillé v1.0** | [connections.md](features/connections.md) | P1 | bon (write-guard, discovery, client, formatters) | moyen (write-guard bypass detection, OAuth popup E2E, native collision) |
 | F-12 | voice | non verrouillé | — | P2 | partiel | élevé |
 | F-13 | browser | non verrouillé | — | P2 | partiel | élevé |
 | F-14 | meetings | non verrouillé | — | P2 | bon | moyen |
 | F-15 | marketplace | review | — | P2 | partiel | moyen |
-| F-16 | commandeur | non verrouillé | — | P1 | manquant | élevé |
+| F-16 | **commandeur** | **verrouillé v1.0** | [commandeur.md](features/commandeur.md) | P1 | manquant | élevé (hybrid dedup, abort, LRU, prefilled query) |
 | F-17 | timeline-rail | in_progress | — | P2 | manquant | élevé |
 | F-18 | context-rail | in_progress | — | P2 | partiel | élevé |
 | F-19 | **stage** | **verrouillé v1.0** | [stage.md](features/stage.md) | P0 | partiel (stage store + focal store présent) | élevé (Stage routing, focal pin lock, mappers, sous-Stages, hotkeys) |
 | F-20 | admin | non verrouillé | — | P2 | partiel | moyen |
-| F-21 | notifications | non verrouillé | — | P2 | bon | faible |
-| F-22 | webhooks | non verrouillé | — | P2 | bon | faible |
+| F-21 | **notifications** | **verrouillé v1.0** | [notifications.md](features/notifications.md) | P2 | bon | faible (Realtime fallback, HMAC absent) |
+| F-22 | **webhooks** | **verrouillé v1.0** | [webhooks.md](features/webhooks.md) | P2 | bon | faible (retry 5xx, HMAC, timeout) |
 | F-23 | workflows | review | — | P2 | partiel | moyen |
 | F-24 | datasets | review | — | P3 | manquant | élevé |
 | F-25 | simulation | review | — | P3 | manquant | élevé |
@@ -128,10 +128,11 @@ Verrouillés :
   - reports     (P1)              v1.0 — 2026-05-04
   - memory-kg   (P1)              v1.0 — 2026-05-04
 
-À faire (P2+) :
-  1. notifications (P2) — throttle flood
-  2. daily-brief   (P2/P1) — inngest cron + providers externes
-  3. (... reste des 23 features non verrouillées)
+À faire (P2+ restants) :
+  - settings, pulsebar, admin, timeline-rail, context-rail
+  - voice, browser, meetings, marketplace, onboarding, hospitality
+  - planner, simulation, electron, artifact, workflows, datasets
+  (17 features non verrouillées)
 ```
 
 🎉 **Tous les P0 + tous les P1 prioritaires sont verrouillés (9/32 features).**
@@ -199,3 +200,4 @@ M  app/globals.css
 | 2026-05-04 | `reports` verrouillé v1.0 (P1, sharing HMAC-SHA256 + engine pipeline 10 étapes, 18 invariants) |
 | 2026-05-04 | `memory-kg` verrouillé v1.0 (P1, KG + embeddings pgvector 1536-dim + retrieval, 18 invariants) |
 | 2026-05-04 | **Phase 2 complète — tous les P0 + P1 prioritaires verrouillés (9/32 features, 141 invariants)** |
+| 2026-05-08 | Batch P2 : notifications, daily-brief, runs, commandeur, personas, webhooks verrouillés (15/32 features) |
