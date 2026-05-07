@@ -1,6 +1,7 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { ok, err, parseBody } from "@/lib/domain";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { getProvider } from "@/lib/llm";
 import { RunTracer } from "@/lib/engine/runtime";
 import type { ChatMessage } from "@/lib/llm";
@@ -17,6 +18,9 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { error: scopeError } = await requireScope({ context: "POST /api/datasets/[id]/evaluate" });
+  if (scopeError) return NextResponse.json({ error: scopeError.message }, { status: scopeError.status });
+
   const { id: datasetId } = await params;
   try {
     const body = await req.json();

@@ -49,9 +49,9 @@ L'objectif est de mettre Hearst OS sous contrôle Agent Driven Dev sans casser l
 
 ## Phase actuelle
 
-**Phase 2 — Verrouillage feature par feature (pilote en cours).**
+**Phase 3 — Tests + infrastructure ADD.**
 
-Ordre choisi : on verrouille **une feature à la fois**, on valide le format avec Adrien, puis on duplique aux suivantes.
+Phase 2 complète : 32/32 features verrouillées, 358 invariants documentés. Maintenant on comble les gaps tests et on améliore l'infrastructure (hooks, CI, commandes).
 
 ### Pilote validé
 

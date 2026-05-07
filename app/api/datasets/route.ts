@@ -1,6 +1,7 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { ok, err, dbErr, parseBody } from "@/lib/domain";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +13,9 @@ const createDatasetSchema = z.object({
 });
 
 export async function GET() {
+  const { error: scopeError } = await requireScope({ context: "GET /api/datasets" });
+  if (scopeError) return NextResponse.json({ error: scopeError.message }, { status: scopeError.status });
+
   try {
     const sb = requireServerSupabase();
     const { data, error } = await sb
@@ -28,6 +32,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const { error: scopeError } = await requireScope({ context: "POST /api/datasets" });
+  if (scopeError) return NextResponse.json({ error: scopeError.message }, { status: scopeError.status });
+
   try {
     const body = await req.json();
     const parsed = parseBody(createDatasetSchema, body);

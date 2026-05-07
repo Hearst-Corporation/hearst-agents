@@ -1,6 +1,7 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { ok, err, dbErr, parseBody } from "@/lib/domain";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -15,6 +16,9 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { error: scopeError } = await requireScope({ context: "GET /api/datasets/[id]/entries" });
+  if (scopeError) return NextResponse.json({ error: scopeError.message }, { status: scopeError.status });
+
   const { id } = await params;
   try {
     const sb = requireServerSupabase();
@@ -37,6 +41,9 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { error: scopeError } = await requireScope({ context: "POST /api/datasets/[id]/entries" });
+  if (scopeError) return NextResponse.json({ error: scopeError.message }, { status: scopeError.status });
+
   const { id } = await params;
   try {
     const body = await req.json();
