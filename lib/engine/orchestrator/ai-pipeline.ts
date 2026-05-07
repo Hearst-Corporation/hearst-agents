@@ -44,7 +44,7 @@ import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
 import { getRetrievedMemoryForUser } from "@/lib/memory/retrieval-context";
 import { upsertEmbedding } from "@/lib/embeddings/store";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import { buildAgentSystemPrompt } from "./system-prompt";
+import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
 import { storeAsset, type Asset, type AssetKind } from "@/lib/assets/types";
 import { getApplicableReports } from "@/lib/reports/catalog";
 import { randomUUID } from "crypto";
@@ -362,7 +362,7 @@ function buildCreateArtifactTool(
           workspaceId: ctx.workspaceId,
           userId: ctx.userId,
           runId: engine.id,
-          modelUsed: "claude-sonnet-4-6",
+          modelUsed: ORCHESTRATOR_MODEL,
           // Stored as `provenance.type` so adapter.mapKindToType picks it
           // up as the originalType (priorité absolue dans le mapping).
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -692,7 +692,7 @@ export async function runAiPipeline(
   // ── 5. Run streamText ───────────────────────────────────────
   try {
     const result = streamText({
-      model: anthropic("claude-sonnet-4-6"),
+      model: anthropic(ORCHESTRATOR_MODEL),
       // System prompt marqué cache_control: ephemeral → Anthropic cache jusqu'à
       // 5 min les tokens stables (system + tool descriptors qui y sont inlinés).
       // Gain attendu : ~60-80% input tokens sur les tours suivants.
@@ -746,7 +746,13 @@ export async function runAiPipeline(
     // borne basse → protection plus tôt). Réajusté vers la valeur exacte
     // à chaque event "finish-step" via `usage.outputTokens`.
     let streamingTokenCount = 0;
-    const MAX_STREAMING_TOKENS = 10000; // Safety limit above maxOutputTokens
+    const MAX_STREAMING_TOKENS = 10000; // Safety limit above maxOutputTokens (per step)
+    // Budget cross-step : cumul des outputTokens de tous les steps.
+    // Avec stopWhen: stepCountIs(10) + maxOutputTokens: 8000, le worst-case
+    // théorique est 80k tokens. On coupe à 35k pour éviter les runaway réels.
+    let crossStepTokens = 0;
+    const MAX_CROSS_STEP_TOKENS = 35_000;
+    const CROSS_STEP_WARNING = 25_000;
 
     for await (const event of result.fullStream) {
       switch (event.type) {
@@ -894,6 +900,32 @@ export async function runAiPipeline(
           const ev = event as unknown as { usage?: { outputTokens?: number } };
           if (typeof ev.usage?.outputTokens === "number") {
             streamingTokenCount = Math.max(streamingTokenCount, ev.usage.outputTokens);
+            crossStepTokens += ev.usage.outputTokens;
+
+            if (crossStepTokens >= CROSS_STEP_WARNING && crossStepTokens < MAX_CROSS_STEP_TOKENS) {
+              console.warn(
+                `[AiPipeline] Cross-step token warning: ${crossStepTokens} output tokens cumulated. ` +
+                `Run=${engine.id}`
+              );
+              eventBus.emit({
+                type: "orchestrator_log",
+                run_id: engine.id,
+                message: `Attention : ${crossStepTokens.toLocaleString()} tokens générés sur ce run`,
+              });
+            }
+
+            if (crossStepTokens >= MAX_CROSS_STEP_TOKENS) {
+              console.error(
+                `[AiPipeline] Cross-step budget exceeded: ${crossStepTokens} tokens > ${MAX_CROSS_STEP_TOKENS}. ` +
+                `Aborting run ${engine.id}.`
+              );
+              eventBus.emit({
+                type: "orchestrator_log",
+                run_id: engine.id,
+                message: `Budget tokens dépassé (${crossStepTokens.toLocaleString()} tokens). Arrêt du run.`,
+              });
+              throw new Error(`Cross-step token budget exceeded: ${crossStepTokens} > ${MAX_CROSS_STEP_TOKENS}`);
+            }
           }
           break;
         }

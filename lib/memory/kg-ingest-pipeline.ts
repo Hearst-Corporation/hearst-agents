@@ -137,7 +137,32 @@ export async function ingestConversationTurn(
  * ne remonte. À utiliser depuis ai-pipeline.ts en post-stream pour ne PAS
  * bloquer la réponse SSE.
  */
+// Throttle : 1 ingest max toutes les 5 minutes par userId.
+// Évite un appel Claude Haiku à chaque turn sur les conversations intensives.
+const lastIngestAt = new Map<string, number>();
+const INGEST_COOLDOWN_MS = 5 * 60 * 1000;
+
+// Seuils minimaux : l'ingest ne vaut pas le coût Haiku sur les messages courts.
+const MIN_MESSAGE_LEN = 50;
+const MIN_REPLY_LEN = 200;
+
 export function fireAndForgetIngestTurn(input: IngestTurnInput): void {
+  // Skip si le contenu est trop court pour extraire des entités pertinentes.
+  if (
+    (input.userMessage ?? "").length < MIN_MESSAGE_LEN &&
+    (input.assistantReply ?? "").length < MIN_REPLY_LEN
+  ) {
+    return;
+  }
+
+  // Skip si le userId a déjà été ingéré dans la fenêtre de throttle.
+  const now = Date.now();
+  const last = lastIngestAt.get(input.userId) ?? 0;
+  if (now - last < INGEST_COOLDOWN_MS) {
+    return;
+  }
+  lastIngestAt.set(input.userId, now);
+
   void ingestConversationTurn(input).catch((err) => {
     console.warn("[kg-ingest-pipeline] background ingest failed:", err);
   });
