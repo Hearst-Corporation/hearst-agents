@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-07T22:57:39.544Z",
-  "total": 7,
+  "generatedAt": "2026-05-07T23:05:47.912Z",
+  "total": 8,
   "counts": {
-    "verrouillé": 7,
+    "verrouillé": 8,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 105,
-    "testsExistants": 54,
-    "testsManquants": 148,
+    "invariants": 123,
+    "testsExistants": 71,
+    "testsManquants": 168,
     "orphans": 12
   },
   "features": [
@@ -212,6 +212,42 @@
       "testsManquantsCount": 21,
       "testGap": "élevé",
       "orphansCount": 3
+    },
+    {
+      "id": "reports",
+      "file": "reports.md",
+      "href": "docs/features/reports.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P1",
+      "invariantsCount": 18,
+      "invariantsTitles": [
+        "I-1. HMAC-SHA256 + token format figé",
+        "I-2. `REPORT_SHARING_SECRET` ≥ 32 chars, fail-closed si absent",
+        "I-3. Token raw JAMAIS persisté en DB",
+        "I-4. Changement secret = tous tokens invalides (stateless)",
+        "I-5. Révocation DB-backed via `revoked_at IS NULL`",
+        "I-6. Rate limit partage : 30 shares/h par userId (in-memory, sliding window)",
+        "I-7. TTL range figé : 1h min / 24h default / 168h max",
+        "I-8. Page publique headers obligatoires",
+        "I-9. Ordre pipeline engine figé",
+        "I-10. Cache 3-tiers TTL defaults figés",
+        "I-11. Budget narration 0.2 USD default, max 1500 tokens",
+        "I-12. Modèle narration = `claude-sonnet-4-6`",
+        "I-13. Concurrency sources : max 3 parallèles",
+        "I-14. SSRF guard HTTP figé",
+        "I-15. `MAX_ROWS_PER_BLOCK = 200`",
+        "I-16. `ReportSpec` — limites Zod figées",
+        "I-17. Versioning append-only",
+        "I-18. Signaux 23 types, déterministes, calculés post-render hors cache"
+      ],
+      "testsExistantsCount": 17,
+      "testsManquantsCount": 20,
+      "testGap": "élevé",
+      "orphansCount": 0
     },
     {
       "id": "stage",

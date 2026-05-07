@@ -46,6 +46,35 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Reports — `reports` · P1
+
+Spec : [docs/features/reports.md](../features/reports.md)
+
+**Invariants** (résumé — 18, détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | HMAC-SHA256 + token format figé `base64url(payload).base64url(hmac)` | `lib/reports/sharing/signed-url.ts` |
+| I-2 | `REPORT_SHARING_SECRET` ≥ 32 chars, fail-closed si absent | `lib/reports/sharing/signed-url.ts` |
+| I-3 | Token raw **jamais persisté** en DB (seulement SHA-256 hash) | `lib/reports/sharing/store.ts` |
+| I-4 | Changement secret = tous tokens invalides (stateless, pas de migration auto) | `lib/reports/sharing/signed-url.ts` |
+| I-5 | Révocation DB-backed via `revoked_at IS NULL` | `lib/reports/sharing/store.ts` |
+| I-6 | Rate limit 30 shares/h par userId (sliding window in-memory) | `lib/reports/sharing/signed-url.ts` |
+| I-7 | TTL range 1h min / 24h default / 168h max | `lib/reports/sharing/signed-url.ts` |
+| I-8 | Page publique : `X-Robots-Tag: noindex` + `Cache-Control: no-store` obligatoires | `app/api/public/reports/[token]/route.ts` |
+| I-9 | Pipeline engine 10 étapes dans l'ordre figé | `lib/reports/engine/run-report.ts` |
+| I-10 | Cache 3-tiers TTL defaults (L1 60s, L2 600s, L3 3600s), best-effort Supabase | `lib/reports/engine/cache.ts` |
+| I-11 | Budget narration 0.2 USD default, max 1500 tokens | `lib/reports/engine/run-report.ts`, `cost-meter.ts` |
+| I-12 | Modèle narration = `claude-sonnet-4-6` + prompt caching | `lib/reports/engine/narrate.ts` |
+| I-13 | Concurrency sources max 3 parallèles | `lib/reports/sources/index.ts` |
+| I-14 | SSRF guard HTTP (private CIDRs + 10s timeout + 5MB) | `lib/reports/sources/http.ts` |
+| I-15 | `MAX_ROWS_PER_BLOCK = 200` (trim dans renderBlocks) | `lib/reports/engine/render-blocks.ts` |
+| I-16 | `ReportSpec` limites Zod (1-8 sources, ≤24 transforms, 1-12 blocks, tokens 60-1500) | `lib/reports/spec/schema.ts` |
+| I-17 | Versioning append-only (jamais UPDATE/DELETE) | `lib/reports/versions/store.ts` |
+| I-18 | Signaux 23 types déterministes, calculés post-render hors cache | `lib/reports/signals/extract.ts` |
+
+---
+
 ### Connections — `connections` · P1
 
 Spec : [docs/features/connections.md](../features/connections.md)
@@ -223,7 +252,7 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 4. ~~`missions` (P1)~~ — verrouillé v1.0
 5. ~~`assets` (P1)~~ — verrouillé v1.0
 6. ~~`connections` (P1)~~ — verrouillé v1.0
-7. `reports` (P1) — sharing token public
+7. ~~`reports` (P1)~~ — verrouillé v1.0
 8. `memory-kg` (P1) — backfill destructif possible
 9. `notifications` (P2) — throttle flood
 10. (… reste à arbitrer)

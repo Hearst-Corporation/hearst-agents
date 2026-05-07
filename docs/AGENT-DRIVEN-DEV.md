@@ -65,6 +65,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 - `missions` v1.0 (2026-05-04) — P1, scheduler distribué, 18 invariants (leases, cron, mission memory).
 - `assets` v1.0 (2026-05-04) — P1, storage hybride R2/Supabase/local, 18 invariants (provenance B4, variants, cleanup).
 - `connections` v1.0 (2026-05-04) — P1, write-guard Composio + control-plane, 18 invariants (two-step preview/confirm).
+- `reports` v1.0 (2026-05-04) — P1, sharing HMAC + engine pipeline, 18 invariants (token public sécurisé).
 
 ## Tableau de bord features
 
@@ -75,7 +76,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 | F-03 | **chat** | **verrouillé v1.0** | [chat.md](features/chat.md) | P0 | bon (orchestrator + chat reducer + stores) | moyen (safety gate, ChatDock SSE buffer, approval E2E) |
 | F-04 | **missions** | **verrouillé v1.0** | [missions.md](features/missions.md) | P1 | bon (lease + scheduler + export) | moyen (cron edge cases, ownership cross-user, mission context partial) |
 | F-05 | runs | non verrouillé | — | P1 | partiel | moyen |
-| F-06 | reports | non verrouillé | — | P1 | bon | faible |
+| F-06 | **reports** | **verrouillé v1.0** | [reports.md](features/reports.md) | P1 | bon (engine, catalog, export) | faible (sharing HMAC roundtrip, SSRF exhaustif, budget override) |
 | F-07 | **assets** | **verrouillé v1.0** | [assets.md](features/assets.md) | P1 | partiel (lineage + detail + diff) | moyen (storage providers, hybrid LRU/TTL, cleanup, variant lifecycle) |
 | F-08 | memory-kg | non verrouillé | — | P1 | partiel | élevé |
 | F-09 | daily-brief | non verrouillé | — | P1 | bon | faible |
@@ -123,14 +124,14 @@ Verrouillés :
   - missions    (P1)              v1.0 — 2026-05-04
   - assets      (P1)              v1.0 — 2026-05-04
   - connections (P1)              v1.0 — 2026-05-04
+  - reports     (P1)              v1.0 — 2026-05-04
 
 À faire (ordre proposé) :
-  1. reports   (P1) — sharing token public
-  2. memory-kg (P1) — backfill destructif possible
-  3. (... reste à arbitrer après ces 2)
+  1. memory-kg (P1) — backfill destructif possible
+  2. (... P2+ à arbitrer ensuite)
 ```
 
-🎉 **Tous les P0 sont verrouillés.** P1 en cours (3/4 fait).
+🎉 **Tous les P0 sont verrouillés. Tous les P1 en cours (4/4 dans 1 feature).** P1 3/4 fait → reste memory-kg.
 
 ## Procédure pour verrouiller une nouvelle feature
 
@@ -192,3 +193,4 @@ M  app/globals.css
 | 2026-05-04 | `missions` verrouillé v1.0 (P1, scheduler distribué + lease + memory, 18 invariants) |
 | 2026-05-04 | `assets` verrouillé v1.0 (P1, storage hybride R2/Supabase + variants + cleanup, 18 invariants) |
 | 2026-05-04 | `connections` verrouillé v1.0 (P1, write-guard Composio two-step + control-plane, 18 invariants) |
+| 2026-05-04 | `reports` verrouillé v1.0 (P1, sharing HMAC-SHA256 + engine pipeline 10 étapes, 18 invariants) |
