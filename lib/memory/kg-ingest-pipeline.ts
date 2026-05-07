@@ -132,11 +132,6 @@ export async function ingestConversationTurn(
   return { entitiesCreated, edgesCreated, skipped: false };
 }
 
-/**
- * Wrapper fire-and-forget — s'attache à un Promise orphelin. Aucune erreur
- * ne remonte. À utiliser depuis ai-pipeline.ts en post-stream pour ne PAS
- * bloquer la réponse SSE.
- */
 // Throttle : 1 ingest max toutes les 5 minutes par userId.
 // Évite un appel Claude Haiku à chaque turn sur les conversations intensives.
 const lastIngestAt = new Map<string, number>();

@@ -43,7 +43,6 @@ const EXFIL_PATTERNS = [
   /(reveal|montre[\sr]|affiche|expose|dump|leak|exfiltre[rz]?)\s+(your|ton|le)\s+(system\s+)?prompt/i,
   /\bignore\s+(all\s+)?(previous|prior|prior\s+all)\s+instructions?\b/i,
   /\boublie\s+toutes?\s+(tes|les)\s+(instructions?|règles?)\b/i,
-  /\bignore\s+(all\s+)?(previous|prior)\s+instructions?\b/i,
 ];
 
 // Mass-action soft / hard caps — the second number wins.
@@ -117,9 +116,10 @@ export function checkSafetyGate(message: string): SafetyVerdict {
   }
 
   // 3. Mass-action caps. Extract the largest recipient count.
+  // Testé sur le message normalisé pour attraper les variantes Unicode.
   let recipients = 0;
   for (const { pattern, recipients: bulk } of MASS_PATTERNS) {
-    const m = message.match(pattern);
+    const m = normalized.match(pattern) ?? message.match(pattern);
     if (!m) continue;
     if (bulk > 0) {
       recipients = Math.max(recipients, bulk);
