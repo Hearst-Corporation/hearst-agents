@@ -1,7 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import Link from "next/link";
 import { getAgentLockState } from "@/lib/agent-lock";
 import AgentLockCard from "./_components/AgentLockCard";
+import RefreshManifestButton from "./_components/RefreshManifestButton";
 
 export const dynamic = "force-dynamic";
 
@@ -154,6 +156,12 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
           <code className="t-11 font-mono px-(--space-1) py-(--space-1) bg-(--surface-2) rounded-(--radius-xs) text-text-muted">
             {feature.href}
           </code>
+          <Link
+            href={`/admin/agent-driven-dev/${feature.id}`}
+            className="t-11 text-text-muted hover:text-(--cykan) transition-colors ml-auto"
+          >
+            Ouvrir spec complète →
+          </Link>
         </div>
       </div>
     </details>
@@ -195,7 +203,7 @@ export default async function AgentDrivenDevPage() {
   ]);
 
   return (
-    <div className="p-(--space-8) space-y-(--space-8) text-text-soft">
+    <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       <AgentLockCard initial={lockState} />
 
       <div className="flex items-start justify-between gap-(--space-6)">
@@ -213,6 +221,7 @@ export default async function AgentDrivenDevPage() {
             .
           </p>
         </div>
+        <RefreshManifestButton />
       </div>
 
       {error && (

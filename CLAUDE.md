@@ -105,6 +105,7 @@ Plan de N batches validé une fois → enchaîne sans s'arrêter entre chaque. V
 - Push direct sur `main` autorisé (workflow solo dev assumé)
 - Pas de force-push sauf si Adrien le demande explicitement par message
 - Pas de `--no-verify` sur hooks sauf demande explicite
+- **Avant tout commit touchant `docs/features/*.md`** : lance `npm run features:manifest` pour régénérer `docs/features/_manifest.json` et stage-le avec `git add docs/features/_manifest.json`. Utilise `/add` pour vérifier les invariants ADD avant commit.
 
 ## Stack
 
