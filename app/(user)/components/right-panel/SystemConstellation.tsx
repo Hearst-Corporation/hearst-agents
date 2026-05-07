@@ -37,11 +37,16 @@ import {
 // ── Layout ───────────────────────────────────────────────────
 
 const REFRESH_TICK_MS = 500;
-const PARTICLES_PER_NODE = 110;
+const PARTICLES_PER_NODE = 70;
 const PARTICLES_PER_BRIDGE = 28;
-const NODE_RADIUS = 0.085;
+const NODE_CORE_RATIO = 0.28; // % de particules concentrées dans le noyau central
+const NODE_RADIUS = 0.09;
 const HEX_RADIUS = 0.5;
-const PARTICLE_SIZE_BASE = 0.075;
+/**
+ * Taille en **pixels écran** (sizeAttenuation:false, indispensable en
+ * OrthographicCamera). 4 px = lisible, ne sature pas en AdditiveBlending.
+ */
+const PARTICLE_SIZE_PX = 4;
 
 // Ordre canonique autour de l'hexagone (12h, 2h, 4h, 6h, 8h, 10h).
 const HEX_ORDER: AgentRoleId[] = [
@@ -119,10 +124,11 @@ class ConstellationField {
   constructor(container: HTMLDivElement, cykanColor: number) {
     this.container = container;
     this.cykanColor = cykanColor;
-    // Pour AdditiveBlending sur fond noir : la couleur idle doit être assez
-    // claire pour ressortir. 0x707888 = gris-platine (RGB ≈ 0.44/0.47/0.53)
-    // donne une luminosité idle visible sans concurrencer l'éclat cykan.
-    this.faintColor = 0x707888;
+    // 0x4d5560 = gris-bleu sombre (RGB ≈ 0.30/0.33/0.38). En AdditiveBlending
+    // sur fond noir avec opacity 0.5 et 70 particules, donne un nuage
+    // discret et subtilement bleuté en idle. L'active state (interpolation
+    // vers cykan) ressort nettement par contraste.
+    this.faintColor = 0x4d5560;
     this.initScene();
     this.initParticles();
     this.animate = this.animate.bind(this);
@@ -184,15 +190,23 @@ class ConstellationField {
     );
 
     this.material = new THREE.PointsMaterial({
-      size: PARTICLE_SIZE_BASE,
+      size: PARTICLE_SIZE_PX,
+      sizeAttenuation: false, // OBLIGATOIRE en OrthographicCamera
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
+      // 0.5 : avec ~70 particules par nuage et AdditiveBlending, 0.95 saturait
+      // tout en blanc. 0.5 garde la teinte tout en restant lisible.
+      opacity: 0.5,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
 
     this.points = new THREE.Points(this.geometry, this.material);
+    // Disable frustum culling : la bounding box est calculée une fois sur
+    // les positions initiales et n'est pas re-calculée quand on déplace les
+    // particules — ce qui peut faire disparaître tout le système. Coût nul
+    // sur ~600 points.
+    this.points.frustumCulled = false;
     this.scene.add(this.points);
   }
 
@@ -233,6 +247,7 @@ class ConstellationField {
       const radiusMul = isActive ? 1.25 : 1;
 
       const startIdx = nodeIdx * PARTICLES_PER_NODE;
+      const coreCutoff = Math.floor(PARTICLES_PER_NODE * NODE_CORE_RATIO);
       for (let p = 0; p < PARTICLES_PER_NODE; p++) {
         const i = startIdx + p;
         const i3 = i * 3;
@@ -240,11 +255,17 @@ class ConstellationField {
         const sx = this.seeds[i2];
         const sy = this.seeds[i2 + 1];
 
-        const orbit = NODE_RADIUS * radiusMul * (0.55 + sx * 0.6);
-        const speed = 0.4 + sy * 0.7;
+        // Les NODE_CORE_RATIO premières particules forment le noyau dense
+        // (lisibilité : on voit toujours où sont les nodes même en idle).
+        // Le reste compose la couronne orbitale qui donne la "vie".
+        const isCore = p < coreCutoff;
+        const orbitMin = isCore ? 0.005 : NODE_RADIUS * 0.6;
+        const orbitMax = isCore ? NODE_RADIUS * 0.45 : NODE_RADIUS * 1.15;
+        const orbit = (orbitMin + (orbitMax - orbitMin) * sx) * radiusMul;
+        const speed = isCore ? 0.2 + sy * 0.3 : 0.5 + sy * 0.7;
         const t = (now / 1000) * speed + sx * Math.PI * 2;
         const tx = layout.x + Math.cos(t) * orbit;
-        const ty = layout.y + Math.sin(t) * orbit * 0.85;
+        const ty = layout.y + Math.sin(t) * orbit * 0.9;
 
         // Velocity damped attraction (donne une vie résiduelle).
         const dx = tx - this.positions[i3];

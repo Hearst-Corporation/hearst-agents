@@ -396,3 +396,12 @@ export const useRuntimeStore = create<RuntimeState>()(
   }))
 );
 
+// Dev-only : expose le store runtime sur window pour Playwright e2e + QA
+// visuel (cf. pattern stage.ts). Permet d'injecter des events SSE simulés
+// pour tester la lecture par les surfaces de chrome (ContextRail, etc.)
+// sans réellement déclencher une run. Le check NODE_ENV est inliné par
+// Webpack au build → 0 byte ajouté en prod.
+if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
+  (window as unknown as { __hearstRuntimeStore?: typeof useRuntimeStore })
+    .__hearstRuntimeStore = useRuntimeStore;
+}

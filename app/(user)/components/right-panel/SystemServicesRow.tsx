@@ -30,8 +30,9 @@ import {
 
 // ── Layout ───────────────────────────────────────────────────
 
-const PARTICLES_PER_BURST = 80;
-const PARTICLE_SIZE = 0.05;
+const PARTICLES_PER_BURST = 60;
+/** Taille en **pixels écran** (sizeAttenuation:false en OrthographicCamera). */
+const PARTICLE_SIZE_PX = 4;
 const REFRESH_TICK_MS = 1_000;
 const MAX_VISIBLE_SERVICES = 6;
 
@@ -66,6 +67,9 @@ function readCykanInt(): number {
 interface ServiceCluster {
   id: string;
   centerX: number;
+  /** Y central du cluster (légèrement décalé vers le bas pour laisser le
+   *  label HTML overlay en haut de la zone). */
+  centerY: number;
   bornAt: number;
   lastSeenAt: number;
   /** Indices dans le buffer global réservés à ce cluster. */
@@ -99,8 +103,7 @@ class ServicesField {
     this.totalParticles = maxServices * PARTICLES_PER_BURST;
     this.initScene();
     this.initParticles();
-    this.animate = this.animate.bind(this);
-    this.animate();
+    this.startLoop();
     this.resizeObserver = new ResizeObserver(() => this.onResize());
     this.resizeObserver.observe(this.container);
   }
@@ -150,7 +153,8 @@ class ServicesField {
     );
 
     this.material = new THREE.PointsMaterial({
-      size: PARTICLE_SIZE,
+      size: PARTICLE_SIZE_PX,
+      sizeAttenuation: false, // OBLIGATOIRE en OrthographicCamera
       color: this.color,
       transparent: true,
       opacity: 0.85,
@@ -159,6 +163,10 @@ class ServicesField {
     });
 
     this.points = new THREE.Points(this.geometry, this.material);
+    // Sans ça, Three frustum-cull les Points car la bounding box initiale
+    // englobe les positions "hors champ" (99, 99) et n'est jamais recalculée
+    // quand on bouge les particules. On a peu de points (≤ 360) — coût nul.
+    this.points.frustumCulled = false;
     this.scene.add(this.points);
   }
 
@@ -204,6 +212,11 @@ class ServicesField {
       if (!usedSlots.has(s)) freeSlots.push(s);
     }
 
+    // Y central des clusters (légèrement sous le centre du canvas pour
+    // laisser le label HTML en haut). Bandeau 64 px → cam aspect ≈ 0.23 →
+    // -0.06 cale les particules juste sous le label.
+    const CLUSTER_CENTER_Y = -0.06;
+
     visible.forEach((service, i) => {
       const centerX = startX + step * i;
       let cluster = this.clusters.get(service.id);
@@ -219,6 +232,7 @@ class ServicesField {
         cluster = {
           id: service.id,
           centerX,
+          centerY: CLUSTER_CENTER_Y,
           bornAt: now,
           lastSeenAt: service.lastEventTs,
           particleStart: start,
@@ -226,83 +240,84 @@ class ServicesField {
           seeds,
         };
         this.clusters.set(service.id, cluster);
-        // Burst initial : positions explosives autour du centre.
+        // Spawn : positions au centre, vélocités à zéro. La force de rappel
+        // orbitale dans updateFrame() les place naturellement sur leur orbite
+        // en ~5 frames (damping 0.75 + attraction 0.18).
         for (let p = 0; p < PARTICLES_PER_BURST; p++) {
           const idx = (start + p) * 3;
-          const ang = Math.random() * Math.PI * 2;
-          const r = Math.random() * 0.18 + 0.02;
           this.positions[idx] = centerX;
-          this.positions[idx + 1] = 0;
+          this.positions[idx + 1] = CLUSTER_CENTER_Y;
           this.positions[idx + 2] = 0;
-          this.velocities[idx] = Math.cos(ang) * r;
-          this.velocities[idx + 1] = Math.sin(ang) * r;
+          this.velocities[idx] = 0;
+          this.velocities[idx + 1] = 0;
           this.velocities[idx + 2] = 0;
         }
       } else {
-        cluster.centerX = centerX; // re-spread layout when count changes
+        cluster.centerX = centerX;
+        cluster.centerY = CLUSTER_CENTER_Y;
         if (service.lastEventTs > cluster.lastSeenAt) {
           cluster.lastSeenAt = service.lastEventTs;
-          // Re-burst : ré-injection vélocités sortantes.
-          for (let p = 0; p < PARTICLES_PER_BURST; p++) {
-            const idx = (cluster.particleStart + p) * 3;
-            const ang = Math.random() * Math.PI * 2;
-            const r = Math.random() * 0.14 + 0.02;
-            this.velocities[idx] = Math.cos(ang) * r;
-            this.velocities[idx + 1] = Math.sin(ang) * r;
-          }
+          // Re-pulse : on fait juste glow + recall, vélocités déjà en place.
         }
       }
     });
   }
 
-  updateFrame(dt: number, now: number) {
+  updateFrame(now: number) {
     if (!this.positions) return;
+    // Date.now()-based age (lastSeenAt vient de service.lastEventTs = Date.now()).
+    const realNow = Date.now();
     for (const cluster of this.clusters.values()) {
-      const ageMs = now - cluster.lastSeenAt;
-      const fade = Math.max(0, 1 - ageMs / 30_000);
-      for (let p = 0; p < cluster.particleCount; p++) {
-        const i3 = (cluster.particleStart + p) * 3;
-        const seedIdx = p * 2;
-        const sx = cluster.seeds[seedIdx];
-        const sy = cluster.seeds[seedIdx + 1];
-
-        // Force de rappel vers le centre du cluster (orbite légère).
-        const orbitRadius = 0.08 + sx * 0.06;
-        const orbitSpeed = 0.4 + sy * 0.6;
-        const t = (now / 1000) * orbitSpeed + sx * Math.PI * 2;
-        const targetX = cluster.centerX + Math.cos(t) * orbitRadius;
-        const targetY = Math.sin(t) * orbitRadius * 0.6;
-
-        const dx = targetX - this.positions[i3];
-        const dy = targetY - this.positions[i3 + 1];
-
-        this.velocities[i3] = (this.velocities[i3] + dx * dt * 5) * 0.88;
-        this.velocities[i3 + 1] = (this.velocities[i3 + 1] + dy * dt * 5) * 0.88;
-
-        this.positions[i3] += this.velocities[i3];
-        this.positions[i3 + 1] += this.velocities[i3 + 1];
-      }
-      // Fade global : on baisse l'opacity du cluster en agissant sur le material
-      // global ne marche pas (un seul material). On simule via décalage Z des
-      // particules anciennes pour qu'elles sortent du frustum si fade < 0.05.
-      if (fade < 0.05) {
+      const ageMs = realNow - cluster.lastSeenAt;
+      // Fade-out après 30 s d'inactivité — au-delà on évacue les particules.
+      if (ageMs > 30_000) {
         for (let p = 0; p < cluster.particleCount; p++) {
           const idx = (cluster.particleStart + p) * 3;
           this.positions[idx] = 99;
           this.positions[idx + 1] = 99;
         }
         this.clusters.delete(cluster.id);
+        continue;
+      }
+      for (let p = 0; p < cluster.particleCount; p++) {
+        const i3 = (cluster.particleStart + p) * 3;
+        const seedIdx = p * 2;
+        const sx = cluster.seeds[seedIdx];
+        const sy = cluster.seeds[seedIdx + 1];
+
+        // Pattern aligné avec ConstellationField (Strate 2) : attraction
+        // orbitale directe, damping 0.75. Plus stable que l'approche dt*5
+        // qui pouvait éjecter les particules au burst initial.
+        const orbitRadius = 0.06 + sx * 0.05;
+        const orbitSpeed = 0.4 + sy * 0.6;
+        const t = (now / 1000) * orbitSpeed + sx * Math.PI * 2;
+        const targetX = cluster.centerX + Math.cos(t) * orbitRadius;
+        const targetY = cluster.centerY + Math.sin(t) * orbitRadius * 0.5;
+
+        const dx = targetX - this.positions[i3];
+        const dy = targetY - this.positions[i3 + 1];
+        this.velocities[i3] = (this.velocities[i3] + dx * 0.18) * 0.75;
+        this.velocities[i3 + 1] = (this.velocities[i3 + 1] + dy * 0.18) * 0.75;
+        this.positions[i3] += this.velocities[i3];
+        this.positions[i3 + 1] += this.velocities[i3 + 1];
       }
     }
     this.geometry.attributes.position.needsUpdate = true;
   }
 
-  animate() {
-    this.rafId = requestAnimationFrame(this.animate);
-    const dt = Math.min(this.clock.getDelta(), 0.05);
-    this.updateFrame(dt, performance.now());
+  animate = () => {
+    void this.clock.getDelta();
+    this.updateFrame(performance.now());
     this.renderer.render(this.scene, this.camera);
-  }
+  };
+
+  startLoop = () => {
+    const tick = () => {
+      this.rafId = requestAnimationFrame(tick);
+      this.animate();
+    };
+    tick();
+  };
 
   destroy() {
     this.resizeObserver?.disconnect();
@@ -363,20 +378,18 @@ export function SystemServicesRow() {
     <div
       style={{
         position: "relative",
-        height: "var(--space-12)",
+        height: "var(--space-16)",
         borderBottom: "1px solid var(--border-subtle)",
         overflow: "hidden",
       }}
     >
+      {/* Canvas WebGL : remplit la zone, particules dans la moitié basse. */}
       <div
         ref={containerRef}
         aria-label="Services sollicités"
-        style={{
-          position: "absolute",
-          inset: 0,
-        }}
+        style={{ position: "absolute", inset: 0 }}
       />
-      {/* Labels overlay positionnés relativement au layout des clusters */}
+      {/* Labels en haut (no overlap avec les particules en bas). */}
       <ServiceLabelsOverlay services={activeServices} />
     </div>
   );
@@ -401,8 +414,10 @@ function ServiceLabelsOverlay({ services }: { services: ActiveService[] }) {
   const span = 85; // % horizontal occupé (laisse 7.5% de chaque côté)
   const step = visible.length > 1 ? span / (visible.length - 1) : 0;
   const startPct = visible.length > 1 ? (100 - span) / 2 : 50;
+  // Labels positionnés en haut du bandeau (espace réservé : ~22 px),
+  // les particules WebGL occupent la moitié basse — pas de chevauchement.
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute inset-x-0 top-0 pointer-events-none" style={{ height: "var(--space-5)" }}>
       {visible.map((s, i) => {
         const leftPct = visible.length > 1 ? startPct + step * i : startPct;
         return (
@@ -415,7 +430,6 @@ function ServiceLabelsOverlay({ services }: { services: ActiveService[] }) {
               top: "50%",
               transform: "translate(-50%, -50%)",
               color: "var(--text-l2)",
-              textShadow: "0 0 8px var(--bg)",
               whiteSpace: "nowrap",
             }}
           >

@@ -221,8 +221,10 @@ export const CO_ACTIVE_WINDOW_MS = 2_000;
 
 /**
  * Durée pendant laquelle un rôle reste considéré "actif" après son dernier event.
+ * 1.2 s : assez pour une lecture humaine stable sans clignotement parasite
+ * quand les events SSE arrivent en burst, assez court pour rester live.
  */
-export const ROLE_ACTIVE_TTL_MS = 800;
+export const ROLE_ACTIVE_TTL_MS = 1_200;
 
 export interface ActiveRole {
   id: AgentRoleId;
