@@ -37,11 +37,11 @@ import {
 // ── Layout ───────────────────────────────────────────────────
 
 const REFRESH_TICK_MS = 500;
-const PARTICLES_PER_NODE = 90;
-const PARTICLES_PER_BRIDGE = 24;
+const PARTICLES_PER_NODE = 110;
+const PARTICLES_PER_BRIDGE = 28;
 const NODE_RADIUS = 0.085;
-const HEX_RADIUS = 0.55;
-const PARTICLE_SIZE_BASE = 0.045;
+const HEX_RADIUS = 0.5;
+const PARTICLE_SIZE_BASE = 0.075;
 
 // Ordre canonique autour de l'hexagone (12h, 2h, 4h, 6h, 8h, 10h).
 const HEX_ORDER: AgentRoleId[] = [
@@ -119,7 +119,10 @@ class ConstellationField {
   constructor(container: HTMLDivElement, cykanColor: number) {
     this.container = container;
     this.cykanColor = cykanColor;
-    this.faintColor = 0x4b5060; // var(--text-faint) approx — fallback only
+    // Pour AdditiveBlending sur fond noir : la couleur idle doit être assez
+    // claire pour ressortir. 0x707888 = gris-platine (RGB ≈ 0.44/0.47/0.53)
+    // donne une luminosité idle visible sans concurrencer l'éclat cykan.
+    this.faintColor = 0x707888;
     this.initScene();
     this.initParticles();
     this.animate = this.animate.bind(this);
@@ -223,7 +226,10 @@ class ConstellationField {
       const layout = NODE_BY_ID[id];
       const isActive = this.activeIds.has(id);
       const isSelected = this.selectedId === id;
-      const intensity = isActive ? 1 : isSelected ? 0.55 : 0.22;
+      // En idle : on garde la teinte faint pleine (k=1, pas d'interpolation
+      // vers cykan). Active : interpolation pleine vers cykan (k=1 mais
+      // delta complet). Sélection : interpolation partielle.
+      const lerpToCykan = isActive ? 1 : isSelected ? 0.55 : 0;
       const radiusMul = isActive ? 1.25 : 1;
 
       const startIdx = nodeIdx * PARTICLES_PER_NODE;
@@ -250,12 +256,12 @@ class ConstellationField {
         this.positions[i3 + 1] += this.velocities[i3 + 1];
         this.positions[i3 + 2] = 0;
 
-        // Couleur : interpolation faint→cykan selon intensity + flicker.
-        const flicker = 0.85 + Math.sin(t * 3) * 0.15;
-        const k = intensity * flicker;
-        const r = faint.r + (cykan.r - faint.r) * k;
-        const g = faint.g + (cykan.g - faint.g) * k;
-        const b = faint.b + (cykan.b - faint.b) * k;
+        // Couleur : interpolation faint→cykan, flicker subtil.
+        const flicker = 0.88 + Math.sin(t * 3) * 0.12;
+        const k = lerpToCykan;
+        const r = (faint.r + (cykan.r - faint.r) * k) * flicker;
+        const g = (faint.g + (cykan.g - faint.g) * k) * flicker;
+        const b = (faint.b + (cykan.b - faint.b) * k) * flicker;
         this.colors[i3] = r;
         this.colors[i3 + 1] = g;
         this.colors[i3 + 2] = b;
