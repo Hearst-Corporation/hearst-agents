@@ -25,6 +25,7 @@ import { useRightPanelData } from "./right-panel/useRightPanelData";
 import { GeneralDashboard } from "./right-panel/GeneralDashboard";
 import { SystemServicesRow } from "./right-panel/SystemServicesRow";
 import { SystemConstellation } from "./right-panel/SystemConstellation";
+import { AgentsStrip } from "./right-panel/AgentsStrip";
 import { ContextRailForMission } from "./ContextRailForMission";
 import {
   ContextRailForRuns,
@@ -265,6 +266,10 @@ function CockpitChatBody() {
       {/* Strate 2 — Constellation système (6 rôles, lignes co-actives) */}
       <div className="shrink-0">
         <SystemConstellation />
+      </div>
+      {/* Strate 2.5 — Strip agents icônes SVG distinctes */}
+      <div className="shrink-0">
+        <AgentsStrip />
       </div>
       {/* Strates 3, 4, 5 — Actions / Statut / Contexte sélectionné */}
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-hide">
