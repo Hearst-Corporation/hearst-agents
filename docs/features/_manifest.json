@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-05-07T22:27:14.848Z",
-  "total": 4,
+  "generatedAt": "2026-05-07T22:34:45.666Z",
+  "total": 5,
   "counts": {
-    "verrouillé": 4,
+    "verrouillé": 5,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 51,
-    "testsExistants": 31,
-    "testsManquants": 78,
-    "orphans": 2
+    "invariants": 69,
+    "testsExistants": 40,
+    "testsManquants": 99,
+    "orphans": 5
   },
   "features": [
     {
@@ -104,6 +104,42 @@
       "testsManquantsCount": 9,
       "testGap": "moyen",
       "orphansCount": 0
+    },
+    {
+      "id": "missions",
+      "file": "missions.md",
+      "href": "docs/features/missions.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P1",
+      "invariantsCount": 18,
+      "invariantsTitles": [
+        "I-1. Schéma `scheduler_leases` figé",
+        "I-2. Format des clés de lease",
+        "I-3. TTL leases figés",
+        "I-4. 4 guards anti-double-exécution dans l'ordre",
+        "I-5. Fail-open sur DB error pour les leases",
+        "I-6. Cron parser minimal — format figé",
+        "I-7. Scheduler tick = 60s",
+        "I-8. `mission_messages` append-only",
+        "I-9. Hard-delete sur `DELETE /missions/[id]`",
+        "I-10. `POST /run` `maxDuration = 120s`",
+        "I-11. Status normalization `success | failed | blocked`",
+        "I-12. Mission context = 4 composantes fail-soft",
+        "I-13. `updateMissionContextSummary` via Claude Haiku, format 4 sections",
+        "I-14. Auto-export config : Zod validated, format `pdf | excel`",
+        "I-15. Webhooks `mission.completed` / `mission.failed`",
+        "I-16. `/run` distingue branch `workflowGraph` (C3) vs branch legacy (orchestrate)",
+        "I-17. Ownership check sur les routes par-`[id]`",
+        "I-18. Mission ID = UUID v4 (`randomUUID()`)"
+      ],
+      "testsExistantsCount": 9,
+      "testsManquantsCount": 21,
+      "testGap": "élevé",
+      "orphansCount": 3
     },
     {
       "id": "stage",

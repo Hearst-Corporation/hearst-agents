@@ -46,6 +46,35 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Missions — `missions` · P1
+
+Spec : [docs/features/missions.md](../features/missions.md)
+
+**Invariants** (résumé — 18, détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | Schéma `scheduler_leases` figé (key PK, instance_id, expires_at) | `supabase/migrations/0016`, `lib/engine/runtime/missions/distributed-lease.ts` |
+| I-2 | 2 types de clés : `scheduler_leader` + `mission_run:<id>:<minute>` | `lib/engine/runtime/missions/distributed-lease.ts`, `leader-lease.ts` |
+| I-3 | TTL leader 90s (heartbeat 30s) + TTL mission 300s | `lib/engine/runtime/missions/leader-lease.ts`, `distributed-lease.ts` |
+| I-4 | 4 guards anti-double-exécution dans l'ordre | `lib/engine/runtime/missions/scheduler.ts` |
+| I-5 | Fail-open lease sur erreur DB (mieux risquer 1× double-exec que se bloquer) | `lib/engine/runtime/missions/distributed-lease.ts` |
+| I-6 | Cron parser minimal `min h d m dow` (pas `*/N`) | `lib/engine/runtime/missions/scheduler.ts` |
+| I-7 | Scheduler tick = 60s | `lib/engine/runtime/missions/scheduler.ts` |
+| I-8 | `mission_messages` append-only (pas UPDATE/DELETE) | `supabase/migrations/0056`, `lib/memory/mission-context.ts` |
+| I-9 | `DELETE /missions/[id]` hard-delete cascade | `app/api/v2/missions/[id]/route.ts` |
+| I-10 | `POST /run` `maxDuration = 120s` | `app/api/v2/missions/[id]/run/route.ts` |
+| I-11 | Status normalization `success | failed | blocked` (3 valeurs) | `lib/engine/runtime/missions/normalize-result.ts` |
+| I-12 | Mission context = summary + 10 messages + retrieval + KG (fail-soft) | `lib/memory/mission-context.ts` |
+| I-13 | `updateMissionContextSummary` via Claude Haiku, 4 sections 250 mots | `lib/memory/mission-context.ts` |
+| I-14 | Auto-export Zod, format `pdf | excel`, email best-effort | `lib/engine/runtime/missions/export-job.ts` |
+| I-15 | Webhooks `mission.completed | mission.failed` fire-and-forget | `lib/engine/runtime/missions/scheduler.ts` |
+| I-16 | `/run` branch dual : workflowGraph C3 vs orchestrate legacy | `app/api/v2/missions/[id]/run/route.ts` |
+| I-17 | Ownership check sur routes par-`[id]` | toutes les routes `/missions/[id]/*` |
+| I-18 | Mission ID = UUID v4 (`randomUUID()`) | `lib/engine/runtime/missions/create-mission.ts` |
+
+---
+
 ### Chat & Orchestration — `chat` · P0
 
 Spec : [docs/features/chat.md](../features/chat.md)
@@ -133,7 +162,7 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 1. ~~`auth` (P0)~~ — verrouillé v1.0
 2. ~~`stage` (P0)~~ — verrouillé v1.0
 3. ~~`chat` (P0)~~ — verrouillé v1.0
-4. `missions` (P1) — distributed lease Redis critique
+4. ~~`missions` (P1)~~ — verrouillé v1.0
 5. `assets` (P1) — hybrid storage
 6. `connections` (P1) — write-guard Composio
 7. `reports` (P1) — sharing token public
