@@ -46,6 +46,35 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Connections — `connections` · P1
+
+Spec : [docs/features/connections.md](../features/connections.md)
+
+**Invariants** (résumé — 18, détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | **Write-guard pattern two-step** `_preview: true` default → confirm → `_preview: false` | `lib/connectors/composio/write-guard.ts`, `to-ai-tools.ts` |
+| I-2 | `WRITE_SEGMENTS` (19) + `WRITE_PREFIXES` (6) figés | `lib/connectors/composio/write-guard.ts` |
+| I-3 | **Aucune whitelist auto-approbation** | `lib/connectors/composio/write-guard.ts`, `to-ai-tools.ts` |
+| I-4 | `executeComposioAction` never throws (envelope `{ok, data?, error?, errorCode?}`) | `lib/connectors/composio/client.ts` |
+| I-5 | SDK Composio lazy dynamic import (peer dep) | `lib/connectors/composio/client.ts` |
+| I-6 | `isComposioConfigured()` = présence `COMPOSIO_API_KEY` | `lib/connectors/composio/client.ts` |
+| I-7 | Slug aliases LLM hallucinations (extensible, log warn) | `lib/connectors/composio/client.ts` |
+| I-8 | Discovery cache 60s, **don't cache empty** | `lib/connectors/composio/discovery.ts` |
+| I-9 | Discovery limit 25 tools/toolkit | `lib/connectors/composio/discovery.ts` |
+| I-10 | Domain allowlist + cap 40 tools | `lib/connectors/composio/write-guard.ts` |
+| I-11 | `ConnectorConnection` 5 statuts figés (connected\|disconnected\|degraded\|error\|pending_auth) | `lib/connectors/control-plane/types.ts` |
+| I-12 | Unified reconciliation : auth truth > control-plane (auto-heal CP) | `lib/connectors/unified/reconcile.ts` |
+| I-13 | Preview formatters interface synchrone `(args) => string` | `lib/connectors/composio/preview-formatters/index.ts` |
+| I-14 | Footer "Réponds **confirmer**" obligatoire (matching ConfirmActionChips) | `lib/connectors/composio/preview-formatters/shared.ts` |
+| I-15 | Integrations Phase 1 = read-only strict (throw `TOOL_RISK_NOT_ACCEPTED` si write) | `lib/integrations/executor.ts` |
+| I-16 | Native vs Composio dedup : Composio wins UI | `app/(user)/components/ConnectionsHub.tsx` |
+| I-17 | OAuth `window.open()` IMMÉDIAT au click (anti popup-blocker) | `app/(user)/components/ConnectionsHub.tsx`, `lib/oauth/popup.ts` |
+| I-18 | `invalidateUserDiscovery` après initiateConnection + disconnectAccount | `lib/connectors/composio/connections.ts` |
+
+---
+
 ### Assets — `assets` · P1
 
 Spec : [docs/features/assets.md](../features/assets.md)
@@ -193,7 +222,7 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 3. ~~`chat` (P0)~~ — verrouillé v1.0
 4. ~~`missions` (P1)~~ — verrouillé v1.0
 5. ~~`assets` (P1)~~ — verrouillé v1.0
-6. `connections` (P1) — write-guard Composio
+6. ~~`connections` (P1)~~ — verrouillé v1.0
 7. `reports` (P1) — sharing token public
 8. `memory-kg` (P1) — backfill destructif possible
 9. `notifications` (P2) — throttle flood

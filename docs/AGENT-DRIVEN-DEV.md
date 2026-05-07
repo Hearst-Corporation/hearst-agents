@@ -64,6 +64,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 - `chat` v1.0 (2026-05-04) — P0, cœur produit, 18 invariants (orchestrator + SSE + UI chat).
 - `missions` v1.0 (2026-05-04) — P1, scheduler distribué, 18 invariants (leases, cron, mission memory).
 - `assets` v1.0 (2026-05-04) — P1, storage hybride R2/Supabase/local, 18 invariants (provenance B4, variants, cleanup).
+- `connections` v1.0 (2026-05-04) — P1, write-guard Composio + control-plane, 18 invariants (two-step preview/confirm).
 
 ## Tableau de bord features
 
@@ -79,7 +80,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 | F-08 | memory-kg | non verrouillé | — | P1 | partiel | élevé |
 | F-09 | daily-brief | non verrouillé | — | P1 | bon | faible |
 | F-10 | personas | non verrouillé | — | P2 | bon | faible |
-| F-11 | connections | non verrouillé | — | P1 | partiel | moyen |
+| F-11 | **connections** | **verrouillé v1.0** | [connections.md](features/connections.md) | P1 | bon (write-guard, discovery, client, formatters) | moyen (write-guard bypass detection, OAuth popup E2E, native collision) |
 | F-12 | voice | non verrouillé | — | P2 | partiel | élevé |
 | F-13 | browser | non verrouillé | — | P2 | partiel | élevé |
 | F-14 | meetings | non verrouillé | — | P2 | bon | moyen |
@@ -115,21 +116,21 @@ P0 d'abord (bloque tout si régression), puis P1, puis P2.
 
 ```
 Verrouillés :
-  - cockpit  (P1, pilote)         v1.x
-  - auth     (P0)                 v1.0 — 2026-05-03
-  - stage    (P0)                 v1.0 — 2026-05-04
-  - chat     (P0)                 v1.0 — 2026-05-04
-  - missions (P1)                 v1.0 — 2026-05-04
-  - assets   (P1)                 v1.0 — 2026-05-04
+  - cockpit     (P1, pilote)      v1.x
+  - auth        (P0)              v1.0 — 2026-05-03
+  - stage       (P0)              v1.0 — 2026-05-04
+  - chat        (P0)              v1.0 — 2026-05-04
+  - missions    (P1)              v1.0 — 2026-05-04
+  - assets      (P1)              v1.0 — 2026-05-04
+  - connections (P1)              v1.0 — 2026-05-04
 
 À faire (ordre proposé) :
-  1. connections (P1) — write-guard Composio
-  2. reports   (P1) — sharing token public
-  3. memory-kg (P1) — backfill destructif possible
-  4. (... reste à arbitrer après ces 3)
+  1. reports   (P1) — sharing token public
+  2. memory-kg (P1) — backfill destructif possible
+  3. (... reste à arbitrer après ces 2)
 ```
 
-🎉 **Tous les P0 sont verrouillés.** P1 en cours (2/4 fait).
+🎉 **Tous les P0 sont verrouillés.** P1 en cours (3/4 fait).
 
 ## Procédure pour verrouiller une nouvelle feature
 
@@ -190,3 +191,4 @@ M  app/globals.css
 | 2026-05-04 | `chat` verrouillé v1.0 (P0, cœur produit, 18 invariants) — tous les P0 sont fait |
 | 2026-05-04 | `missions` verrouillé v1.0 (P1, scheduler distribué + lease + memory, 18 invariants) |
 | 2026-05-04 | `assets` verrouillé v1.0 (P1, storage hybride R2/Supabase + variants + cleanup, 18 invariants) |
+| 2026-05-04 | `connections` verrouillé v1.0 (P1, write-guard Composio two-step + control-plane, 18 invariants) |

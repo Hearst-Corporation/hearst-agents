@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-05-07T22:48:11.111Z",
-  "total": 6,
+  "generatedAt": "2026-05-07T22:57:39.544Z",
+  "total": 7,
   "counts": {
-    "verrouillé": 6,
+    "verrouillé": 7,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 87,
-    "testsExistants": 44,
-    "testsManquants": 124,
-    "orphans": 9
+    "invariants": 105,
+    "testsExistants": 54,
+    "testsManquants": 148,
+    "orphans": 12
   },
   "features": [
     {
@@ -140,6 +140,42 @@
       "testsManquantsCount": 9,
       "testGap": "moyen",
       "orphansCount": 0
+    },
+    {
+      "id": "connections",
+      "file": "connections.md",
+      "href": "docs/features/connections.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P1",
+      "invariantsCount": 18,
+      "invariantsTitles": [
+        "I-1. Write-guard pattern two-step OBLIGATOIRE",
+        "I-2. `WRITE_SEGMENTS` + `WRITE_PREFIXES` figés (extensibles)",
+        "I-3. Aucune whitelist d'auto-approbation",
+        "I-4. `executeComposioAction` never throws",
+        "I-5. SDK Composio chargé en lazy dynamic import",
+        "I-6. `isComposioConfigured()` = présence de `COMPOSIO_API_KEY`",
+        "I-7. Slug aliases LLM hallucinations",
+        "I-8. Discovery cache 60s, **don't cache empty**",
+        "I-9. Discovery limit 25 tools/toolkit",
+        "I-10. Domain allowlist + cap 40 tools",
+        "I-11. ConnectorConnection schema + statuts figés",
+        "I-12. Unified reconciliation : auth truth > control-plane",
+        "I-13. Preview formatters interface figée",
+        "I-14. Footer preview obligatoire",
+        "I-15. Integrations Phase 1 = read-only strict",
+        "I-16. Native vs Composio dedup, Composio gagne en UI",
+        "I-17. OAuth popup `window.open()` IMMÉDIAT au click",
+        "I-18. `invalidateUserDiscovery` après OAuth + après disconnect"
+      ],
+      "testsExistantsCount": 10,
+      "testsManquantsCount": 24,
+      "testGap": "élevé",
+      "orphansCount": 3
     },
     {
       "id": "missions",
