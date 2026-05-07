@@ -1974,23 +1974,10 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 }
 
 /* ── ContextRail Strates 1 & 2 — services + constellation système ────
-   Animations subtiles pour la lecture temps réel du système agentique
-   dans le rail droit (cf. docs/screens/right-panel-dashboard.md). */
-@keyframes service-chip-pop {
-  0%   { transform: scale(0.85); opacity: 0; }
-  60%  { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes constellation-line-fade {
-  0%   { stroke-opacity: 0.6; }
-  100% { stroke-opacity: 0; }
-}
-
-@keyframes constellation-node-pulse {
-  0%, 100% { opacity: 0.18; transform: scale(1); }
-  50%      { opacity: 0.32; transform: scale(1.15); }
-}
+   Les keyframes SVG (service-chip-pop / constellation-*) ont été retirées
+   au profit du rendu vanilla three (cf. SystemServicesRow.tsx +
+   SystemConstellation.tsx). Toute l'animation des particules vit dans le
+   RAF des composants WebGL. */
 
 
 /* ── Ghost Protocol — boutons & inputs minimalistes ──────────────
