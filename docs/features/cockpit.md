@@ -9,6 +9,7 @@
 | **owner** | Adrien |
 | **dernière revue** | 2026-05-04 |
 | **version spec** | 1.3 |
+| **niveau** | P1 |
 | **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
 
 ## Description
