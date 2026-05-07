@@ -46,6 +46,35 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Memory KG — `memory-kg` · P1
+
+Spec : [docs/features/memory-kg.md](../features/memory-kg.md)
+
+**Invariants** (résumé — 18, détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | `KgNodeType` 6 valeurs figées (person\|company\|project\|decision\|commitment\|topic) | `lib/memory/kg.ts`, `supabase/migrations/0035` |
+| I-2 | `kg_nodes` UNIQUE `(user_id, tenant_id, type, label)` | `lib/memory/kg.ts`, `supabase/migrations/0035` |
+| I-3 | `kg_edges` UNIQUE `(user_id, tenant_id, source_id, target_id, type)` | `lib/memory/kg.ts` |
+| I-4 | Embedding model = `text-embedding-3-small`, dimension `1536` | `lib/embeddings/embed.ts` |
+| I-5 | Index ivfflat cosine_ops, lists=100 | `supabase/migrations/0046` |
+| I-6 | `EmbeddingSourceKind` 5 valeurs figées (message\|asset\|briefing\|kg_node\|transcript) | `lib/embeddings/store.ts` |
+| I-7 | `match_embeddings` RPC signature figée | `supabase/migrations/0047` |
+| I-8 | Extraction model = `claude-haiku-4-5-20251001` | `lib/memory/kg.ts` |
+| I-9 | Auto-embed fire-and-forget post-upsertNode (pas synchrone) | `lib/memory/kg-ingest-pipeline.ts` |
+| I-10 | Cache KG context 60s + invalidation post-ingest (`__clearKgContextCache`) | `lib/memory/kg-context.ts`, `kg-ingest-pipeline.ts` |
+| I-11 | Retrieval cache 30s, MAX_TOTAL_CHARS=1500, PER_ITEM_MAX=220 | `lib/memory/retrieval-context.ts` |
+| I-12 | Conv. summary Redis TTL 30j, MAX_BUFFER=20 avant compression Haiku | `lib/memory/conversation-summary.ts` |
+| I-13 | `MAX_MESSAGES_PER_CONVERSATION = 24` hard cap | `lib/memory/store.ts` |
+| I-14 | WAL Redis synchrone, persist Supabase fire-and-forget | `lib/memory/store.ts` |
+| I-15 | Backfill UPSERT idempotent (overwrite) — ne lancer qu'une fois | `scripts/backfill-kg-embeddings.ts` |
+| I-16 | `user_id text` (pas uuid) dans KG tables — valeur attendue : UUID string | `supabase/migrations/0035`, `lib/memory/kg.ts` |
+| I-17 | Tenant isolation : filtrage scope explicite côté app (pas auth.uid()) | toutes les queries KG + embeddings |
+| I-18 | `EmbeddingsUnavailableError` jamais propagé vers UI/SSE | `lib/embeddings/embed.ts`, `store.ts`, callers |
+
+---
+
 ### Reports — `reports` · P1
 
 Spec : [docs/features/reports.md](../features/reports.md)
@@ -253,7 +282,7 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 5. ~~`assets` (P1)~~ — verrouillé v1.0
 6. ~~`connections` (P1)~~ — verrouillé v1.0
 7. ~~`reports` (P1)~~ — verrouillé v1.0
-8. `memory-kg` (P1) — backfill destructif possible
+8. ~~`memory-kg` (P1)~~ — verrouillé v1.0
 9. `notifications` (P2) — throttle flood
 10. (… reste à arbitrer)
 

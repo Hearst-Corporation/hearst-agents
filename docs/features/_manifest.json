@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-07T23:05:47.912Z",
-  "total": 8,
+  "generatedAt": "2026-05-07T23:15:54.734Z",
+  "total": 9,
   "counts": {
-    "verrouillé": 8,
+    "verrouillé": 9,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 123,
-    "testsExistants": 71,
-    "testsManquants": 168,
+    "invariants": 141,
+    "testsExistants": 81,
+    "testsManquants": 191,
     "orphans": 12
   },
   "features": [
@@ -176,6 +176,42 @@
       "testsManquantsCount": 24,
       "testGap": "élevé",
       "orphansCount": 3
+    },
+    {
+      "id": "memory-kg",
+      "file": "memory-kg.md",
+      "href": "docs/features/memory-kg.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P1",
+      "invariantsCount": 18,
+      "invariantsTitles": [
+        "I-1. `KgNodeType` — 6 valeurs figées",
+        "I-2. `kg_nodes` UNIQUE `(user_id, tenant_id, type, label)`",
+        "I-3. `kg_edges` UNIQUE `(user_id, tenant_id, source_id, target_id, type)`",
+        "I-4. Embedding model = `text-embedding-3-small`, dimension `1536`",
+        "I-5. Index ivfflat cosine_ops, lists=100",
+        "I-6. `EmbeddingSourceKind` — 5 valeurs figées",
+        "I-7. `match_embeddings` RPC — signature figée",
+        "I-8. Extraction model = `claude-haiku-4-5-20251001`",
+        "I-9. Auto-embed fire-and-forget post-upsertNode",
+        "I-10. Cache KG context 60s + invalidation post-ingest",
+        "I-11. Retrieval cache 30s, `MAX_TOTAL_CHARS = 1500`, `PER_ITEM_MAX = 220`",
+        "I-12. Conversation summary Redis TTL 30j, `MAX_BUFFER = 20`",
+        "I-13. `MAX_MESSAGES_PER_CONVERSATION = 24`",
+        "I-14. WAL Redis synchrone, persist Supabase fire-and-forget",
+        "I-15. Backfill script — UPSERT idempotent (overwrite)",
+        "I-16. `user_id` en `text` dans tables KG (pas `uuid`)",
+        "I-17. Tenant isolation : filtrage explicite côté app (pas RLS `auth.uid()`)",
+        "I-18. `EmbeddingsUnavailableError` ne propage pas vers l'utilisateur"
+      ],
+      "testsExistantsCount": 10,
+      "testsManquantsCount": 23,
+      "testGap": "élevé",
+      "orphansCount": 0
     },
     {
       "id": "missions",

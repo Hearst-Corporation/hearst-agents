@@ -66,6 +66,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 - `assets` v1.0 (2026-05-04) — P1, storage hybride R2/Supabase/local, 18 invariants (provenance B4, variants, cleanup).
 - `connections` v1.0 (2026-05-04) — P1, write-guard Composio + control-plane, 18 invariants (two-step preview/confirm).
 - `reports` v1.0 (2026-05-04) — P1, sharing HMAC + engine pipeline, 18 invariants (token public sécurisé).
+- `memory-kg` v1.0 (2026-05-04) — P1, KG + embeddings pgvector, 18 invariants (backfill idempotent, tenant isolation).
 
 ## Tableau de bord features
 
@@ -78,7 +79,7 @@ Ordre choisi : on verrouille **une feature à la fois**, on valide le format ave
 | F-05 | runs | non verrouillé | — | P1 | partiel | moyen |
 | F-06 | **reports** | **verrouillé v1.0** | [reports.md](features/reports.md) | P1 | bon (engine, catalog, export) | faible (sharing HMAC roundtrip, SSRF exhaustif, budget override) |
 | F-07 | **assets** | **verrouillé v1.0** | [assets.md](features/assets.md) | P1 | partiel (lineage + detail + diff) | moyen (storage providers, hybrid LRU/TTL, cleanup, variant lifecycle) |
-| F-08 | memory-kg | non verrouillé | — | P1 | partiel | élevé |
+| F-08 | **memory-kg** | **verrouillé v1.0** | [memory-kg.md](features/memory-kg.md) | P1 | bon (ingest, embeddings, context) | moyen (backfill safety, scope isolation E2E, Redis resilience) |
 | F-09 | daily-brief | non verrouillé | — | P1 | bon | faible |
 | F-10 | personas | non verrouillé | — | P2 | bon | faible |
 | F-11 | **connections** | **verrouillé v1.0** | [connections.md](features/connections.md) | P1 | bon (write-guard, discovery, client, formatters) | moyen (write-guard bypass detection, OAuth popup E2E, native collision) |
@@ -125,13 +126,15 @@ Verrouillés :
   - assets      (P1)              v1.0 — 2026-05-04
   - connections (P1)              v1.0 — 2026-05-04
   - reports     (P1)              v1.0 — 2026-05-04
+  - memory-kg   (P1)              v1.0 — 2026-05-04
 
-À faire (ordre proposé) :
-  1. memory-kg (P1) — backfill destructif possible
-  2. (... P2+ à arbitrer ensuite)
+À faire (P2+) :
+  1. notifications (P2) — throttle flood
+  2. daily-brief   (P2/P1) — inngest cron + providers externes
+  3. (... reste des 23 features non verrouillées)
 ```
 
-🎉 **Tous les P0 sont verrouillés. Tous les P1 en cours (4/4 dans 1 feature).** P1 3/4 fait → reste memory-kg.
+🎉 **Tous les P0 + tous les P1 prioritaires sont verrouillés (9/32 features).**
 
 ## Procédure pour verrouiller une nouvelle feature
 
@@ -194,3 +197,5 @@ M  app/globals.css
 | 2026-05-04 | `assets` verrouillé v1.0 (P1, storage hybride R2/Supabase + variants + cleanup, 18 invariants) |
 | 2026-05-04 | `connections` verrouillé v1.0 (P1, write-guard Composio two-step + control-plane, 18 invariants) |
 | 2026-05-04 | `reports` verrouillé v1.0 (P1, sharing HMAC-SHA256 + engine pipeline 10 étapes, 18 invariants) |
+| 2026-05-04 | `memory-kg` verrouillé v1.0 (P1, KG + embeddings pgvector 1536-dim + retrieval, 18 invariants) |
+| 2026-05-04 | **Phase 2 complète — tous les P0 + P1 prioritaires verrouillés (9/32 features, 141 invariants)** |
