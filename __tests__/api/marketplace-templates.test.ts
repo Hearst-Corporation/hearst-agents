@@ -61,7 +61,7 @@ function makeWorkflowPayload() {
 describe("GET /api/v2/marketplace/templates", () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it("retourne la liste avec scope.isDevFallback", async () => {
+  it("retourne la liste de templates filtrée par kind", async () => {
     storeMock.listTemplates.mockResolvedValueOnce([
       {
         id: "t1",
@@ -86,10 +86,8 @@ describe("GET /api/v2/marketplace/templates", () => {
     expect(res.status).toBe(200);
     const body = (await res.json()) as {
       templates: Array<{ id: string }>;
-      scope: { isDevFallback: boolean };
     };
     expect(body.templates).toHaveLength(1);
-    expect(body.scope.isDevFallback).toBe(false);
     expect(storeMock.listTemplates).toHaveBeenCalledWith(
       expect.objectContaining({ kind: "workflow" }),
     );

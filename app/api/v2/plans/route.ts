@@ -32,7 +32,6 @@ export async function GET() {
     return NextResponse.json({
       plans: sorted,
       count: sorted.length,
-      scope: { isDevFallback: scope.isDevFallback },
     });
   } catch (e) {
     console.error("GET /api/v2/plans:", e);

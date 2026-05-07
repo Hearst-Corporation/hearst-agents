@@ -50,7 +50,6 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     specs,
-    scope: { isDevFallback: scope.isDevFallback },
   });
 }
 

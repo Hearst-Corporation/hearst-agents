@@ -32,7 +32,7 @@ export async function GET() {
       workspaceId: scope.workspaceId,
     });
 
-    return NextResponse.json({ missions, scope: { isDevFallback: scope.isDevFallback } });
+    return NextResponse.json({ missions });
   } catch (e) {
     console.error("GET /api/v2/missions: uncaught", e);
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
@@ -148,7 +148,7 @@ export async function POST(req: NextRequest) {
 
   console.log(`[MissionsAPI] Mission created: ${mission.id} — ${mission.schedule} (user: ${scope.userId.slice(0, 8)})`);
 
-  return NextResponse.json({ mission, scope: { isDevFallback: scope.isDevFallback } }, { status: 201 });
+  return NextResponse.json({ mission }, { status: 201 });
 }
 
 export async function PATCH(req: NextRequest) {

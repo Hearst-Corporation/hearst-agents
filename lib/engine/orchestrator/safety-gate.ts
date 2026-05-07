@@ -41,7 +41,7 @@ const ILLEGAL_PATTERNS = [
 
 const EXFIL_PATTERNS = [
   /(reveal|montre[\sr]|affiche|expose|dump|leak|exfiltre[rz]?)\s+(your|ton|le)\s+(system\s+)?prompt/i,
-  /\bingore\s+(all\s+)?(previous|prior|prior\s+all)\s+instructions?\b/i,
+  /\bignore\s+(all\s+)?(previous|prior|prior\s+all)\s+instructions?\b/i,
   /\boublie\s+toutes?\s+(tes|les)\s+(instructions?|règles?)\b/i,
   /\bignore\s+(all\s+)?(previous|prior)\s+instructions?\b/i,
 ];
@@ -56,10 +56,20 @@ const MASS_PATTERNS: Array<{ pattern: RegExp; recipients: number }> = [
 const SOFT_CAP = 10;
 const HARD_CAP = 50;
 
+/**
+ * Normalise un message avant les regex : NFD + strip diacritiques.
+ * Réduit les contournements Unicode simples (caractères accentués substitués).
+ */
+function normalizeForSafety(s: string): string {
+  return s.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase();
+}
+
 export function checkSafetyGate(message: string): SafetyVerdict {
-  // 1. Hostile content — hard refusal.
+  const normalized = normalizeForSafety(message);
+
+  // 1. Hostile content — hard refusal. Testé sur le message normalisé ET original.
   for (const p of VIOLENT_PATTERNS) {
-    if (p.test(message)) {
+    if (p.test(normalized) || p.test(message)) {
       return {
         kind: "refuse",
         reason: "violent_content",
@@ -71,7 +81,7 @@ export function checkSafetyGate(message: string): SafetyVerdict {
     }
   }
   for (const p of HARASSMENT_PATTERNS) {
-    if (p.test(message)) {
+    if (p.test(normalized) || p.test(message)) {
       return {
         kind: "refuse",
         reason: "harassment",
@@ -82,7 +92,7 @@ export function checkSafetyGate(message: string): SafetyVerdict {
     }
   }
   for (const p of ILLEGAL_PATTERNS) {
-    if (p.test(message)) {
+    if (p.test(normalized) || p.test(message)) {
       return {
         kind: "refuse",
         reason: "illegal_content",
@@ -95,7 +105,7 @@ export function checkSafetyGate(message: string): SafetyVerdict {
 
   // 2. Prompt-injection / system-prompt exfil attempts — refuse politely.
   for (const p of EXFIL_PATTERNS) {
-    if (p.test(message)) {
+    if (p.test(normalized) || p.test(message)) {
       return {
         kind: "refuse",
         reason: "prompt_exfiltration",

@@ -61,6 +61,5 @@ export async function GET() {
 
   return NextResponse.json({
     catalog: [...builtin, ...custom],
-    scope: { isDevFallback: scope.isDevFallback },
   });
 }

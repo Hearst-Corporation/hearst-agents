@@ -59,7 +59,6 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     templates,
-    scope: { isDevFallback: scope.isDevFallback },
   });
 }
 

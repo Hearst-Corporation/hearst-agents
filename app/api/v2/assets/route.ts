@@ -77,7 +77,6 @@ export async function GET(req: NextRequest) {
       assets: paginatedAssets,
       pagination: { offset, limit, total },
       source: allAssets.length > 0 ? "database" : "empty",
-      scope: { isDevFallback: scope.isDevFallback },
     });
   } catch (e) {
     console.error("GET /api/v2/assets: uncaught", e);
@@ -148,7 +147,6 @@ export async function POST(req: NextRequest) {
     {
       asset,
       success: true,
-      scope: { isDevFallback: scope.isDevFallback },
     },
     { status: 201 },
   );

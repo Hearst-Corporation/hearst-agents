@@ -21,9 +21,25 @@ function validateEnv(): void {
     );
   }
 
+  // Critical: tenant isolation requires explicit scope in production.
+  // Without these vars every user shares the "dev-tenant" fallback — full
+  // cross-user data exposure on shared infrastructure.
+  if (isProd && !process.env.HEARST_TENANT_ID) {
+    throw new Error(
+      "[ENV ERROR] HEARST_TENANT_ID is required in production. " +
+        "Without it all users share the dev-tenant scope."
+    );
+  }
+  if (isProd && !process.env.HEARST_WORKSPACE_ID) {
+    throw new Error(
+      "[ENV ERROR] HEARST_WORKSPACE_ID is required in production. " +
+        "Without it all users share the dev-workspace scope."
+    );
+  }
+
   // Production mode confirmation
   if (isProd) {
-    console.log("[ENV] Production mode validated — auth bypass disabled");
+    console.log("[ENV] Production mode validated — auth bypass disabled, tenant scope confirmed");
   }
 
   // Optional: warn if HEARST_API_KEY is not set in production

@@ -33,7 +33,6 @@ export async function GET() {
 
     return NextResponse.json({
       ...payload,
-      scope: { isDevFallback: scope.isDevFallback },
     });
   } catch (err) {
     console.error("[GET /api/v2/cockpit/today] uncaught", err);

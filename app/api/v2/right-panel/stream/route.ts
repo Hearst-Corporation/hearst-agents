@@ -68,7 +68,6 @@ export async function GET(req: NextRequest) {
           if (stopped || req.signal.aborted) return;
           const payload = JSON.stringify({
             ...data,
-            scope: { isDevFallback: scope.isDevFallback },
           });
           enqueue(encoder.encode(`event: panel\ndata: ${payload}\n\n`));
         } catch (e) {

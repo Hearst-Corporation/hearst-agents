@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
         metrics: r.metrics,
       }));
 
-      return NextResponse.json({ runs, scope: { isDevFallback: scope.isDevFallback } });
+      return NextResponse.json({ runs });
     }
 
     // Fallback: in-memory store — filtered by userId
@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
         metrics: r.metrics,
       }));
 
-    return NextResponse.json({ runs: memRuns, scope: { isDevFallback: scope.isDevFallback } });
+    return NextResponse.json({ runs: memRuns });
   } catch (e) {
     console.error("GET /api/v2/runs: uncaught", e);
     return NextResponse.json({ error: "internal_error" }, { status: 500 });

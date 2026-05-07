@@ -109,6 +109,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const MAX_MESSAGE_LENGTH = 50_000;
+  if (body.message.length > MAX_MESSAGE_LENGTH) {
+    return new Response(
+      JSON.stringify({ ok: false, error: "message_too_long", max: MAX_MESSAGE_LENGTH }),
+      { status: 400, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
+  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const validatedAssetIds = Array.isArray(body.attached_asset_ids)
+    ? body.attached_asset_ids.filter((id): id is string => typeof id === "string" && UUID_RE.test(id)).slice(0, 5)
+    : undefined;
+
   const db = requireServerSupabase();
 
   const stream = orchestrate(db, {
@@ -119,7 +132,7 @@ export async function POST(req: NextRequest) {
     threadId: body.thread_id,
     focalContext: body.focal_context,
     conversationHistory: body.history,
-    attachedAssetIds: body.attached_asset_ids,
+    attachedAssetIds: validatedAssetIds,
     personaId: typeof body.persona_id === "string" && body.persona_id.length > 0 ? body.persona_id : undefined,
     // missionId n'est pas accepté depuis le chat public — ownership validé via /api/v2/missions/[id]/run
     tenantId: scope.tenantId,

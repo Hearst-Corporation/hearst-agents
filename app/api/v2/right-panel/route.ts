@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       workspaceId: scope.workspaceId,
     });
 
-    return NextResponse.json({ ...data, scope: { isDevFallback: scope.isDevFallback } });
+    return NextResponse.json(data);
   } catch (e) {
     console.error("GET /api/v2/right-panel: uncaught", e);
     return NextResponse.json({ error: "internal_error" }, { status: 500 });

@@ -71,7 +71,14 @@ export async function resolveScope(
     workspaceId = workspaceId ?? DEV_WORKSPACE_ID;
     isDevFallback = true;
 
-    console.log(`[Scope] Dev fallback used — tenant: ${tenantId}, workspace: ${workspaceId} (${context}, user: ${userId.slice(0, 8)})`);
+    if (process.env.NODE_ENV === "production") {
+      console.error(
+        `[Scope] CRITICAL: dev fallback active in production — set HEARST_TENANT_ID + HEARST_WORKSPACE_ID ` +
+        `(${context}, user: ${userId.slice(0, 8)})`
+      );
+    } else {
+      console.log(`[Scope] Dev fallback used — tenant: ${tenantId}, workspace: ${workspaceId} (${context}, user: ${userId.slice(0, 8)})`);
+    }
   }
 
   return {

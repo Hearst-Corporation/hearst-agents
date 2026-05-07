@@ -172,7 +172,6 @@ export async function GET(_req: NextRequest) {
         total: services.length,
         connected: connectedCount,
         timestamp: Date.now(),
-        scope: { isDevFallback: scope.isDevFallback },
       },
     });
   } catch (error) {
