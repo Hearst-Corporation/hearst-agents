@@ -1,20 +1,56 @@
 {
-  "generatedAt": "2026-05-07T22:34:45.666Z",
-  "total": 5,
+  "generatedAt": "2026-05-07T22:48:11.111Z",
+  "total": 6,
   "counts": {
-    "verrouillé": 5,
+    "verrouillé": 6,
     "in_progress": 0,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 69,
-    "testsExistants": 40,
-    "testsManquants": 99,
-    "orphans": 5
+    "invariants": 87,
+    "testsExistants": 44,
+    "testsManquants": 124,
+    "orphans": 9
   },
   "features": [
+    {
+      "id": "assets",
+      "file": "assets.md",
+      "href": "docs/features/assets.md",
+      "statut": "verrouillé",
+      "statutRaw": "verrouillé v1.0",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-04",
+      "niveau": "P1",
+      "invariantsCount": 18,
+      "invariantsTitles": [
+        "I-1. Singleton store : `storeAsset()` + `loadAssetById()` uniques",
+        "I-2. `AssetKind` — 9 valeurs figées",
+        "I-3. `StorageProvider` interface figée",
+        "I-4. 5 storage providers reconnus",
+        "I-5. Boot-time precedence",
+        "I-6. Storage key format",
+        "I-7. Hybrid hot+cold — R2 source de vérité",
+        "I-8. `AssetProvenance` JSONB — pas de table dédiée pour le lineage",
+        "I-9. `AssetVariant` parent-child via FK `asset_id`",
+        "I-10. Variant generation : credits reserve atomique avant enqueue",
+        "I-11. Insufficient credits → HTTP 402",
+        "I-12. Asset deletion = hard-delete + cache evict + storage cleanup async",
+        "I-13. Cleanup scheduler — TTL 30j default + dry-run",
+        "I-14. Document upload PDF only",
+        "I-15. Detail resolution order",
+        "I-16. Variant kinds supportés v1 : `audio` + `video`",
+        "I-17. Hard scope check sur tous les endpoints `[id]`",
+        "I-18. ContentRef peut être text brut OU JSON"
+      ],
+      "testsExistantsCount": 4,
+      "testsManquantsCount": 25,
+      "testGap": "élevé",
+      "orphansCount": 4
+    },
     {
       "id": "auth",
       "file": "auth.md",

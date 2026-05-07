@@ -46,6 +46,35 @@ Spec : [docs/features/auth.md](../features/auth.md)
 
 ---
 
+### Assets — `assets` · P1
+
+Spec : [docs/features/assets.md](../features/assets.md)
+
+**Invariants** (résumé — 18, détails dans la spec) :
+
+| # | Invariant | Chemins surveillés |
+|---|-----------|---------------------|
+| I-1 | Singleton store `storeAsset()` + `loadAssetById()` (pas de double-write) | `lib/assets/types.ts` |
+| I-2 | `AssetKind` 9 valeurs figées | `lib/assets/types.ts` |
+| I-3 | `StorageProvider` interface 7 méthodes obligatoires | `lib/engine/runtime/assets/storage/types.ts` |
+| I-4 | 5 storage providers reconnus (local, r2, s3, hybrid, supabase) | `storage/index.ts` |
+| I-5 | Boot-time precedence Supabase → R2/hybrid → local | `instrumentation.ts`, `storage/index.ts` |
+| I-6 | Storage key format `{tenantId?}/{path}` + normalization stricte | `storage/types.ts` |
+| I-7 | Hybrid : R2 source de vérité, local = cache | `storage/hybrid.ts` |
+| I-8 | `AssetProvenance` JSONB (pas de table dédiée lineage) | `lib/assets/types.ts` |
+| I-9 | `AssetVariant` parent-child via FK `asset_id`, status pending\|generating\|ready\|failed | `lib/assets/variants.ts` |
+| I-10 | Variant gen : credits reserve atomique avant enqueue | `app/api/v2/assets/[id]/variants/route.ts` |
+| I-11 | Insufficient credits → HTTP 402 | `app/api/v2/assets/[id]/variants/route.ts` |
+| I-12 | Hard-delete + cache evict + storage cleanup async | `app/api/v2/assets/[id]/route.ts` |
+| I-13 | Cleanup scheduler TTL 30j default + dry-run mode | `lib/engine/runtime/assets/cleanup/` |
+| I-14 | Document upload PDF only (`application/pdf`) | `app/api/v2/documents/upload/route.ts` |
+| I-15 | Detail resolution order : runs in-mem → runs persisted → assets table | `lib/engine/runtime/assets/detail.ts` |
+| I-16 | Variant kinds v1 : audio + video uniquement | `app/api/v2/assets/[id]/variants/route.ts` |
+| I-17 | Hard scope check sur endpoints `[id]` → 404 (pas 403) | `app/api/v2/assets/[id]/*` |
+| I-18 | `contentRef` flexible : text brut OU JSON `{narration, payload}` | `lib/assets/types.ts`, viewers |
+
+---
+
 ### Missions — `missions` · P1
 
 Spec : [docs/features/missions.md](../features/missions.md)
@@ -163,7 +192,7 @@ Les 30 autres features de l'inventaire restent en mode autonomie standard tant q
 2. ~~`stage` (P0)~~ — verrouillé v1.0
 3. ~~`chat` (P0)~~ — verrouillé v1.0
 4. ~~`missions` (P1)~~ — verrouillé v1.0
-5. `assets` (P1) — hybrid storage
+5. ~~`assets` (P1)~~ — verrouillé v1.0
 6. `connections` (P1) — write-guard Composio
 7. `reports` (P1) — sharing token public
 8. `memory-kg` (P1) — backfill destructif possible
