@@ -26,7 +26,7 @@ export const dynamic = "force-dynamic";
 // ── GET ─────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  const { scope, error } = await requireScope({
+  const { scope: _scope, error } = await requireScope({
     context: "GET /api/v2/marketplace/templates",
   });
   if (error) {

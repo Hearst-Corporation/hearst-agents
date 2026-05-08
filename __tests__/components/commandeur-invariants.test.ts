@@ -10,7 +10,7 @@
  * en important directement le module (sans React).
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect } from "vitest";
 
 // ── Constantes du module ──────────────────────────────────────
 
