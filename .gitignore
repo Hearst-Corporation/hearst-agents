@@ -52,6 +52,8 @@ yarn-error.log*
 # … sauf les slash commands partagées (ADD protocol, etc.)
 !.claude/commands/
 !.claude/commands/**
+# … et le fichier de settings projet (hooks ADD)
+!.claude/settings.json
 
 # typescript
 *.tsbuildinfo
