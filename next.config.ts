@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // `output: "standalone"` est requis pour le build Docker (Dockerfile copie
+  // .next/standalone) mais entre en conflit avec le packaging serverless
+  // Vercel à l'étape "Deploying outputs..." (les 5 derniers deploys ont
+  // échoué ainsi). On le conditionne sur l'absence de VERCEL=1 (set auto
+  // par Vercel au build).
+  ...(process.env.VERCEL ? {} : { output: "standalone" as const }),
   // Pin la racine workspace pour que Turbopack n'aille pas la déduire
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {
