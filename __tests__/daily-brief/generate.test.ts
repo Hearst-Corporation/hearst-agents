@@ -37,7 +37,7 @@ describe("DAILY_BRIEF_SYSTEM_PROMPT", () => {
   });
 
   it("interdit l'invention", () => {
-    expect(DAILY_BRIEF_SYSTEM_PROMPT).toContain("N'invente JAMAIS");
+    expect(DAILY_BRIEF_SYSTEM_PROMPT).toContain("N'invente jamais");
   });
 
   it("contient au moins 2 few-shot examples", () => {

@@ -37,11 +37,12 @@ describe("mintRealtimeSession", () => {
 
     expect(body.model).toBe("gpt-4o-realtime-preview");
     expect(body.modalities).toEqual(["audio", "text"]);
-    expect(body.tools).toHaveLength(3);
+    expect(body.tools).toHaveLength(4);
     expect(body.tools.map((t: { name: string }) => t.name)).toEqual([
       "start_meeting_bot",
       "start_simulation",
       "generate_image",
+      "start_browser",
     ]);
     expect(body.tool_choice).toBe("auto");
   });

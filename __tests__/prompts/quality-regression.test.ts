@@ -62,7 +62,7 @@ const PROMPT_CHECKS: ReadonlyArray<PromptCheck> = [
     prompt: CONV_SUMMARY_SYSTEM_PROMPT,
     mustContain: [
       "éditeur d'archives",
-      "FORMAT STRICT",
+      "FORMAT SPÉCIFIQUE",
       "décisions prises",
       "BANNIS",
       "EXEMPLES",

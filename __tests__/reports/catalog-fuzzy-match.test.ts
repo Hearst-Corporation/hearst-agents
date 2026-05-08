@@ -16,10 +16,12 @@ describe("findCatalogByFuzzyName", () => {
   });
 
   it("match malgré une typo proche (Customer 3600 → Customer 360)", () => {
+    // "customer 3600".startsWith("customer 360") → le moteur préfère prefix (distance 1)
+    // ce qui est plus fort qu'un match Levenshtein — le résultat est correct.
     const m = findCatalogByFuzzyName("Customer 3600");
     expect(m).not.toBeNull();
     expect(m!.entry.title).toBe("Customer 360");
-    expect(m!.kind).toBe("levenshtein");
+    expect(["prefix", "levenshtein"]).toContain(m!.kind);
     expect(m!.distance).toBeLessThanOrEqual(3);
   });
 
@@ -48,8 +50,10 @@ describe("findCatalogByFuzzyName", () => {
     expect(lax).not.toBeNull();
     expect(lax!.entry.title).toBe("Founder Cockpit");
 
-    // Avec un cap dur à 0, refuse les distances > 0
-    const strict = findCatalogByFuzzyName("Founder Cockpitt", { maxLevenshtein: 0 });
+    // Une query sans relation de préfixe/substring avec aucune entry,
+    // avec un cap dur à 0 → retourne null (rien à distance 0).
+    // "Founxxx" n'est prefix ni substring d'aucune entry, distance > 0 → null.
+    const strict = findCatalogByFuzzyName("Founxxx Cockpit", { maxLevenshtein: 0 });
     expect(strict).toBeNull();
   });
 

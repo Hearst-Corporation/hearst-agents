@@ -211,7 +211,7 @@ describe("MISSION_CONTEXT_SYSTEM_PROMPT", () => {
   it("interdit les formules creuses", () => {
     // Le prompt liste des bannissements explicites
     expect(MISSION_CONTEXT_SYSTEM_PROMPT.toLowerCase()).toContain("voici");
-    expect(MISSION_CONTEXT_SYSTEM_PROMPT).toContain("Bannis");
+    expect(MISSION_CONTEXT_SYSTEM_PROMPT).toContain("BANNIS");
   });
 
   it("contient au moins 2 few-shot examples (pattern <example>)", () => {

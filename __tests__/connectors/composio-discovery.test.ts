@@ -111,10 +111,14 @@ describe("Composio discovery (new SDK)", () => {
     await getToolsForUser("u1");
     invalidateUserDiscovery("u1");
     stubActiveAccounts(["gmail", "slackbot"]);
-    toolsGet.mockResolvedValueOnce({ items: [sampleGmail, sampleSlack] });
+    // Second fetch calls tools.get PER TOOLKIT (1 per active toolkit) → 2 extra calls
+    toolsGet.mockResolvedValue({ items: [] });
+    toolsGet.mockResolvedValueOnce({ items: [sampleGmail] });
+    toolsGet.mockResolvedValueOnce({ items: [sampleSlack] });
     const out = await getToolsForUser("u1");
     expect(out).toHaveLength(2);
-    expect(toolsGet).toHaveBeenCalledTimes(2);
+    // 1 call (first fetch: gmail only) + 2 calls (second fetch: gmail + slackbot per-toolkit)
+    expect(toolsGet).toHaveBeenCalledTimes(3);
   });
 
   it("isolates cache between users", async () => {
