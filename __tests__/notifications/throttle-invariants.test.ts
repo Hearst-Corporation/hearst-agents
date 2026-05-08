@@ -90,8 +90,8 @@ describe("dispatchAlerts — best-effort canaux", () => {
 
     const preferences: AlertingPreferences = {
       webhooks: [
-        { url: "https://fail.example.com", signalTypes: "*", enabled: true },
-        { url: "https://ok.example.com", signalTypes: "*", enabled: true },
+        { url: "https://fail.example.com", signalTypes: ["*"] },
+        { url: "https://ok.example.com", signalTypes: ["*"] },
       ],
     };
 
@@ -137,7 +137,7 @@ describe("dispatchAlerts — severityFloor", () => {
       signals: [makeSignal("warning")],
       report: REPORT,
       preferences: {
-        webhooks: [{ url: "https://ok.example.com", signalTypes: "*", enabled: true }],
+        webhooks: [{ url: "https://ok.example.com", signalTypes: ["*"] }],
       },
       throttleStore: makeStore(),
       severityFloor: "warning",

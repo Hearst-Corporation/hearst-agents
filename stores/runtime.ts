@@ -66,8 +66,8 @@ interface RuntimeState {
   /**
    * AbortController du fetch en cours. Non sérialisable — le store n'étant
    * pas persisté c'est safe. `stopRun()` l'invoque pour fermer la connexion
-   * SSE côté client. Le backend continue silencieusement (TODO endpoint
-   * dédié `/api/orchestrate/abort/[runId]` pour vrai kill serveur).
+   * SSE côté client ET POST `/api/orchestrate/abort/[runId]` pour stopper
+   * le run côté serveur.
    */
   abortController: AbortController | null;
   setAbortController: (controller: AbortController | null) => void;
@@ -309,7 +309,7 @@ export const useRuntimeStore = create<RuntimeState>()(
           });
           break;
         }
-        case "focal_object_ready":
+        case "focal_object_ready": {
           const focalData = event.focal_object as Record<string, unknown>;
           if (focalData) {
             useFocalStore.getState().setFocal({
@@ -339,6 +339,7 @@ export const useRuntimeStore = create<RuntimeState>()(
             });
           }
           break;
+        }
       }
     },
 

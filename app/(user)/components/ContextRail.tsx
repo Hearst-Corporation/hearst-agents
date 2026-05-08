@@ -21,7 +21,6 @@ import { useServicesStore } from "@/stores/services";
 import { useNavigationStore } from "@/stores/navigation";
 import { voiceToolDefs, VOICE_TOOL_LABELS } from "@/lib/voice/tool-defs";
 import { ProviderChip } from "./ProviderChip";
-import { useRightPanelData } from "./right-panel/useRightPanelData";
 import { GeneralDashboard } from "./right-panel/GeneralDashboard";
 import { SystemServicesRow } from "./right-panel/SystemServicesRow";
 import { SystemConstellation } from "./right-panel/SystemConstellation";
@@ -254,9 +253,6 @@ function EmptyHint({ children }: { children: React.ReactNode }) {
 // Spec : [docs/screens/right-panel-dashboard.md](docs/screens/right-panel-dashboard.md)
 
 function CockpitChatBody() {
-  const activeThreadId = useNavigationStore((s) => s.activeThreadId);
-  const { assets, missions, loading } = useRightPanelData();
-
   return (
     <div className="h-full flex flex-col">
       {/* Strate 1 — Services Composio sollicités */}
@@ -267,18 +263,13 @@ function CockpitChatBody() {
       <div className="shrink-0">
         <SystemConstellation />
       </div>
-      {/* Strate 2.5 — Strip agents icônes SVG distinctes */}
+      {/* Strate 3 — Strip agents icônes SVG distinctes */}
       <div className="shrink-0">
         <AgentsStrip />
       </div>
-      {/* Strates 3, 4, 5 — Actions / Statut / Contexte sélectionné */}
+      {/* Strates 4, 5, 6 — Actions / Statut / Contexte sélectionné */}
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-hide">
-        <GeneralDashboard
-          assets={assets}
-          missions={missions}
-          activeThreadId={activeThreadId}
-          loading={loading}
-        />
+        <GeneralDashboard />
       </div>
     </div>
   );
@@ -427,8 +418,6 @@ function ContextRailForAsset() {
 function ContextRailForBrowser() {
   return (
     <div className="h-full overflow-y-auto">
-
-
       <Section label="Co-pilot">
         <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
           Agent navigating in the live session. Take Over coming with
@@ -513,7 +502,7 @@ function ContextRailForKnowledge() {
         )}
       </Section>
       <Section label="Graph" count={graph.nodes.length}>
-        <p className="t-9 font-light text-[var(--text-faint)] font-light">
+        <p className="t-9 font-light text-[var(--text-faint)]">
           {graph.nodes.length} entities · {graph.edges.length} relations
         </p>
       </Section>
@@ -628,7 +617,7 @@ function ContextRailForVoice() {
         {toolCallCount === 0 ? (
           <EmptyHint>No tool calls yet</EmptyHint>
         ) : (
-          <p className="t-9 font-light text-[var(--text-faint)] font-light leading-relaxed">
+          <p className="t-9 font-light text-[var(--text-faint)] leading-relaxed">
             {transcript
               .filter((e) => e.role === "tool_call")
               .slice(-5)
@@ -638,7 +627,7 @@ function ContextRailForVoice() {
         )}
       </Section>
       <Section label="Available tools" count={totalToolsCount}>
-        <p className="t-9 font-light text-[var(--text-faint)] font-light leading-relaxed">
+        <p className="t-9 font-light text-[var(--text-faint)] leading-relaxed">
           {[
             ...voiceToolDefs.map((t) => VOICE_TOOL_LABELS[t.name] ?? t.name),
             ...connectedApps.map((a) => a.name),

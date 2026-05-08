@@ -23,6 +23,7 @@ import { useFocalStore } from "@/stores/focal";
 import { useSelectionStore, type Selection } from "@/stores/selection";
 import { useNotificationsStore } from "@/stores/notifications";
 import { AGENT_METADATA, type AgentRoleId } from "@/lib/cockpit/agents";
+import { AGENT_ICON_MAP } from "./AgentIcons";
 
 // ── Voix éditoriale FR ───────────────────────────────────────
 
@@ -48,23 +49,7 @@ interface ActionItem {
 
 // ──────────────────────────────────────────────────────────────
 
-interface GeneralDashboardProps {
-  assets?: unknown;
-  missions?: unknown;
-  onViewChange?: (view: "reports" | "missions" | "assets") => void;
-  activeThreadId?: string | null;
-  loading?: boolean;
-}
-
-export function GeneralDashboard({
-  assets: _a,
-  missions: _m,
-  onViewChange: _o,
-  activeThreadId: _t,
-  loading: _l,
-}: GeneralDashboardProps) {
-  void _a; void _m; void _o; void _t; void _l;
-
+export function GeneralDashboard() {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
       <QuickActions />
@@ -446,7 +431,7 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
             color: "var(--cykan)",
           }}
         >
-          {isAgent ? <AgentContextIcon roleId={selection.id as AgentRoleId} /> : <ObjectContextIcon kind={selection.kind} />}
+          <AgentOrObjectIcon isAgent={isAgent} roleId={selection.id as AgentRoleId} kind={selection.kind} />
         </span>
 
         <span className="flex flex-col flex-1 min-w-0">
@@ -529,19 +514,22 @@ const FOCAL_TYPE_LABEL: Record<string, string> = {
   mission_active: "Mission",
 };
 
-// ── Icônes contexte agent ─────────────────────────────────────
+// ── Icône contexte (agent ou objet) ──────────────────────────
 
-function AgentContextIcon({ roleId }: { roleId: AgentRoleId }) {
-  const size = 20;
-  switch (roleId) {
-    case "pulse":  return <svg width={size} height={size} viewBox="0 0 22 22" fill="none"><rect x="2" y="10" width="3" height="6" rx="1" fill="currentColor" opacity={0.6}/><rect x="7" y="5" width="3" height="12" rx="1" fill="currentColor"/><rect x="12" y="7" width="3" height="9" rx="1" fill="currentColor" opacity={0.8}/><rect x="17" y="12" width="3" height="4" rx="1" fill="currentColor" opacity={0.5}/></svg>;
-    case "cortex": return <svg width={size} height={size} viewBox="0 0 22 22" fill="none">{Array.from({length:6},(_,i)=>{const a=(i*60-90)*Math.PI/180;return<circle key={i} cx={11+7*Math.cos(a)} cy={11+7*Math.sin(a)} r={1.5} fill="currentColor" opacity={i%2?0.6:1}/>})}<circle cx="11" cy="11" r="2" fill="currentColor"/></svg>;
-    case "delve":  return <svg width={size} height={size} viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2.5"/><circle cx="11" cy="11" r="4" stroke="currentColor" strokeWidth="1" opacity={0.6}/><circle cx="11" cy="11" r="1.5" fill="currentColor"/></svg>;
-    case "warden": return <svg width={size} height={size} viewBox="0 0 22 22" fill="none"><path d="M11 3L19 6.5V11.5C19 15.5 15.5 18.8 11 20C6.5 18.8 3 15.5 3 11.5V6.5L11 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/><path d="M8 11L10 13L14 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-    case "scribe": return <svg width={size} height={size} viewBox="0 0 22 22" fill="none"><rect x="4" y="3" width="14" height="17" rx="2" stroke="currentColor" strokeWidth="1.5"/><line x1="7" y1="8" x2="15" y2="8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><line x1="7" y1="11" x2="15" y2="11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/><line x1="7" y1="14" x2="11" y2="14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>;
-    case "pilot":  return <svg width={size} height={size} viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5"/><circle cx="11" cy="11" r="4.5" stroke="currentColor" strokeWidth="1" opacity={0.6}/><line x1="11" y1="3" x2="11" y2="5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><line x1="11" y1="16.5" x2="11" y2="19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><line x1="3" y1="11" x2="5.5" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><line x1="16.5" y1="11" x2="19" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="11" cy="11" r="1.8" fill="currentColor"/></svg>;
-    default: return null;
+function AgentOrObjectIcon({
+  isAgent,
+  roleId,
+  kind,
+}: {
+  isAgent: boolean;
+  roleId: AgentRoleId;
+  kind: string;
+}) {
+  if (isAgent) {
+    const Icon = AGENT_ICON_MAP[roleId];
+    return Icon ? <Icon color="var(--cykan)" /> : null;
   }
+  return <ObjectContextIcon kind={kind} />;
 }
 
 function ObjectContextIcon({ kind }: { kind: string }) {

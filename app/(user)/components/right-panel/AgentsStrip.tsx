@@ -13,7 +13,6 @@
  * Spec : docs/screens/right-panel-dashboard.md
  */
 
-import type { FC } from "react";
 import { useMemo } from "react";
 import { useSelectionStore } from "@/stores/selection";
 import { useRuntimeStore } from "@/stores/runtime";
@@ -22,6 +21,7 @@ import {
   deriveActiveRolesFromEvents,
   type AgentRoleId,
 } from "@/lib/cockpit/agents";
+import { AGENT_ICON_MAP } from "./AgentIcons";
 
 const AGENT_ORDER: AgentRoleId[] = [
   "pulse",
@@ -31,101 +31,6 @@ const AGENT_ORDER: AgentRoleId[] = [
   "scribe",
   "pilot",
 ];
-
-// ── Icônes SVG distinctes par rôle ───────────────────────────
-// Inspirées des maquettes : chaque rôle a une signature visuelle propre.
-
-function PulseIcon({ active }: { active: boolean }) {
-  const c = active ? "var(--cykan)" : "var(--text-ghost)";
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-      <rect x="2" y="10" width="3" height="6" rx="1" fill={c} opacity={0.6} />
-      <rect x="7" y="5"  width="3" height="12" rx="1" fill={c} />
-      <rect x="12" y="7" width="3" height="9"  rx="1" fill={c} opacity={0.8} />
-      <rect x="17" y="12" width="3" height="4" rx="1" fill={c} opacity={0.5} />
-    </svg>
-  );
-}
-
-function CortexIcon({ active }: { active: boolean }) {
-  const c = active ? "var(--cykan)" : "var(--text-ghost)";
-  const r = 7;
-  const cx = 11, cy = 11;
-  const dots = Array.from({ length: 6 }, (_, i) => {
-    const a = (i * 60 - 90) * (Math.PI / 180);
-    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
-  });
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-      {dots.map((d, i) => (
-        <circle key={i} cx={d.x} cy={d.y} r={1.5} fill={c} opacity={i % 2 ? 0.6 : 1} />
-      ))}
-      <circle cx={cx} cy={cy} r={2} fill={c} opacity={0.9} />
-    </svg>
-  );
-}
-
-function DelveIcon({ active }: { active: boolean }) {
-  const c = active ? "var(--cykan)" : "var(--text-ghost)";
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-      <circle cx="11" cy="11" r="8" stroke={c} strokeWidth="1.5" strokeDasharray="3 2.5" />
-      <circle cx="11" cy="11" r="4" stroke={c} strokeWidth="1" opacity={0.6} />
-      <circle cx="11" cy="11" r="1.5" fill={c} />
-    </svg>
-  );
-}
-
-function WardenIcon({ active }: { active: boolean }) {
-  const c = active ? "var(--cykan)" : "var(--text-ghost)";
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-      <path
-        d="M11 3 L19 6.5 V11.5 C19 15.5 15.5 18.8 11 20 C6.5 18.8 3 15.5 3 11.5 V6.5 L11 3Z"
-        stroke={c}
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path d="M8 11 L10 13 L14 9" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function ScribeIcon({ active }: { active: boolean }) {
-  const c = active ? "var(--cykan)" : "var(--text-ghost)";
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-      <rect x="4" y="3" width="14" height="17" rx="2" stroke={c} strokeWidth="1.5" />
-      <line x1="7" y1="8"  x2="15" y2="8"  stroke={c} strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="7" y1="11" x2="15" y2="11" stroke={c} strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="7" y1="14" x2="11" y2="14" stroke={c} strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function PilotIcon({ active }: { active: boolean }) {
-  const c = active ? "var(--cykan)" : "var(--text-ghost)";
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-      <circle cx="11" cy="11" r="8" stroke={c} strokeWidth="1.5" />
-      <circle cx="11" cy="11" r="4.5" stroke={c} strokeWidth="1" opacity={0.6} />
-      <line x1="11" y1="3" x2="11" y2="5.5"  stroke={c} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="11" y1="16.5" x2="11" y2="19" stroke={c} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="3" y1="11" x2="5.5" y2="11"  stroke={c} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="16.5" y1="11" x2="19" y2="11" stroke={c} strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="11" cy="11" r="1.8" fill={c} />
-    </svg>
-  );
-}
-
-const AGENT_ICONS: Record<AgentRoleId, FC<{ active: boolean }>> = {
-  pulse:  PulseIcon,
-  cortex: CortexIcon,
-  delve:  DelveIcon,
-  warden: WardenIcon,
-  scribe: ScribeIcon,
-  pilot:  PilotIcon,
-};
 
 // ──────────────────────────────────────────────────────────────
 
@@ -170,7 +75,7 @@ export function AgentsStrip() {
         {AGENT_ORDER.map((id) => {
           const isActive = activeRoles.has(id);
           const isSelected = selectedId === id;
-          const Icon = AGENT_ICONS[id];
+          const Icon = AGENT_ICON_MAP[id];
           const meta = AGENT_METADATA[id];
           return (
             <button
@@ -194,7 +99,7 @@ export function AgentsStrip() {
                 ["--tw-ring-color" as string]: "var(--cykan)",
               }}
             >
-              <Icon active={isActive} />
+              <Icon color={isActive ? "var(--cykan)" : "var(--text-ghost)"} />
               <span
                 className="t-9 font-light"
                 style={{

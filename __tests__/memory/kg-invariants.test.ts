@@ -186,7 +186,7 @@ describe("kg-invariants — KG UNIQUE dedupe UPSERT", () => {
     expect(upsertCapture).toHaveBeenCalledTimes(1);
 
     // Vérifie que onConflict est présent dans les options
-    const [_data, opts] = upsertCapture.mock.calls[0] as [
+    const [_data, opts] = upsertCapture.mock.calls[0] as unknown as [
       unknown,
       { onConflict?: string },
     ];
