@@ -49,6 +49,17 @@ function validateEnv(): void {
       "[ENV] Note: HEARST_API_KEY not set — relying on session auth only"
     );
   }
+
+  // Jobs async : warn si ni Redis ni Inngest ne sont configurés en prod.
+  // Sans l'un ou l'autre, enqueueJob() throw sur tous les job types sauf daily-brief.
+  // Solution recommandée sur Vercel : set INNGEST_EVENT_KEY + INNGEST_SIGNING_KEY.
+  if (isProd && !process.env.REDIS_URL && !process.env.INNGEST_EVENT_KEY) {
+    console.warn(
+      "[ENV] Warning: REDIS_URL and INNGEST_EVENT_KEY both absent — " +
+      "async jobs (audio, image, video, code-exec, doc-parse) will fail. " +
+      "Set INNGEST_EVENT_KEY for Vercel or REDIS_URL for self-hosted."
+    );
+  }
 }
 
 // Execute validation immediately on module load

@@ -13,7 +13,7 @@
 
 import "@/lib/env.server";
 import { NextResponse, type NextRequest } from "next/server";
-import { aj, isArcjetEnabled } from "@/lib/security/arcjet";
+import { aj, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -68,8 +68,13 @@ function isArcjetProtected(path: string): boolean {
 }
 
 async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
-  if (!isArcjetEnabled() || !aj) return null;
-  const decision = await aj.protect(req, { requested: 1 });
+  if (!isArcjetEnabled()) return null;
+  // Règles strictes sur orchestrate (coût LLM), générales sur les autres chemins
+  const instance = req.nextUrl.pathname.startsWith("/api/orchestrate")
+    ? ajOrchestrate
+    : aj;
+  if (!instance) return null;
+  const decision = await instance.protect(req, { requested: 1 });
   if (decision.isDenied()) {
     if (decision.reason.isRateLimit()) {
       return NextResponse.json({ error: "rate_limited" }, { status: 429 });

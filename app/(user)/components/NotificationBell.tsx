@@ -83,14 +83,16 @@ export function NotificationBell() {
   const loading = useNotificationsStore((s) => s.loading);
   const markRead = useNotificationsStore((s) => s.markRead);
   const markAllRead = useNotificationsStore((s) => s.markAllRead);
-  const startPolling = useNotificationsStore((s) => s.startPolling);
+  const startRealtime = useNotificationsStore((s) => s.startRealtime);
   const stopPolling = useNotificationsStore((s) => s.stopPolling);
 
-  // Polling actif tant que le composant est monté
+  // Realtime Supabase — fallback polling 60s si le channel échoue.
+  // NEXT_PUBLIC_HEARST_TENANT_ID doit matcher HEARST_TENANT_ID en prod.
   useEffect(() => {
-    startPolling();
+    const tenantId = process.env.NEXT_PUBLIC_HEARST_TENANT_ID ?? "dev-tenant";
+    startRealtime(tenantId);
     return () => stopPolling();
-  }, [startPolling, stopPolling]);
+  }, [startRealtime, stopPolling]);
 
   // Ferme le dropdown si clic extérieur
   useEffect(() => {
