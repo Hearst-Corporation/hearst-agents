@@ -22,9 +22,7 @@ import { useNavigationStore } from "@/stores/navigation";
 import { voiceToolDefs, VOICE_TOOL_LABELS } from "@/lib/voice/tool-defs";
 import { ProviderChip } from "./ProviderChip";
 import { GeneralDashboard } from "./right-panel/GeneralDashboard";
-import { SystemServicesRow } from "./right-panel/SystemServicesRow";
-import { SystemConstellation } from "./right-panel/SystemConstellation";
-import { AgentsStrip } from "./right-panel/AgentsStrip";
+import { SystemGraph } from "./right-panel/SystemGraph";
 import { ContextRailForMission } from "./ContextRailForMission";
 import {
   ContextRailForRuns,
@@ -255,19 +253,13 @@ function EmptyHint({ children }: { children: React.ReactNode }) {
 function CockpitChatBody() {
   return (
     <div className="h-full flex flex-col">
-      {/* Strate 1 — Services Composio sollicités */}
+      {/* Strate 1 — Graph système 3D : 6 agents en hexagone, particules
+          circulant sur les edges entre rôles co-actifs (lib 3d-force-graph).
+          Remplace constellation + services particules + strip SVG. */}
       <div className="shrink-0">
-        <SystemServicesRow />
+        <SystemGraph />
       </div>
-      {/* Strate 2 — Constellation système (6 rôles, lignes co-actives) */}
-      <div className="shrink-0">
-        <SystemConstellation />
-      </div>
-      {/* Strate 3 — Strip agents icônes SVG distinctes */}
-      <div className="shrink-0">
-        <AgentsStrip />
-      </div>
-      {/* Strates 4, 5, 6 — Actions / Statut / Contexte sélectionné */}
+      {/* Strates 2, 3, 4 — Actions / Statut / Contexte sélectionné */}
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-hide">
         <GeneralDashboard />
       </div>

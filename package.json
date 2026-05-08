@@ -53,6 +53,7 @@
     "@supabase/supabase-js": "^2.103.3",
     "@types/three": "^0.184.0",
     "@upstash/redis": "^1.37.0",
+    "3d-force-graph": "^1.80.0",
     "ai": "^6.0.168",
     "bullmq": "^5.76.3",
     "cytoscape": "^3.33.2",
