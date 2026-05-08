@@ -4,6 +4,38 @@ import { useMemo } from "react";
 
 const ISO_DATE_RE = /:\s*(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)\s*$/;
 
+type Source = { title: string; url: string };
+
+// Format produit par run-research-report.ts : contentRef est du JSON
+// `{ payload, narration, research }`. On extrait la narration markdown
+// + les sources pour les rendre proprement au lieu d'afficher du JSON brut.
+function extractContent(content: string): { markdown: string; sources?: Source[] } {
+  if (!content.trimStart().startsWith("{")) return { markdown: content };
+  try {
+    const parsed = JSON.parse(content) as {
+      narration?: unknown;
+      research?: { sources?: unknown };
+    };
+    const markdown =
+      typeof parsed.narration === "string" && parsed.narration.length > 0
+        ? parsed.narration
+        : content;
+    const rawSources = parsed.research?.sources;
+    const sources = Array.isArray(rawSources)
+      ? rawSources.filter(
+          (s): s is Source =>
+            typeof s === "object" &&
+            s !== null &&
+            typeof (s as Source).title === "string" &&
+            typeof (s as Source).url === "string",
+        )
+      : undefined;
+    return { markdown, sources };
+  } catch {
+    return { markdown: content };
+  }
+}
+
 type Block =
   | { kind: "h1"; text: string }
   | { kind: "h2"; text: string }
@@ -63,7 +95,8 @@ function formatDate(iso: string): string {
 }
 
 export function ResearchReportArticle({ content }: { content: string }) {
-  const blocks = useMemo(() => parse(content), [content]);
+  const { markdown, sources } = useMemo(() => extractContent(content), [content]);
+  const blocks = useMemo(() => parse(markdown), [markdown]);
 
   return (
     <article className="flex flex-col gap-6 max-w-[var(--width-center-max)] text-[var(--text)]">
@@ -114,6 +147,33 @@ export function ResearchReportArticle({ content }: { content: string }) {
             );
         }
       })}
+      {sources && sources.length > 0 && (
+        <section className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col gap-3">
+          <h3
+            className="t-9 font-mono uppercase text-[var(--text-muted)]"
+            style={{ letterSpacing: "var(--tracking-banner)" }}
+          >
+            Sources · {sources.length}
+          </h3>
+          <ul className="flex flex-col gap-2">
+            {sources.map((s, i) => (
+              <li key={i} className="flex items-baseline gap-3">
+                <span className="t-9 font-mono text-[var(--text-faint)] shrink-0" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--cykan)] underline underline-offset-2 decoration-[var(--line)] hover:decoration-[var(--cykan)]"
+                >
+                  {s.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </article>
   );
 }

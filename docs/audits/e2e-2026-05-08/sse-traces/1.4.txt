@@ -1,0 +1,22 @@
+data: {"type":"run_started","run_id":"839dae8f-a195-4efd-b952-201704989b80"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: finance)"}
+
+data: {"type":"text_delta","delta":"Draft"}
+
+data: {"type":"text_delta","delta":" de la mission :\n\n**Nom** : Brief matinal marchés crypto\n**Récurrence** : Tous les jours à 8h\n**Cron**"}
+
+data: {"type":"text_delta","delta":" : `0 8 * * *`\n**Tâche** : Prix + variations 24h (BTC, ETH, SOL minimum"}
+
+data: {"type":"text_delta","delta":"), volumes, dominance BTC, signaux directionnels, news majeures du jour. Format bullets scannables."}
+
+data: {"type":"text_delta","delta":"\n\nRéponds **confirmer** pour activer, ou **annuler** pour abandonner."}
+
+data: {"type":"run_completed","run_id":"839dae8f-a195-4efd-b952-201704989b80","artifacts":[]}
+

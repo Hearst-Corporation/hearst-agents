@@ -1,0 +1,16 @@
+data: {"type":"run_started","run_id":"b217f0c8-b9fc-457c-af39-7aaf00180ed1"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Routing inferred crm.read but user didn't mention it — falling through to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: crm)"}
+
+data: {"type":"text_delta","delta":"Quel client ? Donne-moi un nom, un email ou un domaine."}
+
+data: {"type":"run_completed","run_id":"b217f0c8-b9fc-457c-af39-7aaf00180ed1","artifacts":[]}
+

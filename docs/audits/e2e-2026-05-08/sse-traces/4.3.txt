@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"5a76d99c-9197-4fe2-b974-8b5e31025973"}
+
+data: {"type":"tool_surface","context":"research","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Default workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research + report intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-5a76d99c-9197-4fe2-b974-8b5e31025973","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Rapport hospitality RevPAR\""}
+
+data: {"type":"step_completed","step_id":"research-5a76d99c-9197-4fe2-b974-8b5e31025973"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-5a76d99c-9197-4fe2-b974-8b5e31025973","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-5a76d99c-9197-4fe2-b974-8b5e31025973"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (381 chars)"}
+
+data: {"type":"text_delta","delta":"- Why embrace REVPAP Revenue Per Available Person: \n- What Key Hotel Metric Is After RevPAR - Hotel.Report EN: \n- RevPAR: The Ultimate Hospitality Deep Dive — www.hospemag.me: 2026-03-07T00:00:00.000Z\n- GOPPAR is the new north star: why RevPAR alone no longer tells the truth: 2026-01-17T00:00:00.000Z\n- Beyond RevPAR: The Metrics Redefining Hotel Revenue: 2026-03-25T00:00:00.000Z"}
+
+data: {"type":"asset_generated","asset_id":"eb6b3da5-9bc2-47d8-a597-11a31620f962","asset_type":"report","name":"Hospitality revpar — Report"}
+
+data: {"type":"focal_object_ready","focal_object":{"objectType":"report","id":"fo_eb6b3da5-9bc2-47d8-a597-11a31620f962","threadId":"t-e2e-4.3","title":"Hospitality revpar — Report","status":"delivered","createdAt":1778207131712,"updatedAt":1778207131712,"sourceAssetId":"eb6b3da5-9bc2-47d8-a597-11a31620f962","morphTarget":null,"summary":"- Why embrace REVPAP Revenue Per Available Person: \n- What Key Hotel Metric Is After RevPAR - Hotel.Report EN: \n- RevPAR: The Ultimate Hospitality Deep Dive — www.hospemag.me: 2026-03-07T00:00:00.000Z","sections":[],"tier":"report","tone":"executive","wordCount":54}}
+
+data: {"type":"orchestrator_log","message":"Asset created: Hospitality revpar — Report"}
+
+data: {"type":"run_completed","run_id":"5a76d99c-9197-4fe2-b974-8b5e31025973","artifacts":[]}
+

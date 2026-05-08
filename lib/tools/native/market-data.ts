@@ -134,7 +134,10 @@ function formatStockQuotes(quotes: Array<QuoteSnapshot | { symbol: string; error
 export function buildMarketDataTools(): AiToolMap {
   const cryptoTool: Tool<CryptoArgs, string> = {
     description:
-      "Récupère les prix crypto en temps réel via CoinGecko. Retourne prix actuel + variation 24h pour chaque coin demandé. Aucune clé API requise. Use this dès que le user demande des prix crypto, un récap marché crypto, ou inclut crypto dans une mission récurrente.",
+      "Prix crypto LIVE via CoinGecko (gratuit, pas de cache). Retourne prix actuel + variation 24h. " +
+      "**TOOL OBLIGATOIRE pour TOUTE demande de prix/cours crypto** — bitcoin, ethereum, solana, BTC, ETH, SOL, etc. " +
+      "Use this AU LIEU DE `web_search` dès que la requête contient un nom de crypto + un mot prix/cours/actuellement/maintenant/today/aujourd'hui. " +
+      "Exemples : 'prix du bitcoin', 'cours ETH', 'BTC maintenant', 'récap marché crypto', mission récurrente avec crypto.",
     inputSchema: jsonSchema<CryptoArgs>({
       type: "object",
       properties: {
@@ -169,7 +172,10 @@ export function buildMarketDataTools(): AiToolMap {
 
   const stockTool: Tool<StockArgs, string> = {
     description:
-      "Récupère les cotations boursières (actions, indices, ETF, devises, matières premières) via Yahoo Finance. Retourne prix actuel + variation vs clôture précédente. Aucune clé API requise. Use this dès que le user demande des cours bourse, indices (S&P, CAC, Dow), ETF, ou inclut marchés traditionnels dans une mission récurrente. Indices Yahoo : ^GSPC (S&P 500), ^DJI (Dow), ^IXIC (Nasdaq), ^FCHI (CAC 40), ^STOXX50E (EuroStoxx). Devises : EURUSD=X, GBPUSD=X. Or : GC=F. Pétrole : CL=F.",
+      "Cotations boursières LIVE via Yahoo Finance (actions, indices, ETF, devises, matières premières). Retourne prix actuel + variation vs clôture précédente. Gratuit, pas de cache. " +
+      "**TOOL OBLIGATOIRE pour TOUTE demande de cours bourse / actions / indices** — AAPL, MSFT, S&P, CAC, Dow, etc. " +
+      "Use this AU LIEU DE `web_search` dès que la requête contient un ticker (3-5 lettres majuscules) ou un nom d'indice. " +
+      "Indices Yahoo : ^GSPC (S&P 500), ^DJI (Dow), ^IXIC (Nasdaq), ^FCHI (CAC 40), ^STOXX50E (EuroStoxx). Devises : EURUSD=X, GBPUSD=X. Or : GC=F. Pétrole : CL=F.",
     inputSchema: jsonSchema<StockArgs>({
       type: "object",
       required: ["symbols"],

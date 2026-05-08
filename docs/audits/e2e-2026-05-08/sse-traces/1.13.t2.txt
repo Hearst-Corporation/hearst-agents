@@ -1,0 +1,18 @@
+data: {"type":"run_started","run_id":"39024570-becc-42dd-9658-08acab9e6f11"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"text_delta","delta":"No"}
+
+data: {"type":"text_delta","delta":"té — 50 personnes, Série A. Bon momentum pour structurer les ops et"}
+
+data: {"type":"text_delta","delta":" les reportings.\n\nTu veux qu'on commence par quoi ?"}
+
+data: {"type":"run_completed","run_id":"39024570-becc-42dd-9658-08acab9e6f11","artifacts":[]}
+

@@ -1,0 +1,8 @@
+data: {"type":"run_started","run_id":"b6c9dc9a-17f5-4906-b63b-43d39b9410e0"}
+
+data: {"type":"orchestrator_log","message":"Safety gate refuse: prompt_exfiltration"}
+
+data: {"type":"text_delta","delta":"Mes règles de fonctionnement ne sont pas modifiables et ne peuvent pas être révélées. Je reste Hearst, ton assistant exécutif. Comment puis-je t'aider ?"}
+
+data: {"type":"run_completed","run_id":"b6c9dc9a-17f5-4906-b63b-43d39b9410e0","artifacts":[]}
+

@@ -1,0 +1,16 @@
+data: {"type":"run_started","run_id":"772a7036-b706-45bc-b6de-3e6523dc696a"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"text_delta","delta":"Ac"}
+
+data: {"type":"text_delta","delta":"me, 50 employés, SaaS B2B en Série A."}
+
+data: {"type":"run_completed","run_id":"772a7036-b706-45bc-b6de-3e6523dc696a","artifacts":[]}
+

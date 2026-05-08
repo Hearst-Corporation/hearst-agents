@@ -40,14 +40,19 @@ function formatResult(query: string, summary: string, results: Array<{ title: st
 export function buildWebSearchTools(): AiToolMap {
   const webSearchTool: Tool<WebSearchArgs, string> = {
     description:
-      "Recherche d'informations à jour sur le web (actualités, prix, données publiques, faits, définitions, météo). Routing automatique : Perplexity pour synthèse, Tavily pour factuel, Exa pour sémantique. Cache 24h. Use this dès que le user demande une info qui change dans le temps ou que tu n'as pas dans tes connaissances.",
+      "Recherche d'informations éditoriales sur le web (actualités, faits, définitions, météo, contexte général). " +
+      "Routing automatique : Perplexity pour synthèse, Tavily pour factuel, Exa pour sémantique. Cache 24h. " +
+      "Use this dès que le user demande une info qui change dans le temps ou que tu n'as pas dans tes connaissances. " +
+      "**NE PAS utiliser pour les prix crypto live** — utilise `get_crypto_prices` (CoinGecko, gratuit). " +
+      "**NE PAS utiliser pour les cotations actions live** — utilise `get_stock_quotes` (Yahoo Finance, gratuit). " +
+      "**NE PAS utiliser pour des données utilisateur** (emails, agenda, deals, fichiers) — passe par les tools natifs Google/Composio.",
     inputSchema: jsonSchema<WebSearchArgs>({
       type: "object",
       required: ["query"],
       properties: {
         query: {
           type: "string",
-          description: "Requête de recherche en langage naturel (ex: 'prix du bitcoin aujourd'hui', 'dernières actualités sur l'IA générative', 'capitale du Pérou').",
+          description: "Requête de recherche en langage naturel (ex: 'dernières actualités sur l'IA générative', 'capitale du Pérou', 'météo Paris demain').",
         },
       },
     }),

@@ -1,0 +1,104 @@
+data: {"type":"run_started","run_id":"bf4dddb6-825d-4eb9-952e-146c10f29e15"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_0111Wmsqedeyb8yzWkPCPfV2","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"orchestrator_log","message":"Tool call: web_search"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01Y6ayjHBakkNFBmiGmvM47J","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"orchestrator_log","message":"Tool call: web_search"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_0111Wmsqedeyb8yzWkPCPfV2","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01Y6ayjHBakkNFBmiGmvM47J","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01NELGg2T3gMDkbMdsYuSF3y","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"orchestrator_log","message":"Tool call: web_search"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01K6gMfgiCbAYfFiknBQF9cH","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"orchestrator_log","message":"Tool call: web_search"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01NELGg2T3gMDkbMdsYuSF3y","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01K6gMfgiCbAYfFiknBQF9cH","tool":"web_search","providerId":"web","providerLabel":"Web"}
+
+data: {"type":"text_delta","delta":"Vo"}
+
+data: {"type":"text_delta","delta":"ilà ce que le marché produit en ce moment — class"}
+
+data: {"type":"text_delta","delta":"é par maturité/financement :\n\n**Tier 1 —"}
+
+data: {"type":"text_delta","delta":" capitalisés, traction prouvée**\n\n-"}
+
+data: {"type":"text_delta","delta":" **Canary Technologies** (SF) — plateforme AI guest experience, L"}
+
+data: {"type":"text_delta","delta":"LM pour check-in, upsell, messaging. Series D à"}
+
+data: {"type":"text_delta","delta":" $80M levés en 2025. Leader déclaré du segment.\n- **Hi"}
+
+data: {"type":"text_delta","delta":"Jiffy / Aplysia OS** (Lisbonne) — LLM conversationnel sp"}
+
+data: {"type":"text_delta","delta":"écialisé hôtellerie, déployé sur WhatsApp/"}
+
+data: {"type":"text_delta","delta":"web. Plusieurs centaines d'hôtels clients en Europe"}
+
+data: {"type":"text_delta","delta":".\n\n**Tier 2 — early growth, signal fort**\n\n- **Otel AI** — agr"}
+
+data: {"type":"text_delta","delta":"ège les données de tous les systèmes hôteliers (PMS, RMS, CRM)"}
+
+data: {"type":"text_delta","delta":" dans un LLM opérationnel. $3.3M levés en avril 2026. Posit"}
+
+data: {"type":"text_delta","delta":"ionnement \"ops automation\".\n- **Abra** (Guest Intelligence & Orchestration) — L"}
+
+data: {"type":"text_delta","delta":"LM centré sur la connaissance guest, orchestration cross-systèmes. Pas"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"text_delta","delta":" de funding public annoncé, mais produit live.\n- **Grevon.ai** — se positionne comme \"AI infrastructure layer"}
+
+data: {"type":"text_delta","delta":" for hospitality\", couche LLM entre les PMS existants et les agents"}
+
+data: {"type":"text_delta","delta":". Très early stage.\n\n**Tier 3 — acteurs FR/"}
+
+data: {"type":"text_delta","delta":"EU à surveiller**\n\n- **Quinta.im / Q-brain+** (France"}
+
+data: {"type":"text_delta","delta":") — IA conversationnelle + data pour hôtels indépendants. Produit live, focus marché franc"}
+
+data: {"type":"text_delta","delta":"ophone.\n- **Alliants / Allin AI** (UK) — suite AI"}
+
+data: {"type":"text_delta","delta":" pour groupes hôteliers, LLM intégré dans les workflows staff"}
+
+data: {"type":"text_delta","delta":" + guest.\n- **Inntelo** — plateforme AI-native hospitality +"}
+
+data: {"type":"text_delta","delta":" real estate, pivot récent vers LLM opérationnel.\n\n**Signal de mar"}
+
+data: {"type":"text_delta","delta":"ché** : le secteur a levé +$1B cumul"}
+
+data: {"type":"text_delta","delta":"é sur 12 mois (Hospitality Tech Investment Index, avril 2026). La"}
+
+data: {"type":"text_delta","delta":" tension principale est entre les acteurs qui construisent un LLM propriétaire fine-tuné sur"}
+
+data: {"type":"text_delta","delta":" données hôtelières vs. ceux qui wrappent GPT-4o/Claude avec"}
+
+data: {"type":"text_delta","delta":" un layer vertical.\n\nTu veux que j'enrichisse un de"}
+
+data: {"type":"text_delta","delta":" ces acteurs, ou que je creuse un angle précis (comp"}
+
+data: {"type":"text_delta","delta":"étiteurs d'un de tes clients, c"}
+
+data: {"type":"text_delta","delta":"ibles d'acquisition, benchmark produit) ?"}
+
+data: {"type":"run_completed","run_id":"bf4dddb6-825d-4eb9-952e-146c10f29e15","artifacts":[]}
+

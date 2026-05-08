@@ -1,0 +1,40 @@
+data: {"type":"run_started","run_id":"0635e1e7-3a4e-4367-8661-3eaad3b5ea62"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Routing inferred stripe.read but user didn't mention it — falling through to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: finance)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01EpmSbvqqp5Lf2wJXPXxwFK","tool":"enrich_company","providerId":"enrich","providerLabel":"Enrich"}
+
+data: {"type":"orchestrator_log","message":"Tool call: enrich_company"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01EpmSbvqqp5Lf2wJXPXxwFK","tool":"enrich_company","providerId":"enrich","providerLabel":"Enrich"}
+
+data: {"type":"text_delta","delta":"**"}
+
+data: {"type":"text_delta","delta":"Stripe** — infos clés :\n\n- **Secteur** : Internet / fintech\n- **Effectif** : ~"}
+
+data: {"type":"text_delta","delta":"10 852 employés (tranche déclarée : 1"}
+
+data: {"type":"text_delta","delta":" 001–5 000)\n- **Fondée** : 2010\n- **HQ** : South San Francisco, États-Unis\n- **Levée totale** : $10,"}
+
+data: {"type":"text_delta","delta":"13 Mrd — l'un des plus gros tours"}
+
+data: {"type":"text_delta","delta":" cumulés du secteur privé tech\n- **LinkedIn** : linkedin.com/company/stripe\n\nSignal à"}
+
+data: {"type":"text_delta","delta":" noter : l'écart entre la tranche déclarée (1–5k) et l'effectif ré"}
+
+data: {"type":"text_delta","delta":"el (~10,8k) suggère une donnée PDL par"}
+
+data: {"type":"text_delta","delta":"tiellement stale — à croiser si tu as bes"}
+
+data: {"type":"text_delta","delta":"oin d'une précision RH."}
+
+data: {"type":"run_completed","run_id":"0635e1e7-3a4e-4367-8661-3eaad3b5ea62","artifacts":[]}
+

@@ -1,0 +1,56 @@
+data: {"type":"run_started","run_id":"47f70463-f35d-44ed-b0d8-29fe3af225a2"}
+
+data: {"type":"tool_surface","context":"research","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Default workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Research keywords detected but request matches catalogue template or native tool — routing to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: research)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01DcVTN82GQWLCGkgTWPZBSE","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"orchestrator_log","message":"Tool call: propose_report_spec"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01DcVTN82GQWLCGkgTWPZBSE","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"tool_call_started","step_id":"toolu_015FFBVuXVheEQ6ufJzhw8Gq","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"orchestrator_log","message":"Tool call: propose_report_spec"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_015FFBVuXVheEQ6ufJzhw8Gq","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01PKt7YUtJP323kPenWZ9xnq","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"orchestrator_log","message":"Tool call: propose_report_spec"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"asset_generated","asset_id":"3cbf3b17-376c-4c85-bdf7-ab983a895705","asset_type":"report","name":"Financial P&L"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01PKt7YUtJP323kPenWZ9xnq","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"text_delta","delta":"Le"}
+
+data: {"type":"text_delta","delta":" rapport **Financial P&L** est prêt dans ton focal.\n\n4 K"}
+
+data: {"type":"text_delta","delta":"PIs en tête (MRR, cash Stripe, factures payées, factures ouvertes) + courbe des"}
+
+data: {"type":"text_delta","delta":" revenus mensuels + répartition des factures par statut — tout tiré de Stripe en temps réel.\n\n**"}
+
+data: {"type":"text_delta","delta":"Note :** QuickBooks n'est pas connecté, donc les charges et le P"}
+
+data: {"type":"text_delta","delta":"&L comptable complet sont indisponibles. Si tu veux connecter QuickBooks pour avoir le"}
+
+data: {"type":"text_delta","delta":" vrai P&L net, dis-le-moi."}
+
+data: {"type":"run_completed","run_id":"47f70463-f35d-44ed-b0d8-29fe3af225a2","artifacts":[]}
+

@@ -1,0 +1,40 @@
+data: {"type":"run_started","run_id":"8b6353d2-6a4f-45d7-9e35-c5af47db8c9f"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Routing inferred crm.read but user didn't mention it — falling through to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: crm)"}
+
+data: {"type":"text_delta","delta":"Les"}
+
+data: {"type":"text_delta","delta":" outils disponibles ce tour-ci ne couvrent que les actions"}
+
+data: {"type":"text_delta","delta":" d'archivage et d'audit HubSpot — pas de lecture"}
+
+data: {"type":"text_delta","delta":" ni de recherche de deals. C'est une limite de la session actuelle, pas une dé"}
+
+data: {"type":"text_delta","delta":"connexion.\n\nPour lister tes deals ouverts, il faudrait que les outils `HUBSPOT_SEARCH"}
+
+data: {"type":"text_delta","delta":"_DEALS` ou `HUBSPOT_LIST_DEALS` soient exposés. Ils ne le"}
+
+data: {"type":"text_delta","delta":" sont pas ici.\n\nDeux options :\n- **Relance la conversation** — les"}
+
+data: {"type":"text_delta","delta":" outils disponibles peuvent varier selon le contexte de session.\n- **Acc"}
+
+data: {"type":"text_delta","delta":"ède directement** à HubSpot > Ventes > Deals, filtre sur"}
+
+data: {"type":"text_delta","delta":" \"Ouvert\".\n\nSi tu veux, je peux aussi lancer une simulation"}
+
+data: {"type":"text_delta","delta":" ou un rapport Deal-to-Cash à partir des données HubSpot connectées —"}
+
+data: {"type":"text_delta","delta":" ça passerait par `propose_report_spec` avec les"}
+
+data: {"type":"text_delta","delta":" sources disponibles."}
+
+data: {"type":"run_completed","run_id":"8b6353d2-6a4f-45d7-9e35-c5af47db8c9f","artifacts":[]}
+

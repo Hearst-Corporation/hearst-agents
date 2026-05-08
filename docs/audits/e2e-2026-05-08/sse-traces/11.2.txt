@@ -1,0 +1,28 @@
+data: {"type":"run_started","run_id":"184ce554-1367-4337-8fce-7733e8277c90"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Routing inferred stripe.read but user didn't mention it — falling through to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: finance)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01MuMDFDAaTZcsJxJHtHAkTw","tool":"enrich_contact","providerId":"enrich","providerLabel":"Enrich"}
+
+data: {"type":"orchestrator_log","message":"Tool call: enrich_contact"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01MuMDFDAaTZcsJxJHtHAkTw","tool":"enrich_contact","providerId":"enrich","providerLabel":"Enrich"}
+
+data: {"type":"text_delta","delta":"Patrick"}
+
+data: {"type":"text_delta","delta":" Collison — co-fondateur et CEO de Stripe, basé à San Francisco. C'est lui"}
+
+data: {"type":"text_delta","delta":" qui dirige l'entreprise depuis sa création en 2010 avec son frère John"}
+
+data: {"type":"text_delta","delta":"."}
+
+data: {"type":"run_completed","run_id":"184ce554-1367-4337-8fce-7733e8277c90","artifacts":[]}
+

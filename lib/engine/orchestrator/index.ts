@@ -34,7 +34,7 @@ import { preflightConnector } from "@/lib/connectors/control-plane/preflight";
 import { appendMessage, getRecentMessages } from "@/lib/memory/store";
 import { memoryToConversationHistory } from "@/lib/memory/format";
 import { appendToSummary } from "@/lib/memory/conversation-summary";
-import { isResearchIntent, isReportIntent } from "./research-intent";
+import { isResearchIntent, isReportIntent, shouldBypassResearchPath } from "./research-intent";
 import { isScheduleIntent } from "./schedule-intent";
 import { checkSafetyGate } from "./safety-gate";
 import { runResearchReport } from "./run-research-report";
@@ -589,13 +589,17 @@ async function runPipeline(
     // deterministic web-search pipeline rather than streamText. Everything
     // else routes to the AI pipeline below.
     //
-    // EXCEPTION : si l'intent est aussi récurrent (« tous les matins, fais
-    // un rapport sur X »), on N'IGNORE PAS la planification. Le research
-    // path est one-shot et ne connaît pas `create_scheduled_mission` —
-    // route vers ai-pipeline qui voit la scheduleDirective et appelle le
-    // bon tool. La mission elle-même appellera ensuite get_stock_quotes /
-    // get_crypto_prices / web_search au moment du tick.
-    if (researchDetected && !scheduleDetected) {
+    // EXCEPTIONS — on bypasse le research path quand :
+    //  1. Schedule directive (« tous les matins ») : le research path est
+    //     one-shot et ne connaît pas `create_scheduled_mission` → ai-pipeline.
+    //  2. Catalogue template request (« founder cockpit », « financial pnl »…) :
+    //     le research path web-only ne sait pas composer cross-app → ai-pipeline
+    //     pour que Sonnet appelle `propose_report_spec`.
+    //  3. Native deterministic tool match (« prix du bitcoin », « cours AAPL »…) :
+    //     le research path renverrait des liens externes → ai-pipeline pour que
+    //     Sonnet appelle `get_crypto_prices` / `get_stock_quotes` (live, no key).
+    const bypassResearch = shouldBypassResearchPath(input.message);
+    if (researchDetected && !scheduleDetected && !bypassResearch) {
       const pathLabel = reportDetected ? "research + report" : "research";
       eventBus.emit({
         type: "orchestrator_log",
@@ -604,6 +608,13 @@ async function runPipeline(
       });
       await runResearchReport({ message: input.message, engine, eventBus, scope, threadId: input.threadId });
       return;
+    }
+    if (researchDetected && bypassResearch) {
+      eventBus.emit({
+        type: "orchestrator_log",
+        run_id: engine.id,
+        message: "Research keywords detected but request matches catalogue template or native tool — routing to AI pipeline",
+      });
     }
 
     // ── Mission Control planner (B1) ─────────────────────────

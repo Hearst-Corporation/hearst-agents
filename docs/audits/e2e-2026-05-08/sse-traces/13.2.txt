@@ -1,0 +1,62 @@
+data: {"type":"run_started","run_id":"8a2d34a8-bf28-4649-978b-6a7dc806597d"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Routing inferred crm.read but user didn't mention it — falling through to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: crm)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_016uG6ouD3Srk2jJ6jdKMUbt","tool":"query_knowledge_graph","providerId":"query","providerLabel":"Query"}
+
+data: {"type":"orchestrator_log","message":"Tool call: query_knowledge_graph"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_016uG6ouD3Srk2jJ6jdKMUbt","tool":"query_knowledge_graph","providerId":"query","providerLabel":"Query"}
+
+data: {"type":"text_delta","delta":"Rés"}
+
+data: {"type":"text_delta","delta":"ultat net :\n\n**Stripe** est bien présent dans le graph —"}
+
+data: {"type":"text_delta","delta":" secteur fintech, domaine stripe.com, avec 6 nœuds liés via des"}
+
+data: {"type":"text_delta","delta":" relations `related_to` et `depends_on`. Deux de ces nœuds portent une dépendance explic"}
+
+data: {"type":"text_delta","delta":"ite, ce qui pointe vers des deals ou intégrations actifs, mais leurs labels ne sont pas résolus (identifiants bruts uniqu"}
+
+data: {"type":"text_delta","delta":"ement).\n\n**HubSpot**, en revanche, est absent du graph. Aucune entité deal, contact"}
+
+data: {"type":"text_delta","delta":" ou pipeline HubSpot n'a été indexée — prob"}
+
+data: {"type":"text_delta","delta":"ablement parce que la connexion HubSpot n'a pas encore alimenté le KG,"}
+
+data: {"type":"text_delta","delta":" ou que les deals n'ont jamais été discutés dans une conversation précédente.\n\nDeux"}
+
+data: {"type":"text_delta","delta":" options pour aller plus loin :\n- **Lire les deals H"}
+
+data: {"type":"text_delta","delta":"ubSpot directement** — je peux tenter une lecture via"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"text_delta","delta":" les outils disponibles, mais les outils exposés"}
+
+data: {"type":"text_delta","delta":" ce tour-ci sont limités aux actions d'arch"}
+
+data: {"type":"text_delta","delta":"ivage/audit, pas de lecture de deals.\n- **Lancer le rapport Deal"}
+
+data: {"type":"text_delta","delta":"-to-Cash** — il est marqué \"PR"}
+
+data: {"type":"text_delta","delta":"ÊT\" dans ton catalogue (toutes les apps connectées)."}
+
+data: {"type":"text_delta","delta":" Il croisera pipeline HubSpot + flux Stripe et"}
+
+data: {"type":"text_delta","delta":" te donnera une vue consolidée. Tu veux que je le gén"}
+
+data: {"type":"text_delta","delta":"ère ?"}
+
+data: {"type":"run_completed","run_id":"8a2d34a8-bf28-4649-978b-6a7dc806597d","artifacts":[]}
+

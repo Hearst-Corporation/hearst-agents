@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"8c553124-8b6e-4b47-bfff-986581ce8c2f"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research + report intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-8c553124-8b6e-4b47-bfff-986581ce8c2f","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Compile un board pack avec les KPIs finance, le dernier rapport CRM et les actions ops de la semaine\""}
+
+data: {"type":"step_completed","step_id":"research-8c553124-8b6e-4b47-bfff-986581ce8c2f"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-8c553124-8b6e-4b47-bfff-986581ce8c2f","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-8c553124-8b6e-4b47-bfff-986581ce8c2f"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (416 chars)"}
+
+data: {"type":"text_delta","delta":"- Pack KPI Hebdomadaire RowSpeak : Automatisez vos Rapports du Lundi - RowSpeak: \n- Workflow de reporting commercial hebdomadaire pour les équipes sur tableur: \n- Créer un rapport hebdomadaire efficace en 5 étapes: 2025-04-22T00:00:00.000Z\n- Tableau de bord d une entreprise, choix des indicateurs clés: 2026-02-12T00:00:00.000Z\n- Tableau de bord commercial : KPI essentiels 2026 et exemple: 2026-02-27T00:00:00.000Z"}
+
+data: {"type":"asset_generated","asset_id":"138aadea-9b8b-45e5-be7b-4d3e4a6b5bf7","asset_type":"report","name":"Compile un board pack avec les kpis finance le — Report"}
+
+data: {"type":"focal_object_ready","focal_object":{"objectType":"report","id":"fo_138aadea-9b8b-45e5-be7b-4d3e4a6b5bf7","threadId":"t-e2e-1.5","title":"Compile un board pack avec les kpis finance le — Report","status":"delivered","createdAt":1778206888065,"updatedAt":1778206888065,"sourceAssetId":"138aadea-9b8b-45e5-be7b-4d3e4a6b5bf7","morphTarget":null,"summary":"- Pack KPI Hebdomadaire RowSpeak : Automatisez vos Rapports du Lundi - RowSpeak: \n- Workflow de reporting commercial hebdomadaire pour les équipes sur tableur: \n- Créer un rapport hebdomadaire efficac","sections":[],"tier":"report","tone":"executive","wordCount":58}}
+
+data: {"type":"orchestrator_log","message":"Asset created: Compile un board pack avec les kpis finance le — Report"}
+
+data: {"type":"run_completed","run_id":"8c553124-8b6e-4b47-bfff-986581ce8c2f","artifacts":[]}
+

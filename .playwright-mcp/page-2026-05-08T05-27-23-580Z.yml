@@ -1,0 +1,210 @@
+- generic [ref=e1]:
+  - generic [ref=e14]:
+    - generic [ref=e16]:
+      - banner [ref=e17]:
+        - button "Sessions" [ref=e18] [cursor=pointer]:
+          - img [ref=e20]
+      - generic [ref=e24]:
+        - button "Apps" [ref=e25] [cursor=pointer]:
+          - img [ref=e28]
+          - text: Apps
+        - button "Custom" [ref=e33] [cursor=pointer]:
+          - img [ref=e36]
+          - text: Custom
+        - button "Chat" [ref=e37] [cursor=pointer]:
+          - img [ref=e41]
+          - text: Chat
+        - button "Recents" [ref=e46] [cursor=pointer]:
+          - img [ref=e49]
+          - text: Recents
+        - button "Workflow" [ref=e55] [cursor=pointer]:
+          - img [ref=e58]
+          - text: Workflow
+        - button "Characters" [ref=e62] [cursor=pointer]:
+          - img [ref=e65]
+          - text: Characters
+      - generic [ref=e70]:
+        - link "Dashboard" [ref=e71] [cursor=pointer]:
+          - /url: /video-tools/teams/adrien92/dashboard
+          - img
+        - button "Adrien" [ref=e73] [cursor=pointer]:
+          - img "Adrien" [ref=e75]
+    - generic [ref=e76]:
+      - generic [ref=e77]:
+        - banner [ref=e78]:
+          - link [ref=e79] [cursor=pointer]:
+            - /url: /video-tools/teams/adrien92/ai-tools/workflows
+            - img
+          - generic [ref=e80]:
+            - generic [ref=e81]: Heart
+            - button [ref=e82] [cursor=pointer]:
+              - img
+          - button "Last saved 7 minutes ago" [ref=e2711] [cursor=pointer]
+          - button "Share options" [ref=e84] [cursor=pointer]:
+            - img
+          - button "Publish" [ref=e85] [cursor=pointer]
+          - button [ref=e87] [cursor=pointer]:
+            - img
+          - button "Run all" [ref=e88] [cursor=pointer]:
+            - text: Run all
+            - button [ref=e89]:
+              - img
+          - button [ref=e90] [cursor=pointer]:
+            - img
+          - button "Help" [ref=e91] [cursor=pointer]:
+            - img
+        - generic [ref=e94]:
+          - application [ref=e95]:
+            - generic [ref=e97]:
+              - generic:
+                - generic:
+                  - img:
+                    - group "Edge from a9f6130a-7e95-40f4-b2cd-9a17a5dfbeb5 to ef728878-c8f0-4179-b83f-5cbe17fa4440" [ref=e206] [cursor=pointer]
+                  - img:
+                    - group "Edge from ee5dc4bb-d6f2-49e4-919c-3106f6d02107 to ef728878-c8f0-4179-b83f-5cbe17fa4440" [ref=e211] [cursor=pointer]
+                  - img:
+                    - group "Edge from ef728878-c8f0-4179-b83f-5cbe17fa4440 to 8bd760af-8e35-4f47-ba95-b11bc9fffd31" [ref=e2712] [cursor=pointer]
+                - generic:
+                  - group [ref=e98]:
+                    - generic [ref=e99]:
+                      - img [ref=e101]
+                      - generic [ref=e104]:
+                        - generic:
+                          - generic: Prompt
+                      - generic [ref=e105]:
+                        - heading "Text" [level=3] [ref=e106]:
+                          - generic "Text" [ref=e107]
+                        - button [ref=e108] [cursor=pointer]:
+                          - img
+                      - textbox "Type a prompt" [ref=e111]: "HEARST OS visual identity: - ultra premium - calm - minimal - emotionally intelligent - black backgrounds - white and silver interfaces - subtle teal accents - floating depth - cinematic lighting - glass and ceramic materials - brushed aluminum textures - Apple-level product cinematography - Vision Pro inspired motion - soft shadows - elegant typography - restrained motion design Motion language: - slow - floating - breathing - cinematic - controlled - atmospheric Forbidden: - cyberpunk - rainbow colors - gaming aesthetics - Marvel holograms - hacker visuals - neon overload - chaotic dashboards - clutter - aggressive UI"
+                  - group [ref=e112]:
+                    - generic [ref=e113]:
+                      - img [ref=e115]
+                      - generic [ref=e118]:
+                        - generic:
+                          - generic: Prompt
+                      - generic [ref=e119]:
+                        - heading "Text" [level=3] [ref=e120]:
+                          - generic "Text" [ref=e121]
+                        - button [ref=e122] [cursor=pointer]:
+                          - img
+                      - textbox "Type a prompt" [ref=e125]: Reveal the Hearst OS intelligent agent ecosystem emerging from digital chaos.
+                  - group [active] [ref=e126]:
+                    - generic [ref=e127]:
+                      - generic [ref=e128]:
+                        - heading "Claude" [level=3] [ref=e129]:
+                          - img [ref=e131]
+                          - generic "Claude" [ref=e134]
+                        - button "Settings" [ref=e135] [cursor=pointer]:
+                          - img
+                        - button [ref=e136] [cursor=pointer]:
+                          - img
+                      - generic:
+                        - generic:
+                          - generic: System Prompt
+                      - generic:
+                        - generic:
+                          - generic: Text Prompt *
+                      - generic [ref=e139]:
+                        - generic:
+                          - generic: Image 1
+                      - generic [ref=e140]:
+                        - generic:
+                          - generic: Image 2
+                      - generic [ref=e141]:
+                        - generic:
+                          - generic: Image 3
+                      - generic [ref=e145]: Output will appear here
+                      - button "Run" [ref=e147] [cursor=pointer]:
+                        - text: Run
+                        - img
+                      - generic [ref=e148]:
+                        - generic:
+                          - generic: Response
+                  - group [ref=e996]:
+                    - generic [ref=e997]:
+                      - generic [ref=e998]:
+                        - heading "Gen-4 Image" [level=3] [ref=e999]:
+                          - img [ref=e1001]
+                          - generic "Gen-4 Image" [ref=e1004]
+                        - button "Settings" [ref=e1005] [cursor=pointer]:
+                          - img
+                        - button [ref=e1006] [cursor=pointer]:
+                          - img
+                      - generic:
+                        - generic:
+                          - generic: Prompt
+                      - generic [ref=e1008]:
+                        - generic:
+                          - generic: Image 1
+                      - generic [ref=e1009]:
+                        - generic:
+                          - generic: Image 2
+                      - generic [ref=e1010]:
+                        - generic:
+                          - generic: Image 3
+                      - generic [ref=e1011]:
+                        - generic:
+                          - generic: Image
+                      - generic [ref=e1015]:
+                        - generic [ref=e1016]:
+                          - button [ref=e1017]:
+                            - img [ref=e1018]
+                          - checkbox [ref=e1021] [cursor=pointer]
+                        - button "Run" [ref=e2717] [cursor=pointer]:
+                          - text: Run
+                          - img
+                  - group [ref=e2683]:
+                    - generic [ref=e2684]:
+                      - generic [ref=e2685]:
+                        - heading "Gen-4 Video" [level=3] [ref=e2686]:
+                          - img [ref=e2688]
+                          - generic "Gen-4 Video" [ref=e2691]
+                        - button "Settings" [ref=e2692] [cursor=pointer]:
+                          - img
+                        - button [ref=e2693] [cursor=pointer]:
+                          - img
+                      - generic [ref=e2694]:
+                        - generic:
+                          - generic: Prompt *
+                      - generic [ref=e2695]:
+                        - generic:
+                          - generic: Image *
+                      - generic [ref=e2699]:
+                        - generic [ref=e2700]:
+                          - button [ref=e2701]:
+                            - img [ref=e2702]
+                          - checkbox [ref=e2705] [cursor=pointer]
+                        - button "Run" [ref=e2707]:
+                          - text: Run
+                          - img
+                      - generic [ref=e2708]:
+                        - generic:
+                          - generic: Video
+            - img
+            - generic [ref=e150]:
+              - button "Add node" [ref=e2709] [cursor=pointer]:
+                - img [ref=e2710]
+              - button "Generations" [ref=e153] [cursor=pointer]:
+                - img [ref=e154]
+              - button "Add comment" [ref=e156] [cursor=pointer]:
+                - img [ref=e157]
+          - generic [ref=e161]:
+            - button "Pointer" [ref=e162] [cursor=pointer]:
+              - img [ref=e163]
+            - button "Box select" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+            - button "Zoom in" [ref=e172] [cursor=pointer]:
+              - img [ref=e173]
+            - button "Zoom out" [ref=e176] [cursor=pointer]:
+              - img [ref=e177]
+            - button "Fit to screen" [ref=e180] [cursor=pointer]:
+              - img [ref=e181]
+            - button "Zoom to selection" [ref=e186] [cursor=pointer]:
+              - img [ref=e187]
+            - button "Undo" [ref=e194] [cursor=pointer]:
+              - img [ref=e195]
+            - button "Redo" [disabled] [ref=e198]:
+              - img [ref=e199]
+      - status [ref=e202]
+  - iframe

@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"5d76578f-22b5-4304-a372-81a9e299c980"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research + report intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-5d76578f-22b5-4304-a372-81a9e299c980","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Fais un rapport sur le bitcoin mining\""}
+
+data: {"type":"step_completed","step_id":"research-5d76578f-22b5-4304-a372-81a9e299c980"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-5d76578f-22b5-4304-a372-81a9e299c980","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-5d76578f-22b5-4304-a372-81a9e299c980"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (466 chars)"}
+
+data: {"type":"text_delta","delta":"- Rapport CoinShares sur le minage Bitcoin – T1 2026: \n- L'exploitation du bitcoin en 2024 : ce qu'il reste à miner: \n- Minage Bitcoin : comment fonctionne l’extraction et la sécurité: 2025-11-02T00:00:00.000Z\n- Le minage de Bitcoin est-il encore rentable en 2026 ? Guide d’achat ASIC + Analyse du retour sur investissement: 2026-04-14T00:00:00.000Z\n- Comment miner du Bitcoin en 2026 ? Guide complet (ASIC, pools, rentabilité) | Cryptoactu: 2020-05-06T00:00:00.000Z"}
+
+data: {"type":"asset_generated","asset_id":"2e8f137b-4757-4c68-b411-984106840de3","asset_type":"report","name":"Fais un rapport sur le bitcoin mining — Report"}
+
+data: {"type":"focal_object_ready","focal_object":{"objectType":"report","id":"fo_2e8f137b-4757-4c68-b411-984106840de3","threadId":"t-e2e-1.2","title":"Fais un rapport sur le bitcoin mining — Report","status":"delivered","createdAt":1778206857325,"updatedAt":1778206857325,"sourceAssetId":"2e8f137b-4757-4c68-b411-984106840de3","morphTarget":null,"summary":"- Rapport CoinShares sur le minage Bitcoin – T1 2026: \n- L'exploitation du bitcoin en 2024 : ce qu'il reste à miner: \n- Minage Bitcoin : comment fonctionne l’extraction et la sécurité: 2025-11-02T00:0","sections":[],"tier":"report","tone":"executive","wordCount":70}}
+
+data: {"type":"orchestrator_log","message":"Asset created: Fais un rapport sur le bitcoin mining — Report"}
+
+data: {"type":"run_completed","run_id":"5d76578f-22b5-4304-a372-81a9e299c980","artifacts":[]}
+

@@ -1,0 +1,30 @@
+data: {"type":"run_started","run_id":"e2a89d80-caf1-42a4-9a44-9c1e87f27f25"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Research keywords detected but request matches catalogue template or native tool — routing to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: finance)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01VbdiNJ2vrNdTb3H1jsRnuE","tool":"get_crypto_prices","providerId":"get","providerLabel":"Get"}
+
+data: {"type":"orchestrator_log","message":"Tool call: get_crypto_prices"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01VbdiNJ2vrNdTb3H1jsRnuE","tool":"get_crypto_prices","providerId":"get","providerLabel":"Get"}
+
+data: {"type":"text_delta","delta":"**"}
+
+data: {"type":"text_delta","delta":"BTC** — 79 452 $ — -"}
+
+data: {"type":"text_delta","delta":"2,03 % sur 24h\n**ETH** — 2 277 $ — -1,91 % sur 24h\n\nLes deux en"}
+
+data: {"type":"text_delta","delta":" repli synchrone, pression vende"}
+
+data: {"type":"text_delta","delta":"use modérée sur la journée."}
+
+data: {"type":"run_completed","run_id":"e2a89d80-caf1-42a4-9a44-9c1e87f27f25","artifacts":[]}
+

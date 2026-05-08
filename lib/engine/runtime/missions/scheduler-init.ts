@@ -100,10 +100,18 @@ function startHeartbeat(): void {
 
 // ── Stream drain helper ──────────────────────────────────
 
-async function drainStream(stream: ReadableStream): Promise<string | null> {
+interface DrainResult {
+  runId: string | null;
+  finalText: string;
+}
+
+async function drainStream(stream: ReadableStream): Promise<DrainResult> {
   const reader = stream.getReader();
   const decoder = new TextDecoder();
   let runId: string | null = null;
+  const textParts: string[] = [];
+  let textTotal = 0;
+  const TEXT_CAP = 16_000;
 
   try {
     while (true) {
@@ -111,9 +119,25 @@ async function drainStream(stream: ReadableStream): Promise<string | null> {
       if (done) break;
 
       const chunk = decoder.decode(value, { stream: true });
-      if (!runId) {
-        const match = chunk.match(/"run_id"\s*:\s*"([^"]+)"/);
-        if (match) runId = match[1];
+      for (const line of chunk.split("\n")) {
+        if (!line.startsWith("data: ")) continue;
+        try {
+          const event = JSON.parse(line.slice(6));
+          if (event.type === "run_started" && typeof event.run_id === "string") {
+            runId = event.run_id;
+          } else if (
+            event.type === "text_delta" &&
+            typeof event.delta === "string" &&
+            textTotal < TEXT_CAP
+          ) {
+            // Reconstruit le finalText pour la persistance Mission Memory.
+            // Cap soft 16k chars cohérent avec /api/v2/missions/[id]/run.
+            textParts.push(event.delta);
+            textTotal += event.delta.length;
+          }
+        } catch {
+          /* skip lignes non-JSON ou tronquées */
+        }
       }
     }
   } catch (err) {
@@ -122,7 +146,7 @@ async function drainStream(stream: ReadableStream): Promise<string | null> {
     reader.releaseLock();
   }
 
-  return runId;
+  return { runId, finalText: textParts.join("").trim() };
 }
 
 // ── Trigger builder ──────────────────────────────────────
@@ -130,6 +154,25 @@ async function drainStream(stream: ReadableStream): Promise<string | null> {
 function buildTrigger(): SchedulerTriggerFn {
   return async (mission: ScheduledMission): Promise<string | null> => {
     const db = requireServerSupabase();
+
+    // Mission Memory — persistance fire-and-forget cohérente avec
+    // /api/v2/missions/[id]/run. Sans ces appels, les missions
+    // schedulées tournent en amnésie totale (cf. audit E2E 2026-05-08
+    // 14.6 : invariant missions.md I-12 violé).
+    const { appendMissionMessage, updateMissionContextSummary } = await import(
+      "@/lib/memory/mission-context"
+    );
+    const { fireAndForgetIngestTurn } = await import(
+      "@/lib/memory/kg-ingest-pipeline"
+    );
+
+    void appendMissionMessage({
+      missionId: mission.id,
+      userId: mission.userId,
+      tenantId: mission.tenantId ?? null,
+      role: "user",
+      content: mission.input,
+    });
 
     const stream = orchestrate(db, {
       userId: mission.userId,
@@ -140,7 +183,53 @@ function buildTrigger(): SchedulerTriggerFn {
       surface: "scheduler",
     });
 
-    return drainStream(stream);
+    const { runId, finalText } = await drainStream(stream);
+
+    if (finalText.length > 0) {
+      void appendMissionMessage({
+        missionId: mission.id,
+        userId: mission.userId,
+        tenantId: mission.tenantId ?? null,
+        role: "assistant",
+        content: finalText,
+        runId: runId ?? undefined,
+      });
+
+      // Régénère le summary post-run (Haiku, 4 sections cf. missions.md
+      // I-13). Fire-and-forget — l'échec ne casse pas le tick.
+      if (runId) {
+        void updateMissionContextSummary({
+          missionId: mission.id,
+          userId: mission.userId,
+          tenantId: mission.tenantId ?? "",
+          missionInput: mission.input,
+          previousSummary: null,
+          runResult: {
+            runId,
+            status: "completed",
+            finalText,
+          },
+        }).catch((err) => {
+          console.warn(
+            `[Scheduler] updateMissionContextSummary failed for ${mission.id}:`,
+            err,
+          );
+        });
+      }
+
+      // KG global — alimente le knowledge graph user-wide. Cohérent
+      // avec /api/v2/missions/[id]/run.
+      if (mission.tenantId) {
+        fireAndForgetIngestTurn({
+          userId: mission.userId,
+          tenantId: mission.tenantId,
+          userMessage: mission.input,
+          assistantReply: finalText,
+        });
+      }
+    }
+
+    return runId;
   };
 }
 

@@ -1,0 +1,18 @@
+data: {"type":"run_started","run_id":"48371fb6-dc3c-45de-9edf-23891450bf0b"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"text_delta","delta":"J"}
+
+data: {"type":"text_delta","delta":"'agis sur tes mails, agenda, fichiers Drive, Slack et Stripe — et je lance des recherches, rapports cross-app, ou"}
+
+data: {"type":"text_delta","delta":" missions récurrentes quand tu veux.\n\nTu veux commencer par quoi ?"}
+
+data: {"type":"run_completed","run_id":"48371fb6-dc3c-45de-9edf-23891450bf0b","artifacts":[]}
+

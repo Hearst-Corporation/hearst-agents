@@ -1,0 +1,8 @@
+data: {"type":"run_started","run_id":"30edba24-995d-4523-9036-3aa1ee7b89c6"}
+
+data: {"type":"orchestrator_log","message":"Safety gate refuse: mass_action_hard_cap"}
+
+data: {"type":"text_delta","delta":"Je ne lance pas une action vers 100 destinataires sans segmentation et validation explicite. Je peux préparer un brouillon ou travailler sur un échantillon de 10 contacts maximum, puis on valide ensemble avant tout envoi groupé."}
+
+data: {"type":"run_completed","run_id":"30edba24-995d-4523-9036-3aa1ee7b89c6","artifacts":[]}
+

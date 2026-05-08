@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"b8819f0d-4633-428f-8737-f7260de31d7b"}
+
+data: {"type":"tool_surface","context":"calendar","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: productivity)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01CJSx1MS7uqhfB2ZUquXsCT","tool":"googlecalendar_list_events","providerId":"googlecalendar","providerLabel":"Calendar"}
+
+data: {"type":"orchestrator_log","message":"Tool call: googlecalendar_list_events"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01CJSx1MS7uqhfB2ZUquXsCT","tool":"googlecalendar_list_events","providerId":"googlecalendar","providerLabel":"Calendar"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"text_delta","delta":"Pro"}
+
+data: {"type":"text_delta","delta":"chain rendez-vous : **Qatar PWSM** — aujourd'hui à 17h00 (heure locale"}
+
+data: {"type":"text_delta","delta":", +4).\n\nDurée 1h."}
+
+data: {"type":"text_delta","delta":" Participants : Adrien, Olivier, Loic (Hearst) + Mika (Mamo"}
+
+data: {"type":"text_delta","delta":" Michelangelo)."}
+
+data: {"type":"run_completed","run_id":"b8819f0d-4633-428f-8737-f7260de31d7b","artifacts":[]}
+

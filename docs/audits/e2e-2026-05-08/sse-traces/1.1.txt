@@ -1,0 +1,16 @@
+data: {"type":"run_started","run_id":"b2317591-1263-4664-bd52-38ab811cc4a8"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"text_delta","delta":"Bonjour."}
+
+data: {"type":"text_delta","delta":" Qu'est-ce qu'on attaque ce matin ?"}
+
+data: {"type":"run_completed","run_id":"b2317591-1263-4664-bd52-38ab811cc4a8","artifacts":[]}
+

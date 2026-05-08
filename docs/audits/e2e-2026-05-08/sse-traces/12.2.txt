@@ -1,0 +1,26 @@
+data: {"type":"run_started","run_id":"92f13238-cb75-40f3-a80e-3c28eebfec1c"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01EppejETtfN1ghQTRet5iFA","tool":"get_stock_quotes","providerId":"get","providerLabel":"Get"}
+
+data: {"type":"orchestrator_log","message":"Tool call: get_stock_quotes"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01EppejETtfN1ghQTRet5iFA","tool":"get_stock_quotes","providerId":"get","providerLabel":"Get"}
+
+data: {"type":"text_delta","delta":"**"}
+
+data: {"type":"text_delta","delta":"AAPL** — 287,44 $ +1,15 %\n**MSFT** — "}
+
+data: {"type":"text_delta","delta":"420,77 $ +2,28 %\n\nMicrosoft surperforme nettement Apple ce ven"}
+
+data: {"type":"text_delta","delta":"dredi — momentum tech en hausse sur les deux valeurs."}
+
+data: {"type":"run_completed","run_id":"92f13238-cb75-40f3-a80e-3c28eebfec1c","artifacts":[]}
+

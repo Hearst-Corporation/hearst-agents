@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"0a26d5c1-e87e-4c7f-ae29-56b9c4065846"}
+
+data: {"type":"tool_surface","context":"research","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Default workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research + report intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-0a26d5c1-e87e-4c7f-ae29-56b9c4065846","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Génère le rapport financial PnL\""}
+
+data: {"type":"step_completed","step_id":"research-0a26d5c1-e87e-4c7f-ae29-56b9c4065846"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-0a26d5c1-e87e-4c7f-ae29-56b9c4065846","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-0a26d5c1-e87e-4c7f-ae29-56b9c4065846"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (475 chars)"}
+
+data: {"type":"text_delta","delta":"- PnL Profit and Loss : Guide complet pour comprendre et optimiser le PnL dans la finance et le trading – Site-internet-france.fr: \n- Rapport de Trading - Pour les Utilisateurs Avancés - Opérations de Trading - Aide MetaTrader 5: \n- Calcul du P&L : guide pratique pour comprendre et appliquer facilement: 2026-02-03T00:00:00.000Z\n- Calcul du P&L: 2023-12-20T00:00:00.000Z\n- Calcul P&L Finance : Définition, Fonctionnement et Utilisation - Guide 2025: 2025-04-02T00:00:00.000Z"}
+
+data: {"type":"asset_generated","asset_id":"ff7c8815-de14-4261-ab5e-41671f2812ba","asset_type":"report","name":"Génère le rapport financial pnl — Report"}
+
+data: {"type":"focal_object_ready","focal_object":{"objectType":"report","id":"fo_ff7c8815-de14-4261-ab5e-41671f2812ba","threadId":"t-e2e-4.2","title":"Génère le rapport financial pnl — Report","status":"delivered","createdAt":1778207128257,"updatedAt":1778207128257,"sourceAssetId":"ff7c8815-de14-4261-ab5e-41671f2812ba","morphTarget":null,"summary":"- PnL Profit and Loss : Guide complet pour comprendre et optimiser le PnL dans la finance et le trading – Site-internet-france.fr: \n- Rapport de Trading - Pour les Utilisateurs Avancés - Opérations de","sections":[],"tier":"report","tone":"executive","wordCount":70}}
+
+data: {"type":"orchestrator_log","message":"Asset created: Génère le rapport financial pnl — Report"}
+
+data: {"type":"run_completed","run_id":"0a26d5c1-e87e-4c7f-ae29-56b9c4065846","artifacts":[]}
+

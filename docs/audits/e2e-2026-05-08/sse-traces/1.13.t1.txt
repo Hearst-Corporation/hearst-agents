@@ -1,0 +1,20 @@
+data: {"type":"run_started","run_id":"06542b5c-0872-4fff-a113-c0fa5405b92a"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: general)"}
+
+data: {"type":"text_delta","delta":"No"}
+
+data: {"type":"text_delta","delta":"té — Acme, SaaS B2B. Je garde ça"}
+
+data: {"type":"text_delta","delta":" en tête pour contextualiser tes rapports, emails et analyses.\n\nTu"}
+
+data: {"type":"text_delta","delta":" veux attaquer quoi ?"}
+
+data: {"type":"run_completed","run_id":"06542b5c-0872-4fff-a113-c0fa5405b92a","artifacts":[]}
+

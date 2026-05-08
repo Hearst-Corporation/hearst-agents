@@ -1,0 +1,26 @@
+data: {"type":"run_started","run_id":"d9f56eba-98b3-4ba1-9ab4-09ba6e131204"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-d9f56eba-98b3-4ba1-9ab4-09ba6e131204","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Quel est le prix du bitcoin maintenant ?\""}
+
+data: {"type":"step_completed","step_id":"research-d9f56eba-98b3-4ba1-9ab4-09ba6e131204"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-d9f56eba-98b3-4ba1-9ab4-09ba6e131204","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-d9f56eba-98b3-4ba1-9ab4-09ba6e131204"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (407 chars)"}
+
+data: {"type":"text_delta","delta":"- Cours du Bitcoin (BTC), Graphiques, Capitalisation | CoinMarketCap: \n- Prix actuel bitcoin (BTC) - Prix en direct et statistiques: 2026-03-25T00:00:00.000Z\n- Bitcoin Prix, BTC Prix, graphiques en direct et capitalisation boursière: bitcoin cours, cours bitcoin, bitcoin: \n- BTC USD: Prix Bitcoin Dollar américain en Direct | CoinMarketCap: \n- Bitcoin (BTC) Prix actuel et détails: 2026-05-02T00:00:00.000Z"}
+
+data: {"type":"run_completed","run_id":"d9f56eba-98b3-4ba1-9ab4-09ba6e131204","artifacts":[]}
+

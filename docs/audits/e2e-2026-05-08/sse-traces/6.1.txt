@@ -1,0 +1,50 @@
+data: {"type":"run_started","run_id":"46faed80-1f20-4b63-855d-1e5b555aaa94"}
+
+data: {"type":"tool_surface","context":"inbox","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: communication)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01FBeDqRkpPVjbJrjxAk4Qdx","tool":"gmail_fetch_emails","providerId":"gmail","providerLabel":"Gmail"}
+
+data: {"type":"orchestrator_log","message":"Tool call: gmail_fetch_emails"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01FBeDqRkpPVjbJrjxAk4Qdx","tool":"gmail_fetch_emails","providerId":"gmail","providerLabel":"Gmail"}
+
+data: {"type":"text_delta","delta":"5"}
+
+data: {"type":"text_delta","delta":" emails, tous non lus — signal clair :"}
+
+data: {"type":"text_delta","delta":" la nuit a été agitée côté infra.\n\n-"}
+
+data: {"type":"text_delta","delta":" **Vercel bot (GitHub)** — PR #1 `hear"}
+
+data: {"type":"text_delta","delta":"st-connect` deployée avec succès, commentaire Vercel posté."}
+
+data: {"type":"text_delta","delta":" Hier 19h23.\n- **Vercel** — Déploiement production *hearst-os* en"}
+
+data: {"type":"text_delta","delta":" échec sur le team Hearst corporation. Ce matin 01h30.\n- **GitHub Actions** — CI `hear"}
+
+data: {"type":"text_delta","delta":"st-agents` en échec sur `main` (commit `6fbadb1`) — job"}
+
+data: {"type":"text_delta","delta":" `CI / test` passé, mais d'autres non."}
+
+data: {"type":"text_delta","delta":" Hier 18h21.\n- **Sentry** — Nouvelle issue `JAVASCRIPT-NEXTJS-7C-13` : erreur sur `HearstLogo3"}
+
+data: {"type":"text_delta","delta":"D.tsx:21`. Ce matin 01h08.\n- **Sentry** — Nouvelle issue `JAVASCRIPT-NEXTJS-7C-12` : `ReferenceError: ForceGraph"}
+
+data: {"type":"text_delta","delta":"3D is not defined`. Ce matin 00h43.\n\nDeux erreurs Sentry liées à des composants "}
+
+data: {"type":"text_delta","delta":"3D (`ForceGraph3D`, `HearstLogo3D`) — probablement le même problème de ren"}
+
+data: {"type":"text_delta","delta":"du côté client. Le déploiement Vercel raté en"}
+
+data: {"type":"text_delta","delta":" découle peut-être. Tu veux que je creuse les logs"}
+
+data: {"type":"text_delta","delta":" Sentry ?"}
+
+data: {"type":"run_completed","run_id":"46faed80-1f20-4b63-855d-1e5b555aaa94","artifacts":[]}
+

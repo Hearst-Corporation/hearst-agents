@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"81091e3c-3338-4cff-abcb-396d4cc1caf7"}
+
+data: {"type":"tool_surface","context":"calendar","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research + report intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-81091e3c-3338-4cff-abcb-396d4cc1caf7","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Donne-moi un rapport founder cockpit de cette semaine\""}
+
+data: {"type":"step_completed","step_id":"research-81091e3c-3338-4cff-abcb-396d4cc1caf7"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-81091e3c-3338-4cff-abcb-396d4cc1caf7","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-81091e3c-3338-4cff-abcb-396d4cc1caf7"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (435 chars)"}
+
+data: {"type":"text_delta","delta":"- #137 Romain Eliard, CEO de Cockpit. Révolutionner l’intelligence conversationnelle pour booster la productivité des équipes commerciales.: \n- Cockpit | LinkedIn: 2024-08-04T00:00:00.000Z\n- CockpitHQ — Le tableau de bord gamifié pour fondateurs: \n- Cockpit - 2025 Company Profile - Tracxn: 2025-05-06T00:00:00.000Z\n- Millau. Dominique Cook lauréate du programme Femmes Entrepreneuses d’Orange | Millavois.com: 2026-05-07T00:00:00.000Z"}
+
+data: {"type":"asset_generated","asset_id":"c1cf1532-117f-449d-bd35-a65e09c5d9a1","asset_type":"report","name":"Founder cockpit de cette semaine — Report"}
+
+data: {"type":"focal_object_ready","focal_object":{"objectType":"report","id":"fo_c1cf1532-117f-449d-bd35-a65e09c5d9a1","threadId":"t-e2e-4.1","title":"Founder cockpit de cette semaine — Report","status":"delivered","createdAt":1778207124603,"updatedAt":1778207124603,"sourceAssetId":"c1cf1532-117f-449d-bd35-a65e09c5d9a1","morphTarget":null,"summary":"- #137 Romain Eliard, CEO de Cockpit. Révolutionner l’intelligence conversationnelle pour booster la productivité des équipes commerciales.: \n- Cockpit | LinkedIn: 2024-08-04T00:00:00.000Z\n- CockpitHQ","sections":[],"tier":"report","tone":"executive","wordCount":54}}
+
+data: {"type":"orchestrator_log","message":"Asset created: Founder cockpit de cette semaine — Report"}
+
+data: {"type":"run_completed","run_id":"81091e3c-3338-4cff-abcb-396d4cc1caf7","artifacts":[]}
+

@@ -1,0 +1,20 @@
+data: {"type":"run_started","run_id":"672d8498-deef-433a-aa76-9e91167a93d9"}
+
+data: {"type":"tool_surface","context":"calendar","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: productivity)"}
+
+data: {"type":"app_connect_required","app":"notion","reason":"Connexion à Notion requise pour créer la page 'Audit notes 2026'."}
+
+data: {"type":"text_delta","delta":"Connect"}
+
+data: {"type":"text_delta","delta":"e ton compte Notion via la carte ci-dessus —"}
+
+data: {"type":"text_delta","delta":" une fois fait, je crée la page immédiatement."}
+
+data: {"type":"run_completed","run_id":"672d8498-deef-433a-aa76-9e91167a93d9","artifacts":[]}
+

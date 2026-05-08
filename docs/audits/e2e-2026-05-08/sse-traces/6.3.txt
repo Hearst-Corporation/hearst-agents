@@ -1,0 +1,32 @@
+data: {"type":"run_started","run_id":"38e46118-b7a8-4ec2-a4aa-7f0ffedc8426"}
+
+data: {"type":"tool_surface","context":"calendar","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: productivity)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_01Et5bu7QiEZmaJn5Qs7FkTc","tool":"googledrive_list_files","providerId":"googledrive","providerLabel":"Drive"}
+
+data: {"type":"orchestrator_log","message":"Tool call: googledrive_list_files"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_01Et5bu7QiEZmaJn5Qs7FkTc","tool":"googledrive_list_files","providerId":"googledrive","providerLabel":"Drive"}
+
+data: {"type":"text_delta","delta":"Deux"}
+
+data: {"type":"text_delta","delta":" fichiers remontés (Drive n'en retourne que"}
+
+data: {"type":"text_delta","delta":" 2 pour le moment) :\n\n- **Document 05/04/2026** — Google"}
+
+data: {"type":"text_delta","delta":" Doc, modifié le 5 avril 2026 — [o"}
+
+data: {"type":"text_delta","delta":"uvrir](https://docs.google.com/document/d/1aCgmNj62kMgSIM_qDm59GabVpBVZMfQZVAn21WobN-4/edit?"}
+
+data: {"type":"text_delta","delta":"usp=drivesdk)\n- **Spreadsheet 05/04/2026** — Google Sheets, modifié le 5 avril 2026 — [ouvrir](https://docs.google.com/spreadsheets"}
+
+data: {"type":"text_delta","delta":"/d/1X4AjCFnfBh_qM86RCP41HLKvw73V7WWf6PK8wZjzTdM/edit?usp=drivesdk)"}
+
+data: {"type":"run_completed","run_id":"38e46118-b7a8-4ec2-a4aa-7f0ffedc8426","artifacts":[]}
+

@@ -1,0 +1,30 @@
+data: {"type":"run_started","run_id":"4c6a2550-b5fe-4d47-9603-694c293227fe"}
+
+data: {"type":"tool_surface","context":"research","tools":[]}
+
+data: {"type":"agent_selected","agent_id":"research_agent","agent_name":"Research Agent","backend":"hearst_runtime","backend_reason":"AI pipeline (streamText + Composio)"}
+
+data: {"type":"orchestrator_log","message":"Routing to agent: Research Agent"}
+
+data: {"type":"execution_mode_selected","mode":"custom_agent","reason":"Requires autonomous agent","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-4c6a2550-b5fe-4d47-9603-694c293227fe","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Lance une recherche sur l'état du marché des LLMs en 2026\""}
+
+data: {"type":"step_completed","step_id":"research-4c6a2550-b5fe-4d47-9603-694c293227fe"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-4c6a2550-b5fe-4d47-9603-694c293227fe","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-4c6a2550-b5fe-4d47-9603-694c293227fe"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (455 chars)"}
+
+data: {"type":"text_delta","delta":"- Le marché des LLM en 2026 : cartographie des forces en présence - Décision IA: 2026-04-13T00:00:00.000Z\n- Tendances LLM 2026 : ce qu'il faut savoir: \n- Statistiques LLM 2026 : analyse des performances et benchmarks - Incremys: 2026-01-26T00:00:00.000Z\n- Statistiques LLM 2026 : adoption, tendances et marché: 2026-03-11T00:00:00.000Z\n- [Les Benchmarks de l’IT 2026] Les plateformes d'intelligence artificielle & d'IA générative: 2026-04-13T00:00:00.000Z"}
+
+data: {"type":"run_completed","run_id":"4c6a2550-b5fe-4d47-9603-694c293227fe","artifacts":[]}
+

@@ -1,0 +1,26 @@
+data: {"type":"run_started","run_id":"aec46774-e87d-4863-ba70-7202dbdf44bc"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"research intent detected — using deterministic research path"}
+
+data: {"type":"step_started","step_id":"research-aec46774-e87d-4863-ba70-7202dbdf44bc","agent":"KnowledgeRetriever","title":"Web search"}
+
+data: {"type":"orchestrator_log","message":"Research: searching the web for \"Prix du bitcoin et eth maintenant\""}
+
+data: {"type":"step_completed","step_id":"research-aec46774-e87d-4863-ba70-7202dbdf44bc"}
+
+data: {"type":"orchestrator_log","message":"Web search completed: 5 source(s) found"}
+
+data: {"type":"step_started","step_id":"synthesis-aec46774-e87d-4863-ba70-7202dbdf44bc","agent":"DocBuilder","title":"Report synthesis"}
+
+data: {"type":"step_completed","step_id":"synthesis-aec46774-e87d-4863-ba70-7202dbdf44bc"}
+
+data: {"type":"orchestrator_log","message":"Report synthesized (400 chars)"}
+
+data: {"type":"text_delta","delta":"- Prix des cryptomonnaies, graphiques et capitalisations boursières | CoinMarketCap: \n- BTC ETH: Prix Bitcoin Ethereum en Direct | CoinMarketCap: \n- Cours du Bitcoin et des Cryptomonnaies en Temps Réel: 2026-02-22T00:00:00.000Z\n- ETH ETH: Prix Ethereum Ethereum en Direct | CoinMarketCap: \n- Prix de Ethereum aujourd'hui : cours de ETH en USD en temps réel, graphique et données de marché en France: "}
+
+data: {"type":"run_completed","run_id":"aec46774-e87d-4863-ba70-7202dbdf44bc","artifacts":[]}
+

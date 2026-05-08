@@ -1,0 +1,44 @@
+data: {"type":"run_started","run_id":"94258268-47db-4e72-b342-6375fb9f9b72"}
+
+data: {"type":"tool_surface","context":"calendar","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"Research keywords detected but request matches catalogue template or native tool — routing to AI pipeline"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 25/165 Composio tool(s) (domain: productivity)"}
+
+data: {"type":"tool_call_started","step_id":"toolu_011q2rHQMbgm5nHgTkJ4VuPa","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"orchestrator_log","message":"Tool call: propose_report_spec"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_011q2rHQMbgm5nHgTkJ4VuPa","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"tool_call_started","step_id":"toolu_019PvqxKVSnFKvYrN9tmYCgH","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"orchestrator_log","message":"Tool call: propose_report_spec"}
+
+data: {"type":"asset_generated","asset_id":"15bf6e2d-4ba3-4d74-a7c7-528cc8bdc0eb","asset_type":"report","name":"Founder Cockpit — Semaine du 4 mai 2026"}
+
+data: {"type":"tool_call_completed","step_id":"toolu_019PvqxKVSnFKvYrN9tmYCgH","tool":"propose_report_spec","providerId":"propose","providerLabel":"Propose"}
+
+data: {"type":"text_delta","delta":"Le"}
+
+data: {"type":"text_delta","delta":" Founder Cockpit de la semaine est prêt dans ton focal. Il couvre emails"}
+
+data: {"type":"text_delta","delta":" Gmail, agenda Calendar et fichiers Drive actifs — avec tables de"}
+
+data: {"type":"text_delta","delta":" détail sur les deux premiers.\n\nPoint de friction : *"}
+
+data: {"type":"text_delta","delta":"GitHub* n'est pas connecté, donc la vélocité dev (PR"}
+
+data: {"type":"text_delta","delta":"s, cycle time) est absente du cockpit. Tu veux l'ajouter ?"}
+
+data: {"type":"run_completed","run_id":"94258268-47db-4e72-b342-6375fb9f9b72","artifacts":[]}
+

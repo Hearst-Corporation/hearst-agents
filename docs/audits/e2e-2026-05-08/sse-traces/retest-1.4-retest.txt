@@ -1,0 +1,28 @@
+data: {"type":"run_started","run_id":"fbc41eee-56ce-4796-85e1-00d17ba03eb6"}
+
+data: {"type":"tool_surface","context":"finance","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"workflow","reason":"Provider-backed workflow","backend":"hearst_runtime"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: agentic execution…"}
+
+data: {"type":"orchestrator_log","message":"AI pipeline: 5 native Google tool(s) + 40/165 Composio tool(s) (domain: finance)"}
+
+data: {"type":"scheduled_mission_created","mission_id":"8669d696-3e31-469d-b6dd-9de71c78c4f2","name":"Brief matinal marchés crypto","schedule":"0 8 * * *"}
+
+data: {"type":"orchestrator_log","message":"Warning: create_scheduled_mission called 2 times with identical arguments"}
+
+data: {"type":"scheduled_mission_created","mission_id":"ee902340-5cd9-430f-a1e2-af2398d3c473","name":"Brief matinal marchés crypto","schedule":"0 8 * * *"}
+
+data: {"type":"orchestrator_log","message":"Warning: create_scheduled_mission called 2 times with identical arguments"}
+
+: heartbeat
+
+: heartbeat
+
+data: {"type":"orchestrator_log","message":"Warning: create_scheduled_mission called 3 times with identical arguments"}
+
+data: {"type":"orchestrator_log","message":"Loop detected: create_scheduled_mission called too many times with same arguments. Stopping."}
+
+data: {"type":"run_failed","error":"Tool call loop detected for create_scheduled_mission"}
+

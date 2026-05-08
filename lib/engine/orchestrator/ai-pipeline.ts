@@ -693,6 +693,27 @@ export async function runAiPipeline(
   const messages: ModelMessage[] = [...priorMessages, userMessage];
 
   // ── 5. Run streamText ───────────────────────────────────────
+  // Force tool choice quand la directive schedule est active ET qu'aucun
+  // appel `create_scheduled_mission` n'a déjà été fait dans le thread (sinon
+  // on bloquerait la confirmation _preview:false du tour suivant). Le system
+  // prompt seul ne suffit pas : audit E2E 2026-05-08 a montré que Sonnet
+  // répond en texte avec un cron littéral malgré la directive — toolChoice
+  // garantit l'appel.
+  const priorHasScheduleToolCall = priorMessages.some(
+    (m) =>
+      m.role === "assistant" &&
+      Array.isArray(m.content) &&
+      m.content.some(
+        (part) =>
+          typeof part === "object" &&
+          part !== null &&
+          "type" in part &&
+          part.type === "tool-call" &&
+          "toolName" in part &&
+          part.toolName === "create_scheduled_mission",
+      ),
+  );
+  const forceScheduleTool = (input.scheduleDirective ?? false) && !priorHasScheduleToolCall;
   try {
     const result = streamText({
       model: anthropic(ORCHESTRATOR_MODEL),
@@ -718,6 +739,11 @@ export async function runAiPipeline(
       // B2 abort : POST /api/orchestrate/abort/[runId] déclenche ce signal,
       // streamText coupe la stream Anthropic immédiatement → coût LLM stoppé.
       abortSignal: input.abortSignal,
+      // Force `create_scheduled_mission` quand la directive est active et
+      // qu'aucun appel précédent n'a été fait dans le thread.
+      ...(forceScheduleTool
+        ? { toolChoice: { type: "tool" as const, toolName: "create_scheduled_mission" } }
+        : {}),
     });
 
     // Track active tool calls for event emission pairing.

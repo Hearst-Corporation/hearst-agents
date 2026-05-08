@@ -1,0 +1,14 @@
+data: {"type":"run_started","run_id":"467c2f52-70df-48fc-81e0-d04aab3a51b5"}
+
+data: {"type":"tool_surface","context":"general","tools":[]}
+
+data: {"type":"execution_mode_selected","mode":"direct_answer","reason":"Simple response — no providers needed"}
+
+data: {"type":"orchestrator_log","message":"Routing to DeepSeek R1 (reasoning intent detected)"}
+
+data: {"type":"text_delta","delta":"<think>Nous devons démontrer par récurrence que la somme des n premiers entiers naturels (1+2+...+n) est égale à n(n+1)/2.\n\nC'est une démonstration classique. On procède en deux étapes : initialisation et hérédité.\n\n**Initialisation** : Pour n=1, la somme des 1 premiers entiers est 1. La formule donne 1*(1+1)/2 = 1*2/2 = 1. Donc vrai.\n\n**Hérédité** : Supposons que pour un entier n≥1, la formule est vraie : 1+2+...+n = n(n+1)/2. Montrons qu'elle est vraie pour n+1 : 1+2+...+n+(n+1) = (n+1)(n+2)/2.\n\nEn partant de l'hypothèse de récurrence, on ajoute (n+1) à la somme :\n1+...+n+(n+1) = n(n+1)/2 + (n+1) = (n+1)(n/2 + 1) = (n+1)( (n+2)/2 ) = (n+1)(n+2)/2.\n\nDonc l'hérédité est vérifiée.\n\nPar récurrence, la formule est vraie pour tout n≥1.\n\nC'est la démonstration attendue.</think>\n\n"}
+
+data: {"type":"text_delta","delta":"**Preuve par récurrence**\n\nSoit \\( P(n) \\) la proposition : \\( 1 + 2 + \\cdots + n = \\frac{n(n+1)}{2} \\).\n\n**Initialisation** : Pour \\( n = 1 \\),\n\\[\n1 = \\frac{1 \\times (1+1)}{2} = \\frac{2}{2} = 1,\n\\]\ndonc \\( P(1) \\) est vraie.\n\n**Hérédité** : Supposons \\( P(n) \\) vraie pour un entier \\( n \\ge 1 \\), c'est-à-dire\n\\[\n1 + 2 + \\cdots + n = \\frac{n(n+1)}{2}.\n\\]\nMontrons \\( P(n+1) \\) :\n\\[\n1 + 2 + \\cdots + n + (n+1) = \\frac{n(n+1)}{2} + (n+1).\n\\]\nFactorisons \\( (n+1) \\) :\n\\[\n\\frac{n(n+1)}{2} + (n+1) = (n+1)\\left( \\frac{n}{2} + 1 \\right) = (n+1) \\frac{n+2}{2} = \\frac{(n+1)(n+2)}{2},\n\\]\nce qui est exactement \\( P(n+1) \\). Ainsi, \\( P(n) \\Rightarrow P(n+1) \\).\n\n**Conclusion** : Par le principe de récurrence, \\( P(n) \\) est vraie pour tout entier naturel \\( n \\ge 1 \\)."}
+
+data: {"type":"run_completed","run_id":"467c2f52-70df-48fc-81e0-d04aab3a51b5","artifacts":[]}
+
