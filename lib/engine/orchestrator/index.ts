@@ -557,31 +557,54 @@ async function runPipeline(
     }
 
     // ── Reasoning path — DeepSeek R1 ───────────────────────────
+    // Fail-soft : si DEEPSEEK_API_KEY absent ou si l'appel échoue, on
+    // retombe sur handleAiPipeline (Sonnet 4.6 avec extended thinking).
+    // L'audit E2E 2026-05-08 1.3 a montré que la branche n'était jamais
+    // empruntée — capScope.intent est maintenant détecté indépendamment
+    // de la clé, donc on doit gérer le cas "détecté mais pas dispo".
     if (capScope.intent === "reasoning") {
-      eventBus.emit({
-        type: "orchestrator_log",
-        run_id: engine.id,
-        message: "Routing to DeepSeek R1 (reasoning intent detected)",
-      });
-
-      const { deepseekChat } = await import("@/lib/capabilities/providers/deepseek");
-      const messages: Array<{ role: "user" | "assistant" | "system"; content: string }> = [
-        ...(input.conversationHistory ?? []),
-        { role: "user", content: input.message },
-      ];
-
-      const result = await deepseekChat({ messages, maxTokens: 8192 });
-
-      if (result.reasoningContent) {
+      if (!process.env.DEEPSEEK_API_KEY) {
         eventBus.emit({
-          type: "text_delta",
+          type: "orchestrator_log",
           run_id: engine.id,
-          delta: `<think>${result.reasoningContent}</think>\n\n`,
+          message: "Reasoning intent detected but DEEPSEEK_API_KEY absent — falling back to AI pipeline (Sonnet)",
         });
+      } else {
+        try {
+          eventBus.emit({
+            type: "orchestrator_log",
+            run_id: engine.id,
+            message: "Routing to DeepSeek R1 (reasoning intent detected)",
+          });
+
+          const { deepseekChat } = await import("@/lib/capabilities/providers/deepseek");
+          const messages: Array<{ role: "user" | "assistant" | "system"; content: string }> = [
+            ...(input.conversationHistory ?? []),
+            { role: "user", content: input.message },
+          ];
+
+          const result = await deepseekChat({ messages, maxTokens: 8192 });
+
+          if (result.reasoningContent) {
+            eventBus.emit({
+              type: "text_delta",
+              run_id: engine.id,
+              delta: `<think>${result.reasoningContent}</think>\n\n`,
+            });
+          }
+          eventBus.emit({ type: "text_delta", run_id: engine.id, delta: result.content });
+          await engine.complete();
+          return;
+        } catch (err) {
+          console.warn("[Orchestrator] DeepSeek R1 failed — fallback to AI pipeline:", err);
+          eventBus.emit({
+            type: "orchestrator_log",
+            run_id: engine.id,
+            message: `DeepSeek R1 unavailable (${err instanceof Error ? err.message.slice(0, 100) : "unknown"}) — fallback to AI pipeline`,
+          });
+          // Fall through to handleAiPipeline below
+        }
       }
-      eventBus.emit({ type: "text_delta", run_id: engine.id, delta: result.content });
-      await engine.complete();
-      return;
     }
 
     // ── Deterministic research path ────────────────────────────

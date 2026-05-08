@@ -134,15 +134,6 @@ export async function searchWeb(query: string): Promise<WebSearchResult> {
     };
   }
 
-  if (rawResults.length === 0) {
-    return {
-      query,
-      results: [],
-      summary: "search_unavailable",
-      error: "search_unavailable",
-    };
-  }
-
   const result: WebSearchResult = { query, results: rawResults, summary };
 
   // Cache store

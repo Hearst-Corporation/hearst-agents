@@ -758,6 +758,15 @@ export async function runAiPipeline(
     const LOOP_WARNING_THRESHOLD = 2;
     const LOOP_ABORT_THRESHOLD = 3;
 
+    // Per-tool global cap (different from loop detector — counts ALL calls
+    // regardless of args). Audit E2E 2026-05-08 2.2 a montré 47s de latence
+    // sur "Compare Stripe et Adyen" → 4 web_search en série. Cap à 3 web_search
+    // par run pour borner la latence cumulée à ~3 × 15s timeout = 45s pire cas.
+    const perToolCallCount = new Map<string, number>();
+    const PER_TOOL_HARD_CAPS: Record<string, number> = {
+      web_search: 3,
+    };
+
     const isInternalMetaTool = (name: string): boolean =>
       name === "request_connection" || name === "create_scheduled_mission";
 
@@ -855,6 +864,23 @@ export async function runAiPipeline(
             });
             defaultLlmMetrics.incrementCounter("tool_loop_detected");
             throw new Error(`Tool call loop detected for ${event.toolName}`);
+          }
+
+          // Per-tool global cap (ex. web_search ≤ 3 par run). Au-delà,
+          // on coupe le run pour borner la latence cumulée.
+          const globalCount = (perToolCallCount.get(event.toolName) ?? 0) + 1;
+          perToolCallCount.set(event.toolName, globalCount);
+          const hardCap = PER_TOOL_HARD_CAPS[event.toolName];
+          if (hardCap !== undefined && globalCount > hardCap) {
+            console.warn(
+              `[AiPipeline] Per-tool hard cap exceeded: ${event.toolName} called ${globalCount} times (cap=${hardCap}). Stopping run.`
+            );
+            eventBus.emit({
+              type: "orchestrator_log",
+              run_id: engine.id,
+              message: `Cap dépassé : ${event.toolName} appelé ${globalCount} fois (max ${hardCap}). Arrêt du run.`,
+            });
+            throw new Error(`Per-tool cap exceeded for ${event.toolName} (${globalCount} > ${hardCap})`);
           }
 
           if (skip) {

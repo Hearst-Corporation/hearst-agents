@@ -39,10 +39,21 @@ export interface CapabilityScope {
 }
 
 // ── Reasoning intent keywords (scope-level, distinct from execution patterns) ──
-
+//
+// Détection mots-clés pour router vers DeepSeek R1 (chain-of-thought explicite).
+// Élargie 2026-05-08 après audit E2E : "démontre par récurrence" passait
+// jusqu'ici inaperçu en pratique (le fail-soft ramène toujours sur Sonnet
+// si DeepSeek est down ou la clé absente — voir branch reasoning index.ts).
 const SCOPE_REASONING_KEYWORDS = [
   "analyse", "projette", "compare", "simule", "modélise",
   "calcule", "démontre", "prouve", "évalue", "optimise",
+  // Math / preuves formelles
+  "récurrence", "recurrence", "théorème", "theoreme", "preuve",
+  "résous", "resous", "résoudre", "resoudre",
+  "équation", "equation", "système d'équation", "systeme d'equation",
+  "logique formelle", "raisonne", "déduis", "deduis",
+  // EN
+  "prove", "solve", "deduce", "reasoning", "step by step", "step-by-step",
 ];
 
 // ── Domain → ToolContext mapping ────────────────────────────
@@ -91,8 +102,13 @@ export function resolveCapabilityScope(
   const dataIntent = resolveDataIntent(message);
 
   const lowerMsg = message.toLowerCase();
-  const isReasoningIntent = !!process.env.DEEPSEEK_API_KEY
-    && SCOPE_REASONING_KEYWORDS.some((kw) => lowerMsg.includes(kw));
+  // Détection indépendante de DEEPSEEK_API_KEY : on classifie toujours,
+  // et la branche reasoning dans `orchestrate` fail-soft sur ai-pipeline
+  // si la clé est absente. Sans ça, un dev sans DEEPSEEK_API_KEY a une
+  // discovery silencieusement amputée — confirme avec audit 2026-05-08
+  // 1.3 où l'instance avait DEEPSEEK_API_KEY mais l'env n'était pas chargé
+  // au boot du process testé.
+  const isReasoningIntent = SCOPE_REASONING_KEYWORDS.some((kw) => lowerMsg.includes(kw));
 
   return {
     domain,
