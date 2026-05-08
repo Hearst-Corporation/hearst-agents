@@ -36,7 +36,7 @@ export default async function AgentsPage() {
   }
 
   return (
-    <div className="px-(--space-8) py-(--space-10)">
+    <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <p className="t-9 font-medium uppercase tracking-(--tracking-brand) text-[var(--text-muted)]">
@@ -62,7 +62,6 @@ export default async function AgentsPage() {
 
       {agents.length === 0 && !error ? (
         <EmptyState
-          iconKind="agent"
           title="Pas encore d'agent"
           description="Les agents définissent les comportements des assistants Hearst. Crée-en un manuellement, ou charge un set dev (4 agents typés : email, calendrier, research, slack)."
           createHref="/admin/agents/new"

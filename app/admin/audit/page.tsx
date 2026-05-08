@@ -29,7 +29,7 @@ export default async function AuditPage() {
   }
 
   return (
-    <div className="p-(--space-8) space-y-(--space-8) text-text-soft">
+    <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       <div className="flex items-center justify-between">
         <h1 className="t-24 font-light text-text">Audit Log</h1>
         <span className="t-13 text-text-faint">{total} total, showing {logs.length}</span>

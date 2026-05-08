@@ -3,12 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import StageIcon from "../_canvas/icons/StageIcons";
-import type { StageKind } from "../_canvas/topology";
 
 interface Props {
-  /** Stage kind that drives the icon. Reuses the canvas icon set. */
-  iconKind: StageKind;
   title: string;
   description: string;
   /** Page handles its own primary CTA (usually `/new`). */
@@ -21,7 +17,6 @@ interface Props {
 }
 
 export default function EmptyState({
-  iconKind,
   title,
   description,
   createHref,
@@ -72,9 +67,18 @@ export default function EmptyState({
   return (
     <div className="flex flex-col items-center justify-center gap-(--space-5) py-(--space-16) px-(--space-6) text-center">
       <span className="size-(--space-16) flex items-center justify-center rounded-(--radius-2xl) bg-(--cykan-bg-active) border border-(--cykan)/30 text-(--cykan)">
-        <span className="size-(--space-10)">
-          <StageIcon kind={iconKind} />
-        </span>
+        <svg
+          className="size-(--space-8)"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21a8 8 0 0 1 16 0" />
+        </svg>
       </span>
       <div className="flex flex-col gap-(--space-2) max-w-md">
         <h2 className="t-15 font-medium text-text">{title}</h2>

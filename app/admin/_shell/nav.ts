@@ -28,12 +28,6 @@ export const NAV_SECTIONS: NavSection[] = [
           "M3 10 12 3l9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z",
       },
       {
-        href: "/admin/pipeline",
-        label: "Canvas live",
-        iconPath:
-          "M3 12h4l2-7 4 14 2-7h6",
-      },
-      {
         href: "/admin/agents",
         label: "Agents",
         iconPath:
@@ -91,7 +85,7 @@ export const NAV_SECTIONS: NavSection[] = [
 
 /**
  * Resolve the active item for a given pathname. Longest `href` gagne pour que
- * `/admin/pipeline` batte `/admin`, et `/admin/agents/xyz` batte `/admin`.
+ * `/admin/agents/xyz` batte `/admin`.
  */
 export function activeItem(pathname: string): NavItem | null {
   const n = pathname.replace(/\/$/, "") || "/";

@@ -52,7 +52,7 @@ export default function NewAgentPage() {
   };
 
   return (
-    <div className="px-(--space-8) py-(--space-10)">
+    <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
       <h1 className="mb-8 t-24 font-semibold text-[var(--text)]">Nouvel agent</h1>
 
       {error && (

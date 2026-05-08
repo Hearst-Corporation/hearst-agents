@@ -146,20 +146,11 @@ export default function AdminAnalyticsPage() {
 
   return (
     <div className="h-full min-h-0 overflow-y-auto bg-bg text-text">
-      <div
-        className="mx-auto w-full max-w-[min(100%,var(--width-actions))] flex flex-col gap-4 md:gap-6 p-4 md:p-8 md:px-12"
-      >
-        <header className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <p className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-[var(--text-faint)]">
-            Hearst OS · admin
-          </p>
-          <h1 className="t-28 font-light tracking-tight text-[var(--text)]">
-            Analytics cross-tenant
-          </h1>
-          <p className="t-13 text-[var(--text-muted)]">
-            Usage agrégé par tenant : runs, cost LLM, missions, assets et users
-            actifs. Source : table runs (cost_usd) + missions + assets sur la
-            fenêtre choisie.
+      <div className="px-(--space-8) py-(--space-10) flex flex-col gap-(--space-8)">
+        <header className="flex flex-col gap-(--space-2)">
+          <h1 className="t-24 font-light text-text">Analytics cross-tenant</h1>
+          <p className="t-13 text-text-muted">
+            Usage agrégé par tenant : runs, cost LLM, missions, assets et users actifs.
           </p>
         </header>
 
@@ -179,10 +170,7 @@ export default function AdminAnalyticsPage() {
           </p>
         )}
 
-        <section
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
-          style={{ gap: "var(--space-3)" }}
-        >
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-(--space-4)">
           <AnalyticsKpiCard
             label="Runs"
             value={(overview?.totalRuns ?? 0).toLocaleString("en-US")}
@@ -208,8 +196,8 @@ export default function AdminAnalyticsPage() {
 
         <UsageTimeSeriesChart points={usage?.timeSeries ?? []} />
 
-        <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-          <h2 className="t-15 font-medium text-[var(--text)]">Top tenants</h2>
+        <section className="flex flex-col gap-(--space-3)">
+          <h2 className="t-15 font-medium text-text">Top tenants</h2>
           {tenants ? (
             <TenantsTable
               tenants={tenants}

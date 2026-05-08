@@ -26,7 +26,7 @@ export default async function SettingsPage() {
   const categories = [...new Set(settings.map((s) => s.category))].sort();
 
   return (
-    <div className="p-(--space-8) space-y-(--space-8) text-[var(--text-soft)]">
+    <div className="p-(--space-8) space-y-(--space-8) text-[var(--text-soft)] h-full overflow-y-auto">
       <div className="flex items-center justify-between">
         <h1 className="t-24 font-light">System Settings</h1>
         <span className="t-13 text-[var(--text-ghost)]">{settings.length} settings</span>

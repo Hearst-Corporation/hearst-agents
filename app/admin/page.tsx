@@ -1,57 +1,191 @@
-import Link from "next/link";
-import { NAV_SECTIONS } from "./_shell/nav";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { getSystemHealth } from "@/lib/admin/health";
 
 export const dynamic = "force-dynamic";
 
-/**
- * Accueil administration — vue d’ensemble et liens vers toutes les sections.
- * Le canvas live est sur `/admin/pipeline` (voir `CanvasShell`).
- */
-export default function AdminHomePage() {
+interface RunRow {
+  id: string;
+  status: string | null;
+  kind: string | null;
+  latency_ms: number | null;
+  created_at: string;
+}
+
+async function loadDashboard() {
+  const sb = getServerSupabase();
+  if (!sb) return { health: null, runs: [], kpis: null };
+
+  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+
+  const [healthResult, recentRunsResult, hourRunsResult] = await Promise.allSettled([
+    getSystemHealth(sb),
+    sb
+      .from("runs")
+      .select("id, status, kind, latency_ms, created_at")
+      .order("created_at", { ascending: false })
+      .limit(8),
+    sb
+      .from("runs")
+      .select("status, latency_ms, created_at")
+      .gte("created_at", oneHourAgo)
+      .order("created_at", { ascending: false })
+      .limit(500),
+  ]);
+
+  const health = healthResult.status === "fulfilled" ? healthResult.value : null;
+  const runs =
+    recentRunsResult.status === "fulfilled"
+      ? ((recentRunsResult.value.data ?? []) as RunRow[])
+      : [];
+
+  let kpis = null;
+  if (hourRunsResult.status === "fulfilled" && !hourRunsResult.value.error) {
+    const rows = (hourRunsResult.value.data ?? []) as Array<{ status: string | null; latency_ms: number | null; created_at: string }>;
+    const oneMinAgo = Date.now() - 60 * 1000;
+    const runsPerMin = rows.filter((r) => new Date(r.created_at).getTime() >= oneMinAgo).length;
+    const failed = rows.filter((r) => r.status === "failed").length;
+    const errorRate = rows.length === 0 ? 0 : failed / rows.length;
+    const latencies = rows
+      .filter((r) => typeof r.latency_ms === "number")
+      .map((r) => r.latency_ms as number)
+      .sort((a, b) => a - b);
+    const p95 = latencies.length ? latencies[Math.floor(latencies.length * 0.95)] : null;
+    kpis = { runsPerMin, errorRate, p95LatencyMs: p95, totalRuns: rows.length };
+  }
+
+  return { health, runs, kpis };
+}
+
+function StatusDot({ ok }: { ok: boolean }) {
+  return (
+    <span
+      className={`inline-block size-(--space-2) rounded-(--radius-pill) shrink-0 ${ok ? "bg-(--cykan)" : "bg-(--danger)"}`}
+    />
+  );
+}
+
+export default async function AdminHomePage() {
+  const { health, runs, kpis } = await loadDashboard();
+
+  const healthColor =
+    health?.status === "healthy"
+      ? "text-(--cykan)"
+      : health?.status === "degraded"
+        ? "text-(--warn)"
+        : "text-(--danger)";
+
   return (
     <div className="h-full min-h-0 overflow-y-auto bg-bg text-text">
-      <div className="px-(--space-8) py-(--space-10) mx-auto w-full max-w-[min(100%,var(--width-actions))]">
-        <p className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-2)">
-          Hearst OS
-        </p>
-        <h1 className="t-28 font-semibold text-text mb-(--space-3)">Accueil administration</h1>
-        <p className="t-15 text-text-muted max-w-[min(100%,var(--width-center-max))] mb-(--space-6)">
-          Raccourcis vers chaque outil admin. Le graphe orchestrateur (SSE, replay des runs) vit sur
-          le canvas dédié.
-        </p>
+      <div className="px-(--space-8) py-(--space-10) space-y-(--space-8)">
 
-        <div className="mb-(--space-10)">
-          <Link
-            href="/admin/pipeline"
-            className="inline-flex items-center gap-(--space-3) ghost-btn-solid ghost-btn-cykan rounded-(--radius-sm) px-(--space-5) py-(--space-3) t-13"
-          >
-            Ouvrir le canvas pipeline (live)
-          </Link>
+        <div>
+          <h1 className="t-24 font-light text-text">Administration</h1>
         </div>
 
-        <div className="flex flex-col gap-(--space-8)">
-          {NAV_SECTIONS.map((section) => (
-            <section key={section.title}>
-              <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-3)">
-                {section.title}
-              </h2>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-(--space-3)">
-                {section.items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="flex flex-col gap-(--space-2) rounded-(--radius-md) border border-line-strong bg-bg-elev p-(--space-4) transition-colors duration-(--duration-base) ease-(--ease-standard) hover:border-(--cykan)/40 hover:bg-(--surface-1)"
-                    >
-                      <span className="t-13 font-medium text-text">{item.label}</span>
-                      <span className="t-9 font-mono text-text-faint truncate">{item.href}</span>
-                    </Link>
-                  </li>
+        {/* ── Statut système ─────────────────────────────── */}
+        <section className="space-y-(--space-4)">
+          <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Statut système
+          </h2>
+          {!health ? (
+            <p className="t-13 text-text-ghost">Supabase non configuré</p>
+          ) : (
+            <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-5) space-y-(--space-4)">
+              <div className="flex items-center gap-(--space-3)">
+                <span className={`t-15 font-medium ${healthColor}`}>
+                  {health.status === "healthy" ? "Opérationnel" : health.status === "degraded" ? "Dégradé" : "Hors ligne"}
+                </span>
+                <span className="t-10 text-text-ghost font-mono">
+                  {new Date(health.timestamp).toLocaleTimeString("fr-FR")}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-3)">
+                {(["database", "storage", "connectors", "llm"] as const).map((key) => (
+                  <div key={key} className="flex items-center gap-(--space-2)">
+                    <StatusDot ok={health.checks[key]} />
+                    <span className="t-12 text-text-muted capitalize">{key}</span>
+                    {health.latency[key as keyof typeof health.latency] !== undefined && (
+                      <span className="t-10 text-text-ghost ml-auto">
+                        {health.latency[key as keyof typeof health.latency]}ms
+                      </span>
+                    )}
+                  </div>
                 ))}
-              </ul>
-            </section>
-          ))}
-        </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* ── KPIs dernière heure ───────────────────────── */}
+        {kpis && (
+          <section className="space-y-(--space-4)">
+            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              Dernière heure
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4)">
+              <Kpi label="Runs" value={String(kpis.totalRuns)} />
+              <Kpi label="Runs / min" value={String(kpis.runsPerMin)} />
+              <Kpi
+                label="Taux d'erreur"
+                value={`${(kpis.errorRate * 100).toFixed(1)} %`}
+                danger={kpis.errorRate > 0.1}
+              />
+              <Kpi
+                label="Latence p95"
+                value={kpis.p95LatencyMs !== null ? `${Math.round(kpis.p95LatencyMs)} ms` : "—"}
+              />
+            </div>
+          </section>
+        )}
+
+        {/* ── Derniers runs ─────────────────────────────── */}
+        <section className="space-y-(--space-4)">
+          <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Derniers runs
+          </h2>
+          {runs.length === 0 ? (
+            <p className="t-13 text-text-ghost">Aucun run.</p>
+          ) : (
+            <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
+              {runs.map((run) => {
+                const ok = run.status === "completed" || run.status === "success";
+                const failed = run.status === "failed" || run.status === "error";
+                const statusColor = ok
+                  ? "text-(--cykan)"
+                  : failed
+                    ? "text-(--danger)"
+                    : "text-(--warn)";
+                return (
+                  <div
+                    key={run.id}
+                    className="grid grid-cols-12 items-center px-(--space-4) py-(--space-3) border-b border-line last:border-0 gap-(--space-3) hover:bg-surface-2 transition-colors"
+                  >
+                    <span className="col-span-4 t-11 font-mono text-text-ghost truncate">{run.id.slice(0, 8)}…</span>
+                    <span className="col-span-2 t-12 text-text-muted">{run.kind ?? "—"}</span>
+                    <span className={`col-span-2 t-12 font-medium ${statusColor}`}>{run.status ?? "—"}</span>
+                    <span className="col-span-2 t-11 text-text-ghost text-right">
+                      {run.latency_ms !== null ? `${run.latency_ms}ms` : "—"}
+                    </span>
+                    <span className="col-span-2 t-10 text-text-ghost text-right font-mono">
+                      {new Date(run.created_at).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
       </div>
+    </div>
+  );
+}
+
+function Kpi({ label, value, danger }: { label: string; value: string; danger?: boolean }) {
+  return (
+    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
+      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{label}</span>
+      <span className={`t-24 font-light ${danger ? "text-(--danger)" : "text-text"}`}>{value}</span>
     </div>
   );
 }

@@ -58,7 +58,7 @@ export default async function RunsPage() {
   }
 
   return (
-    <div className="px-(--space-8) py-(--space-10)">
+    <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
       <div className="mb-8">
         <p className="t-9 font-medium uppercase tracking-(--tracking-brand) text-[var(--text-muted)]">
           Hearst

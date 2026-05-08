@@ -37,7 +37,7 @@ export default async function HealthPage() {
     : [];
 
   return (
-    <div className="p-(--space-8) space-y-(--space-8) text-text-soft">
+    <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       <div className="flex items-center gap-(--space-4)">
         <h1 className="t-24 font-light text-text">System Health</h1>
         <span className={`t-13 uppercase font-medium ${overallColor[overall]}`}>

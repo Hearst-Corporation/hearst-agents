@@ -83,7 +83,7 @@ export default async function AgentDetailPage({ params }: Props) {
   };
 
   return (
-    <div className="px-(--space-8) py-(--space-10)">
+    <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between">
         <div>
