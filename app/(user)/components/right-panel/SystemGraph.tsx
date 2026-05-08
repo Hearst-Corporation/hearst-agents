@@ -21,7 +21,6 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import ForceGraph3D from "3d-force-graph";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useSelectionStore } from "@/stores/selection";
 import {
@@ -32,9 +31,10 @@ import {
   type AgentRoleId,
 } from "@/lib/cockpit/agents";
 
-// Lib externe à typing tordu : Constructor + callable instance. On utilise
-// `any` localement pour rester productif — c'est volontairement scopé à ce
-// fichier.
+// `3d-force-graph` touche `window` au top-level → import dynamique côté
+// client uniquement (cf. useEffect d'init). Sinon SSR crash :
+// "window is not defined".
+// Lib externe à typing tordu : on utilise `any` localement, scopé.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Graph = any;
 
@@ -94,13 +94,16 @@ export function SystemGraph() {
     const cykan = readCykanHex();
     const faintHex = "#4d5560";
 
-    const initTimer = setTimeout(() => {
-      if (!containerRef.current) return;
+    let cancelled = false;
+    void (async () => {
+      // Dynamic import : la lib touche `window` au top-level, ne peut pas
+      // être chargée en SSR.
+      const mod = await import("3d-force-graph");
+      if (cancelled || !containerRef.current) return;
 
-      // API officielle 3d-force-graph : `ForceGraph3D({opts})(element)`,
-      // sans `new`. Le typing TS de la lib réclame `new` à tort, on cast.
+      // API officielle : `ForceGraph3D({opts})(element)`, sans `new`.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const ctorFn = ForceGraph3D as any;
+      const ctorFn = mod.default as any;
       const graph: Graph = ctorFn({ controlType: "orbit" })(containerRef.current)
         .width(containerRef.current.clientWidth)
         .height(containerRef.current.clientHeight)
@@ -171,10 +174,10 @@ export function SystemGraph() {
         nodes: NODES.map((n) => ({ ...n })),
         links: [] as LinkData[],
       });
-    }, 50);
+    })();
 
     return () => {
-      clearTimeout(initTimer);
+      cancelled = true;
       if (graphRef.current) {
         graphRef.current._destructor?.();
         graphRef.current = null;
