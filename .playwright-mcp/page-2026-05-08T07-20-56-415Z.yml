@@ -1,0 +1,88 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "Demande à Hearst… ⌘K" [ref=e4]:
+      - generic [ref=e5]: Demande à Hearst…
+      - generic [ref=e6]: ⌘K
+    - button "Notifications" [ref=e9] [cursor=pointer]:
+      - img [ref=e10]
+  - generic [ref=e13]:
+    - complementary [ref=e14]:
+      - button "Hearst AI" [ref=e16]:
+        - img "Hearst AI" [ref=e17]
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - button "Home ⌘1" [ref=e33]:
+              - generic [ref=e34]:
+                - img [ref=e36]
+                - generic [ref=e39]: Home
+              - generic [ref=e40]: ⌘1
+            - button "App" [ref=e41]:
+              - generic [ref=e42]:
+                - img [ref=e44]
+                - generic [ref=e49]: App
+          - button "Chat ⌘N" [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]
+              - generic [ref=e56]: Chat
+            - generic [ref=e57]: ⌘N
+        - generic [ref=e58]:
+          - button "Récents" [expanded] [ref=e59]:
+            - generic [ref=e60]: Récents
+            - img [ref=e62]
+          - paragraph [ref=e64]: Aucune activité récente
+      - generic [ref=e65]:
+        - generic [ref=e68]: Utilisateur
+        - generic [ref=e69]:
+          - link "Admin" [ref=e70] [cursor=pointer]:
+            - /url: /admin
+          - button "Exit" [ref=e71]
+        - button "Collapse" [ref=e72]:
+          - img [ref=e73]
+    - generic [ref=e75]:
+      - img
+      - main [ref=e76]:
+        - generic [ref=e78]:
+          - navigation "Breadcrumb" [ref=e79]:
+            - generic [ref=e80]:
+              - link "Hearst" [ref=e81] [cursor=pointer]:
+                - /url: /
+              - generic [ref=e82]: ›
+            - generic [ref=e84]: Runs
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - heading "Runs" [level=1] [ref=e87]
+              - paragraph [ref=e88]: Chargement…
+            - button "Nouveau report" [ref=e90]:
+              - generic [ref=e91]: Nouveau report
+    - complementary [ref=e99]:
+      - generic [ref=e100]:
+        - generic [ref=e101]:
+          - generic [ref=e104]: Filtres
+          - list [ref=e105]:
+            - listitem [ref=e106]:
+              - button "Tous les runs" [ref=e107]
+            - listitem [ref=e108]:
+              - button "Réussis" [ref=e109]
+            - listitem [ref=e110]:
+              - button "En échec" [ref=e111]
+            - listitem [ref=e112]:
+              - button "En cours" [ref=e113]
+            - listitem [ref=e114]:
+              - button "En attente d'approbation" [ref=e115]
+        - generic [ref=e116]:
+          - button "Raccourcis" [expanded] [ref=e117]:
+            - generic [ref=e118]: Raccourcis
+            - img [ref=e120]
+          - generic [ref=e122]:
+            - link "Voir les missions" [ref=e125] [cursor=pointer]:
+              - /url: /missions
+              - generic [ref=e126]: Voir les missions
+            - link "Voir les assets" [ref=e129] [cursor=pointer]:
+              - /url: /assets
+              - generic [ref=e130]: Voir les assets
+        - generic [ref=e131]:
+          - generic [ref=e134]: Aide
+          - paragraph [ref=e135]: "Chaque run garde sa trace complète : prompt, modèle, coût, latence, assets produits. Re-run un run conserve le contexte."
+  - contentinfo "Online" [ref=e136]:
+    - generic [ref=e143]: Online

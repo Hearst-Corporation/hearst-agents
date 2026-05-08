@@ -1,0 +1,20 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "Demande à Hearst… ⌘K" [ref=e4]:
+      - generic [ref=e5]: Demande à Hearst…
+      - generic [ref=e6]: ⌘K
+    - button "Notifications" [ref=e9] [cursor=pointer]:
+      - img [ref=e10]
+  - generic [ref=e13]:
+    - complementary [ref=e14]:
+      - button "Hearst AI" [ref=e16]
+      - generic [ref=e30]
+      - generic [ref=e65]
+    - generic [ref=e75]:
+      - img
+      - main [ref=e76]
+      - textbox "Ask anything" [ref=e128]
+    - complementary [ref=e129]:
+      - generic [ref=e130]
+  - contentinfo "Online" [ref=e216]:
+    - generic [ref=e223]: Online

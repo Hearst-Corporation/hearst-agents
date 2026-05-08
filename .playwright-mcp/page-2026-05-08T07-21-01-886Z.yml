@@ -1,0 +1,57 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "Demande à Hearst… ⌘K" [ref=e4]:
+      - generic [ref=e5]: Demande à Hearst…
+      - generic [ref=e6]: ⌘K
+    - button "Notifications" [ref=e9] [cursor=pointer]:
+      - img [ref=e10]
+  - generic [ref=e13]:
+    - complementary [ref=e14]:
+      - button "Hearst AI" [ref=e16]:
+        - img "Hearst AI" [ref=e17]
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - button "Home ⌘1" [ref=e33]:
+              - generic [ref=e34]:
+                - img [ref=e36]
+                - generic [ref=e39]: Home
+              - generic [ref=e40]: ⌘1
+            - button "App" [ref=e41]:
+              - generic [ref=e42]:
+                - img [ref=e44]
+                - generic [ref=e49]: App
+          - button "Chat ⌘N" [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]
+              - generic [ref=e56]: Chat
+            - generic [ref=e57]: ⌘N
+        - generic [ref=e58]:
+          - button "Récents" [expanded] [ref=e59]:
+            - generic [ref=e60]: Récents
+            - img [ref=e62]
+          - paragraph [ref=e64]: Aucune activité récente
+      - generic [ref=e65]:
+        - generic [ref=e68]: Utilisateur
+        - generic [ref=e69]:
+          - link "Admin" [ref=e70] [cursor=pointer]:
+            - /url: /admin
+          - button "Exit" [ref=e71]
+        - button "Collapse" [ref=e72]:
+          - img [ref=e73]
+    - generic [ref=e75]:
+      - img
+      - main [ref=e76]:
+        - generic [ref=e78]:
+          - navigation "Breadcrumb" [ref=e79]:
+            - generic [ref=e80]:
+              - link "Hearst" [ref=e81] [cursor=pointer]:
+                - /url: /
+              - generic [ref=e82]: ›
+            - generic [ref=e84]: Apps
+          - generic [ref=e86]:
+            - heading "Apps" [level=1] [ref=e87]
+            - paragraph [ref=e88]: Catalogue des intégrations disponibles. Connectez les sources qui alimentent vos rapports et missions.
+    - complementary [ref=e91]
+  - contentinfo "Online" [ref=e92]:
+    - generic [ref=e99]: Online

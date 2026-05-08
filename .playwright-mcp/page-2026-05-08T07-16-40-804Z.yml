@@ -1,0 +1,156 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "Demande à Hearst… ⌘K" [ref=e4]:
+      - generic [ref=e5]: Demande à Hearst…
+      - generic [ref=e6]: ⌘K
+    - button "Notifications" [ref=e9] [cursor=pointer]:
+      - img [ref=e10]
+  - generic [ref=e13]:
+    - complementary [ref=e14]:
+      - button "Hearst AI" [ref=e16]:
+        - img "Hearst AI" [ref=e17]
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - button "Home ⌘1" [ref=e33]:
+              - generic [ref=e34]:
+                - img [ref=e36]
+                - generic [ref=e39]: Home
+              - generic [ref=e40]: ⌘1
+            - button "App" [ref=e41]:
+              - generic [ref=e42]:
+                - img [ref=e44]
+                - generic [ref=e49]: App
+          - button "Chat ⌘N" [ref=e51]:
+            - generic [ref=e52]:
+              - img [ref=e54]
+              - generic [ref=e56]: Chat
+            - generic [ref=e57]: ⌘N
+        - generic [ref=e58]:
+          - button "Récents" [expanded] [ref=e59]:
+            - generic [ref=e60]: Récents
+            - img [ref=e62]
+          - paragraph [ref=e64]: Aucune activité récente
+      - generic [ref=e65]:
+        - generic [ref=e68]: Utilisateur
+        - generic [ref=e69]:
+          - link "Admin" [ref=e70] [cursor=pointer]:
+            - /url: /admin
+          - button "Exit" [ref=e71]
+        - button "Collapse" [ref=e72]:
+          - img [ref=e73]
+    - generic [ref=e75]:
+      - img
+      - main [ref=e76]:
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - heading "Hello." [level=1] [ref=e80]
+            - generic [ref=e82]: vendredi 8 mai 11:16
+          - generic [ref=e83]:
+            - generic [ref=e85]: 0 running
+            - generic [ref=e86]:
+              - generic [ref=e87]: 06:30:05
+              - generic [ref=e88]: ·
+              - generic [ref=e89]: "Mission succeeded: bitcoin"
+            - generic [ref=e90]:
+              - generic [ref=e91]: 4h ago
+              - link "View logs →" [ref=e92] [cursor=pointer]:
+                - /url: /runs
+          - region "Récap KPIs" [ref=e95]:
+            - link "Assets 86 83 reports" [ref=e96] [cursor=pointer]:
+              - /url: /assets
+              - generic [ref=e97]:
+                - generic [ref=e99]: Assets
+                - generic [ref=e101]: "86"
+                - generic [ref=e103]: 83 reports
+            - link "Missions 00/06 All good" [ref=e104] [cursor=pointer]:
+              - /url: /missions
+              - generic [ref=e105]:
+                - generic [ref=e107]: Missions
+                - generic [ref=e109]: 00/06
+                - generic [ref=e112]: All good
+            - link "Reports 03 Founder Cockpit · Customer 360 · Deal-to-Cash" [ref=e113] [cursor=pointer]:
+              - /url: /reports
+              - generic [ref=e114]:
+                - generic [ref=e116]: Reports
+                - generic [ref=e118]: "03"
+                - generic [ref=e120]: Founder Cockpit · Customer 360 · Deal-to-Cash
+          - group [ref=e121]:
+            - generic "Agenda & watchlist" [ref=e122] [cursor=pointer]:
+              - text: Agenda & watchlist
+              - img [ref=e123]
+      - textbox "Ask anything" [ref=e128]
+    - complementary [ref=e129]:
+      - generic [ref=e130]:
+        - generic [ref=e132]:
+          - generic "Graphe système agents" [ref=e133]
+          - generic:
+            - generic: Agents
+            - generic: "6"
+          - generic:
+            - generic: Scribe
+            - generic: Pilot
+            - generic: Delve
+            - generic: Cortex
+            - generic: Pulse
+            - generic: Warden
+        - generic [ref=e135]:
+          - generic [ref=e136]:
+            - generic [ref=e137]:
+              - img [ref=e139]
+              - generic [ref=e141]: Actions rapides
+            - list [ref=e142]:
+              - listitem [ref=e143]:
+                - button "Nouvelle mission Créer une mission automatisée" [ref=e144]:
+                  - img [ref=e146]
+                  - generic [ref=e148]:
+                    - generic [ref=e149]: Nouvelle mission
+                    - generic [ref=e150]: Créer une mission automatisée
+                  - generic [ref=e151]: →
+              - listitem [ref=e152]:
+                - button "Nouveau rapport Générer un rapport" [ref=e153]:
+                  - img [ref=e155]
+                  - generic [ref=e158]:
+                    - generic [ref=e159]: Nouveau rapport
+                    - generic [ref=e160]: Générer un rapport
+                  - generic [ref=e161]: →
+              - listitem [ref=e162]:
+                - button "Ajouter une source Connecter un service" [ref=e163]:
+                  - img [ref=e165]
+                  - generic [ref=e169]:
+                    - generic [ref=e170]: Ajouter une source
+                    - generic [ref=e171]: Connecter un service
+                  - generic [ref=e172]: →
+              - listitem [ref=e173]:
+                - button "Lancer analyse Démarrer une analyse" [ref=e174]:
+                  - img [ref=e176]
+                  - generic [ref=e178]:
+                    - generic [ref=e179]: Lancer analyse
+                    - generic [ref=e180]: Démarrer une analyse
+                  - generic [ref=e181]: →
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - img [ref=e185]
+              - generic [ref=e188]: Statut
+            - generic [ref=e189]:
+              - img [ref=e191]
+              - generic [ref=e195]:
+                - generic [ref=e196]:
+                  - generic [ref=e197]: En ligne
+                  - generic [ref=e198]: "--:--"
+                - generic [ref=e199]:
+                  - generic [ref=e200]: Session
+                  - generic [ref=e201]: Aucune
+                - generic [ref=e202]:
+                  - generic [ref=e203]: Alerte
+                  - generic [ref=e204]: Aucune
+                - generic [ref=e205]:
+                  - generic [ref=e206]: Activité
+                  - generic [ref=e207]: Aucune
+          - generic [ref=e208]:
+            - generic [ref=e209]:
+              - img [ref=e211]
+              - generic [ref=e214]: Contexte actuel
+            - paragraph [ref=e215]: Sélectionne un agent ou un objet pour voir son contexte.
+  - contentinfo "Online" [ref=e216]:
+    - generic [ref=e223]: Online
