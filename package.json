@@ -33,6 +33,7 @@
     "workers:kill-orphans": "bash scripts/next-worker-helper.sh --kill-orphans",
     "models:halo-glb": "node scripts/generate-halo-agent-glbs.mjs",
     "features:manifest": "node scripts/build-features-manifest.mjs",
+    "features:test": "node scripts/features-test.mjs",
     "precommit": "npm run features:manifest && git add docs/features/_manifest.json"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-08T00:09:36.507Z",
+  "generatedAt": "2026-05-08T00:37:25.394Z",
   "total": 32,
   "counts": {
     "verrouillé": 32,
@@ -10,9 +10,14 @@
   },
   "totals": {
     "invariants": 358,
-    "testsExistants": 81,
+    "testsExistants": 1630,
     "testsManquants": 191,
     "orphans": 12
+  },
+  "actualTests": {
+    "files": 249,
+    "cases": 2243,
+    "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
     {
@@ -38,7 +43,10 @@
         "I-9. `HEARST_DEV_AUTH_BYPASS` ne doit jamais être activé en prod",
         "I-10. Analytics tenants : `limit` clampé 1–50"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 19,
+      "testsOnDisk": 19,
+      "testFilesOnDisk": 2,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -65,6 +73,9 @@
         "I-8. Hotkey ⌘Enter"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -100,9 +111,12 @@
         "I-17. Hard scope check sur tous les endpoints `[id]`",
         "I-18. ContentRef peut être text brut OU JSON"
       ],
-      "testsExistantsCount": 4,
+      "testsExistantsCount": 24,
+      "testsOnDisk": 24,
+      "testFilesOnDisk": 4,
+      "testsDocExistants": 4,
       "testsManquantsCount": 25,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 4
     },
     {
@@ -128,9 +142,12 @@
         "I-9. Variables d'env critiques",
         "I-10. `registerProviderUsage()` au signIn"
       ],
-      "testsExistantsCount": 3,
+      "testsExistantsCount": 31,
+      "testsOnDisk": 31,
+      "testFilesOnDisk": 6,
+      "testsDocExistants": 3,
       "testsManquantsCount": 16,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 2
     },
     {
@@ -156,7 +173,10 @@
         "I-9. Extraction structurée : Claude Haiku, HTML capé à 30k chars",
         "I-10. BROWSERBASE_API_KEY absent → 503 propre sur capture et extract"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 22,
+      "testsOnDisk": 22,
+      "testFilesOnDisk": 4,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -192,9 +212,12 @@
         "I-17. ChatDock injecte `attached_asset_ids` depuis `attachedAssets`",
         "I-18. ApprovalInline pour writes — flow obligatoire"
       ],
-      "testsExistantsCount": 23,
+      "testsExistantsCount": 219,
+      "testsOnDisk": 219,
+      "testFilesOnDisk": 26,
+      "testsDocExistants": 23,
       "testsManquantsCount": 27,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 0
     },
     {
@@ -218,9 +241,12 @@
         "I-7. RSC prefetch + client refetch",
         "I-8. *(libre)*"
       ],
-      "testsExistantsCount": 3,
+      "testsExistantsCount": 64,
+      "testsOnDisk": 64,
+      "testFilesOnDisk": 5,
+      "testsDocExistants": 3,
       "testsManquantsCount": 9,
-      "testGap": "moyen",
+      "testGap": "faible",
       "orphansCount": 0
     },
     {
@@ -247,6 +273,9 @@
         "I-10. OPENAI_API_KEY absent → mode lexical uniquement (pas d'erreur)"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -282,9 +311,12 @@
         "I-17. OAuth popup `window.open()` IMMÉDIAT au click",
         "I-18. `invalidateUserDiscovery` après OAuth + après disconnect"
       ],
-      "testsExistantsCount": 10,
+      "testsExistantsCount": 100,
+      "testsOnDisk": 100,
+      "testFilesOnDisk": 9,
+      "testsDocExistants": 10,
       "testsManquantsCount": 24,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 3
     },
     {
@@ -312,7 +344,10 @@
         "I-11. Sections Section primitive",
         "I-12. buildRightPanelData : Supabase canonical + fallback mémoire"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 15,
+      "testsOnDisk": 15,
+      "testFilesOnDisk": 1,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -340,7 +375,10 @@
         "I-9. Fallback inline si pas d'Inngest : timeout 120s maximum (Vercel)",
         "I-10. `targetDate` format ISO `YYYY-MM-DD` strict (Zod)"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 32,
+      "testsOnDisk": 32,
+      "testFilesOnDisk": 5,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -365,6 +403,9 @@
         "I-6. Routes v1 sans authentification scope"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -390,6 +431,9 @@
         "I-7. Liens externes → shell.openExternal, liens localhost → fenêtre Electron"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -415,7 +459,10 @@
         "I-7. Banner mode démo doit rester visible tant qu'aucun PMS n'est connecté",
         "I-8. Sources ReportSpec hospitality = kind \"composio\", action PMS_*"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 9,
+      "testsOnDisk": 9,
+      "testFilesOnDisk": 1,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -443,7 +490,10 @@
         "I-9. Tags : max 5, alphanumérique + tirets, 2-24 chars par tag",
         "I-10. Anonymisation auteur : `authorDisplayName = null` si `anonymizeAuthor: true`"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 17,
+      "testsOnDisk": 17,
+      "testFilesOnDisk": 1,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -472,7 +522,10 @@
         "I-10. RECALL_API_KEY absent → 503 propre sur toutes les routes",
         "I-11. validateMeetingUrl : seuls Zoom / Google Meet / Teams acceptés"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 17,
+      "testsOnDisk": 17,
+      "testFilesOnDisk": 2,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -508,9 +561,12 @@
         "I-17. Tenant isolation : filtrage explicite côté app (pas RLS `auth.uid()`)",
         "I-18. `EmbeddingsUnavailableError` ne propage pas vers l'utilisateur"
       ],
-      "testsExistantsCount": 10,
+      "testsExistantsCount": 86,
+      "testsOnDisk": 86,
+      "testFilesOnDisk": 12,
+      "testsDocExistants": 10,
       "testsManquantsCount": 23,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 0
     },
     {
@@ -544,9 +600,12 @@
         "I-17. Ownership check sur les routes par-`[id]`",
         "I-18. Mission ID = UUID v4 (`randomUUID()`)"
       ],
-      "testsExistantsCount": 9,
+      "testsExistantsCount": 66,
+      "testsOnDisk": 66,
+      "testFilesOnDisk": 8,
+      "testsDocExistants": 9,
       "testsManquantsCount": 21,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 3
     },
     {
@@ -572,7 +631,10 @@
         "I-9. `meta` JSON flexible (non typé strictement)",
         "I-10. `user_id null` = broadcast tenant entier"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 70,
+      "testsOnDisk": 70,
+      "testFilesOnDisk": 6,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -600,7 +662,10 @@
         "I-9. Redirect après submit → toujours `/`",
         "I-10. Hospitalité → persona concierge"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 60,
+      "testsOnDisk": 60,
+      "testFilesOnDisk": 10,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -628,7 +693,10 @@
         "I-9. Custom personas always override builtins — jamais l'inverse",
         "I-10. UNIQUE (user_id, tenant_id, name) — violation = 409 conflict"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 21,
+      "testsOnDisk": 21,
+      "testFilesOnDisk": 4,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -656,7 +724,10 @@
         "I-9. `planFromIntent` (LLM) utilise prompt caching sur le system prompt statique",
         "I-10. Deux stacks Plan doivent rester séparées et non-confondues"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 57,
+      "testsOnDisk": 57,
+      "testFilesOnDisk": 7,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -684,6 +755,9 @@
         "I-9. Pas de mono caps `tracking-marquee` en JSX"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -719,9 +793,12 @@
         "I-17. Versioning append-only",
         "I-18. Signaux 23 types, déterministes, calculés post-render hors cache"
       ],
-      "testsExistantsCount": 17,
+      "testsExistantsCount": 528,
+      "testsOnDisk": 528,
+      "testFilesOnDisk": 39,
+      "testsDocExistants": 17,
       "testsManquantsCount": 20,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 0
     },
     {
@@ -747,7 +824,10 @@
         "I-9. `TimelineItemType` — 12 valeurs figées",
         "I-10. `RunStatus` — 5 valeurs figées"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 3,
+      "testsOnDisk": 3,
+      "testFilesOnDisk": 1,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -774,7 +854,10 @@
         "I-8. Alerting délégué à `lib/notifications/`",
         "I-9. Validation Zod obligatoire sur PUT/POST"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 35,
+      "testsOnDisk": 35,
+      "testFilesOnDisk": 3,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -800,6 +883,9 @@
         "I-7. Réponses obligatoirement en français"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -832,9 +918,12 @@
         "I-14. Pas d'animation wrappers",
         "I-15. Cytoscape `ssr: false`"
       ],
-      "testsExistantsCount": 2,
+      "testsExistantsCount": 15,
+      "testsOnDisk": 15,
+      "testFilesOnDisk": 2,
+      "testsDocExistants": 2,
       "testsManquantsCount": 26,
-      "testGap": "élevé",
+      "testGap": "moyen",
       "orphansCount": 0
     },
     {
@@ -863,6 +952,9 @@
         "I-12. Store migration v2"
       ],
       "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -890,7 +982,10 @@
         "I-9. Tone-to-voice mapping fixe — ne pas modifier sans spec",
         "I-10. RLS migration 0045 — scope userId/tenantId obligatoire"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 39,
+      "testsOnDisk": 39,
+      "testFilesOnDisk": 6,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -918,7 +1013,10 @@
         "I-9. Test endpoint utilise event `test.ping` (distinct des vrais événements)",
         "I-10. Tenant isolation sur CRUD — update/delete vérifient tenantId owner"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 47,
+      "testsOnDisk": 47,
+      "testFilesOnDisk": 4,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
@@ -944,7 +1042,10 @@
         "I-7. Évaluateur d'expressions sans `eval`",
         "I-8. Tool inconnu → échec explicite"
       ],
-      "testsExistantsCount": 0,
+      "testsExistantsCount": 34,
+      "testsOnDisk": 34,
+      "testFilesOnDisk": 4,
+      "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
