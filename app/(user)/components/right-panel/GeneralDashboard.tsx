@@ -84,7 +84,6 @@ export function GeneralDashboard() {
 
 function QuickActions() {
   const router = useRouter();
-  const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
   const counts = useDashboardCounts();
 
   // Stub validation : à câbler à un futur store de propositions d'agents
@@ -126,11 +125,11 @@ function QuickActions() {
       onClick: () => router.push("/apps"),
     },
     {
-      id: "analyse",
-      label: "Analyse",
-      state: <span className="t-11 font-mono">⌘K</span>,
-      icon: <AnalyseIcon />,
-      onClick: () => setCommandeurOpen(true, { prefilledQuery: "Analyser " }),
+      id: "asset",
+      label: "Asset",
+      state: fmtCount(counts.assetsCount),
+      icon: <AssetIcon />,
+      onClick: () => router.push("/assets"),
     },
   ];
 
@@ -662,6 +661,6 @@ function ReportIcon() {
 function SourceIcon() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>;
 }
-function AnalyseIcon() {
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>;
+function AssetIcon() {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
 }

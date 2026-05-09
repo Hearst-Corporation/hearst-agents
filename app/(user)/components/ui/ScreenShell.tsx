@@ -57,10 +57,14 @@ interface ScreenShellProps {
   children?: ReactNode;
 
   // Background du shell.
-  // - `surface` (défaut) = `var(--bg-elev)` — écrans data type tableau / liste
+  // - `surface` (défaut) = `var(--surface)` — Stage canvas, identique au cockpit
+  //   (post-Spotlight 2026-05-10 : noir absolu). Toutes les pages héritent
+  //   du même fond pour zéro flicker entre routes.
+  // - `elevated` = `var(--bg-elev)` — opt-in pour écrans qui veulent
+  //   explicitement un wash gris (rare).
   // - `base` = `var(--bg)` — écrans plus sombres (planner, runs)
-  // - `transparent` = laisse passer le shell parent (Stages dans cockpit)
-  background?: "surface" | "base" | "transparent";
+  // - `transparent` = laisse passer le shell parent
+  background?: "surface" | "elevated" | "base" | "transparent";
 
   testId?: string;
 }
@@ -80,7 +84,8 @@ export function ScreenShell({
   testId,
 }: ScreenShellProps) {
   const bg =
-    background === "surface" ? "var(--bg-elev)" :
+    background === "surface" ? "var(--surface)" :
+    background === "elevated" ? "var(--bg-elev)" :
     background === "base" ? "var(--bg)" :
     "transparent";
 

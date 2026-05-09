@@ -18,6 +18,7 @@ export interface DashboardCounts {
   missionsTotal: number | null;
   missionsActive: number | null;
   reportsCount: number | null;
+  assetsCount: number | null;
   connectionsConnected: number | null;
   connectionsTotal: number | null;
 }
@@ -29,6 +30,7 @@ export function useDashboardCounts(): DashboardCounts {
     missionsTotal: null,
     missionsActive: null,
     reportsCount: null,
+    assetsCount: null,
     connectionsConnected: null,
     connectionsTotal: null,
   });
@@ -51,11 +53,12 @@ export function useDashboardCounts(): DashboardCounts {
       const next: Partial<DashboardCounts> = {};
       if (todayRes.status === "fulfilled" && todayRes.value) {
         const data = todayRes.value as {
-          counts?: { missions?: number; reports?: number };
+          counts?: { missions?: number; reports?: number; assets?: number };
           missionsRunning?: Array<{ status: string }>;
         };
         next.missionsTotal = data.counts?.missions ?? null;
         next.reportsCount = data.counts?.reports ?? null;
+        next.assetsCount = data.counts?.assets ?? null;
         next.missionsActive =
           data.missionsRunning?.filter((m) => m.status === "running").length ?? null;
       }
