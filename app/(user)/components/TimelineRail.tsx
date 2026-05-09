@@ -356,11 +356,10 @@ function CollapsedTile({ thread, isActive, onSelect }: CollapsedTileProps) {
     <button
       onClick={onSelect}
       title={thread.name}
-      className={`relative w-8 h-8 flex items-center justify-center rounded-md t-13 font-light transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0 ${
-        isActive
-          ? "bg-[var(--accent-teal-bg-active)] text-[var(--accent-teal)] border border-[var(--accent-teal-border)] shadow-[var(--shadow-neon-accent-teal)]"
-          : "bg-[var(--surface-1)] text-[var(--text-faint)] border border-[var(--border-soft)] hover:bg-[var(--layer-1)] hover:text-[var(--text-soft)] hover:border-[var(--border-subtle)]"
+      className={`touch-rail-tile relative w-8 h-8 flex items-center justify-center rounded-md t-13 font-light transition-colors duration-(--duration-slow) ease-(--ease-out-soft) shrink-0 ${
+        isActive ? "is-active" : ""
       }`}
+      aria-current={isActive ? "page" : undefined}
     >
       {initial}
     </button>

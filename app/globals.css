@@ -509,6 +509,54 @@
   animation: touch-module-pulse 2s ease-in-out infinite;
 }
 
+/* ─── TimelineRail collapsed tile — architectural ─────────────
+ * Pivot v1.4. État actif signalé par filet vertical 1px teal sur la gauche
+ * (pas de full bg flooding). Inactif : transparent, hover discret. */
+.touch-rail-tile {
+  background: transparent;
+  border: none;
+  color: var(--text-faint);
+  position: relative;
+}
+.touch-rail-tile:hover {
+  color: var(--text-soft);
+  background: rgba(255, 255, 255, 0.02);
+}
+.touch-rail-tile.is-active {
+  color: var(--text-l1);
+  background: var(--surface-1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+.touch-rail-tile.is-active::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 14px;
+  background: var(--accent-teal);
+  border-radius: 1px;
+}
+
+/* ─── PulseBar Cmd+K pill — silent luxury ─────────────────────
+ * Pivot v1.4. Pill ultra-thin centrée au header, smoked glass surface,
+ * pas de hover teal envahissant (juste border qui se renforce). */
+.touch-cmdk-pill {
+  background: linear-gradient(180deg, #16161B 0%, #0F0F13 100%);
+  border: 1px solid var(--border-soft);
+  cursor: text;
+  transition: border-color 200ms ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+.touch-cmdk-pill:hover {
+  border-color: var(--border-shell);
+}
+
 /* ─── Status card / Context card — ContextRail GeneralDashboard ──
  * Pivot v1.4 (silent luxury OS) : pas d'outline visible, juste matérialité
  * par inset shadows. Filet teal vertical à gauche pour la card de contexte

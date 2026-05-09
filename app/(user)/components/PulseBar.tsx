@@ -92,15 +92,30 @@ export function PulseBar() {
         </button>
       </div>
 
-      {/* Centre : Cmd+K trigger plein-largeur */}
+      {/* Centre : Cmd+K trigger plein-largeur — pill glass minimaliste */}
       <button
         type="button"
         onClick={() => setCommandeurOpen(true)}
-        className="flex-1 min-w-0 max-w-xl mx-auto flex items-center justify-between px-3 py-1.5 border border-[var(--border-shell)] rounded-sm text-[var(--text-faint)] hover:border-[var(--accent-teal-border-hover)] hover:text-[var(--accent-teal)] transition-colors"
+        className="touch-cmdk-pill flex-1 min-w-0 max-w-xl mx-auto flex items-center justify-between"
+        style={{
+          padding: "var(--space-1) var(--space-3)",
+          borderRadius: "var(--radius-md)",
+        }}
         title="Ouvrir le Commandeur"
       >
-        <span className="t-11 truncate">Demande à Hearst…</span>
-        <span className="t-9 font-mono shrink-0 ml-3 text-[var(--text-faint)]">⌘K</span>
+        <span className="t-11 font-light truncate text-[var(--text-faint)]">Demande à Hearst…</span>
+        <span
+          className="t-9 font-mono shrink-0 ml-3"
+          style={{
+            color: "var(--text-muted)",
+            padding: "2px var(--space-1)",
+            border: "1px solid var(--border-soft)",
+            borderRadius: "var(--radius-xs)",
+            letterSpacing: "0.04em",
+          }}
+        >
+          ⌘K
+        </span>
       </button>
 
       {/* Droite : run/voice/credits/profile (tout conditionnel).
@@ -148,7 +163,7 @@ export function PulseBar() {
               {connections.connected}
             </span>
             <span className="t-11 font-light text-[var(--text-faint)]">
-              / {connections.total} apps
+              / {connections.total} services
             </span>
           </a>
         )}
