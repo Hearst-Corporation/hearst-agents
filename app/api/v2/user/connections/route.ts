@@ -89,12 +89,15 @@ export async function GET(_req: NextRequest) {
     // existing service entry to "connected" if its slug matches our
     // static service-map, or (b) synthesize a ServiceWithConnectionStatus
     // on the fly using the Composio toolkit catalog for icon + name.
+    let composioCatalogTotal = 0;
     if (isComposioConfigured()) {
       try {
         const [composioAccounts, composioApps] = await Promise.all([
           listConnections(scope.userId, { includeInactive: false }),
           listAvailableApps(),
         ]);
+        const connectableApps = composioApps.filter((a) => a.connectable !== false);
+        composioCatalogTotal = connectableApps.length;
         const appBySlug = new Map(composioApps.map((a) => [a.key, a]));
         const knownSlugs = new Set(services.map((s) => s.id));
 
@@ -154,6 +157,84 @@ export async function GET(_req: NextRequest) {
       }
     }
 
+    // ── Native bridge ───────────────────────────────────────
+    // SSO Google/Microsoft : si user a refresh token natif (NextAuth), on
+    // upgrade les slugs gmail/googlecalendar/googledrive/outlook/office365
+    // qui pourraient ne pas être dans service-map ou dans Composio.
+    try {
+      const { getTokenMeta } = await import("@/lib/platform/auth/tokens");
+      const NATIVE_GOOGLE = ["gmail", "googlecalendar", "googledrive"];
+      const NATIVE_MICROSOFT = ["outlook", "office365"];
+
+      const googleMeta = await getTokenMeta(scope.userId, "google").catch(() => null);
+      if (
+        googleMeta &&
+        !googleMeta.revoked &&
+        (googleMeta.tokens.refreshToken || googleMeta.tokens.accessToken)
+      ) {
+        for (const slug of NATIVE_GOOGLE) {
+          const existing = services.find((s) => s.id === slug);
+          if (existing) {
+            if (existing.connectionStatus !== "connected") {
+              existing.connectionStatus = "connected";
+              existing.accountLabel = existing.accountLabel ?? "Google SSO";
+            }
+          } else {
+            services.push({
+              id: slug,
+              name: slug,
+              description: `Connecté via SSO Google`,
+              icon: "",
+              category: "productivity",
+              tier: "tier_1",
+              type: "native",
+              status: "active",
+              providerId: slug,
+              capabilities: [],
+              isConnectable: true,
+              connectionStatus: "connected",
+              accountLabel: "Google SSO",
+            });
+          }
+        }
+      }
+
+      const msMeta = await getTokenMeta(scope.userId, "microsoft").catch(() => null);
+      if (
+        msMeta &&
+        !msMeta.revoked &&
+        (msMeta.tokens.refreshToken || msMeta.tokens.accessToken)
+      ) {
+        for (const slug of NATIVE_MICROSOFT) {
+          const existing = services.find((s) => s.id === slug);
+          if (existing) {
+            if (existing.connectionStatus !== "connected") {
+              existing.connectionStatus = "connected";
+              existing.accountLabel = existing.accountLabel ?? "Microsoft SSO";
+            }
+          } else {
+            services.push({
+              id: slug,
+              name: slug,
+              description: `Connecté via SSO Microsoft`,
+              icon: "",
+              category: "productivity",
+              tier: "tier_1",
+              type: "native",
+              status: "active",
+              providerId: slug,
+              capabilities: [],
+              isConnectable: true,
+              connectionStatus: "connected",
+              accountLabel: "Microsoft SSO",
+            });
+          }
+        }
+      }
+    } catch (err) {
+      console.error("[UserConnections] Native merge failed:", err);
+    }
+
     // Log for debugging
     const connectedCount = services.filter((s) => s.connectionStatus === "connected").length;
     console.log(`[UserConnections] User ${scope.userId.slice(0, 8)}: ${connectedCount}/${services.length} connected`);
@@ -165,11 +246,17 @@ export async function GET(_req: NextRequest) {
       .map((s) => s.id);
     const applicableReports = getApplicableReports(connectedSlugs);
 
+    // Le compteur "total" exposé au header reflète le catalogue Composio
+    // entier (≈135 toolkits connectables) pour rester cohérent avec la page
+    // /apps qui affiche le même catalogue. Si Composio n'est pas configuré,
+    // on retombe sur la liste statique des services connus.
+    const totalCatalog = composioCatalogTotal > 0 ? composioCatalogTotal : services.length;
+
     return NextResponse.json({
       services,
       applicableReports,
       meta: {
-        total: services.length,
+        total: totalCatalog,
         connected: connectedCount,
         timestamp: Date.now(),
       },

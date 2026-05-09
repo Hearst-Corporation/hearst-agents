@@ -1,13 +1,15 @@
 /**
- * Agenda live — Google Calendar via Composio.
+ * Agenda live — Google Calendar.
  *
- * Lit `GOOGLECALENDAR_LIST_EVENTS` (alias `GOOGLECALENDAR_EVENTS_LIST`)
- * pour today + tomorrow morning. Format normalisé en CockpitAgendaItem.
+ * Stratégie en cascade :
+ *   1. Composio `GOOGLECALENDAR_LIST_EVENTS` si l'user a fait OAuth Composio.
+ *   2. Fallback natif : `getUpcomingEvents` qui lit le SSO Google NextAuth.
  *
- * Cache 5min — pareil watchlist, on ne re-frappe pas Google à chaque mount.
+ * Format normalisé en CockpitAgendaItem. Cache 5min.
  */
 
 import { executeComposioAction } from "@/lib/connectors/composio/client";
+import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import type { CockpitAgendaItem } from "./today";
 
 interface CacheEntry {
@@ -78,8 +80,29 @@ export async function getLiveAgenda(scope: {
   });
 
   if (!res.ok) {
-    cache.set(k, { items: [], expiresAt: Date.now() + CACHE_TTL_MS });
-    return [];
+    // Fallback : SSO Google natif (NextAuth tokens). Si l'user n'a pas fait
+    // OAuth Composio mais s'est loggé via Google, on lit son calendrier
+    // directement via googleapis avec le refresh token NextAuth.
+    try {
+      const native = await getUpcomingEvents(scope.userId, 1, 20);
+      const items: CockpitAgendaItem[] = [];
+      for (const ev of native) {
+        const ts = new Date(ev.startTime).getTime();
+        if (!Number.isFinite(ts)) continue;
+        items.push({
+          id: ev.id || `gcal_native_${ts}`,
+          title: ev.title,
+          startsAt: ts,
+          source: "live",
+        });
+      }
+      items.sort((a, b) => a.startsAt - b.startsAt);
+      cache.set(k, { items, expiresAt: Date.now() + CACHE_TTL_MS });
+      return items;
+    } catch {
+      cache.set(k, { items: [], expiresAt: Date.now() + CACHE_TTL_MS });
+      return [];
+    }
   }
 
   const events = unwrapEvents(res.data)
