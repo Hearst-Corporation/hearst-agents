@@ -4,13 +4,7 @@
 
 /**
  * ParticlesWave — onde sinusoïdale de particules pour le Stage Cockpit.
- *
- * Remplace HearstParticlesCloud (nuage H) dans CockpitHome. Génère N rangées
- * de particules disposées sur des courbes sinusoïdales déphasées, animées en
- * continu. La profondeur Z donne l'effet de volume/rideau de l'image cible.
- *
- * Pas de mouse interaction — visualisation ambiante pure.
- * Couleur : blanc (--text) avec opacité réduite sur les rangées profondes.
+ * N rangées de particules sur des courbes sinusoïdales déphasées, animées en continu.
  */
 
 import { useEffect, useRef } from "react";

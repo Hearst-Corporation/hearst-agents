@@ -1,1 +1,0 @@
-[     889ms] [ERROR] Loading the font 'https://k2mkucxia43oc7fa.public.blob.vercel-storage.com/front/fonts/space-mono/space-mono-v11-latin-regular.woff2' violates the following Content Security Policy directive: "font-src 'self' *.vercel.com *.gstatic.com vercel.live". The action has been blocked. @ https://vercel.com/hearst-corporation/hearst-os/logs:391
