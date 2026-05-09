@@ -12,6 +12,11 @@ vi.mock("@/lib/embeddings/store", () => ({
   searchEmbeddings,
 }));
 
+// Force le fallback localCache — isole les tests du Redis partagé
+vi.mock("@/lib/platform/redis/client", () => ({
+  getRedis: () => null,
+}));
+
 import {
   getRetrievedMemoryForUser,
   formatRetrievedItems,
