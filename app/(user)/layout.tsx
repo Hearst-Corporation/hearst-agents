@@ -15,7 +15,6 @@ import { useToast } from "@/app/hooks/use-toast";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
 import { useVoiceStore } from "@/stores/voice";
 import { useNotificationsStore } from "@/stores/notifications";
-import { OAuthExpiryBanner } from "./components/OAuthExpiryBanner";
 
 function BriefingAutoTrigger() {
   useEffect(() => {
@@ -122,9 +121,10 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 boxShadow: "var(--shadow-stage-card)",
               }}
             >
-              {/* Banner alerte tokens OAuth expirants — discret, dismissable */}
-              <OAuthExpiryBanner />
-
+              {/* Alerte tokens OAuth expirants : badge dot sur l'item Apps de
+                 la TimelineRail (cf. useOAuthExpiry). Le composant
+                 OAuthExpiryBanner reste disponible pour usage in-page sur
+                 /apps si besoin. */}
               <main className="flex-1 flex flex-col min-w-0 min-h-0 relative">
                 {children}
               </main>

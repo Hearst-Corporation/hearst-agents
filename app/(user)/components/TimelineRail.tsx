@@ -22,6 +22,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useNavigationStore, type Thread } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
+import { useOAuthExpiry } from "@/app/hooks/use-oauth-expiry";
 import { HearstLogo } from "./HearstLogo";
 
 // ── Icons ──────────────────────────────────────────────────
@@ -246,16 +247,26 @@ function TopMenuItem({
   hotkey,
   icon,
   isActive = false,
+  badge,
+  badgeTitle,
   onClick,
 }: {
   label: string;
   hotkey?: string;
   icon?: React.ReactNode;
   isActive?: boolean;
+  badge?: "warn" | "error" | null;
+  badgeTitle?: string;
   onClick?: () => void;
 }) {
   const [hover, setHover] = useState(false);
   const highlight = isActive || hover;
+  const badgeColor =
+    badge === "error"
+      ? "var(--color-error)"
+      : badge === "warn"
+        ? "var(--warn)"
+        : null;
   return (
     <button
       type="button"
@@ -277,11 +288,26 @@ function TopMenuItem({
       >
         {icon ? (
           <span
-            className="inline-flex items-center justify-center shrink-0"
+            className="relative inline-flex items-center justify-center shrink-0"
             style={{ width: "var(--space-4)", height: "var(--space-4)" }}
             aria-hidden
           >
             {icon}
+            {badgeColor ? (
+              <span
+                className="absolute rounded-pill"
+                style={{
+                  top: "-2px",
+                  right: "-2px",
+                  width: "var(--space-2)",
+                  height: "var(--space-2)",
+                  background: badgeColor,
+                  boxShadow: `0 0 0 1.5px var(--rail)`,
+                }}
+                title={badgeTitle}
+                aria-label={badgeTitle}
+              />
+            ) : null}
           </span>
         ) : null}
         <span>{label}</span>
@@ -383,9 +409,25 @@ export function TimelineRail() {
     toggleLeftCollapsed,
   } = useNavigationStore();
   const setStageMode = useStageStore((s) => s.setMode);
+  const { connections: expiringConnections, severity: oauthSeverity } = useOAuthExpiry();
   const firstName = session?.user?.name?.split(" ")[0] || "Utilisateur";
   const isHomeActive = pathname === "/";
   const isAppsActive = pathname === "/apps" || pathname?.startsWith("/apps/") === true;
+
+  // Tooltip Apps : résume l'état OAuth — pluriel/singulier + service en clair.
+  const oauthBadgeTitle = (() => {
+    if (!oauthSeverity || expiringConnections.length === 0) return undefined;
+    const count = expiringConnections.length;
+    const expired = expiringConnections.filter((c) => c.status === "expired").length;
+    if (expired > 0) {
+      return expired === 1
+        ? `1 connexion expirée — reconnecter`
+        : `${expired} connexions expirées — reconnecter`;
+    }
+    return count === 1
+      ? `1 connexion expire bientôt`
+      : `${count} connexions expirent bientôt`;
+  })();
 
   const sectionPadX = leftCollapsed ? "pl-6 pr-2" : "px-8";
 
@@ -489,6 +531,8 @@ export function TimelineRail() {
                   label="App"
                   icon={<AppIcon />}
                   isActive={isAppsActive}
+                  badge={oauthSeverity}
+                  badgeTitle={oauthBadgeTitle}
                   onClick={() => router.push("/apps")}
                 />
               </div>

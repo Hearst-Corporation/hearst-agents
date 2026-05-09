@@ -44,13 +44,23 @@ interface WorkflowCanvasProps {
   runStatus?: Map<string, NodeRunStatus["status"]>;
 }
 
-const NODE_COLOR_BY_KIND: Record<string, string> = {
-  trigger: "var(--accent-teal)",
-  tool_call: "var(--accent-llm)",
-  condition: "var(--warn)",
-  approval: "var(--danger)",
-  output: "var(--money)",
-  transform: "var(--text-muted)",
+/**
+ * Couleurs Cytoscape par kind de node.
+ * - `border` = couleur signal pleine, lit le kind d'un coup d'œil.
+ * - `fill`   = teinte sourde (~14% alpha) pour différencier du fond surface
+ *             sans dominer (silent luxury). Le fond passe à pleine saturation
+ *             uniquement via les classes `wf-node-status-*` (running/completed/…).
+ *
+ * Valeurs hex 8-char nécessaires : Cytoscape ne résout pas `var(--*)` → on
+ * réplique les tokens (`--accent-teal` = #4A8B86, etc.) avec un suffixe alpha.
+ */
+const NODE_COLOR_BY_KIND: Record<string, { border: string; fill: string }> = {
+  trigger: { border: "var(--accent-teal)", fill: "#4A8B8624" }, // = var(--accent-teal) @ 14%
+  tool_call: { border: "var(--accent-llm)", fill: "#A78BFA24" }, // = var(--accent-llm) @ 14%
+  condition: { border: "var(--warn)", fill: "#FFCC0024" }, // = var(--warn) @ 14%
+  approval: { border: "var(--danger)", fill: "#FF333324" }, // = var(--danger) @ 14%
+  output: { border: "var(--money)", fill: "#4A8B8624" }, // = var(--money) @ 14%
+  transform: { border: "var(--text-muted)", fill: "var(--surface-2)" },
 };
 
 export function WorkflowCanvas({
@@ -117,9 +127,12 @@ export function WorkflowCanvas({
           "padding": 8,
         },
       },
-      ...Object.entries(NODE_COLOR_BY_KIND).map(([kind, color]) => ({
+      ...Object.entries(NODE_COLOR_BY_KIND).map(([kind, { border, fill }]) => ({
         selector: `node.wf-node-${kind}`,
-        style: { "border-color": color },
+        style: {
+          "border-color": border,
+          "background-color": fill,
+        },
       })),
       {
         selector: "node.wf-node-selected",

@@ -14,13 +14,20 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ trail, className }: BreadcrumbProps) {
+  // Apple-grade : on évite la racine "Hearst" redondante avec le wordmark
+  // de la TimelineRail. Le breadcrumb part directement à la section.
+  // Filtre transparent côté composant — aucun caller à modifier.
+  const filtered = trail.filter((crumb) => crumb.label !== "Hearst");
+
+  if (filtered.length === 0) return null;
+
   return (
     <nav
       aria-label="Breadcrumb"
       className={`flex items-center gap-2 t-11 font-light ${className ?? ""}`}
     >
-      {trail.map((crumb, idx) => {
-        const isLast = idx === trail.length - 1;
+      {filtered.map((crumb, idx) => {
+        const isLast = idx === filtered.length - 1;
         const baseClass = isLast
           ? `${crumb.accent ? "text-[var(--accent-teal)]" : "text-[var(--text)]"}`
           : "text-[var(--text-faint)] hover:text-[var(--text)] transition-colors";

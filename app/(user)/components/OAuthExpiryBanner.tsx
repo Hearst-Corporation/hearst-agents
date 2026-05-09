@@ -1,38 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-  AUTH_EXPIRING_DAYS_THRESHOLD,
-  type ExpiringConnection,
-} from "@/lib/connections/oauth-constants";
+/**
+ * OAuthExpiryBanner — Bandeau alerte tokens OAuth expirants.
+ *
+ * Depuis 2026-05-10 : plus rendu globalement dans le layout (mangeait
+ * 48px sur tous les Stages). À utiliser uniquement in-page (ex: en tête
+ * de /apps). L'état système global se consomme via le badge dot sur
+ * l'item Apps de la TimelineRail (voir useOAuthExpiry).
+ */
+
+import { useState } from "react";
+import { AUTH_EXPIRING_DAYS_THRESHOLD } from "@/lib/connections/oauth-constants";
+import { useOAuthExpiry } from "@/app/hooks/use-oauth-expiry";
 
 export function OAuthExpiryBanner() {
-  const [connections, setConnections] = useState<ExpiringConnection[]>([]);
+  const { connections, loaded } = useOAuthExpiry();
   const [dismissed, setDismissed] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    async function load() {
-      try {
-        const res = await fetch("/api/connections/expiring", {
-          credentials: "include",
-          cache: "no-store",
-        });
-        if (!res.ok) return;
-        const data: { connections: ExpiringConnection[] } = await res.json();
-        if (!cancelled && Array.isArray(data.connections)) {
-          setConnections(data.connections);
-        }
-      } catch {
-        // Silencieux — le banner est non-critique
-      } finally {
-        if (!cancelled) setLoaded(true);
-      }
-    }
-    void load();
-    return () => { cancelled = true; };
-  }, []);
 
   if (!loaded || dismissed || connections.length === 0) return null;
 

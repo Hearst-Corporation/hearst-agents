@@ -18,7 +18,7 @@
  */
 
 import { useState, type ReactNode } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RailSection, Action } from "./ui";
 
 // ── Icons (stroke 1.5, 14×14, cohérent avec TimelineRail) ──────
@@ -169,6 +169,41 @@ function ShortcutAction({
   );
 }
 
+/**
+ * État « raccourci actif » : l'utilisateur est déjà sur la route ciblée.
+ * Rendu non-cliquable (span + `aria-current="page"`), fond `accent-teal-bg-active`
+ * léger, texte `text-l1`, dot pleine opacité. Pas de hover, pas de halo
+ * supplémentaire — silent luxury : le fond seul suffit à signaler l'état.
+ */
+function ShortcutActive({ children }: { children: ReactNode }) {
+  return (
+    <span className="flex items-center" style={{ gap: "var(--space-3)" }}>
+      <span
+        className="rounded-pill shrink-0"
+        style={{
+          width: "var(--space-2)",
+          height: "var(--space-2)",
+          background: "var(--accent-teal)",
+          boxShadow: "var(--shadow-neon-accent-teal)",
+          opacity: 1,
+        }}
+        aria-hidden
+      />
+      <span
+        aria-current="page"
+        className="inline-flex items-center t-13 font-medium text-[var(--text-l1)] rounded-sm"
+        style={{
+          paddingInline: "var(--space-2)",
+          paddingBlock: "var(--space-1)",
+          background: "var(--accent-teal-bg-active)",
+        }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
 // ── Runs ──────────────────────────────────────────────────────
 
 export function ContextRailForRuns() {
@@ -221,6 +256,8 @@ export function ContextRailForRuns() {
 // ── Missions ──────────────────────────────────────────────────
 
 export function ContextRailForMissionsAdmin() {
+  const pathname = usePathname();
+  const isOnBuilder = pathname === "/missions/builder";
   return (
     <div className="h-full overflow-y-auto">
       <RailSection label="Cadences">
@@ -248,9 +285,13 @@ export function ContextRailForMissionsAdmin() {
 
       <CollapsibleRailSection label="Raccourcis">
         <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <ShortcutAction variant="primary" tone="brand" href="/missions/builder">
-            Builder visuel
-          </ShortcutAction>
+          {isOnBuilder ? (
+            <ShortcutActive>Builder visuel</ShortcutActive>
+          ) : (
+            <ShortcutAction variant="primary" tone="brand" href="/missions/builder">
+              Builder visuel
+            </ShortcutAction>
+          )}
           <ShortcutAction variant="secondary" tone="brand" href="/marketplace">
             Templates marketplace
           </ShortcutAction>
