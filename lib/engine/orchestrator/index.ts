@@ -85,18 +85,21 @@ const DEV_TENANT_ID = "dev-tenant";
 const DEV_WORKSPACE_ID = "dev-workspace";
 
 function buildTenantScope(input: OrchestrateInput): TenantScope {
-  const scope: TenantScope = {
-    tenantId: input.tenantId || DEV_TENANT_ID,
-    workspaceId: input.workspaceId || DEV_WORKSPACE_ID,
-    userId: input.userId,
-  };
-
   if (!input.tenantId || !input.workspaceId) {
     if (SYSTEM_CONFIG.requireTenantScopeForV2) {
-      throw new Error("Missing tenant scope for v2 execution");
+      throw new Error(
+        `[orchestrate] tenantId ou workspaceId manquant (tenantId=${input.tenantId}, workspaceId=${input.workspaceId}). ` +
+          "Vérifier que requireScope() est appelé en amont et que la session utilisateur est valide.",
+      );
     }
-    console.warn("[Orchestrator] Using dev tenant scope — configure tenantId/workspaceId for production");
+    console.warn("[Orchestrator] tenantId/workspaceId absents — fallback dev actif");
   }
+
+  const scope: TenantScope = {
+    tenantId: input.tenantId ?? DEV_TENANT_ID,
+    workspaceId: input.workspaceId ?? DEV_WORKSPACE_ID,
+    userId: input.userId,
+  };
 
   assertTenantScope(scope);
   return scope;

@@ -89,7 +89,11 @@ export function NotificationBell() {
   // Realtime Supabase — fallback polling 60s si le channel échoue.
   // NEXT_PUBLIC_HEARST_TENANT_ID doit matcher HEARST_TENANT_ID en prod.
   useEffect(() => {
-    const tenantId = process.env.NEXT_PUBLIC_HEARST_TENANT_ID ?? "dev-tenant";
+    const tenantId = process.env.NEXT_PUBLIC_HEARST_TENANT_ID;
+    if (!tenantId) {
+      console.warn("[NotificationBell] NEXT_PUBLIC_HEARST_TENANT_ID absent — realtime notifications désactivé");
+      return;
+    }
     startRealtime(tenantId);
     return () => stopPolling();
   }, [startRealtime, stopPolling]);
