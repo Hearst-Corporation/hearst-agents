@@ -136,7 +136,7 @@ function LogoSearch() {
 const TRIGGERS: PaletteEntry[] = [
   { kind: "trigger", label: "Manuel",   defaultConfig: { mode: "manual" } },
   { kind: "trigger", label: "Planifié", defaultConfig: { mode: "cron", cron: "0 9 * * *" } },
-  { kind: "trigger", label: "Webhook",  defaultConfig: { mode: "webhook" } },
+  { kind: "trigger", label: "Signal",   defaultConfig: { mode: "webhook" } },
 ];
 
 const TRIGGER_ICONS = [IconManual, IconCron, IconWebhook];
