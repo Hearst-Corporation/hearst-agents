@@ -10,6 +10,7 @@ import { ThinkingDisclosure } from "./ThinkingDisclosure";
 import { ChatAssetCard } from "./ChatAssetCard";
 import { Block, type BlockActionId } from "./chat/Block";
 import { Action } from "./ui";
+import { formatHHMM } from "@/lib/utils/date-format";
 import type { MessageAssetRef } from "@/stores/navigation";
 
 export interface Message {
@@ -45,12 +46,6 @@ function tsFromId(id: string): number | null {
   if (!match) return null;
   const n = parseInt(match[1], 10);
   return Number.isFinite(n) ? n : null;
-}
-
-function formatHHMM(ts: number | null): string {
-  if (!ts) return "--:--";
-  const d = new Date(ts);
-  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
 }
 
 function MetaLine({ author, ts }: { author: string; ts: string }) {

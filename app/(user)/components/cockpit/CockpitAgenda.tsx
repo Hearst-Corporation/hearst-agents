@@ -2,6 +2,7 @@
 
 import { SectionHeader } from "../ui/SectionHeader";
 import { EmptyState } from "../ui/EmptyState";
+import { formatHHMM } from "@/lib/utils/date-format";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface CockpitAgendaProps {
@@ -9,11 +10,6 @@ interface CockpitAgendaProps {
 }
 
 const MAX_ITEMS = 4;
-
-function formatHHMM(ts: number): string {
-  const d = new Date(ts);
-  return `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
-}
 
 export function CockpitAgenda({ data }: CockpitAgendaProps) {
   const items = data.agenda.slice(0, MAX_ITEMS);

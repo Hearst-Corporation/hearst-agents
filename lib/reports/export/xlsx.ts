@@ -9,6 +9,7 @@ import ExcelJS from "exceljs";
 import type { RenderedBlock } from "@/lib/reports/engine/render-blocks";
 import type { ExportInput, ExportResult } from "./types";
 import { XLSX_CONTENT_TYPE } from "./types";
+import { safeFileName } from "@/lib/utils/safe-file-name";
 
 const META_SHEET = "Meta";
 const CHARTS_SHEET = "Charts";
@@ -35,10 +36,6 @@ function safeSheetName(input: string, used: Set<string>): string {
   }
   used.add(candidate);
   return candidate;
-}
-
-function safeFileName(s: string): string {
-  return s.replace(/[^a-zA-Z0-9-_]+/g, "_").slice(0, 60) || "report";
 }
 
 export async function exportXlsx(input: ExportInput): Promise<ExportResult> {

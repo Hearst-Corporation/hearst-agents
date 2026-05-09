@@ -28,6 +28,7 @@ import PDFDocument from "pdfkit";
 import type { RenderedBlock } from "@/lib/reports/engine/render-blocks";
 import type { ExportInput, ExportResult } from "./types";
 import { PDF_CONTENT_TYPE } from "./types";
+import { safeFileName } from "@/lib/utils/safe-file-name";
 import {
   COLORS,
   FONT_SIZES,
@@ -59,13 +60,6 @@ function bufferFromDoc(doc: PDFKit.PDFDocument): Promise<Buffer> {
   });
 }
 
-function safeFileName(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-zA-Z0-9-_]+/g, "_")
-    .slice(0, 60) || "report";
-}
 
 /** Helpers pagination — track la section + numéro de page courants. */
 interface ChromeState {

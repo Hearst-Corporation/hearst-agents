@@ -13,6 +13,7 @@
 
 import type { RenderPayload, RenderedBlock } from "@/lib/reports/engine/render-blocks";
 import type { ExportInput, ExportResult } from "./types";
+import { safeFileName } from "@/lib/utils/safe-file-name";
 
 const CSV_CONTENT_TYPE = "text/csv; charset=utf-8";
 const BOM = "﻿";
@@ -67,10 +68,6 @@ function blockToCsvSection(block: RenderedBlock): string {
     "props",
     escapeCell(JSON.stringify(block.props ?? {})),
   ].join("\n");
-}
-
-function safeFileName(s: string): string {
-  return s.replace(/[^a-zA-Z0-9-_]+/g, "_").slice(0, 60) || "report";
 }
 
 export async function exportCsv(input: ExportInput): Promise<ExportResult> {
