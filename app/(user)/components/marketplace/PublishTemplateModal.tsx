@@ -96,7 +96,7 @@ export function PublishTemplateModal({
       className="fixed inset-0 z-50 flex items-center justify-center"
       style={{
         background: "var(--overlay-scrim)",
-        backdropFilter: "blur(20px)",
+        backdropFilter: "var(--blur-md)",
       }}
       onClick={onClose}
     >

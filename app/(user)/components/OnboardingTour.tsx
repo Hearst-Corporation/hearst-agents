@@ -113,9 +113,9 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 100,
+        zIndex: "var(--z-overlay)" as unknown as number,
         background: "var(--overlay-scrim)",
-        backdropFilter: "blur(8px)",
+        backdropFilter: "var(--blur-sm)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

@@ -352,7 +352,7 @@ export function ChatInput({
           <div
             ref={typeaheadRef}
             className="absolute bottom-full mb-4 w-full rounded-2xl border border-[var(--border-shell)] overflow-hidden z-50"
-            style={{ background: "var(--mat-300)", boxShadow: "var(--shadow-card-hover)" }}
+            style={{ background: "var(--bg-elev)", boxShadow: "var(--shadow-card-hover)" }}
           >
             {matchingServices.length === 0 ? (
               <div className="p-4 t-11 font-light text-[var(--text-ghost)]">

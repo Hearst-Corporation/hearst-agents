@@ -80,7 +80,7 @@ export function MobileBottomNav() {
       aria-label="Navigation mobile"
       className="md:hidden fixed bottom-0 left-0 right-0 flex items-stretch justify-between"
       style={{
-        zIndex: 40,
+        zIndex: "var(--z-sticky)" as unknown as number,
         background: "var(--bg)",
         borderTop: "1px solid var(--border-default)",
         paddingLeft: "var(--space-2)",

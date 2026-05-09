@@ -200,7 +200,7 @@ export function StudioToolbar({
             borderRadius: "var(--radius-sm)",
             boxShadow: "var(--shadow-card)",
             width: "var(--space-32)",
-            zIndex: 50,
+            zIndex: "var(--z-dropdown)" as unknown as number,
           }}
         >
           <span
@@ -280,7 +280,7 @@ export function StudioToolbar({
             border: "1px solid var(--border-default)",
             borderRadius: "var(--radius-sm)",
             boxShadow: "var(--shadow-card)",
-            zIndex: 50,
+            zIndex: "var(--z-dropdown)" as unknown as number,
           }}
         >
           <span
@@ -321,7 +321,7 @@ export function StudioToolbar({
             border: "1px solid var(--border-default)",
             borderRadius: "var(--radius-sm)",
             boxShadow: "var(--shadow-card)",
-            zIndex: 50,
+            zIndex: "var(--z-dropdown)" as unknown as number,
             maxWidth: "var(--space-32)",
           }}
         >

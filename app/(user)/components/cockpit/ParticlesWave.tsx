@@ -54,6 +54,9 @@ class WaveSystem {
     this.renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
     this.renderer.setSize(w, h);
     this.renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+    // Désactiver le tone mapping pour garder les couleurs exactes (évite le cast chaud)
+    this.renderer.toneMapping = THREE.NoToneMapping;
+    this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
     container.appendChild(this.renderer.domElement);
     const cv = this.renderer.domElement;
     cv.style.display = "block";

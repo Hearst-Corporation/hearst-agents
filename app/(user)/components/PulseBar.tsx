@@ -72,7 +72,7 @@ export function PulseBar() {
   return (
     <div
       className="relative flex items-center border-b border-[var(--border-default)] px-4 shrink-0 z-30"
-      style={{ height: "var(--height-pulsebar)", background: "var(--rail)", gap: "var(--space-3)", paddingLeft: "calc(var(--space-4) + 70px)" }}
+      style={{ height: "var(--height-pulsebar)", background: "var(--rail)", gap: "var(--space-3)", paddingLeft: "calc(var(--space-4) + var(--width-electron-titlebar))" }}
     >
       {/* Gauche : hamburger mobile uniquement (branding vit dans la sidebar) */}
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>

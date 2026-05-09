@@ -212,7 +212,7 @@ function Input({
       placeholder={placeholder}
       className="w-full t-13"
       style={{
-        background: "var(--mat-300)",
+        background: "var(--surface-1)",
         border: "1px solid var(--border-default)",
         borderRadius: "var(--radius-sm)",
         padding: "var(--space-2) var(--space-3)",
@@ -256,7 +256,7 @@ function Toggle({
           width: "var(--space-8)",
           height: "var(--space-4)",
           borderRadius: "var(--radius-pill)",
-          background: checked ? "var(--cykan)" : "var(--mat-gray)",
+          background: checked ? "var(--cykan)" : "var(--surface-2)",
           border: `1px solid ${checked ? "var(--cykan)" : "var(--border-default)"}`,
           alignItems: "center",
           padding: "2px",
@@ -712,7 +712,7 @@ export function AlertingSettings() {
                         key={r}
                         className="t-9"
                         style={{
-                          background: "var(--mat-300)",
+                          background: "var(--surface-1)",
                           color: "var(--text-soft)",
                           border: "1px solid var(--border-default)",
                           borderRadius: "var(--radius-xs)",

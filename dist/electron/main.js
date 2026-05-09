@@ -31,7 +31,7 @@ var net = __toESM(require("net"));
 var isDev = process.defaultApp === true || process.env.NODE_ENV === "development";
 var mainWindow = null;
 var nextServer = null;
-var serverPort = 9001;
+var serverPort = 9e3;
 function findFreePort(preferred) {
   return new Promise((resolve) => {
     const s = net.createServer();
@@ -130,7 +130,7 @@ function createWindow() {
       webSecurity: true
     }
   });
-  const base = isDev ? "http://localhost:9001" : `http://127.0.0.1:${serverPort}`;
+  const base = isDev ? "http://localhost:9000" : `http://127.0.0.1:${serverPort}`;
   const startUrl = isDev ? `${base}/api/auth/dev-login` : base;
   void mainWindow.loadURL(startUrl);
   mainWindow.once("ready-to-show", () => {

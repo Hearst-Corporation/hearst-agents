@@ -12,7 +12,7 @@ const isDev =
 
 let mainWindow: BrowserWindow | null = null;
 let nextServer: ChildProcess | null = null;
-let serverPort = 9001;
+let serverPort = 9000;
 
 // ── Port discovery ──────────────────────────────────────────────────────────
 
@@ -130,7 +130,7 @@ function createWindow(): void {
     },
   });
 
-  const base = isDev ? "http://localhost:9001" : `http://127.0.0.1:${serverPort}`;
+  const base = isDev ? "http://localhost:9000" : `http://127.0.0.1:${serverPort}`;
 
   // En dev, passer d'abord par /api/auth/dev-login qui crée la session
   // JWT via CredentialsProvider si HEARST_DEV_AUTH_BYPASS=1 (sinon 403).

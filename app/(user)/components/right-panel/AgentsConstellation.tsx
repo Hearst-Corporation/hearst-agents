@@ -79,7 +79,7 @@ export function AgentsConstellation() {
                 textAnchor={anchor}
                 dominantBaseline="middle"
                 fill="var(--text-l2)"
-                style={{ fontSize: 9, fontFamily: "inherit", fontWeight: 400 }}
+                style={{ fontSize: "var(--space-2)", fontFamily: "inherit", fontWeight: "var(--weight-regular)" }}
               >
                 {agent.label}
               </text>

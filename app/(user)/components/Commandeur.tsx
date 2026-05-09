@@ -494,8 +494,8 @@ export function Commandeur() {
       className="fixed inset-0 z-50 flex items-start justify-center transition-all duration-500"
       style={{
         background: "var(--overlay-scrim)",
-        backdropFilter: "blur(40px)",
-        WebkitBackdropFilter: "blur(40px)",
+        backdropFilter: "var(--blur-lg)",
+        WebkitBackdropFilter: "var(--blur-lg)",
         paddingTop: "15vh",
       }}
       onClick={() => setOpen(false)}

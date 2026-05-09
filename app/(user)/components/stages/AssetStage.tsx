@@ -400,7 +400,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
             position: "absolute",
             top: "calc(var(--space-16) + var(--space-2))",
             right: "var(--space-12)",
-            zIndex: 20,
+            zIndex: "var(--z-base)" as unknown as number,
             padding: "var(--space-2) var(--space-4)",
             background: "var(--surface-1)",
             border: "1px solid var(--cykan)",

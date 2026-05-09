@@ -126,31 +126,12 @@ export function NotificationBell() {
         onClick={() => setOpen((v) => !v)}
         aria-label={`Notifications${hasUnread ? ` (${unreadCount} non lues)` : ""}`}
         aria-expanded={open}
+        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-[var(--surface-1)] focus-visible:ring-1 focus-visible:ring-[var(--cykan-border)] ${
+          open ? "bg-[var(--surface-2)]" : "bg-transparent"
+        }`}
         style={{
-          position: "relative",
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
           width: "var(--space-8)",
           height: "var(--space-8)",
-          borderRadius: "var(--radius-md)",
-          border: "none",
-          background: open ? "var(--surface-2)" : "transparent",
-          cursor: "pointer",
-          transition: `background var(--duration-base) var(--ease-standard)`,
-          outline: "none",
-        }}
-        onMouseEnter={(e) => {
-          if (!open) (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-1)";
-        }}
-        onMouseLeave={(e) => {
-          if (!open) (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-        }}
-        onFocus={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = "var(--shadow-focus-ring)";
-        }}
-        onBlur={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
         }}
       >
         <BellIcon hasUnread={hasUnread} />
@@ -193,7 +174,7 @@ export function NotificationBell() {
             right: 0,
             width: "var(--width-popover)",
             borderRadius: "var(--radius-lg)",
-            background: "var(--mat-400)",
+            background: "var(--bg-elev)",
             border: "1px solid var(--border-default)",
             boxShadow: "var(--shadow-card)",
             zIndex: "var(--z-modal)" as unknown as number,
@@ -228,7 +209,7 @@ export function NotificationBell() {
               {hasUnread && (
                 <button
                   onClick={() => void markAllRead()}
-                  className="t-9"
+                  className="t-9 hover:opacity-70 transition-opacity"
                   style={{
                     background: "none",
                     border: "none",
@@ -237,10 +218,7 @@ export function NotificationBell() {
                     padding: "var(--space-1) var(--space-2)",
                     borderRadius: "var(--radius-xs)",
                     letterSpacing: "var(--tracking-hairline)",
-                    transition: `opacity var(--duration-fast) var(--ease-standard)`,
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.7"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
                 >
                   Tout marquer lu
                 </button>
@@ -329,25 +307,12 @@ function NotifRow({
   return (
     <button
       onClick={onRead}
+      className="w-full flex text-left border-none cursor-pointer hover:bg-[var(--surface-2)] transition-colors duration-(--duration-fast) ease-(--ease-standard)"
       style={{
-        width: "100%",
-        display: "flex",
         gap: "var(--space-3)",
         padding: "var(--space-3) var(--space-4)",
         background: isUnread ? "var(--surface-1)" : "transparent",
-        border: "none",
         borderBottom: "1px solid var(--border-subtle)",
-        cursor: "pointer",
-        textAlign: "left",
-        transition: `background var(--duration-fast) var(--ease-standard)`,
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.background = isUnread
-          ? "var(--surface-1)"
-          : "transparent";
       }}
     >
       <SeverityDot severity={notif.severity} />

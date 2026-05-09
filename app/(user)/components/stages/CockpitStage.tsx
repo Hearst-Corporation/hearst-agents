@@ -214,10 +214,10 @@ function CockpitErrorState({ message }: { message: string }) {
       style={{ padding: "var(--space-12) var(--space-14)", gap: "var(--space-3)" }}
     >
       <span className="poster-eyebrow">Cockpit · erreur</span>
-      <p style={{ color: "var(--text)", fontSize: "20px", maxWidth: "var(--width-prose-narrow)", lineHeight: 1.4 }}>
+      <p className="t-18" style={{ color: "var(--text)", maxWidth: "var(--width-prose-narrow)", lineHeight: "var(--leading-snug)" }}>
         Impossible de charger ton cockpit pour le moment.
       </p>
-      <p style={{ color: "var(--text-faint)", fontFamily: "ui-monospace, monospace", fontSize: "12px" }}>
+      <p className="t-11 font-mono" style={{ color: "var(--text-faint)" }}>
         {message}
       </p>
     </div>

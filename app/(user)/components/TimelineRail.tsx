@@ -175,12 +175,9 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
   return (
     <div
       onClick={onSelect}
-      className="group cursor-pointer py-2 px-3 transition-all duration-300 flex items-center gap-3 rounded-md"
-      style={{
-        background: isActive ? "var(--layer-1)" : "transparent",
-      }}
-      onMouseEnter={(e) => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "var(--layer-1)"; }}
-      onMouseLeave={(e) => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+      className={`group cursor-pointer py-2 px-3 transition-colors duration-200 flex items-center gap-3 rounded-md ${
+        isActive ? "bg-[var(--layer-1)]" : "hover:bg-[var(--layer-1)]"
+      }`}
       title={thread.name}
     >
       <span
@@ -588,10 +585,8 @@ export function TimelineRail() {
                 {["New", "New"].map((name, i) => (
                   <div
                     key={i}
-                    className="group cursor-pointer py-2 px-3 flex items-center gap-3 rounded-md"
+                    className="group cursor-pointer py-2 px-3 flex items-center gap-3 rounded-md hover:bg-[var(--layer-1)] transition-colors duration-200"
                     style={{ color: "var(--text-l2)" }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--layer-1)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                   >
                     <span className="shrink-0 text-[var(--text-faint)]"><FolderIcon /></span>
                     <span className="t-13 font-light truncate" style={{ color: "var(--text-l2)" }}>{name}</span>

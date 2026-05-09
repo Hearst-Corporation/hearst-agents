@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, Suspense } from "react";
-import Image from "next/image";
 import { SessionProvider } from "next-auth/react";
 import { LeftPanelShell } from "./components/LeftPanelShell";
 import { RightPanel } from "./components/RightPanel";
@@ -114,7 +113,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
             <LeftPanelShell />
 
             <div
-              className="stage-cool-paper flex-1 flex flex-col min-w-0 min-h-0 relative overflow-hidden"
+              className="flex-1 flex flex-col min-w-0 min-h-0 relative overflow-hidden"
               style={{
                 background: "var(--surface)",
                 color: "var(--text)",
@@ -123,27 +122,6 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 boxShadow: "var(--shadow-stage-card)",
               }}
             >
-              {/* Watermark H en points — ambient, behind content.
-                 Pivot 2026-05-03 : opacity 0.8 → 0.06 + zIndex 10 → 0. À 0.8
-                 le watermark devenait sujet visuel central et perçait le brief.
-                 Maintenant il vit en arrière-plan, présent mais discret. */}
-              <Image
-                aria-hidden
-                alt=""
-                src="/hearst-dot-h.svg"
-                width={330}
-                height={363}
-                className="pointer-events-none absolute"
-                style={{
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  zIndex: 0,
-                  opacity: 0.06,
-                  userSelect: "none",
-                }}
-              />
-
               {/* Banner alerte tokens OAuth expirants — discret, dismissable */}
               <OAuthExpiryBanner />
 

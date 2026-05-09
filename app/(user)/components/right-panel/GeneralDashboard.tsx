@@ -229,7 +229,7 @@ function StatusSection() {
         style={{ gap: "var(--space-4)", marginTop: "var(--space-3)" }}
       >
         {/* SVG roue */}
-        <div className="shrink-0 relative flex items-center justify-center" style={{ width: 64, height: 64 }}>
+        <div className="shrink-0 relative flex items-center justify-center" style={{ width: "var(--space-16)", height: "var(--space-16)" }}>
           <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden>
             {/* Ring extérieur */}
             <circle

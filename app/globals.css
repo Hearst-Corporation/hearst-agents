@@ -19,11 +19,6 @@
   --foreground: #ffffff;
   --surface: #111111;
     --rail: #000000;
-  --bg-light-stage: #ffffff;
-  --text-dark-strong: #000000;
-
-  --text-dark: #000000;
-
   /* Material scale — Technological Luxury */
   --mat-100: #040404;
   --mat-200: #070707;
@@ -74,16 +69,12 @@
   --glow-cyan-sm: 0 0 30px rgba(45, 212, 191, 0.1);
   --glow-cyan-md: 0 0 60px rgba(45, 212, 191, 0.15);
 
-  /* Glow — état pipeline (succès / warn / erreur). Symétrie --glow-cyan-*. */
-  --glow-success-sm: 0 0 14px rgba(45, 197, 88, 0.55);
-  --glow-success-md: 0 0 32px rgba(45, 197, 88, 0.45);
-  --glow-warn-sm:    0 0 14px rgba(245, 158, 11, 0.55);
-  --glow-warn-md:    0 0 32px rgba(245, 158, 11, 0.45);
-  --glow-danger-sm:  0 0 14px rgba(239, 68, 68, 0.55);
-  --glow-danger-md:  0 0 32px rgba(239, 68, 68, 0.45);
-
-  /* Z-index scale */
-  --z-modal: 60;
+  /* ─── Z-index scale ─────────────────────────────────────────── */
+  --z-base:     0;
+  --z-sticky:   20;
+  --z-dropdown: 50;
+  --z-overlay:  100;
+  --z-modal:    60;
 
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
   --space-0: 0px;
@@ -128,9 +119,6 @@
   --height-admin-prompt-max: min(60dvh, var(--width-center-max));
   --height-topbar: 48px;
 
-  /* ─── Hearst Connect — Halo core (idle home centerpiece) ────── */
-  --size-halo-core: 112px;
-
   /* ─── Sizes — éléments circulaires / carrés ──────────────────
    * Tokens de taille pour avatars, badges, dots dimensionnés. Évite
    * les `w-8 h-8` répétés quand un élément a une sémantique propre. */
@@ -156,6 +144,7 @@
   --height-stage-empty-icon: 80px;
   --height-pulsebar: 48px;
   --height-stage-footer: 28px;
+  --width-electron-titlebar: 70px;     /* Déport titlebar macOS Electron (traffic lights) */
 
   /* ─── Tracking — valeurs intermédiaires ────────────────────── */
   --tracking-snug: 0.10em;   /* Entre caption (0.08) et wide (0.12) — RunTimeline */
@@ -227,10 +216,16 @@
                       0 30px 60px -12px rgba(0, 0, 0, 0.50);
 
   /* ─── Hearst Connect — Typography weights ───────────────────── */
-  --weight-regular: 400;
-  --weight-medium: 500;
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
   --weight-semibold: 600;
-  --weight-bold: 700;
+  --weight-bold:     700;
+
+  /* ─── Backdrop blur scale ────────────────────────────────────── */
+  --blur-sm: blur(8px);
+  --blur-md: blur(20px);
+  --blur-lg: blur(40px);
 
   /* ─── Hearst Connect — Letter spacing scale ─────────────────── */
   --tracking-tight: -0.02em;
@@ -523,124 +518,6 @@
 @keyframes poster-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.55; transform: scale(1.18); }
-}
-
-/* ─── Stage cool paper — Direction « Atelier » 2026-05-01 ─────────────
- * Scope local sur le wrapper du Stage central (app/(user)/layout.tsx).
- * Inverse la hiérarchie de surfaces : rails restent dark (tokens :root),
- * le centre passe en off-white slate cool — l'opérateur quitte
- * l'environnement pour entrer dans la lecture. Cascade CSS propage à
- * tous les Stages enfants, au ChatDock, et aux composants qui consomment
- * --bg-elev / --bg-soft / --text*. Famille teal/slate cohérente avec
- * l'accent --cykan (#2DD4BF) : encre slate near-black légèrement teintée
- * cyan #0D1820. Les rails et le PulseBar gardent leur grammaire dark.
- *
- * Convention couleurs : pas de magic numbers — tout vient de cette table.
- * - papier            : #F4F7F8 (off-white slate cool)
- * - card / chatdock   : #FFFFFF
- * - encre             : #0D1820 (rgba(13,24,32,...))
- * - success fond clair: #16A34A (vs #2DC558 dark — meilleur contraste)
- * - texte sur cykan   : #042526 (slate dark teal — famille teal) */
-.stage-cool-paper {
-  /* Surfaces */
-  --bg-elev: #F4F7F8;
-  --bg-soft: #FFFFFF;
-  --surface: #FFFFFF;
-  --background: #F4F7F8;
-  --foreground: #0D1820;
-  --bg-light-stage: #FFFFFF;
-
-  /* Material scale (cards / dashboards posés sur le papier) */
-  --mat-050: #FAFBFC;
-  --mat-100: #F4F7F8;
-  --mat-200: #EFF3F5;
-  --mat-300: #E8EDF0;
-  --mat-400: #DFE5E8;
-  --mat-gray: #D5DBDF;
-
-  /* Encre slate near-black — légère touche cyan via le bleu R13 G24 B32 */
-  --text: #0D1820;
-  --text-soft: rgba(13, 24, 32, 0.88);
-  --text-muted: rgba(13, 24, 32, 0.68);
-  --text-faint: rgba(13, 24, 32, 0.45);
-  --text-ghost: rgba(13, 24, 32, 0.42);
-  --text-decor-25: rgba(13, 24, 32, 0.25);
-  --text-inactive: rgba(13, 24, 32, 0.55);
-  --text-subtitle: rgba(13, 24, 32, 0.55);
-  --text-placeholder: rgba(13, 24, 32, 0.42);
-
-  /* Layered text scale — Ghost Lumineux variant clair */
-  --text-l0: #0D1820;
-  --text-l1: rgba(13, 24, 32, 0.78);
-  --text-l2: rgba(13, 24, 32, 0.50);
-  --text-l3: rgba(13, 24, 32, 0.25);
-  --layer-0: #FFFFFF;
-  --layer-1: rgba(13, 24, 32, 0.025);
-  --layer-2: rgba(13, 24, 32, 0.045);
-  --sep: rgba(13, 24, 32, 0.06);
-
-  /* Lines / borders */
-  --line: rgba(13, 24, 32, 0.06);
-  --line-strong: rgba(13, 24, 32, 0.10);
-  --line-active: rgba(45, 212, 191, 0.30);
-
-  --border-shell: rgba(13, 24, 32, 0.08);
-  --border-soft: rgba(13, 24, 32, 0.05);
-  --border-input: rgba(13, 24, 32, 0.12);
-  --ghost-modal-top: rgba(13, 24, 32, 0.10);
-  --border-subtle: rgba(13, 24, 32, 0.08);
-  --border-default: rgba(13, 24, 32, 0.14);
-  --border-strong: rgba(13, 24, 32, 0.20);
-  --border-focus: rgba(13, 24, 32, 0.40);
-
-  /* Translucent surfaces — élévation subtile sur papier */
-  --surface-1: rgba(13, 24, 32, 0.025);
-  --surface-2: rgba(13, 24, 32, 0.045);
-  --surface-card: rgba(13, 24, 32, 0.035);
-  --card-flat-bg: rgba(13, 24, 32, 0.025);
-  --card-flat-border: rgba(13, 24, 32, 0.08);
-
-  /* Cykan turquoise gardé strict — opacités liftées pour fond clair */
-  --cykan-bg-active: rgba(45, 212, 191, 0.14);
-  --cykan-bg-hover: rgba(45, 212, 191, 0.08);
-  --cykan-border-hover: rgba(45, 212, 191, 0.45);
-  --cykan-surface: rgba(45, 212, 191, 0.06);
-  --cykan-border: rgba(45, 212, 191, 0.35);
-
-  /* Texte sur cykan plein — slate dark teal (famille teal cohérente) */
-  --text-on-cykan: #042526;
-
-  /* Success — vert plus saturé pour porter sur fond clair */
-  --color-success: #16A34A;
-  --color-success-bg: rgba(22, 163, 74, 0.10);
-  --color-success-border: rgba(22, 163, 74, 0.20);
-  --money: #16A34A;
-
-  /* Floating input capsule — devient sombre sur fond clair (inversion) */
-  --input-floating-bg: rgba(13, 24, 32, 0.06);
-
-  /* Shadows — atténuées et teintées slate sur fond clair */
-  --shadow-sm: 0 1px 2px rgba(13, 24, 32, 0.06);
-  --shadow-md: 0 4px 12px rgba(13, 24, 32, 0.08);
-  --shadow-lg: 0 12px 32px rgba(13, 24, 32, 0.10);
-  --shadow-xl: 0 24px 48px rgba(13, 24, 32, 0.14);
-  --shadow-card: 0 1px 2px rgba(13, 24, 32, 0.04),
-                 0 12px 24px rgba(13, 24, 32, 0.06);
-  --shadow-card-hover: 0 4px 8px rgba(13, 24, 32, 0.08),
-                      0 20px 40px rgba(45, 212, 191, 0.10),
-                      0 30px 60px -12px rgba(13, 24, 32, 0.12);
-  --shadow-tile-base: 0 1px 2px rgba(13, 24, 32, 0.06);
-  --shadow-tile-hover: 0 2px 4px rgba(13, 24, 32, 0.08), 0 4px 12px rgba(45, 212, 191, 0.06);
-  --shadow-tile-inset: inset 0 0.5px 0 rgba(255, 255, 255, 0.60);
-  --shadow-alert-inset: inset 0 0.5px 0 rgba(255, 255, 255, 0.60), 0 1px 2px rgba(13, 24, 32, 0.06);
-  /* Shell relief — sur fond clair on inverse : insets darker pour creuser */
-  --shadow-shell-relief:
-    inset 0 1px 0 rgba(13, 24, 32, 0.06),
-    inset 1px 0 0 rgba(13, 24, 32, 0.04),
-    inset -1px 0 0 rgba(13, 24, 32, 0.04);
-  --shadow-divider-bottom: inset 0 -1px 0 0 rgba(13, 24, 32, 0.06);
-  --shadow-divider-bottom-subtle: inset 0 -1px 0 0 rgba(13, 24, 32, 0.04);
-  --shadow-divider-top: inset 0 1px 0 0 rgba(13, 24, 32, 0.04);
 }
 
 /* ─── Pipeline admin — surface technique sur thème courant ─────────────
