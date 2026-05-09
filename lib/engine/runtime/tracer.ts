@@ -15,6 +15,7 @@ import {
 import { enforceCostBudget, type CostBudget, DEFAULT_COST_BUDGET } from "./cost-sentinel";
 import { validateOutput, type OutputValidationResult } from "./output-validator";
 import type { AgentGuardPolicy } from "./prompt-guard";
+import { getLangfuseClient } from "@/lib/observability/langfuse";
 
 type DB = SupabaseClient<Database>;
 type JsonRecord = Record<string, Json | undefined>;
@@ -238,6 +239,23 @@ export class RunTracer {
       "run:cancelled";
 
     this.emitEvent(eventKind, { output, error });
+
+    // Auto-flush Langfuse en fin de run (best-effort, ne fait jamais échouer endRun).
+    // Garantit que les traces sont push même en environnement serverless (Vercel)
+    // où le process peut être tué dès que la response HTTP est envoyée.
+    try {
+      const langfuse = getLangfuseClient();
+      if (langfuse) {
+        await langfuse.flushAsync();
+      }
+    } catch (err) {
+      // Log seulement — un flush raté ne doit pas casser le run.
+      // TODO: brancher Sentry.captureException() quand le SDK Sentry sera wrappé.
+      console.warn(
+        "[tracer] Langfuse flushAsync failed:",
+        err instanceof Error ? err.message : String(err),
+      );
+    }
   }
 
   getRunId(): string | null {

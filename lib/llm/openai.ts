@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk } from "./types";
 import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
+import { defaultRateLimiter } from "./rate-limiter";
 
 export class OpenAIProvider implements LLMProvider {
   readonly name = "openai";
@@ -18,16 +19,24 @@ export class OpenAIProvider implements LLMProvider {
     const start = Date.now();
     const timeoutMs = req.timeoutMs ?? CHAT_TIMEOUT_MS;
     const signal = makeAbortSignal(timeoutMs, req.signal);
-    const res = await this.client.chat.completions.create({
-      model: req.model,
-      messages: req.messages.map((m) => ({
-        role: m.role as "system" | "user" | "assistant",
-        content: m.content,
-      })),
-      temperature: req.temperature,
-      max_tokens: req.max_tokens,
-      top_p: req.top_p,
-    }, { signal });
+
+    // Backoff proactif : si on connaît un budget bas / retry-after, on attend.
+    await this.maybeWaitForRateLimit();
+
+    const { data: res, response } = await this.client.chat.completions
+      .create({
+        model: req.model,
+        messages: req.messages.map((m) => ({
+          role: m.role as "system" | "user" | "assistant",
+          content: m.content,
+        })),
+        temperature: req.temperature,
+        max_tokens: req.max_tokens,
+        top_p: req.top_p,
+      }, { signal })
+      .withResponse();
+
+    this.recordRateLimitHeaders(response);
 
     const tokensIn = res.usage?.prompt_tokens ?? 0;
     const tokensOut = res.usage?.completion_tokens ?? 0;
@@ -46,17 +55,24 @@ export class OpenAIProvider implements LLMProvider {
   async *streamChat(req: ChatRequest): AsyncGenerator<StreamChunk> {
     const timeoutMs = req.timeoutMs ?? STREAM_TIMEOUT_MS;
     const signal = makeAbortSignal(timeoutMs, req.signal);
-    const stream = await this.client.chat.completions.create({
-      model: req.model,
-      messages: req.messages.map((m) => ({
-        role: m.role as "system" | "user" | "assistant",
-        content: m.content,
-      })),
-      temperature: req.temperature,
-      max_tokens: req.max_tokens,
-      top_p: req.top_p,
-      stream: true,
-    }, { signal });
+
+    await this.maybeWaitForRateLimit();
+
+    const { data: stream, response } = await this.client.chat.completions
+      .create({
+        model: req.model,
+        messages: req.messages.map((m) => ({
+          role: m.role as "system" | "user" | "assistant",
+          content: m.content,
+        })),
+        temperature: req.temperature,
+        max_tokens: req.max_tokens,
+        top_p: req.top_p,
+        stream: true,
+      }, { signal })
+      .withResponse();
+
+    this.recordRateLimitHeaders(response);
 
     for await (const chunk of stream) {
       const delta = chunk.choices[0]?.delta?.content ?? "";
@@ -64,6 +80,35 @@ export class OpenAIProvider implements LLMProvider {
       if (delta || done) {
         yield { delta, done };
       }
+    }
+  }
+
+  /**
+   * Enregistre les headers `x-ratelimit-*` / `retry-after` pour le backoff
+   * proactif. Tolérant : un échec de parsing ne casse pas l'appel utilisateur.
+   */
+  private recordRateLimitHeaders(response: Response | undefined): void {
+    try {
+      if (response?.headers) {
+        defaultRateLimiter.recordHeaders("openai", response.headers);
+      }
+    } catch (err) {
+      console.warn("[OpenAI] recordHeaders failed:", err);
+    }
+  }
+
+  /**
+   * Attend si le rate-limiter recommande un délai. Ne bloque jamais en cas
+   * d'erreur.
+   */
+  private async maybeWaitForRateLimit(): Promise<void> {
+    try {
+      const delay = defaultRateLimiter.getNextDelay("openai");
+      if (delay > 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    } catch {
+      // best-effort
     }
   }
 }

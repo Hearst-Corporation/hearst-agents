@@ -2,6 +2,51 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { LLMProvider, ChatRequest, ChatMessage, ChatResponse, StreamChunk } from "./types";
 import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { startTrace } from "@/lib/observability/langfuse";
+import { defaultRateLimiter } from "./rate-limiter";
+
+/**
+ * Headers rate-limit exposés par Anthropic sur chaque réponse HTTP.
+ * Voir https://docs.anthropic.com/en/api/rate-limits#response-headers
+ */
+const ANTHROPIC_RATE_LIMIT_HEADERS = [
+  "anthropic-ratelimit-requests-limit",
+  "anthropic-ratelimit-requests-remaining",
+  "anthropic-ratelimit-requests-reset",
+  "anthropic-ratelimit-tokens-limit",
+  "anthropic-ratelimit-tokens-remaining",
+  "anthropic-ratelimit-tokens-reset",
+  "retry-after",
+] as const;
+
+let _recordHeadersWarnedMissing = false;
+
+/**
+ * Extrait les headers rate-limit d'une `Response` Fetch et les transmet au
+ * rate-limiter. Best-effort : si la méthode `recordHeaders` n'est pas encore
+ * câblée (rollout en parallèle), log un warning au premier appel et continue.
+ */
+function recordAnthropicRateHeaders(response: Response | undefined): void {
+  if (!response?.headers) return;
+  const headers: Record<string, string> = {};
+  for (const key of ANTHROPIC_RATE_LIMIT_HEADERS) {
+    const value = response.headers.get(key);
+    if (value) headers[key] = value;
+  }
+  if (Object.keys(headers).length === 0) return;
+  try {
+    const limiter = defaultRateLimiter as unknown as {
+      recordHeaders?: (provider: string, headers: Record<string, string>) => void;
+    };
+    if (typeof limiter.recordHeaders === "function") {
+      limiter.recordHeaders("anthropic", headers);
+    } else if (!_recordHeadersWarnedMissing) {
+      console.warn("[anthropic] rateLimiter.recordHeaders() not yet wired — skipping rate-limit ingest");
+      _recordHeadersWarnedMissing = true;
+    }
+  } catch (err) {
+    console.warn("[anthropic] recordHeaders failed:", err instanceof Error ? err.message : err);
+  }
+}
 
 export interface ToolUseRequest {
   id: string;
@@ -73,7 +118,13 @@ export class AnthropicProvider implements LLMProvider {
     const signal = makeAbortSignal(timeoutMs, req.signal);
     let res: Anthropic.Message;
     try {
-      res = await this.client.messages.create({ ...params, stream: false }, { signal });
+      // `withResponse()` expose la `Response` Fetch brute pour parser les headers
+      // rate-limit Anthropic — on conserve la même `data` qu'avant.
+      const { data, response } = await this.client.messages
+        .create({ ...params, stream: false }, { signal })
+        .withResponse();
+      res = data;
+      recordAnthropicRateHeaders(response);
     } catch (err) {
       generation?.end({ level: "ERROR", statusMessage: err instanceof Error ? err.message : String(err) });
       throw err;
@@ -147,20 +198,63 @@ export class AnthropicProvider implements LLMProvider {
       params.tools = tools;
     }
 
+    const trace = startTrace("anthropic.streamChat", {
+      model: req.model,
+      hasTools: Boolean(tools?.length),
+    });
+    const generation = trace?.generation({
+      name: "anthropic.messages.stream",
+      model: req.model,
+      modelParameters: {
+        max_tokens: params.max_tokens,
+        temperature: params.temperature ?? null,
+        top_p: params.top_p ?? null,
+      },
+      input: { system: params.system, messages: params.messages },
+    });
+
     const timeoutMs = req.timeoutMs ?? STREAM_TIMEOUT_MS;
     const signal = makeAbortSignal(timeoutMs, req.signal);
     const stream = this.client.messages.stream(params as Anthropic.MessageStreamParams, { signal });
 
-    for await (const event of stream) {
-      if (
-        event.type === "content_block_delta" &&
-        event.delta.type === "text_delta"
-      ) {
-        yield { delta: event.delta.text, done: false };
+    let collectedText = "";
+    try {
+      for await (const event of stream) {
+        if (
+          event.type === "content_block_delta" &&
+          event.delta.type === "text_delta"
+        ) {
+          collectedText += event.delta.text;
+          yield { delta: event.delta.text, done: false };
+        }
+        if (event.type === "message_stop") {
+          yield { delta: "", done: true };
+        }
       }
-      if (event.type === "message_stop") {
-        yield { delta: "", done: true };
+
+      // Stream consumed — récupère les headers (rate-limit) et l'usage final.
+      recordAnthropicRateHeaders(stream.response ?? undefined);
+      try {
+        const final = await stream.finalMessage();
+        generation?.end({
+          output: { text: collectedText },
+          usage: {
+            input: final.usage.input_tokens,
+            output: final.usage.output_tokens,
+            unit: "TOKENS",
+          },
+        });
+      } catch {
+        // finalMessage() peut throw si le stream a été interrompu — on ferme la
+        // génération avec ce qu'on a sans casser le caller.
+        generation?.end({ output: { text: collectedText } });
       }
+    } catch (err) {
+      generation?.end({
+        level: "ERROR",
+        statusMessage: err instanceof Error ? err.message : String(err),
+      });
+      throw err;
     }
   }
 
