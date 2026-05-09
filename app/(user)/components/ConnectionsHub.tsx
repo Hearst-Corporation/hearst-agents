@@ -52,6 +52,17 @@ const CATEGORY_LABEL: Record<string, string> = {
   marketing: "Marketing",
   finance: "Finance",
   ticketing: "Support",
+  "team-collaboration": "Collaboration",
+  "project-management": "Projets",
+  "task-management": "Tâches",
+  documents: "Documents",
+  accounting: "Comptabilité",
+  storage: "Stockage",
+  social: "Social",
+  ecommerce: "E-commerce",
+  hr: "RH",
+  legal: "Juridique",
+  hosting: "Hébergement",
 };
 
 function categoryLabel(app: ComposioApp): string {
@@ -393,8 +404,16 @@ export function ConnectionsHub() {
   // sont visibles dans la section "Connectés" en haut, on évite la
   // duplication. Exception : `attentionFilter` cible justement les
   // connexions dégradées (expired/error) — on les laisse passer.
+  // Base = wallpaper sans filtre catégorie (utilisé pour le count « Tout »
+  // dédupliqué de la CategoriesBar). Sommer `categoriesWithCount[].count`
+  // double-compterait les services présents dans plusieurs catégories.
+  const wallpaperBase = useMemo(
+    () => (attentionFilter ? apps : apps.filter((a) => !connectedSlugs.has(a.key))),
+    [apps, attentionFilter, connectedSlugs],
+  );
+
   const wallpaperApps = useMemo(() => {
-    let filtered = attentionFilter ? apps : apps.filter((a) => !connectedSlugs.has(a.key));
+    let filtered = wallpaperBase;
     if (activeCategory) {
       filtered = filtered.filter((a) => a.categories.includes(activeCategory));
     }
@@ -405,7 +424,7 @@ export function ConnectionsHub() {
       });
     }
     return [...filtered].sort((a, b) => a.name.localeCompare(b.name, "fr"));
-  }, [apps, activeCategory, attentionFilter, connectedSlugs, statusBySlug]);
+  }, [wallpaperBase, activeCategory, attentionFilter, statusBySlug]);
 
   const wallpaperVisible = useMemo(
     () => wallpaperApps.slice(0, wallpaperLimit),
@@ -783,6 +802,7 @@ export function ConnectionsHub() {
                 categories={categoriesWithCount}
                 active={activeCategory}
                 onChange={onCategoryChange}
+                totalCount={wallpaperBase.length}
               />
             )}
             <Wallpaper
@@ -868,10 +888,9 @@ function Header({
       className="sticky top-0 z-10 flex items-center gap-4 px-8 py-3 border-b"
       style={{ background: "var(--bg-elev)", borderColor: "var(--border-shell)" }}
     >
-      <span className="t-13 font-medium whitespace-nowrap text-[var(--accent-teal)]">
-        Apps
-      </span>
-
+      {/* Search globale — l'icône loupe et le placeholder suffisent. Pas de
+       *  kbd ⌘K ici : le raccourci global ouvre le Commandeur (cf. PulseBar),
+       *  pas ce search local. Mentir sur la hotkey casse la confiance UI. */}
       <label
         className="flex-1 flex items-center gap-3 px-0 py-3 border-b rounded-none transition-colors"
         style={{
@@ -889,20 +908,10 @@ function Header({
           placeholder="Cherche un service…"
           className="flex-1 bg-transparent outline-none border-none t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
         />
-        <kbd
-          className="t-9 font-mono px-1.5 py-px border"
-          style={{
-            background: "transparent",
-            borderColor: "var(--border-shell)",
-            color: "var(--text-faint)",
-          }}
-        >
-          ⌘ K
-        </kbd>
       </label>
 
-      <div className="flex items-center gap-3 t-11 font-medium whitespace-nowrap">
-        <span className="flex items-center gap-2 text-[var(--text)]">
+      <div className="flex items-center gap-3 t-11 font-light whitespace-nowrap tabular-nums">
+        <span className="flex items-center gap-2 text-[var(--text-soft)]">
           <span
             className="w-1 h-1 rounded-pill halo-dot"
             style={{ background: "var(--accent-teal)" }}
@@ -922,19 +931,29 @@ function Header({
                 ? "Cliquer pour réinitialiser le filtre"
                 : "Filtrer le catalogue aux services qui demandent ton attention"
             }
-            className="px-2 py-1 rounded-pill border ml-1 transition-all cursor-pointer hover:opacity-80"
+            className="flex items-center gap-1.5 px-2 py-1 rounded-pill border ml-1 transition-colors cursor-pointer"
             style={{
-              color: "var(--color-error)",
-              background: attentionFilter
+              color: attentionFilter ? "var(--bg)" : "var(--text-soft)",
+              background: attentionFilter ? "var(--color-error)" : "transparent",
+              borderColor: attentionFilter
                 ? "var(--color-error)"
-                : "var(--color-error-bg)",
-              borderColor: "var(--color-error-border)",
-              ...(attentionFilter
-                ? { color: "var(--bg)", fontWeight: "var(--weight-semibold)" }
-                : null),
+                : "var(--border-soft)",
+              fontWeight: attentionFilter
+                ? "var(--weight-semibold)"
+                : "var(--weight-regular)",
             }}
           >
-            ⚠ {attentions}
+            <span
+              aria-hidden
+              className="w-1.5 h-1.5 rounded-pill"
+              style={{
+                background: attentionFilter ? "var(--bg)" : "var(--color-error)",
+                boxShadow: attentionFilter
+                  ? undefined
+                  : "0 0 6px color-mix(in srgb, var(--color-error) 50%, transparent)",
+              }}
+            />
+            {attentions}
           </button>
         )}
       </div>
@@ -946,10 +965,10 @@ function Header({
 
 function SectionLabel({ label, count }: { label: string; count: number }) {
   return (
-    <div className="flex items-baseline gap-2 px-8 pt-5 pb-3 t-13 font-medium">
-      <span className="text-[var(--text)]">{label}</span>
+    <div className="flex items-baseline gap-2 px-8 pt-5 pb-3 t-13 font-light">
+      <span className="text-[var(--text-soft)]">{label}</span>
       <span className="text-[var(--text-ghost)]">·</span>
-      <span className="text-[var(--text-faint)] font-light">{count}</span>
+      <span className="text-[var(--text-faint)] tabular-nums">{count}</span>
     </div>
   );
 }
@@ -1013,7 +1032,7 @@ function StageTile({
   const dotColor =
     variant === "warn" ? "var(--color-warning)"
       : variant === "error" ? "var(--color-error)"
-        : "var(--accent-teal)";
+        : null;
   const statusLabel =
     variant === "warn" ? "OAuth en cours"
       : variant === "error" ? "À reconnecter"
@@ -1026,28 +1045,31 @@ function StageTile({
       aria-label={`${app.name}${statusLabel ? ` — ${statusLabel}` : ""}`}
       className="group flex flex-col items-center gap-2"
     >
-      {/* Logo en relatif → permet d'ancrer le dot status en coin du logo
-          (pas de la card — il n'y a plus de card). Le dot est petit et
-          discret, sauf pour warn/error où il prend la couleur du status. */}
+      {/* Le dot apparaît uniquement quand l'état diverge de la norme
+       *  (warn = OAuth en cours, error = à reconnecter). Section
+       *  « Connectés » ⇒ pas besoin de signaler que c'est connecté.
+       *  Une seule alerte qui crie > dix dots qui chuchotent. */}
       <span className="relative inline-flex">
         <AppLogo app={app} size={48} />
-        <span
-          aria-hidden
-          className="absolute w-2 h-2 rounded-pill"
-          style={{
-            top: "calc(-1 * var(--space-1))",
-            right: "calc(-1 * var(--space-1))",
-            background: dotColor,
-            boxShadow: `0 0 8px color-mix(in srgb, ${dotColor} 60%, transparent)`,
-            animation: variant === "warn" ? "blink 1.4s infinite" : undefined,
-          }}
-        />
+        {dotColor && (
+          <span
+            aria-hidden
+            className="absolute w-2 h-2 rounded-pill"
+            style={{
+              top: "calc(-1 * var(--space-1))",
+              right: "calc(-1 * var(--space-1))",
+              background: dotColor,
+              boxShadow: `0 0 8px color-mix(in srgb, ${dotColor} 60%, transparent)`,
+              animation: variant === "warn" ? "blink 1.4s infinite" : undefined,
+            }}
+          />
+        )}
       </span>
       <span
         className="t-11 text-center group-hover:text-[var(--accent-teal)] transition-colors"
         style={{
-          fontWeight: "var(--weight-medium)",
-          color: "var(--text)",
+          fontWeight: "var(--weight-regular)",
+          color: "var(--text-soft)",
           lineHeight: "var(--leading-snug)",
           display: "-webkit-box",
           WebkitLineClamp: 2,
@@ -1058,7 +1080,7 @@ function StageTile({
       >
         {app.name}
       </span>
-      {statusLabel && (
+      {statusLabel && dotColor && (
         <span
           className="t-9 font-light"
           style={{ color: dotColor }}
@@ -1155,12 +1177,11 @@ function SuggestionsGrid({
 }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-8 pb-6">
-      {suggestions.map((s, i) => (
+      {suggestions.map((s) => (
         <SuggestionCard
           key={s.app.key}
           app={s.app}
           hint={s.hint}
-          featured={i === 0}
           onClick={() => onSelect(s.app)}
         />
       ))}
@@ -1171,12 +1192,10 @@ function SuggestionsGrid({
 function SuggestionCard({
   app,
   hint,
-  featured,
   onClick,
 }: {
   app: ComposioApp;
   hint: string;
-  featured: boolean;
   onClick: () => void;
 }) {
   return (
@@ -1190,8 +1209,8 @@ function SuggestionCard({
         <div
           className="t-13 truncate group-hover:text-[var(--accent-teal)] transition-colors"
           style={{
-            fontWeight: "var(--weight-semibold)",
-            color: featured ? "var(--accent-teal-deep)" : "var(--text)",
+            fontWeight: "var(--weight-medium)",
+            color: "var(--text-soft)",
           }}
         >
           {app.name}
@@ -1219,10 +1238,14 @@ function CategoriesBar({
   categories,
   active,
   onChange,
+  totalCount,
 }: {
   categories: { id: string; label: string; count: number }[];
   active: string | null;
   onChange: (cat: string | null) => void;
+  /** Total dédupliqué d'apps non-connectées. Sommer `categories[].count`
+   *  double-compte les services présents dans plusieurs catégories. */
+  totalCount: number;
 }) {
   const visible = categories.slice(0, CATEGORIES_VISIBLE);
   const hiddenCount = Math.max(0, categories.length - visible.length);
@@ -1231,12 +1254,11 @@ function CategoriesBar({
       className="flex items-center gap-6 px-8 py-3 overflow-x-auto"
       style={{
         borderTop: "1px solid var(--border-shell)",
-        borderBottom: "1px solid var(--border-shell)",
       }}
     >
       <CategoryChip
         label="Tout"
-        count={categories.reduce((sum, c) => sum + c.count, 0)}
+        count={totalCount}
         on={active === null}
         onClick={() => onChange(null)}
       />
@@ -1375,11 +1397,11 @@ function WallpaperTile({
       : variant === "error" ? "var(--color-error)"
         : "var(--accent-teal)";
 
-  // Logos brand : on atténue saturation+luminance pour ne pas casser la palette
-  // monochrome+cyan globale du produit. Connected reste reconnaissable mais ne
-  // crie plus ; non-connectés gardent leur grayscale plus fort déjà existant.
+  // Connecté = couleur native (signal fort, cohérent avec la section
+  // « Connectés » en haut). Non-connecté connectable = grayscale léger.
+  // Non-connectable = grayscale fort + cadenas. Une représentation par état.
   const filter = connected
-    ? "saturate(0.6) brightness(0.92)"
+    ? undefined
     : isConnectable
       ? "grayscale(0.55) opacity(0.65)"
       : "grayscale(0.95) opacity(0.4)";

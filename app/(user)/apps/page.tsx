@@ -8,7 +8,7 @@ export default function AppsPage() {
   return (
     <ScreenShell
       title="Apps"
-      subtitle="Catalogue des intégrations disponibles. Connectez les sources qui alimentent vos rapports et missions."
+      subtitle="Connecte les sources qui nourrissent tes reports et missions."
       breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Apps" }]}
     >
       <Suspense>
