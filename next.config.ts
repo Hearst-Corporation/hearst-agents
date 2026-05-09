@@ -2,12 +2,13 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
-  // `output: "standalone"` est requis pour le build Docker (Dockerfile copie
-  // .next/standalone) mais entre en conflit avec le packaging serverless
-  // Vercel à l'étape "Deploying outputs..." (les 5 derniers deploys ont
-  // échoué ainsi). On le conditionne sur l'absence de VERCEL=1 (set auto
-  // par Vercel au build).
-  ...(process.env.VERCEL ? {} : { output: "standalone" as const }),
+  // `output: "standalone"` garantit que Next.js copie tous les fichiers
+  // runtime nécessaires (dont next/dist/server/node-environment.js) dans
+  // le bundle serverless. Sans standalone, le tracer Vercel ratait ce
+  // fichier → 500 "Cannot find module 'next/dist/server/node-environment'".
+  // La taille 590 MB précédente était due à Electron (désormais strippé par
+  // l'installCommand), pas à standalone. Bundle confirmé à 137 MB.
+  output: "standalone" as const,
   // Pin la racine workspace pour que Turbopack n'aille pas la déduire
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {
