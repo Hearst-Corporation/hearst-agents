@@ -132,25 +132,12 @@ export async function ingestConversationTurn(
   return { entitiesCreated, edgesCreated, skipped: false };
 }
 
-<<<<<<< Updated upstream
-=======
-/**
- * Wrapper fire-and-forget — s'attache à un Promise orphelin. Aucune erreur
- * ne remonte. À utiliser depuis ai-pipeline.ts en post-stream pour ne PAS
- * bloquer la réponse SSE.
- */
->>>>>>> Stashed changes
 // Throttle : 1 ingest max toutes les 5 minutes par userId.
 // Évite un appel Claude Haiku à chaque turn sur les conversations intensives.
 const lastIngestAt = new Map<string, number>();
 const INGEST_COOLDOWN_MS = 5 * 60 * 1000;
 
-<<<<<<< Updated upstream
 // Seuils minimaux : l'ingest ne vaut pas le coût Haiku sur les messages courts.
-=======
-// Seuils minimaux de contenu : l'ingest ne vaut pas le coût Haiku sur
-// les messages très courts ou les échanges de politesse.
->>>>>>> Stashed changes
 const MIN_MESSAGE_LEN = 50;
 const MIN_REPLY_LEN = 200;
 
