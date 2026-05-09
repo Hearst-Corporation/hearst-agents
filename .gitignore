@@ -59,6 +59,9 @@ yarn-error.log*
 !.claude/commands/**
 # … et le fichier de settings projet (hooks ADD)
 !.claude/settings.json
+# … et les subagents custom partagés
+!.claude/agents/
+!.claude/agents/**
 
 # typescript
 *.tsbuildinfo

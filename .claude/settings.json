@@ -23,6 +23,18 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/claude-session-start.mjs",
+            "timeout": 5,
+            "statusMessage": "Briefing session Hearst OS…"
+          }
+        ]
+      }
     ]
   }
 }

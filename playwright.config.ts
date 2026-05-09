@@ -37,17 +37,54 @@ export default defineConfig({
   projects: [
     {
       name: "chromium-desktop",
+      testDir: "./e2e",
+      testIgnore: "**/visual/**",
       use: { ...devices["Desktop Chrome"] },
     },
     {
       name: "mobile-safari",
+      testDir: "./e2e",
+      testIgnore: "**/visual/**",
       use: { ...devices["iPhone 12"] },
     },
     {
       name: "mobile-chrome",
+      testDir: "./e2e",
+      testIgnore: "**/visual/**",
       use: { ...devices["Pixel 5"] },
     },
+    /**
+     * Visual regression — captures snapshot par mode Stage cockpit.
+     *
+     * Lancé uniquement en local via `npm run test:visual` :
+     *   1. `npm run dev` (port 9001)
+     *   2. `npm run test:visual:update` UNE FOIS pour générer baselines
+     *   3. `npm run test:visual` ensuite pour détecter les régressions
+     *
+     * Tag `@skip-ci` car les baselines exigent un Next dev live + browser
+     * stable (pas dispo en CI actuellement).
+     */
+    {
+      name: "visual-regression",
+      testDir: "./e2e/visual",
+      snapshotPathTemplate:
+        "{testDir}/__screenshots__/{testFilePath}/{arg}{ext}",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1440, height: 900 },
+      },
+    },
   ],
-  // Skip auth-required tests in CI (no OAuth credentials)
+  // Tolérance par défaut pour `toHaveScreenshot` (utilisée par
+  // visual-regression — les autres projets n'appellent pas cette assertion).
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.02,
+      animations: "disabled",
+      caret: "hide",
+    },
+  },
+  // Skip auth-required tests + visual regression in CI
+  // (visual exige Next dev live + browser stable, not yet available)
   grepInvert: process.env.CI ? /@skip-ci/ : undefined,
 });

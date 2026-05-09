@@ -17,8 +17,26 @@ spawned via Agent tool, slash commands locales, et hooks.
 - **PreToolUse** Edit|Write|NotebookEdit : `node scripts/check-agent-lock.mjs`
 - **PreToolUse** Bash : `node scripts/check-agent-lock-bash.mjs` (commandes destructives)
   Bloquent si `docs/AGENT-LOCK.json:locked === true`.
+- **SessionStart** : `node scripts/claude-session-start.mjs`
+  Auto-priming en début de session : état du verrou ADD, liste des agents
+  custom, pointeurs lecture (ARCHITECTURE.md, AGENTS.md, docs/AGENT-DRIVEN-DEV.md).
 
 ## Subagents spawnable via Agent tool
+
+### Subagents custom (.claude/agents/)
+- `validator` (haiku) — Lance `npm run validate` (typecheck + lint + test) et
+  retourne un JSON `{status, blockers[], warnings[], next_steps[]}`.
+  Inputs : `scope` ("all" | "diff" | path). Read-only, terminal.
+- `llm-auditor` (sonnet) — Audit exhaustif du runtime LLM sur 8 dimensions
+  (caching Anthropic, circuit breaker, failover, retry exponentiel, Langfuse
+  wireup, rate-limit, token budget, streaming watchdog). Inputs : `provider`
+  ("anthropic" | "openai" | "gemini" | "all"). Retourne verdicts yes/no/partial
+  avec preuves `file:line`. Read-only.
+- `route-mapper` (haiku) — Pour un set de fichiers modifiés (`changed_paths[]`),
+  retourne routes API impactées + stores Zustand affectés + layouts touchés
+  + recommandations de tests. Read-only strict (Read, Grep, Glob).
+
+### Subagents génériques
 - `Explore` — recherche code multi-fichiers sans polluer contexte principal
 - `Plan` — design d'implémentation pour gros refactors
 - `general-purpose` — tâches multi-étapes

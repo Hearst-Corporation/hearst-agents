@@ -1,0 +1,17 @@
+# Gitleaks config — Hearst OS
+# Voir : https://github.com/gitleaks/gitleaks#configuration
+
+title = "gitleaks config — hearst-os"
+
+[allowlist]
+description = "Allowlist patterns"
+paths = [
+  '''.env\.example''',
+  '''docs/.*\.md''',
+  '''__tests__/fixtures/.*''',
+]
+regexes = [
+  # Placeholder strings dans .env.example
+  '''anon-key-for-build-only''',
+  '''https://example\.supabase\.co''',
+]

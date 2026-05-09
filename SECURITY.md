@@ -37,6 +37,16 @@ npm audit --omit=dev --audit-level=high
 
 À intégrer dans le CI (pre-deploy ou daily cron). Les vulnérabilités `high`/`critical` doivent être patchées sous 7 jours en prod.
 
+## Scans automatiques
+
+Workflows GitHub Actions actifs sur `main` (push + PR + cron lundi) :
+
+- **Gitleaks** — secret scanning sur tout l'historique. Cron lundi 9h. Config : [.gitleaks.toml](.gitleaks.toml). Workflow : [.github/workflows/gitleaks.yml](.github/workflows/gitleaks.yml).
+- **CodeQL** — SAST JavaScript/TypeScript (preset `security-extended`). Cron lundi 6h. Workflow : [.github/workflows/codeql.yml](.github/workflows/codeql.yml). Les alertes apparaissent dans l'onglet **Security → Code scanning** du repo.
+- **npm audit** — intégré dans le CI principal ([.github/workflows/ci.yml](.github/workflows/ci.yml)).
+
+Activer **Code scanning alerts** dans Settings → Security du repo si pas déjà fait.
+
 ## Electron
 
 Configuration sécurité (vérifiée dans `electron/main.ts`) :

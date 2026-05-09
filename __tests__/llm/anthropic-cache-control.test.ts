@@ -28,6 +28,21 @@ function fakeAnthropicResponse(over: Record<string, unknown> = {}) {
   };
 }
 
+/**
+ * Mock APIPromise du SDK Anthropic : thenable + méthode .withResponse()
+ * Reproduit le pattern utilisé par anthropic.ts (Phase 2 — parsing rate-limit headers).
+ */
+function mockApiPromise<T>(data: T) {
+  const promise = Promise.resolve(data) as Promise<T> & {
+    withResponse: () => Promise<{ data: T; response: { headers: Headers } }>;
+  };
+  promise.withResponse = async () => ({
+    data,
+    response: { headers: new Headers() },
+  });
+  return promise;
+}
+
 describe("AnthropicProvider — cache_control plumbing", () => {
   beforeEach(() => {
     process.env.ANTHROPIC_API_KEY = "sk-test";
@@ -38,7 +53,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("sends system as a plain string when no cache_control is set", async () => {
-    messagesCreate.mockResolvedValueOnce(fakeAnthropicResponse());
+    messagesCreate.mockReturnValueOnce(mockApiPromise(fakeAnthropicResponse()));
     const p = new AnthropicProvider();
     await p.chat({
       model: "claude-sonnet-4-6",
@@ -52,7 +67,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("converts system to a cacheable content block when cache_control is set", async () => {
-    messagesCreate.mockResolvedValueOnce(fakeAnthropicResponse());
+    messagesCreate.mockReturnValueOnce(mockApiPromise(fakeAnthropicResponse()));
     const p = new AnthropicProvider();
     await p.chat({
       model: "claude-sonnet-4-6",
@@ -68,7 +83,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("converts user/assistant messages to cacheable content blocks when cache_control is set", async () => {
-    messagesCreate.mockResolvedValueOnce(fakeAnthropicResponse());
+    messagesCreate.mockReturnValueOnce(mockApiPromise(fakeAnthropicResponse()));
     const p = new AnthropicProvider();
     await p.chat({
       model: "claude-sonnet-4-6",
@@ -85,7 +100,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("surfaces cache_creation/read tokens on ChatResponse", async () => {
-    messagesCreate.mockResolvedValueOnce(
+    messagesCreate.mockReturnValueOnce(mockApiPromise(
       fakeAnthropicResponse({
         usage: {
           input_tokens: 10,
@@ -94,7 +109,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
           cache_read_input_tokens: 0,
         },
       }),
-    );
+    ));
     const p = new AnthropicProvider();
     const res = await p.chat({
       model: "claude-sonnet-4-6",
@@ -105,7 +120,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("reports a cache hit when cache_read_input_tokens > 0", async () => {
-    messagesCreate.mockResolvedValueOnce(
+    messagesCreate.mockReturnValueOnce(mockApiPromise(
       fakeAnthropicResponse({
         usage: {
           input_tokens: 8,
@@ -114,7 +129,7 @@ describe("AnthropicProvider — cache_control plumbing", () => {
           cache_read_input_tokens: 1500,
         },
       }),
-    );
+    ));
     const p = new AnthropicProvider();
     const res = await p.chat({
       model: "claude-sonnet-4-6",

@@ -22,6 +22,14 @@ const eslintConfig = defineConfig([
     "build/**",
     "dist/**",
     "next-env.d.ts",
+    // Vercel deploy artifacts (committed par erreur — à nettoyer plus tard)
+    ".vercel/**",
+    // Coverage / Playwright reports
+    "coverage/**",
+    "playwright-report/**",
+    "test-results/**",
+    // Snapshots Playwright (binaires)
+    "**/__screenshots__/**",
   ]),
 ]);
 

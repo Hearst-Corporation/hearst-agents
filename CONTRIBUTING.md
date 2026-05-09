@@ -36,6 +36,8 @@ verrou (docs/AGENT-LOCK.json) → /feature <id> → coder → validate → manif
 | `npm run test:watch` | Vitest watch |
 | `npm run test:e2e` | Playwright e2e (port `9001`) |
 | `npm run test:e2e:ui` | Playwright UI mode |
+| `npm run test:visual` | Visual regression cockpit (compare aux baselines) |
+| `npm run test:visual:update` | Régénère les baselines visuelles |
 | `npm run validate` | typecheck + lint + test (boucle de validation rapide) |
 | `npm run validate:full` | validate + e2e CI |
 | `npm run doctor` | typecheck + lint + audit deps |
@@ -82,3 +84,16 @@ Messages **en français**, descriptifs, focalisés sur le "pourquoi". Exemples d
 ## Tests e2e taggés `@skip-ci`
 
 Les e2e taggés `@skip-ci` (notamment certains scénarios reports) sont skippés en CI. Pour les exercer, lance `npm run test:e2e` en local avec ces tags activés (voir `playwright.config.ts` pour la grep config).
+
+## Visual regression
+
+Tests Playwright snapshot diff sur les 11 modes Stage du cockpit polymorphe (post-pivot 2026-04-29). Ils détectent les régressions visuelles : dérive de tokens, refonte non voulue, shell layout cassé, drift de typographie, etc.
+
+- `npm run test:visual` — lance les tests (compare aux baselines, échoue si > 2% de diff pixel).
+- `npm run test:visual:update` — régénère les baselines (à faire après changement UI volontaire validé).
+
+**Setup initial (à faire UNE FOIS)** : démarre `npm run dev` (port 9001) dans un terminal, puis dans un autre terminal `npm run test:visual:update` — les baselines seront écrites dans `e2e/visual/__screenshots__/` et il faut les commit.
+
+Le test utilise le store Stage exposé sur `window.__hearstStageStore` (uniquement en `NODE_ENV !== "production"`) pour switcher de mode sans navigation. Tag `@skip-ci` actuellement (à enlever quand un job CI dédié — Next dev live + browser stable — sera prêt).
+
+Modes capturés : `cockpit`, `chat`, `asset`, `asset-compare`, `mission`, `browser`, `meeting`, `kg`, `voice`, `simulation`, `artifact` (1440x900). Si tu touches au shell (TimelineRail, PulseBar, ContextRail, StageFooter) ou à un sous-Stage, lance `npm run test:visual` pour vérifier que la baseline tient — sinon update-la dans le commit du changement.

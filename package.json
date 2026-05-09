@@ -30,6 +30,8 @@
     "test:e2e": "playwright test",
     "test:e2e:ci": "playwright test --reporter=list",
     "test:e2e:ui": "playwright test --ui",
+    "test:visual": "playwright test --project=visual-regression",
+    "test:visual:update": "playwright test --project=visual-regression --update-snapshots",
     "validate": "npm run typecheck && npm run lint && npm run test",
     "validate:full": "npm run validate && npm run test:e2e:ci",
     "deadcode": "knip",
