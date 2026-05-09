@@ -24,6 +24,7 @@ import { useSelectionStore, type Selection } from "@/stores/selection";
 import { useNotificationsStore } from "@/stores/notifications";
 import { AGENT_METADATA, type AgentRoleId } from "@/lib/cockpit/agents";
 import { AGENT_ICON_MAP } from "./AgentIcons";
+import { useDashboardCounts } from "./use-dashboard-counts";
 
 // ── Voix éditoriale FR ───────────────────────────────────────
 
@@ -39,12 +40,32 @@ const CORE_STATE_LABEL: Record<string, string> = {
 
 // ── Actions config ────────────────────────────────────────────
 
-interface ActionItem {
+interface ModuleAction {
   id: string;
   label: string;
-  description: string;
+  state: ReactNode;
   icon: ReactNode;
   onClick: () => void;
+  /** Si true, badge teal pulsant top-right (proposition d'agent autonome en attente). */
+  hasValidation?: boolean;
+}
+
+/** Format compteur : "12" ou "—" si inconnu. */
+function fmtCount(n: number | null): string {
+  if (n === null) return "—";
+  return String(n);
+}
+
+/**
+ * Stub : à remplacer par un hook réel `usePendingAgentProposals()` qui lit un
+ * futur store des propositions d'agents autonomes (mission proposée par
+ * Cortex / Pilot / etc., en attente de validation utilisateur).
+ *
+ * Pour l'instant retourne toujours null. Le câblage data viendra dans une
+ * future PR (mécanisme calqué sur ApprovalInline du chat).
+ */
+function usePendingValidationStub(): { agent: string; missionTitle: string } | null {
+  return null;
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -59,38 +80,55 @@ export function GeneralDashboard() {
   );
 }
 
-// ── Strate 3 — Actions rapides ───────────────────────────────
+// ── Strate 3 — Actions rapides (modules tactiles + validation inline) ──
 
 function QuickActions() {
   const router = useRouter();
   const setCommandeurOpen = useStageStore((s) => s.setCommandeurOpen);
+  const counts = useDashboardCounts();
 
-  const actions: ActionItem[] = [
+  // Stub validation : à câbler à un futur store de propositions d'agents
+  // autonomes (cf. spec context-rail v1.1 — "validation inline" pattern,
+  // ré-utilisera le mécanisme draft-first du chat / ApprovalInline).
+  const pendingValidation = usePendingValidationStub();
+
+  const actions: ModuleAction[] = [
     {
       id: "mission",
-      label: "Nouvelle mission",
-      description: "Créer une mission automatisée",
+      label: "Mission",
+      state: fmtCount(counts.missionsTotal),
       icon: <MissionIcon />,
       onClick: () => router.push("/missions/builder"),
+      hasValidation: pendingValidation !== null,
     },
     {
       id: "report",
-      label: "Nouveau rapport",
-      description: "Générer un rapport",
+      label: "Rapport",
+      state: fmtCount(counts.reportsCount),
       icon: <ReportIcon />,
       onClick: () => router.push("/reports"),
     },
     {
       id: "source",
-      label: "Ajouter une source",
-      description: "Connecter un service",
+      label: "Source",
+      state:
+        counts.connectionsConnected !== null && counts.connectionsTotal !== null ? (
+          <>
+            {counts.connectionsConnected}
+            <span className="text-[var(--text-muted)] font-extralight">
+              /{counts.connectionsTotal}
+            </span>
+          </>
+        ) : (
+          "—"
+        ),
       icon: <SourceIcon />,
       onClick: () => router.push("/apps"),
     },
     {
       id: "analyse",
-      label: "Lancer analyse",
-      description: "Démarrer une analyse",
+      label: "Analyse",
+      state: <span className="t-11 font-mono">⌘K</span>,
       icon: <AnalyseIcon />,
       onClick: () => setCommandeurOpen(true, { prefilledQuery: "Analyser " }),
     },
@@ -99,57 +137,115 @@ function QuickActions() {
   return (
     <section style={{ padding: "var(--space-4) var(--space-4) var(--space-3)" }}>
       <SectionLabel label="Actions rapides" icon={<LightningIcon />} />
-      <ul className="flex flex-col" style={{ gap: "var(--space-2)", marginTop: "var(--space-3)" }}>
+      <ul
+        className="grid grid-cols-2"
+        style={{ gap: "var(--space-2)", marginTop: "var(--space-3)" }}
+      >
         {actions.map((a) => (
-          <li key={a.id}>
+          <li key={a.id} className="aspect-square">
             <button
               type="button"
               onClick={a.onClick}
-              className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--border-subtle)] hover:bg-[var(--surface-2)] hover:border-[var(--accent-teal-border)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
+              className="touch-module group relative w-full h-full text-left flex flex-col justify-between focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
               style={{
-                gap: "var(--space-3)",
                 padding: "var(--space-3)",
-                borderRadius: "var(--radius-sm)",
+                borderRadius: "var(--radius-md)",
               }}
+              aria-label={a.label}
             >
-              {/* Icône dans cercle */}
-              <span
-                className="shrink-0 flex items-center justify-center"
-                style={{
-                  width: "var(--space-8)",
-                  height: "var(--space-8)",
-                  borderRadius: "var(--radius-sm)",
-                  background: "var(--surface-2)",
-                  color: "var(--text-ghost)",
-                }}
-              >
+              <span className="touch-module-icon shrink-0" aria-hidden>
                 {a.icon}
               </span>
-              {/* Texte */}
-              <span className="flex flex-col flex-1 min-w-0">
+              {a.hasValidation && (
                 <span
-                  className="t-11 font-medium uppercase tracking-wide"
-                  style={{ color: "var(--text-l2)", letterSpacing: "var(--tracking-wide)" }}
+                  className="touch-module-badge"
+                  aria-label="Proposition d'agent à valider"
+                  title="Proposition d'agent à valider"
+                />
+              )}
+              <span className="flex items-end justify-between gap-2 min-w-0">
+                <span
+                  className="t-13 font-light text-[var(--text-l1)] leading-tight"
+                  style={{ letterSpacing: "-0.005em" }}
                 >
                   {a.label}
                 </span>
-                <span className="t-9 font-light truncate" style={{ color: "var(--text-faint)" }}>
-                  {a.description}
+                <span
+                  className="t-22 font-extralight font-mono tabular-nums text-[var(--text-l1)] leading-none"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  {a.state}
                 </span>
-              </span>
-              {/* Arrow */}
-              <span
-                className="shrink-0 t-13 font-mono group-hover:text-[var(--accent-teal)] transition-colors"
-                style={{ color: "var(--text-faint)" }}
-                aria-hidden
-              >
-                →
               </span>
             </button>
           </li>
         ))}
       </ul>
+
+      {pendingValidation && (
+        <ValidationStrip
+          agent={pendingValidation.agent}
+          missionTitle={pendingValidation.missionTitle}
+        />
+      )}
     </section>
+  );
+}
+
+// ── Validation strip — pop-up inline d'une proposition d'agent autonome ──
+
+function ValidationStrip({ agent, missionTitle }: { agent: string; missionTitle: string }) {
+  const router = useRouter();
+  return (
+    <div
+      role="region"
+      aria-label="Validation requise"
+      className="touch-validation-strip"
+      style={{
+        marginTop: "var(--space-2)",
+        padding: "var(--space-3) var(--space-3) var(--space-3) var(--space-4)",
+        borderRadius: "var(--radius-md)",
+      }}
+    >
+      <div
+        className="flex items-center"
+        style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
+      >
+        <span aria-hidden className="touch-validation-pulse" />
+        <span className="t-11 font-light text-[var(--accent-teal)]" style={{ opacity: 0.9 }}>
+          <span className="italic">{agent}</span> propose
+        </span>
+      </div>
+      <div
+        className="t-13 font-light text-[var(--text-l1)]"
+        style={{ marginBottom: "var(--space-3)", letterSpacing: "-0.005em" }}
+      >
+        {missionTitle}
+      </div>
+      <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+        <button
+          type="button"
+          onClick={() => router.push("/missions")}
+          className="flex-1 t-11 font-light text-[var(--text-faint)] border border-[var(--border-soft)] hover:border-[var(--border-subtle)] hover:text-[var(--text-soft)] transition-colors"
+          style={{ padding: "var(--space-2)", borderRadius: "var(--radius-sm)" }}
+        >
+          Refuser
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/missions")}
+          className="flex-1 t-11 font-medium text-[var(--accent-teal)] hover:bg-[var(--accent-teal-bg-active)] transition-colors"
+          style={{
+            padding: "var(--space-2)",
+            borderRadius: "var(--radius-sm)",
+            background: "var(--accent-teal-surface)",
+            border: "1px solid var(--accent-teal-border)",
+          }}
+        >
+          Valider
+        </button>
+      </div>
+    </div>
   );
 }
 

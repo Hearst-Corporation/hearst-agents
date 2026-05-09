@@ -132,7 +132,7 @@ export function ActivityStrip({ data }: ActivityStripProps) {
           <span
             aria-hidden
             className="block w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] animate-pulse"
-            style={{ boxShadow: "0 0 5px rgba(74, 139, 134, 0.32)" }}
+            style={{ boxShadow: "var(--shadow-pulse-dot-sm)" }}
           />
         )}
         <span className="t-11 font-light tabular-nums text-[var(--accent-teal)]">

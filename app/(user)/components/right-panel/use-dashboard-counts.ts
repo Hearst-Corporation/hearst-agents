@@ -1,0 +1,82 @@
+"use client";
+
+/**
+ * useDashboardCounts — fetch les compteurs du Cockpit pour les modules tactiles
+ * "Actions rapides" (GeneralDashboard, strate 3).
+ *
+ * Sources :
+ *   - /api/v2/cockpit/today : missions count + missions actives + reports count
+ *   - /api/v2/user/connections : services connectés / total
+ *
+ * Refresh : 60 s pour les deux (aligné PulseBar). Fail-soft : si fetch fail,
+ * on garde la dernière valeur connue, jamais de crash.
+ */
+
+import { useEffect, useState } from "react";
+
+export interface DashboardCounts {
+  missionsTotal: number | null;
+  missionsActive: number | null;
+  reportsCount: number | null;
+  connectionsConnected: number | null;
+  connectionsTotal: number | null;
+}
+
+const REFRESH_MS = 60_000;
+
+export function useDashboardCounts(): DashboardCounts {
+  const [state, setState] = useState<DashboardCounts>({
+    missionsTotal: null,
+    missionsActive: null,
+    reportsCount: null,
+    connectionsConnected: null,
+    connectionsTotal: null,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function refresh() {
+      const [todayRes, connRes] = await Promise.allSettled([
+        fetch("/api/v2/cockpit/today", { cache: "no-store", credentials: "include" }).then((r) =>
+          r.ok ? r.json() : null,
+        ),
+        fetch("/api/v2/user/connections", { cache: "no-store", credentials: "include" }).then((r) =>
+          r.ok ? r.json() : null,
+        ),
+      ]);
+
+      if (cancelled) return;
+
+      const next: Partial<DashboardCounts> = {};
+      if (todayRes.status === "fulfilled" && todayRes.value) {
+        const data = todayRes.value as {
+          counts?: { missions?: number; reports?: number };
+          missionsRunning?: Array<{ status: string }>;
+        };
+        next.missionsTotal = data.counts?.missions ?? null;
+        next.reportsCount = data.counts?.reports ?? null;
+        next.missionsActive =
+          data.missionsRunning?.filter((m) => m.status === "running").length ?? null;
+      }
+      if (connRes.status === "fulfilled" && connRes.value) {
+        const data = connRes.value as { meta?: { connected: number; total: number } };
+        if (data.meta) {
+          next.connectionsConnected = data.meta.connected;
+          next.connectionsTotal = data.meta.total;
+        }
+      }
+
+      setState((prev) => ({ ...prev, ...next }));
+    }
+
+    refresh();
+    const id = window.setInterval(refresh, REFRESH_MS);
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, []);
+
+  return state;
+}

@@ -52,7 +52,7 @@ export function CockpitHeader({ data }: CockpitHeaderProps) {
             <span
               aria-hidden
               className="block w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] animate-pulse"
-              style={{ boxShadow: "0 0 6px rgba(74, 139, 134, 0.32)" }}
+              style={{ boxShadow: "var(--shadow-pulse-dot)" }}
             />
             {runningCount} mission{runningCount > 1 ? "s" : ""} en cours
           </span>
