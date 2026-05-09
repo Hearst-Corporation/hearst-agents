@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { useRuntimeStore } from "@/stores/runtime";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
@@ -17,11 +16,6 @@ function relativeTime(ts: number, now: number): string {
   if (diff < 60_000) return `il y a ${Math.floor(diff / 1_000)}s`;
   if (diff < 3_600_000) return `il y a ${Math.floor(diff / 60_000)} min`;
   return `il y a ${Math.floor(diff / 3_600_000)}h`;
-}
-
-function formatTs(ts: number): string {
-  const d = new Date(ts);
-  return `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}:${d.getSeconds().toString().padStart(2, "0")}`;
 }
 
 const SSE_TYPE_FR: Record<string, string> = {
@@ -86,7 +80,6 @@ export function ActivityStrip({ data }: ActivityStripProps) {
           height: "var(--space-10)",
           padding: "var(--space-2) 0",
           borderTop: "1px solid var(--border-soft)",
-          borderBottom: "1px solid var(--border-soft)",
         }}
       >
         <span className="t-11 font-light text-[var(--text-faint)]">Système au repos</span>
@@ -119,11 +112,10 @@ export function ActivityStrip({ data }: ActivityStripProps) {
     <div
       className="grid items-center shrink-0"
       style={{
-        gridTemplateColumns: "1fr auto 1fr",
+        gridTemplateColumns: "auto 1fr auto",
         gap: "var(--space-4)",
         padding: "var(--space-2) 0",
         borderTop: "1px solid var(--border-soft)",
-        borderBottom: "1px solid var(--border-soft)",
       }}
     >
       {/* Gauche : compteur en cours */}
@@ -140,27 +132,16 @@ export function ActivityStrip({ data }: ActivityStripProps) {
         </span>
       </div>
 
-      {/* Centre : ticker */}
-      <div className="flex items-center gap-2 min-w-0 justify-self-center">
-        <span className="t-11 font-mono tabular-nums text-[var(--text-faint)] shrink-0">
-          {formatTs(lastTs)}
-        </span>
-        <span className="t-11 text-[var(--text-faint)]">·</span>
+      {/* Centre : label SSE courant — silence éditorial, pas de timestamp tech */}
+      <div className="flex items-center min-w-0 justify-self-center">
         <span className="t-11 font-light text-[var(--text-soft)] truncate">{tickerLabel}</span>
       </div>
 
-      {/* Droite : last activity + log link */}
-      <div className="flex items-center gap-2 justify-self-end">
-        <span className="t-11 font-light text-[var(--text-faint)]">
+      {/* Droite : relative time — un seul signal, pas de log link permanent */}
+      <div className="flex items-center justify-self-end">
+        <span className="t-11 font-light text-[var(--text-faint)] tabular-nums">
           {relativeTime(lastTs, now)}
         </span>
-        <span className="t-11 text-[var(--text-faint)]">·</span>
-        <Link
-          href="/runs"
-          className="t-11 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] transition-colors"
-        >
-          logs →
-        </Link>
       </div>
     </div>
   );

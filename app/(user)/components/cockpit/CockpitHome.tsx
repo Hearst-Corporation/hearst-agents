@@ -45,6 +45,17 @@ export function CockpitHome({ data }: CockpitHomeProps) {
         style={{ minHeight: "var(--space-48)" }}
         aria-hidden
       >
+        {/* Atmosphère subtile derrière la wave — donne de la profondeur lumineuse
+         *  sans glow brutal (cf. cockpit I-6 : pas de cyan saturé).
+         *  Color-mix 6 % accent-teal au centre, fade radial 70 %. */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 55%, color-mix(in srgb, var(--accent-teal) 6%, transparent) 0%, transparent 70%)",
+          }}
+          aria-hidden
+        />
         <ParticlesWave />
       </div>
 

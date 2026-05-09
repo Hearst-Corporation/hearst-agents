@@ -37,13 +37,12 @@ export function CockpitHeader({ data }: CockpitHeaderProps) {
   const greeting = firstName ? `Bonjour, ${firstName}.` : "Bonjour.";
 
   return (
-    <header className="flex flex-col gap-3 shrink-0">
-      <div className="flex items-center gap-2.5 t-10 font-light text-[var(--text-faint)] tabular-nums lowercase">
-        <span aria-hidden className="block w-3 h-px bg-[var(--text-faint)] opacity-50" />
+    <header className="flex flex-col gap-2 shrink-0">
+      <div className="t-10 font-light text-[var(--text-faint)] tabular-nums lowercase">
         {formatEyebrow(now)}
       </div>
       <h1
-        className="t-48 font-extralight leading-[1.02] text-[var(--text-l1)]"
+        className="t-48 font-extralight leading-[1.02] text-[var(--text-soft)]"
         style={{ letterSpacing: "-0.035em" }}
       >
         {greeting}

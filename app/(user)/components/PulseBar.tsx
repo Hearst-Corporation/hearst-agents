@@ -92,18 +92,21 @@ export function PulseBar() {
         </button>
       </div>
 
-      {/* Centre : Cmd+K trigger plein-largeur — pill glass minimaliste */}
+      {/* Centre : Cmd+K trigger plein-largeur — pill glass.
+       *  Action principale du Cockpit → traité comme tel : padding généreux,
+       *  placeholder en text-soft (vs faint) pour first-read clair. La pill
+       *  reste contenue dans var(--height-pulsebar) (I-1 PulseBar). */}
       <button
         type="button"
         onClick={() => setCommandeurOpen(true)}
         className="touch-cmdk-pill flex-1 min-w-0 max-w-xl mx-auto flex items-center justify-between"
         style={{
-          padding: "var(--space-1) var(--space-3)",
+          padding: "var(--space-2) var(--space-4)",
           borderRadius: "var(--radius-md)",
         }}
         title="Ouvrir le Commandeur"
       >
-        <span className="t-11 font-light truncate text-[var(--text-faint)]">Demande à Hearst…</span>
+        <span className="t-11 truncate text-[var(--text-soft)]">Demande à Hearst…</span>
         <span
           className="t-9 font-mono shrink-0 ml-3"
           style={{
