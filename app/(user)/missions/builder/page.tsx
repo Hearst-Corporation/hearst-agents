@@ -18,8 +18,8 @@
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "../../components/PageHeader";
-import { NodePalette, type PaletteEntry } from "../../components/missions/builder/NodePalette";
-import { NodeConfigPanel } from "../../components/missions/builder/NodeConfigPanel";
+import type { PaletteEntry } from "../../components/missions/builder/NodePalette";
+import { BuilderSidePanel } from "../../components/missions/builder/BuilderSidePanel";
 import { WorkflowCanvas } from "../../components/missions/builder/WorkflowCanvas";
 import { BuilderToolbar } from "../../components/missions/builder/BuilderToolbar";
 import { PublishTemplateModal } from "../../components/marketplace/PublishTemplateModal";
@@ -375,15 +375,9 @@ export default function WorkflowBuilderPage() {
 
       <div
         className="flex-1 hidden lg:grid min-h-0"
-        style={{
-          gridTemplateColumns: "240px 1fr 320px",
-        }}
+        style={{ gridTemplateColumns: "1fr 320px" }}
       >
-        <NodePalette onAdd={handleAddNode} />
-        <div
-          className="min-h-0 overflow-hidden"
-          style={{ borderLeft: "1px solid var(--border-shell)", borderRight: "1px solid var(--border-shell)" }}
-        >
+        <div className="min-h-0 overflow-hidden">
           <WorkflowCanvas
             graph={graph}
             selectedNodeId={selectedNodeId}
@@ -393,8 +387,9 @@ export default function WorkflowBuilderPage() {
             runStatus={runStatus}
           />
         </div>
-        <NodeConfigPanel
-          node={selectedNode}
+        <BuilderSidePanel
+          selectedNode={selectedNode}
+          onAdd={handleAddNode}
           onChange={handleNodePatch}
           onDelete={handleDeleteNode}
         />

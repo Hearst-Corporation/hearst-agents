@@ -122,14 +122,9 @@ interface NodePaletteProps {
 export function NodePalette({ onAdd }: NodePaletteProps) {
   return (
     <div
-      className="flex flex-col overflow-y-auto"
-      style={{
-        gap: "var(--space-6)",
-        padding: "var(--space-4)",
-        background: "var(--rail)",
-      }}
+      className="flex flex-col"
+      style={{ gap: "var(--space-6)" }}
     >
-      <h2 className="halo-mono-label">Palette</h2>
       {SECTIONS.map((section) => (
         <div
           key={section.title}

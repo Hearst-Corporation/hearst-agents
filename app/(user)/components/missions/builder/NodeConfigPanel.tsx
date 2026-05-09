@@ -50,14 +50,10 @@ function NodeConfigInner({
   if (!node) {
     return (
       <div
-        className="flex flex-col h-full overflow-y-auto"
-        style={{ padding: "var(--space-4)", background: "var(--rail)" }}
+        className="flex flex-col"
+        style={{ padding: "var(--space-4)" }}
       >
-        <h2 className="halo-mono-label">Inspecteur</h2>
-        <p
-          className="t-11 text-[var(--text-muted)]"
-          style={{ marginTop: "var(--space-3)" }}
-        >
+        <p className="t-11 text-[var(--text-muted)]">
           Sélectionne un node pour éditer sa configuration.
         </p>
       </div>
@@ -90,15 +86,14 @@ function NodeConfigInner({
 
   return (
     <div
-      className="flex flex-col h-full overflow-y-auto"
+      className="flex flex-col"
       style={{
         padding: "var(--space-4)",
-        background: "var(--rail)",
         gap: "var(--space-4)",
       }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="halo-mono-label">Inspecteur</h2>
+        <span className="t-11 font-light text-[var(--text-faint)]">{node.label}</span>
         <button
           type="button"
           onClick={onDelete}
