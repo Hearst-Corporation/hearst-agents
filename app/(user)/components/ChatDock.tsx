@@ -94,7 +94,10 @@ export function ChatDock() {
       return;
     }
 
-    loadConnections();
+    // Évite la double requête si HomePageClient a déjà chargé les connexions
+    if (!useServicesStore.getState().loaded) {
+      loadConnections();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

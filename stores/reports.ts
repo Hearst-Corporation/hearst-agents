@@ -24,6 +24,7 @@ import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 interface ReportChannel {
   channel: ReturnType<SupabaseClient["channel"]>;
   assetId: string;
+  pollId?: ReturnType<typeof setInterval>;
 }
 
 interface ReportsState {
@@ -126,8 +127,29 @@ export const useReportsStore = create<ReportsState>()(
         .subscribe((status) => {
           if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
             console.warn(
-              `[reports-store] Realtime ${status} pour asset ${assetId} — pas de fallback`,
+              `[reports-store] Realtime ${status} pour asset ${assetId} — fallback polling 30s`,
             );
+            const pollId = setInterval(() => {
+              void fetch(`/api/v2/assets/${assetId}`, { credentials: "include" })
+                .then(async (res) => {
+                  if (!res.ok) return;
+                  const data = (await res.json()) as { asset?: Record<string, unknown> };
+                  const parsed = parsePayload(data.asset?.content_ref);
+                  if (!parsed) return;
+                  set((state) => {
+                    const next = new Map(state.liveReports);
+                    next.set(assetId, parsed);
+                    return { liveReports: next };
+                  });
+                })
+                .catch(() => {});
+            }, 30_000);
+            const nextChannels = new Map(get()._channels);
+            const entry = nextChannels.get(assetId);
+            if (entry) {
+              entry.pollId = pollId;
+              set({ _channels: nextChannels });
+            }
           }
         });
 
@@ -143,6 +165,7 @@ export const useReportsStore = create<ReportsState>()(
       if (!entry) return;
 
       void entry.channel.unsubscribe();
+      if (entry.pollId !== undefined) clearInterval(entry.pollId);
 
       const nextChannels = new Map(get()._channels);
       nextChannels.delete(assetId);

@@ -11,6 +11,8 @@
 import Link from "next/link";
 import { PageHeader } from "../components/PageHeader";
 
+// DÉMO MVP : IDs fictifs — remplacer par /api/v2/reports/specs?vertical=hospitality
+// et /api/v2/missions?template=xxx quand le catalog vertical sera implémenté.
 const HOSPITALITY_REPORTS = [
   {
     id: "00000000-0000-4000-8000-700000000001",
@@ -32,6 +34,7 @@ const HOSPITALITY_REPORTS = [
   },
 ];
 
+// DÉMO MVP : IDs fictifs — à remplacer par des missions réelles issues du Builder (C3)
 const HOSPITALITY_WORKFLOWS = [
   {
     id: "hospitality-guest-arrival-prep",
@@ -101,12 +104,26 @@ export default function HospitalityPage() {
                   textDecoration: "none",
                 }}
               >
-                <span
-                  className="t-15"
-                  style={{ color: "var(--text-l0)", fontWeight: 500 }}
-                >
-                  {r.title}
-                </span>
+                <div className="flex items-center gap-(--space-3)">
+                  <span
+                    className="t-15"
+                    style={{ color: "var(--text-l0)", fontWeight: 500, flex: 1 }}
+                  >
+                    {r.title}
+                  </span>
+                  <span
+                    className="t-9 font-medium"
+                    style={{
+                      color: "var(--warn)",
+                      border: "1px solid var(--warn)",
+                      borderRadius: "var(--radius-pill)",
+                      padding: "0 var(--space-2)",
+                      flexShrink: 0,
+                    }}
+                  >
+                    Démo
+                  </span>
+                </div>
                 <span className="t-13" style={{ color: "var(--text-l2)" }}>
                   {r.description}
                 </span>
