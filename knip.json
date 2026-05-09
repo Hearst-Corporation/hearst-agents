@@ -1,0 +1,36 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "next.config.{js,ts,mjs}",
+    "middleware.ts",
+    "instrumentation.ts",
+    "app/**/page.{ts,tsx}",
+    "app/**/layout.{ts,tsx}",
+    "app/**/route.{ts,tsx}",
+    "app/**/loading.{ts,tsx}",
+    "app/**/error.{ts,tsx}",
+    "app/**/not-found.{ts,tsx}",
+    "app/**/global-error.{ts,tsx}",
+    "electron/main.ts",
+    "electron/preload.ts",
+    "scripts/**/*.{ts,mjs,js}",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "__tests__/**/*.test.{ts,tsx}",
+    "e2e/**/*.spec.{ts,tsx}"
+  ],
+  "ignore": [
+    "dist/**",
+    ".next/**",
+    "lib/database.types.ts",
+    "lib/hom/**",
+    "app/admin/orchestrator/**",
+    "app/api/orchestrator/**"
+  ],
+  "ignoreDependencies": [
+    "@types/*",
+    "eslint-*",
+    "prettier-*"
+  ],
+  "ignoreBinaries": ["lsof", "xattr", "unset", "tsx"]
+}
