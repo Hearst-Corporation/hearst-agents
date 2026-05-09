@@ -1,5 +1,5 @@
 {
   "framework": "nextjs",
-  "installCommand": "npm install",
+  "installCommand": "npm install && rm -rf node_modules/electron node_modules/electron-builder node_modules/@electron",
   "buildCommand": "npm run build"
 }

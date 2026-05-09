@@ -13,6 +13,46 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: import.meta.dirname,
   },
+  // Exclusions du file-tracing Next.js — Vercel package chaque function avec
+  // les fichiers tracés. Sans exclusions, le bundle a explosé à 590 MB (cap
+  // Vercel: 250 MB unzipped) à cause d'Electron desktop runtime + assets
+  // runtime + libs client-only tracées server-side.
+  outputFileTracingExcludes: {
+    "*": [
+      // Electron desktop runtime (~342 MB binaire macOS) — devDependency,
+      // jamais exécuté serverless. Match agressif sur tous les fichiers.
+      "**/node_modules/electron/**",
+      "**/node_modules/electron-*/**",
+      "**/node_modules/@electron/**",
+      // Assets runtime user (audio, screenshots, PDFs locaux dev)
+      "**/.runtime-assets/**",
+      "**/data/**",
+      "**/build/**",
+      "**/dist/**",
+      // 3D / WebGL — client-only, dynamic imports côté browser
+      "**/node_modules/three/**",
+      "**/node_modules/@splinetool/**",
+      "**/node_modules/3d-force-graph/**",
+      "**/node_modules/cytoscape/**",
+      "**/node_modules/cytoscape-*/**",
+      "**/node_modules/react-cytoscapejs/**",
+      // Sourcemaps Next dev runtime
+      "**/node_modules/next/dist/compiled/next-server/*.dev.js.map",
+      // Tests
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/__tests__/**",
+    ],
+  },
+  // Marque comme externe pour que le bundler ne tente pas de les inliner
+  // dans le code serverless (ils seront require() à runtime depuis node_modules).
+  serverExternalPackages: [
+    "electron",
+    "three",
+    "cytoscape",
+    "3d-force-graph",
+    "@splinetool/runtime",
+  ],
 };
 
 // Sentry config — wrapper pour upload des sourcemaps + tunneling.
