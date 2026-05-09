@@ -20,6 +20,9 @@
 import { useState, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RailSection, Action } from "./ui";
+import { useBuilderStore } from "@/stores/builder";
+import { NodePalette } from "./missions/builder/NodePalette";
+import { NodeConfigPanel } from "./missions/builder/NodeConfigPanel";
 
 // ── Icons (stroke 1.5, 14×14, cohérent avec TimelineRail) ──────
 
@@ -255,56 +258,131 @@ export function ContextRailForRuns() {
 
 // ── Missions ──────────────────────────────────────────────────
 
+type BuilderTab = "palette" | "inspector";
+
 export function ContextRailForMissionsAdmin() {
   const pathname = usePathname();
   const isOnBuilder = pathname === "/missions/builder";
+
+  const selectedNode = useBuilderStore((s) => s.selectedNode);
+  const handlers = useBuilderStore((s) => s.handlers);
+
+  // Derived tab state — reset when node selection changes.
+  const [tab, setTab] = useState<BuilderTab>("palette");
+  const [prevNodeId, setPrevNodeId] = useState<string | null>(null);
+  const nodeId = selectedNode?.id ?? null;
+  if (prevNodeId !== nodeId) {
+    setPrevNodeId(nodeId);
+    setTab(nodeId ? "inspector" : "palette");
+  }
+
   return (
-    <div className="h-full overflow-y-auto">
-      <RailSection label="Cadences">
-        <ul className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-          {[
-            { label: "Quotidienne", cron: "0 9 * * *" },
-            { label: "Hebdomadaire", cron: "0 9 * * 1" },
-            { label: "Mensuelle", cron: "0 9 1 * *" },
-            { label: "Personnalisée", cron: "custom" },
-          ].map((c) => (
-            <li
-              key={c.label}
-              className="flex items-baseline justify-between"
-            >
-              <span className="t-13 font-light text-[var(--text-soft)]">
-                {c.label}
-              </span>
-              <span className="t-11 font-mono tabular-nums text-[var(--text-faint)]">
-                {c.cron === "custom" ? "—" : c.cron}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </RailSection>
+    <div className="h-full flex flex-col min-h-0 overflow-hidden">
 
-      <CollapsibleRailSection label="Raccourcis">
-        <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          {isOnBuilder ? (
-            <ShortcutActive>Builder visuel</ShortcutActive>
-          ) : (
-            <ShortcutAction variant="primary" tone="brand" href="/missions/builder">
-              Builder visuel
-            </ShortcutAction>
-          )}
-          <ShortcutAction variant="secondary" tone="brand" href="/marketplace">
-            Templates marketplace
-          </ShortcutAction>
+      {/* ── Builder: Palette + Inspecteur ─────────────────── */}
+      {isOnBuilder && (
+        <div className="flex flex-col min-h-0 shrink-0" style={{ borderBottom: "1px solid var(--border-shell)" }}>
+          {/* Tab toggle */}
+          <div
+            className="flex items-center shrink-0"
+            style={{
+              padding: "var(--space-3) var(--space-4)",
+              gap: "var(--space-1)",
+              borderBottom: "1px solid var(--border-shell)",
+            }}
+          >
+            {(["palette", "inspector"] as BuilderTab[]).map((t) => {
+              const isActive = tab === t;
+              const label = t === "palette" ? "Palette" : "Inspecteur";
+              return (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTab(t)}
+                  className="t-11 font-medium transition-all rounded-md"
+                  style={{
+                    padding: "var(--space-1) var(--space-3)",
+                    background: isActive ? "var(--accent-teal-bg-active)" : "transparent",
+                    color: isActive ? "var(--accent-teal)" : "var(--text-muted)",
+                    border: `1px solid ${isActive ? "var(--accent-teal-border)" : "transparent"}`,
+                    transitionDuration: "var(--duration-base)",
+                  }}
+                >
+                  {label}
+                  {t === "inspector" && selectedNode && (
+                    <span className="ml-1" style={{ color: "var(--accent-teal)" }}>·</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tab content — max-height so it doesn't consume the whole rail */}
+          <div
+            className="overflow-y-auto"
+            style={{ maxHeight: "55vh", padding: "var(--space-4)" }}
+          >
+            {tab === "palette" ? (
+              <NodePalette onAdd={handlers?.onAdd ?? (() => {})} />
+            ) : (
+              <NodeConfigPanel
+                node={selectedNode}
+                onChange={handlers?.onChange ?? (() => {})}
+                onDelete={handlers?.onDelete ?? (() => {})}
+              />
+            )}
+          </div>
         </div>
-      </CollapsibleRailSection>
+      )}
 
-      <RailSection label="Aide">
-        <p className="t-11 font-light text-[var(--text-faint)]">
-          Les missions sont des automatisations planifiées. Elles s&apos;exécutent
-          selon une cadence cron, peuvent enchaîner plusieurs étapes et
-          déclencher des actions sur tes apps connectées.
-        </p>
-      </RailSection>
+      {/* ── Always-visible sections (scroll area) ─────────── */}
+      <div className="flex-1 overflow-y-auto">
+        <RailSection label="Cadences">
+          <ul className="flex flex-col" style={{ gap: "var(--space-1)" }}>
+            {[
+              { label: "Quotidienne", cron: "0 9 * * *" },
+              { label: "Hebdomadaire", cron: "0 9 * * 1" },
+              { label: "Mensuelle", cron: "0 9 1 * *" },
+              { label: "Personnalisée", cron: "custom" },
+            ].map((c) => (
+              <li
+                key={c.label}
+                className="flex items-baseline justify-between"
+              >
+                <span className="t-13 font-light text-[var(--text-soft)]">
+                  {c.label}
+                </span>
+                <span className="t-11 font-mono tabular-nums text-[var(--text-faint)]">
+                  {c.cron === "custom" ? "—" : c.cron}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </RailSection>
+
+        <CollapsibleRailSection label="Raccourcis">
+          <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+            {isOnBuilder ? (
+              <ShortcutActive>Builder visuel</ShortcutActive>
+            ) : (
+              <ShortcutAction variant="primary" tone="brand" href="/missions/builder">
+                Builder visuel
+              </ShortcutAction>
+            )}
+            <ShortcutAction variant="secondary" tone="brand" href="/marketplace">
+              Templates marketplace
+            </ShortcutAction>
+          </div>
+        </CollapsibleRailSection>
+
+        <RailSection label="Aide">
+          <p className="t-11 font-light text-[var(--text-faint)]">
+            Les missions sont des automatisations planifiées. Elles s&apos;exécutent
+            selon une cadence cron, peuvent enchaîner plusieurs étapes et
+            déclencher des actions sur tes apps connectées.
+          </p>
+        </RailSection>
+      </div>
     </div>
   );
 }

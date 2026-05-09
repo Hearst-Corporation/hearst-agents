@@ -3,25 +3,18 @@
 /**
  * /missions/builder — Workflow Builder visuel (Mission Control C3).
  *
- * Layout :
- *   PageHeader (titre + breadcrumb)
- *   BuilderToolbar (templates / validate / preview / save)
- *   ┌──────────────┬───────────────────────────┬─────────────────┐
- *   │ NodePalette  │ WorkflowCanvas (Cytoscape)│ NodeConfigPanel │
- *   └──────────────┴───────────────────────────┴─────────────────┘
- *
- * Le graphe est une source de vérité React state local, sérialisé tel quel
- * lors du Save. Cytoscape gère uniquement le rendu — la mutation passe par
- * setGraph (immutable).
+ * Layout : canvas plein — Palette + Inspecteur dans le ContextRail (sidebar
+ * droite) via useBuilderStore. Handlers enregistrés au mount, nettoyés au
+ * unmount.
  */
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "../../components/PageHeader";
 import type { PaletteEntry } from "../../components/missions/builder/NodePalette";
-import { BuilderSidePanel } from "../../components/missions/builder/BuilderSidePanel";
 import { WorkflowCanvas } from "../../components/missions/builder/WorkflowCanvas";
 import { BuilderToolbar } from "../../components/missions/builder/BuilderToolbar";
+import { useBuilderStore } from "@/stores/builder";
 import { PublishTemplateModal } from "../../components/marketplace/PublishTemplateModal";
 import {
   WORKFLOW_TEMPLATES,
@@ -38,6 +31,10 @@ import { toast } from "@/app/hooks/use-toast";
 
 export default function WorkflowBuilderPage() {
   const router = useRouter();
+  const registerHandlers = useBuilderStore((s) => s.registerHandlers);
+  const clearHandlers = useBuilderStore((s) => s.clearHandlers);
+  const setBuilderSelectedNode = useBuilderStore((s) => s.setSelectedNode);
+
   const [graph, setGraph] = useState<WorkflowGraph>(() => createEmptyGraph());
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [missionName, setMissionName] = useState("Workflow personnalisé");
@@ -55,6 +52,11 @@ export default function WorkflowBuilderPage() {
 
   const selectedNode =
     graph.nodes.find((n) => n.id === selectedNodeId) ?? null;
+
+  // Sync selected node into the builder store so the ContextRail can display it.
+  useEffect(() => {
+    setBuilderSelectedNode(selectedNode);
+  }, [selectedNode, setBuilderSelectedNode]);
 
   const handleAddNode = useCallback((entry: PaletteEntry) => {
     setGraph((prev) => {
@@ -121,6 +123,16 @@ export default function WorkflowBuilderPage() {
     });
     setSelectedNodeId(null);
   }, [selectedNodeId]);
+
+  // Expose handlers in the store so the ContextRail can access them.
+  useEffect(() => {
+    registerHandlers({
+      onAdd: handleAddNode,
+      onChange: handleNodePatch,
+      onDelete: handleDeleteNode,
+    });
+    return () => clearHandlers();
+  }, [registerHandlers, clearHandlers, handleAddNode, handleNodePatch, handleDeleteNode]);
 
   const handlePositionChange = useCallback(
     (id: string, position: { x: number; y: number }) => {
@@ -373,25 +385,14 @@ export default function WorkflowBuilderPage() {
         </div>
       </div>
 
-      <div
-        className="flex-1 hidden lg:grid min-h-0"
-        style={{ gridTemplateColumns: "1fr 320px" }}
-      >
-        <div className="min-h-0 overflow-hidden">
-          <WorkflowCanvas
-            graph={graph}
-            selectedNodeId={selectedNodeId}
-            onSelect={setSelectedNodeId}
-            onConnect={handleConnect}
-            onPositionChange={handlePositionChange}
-            runStatus={runStatus}
-          />
-        </div>
-        <BuilderSidePanel
-          selectedNode={selectedNode}
-          onAdd={handleAddNode}
-          onChange={handleNodePatch}
-          onDelete={handleDeleteNode}
+      <div className="flex-1 hidden lg:block min-h-0 overflow-hidden">
+        <WorkflowCanvas
+          graph={graph}
+          selectedNodeId={selectedNodeId}
+          onSelect={setSelectedNodeId}
+          onConnect={handleConnect}
+          onPositionChange={handlePositionChange}
+          runStatus={runStatus}
         />
       </div>
     </div>
