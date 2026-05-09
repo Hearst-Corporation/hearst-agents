@@ -1,81 +1,81 @@
 "use client";
 
-import { KpiCard } from "../ui/KpiCard";
+import Link from "next/link";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface KPIStripProps {
   data: CockpitTodayPayload;
 }
 
+interface KpiProps {
+  value: React.ReactNode;
+  label: string;
+  href: string;
+  testId: string;
+}
+
+function Kpi({ value, label, href, testId }: KpiProps) {
+  return (
+    <Link
+      href={href}
+      data-testid={testId}
+      className="flex flex-col gap-2.5 cursor-pointer transition-transform duration-300 ease-out-soft hover:-translate-y-0.5 no-underline"
+    >
+      <span
+        className="t-48 font-extralight text-[var(--text-l1)] leading-none tabular-nums"
+        style={{ letterSpacing: "-0.03em" }}
+      >
+        {value}
+      </span>
+      <span
+        className="t-11 font-light text-[var(--text-faint)] lowercase"
+        style={{ letterSpacing: "0.04em" }}
+      >
+        {label}
+      </span>
+    </Link>
+  );
+}
+
 /**
- * Récap discret : Assets, Missions, Reports uniquement.
- * Variations vertes optionnelles depuis la watchlist (delta texte API).
+ * KPIs flottants — intégrés à l'atmosphère cockpit, pas en card.
+ * Pivot v1.4 (silent luxury OS) : typographie 48px, gap 96px,
+ * valeur + label seulement (deltas et sub-texts retirés).
  */
 export function KPIStrip({ data }: KPIStripProps) {
   const assetsCount = data.counts.assets;
-  const reportsCount = data.counts.reports;
-
   const missionsTotal = data.counts.missions;
   const runningCount = data.missionsRunning.filter((m) => m.status === "running").length;
-  const failedCount = data.missionsRunning.filter((m) => m.status === "failed").length;
-
   const favCount = data.favoriteReports.length;
-  const favSub = data.favoriteReports
-    .slice(0, 3)
-    .map((r) => r.title)
-    .join(" · ");
-
-  const w = data.watchlist;
-  const delta0 = w[0]?.delta?.trim();
-  const delta1 = w[1]?.delta?.trim();
-  const assetsDelta =
-    delta0 && (delta0.startsWith("+") || delta0.startsWith("-")) ? delta0 : undefined;
-  const reportsDelta =
-    delta1 && (delta1.startsWith("+") || delta1.startsWith("-"))
-      ? delta1
-      : w[2]?.delta?.trim() &&
-          (w[2].delta.trim().startsWith("+") || w[2].delta.trim().startsWith("-"))
-        ? w[2].delta.trim()
-        : undefined;
-
-  const missionFillPct =
-    missionsTotal > 0 ? Math.round((runningCount / missionsTotal) * 100) : 0;
 
   return (
     <section
-      className="grid grid-cols-1 sm:grid-cols-3 shrink-0"
-      style={{
-        gap: "var(--space-5)",
-        maxWidth: "min(820px, 100%)",
-        marginInline: "auto",
-        minHeight: "var(--space-20)",
-      }}
+      className="flex flex-row items-end shrink-0"
+      style={{ gap: "var(--space-24)" }}
       aria-label="Récap KPIs"
     >
-      <KpiCard
-        label="Assets"
+      <Kpi
         value={assetsCount.toString().padStart(2, "0")}
-        delta={assetsDelta}
-        sub={`${reportsCount} report${reportsCount > 1 ? "s" : ""}`}
+        label="assets"
         href="/assets"
         testId="kpi-assets"
       />
-      <KpiCard
-        label="Missions"
-        value={`${runningCount.toString().padStart(2, "0")}/${missionsTotal.toString().padStart(2, "0")}`}
-        delta={undefined}
-        missionFillPct={missionFillPct}
-        sub={failedCount > 0 ? `${failedCount} failed` : "All good"}
-        tone={failedCount > 0 ? "warn" : "default"}
-        statusDot={runningCount > 0 ? "running" : null}
+      <Kpi
+        value={
+          <>
+            {runningCount.toString().padStart(2, "0")}
+            <span className="text-[var(--text-faint)] font-extralight" style={{ fontSize: "0.55em", marginLeft: "2px" }}>
+              /{missionsTotal.toString().padStart(2, "0")}
+            </span>
+          </>
+        }
+        label="missions"
         href="/missions"
         testId="kpi-missions"
       />
-      <KpiCard
-        label="Reports"
+      <Kpi
         value={favCount.toString().padStart(2, "0")}
-        delta={reportsDelta}
-        sub={favSub || "Catalog"}
+        label="reports"
         href="/reports"
         testId="kpi-reports"
       />

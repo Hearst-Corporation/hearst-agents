@@ -21,17 +21,20 @@ interface CockpitHomeProps {
 /**
  * CockpitHome — home Cockpit (mode="cockpit").
  *
- * Layout : Header → ActivityStrip → HearstParticlesCloud (nuage de
- * particules formant le H, magnetic mouse-react) → KPIStrip → Agenda/Veille
- * repliable.
+ * Pivot v1.4 (silent luxury OS, 2026-05-09) : padding généreux, atmosphère
+ * centrale qui fill l'espace vide (60-70%), KPIs flottants pinned en bas,
+ * accordion Agenda & watchlist replié par défaut.
+ *
+ * Layout : Header → ActivityStrip → ParticlesWave (centerpiece atmosphérique)
+ *          → KPIStrip → Agenda & watchlist (collapsed).
  */
 export function CockpitHome({ data }: CockpitHomeProps) {
   return (
     <div
       className="flex-1 flex flex-col min-h-0 min-w-0 overflow-hidden"
       style={{
-        padding: "var(--space-6)",
-        gap: "var(--space-5)",
+        padding: "var(--space-12) var(--space-16)",
+        gap: "var(--space-7)",
       }}
     >
       <CockpitHeader data={data} />
@@ -39,50 +42,46 @@ export function CockpitHome({ data }: CockpitHomeProps) {
 
       <div
         className="relative flex-1 min-h-0"
-        style={{
-          minHeight: "var(--space-48)",
-        }}
+        style={{ minHeight: "var(--space-48)" }}
+        aria-hidden
       >
         <ParticlesWave />
       </div>
 
-      <div className="flex flex-col shrink-0">
-        <KPIStrip data={data} />
-      </div>
+      <KPIStrip data={data} />
 
       <details
-        className="shrink-0 border-t"
-        style={{
-          borderColor: "var(--border-subtle)",
-          paddingTop: "var(--space-2)",
-        }}
+        className="shrink-0"
+        style={{ borderTop: "1px solid var(--border-soft)", paddingTop: "var(--space-2)" }}
       >
         <summary
-          className="cursor-pointer flex items-center gap-2 t-13 font-medium text-text-soft transition-opacity hover:opacity-80 group"
+          className="cursor-pointer flex items-center gap-2 t-13 font-light text-[var(--text-faint)] transition-colors hover:text-[var(--text-soft)] group"
           style={{ listStyle: "none" }}
         >
-          Agenda & watchlist
           <svg
-            width="14"
-            height="14"
+            width="11"
+            height="11"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1.6"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="transition-transform duration-200 group-open:rotate-180"
+            className="transition-transform duration-300 -rotate-90 group-open:rotate-0 text-[var(--text-muted)]"
           >
             <path d="m6 9 6 6 6-6" />
           </svg>
+          Agenda & watchlist
         </summary>
         <div
           className="grid min-h-0 shrink-0"
           style={{
             gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-            gap: "var(--space-3)",
-            marginTop: "var(--space-3)",
-            maxHeight: "min(132px, 22vh)",
+            gap: "var(--space-9)",
+            marginTop: "var(--space-4)",
+            paddingTop: "var(--space-4)",
+            borderTop: "1px solid var(--border-soft)",
+            maxHeight: "min(160px, 24vh)",
             overflowY: "auto",
           }}
         >

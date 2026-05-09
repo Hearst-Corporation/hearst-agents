@@ -14,13 +14,13 @@ const FRENCH_MONTHS = [
   "juillet", "août", "septembre", "octobre", "novembre", "décembre",
 ];
 
-function formatNow(now: Date): string {
+function formatEyebrow(now: Date): string {
   const day = FRENCH_DAYS[now.getDay()];
   const dayN = now.getDate();
   const month = FRENCH_MONTHS[now.getMonth()];
   const hh = now.getHours().toString().padStart(2, "0");
   const mm = now.getMinutes().toString().padStart(2, "0");
-  return `${day} ${dayN} ${month} ${hh}:${mm}`;
+  return `${day} ${dayN} ${month} · ${hh}:${mm}`;
 }
 
 export function CockpitHeader({ data }: CockpitHeaderProps) {
@@ -34,27 +34,30 @@ export function CockpitHeader({ data }: CockpitHeaderProps) {
   }, []);
 
   const runningCount = data.missionsRunning.filter((m) => m.status === "running").length;
-  const greeting = firstName ? `Hello, ${firstName}.` : "Hello.";
+  const greeting = firstName ? `Bonjour, ${firstName}.` : "Bonjour.";
 
   return (
-    <header
-      className="flex items-baseline justify-between gap-4 shrink-0"
-      style={{ height: "var(--space-16)" }}
-    >
-      <h1 className="t-28 font-light leading-tight text-[var(--text-l1)] truncate" style={{ letterSpacing: "var(--tracking-tight)" }}>{greeting}</h1>
-      <div className="flex items-baseline gap-2 shrink-0">
-        <span className="t-10 font-light text-[var(--text-faint)] tabular-nums">
-          {formatNow(now)}
-        </span>
-        {runningCount > 0 && (
-          <>
-            <span className="t-11 text-[var(--text-faint)]">·</span>
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
-              {runningCount} mission{runningCount > 1 ? "s" : ""} running
-            </span>
-          </>
-        )}
+    <header className="flex flex-col gap-3 shrink-0">
+      <div className="flex items-center gap-2.5 t-10 font-light text-[var(--text-faint)] tabular-nums lowercase">
+        <span aria-hidden className="block w-3 h-px bg-[var(--text-faint)] opacity-50" />
+        {formatEyebrow(now)}
       </div>
+      <h1
+        className="t-48 font-extralight leading-[1.02] text-[var(--text-l1)]"
+        style={{ letterSpacing: "-0.035em" }}
+      >
+        {greeting}
+        {runningCount > 0 && (
+          <span className="t-15 font-light text-[var(--accent-teal)] ml-4 inline-flex items-center gap-2 align-middle">
+            <span
+              aria-hidden
+              className="block w-1.5 h-1.5 rounded-full bg-[var(--accent-teal)] animate-pulse"
+              style={{ boxShadow: "0 0 6px rgba(74, 139, 134, 0.32)" }}
+            />
+            {runningCount} mission{runningCount > 1 ? "s" : ""} en cours
+          </span>
+        )}
+      </h1>
     </header>
   );
 }
