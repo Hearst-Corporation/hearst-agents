@@ -351,6 +351,7 @@ function MissionsPageContent() {
                 </button>
               </div>
               <MissionEditor
+                key={editingMission?.id ?? "new"}
                 initialData={
                   editingMission
                     ? {

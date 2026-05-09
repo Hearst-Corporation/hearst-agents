@@ -50,7 +50,14 @@ export default function FlowEdge({ edge }: Props) {
 
   useEffect(() => {
     if (lastTrailTs === 0) return;
-    const id = window.setInterval(() => setTrailNow(Date.now()), 120);
+    const id = window.setInterval(() => {
+      const now = Date.now();
+      if (now - lastTrailTs >= TRAIL_TTL_MS) {
+        clearInterval(id);
+        return;
+      }
+      setTrailNow(now);
+    }, 120);
     return () => clearInterval(id);
   }, [lastTrailTs]);
 

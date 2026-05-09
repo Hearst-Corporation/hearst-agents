@@ -30,10 +30,20 @@ function mockFetch() {
   return vi.fn(async (url: string, init?: RequestInit) => {
     const method = init?.method ?? "GET";
 
-    if (url.includes("/api/v2/missions") && method === "GET") {
+    // Endpoint dédié /api/v2/missions/:id — retourne { mission }
+    if (url.match(/\/api\/v2\/missions\/[^/]+$/) && method === "GET") {
       return {
         ok: true,
-        json: async () => ({ missions: [FAKE_MISSION] }),
+        json: async () => ({ mission: FAKE_MISSION }),
+        text: async () => "",
+      } as Response;
+    }
+
+    // /api/v2/missions/:id/context
+    if (url.includes("/api/v2/missions") && url.includes("/context") && method === "GET") {
+      return {
+        ok: true,
+        json: async () => ({ context: { summary: null, summaryUpdatedAt: null, recentMessages: [] } }),
         text: async () => "",
       } as Response;
     }
