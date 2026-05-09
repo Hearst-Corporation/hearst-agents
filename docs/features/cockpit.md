@@ -12,7 +12,7 @@
 | **niveau** | P1 |
 | **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
 | **pivot visuel** | 2026-05-09 (silent luxury OS — teal sourd, KPIs intégrés à l'espace, atmosphère orbitale, modules tactiles) |
-| **pivot v1.5** | 2026-05-10 (suppression ParticlesWave + AgentsConstellation — KPIs montent en hero typographique t-60, agenda+watchlist décompressés en bas) |
+| **pivot v1.5** | 2026-05-10 (suppression ParticlesWave + AgentsConstellation + ActivityStrip — KPIs montent en hero typographique t-60, agenda+watchlist décompressés FR en bas) |
 
 ## Description
 
@@ -28,9 +28,8 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 
 ### Composants câblés (rendus actuellement)
 - [CockpitStage.tsx](../../app/(user)/components/stages/CockpitStage.tsx) — conteneur stage : fetch `/api/v2/cockpit/today`, gère loading/error/success, sync client même si RSC prefetch
-- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit v1.5 (header → activity strip → **KPIs hero centrés** → agenda + watchlist décompressés en grid 2-col). Plus de centerpiece 3D : les KPIs sont la signature visuelle.
+- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit v1.5 (header → **KPIs hero centrés** → agenda + watchlist décompressés en grid 2-col FR). Plus de centerpiece 3D, plus de ticker activité : les KPIs sont la signature visuelle.
 - [CockpitHeader.tsx](../../app/(user)/components/cockpit/CockpitHeader.tsx) — greeting éditorial 48px FR ("Bonjour, [Prénom].") + eyebrow date au-dessus + "X missions en cours" inline avec dot pulse teal
-- [ActivityStrip.tsx](../../app/(user)/components/cockpit/ActivityStrip.tsx) — ticker live mince entre 2 hairlines, grille 3 colonnes, labels SSE FR (Étape lancée / Run terminé / etc.)
 - [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 KPIs hero Assets | Missions | Reports (typographie t-60 font-extralight centrée, pas de card, gap var(--space-16))
 - [CockpitAgenda.tsx](../../app/(user)/components/cockpit/CockpitAgenda.tsx) — agenda du jour (max 4 items, empty CTA → /apps#calendar)
 - [WatchlistMini.tsx](../../app/(user)/components/cockpit/WatchlistMini.tsx) — watchlist compacte (max 3 items, sparkline 7pts, anomaly badge)
@@ -80,7 +79,7 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 |-------|-----------|-----------|
 | `useStageStore` | CockpitStage, HomePageClient | `setMode`, `lastMissionId`, `current.mode` |
 | `useNavigationStore` | QuickActionsGrid, HomePageClient | `activeThreadId`, `addThread`, `surface`, `messages`, `addMessageToThread`, `updateMessageInThread`, `updateThreadName` |
-| `useRuntimeStore` | ActivityStrip, AgentsConstellation, HomePageClient | `coreState`, `events`, `addEvent`, `startRun`, `setAbortController` |
+| `useRuntimeStore` | HomePageClient | `coreState`, `events`, `addEvent`, `startRun`, `setAbortController` |
 | `useServicesStore` | AgentsConstellation | `services`, `loaded`, `setServices`, `setLoaded` |
 | `useVoiceStore` | QuickActionsGrid, HomePageClient | `setVoiceActive` |
 | `useFocalStore` | HomePageClient | `hydrateThreadState`, `clearFocal`, `hide`, `isVisible` |
@@ -107,9 +106,8 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
    ↓ useEffect mount → fetch /api/v2/cockpit/today (sync même si RSC prefetch)
 [CockpitHome]
    ├─ CockpitHeader  (session → prénom + clock 30s)
-   ├─ ActivityStrip  (useRuntimeStore.events + clock 1s)
-   ├─ KPIStrip       (data.assets / missions / reports favoris)
-   └─ <details> accordion
+   ├─ KPIStrip       (data.assets / missions / reports favoris — hero t-60)
+   └─ Grid 2-col
         ├─ CockpitAgenda    (data.agenda — live via watchlist-live)
         └─ WatchlistMini    (data.watchlist — sparkline + anomaly)
 ```
@@ -181,7 +179,7 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 | Composio Stripe/HubSpot down | Watchlist vide | Fail-soft per source, CTA fallback dans l'item |
 | Calendar non connecté | Agenda empty | Empty state avec CTA `/apps#calendar` |
 | Briefing absent | Hero vide | Fallback "Pas encore de signal" + CTA gold `/apps` |
-| SSE runtime déconnecté | ActivityStrip stale | Fallback : last mission run > briefing > "No recent activity" |
+| SSE runtime déconnecté | KPIs running stale | Acceptable — refresh au prochain cockpit fetch |
 | `getCockpitToday` throw uncaught | 500 endpoint | À surveiller — pas de wrapper safe au niveau supérieur |
 | Cache stale (5min) | KPIs en retard | Acceptable, justifié par coût Composio |
 | Hospitality mock data | Confusion réel/mock | Badge "demo" affiché si `mockSections.includes(...)` |
@@ -196,7 +194,7 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 ### Manquants (gap à combler)
 - **E2E Playwright cockpit** : aucun test e2e dédié `cockpit.spec.ts`. Le `happy-path.spec.ts` couvre indirectement.
 - **Test agenda-live** : aucun test sur `lib/cockpit/agenda-live.ts` (cache, time range, unwrap Composio response)
-- **Test composants UI** : aucun test sur `CockpitHeader`, `KPIStrip`, `WatchlistMini`, `CockpitAgenda`, `ActivityStrip`, `CockpitHome` (snapshot ou interaction)
+- **Test composants UI** : aucun test sur `CockpitHeader`, `KPIStrip`, `WatchlistMini`, `CockpitAgenda`, `CockpitHome` (snapshot ou interaction)
 - **Test CockpitStage** : aucun test (loading state, error state, refetch on mount, RSC initialData passthrough)
 - **Test QuickActionsGrid** : aucun test (priorité suggestions > favoris > universels, runSuggestion via hook)
 - **Test anomaly detection watchlist** : `narrateAnomaly` n'est pas testé sous le scope cockpit

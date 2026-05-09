@@ -1,7 +1,6 @@
 "use client";
 
 import { CockpitHeader } from "./CockpitHeader";
-import { ActivityStrip } from "./ActivityStrip";
 import { KPIStrip } from "./KPIStrip";
 import { CockpitAgenda } from "./CockpitAgenda";
 import { WatchlistMini } from "./WatchlistMini";
@@ -15,13 +14,14 @@ interface CockpitHomeProps {
  * CockpitHome — home Cockpit (mode="cockpit").
  *
  * Pivot v1.5 (silent luxury OS, 2026-05-10) : suppression du centerpiece
- * 3D ParticlesWave + son halo radial. Les KPIs montent en hero typographique
- * (t-60) centrés dans l'espace libéré ; Agenda + Watchlist décompressés en
- * bas, plus dans un accordion. Le cockpit lit en first-glance : pouls
- * (KPIs) puis aujourd'hui (agenda/watchlist).
+ * 3D ParticlesWave + halo radial + ActivityStrip ticker (info redondante
+ * avec PulseBar live + KPIs + ContextRail Statut). Les KPIs montent en
+ * hero typographique (t-60) centrés ; Agenda + Watchlist décompressés.
+ * Le cockpit lit en first-glance : qui je salue → pouls (KPIs) →
+ * aujourd'hui (agenda + watchlist).
  *
- * Layout : Header → ActivityStrip → KPIs hero (centered flex-1) →
- *          Agenda + Watchlist (grid 2-col).
+ * Layout : Header → KPIs hero (centered flex-1) → Agenda + Watchlist
+ *          (grid 2-col).
  */
 export function CockpitHome({ data }: CockpitHomeProps) {
   return (
@@ -33,7 +33,6 @@ export function CockpitHome({ data }: CockpitHomeProps) {
       }}
     >
       <CockpitHeader data={data} />
-      <ActivityStrip data={data} />
 
       <div className="flex-1 flex items-center justify-center min-h-0">
         <KPIStrip data={data} />

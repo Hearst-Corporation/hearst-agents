@@ -77,8 +77,8 @@ export function WatchlistMini({ data }: WatchlistMiniProps) {
   const hasItems = items.length > 0;
 
   return (
-    <section className="flex flex-col min-h-0 min-w-0" aria-label="Watchlist">
-      <SectionHeader label="Watchlist" />
+    <section className="flex flex-col min-h-0 min-w-0" aria-label="Veille">
+      <SectionHeader label="Veille" />
       {hasItems ? (
         <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "var(--space-1)" }}>
           {items.map((item) => (
@@ -88,9 +88,9 @@ export function WatchlistMini({ data }: WatchlistMiniProps) {
       ) : (
         <EmptyState
           density="compact"
-          title="No KPIs tracked"
-          description="Connect Stripe or Linear to track your metrics."
-          cta={{ label: "View apps →", href: "/apps" }}
+          title="Aucun KPI suivi"
+          description="Connecte Stripe ou Linear pour suivre tes métriques."
+          cta={{ label: "Voir les apps →", href: "/apps" }}
         />
       )}
     </section>
