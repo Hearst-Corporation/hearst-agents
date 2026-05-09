@@ -175,7 +175,7 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
   return (
     <div
       onClick={onSelect}
-      className={`group cursor-pointer py-2 px-3 transition-colors duration-200 flex items-center gap-3 rounded-md ${
+      className={`group cursor-pointer py-2 px-3 transition-colors duration-(--duration-base) ease-(--ease-out-soft) flex items-center gap-3 rounded-md ${
         isActive ? "bg-[var(--layer-1)]" : "hover:bg-[var(--layer-1)]"
       }`}
       title={thread.name}
@@ -186,17 +186,17 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
           width: "var(--space-2)",
           height: "var(--space-2)",
           background: "var(--cykan)",
-          boxShadow: isActive ? "var(--shadow-neon-cykan)" : "var(--glow-cyan-sm)",
-          opacity: isActive ? 1 : 0.7,
+          boxShadow: isActive ? "var(--shadow-neon-cykan)" : "none",
+          opacity: isActive ? 1 : 0.55,
         }}
         aria-hidden
       />
       <p
-        className="flex-1 t-14 truncate min-w-0 transition-all duration-300"
+        className="flex-1 t-14 truncate min-w-0 transition-all duration-(--duration-slow) ease-(--ease-out-soft)"
         style={{
           lineHeight: "var(--leading-base)",
           color: isActive ? "var(--cykan)" : "var(--text-l1)",
-          fontWeight: isActive ? 500 : 300,
+          fontWeight: isActive ? "var(--weight-medium)" : "var(--weight-light)",
           textShadow: isActive ? "var(--shadow-neon-cykan)" : "none",
         }}
       >
@@ -271,7 +271,7 @@ function TopMenuItem({
         style={{
           gap: "var(--space-3)",
           color: highlight ? "var(--cykan)" : "var(--text-l2)",
-          fontWeight: isActive ? 500 : 300,
+          fontWeight: isActive ? "var(--weight-medium)" : "var(--weight-light)",
           textShadow: highlight ? "var(--neon-cykan)" : "none",
         }}
       >
@@ -356,7 +356,7 @@ function CollapsedTile({ thread, isActive, onSelect }: CollapsedTileProps) {
     <button
       onClick={onSelect}
       title={thread.name}
-      className={`relative w-8 h-8 flex items-center justify-center rounded-md t-13 font-light transition-all duration-300 shrink-0 ${
+      className={`relative w-8 h-8 flex items-center justify-center rounded-md t-13 font-light transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0 ${
         isActive
           ? "bg-[var(--cykan-bg-active)] text-[var(--cykan)] border border-[var(--cykan-border)] shadow-[var(--shadow-neon-cykan)]"
           : "bg-[var(--surface-1)] text-[var(--text-faint)] border border-[var(--border-soft)] hover:bg-[var(--layer-1)] hover:text-[var(--text-soft)] hover:border-[var(--border-subtle)]"
@@ -449,7 +449,7 @@ export function TimelineRail() {
         {leftCollapsed && (
           <button
             onClick={handleNewThread}
-            className="mb-6 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--cykan)] hover:border-[var(--cykan-border)] hover:bg-[var(--cykan-bg-hover)] transition-all duration-300 shrink-0"
+            className="mb-6 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--cykan)] hover:border-[var(--cykan-border)] hover:bg-[var(--cykan-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
             title="Nouvelle conversation"
           >
             <PlusIcon />
@@ -585,7 +585,7 @@ export function TimelineRail() {
                 {["New", "New"].map((name, i) => (
                   <div
                     key={i}
-                    className="group cursor-pointer py-2 px-3 flex items-center gap-3 rounded-md hover:bg-[var(--layer-1)] transition-colors duration-200"
+                    className="group cursor-pointer py-2 px-3 flex items-center gap-3 rounded-md hover:bg-[var(--layer-1)] transition-colors duration-(--duration-base) ease-(--ease-out-soft)"
                     style={{ color: "var(--text-l2)" }}
                   >
                     <span className="shrink-0 text-[var(--text-faint)]"><FolderIcon /></span>

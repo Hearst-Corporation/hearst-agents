@@ -129,7 +129,7 @@ function QuickActions() {
               <span className="flex flex-col flex-1 min-w-0">
                 <span
                   className="t-11 font-medium uppercase tracking-wide"
-                  style={{ color: "var(--text-l2)", letterSpacing: "0.06em" }}
+                  style={{ color: "var(--text-l2)", letterSpacing: "var(--tracking-wide)" }}
                 >
                   {a.label}
                 </span>
@@ -314,7 +314,7 @@ function StatusRow({ label, children }: { label: string; children: ReactNode }) 
     <div className="flex items-baseline" style={{ gap: "var(--space-2)" }}>
       <span
         className="t-9 font-medium uppercase shrink-0"
-        style={{ color: "var(--text-faint)", letterSpacing: "0.05em", minWidth: "var(--space-14)" }}
+        style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)", minWidth: "var(--space-14)" }}
       >
         {label}
       </span>
@@ -414,7 +414,7 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
 
         <span className="flex flex-col flex-1 min-w-0">
           {isAgent && (
-            <span className="t-9 font-medium uppercase" style={{ color: "var(--text-faint)", letterSpacing: "0.06em" }}>
+            <span className="t-9 font-medium uppercase" style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)" }}>
               Agent sélectionné
             </span>
           )}
@@ -465,7 +465,7 @@ function ChatContextSection({ focal }: { focal: ReturnType<typeof useFocalStore.
           border: "1px solid var(--border-subtle)",
         }}
       >
-        <span className="t-9 font-medium uppercase" style={{ color: "var(--text-faint)", letterSpacing: "0.06em" }}>
+        <span className="t-9 font-medium uppercase" style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)" }}>
           {FOCAL_TYPE_LABEL[focal.type] ?? focal.type}
         </span>
         <span className="t-13 font-medium truncate" style={{ color: "var(--text)" }}>{focal.title}</span>
@@ -527,7 +527,7 @@ function SectionLabel({ label, icon }: { label: string; icon: ReactNode }) {
       <span style={{ color: "var(--text-faint)" }} aria-hidden>{icon}</span>
       <span
         className="t-9 font-medium uppercase tracking-wide"
-        style={{ color: "var(--text-faint)", letterSpacing: "0.08em" }}
+        style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)" }}
       >
         {label}
       </span>

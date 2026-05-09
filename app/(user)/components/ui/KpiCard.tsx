@@ -81,8 +81,8 @@ export function KpiCard({
       data-testid={testId}
       className="group flex flex-col h-full justify-between transition-colors duration-(--duration-base) ease-(--ease-standard)"
       style={{
-        gap: "var(--space-1)",
-        padding: "var(--space-3)",
+        gap: "var(--space-2)",
+        padding: "var(--space-4) var(--space-3)",
         borderRadius: "var(--radius-sm)",
       }}
     >

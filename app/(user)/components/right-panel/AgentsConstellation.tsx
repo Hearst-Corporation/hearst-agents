@@ -71,7 +71,7 @@ export function AgentsConstellation() {
               <circle
                 cx={x} cy={y} r={DOT_R}
                 fill="var(--cykan)"
-                style={{ filter: "drop-shadow(0 0 4px var(--cykan))" }}
+                opacity="0.85"
               />
               <text
                 x={x + dx}
