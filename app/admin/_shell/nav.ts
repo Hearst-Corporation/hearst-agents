@@ -28,6 +28,12 @@ export const NAV_SECTIONS: NavSection[] = [
           "M3 10 12 3l9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z",
       },
       {
+        href: "/admin/pipeline",
+        label: "Pipeline",
+        iconPath:
+          "M3 3h6v6H3zM3 15h6v6H3zM15 15h6v6h-6zM15 3h6v6h-6zM6 9v6m9-9h-3a3 3 0 0 0-3 3v3",
+      },
+      {
         href: "/admin/agents",
         label: "Agents",
         iconPath:

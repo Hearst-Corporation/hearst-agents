@@ -305,16 +305,3 @@ describe("fallback si env Supabase manquant", () => {
   });
 });
 
-describe("startPolling legacy", () => {
-  it("loggue un warning dépréciation", () => {
-    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-    useNotificationsStore.getState().startPolling();
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("déprécié"));
-  });
-
-  it("appelle fetchNotifications", () => {
-    vi.spyOn(console, "warn").mockImplementation(() => {});
-    useNotificationsStore.getState().startPolling();
-    expect(mockFetch).toHaveBeenCalledWith("/api/notifications", expect.anything());
-  });
-});

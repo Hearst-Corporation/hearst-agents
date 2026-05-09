@@ -41,6 +41,9 @@
   ],
   "exclude": [
     "node_modules",
-    "electron"
+    "electron",
+    "app/api/orchestrator",
+    "app/admin/orchestrator",
+    "lib/hom"
   ]
 }

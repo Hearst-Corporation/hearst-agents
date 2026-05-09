@@ -174,8 +174,8 @@ export default function CanvasShell() {
 
               {showIdleHint && (
                 <div className="absolute top-(--space-8) left-1/2 -translate-x-1/2 pointer-events-none z-10">
-                  <div className="whitespace-nowrap rounded-(--radius-pill) border border-(--cykan)/35 bg-(--surface)/95 backdrop-blur-md px-(--space-5) py-(--space-2) t-11 font-mono uppercase tracking-(--tracking-stretch) text-(--cykan) shadow-(--shadow-md)">
-                    active le live ↑ · clique un stage pour sa fiche
+                  <div className="whitespace-nowrap rounded-(--radius-pill) border border-(--cykan)/35 bg-(--surface)/95 backdrop-blur-md px-(--space-5) py-(--space-2) t-11 text-(--cykan) shadow-(--shadow-md)">
+                    Active le live ↑ · clique un stage pour sa fiche
                   </div>
                 </div>
               )}

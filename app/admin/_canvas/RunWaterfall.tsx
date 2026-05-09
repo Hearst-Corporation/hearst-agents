@@ -1,10 +1,3 @@
-/** TODO stub — voir docs/AGENT-DRIVEN-DEV.md
- *
- * Waterfall horizontal des événements d'un run + contrôles replay.
- * Stub composant placeholder.
- * À implémenter : timeline scrubber, play/pause, vitesses, ticks par event.
- */
-
 "use client";
 
 interface PersistedEvent {
@@ -26,23 +19,153 @@ interface Props {
   disabled: boolean;
 }
 
+const SPEEDS = [0.5, 1, 2, 4];
+
+const EVENT_DOT: Record<string, string> = {
+  run_created: "bg-(--cykan)",
+  run_started: "bg-(--cykan)",
+  run_completed: "bg-(--color-success)",
+  run_failed: "bg-(--color-danger)",
+  tool_call_started: "bg-(--accent-teal)",
+  tool_call_completed: "bg-(--accent-teal)",
+  delegate_enqueued: "bg-(--accent-agent)",
+  delegate_completed: "bg-(--accent-agent)",
+};
+
+function formatMs(ms: number): string {
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms / 1000).toFixed(1)}s`;
+}
+
 export default function RunWaterfall({
   events,
-  isPlaying: _isPlaying,
-  progress: _progress,
-  speed: _speed,
-  onPlayToggle: _onPlayToggle,
-  onSpeedChange: _onSpeedChange,
-  onReset: _onReset,
-  onSeek: _onSeek,
-  disabled: _disabled,
+  isPlaying,
+  progress,
+  speed,
+  onPlayToggle,
+  onSpeedChange,
+  onReset,
+  onSeek,
+  disabled,
 }: Props) {
+  const total = events.length;
+  const durationMs =
+    total >= 2 ? events[total - 1].ts - events[0].ts : 0;
+
+  const handleScrubberClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    onSeek(p);
+  };
+
   return (
-    <div
-      data-stub="RunWaterfall"
-      className="shrink-0 border-t border-line bg-surface px-(--space-6) py-(--space-3) t-11 font-mono uppercase tracking-(--tracking-stretch) text-text-faint"
-    >
-      Waterfall (stub) · {events.length} événements
+    <div className="shrink-0 border-t border-line bg-surface px-(--space-6) py-(--space-3) flex flex-col gap-(--space-2)">
+      {/* Scrubber */}
+      <div
+        role="slider"
+        aria-label="Avancement du replay"
+        aria-valuenow={Math.round(progress * 100)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        tabIndex={disabled ? -1 : 0}
+        className={[
+          "relative h-(--space-2) rounded-(--radius-pill) bg-line cursor-pointer overflow-hidden",
+          disabled ? "opacity-40 pointer-events-none" : "hover:bg-line-strong",
+        ].join(" ")}
+        onClick={handleScrubberClick}
+        onKeyDown={(e) => {
+          if (disabled) return;
+          if (e.key === "ArrowRight") onSeek(Math.min(1, progress + 0.05));
+          if (e.key === "ArrowLeft") onSeek(Math.max(0, progress - 0.05));
+        }}
+      >
+        <div
+          className="absolute inset-y-0 left-0 bg-(--cykan)/70 transition-[width] duration-(--duration-base)"
+          style={{ width: `${progress * 100}%` }}
+        />
+        {/* Ticks événements */}
+        {total > 1 &&
+          events.map((ev, i) => {
+            const pos = i / (total - 1);
+            const dotClass = EVENT_DOT[ev.type] ?? "bg-text-ghost";
+            return (
+              <div
+                key={i}
+                className={[
+                  "absolute top-1/2 -translate-y-1/2 w-1 h-1 rounded-(--radius-pill)",
+                  dotClass,
+                ].join(" ")}
+                style={{ left: `${pos * 100}%` }}
+              />
+            );
+          })}
+      </div>
+
+      {/* Contrôles */}
+      <div className="flex items-center gap-(--space-4)">
+        <div className="flex items-center gap-(--space-2) shrink-0">
+          {/* Rembobiner */}
+          <button
+            type="button"
+            onClick={onReset}
+            disabled={disabled}
+            title="Rembobiner"
+            className="flex items-center justify-center size-(--space-7) rounded-(--radius-xs) text-text-muted hover:text-text hover:bg-bg disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 4v6h6" />
+              <path d="M3.51 15a9 9 0 1 0 .49-3.49" />
+            </svg>
+          </button>
+
+          {/* Play / Pause */}
+          <button
+            type="button"
+            onClick={onPlayToggle}
+            disabled={disabled}
+            title={isPlaying ? "Pause" : "Lecture"}
+            className="flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-(--cykan)/40 text-(--cykan) hover:bg-(--cykan)/10 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
+          >
+            {isPlaying ? (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16" rx="1" />
+                <rect x="14" y="4" width="4" height="16" rx="1" />
+              </svg>
+            ) : (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5 3l14 9-14 9V3z" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Vitesses */}
+        <div className="flex items-center gap-(--space-1) shrink-0">
+          {SPEEDS.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => onSpeedChange(s)}
+              disabled={disabled}
+              className={[
+                "t-10 px-(--space-2) py-(--space-1) rounded-(--radius-xs) transition-colors duration-(--duration-base) disabled:opacity-40 disabled:pointer-events-none",
+                speed === s
+                  ? "bg-(--cykan)/15 text-(--cykan)"
+                  : "text-text-muted hover:text-text hover:bg-surface",
+              ].join(" ")}
+            >
+              {s}×
+            </button>
+          ))}
+        </div>
+
+        {/* Infos run */}
+        <div className="flex items-center gap-(--space-3) ml-auto text-text-faint t-10">
+          <span>{total} événements</span>
+          {durationMs > 0 && <span>{formatMs(durationMs)}</span>}
+        </div>
+      </div>
     </div>
   );
 }

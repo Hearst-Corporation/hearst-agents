@@ -200,6 +200,17 @@
   --accent-teal-bg-hover: rgba(74, 139, 134, 0.05);
   --accent-teal-border-hover: rgba(74, 139, 134, 0.22);
 
+  /* ─── HOM status surfaces ───────────────────────────────────── */
+  /* Surfaces translucides utilisées par les pills/badges status de l'admin
+   * orchestrateur (Trust, Drift, Quarantaine, Command Center). Pattern
+   * miroir de --accent-teal-bg-active : token unique réutilisable, jamais
+   * d'inline color-mix dans les composants. */
+  --warn-surface: color-mix(in srgb, var(--warn) 12%, transparent);
+  --warn-surface-soft: color-mix(in srgb, var(--warn) 6%, transparent);
+  --danger-surface: color-mix(in srgb, var(--danger) 12%, transparent);
+  --danger-surface-soft: color-mix(in srgb, var(--danger) 6%, transparent);
+  --quarantine-surface: color-mix(in srgb, var(--accent-llm) 14%, transparent);
+
   /* ─── Hearst Connect — Radius scale ─────────────────────────── */
   --radius-xs: 4px;
   --radius-sm: 8px;

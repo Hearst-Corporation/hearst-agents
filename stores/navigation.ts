@@ -61,8 +61,6 @@ interface NavigationState {
   addMessageToThread: (threadId: string, message: Message) => void;
   updateMessageInThread: (threadId: string, messageId: string, content: string) => void;
   attachAssetToLastAssistantMessage: (threadId: string, assetRef: MessageAssetRef) => void;
-  clearThreadMessages: (threadId: string) => void;
-  getThreadMessages: (threadId: string) => Message[];
 }
 
 export const useNavigationStore = create<NavigationState>()(
@@ -197,17 +195,6 @@ export const useNavigationStore = create<NavigationState>()(
           return { messages: { ...state.messages, [threadId]: next } };
         }),
 
-      clearThreadMessages: (threadId) =>
-        set((state) => ({
-          messages: {
-            ...state.messages,
-            [threadId]: [],
-          },
-        })),
-
-      getThreadMessages: (threadId) => {
-        return get().messages[threadId] || [];
-      },
     }),
     {
       name: "hearst-navigation",

@@ -49,8 +49,6 @@ interface NotificationsState {
   startRealtime: (tenantId: string) => void;
   /** Nettoie channel ET timer. Appelé au unmount. */
   stopRealtime: () => void;
-  /** @deprecated Conservé pour compat — appelle startRealtime si tenantId dispo. */
-  startPolling: () => void;
   stopPolling: () => void;
 }
 
@@ -216,17 +214,6 @@ export const useNotificationsStore = create<NotificationsState>()(
         clearInterval(timer);
         set({ _pollTimer: null });
       }
-    },
-
-    // ── Compat legacy ────────────────────────────────────────────────────────
-
-    /** @deprecated Utilise startRealtime(tenantId) à la place. */
-    startPolling: () => {
-      console.warn(
-        "[notifications] startPolling() est déprécié — utilise startRealtime(tenantId)",
-      );
-      void get().fetchNotifications();
-      _startFallbackPolling(set, get);
     },
 
     stopPolling: () => {

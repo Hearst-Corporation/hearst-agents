@@ -4,7 +4,7 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 **UI — Ghost Protocol (26/04/2026)** : surface cockpit sombre (`app/globals.css` tokens), typographie Satoshi + Geist Mono, séparateurs `var(--line)`, glyphes SVG filaires (`app/(user)/components/ghost-icons.tsx`), intégrations affichées en `ServiceIdGlyph` (plus d’emojis dans l’UI). Classes utilitaires Ghost (`.ghost-meta-label`, `.ghost-btn-solid`, modales, skeleton scanline) et `.status-dot*` (`box-shadow: none`) sont définies dans `app/globals.css` et couvertes par `__tests__/ui/design-tokens.test.ts`. La landing admin (`app/admin/page.tsx`) est l’**accueil** (raccourcis) ; le graphe live est sur **`/admin/pipeline`** (`CanvasShell` / `FlowCanvas`, `data-pipeline-visual="orbit"`). La colonne droite du canvas (`w-[var(--width-context)]`) empile **fiche stage** (`NodeDetailPanel`) et **derniers runs** (`RunRail`). **Pas de route canvas en double** : un seul canvas sur `/admin/pipeline` ; `/admin/audit` reste le journal. La liste Skills pointe vers `/admin/skills/[id]` (`app/admin/skills/[id]/page.tsx`).
 
-> 🚀 **Quick Start** : `npm run dev` = hearst-os seul sur `:9000`. `npm run launch` = stack complète.
+> 🚀 **Quick Start** : `npm run dev` = hearst-os seul sur `:9001`. `npm run launch` = stack complète. `npm run dev:electron` = Next dev + fenêtre Electron.
 
 **Cockpit (home)** : le RSC pré-charge `getCockpitToday` pour le LCP ; `CockpitStage` synchronise `/api/v2/cockpit/today` au mount. Zone hero centrale **`HaloAgentCore`** : constellation 3D (`@react-three/fiber`), agents chargés en **GLB** depuis `public/models/{agent-id}.glb` ; régénérer les placeholders procéduraux : `npm run models:halo-glb` (`scripts/generate-halo-agent-glbs.mjs`). Matériaux DS (cykan/gold), bloom, `Environment`. Labels agents en voix régulière (pas de mono caps).
 
@@ -172,14 +172,14 @@ Next 16 + Turbopack peuvent garder en cache l'ancien contenu de `app/globals.css
 Toujours faire après une édition de tokens :
 
 ```bash
-npm run dev:fresh   # kill port 9000 + rm -rf .next + npm run dev
+npm run dev:fresh   # kill port 9001 + rm -rf .next + npm run dev
 ```
 
 Vérification rapide depuis un terminal :
 
 ```bash
-CSS=$(curl -s http://localhost:9000/login | grep -oE '/_next/static[^"]+\.css' | head -1)
-curl -s "http://localhost:9000${CSS}" | grep -oE '\-\-(surface|background|rail|cyan-accent):[^;}]+' | sort -u
+CSS=$(curl -s http://localhost:9001/login | grep -oE '/_next/static[^"]+\.css' | head -1)
+curl -s "http://localhost:9001${CSS}" | grep -oE '\-\-(surface|background|rail|cyan-accent):[^;}]+' | sort -u
 ```
 
 Les valeurs retournées doivent matcher exactement la table ci-dessus.
@@ -521,7 +521,8 @@ Routes V2 scopées
 
 ## Stack
 
-- **Frontend** : Next.js 16 (App Router), React 19, Tailwind CSS, Geist
+- **Frontend** : Next.js 16 (App Router), React 19, Tailwind v4 (`@theme inline`), police Satoshi Variable (Geist Mono pour le code)
+- **Desktop** : Electron 37+ (wrapper natif macOS/Windows), packaging via `electron-builder`
 - **Backend** : Next.js API Routes, Zod validation, domain layer typé
 - **Database** : Supabase (PostgreSQL), types auto-générés, pgvector
 - **LLM** : Multi-provider (OpenAI, Anthropic, Composer 2, Gemini 3 Flash), smart routing, fallback `model_profiles`, cost tracking
@@ -571,7 +572,14 @@ npm run dev
 
 | Script | Usage |
 |--------|-------|
-| `npm run dev` | Démarre le serveur (:9000) |
+| `npm run dev` | Démarre le serveur Next (:9001) |
+| `npm run dev:fresh` | Idem, après `kill :9001` + `rm -rf .next` |
+| `npm run dev:electron` | Démarre Next (:9001) + ouvre la fenêtre Electron une fois prêt |
+| `npm run electron:compile` | Compile `electron/main.ts` + `preload.ts` → `dist/electron/` |
+| `npm run electron:build` | `next build` + recompile Electron (avant packaging) |
+| `npm run electron:dist` | Build + génère les artefacts `electron-builder` (DMG / NSIS) |
+| `npm run launch` | Stack complète (hearst-os + connect + app) via `launch.sh` |
+| `npm run stop` | Arrête tous les services (`launch-stop.sh`) |
 | `npm run build` | Build production |
 | `npm test` | Lance les 407 tests |
 | `npx tsx scripts/init-ui-config.ts` | Initialise les settings DB |
@@ -584,11 +592,22 @@ npm test            # Vitest (LLM, momentum, design tokens, …)
 
 | Service | Port | Description |
 |---------|------|-------------|
-| **hearst-os** | `9000` | Frontend principal + orchestration v2 |
+| **hearst-os** | `9001` | Frontend principal + orchestration v2 (`next dev -p 9001`) |
 | **hearst-connect** | `8100` | Backend de connexion |
 | **Hearst-app** | `3000` | Landing page |
 
 **Logs**: `/tmp/hearst-{os,connect,app}.log`
+
+### Plateformes — Web vs Electron
+
+| Cible | Démarrage | URL / fenêtre | Notes |
+|-------|-----------|---------------|-------|
+| **Web (dev solo)** | `npm run dev` | `http://localhost:9001` | Mode chat-first principal en développement |
+| **Web (stack)** | `npm run launch` | hearst-os :9001 + connect :8100 + app :3000 | Ouvre Chrome sur les 3 ports |
+| **Electron (dev)** | `npm run dev:electron` | Fenêtre native (charge `localhost:9001` après wait-on) | Passe par `/api/auth/dev-login` quand `HEARST_DEV_AUTH_BYPASS=1` |
+| **Electron (prod)** | `npm run electron:dist` | DMG / installer | Lance Next en standalone interne, `findFreePort` à partir de 9001 |
+
+Code Electron : [electron/main.ts](electron/main.ts) (process principal, ESM via `esbuild` → `dist/electron/main.js`), [electron/preload.ts](electron/preload.ts) (CJS), config packaging [electron-builder.yml](electron-builder.yml).
 
 ### LLM — providers `composer` / `gemini`
 

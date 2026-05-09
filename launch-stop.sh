@@ -10,7 +10,7 @@ echo -e "${YELLOW}🛑 Arrêt de tous les services Hearst...${NC}"
 echo ""
 
 # Kill ports
-for port in 9000 8100 3000; do
+for port in 9001 8100 3000; do
   if lsof -ti tcp:$port >/dev/null 2>&1; then
     echo -e "  ${RED}✗${NC} Arrêt du port $port..."
     lsof -ti tcp:$port | xargs kill -9 2>/dev/null || true

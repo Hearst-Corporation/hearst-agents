@@ -1,18 +1,39 @@
-/** TODO stub — voir docs/AGENT-DRIVEN-DEV.md
+/**
+ * Légende compacte du pipeline — 2 branches (main / agent) avec leur couleur.
  *
- * Légende du pipeline (états node + branches edges). Stub composant placeholder.
- * À implémenter : pastilles couleur idle/active/success/failed/blocked + libellés.
+ * Affichée dans l'action strip de CanvasShell, à côté du toggle live. Inline,
+ * voix régulière FR (pas de mono caps), trait swatch tokenisé.
  */
 
 "use client";
 
+interface BranchEntry {
+  id: "main" | "agent";
+  label: string;
+  color: string;
+}
+
+const BRANCHES: BranchEntry[] = [
+  { id: "main", label: "Main", color: "var(--accent-teal)" },
+  { id: "agent", label: "Agent", color: "var(--accent-agent)" },
+];
+
 export default function FlowLegend() {
   return (
-    <div
-      data-stub="FlowLegend"
-      className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint"
+    <ul
+      className="flex items-center gap-(--space-3) t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint"
+      aria-label="Légende des branches du pipeline"
     >
-      légende (stub)
-    </div>
+      {BRANCHES.map((b) => (
+        <li key={b.id} className="flex items-center gap-(--space-2)">
+          <span
+            aria-hidden="true"
+            className="block h-px w-(--space-5) rounded-(--radius-pill)"
+            style={{ backgroundColor: b.color }}
+          />
+          <span>{b.label}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

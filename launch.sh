@@ -188,7 +188,7 @@ echo -e "  🌐 Hearst-app:     ${GREEN}http://localhost:3000${NC}"
 echo ""
 
 if [[ "${HEARST_OPEN_CHROME:-1}" != "0" ]]; then
-  echo -e "${CYAN}Chrome:${NC} ouverture des onglets (3000 → 8100 → 9000)…"
+  echo -e "${CYAN}Chrome:${NC} ouverture des onglets (3000 → 8100 → 9001)…"
   nohup bash "$SCRIPT_DIR/scripts/hearst-open-chrome.sh" >>/tmp/hearst-chrome-open.log 2>&1 &
 fi
 

@@ -13,11 +13,11 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { OnboardingTour, _resetOnboarding } from "@/app/(user)/components/OnboardingTour";
+import { OnboardingTour } from "@/app/(user)/components/OnboardingTour";
 
 describe("OnboardingTour", () => {
   beforeEach(() => {
-    _resetOnboarding();
+    try { window.localStorage.removeItem("hearst.onboarded"); } catch { /* ignore */ }
   });
 
   it("ne s'affiche pas si le flag localStorage est déjà set", () => {

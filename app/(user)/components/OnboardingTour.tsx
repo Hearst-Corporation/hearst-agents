@@ -209,11 +209,3 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
   );
 }
 
-/** Test-only : reset le flag (jamais shipped en runtime user). */
-export function _resetOnboarding(): void {
-  try {
-    window.localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* ignore */
-  }
-}
