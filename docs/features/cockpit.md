@@ -7,10 +7,11 @@
 | **id** | `cockpit` |
 | **statut** | `in_progress` (verrouillé sur invariants ci-dessous) |
 | **owner** | Adrien |
-| **dernière revue** | 2026-05-04 |
-| **version spec** | 1.3 |
+| **dernière revue** | 2026-05-09 |
+| **version spec** | 1.4 |
 | **niveau** | P1 |
 | **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
+| **pivot visuel** | 2026-05-09 (silent luxury OS — teal sourd, KPIs intégrés à l'espace, atmosphère orbitale, modules tactiles) |
 
 ## Description
 
@@ -146,7 +147,7 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 ### I-6. Hero particules (HearstParticlesCloud)
 - Asset SVG obligatoire : `public/hearst-mark-h.svg` (synchronisé avec Hearst-app marketing) — sampling pixel alpha pour la silhouette du H
 - Rendu vanilla `three` (`THREE.Points` + `BufferGeometry` + `PointsMaterial` + `AdditiveBlending`). Pas de R3F ni drei.
-- Couleur lue runtime depuis `--cykan` (parsing hex → int Three.js)
+- Couleur lue runtime depuis le **token d'accent système** (cible v1.4 : `--accent-teal`, teal sourd ; actuellement `--cykan #2DD4BF` dans le code, rename différé après validation mockup `docs/visual/cockpit-2026-05.html`)
 - Sizing **container-relative** : `getBoundingClientRect()` + `ResizeObserver`, jamais `window.innerWidth/Height` (le cockpit est un panneau, pas un viewport)
 - `dynamic(() => …, { ssr: false })` obligatoire — Three.js manipule WebGL au mount
 - Particle count : 15k desktop / 6k mobile (override possible via prop) — ne pas remonter sans benchmark perf
@@ -156,7 +157,12 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 - `CockpitStage` **doit** refetch côté client au mount (KPIs à jour, ne pas s'appuyer uniquement sur SSR snapshot)
 - Pas de migration full-CSR sans spec
 
-### I-8. *(libre)*
+### I-8. Pivot visuel "silent luxury OS" (v1.4)
+À partir de v1.4 (pivot 2026-05-09), la direction visuelle du cockpit est **calme, dense, éditoriale, monochrome graphite + 2 % accent teal sourd**. Conséquences sur les invariants :
+- **KPIs** : peuvent être présentés intégrés à l'espace cockpit (typographie large + label discret) en alternative au format `<KPIStrip>` carte. Les deux formats sont valides — le choix est éditorial.
+- **Atmosphère hero** : `HearstParticlesCloud` reste l'identité, mais le mood doit être *quiet* (densité, diffusion, pas d'agressivité). Pas de glow brutal, pas de cyan saturé.
+- **Modules tactiles** : si un futur câblage de `QuickActionsGrid` ou `AgentsConstellation` est fait, le rendu cible est "module tactile matte" (glass, micro-depth, embossed icon) plutôt que carte plate. Voir mockup référence `docs/visual/cockpit-2026-05.html`.
+- **Voix éditoriale** : reste celle du pivot 2026-04-29 (FR voix régulière, pas de mono caps `tracking-marquee` en JSX). Le "tiny uppercase labels" du brief visuel est **explicitement écarté**.
 
 ## Évolutions autorisées sans spec
 
@@ -236,3 +242,4 @@ app/(user)/components/cockpit/WatchlistMini.tsx     |  8 lignes
 - **Pivot 3D v1.2 (2026-05-04)** : Spline + HaloAgentCore retirés au profit de HearstLogo3D (R3F + GLB local). Identité de marque (le H) plutôt que constellation générique.
 - **Pivot 3D v1.3 (2026-05-04)** : HearstLogo3D + GLB + R3F retirés au profit de **HearstParticlesCloud** (vanilla Three.js + sampling SVG H + AdditiveBlending). Effet "scintillement électrique" magnétique qui réagit à la souris. Asset partagé avec Hearst-app marketing (`hearst-mark-h.svg`). Stack 3D minimaliste : juste `three`, plus de drei/fiber/GLB.
 - **Phase B3** : suppression des mock fallbacks watchlist/agenda — empty state honnête à la place
+- **Pivot visuel v1.4 (2026-05-09)** — "silent luxury OS". Brief : palette monochrome graphite + 2 % accent teal sourd (rename `--cykan` → `--accent-teal` à venir), KPIs intégrés à l'espace, modules tactiles pour grilles d'action, atmosphère orbitale calme. Mockup de référence : `docs/visual/cockpit-2026-05.html`. Spécifications applicables aussi à `pulsebar` v1.1, `timeline-rail` v1.1, `context-rail` v1.1.

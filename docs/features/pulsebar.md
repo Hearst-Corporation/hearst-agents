@@ -5,11 +5,12 @@
 | Champ | Valeur |
 |-------|--------|
 | **id** | `pulsebar` |
-| **statut** | `verrouillé v1.0` |
+| **statut** | `verrouillé v1.1` |
 | **owner** | Adrien |
-| **dernière revue** | 2026-05-08 |
-| **version spec** | 1.0 |
+| **dernière revue** | 2026-05-09 |
+| **version spec** | 1.1 |
 | **niveau** | P2 |
+| **pivot visuel** | 2026-05-09 (silent luxury OS — alignement palette teal sourd) |
 
 ## Description
 
@@ -75,11 +76,11 @@ Si `navigator` ou `navigator.onLine` est absent, le hook retourne `{ isOnline: t
 ### I-7. VoiceMount vit dans le layout, pas dans la PulseBar
 `<VoicePulse />` est monté dans `UserLayout` (root), conditionné par `voiceActive`. La PulseBar affiche uniquement l'indicateur texte "Voix" — elle ne gère pas le pipeline WebRTC.
 
-### I-8. Halo cyan uniquement sur états actifs intentionnels
-Conforme au pivot éditorial 2026-04-29 : pas de `halo-on-hover` sur les boutons de la PulseBar. Le halo cyan (`halo-dot`, `halo-cyan-sm`) est réservé aux dot d'état actif (run en cours, voix active).
+### I-8. Halo accent uniquement sur états actifs intentionnels
+Conforme au pivot éditorial 2026-04-29 : pas de `halo-on-hover` sur les boutons de la PulseBar. Le halo (`halo-dot`, `halo-cyan-sm` — à renommer en `halo-accent-sm` lors de la migration palette v1.1) est réservé aux dots d'état actif (run en cours, voix active). À partir de v1.1, la couleur cible est `--accent-teal` (teal sourd, pas cyan saturé).
 
 ### I-9. Pas de mono caps `tracking-marquee` en JSX
-Les labels "En cours" et "Voix" sont en voix régulière FR avec `font-light`, pas en mono caps `tracking-marquee/section/label`.
+Les labels "En cours" et "Voix" sont en voix régulière FR avec `font-light`, pas en mono caps `tracking-marquee/section/label`. Le brief visuel "silent luxury OS" (2026-05-09) demande "tiny uppercase labels" — **explicitement écarté** : la voix éditoriale FR (pivot 2026-04-29) prime, ré-affirmée en v1.1.
 
 ## Tests
 

@@ -2,11 +2,12 @@
 
 ## Métadonnées
 | **id** | `context-rail` |
-| **statut** | `verrouillé v1.0` |
+| **statut** | `verrouillé v1.1` |
 | **owner** | Adrien |
-| **dernière revue** | 2026-05-08 |
-| **version spec** | 1.0 |
+| **dernière revue** | 2026-05-09 |
+| **version spec** | 1.1 |
 | **niveau** | P2 |
+| **pivot visuel** | 2026-05-09 (silent luxury OS — modules tactiles autorisés en alternative aux cartes plates) |
 
 ## Description
 
@@ -118,3 +119,8 @@ Manquants (P0) :
 - `manifestPlan` : test des 3 branches (one_shot / mission / monitoring)
 - `useRightPanelData` : test SSE branch vs fetch branch selon activeThreadId
 - SSE stream : test que l'event `panel` est émis au bon intervalle et que `abort` ferme la connexion
+
+## Notes & historique
+
+- **v1.0 (2026-05-08)** — Verrouillage initial, 5 strates immuables cockpit/chat, dispatch par mode Stage, SSE 1s + ping 25s.
+- **v1.1 (2026-05-09)** — Pivot visuel "silent luxury OS". La **structure logique reste verrouillée** (5 strates immuables, dispatch par mode, SSE cadence, voix éditoriale FR). Seul le **rendu visuel** est libéré : les sections peuvent désormais utiliser un format "module tactile matte" (glass, micro-depth, embossed icon) en alternative au format `.card-depth` carte plate. Aucune section ne peut être supprimée ni réordonnée pour autant. Voir mockup référence `docs/visual/cockpit-2026-05.html`.

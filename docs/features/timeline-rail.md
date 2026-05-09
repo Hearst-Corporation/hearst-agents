@@ -2,11 +2,12 @@
 
 ## Métadonnées
 | **id** | `timeline-rail` |
-| **statut** | `verrouillé v1.0` |
+| **statut** | `verrouillé v1.1` |
 | **owner** | Adrien |
-| **dernière revue** | 2026-05-08 |
-| **version spec** | 1.0 |
+| **dernière revue** | 2026-05-09 |
+| **version spec** | 1.1 |
 | **niveau** | P2 |
+| **pivot visuel** | 2026-05-09 (silent luxury OS — alignement palette teal sourd, sidebar architecturale) |
 
 ## Description
 
@@ -85,7 +86,7 @@ En état collapsed, seuls les 12 premiers threads sont rendus (`threads.slice(0,
 `handleNewThread` crée un thread via `addThread("New", "home")` puis appelle `setStageMode({ mode: "chat", threadId })`. L'ID retourné par `addThread` est transmis au Stage immédiatement.
 
 ### I-10. Logo Hearst intouchable
-En état expanded, le logo est rendu via `<HearstLogo className="h-10 w-auto" />`. En collapsed, seul le caractère `H` en `var(--cykan)` est affiché. Jamais d'autre asset ou texte logo.
+En état expanded, le logo est rendu via `<HearstLogo className="h-10 w-auto" />`. En collapsed, seul le caractère `H` est affiché en couleur d'accent système (cible v1.1 : `var(--accent-teal)`, teal sourd ; actuellement `var(--cykan)` dans le code, rename différé après validation mockup `docs/visual/cockpit-2026-05.html`). Jamais d'autre asset ou texte logo.
 
 ### I-11. Archive depuis le rail
 `toggleArchived(threadId)` dans le store : si le thread devient archivé et qu'il était actif, `activeThreadId` passe à `null`. Pas de navigation forcée vers un autre thread.
