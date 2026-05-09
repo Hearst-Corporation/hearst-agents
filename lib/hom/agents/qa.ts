@@ -3,7 +3,6 @@
  * Pas de exécution `npm test` (sortie du périmètre runtime du run HOM),
  * mais audit statique : présence tests, états error/loading/empty.
  */
-import "server-only";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { walkFiles, fileExists } from "../fs-utils";

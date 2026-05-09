@@ -2,7 +2,6 @@
  * Helpers communs aux 3 agents : exécution timée, écriture du rapport
  * append-only, calcul du hash chain, propagation telemetry.
  */
-import "server-only";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { HOM } from "../paths";

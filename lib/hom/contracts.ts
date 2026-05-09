@@ -2,7 +2,6 @@
  * Charge et valide les capability contracts des agents.
  * Source de vérité : hom/agents/<id>/contracts.json
  */
-import "server-only";
 import { HOM } from "./paths";
 import { readJson, fileExists } from "./fs-utils";
 import { ALL_AGENTS } from "./types";

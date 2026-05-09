@@ -3,7 +3,6 @@
  * au démarrage d'un run pour permettre un audit replay ultérieur.
  * V1.2 minimal : on capture les hashes, pas les contenus complets.
  */
-import "server-only";
 import { execSync } from "node:child_process";
 import fs from "node:fs/promises";
 import { HOM } from "./paths";

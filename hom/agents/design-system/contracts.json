@@ -9,11 +9,7 @@
       "tailwind.config.*",
       "scripts/lint-visual.mjs"
     ],
-    "files_denied": [
-      "app/api/**",
-      "electron/**",
-      "docs/AGENT-LOCK.json"
-    ],
+    "files_denied": ["app/api/**", "electron/**", "docs/AGENT-LOCK.json"],
     "domains_owned": ["tokens", "magic_numbers", "voix_editoriale", "spacing", "radius"],
     "domains_read_only": ["product_experience"]
   },

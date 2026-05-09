@@ -4,7 +4,6 @@
  * Pas de JS, pas de fonts externes, CSS inline pour archivage offline.
  * Indexé dans hom/war-room/index.json.
  */
-import "server-only";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { HOM } from "./paths";

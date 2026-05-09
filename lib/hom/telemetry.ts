@@ -3,7 +3,6 @@
  * Compatible OpenTelemetry sur la forme (trace_id, span_id, parent_span_id).
  * Stockage strictement file-based, aucun service externe.
  */
-import "server-only";
 import path from "node:path";
 import { HOM, todayUtc } from "./paths";
 import {

@@ -11,11 +11,7 @@
       "next.config.ts",
       "tsconfig.json"
     ],
-    "files_denied": [
-      "docs/AGENT-LOCK.json",
-      "hom/policies/**",
-      "hom/agents/**"
-    ],
+    "files_denied": ["docs/AGENT-LOCK.json", "hom/policies/**", "hom/agents/**"],
     "domains_owned": ["layering", "dependencies", "app_router", "circular_deps"],
     "domains_read_only": ["data_consistency"]
   },

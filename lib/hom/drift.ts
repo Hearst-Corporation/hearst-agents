@@ -10,7 +10,6 @@
  *
  * Sortie : war-room/drift-log.json append-only.
  */
-import "server-only";
 import path from "node:path";
 import { HOM } from "./paths";
 import { readJson, writeJson, walkFiles, nowIso, shortId } from "./fs-utils";

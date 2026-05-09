@@ -3,7 +3,6 @@
  * Whitelist par défaut : une action sans rule explicite = deny.
  * L'évaluation se fait avant chaque action sensible (write, delete, spawn).
  */
-import "server-only";
 import { HOM } from "./paths";
 import { readJson } from "./fs-utils";
 import type {

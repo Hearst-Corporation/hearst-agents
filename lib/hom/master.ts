@@ -3,7 +3,6 @@
  * Centralized orchestration : un seul Master sequence intake → dispatch
  * → cross-check → trust → snapshot → archive. Aucun peer-to-peer.
  */
-import "server-only";
 import path from "node:path";
 import { HOM } from "./paths";
 import {

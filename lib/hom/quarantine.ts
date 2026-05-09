@@ -4,7 +4,6 @@
  * healthy → suspect → quarantined selon seuils. Pas de recovery auto :
  * un agent quarantiné requiert action humaine via UI.
  */
-import "server-only";
 import { HOM } from "./paths";
 import { readJson, writeJson, nowIso } from "./fs-utils";
 import { ALL_AGENTS } from "./types";

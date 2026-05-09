@@ -10,11 +10,7 @@
       "playwright.config.ts",
       "app/**/*.tsx"
     ],
-    "files_denied": [
-      "app/api/**",
-      "electron/**",
-      "docs/AGENT-LOCK.json"
-    ],
+    "files_denied": ["app/api/**", "electron/**", "docs/AGENT-LOCK.json"],
     "domains_owned": ["unit_tests", "e2e_tests", "ui_states_coverage"],
     "domains_read_only": ["design_system", "navigation"]
   },

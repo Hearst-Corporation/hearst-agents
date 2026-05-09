@@ -2,7 +2,6 @@
  * Helpers fs pour HOM. Side-effects file system uniquement côté Node
  * (server components, API routes, scripts CLI). Jamais bundlé client.
  */
-import "server-only";
 import fs from "node:fs/promises";
 import { existsSync, mkdirSync } from "node:fs";
 import path from "node:path";

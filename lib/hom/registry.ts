@@ -3,7 +3,6 @@
  * Lit l'arborescence + audits + drift + trust + tests pour produire
  * une vue unifiée alimentant /admin/orchestrator/registry.
  */
-import "server-only";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { HOM } from "./paths";
@@ -195,9 +194,16 @@ export async function listRuns(): Promise<
   const entries = await listDir(HOM.runs);
   const out: Array<{ run_id: string; created_at: string; decision: string | null }> = [];
   for (const id of entries) {
-    const intake = await readJson<{ created_at: string }>(HOM.runIntake(id));
-    const decision = await readJson<{ decision: string }>(HOM.runDecision(id));
+    if (id.startsWith(".")) continue;
+    if (!id.startsWith("r-")) continue;
+    let intake: { created_at: string } | null = null;
+    try {
+      intake = await readJson<{ created_at: string }>(HOM.runIntake(id));
+    } catch {
+      continue;
+    }
     if (!intake) continue;
+    const decision = await readJson<{ decision: string }>(HOM.runDecision(id)).catch(() => null);
     out.push({
       run_id: id,
       created_at: intake.created_at,

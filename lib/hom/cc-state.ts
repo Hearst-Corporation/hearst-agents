@@ -4,7 +4,6 @@
  * Le state n'est jamais append-only : c'est un instantané.
  * L'historique vit dans /orchestrator/runs/<id>/.
  */
-import "server-only";
 import { HOM } from "./paths";
 import { readJson, writeJson, nowIso } from "./fs-utils";
 import { loadQuarantine } from "./quarantine";

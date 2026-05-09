@@ -2,7 +2,6 @@
  * A1 Architecture Agent — scan layering, server-only, imports critiques.
  * Vraie analyse statique (regex + AST léger) sur app/, lib/, electron/.
  */
-import "server-only";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { walkFiles } from "../fs-utils";

@@ -3,7 +3,6 @@
  * Calcule 7 scores 0-100 dérivés des findings et des signaux runtime.
  * Stockage append-only dans war-room/trust-history.json.
  */
-import "server-only";
 import { HOM } from "./paths";
 import { readJson, writeJson, nowIso } from "./fs-utils";
 import { SEVERITY_RANK } from "./types";
