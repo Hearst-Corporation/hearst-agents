@@ -7,14 +7,17 @@
 :root, [data-theme="dark"] {
   /* Core surfaces — deep dark hierarchy with 'material'
      Pivot 2026-05-01 v4 : valeurs réelles après démontage tokens fantômes.
-     v3 (#242429) restait perceptuellement noir car overrides --bg-center
-     l'écrasaient. Maintenant que les Stages pointent vraiment sur --bg-elev,
-     on calibre sur ce qui se voit à l'œil nu : rails #000 > shell #080809
-     > stage #3A3A44 (~22% luminance) > cards #48484F (~28% luminance).
-     Écart entre couches assez large pour passer sur écran moyen non-OLED. */
+     Pivot 2026-05-10 — silent luxury OS : recalibrage --bg-elev / --bg-soft
+     pour respecter la voix éditoriale "perceptuellement noir, élévation
+     visible à l'œil averti". L'ancien #3A3A44 (~22% luminance) créait un
+     saut violent vs --bg, faisant lire les pages à scroll comme "grises"
+     et le cockpit comme "noir" — incohérence visuelle entre routes.
+     Nouveau gradient continu : rails #000 > shell #050709 > stage #0e1014
+     (~6% lum, +9) > cards #181a20 (~10% lum, +24). Tout reste dans la
+     famille charbon, élévations subtle plutôt qu'escalier marqué. */
   --bg: #050709;
-  --bg-elev: #3A3A44;
-    --bg-soft: #48484F;
+  --bg-elev: #0e1014;
+    --bg-soft: #181a20;
   --background: #000000;
   --foreground: #ffffff;
   --surface: #111111;
