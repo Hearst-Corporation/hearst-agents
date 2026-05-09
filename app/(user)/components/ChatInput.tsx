@@ -4,10 +4,10 @@ import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useNavigationStore } from "@/stores/navigation";
+import { useVoiceStore } from "@/stores/voice";
 import type { ServiceDefinition } from "@/lib/integrations/types";
 import { ContextChips } from "./chat/ContextChips";
 import { readAssetDragPayload, type AssetDragPayload } from "./use-asset-drag";
-import { PersonaSwitcher } from "./PersonaSwitcher";
 
 // Lazy-load : modal rendu uniquement à la première ouverture (gain bundle
 // initial du chat ~5-8 KB selon le contenu de DocumentParseModal).
@@ -25,6 +25,35 @@ interface ChatInputProps {
   onProviderMention?: (providerId: string) => void;
   /** Thread courant — utilisé pour scoper la persona active per-thread. */
   threadId?: string | null;
+}
+
+function AutoPill() {
+  const voiceActive = useVoiceStore((s) => s.voiceActive);
+  const setVoiceActive = useVoiceStore((s) => s.setVoiceActive);
+  return (
+    <button
+      type="button"
+      onClick={() => setVoiceActive(!voiceActive)}
+      aria-pressed={voiceActive}
+      className="flex items-center gap-1 transition-all"
+      style={{
+        padding: "var(--space-1) var(--space-3)",
+        borderRadius: "var(--radius-pill)",
+        border: `1px solid ${voiceActive ? "var(--cykan-border)" : "var(--border-soft)"}`,
+        background: voiceActive ? "var(--cykan-bg-active)" : "transparent",
+        color: voiceActive ? "var(--cykan)" : "var(--text-l2)",
+      }}
+    >
+      {voiceActive && (
+        <span
+          className="rounded-pill animate-pulse"
+          style={{ width: "var(--space-1)", height: "var(--space-1)", background: "var(--cykan)" }}
+          aria-hidden
+        />
+      )}
+      <span className="t-9 font-medium">Auto</span>
+    </button>
+  );
 }
 
 export function ChatInput({
@@ -520,16 +549,13 @@ export function ChatInput({
             rows={1}
             className="block w-full bg-transparent t-18 font-light text-[var(--text)] placeholder:text-[var(--text-muted)] border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed py-1"
             style={{
-              minHeight: "var(--space-9)",
+              minHeight: "var(--space-8)",
               maxHeight: "var(--height-input-max)",
             }}
           />
 
-          <div className={isExpanded ? "flex items-center justify-end gap-4 pt-2" : "hidden"}>
-              <PersonaSwitcher
-                threadId={threadId}
-                onChange={(id) => setPersonaId(id)}
-              />
+          <div className={isExpanded ? "flex items-center justify-end gap-3 pt-2" : "hidden"}>
+              <AutoPill />
               <input
                 ref={fileInputRef}
                 type="file"

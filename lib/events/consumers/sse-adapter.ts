@@ -128,7 +128,7 @@ export class SSEAdapter {
   private encoder = new TextEncoder();
   private heartbeatTimer: ReturnType<typeof setInterval> | null = null;
 
-  constructor(private bus: RunEventBus) {
+  constructor(bus: RunEventBus) {
     this.cleanup = bus.on((event) => this.handleEvent(event));
   }
 

@@ -16,7 +16,7 @@ import type {
 export class ArtifactManager {
   constructor(
     private db: SupabaseClient,
-    private runId: string,
+    _runId: string,
   ) {}
 
   async create(

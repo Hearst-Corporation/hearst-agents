@@ -13,7 +13,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks hoisted ─────────────────────────────────────────────────────────
 const mockGetServerSession = vi.hoisted(() => vi.fn());
-const _mockGetUserId = vi.hoisted(() => vi.fn());
 
 vi.mock("next-auth", () => ({
   getServerSession: mockGetServerSession,

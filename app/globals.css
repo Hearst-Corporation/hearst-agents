@@ -22,12 +22,9 @@
   --bg-light-stage: #ffffff;
   --text-dark-strong: #000000;
 
-  /* Token name abstractions */
   --text-dark: #000000;
-  --text-light: #ffffff;
 
   /* Material scale — Technological Luxury */
-  --mat-050: #050505;
   --mat-100: #040404;
   --mat-200: #070707;
   --mat-300: #0a0a0a;
@@ -37,7 +34,6 @@
   /* Subtle border material */
   --line: rgba(255, 255, 255, 0.03);
   --line-strong: rgba(255, 255, 255, 0.06);
-  --line-active: rgba(45, 212, 191, 0.15);
 
   /* Surface scale — translucent fill (above --mat-* opaque scale) */
   --surface-1: rgba(255, 255, 255, 0.025);
@@ -53,7 +49,6 @@
   --text-muted: rgba(255, 255, 255, 0.65);
   --text-faint: rgba(255, 255, 255, 0.45);
   --text-ghost: rgba(255, 255, 255, 0.42);
-  --text-decor-25: rgba(255, 255, 255, 0.25);
 
   /* Accent colors */
   --cyan-accent: #2DD4BF;
@@ -69,25 +64,15 @@
    * hover, run actif, voice actif, sélection). Cette séparation a été tranchée
    * dans le pivot UI 2026-05-01 (direction A — Éditoriale Tenue). */
   --gold: #C8A961;
-  --gold-soft: color-mix(in srgb, var(--gold) 18%, transparent);
-  --gold-muted: color-mix(in srgb, var(--gold) 60%, #000000 40%);
   --gold-border: color-mix(in srgb, var(--gold) 28%, transparent);
   --gold-surface: color-mix(in srgb, var(--gold) 6%, transparent);
   --gold-bg-hover: color-mix(in srgb, var(--gold) 8%, transparent);
   --cykan-border: color-mix(in srgb, var(--cykan) 25%, transparent);
   --cykan-surface: color-mix(in srgb, var(--cykan) 6%, transparent);
 
-  /* Halo logo shading — bright/cool variants pour shimmer cykan */
-  --halo-shade-bright: color-mix(in srgb, var(--cykan) 70%, #ffffff 30%);
-  --halo-shade-cool: color-mix(in srgb, var(--cykan) 70%, #000000 30%);
-  --halo-edge-light: rgba(255, 255, 255, 0.55);
-  --halo-edge-dark: rgba(0, 0, 0, 0.65);
-
   /* Glow shadows — Luxurious & Wide */
   --glow-cyan-sm: 0 0 30px rgba(45, 212, 191, 0.1);
   --glow-cyan-md: 0 0 60px rgba(45, 212, 191, 0.15);
-  --glow-cyan-lg: 0 0 90px rgba(45, 212, 191, 0.2);
-  --glow-cyan-xl: 0 0 150px rgba(45, 212, 191, 0.3);
 
   /* Glow — état pipeline (succès / warn / erreur). Symétrie --glow-cyan-*. */
   --glow-success-sm: 0 0 14px rgba(45, 197, 88, 0.55);
@@ -98,10 +83,6 @@
   --glow-danger-md:  0 0 32px rgba(239, 68, 68, 0.45);
 
   /* Z-index scale */
-  --z-base: 0;
-  --z-nav: 30;
-  --z-chat: 40;
-  --z-overlay: 50;
   --z-modal: 60;
 
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
@@ -134,7 +115,6 @@
    * rendre la main au centre. La promesse éditoriale demande que le canvas
    * principal domine ; le rail droit redevient un contexte, pas une seconde page. */
   --width-context: clamp(280px, 22vw, 440px);
-  --width-context-collapsed: 56px;
   --width-center-max: 960px;
   --width-actions: clamp(440px, 36vw, 720px);
   --width-admin-sidebar: 240px;
@@ -151,35 +131,31 @@
   /* ─── Hearst Connect — Halo core (idle home centerpiece) ────── */
   --size-halo-core: 112px;
 
-  /* ─── RightPanel — composants spécifiques ──────────────────── */
-  --width-mini-chart: 96px;         /* AssetMiniChart : largeur du SVG (hauteur = --space-10) */
+  /* ─── Sizes — éléments circulaires / carrés ──────────────────
+   * Tokens de taille pour avatars, badges, dots dimensionnés. Évite
+   * les `w-8 h-8` répétés quand un élément a une sémantique propre. */
+  --size-avatar-sm: 32px;             /* Avatar profil — TimelineRail footer, badges initiale */
 
-  /* ─── Prose — largeurs de lecture éditoriale ───────────────────────
-   * Utilisées par CockpitPoster et plus largement par tout contenu
-   * éditorial qui doit rester lisible (mesure typographique). */
+  /* ─── Cockpit visualizations ──────────────────────────────────
+   * Dimensions des visualisations signatures du Cockpit. Les hauteurs
+   * sont fluides via clamp pour respirer en grand viewport sans
+   * écraser le KPIStrip en petit écran. */
+  --height-particles-wave: clamp(240px, 32vh, 360px);   /* ParticlesWave — onde sinusoïdale centrale */
+  --height-agent-constellation: 200px;                  /* AgentsConstellation — hexagone 2D rail droit */
+
+  /* ─── Prose — largeurs de lecture éditoriale ───────────────────────── */
   --width-prose-narrow: 560px;
-  --width-prose: 640px;
-  --width-prose-brief: 680px;
-  --width-prose-wide: 780px;
-  /* Largeur max du body éditorial CockpitPoster — grille de lecture centrée. */
-  --width-poster-body: 880px;
-  /* WorkingDocument — split panel droit du Thinking Canvas (50/50 max 720). */
   --width-working-doc: min(50%, 720px);
 
   /* ─── ChatInput ─────────────────────────────────────────────── */
-  --height-input-min: var(--space-8);  /* textarea : hauteur min 1 ligne = 32px */
   --height-input-max: 200px;           /* textarea : hauteur max avant scroll */
-  --height-chatbar-idle:   64px;       /* pill chat compacte, idle */
-  --height-chatbar-active: 112px;      /* pill chat étendue, focus ou input */
-  --height-brief-card:     160px;      /* max-height brief du jour avant fade */
 
-  /* ─── FocalStage ─────────────────────────────────────────────── */
-  --height-focal-min: 320px;           /* Surface focale : hauteur minimale */
-  --height-chat-collapsed: 320px;      /* Chat reduced quand FocalStage actif */
-  --height-stage-empty-icon: 80px;     /* Empty state Stage : hauteur icône signature */
-  --height-pulsebar: 48px;             /* PulseBar top fixed : hauteur */
-  --height-action-log: 120px;          /* BrowserStage Action Log footer : hauteur */
-  --height-stage-footer: 28px;         /* StageFooter sous ChatDock : barre état LLM */
+  /* ─── FocalStage / Shell ─────────────────────────────────────── */
+  --height-focal-min: 320px;
+  --height-chat-collapsed: 320px;
+  --height-stage-empty-icon: 80px;
+  --height-pulsebar: 48px;
+  --height-stage-footer: 28px;
 
   /* ─── Tracking — valeurs intermédiaires ────────────────────── */
   --tracking-snug: 0.10em;   /* Entre caption (0.08) et wide (0.12) — RunTimeline */
@@ -187,7 +163,6 @@
   --tracking-label: 0.22em;  /* Tous les labels uppercase Ghost Lumineux — token unique */
 
   /* ─── Ghost Lumineux — 3 couches matière ──────────────────── */
-  --layer-0: #000000;                                            /* fond absolu */
   --layer-1: rgba(255, 255, 255, 0.012);                         /* surface presque invisible */
   --layer-2: rgba(255, 255, 255, 0.038);                         /* élément interactif levé */
   --text-l0: rgba(255, 255, 255, 1.0);                           /* headline blanc pur */
@@ -200,43 +175,17 @@
   --neon-cykan: 0 0 10px rgba(45, 212, 191, 0.7), 0 0 20px rgba(45, 212, 191, 0.3);
 
   /* ─── Shadows composants ────────────────────────────────────── */
-  --shadow-input-glow: var(--input-glow);                        /* CockpitStage input ambient */
-  --shadow-glow-cykan-soft: 0 0 24px rgba(45,212,191,0.40);   /* ChatInput focus cykan */
-  --shadow-thread-active: inset 2px 0 0 var(--cykan);           /* LeftPanel thread actif */
-  --shadow-neon-cykan: 0 0 8px rgba(45, 212, 191, 0.6);         /* TimelineRail thread actif drop-shadow */
+  --shadow-neon-cykan: 0 0 8px rgba(45, 212, 191, 0.6);         /* TimelineRail thread actif */
   --shadow-input-focus: 0 0 15px rgba(45, 212, 191, 0.15);      /* ChatInput focus halo doux */
-  --shadow-focus-ring: 0 0 0 2px var(--border-focus);           /* Focus ring 2px sur boutons / icônes chrome (a11y outline) */
-  --shadow-status-online: 0 0 6px rgba(45, 197, 88, 0.55), 0 0 14px rgba(45, 197, 88, 0.25); /* TimelineRail badge connexion */
-  --shadow-tile-inset: inset 0 0.5px 0 rgba(255, 255, 255, 0.03);
-  --shadow-tile-base: 0 1px 2px rgba(0, 0, 0, 0.20);
-  --shadow-tile-hover: 0 2px 4px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(45, 212, 191, 0.06);
-  --shadow-alert-inset: inset 0 0.5px 0 rgba(255, 255, 255, 0.03), 0 1px 2px rgba(0, 0, 0, 0.20);
-  /* Stage shell relief — highlight 3 directions (top + sides) pour sculpter
-   * le centre du layout sans chrome supplémentaire. Pivot 2026-05-01 v3. */
-  --shadow-shell-relief:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 1px 0 0 rgba(255, 255, 255, 0.04),
-    inset -1px 0 0 rgba(255, 255, 255, 0.04);
-  /* Stage card — carte centrale flottante (radius + padding shell).
-   * Pivot 2026-05-03 : la zone Stage devient une carte détachée des rails. */
+  --shadow-focus-ring: 0 0 0 2px var(--border-focus);           /* Focus ring a11y outline */
+  /* Stage card — carte centrale flottante */
   --shadow-stage-card:
     0 1px 2px rgba(0, 0, 0, 0.18),
     0 8px 28px rgba(0, 0, 0, 0.22);
-  /* Rail shells — inset borders séparateurs de sections */
-  --shadow-rail-shell: inset 0 0 0 1px var(--border-soft);
-  --shadow-divider-bottom: inset 0 -1px 0 0 var(--border-soft);
   --shadow-divider-bottom-subtle: inset 0 -1px 0 0 var(--line);
-  --shadow-divider-top: inset 0 1px 0 0 var(--line);
-
-  /* ─── Hearst Connect — Cards (suggestion grid) ─────────────── */
-  --card-width: 312px;
-  --card-height: 88px;
-  --card-gap: 8px;
-  --card-pad: 16px;
 
   /* ─── Hearst Connect — Input (chat) ─────────────────────────── */
   --input-max-width: 960px;
-  --input-height: 64px;
 
   /* ─── Hearst Connect — Borders alpha (UI overhaul) ──────────── */
   --border-shell: rgba(255, 255, 255, 0.06);
@@ -250,18 +199,12 @@
   --card-flat-bg: rgba(255, 255, 255, 0.02);
   --card-flat-border: rgba(255, 255, 255, 0.06);
 
-  /* Floating input capsule — version dark : translucide sur bg-rail */
-  --input-floating-bg: rgba(255, 255, 255, 0.06);
   --surface-card: rgba(255, 255, 255, 0.035);
   --cykan-bg-active: rgba(45, 212, 191, 0.08);
   --cykan-bg-hover: rgba(45, 212, 191, 0.05);
   --cykan-border-hover: rgba(45, 212, 191, 0.22);
-  --text-inactive: #8a8a8a;
-  --text-subtitle: #9a9a9a;
-  --text-placeholder: #777777;
 
   /* ─── Hearst Connect — Radius scale ─────────────────────────── */
-  --radius-none: 0px;
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -274,8 +217,6 @@
   /* ─── Hearst Connect — Shadow stack (Cinematic depth) ───────── */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.50);
-  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.60);
 
   /* High-end card depth stack (3-layer) */
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.30),
@@ -285,20 +226,11 @@
                       0 20px 40px rgba(45, 212, 191, 0.12),
                       0 30px 60px -12px rgba(0, 0, 0, 0.50);
 
-  /* Signature: offset cyan shadow used on focused inputs */
-  --shadow-input-focus: 4px 4px 0px var(--cyan-accent);
-
-  /* Recessed look for inputs sitting on light surfaces */
-  --shadow-input-inset:
-    inset 0 1px 2px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
-
   /* ─── Hearst Connect — Typography weights ───────────────────── */
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
-  --weight-black: 800;
 
   /* ─── Hearst Connect — Letter spacing scale ─────────────────── */
   --tracking-tight: -0.02em;
@@ -352,12 +284,6 @@
   --color-info-bg: rgba(59, 130, 246, 0.10);
   --color-info-border: rgba(59, 130, 246, 0.20);
 
-  --stage-shoulder: radial-gradient(ellipse 160% 100% at 50% -30%, rgba(255, 255, 255, 0.045) 0%, transparent 55%);
-  --stage-veil: linear-gradient(180deg, rgba(255, 255, 255, 0.008) 0%, transparent 55%);
-  --stage-carbon: radial-gradient(ellipse at 25% 15%, rgba(15, 15, 15, 0.6) 0%, transparent 45%),
-                  radial-gradient(ellipse at 75% 85%, rgba(8, 8, 8, 0.5) 0%, transparent 40%),
-                  radial-gradient(ellipse at 50% 50%, rgba(5, 5, 5, 0.8) 0%, transparent 70%);
-  --stage-dot-grid: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.025) 1px, transparent 0);
 }
 
 /* ─── Light theme — variant 10 "Linear day" ────────────────────
@@ -1141,42 +1067,6 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-rail: var(--rail);
-  --color-cyan-accent: var(--cyan-accent);
-  --color-bg: var(--bg);
-  --color-bg-elev: var(--bg-elev);
-  --color-bg-soft: var(--bg-soft);
-  --color-text: var(--text);
-  --color-text-soft: var(--text-soft);
-  --color-text-muted: var(--text-muted);
-  --color-text-faint: var(--text-faint);
-  --color-text-ghost: var(--text-ghost);
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
-  --color-surface-1: var(--surface-1);
-  --color-surface-2: var(--surface-2);
-  --color-money: var(--money);
-  --color-warn: var(--warn);
-  --color-danger: var(--danger);
-
-  /* Hearst Connect — semantic colors */
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-error: var(--color-error);
-  --color-info: var(--color-info);
-
-  /* Floating Stage Light */
-  --color-bg-light-stage: var(--bg-light-stage);
-  --color-text-dark-strong: var(--text-dark-strong);
-
-  /* Hearst Connect — borders */
-  --color-border-subtle: var(--border-subtle);
-  --color-border-default: var(--border-default);
-  --color-border-strong: var(--border-strong);
-
   /* Hearst Connect — radius (rounded-xs, rounded-pill, ...) */
   --radius-xs: var(--radius-xs);
   --radius-sm: var(--radius-sm);

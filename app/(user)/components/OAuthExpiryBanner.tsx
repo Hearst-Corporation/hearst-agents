@@ -97,48 +97,47 @@ export function OAuthExpiryBanner() {
   const count = connections.length;
   const plural = count > 1 ? "connexions expirent" : "connexion expire";
 
+  const firstService = connections[0];
+  const serviceLabel = firstService?.appName ?? "";
+  const serviceStatus = firstService?.status === "expired" ? "expiré" : "expire bientôt";
+
   return (
     <div
       role="alert"
-      className="flex items-center gap-3 px-4 py-2 shrink-0"
+      className="flex items-center shrink-0"
       style={{
-        background: `color-mix(in srgb, ${bannerColor} 8%, var(--bg-elev))`,
-        borderBottom: `1px solid color-mix(in srgb, ${bannerColor} 20%, transparent)`,
-        transition: `opacity var(--duration-base) var(--ease-standard)`,
+        padding: "0 var(--space-4)",
+        height: "var(--space-8)",
+        borderBottom: "1px solid var(--border-soft)",
+        gap: "var(--space-3)",
       }}
     >
-      {/* Indicateur coloré */}
+      {/* Dot cykan — indicateur système calme */}
       <span
-        className="shrink-0 w-1.5 h-1.5 rounded-pill"
-        style={{ background: bannerColor }}
-        aria-hidden="true"
+        className="shrink-0 rounded-pill"
+        style={{
+          width: "var(--space-1)",
+          height: "var(--space-1)",
+          background: "var(--cykan)",
+        }}
+        aria-hidden
       />
 
-      {/* Message principal */}
-      <span className="t-9 font-mono flex-1 min-w-0 truncate" style={{ color: "var(--text-muted)" }}>
-        <span style={{ color: bannerColor }}>
-          {count} {plural}
-        </span>
-        {" dans moins de "}{AUTH_EXPIRING_DAYS_THRESHOLD}{"j —"}
+      {/* Message inline */}
+      <span className="t-11 font-light flex-1 min-w-0 truncate" style={{ color: "var(--text-l2)" }}>
+        {count} {plural} dans moins de {AUTH_EXPIRING_DAYS_THRESHOLD}j —
       </span>
 
-      {/* Badges connexions */}
-      <div className="flex items-center gap-2 shrink-0 hidden sm:flex">
-        {connections.slice(0, 3).map((c) => (
-          <ConnectionBadge key={c.connectionId} conn={c} />
-        ))}
-        {connections.length > 3 && (
-          <span className="t-9 font-mono" style={{ color: "var(--text-muted)" }}>
-            +{connections.length - 3}
-          </span>
-        )}
-      </div>
+      {/* Service + statut */}
+      <span className="t-11 font-light shrink-0 hidden sm:inline" style={{ color: "var(--text-faint)" }}>
+        {serviceLabel} {serviceStatus}
+      </span>
 
-      {/* CTA Reconnecter */}
+      {/* CTA */}
       <a
         href="/apps"
-        className="t-9 font-mono shrink-0 underline decoration-dotted"
-        style={{ color: bannerColor }}
+        className="t-11 font-medium shrink-0 transition-opacity hover:opacity-70"
+        style={{ color: "var(--text-l1)" }}
       >
         Reconnecter
       </a>
@@ -147,18 +146,11 @@ export function OAuthExpiryBanner() {
       <button
         type="button"
         onClick={() => setDismissed(true)}
-        className="shrink-0 flex items-center justify-center rounded-sm"
-        style={{
-          width: "var(--space-5)",
-          height: "var(--space-5)",
-          color: "var(--text-ghost)",
-          background: "transparent",
-          border: "none",
-          cursor: "pointer",
-        }}
-        aria-label="Masquer cette alerte"
+        className="shrink-0 flex items-center justify-center transition-opacity hover:opacity-70"
+        style={{ color: "var(--text-faint)", background: "transparent", border: "none", cursor: "pointer" }}
+        aria-label="Masquer"
       >
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
           <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </button>

@@ -1,0 +1,283 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content":
+    - /url: "#geist-skip-nav"
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e9]:
+            - link "Hearst corporation Pro" [ref=e10] [cursor=pointer]:
+              - /url: /hearst-corporation
+              - img [ref=e11]
+              - generic [ref=e12]:
+                - generic [ref=e13]: Hearst corporation
+                - generic [ref=e15]: Pro
+            - button [ref=e16] [cursor=pointer]:
+              - img [ref=e18]
+          - button "Find… F" [ref=e21]:
+            - generic [ref=e23]:
+              - img [ref=e25]
+              - generic [ref=e27]: Find…
+              - generic [ref=e29]: F
+        - navigation [ref=e31]:
+          - generic [ref=e34]:
+            - link "Overview" [ref=e35] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os
+              - generic [ref=e39]: Overview
+            - link "Deployments" [ref=e40] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/deployments
+              - img [ref=e42]
+              - generic [ref=e45]: Deployments
+            - link "Logs" [ref=e46] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/logs
+              - img [ref=e48]
+              - generic [ref=e51]: Logs
+            - link "Analytics" [ref=e52] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/analytics
+              - img [ref=e54]
+              - generic [ref=e57]: Analytics
+            - link "Speed Insights" [ref=e58] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/speed-insights
+              - img [ref=e60]
+              - generic [ref=e63]: Speed Insights
+            - link "Observability" [ref=e64] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/observability
+              - img [ref=e66]
+              - generic [ref=e69]: Observability
+              - img [ref=e71]
+            - link "Firewall" [ref=e73] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/firewall
+              - img [ref=e75]
+              - generic [ref=e79]: Firewall
+              - img [ref=e81]
+            - link "CDN" [ref=e83] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/cdn
+              - img [ref=e85]
+              - generic [ref=e88]: CDN
+              - img [ref=e90]
+            - separator [ref=e92]
+            - link "Environment Variables" [ref=e93] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/settings/environment-variables
+              - img [ref=e95]
+              - generic [ref=e98]: Environment Variables
+            - link "Domains" [ref=e99] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/settings/domains
+              - img [ref=e101]
+              - generic [ref=e104]: Domains
+            - link "Integrations" [ref=e105] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/settings/integrations
+              - img [ref=e107]
+              - generic [ref=e110]: Integrations
+            - link "Storage" [ref=e111] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/stores
+              - img [ref=e113]
+              - generic [ref=e116]: Storage
+            - link "Flags" [ref=e117] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/flags
+              - img [ref=e119]
+              - generic [ref=e122]: Flags
+              - img [ref=e124]
+            - link "Agent" [ref=e126] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/agent
+              - img [ref=e128]
+              - generic [ref=e131]: Agent
+              - img [ref=e133]
+            - link "AI Gateway" [ref=e135] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/ai-gateway
+              - img [ref=e137]
+              - generic [ref=e140]: AI Gateway
+              - img [ref=e142]
+            - link "Sandboxes" [ref=e144] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/sandboxes
+              - img [ref=e146]
+              - generic [ref=e149]: Sandboxes
+            - link "Workflows" [ref=e150] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/workflows
+              - img [ref=e152]
+              - generic [ref=e155]: Workflows
+            - separator [ref=e156]
+            - link "Usage" [ref=e157] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/usage
+              - img [ref=e159]
+              - generic [ref=e162]: Usage
+            - link "Support" [ref=e163] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/support
+              - img [ref=e165]
+              - generic [ref=e168]: Support
+            - link "Settings" [ref=e169] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/settings
+              - img [ref=e171]
+              - generic [ref=e174]: Settings
+              - img [ref=e176]
+        - generic [ref=e180]:
+          - button "Avatar for adrien-2853 adrien-2853" [ref=e181] [cursor=pointer]:
+            - img "Avatar for adrien-2853" [ref=e182]:
+              - img "Avatar for adrien-2853" [ref=e183]
+            - generic [ref=e185]: adrien-2853
+            - img [ref=e187]
+          - img [ref=e191]
+      - button [ref=e194] [cursor=pointer]:
+        - img [ref=e195]
+    - generic [ref=e198]:
+      - generic [ref=e199]:
+        - generic [ref=e202]:
+          - link "hearst-os" [ref=e203] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os
+            - generic [ref=e206]: hearst-os
+          - button [ref=e207] [cursor=pointer]:
+            - img [ref=e209]
+          - link "Back to team view" [ref=e213] [cursor=pointer]:
+            - /url: /hearst-corporation/~/deployments
+            - img [ref=e215]
+        - generic [ref=e217]:
+          - generic [ref=e218]:
+            - link "Deployments" [ref=e219] [cursor=pointer]:
+              - /url: /hearst-corporation/hearst-os/deployments
+            - img [ref=e220]
+          - generic [ref=e223]: 62FoKoXhq
+        - button "Open page actions menu" [ref=e225] [cursor=pointer]:
+          - img [ref=e227]
+      - generic [ref=e230]:
+        - generic [ref=e232]:
+          - link "Deployment" [ref=e233] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os/62FoKoXhqwGrHbhKQzdpgNe4Yxjn
+          - link "Logs" [ref=e234] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os/62FoKoXhqwGrHbhKQzdpgNe4Yxjn/logs
+          - link "Resources" [ref=e235] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os/62FoKoXhqwGrHbhKQzdpgNe4Yxjn/resources
+          - link "Source" [ref=e236] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os/62FoKoXhqwGrHbhKQzdpgNe4Yxjn/source
+          - link "Open Graph" [ref=e237] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os/62FoKoXhqwGrHbhKQzdpgNe4Yxjn/og
+        - generic [ref=e238]:
+          - generic [ref=e240]:
+            - generic [ref=e241]:
+              - heading "Deployment Details" [level=3] [ref=e243]
+              - generic [ref=e244]:
+                - button "Redeploy" [ref=e246] [cursor=pointer]:
+                  - img [ref=e248]
+                  - generic [ref=e250]: Redeploy
+                - button "Deployment Actions" [ref=e251] [cursor=pointer]:
+                  - img [ref=e253]
+            - generic [ref=e255]:
+              - generic [ref=e259]:
+                - generic [ref=e261]:
+                  - img [ref=e263]
+                  - heading "Build Failed" [level=3] [ref=e265]
+                - generic [ref=e270]: Your deployment has failed. Please check out the logs for more details.
+              - generic [ref=e272]:
+                - generic [ref=e273]:
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: Created
+                    - generic [ref=e276]:
+                      - img "adrien-2853 Avatar" [ref=e280] [cursor=pointer]:
+                        - img "adrien-2853 Avatar" [ref=e281]
+                      - generic [ref=e282]: adrien-2853
+                      - generic [ref=e284]: 21m ago
+                  - generic [ref=e285]:
+                    - generic [ref=e286]: Status
+                    - generic "This deployment had an error." [ref=e287]:
+                      - generic [ref=e291]: Error
+                      - link "Latest" [ref=e292] [cursor=pointer]:
+                        - /url: /hearst-corporation/hearst-os/deployments?filterBranch=main
+                  - generic [ref=e293]:
+                    - generic [ref=e294]: Duration
+                    - generic "May 9, 2026, 3:17:13 AM UTC" [ref=e295]:
+                      - img [ref=e296]
+                      - text: 17m 1s
+                      - generic [ref=e299]: 4m ago
+                  - generic [ref=e300]:
+                    - generic [ref=e301]: Environment
+                    - generic [ref=e302]:
+                      - img [ref=e303]
+                      - link "Production" [ref=e305] [cursor=pointer]:
+                        - /url: /hearst-corporation/hearst-os/settings/environments/production
+                - generic [ref=e306]:
+                  - generic [ref=e307]: Domains
+                  - generic [ref=e308]:
+                    - img [ref=e310]
+                    - link "hearst-qxm84xdtf-hearst-corporation.vercel.app" [ref=e312] [cursor=pointer]:
+                      - /url: https://hearst-qxm84xdtf-hearst-corporation.vercel.app
+                - generic [ref=e313]:
+                  - generic [ref=e314]: Source
+                  - generic [ref=e315]:
+                    - img [ref=e316]
+                    - link "main" [ref=e318] [cursor=pointer]:
+                      - /url: https://github.com/adrien-debug/hearst-agents/tree/main
+                  - generic [ref=e319]:
+                    - img [ref=e320]
+                    - 'link "93d8171 fix(vercel): conditionner output:standalone sur l''absence de VERCEL=1" [ref=e322] [cursor=pointer]':
+                      - /url: /hearst-corporation/hearst-os/62FoKoXhqwGrHbhKQzdpgNe4Yxjn/source
+                      - generic [ref=e324]: 93d8171
+                      - 'generic "fix(vercel): conditionner output:standalone sur l''absence de VERCEL=1" [ref=e325]'
+            - button "Deployment Settings" [ref=e329] [cursor=pointer]:
+              - generic [ref=e330]:
+                - img [ref=e331]
+                - generic [ref=e334]: Deployment Settings
+          - generic [ref=e335]:
+            - generic [ref=e336]:
+              - heading "Deployment Summary" [level=2] [ref=e338]:
+                - generic:
+                  - img
+                  - generic:
+                    - generic: Deployment Summary
+                  - generic:
+                    - img
+              - heading "Deployment Checks 0 0 0 0 2" [level=2] [ref=e340]:
+                - generic [ref=e341] [cursor=pointer]:
+                  - img [ref=e342]
+                  - generic [ref=e345]: Deployment Checks
+                  - generic [ref=e346]:
+                    - button "0" [ref=e348]:
+                      - img [ref=e349]
+                      - generic [ref=e352]: "0"
+                    - button "0" [ref=e354]:
+                      - img [ref=e355]
+                      - generic [ref=e358]: "0"
+                    - button "0" [ref=e360]:
+                      - img [ref=e361]
+                      - generic [ref=e366]: "0"
+                    - button "0" [ref=e368]:
+                      - img [ref=e369]
+                      - generic [ref=e372]: "0"
+                    - button "2" [ref=e374]:
+                      - img [ref=e375]
+                      - generic [ref=e378]: "2"
+                  - img [ref=e380]
+              - heading "Assigning Custom Domains" [level=2] [ref=e383]:
+                - generic:
+                  - img
+                  - generic: Assigning Custom Domains
+                  - generic:
+                    - img
+            - generic [ref=e385]:
+              - link "Runtime Logs View and debug runtime logs & errors" [ref=e386] [cursor=pointer]:
+                - /url: /hearst-corporation/hearst-os/logs
+                - generic [ref=e387]:
+                  - paragraph [ref=e389]: Runtime Logs
+                  - paragraph [ref=e390]: View and debug runtime logs & errors
+              - link "Observability Monitor app health & performance" [ref=e391] [cursor=pointer]:
+                - /url: /hearst-corporation/hearst-os/observability/serverless-functions
+                - generic [ref=e392]:
+                  - paragraph [ref=e394]: Observability
+                  - paragraph [ref=e395]: Monitor app health & performance
+              - link "Speed Insights Not Enabled Performance metrics from real users" [ref=e396] [cursor=pointer]:
+                - /url: /hearst-corporation/hearst-os/speed-insights
+                - generic [ref=e397]:
+                  - generic [ref=e398]:
+                    - paragraph [ref=e399]: Speed Insights
+                    - generic [ref=e401]: Not Enabled
+                  - paragraph [ref=e402]: Performance metrics from real users
+              - link "Web Analytics Not Enabled Analyze visitors & traffic in real-time" [ref=e403] [cursor=pointer]:
+                - /url: /hearst-corporation/hearst-os/analytics
+                - generic [ref=e404]:
+                  - generic [ref=e405]:
+                    - paragraph [ref=e406]: Web Analytics
+                    - generic [ref=e408]: Not Enabled
+                  - paragraph [ref=e409]: Analyze visitors & traffic in real-time
+  - alert [ref=e410]
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - img

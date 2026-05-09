@@ -17,7 +17,6 @@
  * tokens var(--*).
  */
 
-import React from "react";
 
 export default function PresentationPage() {
   return (

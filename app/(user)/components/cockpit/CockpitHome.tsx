@@ -9,8 +9,8 @@ import { WatchlistMini } from "./WatchlistMini";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 // Three.js manipule WebGL au mount → ssr:false obligatoire.
-const HearstParticlesCloud = dynamic(
-  () => import("./HearstParticlesCloud").then((m) => m.HearstParticlesCloud),
+const ParticlesWave = dynamic(
+  () => import("./ParticlesWave").then((m) => m.ParticlesWave),
   { ssr: false, loading: () => null },
 );
 
@@ -43,7 +43,7 @@ export function CockpitHome({ data }: CockpitHomeProps) {
           minHeight: "var(--space-48)",
         }}
       >
-        <HearstParticlesCloud />
+        <ParticlesWave />
       </div>
 
       <div

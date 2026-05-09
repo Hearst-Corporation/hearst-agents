@@ -86,8 +86,18 @@ export function KpiCard({
         borderRadius: "var(--radius-sm)",
       }}
     >
-      <div className="flex items-center justify-between gap-2 min-w-0">
-        <span className="t-10 font-medium text-[var(--text-faint)] truncate">{label}</span>
+      {/* Label uppercase discret */}
+      <div className="flex items-center gap-2 min-w-0">
+        <span
+          className="t-9 font-medium truncate"
+          style={{
+            color: "var(--text-faint)",
+            letterSpacing: "var(--tracking-wide)",
+            textTransform: "uppercase",
+          }}
+        >
+          {label}
+        </span>
         {statusDot && (
           <span
             className={`context-tile-status is-${statusDot}`}
@@ -96,9 +106,11 @@ export function KpiCard({
           />
         )}
       </div>
+
+      {/* Valeur principale */}
       <div className="flex min-w-0 flex-wrap items-baseline gap-2">
         <div
-          className="t-28 font-light tracking-tight tabular-nums leading-none transition-colors group-hover:text-[var(--cykan)]"
+          className="t-34 font-light tabular-nums leading-none transition-colors group-hover:text-[var(--cykan)]"
           style={{ color: valueColor }}
         >
           {value}
@@ -109,25 +121,28 @@ export function KpiCard({
           </span>
         )}
       </div>
+
+      {/* Barre progression missions */}
       {typeof missionFillPct === "number" && (
         <div
-          className="h-1 w-full overflow-hidden rounded-pill"
+          className="h-px w-full overflow-hidden"
           style={{ background: "var(--surface-2)" }}
           aria-hidden
         >
           <div
-            className="h-full rounded-pill"
+            className="h-full"
             style={{
               width: `${Math.min(100, Math.max(0, missionFillPct))}%`,
               background: "var(--cykan)",
-              opacity: 0.55,
             }}
           />
         </div>
       )}
+
+      {/* Sous-texte + sparkline */}
       <div className="flex items-center justify-between gap-2 min-w-0">
         {sub && (
-          <span className="t-9 font-mono tabular-nums text-[var(--text-faint)] truncate">
+          <span className="t-11 font-light text-[var(--text-faint)] truncate">
             {sub}
           </span>
         )}

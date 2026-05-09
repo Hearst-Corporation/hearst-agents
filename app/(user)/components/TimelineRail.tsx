@@ -85,6 +85,13 @@ const ChevronDownIcon = () => (
     <path d="M6 9l6 6 6-6" />
   </svg>
 );
+
+const FolderIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+  </svg>
+);
+
 // ── Section helpers ────────────────────────────────────────
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
@@ -515,13 +522,14 @@ export function TimelineRail() {
                 className="w-full flex items-center justify-between first:mt-0 mt-12 mb-6 px-3 group"
               >
                 <span
-                  className="t-11 font-medium transition-colors group-hover:text-[var(--text-soft)]"
+                  className="t-9 font-medium transition-colors group-hover:text-[var(--text-soft)]"
                   style={{
                     color: "var(--text-faint)",
-                    letterSpacing: "var(--tracking-tight)",
+                    letterSpacing: "var(--tracking-wide)",
+                    textTransform: "uppercase",
                   }}
                 >
-                  Récents
+                  Investigations
                 </span>
                 <span
                   className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-[var(--text-faint)] group-hover:text-[var(--text-soft)]"
@@ -560,6 +568,36 @@ export function TimelineRail() {
                     ))}
                   </div>
                 ))}
+            </section>
+
+            {/* Workspaces — stub visuel */}
+            <section style={{ marginTop: "var(--space-4)" }}>
+              <div className="flex items-center justify-between mb-6 px-3">
+                <span
+                  className="t-9 font-medium"
+                  style={{
+                    color: "var(--text-faint)",
+                    letterSpacing: "var(--tracking-wide)",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Workspaces
+                </span>
+              </div>
+              <div className="space-y-px">
+                {["New", "New"].map((name, i) => (
+                  <div
+                    key={i}
+                    className="group cursor-pointer py-2 px-3 flex items-center gap-3 rounded-md"
+                    style={{ color: "var(--text-l2)" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--layer-1)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                  >
+                    <span className="shrink-0 text-[var(--text-faint)]"><FolderIcon /></span>
+                    <span className="t-13 font-light truncate" style={{ color: "var(--text-l2)" }}>{name}</span>
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* Archive */}
@@ -633,28 +671,44 @@ export function TimelineRail() {
           </>
         ) : (
           <>
-            <div
-              className="flex items-center"
-              style={{ gap: "var(--space-2)" }}
-            >
-              <span
-                className="rounded-pill shrink-0"
+            {/* Avatar + nom + rôle */}
+            <div className="flex items-center w-full" style={{ gap: "var(--space-3)" }}>
+              <div
+                className="relative shrink-0 flex items-center justify-center rounded-pill"
                 style={{
-                  width: "var(--space-2)",
-                  height: "var(--space-2)",
-                  background: "var(--cykan)",
-                  boxShadow: "var(--shadow-neon-cykan)",
+                  width: "var(--size-avatar-sm)",
+                  height: "var(--size-avatar-sm)",
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--border-soft)",
                 }}
-                aria-hidden
-              />
-              <span className="t-13 font-light text-[var(--text-soft)] truncate max-w-full">
-                {firstName}
-              </span>
+              >
+                <span className="t-13 font-medium" style={{ color: "var(--text-l1)" }}>
+                  {firstName.charAt(0).toUpperCase()}
+                </span>
+                <span
+                  className="absolute rounded-pill"
+                  style={{
+                    width: "var(--space-1)",
+                    height: "var(--space-1)",
+                    background: "var(--cykan)",
+                    boxShadow: "var(--shadow-neon-cykan)",
+                    bottom: "1px",
+                    right: "1px",
+                  }}
+                  aria-hidden
+                />
+              </div>
+              <div className="flex flex-col min-w-0 flex-1">
+                <span className="t-13 font-medium truncate" style={{ color: "var(--text-l1)" }}>
+                  {firstName}
+                </span>
+                <span className="t-9 font-light" style={{ color: "var(--text-faint)" }}>
+                  Admin
+                </span>
+              </div>
             </div>
-            <div
-              className="flex items-center"
-              style={{ gap: "var(--space-3)" }}
-            >
+            {/* Actions footer */}
+            <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
               <GhostFooterLink href="/admin" title="Admin console">
                 Admin
               </GhostFooterLink>

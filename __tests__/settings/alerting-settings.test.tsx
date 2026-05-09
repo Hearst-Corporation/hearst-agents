@@ -9,7 +9,6 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import React from "react";
 import { AlertingSettings } from "@/app/(user)/components/settings/AlertingSettings";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 

@@ -17,7 +17,7 @@ export class StepManager {
   constructor(
     private db: SupabaseClient,
     private runId: string,
-    private events: RunEventBus,
+    _events: RunEventBus,
   ) {}
 
   async create(input: CreateStepInput): Promise<RunStep> {

@@ -2,10 +2,7 @@
 
 /**
  * AgentIcons — icônes SVG des 6 rôles agents.
- *
- * Source unique partagée entre AgentsStrip (strip interactive) et
- * GeneralDashboard (carte contexte sélection). Chaque icône accepte
- * un prop `color` (token CSS ou hex) pour s'adapter aux deux contextes.
+ * Chaque icône accepte un prop `color` (token CSS ou hex).
  */
 
 export function PulseIcon({ color = "currentColor" }: { color?: string }) {
