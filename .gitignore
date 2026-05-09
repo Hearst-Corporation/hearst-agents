@@ -18,6 +18,11 @@
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/.playwright-mcp/
+
+# Screenshots locaux (audits visuels, captures de session)
+/cockpit-*.png
+/screenshot-*.png
 
 # next.js
 /.next/

@@ -11,6 +11,17 @@
             "statusMessage": "Vérification verrou agent…"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/check-agent-lock-bash.mjs",
+            "timeout": 5,
+            "statusMessage": "Vérification verrou (Bash destructif)…"
+          }
+        ]
       }
     ]
   }

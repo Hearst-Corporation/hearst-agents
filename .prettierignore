@@ -1,0 +1,15 @@
+.next
+build
+dist
+node_modules
+coverage
+playwright-report
+test-results
+.runtime-assets
+public
+*.tsbuildinfo
+package-lock.json
+supabase/.temp
+.vercel
+.trunk
+docs/features/_manifest.json

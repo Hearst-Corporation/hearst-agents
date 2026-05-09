@@ -21,11 +21,23 @@
     "start": "next start",
     "lint": "eslint && node scripts/lint-visual.mjs",
     "lint:visual": "node scripts/lint-visual.mjs",
+    "typecheck": "tsc --noEmit --incremental",
+    "typecheck:watch": "tsc --noEmit --watch",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css,yml,yaml}\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ci": "playwright test --reporter=list",
     "test:e2e:ui": "playwright test --ui",
+    "validate": "npm run typecheck && npm run lint && npm run test",
+    "validate:full": "npm run validate && npm run test:e2e:ci",
+    "deadcode": "knip",
+    "circular": "madge --circular --extensions ts,tsx app lib",
+    "audit:deps": "npm audit --omit=dev --audit-level=high",
+    "routes:list": "node scripts/list-api-routes.mjs > docs/api-routes.md",
+    "stores:list": "node scripts/list-stores.mjs > docs/stores.md",
+    "doctor": "npm run typecheck && npm run lint && npm run audit:deps",
     "composio:enable-all": "node --env-file=.env.local scripts/composio-bulk-enable.mjs",
     "health": "npx tsx scripts/health-check.ts",
     "audit": "npx tsx scripts/audit-pipeline.ts",
@@ -33,7 +45,18 @@
     "workers:kill-orphans": "bash scripts/next-worker-helper.sh --kill-orphans",
     "features:manifest": "node scripts/build-features-manifest.mjs",
     "features:test": "node scripts/features-test.mjs",
-    "precommit": "npm run features:manifest && git add docs/features/_manifest.json"
+    "prepare": "simple-git-hooks || true"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged && npm run features:manifest && git add docs/features/_manifest.json"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{md,json,css,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.71",
@@ -91,6 +114,11 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "jsdom": "^26.0.0",
+    "knip": "^6.12.2",
+    "lint-staged": "^17.0.3",
+    "madge": "^8.0.0",
+    "prettier": "^3.8.3",
+    "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.4",

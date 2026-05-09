@@ -1,0 +1,31 @@
+name: Feature
+description: Proposer une nouvelle feature
+labels: [feature]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problème à résoudre
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposition
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considérées
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope ADD
+      description: La feature touche-t-elle une feature verrouillée ADD ?
+      options:
+        - "Non — feature libre"
+        - "Oui — nécessite update de spec"
+        - "Inconnu"
+    validations:
+      required: true

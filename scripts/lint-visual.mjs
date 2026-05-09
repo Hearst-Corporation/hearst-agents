@@ -27,6 +27,9 @@ const SCAN_DIR = join(ROOT, "app");
 const STRICT_PATHS = [
   "app/(user)/components/right-panel/",
   "app/(user)/components/",
+  "app/admin/_components/",
+  "app/admin/_canvas/",
+  "app/components/system/",
 ];
 
 const SKIP_DIRS = new Set(["node_modules", ".next", "test-results", ".git"]);
