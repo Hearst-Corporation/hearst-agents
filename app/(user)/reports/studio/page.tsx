@@ -450,7 +450,7 @@ function ReportStudioPageContent() {
             background: "var(--surface-1)",
           }}
         >
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             Vue desktop
           </span>
           <h2 className="t-15 text-[var(--text)]">

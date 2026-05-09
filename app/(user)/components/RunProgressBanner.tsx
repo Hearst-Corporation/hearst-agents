@@ -33,7 +33,7 @@ export function RunProgressBanner() {
     ? "var(--danger)"
     : isAwaiting
       ? "var(--warn)"
-      : "var(--cykan)";
+      : "var(--accent-teal)";
 
   return (
     <div

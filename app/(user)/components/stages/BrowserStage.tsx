@@ -329,10 +329,10 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
           context={
             <>
               <span
-                className="rounded-pill bg-[var(--cykan)] animate-pulse halo-dot"
+                className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               />
-              <span className="t-11 font-medium text-[var(--cykan)]">
+              <span className="t-11 font-medium text-[var(--accent-teal)]">
                 BROWSER
               </span>
               <span
@@ -349,7 +349,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
         <div className="flex-1 flex items-center justify-center px-8">
           <div className="text-center max-w-md flex flex-col gap-6 w-full">
             <span
-              className="block text-[var(--cykan)] opacity-30 mx-auto t-34"
+              className="block text-[var(--accent-teal)] opacity-30 mx-auto t-34"
               style={{ height: "var(--height-stage-empty-icon)" }}
               aria-hidden
             >
@@ -435,10 +435,10 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--cykan)] animate-pulse halo-dot"
+              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               BROWSER
             </span>
             <span
@@ -449,7 +449,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
               {sessionId.slice(0, 8)}
             </span>
             {executing && (
-              <span className="t-11 font-medium text-[var(--cykan)]">
+              <span className="t-11 font-medium text-[var(--accent-teal)]">
                 · RUNNING
               </span>
             )}

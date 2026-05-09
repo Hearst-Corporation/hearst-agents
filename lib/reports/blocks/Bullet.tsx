@@ -16,12 +16,12 @@
  *
  * Visuel Ghost Protocol :
  *   - barres horizontales empilées (bands) : bad / ok / good = teintes croissantes
- *     de var(--cykan) (15% → 35% → 55%)
- *   - actual : barre solide var(--cykan) au-dessus
+ *     de var(--accent-teal) (15% → 35% → 55%)
+ *   - actual : barre solide var(--accent-teal) au-dessus
  *   - target : marqueur vertical (trait fin var(--text)) sur l'échelle
  *   - labels en t-11 (libellé) + t-9 mono tabular-nums (valeurs)
  *
- * Pas de magic number. Couleur unique = cykan, l'opacité encode la qualité.
+ * Pas de magic number. Couleur unique = accent-teal, l'opacité encode la qualité.
  */
 
 import { fmtNumber } from "./format";
@@ -100,7 +100,7 @@ export function Bullet({ items, format = "number" }: BulletProps) {
                 {it.label}
               </span>
               <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-                <span className="t-9 font-mono tabular-nums text-[var(--cykan)]">
+                <span className="t-9 font-mono tabular-nums text-[var(--accent-teal)]">
                   {valueStr(safeActual)}
                 </span>
                 <span
@@ -127,7 +127,7 @@ export function Bullet({ items, format = "number" }: BulletProps) {
                   position: "absolute",
                   inset: 0,
                   width: `${pctBad}%`,
-                  background: "color-mix(in srgb, var(--cykan) 12%, transparent)",
+                  background: "color-mix(in srgb, var(--accent-teal) 12%, transparent)",
                 }}
                 aria-hidden
               />
@@ -139,7 +139,7 @@ export function Bullet({ items, format = "number" }: BulletProps) {
                   bottom: 0,
                   left: `${pctBad}%`,
                   width: `${Math.max(0, pctOk - pctBad)}%`,
-                  background: "color-mix(in srgb, var(--cykan) 28%, transparent)",
+                  background: "color-mix(in srgb, var(--accent-teal) 28%, transparent)",
                 }}
                 aria-hidden
               />
@@ -151,7 +151,7 @@ export function Bullet({ items, format = "number" }: BulletProps) {
                   bottom: 0,
                   left: `${pctOk}%`,
                   width: `${Math.max(0, pctGood - pctOk)}%`,
-                  background: "color-mix(in srgb, var(--cykan) 45%, transparent)",
+                  background: "color-mix(in srgb, var(--accent-teal) 45%, transparent)",
                 }}
                 aria-hidden
               />
@@ -163,7 +163,7 @@ export function Bullet({ items, format = "number" }: BulletProps) {
                   bottom: "var(--space-1)",
                   left: 0,
                   width: `${pctActual}%`,
-                  background: "var(--cykan)",
+                  background: "var(--accent-teal)",
                 }}
                 aria-hidden
                 title={`actual : ${valueStr(safeActual)}`}

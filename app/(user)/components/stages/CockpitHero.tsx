@@ -34,7 +34,7 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("fr-FR", {
  *   date + heure       — voix système discrète t-13 / text-faint (mono tabular pour l'heure)
  *   briefing headline  — voix éditoriale t-15 / text-l1
  *   briefing body      — voix éditoriale t-13 / text-l2
- *   CTA empty          — voix éditoriale gold (PAS cykan : lien de contenu)
+ *   CTA empty          — voix éditoriale gold (PAS accent-teal : lien de contenu)
  */
 export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
   const { data: session } = useSession();

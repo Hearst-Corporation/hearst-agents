@@ -80,7 +80,7 @@ export default function HospitalityPage() {
           <strong style={{ color: "var(--text)" }}>Mode démo</strong> — les
           données PMS (Mews, Cloudbeds, Opera) sont mockées. Connecte ton PMS
           via{" "}
-          <Link href="/apps" style={{ color: "var(--cykan)" }}>
+          <Link href="/apps" style={{ color: "var(--accent-teal)" }}>
             /apps
           </Link>{" "}
           quand l&apos;intégration sera disponible (intégrations PMS planifiées Q3 2026).

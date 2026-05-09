@@ -45,9 +45,9 @@ function statusColor(status: PlanStepState["status"]): string {
   switch (status) {
     case "running":
     case "awaiting_approval":
-      return "var(--cykan)";
+      return "var(--accent-teal)";
     case "done":
-      return "var(--cykan)";
+      return "var(--accent-teal)";
     case "error":
       return "var(--danger)";
     case "skipped":

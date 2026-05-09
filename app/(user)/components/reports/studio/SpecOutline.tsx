@@ -63,8 +63,8 @@ export function SpecOutline({
       style={{
         gap: "var(--space-2)",
         padding: "var(--space-4)",
-        background: isDropTarget ? "var(--cykan-surface)" : "transparent",
-        border: `1px solid ${isDropTarget ? "var(--cykan-border)" : "transparent"}`,
+        background: isDropTarget ? "var(--accent-teal-surface)" : "transparent",
+        border: `1px solid ${isDropTarget ? "var(--accent-teal-border)" : "transparent"}`,
         borderRadius: "var(--radius-xs)",
         transition: `background var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)`,
       }}
@@ -115,8 +115,8 @@ export function SpecOutline({
               style={{
                 gap: "var(--space-2)",
                 padding: "var(--space-2) var(--space-3)",
-                background: isSelected ? "var(--cykan-surface)" : "var(--surface-1)",
-                border: `1px solid ${isSelected ? "var(--cykan-border)" : "var(--surface-2)"}`,
+                background: isSelected ? "var(--accent-teal-surface)" : "var(--surface-1)",
+                border: `1px solid ${isSelected ? "var(--accent-teal-border)" : "var(--surface-2)"}`,
                 borderRadius: "var(--radius-xs)",
                 opacity: block.hidden ? 0.5 : 1,
               }}
@@ -135,7 +135,7 @@ export function SpecOutline({
                 <span
                   className="t-9 font-mono uppercase"
                   style={{
-                    color: "var(--cykan)",
+                    color: "var(--accent-teal)",
                                         minWidth: "var(--space-16)",
                   }}
                 >

@@ -20,11 +20,11 @@
  * Visuel Ghost Protocol :
  *   - axe temporel horizontal (ticks days/weeks/months selon la durée)
  *   - une row par tâche : label à gauche en t-11, barre à droite
- *   - barre tâche : background var(--surface-2), progress en var(--cykan)
+ *   - barre tâche : background var(--surface-2), progress en var(--accent-teal)
  *   - dépendances : ligne pointillée fine de end-source → start-target
  *     avec tête de flèche en var(--text-faint)
  *
- * Pas de magic number. Couleur unique = cykan, l'opacité encode la progression.
+ * Pas de magic number. Couleur unique = accent-teal, l'opacité encode la progression.
  */
 
 import { fmtNumber } from "./format";
@@ -271,7 +271,7 @@ export function Gantt({ range, tasks, height }: GanttProps) {
                   y={barTop}
                   width={progressW}
                   height={barH}
-                  fill="var(--cykan)"
+                  fill="var(--accent-teal)"
                   fillOpacity={0.85}
                   rx={2}
                 >
@@ -286,7 +286,7 @@ export function Gantt({ range, tasks, height }: GanttProps) {
                   width={w}
                   height={barH}
                   fill="none"
-                  stroke="var(--cykan)"
+                  stroke="var(--accent-teal)"
                   strokeOpacity={0.35}
                   strokeWidth={0.6}
                   rx={2}

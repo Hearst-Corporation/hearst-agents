@@ -33,7 +33,7 @@ export function CockpitAgenda({ data }: CockpitAgendaProps) {
                 borderRadius: "var(--radius-xs)",
               }}
             >
-              <span className="t-11 font-mono tabular-nums text-[var(--cykan)] shrink-0">
+              <span className="t-11 font-mono tabular-nums text-[var(--accent-teal)] shrink-0">
                 {formatHHMM(item.startsAt)}
               </span>
               <span className="t-11 text-[var(--text-faint)]">·</span>

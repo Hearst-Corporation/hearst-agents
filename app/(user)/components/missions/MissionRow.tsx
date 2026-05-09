@@ -38,7 +38,7 @@ interface MissionRowProps {
 }
 
 const STATUS_LINE: Record<MissionOpsStatus, string> = {
-  running: "border-[var(--cykan)] text-[var(--cykan)]",
+  running: "border-[var(--accent-teal)] text-[var(--accent-teal)]",
   success: "border-[var(--money)] text-[var(--money)]",
   failed: "border-[var(--danger)] text-[var(--danger)]",
   blocked: "border-[var(--warn)] text-[var(--warn)]",
@@ -87,7 +87,7 @@ export function MissionRow({
           <p className="t-9 font-light text-[var(--text-faint)] mb-1">
             Réf {mission.id.slice(0, 8)}
           </p>
-          <h3 className="t-13 font-medium text-[var(--text)] tracking-tight group-hover/open:text-[var(--cykan)] transition-colors">
+          <h3 className="t-13 font-medium text-[var(--text)] tracking-tight group-hover/open:text-[var(--accent-teal)] transition-colors">
             {mission.name}
           </h3>
           <p className="t-11 font-light leading-relaxed text-[var(--text-muted)] mt-1">
@@ -110,7 +110,7 @@ export function MissionRow({
         <div className="t-10 font-mono tabular-nums text-[var(--text-faint)] space-y-1">
           <div>{mission.frequency}</div>
           {mission.runningSince && (
-            <div className="text-[var(--cykan)]">
+            <div className="text-[var(--accent-teal)]">
               {Math.floor((currentTime - mission.runningSince) / 1000)} s
             </div>
           )}
@@ -124,7 +124,7 @@ export function MissionRow({
           type="button"
           onClick={() => onRunNow(mission.id)}
           disabled={ops === "running"}
-          className="p-2 text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-2 text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           title="Exécuter maintenant"
         >
           <GhostIconPlay className="w-4 h-4" />

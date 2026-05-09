@@ -201,13 +201,13 @@ export function ReportLayout({
               gap: "var(--space-2)",
               marginBottom: "var(--space-3)",
               padding: "var(--space-2) var(--space-4)",
-              background: "color-mix(in srgb, var(--cykan) 12%, transparent)",
-              border: "1px solid var(--cykan)",
+              background: "color-mix(in srgb, var(--accent-teal) 12%, transparent)",
+              border: "1px solid var(--accent-teal)",
               borderRadius: "var(--radius-xs)",
               transition: "opacity var(--duration-fast) var(--ease-standard)",
             }}
           >
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               Rapport rafraîchi automatiquement
             </span>
           </div>
@@ -226,7 +226,7 @@ export function ReportLayout({
                 onClick={() => { setHistoryOpen((v) => !v); setEditorOpen(false); }}
                 data-testid="report-layout-history-toggle"
                 aria-expanded={historyOpen}
-                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--cykan)]"
+                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
                 style={{
                                     padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--surface-2)",
@@ -244,7 +244,7 @@ export function ReportLayout({
                 onClick={() => { setEditorOpen((v) => !v); setHistoryOpen(false); }}
                 data-testid="report-layout-edit-toggle"
                 aria-expanded={editorOpen}
-                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--cykan)]"
+                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
                 style={{
                                     padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--surface-2)",
@@ -372,7 +372,7 @@ function BlockRenderer({ block }: { block: RenderedBlock }) {
         <Sparkline
           values={values}
           height={(props.height as number) ?? 64}
-          tone={(props.tone as "cykan" | "warn" | "danger" | "muted") ?? "cykan"}
+          tone={(props.tone as "accent-teal" | "warn" | "danger" | "muted") ?? "accent-teal"}
           label={block.label}
         />
       );
@@ -387,7 +387,7 @@ function BlockRenderer({ block }: { block: RenderedBlock }) {
           limit={(props.limit as number) ?? 10}
           format={(props.format as "number" | "currency") ?? "number"}
           currency={(props.currency as string) ?? "EUR"}
-          tone={(props.tone as "cykan" | "warn" | "danger" | "muted") ?? "cykan"}
+          tone={(props.tone as "accent-teal" | "warn" | "danger" | "muted") ?? "accent-teal"}
           direction={(props.direction as "asc" | "desc" | "none") ?? "desc"}
         />
       );
@@ -411,7 +411,7 @@ function BlockRenderer({ block }: { block: RenderedBlock }) {
           labelField={props.labelField as string | undefined}
           valueField={props.valueField as string | undefined}
           limit={(props.limit as number) ?? 7}
-          tone={(props.tone as "cykan" | "warn") ?? "cykan"}
+          tone={(props.tone as "accent-teal" | "warn") ?? "accent-teal"}
         />
       );
 
@@ -635,7 +635,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
         <button
           type="button"
           onClick={onClose}
-          className="t-11 font-medium text-[var(--text-faint)] hover:text-[var(--cykan)]"
+          className="t-11 font-medium text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
           style={{
             background: "transparent",
             border: "none",
@@ -661,7 +661,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
       {/* Feedback restauration */}
       {restoreMsg && (
         <div
-          className="t-11 font-light text-[var(--cykan)]"
+          className="t-11 font-light text-[var(--accent-teal)]"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--border-default)",
@@ -713,7 +713,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                   className="t-11 font-medium"
                   style={{
                     color: compareA === v.versionNumber || compareB === v.versionNumber
-                      ? "var(--cykan)"
+                      ? "var(--accent-teal)"
                       : "var(--text-muted)",
                     background: "transparent",
                     border: "1px solid var(--border-default)",
@@ -730,7 +730,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                   type="button"
                   onClick={() => void handleRestore(v.versionNumber)}
                   disabled={restoring === v.versionNumber}
-                  className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--cykan)]"
+                  className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
                   style={{
                     background: "transparent",
                     border: "1px solid var(--border-default)",
@@ -756,7 +756,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
             type="button"
             onClick={() => void handleCompare()}
             disabled={diffLoading}
-            className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--cykan)]"
+            className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
             style={{
               background: "transparent",
               border: "1px solid var(--border-default)",
@@ -797,7 +797,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                         className="t-11 font-medium"
                         style={{
                           color:
-                            d.kind === "added" ? "var(--cykan)"
+                            d.kind === "added" ? "var(--accent-teal)"
                             : d.kind === "removed" ? "var(--danger)"
                             : "var(--text-muted)",
                         }}

@@ -182,7 +182,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
                   height: "var(--space-2)",
                   borderRadius: "var(--radius-pill)",
                   background:
-                    i === step ? "var(--cykan)" : "var(--border-default)",
+                    i === step ? "var(--accent-teal)" : "var(--border-default)",
                   transition: "width 200ms ease",
                 }}
               />
@@ -196,7 +196,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
             style={{
               padding: "var(--space-3) var(--space-6)",
               borderRadius: "var(--radius-pill)",
-              background: "var(--cykan)",
+              background: "var(--accent-teal)",
               color: "var(--bg)",
             }}
             data-testid="onboarding-next"

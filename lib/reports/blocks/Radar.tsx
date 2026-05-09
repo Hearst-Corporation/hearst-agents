@@ -13,10 +13,10 @@
  * Visuel Ghost Protocol :
  *   - cercles concentriques (échelle 0 → max) en var(--surface-2)
  *   - axes radiaux fins en var(--surface-2)
- *   - polygone par série en var(--cykan), fill avec color-mix opacité 40%
+ *   - polygone par série en var(--accent-teal), fill avec color-mix opacité 40%
  *   - labels axes en t-9 mono uppercase var(--text-muted)
  *
- * Pas de magic number. Couleur unique = cykan, l'opacité encode l'empilement
+ * Pas de magic number. Couleur unique = accent-teal, l'opacité encode l'empilement
  * éventuel des séries.
  */
 
@@ -133,8 +133,8 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
             <g key={`series-${s.label}-${si}`}>
               <path
                 d={path}
-                fill={`color-mix(in srgb, var(--cykan) ${fillOpacity}%, transparent)`}
-                stroke="var(--cykan)"
+                fill={`color-mix(in srgb, var(--accent-teal) ${fillOpacity}%, transparent)`}
+                stroke="var(--accent-teal)"
                 strokeWidth={1.2}
                 strokeLinejoin="round"
               >
@@ -147,7 +147,7 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
                   cx={p.x}
                   cy={p.y}
                   r={2.5}
-                  fill="var(--cykan)"
+                  fill="var(--accent-teal)"
                 />
               ))}
             </g>
@@ -196,8 +196,8 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
                 style={{
                   width: "var(--space-3)",
                   height: "var(--space-2)",
-                  background: `color-mix(in srgb, var(--cykan) ${Math.max(20, 50 - si * 12)}%, transparent)`,
-                  border: "1px solid var(--cykan)",
+                  background: `color-mix(in srgb, var(--accent-teal) ${Math.max(20, 50 - si * 12)}%, transparent)`,
+                  border: "1px solid var(--accent-teal)",
                 }}
               />
               <span

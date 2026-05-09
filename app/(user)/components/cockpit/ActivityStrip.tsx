@@ -158,7 +158,7 @@ export function ActivityStrip({ data }: ActivityStripProps) {
         </span>
         <Link
           href="/runs"
-          className="t-11 font-medium text-[var(--cykan)] hover:opacity-80 transition-opacity"
+          className="t-11 font-medium text-[var(--accent-teal)] hover:opacity-80 transition-opacity"
         >
           View logs →
         </Link>

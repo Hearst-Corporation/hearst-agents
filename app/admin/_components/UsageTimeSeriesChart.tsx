@@ -4,7 +4,7 @@
  * Graph SVG inline minimaliste — runs + cost par bucket temporel.
  *
  * Pas de lib externe (pas de Recharts), tokens uniquement.
- * Trace 2 lignes : runs (cykan) et cost USD (warn).
+ * Trace 2 lignes : runs (accent-teal) et cost USD (warn).
  */
 
 interface Point {
@@ -79,7 +79,7 @@ export function UsageTimeSeriesChart({
       <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
         <h3 className="t-13 font-medium text-[var(--text)]">Usage cross-tenant</h3>
         <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-          <Legend label="runs" colorVar="var(--cykan)" />
+          <Legend label="runs" colorVar="var(--accent-teal)" />
           <Legend label="cost USD" colorVar="var(--warn)" />
         </div>
       </header>
@@ -106,7 +106,7 @@ export function UsageTimeSeriesChart({
         <path
           d={runsPath}
           fill="none"
-          stroke="var(--cykan)"
+          stroke="var(--accent-teal)"
           strokeWidth={1.5}
           strokeLinejoin="round"
         />

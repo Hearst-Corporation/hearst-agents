@@ -61,7 +61,7 @@ describe("Block — rendu", () => {
     expect(ul?.querySelectorAll("li").length).toBe(3);
   });
 
-  it("rend un insight avec label cykan", () => {
+  it("rend un insight avec label accent-teal", () => {
     render(<Block content="**Insight** : truc important" />);
     expect(screen.getByText("Insight")).toBeTruthy();
   });

@@ -4,7 +4,7 @@
  * Sparkline — ligne SVG inline, scaling auto.
  *
  * Style Ghost Protocol :
- *   - stroke `var(--cykan)` 1.5px
+ *   - stroke `var(--accent-teal)` 1.5px
  *   - fill : aire sous la courbe à 10% d'opacité
  *   - aucun axis ni grid (mini chart)
  *   - aria-label + <title> pour l'a11y
@@ -21,12 +21,12 @@ interface SparklineProps {
   width?: number;
   /** ARIA label décrivant ce que représente la sparkline. */
   label?: string;
-  /** Couleur token. Défaut --cykan. */
-  tone?: "cykan" | "warn" | "danger" | "muted";
+  /** Couleur token. Défaut --accent-teal. */
+  tone?: "accent-teal" | "warn" | "danger" | "muted";
 }
 
 const TONE_COLORS: Record<NonNullable<SparklineProps["tone"]>, string> = {
-  cykan: "var(--cykan)",
+  "accent-teal": "var(--accent-teal)",
   warn: "var(--warn)",
   danger: "var(--danger)",
   muted: "var(--text-muted)",
@@ -37,7 +37,7 @@ export function Sparkline({
   height = 48,
   width = 240,
   label,
-  tone = "cykan",
+  tone = "accent-teal",
 }: SparklineProps) {
   const cleaned = values.filter((v) => Number.isFinite(v));
   if (cleaned.length < 2) {

@@ -9,7 +9,7 @@ interface AnalyticsKpiCardProps {
   label: string;
   value: string;
   sub?: string;
-  accent?: "default" | "cykan" | "warn" | "danger";
+  accent?: "default" | "accent-teal" | "warn" | "danger";
 }
 
 export function AnalyticsKpiCard({
@@ -19,8 +19,8 @@ export function AnalyticsKpiCard({
   accent = "default",
 }: AnalyticsKpiCardProps) {
   const valueColor =
-    accent === "cykan"
-      ? "text-[var(--cykan)]"
+    accent === "accent-teal"
+      ? "text-[var(--accent-teal)]"
       : accent === "warn"
         ? "text-[var(--warn)]"
         : accent === "danger"

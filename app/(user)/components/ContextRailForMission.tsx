@@ -132,11 +132,11 @@ export function ContextRailForMission() {
   const status = mission?.opsStatus ?? (mission?.enabled ? "active" : "paused");
   const statusColor =
     status === "running"
-      ? "var(--cykan)"
+      ? "var(--accent-teal)"
       : status === "failed"
         ? "var(--danger)"
         : status === "active"
-          ? "var(--cykan)"
+          ? "var(--accent-teal)"
           : "var(--text-faint)";
   const statusLabel =
     status === "running"
@@ -230,7 +230,7 @@ export function ContextRailForMission() {
             {runs.map((r) => (
               <li
                 key={r.id}
-                className="border-l border-[var(--cykan-border)] pl-4 py-1"
+                className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
               >
                 <p className="t-11 font-light text-[var(--text-soft)] truncate">
                   {TIME_FORMATTER.format(new Date(r.createdAt))}

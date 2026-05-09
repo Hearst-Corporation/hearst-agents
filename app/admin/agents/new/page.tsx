@@ -71,7 +71,7 @@ export default function NewAgentPage() {
             required
             value={form.name}
             onChange={(e) => set("name", e.target.value)}
-            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none focus:border-[var(--cykan)]"
+            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none focus:border-[var(--accent-teal)]"
           />
         </label>
 
@@ -83,7 +83,7 @@ export default function NewAgentPage() {
           <input
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
-            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none focus:border-[var(--cykan)]"
+            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none focus:border-[var(--accent-teal)]"
           />
         </label>
 
@@ -137,7 +137,7 @@ export default function NewAgentPage() {
             rows={6}
             value={form.system_prompt}
             onChange={(e) => set("system_prompt", e.target.value)}
-            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 font-mono t-13 text-[var(--text)] outline-none focus:border-[var(--cykan)]"
+            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 font-mono t-13 text-[var(--text)] outline-none focus:border-[var(--accent-teal)]"
             placeholder="Tu es un assistant expert en..."
           />
         </label>
@@ -155,7 +155,7 @@ export default function NewAgentPage() {
               step={0.1}
               value={form.temperature}
               onChange={(e) => set("temperature", parseFloat(e.target.value))}
-              className="w-full accent-(--cykan)"
+              className="w-full accent-(--accent-teal)"
             />
           </label>
 
@@ -177,7 +177,7 @@ export default function NewAgentPage() {
         <button
           type="submit"
           disabled={saving}
-          className="ghost-btn-solid ghost-btn-cykan rounded-(--radius-sm) px-6 py-2.5 t-13 disabled:opacity-50"
+          className="ghost-btn-solid ghost-btn-accent-teal rounded-(--radius-sm) px-6 py-2.5 t-13 disabled:opacity-50"
         >
           {saving ? "Création..." : "Créer l'agent"}
         </button>

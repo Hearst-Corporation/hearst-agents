@@ -126,7 +126,7 @@ export function ChatConnectInline() {
             href={`https://app.composio.dev/app/${encodeURIComponent(request.app)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-2 t-9 font-light text-[var(--cykan)] hover:underline"
+            className="inline-block mt-2 t-9 font-light text-[var(--accent-teal)] hover:underline"
           >
             Configurer sur app.composio.dev →
           </a>
@@ -159,7 +159,7 @@ export function ChatConnectInline() {
           href={`/api/composio/diagnose?app=${encodeURIComponent(request.app)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="t-9 font-light text-[var(--text-faint)] hover:text-[var(--cykan)]"
+          className="t-9 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
           title="Voir le diagnostic Composio (JSON)"
         >
           Diagnostic

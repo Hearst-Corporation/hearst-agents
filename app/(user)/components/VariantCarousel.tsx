@@ -181,8 +181,8 @@ export function VariantCarousel({
               className="flex flex-col text-left"
               style={{
                 padding: "var(--space-3)",
-                background: isActive ? "var(--cykan-surface)" : "var(--surface-1)",
-                border: `1px solid ${isActive ? "var(--cykan)" : "var(--border-shell)"}`,
+                background: isActive ? "var(--accent-teal-surface)" : "var(--surface-1)",
+                border: `1px solid ${isActive ? "var(--accent-teal)" : "var(--border-shell)"}`,
                 borderRadius: "var(--radius-md)",
                 cursor: "pointer",
                 gap: "var(--space-2)",
@@ -193,7 +193,7 @@ export function VariantCarousel({
               <div className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
                 <span
                   className={`t-11 font-light ${
-                    isActive ? "text-[var(--cykan)]" : "text-[var(--text-muted)]"
+                    isActive ? "text-[var(--accent-teal)]" : "text-[var(--text-muted)]"
                   }`}
                 >
                   {KIND_LABEL[kind]}
@@ -219,7 +219,7 @@ export function VariantCarousel({
 function StatusDot({ status }: { status?: string }) {
   let color = "var(--text-ghost)";
   if (status === "ready") {
-    color = "var(--cykan)";
+    color = "var(--accent-teal)";
   } else if (status === "failed") {
     color = "var(--danger)";
   } else if (status === "pending" || status === "generating") {
@@ -291,7 +291,7 @@ function VariantThumbnail({
   if (kind === "video") {
     return (
       <div style={baseStyle}>
-        <span className="t-13 text-[var(--cykan)]">▶</span>
+        <span className="t-13 text-[var(--accent-teal)]">▶</span>
       </div>
     );
   }
@@ -299,7 +299,7 @@ function VariantThumbnail({
   if (kind === "code") {
     return (
       <div style={baseStyle}>
-        <span className="t-9 font-mono text-[var(--cykan)]">{"</>"}</span>
+        <span className="t-9 font-mono text-[var(--accent-teal)]">{"</>"}</span>
       </div>
     );
   }
@@ -325,7 +325,7 @@ function Waveform() {
           y={(30 - h) / 2}
           width={4}
           height={h}
-          fill="var(--cykan)"
+          fill="var(--accent-teal)"
           opacity={0.7}
         />
       ))}
@@ -400,7 +400,7 @@ function ActiveVariantPanel({
             type="button"
             onClick={onRegenerate}
             disabled={generating}
-            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--cykan)] transition-colors duration-base"
+            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)] transition-colors duration-base"
             style={{
               padding: "var(--space-1) var(--space-3)",
               background: "transparent",
@@ -416,7 +416,7 @@ function ActiveVariantPanel({
             type="button"
             onClick={onFork}
             disabled={generating}
-            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--cykan)]"
+            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
             style={{
               padding: "var(--space-1) var(--space-3)",
               background: "transparent",
@@ -455,7 +455,7 @@ function ActiveVariantPanel({
           href={variant.storageUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="t-11 font-mono text-[var(--cykan)] hover:underline"
+          className="t-11 font-mono text-[var(--accent-teal)] hover:underline"
         >
           Ouvrir l&apos;output {variant.storageUrl}
         </a>

@@ -18,11 +18,11 @@ interface FunnelProps {
   valueField?: string;
   /** Limite hard (3-7 idéal). */
   limit?: number;
-  tone?: "cykan" | "warn";
+  tone?: "accent-teal" | "warn";
 }
 
 const TONE_COLORS = {
-  cykan: "var(--cykan)",
+  "accent-teal": "var(--accent-teal)",
   warn: "var(--warn)",
 } as const;
 
@@ -31,7 +31,7 @@ export function Funnel({
   labelField,
   valueField,
   limit = 7,
-  tone = "cykan",
+  tone = "accent-teal",
 }: FunnelProps) {
   if (!data || data.length === 0) {
     return (
@@ -81,7 +81,7 @@ export function Funnel({
                 </span>
                 <span
                   className="t-9 font-mono uppercase"
-                  style={{ color: i === 0 ? "var(--text-faint)" : "var(--cykan)", letterSpacing: "0.15em" }}
+                  style={{ color: i === 0 ? "var(--text-faint)" : "var(--accent-teal)", letterSpacing: "0.15em" }}
                 >
                   {i === 0 ? "—" : fmtPercent(conv)}
                 </span>

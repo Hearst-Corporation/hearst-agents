@@ -325,7 +325,7 @@ export default function WorkflowBuilderPage() {
               key={tpl.id}
               type="button"
               onClick={() => handlePickTemplate(tpl.id)}
-              className="flex flex-col text-left rounded-md hover:border-[var(--cykan)] transition-colors"
+              className="flex flex-col text-left rounded-md hover:border-[var(--accent-teal)] transition-colors"
               style={{
                 padding: "var(--space-3)",
                 gap: "var(--space-1)",
@@ -360,7 +360,7 @@ export default function WorkflowBuilderPage() {
             background: "var(--surface-1)",
           }}
         >
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             Vue desktop
           </span>
           <h2 className="t-15 text-[var(--text)]">

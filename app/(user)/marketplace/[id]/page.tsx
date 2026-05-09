@@ -237,7 +237,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         {flash && (
           <p
             className="t-11 font-light"
-            style={{ color: "var(--cykan)" }}
+            style={{ color: "var(--accent-teal)" }}
           >
             {flash}
           </p>
@@ -362,7 +362,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
-                  color: n <= rating ? "var(--cykan)" : "var(--text-ghost)",
+                  color: n <= rating ? "var(--accent-teal)" : "var(--text-ghost)",
                 }}
               >
                 ★
@@ -417,7 +417,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
                     background: "var(--bg-elev)",
                   }}
                 >
-                  <span className="t-11 font-medium text-[var(--cykan)]">
+                  <span className="t-11 font-medium text-[var(--accent-teal)]">
                     {"★".repeat(r.rating)}
                     {"·".repeat(5 - r.rating)}
                   </span>
@@ -472,7 +472,7 @@ function WorkflowPreview({ graph }: { graph: WorkflowGraph }) {
           <span className="t-9 font-mono text-[var(--text-faint)]">
             {String(i + 1).padStart(2, "0")}
           </span>
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             {n.kind}
           </span>
           <span className="t-11 text-[var(--text)]">{escapeHtml(n.label)}</span>
@@ -506,7 +506,7 @@ function ReportPreview({ spec }: { spec: ReportSpec }) {
             className="flex items-baseline"
             style={{ gap: "var(--space-2)" }}
           >
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               {b.type}
             </span>
             <span className="t-11 text-[var(--text)]">

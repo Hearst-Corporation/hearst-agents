@@ -85,7 +85,7 @@ export function PulseBar() {
         <button
           type="button"
           onClick={toggleLeftDrawer}
-          className="md:hidden w-7 h-7 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors shrink-0"
+          className="md:hidden w-7 h-7 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors shrink-0"
           aria-label="Ouvrir les conversations"
         >
           <GhostIconMenu className="w-4 h-4" />
@@ -96,7 +96,7 @@ export function PulseBar() {
       <button
         type="button"
         onClick={() => setCommandeurOpen(true)}
-        className="flex-1 min-w-0 max-w-xl mx-auto flex items-center justify-between px-3 py-1.5 border border-[var(--border-shell)] rounded-sm text-[var(--text-faint)] hover:border-[var(--cykan-border-hover)] hover:text-[var(--cykan)] transition-colors"
+        className="flex-1 min-w-0 max-w-xl mx-auto flex items-center justify-between px-3 py-1.5 border border-[var(--border-shell)] rounded-sm text-[var(--text-faint)] hover:border-[var(--accent-teal-border-hover)] hover:text-[var(--accent-teal)] transition-colors"
         title="Ouvrir le Commandeur"
       >
         <span className="t-11 truncate">Demande à Hearst…</span>
@@ -107,27 +107,27 @@ export function PulseBar() {
          Pivot UI 2026-05-01 : on retire les labels mono caps tracking-marquee
          (RUN_ACTIVE / VOICE_ON / CREDITS) qui criaient comme des états critiques
          alors qu'ils étaient juste informationnels. Voix éditoriale calme +
-         dot cykan pour l'état système. */}
+         dot accent-teal pour l'état système. */}
       <div className="flex items-center shrink-0" style={{ gap: "var(--space-4)" }}>
         {isRunning && (
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
             <span
-              className="rounded-pill bg-[var(--cykan)] animate-pulse halo-dot"
+              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-light text-[var(--cykan)]">En cours</span>
+            <span className="t-11 font-light text-[var(--accent-teal)]">En cours</span>
           </div>
         )}
 
         {isVoiceActive && (
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
             <span
-              className="rounded-pill bg-[var(--cykan)] halo-cyan-sm animate-pulse"
+              className="rounded-pill bg-[var(--accent-teal)] halo-cyan-sm animate-pulse"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-light text-[var(--cykan)]">Voix</span>
+            <span className="t-11 font-light text-[var(--accent-teal)]">Voix</span>
           </div>
         )}
 
@@ -140,7 +140,7 @@ export function PulseBar() {
             data-testid="connections-meter"
           >
             <span
-              className="rounded-pill bg-[var(--cykan)]"
+              className="rounded-pill bg-[var(--accent-teal)]"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />

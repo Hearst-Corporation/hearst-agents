@@ -54,13 +54,13 @@ export function OAuthExpiryBanner() {
         gap: "var(--space-3)",
       }}
     >
-      {/* Dot cykan — indicateur système calme */}
+      {/* Dot accent-teal — indicateur système calme */}
       <span
         className="shrink-0 rounded-pill"
         style={{
           width: "var(--space-1)",
           height: "var(--space-1)",
-          background: "var(--cykan)",
+          background: "var(--accent-teal)",
         }}
         aria-hidden
       />

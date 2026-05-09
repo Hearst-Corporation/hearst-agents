@@ -74,7 +74,7 @@ export function RunTimeline({ timeline, isLive }: RunTimelineProps) {
                 <p className="t-10 font-mono text-[var(--money)] mt-1">ASSET_{item.assetName}</p>
               )}
             </div>
-            {isLast && isLive && <span className="w-1.5 h-1.5 shrink-0 mt-1 bg-[var(--cykan)] animate-pulse" />}
+            {isLast && isLive && <span className="w-1.5 h-1.5 shrink-0 mt-1 bg-[var(--accent-teal)] animate-pulse" />}
           </div>
         );
       })}

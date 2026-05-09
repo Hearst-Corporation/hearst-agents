@@ -13,12 +13,12 @@
  *
  * Visuel Ghost Protocol :
  *   - grille triangulaire (chaque cohorte n'affiche que les périodes vécues)
- *   - heatmap intensity sur var(--cykan) avec opacité = valeur
+ *   - heatmap intensity sur var(--accent-teal) avec opacité = valeur
  *   - texte t-9 mono tabular-nums au centre de chaque cellule
  *   - axe horizontal : périodes 0..N (M0, M1, M2, …)
  *   - axe vertical : labels cohortes
  *
- * Pas de magic number. Couleur unique = cykan, l'intensité encode la rétention.
+ * Pas de magic number. Couleur unique = accent-teal, l'intensité encode la rétention.
  */
 
 import { fmtPercent } from "./format";
@@ -165,8 +165,8 @@ export function CohortTriangle({
                     style={{
                       padding: "var(--space-2)",
                       textAlign: "center",
-                      color: intensity > 0.55 ? "var(--text-on-cykan)" : "var(--text-soft)",
-                      background: `color-mix(in srgb, var(--cykan) ${(intensity * 100).toFixed(0)}%, transparent)`,
+                      color: intensity > 0.55 ? "var(--text-on-accent-teal)" : "var(--text-soft)",
+                      background: `color-mix(in srgb, var(--accent-teal) ${(intensity * 100).toFixed(0)}%, transparent)`,
                       borderBottom: "1px solid var(--line)",
                     }}
                     title={display}

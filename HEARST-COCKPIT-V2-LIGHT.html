@@ -22,10 +22,10 @@
   --text-muted: #71717A; /* Zinc 500 */
   --text-ghost: #A1A1AA; /* Zinc 400 */
   
-  --cykan: #2DD4BF;
-  --cykan-soft: rgba(45, 212, 191, 0.1);
-  --cykan-muted: rgba(45, 212, 191, 0.2);
-  --cykan-dark: #0D9488;
+  --accent-teal: #4A8B86;
+  --accent-teal-soft: rgba(74, 139, 134, 0.1);
+  --accent-teal-muted: rgba(74, 139, 134, 0.2);
+  --accent-teal-dark: #0D9488;
   
   --radius-sm: 6px;
   --radius-md: 12px;
@@ -89,7 +89,7 @@ body {
   display: flex; align-items: center; justify-content: center;
 }
 .brand-icon::after {
-  content: ""; width: 8px; height: 8px; background: var(--cykan); border-radius: 50%;
+  content: ""; width: 8px; height: 8px; background: var(--accent-teal); border-radius: 50%;
 }
 .brand-name { font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
 
@@ -118,7 +118,7 @@ body {
 }
 .nav-item:hover { background: var(--border); color: var(--text-main); }
 .nav-item.active { background: var(--bg-panel); color: var(--text-main); box-shadow: var(--shadow-xs); }
-.nav-item.active .dot { width: 6px; height: 6px; background: var(--cykan); border-radius: 50%; }
+.nav-item.active .dot { width: 6px; height: 6px; background: var(--accent-teal); border-radius: 50%; }
 
 .user-profile {
   margin-top: auto;
@@ -195,7 +195,7 @@ body {
   font-size: 13px; font-weight: 500; border: none; cursor: pointer;
   box-shadow: var(--shadow-sm); transition: 0.2s;
 }
-.header-actions .btn:hover { background: var(--cykan-dark); }
+.header-actions .btn:hover { background: var(--accent-teal-dark); }
 
 /* ── KPI CARDS (Stripe/Vercel style) ── */
 .kpi-grid {
@@ -216,9 +216,9 @@ body {
 .kpi-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--bg-nardo); display: flex; align-items: center; justify-content: center; }
 .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
 .kpi-trend { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
-.kpi-trend.positive { color: var(--cykan-dark); }
+.kpi-trend.positive { color: var(--accent-teal-dark); }
 .kpi-trend.neutral { color: var(--text-muted); }
-.trend-pill { background: var(--cykan-soft); padding: 2px 6px; border-radius: 4px; }
+.trend-pill { background: var(--accent-teal-soft); padding: 2px 6px; border-radius: 4px; }
 
 /* ── SPLIT CONTENT ── */
 .content-split {
@@ -261,7 +261,7 @@ body {
   padding: 4px 8px; border-radius: var(--radius-full);
   font-size: 12px; font-weight: 500;
 }
-.status-pill.ready { background: var(--cykan-soft); color: var(--cykan-dark); }
+.status-pill.ready { background: var(--accent-teal-soft); color: var(--accent-teal-dark); }
 .status-pill.pending { background: var(--bg-nardo-hover); color: var(--text-muted); }
 
 /* Suggestions / Insights list */
@@ -273,7 +273,7 @@ body {
 .insight-item:hover { background: var(--bg-nardo); }
 .insight-icon {
   width: 24px; height: 24px; border-radius: 50%;
-  background: var(--cykan-soft); color: var(--cykan-dark);
+  background: var(--accent-teal-soft); color: var(--accent-teal-dark);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   font-size: 12px;
 }
@@ -301,8 +301,8 @@ body {
 .voice-orb {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: conic-gradient(from 90deg at 50% 50%, var(--cykan), #3B82F6, var(--cykan));
-  box-shadow: 0 0 12px var(--cykan-muted);
+  background: conic-gradient(from 90deg at 50% 50%, var(--accent-teal), #3B82F6, var(--accent-teal));
+  box-shadow: 0 0 12px var(--accent-teal-muted);
   animation: spin 4s linear infinite;
   display: flex; align-items: center; justify-content: center;
 }
@@ -498,7 +498,7 @@ body {
         <div class="panel">
           <div class="panel-header">
             <span class="panel-title">Suggestions IA</span>
-            <span style="font-size: 12px; color: var(--cykan-dark); background: var(--cykan-soft); padding: 2px 6px; border-radius: 4px; font-weight: 600;">Actif</span>
+            <span style="font-size: 12px; color: var(--accent-teal-dark); background: var(--accent-teal-soft); padding: 2px 6px; border-radius: 4px; font-weight: 600;">Actif</span>
           </div>
           <div class="insight-list">
             

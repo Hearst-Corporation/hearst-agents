@@ -107,7 +107,7 @@ export function ProviderChip({
   const displayLabel = label ?? providerId;
 
   // Mapping statut → couleur (dot uniquement).
-  // success : cykan (data flow ok)
+  // success : accent-teal (data flow ok)
   // pending : text-faint (in-flight)
   // error   : danger (échec visible)
   const dotClass =
@@ -115,11 +115,11 @@ export function ProviderChip({
       ? "bg-[var(--danger)]"
       : status === "pending"
         ? "bg-[var(--text-faint)] animate-pulse"
-        : "bg-[var(--cykan)]";
+        : "bg-[var(--accent-teal)]";
 
   return (
     <span
-      className="relative inline-flex items-center rounded-pill border border-[var(--border-shell)] bg-[var(--surface-1)] px-2 py-0.5 t-9 font-mono text-[var(--text-muted)] transition-colors hover:border-[var(--cykan-border)] hover:text-[var(--text)]"
+      className="relative inline-flex items-center rounded-pill border border-[var(--border-shell)] bg-[var(--surface-1)] px-2 py-0.5 t-9 font-mono text-[var(--text-muted)] transition-colors hover:border-[var(--accent-teal-border)] hover:text-[var(--text)]"
       style={{ gap: "var(--space-1)" }}
       data-provider={providerId}
       data-status={status}

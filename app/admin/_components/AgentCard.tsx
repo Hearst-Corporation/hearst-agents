@@ -16,7 +16,7 @@ export default function AgentCard({ agent }: AgentCardProps) {
   return (
     <Link
       href={`/admin/agents/${agent.id}`}
-      className="block border border-[var(--border-shell)] bg-[var(--surface-1)] p-4 transition-colors hover:border-[var(--cykan-border-hover)] hover:bg-[var(--surface-2)]"
+      className="block border border-[var(--border-shell)] bg-[var(--surface-1)] p-4 transition-colors hover:border-[var(--accent-teal-border-hover)] hover:bg-[var(--surface-2)]"
     >
       <div className="flex items-center justify-between">
         <h3 className="font-medium text-[var(--text)]">{agent.name}</h3>

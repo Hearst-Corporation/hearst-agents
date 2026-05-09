@@ -117,7 +117,7 @@ export function Table({
                     letterSpacing: "0.15em",
                   }}
                 >
-                  {labels?.[col] ?? col} {indicator && <span style={{ color: "var(--cykan)" }}>{indicator}</span>}
+                  {labels?.[col] ?? col} {indicator && <span style={{ color: "var(--accent-teal)" }}>{indicator}</span>}
                 </th>
               );
             })}

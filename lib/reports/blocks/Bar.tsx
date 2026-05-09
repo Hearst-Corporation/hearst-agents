@@ -24,13 +24,13 @@ interface BarProps {
   format?: "number" | "currency";
   currency?: string;
   /** Couleur de la barre. */
-  tone?: "cykan" | "warn" | "danger" | "muted";
+  tone?: "accent-teal" | "warn" | "danger" | "muted";
   /** Tri appliqué avant slice. Défaut "desc". */
   direction?: "asc" | "desc" | "none";
 }
 
 const TONE_COLORS = {
-  cykan: "var(--cykan)",
+  "accent-teal": "var(--accent-teal)",
   warn: "var(--warn)",
   danger: "var(--danger)",
   muted: "var(--text-muted)",
@@ -43,7 +43,7 @@ export function Bar({
   limit = 10,
   format = "number",
   currency = "EUR",
-  tone = "cykan",
+  tone = "accent-teal",
   direction = "desc",
 }: BarProps) {
   if (!data || data.length === 0) {

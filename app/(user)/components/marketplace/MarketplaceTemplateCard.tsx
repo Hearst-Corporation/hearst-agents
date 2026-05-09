@@ -48,7 +48,7 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
         padding: "var(--space-4)",
         background: "var(--bg-elev)",
         border: template.isFeatured
-          ? "1px solid var(--cykan)"
+          ? "1px solid var(--accent-teal)"
           : "1px solid var(--line-strong)",
         borderRadius: "var(--radius-md)",
       }}
@@ -60,7 +60,7 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           <span
             className="t-13"
-            style={{ color: "var(--cykan)" }}
+            style={{ color: "var(--accent-teal)" }}
             aria-hidden
           >
             {glyph}
@@ -69,7 +69,7 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
             {kindLabel}
           </span>
           {template.isFeatured && (
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               · Featured
             </span>
           )}
@@ -133,7 +133,7 @@ function RatingChip({ avg, count }: { avg: number; count: number }) {
   return (
     <span
       className="t-9 font-mono"
-      style={{ color: "var(--cykan)" }}
+      style={{ color: "var(--accent-teal)" }}
       title={`${avg.toFixed(1)} / 5 — ${count} note${count === 1 ? "" : "s"}`}
     >
       ★ {avg.toFixed(1)} ({count})

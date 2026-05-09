@@ -69,7 +69,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
                   padding: "var(--space-3) var(--space-4)",
                   borderBottom: "1px solid var(--line-strong)",
                   gap: "var(--space-3)",
-                  background: selected ? "var(--cykan-surface)" : "transparent",
+                  background: selected ? "var(--accent-teal-surface)" : "transparent",
                 }}
               >
                 <Td className="col-span-3 truncate t-13 font-medium text-[var(--text)]">
@@ -78,7 +78,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
                 <Td className="col-span-2 text-right t-13 font-mono text-[var(--text-soft)]">
                   {t.totalRuns}
                 </Td>
-                <Td className="col-span-2 text-right t-13 font-mono text-[var(--cykan)]">
+                <Td className="col-span-2 text-right t-13 font-mono text-[var(--accent-teal)]">
                   ${t.totalCostUsd.toFixed(4)}
                 </Td>
                 <Td className="col-span-2 text-right t-11 font-mono text-[var(--text-muted)]">

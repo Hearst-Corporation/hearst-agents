@@ -28,7 +28,7 @@ const STATUS_COLOR: Record<string, string> = {
   succeeded: "bg-[var(--money)]",
   success: "bg-[var(--money)]",
   failed: "bg-[var(--danger)]",
-  running: "bg-[var(--cykan)] animate-pulse halo-dot",
+  running: "bg-[var(--accent-teal)] animate-pulse halo-dot",
   awaiting_approval: "bg-[var(--warn)]",
   awaiting_clarification: "bg-[var(--warn)]",
   cancelled: "bg-[var(--text-ghost)]",
@@ -282,7 +282,7 @@ export default function RunsPage() {
                   >
                     <span className={`w-1.5 h-1.5 rounded-pill shrink-0 ${dotClass}`} />
                     <div className="min-w-0">
-                      <p className="t-13 text-[var(--text-soft)] group-hover:text-[var(--cykan)] transition-colors truncate">
+                      <p className="t-13 text-[var(--text-soft)] group-hover:text-[var(--accent-teal)] transition-colors truncate">
                         {run.input || `Run ${run.id.slice(0, 8)}`}
                       </p>
                       <p className="t-9 font-light text-[var(--text-ghost)] mt-1">
@@ -292,7 +292,7 @@ export default function RunsPage() {
                       </p>
                     </div>
                     <span className={`t-9 font-medium text-right ${
-                      statusKey === "running" ? "text-[var(--cykan)]" :
+                      statusKey === "running" ? "text-[var(--accent-teal)]" :
                       statusKey === "failed" ? "text-[var(--danger)]" :
                       statusKey === "succeeded" || statusKey === "success" ? "text-[var(--money)]" :
                       "text-[var(--text-faint)]"

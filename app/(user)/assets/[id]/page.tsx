@@ -71,7 +71,7 @@ export default function AssetDetailPage() {
         <div className="t-13 text-[var(--text-ghost)] mb-4">Asset non trouvé</div>
         <button
           onClick={() => router.push("/")}
-          className="t-13 text-[var(--cykan)] hover:text-[var(--cykan)]/80"
+          className="t-13 text-[var(--accent-teal)] hover:text-[var(--accent-teal)]/80"
         >
           Retour à l&apos;accueil
         </button>

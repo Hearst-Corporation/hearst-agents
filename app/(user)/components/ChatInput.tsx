@@ -37,15 +37,15 @@ function AutoPill() {
       style={{
         padding: "var(--space-1) var(--space-3)",
         borderRadius: "var(--radius-pill)",
-        border: `1px solid ${voiceActive ? "var(--cykan-border)" : "var(--border-soft)"}`,
-        background: voiceActive ? "var(--cykan-bg-active)" : "transparent",
-        color: voiceActive ? "var(--cykan)" : "var(--text-l2)",
+        border: `1px solid ${voiceActive ? "var(--accent-teal-border)" : "var(--border-soft)"}`,
+        background: voiceActive ? "var(--accent-teal-bg-active)" : "transparent",
+        color: voiceActive ? "var(--accent-teal)" : "var(--text-l2)",
       }}
     >
       {voiceActive && (
         <span
           className="rounded-pill animate-pulse"
-          style={{ width: "var(--space-1)", height: "var(--space-1)", background: "var(--cykan)" }}
+          style={{ width: "var(--space-1)", height: "var(--space-1)", background: "var(--accent-teal)" }}
           aria-hidden
         />
       )}
@@ -370,7 +370,7 @@ export function ChatInput({
                     onClick={() => selectService(service)}
                     className="w-full flex items-center gap-4 px-4 py-3 text-left border-b border-[var(--line)] transition-all duration-300 group hover:bg-[var(--surface-1)]"
                   >
-                    <span className="t-18 text-[var(--text-faint)] group-hover:text-[var(--cykan)] transition-colors">
+                    <span className="t-18 text-[var(--text-faint)] group-hover:text-[var(--accent-teal)] transition-colors">
                       {service.icon}
                     </span>
                     <div className="flex-1">
@@ -395,7 +395,7 @@ export function ChatInput({
 
         {/* Input "two-lines" — pivot 2026-05-03. Deux filets top/bottom
            en gradient (fade aux extrémités), background transparent, plus
-           de coquille ni de halo cykan. Drag-over passe en cykan via le
+           de coquille ni de halo accent-teal. Drag-over passe en accent-teal via le
            data-drag-over (CSS le pickup, pas de style inline). */}
         <div
           className="cockpit-input-pill-line peer group px-6 py-3 relative"
@@ -422,12 +422,12 @@ export function ChatInput({
                   style={{
                     gap: "var(--space-2)",
                     padding: "var(--space-1) var(--space-3)",
-                    background: "var(--cykan-surface)",
-                    border: "1px solid var(--cykan)",
+                    background: "var(--accent-teal-surface)",
+                    border: "1px solid var(--accent-teal)",
                     borderRadius: "var(--radius-pill)",
                   }}
                 >
-                  <span className="t-11 font-medium text-[var(--cykan)]">
+                  <span className="t-11 font-medium text-[var(--accent-teal)]">
                     @{a.kind}
                   </span>
                   <span className="t-11 font-light text-[var(--text)] truncate" style={{ maxWidth: "var(--space-32)" }}>
@@ -448,7 +448,7 @@ export function ChatInput({
           )}
           {attachment && (
             <div className="flex items-center gap-3 px-1 pb-4 mb-4 border-b border-[var(--line)]">
-              <span className="t-9 font-medium text-[var(--cykan)]">
+              <span className="t-9 font-medium text-[var(--accent-teal)]">
                 PDF
               </span>
               <span className="t-13 text-[var(--text-muted)] truncate max-w-xs font-light">
@@ -477,7 +477,7 @@ export function ChatInput({
               className={`t-10 tracking-wide px-1 pb-3 ${
                 imageGenStatus === "error"
                   ? "text-[var(--danger)]"
-                  : "text-[var(--cykan)]"
+                  : "text-[var(--accent-teal)]"
               }`}
             >
               {imageGenMessage}
@@ -488,7 +488,7 @@ export function ChatInput({
               className={`t-10 tracking-wide px-1 pb-3 ${
                 audioGenStatus === "error"
                   ? "text-[var(--danger)]"
-                  : "text-[var(--cykan)]"
+                  : "text-[var(--accent-teal)]"
               }`}
             >
               {audioGenMessage}
@@ -499,14 +499,14 @@ export function ChatInput({
               className={`t-10 tracking-wide px-1 pb-3 ${
                 codeExecStatus === "error"
                   ? "text-[var(--danger)]"
-                  : "text-[var(--cykan)]"
+                  : "text-[var(--accent-teal)]"
               }`}
             >
               {codeExecMessage}
             </p>
           )}
           {docParseMessage && (
-            <p className="t-10 tracking-wide px-1 pb-3 text-[var(--cykan)]">
+            <p className="t-10 tracking-wide px-1 pb-3 text-[var(--accent-teal)]">
               {docParseMessage}
             </p>
           )}
@@ -605,7 +605,7 @@ export function ChatInput({
                     : audioGenStatus === "error"
                       ? "text-[var(--danger)]"
                       : input.trim()
-                        ? "text-[var(--text-l2)] hover:text-[var(--cykan)]"
+                        ? "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
                         : "text-[var(--text-l3)] cursor-not-allowed"
                 }`}
               >
@@ -630,7 +630,7 @@ export function ChatInput({
                     : codeExecStatus === "error"
                       ? "text-[var(--danger)]"
                       : input.trim()
-                        ? "text-[var(--text-l2)] hover:text-[var(--cykan)]"
+                        ? "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
                         : "text-[var(--text-l3)] cursor-not-allowed"
                 }`}
               >
@@ -655,7 +655,7 @@ export function ChatInput({
                     : imageGenStatus === "error"
                       ? "text-[var(--danger)]"
                       : input.trim()
-                        ? "text-[var(--text-l2)] hover:text-[var(--cykan)]"
+                        ? "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
                         : "text-[var(--text-l3)] cursor-not-allowed"
                 }`}
               >
@@ -675,7 +675,7 @@ export function ChatInput({
                 className={`transition-colors duration-base ${
                   isRunning
                     ? "text-[var(--text-l3)] cursor-not-allowed"
-                    : "text-[var(--text-l2)] hover:text-[var(--cykan)]"
+                    : "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -695,8 +695,8 @@ export function ChatInput({
                   uploading
                     ? "text-[var(--warn)] animate-pulse"
                     : attachment
-                      ? "text-[var(--cykan)]"
-                      : "text-[var(--text-l2)] hover:text-[var(--cykan)]"
+                      ? "text-[var(--accent-teal)]"
+                      : "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -705,7 +705,7 @@ export function ChatInput({
               </button>
               {isRunning ? (
                 <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <div className="w-3 h-3 border border-[var(--border-subtle)] border-t-[var(--cykan)] rounded-full animate-spin" />
+                  <div className="w-3 h-3 border border-[var(--border-subtle)] border-t-[var(--accent-teal)] rounded-full animate-spin" />
                 </div>
               ) : (
                 <button
@@ -714,7 +714,7 @@ export function ChatInput({
                   aria-label="Envoyer"
                   className={`transition-colors duration-base ${
                     input.trim()
-                      ? "text-[var(--cykan)]"
+                      ? "text-[var(--accent-teal)]"
                       : "text-[var(--text-l3)] cursor-not-allowed hover:text-[var(--text-l2)]"
                   }`}
                   title="Envoyer"
@@ -776,7 +776,7 @@ export function ChatInput({
               onClick={() => router.push("/apps")}
               title="Connect a new app"
               aria-label="Connect a new app"
-              className="inline-flex items-center justify-center shrink-0 transition-colors text-[var(--text-faint)] hover:text-[var(--cykan)]"
+              className="inline-flex items-center justify-center shrink-0 transition-colors text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
               style={{
                 width: "var(--space-5)",
                 height: "var(--space-5)",

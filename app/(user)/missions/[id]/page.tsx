@@ -53,7 +53,7 @@ export default function MissionDeepLinkPage() {
             <p className="t-13 text-[var(--text-muted)] max-w-sm">{error}</p>
             <button
               onClick={() => router.push("/missions")}
-              className="t-13 font-light text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors"
+              className="t-13 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors"
             >
               ← Retour aux missions
             </button>

@@ -195,10 +195,10 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--cykan)] animate-pulse halo-dot"
+              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               MEETING
             </span>
             <span
@@ -218,7 +218,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center max-w-md flex flex-col gap-6">
             <span
-              className="block text-[var(--cykan)] opacity-30 mx-auto t-34"
+              className="block text-[var(--accent-teal)] opacity-30 mx-auto t-34"
               style={{ height: "var(--height-stage-empty-icon)" }}
               aria-hidden
             >
@@ -270,8 +270,8 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                     aria-pressed={language === code}
                     className={`px-3 py-1 t-11 font-light border transition-colors ${
                       language === code
-                        ? "border-[var(--cykan)] text-[var(--cykan)] bg-[var(--cykan)]/[0.08]"
-                        : "border-[var(--border-shell)] text-[var(--text-muted)] hover:border-[var(--cykan)]/50"
+                        ? "border-[var(--accent-teal)] text-[var(--accent-teal)] bg-[var(--accent-teal)]/[0.08]"
+                        : "border-[var(--border-shell)] text-[var(--text-muted)] hover:border-[var(--accent-teal)]/50"
                     }`}
                     style={{ borderRadius: "var(--radius-sm)" }}
                   >
@@ -335,14 +335,14 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                   return (
                     <label
                       key={idx}
-                      className="flex items-start gap-3 border-l-2 border-[var(--cykan)]/30 cursor-pointer hover:border-[var(--cykan)] transition-colors"
+                      className="flex items-start gap-3 border-l-2 border-[var(--accent-teal)]/30 cursor-pointer hover:border-[var(--accent-teal)] transition-colors"
                       style={{ padding: "var(--space-3)" }}
                     >
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleAction(idx)}
-                        className="mt-1 accent-[var(--cykan)]"
+                        className="mt-1 accent-[var(--accent-teal)]"
                       />
                       <div className="flex-1 flex flex-col gap-1 min-w-0">
                         <p className="t-13 text-[var(--text)]">{item.action}</p>

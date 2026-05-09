@@ -72,7 +72,7 @@ export function BlockEditor({
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         aria-label="Éditer le block"
-        className="t-15 leading-relaxed font-light text-[var(--text-soft)] bg-transparent w-full resize-none outline-none whitespace-pre-wrap border-l border-[var(--cykan)]"
+        className="t-15 leading-relaxed font-light text-[var(--text-soft)] bg-transparent w-full resize-none outline-none whitespace-pre-wrap border-l border-[var(--accent-teal)]"
         style={{
           paddingLeft: "var(--space-4)",
           minHeight: "var(--space-12)",
@@ -97,7 +97,7 @@ export function BlockEditor({
           onClick={() => onSave(value)}
           aria-label="Enregistrer le block"
           data-testid="block-editor-save"
-          className="t-11 font-medium text-[var(--cykan)] hover:text-[var(--cykan)] transition-colors bg-transparent"
+          className="t-11 font-medium text-[var(--accent-teal)] hover:text-[var(--accent-teal)] transition-colors bg-transparent"
           style={{ transitionDuration: "var(--duration-base)" }}
         >
           Enregistrer

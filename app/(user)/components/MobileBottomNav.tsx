@@ -7,7 +7,7 @@
  * inset bottom respecté pour iOS notch.
  *
  * 5 actions :
- *   Cockpit / Chat / Voice (central, large, accent cykan) / Asset / Commandeur
+ *   Cockpit / Chat / Voice (central, large, accent accent-teal) / Asset / Commandeur
  *
  * Voice est central car c'est le moonshot du C8 (voice-first quick access).
  * Asset ouvre le dernier asset focalisé (lastAssetId), fallback Commandeur.
@@ -110,17 +110,17 @@ export function MobileBottomNav() {
               gap: "var(--space-1)",
               background: item.emphasis
                 ? active
-                  ? "var(--cykan)"
-                  : "var(--cykan-surface)"
+                  ? "var(--accent-teal)"
+                  : "var(--accent-teal-surface)"
                 : active
                   ? "var(--surface-1)"
                   : "transparent",
               color: item.emphasis
                 ? active
-                  ? "var(--text-on-cykan)"
-                  : "var(--cykan)"
+                  ? "var(--text-on-accent-teal)"
+                  : "var(--accent-teal)"
                 : active
-                  ? "var(--cykan)"
+                  ? "var(--accent-teal)"
                   : "var(--text-muted)",
             }}
           >

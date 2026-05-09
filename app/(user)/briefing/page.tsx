@@ -166,7 +166,7 @@ export default function BriefingPage() {
                     padding: "var(--space-3) var(--space-4)",
                     background: "var(--surface-2)",
                     borderRadius: "var(--radius-sm)",
-                    borderLeft: "2px solid var(--cykan)",
+                    borderLeft: "2px solid var(--accent-teal)",
                   }}
                 >
                   <p
@@ -188,7 +188,7 @@ export default function BriefingPage() {
                   className="t-9"
                   style={{
                     color: "var(--text-muted)",
-                    borderLeft: "2px solid var(--cykan)",
+                    borderLeft: "2px solid var(--accent-teal)",
                     paddingLeft: "var(--space-3)",
                   }}
                 >

@@ -15,9 +15,9 @@
       --bg: #000;
       --bg-card: #0a0a0c;
       --bg-elev: #101013;
-      --cykan: #2DD4BF;
-      --cykan-soft: rgba(45, 212, 191, 0.08);
-      --cykan-line: rgba(45, 212, 191, 0.18);
+      --accent-teal: #4A8B86;
+      --accent-teal-soft: rgba(74, 139, 134, 0.08);
+      --accent-teal-line: rgba(74, 139, 134, 0.18);
       --text: rgba(255, 255, 255, 0.95);
       --text-muted: rgba(255, 255, 255, 0.6);
       --text-ghost: rgba(255, 255, 255, 0.28);
@@ -42,8 +42,8 @@
     .grid-bg {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
-        linear-gradient(rgba(45, 212, 191, 0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(45, 212, 191, 0.012) 1px, transparent 1px);
+        linear-gradient(rgba(74, 139, 134, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 139, 134, 0.012) 1px, transparent 1px);
       background-size: 80px 80px;
       mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
     }
@@ -54,7 +54,7 @@
     .hero { padding: 60px 0 100px; border-bottom: 1px solid var(--line); margin-bottom: 80px; }
     .kicker {
       font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.4em;
-      color: var(--cykan); text-transform: uppercase; margin-bottom: 32px;
+      color: var(--accent-teal); text-transform: uppercase; margin-bottom: 32px;
     }
     .hero h1 {
       font-size: clamp(56px, 9vw, 128px);
@@ -62,7 +62,7 @@
       margin-bottom: 32px;
     }
     .hero h1 .accent {
-      color: var(--cykan);
+      color: var(--accent-teal);
       display: block;
     }
     .hero .lead {
@@ -80,8 +80,8 @@
     section { margin-bottom: 96px; }
     .section-tag {
       font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.4em;
-      color: var(--cykan); text-transform: uppercase;
-      padding-bottom: 16px; border-bottom: 1px solid var(--cykan-line);
+      color: var(--accent-teal); text-transform: uppercase;
+      padding-bottom: 16px; border-bottom: 1px solid var(--accent-teal-line);
       margin-bottom: 48px; display: block;
     }
     h2 {
@@ -100,13 +100,13 @@
     }
     h4 {
       font-size: 14px; font-weight: 600;
-      color: var(--cykan); margin-bottom: 12px;
+      color: var(--accent-teal); margin-bottom: 12px;
       font-family: var(--font-mono); letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     p { color: var(--text-muted); margin-bottom: 16px; max-width: 780px; }
     p strong { color: var(--text); font-weight: 600; }
-    p em { color: var(--cykan); font-style: normal; }
+    p em { color: var(--accent-teal); font-style: normal; }
 
     /* ── PROBLEM CARD ── */
     .problem-block {
@@ -115,7 +115,7 @@
     }
     .problem-block::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-      background: var(--cykan);
+      background: var(--accent-teal);
     }
     .problem-quote {
       font-size: 28px; font-weight: 500; line-height: 1.35;
@@ -126,7 +126,7 @@
     /* ── PERSONAS ── */
     .personas { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
     .persona { background: var(--bg); padding: 32px; }
-    .persona-role { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--cykan); text-transform: uppercase; margin-bottom: 12px; }
+    .persona-role { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--accent-teal); text-transform: uppercase; margin-bottom: 12px; }
     .persona-name { font-size: 20px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
     .persona-pain { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
     .persona-pain strong { color: var(--text); }
@@ -139,12 +139,12 @@
       background: var(--bg-card); border-radius: 4px; position: relative;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .pillar:hover { border-color: var(--cykan-line); background: var(--bg-elev); }
+    .pillar:hover { border-color: var(--accent-teal-line); background: var(--bg-elev); }
     .pillar-num { font-family: var(--font-mono); font-size: 10px; color: var(--text-ghost); letter-spacing: 0.3em; }
     .pillar-name { font-size: 28px; font-weight: 800; margin: 12px 0 16px; letter-spacing: -0.02em; line-height: 1; }
-    .pillar-name .accent { color: var(--cykan); }
+    .pillar-name .accent { color: var(--accent-teal); }
     .pillar-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
-    .pillar-count { margin-top: 24px; font-family: var(--font-mono); font-size: 11px; color: var(--cykan); letter-spacing: 0.15em; }
+    .pillar-count { margin-top: 24px; font-family: var(--font-mono); font-size: 11px; color: var(--accent-teal); letter-spacing: 0.15em; }
 
     /* ── REPORTS ── */
     .reports-intro { margin-bottom: 64px; }
@@ -156,7 +156,7 @@
     }
     .pillar-header .pillar-tag {
       font-family: var(--font-mono); font-size: 11px;
-      letter-spacing: 0.3em; color: var(--cykan); text-transform: uppercase;
+      letter-spacing: 0.3em; color: var(--accent-teal); text-transform: uppercase;
     }
     .pillar-header h3.pillar-title {
       font-size: 36px; font-weight: 800; letter-spacing: -0.02em;
@@ -172,14 +172,14 @@
       padding: 32px 36px; margin-bottom: 16px; border-radius: 4px;
       transition: border-color 0.3s ease;
     }
-    .report:hover { border-color: var(--cykan-line); }
+    .report:hover { border-color: var(--accent-teal-line); }
     .report-head {
       display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
       margin-bottom: 20px;
     }
     .report-id {
       font-family: var(--font-mono); font-size: 10px;
-      color: var(--cykan); letter-spacing: 0.2em;
+      color: var(--accent-teal); letter-spacing: 0.2em;
     }
     .report-title {
       font-size: 22px; font-weight: 700; letter-spacing: -0.015em;
@@ -190,7 +190,7 @@
       color: var(--text-ghost); letter-spacing: 0.15em;
       text-transform: uppercase;
     }
-    .report-meta .freq { color: var(--cykan); }
+    .report-meta .freq { color: var(--accent-teal); }
     .report-body {
       display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
       margin-top: 16px;
@@ -206,14 +206,14 @@
     }
     .report-cell p code {
       font-family: var(--font-mono); font-size: 11px;
-      color: var(--text); background: var(--cykan-soft);
+      color: var(--text); background: var(--accent-teal-soft);
       padding: 2px 6px; border-radius: 3px;
     }
     .report-example {
       margin-top: 24px; padding-top: 24px;
       border-top: 1px solid var(--line);
       font-family: var(--font-mono); font-size: 12px;
-      color: var(--cykan); line-height: 1.7;
+      color: var(--accent-teal); line-height: 1.7;
     }
     .report-example::before {
       content: 'OUTPUT — '; color: var(--text-ghost); letter-spacing: 0.2em;
@@ -227,11 +227,11 @@
     }
     .scenario::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-      background: var(--cykan); opacity: 0.4;
+      background: var(--accent-teal); opacity: 0.4;
     }
     .scenario-time {
       font-family: var(--font-mono); font-size: 11px;
-      color: var(--cykan); letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent-teal); letter-spacing: 0.3em; text-transform: uppercase;
       margin-bottom: 16px;
     }
     .scenario-title {
@@ -240,7 +240,7 @@
     }
     .scenario-body { font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 760px; }
     .scenario-body strong { color: var(--text); }
-    .scenario-body .voice { color: var(--cykan); font-style: italic; }
+    .scenario-body .voice { color: var(--accent-teal); font-style: italic; }
 
     /* ── DATA STACK ── */
     .stack-grid {
@@ -251,7 +251,7 @@
       padding: 32px; background: var(--bg-card); border: 1px solid var(--line);
       border-radius: 4px;
     }
-    .stack-col h4 { color: var(--cykan); margin-bottom: 16px; }
+    .stack-col h4 { color: var(--accent-teal); margin-bottom: 16px; }
     .stack-col ul { list-style: none; }
     .stack-col li {
       font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--line);
@@ -274,7 +274,7 @@
       border-radius: 4px;
     }
     .agent-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
-    .agent-id { font-family: var(--font-mono); font-size: 10px; color: var(--cykan); letter-spacing: 0.15em; margin-bottom: 16px; }
+    .agent-id { font-family: var(--font-mono); font-size: 10px; color: var(--accent-teal); letter-spacing: 0.15em; margin-bottom: 16px; }
     .agent-skills { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
     /* ── RECO ── */
@@ -288,7 +288,7 @@
     .reco::before {
       content: counter(reco, decimal-leading-zero);
       font-family: var(--font-mono); font-size: 32px;
-      color: var(--cykan); font-weight: 300;
+      color: var(--accent-teal); font-weight: 300;
     }
     .reco h4 { font-family: var(--font-sans); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.015em; text-transform: none; margin-bottom: 12px; }
     .reco p { font-size: 14px; max-width: 680px; }
@@ -300,7 +300,7 @@
     }
     @media (max-width: 800px) { .timeline { grid-template-columns: 1fr 1fr; } }
     .quarter { background: var(--bg); padding: 32px 24px; }
-    .quarter-tag { font-family: var(--font-mono); font-size: 10px; color: var(--cykan); letter-spacing: 0.25em; margin-bottom: 8px; }
+    .quarter-tag { font-family: var(--font-mono); font-size: 10px; color: var(--accent-teal); letter-spacing: 0.25em; margin-bottom: 8px; }
     .quarter-name { font-size: 18px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
     .quarter ul { list-style: none; }
     .quarter li { font-size: 12px; color: var(--text-muted); padding: 6px 0; line-height: 1.4; border-top: 1px solid var(--line); }

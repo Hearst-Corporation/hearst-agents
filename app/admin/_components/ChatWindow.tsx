@@ -103,7 +103,7 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         <button
           onClick={send}
           disabled={loading || !input.trim()}
-          className="ghost-btn-solid ghost-btn-cykan disabled:opacity-50"
+          className="ghost-btn-solid ghost-btn-accent-teal disabled:opacity-50"
         >
           {loading ? "..." : "Envoyer"}
         </button>

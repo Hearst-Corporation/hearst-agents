@@ -125,8 +125,8 @@ export default function MarketplacePage() {
                   style={{
                     padding: "var(--space-2) var(--space-3)",
                     color: active ? "var(--text)" : "var(--text-ghost)",
-                    background: active ? "var(--cykan-surface)" : "transparent",
-                    border: `1px solid ${active ? "var(--cykan)" : "var(--line-strong)"}`,
+                    background: active ? "var(--accent-teal-surface)" : "transparent",
+                    border: `1px solid ${active ? "var(--accent-teal)" : "var(--line-strong)"}`,
                     borderRadius: "var(--radius-pill)",
                     cursor: "pointer",
                   }}
@@ -169,7 +169,7 @@ export default function MarketplacePage() {
           <>
             {featured.length > 0 && (
               <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-                <h2 className="t-11 font-medium text-[var(--cykan)]">
+                <h2 className="t-11 font-medium text-[var(--accent-teal)]">
                   Featured
                 </h2>
                 <Grid templates={featured} />

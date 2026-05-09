@@ -4,7 +4,7 @@
  * StageActionBar — barre d'actions cohérente pour tous les Stages.
  *
  * Architecture :
- *   - `primary` (max 1) : bouton cykan filled, action mise en avant
+ *   - `primary` (max 1) : bouton accent-teal filled, action mise en avant
  *   - `secondary` (n) : boutons border, actions courantes
  *   - `overflow` (n) : menu kebab `⋯` qui ouvre un dropdown avec les
  *     actions "moins fréquentes"
@@ -31,7 +31,7 @@ export interface StageAction {
 export interface StageActionBarProps {
   /** Slot label gauche (ex: "ASSET · 4f3a · REPORT"). Optionnel. */
   context?: ReactNode;
-  /** Action mise en avant (cykan filled). Une seule. */
+  /** Action mise en avant (accent-teal filled). Une seule. */
   primary?: StageAction;
   /** Actions secondaires (boutons border, icon + label). */
   secondary?: StageAction[];
@@ -67,7 +67,7 @@ export function StageActionBar({
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center t-11 font-light border border-[var(--border-shell)] text-[var(--text-faint)] hover:text-[var(--cykan)] hover:border-[var(--cykan-border-hover)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan-border-hover)] shrink-0"
+            className="inline-flex items-center t-11 font-light border border-[var(--border-shell)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] shrink-0"
             style={{
               gap: "var(--space-2)",
               paddingLeft: "var(--space-3)",
@@ -110,16 +110,16 @@ function PrimaryButton({ action }: { action: StageAction }) {
       disabled={action.disabled || action.loading}
       data-testid={`stage-action-${action.id}`}
       aria-label={action.label}
-      className="inline-flex items-center t-11 font-light shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan-border-hover)]"
+      className="inline-flex items-center t-11 font-light shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
       style={{
         gap: "var(--space-2)",
         paddingLeft: "var(--space-3)",
         paddingRight: "var(--space-3)",
         paddingTop: "var(--space-1)",
         paddingBottom: "var(--space-1)",
-        background: isDanger ? "var(--danger)" : "var(--cykan)",
-        color: "var(--text-on-cykan)",
-        border: "1px solid " + (isDanger ? "var(--danger)" : "var(--cykan)"),
+        background: isDanger ? "var(--danger)" : "var(--accent-teal)",
+        color: "var(--text-on-accent-teal)",
+        border: "1px solid " + (isDanger ? "var(--danger)" : "var(--accent-teal)"),
         borderRadius: "var(--radius-xs)",
         cursor: action.disabled || action.loading ? "not-allowed" : "pointer",
         opacity: action.disabled || action.loading ? 0.5 : 1,
@@ -144,7 +144,7 @@ function SecondaryButton({ action }: { action: StageAction }) {
       disabled={action.disabled || action.loading}
       data-testid={`stage-action-${action.id}`}
       aria-label={action.label}
-      className="inline-flex items-center t-11 font-light shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan-border-hover)]"
+      className="inline-flex items-center t-11 font-light shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
       style={{
         gap: "var(--space-2)",
         paddingLeft: "var(--space-3)",
@@ -200,13 +200,13 @@ function OverflowMenu({ actions }: { actions: StageAction[] }) {
         aria-expanded={open}
         aria-label="Plus d'actions"
         data-testid="stage-action-overflow-toggle"
-        className="inline-flex items-center justify-center t-11 font-light shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan-border-hover)]"
+        className="inline-flex items-center justify-center t-11 font-light shrink-0 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
         style={{
           width: "var(--space-8)",
           height: "var(--space-8)",
           background: "transparent",
-          color: open ? "var(--cykan)" : "var(--text-faint)",
-          border: "1px solid " + (open ? "var(--cykan-border-hover)" : "var(--border-shell)"),
+          color: open ? "var(--accent-teal)" : "var(--text-faint)",
+          border: "1px solid " + (open ? "var(--accent-teal-border-hover)" : "var(--border-shell)"),
           borderRadius: "var(--radius-xs)",
           cursor: "pointer",
           transition: "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
@@ -240,7 +240,7 @@ function OverflowMenu({ actions }: { actions: StageAction[] }) {
               }}
               disabled={a.disabled}
               data-testid={`stage-action-${a.id}`}
-              className="inline-flex items-center w-full t-11 font-light text-left hover:text-[var(--cykan)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan-border-hover)]"
+              className="inline-flex items-center w-full t-11 font-light text-left hover:text-[var(--accent-teal)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
               style={{
                 gap: "var(--space-2)",
                 paddingLeft: "var(--space-3)",

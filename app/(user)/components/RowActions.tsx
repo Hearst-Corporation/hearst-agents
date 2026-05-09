@@ -82,8 +82,8 @@ function IconButton({ action }: { action: RowAction }) {
       }}
       onMouseEnter={(e) => {
         if (action.disabled) return;
-        e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--cykan)";
-        e.currentTarget.style.borderColor = isDanger ? "var(--danger)" : "var(--cykan-border-hover)";
+        e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--accent-teal)";
+        e.currentTarget.style.borderColor = isDanger ? "var(--danger)" : "var(--accent-teal-border-hover)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--text-faint)";

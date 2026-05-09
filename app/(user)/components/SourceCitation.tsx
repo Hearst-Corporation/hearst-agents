@@ -80,7 +80,7 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
 
     sups.forEach((sup) => {
       sup.style.cursor = "pointer";
-      sup.style.color = "var(--cykan)";
+      sup.style.color = "var(--accent-teal)";
       sup.style.fontWeight = "500";
       sup.addEventListener("mouseenter", handleEnter);
       sup.addEventListener("mouseleave", handleLeave);
@@ -110,13 +110,13 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
             left: tooltipPos.x,
             padding: "var(--space-3) var(--space-4)",
             background: "var(--surface-1)",
-            border: "1px solid var(--cykan)",
+            border: "1px solid var(--accent-teal)",
             borderRadius: "var(--radius-xs)",
             maxWidth: "calc(var(--space-32) * 2)",
             boxShadow: "var(--shadow-card-hover)",
           }}
         >
-          <p className="t-11 font-medium text-[var(--cykan)]">
+          <p className="t-11 font-medium text-[var(--accent-teal)]">
             SOURCE
           </p>
           <p
@@ -144,12 +144,12 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
           <button
             type="button"
             onClick={() => openSource(activeSource)}
-            className="t-11 font-medium text-[var(--cykan)]"
+            className="t-11 font-medium text-[var(--accent-teal)]"
             style={{
               marginTop: "var(--space-2)",
               padding: "var(--space-1) var(--space-2)",
               background: "transparent",
-              border: "1px solid var(--cykan)",
+              border: "1px solid var(--accent-teal)",
               borderRadius: "var(--radius-xs)",
               cursor: "pointer",
             }}

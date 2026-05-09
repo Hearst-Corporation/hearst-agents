@@ -214,9 +214,9 @@ export default function ReportsDiscoveryPage() {
                   data-testid={`filter-status-${value}`}
                   className="px-3 py-1.5 t-13 font-medium rounded-md border transition-all"
                   style={{
-                    background: isActive ? "var(--cykan-bg-active)" : "var(--surface-1)",
-                    color: isActive ? "var(--cykan)" : "var(--text-muted)",
-                    borderColor: isActive ? "var(--cykan-border)" : "var(--border-subtle)",
+                    background: isActive ? "var(--accent-teal-bg-active)" : "var(--surface-1)",
+                    color: isActive ? "var(--accent-teal)" : "var(--text-muted)",
+                    borderColor: isActive ? "var(--accent-teal-border)" : "var(--border-subtle)",
                     borderRadius: "var(--radius-md)",
                     transitionDuration: "var(--duration-base)",
                     transitionTimingFunction: "var(--ease-standard)",
@@ -224,17 +224,17 @@ export default function ReportsDiscoveryPage() {
                 >
                   {label}
                   {value === "ready" && counts.ready > 0 && (
-                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--cykan)" : "var(--text-ghost)" }}>
+                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}>
                       {counts.ready}
                     </span>
                   )}
                   {value === "needs-connection" && counts.needsConnection > 0 && (
-                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--cykan)" : "var(--text-ghost)" }}>
+                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}>
                       {counts.needsConnection}
                     </span>
                   )}
                   {value === "custom" && counts.custom > 0 && (
-                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--cykan)" : "var(--text-ghost)" }}>
+                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}>
                       {counts.custom}
                     </span>
                   )}
@@ -255,8 +255,8 @@ export default function ReportsDiscoveryPage() {
                   data-testid={`filter-domain-${value}`}
                   className="px-2.5 py-1 t-11 font-light rounded-md transition-all"
                   style={{
-                    background: isActive ? "var(--cykan-surface)" : "transparent",
-                    color: isActive ? "var(--cykan)" : "var(--text-ghost)",
+                    background: isActive ? "var(--accent-teal-surface)" : "transparent",
+                    color: isActive ? "var(--accent-teal)" : "var(--text-ghost)",
                     borderRadius: "var(--radius-xs)",
                     transitionDuration: "var(--duration-base)",
                     transitionTimingFunction: "var(--ease-standard)",
@@ -309,12 +309,12 @@ export default function ReportsDiscoveryPage() {
             className="flex items-center gap-4 p-4 rounded-md border"
             data-testid="reports-onboarding-banner"
             style={{
-              background: "var(--cykan-surface)",
-              borderColor: "var(--cykan-border)",
+              background: "var(--accent-teal-surface)",
+              borderColor: "var(--accent-teal-border)",
               borderRadius: "var(--radius-md)",
             }}
           >
-            <div style={{ color: "var(--cykan)" }}>
+            <div style={{ color: "var(--accent-teal)" }}>
               <PlugIcon />
             </div>
             <div className="flex flex-col gap-1 flex-1 min-w-0">

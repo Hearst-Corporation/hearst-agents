@@ -25,9 +25,9 @@
   --text-muted: rgba(26,23,20,0.65);
   --text-faint: rgba(26,23,20,0.42);
   --text-ghost: rgba(26,23,20,0.24);
-  --cykan: #C9A84C;
-  --cykan-soft: rgba(201,168,76,0.12);
-  --cykan-line: rgba(201,168,76,0.40);
+  --accent-teal: #C9A84C;
+  --accent-teal-soft: rgba(201,168,76,0.12);
+  --accent-teal-line: rgba(201,168,76,0.40);
   --ok: #B8952C;
   --ok-soft: rgba(184,149,44,0.10);
   --warn: #7A5C1E;
@@ -63,7 +63,7 @@ body {
 
 .muted { color: var(--text-muted); }
 .faint { color: var(--text-faint); }
-.gold { color: var(--cykan); }
+.gold { color: var(--accent-teal); }
 .ok-c { color: var(--ok); }
 .warn-c { color: var(--warn); }
 .crit-c { color: var(--crit); }
@@ -94,7 +94,7 @@ body {
 
 .pulse-dot {
   width: 6px; height: 6px; border-radius: 50%;
-  background: var(--cykan);
+  background: var(--accent-teal);
   box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
 }
 .pulse-dot.warn { background: var(--warn); box-shadow: 0 0 0 3px rgba(122,92,30,0.18); }
@@ -107,7 +107,7 @@ body {
   background: var(--bg-card);
   border-radius: 3px;
 }
-.kpi-chip.up { border-color: var(--cykan-line); background: var(--cykan-soft); }
+.kpi-chip.up { border-color: var(--accent-teal-line); background: var(--accent-teal-soft); }
 .kpi-chip.alert { border-color: rgba(122,92,30,0.35); background: var(--warn-soft); }
 
 /* ── Main grid ── */
@@ -139,8 +139,8 @@ body {
 }
 .rail-item:hover { background: var(--mat-100); }
 .rail-item.active {
-  background: var(--cykan-soft);
-  border-right: 2px solid var(--cykan);
+  background: var(--accent-teal-soft);
+  border-right: 2px solid var(--accent-teal);
 }
 .rail-item-title { font-size: 12px; font-weight: 500; color: var(--text); }
 .rail-item-meta { font-size: 10px; color: var(--text-faint); margin-top: 2px; }
@@ -206,8 +206,8 @@ body {
   padding: 14px 16px;
 }
 .card-gold {
-  background: var(--cykan-soft);
-  border: 1px solid var(--cykan-line);
+  background: var(--accent-teal-soft);
+  border: 1px solid var(--accent-teal-line);
   border-radius: 4px;
   padding: 20px;
 }
@@ -215,7 +215,7 @@ body {
 /* ── KPI grid ── */
 .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
 .kpi-block { background: var(--bg-card); border: 1px solid var(--line-strong); border-radius: 4px; padding: 16px; }
-.kpi-block.gold-border { border-color: var(--cykan-line); }
+.kpi-block.gold-border { border-color: var(--accent-teal-line); }
 .kpi-val { font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
 .kpi-delta { font-family: var(--font-mono); font-size: 10px; margin-top: 4px; }
 .kpi-delta.up { color: var(--ok); }
@@ -266,7 +266,7 @@ body {
 /* ── LLM narration box ── */
 .narration-box {
   background: var(--bg-soft);
-  border-left: 3px solid var(--cykan);
+  border-left: 3px solid var(--accent-teal);
   padding: 16px 20px;
   border-radius: 0 4px 4px 0;
   font-size: 13px;
@@ -278,7 +278,7 @@ body {
   font-size: 9px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cykan);
+  color: var(--accent-teal);
   margin-bottom: 8px;
 }
 
@@ -298,7 +298,7 @@ body {
   margin-bottom: -1px;
   transition: color 0.12s;
 }
-.tab-btn.active { color: var(--cykan); border-bottom-color: var(--cykan); }
+.tab-btn.active { color: var(--accent-teal); border-bottom-color: var(--accent-teal); }
 .tab-btn:hover:not(.active) { color: var(--text-muted); }
 
 /* ── Stage selector ── */
@@ -324,9 +324,9 @@ body {
   cursor: pointer;
 }
 .stage-btn.active {
-  background: var(--cykan-soft);
-  border-color: var(--cykan-line);
-  color: var(--cykan);
+  background: var(--accent-teal-soft);
+  border-color: var(--accent-teal-line);
+  color: var(--accent-teal);
 }
 .stage-kbd {
   font-size: 8px;
@@ -335,26 +335,26 @@ body {
   border-radius: 2px;
   color: var(--text-ghost);
 }
-.stage-btn.active .stage-kbd { border-color: var(--cykan-line); color: var(--cykan); opacity: 0.7; }
+.stage-btn.active .stage-kbd { border-color: var(--accent-teal-line); color: var(--accent-teal); opacity: 0.7; }
 
 /* ── Audio player ── */
 .audio-player {
   display: flex; align-items: center; gap: 14px;
   background: var(--bg-card);
-  border: 1px solid var(--cykan-line);
+  border: 1px solid var(--accent-teal-line);
   border-radius: 4px;
   padding: 14px 18px;
 }
 .audio-play-btn {
   width: 36px; height: 36px; border-radius: 50%;
-  background: var(--cykan);
+  background: var(--accent-teal);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .audio-waveform { flex: 1; display: flex; align-items: center; gap: 2px; height: 28px; }
 .audio-bar {
   width: 3px; border-radius: 2px;
-  background: var(--cykan);
+  background: var(--accent-teal);
   opacity: 0.6;
   animation: wavepulse 1.2s ease-in-out infinite;
 }
@@ -373,8 +373,8 @@ body {
 .city-rank { font-family: var(--font-mono); font-size: 11px; color: var(--text-ghost); width: 20px; text-align: right; }
 .city-name { font-size: 13px; font-weight: 500; width: 120px; }
 .city-bar-track { flex: 1; height: 4px; background: var(--mat-200); border-radius: 2px; }
-.city-bar-fill { height: 100%; border-radius: 2px; background: var(--cykan); }
-.city-score-val { font-family: var(--font-mono); font-size: 12px; color: var(--cykan); width: 36px; text-align: right; }
+.city-bar-fill { height: 100%; border-radius: 2px; background: var(--accent-teal); }
+.city-score-val { font-family: var(--font-mono); font-size: 12px; color: var(--accent-teal); width: 36px; text-align: right; }
 
 /* ── Commandeur ── */
 .cmd-modal {
@@ -391,7 +391,7 @@ body {
   padding: 14px 18px;
   border-bottom: 1px solid var(--line-strong);
 }
-.cmd-icon { color: var(--cykan); font-size: 16px; }
+.cmd-icon { color: var(--accent-teal); font-size: 16px; }
 .cmd-input { border: none; outline: none; background: none; font-size: 15px; flex: 1; color: var(--text); }
 .cmd-input::placeholder { color: var(--text-ghost); }
 .cmd-group-label { padding: 10px 18px 6px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-ghost); }
@@ -400,9 +400,9 @@ body {
   padding: 10px 18px;
   cursor: pointer;
 }
-.cmd-item.focused { background: var(--cykan-soft); }
+.cmd-item.focused { background: var(--accent-teal-soft); }
 .cmd-item-icon { width: 28px; height: 28px; background: var(--bg-soft); border: 1px solid var(--line-strong); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.cmd-item.focused .cmd-item-icon { background: var(--cykan-soft); border-color: var(--cykan-line); }
+.cmd-item.focused .cmd-item-icon { background: var(--accent-teal-soft); border-color: var(--accent-teal-line); }
 .cmd-item-text { font-size: 13px; color: var(--text); }
 .cmd-item-sub { font-size: 11px; color: var(--text-faint); }
 .cmd-kbd { margin-left: auto; font-family: var(--font-mono); font-size: 9px; padding: 2px 6px; border: 1px solid var(--line-bright); border-radius: 3px; color: var(--text-ghost); }
@@ -425,7 +425,7 @@ body {
   color: var(--text-soft);
   white-space: pre-wrap;
 }
-.brief-cursor { display: inline-block; width: 8px; height: 14px; background: var(--cykan); vertical-align: middle; animation: blink 0.9s step-end infinite; }
+.brief-cursor { display: inline-block; width: 8px; height: 14px; background: var(--accent-teal); vertical-align: middle; animation: blink 0.9s step-end infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
 .cabinet-card {
@@ -442,7 +442,7 @@ body {
   padding: 8px 14px; border-bottom: 1px solid var(--line-strong); margin-bottom: 12px;
 }
 .delta-col-label.before { color: var(--text-ghost); }
-.delta-col-label.after { color: var(--cykan); }
+.delta-col-label.after { color: var(--accent-teal); }
 
 /* ── Live service ── */
 .live-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); }
@@ -465,7 +465,7 @@ body {
 
 /* ── Progress bar ── */
 .progress-track { height: 3px; background: var(--mat-200); border-radius: 2px; }
-.progress-fill { height: 100%; border-radius: 2px; background: var(--cykan); }
+.progress-fill { height: 100%; border-radius: 2px; background: var(--accent-teal); }
 
 /* ── Divider ── */
 .divider { height: 1px; background: var(--line-strong); margin: 20px 0; }
@@ -482,9 +482,9 @@ body {
 <!-- ════════════════════════════════════════════════════════════════ -->
 <!--  ZONE 0 — INTRO                                                  -->
 <!-- ════════════════════════════════════════════════════════════════ -->
-<div style="background:var(--bg-soft);border-bottom:2px solid var(--cykan-line);padding:28px 48px;">
+<div style="background:var(--bg-soft);border-bottom:2px solid var(--accent-teal-line);padding:28px 48px;">
   <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:8px;">
-    <span class="label-xs" style="color:var(--cykan);">HEARST OS</span>
+    <span class="label-xs" style="color:var(--accent-teal);">HEARST OS</span>
     <span class="label-xs" style="color:var(--text-ghost);">MOCK — VERTICAL HOSPITALITY</span>
     <span class="label-xs" style="color:var(--text-ghost);">PALETTE: OR CLASSIQUE · CRÈME · NOIR CENDRÉ</span>
   </div>
@@ -552,7 +552,7 @@ body {
           <span class="label-xs" style="color:var(--text-faint);">CASH·30J</span>
           <span class="mono" style="font-size:11px;color:var(--ok);">€312k</span>
         </div>
-        <span class="label-xs" style="color:var(--cykan);">RUN_ACTIVE</span>
+        <span class="label-xs" style="color:var(--accent-teal);">RUN_ACTIVE</span>
         <div class="pulse-dot"></div>
       </div>
     </div>
@@ -576,7 +576,7 @@ body {
       <button class="stage-btn"><span class="stage-kbd">⌘5</span> Meeting</button>
       <button class="stage-btn"><span class="stage-kbd">⌘6</span> KG</button>
       <button class="stage-btn"><span class="stage-kbd">⌘8</span> Site</button>
-      <button class="stage-btn" style="margin-left:auto;color:var(--cykan);border-color:var(--cykan-line);background:var(--cykan-soft);"><span class="stage-kbd" style="border-color:var(--cykan-line);color:var(--cykan);">⌘E</span> Expansion</button>
+      <button class="stage-btn" style="margin-left:auto;color:var(--accent-teal);border-color:var(--accent-teal-line);background:var(--accent-teal-soft);"><span class="stage-kbd" style="border-color:var(--accent-teal-line);color:var(--accent-teal);">⌘E</span> Expansion</button>
     </div>
 
     <!-- KPI row -->
@@ -716,8 +716,8 @@ body {
       <div>
         <div class="label-sm muted" style="margin-bottom:12px;">TIMELINE MÉTIER</div>
         <div style="background:var(--bg-rail);border:1px solid var(--line-strong);border-radius:4px;overflow:hidden;">
-          <div style="padding:8px 12px;background:var(--cykan-soft);border-bottom:1px solid var(--cykan-line);">
-            <div class="label-xs" style="color:var(--cykan);">MAINTENANT</div>
+          <div style="padding:8px 12px;background:var(--accent-teal-soft);border-bottom:1px solid var(--accent-teal-line);">
+            <div class="label-xs" style="color:var(--accent-teal);">MAINTENANT</div>
             <div class="rail-item-title" style="margin-top:4px;">Service déjeuner en cours</div>
             <div class="rail-item-meta">8 sites · 680 couverts réels</div>
           </div>
@@ -794,7 +794,7 @@ body {
         </div>
         <div class="live-row">
           <span class="t-md muted">Rev. déjeuner projeté</span>
-          <span class="mono" style="font-size:14px;color:var(--cykan);">€9 916</span>
+          <span class="mono" style="font-size:14px;color:var(--accent-teal);">€9 916</span>
         </div>
         <div class="live-row">
           <div class="live-indicator"><div class="live-dot amber"></div><span class="t-md">Heures supplémentaires</span></div>
@@ -828,7 +828,7 @@ body {
             </div>
             <div>
               <div class="label-xs muted">EBITDA mois projeté</div>
-              <div style="font-size:20px;font-weight:700;color:var(--cykan);">€28k</div>
+              <div style="font-size:20px;font-weight:700;color:var(--accent-teal);">€28k</div>
               <div class="label-xs" style="color:var(--ok);">Scénario optimiste</div>
             </div>
           </div>
@@ -837,27 +837,27 @@ body {
         <div class="card-sm">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
             <div class="label-sm muted">SAISONNALITÉ 12 MOIS</div>
-            <span class="label-xs" style="color:var(--cykan);">Pearson météo : 0.72</span>
+            <span class="label-xs" style="color:var(--accent-teal);">Pearson météo : 0.72</span>
           </div>
           <div style="display:flex;align-items:flex-end;gap:4px;height:48px;">
             <!-- Bars representing monthly revenue index -->
             <div style="flex:1;background:var(--mat-200);border-radius:2px 2px 0 0;" title="Jan"></div>
             <div style="flex:1;height:45%;background:var(--mat-200);border-radius:2px 2px 0 0;" title="Fév"></div>
-            <div style="flex:1;height:60%;background:var(--cykan);opacity:0.5;border-radius:2px 2px 0 0;" title="Mar"></div>
-            <div style="flex:1;height:80%;background:var(--cykan);opacity:0.65;border-radius:2px 2px 0 0;" title="Avr"></div>
-            <div style="flex:1;height:100%;background:var(--cykan);border-radius:2px 2px 0 0;" title="Mai"></div>
-            <div style="flex:1;height:95%;background:var(--cykan);opacity:0.9;border-radius:2px 2px 0 0;" title="Jun"></div>
-            <div style="flex:1;height:85%;background:var(--cykan);opacity:0.8;border-radius:2px 2px 0 0;" title="Jul"></div>
-            <div style="flex:1;height:70%;background:var(--cykan);opacity:0.65;border-radius:2px 2px 0 0;" title="Aoû"></div>
-            <div style="flex:1;height:88%;background:var(--cykan);opacity:0.8;border-radius:2px 2px 0 0;" title="Sep"></div>
-            <div style="flex:1;height:72%;background:var(--cykan);opacity:0.6;border-radius:2px 2px 0 0;" title="Oct"></div>
+            <div style="flex:1;height:60%;background:var(--accent-teal);opacity:0.5;border-radius:2px 2px 0 0;" title="Mar"></div>
+            <div style="flex:1;height:80%;background:var(--accent-teal);opacity:0.65;border-radius:2px 2px 0 0;" title="Avr"></div>
+            <div style="flex:1;height:100%;background:var(--accent-teal);border-radius:2px 2px 0 0;" title="Mai"></div>
+            <div style="flex:1;height:95%;background:var(--accent-teal);opacity:0.9;border-radius:2px 2px 0 0;" title="Jun"></div>
+            <div style="flex:1;height:85%;background:var(--accent-teal);opacity:0.8;border-radius:2px 2px 0 0;" title="Jul"></div>
+            <div style="flex:1;height:70%;background:var(--accent-teal);opacity:0.65;border-radius:2px 2px 0 0;" title="Aoû"></div>
+            <div style="flex:1;height:88%;background:var(--accent-teal);opacity:0.8;border-radius:2px 2px 0 0;" title="Sep"></div>
+            <div style="flex:1;height:72%;background:var(--accent-teal);opacity:0.6;border-radius:2px 2px 0 0;" title="Oct"></div>
             <div style="flex:1;height:50%;background:var(--mat-200);border-radius:2px 2px 0 0;" title="Nov"></div>
             <div style="flex:1;height:38%;background:var(--mat-200);border-radius:2px 2px 0 0;opacity:0.6;" title="Déc"></div>
           </div>
           <div style="display:flex;justify-content:space-between;margin-top:4px;">
             <span class="label-xs muted">Jan</span>
             <span class="label-xs muted">Avr</span>
-            <span class="label-xs" style="color:var(--cykan);">Mai–Oct ↑</span>
+            <span class="label-xs" style="color:var(--accent-teal);">Mai–Oct ↑</span>
             <span class="label-xs muted">Déc</span>
           </div>
         </div>
@@ -1009,7 +1009,7 @@ body {
         <div class="divider"></div>
         <div>
           <div class="label-xs muted" style="margin-bottom:8px;">ACTIONS</div>
-          <button style="width:100%;padding:8px;background:var(--cykan);color:#1A1714;border:none;border-radius:3px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.10em;text-transform:uppercase;cursor:pointer;margin-bottom:6px;">Partager via Slack</button>
+          <button style="width:100%;padding:8px;background:var(--accent-teal);color:#1A1714;border:none;border-radius:3px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.10em;text-transform:uppercase;cursor:pointer;margin-bottom:6px;">Partager via Slack</button>
           <button style="width:100%;padding:8px;background:var(--bg-card);border:1px solid var(--line-strong);border-radius:3px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.10em;text-transform:uppercase;cursor:pointer;color:var(--text-muted);">Exporter PDF</button>
         </div>
       </div>
@@ -1038,7 +1038,7 @@ body {
           <span class="label-sm muted">CARTE FRANCE — SCORES PAR VILLE</span>
           <div style="display:flex;gap:6px;align-items:center;">
             <span class="label-xs muted">Score ≥80</span>
-            <span style="width:10px;height:10px;border-radius:50%;background:var(--cykan);display:inline-block;box-shadow:0 0 0 3px rgba(201,168,76,0.2);"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--accent-teal);display:inline-block;box-shadow:0 0 0 3px rgba(201,168,76,0.2);"></span>
             <span class="label-xs muted">Score 60–79</span>
             <span style="width:8px;height:8px;border-radius:50%;background:var(--ok);opacity:0.6;display:inline-block;"></span>
             <span class="label-xs muted">Score &lt;60</span>
@@ -1059,14 +1059,14 @@ body {
 
             <!-- City dots -->
             <!-- Paris -->
-            <circle cx="205" cy="110" r="10" fill="var(--cykan)" opacity="0.9"/>
-            <circle cx="205" cy="110" r="16" fill="var(--cykan)" opacity="0.12"/>
+            <circle cx="205" cy="110" r="10" fill="var(--accent-teal)" opacity="0.9"/>
+            <circle cx="205" cy="110" r="16" fill="var(--accent-teal)" opacity="0.12"/>
             <text x="225" y="114" fill="#1A1714" font-size="10" font-weight="600">Paris</text>
             <text x="225" y="126" fill="rgba(26,23,20,0.55)" font-size="9">Score: 94</text>
 
             <!-- Lyon -->
-            <circle cx="270" cy="220" r="8" fill="var(--cykan)" opacity="0.85"/>
-            <circle cx="270" cy="220" r="14" fill="var(--cykan)" opacity="0.10"/>
+            <circle cx="270" cy="220" r="8" fill="var(--accent-teal)" opacity="0.85"/>
+            <circle cx="270" cy="220" r="14" fill="var(--accent-teal)" opacity="0.10"/>
             <text x="286" y="224" fill="#1A1714" font-size="10" font-weight="600">Lyon</text>
             <text x="286" y="235" fill="rgba(26,23,20,0.55)" font-size="9">Score: 88</text>
 
@@ -1104,8 +1104,8 @@ body {
             <text x="105" y="139" fill="rgba(26,23,20,0.55)" font-size="9">Rennes</text>
 
             <!-- Cible indicator -->
-            <circle cx="148" cy="288" r="22" fill="none" stroke="var(--cykan)" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
-            <text x="115" y="316" fill="var(--cykan)" font-size="8" font-style="italic">Cible expansion</text>
+            <circle cx="148" cy="288" r="22" fill="none" stroke="var(--accent-teal)" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+            <text x="115" y="316" fill="var(--accent-teal)" font-size="8" font-style="italic">Cible expansion</text>
           </svg>
         </div>
       </div>
@@ -1116,7 +1116,7 @@ body {
         <div>
           <div class="city-row">
             <span class="city-rank">01</span>
-            <span class="city-name" style="color:var(--cykan);font-weight:700;">Paris — Marais</span>
+            <span class="city-name" style="color:var(--accent-teal);font-weight:700;">Paris — Marais</span>
             <div class="city-bar-track"><div class="city-bar-fill" style="width:94%"></div></div>
             <span class="city-score-val">94</span>
           </div>
@@ -1251,7 +1251,7 @@ Ouverture cible : T1 2027
         </div>
         <div style="display:flex;justify-content:space-between;margin-top:6px;">
           <span class="label-xs muted">Génération : 64% — Budget m² en cours…</span>
-          <span class="label-xs" style="color:var(--cykan);">Agent Architecte Virtuel</span>
+          <span class="label-xs" style="color:var(--accent-teal);">Agent Architecte Virtuel</span>
         </div>
       </div>
 
@@ -1266,20 +1266,20 @@ Ouverture cible : T1 2027
             <div class="t-sm muted" style="margin-bottom:4px;">References : Costes, Hôtel de Crillon, Café de Flore renovation.</div>
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <span class="label-xs muted">Honoraires estimés</span>
-              <span class="mono" style="font-size:11px;color:var(--cykan);">12–15% CAPEX</span>
+              <span class="mono" style="font-size:11px;color:var(--accent-teal);">12–15% CAPEX</span>
             </div>
           </div>
-          <div class="cabinet-card" style="border-color:var(--cykan-line);background:var(--cykan-soft);">
+          <div class="cabinet-card" style="border-color:var(--accent-teal-line);background:var(--accent-teal-soft);">
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
               <div style="font-size:12px;font-weight:700;">Humbert & Poyet</div>
               <span class="signal-ok" style="font-size:8px;padding:1px 6px;">RECOMMANDÉ</span>
             </div>
             <div class="label-xs muted">Paris · Spécialiste Gastro</div>
-            <div style="margin-top:8px;margin-bottom:8px;height:1px;background:var(--cykan-line);"></div>
+            <div style="margin-top:8px;margin-bottom:8px;height:1px;background:var(--accent-teal-line);"></div>
             <div class="t-sm muted" style="margin-bottom:4px;">References : Le Grand Restaurant, L'Arpège rénovation, Maison Ruinart.</div>
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <span class="label-xs muted">Honoraires estimés</span>
-              <span class="mono" style="font-size:11px;color:var(--cykan);">10–13% CAPEX</span>
+              <span class="mono" style="font-size:11px;color:var(--accent-teal);">10–13% CAPEX</span>
             </div>
           </div>
           <div class="cabinet-card">
@@ -1289,7 +1289,7 @@ Ouverture cible : T1 2027
             <div class="t-sm muted" style="margin-bottom:4px;">References : Hôtel du Temps, Compagnie des Vins Surnaturels, Café Oberkampf.</div>
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <span class="label-xs muted">Honoraires estimés</span>
-              <span class="mono" style="font-size:11px;color:var(--cykan);">11–14% CAPEX</span>
+              <span class="mono" style="font-size:11px;color:var(--accent-teal);">11–14% CAPEX</span>
             </div>
           </div>
         </div>
@@ -1316,7 +1316,7 @@ Ouverture cible : T1 2027
           <div style="height:1px;background:var(--line-strong);margin-bottom:8px;"></div>
           <div style="display:flex;justify-content:space-between;">
             <span class="t-sm" style="font-weight:600;">Total estimé</span>
-            <span class="mono" style="font-size:12px;font-weight:700;color:var(--cykan);">€1.17–1.39M</span>
+            <span class="mono" style="font-size:12px;font-weight:700;color:var(--accent-teal);">€1.17–1.39M</span>
           </div>
           <div style="display:flex;justify-content:flex-end;margin-top:4px;">
             <span class="label-xs muted">soit €3 080–3 660 / m²</span>
@@ -1419,7 +1419,7 @@ Ouverture cible : T1 2027
         <span class="label-xs muted">↑↓ Naviguer</span>
         <span class="label-xs muted">⏎ Sélectionner</span>
         <span class="label-xs muted">⌘K Ouvrir</span>
-        <span class="label-xs" style="color:var(--cykan);margin-left:auto;">MODE HOSPITALITY</span>
+        <span class="label-xs" style="color:var(--accent-teal);margin-left:auto;">MODE HOSPITALITY</span>
       </div>
     </div>
 
@@ -1443,7 +1443,7 @@ Ouverture cible : T1 2027
       <!-- Mobile card 1 — Groupe -->
       <div class="mobile-card">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:32px;height:32px;border-radius:50%;background:var(--cykan-soft);border:1px solid var(--cykan-line);display:flex;align-items:center;justify-content:center;">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--accent-teal-soft);border:1px solid var(--accent-teal-line);display:flex;align-items:center;justify-content:center;">
             <span style="font-size:14px;">◈</span>
           </div>
           <div>
@@ -1541,7 +1541,7 @@ Ouverture cible : T1 2027
       <!-- Context box -->
       <div style="flex:1;min-width:220px;">
         <div class="card-gold" style="margin-bottom:16px;">
-          <div class="label-sm" style="color:var(--cykan);margin-bottom:8px;">BRIEFING MATINAL CONFIGURÉ</div>
+          <div class="label-sm" style="color:var(--accent-teal);margin-bottom:8px;">BRIEFING MATINAL CONFIGURÉ</div>
           <div class="t-sm muted" style="line-height:1.7;">
             Livraison automatique chaque matin à 6h30 · Slack #hearst-groupe-maison-l et DM chef-de-site respectif · ElevenLabs voix Xavier · Langue : FR
           </div>
@@ -1644,7 +1644,7 @@ Ouverture cible : T1 2027
     <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--line-strong);display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
       <div>
         <div class="label-xs muted">Rapports hospitality</div>
-        <div style="font-size:20px;font-weight:700;color:var(--cykan);">22</div>
+        <div style="font-size:20px;font-weight:700;color:var(--accent-teal);">22</div>
       </div>
       <div>
         <div class="label-xs muted">Nouveaux connecteurs à créer</div>

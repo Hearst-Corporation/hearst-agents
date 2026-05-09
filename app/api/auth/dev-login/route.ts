@@ -18,7 +18,7 @@ export async function GET() {
 
   const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8">
-<style>body{background:#000;color:#2DD4BF;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}</style>
+<style>body{background:#000;color:#4A8B86;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}</style>
 </head><body>
 <div>Connexion dev en cours…</div>
 <script>

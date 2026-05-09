@@ -83,7 +83,7 @@ export function ConversationHeader() {
                   cancelEdit();
                 }
               }}
-              className="t-15 font-medium bg-transparent border-b border-[var(--cykan-border)] outline-none min-w-0 flex-1"
+              className="t-15 font-medium bg-transparent border-b border-[var(--accent-teal-border)] outline-none min-w-0 flex-1"
               style={{ color: "var(--text)" }}
               maxLength={120}
               aria-label="Renommer la conversation"
@@ -92,7 +92,7 @@ export function ConversationHeader() {
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={commitEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--cykan)] hover:bg-[var(--cykan-bg-hover)] transition-colors"
+              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--accent-teal)] hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
               title="Valider (Entrée)"
               aria-label="Valider le renommage"
             >
@@ -120,7 +120,7 @@ export function ConversationHeader() {
             <button
               type="button"
               onClick={startEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--text-faint)] hover:text-[var(--cykan)] hover:bg-[var(--cykan-bg-hover)] transition-colors"
+              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
               title="Renommer la conversation"
               aria-label="Renommer la conversation"
             >
@@ -143,7 +143,7 @@ export function ConversationHeader() {
         >
           <span
             className="t-11 font-mono tabular-nums"
-            style={{ color: "var(--cykan)" }}
+            style={{ color: "var(--accent-teal)" }}
           >
             {assetCount.toString().padStart(2, "0")}
           </span>

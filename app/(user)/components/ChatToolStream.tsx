@@ -26,8 +26,8 @@ export function ChatToolStream() {
         // Read ops use cyan (data flow). Write ops use amber to flag side
         // effects on the user's account — the eye reads "this changed
         // something" instantly.
-        const accent = isWrite ? "text-[var(--warn)]" : "text-[var(--cykan)]";
-        const dot = isWrite ? "bg-[var(--warn)]" : "bg-[var(--cykan)]";
+        const accent = isWrite ? "text-[var(--warn)]" : "text-[var(--accent-teal)]";
+        const dot = isWrite ? "bg-[var(--warn)]" : "bg-[var(--accent-teal)]";
         const labelTone = isDone ? "text-[var(--text-muted)]" : "text-[var(--text)]";
         const statusTone = isDone ? accent : "text-[var(--text-faint)]";
 

@@ -80,7 +80,7 @@ export function PreviewPane({
             <span
               data-testid="studio-preview-loading"
               className="t-9"
-              style={{ color: "var(--cykan)" }}
+              style={{ color: "var(--accent-teal)" }}
             >
               ⟳ Run en cours…
             </span>

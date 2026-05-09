@@ -149,10 +149,10 @@ export default function AssetsPage() {
                   className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-[var(--border-soft)] group cursor-pointer transition-colors"
                   title={`Open ${asset.title}`}
                 >
-                  <span className="t-15 text-[var(--cykan)] opacity-40 group-hover:opacity-100 transition-opacity leading-none w-4 text-center">
+                  <span className="t-15 text-[var(--accent-teal)] opacity-40 group-hover:opacity-100 transition-opacity leading-none w-4 text-center">
                     {glyph(asset.kind)}
                   </span>
-                  <span className="t-13 text-[var(--text-soft)] group-hover:text-[var(--cykan)] transition-colors truncate">
+                  <span className="t-13 text-[var(--text-soft)] group-hover:text-[var(--accent-teal)] transition-colors truncate">
                     {asset.title}
                   </span>
                   <span className="t-9 font-medium text-[var(--text-faint)] text-right">
@@ -171,7 +171,7 @@ export default function AssetsPage() {
                     type="button"
                     onClick={(e) => handleDownload(asset, e)}
                     disabled={!asset.provenance?.pdfFile}
-                    className="t-9 font-light text-[var(--text-ghost)] hover:text-[var(--cykan)] opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
+                    className="t-9 font-light text-[var(--text-ghost)] hover:text-[var(--accent-teal)] opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
                   >
                     Télécharger
                   </button>

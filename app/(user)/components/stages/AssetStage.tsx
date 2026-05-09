@@ -312,8 +312,8 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
           className="flex items-center justify-center"
           style={{
             padding: "var(--space-2) var(--space-4)",
-            background: "var(--cykan-surface)",
-            borderBottom: "1px solid var(--cykan-border)",
+            background: "var(--accent-teal-surface)",
+            borderBottom: "1px solid var(--accent-teal-border)",
             gap: "var(--space-2)",
           }}
         >
@@ -322,10 +322,10 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
             style={{
               width: "var(--space-1)",
               height: "var(--space-1)",
-              background: "var(--cykan)",
+              background: "var(--accent-teal)",
             }}
           />
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             {asset
               ? "Mode hors ligne — affichage cache"
               : "Hors ligne — connecte-toi pour voir cet asset"}
@@ -347,7 +347,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
           <button
             type="button"
             onClick={back}
-            className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors shrink-0"
+            className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors shrink-0"
             style={{ background: "transparent", border: "none", cursor: "pointer" }}
             aria-label="Retour"
           >
@@ -372,13 +372,13 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
               {asset && (
                 <>
                   <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
-                  <span className="t-11 font-medium text-[var(--cykan)]">{asset.kind}</span>
+                  <span className="t-11 font-medium text-[var(--accent-teal)]">{asset.kind}</span>
                 </>
               )}
               {variantKind && (
                 <>
                   <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
-                  <span className="t-11 font-medium text-[var(--cykan)]">{variantKind}</span>
+                  <span className="t-11 font-medium text-[var(--accent-teal)]">{variantKind}</span>
                 </>
               )}
             </>
@@ -403,9 +403,9 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
             zIndex: "var(--z-base)" as unknown as number,
             padding: "var(--space-2) var(--space-4)",
             background: "var(--surface-1)",
-            border: "1px solid var(--cykan)",
+            border: "1px solid var(--accent-teal)",
             borderRadius: "var(--radius-xs)",
-            color: "var(--cykan)",
+            color: "var(--accent-teal)",
             gap: "var(--space-2)",
           }}
         >
@@ -418,7 +418,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
           {loading && (
             <div className="flex flex-col items-center justify-center py-24" style={{ rowGap: "var(--space-4)" }}>
               <span
-                className="rounded-pill bg-[var(--cykan)] animate-pulse"
+                className="rounded-pill bg-[var(--accent-teal)] animate-pulse"
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
                 aria-hidden
               />
@@ -499,7 +499,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
                     border: "1px solid var(--border-shell)",
                     borderRadius: "var(--radius-md)",
                     background:
-                      "linear-gradient(135deg, var(--surface-1), var(--cykan-soft, var(--surface-2)))",
+                      "linear-gradient(135deg, var(--surface-1), var(--accent-teal-soft, var(--surface-2)))",
                   }}
                   aria-label="Génération de l'image en cours"
                 />

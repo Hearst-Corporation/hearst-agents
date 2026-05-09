@@ -33,14 +33,14 @@ export function AudioPlayer({ variant }: AudioPlayerProps) {
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${
-              isReady ? "bg-[var(--cykan)]" : isFailed ? "bg-[var(--danger)]" : "bg-[var(--warn)] animate-pulse"
+              isReady ? "bg-[var(--accent-teal)]" : isFailed ? "bg-[var(--danger)]" : "bg-[var(--warn)] animate-pulse"
             }`}
             style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             aria-hidden
           />
           <span
             className={`t-13 font-medium ${
-              isReady ? "text-[var(--cykan)]" : isFailed ? "text-[var(--danger)]" : "text-[var(--warn)]"
+              isReady ? "text-[var(--accent-teal)]" : isFailed ? "text-[var(--danger)]" : "text-[var(--warn)]"
             }`}
           >
             {isReady ? "Audio prêt" : isFailed ? "Échec" : "Génération…"}

@@ -34,7 +34,7 @@ export function RightPanel() {
             className={`fixed bottom-4 right-4 z-50 w-12 h-12 rounded-sm flex items-center justify-center border transition-all ${
               isMobileOpen
                 ? "bg-[var(--bg-elev)] text-[var(--danger)] border-[var(--danger)]"
-                : "bg-[var(--cykan)] text-[var(--text-on-cykan)] border-[var(--line-strong)]"
+                : "bg-[var(--accent-teal)] text-[var(--text-on-accent-teal)] border-[var(--line-strong)]"
             }`}
             aria-label={isMobileOpen ? "Fermer le panneau" : "Ouvrir le panneau runtime"}
           >

@@ -59,7 +59,7 @@ async function loadDashboard() {
 function StatusDot({ ok }: { ok: boolean }) {
   return (
     <span
-      className={`inline-block size-(--space-2) rounded-(--radius-pill) shrink-0 ${ok ? "bg-(--cykan)" : "bg-(--danger)"}`}
+      className={`inline-block size-(--space-2) rounded-(--radius-pill) shrink-0 ${ok ? "bg-(--accent-teal)" : "bg-(--danger)"}`}
     />
   );
 }
@@ -69,7 +69,7 @@ export default async function AdminHomePage() {
 
   const healthColor =
     health?.status === "healthy"
-      ? "text-(--cykan)"
+      ? "text-(--accent-teal)"
       : health?.status === "degraded"
         ? "text-(--warn)"
         : "text-(--danger)";
@@ -151,7 +151,7 @@ export default async function AdminHomePage() {
                 const ok = run.status === "completed" || run.status === "success";
                 const failed = run.status === "failed" || run.status === "error";
                 const statusColor = ok
-                  ? "text-(--cykan)"
+                  ? "text-(--accent-teal)"
                   : failed
                     ? "text-(--danger)"
                     : "text-(--warn)";

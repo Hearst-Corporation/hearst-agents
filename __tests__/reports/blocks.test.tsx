@@ -39,7 +39,7 @@ describe("KpiTile", () => {
     expect(screen.getByText(/MRR/i)).toBeTruthy();
     // valeur formatée FR
     expect(screen.getByText(/12\s345/)).toBeTruthy();
-    // delta positif → cykan, le texte contient "+"
+    // delta positif → accent-teal, le texte contient "+"
     expect(screen.getByText(/\+12,3 %/)).toBeTruthy();
   });
 

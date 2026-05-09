@@ -176,13 +176,13 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
               style={{
                 padding: "var(--space-5) var(--space-6)",
                 background: "var(--surface-1)",
-                border: "1px solid var(--cykan)",
+                border: "1px solid var(--accent-teal)",
                 borderRadius: "var(--radius-md)",
                 gap: "var(--space-4)",
               }}
             >
               <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
-                <span className="t-13 font-medium text-[var(--cykan)]">
+                <span className="t-13 font-medium text-[var(--accent-teal)]">
                   Différences · {diff.differences.length}
                 </span>
               </header>
@@ -202,7 +202,7 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
                       borderRadius: "var(--radius-xs)",
                     }}
                   >
-                    <span className="t-11 font-medium text-[var(--cykan)] shrink-0">
+                    <span className="t-11 font-medium text-[var(--accent-teal)] shrink-0">
                       {d.kind}
                     </span>
                     <span className="t-11 font-light text-[var(--text-soft)]">
@@ -240,7 +240,7 @@ function ComparePane({
         gap: "var(--space-3)",
       }}
     >
-      <span className="t-11 font-medium text-[var(--cykan)]">
+      <span className="t-11 font-medium text-[var(--accent-teal)]">
         Asset {side}
       </span>
       <h2

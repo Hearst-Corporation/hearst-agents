@@ -145,10 +145,10 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
                 onChange={() => toggle(block.id)}
                 aria-label={`Toggle ${block.id}`}
                 data-testid={`editor-toggle-${block.id}`}
-                style={{ accentColor: "var(--cykan)" }}
+                style={{ accentColor: "var(--accent-teal)" }}
               />
               <span
-                className="t-9 font-mono uppercase text-[var(--cykan)]"
+                className="t-9 font-mono uppercase text-[var(--accent-teal)]"
                 style={{
                                     minWidth: "var(--space-20)",
                 }}

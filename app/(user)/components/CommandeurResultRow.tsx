@@ -70,7 +70,7 @@ export function CommandeurResultRow({
       <span
         className={`t-13 font-mono shrink-0 transition-colors duration-200 ${
           active && !disabled
-            ? "text-[var(--cykan)]"
+            ? "text-[var(--accent-teal)]"
             : "text-[var(--text-ghost)]"
         }`}
       >

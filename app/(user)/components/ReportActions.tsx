@@ -171,12 +171,12 @@ function SharePopover({
               padding: "var(--space-2) var(--space-3)",
               border:
                 "1px solid " +
-                (ttlHours === o.hours ? "var(--cykan)" : "var(--surface-2)"),
+                (ttlHours === o.hours ? "var(--accent-teal)" : "var(--surface-2)"),
               borderRadius: "var(--radius-xs)",
               background: "transparent",
               color:
                 ttlHours === o.hours
-                  ? "var(--cykan)"
+                  ? "var(--accent-teal)"
                   : "var(--text-muted)",
             }}
           >
@@ -413,13 +413,13 @@ function ActionButton({
     <button
       type="button"
       onClick={onClick}
-      className="t-9 font-mono uppercase hover:text-[var(--cykan)]"
+      className="t-9 font-mono uppercase hover:text-[var(--accent-teal)]"
       style={{
                 padding: "var(--space-2) var(--space-3)",
         border: "1px solid var(--surface-2)",
         borderRadius: "var(--radius-xs)",
         background: "transparent",
-        color: active ? "var(--cykan)" : "var(--text-muted)",
+        color: active ? "var(--accent-teal)" : "var(--text-muted)",
         transition: "color var(--duration-fast) var(--ease-standard)",
       }}
     >
@@ -439,7 +439,7 @@ function MenuItem({
     <button
       type="button"
       onClick={onClick}
-      className="t-9 font-mono uppercase block w-full text-left hover:text-[var(--cykan)]"
+      className="t-9 font-mono uppercase block w-full text-left hover:text-[var(--accent-teal)]"
       style={{
         padding: "var(--space-2) var(--space-3)",
         background: "transparent",

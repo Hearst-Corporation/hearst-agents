@@ -139,7 +139,7 @@ export default function OnboardingVerticalPage() {
                 gap: "var(--space-3)",
                 padding: "var(--space-4)",
                 background: isSelected ? "var(--surface-2)" : "var(--surface-1)",
-                border: `1px solid ${isSelected ? "var(--cykan)" : "var(--border-subtle)"}`,
+                border: `1px solid ${isSelected ? "var(--accent-teal)" : "var(--border-subtle)"}`,
                 borderRadius: "var(--radius-sm)",
                 cursor: "pointer",
                 transition: "all 150ms ease",
@@ -162,7 +162,7 @@ export default function OnboardingVerticalPage() {
               <div style={{ flex: "1 1 auto" }}>
                 <div
                   className="t-13 font-medium"
-                  style={{ color: isSelected ? "var(--cykan)" : "var(--text)" }}
+                  style={{ color: isSelected ? "var(--accent-teal)" : "var(--text)" }}
                 >
                   {ind.name}
                 </div>

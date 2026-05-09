@@ -1,6 +1,6 @@
 "use client";
 // lint-visual-disable-file
-// Fallback hex pour Three.js Color (la valeur réelle vient de --cykan via getComputedStyle).
+// Fallback hex pour Three.js Color (la valeur réelle vient de --accent-teal via getComputedStyle).
 
 /**
  * ParticlesWave — onde sinusoïdale de particules pour le Stage Cockpit.

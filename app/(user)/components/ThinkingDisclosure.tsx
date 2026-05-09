@@ -22,7 +22,7 @@ export function ThinkingDisclosure({ thinking }: ThinkingDisclosureProps) {
         onClick={(e) => { e.preventDefault(); setOpen((v) => !v); }}
       >
         <span
-          className={`rounded-pill ${open ? "bg-[var(--warn)] animate-pulse" : "bg-[var(--cykan)]"}`}
+          className={`rounded-pill ${open ? "bg-[var(--warn)] animate-pulse" : "bg-[var(--accent-teal)]"}`}
           style={{ width: "var(--space-2)", height: "var(--space-2)", flexShrink: 0 }}
           aria-hidden
         />

@@ -102,7 +102,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
       }}
     >
       <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
-        <span className="t-11 font-medium text-[var(--cykan)]">
+        <span className="t-11 font-medium text-[var(--accent-teal)]">
           PROVENANCE
         </span>
         <span
@@ -155,7 +155,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
                 type="button"
                 onClick={() => onOpenParent?.(parentId)}
                 disabled={!onOpenParent}
-                className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--cykan)]"
+                className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
                 style={{
                   padding: "var(--space-1) var(--space-3)",
                   background: "transparent",
@@ -203,7 +203,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
             <span className="t-11 font-light text-[var(--text-faint)]">
               Sources · {sources.length}
             </span>
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               {showSources ? "−" : "+"}
             </span>
           </button>
@@ -218,7 +218,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--cykan)] truncate inline-block w-full"
+                    className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)] truncate inline-block w-full"
                     style={{
                       transition: "color var(--duration-fast) var(--ease-standard)",
                     }}
@@ -248,7 +248,7 @@ function Row({ label, value, accent }: { label: string; value: string; accent?: 
         {label}
       </dt>
       <dd
-        className={`t-11 ${accent ? "text-[var(--cykan)]" : "text-[var(--text-soft)]"} font-mono truncate`}
+        className={`t-11 ${accent ? "text-[var(--accent-teal)]" : "text-[var(--text-soft)]"} font-mono truncate`}
         title={value}
       >
         {value}
@@ -336,14 +336,14 @@ function LineageMiniGraph({ currentTitle, parentIds, onOpenParent }: LineageMini
             y={(totalHeight - nodeHeight) / 2}
             width={nodeWidth}
             height={nodeHeight}
-            fill="var(--cykan-surface)"
-            stroke="var(--cykan)"
+            fill="var(--accent-teal-surface)"
+            stroke="var(--accent-teal)"
             rx={4}
           />
           <text
             x={nodeWidth + horizontalGap + nodeWidth / 2}
             y={(totalHeight - nodeHeight) / 2 + nodeHeight / 2 + 3}
-            fill="var(--cykan)"
+            fill="var(--accent-teal)"
             fontSize={10}
             fontFamily="ui-monospace, monospace"
             textAnchor="middle"

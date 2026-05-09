@@ -5,7 +5,7 @@
  *
  * Référence visuelle : Art of Life Equine — magazine éditorial print premium.
  * Le PDF Hearst hérite de ce langage : background dark, ink off-white, accent
- * or champagne sobre. Le cykan turquoise du produit n'a pas sa place ici — il
+ * or champagne sobre. Le accent-teal turquoise du produit n'a pas sa place ici — il
  * crierait dans un livret print où l'accent doit murmurer.
  *
  * IMPORTANT — single source of truth :

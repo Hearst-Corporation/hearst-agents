@@ -22,11 +22,11 @@
   --text-muted:rgba(255,255,255,0.65);
   --text-faint:rgba(255,255,255,0.45);
   --text-ghost:rgba(255,255,255,0.25);
-  --cykan:#2DD4BF;
-  --cykan-bg-active:rgba(45,212,191,0.08);
-  --cykan-bg-hover:rgba(45,212,191,0.05);
-  --cykan-border:rgba(45,212,191,0.25);
-  --cykan-surface:rgba(45,212,191,0.06);
+  --accent-teal:#4A8B86;
+  --accent-teal-bg-active:rgba(74,139,134,0.08);
+  --accent-teal-bg-hover:rgba(74,139,134,0.05);
+  --accent-teal-border:rgba(74,139,134,0.25);
+  --accent-teal-surface:rgba(74,139,134,0.06);
   --warn:#ffcc00;
   --danger:#ff3333;
   --accent-llm:#A78BFA;
@@ -38,7 +38,7 @@
   --border-default:rgba(255,255,255,0.12);
   --border-strong:rgba(255,255,255,0.14);
   --border-focus:rgba(255,255,255,0.40);
-  --text-on-cykan:#000000;
+  --text-on-accent-teal:#000000;
 
   --font-display:"Inter",system-ui,-apple-system,sans-serif;
   --font-mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,monospace;
@@ -71,12 +71,12 @@ body{
   font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
   color:var(--text-faint);
 }
-.head .l strong{color:var(--cykan);font-weight:500;letter-spacing:0.18em}
+.head .l strong{color:var(--accent-teal);font-weight:500;letter-spacing:0.18em}
 .head h1{
   font-size:32px;font-weight:600;letter-spacing:-0.025em;
   color:var(--text);line-height:1.1;max-width:760px;
 }
-.head h1 em{font-style:normal;color:var(--cykan)}
+.head h1 em{font-style:normal;color:var(--accent-teal)}
 .head .sub{
   margin-top:14px;font-size:14px;color:var(--text-muted);
   line-height:1.6;max-width:680px;
@@ -93,7 +93,7 @@ body{
   font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
   color:var(--text-faint);
 }
-.frame-meta .num{color:var(--cykan);font-weight:500}
+.frame-meta .num{color:var(--accent-teal);font-weight:500}
 .frame-meta .title{
   color:var(--text-soft);font-weight:500;
   font-family:var(--font-display);
@@ -153,7 +153,7 @@ body{
 .spine .group .row.active{color:var(--text);position:relative}
 .spine .group .row.active::before{
   content:"";position:absolute;left:-24px;top:8px;bottom:8px;
-  width:2px;background:var(--cykan);
+  width:2px;background:var(--accent-teal);
 }
 .spine .group .row .name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .spine .group .row .meta{
@@ -161,7 +161,7 @@ body{
   color:var(--text-ghost);font-variant-numeric:tabular-nums;
   letter-spacing:0.04em;text-transform:uppercase;
 }
-.spine .group .row.active .meta{color:var(--cykan)}
+.spine .group .row.active .meta{color:var(--accent-teal)}
 .spine .foot{
   margin-top:auto;
   padding:16px 24px 22px;
@@ -250,7 +250,7 @@ body{
   padding-bottom:18px;
   border-bottom:1px solid var(--border-default);
 }
-.lane > h2 .n{color:var(--cykan);font-variant-numeric:tabular-nums}
+.lane > h2 .n{color:var(--accent-teal);font-variant-numeric:tabular-nums}
 .lane > h2 .hint{
   margin-left:auto;font-size:10px;
   color:var(--text-ghost);letter-spacing:0.16em;
@@ -282,10 +282,10 @@ body{
 .btn-mono{
   font-family:var(--font-mono);
   font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
-  font-weight:500;background:transparent;color:var(--cykan);
+  font-weight:500;background:transparent;color:var(--accent-teal);
   border:0;padding:0;cursor:pointer;
   display:inline-flex;align-items:center;gap:6px;
-  border-bottom:1px solid var(--cykan);padding-bottom:2px;
+  border-bottom:1px solid var(--accent-teal);padding-bottom:2px;
 }
 .btn-mono.ghost{color:var(--text-faint);border-bottom-color:var(--border-input)}
 .btn-mono:hover{filter:brightness(1.1)}
@@ -304,7 +304,7 @@ body{
 .thread .head .meta{color:var(--text-ghost);font-variant-numeric:tabular-nums}
 .thread .head .live-dot{
   display:inline-block;width:5px;height:5px;
-  background:var(--cykan);margin-right:2px;vertical-align:1px;
+  background:var(--accent-teal);margin-right:2px;vertical-align:1px;
 }
 .thread .title{
   font-size:14px;color:var(--text);font-weight:500;
@@ -355,7 +355,7 @@ body{
   border-bottom:1px solid var(--border-default);
   margin-bottom:4px;
 }
-.panel-section h3 .n{color:var(--cykan);font-variant-numeric:tabular-nums}
+.panel-section h3 .n{color:var(--accent-teal);font-variant-numeric:tabular-nums}
 .panel-section h3 .hint{
   margin-left:auto;font-size:10px;color:var(--text-ghost);
 }
@@ -378,7 +378,7 @@ body{
   padding-top:1px;
   letter-spacing:-0.01em;
 }
-.event.live .when{color:var(--cykan)}
+.event.live .when{color:var(--accent-teal)}
 .event.past .when{color:var(--text-ghost);text-decoration:line-through;text-decoration-color:var(--border-default)}
 .event .body{display:flex;flex-direction:column;gap:3px;min-width:0}
 .event .body .title{
@@ -396,10 +396,10 @@ body{
   display:inline-flex;align-items:center;gap:6px;
   font-family:var(--font-mono);
   font-size:9px;letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--cykan);font-weight:500;margin-top:2px;
+  color:var(--accent-teal);font-weight:500;margin-top:2px;
 }
 .event .body .live-tag::before{
-  content:"";width:5px;height:5px;background:var(--cykan);
+  content:"";width:5px;height:5px;background:var(--accent-teal);
   animation:livePulse 1.6s steps(1) infinite;
 }
 @keyframes livePulse{
@@ -424,7 +424,7 @@ body{
   font-size:10px;letter-spacing:0.04em;
   color:var(--text-soft);font-weight:500;
 }
-.person.warn .ini{border-color:var(--cykan-border);color:var(--cykan)}
+.person.warn .ini{border-color:var(--accent-teal-border);color:var(--accent-teal)}
 .person .body{display:flex;flex-direction:column;gap:2px;min-width:0}
 .person .body .name{
   font-size:13px;color:var(--text);font-weight:500;
@@ -451,7 +451,7 @@ body{
 .next-rdv .l{
   font-family:var(--font-mono);
   font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--cykan);font-weight:500;margin-bottom:8px;
+  color:var(--accent-teal);font-weight:500;margin-bottom:8px;
 }
 .next-rdv .countdown{
   font-family:var(--font-mono);
@@ -488,7 +488,7 @@ body{
 }
 .voice .label-l .pip{
   display:inline-block;width:6px;height:6px;
-  background:var(--cykan);
+  background:var(--accent-teal);
   animation:livePulse 1.6s steps(1) infinite;
 }
 .voice .label-l .state{color:var(--text-soft);font-weight:500}
@@ -575,7 +575,7 @@ body{
 }
 .caption .col.l1 .l{color:var(--text-faint)}
 .caption .col.l2 .l{color:var(--accent-agent)}
-.caption .col.l3 .l{color:var(--cykan)}
+.caption .col.l3 .l{color:var(--accent-teal)}
 .caption .col p{
   font-size:13.5px;color:var(--text-soft);
   line-height:1.6;letter-spacing:-0.005em;
@@ -607,7 +607,7 @@ body{
   </div>
   <div>
     <h1>Le panel droit revient — mais éditorial, pas instrument.</h1>
-    <p class="sub">Le cockpit reprend la grammaire V·02 (hairlines, mono, pas de cards, cykan parcimonieux). Le panel droit ne contient <strong>aucun</strong> chrome système, <strong>aucun</strong> KPI&nbsp;: c'est l'agenda du jour et les personnes à garder en tête. Du français pour humain, pas du dashboard pour ops.</p>
+    <p class="sub">Le cockpit reprend la grammaire V·02 (hairlines, mono, pas de cards, accent-teal parcimonieux). Le panel droit ne contient <strong>aucun</strong> chrome système, <strong>aucun</strong> KPI&nbsp;: c'est l'agenda du jour et les personnes à garder en tête. Du français pour humain, pas du dashboard pour ops.</p>
   </div>
 </header>
 
@@ -937,7 +937,7 @@ body{
   </div>
   <div class="col l3">
     <div class="l">Vs V·02</div>
-    <p>La stage perd la 3<sup>e</sup> colonne (livrables récents) qui passe naturellement dans le panel droit ou dans le stage <code>Livrables</code> (⌘+3). Le voice ribbon devient plein-largeur sous spine + stage + panel. Tout le reste — typo, hairlines, mono, cykan parcimonieux — est strictement le même.</p>
+    <p>La stage perd la 3<sup>e</sup> colonne (livrables récents) qui passe naturellement dans le panel droit ou dans le stage <code>Livrables</code> (⌘+3). Le voice ribbon devient plein-largeur sous spine + stage + panel. Tout le reste — typo, hairlines, mono, accent-teal parcimonieux — est strictement le même.</p>
   </div>
 </div>
 

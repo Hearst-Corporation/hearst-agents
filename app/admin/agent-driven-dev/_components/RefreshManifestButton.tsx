@@ -24,7 +24,7 @@ export default function RefreshManifestButton() {
         type="button"
         onClick={refresh}
         disabled={busy}
-        className="px-(--space-3) py-(--space-2) rounded-(--radius-sm) border border-line t-12 text-text-muted hover:text-text hover:border-(--cykan)/40 transition-colors disabled:opacity-50"
+        className="px-(--space-3) py-(--space-2) rounded-(--radius-sm) border border-line t-12 text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-50"
       >
         {busy ? "Régénération…" : "↻ Régénérer manifest"}
       </button>

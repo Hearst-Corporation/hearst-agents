@@ -64,7 +64,7 @@ export function PageHeader({
       {back ? (
         <Link
           href={back.href}
-          className="inline-flex items-center gap-2 t-11 font-light text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors w-fit"
+          className="inline-flex items-center gap-2 t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors w-fit"
         >
           <ChevronLeftIcon />
           <span>{back.label}</span>

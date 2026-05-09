@@ -16,9 +16,9 @@ export interface ToastProps {
 
 const TYPE_STYLES: Record<ToastType, { border: string; text: string; icon: ReactNode }> = {
   info: {
-    border: "border-b border-[var(--cykan)]",
+    border: "border-b border-[var(--accent-teal)]",
     text: "text-[var(--text)]",
-    icon: <GhostIconInfo className="w-4 h-4 text-[var(--cykan)]" />,
+    icon: <GhostIconInfo className="w-4 h-4 text-[var(--accent-teal)]" />,
   },
   success: {
     border: "border-b border-[var(--money)]",

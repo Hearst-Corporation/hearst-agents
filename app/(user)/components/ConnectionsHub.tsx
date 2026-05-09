@@ -772,7 +772,7 @@ export function ConnectionsHub() {
                 <button
                   type="button"
                   onClick={() => setAttentionFilter(false)}
-                  className="t-11 font-medium text-[var(--cykan-deep)] hover:text-[var(--cykan)] transition-colors"
+                  className="t-11 font-medium text-[var(--accent-teal-deep)] hover:text-[var(--accent-teal)] transition-colors"
                 >
                   ← Voir tout le catalogue
                 </button>
@@ -829,7 +829,7 @@ function DisabledState({ message }: { message: string | null }) {
         {message ?? "Composio n'est pas configuré."}
       </p>
       <p className="t-11 text-[var(--text-faint)] max-w-md text-center leading-relaxed">
-        Vérifie <code className="text-[var(--cykan)]">COMPOSIO_API_KEY</code> dans{" "}
+        Vérifie <code className="text-[var(--accent-teal)]">COMPOSIO_API_KEY</code> dans{" "}
         <code>.env.local</code>.
       </p>
     </div>
@@ -868,7 +868,7 @@ function Header({
       className="sticky top-0 z-10 flex items-center gap-4 px-8 py-3 border-b"
       style={{ background: "var(--bg-elev)", borderColor: "var(--border-shell)" }}
     >
-      <span className="t-13 font-medium whitespace-nowrap text-[var(--cykan)]">
+      <span className="t-13 font-medium whitespace-nowrap text-[var(--accent-teal)]">
         Apps
       </span>
 
@@ -876,7 +876,7 @@ function Header({
         className="flex-1 flex items-center gap-3 px-0 py-3 border-b rounded-none transition-colors"
         style={{
           background: "transparent",
-          borderColor: searchQuery ? "var(--cykan)" : "var(--border-shell)",
+          borderColor: searchQuery ? "var(--accent-teal)" : "var(--border-shell)",
           borderBottomWidth: "1px",
           borderBottomStyle: "solid",
         }}
@@ -905,7 +905,7 @@ function Header({
         <span className="flex items-center gap-2 text-[var(--text)]">
           <span
             className="w-1 h-1 rounded-pill halo-dot"
-            style={{ background: "var(--cykan)" }}
+            style={{ background: "var(--accent-teal)" }}
             aria-hidden
           />
           {connectedCount}
@@ -1013,7 +1013,7 @@ function StageTile({
   const dotColor =
     variant === "warn" ? "var(--color-warning)"
       : variant === "error" ? "var(--color-error)"
-        : "var(--cykan)";
+        : "var(--accent-teal)";
   const statusLabel =
     variant === "warn" ? "OAuth en cours"
       : variant === "error" ? "À reconnecter"
@@ -1044,7 +1044,7 @@ function StageTile({
         />
       </span>
       <span
-        className="t-11 text-center group-hover:text-[var(--cykan)] transition-colors"
+        className="t-11 text-center group-hover:text-[var(--accent-teal)] transition-colors"
         style={{
           fontWeight: "var(--weight-medium)",
           color: "var(--text)",
@@ -1126,7 +1126,7 @@ function StarterTile({
     >
       <AppLogo app={app} size={48} />
       <span
-        className="t-11 text-center group-hover:text-[var(--cykan)] transition-colors"
+        className="t-11 text-center group-hover:text-[var(--accent-teal)] transition-colors"
         style={{
           fontWeight: "var(--weight-medium)",
           color: "var(--text)",
@@ -1136,7 +1136,7 @@ function StarterTile({
         {app.name}
       </span>
       <span
-        className="t-9 font-light text-[var(--cykan-deep)] opacity-0 group-hover:opacity-100 transition-opacity"
+        className="t-9 font-light text-[var(--accent-teal-deep)] opacity-0 group-hover:opacity-100 transition-opacity"
       >
         Connecter →
       </span>
@@ -1188,10 +1188,10 @@ function SuggestionCard({
       <AppLogo app={app} size={40} />
       <div className="flex-1 min-w-0">
         <div
-          className="t-13 truncate group-hover:text-[var(--cykan)] transition-colors"
+          className="t-13 truncate group-hover:text-[var(--accent-teal)] transition-colors"
           style={{
             fontWeight: "var(--weight-semibold)",
-            color: featured ? "var(--cykan-deep)" : "var(--text)",
+            color: featured ? "var(--accent-teal-deep)" : "var(--text)",
           }}
         >
           {app.name}
@@ -1204,7 +1204,7 @@ function SuggestionCard({
         </div>
       </div>
       <span
-        className="text-[var(--text-ghost)] group-hover:text-[var(--cykan-deep)] transition-colors"
+        className="text-[var(--text-ghost)] group-hover:text-[var(--accent-teal-deep)] transition-colors"
         aria-hidden
       >
         →
@@ -1275,14 +1275,14 @@ function CategoryChip({
       onClick={onClick}
       className="t-11 whitespace-nowrap transition-colors"
       style={{
-        color: on ? "var(--cykan)" : "var(--text-faint)",
+        color: on ? "var(--accent-teal)" : "var(--text-faint)",
         fontWeight: on ? "var(--weight-semibold)" : "var(--weight-regular)",
       }}
     >
       {label}
       <span
         className="ml-2"
-        style={{ color: on ? "var(--cykan)" : "var(--text-ghost)", opacity: on ? 0.6 : 1 }}
+        style={{ color: on ? "var(--accent-teal)" : "var(--text-ghost)", opacity: on ? 0.6 : 1 }}
       >
         {count}
       </span>
@@ -1342,7 +1342,7 @@ function Wallpaper({
           <button
             type="button"
             onClick={onLoadMore}
-            className="text-[var(--cykan-deep)] hover:text-[var(--cykan)] transition-colors"
+            className="text-[var(--accent-teal-deep)] hover:text-[var(--accent-teal)] transition-colors"
           >
             charger plus →
           </button>
@@ -1364,7 +1364,7 @@ function WallpaperTile({
   onClick: () => void;
 }) {
   // Trois états visuels :
-  //  - connected      : couleur normale + dot cykan en coin + ring cykan
+  //  - connected      : couleur normale + dot accent-teal en coin + ring accent-teal
   //  - connectable    : grayscale léger (0.55) + retour couleur au hover
   //  - non-connectable: grayscale fort (0.85) + cadenas SVG en coin
   // Le cadenas vient d'un mini SVG inline (pas d'emoji — interdit par DS).
@@ -1373,7 +1373,7 @@ function WallpaperTile({
   const dotColor =
     variant === "warn" ? "var(--color-warning)"
       : variant === "error" ? "var(--color-error)"
-        : "var(--cykan)";
+        : "var(--accent-teal)";
 
   // Logos brand : on atténue saturation+luminance pour ne pas casser la palette
   // monochrome+cyan globale du produit. Connected reste reconnaissable mais ne
@@ -1392,7 +1392,7 @@ function WallpaperTile({
       aria-label={app.name}
       className="group relative aspect-square flex items-center justify-center rounded-none border transition-all"
       style={{
-        borderColor: connected ? "var(--cykan-border)" : "var(--border-soft)",
+        borderColor: connected ? "var(--accent-teal-border)" : "var(--border-soft)",
         filter,
       }}
     >
@@ -1608,7 +1608,7 @@ function AppDrawer({
             ← Fermer
           </button>
           {isConnected && (
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               ● Connecté
             </span>
           )}
@@ -1693,7 +1693,7 @@ function AppDrawer({
 function NativeFooter() {
   return (
     <div className="flex flex-col gap-2">
-      <p className="t-11 font-medium" style={{ color: "var(--cykan-deep)" }}>
+      <p className="t-11 font-medium" style={{ color: "var(--accent-teal-deep)" }}>
         Géré via le SSO
       </p>
       <p
@@ -1799,7 +1799,7 @@ function ActionsSection({
               <button
                 type="button"
                 onClick={onToggleShowAll}
-                className="t-11 font-medium text-[var(--cykan-deep)] hover:text-[var(--cykan)] transition-colors"
+                className="t-11 font-medium text-[var(--accent-teal-deep)] hover:text-[var(--accent-teal)] transition-colors"
               >
                 {showAll
                   ? "← Réduire"
@@ -1822,7 +1822,7 @@ function ActionBullet({ action }: { action: DiscoveredTool }) {
       style={{ borderColor: "var(--border-soft)" }}
     >
       <span
-        className="t-13 leading-none text-[var(--cykan)] mt-1"
+        className="t-13 leading-none text-[var(--accent-teal)] mt-1"
         aria-hidden
       >
         ·

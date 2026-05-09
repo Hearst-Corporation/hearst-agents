@@ -261,11 +261,11 @@ export function ArtifactStage({
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--cykan)]"
+              className="rounded-pill bg-[var(--accent-teal)]"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               ARTIFACT
             </span>
             <span

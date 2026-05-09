@@ -48,7 +48,7 @@ export default async function AgentsPage() {
         </div>
         <Link
           href="/admin/agents/new"
-          className="ghost-btn-solid ghost-btn-cykan rounded-(--radius-sm) px-4 py-2 t-13"
+          className="ghost-btn-solid ghost-btn-accent-teal rounded-(--radius-sm) px-4 py-2 t-13"
         >
           + Nouvel agent
         </Link>

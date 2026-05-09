@@ -60,7 +60,7 @@ export function mockRenderPayload() {
         type: "sparkline",
         label: "Tendance MRR",
         layout: { col: 2, row: 1 },
-        props: { field: "mrr", height: 64, tone: "cykan" },
+        props: { field: "mrr", height: 64, tone: "accent-teal" },
         data: [
           { mrr: 18000 }, { mrr: 19200 }, { mrr: 21000 },
           { mrr: 22800 }, { mrr: 24500 },

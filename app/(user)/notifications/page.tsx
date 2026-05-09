@@ -112,7 +112,7 @@ export default function NotificationsPage() {
           <button
             type="button"
             onClick={() => void markAllRead()}
-            className="t-11 font-medium px-3 py-2 rounded-md transition-colors text-[var(--cykan)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:text-[var(--text)] hover:border-[var(--cykan-border-hover)]"
+            className="t-11 font-medium px-3 py-2 rounded-md transition-colors text-[var(--accent-teal)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:text-[var(--text)] hover:border-[var(--accent-teal-border-hover)]"
             style={{
               transitionDuration: "var(--duration-fast)",
               transitionTimingFunction: "var(--ease-standard)",
@@ -314,7 +314,7 @@ function NotifCard({
             e.stopPropagation();
             onRead();
           }}
-          className="t-9 self-start whitespace-nowrap shrink-0 px-2 py-1 rounded-xs border border-[var(--border-subtle)] bg-transparent text-[var(--text-ghost)] hover:text-[var(--cykan)] transition-colors"
+          className="t-9 self-start whitespace-nowrap shrink-0 px-2 py-1 rounded-xs border border-[var(--border-subtle)] bg-transparent text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors"
           style={{
             borderRadius: "var(--radius-xs)",
             transitionDuration: "var(--duration-fast)",

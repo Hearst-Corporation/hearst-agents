@@ -4,7 +4,7 @@ import { getAuditLogs, type AuditLog } from "@/lib/admin/audit";
 export const dynamic = "force-dynamic";
 
 const SEVERITY_COLORS: Record<string, string> = {
-  info: "text-cyan-accent bg-(--cykan)/10",
+  info: "text-cyan-accent bg-(--accent-teal)/10",
   warning: "text-warn bg-(--warn)/10",
   error: "text-danger bg-(--danger)/10",
   critical: "text-danger bg-(--danger)/15",

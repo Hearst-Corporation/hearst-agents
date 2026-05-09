@@ -35,7 +35,7 @@ const STATUT_STYLES: Record<string, string> = {
   verrouillé: "bg-(--money)/10 text-money border-(--money)/30",
   in_progress: "bg-(--warn)/10 text-warn border-(--warn)/30",
   review: "bg-(--surface-2) text-text-muted border-line",
-  active: "bg-(--cykan-bg-active) text-(--cykan) border-(--cykan)/30",
+  active: "bg-(--accent-teal-bg-active) text-(--accent-teal) border-(--accent-teal)/30",
   legacy: "bg-(--danger)/10 text-danger border-(--danger)/30",
 };
 

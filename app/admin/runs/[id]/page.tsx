@@ -7,10 +7,10 @@ import { getServerSupabase } from "@/lib/platform/db/supabase";
 export const dynamic = "force-dynamic";
 
 const traceKindColor: Record<string, string> = {
-  llm_call: "border-[var(--cykan)]/50 text-[var(--cyan-accent)]",
+  llm_call: "border-[var(--accent-teal)]/50 text-[var(--cyan-accent)]",
   tool_call: "border-[var(--accent-llm)]/50 text-[var(--accent-llm)]",
-  memory_read: "border-[var(--cykan)]/50 text-[var(--cykan)]",
-  memory_write: "border-[var(--cykan)]/50 text-[var(--cykan)]",
+  memory_read: "border-[var(--accent-teal)]/50 text-[var(--accent-teal)]",
+  memory_write: "border-[var(--accent-teal)]/50 text-[var(--accent-teal)]",
   skill_invoke: "border-[var(--warn)]/50 text-[var(--warn)]",
   error: "border-[var(--danger)]/70 text-[var(--danger)]",
   guard: "border-[var(--warn)]/50 text-[var(--warn)]",

@@ -131,8 +131,8 @@ export function StudioToolbar({
             className="t-9 font-mono"
             style={{
               padding: "var(--space-0) var(--space-2)",
-              background: "var(--cykan-surface)",
-              color: "var(--cykan)",
+              background: "var(--accent-teal-surface)",
+              color: "var(--accent-teal)",
               borderRadius: "var(--radius-xs)",
             }}
           >
@@ -325,7 +325,7 @@ export function StudioToolbar({
             maxWidth: "var(--space-32)",
           }}
         >
-          <span className="t-9 font-medium" style={{ color: "var(--cykan)" }}>
+          <span className="t-9 font-medium" style={{ color: "var(--accent-teal)" }}>
             URL copiée
           </span>
           <span className="t-9 truncate" style={{ color: "var(--text-soft)" }} title={shareUrl}>
@@ -367,9 +367,9 @@ function ToolbarButton({
       className="t-11 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       style={{
         padding: "var(--space-2) var(--space-3)",
-        background: isPrimary ? "var(--cykan)" : "var(--surface-2)",
-        color: isPrimary ? "var(--text-on-cykan)" : "var(--text-soft)",
-        border: `1px solid ${isPrimary ? "var(--cykan)" : "var(--border-subtle)"}`,
+        background: isPrimary ? "var(--accent-teal)" : "var(--surface-2)",
+        color: isPrimary ? "var(--text-on-accent-teal)" : "var(--text-soft)",
+        border: `1px solid ${isPrimary ? "var(--accent-teal)" : "var(--border-subtle)"}`,
         borderRadius: "var(--radius-xs)",
         transitionDuration: "var(--duration-base)",
         cursor: disabled ? "not-allowed" : "pointer",

@@ -34,10 +34,10 @@ export function PersonaCard({
         gap: "var(--space-2)",
         padding: "var(--space-4)",
         border: persona.isDefault
-          ? "1px solid var(--cykan)"
+          ? "1px solid var(--accent-teal)"
           : "1px solid var(--line-strong)",
         borderRadius: "var(--radius-md)",
-        background: persona.isDefault ? "var(--cykan-surface)" : "var(--bg-elev)",
+        background: persona.isDefault ? "var(--accent-teal-surface)" : "var(--bg-elev)",
       }}
     >
       <header
@@ -46,7 +46,7 @@ export function PersonaCard({
       >
         <span className="t-13 font-medium text-[var(--text)]">{persona.name}</span>
         {persona.isDefault && (
-          <span className="t-11 font-medium text-[var(--cykan)]">Par défaut</span>
+          <span className="t-11 font-medium text-[var(--accent-teal)]">Par défaut</span>
         )}
       </header>
       {persona.description && (
@@ -65,7 +65,7 @@ export function PersonaCard({
           type="button"
           onClick={() => onEdit(persona)}
           disabled={isBuiltin || busy}
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors duration-base"
+          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors duration-base"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Éditer
@@ -83,7 +83,7 @@ export function PersonaCard({
           type="button"
           onClick={() => onPublish(persona)}
           disabled={busy}
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors duration-base"
+          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors duration-base"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Publier

@@ -10,11 +10,11 @@
  * Visuel Ghost Protocol :
  *   - layout layered (chaque node placé en colonne selon sa profondeur dans le DAG)
  *   - rectangles nodes en var(--text), labels mono uppercase t-9
- *   - chemins courbes (cubic Bézier) pour les links — couleur var(--cykan)
+ *   - chemins courbes (cubic Bézier) pour les links — couleur var(--accent-teal)
  *     avec opacité dégradée selon la valeur relative
  *   - largeur de chemin proportionnelle à la valeur du link
  *
- * Pas de magic number. Couleur unique = cykan, l'intensité encode le flux.
+ * Pas de magic number. Couleur unique = accent-teal, l'intensité encode le flux.
  */
 
 import { fmtNumber } from "./format";
@@ -198,7 +198,7 @@ export function Sankey({ nodes, links, height = 280 }: SankeyProps) {
               key={`link-${l.source}-${l.target}-${i}`}
               d={path}
               fill="none"
-              stroke="var(--cykan)"
+              stroke="var(--accent-teal)"
               strokeOpacity={intensity}
               strokeWidth={linkH}
               strokeLinecap="butt"

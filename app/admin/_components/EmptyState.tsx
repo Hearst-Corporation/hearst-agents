@@ -56,7 +56,7 @@ export default function EmptyState({
           type="button"
           onClick={onSeed}
           disabled={seeding}
-          className="t-11 font-mono uppercase tracking-(--tracking-wide) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border border-(--cykan)/40 text-(--cykan) hover:bg-(--cykan)/10 transition-colors disabled:opacity-40"
+          className="t-11 font-mono uppercase tracking-(--tracking-wide) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/40 text-(--accent-teal) hover:bg-(--accent-teal)/10 transition-colors disabled:opacity-40"
         >
           {seeding ? "Seed en cours…" : "+ samples dev"}
         </button>
@@ -66,7 +66,7 @@ export default function EmptyState({
 
   return (
     <div className="flex flex-col items-center justify-center gap-(--space-5) py-(--space-16) px-(--space-6) text-center">
-      <span className="size-(--space-16) flex items-center justify-center rounded-(--radius-2xl) bg-(--cykan-bg-active) border border-(--cykan)/30 text-(--cykan)">
+      <span className="size-(--space-16) flex items-center justify-center rounded-(--radius-2xl) bg-(--accent-teal-bg-active) border border-(--accent-teal)/30 text-(--accent-teal)">
         <svg
           className="size-(--space-8)"
           viewBox="0 0 24 24"
@@ -87,7 +87,7 @@ export default function EmptyState({
       <div className="flex flex-wrap items-center justify-center gap-(--space-3)">
         <Link
           href={createHref}
-          className="t-12 font-medium px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--cykan)/50 bg-(--cykan)/10 text-(--cykan) hover:bg-(--cykan)/15 transition-colors"
+          className="t-12 font-medium px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors"
         >
           {createLabel}
         </Link>
@@ -95,7 +95,7 @@ export default function EmptyState({
           type="button"
           onClick={onSeed}
           disabled={seeding}
-          className="t-12 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-line-strong text-text-muted hover:text-text hover:border-(--cykan)/40 transition-colors disabled:opacity-40"
+          className="t-12 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-40"
         >
           {seeding ? "Seed en cours…" : "Charger les données dev"}
         </button>

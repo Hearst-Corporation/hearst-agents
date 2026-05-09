@@ -46,28 +46,28 @@
   --text-ghost: rgba(255, 255, 255, 0.42);
 
   /* Accent colors */
-  --cyan-accent: #2DD4BF;
-  --cykan: #2DD4BF;
-  --money: #2DD4BF;
+  --cyan-accent: #4A8B86;
+  --accent-teal: #4A8B86;
+  --money: #4A8B86;
   --warn: #ffcc00;
   --danger: #ff3333;
   --accent-llm: #A78BFA;
   /* Branche « agent custom » pipeline admin (câbles + waterfall) — aligné cartes [data-kind="agent"]. */
   --accent-agent: #fbbf24;
   /* Editorial gold — accent éditorial pour liens de contenu, highlights, points
-   * d'attention NON-système. Le cykan reste réservé aux états système (focus,
+   * d'attention NON-système. Le accent-teal reste réservé aux états système (focus,
    * hover, run actif, voice actif, sélection). Cette séparation a été tranchée
    * dans le pivot UI 2026-05-01 (direction A — Éditoriale Tenue). */
   --gold: #C8A961;
   --gold-border: color-mix(in srgb, var(--gold) 28%, transparent);
   --gold-surface: color-mix(in srgb, var(--gold) 6%, transparent);
   --gold-bg-hover: color-mix(in srgb, var(--gold) 8%, transparent);
-  --cykan-border: color-mix(in srgb, var(--cykan) 25%, transparent);
-  --cykan-surface: color-mix(in srgb, var(--cykan) 6%, transparent);
+  --accent-teal-border: color-mix(in srgb, var(--accent-teal) 25%, transparent);
+  --accent-teal-surface: color-mix(in srgb, var(--accent-teal) 6%, transparent);
 
   /* Glow shadows — Luxurious & Wide */
-  --glow-cyan-sm: 0 0 30px rgba(45, 212, 191, 0.1);
-  --glow-cyan-md: 0 0 60px rgba(45, 212, 191, 0.15);
+  --glow-cyan-sm: 0 0 30px rgba(74, 139, 134, 0.1);
+  --glow-cyan-md: 0 0 60px rgba(74, 139, 134, 0.15);
 
   /* ─── Z-index scale ─────────────────────────────────────────── */
   --z-base:     0;
@@ -159,13 +159,13 @@
   --text-l2: rgba(255, 255, 255, 0.40);                          /* labels, meta */
   --text-l3: rgba(255, 255, 255, 0.20);                          /* séparateurs texte */
   --sep: rgba(255, 255, 255, 0.05);                              /* séparateur horizontal */
-  --input-glow: 0 0 40px rgba(45, 212, 191, 0.12), 0 0 80px rgba(45, 212, 191, 0.06);
-  --input-glow-focus: 0 0 40px rgba(45, 212, 191, 0.22), 0 0 80px rgba(45, 212, 191, 0.10);
-  --neon-cykan: 0 0 10px rgba(45, 212, 191, 0.7), 0 0 20px rgba(45, 212, 191, 0.3);
+  --input-glow: 0 0 40px rgba(74, 139, 134, 0.12), 0 0 80px rgba(74, 139, 134, 0.06);
+  --input-glow-focus: 0 0 40px rgba(74, 139, 134, 0.22), 0 0 80px rgba(74, 139, 134, 0.10);
+  --neon-accent-teal: 0 0 10px rgba(74, 139, 134, 0.7), 0 0 20px rgba(74, 139, 134, 0.3);
 
   /* ─── Shadows composants ────────────────────────────────────── */
-  --shadow-neon-cykan: 0 0 8px rgba(45, 212, 191, 0.6);         /* TimelineRail thread actif */
-  --shadow-input-focus: 0 0 15px rgba(45, 212, 191, 0.15);      /* ChatInput focus halo doux */
+  --shadow-neon-accent-teal: 0 0 8px rgba(74, 139, 134, 0.6);         /* TimelineRail thread actif */
+  --shadow-input-focus: 0 0 15px rgba(74, 139, 134, 0.15);      /* ChatInput focus halo doux */
   --shadow-focus-ring: 0 0 0 2px var(--border-focus);           /* Focus ring a11y outline */
   /* Stage card — carte centrale flottante */
   --shadow-stage-card:
@@ -184,14 +184,14 @@
   /* Overlay scrim — fond modal/drawer derrière. Valeur identique en dark
    * et light : on assombrit toujours par rapport au contenu source. */
   --overlay-scrim: rgba(0, 0, 0, 0.40);
-  --text-on-cykan: #000000;
+  --text-on-accent-teal: #000000;
   --card-flat-bg: rgba(255, 255, 255, 0.02);
   --card-flat-border: rgba(255, 255, 255, 0.06);
 
   --surface-card: rgba(255, 255, 255, 0.035);
-  --cykan-bg-active: rgba(45, 212, 191, 0.08);
-  --cykan-bg-hover: rgba(45, 212, 191, 0.05);
-  --cykan-border-hover: rgba(45, 212, 191, 0.22);
+  --accent-teal-bg-active: rgba(74, 139, 134, 0.08);
+  --accent-teal-bg-hover: rgba(74, 139, 134, 0.05);
+  --accent-teal-border-hover: rgba(74, 139, 134, 0.22);
 
   /* ─── Hearst Connect — Radius scale ─────────────────────────── */
   --radius-xs: 4px;
@@ -212,7 +212,7 @@
                  0 12px 24px rgba(0, 0, 0, 0.20),
                  0 20px 40px -10px rgba(0, 0, 0, 0.40);
   --shadow-card-hover: 0 4px 8px rgba(0, 0, 0, 0.35),
-                      0 20px 40px rgba(45, 212, 191, 0.12),
+                      0 20px 40px rgba(74, 139, 134, 0.12),
                       0 30px 60px -12px rgba(0, 0, 0, 0.50);
 
   /* ─── Hearst Connect — Typography weights ───────────────────── */
@@ -257,7 +257,7 @@
   --ease-out-soft: cubic-bezier(0.2, 1, 0.2, 1);
   --duration-emphasis: 300ms;
   /* Ligne tête de lecture timeline admin (glow discret). */
-  --shadow-playhead-cykan: 0 0 6px var(--cykan);
+  --shadow-playhead-accent-teal: 0 0 6px var(--accent-teal);
 
   /* ─── Hearst Connect — Border strata ────────────────────────── */
   --border-subtle: rgba(255, 255, 255, 0.28);
@@ -285,7 +285,7 @@
  * Activé via [data-theme="light"] sur la racine du layout user,
  * ou sur `CanvasShell` (pipeline admin) pour fond blanc + grille technique.
  * On flip surfaces / texte / bordures vers le light cool neutre, on
- * conserve le cykan turquoise (#2DD4BF) comme accent — il porte sur
+ * conserve le accent-teal turquoise (#4A8B86) comme accent — il porte sur
  * fond clair grâce à sa saturation. Les autres routes admin sans cet
  * attribut restent en dark hérité de :root. */
 [data-theme="light"] {
@@ -324,7 +324,7 @@
   /* Lines / borders */
   --line: rgba(28, 29, 32, 0.06);
   --line-strong: rgba(28, 29, 32, 0.10);
-  --line-active: rgba(45, 212, 191, 0.30);
+  --line-active: rgba(74, 139, 134, 0.30);
 
   --border-shell: rgba(28, 29, 32, 0.08);
   --border-soft: rgba(28, 29, 32, 0.05);
@@ -333,7 +333,7 @@
   /* Voir :root pour la doc. Light theme : même opacité — l'utilisateur
    * voit du sombre derrière le modal, indépendamment du thème. */
   --overlay-scrim: rgba(0, 0, 0, 0.40);
-  --text-on-cykan: var(--text-dark);
+  --text-on-accent-teal: var(--text-dark);
   --border-subtle: rgba(28, 29, 32, 0.08);
   --border-default: rgba(28, 29, 32, 0.14);
   --border-strong: rgba(28, 29, 32, 0.20);
@@ -347,11 +347,11 @@
   --card-flat-border: rgba(28, 29, 32, 0.08);
 
   /* Cykan turquoise conservé — opacités lift pour passer sur clair */
-  --cykan-bg-active: rgba(45, 212, 191, 0.14);
-  --cykan-bg-hover: rgba(45, 212, 191, 0.08);
-  --cykan-border-hover: rgba(45, 212, 191, 0.45);
-  --cykan-surface: rgba(45, 212, 191, 0.06);
-  --cykan-border: rgba(45, 212, 191, 0.35);
+  --accent-teal-bg-active: rgba(74, 139, 134, 0.14);
+  --accent-teal-bg-hover: rgba(74, 139, 134, 0.08);
+  --accent-teal-border-hover: rgba(74, 139, 134, 0.45);
+  --accent-teal-surface: rgba(74, 139, 134, 0.06);
+  --accent-teal-border: rgba(74, 139, 134, 0.35);
 
   /* Shadows — plus discrètes sur clair */
   --shadow-sm: 0 1px 2px rgba(28, 29, 32, 0.06);
@@ -367,7 +367,7 @@
 }
 
 /* ─── Cockpit Poster — typo éditoriale ────────────────────────────
- * Greeting H1 + eyebrow uppercase + brief block (filet cykan). Le reste
+ * Greeting H1 + eyebrow uppercase + brief block (filet accent-teal). Le reste
  * du langage poster (display, prose, dropcap, observation, rule, cta)
  * a été retiré au pivot 2026-05-02 quand le brief block est devenu
  * la pièce maîtresse unique. */
@@ -390,10 +390,10 @@
 /* ─── Cockpit éditorial — pivot 2026-05-02 ───────────────────────
  * Le poster central porte uniquement le brief (la promesse Hearst).
  * Les KPI vivent au right rail (GeneralDashboard) — un seul endroit.
- * Le brief block reste filet cykan, l'incipit est mis en valeur par
+ * Le brief block reste filet accent-teal, l'incipit est mis en valeur par
  * la première phrase en strong. */
 .poster-brief-block {
-  border-left: 2px solid var(--cykan);
+  border-left: 2px solid var(--accent-teal);
   padding: var(--space-4) var(--space-6);
   background: var(--surface-1);
   display: flex;
@@ -414,9 +414,9 @@
 }
 .poster-brief-block .read-more {
   align-self: flex-start;
-  color: var(--cykan);
+  color: var(--accent-teal);
   font-size: 13px;
-  border-bottom: 1px solid var(--cykan-border);
+  border-bottom: 1px solid var(--accent-teal-border);
   padding-bottom: 2px;
   text-decoration: none;
   background: transparent;
@@ -448,12 +448,12 @@
   width: 100%;
 }
 .recap-card:hover {
-  border-color: var(--cykan-border);
-  background: var(--cykan-bg-hover);
+  border-color: var(--accent-teal-border);
+  background: var(--accent-teal-bg-hover);
 }
 .recap-card:focus-visible {
-  border-color: var(--cykan);
-  box-shadow: 0 0 0 2px var(--cykan-bg-active);
+  border-color: var(--accent-teal);
+  box-shadow: 0 0 0 2px var(--accent-teal-bg-active);
 }
 .recap-card.is-static {
   cursor: default;
@@ -511,8 +511,8 @@
   display: inline-block;
   width: 6px; height: 6px;
   border-radius: 999px;
-  background: var(--cykan);
-  box-shadow: 0 0 6px rgba(45, 212, 191, 0.55), 0 0 14px rgba(45, 212, 191, 0.25);
+  background: var(--accent-teal);
+  box-shadow: 0 0 6px rgba(74, 139, 134, 0.55), 0 0 14px rgba(74, 139, 134, 0.25);
   animation: poster-pulse 2.6s ease-in-out infinite;
 }
 @keyframes poster-pulse {
@@ -529,11 +529,11 @@
   overflow: hidden;
   background: var(--bg);
 
-  --pipeline-accent: var(--cykan);
-  --pipeline-accent-soft: color-mix(in srgb, var(--cykan) 18%, transparent);
+  --pipeline-accent: var(--accent-teal);
+  --pipeline-accent-soft: color-mix(in srgb, var(--accent-teal) 18%, transparent);
   --pipeline-accent-glow: var(--glow-cyan-sm);
   --pipeline-accent-glow-md: var(--glow-cyan-md);
-  --pipeline-ring-active: color-mix(in srgb, var(--cykan) 55%, transparent);
+  --pipeline-ring-active: color-mix(in srgb, var(--accent-teal) 55%, transparent);
   --pipeline-port-socket: var(--surface);
 }
 
@@ -554,11 +554,11 @@
 .pipeline-canvas-frame [data-kind="intent"],
 .pipeline-canvas-frame [data-kind="check"],
 .pipeline-canvas-frame [data-kind="tools"] {
-  --pipeline-accent: var(--cykan);
-  --pipeline-accent-soft: color-mix(in srgb, var(--cykan) 20%, transparent);
+  --pipeline-accent: var(--accent-teal);
+  --pipeline-accent-soft: color-mix(in srgb, var(--accent-teal) 20%, transparent);
   --pipeline-accent-glow: var(--glow-cyan-sm);
   --pipeline-accent-glow-md: var(--glow-cyan-md);
-  --pipeline-ring-active: color-mix(in srgb, var(--cykan) 55%, transparent);
+  --pipeline-ring-active: color-mix(in srgb, var(--accent-teal) 55%, transparent);
 }
 .pipeline-canvas-frame [data-kind="gate"] {
   --pipeline-accent: var(--warn);
@@ -865,12 +865,12 @@
 
 /* ── Pipeline cable — 3 strokes empilés (halo · body · core) ────────── */
 .pipeline-cable {
-  --cable-color: var(--cykan);
+  --cable-color: var(--accent-teal);
   --cable-color-bright: color-mix(in srgb, var(--cable-color) 60%, #ffffff);
 }
 .pipeline-cable[data-branch="research"],
-.pipeline-cable[data-branch="retrieval"] { --cable-color: var(--cykan); }
-.pipeline-cable[data-branch="pipeline"]  { --cable-color: var(--cykan); }
+.pipeline-cable[data-branch="retrieval"] { --cable-color: var(--accent-teal); }
+.pipeline-cable[data-branch="pipeline"]  { --cable-color: var(--accent-teal); }
 .pipeline-cable[data-branch="agent"]     { --cable-color: var(--accent-agent); }
 
 .pipeline-cable-halo {
@@ -932,7 +932,7 @@
 
 /* Admin — replay waterfall : tête de lecture */
 .admin-waterfall-playhead {
-  box-shadow: var(--shadow-playhead-cykan);
+  box-shadow: var(--shadow-playhead-accent-teal);
 }
 
 /* Admin — bannière erreur API (listes / formulaires). */
@@ -1096,8 +1096,8 @@ body {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 30%, rgba(45, 212, 191, 0.015) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(45, 212, 191, 0.01) 0%, transparent 40%),
+    radial-gradient(circle at 20% 30%, rgba(74, 139, 134, 0.015) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(74, 139, 134, 0.01) 0%, transparent 40%),
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.005) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
@@ -1133,8 +1133,8 @@ body {
   letter-spacing: 0;
 }
 .cockpit-action:hover .ca-label {
-  color: var(--cykan);
-  text-shadow: var(--neon-cykan);
+  color: var(--accent-teal);
+  text-shadow: var(--neon-accent-teal);
   letter-spacing: 0.005em;
 }
 .cockpit-action .ca-hotkey {
@@ -1146,12 +1146,12 @@ body {
   color: var(--text-l3);
   transition: color 300ms ease;
 }
-.cockpit-action:hover .ca-hotkey { color: var(--cykan); opacity: 0.7; }
+.cockpit-action:hover .ca-hotkey { color: var(--accent-teal); opacity: 0.7; }
 
 /* ─── Status dots — pastilles d'état (pivot 2026-05-02) ─────────
  * Initialement enfants des .context-tile (refactor remplacé par .recap-card
  * dans GeneralDashboard). Réutilisés en standalone pour signaler l'état
- * d'une mission (running pulse cykan / blocked ambre / failed rouge / success vert). */
+ * d'une mission (running pulse accent-teal / blocked ambre / failed rouge / success vert). */
 .context-tile-status {
   position: absolute;
   top: var(--space-1);
@@ -1162,9 +1162,9 @@ body {
   background: var(--text-l3);
 }
 .context-tile-status.is-running {
-  background: var(--cykan);
+  background: var(--accent-teal);
   box-shadow: var(--glow-cyan-sm);
-  animation: pulse-status-cykan 2s ease-in-out infinite;
+  animation: pulse-status-accent-teal 2s ease-in-out infinite;
 }
 .context-tile-status.is-blocked {
   background: var(--warn);
@@ -1178,7 +1178,7 @@ body {
   background: var(--color-success);
   box-shadow: var(--glow-success-sm);
 }
-@keyframes pulse-status-cykan {
+@keyframes pulse-status-accent-teal {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.55; transform: scale(1.25); }
 }
@@ -1186,7 +1186,7 @@ body {
 /* ─── StageFooter — dots état LLM ───────────────────────────────
  * 3 dots animés sous ChatDock, pattern dépend de useRuntimeStore.coreState.
  * Chaque dot reçoit `animationDelay` pour décaler la vague (typing-style).
- * Couleur portée par `style.background` (cykan / gold / danger / muted). */
+ * Couleur portée par `style.background` (accent-teal / gold / danger / muted). */
 .sf-dot {
   display: inline-block;
   width: var(--space-1);
@@ -1258,15 +1258,15 @@ body {
   border-color: rgba(255,255,255,0.10);
 }
 .cockpit-input-pill:focus-within {
-  border-color: rgba(45,212,191,0.40);
+  border-color: rgba(74,139,134,0.40);
   background: rgba(255,255,255,0.05);
   box-shadow:
     0 1px 0 rgba(255,255,255,0.06) inset,
-    0 0 0 4px rgba(45,212,191,0.06),
-    0 0 32px rgba(45,212,191,0.12);
+    0 0 0 4px rgba(74,139,134,0.06),
+    0 0 32px rgba(74,139,134,0.12);
 }
 
-/* Thinking Canvas — input flat, sans halo cykan en focus.
+/* Thinking Canvas — input flat, sans halo accent-teal en focus.
    Focus = simple shift de la bordure vers --text-soft. */
 .cockpit-input-pill-flat {
   position: relative;
@@ -1291,13 +1291,13 @@ body {
 }
 
 /* Input "two-lines" — pivot 2026-05-03.
- * Plus de coquille rounded, plus de halo cykan en focus, plus de fond.
+ * Plus de coquille rounded, plus de halo accent-teal en focus, plus de fond.
  * Juste deux filets 1px (top + bottom) avec un linear-gradient qui fade
  * aux extrémités (transparent → couleur → transparent) pour donner de la
  * légèreté éditoriale. Le textarea flotte dans le paper.
  *
  * Focus : les filets passent de var(--border-default) à var(--text-soft),
- * shift de contraste subtil, JAMAIS de cykan. */
+ * shift de contraste subtil, JAMAIS de accent-teal. */
 .cockpit-input-pill-line {
   position: relative;
   z-index: 1;
@@ -1351,35 +1351,35 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--cykan) 12%,
-    var(--cykan) 88%,
+    var(--accent-teal) 12%,
+    var(--accent-teal) 88%,
     transparent 100%
   );
 }
 
-/* Sélection texte — calmer, teintée cykan (Thinking Canvas). */
+/* Sélection texte — calmer, teintée accent-teal (Thinking Canvas). */
 ::selection {
-  background: color-mix(in srgb, var(--cykan) 22%, transparent);
+  background: color-mix(in srgb, var(--accent-teal) 22%, transparent);
   color: var(--text);
 }
 
 /* ── Halo utilities ────────────────────── */
 
 .halo-cyan-sm {
-  text-shadow: 0 0 12px rgba(45, 212, 191, 0.35);
+  text-shadow: 0 0 12px rgba(74, 139, 134, 0.35);
 }
 
 .halo-cyan-lg {
   text-shadow:
-    0 0 24px rgba(45, 212, 191, 0.45),
-    0 0 60px rgba(45, 212, 191, 0.25),
-    0 0 100px rgba(45, 212, 191, 0.12);
+    0 0 24px rgba(74, 139, 134, 0.45),
+    0 0 60px rgba(74, 139, 134, 0.25),
+    0 0 100px rgba(74, 139, 134, 0.12);
 }
 
 .halo-dot {
   box-shadow:
-    0 0 6px rgba(45, 212, 191, 0.6),
-    0 0 16px rgba(45, 212, 191, 0.35);
+    0 0 6px rgba(74, 139, 134, 0.6),
+    0 0 16px rgba(74, 139, 134, 0.35);
 }
 
 /* ── HaloAgentCore — constellation 3D des agents (cockpit home) ───────── */
@@ -1437,7 +1437,7 @@ body {
   font-weight: 600;
   font-size: 22px;
   box-shadow:
-    0 0 24px rgba(45, 212, 191, 0.40),
+    0 0 24px rgba(74, 139, 134, 0.40),
     0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
@@ -1533,7 +1533,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(45, 212, 191, 0.3);
+  background: rgba(74, 139, 134, 0.3);
 }
 
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
@@ -1579,7 +1579,7 @@ body {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 4px 8px rgba(0, 0, 0, 0.5),
-    0 20px 40px -12px rgba(45, 212, 191, 0.10),
+    0 20px 40px -12px rgba(74, 139, 134, 0.10),
     0 30px 60px -16px rgba(0, 0, 0, 0.6);
 }
 
@@ -1642,7 +1642,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.20);
+  box-shadow: 0 0 0 4px rgba(74, 139, 134, 0.20);
 }
 
 input[type="range"]::-moz-range-track {
@@ -1665,7 +1665,7 @@ input[type="range"]:focus-visible {
 }
 
 input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.30);
+  box-shadow: 0 0 0 3px rgba(74, 139, 134, 0.30);
 }
 
 /* Panel enter animation (Connect cinematic entrance) */
@@ -1700,8 +1700,8 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   justify-content: center;
   background:
     radial-gradient(circle at 50% 50%,
-      rgba(45, 212, 191, 0.11) 0%,
-      rgba(45, 212, 191, 0.036) 35%,
+      rgba(74, 139, 134, 0.11) 0%,
+      rgba(74, 139, 134, 0.036) 35%,
       transparent 70%);
   pointer-events: none;
 }
@@ -1711,7 +1711,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   position: absolute;
   inset: 12px;
   border-radius: 50%;
-  border: 1px solid rgba(45, 212, 191, 0.15);
+  border: 1px solid rgba(74, 139, 134, 0.15);
   animation: halo-core-rotate 24s linear infinite;
 }
 
@@ -1725,8 +1725,8 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--cyan-accent);
   box-shadow:
-    0 0 8px rgba(45, 212, 191, 0.36),
-    0 0 20px rgba(45, 212, 191, 0.21);
+    0 0 8px rgba(74, 139, 134, 0.36),
+    0 0 20px rgba(74, 139, 134, 0.21);
   animation: halo-core-pulse 4s ease-in-out infinite;
 }
 
@@ -1749,7 +1749,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 
 /* ── Ghost Protocol — boutons & inputs minimalistes ──────────────
    Pattern : `.ghost-btn-solid` pose la base (layout, font, transition),
-   un modificateur `.ghost-btn-cykan` ou `.ghost-btn-ghost` pose le skin.
+   un modificateur `.ghost-btn-accent-teal` ou `.ghost-btn-ghost` pose le skin.
    `.ghost-input-line` = input underline cockpit. */
 .ghost-btn-solid {
   display: inline-flex;
@@ -1778,36 +1778,36 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 
 .ghost-btn-solid:focus-visible {
   outline: none;
-  box-shadow: inset 0 0 0 1px var(--cykan-border-hover);
+  box-shadow: inset 0 0 0 1px var(--accent-teal-border-hover);
 }
 
 /* A11y AA — fallback global focus-visible pour tous les <button> natifs qui
    n'ont pas leur propre traitement focus-visible (Stages historiques, modals,
    tabs custom, etc.). Les composants `<Action>` et `<StageActionBar>` ont leur
-   propre ring `var(--cykan-border-hover)` plus marqué et override ce fallback.
+   propre ring `var(--accent-teal-border-hover)` plus marqué et override ce fallback.
 
    Exclusions :
    - .ghost-btn-solid : déjà géré ci-dessus (inset shadow)
    - boutons sans aria-label avec opacity-0 / sr-only : couverts par leur parent
 */
 button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
-  outline: 1px solid var(--cykan-border-hover);
+  outline: 1px solid var(--accent-teal-border-hover);
   outline-offset: 1px;
 }
 
-.ghost-btn-cykan {
-  background: var(--cykan);
+.ghost-btn-accent-teal {
+  background: var(--accent-teal);
   color: #000;
-  border-color: var(--cykan);
+  border-color: var(--accent-teal);
 }
 
-.ghost-btn-cykan:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--cykan) 88%, transparent);
-  box-shadow: 0 0 24px rgba(45, 212, 191, 0.25);
+.ghost-btn-accent-teal:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent-teal) 88%, transparent);
+  box-shadow: 0 0 24px rgba(74, 139, 134, 0.25);
 }
 
-.ghost-btn-cykan:active:not(:disabled) {
-  background: color-mix(in srgb, var(--cykan) 95%, black);
+.ghost-btn-accent-teal:active:not(:disabled) {
+  background: color-mix(in srgb, var(--accent-teal) 95%, black);
 }
 
 .ghost-btn-ghost {
@@ -1855,8 +1855,8 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 }
 
 .ghost-input-line:focus-visible {
-  border-bottom-color: var(--cykan);
-  box-shadow: 0 1px 0 0 var(--cykan);
+  border-bottom-color: var(--accent-teal);
+  box-shadow: 0 1px 0 0 var(--accent-teal);
 }
 
 .ghost-input-line:disabled {

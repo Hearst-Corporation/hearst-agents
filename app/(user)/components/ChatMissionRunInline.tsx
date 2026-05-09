@@ -87,11 +87,11 @@ export function ChatMissionRunInline() {
 
   return (
     <div
-      className="mt-3 border border-[var(--cykan)]/40 bg-[var(--cykan)]/[0.04] px-4 py-3"
+      className="mt-3 border border-[var(--accent-teal)]/40 bg-[var(--accent-teal)]/[0.04] px-4 py-3"
       role="region"
       aria-label="Confirmation de lancement de mission"
     >
-      <div className="flex items-center gap-2 mb-2 t-9 font-medium text-[var(--cykan)]">
+      <div className="flex items-center gap-2 mb-2 t-9 font-medium text-[var(--accent-teal)]">
         <span>Mission</span>
         <span className="text-[var(--text-ghost)]">·</span>
         <span className="text-[var(--text-faint)]">{MATCH_LABEL[request.matchKind]}</span>
@@ -118,11 +118,11 @@ export function ChatMissionRunInline() {
           type="button"
           onClick={handleRun}
           disabled={busy || done}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-medium border border-[var(--cykan)] text-[var(--cykan)] bg-[var(--cykan)]/[0.06] hover:bg-[var(--cykan)]/[0.12] transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-medium border border-[var(--accent-teal)] text-[var(--accent-teal)] bg-[var(--accent-teal)]/[0.06] hover:bg-[var(--accent-teal)]/[0.12] transition-colors disabled:opacity-50"
         >
           {busy ? (
             <>
-              <span className="w-1 h-1 rounded-pill bg-[var(--cykan)] animate-pulse" />
+              <span className="w-1 h-1 rounded-pill bg-[var(--accent-teal)] animate-pulse" />
               <span>Lancement…</span>
             </>
           ) : done ? (
@@ -142,7 +142,7 @@ export function ChatMissionRunInline() {
         </button>
         <Link
           href="/missions"
-          className="t-9 font-light text-[var(--text-faint)] hover:text-[var(--cykan)]"
+          className="t-9 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
           title="Ouvrir la page Missions"
         >
           Voir toutes les missions

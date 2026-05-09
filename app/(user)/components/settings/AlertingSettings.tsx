@@ -221,7 +221,7 @@ function Input({
         transition: `border-color var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard)`,
       }}
       onFocus={(e) => {
-        e.currentTarget.style.borderColor = "var(--cykan)";
+        e.currentTarget.style.borderColor = "var(--accent-teal)";
         e.currentTarget.style.boxShadow = "var(--shadow-input-focus)";
       }}
       onBlur={(e) => {
@@ -256,8 +256,8 @@ function Toggle({
           width: "var(--space-8)",
           height: "var(--space-4)",
           borderRadius: "var(--radius-pill)",
-          background: checked ? "var(--cykan)" : "var(--surface-2)",
-          border: `1px solid ${checked ? "var(--cykan)" : "var(--border-default)"}`,
+          background: checked ? "var(--accent-teal)" : "var(--surface-2)",
+          border: `1px solid ${checked ? "var(--accent-teal)" : "var(--border-default)"}`,
           alignItems: "center",
           padding: "2px",
           transition: `background var(--duration-base) var(--ease-standard)`,
@@ -294,7 +294,7 @@ function Btn({
   const colors = {
     default: { bg: "var(--surface-2)", color: "var(--text-soft)", border: "var(--border-default)" },
     danger: { bg: "var(--color-error-bg)", color: "var(--color-error)", border: "var(--color-error-border)" },
-    primary: { bg: "var(--cykan)", color: "var(--text-on-cykan)", border: "transparent" },
+    primary: { bg: "var(--accent-teal)", color: "var(--text-on-accent-teal)", border: "transparent" },
     ghost: { bg: "transparent", color: "var(--text-muted)", border: "transparent" },
   };
   const c = colors[variant];
@@ -350,9 +350,9 @@ function SignalBadge({ type }: { type: keyof typeof SIGNAL_SEVERITY | "*" }) {
       <span
         className="t-9"
         style={{
-          background: "var(--cykan-surface)",
-          color: "var(--cykan)",
-          border: "1px solid var(--cykan-border)",
+          background: "var(--accent-teal-surface)",
+          color: "var(--accent-teal)",
+          border: "1px solid var(--accent-teal-border)",
           borderRadius: "var(--radius-xs)",
           padding: "1px var(--space-1)",
           letterSpacing: "var(--tracking-caption)",
@@ -634,7 +634,7 @@ export function AlertingSettings() {
                         : state.newWebhook.signalTypes.filter((s) => s !== "*");
                       dispatch({ type: "NEW_WEBHOOK_CHANGE", draft: { signalTypes: types } });
                     }}
-                    style={{ accentColor: "var(--cykan)" }}
+                    style={{ accentColor: "var(--accent-teal)" }}
                   />
                   Tous les signaux
                 </label>
@@ -650,7 +650,7 @@ export function AlertingSettings() {
                             : state.newWebhook.signalTypes.filter((s) => s !== st);
                           dispatch({ type: "NEW_WEBHOOK_CHANGE", draft: { signalTypes: types } });
                         }}
-                        style={{ accentColor: "var(--cykan)" }}
+                        style={{ accentColor: "var(--accent-teal)" }}
                       />
                       {st}
                     </label>
@@ -729,7 +729,7 @@ export function AlertingSettings() {
                     style={{
                       background: "none",
                       border: "none",
-                      color: "var(--cykan)",
+                      color: "var(--accent-teal)",
                       cursor: "pointer",
                       padding: 0,
                       letterSpacing: "var(--tracking-caption)",
@@ -756,7 +756,7 @@ export function AlertingSettings() {
                             prefs: { ...prefs, email: { ...prefs.email!, signalTypes: types } },
                           });
                         }}
-                        style={{ accentColor: "var(--cykan)" }}
+                        style={{ accentColor: "var(--accent-teal)" }}
                       />
                       Tous les signaux critiques
                     </label>

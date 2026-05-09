@@ -56,13 +56,13 @@ export default function AdminSidebar({
           collapsed ? "justify-center px-(--space-2)" : "px-(--space-5)",
         ].join(" ")}
       >
-        <span className="size-(--space-6) rounded-(--radius-sm) bg-(--cykan-bg-active) border border-(--cykan)/40 flex items-center justify-center shrink-0">
-          <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--cykan)">H</span>
+        <span className="size-(--space-6) rounded-(--radius-sm) bg-(--accent-teal-bg-active) border border-(--accent-teal)/40 flex items-center justify-center shrink-0">
+          <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--accent-teal)">H</span>
         </span>
         {!collapsed && (
           <div className="flex flex-col leading-tight min-w-0">
             <span className="t-13 font-medium text-text truncate">Hearst OS</span>
-            <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--cykan)">Admin</span>
+            <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--accent-teal)">Admin</span>
           </div>
         )}
       </div>
@@ -94,14 +94,14 @@ export default function AdminSidebar({
                       ? "justify-center size-(--space-10)"
                       : "gap-(--space-3) px-(--space-3) py-(--space-2)",
                     active
-                      ? "bg-(--cykan-bg-active) text-text"
+                      ? "bg-(--accent-teal-bg-active) text-text"
                       : "text-text-muted hover:text-text hover:bg-(--surface-1)",
                   ].join(" ")}
                 >
                   <span
                     className={
                       active
-                        ? "text-(--cykan)"
+                        ? "text-(--accent-teal)"
                         : "text-text-faint group-hover:text-text-muted transition-colors"
                     }
                   >
@@ -166,7 +166,7 @@ export default function AdminSidebar({
             type="button"
             onClick={onToggleCollapsed}
             title={collapsed ? "Étendre la sidebar" : "Réduire la sidebar"}
-            className="flex items-center justify-center text-text-ghost hover:text-(--cykan) transition-colors py-(--space-1)"
+            className="flex items-center justify-center text-text-ghost hover:text-(--accent-teal) transition-colors py-(--space-1)"
           >
             <NavIcon d={collapsed ? "M9 18l6-6-6-6" : "M15 18l-6-6 6-6"} />
           </button>

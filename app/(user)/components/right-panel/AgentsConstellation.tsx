@@ -4,7 +4,7 @@
  * AgentsConstellation — hexagone 2D décoratif des 6 agents Hearst.
  *
  * SVG pur, responsive, décoratif uniquement (pas de click).
- * Couleur lue via var(--cykan) et var(--text-l2).
+ * Couleur lue via var(--accent-teal) et var(--text-l2).
  * Les 6 nœuds sont positionnés en cercle régulier (hexagone).
  */
 
@@ -70,7 +70,7 @@ export function AgentsConstellation() {
             <g key={agent.id}>
               <circle
                 cx={x} cy={y} r={DOT_R}
-                fill="var(--cykan)"
+                fill="var(--accent-teal)"
                 opacity="0.85"
               />
               <text

@@ -179,7 +179,7 @@ export default function AdminAnalyticsPage() {
           <AnalyticsKpiCard
             label="Cost USD"
             value={`$${(overview?.totalCostUsd ?? 0).toFixed(4)}`}
-            accent="cykan"
+            accent="accent-teal"
             sub={`${overview?.totalActiveUsers ?? 0} user(s) actif(s)`}
           />
           <AnalyticsKpiCard
@@ -290,7 +290,7 @@ function Filters({
         </select>
       </label>
       {loading && (
-        <span className="t-9 font-mono uppercase tracking-marquee text-[var(--cykan)]">
+        <span className="t-9 font-mono uppercase tracking-marquee text-[var(--accent-teal)]">
           chargement…
         </span>
       )}
@@ -335,8 +335,8 @@ function SegmentedControl({
               style={{
                 padding: "var(--space-1) var(--space-3)",
                 borderRadius: "var(--radius-pill)",
-                background: active ? "var(--cykan-surface)" : "transparent",
-                color: active ? "var(--cykan)" : "var(--text-ghost)",
+                background: active ? "var(--accent-teal-surface)" : "transparent",
+                color: active ? "var(--accent-teal)" : "var(--text-ghost)",
                 border: "none",
                 cursor: "pointer",
               }}
@@ -364,7 +364,7 @@ function TenantDrillDown({
       style={{
         gap: "var(--space-3)",
         padding: "var(--space-5)",
-        border: "1px solid var(--cykan-border)",
+        border: "1px solid var(--accent-teal-border)",
         borderRadius: "var(--radius-md)",
         background: "var(--bg-elev)",
       }}
@@ -379,7 +379,7 @@ function TenantDrillDown({
         <button
           type="button"
           onClick={onClose}
-          className="t-9 font-mono uppercase tracking-marquee text-[var(--text-ghost)] hover:text-[var(--cykan)]"
+          className="t-9 font-mono uppercase tracking-marquee text-[var(--text-ghost)] hover:text-[var(--accent-teal)]"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Fermer
@@ -417,7 +417,7 @@ function TenantDrillDown({
               <span className="col-span-2 text-right t-11 font-mono text-[var(--text-muted)]">
                 {u.runs} runs
               </span>
-              <span className="col-span-3 text-right t-11 font-mono text-[var(--cykan)]">
+              <span className="col-span-3 text-right t-11 font-mono text-[var(--accent-teal)]">
                 ${u.costUsd.toFixed(4)}
               </span>
             </li>

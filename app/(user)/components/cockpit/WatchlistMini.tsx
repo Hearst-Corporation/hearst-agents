@@ -36,7 +36,7 @@ function WatchRow({ item }: { item: CockpitWatchlistItem }) {
   const critical = item.anomaly?.severity === "critical";
   const warning = item.anomaly?.severity === "warning";
   const tone = critical ? "var(--danger)" : warning ? "var(--warn)" : "var(--text-l1)";
-  const sparklineColor = critical ? "var(--danger)" : warning ? "var(--warn)" : "var(--cykan)";
+  const sparklineColor = critical ? "var(--danger)" : warning ? "var(--warn)" : "var(--accent-teal)";
   const arrow = item.anomaly?.direction === "up" ? "↗" : item.anomaly?.direction === "down" ? "↘" : "→";
 
   return (

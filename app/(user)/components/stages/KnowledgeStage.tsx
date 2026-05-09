@@ -39,7 +39,7 @@ interface CytoscapeCoreLike {
 type Phase = "loading" | "empty" | "ready";
 
 const NODE_COLOR_BY_TYPE: Record<string, string> = {
-  person: "var(--cykan)",
+  person: "var(--accent-teal)",
   company: "var(--warn)",
   project: "var(--accent-llm)",
   decision: "var(--danger)",
@@ -278,7 +278,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         selector: "node:selected",
         style: {
           "border-width": 2,
-          "border-color": "var(--cykan)",
+          "border-color": "var(--accent-teal)",
         },
       },
       {
@@ -289,7 +289,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         selector: "node.kg-node-hit",
         style: {
           "border-width": 2,
-          "border-color": "var(--cykan)",
+          "border-color": "var(--accent-teal)",
           "border-style": "double",
         },
       },
@@ -352,7 +352,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
       <StageActionBar
         context={
           <>
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               KNOWLEDGE
             </span>
             {entityId && (
@@ -425,7 +425,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         <div className="flex-1 flex items-center justify-center px-8">
           <div className="text-center max-w-md flex flex-col gap-6">
             <span
-              className="block text-[var(--cykan)] opacity-30 mx-auto t-34"
+              className="block text-[var(--accent-teal)] opacity-30 mx-auto t-34"
               style={{ height: "var(--height-stage-empty-icon)" }}
               aria-hidden
             >
@@ -494,7 +494,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                 type="button"
                 onClick={() => void handleFindPath()}
                 disabled={!pathFrom || !pathTo || pathLoading}
-                className="t-11 font-medium text-[var(--cykan)] disabled:opacity-50"
+                className="t-11 font-medium text-[var(--accent-teal)] disabled:opacity-50"
                 style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)" }}
               >
                 {pathLoading ? "…" : "Trouver chemin"}

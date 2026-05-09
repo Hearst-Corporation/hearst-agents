@@ -10,11 +10,11 @@
  *
  * Visuel Ghost Protocol :
  *   - grille rectangulaire compacte
- *   - intensité encodée par opacité sur var(--cykan)
+ *   - intensité encodée par opacité sur var(--accent-teal)
  *   - axes labelisés en mono uppercase t-9
  *   - aucune cellule sélectionnable (lecture seule en V1)
  *
- * Pas de magic number. Couleur unique = cykan, l'opacité encode le volume.
+ * Pas de magic number. Couleur unique = accent-teal, l'opacité encode le volume.
  */
 
 import { fmtNumber } from "./format";
@@ -149,9 +149,9 @@ export function Heatmap({
                           textAlign: "center",
                           color:
                             intensity > 0.55
-                              ? "var(--text-on-cykan)"
+                              ? "var(--text-on-accent-teal)"
                               : "var(--text-soft)",
-                          background: `color-mix(in srgb, var(--cykan) ${(intensity * 100).toFixed(0)}%, transparent)`,
+                          background: `color-mix(in srgb, var(--accent-teal) ${(intensity * 100).toFixed(0)}%, transparent)`,
                           borderBottom: "1px solid var(--line)",
                           minWidth: "var(--space-6)",
                         }}

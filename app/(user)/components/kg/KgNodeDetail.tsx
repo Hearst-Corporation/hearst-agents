@@ -18,7 +18,7 @@ interface KgNodeDetailProps {
 }
 
 const TYPE_COLOR: Record<string, string> = {
-  person: "var(--cykan)",
+  person: "var(--accent-teal)",
   company: "var(--warn)",
   project: "var(--accent-llm)",
   decision: "var(--danger)",
@@ -140,7 +140,7 @@ export function KgNodeDetail({ node, edges, nodes, onClose, onPickPath }: KgNode
           <button
             type="button"
             onClick={() => onPickPath("from", node.id)}
-            className="t-11 font-light border border-[var(--border-default)] hover:border-[var(--cykan-border)] hover:text-[var(--cykan)] transition-colors text-[var(--text-muted)]"
+            className="t-11 font-light border border-[var(--border-default)] hover:border-[var(--accent-teal-border)] hover:text-[var(--accent-teal)] transition-colors text-[var(--text-muted)]"
             style={{ padding: "var(--space-1) var(--space-3)" }}
           >
             Départ chemin
@@ -148,7 +148,7 @@ export function KgNodeDetail({ node, edges, nodes, onClose, onPickPath }: KgNode
           <button
             type="button"
             onClick={() => onPickPath("to", node.id)}
-            className="t-11 font-light border border-[var(--border-default)] hover:border-[var(--cykan-border)] hover:text-[var(--cykan)] transition-colors text-[var(--text-muted)]"
+            className="t-11 font-light border border-[var(--border-default)] hover:border-[var(--accent-teal-border)] hover:text-[var(--accent-teal)] transition-colors text-[var(--text-muted)]"
             style={{ padding: "var(--space-1) var(--space-3)" }}
           >
             Arrivée chemin
@@ -166,7 +166,7 @@ export function KgNodeDetail({ node, edges, nodes, onClose, onPickPath }: KgNode
               type="button"
               onClick={() => void loadTimeline()}
               disabled={loadingTimeline}
-              className="t-11 font-medium text-[var(--cykan)] disabled:opacity-50"
+              className="t-11 font-medium text-[var(--accent-teal)] disabled:opacity-50"
               style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)" }}
             >
               {loadingTimeline ? "…" : "CHARGER"}

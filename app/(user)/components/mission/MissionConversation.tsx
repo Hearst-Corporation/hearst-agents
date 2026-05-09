@@ -231,7 +231,7 @@ export function MissionConversation({
               background:
                 submitting || draft.trim().length === 0
                   ? "var(--bg-soft)"
-                  : "var(--cykan)",
+                  : "var(--accent-teal)",
               color:
                 submitting || draft.trim().length === 0
                   ? "var(--text-faint)"
@@ -254,7 +254,7 @@ function MessageRow({ message }: { message: MissionMessage }) {
   const labelColor = isUser
     ? "var(--text-l2)"
     : isAssistant
-      ? "var(--cykan)"
+      ? "var(--accent-teal)"
       : "var(--text-faint)";
 
   return (

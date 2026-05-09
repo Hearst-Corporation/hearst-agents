@@ -144,10 +144,10 @@ export function SimulationStage() {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--cykan)] animate-pulse halo-dot"
+              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               SIMULATION
             </span>
             <span
@@ -227,7 +227,7 @@ function SimulationForm({
           onChange={(e) => onScenarioChange(e.target.value)}
           placeholder="ex: lancer une nouvelle ligne SaaS PME en Europe au Q3, budget 800k€"
           rows={4}
-          className="w-full bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--cykan)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)] resize-y"
+          className="w-full bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--accent-teal)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)] resize-y"
           style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
         />
       </div>
@@ -240,7 +240,7 @@ function SimulationForm({
           <button
             type="button"
             onClick={onVariableAdd}
-            className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--cykan)] hover:border-[var(--cykan-border-hover)] transition-all"
+            className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] transition-all"
           >
             + Ajouter
           </button>
@@ -253,7 +253,7 @@ function SimulationForm({
                 value={variable.key}
                 onChange={(e) => onVariableChange(idx, { key: e.target.value })}
                 placeholder="Variable"
-                className="flex-1 min-w-0 bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--cykan)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
+                className="flex-1 min-w-0 bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--accent-teal)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
                 style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
               />
               <input
@@ -261,7 +261,7 @@ function SimulationForm({
                 value={variable.value}
                 onChange={(e) => onVariableChange(idx, { value: e.target.value })}
                 placeholder="Valeur"
-                className="flex-1 min-w-0 bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--cykan)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
+                className="flex-1 min-w-0 bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--accent-teal)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
                 style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
               />
               <button
@@ -353,7 +353,7 @@ function SimulationResults({ scenarios, reasoning, assetId, onReset }: Simulatio
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--cykan)] hover:border-[var(--cykan-border-hover)] transition-all"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] transition-all"
         >
           Nouvelle simulation
         </button>
@@ -369,12 +369,12 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
 
   return (
     <article
-      className="flex flex-col gap-4 border border-[var(--surface-2)] border-l-2 border-l-[var(--cykan)] bg-[var(--bg-elev)] rounded-sm"
+      className="flex flex-col gap-4 border border-[var(--surface-2)] border-l-2 border-l-[var(--accent-teal)] bg-[var(--bg-elev)] rounded-sm"
       style={{ padding: "var(--space-6)" }}
     >
       <header className="flex items-start justify-between gap-4">
         <h3 className="t-15 font-medium text-[var(--text)]">{scenario.name}</h3>
-        <span className="t-11 font-medium text-[var(--cykan)] shrink-0">
+        <span className="t-11 font-medium text-[var(--accent-teal)] shrink-0">
           {probabilityPct}%
         </span>
       </header>

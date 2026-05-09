@@ -5,22 +5,22 @@ import { useNavigationStore } from "@/stores/navigation";
 
 interface StateConfig {
   label: string;
-  tone: "cykan" | "gold" | "danger" | "muted";
+  tone: "accent-teal" | "gold" | "danger" | "muted";
   pattern: "heartbeat" | "wave-fast" | "wave-medium" | "wave-slow" | "static" | "pulse-mid";
 }
 
 const STATE_MAP: Record<CoreState, StateConfig> = {
-  idle: { label: "Online", tone: "cykan", pattern: "heartbeat" },
-  connecting: { label: "Connecting", tone: "cykan", pattern: "wave-medium" },
-  streaming: { label: "Running", tone: "cykan", pattern: "wave-fast" },
-  processing: { label: "Processing", tone: "cykan", pattern: "wave-slow" },
+  idle: { label: "Online", tone: "accent-teal", pattern: "heartbeat" },
+  connecting: { label: "Connecting", tone: "accent-teal", pattern: "wave-medium" },
+  streaming: { label: "Running", tone: "accent-teal", pattern: "wave-fast" },
+  processing: { label: "Processing", tone: "accent-teal", pattern: "wave-slow" },
   awaiting_approval: { label: "Approval required", tone: "gold", pattern: "static" },
-  awaiting_clarification: { label: "Clarification required", tone: "cykan", pattern: "pulse-mid" },
+  awaiting_clarification: { label: "Clarification required", tone: "accent-teal", pattern: "pulse-mid" },
   error: { label: "Error", tone: "danger", pattern: "static" },
 };
 
 const TONE_VAR: Record<StateConfig["tone"], string> = {
-  cykan: "var(--cykan)",
+  "accent-teal": "var(--accent-teal)",
   gold: "var(--gold)",
   danger: "var(--danger)",
   muted: "var(--text-faint)",

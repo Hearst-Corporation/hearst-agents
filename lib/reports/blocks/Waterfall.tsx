@@ -13,7 +13,7 @@
  *
  * Visuel Ghost Protocol :
  *   - barres verticales avec connecteurs horizontaux entre étapes
- *   - vert/cykan pour deltas positifs
+ *   - vert/accent-teal pour deltas positifs
  *   - rouge/danger pour deltas négatifs
  *   - text-default pour les totaux (start/total)
  *   - axe baseline ligne fine var(--surface-2)
@@ -42,7 +42,7 @@ interface WaterfallProps {
 }
 
 const BAR_COLORS = {
-  positive: "var(--cykan)",
+  positive: "var(--accent-teal)",
   negative: "var(--danger)",
   total: "var(--text)",
 } as const;
@@ -200,7 +200,7 @@ export function Waterfall({
             d.type === "start" || d.type === "total"
               ? "var(--text-soft)"
               : d.value >= 0
-                ? "var(--cykan)"
+                ? "var(--accent-teal)"
                 : "var(--danger)";
           const sign = d.type === "delta" ? (d.value >= 0 ? "+" : "") : "";
           return (

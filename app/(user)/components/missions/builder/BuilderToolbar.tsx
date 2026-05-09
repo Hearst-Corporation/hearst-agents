@@ -45,7 +45,7 @@ export function BuilderToolbar({
     >
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
         <ToolbarButton onClick={onOpenTemplates}>Templates</ToolbarButton>
-        <ToolbarButton onClick={onValidate} accent="cykan">
+        <ToolbarButton onClick={onValidate} accent="accent-teal">
           Valider
           {typeof validationCount === "number" && validationCount > 0 && (
             <span
@@ -56,7 +56,7 @@ export function BuilderToolbar({
             </span>
           )}
         </ToolbarButton>
-        <ToolbarButton onClick={onPreview} accent="cykan" disabled={isBusy}>
+        <ToolbarButton onClick={onPreview} accent="accent-teal" disabled={isBusy}>
           {isBusy ? "Preview…" : "Preview"}
         </ToolbarButton>
       </div>
@@ -69,7 +69,7 @@ export function BuilderToolbar({
 
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
         {onPublish && (
-          <ToolbarButton onClick={onPublish} accent="cykan" disabled={isBusy}>
+          <ToolbarButton onClick={onPublish} accent="accent-teal" disabled={isBusy}>
             Publier marketplace
           </ToolbarButton>
         )}
@@ -83,7 +83,7 @@ export function BuilderToolbar({
 
 interface ToolbarButtonProps {
   onClick: () => void;
-  accent?: "cykan" | "money";
+  accent?: "accent-teal" | "money";
   disabled?: boolean;
   children: ReactNode;
 }
@@ -95,8 +95,8 @@ function ToolbarButton({
   children,
 }: ToolbarButtonProps) {
   const color =
-    accent === "cykan"
-      ? "var(--cykan)"
+    accent === "accent-teal"
+      ? "var(--accent-teal)"
       : accent === "money"
         ? "var(--money)"
         : "var(--text)";

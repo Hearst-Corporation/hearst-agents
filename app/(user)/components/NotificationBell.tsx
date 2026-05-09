@@ -126,7 +126,7 @@ export function NotificationBell() {
         onClick={() => setOpen((v) => !v)}
         aria-label={`Notifications${hasUnread ? ` (${unreadCount} non lues)` : ""}`}
         aria-expanded={open}
-        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-[var(--surface-1)] focus-visible:ring-1 focus-visible:ring-[var(--cykan-border)] ${
+        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-[var(--surface-1)] focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border)] ${
           open ? "bg-[var(--surface-2)]" : "bg-transparent"
         }`}
         style={{
@@ -214,7 +214,7 @@ export function NotificationBell() {
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    color: "var(--cykan)",
+                    color: "var(--accent-teal)",
                     padding: "var(--space-1) var(--space-2)",
                     borderRadius: "var(--radius-xs)",
                     letterSpacing: "var(--tracking-hairline)",
@@ -278,7 +278,7 @@ export function NotificationBell() {
                 className="t-9"
                 onClick={() => setOpen(false)}
                 style={{
-                  color: "var(--cykan)",
+                  color: "var(--accent-teal)",
                   textDecoration: "none",
                   letterSpacing: "var(--tracking-hairline)",
                 }}

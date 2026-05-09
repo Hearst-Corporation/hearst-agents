@@ -197,11 +197,11 @@ export function MissionStage({ missionId }: MissionStageProps) {
   const status = mission?.opsStatus ?? (mission?.enabled ? "active" : "paused");
   const statusColor =
     status === "running"
-      ? "var(--cykan)"
+      ? "var(--accent-teal)"
       : status === "failed"
         ? "var(--danger)"
         : status === "active"
-          ? "var(--cykan)"
+          ? "var(--accent-teal)"
           : "var(--text-faint)";
 
   return (
@@ -299,7 +299,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
               style={{ rowGap: "var(--space-4)" }}
             >
               <span
-                className="rounded-pill bg-[var(--cykan)] animate-pulse halo-cyan-sm"
+                className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-cyan-sm"
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
                 aria-hidden
               />
@@ -453,7 +453,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                       const statusUp = r.status?.toUpperCase() ?? "—";
                       const statusCol =
                         r.status === "completed" || r.status === "success"
-                          ? "var(--cykan)"
+                          ? "var(--accent-teal)"
                           : r.status === "failed"
                             ? "var(--danger)"
                             : "var(--text-faint)";

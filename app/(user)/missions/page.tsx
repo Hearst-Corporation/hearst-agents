@@ -254,7 +254,7 @@ function MissionsPageContent() {
   const statChips = (() => {
     const items = [
       { count: missions.filter((m) => m.enabled).length, label: "activées", color: "var(--money)" as const, pulse: false },
-      { count: missions.filter((m) => m.opsStatus === "running").length, label: "en cours", color: "var(--cykan)" as const, pulse: true },
+      { count: missions.filter((m) => m.opsStatus === "running").length, label: "en cours", color: "var(--accent-teal)" as const, pulse: true },
       { count: missions.filter((m) => m.opsStatus === "failed").length, label: "échecs", color: "var(--danger)" as const, pulse: false },
       { count: missions.filter((m) => m.opsStatus === "blocked").length, label: "bloqués", color: "var(--warn)" as const, pulse: false },
     ].filter((s) => s.count > 0);

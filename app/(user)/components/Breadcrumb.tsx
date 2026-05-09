@@ -22,7 +22,7 @@ export function Breadcrumb({ trail, className }: BreadcrumbProps) {
       {trail.map((crumb, idx) => {
         const isLast = idx === trail.length - 1;
         const baseClass = isLast
-          ? `${crumb.accent ? "text-[var(--cykan)]" : "text-[var(--text)]"}`
+          ? `${crumb.accent ? "text-[var(--accent-teal)]" : "text-[var(--text)]"}`
           : "text-[var(--text-faint)] hover:text-[var(--text)] transition-colors";
         return (
           <span key={`${crumb.label}-${idx}`} className="flex items-center gap-2">

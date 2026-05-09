@@ -73,11 +73,11 @@ function KpiCard({
   label: string;
   value: string;
   sub?: string;
-  accent?: "cykan" | "warn" | "danger";
+  accent?: "accent-teal" | "warn" | "danger";
 }) {
   const accentClass =
-    accent === "cykan"
-      ? "text-(--cykan)"
+    accent === "accent-teal"
+      ? "text-(--accent-teal)"
       : accent === "warn"
         ? "text-(--warn)"
         : accent === "danger"
@@ -96,7 +96,7 @@ function KpiCard({
 function CircuitBadge({ state }: { state: CircuitState }) {
   const cls =
     state === "CLOSED"
-      ? "bg-(--cykan)/15 text-(--cykan)"
+      ? "bg-(--accent-teal)/15 text-(--accent-teal)"
       : state === "OPEN"
         ? "bg-(--danger)/15 text-(--danger)"
         : "bg-(--warn)/15 text-(--warn)";
@@ -114,7 +114,7 @@ function WebhookStatusBadge({ status }: { status: "success" | "failed" | undefin
   if (!status) return <span className="t-10 text-text-ghost">—</span>;
   const cls =
     status === "success"
-      ? "bg-(--cykan)/15 text-(--cykan)"
+      ? "bg-(--accent-teal)/15 text-(--accent-teal)"
       : "bg-(--danger)/15 text-(--danger)";
   return (
     <span className={`t-10 px-(--space-2) py-[2px] rounded-pill font-medium uppercase ${cls}`}>
@@ -282,7 +282,7 @@ export default function MetricsPage() {
                 label="Cache hit rate"
                 value={fmtPct(globalCacheHit)}
                 sub="Anthropic prompt cache"
-                accent="cykan"
+                accent="accent-teal"
               />
               <KpiCard
                 label="Latence p95"
@@ -377,7 +377,7 @@ export default function MetricsPage() {
                     className="grid grid-cols-6 px-(--space-4) py-(--space-2) t-13 border-b border-line hover:bg-surface-2 transition-colors"
                   >
                     <span className="text-text font-medium">{p.provider}</span>
-                    <span className="text-(--cykan)">{fmtUsd(p.cost.totalUsd)}</span>
+                    <span className="text-(--accent-teal)">{fmtUsd(p.cost.totalUsd)}</span>
                     <span className="text-text-muted">
                       {p.cost.avgPerCallUsd !== null
                         ? fmtUsd(p.cost.avgPerCallUsd)
@@ -472,7 +472,7 @@ export default function MetricsPage() {
                       <button
                         onClick={() => handleTestWebhook(wh.id)}
                         disabled={testingWebhook === wh.id}
-                        className="t-10 px-(--space-3) py-[2px] rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:border-(--cykan)/40 transition-colors disabled:opacity-40"
+                        className="t-10 px-(--space-3) py-[2px] rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-40"
                       >
                         {testingWebhook === wh.id ? "…" : "Tester"}
                       </button>

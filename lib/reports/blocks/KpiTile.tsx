@@ -6,7 +6,7 @@
  * Cohérence Ghost Protocol (HEARST-OS-DESIGN-SYSTEM.html section "data-card") :
  *   data-label : .t-9 font-mono uppercase tracking-[0.3em] text-[var(--text-muted)]
  *   data-value : .t-28 font-light tracking-tight
- *   data-trend : .t-9 font-mono uppercase, cykan/danger/muted selon tone
+ *   data-trend : .t-9 font-mono uppercase, accent-teal/danger/muted selon tone
  *
  * Pas de magic number — tous les espacements via var(--space-*).
  */
@@ -56,7 +56,7 @@ export function KpiTile({
 
   const deltaColor =
     delta?.tone === "up"
-      ? "var(--cykan)"
+      ? "var(--accent-teal)"
       : delta?.tone === "down"
         ? "var(--danger)"
         : "var(--text-faint)";
@@ -104,7 +104,7 @@ export function KpiTile({
           <Sparkline
             values={data.sparkline}
             height={32}
-            tone={delta?.tone === "down" ? "danger" : "cykan"}
+            tone={delta?.tone === "down" ? "danger" : "accent-teal"}
             label={`Tendance ${label}`}
           />
         </div>

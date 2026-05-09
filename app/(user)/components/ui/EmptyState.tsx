@@ -8,7 +8,7 @@
  * padding et CTA divergents. Ici extrait en un composant unique.
  *
  * Voix éditoriale (pivot 2026-05-01) :
- *   - icon : optionnel, t-34 text-cykan opacity-30 (◉, ◐, ◍, ◈, ◇...)
+ *   - icon : optionnel, t-34 text-accent-teal opacity-30 (◉, ◐, ◍, ◈, ◇...)
  *   - title : t-15 font-light text-soft
  *   - description : t-13 font-light text-muted leading-relaxed
  *   - cta : <Action variant="link" tone="brand">
@@ -57,7 +57,7 @@ export function EmptyState({
       }}
     >
       {icon && (
-        <span className="block t-34 text-[var(--cykan)] opacity-30" aria-hidden>
+        <span className="block t-34 text-[var(--accent-teal)] opacity-30" aria-hidden>
           {icon}
         </span>
       )}

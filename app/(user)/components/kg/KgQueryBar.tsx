@@ -73,7 +73,7 @@ export function KgQueryBar({
       <button
         type="submit"
         disabled={loading}
-        className="t-11 font-medium text-[var(--cykan)] disabled:opacity-50"
+        className="t-11 font-medium text-[var(--accent-teal)] disabled:opacity-50"
         style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)", transitionTimingFunction: "var(--ease-out)" }}
       >
         {loading ? "…" : "GO"}

@@ -106,7 +106,7 @@ function renderInline(text: string): ReactNode[] {
             href={m2[2]}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--cykan)] underline underline-offset-2 hover:text-[var(--cykan)] transition-colors"
+            className="text-[var(--accent-teal)] underline underline-offset-2 hover:text-[var(--accent-teal)] transition-colors"
           >
             {m2[1]}
           </a>,
@@ -185,7 +185,7 @@ function ListView({ text }: { text: string }) {
           className="flex items-baseline t-15 leading-relaxed font-light text-[var(--text-soft)]"
           style={{ gap: "var(--space-3)" }}
         >
-          <span className="t-9 font-mono text-[var(--cykan)] shrink-0" aria-hidden>
+          <span className="t-9 font-mono text-[var(--accent-teal)] shrink-0" aria-hidden>
             ─
           </span>
           <span>{renderInline(it)}</span>
@@ -223,7 +223,7 @@ function ActionItemsView({
             type="checkbox"
             checked={it.checked}
             onChange={(e) => onToggle?.(i, e.target.checked)}
-            className="shrink-0 accent-[var(--cykan)]"
+            className="shrink-0 accent-[var(--accent-teal)]"
             aria-label={`Tâche : ${it.label}`}
             style={{
               width: "var(--space-4)",
@@ -247,11 +247,11 @@ function InsightView({ text }: { text: string }) {
   const label = labelMatch ? labelMatch[1] : "Insight";
   return (
     <div
-      className="border-l border-[var(--cykan)]"
+      className="border-l border-[var(--accent-teal)]"
       style={{ paddingLeft: "var(--space-4)" }}
     >
       <div
-        className="t-11 font-medium text-[var(--cykan)]"
+        className="t-11 font-medium text-[var(--accent-teal)]"
         style={{ marginBottom: "var(--space-2)" }}
       >
         {label}

@@ -48,7 +48,7 @@ export default function AdminTopbar({ onMenuClick, env }: Props) {
 
       <div className="ml-auto flex items-center gap-(--space-5)">
         <AdminTopbarKpis />
-        <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--cykan) px-(--space-2) py-(--space-1) rounded-(--radius-xs) border border-(--cykan)/30 bg-(--cykan-bg-active)">
+        <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--accent-teal) px-(--space-2) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/30 bg-(--accent-teal-bg-active)">
           {env}
         </span>
       </div>

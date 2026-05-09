@@ -49,7 +49,7 @@ export function CockpitHeader({ data }: CockpitHeaderProps) {
         {runningCount > 0 && (
           <>
             <span className="t-11 text-[var(--text-faint)]">·</span>
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               {runningCount} mission{runningCount > 1 ? "s" : ""} running
             </span>
           </>

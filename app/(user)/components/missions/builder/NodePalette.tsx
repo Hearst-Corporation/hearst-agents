@@ -145,7 +145,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                 key={`${section.title}-${entry.kind}-${idx}`}
                 type="button"
                 onClick={() => onAdd(entry)}
-                className="flex items-center justify-between t-11 text-[var(--text)] hover:text-[var(--cykan)] hover:bg-[var(--surface-1)] transition-colors text-left rounded-md"
+                className="flex items-center justify-between t-11 text-[var(--text)] hover:text-[var(--accent-teal)] hover:bg-[var(--surface-1)] transition-colors text-left rounded-md"
                 style={{
                   padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--border-soft)",

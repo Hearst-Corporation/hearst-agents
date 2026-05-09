@@ -185,8 +185,8 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
         style={{
           width: "var(--space-2)",
           height: "var(--space-2)",
-          background: "var(--cykan)",
-          boxShadow: isActive ? "var(--shadow-neon-cykan)" : "none",
+          background: "var(--accent-teal)",
+          boxShadow: isActive ? "var(--shadow-neon-accent-teal)" : "none",
           opacity: isActive ? 1 : 0.55,
         }}
         aria-hidden
@@ -195,9 +195,9 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
         className="flex-1 t-14 truncate min-w-0 transition-all duration-(--duration-slow) ease-(--ease-out-soft)"
         style={{
           lineHeight: "var(--leading-base)",
-          color: isActive ? "var(--cykan)" : "var(--text-l1)",
+          color: isActive ? "var(--accent-teal)" : "var(--text-l1)",
           fontWeight: isActive ? "var(--weight-medium)" : "var(--weight-light)",
-          textShadow: isActive ? "var(--shadow-neon-cykan)" : "none",
+          textShadow: isActive ? "var(--shadow-neon-accent-teal)" : "none",
         }}
       >
         {thread.name}
@@ -270,9 +270,9 @@ function TopMenuItem({
         className="flex items-center t-13 transition-all duration-emphasis ease-out-soft"
         style={{
           gap: "var(--space-3)",
-          color: highlight ? "var(--cykan)" : "var(--text-l2)",
+          color: highlight ? "var(--accent-teal)" : "var(--text-l2)",
           fontWeight: isActive ? "var(--weight-medium)" : "var(--weight-light)",
-          textShadow: highlight ? "var(--neon-cykan)" : "none",
+          textShadow: highlight ? "var(--neon-accent-teal)" : "none",
         }}
       >
         {icon ? (
@@ -311,7 +311,7 @@ function GhostFooterLink({
 }) {
   const [hover, setHover] = useState(false);
   const linkStyle = {
-    color: hover ? "var(--cykan)" : "var(--text-faint)",
+    color: hover ? "var(--accent-teal)" : "var(--text-faint)",
   };
   const linkClass = "t-11 font-light transition-colors duration-emphasis ease-out-soft";
 
@@ -358,7 +358,7 @@ function CollapsedTile({ thread, isActive, onSelect }: CollapsedTileProps) {
       title={thread.name}
       className={`relative w-8 h-8 flex items-center justify-center rounded-md t-13 font-light transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0 ${
         isActive
-          ? "bg-[var(--cykan-bg-active)] text-[var(--cykan)] border border-[var(--cykan-border)] shadow-[var(--shadow-neon-cykan)]"
+          ? "bg-[var(--accent-teal-bg-active)] text-[var(--accent-teal)] border border-[var(--accent-teal-border)] shadow-[var(--shadow-neon-accent-teal)]"
           : "bg-[var(--surface-1)] text-[var(--text-faint)] border border-[var(--border-soft)] hover:bg-[var(--layer-1)] hover:text-[var(--text-soft)] hover:border-[var(--border-subtle)]"
       }`}
     >
@@ -437,7 +437,7 @@ export function TimelineRail() {
           title="Hearst"
         >
           {leftCollapsed ? (
-            <span className="t-15 font-medium tracking-tight text-[var(--cykan)] halo-cyan-sm leading-none">H</span>
+            <span className="t-15 font-medium tracking-tight text-[var(--accent-teal)] halo-cyan-sm leading-none">H</span>
           ) : (
             <HearstLogo className="h-10 w-auto transition-all duration-slow" />
           )}
@@ -449,7 +449,7 @@ export function TimelineRail() {
         {leftCollapsed && (
           <button
             onClick={handleNewThread}
-            className="mb-6 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--cykan)] hover:border-[var(--cykan-border)] hover:bg-[var(--cykan-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
+            className="mb-6 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
             title="Nouvelle conversation"
           >
             <PlusIcon />
@@ -633,8 +633,8 @@ export function TimelineRail() {
               style={{
                 width: "var(--space-2)",
                 height: "var(--space-2)",
-                background: "var(--cykan)",
-                boxShadow: "var(--shadow-neon-cykan)",
+                background: "var(--accent-teal)",
+                boxShadow: "var(--shadow-neon-accent-teal)",
               }}
               title={firstName}
               aria-label={`${firstName} en ligne`}
@@ -642,7 +642,7 @@ export function TimelineRail() {
             <Link
               href="/admin"
               title="Admin console"
-              className="w-6 h-6 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--cykan)] transition-colors"
+              className="w-6 h-6 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors"
             >
               <AdminIcon />
             </Link>
@@ -659,7 +659,7 @@ export function TimelineRail() {
               onClick={toggleLeftCollapsed}
               title="Expand"
               aria-label="Expand"
-              className="w-6 h-5 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--cykan)] transition-colors"
+              className="w-6 h-5 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors"
             >
               <ChevronRightIcon />
             </button>
@@ -685,8 +685,8 @@ export function TimelineRail() {
                   style={{
                     width: "var(--space-1)",
                     height: "var(--space-1)",
-                    background: "var(--cykan)",
-                    boxShadow: "var(--shadow-neon-cykan)",
+                    background: "var(--accent-teal)",
+                    boxShadow: "var(--shadow-neon-accent-teal)",
                     bottom: "1px",
                     right: "1px",
                   }}
@@ -718,7 +718,7 @@ export function TimelineRail() {
               onClick={toggleLeftCollapsed}
               title="Collapse"
               aria-label="Collapse"
-              className="w-5 h-5 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--cykan)] transition-colors mt-2"
+              className="w-5 h-5 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors mt-2"
             >
               <ChevronLeftIcon />
             </button>

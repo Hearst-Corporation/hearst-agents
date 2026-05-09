@@ -205,14 +205,14 @@ function ResponseColumn({
       style={{
         gap: "var(--space-3)",
         padding: "var(--space-4)",
-        border: preferred ? "1px solid var(--cykan)" : "1px solid var(--line-strong)",
+        border: preferred ? "1px solid var(--accent-teal)" : "1px solid var(--line-strong)",
         borderRadius: "var(--radius-sm)",
-        background: preferred ? "var(--cykan-surface)" : "var(--surface-1)",
+        background: preferred ? "var(--accent-teal-surface)" : "var(--surface-1)",
       }}
     >
       <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
         <div className="flex items-baseline" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             {label}
           </span>
           <span className="t-13 font-medium text-[var(--text)]">{persona.name}</span>
@@ -234,8 +234,8 @@ function ResponseColumn({
         style={{
           padding: "var(--space-1) var(--space-3)",
           borderRadius: "var(--radius-pill)",
-          border: preferred ? "1px solid var(--cykan)" : "1px solid var(--line-strong)",
-          background: preferred ? "var(--cykan-surface)" : "transparent",
+          border: preferred ? "1px solid var(--accent-teal)" : "1px solid var(--line-strong)",
+          background: preferred ? "var(--accent-teal-surface)" : "transparent",
         }}
       >
         <span className="t-11 font-medium text-[var(--text-soft)]">

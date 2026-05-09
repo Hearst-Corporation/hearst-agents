@@ -89,7 +89,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
                 type="button"
                 onClick={() => setFormData({ ...formData, frequency: option.value })}
                 className={`text-left p-4 transition-colors ${
-                  selected ? "bg-[var(--bg-soft)] text-[var(--cykan)]" : "bg-[var(--bg)] text-[var(--text-muted)] hover:bg-[var(--bg-elev)]"
+                  selected ? "bg-[var(--bg-soft)] text-[var(--accent-teal)]" : "bg-[var(--bg)] text-[var(--text-muted)] hover:bg-[var(--bg-elev)]"
                 }`}
               >
                 <p className={`t-9 font-black uppercase tracking-tight ${selected ? "" : "text-[var(--text-soft)]"}`}>{option.label}</p>
@@ -123,13 +123,13 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
           type="button"
           onClick={() => setFormData({ ...formData, enabled: !formData.enabled })}
           className={`w-12 h-6 rounded-sm transition-colors relative border ${
-            formData.enabled ? "border-[var(--cykan)] bg-[var(--bg-soft)]" : "border-[var(--line-strong)] bg-[var(--bg)]"
+            formData.enabled ? "border-[var(--accent-teal)] bg-[var(--bg-soft)]" : "border-[var(--line-strong)] bg-[var(--bg)]"
           }`}
           aria-pressed={formData.enabled}
         >
           <span
             className={`absolute top-1 w-4 h-4 rounded-sm transition-all ${
-              formData.enabled ? "left-6 bg-[var(--cykan)]" : "left-1 bg-[var(--text-muted)]"
+              formData.enabled ? "left-6 bg-[var(--accent-teal)]" : "left-1 bg-[var(--text-muted)]"
             }`}
           />
         </button>

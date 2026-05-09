@@ -55,9 +55,9 @@ export function ApprovalInline({
 
   return (
     <div
-      className="border-l-2 border-[var(--cykan)]"
+      className="border-l-2 border-[var(--accent-teal)]"
       style={{
-        background: "var(--cykan-surface)",
+        background: "var(--accent-teal-surface)",
         padding: "var(--space-3) var(--space-4)",
         marginTop: "var(--space-3)",
       }}
@@ -68,7 +68,7 @@ export function ApprovalInline({
         className="flex items-center"
         style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
       >
-        <span className="t-11 font-medium text-[var(--cykan)]">
+        <span className="t-11 font-medium text-[var(--accent-teal)]">
           Validation requise
         </span>
         <span

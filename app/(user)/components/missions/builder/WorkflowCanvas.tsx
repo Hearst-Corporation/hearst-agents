@@ -45,7 +45,7 @@ interface WorkflowCanvasProps {
 }
 
 const NODE_COLOR_BY_KIND: Record<string, string> = {
-  trigger: "var(--cykan)",
+  trigger: "var(--accent-teal)",
   tool_call: "var(--accent-llm)",
   condition: "var(--warn)",
   approval: "var(--danger)",
@@ -125,7 +125,7 @@ export function WorkflowCanvas({
         selector: "node.wf-node-selected",
         style: {
           "border-width": 2,
-          "border-color": "var(--cykan)",
+          "border-color": "var(--accent-teal)",
         },
       },
       {
@@ -139,7 +139,7 @@ export function WorkflowCanvas({
       {
         selector: "node.wf-node-status-running",
         style: {
-          "background-color": "var(--cykan)",
+          "background-color": "var(--accent-teal)",
           "color": "var(--bg)",
         },
       },
@@ -302,11 +302,11 @@ export function WorkflowCanvas({
               if (selectedNodeId === pendingSource) setPendingSource(null);
               else setPendingSource(selectedNodeId);
             }}
-            className="t-11 font-light text-[var(--cykan)] pointer-events-auto rounded-md hover:text-[var(--text)] transition-colors"
+            className="t-11 font-light text-[var(--accent-teal)] pointer-events-auto rounded-md hover:text-[var(--text)] transition-colors"
             style={{
               padding: "var(--space-2) var(--space-3)",
               background: "var(--rail)",
-              border: "1px solid var(--cykan)",
+              border: "1px solid var(--accent-teal)",
             }}
           >
             {pendingSource === selectedNodeId

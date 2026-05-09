@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-export type KpiTone = "default" | "cykan" | "warn" | "danger" | "success" | "money";
+export type KpiTone = "default" | "accent-teal" | "warn" | "danger" | "success" | "money";
 
 interface KpiCardProps {
   label: string;
@@ -25,7 +25,7 @@ interface KpiCardProps {
 
 const TONE_COLORS: Record<KpiTone, string> = {
   default: "var(--text-l1)",
-  cykan: "var(--cykan)",
+  "accent-teal": "var(--accent-teal)",
   warn: "var(--warn)",
   danger: "var(--danger)",
   success: "var(--color-success)",
@@ -74,7 +74,7 @@ export function KpiCard({
 }: KpiCardProps) {
   const valueColor = TONE_COLORS[tone];
   const sparklineColor =
-    tone === "warn" || tone === "danger" ? TONE_COLORS[tone] : "var(--cykan)";
+    tone === "warn" || tone === "danger" ? TONE_COLORS[tone] : "var(--accent-teal)";
 
   const inner = (
     <div
@@ -110,7 +110,7 @@ export function KpiCard({
       {/* Valeur principale */}
       <div className="flex min-w-0 flex-wrap items-baseline gap-2">
         <div
-          className="t-34 font-light tabular-nums leading-none transition-colors group-hover:text-[var(--cykan)]"
+          className="t-34 font-light tabular-nums leading-none transition-colors group-hover:text-[var(--accent-teal)]"
           style={{ color: valueColor }}
         >
           {value}
@@ -133,7 +133,7 @@ export function KpiCard({
             className="h-full"
             style={{
               width: `${Math.min(100, Math.max(0, missionFillPct))}%`,
-              background: "var(--cykan)",
+              background: "var(--accent-teal)",
             }}
           />
         </div>
@@ -157,7 +157,7 @@ export function KpiCard({
 
   if (href) {
     return (
-      <Link href={href} className="block h-full focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan)] rounded-[var(--radius-sm)]">
+      <Link href={href} className="block h-full focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)] rounded-[var(--radius-sm)]">
         {inner}
       </Link>
     );

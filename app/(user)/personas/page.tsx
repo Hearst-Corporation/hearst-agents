@@ -129,7 +129,7 @@ export default function PersonasPage() {
         style={{ gap: "var(--space-6)", maxWidth: "var(--width-actions)" }}
       >
         {flash && (
-          <p className="t-13 font-light text-[var(--cykan)]">
+          <p className="t-13 font-light text-[var(--accent-teal)]">
             {flash}
           </p>
         )}
@@ -294,7 +294,7 @@ function PersonaForm({
       style={{
         gap: "var(--space-4)",
         padding: "var(--space-5)",
-        border: "1px solid var(--cykan-border)",
+        border: "1px solid var(--accent-teal-border)",
         borderRadius: "var(--radius-md)",
         background: "var(--bg-elev)",
       }}

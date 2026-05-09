@@ -78,7 +78,7 @@ export function ActionLog({
               width: "var(--space-2)",
               height: "var(--space-2)",
               background: isRunning
-                ? "var(--cykan)"
+                ? "var(--accent-teal)"
                 : isControlled
                   ? "var(--warn)"
                   : "var(--text-ghost)",
@@ -92,7 +92,7 @@ export function ActionLog({
           <button
             type="button"
             onClick={onTakeOver}
-            className="t-11 font-medium text-[var(--cykan)] hover:text-[var(--text)] transition-colors px-2 py-1 border border-[var(--cykan-border)] rounded-pill"
+            className="t-11 font-medium text-[var(--accent-teal)] hover:text-[var(--text)] transition-colors px-2 py-1 border border-[var(--accent-teal-border)] rounded-pill"
           >
             Take Over
           </button>
@@ -102,9 +102,9 @@ export function ActionLog({
       {isControlled && (
         <div
           className="px-4 py-3 border-b border-[var(--border-default)] flex items-center gap-2 flex-shrink-0"
-          style={{ background: "var(--cykan-surface)" }}
+          style={{ background: "var(--accent-teal-surface)" }}
         >
-          <span className="t-13 text-[var(--cykan)]">◉</span>
+          <span className="t-13 text-[var(--accent-teal)]">◉</span>
           <span className="t-13 text-[var(--text)]">
             Tu pilotes maintenant
           </span>
@@ -139,7 +139,7 @@ export function ActionLog({
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <span
-                    className="t-11 font-mono text-[var(--cykan)] flex-shrink-0"
+                    className="t-11 font-mono text-[var(--accent-teal)] flex-shrink-0"
                     aria-hidden
                   >
                     {TYPE_GLYPH[a.type]}

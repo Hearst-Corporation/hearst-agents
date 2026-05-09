@@ -118,7 +118,7 @@ export function CodeEditor({
         style={{
           padding: "var(--space-3)",
           color: "var(--text)",
-          caretColor: "var(--cykan)",
+          caretColor: "var(--accent-teal)",
           lineHeight: "1.5",
           fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
         }}

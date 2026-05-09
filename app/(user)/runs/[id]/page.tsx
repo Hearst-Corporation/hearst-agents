@@ -65,7 +65,7 @@ export default function RunDetailPage() {
         <div className="text-[var(--text-muted)] t-13 mb-4">Run non trouvé</div>
         <button
           onClick={() => router.push("/")}
-          className="text-[var(--cykan)] hover:text-[var(--cykan)]/80 t-13"
+          className="text-[var(--accent-teal)] hover:text-[var(--accent-teal)]/80 t-13"
         >
           Retour à l&apos;accueil
         </button>
@@ -74,7 +74,7 @@ export default function RunDetailPage() {
   }
 
   const statusColors: Record<string, string> = {
-    running: "text-[var(--cykan)]",
+    running: "text-[var(--accent-teal)]",
     completed: "text-[var(--money)]",
     failed: "text-[var(--danger)]",
     awaiting_approval: "text-[var(--warn)]",
@@ -173,7 +173,7 @@ export default function RunDetailPage() {
                         <p className="t-13 text-[var(--text)] truncate">{asset.name}</p>
                         <p className="t-9 font-light text-[var(--text-muted)]">{asset.type}</p>
                       </div>
-                      <GhostIconChevronRight className="w-4 h-4 shrink-0 text-[var(--cykan)]" />
+                      <GhostIconChevronRight className="w-4 h-4 shrink-0 text-[var(--accent-teal)]" />
                     </button>
                   ))}
                 </div>

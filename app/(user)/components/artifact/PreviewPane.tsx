@@ -80,7 +80,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
         style={{ padding: "var(--space-8)" }}
       >
         <span
-          className="rounded-pill bg-[var(--cykan)]"
+          className="rounded-pill bg-[var(--accent-teal)]"
           style={{
             width: "var(--space-3)",
             height: "var(--space-3)",
@@ -88,7 +88,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
           }}
           aria-hidden
         />
-        <p className="t-11 font-medium text-[var(--cykan)]">
+        <p className="t-11 font-medium text-[var(--accent-teal)]">
           E2B · EXÉCUTION{progress != null ? ` · ${Math.round(progress)}%` : ""}
         </p>
       </div>
@@ -146,7 +146,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {imageResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             IMAGE
           </span>
           <Image
@@ -162,7 +162,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {htmlResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-[var(--cykan)]">
+          <span className="t-11 font-medium text-[var(--accent-teal)]">
             HTML
           </span>
           <iframe

@@ -12,7 +12,7 @@ async function requireServer(request: APIRequestContext) {
  *
  * Tous les appels réseau sont mockés via page.route() — pas besoin de
  * session réelle. Les tests vérifient le comportement de l'UI (rendu,
- * testids, styles cykan) et non les API back-end.
+ * testids, styles accent-teal) et non les API back-end.
  */
 
 const SPEC_ID = "00000000-0000-4000-8000-100000000001";
@@ -151,7 +151,7 @@ test.describe("Suggestion → ReportLayout flow", () => {
     await requireServer(request);
   });
 
-  test("la suggestion Founder Cockpit apparaît avec bordure cykan", async ({ page }) => {
+  test("la suggestion Founder Cockpit apparaît avec bordure accent-teal", async ({ page }) => {
     await mountMocks(page);
     await page.goto("/");
 
@@ -165,7 +165,7 @@ test.describe("Suggestion → ReportLayout flow", () => {
     // Statut "ready" → label "lancer" visible
     await expect(suggestion.locator("text=lancer")).toBeVisible();
 
-    // Border-left cykan (vérifié via l'attribut data)
+    // Border-left accent-teal (vérifié via l'attribut data)
     await expect(suggestion).toHaveAttribute("data-suggestion-status", "ready");
   });
 

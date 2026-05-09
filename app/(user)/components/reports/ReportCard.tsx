@@ -5,7 +5,7 @@
  *
  * Affiche : titre, domaine (badge coloré), persona, cadence, statut.
  * Trois états actionnables :
- *   ready          → bouton "Lancer" cykan
+ *   ready          → bouton "Lancer" accent-teal
  *   partial        → bouton "Configurer" + liste apps manquantes
  *   needs-connection → bouton "Connecter" grisé
  *
@@ -21,7 +21,7 @@ import { useStageStore } from "@/stores/stage";
 import { Action } from "@/app/(user)/components/ui";
 import type { ApplicableReport } from "@/lib/reports/catalog";
 
-// ── Domain colors (cykan-scale + status colors — tokens only) ──
+// ── Domain colors (accent-teal-scale + status colors — tokens only) ──
 
 const DOMAIN_LABELS: Record<string, string> = {
   finance:  "Finance",
@@ -38,15 +38,15 @@ const DOMAIN_LABELS: Record<string, string> = {
 
 const DOMAIN_STYLE: Record<string, { bg: string; color: string }> = {
   finance:   { bg: "var(--color-success-bg)",   color: "var(--color-success)" },
-  crm:       { bg: "var(--cykan-surface)",       color: "var(--cykan)" },
+  crm:       { bg: "var(--accent-teal-surface)",       color: "var(--accent-teal)" },
   ops:       { bg: "var(--color-warning-bg)",    color: "var(--color-warning)" },
-  growth:    { bg: "var(--cykan-surface)",       color: "var(--cykan)" },
+  growth:    { bg: "var(--accent-teal-surface)",       color: "var(--accent-teal)" },
   founder:   { bg: "var(--surface-2)",           color: "var(--text-soft)" },
   "ops-eng": { bg: "var(--color-info-bg)",       color: "var(--color-info)" },
   support:   { bg: "var(--color-warning-bg)",    color: "var(--color-warning)" },
   mixed:     { bg: "var(--surface-2)",           color: "var(--text-muted)" },
   people:    { bg: "var(--color-success-bg)",    color: "var(--color-success)" },
-  marketing: { bg: "var(--cykan-surface)",       color: "var(--cykan)" },
+  marketing: { bg: "var(--accent-teal-surface)",       color: "var(--accent-teal)" },
 };
 
 const PERSONA_LABELS: Record<string, string> = {
@@ -178,7 +178,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
   return (
     <article
       data-testid={`report-card-${report.id}`}
-      className="group relative flex flex-col gap-4 p-6 rounded-xl border border-[var(--border-default)] bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--cykan-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
+      className="group relative flex flex-col gap-4 p-6 rounded-xl border border-[var(--border-default)] bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--accent-teal-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
     >
       {/* Badges top row */}
       <div className="flex items-center gap-2 flex-wrap">
@@ -211,8 +211,8 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
           <span
             className="inline-flex items-center gap-1 px-2 py-1 t-9 font-medium tracking-wide uppercase"
             style={{
-              background: "var(--cykan-surface)",
-              color: "var(--cykan)",
+              background: "var(--accent-teal-surface)",
+              color: "var(--accent-teal)",
               borderRadius: "var(--radius-xs)",
             }}
           >

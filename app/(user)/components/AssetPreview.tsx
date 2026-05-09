@@ -66,7 +66,7 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
     <div className="border-t border-[var(--ghost-modal-top)] bg-[var(--bg)] overflow-hidden">
       <div className="p-6 border-b border-[var(--line)] flex flex-wrap items-start gap-6">
         <span
-          className="font-mono t-9 uppercase text-[var(--text-muted)] border-b border-[var(--cykan)] pb-1"
+          className="font-mono t-9 uppercase text-[var(--text-muted)] border-b border-[var(--accent-teal)] pb-1"
           style={{ letterSpacing: "var(--tracking-banner)" }}
         >
           {kindRef}

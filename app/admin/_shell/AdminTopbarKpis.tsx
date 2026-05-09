@@ -35,7 +35,7 @@ function Kpi({ label, value, tone = "default", title }: KpiProps) {
     tone === "warn"
       ? "text-(--warn)"
       : tone === "ok"
-        ? "text-(--cykan)"
+        ? "text-(--accent-teal)"
         : "text-text";
   return (
     <div className="flex items-baseline gap-(--space-2)" title={title}>

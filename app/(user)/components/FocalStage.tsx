@@ -24,12 +24,12 @@ const STATUS_LABELS: Record<FocalStatus, string> = {
 };
 
 const STATUS_COLORS: Record<FocalStatus, string> = {
-  composing: "bg-[var(--cykan)]",
-  ready: "bg-[var(--cykan)]",
+  composing: "bg-[var(--accent-teal)]",
+  ready: "bg-[var(--accent-teal)]",
   awaiting_approval: "bg-[var(--warn)]",
-  delivering: "bg-[var(--cykan)]",
-  delivered: "bg-[var(--cykan)]",
-  active: "bg-[var(--cykan)]",
+  delivering: "bg-[var(--accent-teal)]",
+  delivered: "bg-[var(--accent-teal)]",
+  active: "bg-[var(--accent-teal)]",
   paused: "bg-[var(--warn)]",
   failed: "bg-[var(--danger)]",
 };
@@ -236,7 +236,7 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
               focalStatus={focal.status}
               label={focal.primaryAction.label}
               onSuccess={onActionComplete}
-              className="px-6 py-3 t-13 font-medium bg-[var(--cykan)] text-[var(--text-on-cykan)] transition-colors duration-base hover:opacity-90"
+              className="px-6 py-3 t-13 font-medium bg-[var(--accent-teal)] text-[var(--text-on-accent-teal)] transition-colors duration-base hover:opacity-90"
             />
           ) : (
             <Action
@@ -287,7 +287,7 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center relative z-10">
-          <span className="block t-34 text-[var(--cykan)] opacity-30 mb-8 animate-pulse">◉</span>
+          <span className="block t-34 text-[var(--accent-teal)] opacity-30 mb-8 animate-pulse">◉</span>
           <p className="t-11 font-light text-[var(--text-faint)]">Waiting_For_Data</p>
         </div>
       </div>

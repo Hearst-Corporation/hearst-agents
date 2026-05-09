@@ -5,7 +5,7 @@
  *
  * 3 sections premium, inspirées des maquettes B/principal :
  *   ③ Actions rapides   — cards dark avec icône + titre caps + flèche
- *   ④ Statut            — roue SVG + dot cykan + 4 lignes infos
+ *   ④ Statut            — roue SVG + dot accent-teal + 4 lignes infos
  *   ⑤ Contexte          — card agent rich ou focal selon mode
  *
  * La constellation WebGL (Strate 2) et la strip agents (Strate 2.5) sont
@@ -105,7 +105,7 @@ function QuickActions() {
             <button
               type="button"
               onClick={a.onClick}
-              className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--border-subtle)] hover:bg-[var(--surface-2)] hover:border-[var(--cykan-border)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan)]"
+              className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--border-subtle)] hover:bg-[var(--surface-2)] hover:border-[var(--accent-teal-border)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
               style={{
                 gap: "var(--space-3)",
                 padding: "var(--space-3)",
@@ -139,7 +139,7 @@ function QuickActions() {
               </span>
               {/* Arrow */}
               <span
-                className="shrink-0 t-13 font-mono group-hover:text-[var(--cykan)] transition-colors"
+                className="shrink-0 t-13 font-mono group-hover:text-[var(--accent-teal)] transition-colors"
                 style={{ color: "var(--text-faint)" }}
                 aria-hidden
               >
@@ -228,7 +228,7 @@ function StatusSection() {
             {!isIdle && (
               <circle
                 cx="32" cy="32" r="28"
-                stroke="var(--cykan)"
+                stroke="var(--accent-teal)"
                 strokeWidth="1.5"
                 strokeDasharray="176"
                 strokeDashoffset="44"
@@ -236,7 +236,7 @@ function StatusSection() {
                 style={{
                   transformOrigin: "center",
                   transform: "rotate(-90deg)",
-                  animation: "pulse-status-cykan 2s ease-in-out infinite",
+                  animation: "pulse-status-accent-teal 2s ease-in-out infinite",
                 }}
               />
             )}
@@ -245,9 +245,9 @@ function StatusSection() {
             {/* Dot central */}
             <circle
               cx="32" cy="32" r="5"
-              fill="var(--cykan)"
+              fill="var(--accent-teal)"
               style={{
-                filter: isIdle ? "none" : "drop-shadow(0 0 4px var(--cykan))",
+                filter: isIdle ? "none" : "drop-shadow(0 0 4px var(--accent-teal))",
               }}
             />
           </svg>
@@ -256,7 +256,7 @@ function StatusSection() {
         {/* Infos à droite de la roue */}
         <div className="flex flex-col min-w-0 flex-1" style={{ gap: "var(--space-2)" }}>
           <div className="flex items-center justify-between">
-            <span className="t-11 font-medium" style={{ color: "var(--cykan)" }}>
+            <span className="t-11 font-medium" style={{ color: "var(--accent-teal)" }}>
               {CORE_STATE_LABEL[coreState] ?? "En ligne"}
             </span>
             <span className="t-9 font-mono tabular-nums" style={{ color: "var(--text-faint)" }}>
@@ -269,7 +269,7 @@ function StatusSection() {
               <button
                 type="button"
                 onClick={onOpenSession}
-                className="t-9 font-light hover:text-[var(--cykan)] transition-colors truncate text-left"
+                className="t-9 font-light hover:text-[var(--accent-teal)] transition-colors truncate text-left"
                 style={{ color: "var(--text-l2)" }}
               >
                 {session}
@@ -284,7 +284,7 @@ function StatusSection() {
               <button
                 type="button"
                 onClick={() => router.push("/")}
-                className="t-9 font-light hover:text-[var(--cykan)] transition-colors truncate text-left"
+                className="t-9 font-light hover:text-[var(--accent-teal)] transition-colors truncate text-left"
                 style={{ color: alert.severity === "critical" ? "var(--danger)" : "var(--warn)" }}
               >
                 {alert.title}
@@ -378,7 +378,7 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
         <button
           type="button"
           onClick={clearSelection}
-          className="t-9 font-mono hover:text-[var(--cykan)] transition-colors"
+          className="t-9 font-mono hover:text-[var(--accent-teal)] transition-colors"
           style={{ color: "var(--text-faint)" }}
           aria-label="Effacer la sélection"
         >
@@ -390,7 +390,7 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
       <button
         type="button"
         onClick={handleOpen}
-        className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--cykan-border)] hover:bg-[var(--surface-2)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan)]"
+        className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--accent-teal-border)] hover:bg-[var(--surface-2)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
         style={{
           gap: "var(--space-3)",
           padding: "var(--space-3)",
@@ -404,9 +404,9 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
             width: "var(--space-10)",
             height: "var(--space-10)",
             borderRadius: "var(--radius-pill)",
-            background: "color-mix(in srgb, var(--cykan) 10%, transparent)",
-            border: "1px solid var(--cykan-border)",
-            color: "var(--cykan)",
+            background: "color-mix(in srgb, var(--accent-teal) 10%, transparent)",
+            border: "1px solid var(--accent-teal-border)",
+            color: "var(--accent-teal)",
           }}
         >
           <AgentOrObjectIcon isAgent={isAgent} roleId={selection.id as AgentRoleId} kind={selection.kind} />
@@ -429,7 +429,7 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
         </span>
 
         <span
-          className="shrink-0 t-13 font-mono group-hover:text-[var(--cykan)] transition-colors"
+          className="shrink-0 t-13 font-mono group-hover:text-[var(--accent-teal)] transition-colors"
           style={{ color: "var(--text-faint)" }}
           aria-hidden
         >
@@ -505,7 +505,7 @@ function AgentOrObjectIcon({
 }) {
   if (isAgent) {
     const Icon = AGENT_ICON_MAP[roleId];
-    return Icon ? <Icon color="var(--cykan)" /> : null;
+    return Icon ? <Icon color="var(--accent-teal)" /> : null;
   }
   return <ObjectContextIcon kind={kind} />;
 }

@@ -177,7 +177,7 @@ test.describe("Visual — RightPanel suggestions", () => {
     await requireServer(request);
   });
 
-  test("screenshot RightPanel avec suggestion cykan", async ({ page }) => {
+  test("screenshot RightPanel avec suggestion accent-teal", async ({ page }) => {
     await mountMocks(page);
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
@@ -192,7 +192,7 @@ test.describe("Visual — RightPanel suggestions", () => {
 
     // Vérification de la bordure cyan via les styles inline
     const borderLeft = await suggestion.evaluate((el: HTMLElement) => el.style.borderLeft);
-    expect(borderLeft).toContain("var(--cykan)");
+    expect(borderLeft).toContain("var(--accent-teal)");
   });
 
   test("screenshot ReportLayout — Founder Cockpit complet", async ({ page }) => {

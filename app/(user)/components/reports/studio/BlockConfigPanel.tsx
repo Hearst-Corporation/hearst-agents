@@ -125,9 +125,9 @@ export function BlockConfigPanel({
               style={{
                 flex: 1,
                 padding: "var(--space-2) var(--space-3)",
-                background: block.layout.col === col ? "var(--cykan-surface)" : "transparent",
-                color: block.layout.col === col ? "var(--cykan)" : "var(--text-muted)",
-                border: `1px solid ${block.layout.col === col ? "var(--cykan-border)" : "var(--surface-2)"}`,
+                background: block.layout.col === col ? "var(--accent-teal-surface)" : "transparent",
+                color: block.layout.col === col ? "var(--accent-teal)" : "var(--text-muted)",
+                border: `1px solid ${block.layout.col === col ? "var(--accent-teal-border)" : "var(--surface-2)"}`,
                 borderRadius: "var(--radius-xs)",
                 transitionDuration: "var(--duration-base)",
               }}
@@ -149,7 +149,7 @@ export function BlockConfigPanel({
             checked={!block.hidden}
             onChange={() => patch({ hidden: !block.hidden })}
             data-testid="config-visible"
-            style={{ accentColor: "var(--cykan)" }}
+            style={{ accentColor: "var(--accent-teal)" }}
           />
           <span className="t-11" style={{ color: "var(--text-soft)" }}>
             Visible dans le rendu

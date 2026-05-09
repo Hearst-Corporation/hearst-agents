@@ -173,7 +173,7 @@ function ContextRailShell({
           <button
             onClick={onClose}
             aria-label="Close"
-            className="w-8 h-8 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--cykan)] transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors"
           >
             <svg
               width="14"
@@ -354,7 +354,7 @@ function ContextRailForAsset() {
 
       {assetKind && (
         <Section label="Type">
-          <p className="t-11 font-medium text-[var(--cykan)]">
+          <p className="t-11 font-medium text-[var(--accent-teal)]">
             {assetKind}
           </p>
         </Section>
@@ -407,7 +407,7 @@ function ContextRailForAsset() {
             <ul className="flex flex-col gap-2">
               {readyVariants.map((v) => (
                 <li key={v.id} className="flex items-baseline gap-3">
-                  <span className="t-9 font-medium text-[var(--cykan)]">
+                  <span className="t-9 font-medium text-[var(--accent-teal)]">
                     {v.kind.toUpperCase()}
                   </span>
                   <span className="t-11 text-[var(--text-faint)] tracking-wide">
@@ -450,7 +450,7 @@ function ContextRailForMeeting() {
             {actionItems.map((item, i) => (
               <li
                 key={i}
-                className="border-l border-[var(--cykan-border)] pl-4 py-1"
+                className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
               >
                 <p className="t-13 font-light text-[var(--text-soft)] truncate mb-1">
                   {item.action}
@@ -482,7 +482,7 @@ function ContextRailForKnowledge() {
       <Section label="Focus entity">
         {selectedNode ? (
           <div className="flex flex-col gap-3">
-            <span className="t-9 font-medium text-[var(--cykan)]">
+            <span className="t-9 font-medium text-[var(--accent-teal)]">
               {selectedNode.type}
             </span>
             <p className="t-13 font-light text-[var(--text-soft)]">{selectedNode.label}</p>
@@ -581,7 +581,7 @@ function ContextRailForVoice() {
                       className={`t-9 font-medium ${
                         entry.status === "error"
                           ? "text-[var(--danger)]"
-                          : "text-[var(--cykan)]"
+                          : "text-[var(--accent-teal)]"
                       }`}
                     >
                       {entry.status === "error" ? "TOOL ERROR" : "TOOL RESULT"}
@@ -597,7 +597,7 @@ function ContextRailForVoice() {
                   <span
                     className={`t-9 font-medium ${
                       entry.role === "user"
-                        ? "text-[var(--cykan)]"
+                        ? "text-[var(--accent-teal)]"
                         : "text-[var(--text-ghost)]"
                     }`}
                   >
@@ -615,7 +615,7 @@ function ContextRailForVoice() {
           <button
             type="button"
             onClick={handleLinkThread}
-            className="mt-4 t-9 font-medium text-[var(--cykan)] hover:text-[var(--text)] transition-colors"
+            className="mt-4 t-9 font-medium text-[var(--accent-teal)] hover:text-[var(--text)] transition-colors"
           >
             Lier au thread →
           </button>
@@ -645,7 +645,7 @@ function ContextRailForVoice() {
       <Section label="Voice settings">
         <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
           Model{" "}
-          <span className="text-[var(--cykan)]">openai-realtime</span>, target
+          <span className="text-[var(--accent-teal)]">openai-realtime</span>, target
           latency &lt; 500&nbsp;ms.
         </p>
       </Section>
@@ -695,7 +695,7 @@ function ContextRailForAssetCompare() {
             ["Esc", "Fermer"],
           ].map(([k, v]) => (
             <li key={k} className="flex items-baseline gap-3">
-              <span className="t-9 font-mono font-medium text-[var(--cykan)]">{k}</span>
+              <span className="t-9 font-mono font-medium text-[var(--accent-teal)]">{k}</span>
               <span className="t-11 font-light text-[var(--text-muted)]">{v}</span>
             </li>
           ))}
@@ -738,7 +738,7 @@ function ContextRailForSimulation() {
             {scenarios.map((s, i) => (
               <li
                 key={i}
-                className="border-l border-[var(--cykan-border)] pl-4 py-1"
+                className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
               >
                 <p className="t-13 font-light text-[var(--text-soft)] truncate mb-1">{s.name}</p>
                 <p className="t-9 font-medium text-[var(--text-ghost)]">

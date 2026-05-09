@@ -73,7 +73,7 @@ export default function AgentLockCard({ initial }: Props) {
             type="button"
             onClick={toggle}
             disabled={busy}
-            className="shrink-0 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--cykan)/40 bg-(--cykan-bg-active) text-(--cykan) t-12 font-medium hover:bg-(--cykan)/20 transition-colors disabled:opacity-50"
+            className="shrink-0 px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/40 bg-(--accent-teal-bg-active) text-(--accent-teal) t-12 font-medium hover:bg-(--accent-teal)/20 transition-colors disabled:opacity-50"
           >
             {busy ? "…" : "Déverrouiller"}
           </button>
@@ -109,7 +109,7 @@ export default function AgentLockCard({ initial }: Props) {
           onChange={(e) => setReasonDraft(e.target.value)}
           placeholder="Raison (optionnel) — ex. déploiement prod en cours"
           maxLength={280}
-          className="flex-1 t-12 bg-(--surface-2) border border-line rounded-(--radius-sm) px-(--space-3) py-(--space-2) text-text placeholder:text-text-ghost focus:border-(--cykan) focus:outline-none"
+          className="flex-1 t-12 bg-(--surface-2) border border-line rounded-(--radius-sm) px-(--space-3) py-(--space-2) text-text placeholder:text-text-ghost focus:border-(--accent-teal) focus:outline-none"
         />
         <button
           type="button"

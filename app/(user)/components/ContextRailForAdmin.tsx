@@ -134,9 +134,9 @@ function CollapsibleRailSection({
 }
 
 /**
- * Wrapper d'<Action> pour les Raccourcis : ajoute un dot cykan 8px à
+ * Wrapper d'<Action> pour les Raccourcis : ajoute un dot accent-teal 8px à
  * gauche, même couleur que le H du logo et que les dots des threads dans
- * TimelineRail. Halo serré shadow-neon-cykan, opacity 0.7 par défaut.
+ * TimelineRail. Halo serré shadow-neon-accent-teal, opacity 0.7 par défaut.
  */
 function ShortcutAction({
   href,
@@ -156,8 +156,8 @@ function ShortcutAction({
         style={{
           width: "var(--space-2)",
           height: "var(--space-2)",
-          background: "var(--cykan)",
-          boxShadow: "var(--shadow-neon-cykan)",
+          background: "var(--accent-teal)",
+          boxShadow: "var(--shadow-neon-accent-teal)",
           opacity: 0.7,
         }}
         aria-hidden
@@ -190,7 +190,7 @@ export function ContextRailForRuns() {
               <button
                 type="button"
                 onClick={() => router.push(`/runs${f.q}`)}
-                className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--cykan)] transition-colors duration-base text-left w-full"
+                className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] transition-colors duration-base text-left w-full"
               >
                 {f.label}
               </button>
@@ -340,7 +340,7 @@ export function ContextRailForReports() {
             <li key={d.slug}>
               <a
                 href={`/reports?domain=${d.slug}`}
-                className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--cykan)] transition-colors duration-base"
+                className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] transition-colors duration-base"
               >
                 {d.label}
               </a>

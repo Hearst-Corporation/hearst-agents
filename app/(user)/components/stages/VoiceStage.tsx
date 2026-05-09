@@ -33,9 +33,9 @@ const PHASE_LABEL: Record<VoicePhase, string> = {
 const PHASE_COLOR: Record<VoicePhase, string> = {
   idle: "var(--text-faint)",
   connecting: "var(--warn)",
-  listening: "var(--cykan)",
+  listening: "var(--accent-teal)",
   processing: "var(--warn)",
-  speaking: "var(--cykan)",
+  speaking: "var(--accent-teal)",
   error: "var(--danger)",
 };
 
@@ -86,10 +86,10 @@ export function VoiceStage(_props: VoiceStageProps) {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--cykan)]"
+              className="rounded-pill bg-[var(--accent-teal)]"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--cykan)]">
+            <span className="t-11 font-medium text-[var(--accent-teal)]">
               VOICE
             </span>
             <span
@@ -107,7 +107,7 @@ export function VoiceStage(_props: VoiceStageProps) {
 
       <div className="flex-1 flex flex-col items-center justify-center min-h-0 relative">
         <div
-          className="rounded-pill bg-[var(--cykan)] halo-cyan-lg"
+          className="rounded-pill bg-[var(--accent-teal)] halo-cyan-lg"
           style={{
             width: `${pulseSize}px`,
             height: `${pulseSize}px`,

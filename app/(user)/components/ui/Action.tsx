@@ -3,16 +3,16 @@
 /**
  * <Action> — primitive bouton/lien unifiée du DS Hearst OS.
  *
- * Remplace les 60+ usages ad-hoc de `bg-[var(--cykan)]`, `border-cykan`,
+ * Remplace les 60+ usages ad-hoc de `bg-[var(--accent-teal)]`, `border-accent-teal`,
  * `t-9 font-mono uppercase tracking-marquee`, etc. dispersés dans l'app.
  *
  * Axes :
  *   variant : "primary" | "secondary" | "ghost" | "link"
- *   tone    : "brand" (cykan) | "gold" | "neutral" | "danger"
+ *   tone    : "brand" (accent-teal) | "gold" | "neutral" | "danger"
  *   size    : "sm" (t-11, h ≈ space-7) | "md" (t-13, h ≈ space-10)
  *
  * États inclus : idle / hover / active / focus-visible / disabled / loading.
- * Focus-visible : ring 1px var(--cykan-border) — uniforme sur tout le DS.
+ * Focus-visible : ring 1px var(--accent-teal-border) — uniforme sur tout le DS.
  *
  * Si `href` est fourni → rendu en <Link> (Next.js). Sinon <button>.
  * `loading` désactive le clic + remplace les enfants par un "…".
@@ -71,7 +71,7 @@ const SIZE_CLASSES: Record<ActionSize, string> = {
 
 const PRIMARY_TONE: Record<ActionTone, string> = {
   brand:
-    "bg-[var(--cykan)] text-[var(--text-on-cykan)] hover:opacity-90 active:opacity-80",
+    "bg-[var(--accent-teal)] text-[var(--text-on-accent-teal)] hover:opacity-90 active:opacity-80",
   gold:
     "bg-[var(--gold)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
   neutral:
@@ -82,7 +82,7 @@ const PRIMARY_TONE: Record<ActionTone, string> = {
 
 const SECONDARY_TONE: Record<ActionTone, string> = {
   brand:
-    "border border-[var(--cykan-border)] text-[var(--cykan)] bg-[var(--cykan-surface)] hover:border-[var(--cykan-border-hover)] hover:bg-[var(--cykan-bg-hover)]",
+    "border border-[var(--accent-teal-border)] text-[var(--accent-teal)] bg-[var(--accent-teal-surface)] hover:border-[var(--accent-teal-border-hover)] hover:bg-[var(--accent-teal-bg-hover)]",
   gold:
     "border border-[var(--gold-border)] text-[var(--gold)] bg-[var(--gold-surface)] hover:bg-[var(--gold-bg-hover)]",
   neutral:
@@ -92,7 +92,7 @@ const SECONDARY_TONE: Record<ActionTone, string> = {
 };
 
 const GHOST_TONE: Record<ActionTone, string> = {
-  brand: "text-[var(--text-faint)] hover:text-[var(--cykan)]",
+  brand: "text-[var(--text-faint)] hover:text-[var(--accent-teal)]",
   gold: "text-[var(--text-faint)] hover:text-[var(--gold)]",
   neutral: "text-[var(--text-faint)] hover:text-[var(--text)]",
   danger: "text-[var(--text-faint)] hover:text-[var(--danger)]",
@@ -100,7 +100,7 @@ const GHOST_TONE: Record<ActionTone, string> = {
 
 const LINK_TONE: Record<ActionTone, string> = {
   brand:
-    "text-[var(--cykan)] border-b border-[var(--cykan)] hover:opacity-80 px-0",
+    "text-[var(--accent-teal)] border-b border-[var(--accent-teal)] hover:opacity-80 px-0",
   gold:
     "text-[var(--gold)] border-b border-[var(--gold-border)] hover:opacity-80 px-0",
   neutral:
@@ -150,7 +150,7 @@ export function Action(props: ActionProps) {
   const composed = [
     "inline-flex items-center justify-center gap-2 rounded-sm",
     "transition-colors duration-base",
-    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan-border-hover)]",
+    "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]",
     "disabled:opacity-50 disabled:cursor-not-allowed",
     sizeClass,
     FONT_WEIGHT[variant],

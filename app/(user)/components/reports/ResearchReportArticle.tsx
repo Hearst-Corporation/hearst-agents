@@ -123,7 +123,7 @@ export function ResearchReportArticle({ content }: { content: string }) {
           case "bullet":
             return (
               <div key={idx} className="flex items-baseline gap-3">
-                <span className="t-9 font-mono text-[var(--cykan)] mt-1 shrink-0" aria-hidden="true">
+                <span className="t-9 font-mono text-[var(--accent-teal)] mt-1 shrink-0" aria-hidden="true">
                   ─
                 </span>
                 <div className="flex-1 flex flex-col gap-1">
@@ -165,7 +165,7 @@ export function ResearchReportArticle({ content }: { content: string }) {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--cykan)] underline underline-offset-2 decoration-[var(--line)] hover:decoration-[var(--cykan)]"
+                  className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] underline underline-offset-2 decoration-[var(--line)] hover:decoration-[var(--accent-teal)]"
                 >
                   {s.title}
                 </a>

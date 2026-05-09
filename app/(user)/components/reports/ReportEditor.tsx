@@ -9,7 +9,7 @@
  * le parent puisse mettre à jour son state et re-rendre les blocks.
  *
  * Features V1 :
- *   1. Toggle visibilité (`block.hidden`) par block — checkbox cykan
+ *   1. Toggle visibilité (`block.hidden`) par block — checkbox accent-teal
  *   2. Réordonner blocks via boutons ↑/↓ (premier ne monte pas, dernier
  *      ne descend pas — désactivés)
  *   3. Preview JSON readonly du spec courant (collapsible, mono pre)
@@ -275,10 +275,10 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
             type="button"
             onClick={openSaveForm}
             data-testid="report-editor-save-template"
-            className="t-9 font-mono uppercase text-[var(--cykan)] hover:text-[var(--text-soft)]"
+            className="t-9 font-mono uppercase text-[var(--accent-teal)] hover:text-[var(--text-soft)]"
             style={{
                             padding: "var(--space-2) var(--space-3)",
-              border: "1px solid var(--cykan)",
+              border: "1px solid var(--accent-teal)",
               borderRadius: "var(--radius-xs)",
               background: "transparent",
               transition: "color var(--duration-fast) var(--ease-standard)",
@@ -290,7 +290,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         {saveStatus === "saved" && (
           <span
             data-testid="report-editor-save-feedback"
-            className="t-9 font-mono uppercase text-[var(--cykan)]"
+            className="t-9 font-mono uppercase text-[var(--accent-teal)]"
                      >
             Template sauvegardé
           </span>
@@ -397,10 +397,10 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
               onClick={confirmSave}
               disabled={!saveName.trim() || isSaving}
               data-testid="report-editor-save-confirm"
-              className="t-9 font-mono uppercase text-[var(--cykan)] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="t-9 font-mono uppercase text-[var(--accent-teal)] disabled:opacity-40 disabled:cursor-not-allowed"
               style={{
                                 padding: "var(--space-2) var(--space-3)",
-                border: "1px solid var(--cykan)",
+                border: "1px solid var(--accent-teal)",
                 borderRadius: "var(--radius-xs)",
                 background: "transparent",
                 transition: "opacity var(--duration-fast) var(--ease-standard)",
@@ -584,7 +584,7 @@ function BlockEditorRow({
         onChange={onToggle}
         aria-label={`Toggle visibilité ${block.id}`}
         data-testid={`report-editor-toggle-${block.id}`}
-        style={{ accentColor: "var(--cykan)" }}
+        style={{ accentColor: "var(--accent-teal)" }}
       />
       <div className="flex flex-col flex-1 min-w-0" style={{ gap: "var(--space-1)" }}>
         <span
@@ -597,7 +597,7 @@ function BlockEditorRow({
         </span>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           <span
-            className="t-9 font-mono uppercase text-[var(--cykan)]"
+            className="t-9 font-mono uppercase text-[var(--accent-teal)]"
                      >
             {block.type}
           </span>
@@ -620,7 +620,7 @@ function BlockEditorRow({
           disabled={!canMoveUp}
           aria-label={`Remonter ${block.id}`}
           data-testid={`report-editor-up-${block.id}`}
-          className="t-9 font-mono text-[var(--text-muted)] hover:text-[var(--cykan)] disabled:opacity-30 disabled:cursor-not-allowed"
+          className="t-9 font-mono text-[var(--text-muted)] hover:text-[var(--accent-teal)] disabled:opacity-30 disabled:cursor-not-allowed"
           style={{
             padding: "var(--space-1) var(--space-2)",
             border: "1px solid var(--surface-2)",
@@ -637,7 +637,7 @@ function BlockEditorRow({
           disabled={!canMoveDown}
           aria-label={`Descendre ${block.id}`}
           data-testid={`report-editor-down-${block.id}`}
-          className="t-9 font-mono text-[var(--text-muted)] hover:text-[var(--cykan)] disabled:opacity-30 disabled:cursor-not-allowed"
+          className="t-9 font-mono text-[var(--text-muted)] hover:text-[var(--accent-teal)] disabled:opacity-30 disabled:cursor-not-allowed"
           style={{
             padding: "var(--space-1) var(--space-2)",
             border: "1px solid var(--surface-2)",

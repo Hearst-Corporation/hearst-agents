@@ -143,7 +143,7 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
             const variant = variants.find((v) => v.kind === tab.kind);
             const dotColor =
               variant?.status === "ready"
-                ? "bg-[var(--cykan)]"
+                ? "bg-[var(--accent-teal)]"
                 : variant?.status === "pending" || variant?.status === "generating"
                 ? "bg-[var(--warn)] animate-pulse"
                 : variant?.status === "failed"
@@ -156,7 +156,7 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
                 onClick={() => setActiveTab(tab.kind)}
                 className={`px-3 py-1.5 t-11 font-light border transition-colors duration-base ${
                   isActive
-                    ? "border-[var(--cykan)] text-[var(--cykan)]"
+                    ? "border-[var(--accent-teal)] text-[var(--accent-teal)]"
                     : "border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--text)]"
                 }`}
               >
@@ -220,7 +220,7 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
                   value={videoProvider}
                   onChange={(e) => setVideoProvider(e.target.value === "heygen" ? "heygen" : "runway")}
                   disabled={generating === "video"}
-                  className="px-3 py-2 t-13 font-light text-[var(--text)] bg-[var(--card-flat-bg)] border border-[var(--border-shell)] hover:border-[var(--cykan-border-hover)] transition-colors disabled:opacity-60"
+                  className="px-3 py-2 t-13 font-light text-[var(--text)] bg-[var(--card-flat-bg)] border border-[var(--border-shell)] hover:border-[var(--accent-teal-border-hover)] transition-colors disabled:opacity-60"
                 >
                   <option value="runway">Runway (text-to-video)</option>
                   <option value="heygen">HeyGen (avatar)</option>
