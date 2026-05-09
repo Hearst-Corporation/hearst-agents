@@ -763,14 +763,20 @@ export function ChatInput({
                     opacity: 0.7,
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={service.icon}
-                    alt=""
-                    width={16}
-                    height={16}
-                    aria-hidden
-                  />
+                  {service.icon ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={service.icon}
+                      alt=""
+                      width={16}
+                      height={16}
+                      aria-hidden
+                    />
+                  ) : (
+                    <span className="t-9 font-mono text-[var(--text-faint)]">
+                      {service.id.slice(0, 2)}
+                    </span>
+                  )}
                 </button>
               ))}
               {connectedServices.length > 12 && (
