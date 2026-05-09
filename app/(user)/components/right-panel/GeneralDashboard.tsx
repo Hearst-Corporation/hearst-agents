@@ -306,10 +306,15 @@ function StatusSection() {
     >
       <SectionLabel label="Statut" icon={<RadarIcon />} />
 
-      {/* Roue de statut */}
+      {/* Card glass : pas d'outline, matérialité par insets */}
       <div
-        className="flex items-center"
-        style={{ gap: "var(--space-4)", marginTop: "var(--space-3)" }}
+        className="touch-status-card flex items-center"
+        style={{
+          gap: "var(--space-4)",
+          padding: "var(--space-3)",
+          marginTop: "var(--space-3)",
+          borderRadius: "var(--radius-md)",
+        }}
       >
         {/* SVG roue */}
         <div className="shrink-0 relative flex items-center justify-center" style={{ width: "var(--space-16)", height: "var(--space-16)" }}>
@@ -409,8 +414,12 @@ function StatusRow({ label, children }: { label: string; children: ReactNode }) 
   return (
     <div className="flex items-baseline" style={{ gap: "var(--space-2)" }}>
       <span
-        className="t-9 font-medium uppercase shrink-0"
-        style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)", minWidth: "var(--space-14)" }}
+        className="t-9 font-mono font-light shrink-0"
+        style={{
+          color: "var(--text-faint)",
+          letterSpacing: "0.02em",
+          minWidth: "var(--space-12)",
+        }}
       >
         {label}
       </span>
@@ -482,15 +491,15 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
         </button>
       </div>
 
-      {/* Card contexte */}
+      {/* Card contexte — pas d'outline, filet teal vertical seul */}
       <button
         type="button"
         onClick={handleOpen}
-        className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--accent-teal-border)] hover:bg-[var(--surface-2)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
+        className="touch-context-card group flex items-center w-full text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal)]"
         style={{
           gap: "var(--space-3)",
-          padding: "var(--space-3)",
-          borderRadius: "var(--radius-sm)",
+          padding: "var(--space-3) var(--space-3) var(--space-3) var(--space-4)",
+          borderRadius: "var(--radius-md)",
         }}
       >
         {/* Icône agent ou type objet */}
@@ -499,37 +508,30 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
           style={{
             width: "var(--space-10)",
             height: "var(--space-10)",
-            borderRadius: "var(--radius-pill)",
-            background: "color-mix(in srgb, var(--accent-teal) 10%, transparent)",
-            border: "1px solid var(--accent-teal-border)",
             color: "var(--accent-teal)",
+            opacity: 0.85,
           }}
         >
           <AgentOrObjectIcon isAgent={isAgent} roleId={selection.id as AgentRoleId} kind={selection.kind} />
         </span>
 
-        <span className="flex flex-col flex-1 min-w-0">
+        <span className="flex flex-col flex-1 min-w-0" style={{ gap: "2px" }}>
           {isAgent && (
-            <span className="t-9 font-medium uppercase" style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)" }}>
+            <span
+              className="t-11 font-mono font-light"
+              style={{ color: "var(--accent-teal)", letterSpacing: "0.02em", opacity: 0.85 }}
+            >
               Agent sélectionné
             </span>
           )}
-          <span className="t-13 font-medium truncate" style={{ color: "var(--text)" }}>
+          <span className="t-13 font-light truncate" style={{ color: "var(--text-l1)" }}>
             {isAgent ? agentMeta?.label : (selection.label ?? selection.id)}
           </span>
           {isAgent && agentMeta && (
-            <span className="t-9 font-light truncate" style={{ color: "var(--text-faint)" }}>
+            <span className="t-11 font-light truncate" style={{ color: "var(--text-faint)" }}>
               {agentMeta.tagline}
             </span>
           )}
-        </span>
-
-        <span
-          className="shrink-0 t-13 font-mono group-hover:text-[var(--accent-teal)] transition-colors"
-          style={{ color: "var(--text-faint)" }}
-          aria-hidden
-        >
-          ›
         </span>
       </button>
     </section>
@@ -551,22 +553,28 @@ function ChatContextSection({ focal }: { focal: ReturnType<typeof useFocalStore.
     <section style={{ padding: "var(--space-4)" }}>
       <SectionLabel label="Contexte actuel" icon={<ContextIcon />} />
       <div
-        className="flex flex-col"
+        className="touch-context-card flex flex-col"
         style={{
           gap: "var(--space-2)",
           marginTop: "var(--space-3)",
-          padding: "var(--space-3)",
-          borderRadius: "var(--radius-sm)",
-          background: "var(--surface-1)",
-          border: "1px solid var(--border-subtle)",
+          padding: "var(--space-3) var(--space-3) var(--space-3) var(--space-4)",
+          borderRadius: "var(--radius-md)",
         }}
       >
-        <span className="t-9 font-medium uppercase" style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)" }}>
+        <span
+          className="t-11 font-mono font-light"
+          style={{ color: "var(--accent-teal)", letterSpacing: "0.02em", opacity: 0.85 }}
+        >
           {FOCAL_TYPE_LABEL[focal.type] ?? focal.type}
         </span>
-        <span className="t-13 font-medium truncate" style={{ color: "var(--text)" }}>{focal.title}</span>
+        <span className="t-13 font-light truncate" style={{ color: "var(--text-l1)" }}>
+          {focal.title}
+        </span>
         {focal.summary && (
-          <span className="t-9 font-light" style={{ color: "var(--text-faint)", lineHeight: "var(--leading-relaxed)" }}>
+          <span
+            className="t-11 font-light"
+            style={{ color: "var(--text-faint)", lineHeight: "var(--leading-relaxed)" }}
+          >
             {focal.summary}
           </span>
         )}
@@ -620,10 +628,10 @@ function ObjectContextIcon({ kind }: { kind: string }) {
 function SectionLabel({ label, icon }: { label: string; icon: ReactNode }) {
   return (
     <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-      <span style={{ color: "var(--text-faint)" }} aria-hidden>{icon}</span>
+      <span style={{ color: "var(--text-muted)" }} aria-hidden>{icon}</span>
       <span
-        className="t-9 font-medium uppercase tracking-wide"
-        style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-wide)" }}
+        className="t-13 font-light"
+        style={{ color: "var(--text-soft)", letterSpacing: "-0.005em" }}
       >
         {label}
       </span>
