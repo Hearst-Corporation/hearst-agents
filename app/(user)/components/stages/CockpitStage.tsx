@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CockpitHome } from "../cockpit/CockpitHome";
 import { OnboardingTour } from "../OnboardingTour";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 
 /**
  * CockpitStage — home polymorphe (mode="cockpit").
@@ -107,8 +108,9 @@ export function CockpitStage({ initialData = null }: CockpitStageProps = {}) {
   }, [applyCockpitPayload]);
 
   const isHospitality = data?.industry === "hospitality";
-  // refetch est conservé pour usage futur (refresh inbox, suggestions live)
-  void refetch;
+
+  // Polling 60s — maintient les KPIs à jour sans reload de page
+  usePollingEffect(refetch, 60_000, [], { enabled: true, immediate: false });
 
   return (
     <div className="flex-1 flex flex-col min-h-0 relative overflow-hidden">

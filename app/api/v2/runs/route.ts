@@ -17,6 +17,7 @@ export async function GET(req: NextRequest) {
       parseInt(req.nextUrl.searchParams.get("limit") ?? "50", 10),
       200,
     );
+    const missionId = req.nextUrl.searchParams.get("mission_id") ?? undefined;
 
     // Canonical source: Supabase persistence — scoped to current user
     const persisted = await getRuns({
@@ -24,6 +25,7 @@ export async function GET(req: NextRequest) {
       tenantId: scope.tenantId,
       workspaceId: scope.workspaceId,
       limit,
+      missionId,
     });
 
     if (persisted.length > 0) {
@@ -45,10 +47,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ runs });
     }
 
-    // Fallback: in-memory store — filtered by userId
+    // Fallback: in-memory store — filtered by userId (+ missionId si fourni)
     console.warn("[v2/runs] Persistent store empty — falling back to in-memory");
     const memRuns = getAllRuns(limit)
-      .filter((r) => r.userId === scope.userId)
+      .filter((r) => r.userId === scope.userId && (!missionId || r.missionId === missionId))
       .map((r) => ({
         id: r.id,
         input: r.input.slice(0, 200),

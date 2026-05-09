@@ -1,10 +1,10 @@
 /**
- * Mission Detail API — Update and delete specific missions.
+ * Mission Detail API — Get, update, and delete specific missions.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { getMission, disableMission, evictMission } from "@/lib/engine/runtime/missions/store";
-import { updateScheduledMission, deleteScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { updateScheduledMission, deleteScheduledMission, getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
@@ -15,6 +15,40 @@ async function verifyMissionOwnership(id: string, userId: string): Promise<boole
     return false;
   }
   return true;
+}
+
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { scope, error } = await requireScope({ context: "GET /api/v2/missions/[id]" });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: error.status });
+  }
+
+  const { id } = await params;
+
+  // In-memory first (hot path)
+  const memMission = getMission(id);
+  if (memMission) {
+    if (memMission.userId && memMission.userId !== scope.userId) {
+      return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
+    }
+    return NextResponse.json({ mission: memMission });
+  }
+
+  // Fallback: Supabase
+  const missions = await getScheduledMissions({
+    userId: scope.userId,
+    tenantId: scope.tenantId,
+    workspaceId: scope.workspaceId,
+  });
+  const mission = missions.find((m) => m.id === id);
+  if (!mission) {
+    return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
+  }
+
+  return NextResponse.json({ mission });
 }
 
 export async function PATCH(

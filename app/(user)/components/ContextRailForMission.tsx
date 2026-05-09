@@ -79,15 +79,13 @@ export function ContextRailForMission() {
       return;
     }
     setMissionLoading(true);
-    fetch(`/api/v2/missions`, { credentials: "include" })
+    fetch(`/api/v2/missions/${missionId}`, { credentials: "include" })
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       })
       .then((data) => {
-        const found = (data?.missions as MissionLike[] | undefined)?.find(
-          (m) => m.id === missionId,
-        );
+        const found = data?.mission as MissionLike | undefined;
         if (!found) {
           setMissionError("Mission introuvable");
           setMission(null);
@@ -108,14 +106,12 @@ export function ContextRailForMission() {
   const loadRuns = useCallback(() => {
     if (!missionId) return;
     setRunsLoading(true);
-    fetch(`/api/v2/runs?limit=50`, { credentials: "include" })
+    fetch(`/api/v2/runs?mission_id=${encodeURIComponent(missionId)}&limit=5`, {
+      credentials: "include",
+    })
       .then(async (r) => (r.ok ? r.json() : { runs: [] }))
       .then((data) => {
-        const all = (data?.runs as RunSummary[] | undefined) ?? [];
-        const filtered = all
-          .filter((r) => r.missionId === missionId)
-          .slice(0, 5);
-        setRuns(filtered);
+        setRuns((data?.runs as RunSummary[] | undefined) ?? []);
       })
       .catch(() => setRuns([]))
       .finally(() => setRunsLoading(false));

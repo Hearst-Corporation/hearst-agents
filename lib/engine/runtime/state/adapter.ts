@@ -133,6 +133,7 @@ export async function getRuns(params?: {
   tenantId?: string;
   workspaceId?: string;
   limit?: number;
+  missionId?: string;
 }): Promise<PersistedRunRecord[]> {
   const sb = db();
   if (!sb) return [];
@@ -147,6 +148,10 @@ export async function getRuns(params?: {
 
     if (params?.userId) {
       query = query.eq("user_id", params.userId);
+    }
+
+    if (params?.missionId) {
+      query = query.filter("metadata->>'missionId'", "eq", params.missionId);
     }
 
     const { data, error } = await query;
