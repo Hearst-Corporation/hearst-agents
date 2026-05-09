@@ -488,13 +488,45 @@ export function TimelineRail() {
       {/* Timeline — 4 sections always rendered */}
       <div className={`flex-1 flex flex-col min-h-0 pt-8 pb-8 ${sectionPadX}`}>
         {leftCollapsed && (
-          <button
-            onClick={handleNewThread}
-            className="mb-6 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
-            title="Nouvelle conversation"
-          >
-            <PlusIcon />
-          </button>
+          <>
+            <button
+              onClick={handleNewThread}
+              className="mb-3 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
+              title="Nouvelle conversation"
+            >
+              <PlusIcon />
+            </button>
+            {/* Apps en collapsed — icon-only bouton avec badge OAuth.
+             *  Cohérence avec l'expanded mode : Apps reste accessible et le
+             *  signal de reconnexion n'est pas perdu quand le rail se replie. */}
+            <button
+              onClick={() => router.push("/apps")}
+              aria-current={isAppsActive ? "page" : undefined}
+              className={`relative mb-6 w-8 h-8 flex items-center justify-center rounded-md border transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0 ${
+                isAppsActive
+                  ? "border-[var(--accent-teal-border)] bg-[var(--accent-teal-bg-active)] text-[var(--accent-teal)]"
+                  : "border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)]"
+              }`}
+              title={oauthBadgeTitle ?? "Apps"}
+            >
+              <AppIcon />
+              {oauthSeverity && (
+                <span
+                  aria-hidden
+                  className="absolute rounded-pill"
+                  style={{
+                    top: "-2px",
+                    right: "-2px",
+                    width: "var(--space-2)",
+                    height: "var(--space-2)",
+                    background:
+                      oauthSeverity === "error" ? "var(--color-error)" : "var(--warn)",
+                    boxShadow: `0 0 0 1.5px var(--rail)`,
+                  }}
+                />
+              )}
+            </button>
+          </>
         )}
 
         {leftCollapsed ? (

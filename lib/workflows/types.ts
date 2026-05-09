@@ -130,7 +130,7 @@ export function createEmptyGraph(): WorkflowGraph {
       {
         id: triggerId,
         kind: "trigger",
-        label: "Manual trigger",
+        label: "Déclencheur manuel",
         config: { mode: "manual" },
         position: { x: 80, y: 200 },
       },

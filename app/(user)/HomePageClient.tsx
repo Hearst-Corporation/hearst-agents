@@ -13,6 +13,7 @@ import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { mapFocalObject, mapFocalObjects } from "@/lib/core/types/focal";
 import { Stage } from "./components/Stage";
 import { toast } from "@/app/hooks/use-toast";
+import { invalidateOAuthExpiryCache } from "@/app/hooks/use-oauth-expiry";
 
 export interface HomePageClientProps {
   /**
@@ -171,6 +172,10 @@ export default function HomePageClient({ initialCockpitData }: HomePageClientPro
           .catch(() => {})
           .finally(() => {
             loadConnections();
+            // Reset le cache OAuth-expiry pour que le badge TimelineRail
+            // disparaisse immédiatement quand la reconnexion vient de
+            // résoudre une connexion expirée — sinon il persiste 60s.
+            invalidateOAuthExpiryCache();
             const url = new URL(window.location.href);
             url.searchParams.delete("connected");
             window.history.replaceState({}, "", url.toString());

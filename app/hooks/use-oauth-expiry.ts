@@ -71,6 +71,17 @@ async function fetchOnce(): Promise<ExpiringConnection[]> {
   return cache.inFlight;
 }
 
+/**
+ * Force un re-fetch immédiat (bypass le TTL 60s). À appeler après une
+ * reconnect/disconnect réussie pour que le badge TimelineRail reflète
+ * l'état canonique sans attendre l'expiration du cache.
+ */
+export function invalidateOAuthExpiryCache(): void {
+  cache.fetchedAt = 0;
+  cache.inFlight = null;
+  void fetchOnce();
+}
+
 export function useOAuthExpiry(): {
   connections: ExpiringConnection[];
   severity: Severity;

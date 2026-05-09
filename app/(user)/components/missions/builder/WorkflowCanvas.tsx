@@ -305,8 +305,8 @@ export function WorkflowCanvas({
           }}
         >
           {pendingSource
-            ? "Click un node cible pour connecter"
-            : "Click 2 nodes pour créer une edge"}
+            ? "Choisis le node cible pour relier"
+            : "Sélectionne 2 nodes pour créer un lien"}
         </div>
         {selectedNodeId && (
           <button

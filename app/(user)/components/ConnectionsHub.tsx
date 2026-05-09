@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { toast } from "@/app/hooks/use-toast";
 import { useOAuthStore } from "@/stores/oauth";
 import { useOAuthCompletionPoll } from "@/app/hooks/use-oauth-completion-poll";
+import { invalidateOAuthExpiryCache } from "@/app/hooks/use-oauth-expiry";
 import { openOAuthPopup } from "@/lib/oauth/popup";
 import { Action } from "./ui";
 
@@ -577,6 +578,7 @@ export function ConnectionsHub() {
           return;
         }
         toast.success("Service déconnecté", account.appName);
+        invalidateOAuthExpiryCache();
         await refreshAccounts();
         closeDrawer();
       } finally {
@@ -650,6 +652,7 @@ export function ConnectionsHub() {
           method: "POST",
           credentials: "include",
         }).catch(() => {});
+        invalidateOAuthExpiryCache();
         void refreshAccounts();
         setTimeout(() => useOAuthStore.getState().clear(), 3000);
       } else if (data.status === "error") {
@@ -693,6 +696,7 @@ export function ConnectionsHub() {
         method: "POST",
         credentials: "include",
       }).catch(() => {});
+      invalidateOAuthExpiryCache();
       void refreshAccounts();
       // Auto-clear la carte du RightPanel après un délai court — laisse le
       // temps de voir la confirmation, sans encombrer le panel.
