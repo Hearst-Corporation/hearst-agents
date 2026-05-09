@@ -2,6 +2,7 @@
 
 import { useFocalStore } from "@/stores/focal";
 import { useStageStore } from "@/stores/stage";
+import { useSelectionStore } from "@/stores/selection";
 import { assetToFocal } from "@/lib/ui/focal-mappers";
 import { isPlaceholderAssetId } from "@/lib/ui/asset-id";
 import type { MessageAssetRef } from "@/stores/navigation";
@@ -42,6 +43,7 @@ export function ChatAssetCard({ assetRef }: { assetRef: MessageAssetRef }) {
 
   const handleOpen = () => {
     if (!assetRef.id || isPlaceholderAssetId(assetRef.id)) return;
+    useSelectionStore.getState().select({ kind: "asset", id: assetRef.id, label: assetRef.title });
     setFocal(assetToFocal({ id: assetRef.id, name: assetRef.title, type: assetRef.type }, null));
     setStageMode({ mode: "asset", assetId: assetRef.id });
   };

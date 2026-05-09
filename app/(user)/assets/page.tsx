@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useStageStore } from "@/stores/stage";
 import { useNavigationStore } from "@/stores/navigation";
+import { useSelectionStore } from "@/stores/selection";
 import { RelativeTime } from "../components/RelativeTime";
 import { toast } from "@/app/hooks/use-toast";
 import { ConfirmModal } from "../components/ConfirmModal";
@@ -72,6 +73,7 @@ export default function AssetsPage() {
     // useStageStore.setMode → AssetStage standalone qui hydrate l'asset
     // via fetch /api/v2/assets/[id]. Le router.push("/") ramène sur la
     // home où le Stage polymorphe est rendu.
+    useSelectionStore.getState().select({ kind: "asset", id: asset.id, label: asset.title });
     useStageStore.getState().setMode({ mode: "asset", assetId: asset.id });
     router.push("/");
   };

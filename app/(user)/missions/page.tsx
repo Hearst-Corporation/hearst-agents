@@ -7,6 +7,7 @@ import { toast } from "@/app/hooks/use-toast";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 import { GhostIconX } from "../components/ghost-icons";
 import { useStageStore } from "@/stores/stage";
+import { useSelectionStore } from "@/stores/selection";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { Action, ScreenShell } from "../components/ui";
 import { MissionRow, type Mission, type MissionOpsStatus } from "../components/missions/MissionRow";
@@ -33,6 +34,7 @@ function MissionsPageContent() {
     // Stage polymorphe : ouvrir le MissionStage dédié (rendu par
     // Stage.tsx quand mode === "mission"). Pattern aligné sur
     // GeneralDashboard.handleMissionClick.
+    useSelectionStore.getState().select({ kind: "mission", id: mission.id, label: mission.name });
     useStageStore.getState().setMode({ mode: "mission", missionId: mission.id });
     router.push("/");
   };

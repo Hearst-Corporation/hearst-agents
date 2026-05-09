@@ -29,6 +29,7 @@
 
 import { useEffect, useState } from "react";
 import { useStageStore } from "@/stores/stage";
+import { useSelectionStore } from "@/stores/selection";
 import { useStageData } from "@/stores/stage-data";
 import { useOfflineStatus } from "../use-offline-status";
 import { ReportLayout } from "../ReportLayout";
@@ -442,9 +443,10 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
                       d'où vient l'asset (mission, run, modèle, sources). */}
                   <AssetLineage
                     asset={asset}
-                    onOpenParent={(parentId) =>
-                      useStageStore.getState().setMode({ mode: "asset", assetId: parentId })
-                    }
+                    onOpenParent={(parentId) => {
+                      useSelectionStore.getState().select({ kind: "asset", id: parentId });
+                      useStageStore.getState().setMode({ mode: "asset", assetId: parentId });
+                    }}
                   />
                   <h1
                     className="t-28 font-medium tracking-tight text-[var(--text)]"

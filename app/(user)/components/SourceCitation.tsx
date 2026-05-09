@@ -17,6 +17,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useStageStore } from "@/stores/stage";
+import { useSelectionStore } from "@/stores/selection";
 
 export interface Source {
   id: string;
@@ -164,6 +165,7 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
 
 function openSource(src: Source): void {
   if (src.assetId) {
+    useSelectionStore.getState().select({ kind: "asset", id: src.assetId, label: src.label ?? src.assetId });
     useStageStore.getState().setMode({ mode: "asset", assetId: src.assetId });
     return;
   }

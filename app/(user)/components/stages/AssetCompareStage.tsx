@@ -14,6 +14,7 @@
 
 import { useEffect, useState } from "react";
 import { useStageStore } from "@/stores/stage";
+import { useSelectionStore } from "@/stores/selection";
 import type { Asset } from "@/lib/assets/types";
 import { AssetLineage } from "../AssetLineage";
 import { StageActionBar } from "./StageActionBar";
@@ -94,6 +95,7 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
   };
 
   const openParent = (assetId: string) => {
+    useSelectionStore.getState().select({ kind: "asset", id: assetId });
     setMode({ mode: "asset", assetId });
   };
 
