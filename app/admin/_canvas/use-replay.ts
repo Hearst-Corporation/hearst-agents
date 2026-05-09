@@ -138,7 +138,7 @@ export function useReplay(events: PersistedEvent[]): ReplayController {
       const p = evs.length <= 1 ? 1 : (pos) / (evs.length - 1);
       setProgress(p);
     }, delay);
-  }, [stopInterval, applyReplayEvent]);
+  }, [stopInterval]);
 
   const playToggle = useCallback(() => {
     if (isPlayingRef.current) {

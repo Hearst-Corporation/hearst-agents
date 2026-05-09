@@ -174,13 +174,14 @@ export function BlockActions({ onAction, editable = true }: BlockActionsProps) {
   const fire = useCallback(
     (id: BlockActionId, label: string) => {
       onAction(id);
-      // Feedback visuel "Bientôt" pour les actions stub. Le caller détecte
-      // les actions implémentées via onAction et override si besoin.
-      if (id === "mission" || id === "refine") {
-        setFeedback(`${label} · Bientôt`);
-        window.setTimeout(() => setFeedback(null), 1500);
-      } else if (id === "asset") {
+      if (id === "asset") {
         setFeedback(`${label} · Sauvegardé`);
+        window.setTimeout(() => setFeedback(null), 1500);
+      } else if (id === "mission") {
+        setFeedback(`${label} · Créée`);
+        window.setTimeout(() => setFeedback(null), 1500);
+      } else if (id === "refine") {
+        setFeedback(`${label} · Injecté`);
         window.setTimeout(() => setFeedback(null), 1500);
       }
     },

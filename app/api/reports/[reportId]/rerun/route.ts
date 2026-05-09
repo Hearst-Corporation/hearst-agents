@@ -1,16 +1,21 @@
 /**
- * POST /api/reports/[reportId]/rerun — stub.
+ * POST /api/reports/[reportId]/rerun
  *
- * Re-déclenche un report ad-hoc depuis l'asset_id. La réimplémentation
- * réelle doit ré-exécuter le pipeline du spec (sources + transforms +
- * renderBlocks) et produire une nouvelle version. Pour l'instant on se
- * contente de valider l'auth + la propriété de l'asset, puis on
- * répond `not_implemented` pour que l'UI affiche un toast clair.
+ * Re-déclenche le pipeline d'un report depuis son asset_id. Charge l'asset,
+ * résout le spec d'origine via provenance.specId (catalog ou custom template),
+ * relance runReport et enregistre le nouveau payload sur le même asset.
+ *
+ * Body optionnel : { noCache?: boolean }
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { loadAssetById, storeAsset, type Asset } from "@/lib/assets/types";
+import { getCatalogEntry } from "@/lib/reports/catalog";
+import { loadTemplate } from "@/lib/reports/templates/store";
+import { runReport } from "@/lib/reports/engine/run-report";
+import { createSourceLoader } from "@/lib/reports/sources";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,7 +23,7 @@ export const dynamic = "force-dynamic";
 const paramsSchema = z.object({ reportId: z.string().min(1) });
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ reportId: string }> },
 ) {
   const parsed = paramsSchema.safeParse(await params);
@@ -37,17 +42,94 @@ export async function POST(
     );
   }
 
-  // TODO : recharger le spec d'origine et relancer runReport(spec, scope).
-  // Pour l'instant, l'endpoint est un stub destiné à confirmer que la
-  // chaîne UI → API → backend est branchée. Le 501 est un signal clair
-  // côté client (le toast affiche "Re-run non disponible pour cet asset").
-  return NextResponse.json(
-    {
-      ok: false,
-      reportId,
-      error: "not_implemented",
-      message: "Re-run on-demand pas encore implémenté pour cet asset.",
+  let body: { noCache?: boolean } = {};
+  try {
+    body = await req.json().catch(() => ({}));
+  } catch {
+    body = {};
+  }
+
+  // 1. Charger l'asset source
+  const asset = await loadAssetById(reportId, {
+    tenantId: scope.tenantId,
+    workspaceId: scope.workspaceId,
+  });
+
+  if (!asset) {
+    return NextResponse.json({ error: "asset_not_found" }, { status: 404 });
+  }
+
+  const specId = asset.provenance?.specId;
+  if (!specId) {
+    return NextResponse.json(
+      { error: "no_spec_ref", message: "Cet asset n'a pas de specId — rerun impossible." },
+      { status: 422 },
+    );
+  }
+
+  const callerScope = {
+    tenantId: scope.tenantId,
+    workspaceId: scope.workspaceId,
+    userId: scope.userId,
+  };
+
+  // 2. Résoudre le spec (catalog ou custom template)
+  let spec = null;
+  const entry = getCatalogEntry(specId);
+  if (entry) {
+    spec = entry.build(callerScope);
+  } else {
+    const custom = await loadTemplate({ templateId: specId, tenantId: scope.tenantId });
+    if (custom) {
+      spec = { ...custom, scope: callerScope };
+    }
+  }
+
+  if (!spec) {
+    return NextResponse.json({ error: "spec_not_found" }, { status: 404 });
+  }
+
+  // 3. Relancer le pipeline
+  const noCache = body.noCache === true;
+  const loader = createSourceLoader({ spec, noCache });
+
+  let result;
+  try {
+    result = await runReport(spec, { sourceLoader: loader, noCache });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`[rerun] runReport failed (${reportId}):`, msg);
+    return NextResponse.json({ error: "run_failed", detail: msg }, { status: 500 });
+  }
+
+  // 4. Mettre à jour le contentRef de l'asset d'origine
+  const updated: Asset = {
+    ...asset,
+    contentRef: JSON.stringify({
+      ...result.payload,
+      narration: result.narration,
+    }),
+    provenance: {
+      ...asset.provenance,
+      providerId: asset.provenance?.providerId ?? "system",
+      reportMeta: {
+        signals: result.signals,
+        severity: result.severity,
+      },
     },
-    { status: 501 },
-  );
+  };
+  storeAsset(updated);
+
+  return NextResponse.json({
+    ok: true,
+    assetId: reportId,
+    title: spec.meta.title,
+    payload: result.payload,
+    narration: result.narration,
+    signals: result.signals,
+    severity: result.severity,
+    cacheHit: result.cacheHit,
+    cost: result.cost,
+    durationMs: result.durationMs,
+  });
 }

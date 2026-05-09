@@ -163,6 +163,18 @@ export function ChatInput({
     inputRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    function onSetInput(e: Event) {
+      const value = (e as CustomEvent<{ value: string }>).detail?.value;
+      if (typeof value === "string") {
+        setInput(value);
+        inputRef.current?.focus();
+      }
+    }
+    window.addEventListener("chat:set-input", onSetInput);
+    return () => window.removeEventListener("chat:set-input", onSetInput);
+  }, []);
+
   function handleSubmit() {
     if (!input.trim() || isRunning) return;
     const finalMessage = attachment

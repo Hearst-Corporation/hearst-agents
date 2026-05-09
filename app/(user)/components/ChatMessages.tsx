@@ -168,7 +168,25 @@ export function ChatMessages({
         }
         return;
       }
-      // mission / refine → toast "Bientôt" géré par BlockActions.
+      if (action === "mission") {
+        const name = content.split("\n")[0].replace(/^#+\s*/, "").slice(0, 120) || "Mission depuis chat";
+        fetch("/api/v2/missions", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ name, input: content, schedule: "", enabled: false }),
+        }).catch(() => {});
+        return;
+      }
+      if (action === "refine") {
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(
+            new CustomEvent("chat:set-input", {
+              detail: { value: `Affine ce passage :\n\n${content}` },
+            }),
+          );
+        }
+        return;
+      }
     },
     [],
   );
