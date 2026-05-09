@@ -1,0 +1,17 @@
+# Volatil — recréé à chaque run
+command-center/state.json
+telemetry/traces/
+telemetry/logs/
+telemetry/metrics/
+quarantine/state.json
+war-room/trust-history.json
+war-room/drift-log.json
+war-room/index.json
+war-room/snapshots/
+orchestrator/runs/
+audits/architecture/*.md
+audits/design-system/*.md
+audits/qa/*.md
+
+# Mais garde les .gitkeep pour préserver la structure
+!**/.gitkeep
