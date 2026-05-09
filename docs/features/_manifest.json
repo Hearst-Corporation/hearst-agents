@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T21:03:06.021Z",
+  "generatedAt": "2026-05-09T21:52:16.624Z",
   "total": 32,
   "counts": {
     "verrouillé": 32,
@@ -11,7 +11,7 @@
   "totals": {
     "invariants": 358,
     "testsExistants": 1630,
-    "testsManquants": 191,
+    "testsManquants": 189,
     "orphans": 12
   },
   "actualTests": {
@@ -226,9 +226,9 @@
       "href": "docs/features/cockpit.md",
       "statut": "verrouillé",
       "statutRaw": "in_progress (verrouillé sur invariants ci-dessous)",
-      "version": "1.4",
+      "version": "1.5",
       "owner": "Adrien",
-      "derniereRevue": "2026-05-09",
+      "derniereRevue": "2026-05-10",
       "niveau": "P1",
       "invariantsCount": 8,
       "invariantsTitles": [
@@ -237,15 +237,15 @@
         "I-3. Honest empty state (Phase B3)",
         "I-4. Cache live providers",
         "I-5. Stage routing",
-        "I-6. Centerpiece atmosphérique (ParticlesWave)",
+        "I-6. Hero typographique KPIs (post-v1.5)",
         "I-7. RSC prefetch + client refetch",
-        "I-8. Pivot visuel \"silent luxury OS\" (v1.4)"
+        "I-8. Pivot visuel \"silent luxury OS\" (v1.4 → v1.5)"
       ],
       "testsExistantsCount": 64,
       "testsOnDisk": 64,
       "testFilesOnDisk": 5,
       "testsDocExistants": 3,
-      "testsManquantsCount": 9,
+      "testsManquantsCount": 7,
       "testGap": "faible",
       "orphansCount": 0
     },

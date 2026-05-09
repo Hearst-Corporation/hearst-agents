@@ -1,18 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { CockpitHeader } from "./CockpitHeader";
 import { ActivityStrip } from "./ActivityStrip";
 import { KPIStrip } from "./KPIStrip";
 import { CockpitAgenda } from "./CockpitAgenda";
 import { WatchlistMini } from "./WatchlistMini";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-
-// Three.js manipule WebGL au mount → ssr:false obligatoire.
-const ParticlesWave = dynamic(
-  () => import("./ParticlesWave").then((m) => m.ParticlesWave),
-  { ssr: false, loading: () => null },
-);
 
 interface CockpitHomeProps {
   data: CockpitTodayPayload;
@@ -21,12 +14,14 @@ interface CockpitHomeProps {
 /**
  * CockpitHome — home Cockpit (mode="cockpit").
  *
- * Pivot v1.4 (silent luxury OS, 2026-05-09) : padding généreux, atmosphère
- * centrale qui fill l'espace vide (60-70%), KPIs flottants pinned en bas,
- * accordion Agenda & watchlist replié par défaut.
+ * Pivot v1.5 (silent luxury OS, 2026-05-10) : suppression du centerpiece
+ * 3D ParticlesWave + son halo radial. Les KPIs montent en hero typographique
+ * (t-60) centrés dans l'espace libéré ; Agenda + Watchlist décompressés en
+ * bas, plus dans un accordion. Le cockpit lit en first-glance : pouls
+ * (KPIs) puis aujourd'hui (agenda/watchlist).
  *
- * Layout : Header → ActivityStrip → ParticlesWave (centerpiece atmosphérique)
- *          → KPIStrip → Agenda & watchlist (collapsed).
+ * Layout : Header → ActivityStrip → KPIs hero (centered flex-1) →
+ *          Agenda + Watchlist (grid 2-col).
  */
 export function CockpitHome({ data }: CockpitHomeProps) {
   return (
@@ -40,66 +35,24 @@ export function CockpitHome({ data }: CockpitHomeProps) {
       <CockpitHeader data={data} />
       <ActivityStrip data={data} />
 
-      <div
-        className="relative flex-1 min-h-0"
-        style={{ minHeight: "var(--space-48)" }}
-        aria-hidden
-      >
-        {/* Atmosphère subtile derrière la wave — donne de la profondeur lumineuse
-         *  sans glow brutal (cf. cockpit I-6 : pas de cyan saturé).
-         *  Color-mix 6 % accent-teal au centre, fade radial 70 %. */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 50% at 50% 55%, color-mix(in srgb, var(--accent-teal) 6%, transparent) 0%, transparent 70%)",
-          }}
-          aria-hidden
-        />
-        <ParticlesWave />
+      <div className="flex-1 flex items-center justify-center min-h-0">
+        <KPIStrip data={data} />
       </div>
 
-      <KPIStrip data={data} />
-
-      <details
-        className="shrink-0"
-        style={{ borderTop: "1px solid var(--border-soft)", paddingTop: "var(--space-2)" }}
+      <div
+        className="grid min-h-0 shrink-0"
+        style={{
+          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+          gap: "var(--space-9)",
+          paddingTop: "var(--space-4)",
+          borderTop: "1px solid var(--border-soft)",
+          maxHeight: "min(180px, 26vh)",
+          overflowY: "auto",
+        }}
       >
-        <summary
-          className="cursor-pointer flex items-center gap-2 t-13 font-light text-[var(--text-faint)] transition-colors hover:text-[var(--text-soft)] group"
-          style={{ listStyle: "none" }}
-        >
-          <svg
-            width="11"
-            height="11"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-transform duration-300 -rotate-90 group-open:rotate-0 text-[var(--text-muted)]"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-          Agenda & watchlist
-        </summary>
-        <div
-          className="grid min-h-0 shrink-0"
-          style={{
-            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-            gap: "var(--space-9)",
-            marginTop: "var(--space-4)",
-            paddingTop: "var(--space-4)",
-            borderTop: "1px solid var(--border-soft)",
-            maxHeight: "min(160px, 24vh)",
-            overflowY: "auto",
-          }}
-        >
-          <CockpitAgenda data={data} />
-          <WatchlistMini data={data} />
-        </div>
-      </details>
+        <CockpitAgenda data={data} />
+        <WatchlistMini data={data} />
+      </div>
     </div>
   );
 }

@@ -259,14 +259,13 @@ Spec : [docs/features/cockpit.md](../features/cockpit.md)
 | I-3 | Honest empty state (pas de mock fallback Phase B3) | `lib/cockpit/agenda-live.ts`, `lib/cockpit/watchlist-live.ts` |
 | I-4 | Cache 5min `(userId, tenantId)` sur live providers | `lib/cockpit/agenda-live.ts`, `lib/cockpit/watchlist-live.ts` |
 | I-5 | Stage routing via `useStageStore.current.mode === "cockpit"` | `app/(user)/components/stages/CockpitStage.tsx`, `stores/stage.ts` |
-| I-6 | Spline scene URL + `SplineErrorBoundary` obligatoire | `app/(user)/components/cockpit/HaloAgentCore.tsx` |
+| I-6 | Hero typographique KPIs centrés (post-v1.5, plus de centerpiece 3D) | `app/(user)/components/cockpit/CockpitHome.tsx`, `app/(user)/components/cockpit/KPIStrip.tsx` |
 | I-7 | Mapping agents → routes (pilot, scribe, delve, pulse, warden, cortex) | `app/(user)/components/cockpit/HaloAgentCore.tsx` |
 | I-8 | RSC prefetch + client refetch au mount | `app/(user)/page.tsx`, `app/(user)/components/stages/CockpitStage.tsx` |
 
 **Composants orphelins** (non verrouillés tant que non câblés, mais câblage = update spec) :
 - `HaloAgentCore.tsx`
 - `QuickActionsGrid.tsx`
-- `AgentsConstellation.tsx`
 - `CockpitHero.tsx`
 
 ---

@@ -7,11 +7,12 @@
 | **id** | `cockpit` |
 | **statut** | `in_progress` (verrouillé sur invariants ci-dessous) |
 | **owner** | Adrien |
-| **dernière revue** | 2026-05-09 |
-| **version spec** | 1.4 |
+| **dernière revue** | 2026-05-10 |
+| **version spec** | 1.5 |
 | **niveau** | P1 |
 | **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
 | **pivot visuel** | 2026-05-09 (silent luxury OS — teal sourd, KPIs intégrés à l'espace, atmosphère orbitale, modules tactiles) |
+| **pivot v1.5** | 2026-05-10 (suppression ParticlesWave + AgentsConstellation — KPIs montent en hero typographique t-60, agenda+watchlist décompressés en bas) |
 
 ## Description
 
@@ -27,17 +28,15 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 
 ### Composants câblés (rendus actuellement)
 - [CockpitStage.tsx](../../app/(user)/components/stages/CockpitStage.tsx) — conteneur stage : fetch `/api/v2/cockpit/today`, gère loading/error/success, sync client même si RSC prefetch
-- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit v1.4 (header → activity strip → **ParticlesWave** atmosphère → KPI strip flottant → accordion agenda+watchlist replié par défaut). Padding généreux pour 60-70% d'espace vide.
+- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit v1.5 (header → activity strip → **KPIs hero centrés** → agenda + watchlist décompressés en grid 2-col). Plus de centerpiece 3D : les KPIs sont la signature visuelle.
 - [CockpitHeader.tsx](../../app/(user)/components/cockpit/CockpitHeader.tsx) — greeting éditorial 48px FR ("Bonjour, [Prénom].") + eyebrow date au-dessus + "X missions en cours" inline avec dot pulse teal
 - [ActivityStrip.tsx](../../app/(user)/components/cockpit/ActivityStrip.tsx) — ticker live mince entre 2 hairlines, grille 3 colonnes, labels SSE FR (Étape lancée / Run terminé / etc.)
-- [ParticlesWave.tsx](../../app/(user)/components/cockpit/ParticlesWave.tsx) — onde sinusoïdale de particules (Three.js Points + AdditiveBlending, 60×140 = 8400 points, color blanc opacity 0.55, blending additif). Centerpiece atmosphérique unique, container-relative via ResizeObserver. (Remplace HearstParticlesCloud / HearstLogo3D)
-- [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 KPIs flottants Assets | Missions | Reports (typographie t-48 font-extralight, pas de card, gap var(--space-24))
+- [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 KPIs hero Assets | Missions | Reports (typographie t-60 font-extralight centrée, pas de card, gap var(--space-16))
 - [CockpitAgenda.tsx](../../app/(user)/components/cockpit/CockpitAgenda.tsx) — agenda du jour (max 4 items, empty CTA → /apps#calendar)
 - [WatchlistMini.tsx](../../app/(user)/components/cockpit/WatchlistMini.tsx) — watchlist compacte (max 3 items, sparkline 7pts, anomaly badge)
 
 ### Composants code-ready non câblés (orphelins)
 - [QuickActionsGrid.tsx](../../app/(user)/components/cockpit/QuickActionsGrid.tsx) — grille 6 tiles (≤3 suggestions ML + ≤3 favoris reports + universels)
-- [AgentsConstellation.tsx](../../app/(user)/components/cockpit/AgentsConstellation.tsx) — grille services connectés (mode "panel" 4×3 ou "band" rangée)
 - [CockpitHero.tsx](../../app/(user)/components/stages/CockpitHero.tsx) — hero éditorial (briefing headline+body)
 
 ### Endpoint API
@@ -144,24 +143,23 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 - `CockpitStage` reste l'unique conteneur pour ce mode
 - Pas de fork "CockpitStageV2" sans spec
 
-### I-6. Centerpiece atmosphérique (ParticlesWave)
-- Composant : `ParticlesWave` (onde sinusoïdale 60×140 = 8400 points). Remplace HearstParticlesCloud (v1.3) et HearstLogo3D (v1.2). Pas de SVG mask, pas de logo silhouette.
-- Rendu vanilla `three` (`THREE.Points` + `BufferGeometry` + `PointsMaterial` + `AdditiveBlending`). Pas de R3F ni drei.
-- Color blanc (`0xffffff`) opacity 0.55 + blending additif → atmosphère monochrome diffuse, embedded dans le Stage. Pivot v1.4 (silent luxury OS) : pas de teinte teal sur les particules — le teal est réservé aux signaux système live.
-- Sizing **container-relative** : `getBoundingClientRect()` + `ResizeObserver`, jamais `window.innerWidth/Height` (le cockpit est un panneau, pas un viewport)
-- `dynamic(() => …, { ssr: false })` obligatoire — Three.js manipule WebGL au mount
-- Densité : 60 rows × 140 cols (8400 points) avec amplitude variable par row + phase offset progressive — ne pas augmenter sans benchmark perf mobile
+### I-6. Hero typographique KPIs (post-v1.5)
+- Pivot 2026-05-10 : suppression du centerpiece 3D ParticlesWave + halo radial. Les KPIs deviennent la signature visuelle centrale.
+- `KPIStrip` rendu en hero (t-60 font-extralight, label t-13 lowercase) centré dans un wrapper `flex-1 flex items-center justify-center`. 3 KPIs : assets · missions · reports.
+- Cascade typo : KPIs (t-60, ~60-90px) > greeting CockpitHeader (t-48, ~48-72px) > meta (t-13). One hero zone, no 3D, no decorative atmosphere.
+- Agenda + Watchlist décompressés en grid 2-col directement visibles (max-h 26vh, scroll interne) — plus dans un `<details>` collapsed.
+- Aucune dépendance Three.js / WebGL côté Cockpit.
 
 ### I-7. RSC prefetch + client refetch
 - La page reste un RSC qui prefetch côté serveur
 - `CockpitStage` **doit** refetch côté client au mount (KPIs à jour, ne pas s'appuyer uniquement sur SSR snapshot)
 - Pas de migration full-CSR sans spec
 
-### I-8. Pivot visuel "silent luxury OS" (v1.4)
-À partir de v1.4 (pivot 2026-05-09), la direction visuelle du cockpit est **calme, dense, éditoriale, monochrome graphite + 2 % accent teal sourd**. Conséquences sur les invariants :
-- **KPIs** : peuvent être présentés intégrés à l'espace cockpit (typographie large + label discret) en alternative au format `<KPIStrip>` carte. Les deux formats sont valides — le choix est éditorial.
-- **Atmosphère hero** : `HearstParticlesCloud` reste l'identité, mais le mood doit être *quiet* (densité, diffusion, pas d'agressivité). Pas de glow brutal, pas de cyan saturé.
-- **Modules tactiles** : si un futur câblage de `QuickActionsGrid` ou `AgentsConstellation` est fait, le rendu cible est "module tactile matte" (glass, micro-depth, embossed icon) plutôt que carte plate. Voir mockup référence `docs/visual/cockpit-2026-05.html`.
+### I-8. Pivot visuel "silent luxury OS" (v1.4 → v1.5)
+À partir de v1.4 (pivot 2026-05-09), la direction visuelle du cockpit est **calme, dense, éditoriale, monochrome graphite + 2 % accent teal sourd**. Pivot v1.5 (2026-05-10) : disposition surfaces Spotlight (rails gris medium, Stage central noir absolu — cf. `app/globals.css` --rail / --surface). Conséquences sur les invariants :
+- **KPIs** : présentés en **hero typographique** (t-60 centré flex-1) post-v1.5. Le format `<KPIStrip>` carte est abandonné.
+- **Pas de centerpiece 3D** : ParticlesWave + halo radial supprimés en v1.5. Les KPIs sont l'unique signature visuelle. Pas de WebGL, pas d'atmosphère décorative.
+- **Modules tactiles** : si un futur câblage de `QuickActionsGrid` est fait, le rendu cible est "module tactile matte" (glass, micro-depth, embossed icon) plutôt que carte plate. Voir mockup référence `docs/visual/cockpit-2026-05.html` (snapshot v1.4 avant retrait wave).
 - **Voix éditoriale** : reste celle du pivot 2026-04-29 (FR voix régulière, pas de mono caps `tracking-marquee` en JSX). Le "tiny uppercase labels" du brief visuel est **explicitement écarté**.
 
 ## Évolutions autorisées sans spec
@@ -199,10 +197,8 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 - **E2E Playwright cockpit** : aucun test e2e dédié `cockpit.spec.ts`. Le `happy-path.spec.ts` couvre indirectement.
 - **Test agenda-live** : aucun test sur `lib/cockpit/agenda-live.ts` (cache, time range, unwrap Composio response)
 - **Test composants UI** : aucun test sur `CockpitHeader`, `KPIStrip`, `WatchlistMini`, `CockpitAgenda`, `ActivityStrip`, `CockpitHome` (snapshot ou interaction)
-- **Test HearstParticlesCloud** : aucun test (Three.js mock + ResizeObserver mock + image load fallback)
 - **Test CockpitStage** : aucun test (loading state, error state, refetch on mount, RSC initialData passthrough)
 - **Test QuickActionsGrid** : aucun test (priorité suggestions > favoris > universels, runSuggestion via hook)
-- **Test AgentsConstellation** : aucun test (tri actif > idle > pending > error, mode panel vs band)
 - **Test anomaly detection watchlist** : `narrateAnomaly` n'est pas testé sous le scope cockpit
 - **Test contract endpoint** : pas de contract test sur `GET /api/v2/cockpit/today` (auth required, output shape)
 
@@ -212,8 +208,7 @@ Ces composants existent, sont compilables, mais ne sont **pas importés** dans `
 
 | Composant | État | Plan présumé |
 |-----------|------|--------------|
-| [QuickActionsGrid](../../app/(user)/components/cockpit/QuickActionsGrid.tsx) | Logique complète (suggestions ML + favoris + universels) | Remplacé visuellement par le hero 3D ; à supprimer si non recâblé d'ici v1.3 |
-| [AgentsConstellation](../../app/(user)/components/cockpit/AgentsConstellation.tsx) | Modes panel et band prêts | Probablement pour ContextRail (mode panel) ou PulseBar (mode band) |
+| [QuickActionsGrid](../../app/(user)/components/cockpit/QuickActionsGrid.tsx) | Logique complète (suggestions ML + favoris + universels) | Pas de plan de câblage en v1.5 ; candidat à supprimer si non utilisé d'ici v1.6 |
 | [CockpitHero](../../app/(user)/components/stages/CockpitHero.tsx) | Hero éditorial briefing | Alternative ou complément à CockpitHeader |
 
 ⚠ **Tant que ces composants ne sont pas câblés**, ils ne sont pas verrouillés par les invariants. Mais leur câblage = update spec obligatoire.
