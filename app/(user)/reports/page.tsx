@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import type { ApplicableReport } from "@/lib/reports/catalog";
 import { ReportCard, ReportCardSkeleton } from "@/app/(user)/components/reports/ReportCard";
 import { Action, EmptyState, ScreenShell } from "@/app/(user)/components/ui";
+import { LibraryTabs } from "@/app/(user)/components/library/LibraryTabs";
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -183,9 +184,9 @@ export default function ReportsDiscoveryPage() {
   return (
     <ScreenShell
       testId="reports-page"
-      title="Rapports"
+      title="Bibliothèque"
       subtitle={subtitle}
-      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Rapports" }]}
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Bibliothèque" }]}
       actions={
         <Action
           variant="primary"
@@ -194,9 +195,10 @@ export default function ReportsDiscoveryPage() {
           onClick={() => router.push("/reports/studio")}
           testId="reports-create-cta"
         >
-          + Créer un rapport
+          + Créer un modèle
         </Action>
       }
+      stats={<LibraryTabs active="modeles" />}
     >
       <div className="flex flex-col gap-8 w-full" style={{ maxWidth: "var(--width-center-max)", margin: "0 auto" }}>
 

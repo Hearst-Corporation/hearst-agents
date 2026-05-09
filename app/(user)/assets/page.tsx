@@ -9,6 +9,7 @@ import { RelativeTime } from "../components/RelativeTime";
 import { toast } from "@/app/hooks/use-toast";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { Action, ScreenShell } from "../components/ui";
+import { LibraryTabs } from "../components/library/LibraryTabs";
 
 // Format V2 retourné par GET /api/v2/assets (Asset canonique).
 interface AssetListItem {
@@ -112,14 +113,15 @@ export default function AssetsPage() {
   return (
     <>
       <ScreenShell
-        title="Assets"
-        subtitle={loading ? "Chargement…" : `${assets.length} ${assets.length === 1 ? "fichier stocké" : "fichiers stockés"}`}
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Assets" }]}
+        title="Bibliothèque"
+        subtitle={loading ? "Chargement…" : `${assets.length} ${assets.length === 1 ? "production" : "productions"}`}
+        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Bibliothèque" }]}
         actions={
           <Action variant="link" tone="brand" onClick={handleNewAsset}>
-            Nouvel asset
+            Nouvelle production
           </Action>
         }
+        stats={<LibraryTabs active="productions" />}
         loading={loading}
         loadingVariant="rows"
         empty={

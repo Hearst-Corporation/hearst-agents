@@ -7,9 +7,9 @@ import { ScreenShell } from "../components/ui";
 export default function AppsPage() {
   return (
     <ScreenShell
-      title="Apps"
-      subtitle="Connecte les sources qui nourrissent tes reports et missions."
-      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Apps" }]}
+      title="Sources"
+      subtitle="Connecte les apps qui nourrissent tes missions et productions."
+      breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Sources" }]}
     >
       <Suspense>
         <ConnectionsHub />
