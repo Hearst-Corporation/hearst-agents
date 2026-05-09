@@ -4,10 +4,11 @@
  * useOAuthExpiry — Hook partagé pour les connexions OAuth expirantes.
  *
  * Fetch /api/connections/expiring une fois par mount d'arbre, avec un
- * petit cache module-level (TTL 60s) pour dédupliquer entre consommateurs
- * (TimelineRail badge + OAuthExpiryBanner in-page sur /apps). Sans
- * polling — le backend décide de la fraîcheur, et le user reload la page
- * /apps quand il vient de reconnecter.
+ * cache module-level (TTL 60s) pour dédupliquer entre consommateurs.
+ * Consumer actuel : TimelineRail (badge dot sur l'item Apps).
+ * Sans polling — le backend décide de la fraîcheur, et le user reload
+ * la page /apps quand il vient de reconnecter (cf.
+ * `invalidateOAuthExpiryCache` exposé pour reset immédiat).
  *
  * Renvoie aussi un `severity` dérivé :
  *   - "expired" si au moins une connexion `status === "expired"`

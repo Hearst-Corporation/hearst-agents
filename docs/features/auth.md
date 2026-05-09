@@ -29,7 +29,7 @@ Strict post-migration `0026` : **aucun fallback email autorisé** comme identifi
 - `GET /api/auth/dev-login` ([route.ts](../../app/api/auth/dev-login/route.ts)) — auto-login Electron (HTML+script). **403 si `HEARST_DEV_AUTH_BYPASS !== "1"`**
 
 ### Composants UI
-- [OAuthExpiryBanner.tsx](../../app/(user)/components/OAuthExpiryBanner.tsx) — banner d'avertissement tokens expirants (≤7j warn, ≤3j critical)
+- [use-oauth-expiry.ts](../../app/hooks/use-oauth-expiry.ts) — hook partagé qui fetch `/api/connections/expiring` (cache 60s) et dérive une `severity` (`error` / `warn` / `null`). Consommé par `TimelineRail` pour le badge dot sur l'item Apps. Pivot 2026-05-10 : remplace l'ancien `OAuthExpiryBanner` global qui mangeait 48 px en haut de chaque page.
 - [use-oauth-completion-poll.ts](../../app/hooks/use-oauth-completion-poll.ts) — hook pour détecter fin OAuth Composio (popup polling 2.5s)
 
 ### Stores
@@ -293,7 +293,7 @@ Au callback `jwt()` après login OAuth réussi, `registerProviderUsage({ provide
 - Ajout de colonnes à `user_tokens` (sans drop ni rename des existantes)
 - Refactor interne de [tokens.ts](../../lib/platform/auth/tokens.ts) tant que les exports listés restent stables
 - Ajout d'un nouveau test
-- Polish UI sur `/login` ou `OAuthExpiryBanner`
+- Polish UI sur `/login` ou sur le badge OAuth (TimelineRail item Apps)
 - Branchement Arcjet sur de nouvelles routes
 - Implémentation `scheduleTokenRefresh()` (queue Composio) quand SDK v0.7 dispo
 
@@ -329,7 +329,7 @@ Au callback `jwt()` après login OAuth réussi, `registerProviderUsage({ provide
 - **`resolveOrCreateUserUuid` UPSERT** : aucun test de la résolution email → UUID (mocké Supabase)
 - **`session()` callback exposure** : aucun test que `session.user.id`, `session.userId`, `session.accessToken` sont bien posés
 - **Multi-tenant scope isolation** : aucun test qu'une route avec `tenantId=A` ne lit pas les données de `tenantId=B`
-- **`OAuthExpiryBanner`** : aucun test composant (rendu, dismiss, thresholds critical/warn)
+- **`useOAuthExpiry`** : aucun test hook (cache TTL 60s, severity dérivée, invalidate after reconnect)
 - **`useOAuthCompletionPoll`** : aucun test hook (polling, popup close, success callback)
 - **Arcjet rules** : aucun test que `tokenBucket(100/min)` bloque réellement la 101ème req
 - **Arcjet bot detection** : aucun test que les User-Agents légitimes (Googlebot) passent

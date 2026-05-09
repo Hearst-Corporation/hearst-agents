@@ -122,9 +122,8 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               }}
             >
               {/* Alerte tokens OAuth expirants : badge dot sur l'item Apps de
-                 la TimelineRail (cf. useOAuthExpiry). Le composant
-                 OAuthExpiryBanner reste disponible pour usage in-page sur
-                 /apps si besoin. */}
+                 la TimelineRail (cf. useOAuthExpiry). Pas de banner global
+                 — le signal vit dans le rail. */}
               <main className="flex-1 flex flex-col min-w-0 min-h-0 relative">
                 {children}
               </main>

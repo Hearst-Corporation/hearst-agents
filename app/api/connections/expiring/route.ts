@@ -4,7 +4,7 @@
  * Retourne les connexions OAuth de l'utilisateur courant qui expirent
  * dans moins de AUTH_EXPIRING_DAYS_THRESHOLD jours.
  *
- * Utilisé par OAuthExpiryBanner (client-side, lazy load).
+ * Consommé par useOAuthExpiry (TimelineRail badge dot, client-side).
  *
  * Format de réponse :
  *   { connections: ExpiringConnection[] }
