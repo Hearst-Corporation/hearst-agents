@@ -47,6 +47,40 @@ export const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
+    title: "Orchestration",
+    items: [
+      {
+        href: "/admin/orchestrator/overview",
+        label: "Vue d'ensemble",
+        iconPath:
+          "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",
+      },
+      {
+        href: "/admin/orchestrator/command-center",
+        label: "Command Center",
+        iconPath:
+          "M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+      },
+      {
+        href: "/admin/orchestrator/registry",
+        label: "Registry",
+        iconPath:
+          "M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z",
+      },
+      {
+        href: "/admin/orchestrator/runs",
+        label: "Runs HOM",
+        iconPath: "M5 4l14 8-14 8V4z",
+      },
+      {
+        href: "/admin/orchestrator/trust",
+        label: "Trust",
+        iconPath:
+          "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+      },
+    ],
+  },
+  {
     title: "Système",
     items: [
       {

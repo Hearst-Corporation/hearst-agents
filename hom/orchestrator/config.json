@@ -1,0 +1,21 @@
+{
+  "version": "1.2.0",
+  "agents": ["architecture", "design-system", "qa"],
+  "parallelism": "all",
+  "retries": {
+    "max_attempts": 1,
+    "backoff_seconds": 30
+  },
+  "timeouts": {
+    "agent_seconds": 600,
+    "run_seconds": 1800
+  },
+  "thresholds": {
+    "anomaly_quarantine": 0.85
+  },
+  "deps_graph": {
+    "architecture": [],
+    "design-system": [],
+    "qa": ["architecture", "design-system"]
+  }
+}

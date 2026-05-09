@@ -47,6 +47,7 @@
     "workers:kill-orphans": "bash scripts/next-worker-helper.sh --kill-orphans",
     "features:manifest": "node scripts/build-features-manifest.mjs",
     "features:test": "node scripts/features-test.mjs",
+    "hom:run": "NODE_OPTIONS='--conditions=react-server' npx tsx scripts/hom-run.ts",
     "prepare": "simple-git-hooks || true"
   },
   "simple-git-hooks": {
@@ -94,6 +95,7 @@
     "react-cytoscapejs": "^2.0.0",
     "react-dom": "19.2.4",
     "resend": "^6.12.2",
+    "server-only": "^0.0.1",
     "web-vitals": "^5.2.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.12"

@@ -1,0 +1,55 @@
+{
+  "agent_id": "design-system",
+  "version": "1.2.0",
+  "model": { "primary": "sonnet", "fallback": "haiku" },
+  "scope": {
+    "files_allowed": [
+      "app/globals.css",
+      "app/**/*.tsx",
+      "tailwind.config.*",
+      "scripts/lint-visual.mjs"
+    ],
+    "files_denied": [
+      "app/api/**",
+      "electron/**",
+      "docs/AGENT-LOCK.json"
+    ],
+    "domains_owned": ["tokens", "magic_numbers", "voix_editoriale", "spacing", "radius"],
+    "domains_read_only": ["product_experience"]
+  },
+  "tools": {
+    "allowed": ["Read", "Grep", "Glob", "Bash[ro]"],
+    "denied": ["Edit", "Write", "Bash[destructive]", "external_network", "spawn_subagent"]
+  },
+  "permissions": {
+    "memory_access": "read",
+    "policy_access": "read",
+    "release_permissions": "none",
+    "escalation_permissions": "tier_1",
+    "write_permissions": "hom/audits/design-system/**[append-only]"
+  },
+  "budgets": {
+    "max_runtime_seconds": 600,
+    "max_tokens_per_run": 300000,
+    "max_cost_usd_per_run": 3.0,
+    "max_retries": 2
+  },
+  "validation": {
+    "validated_by": ["master", "qa"],
+    "validates": [],
+    "self_approval": false
+  },
+  "outputs": {
+    "report_path": "hom/audits/design-system/<ts>-<run-id>.md",
+    "schema": "audit-report@1.2",
+    "evidence_required_for": ["high", "critical"]
+  },
+  "quarantine": {
+    "anomaly_threshold": 0.85,
+    "auto_quarantine_signals": ["hallucination", "schema_violation", "runaway"]
+  },
+  "telemetry": {
+    "spans_required": true,
+    "metrics_emitted": ["agent.duration_ms", "findings.count"]
+  }
+}
