@@ -5,23 +5,24 @@
  */
 
 :root {
-  /* Core surfaces — deep dark hierarchy with 'material'
-     Pivot 2026-05-01 v4 : valeurs réelles après démontage tokens fantômes.
-     Pivot 2026-05-10 — silent luxury OS : recalibrage --bg-elev / --bg-soft
-     pour respecter la voix éditoriale "perceptuellement noir, élévation
-     visible à l'œil averti". L'ancien #3A3A44 (~22% luminance) créait un
-     saut violent vs --bg, faisant lire les pages à scroll comme "grises"
-     et le cockpit comme "noir" — incohérence visuelle entre routes.
-     Nouveau gradient continu : rails #000 > shell #050709 > stage #0e1014
-     (~6% lum, +9) > cards #181a20 (~10% lum, +24). Tout reste dans la
-     famille charbon, élévations subtle plutôt qu'escalier marqué. */
+  /* Core surfaces — Spotlight disposition (pivot 2026-05-10).
+     Inversion délibérée du pattern classique « rails noirs / Stage clair » :
+     ici les rails (PulseBar / TimelineRail / ContextRail / StageFooter)
+     prennent un gris medium #16161B (~9% lum) qui pose un cadre doux,
+     tandis que le Stage central (--surface) plonge dans le noir absolu
+     #000. Le contenu reçoit toute la lumière, comme un théâtre — les
+     rails s'effacent visuellement sans disparaître.
+     Cards sur Stage : --bg-elev #131318 / --bg-soft #1B1B22 — élévation
+     visible au-dessus du noir Stage sans casser la cohérence charbon.
+     Le shadow-stage-card crée naturellement un halo de récession qui
+     renforce l'effet « well » du Stage encadré par les rails plus clairs. */
   --bg: #050709;
-  --bg-elev: #0e1014;
-    --bg-soft: #181a20;
-  --background: #000000;
+  --bg-elev: #131318;
+    --bg-soft: #1B1B22;
+  --background: #050709;
   --foreground: #ffffff;
-  --surface: #111111;
-    --rail: #000000;
+  --surface: #000000;
+    --rail: #16161B;
   /* Material scale — Technological Luxury */
   --mat-100: #040404;
   --mat-200: #070707;
