@@ -24,11 +24,11 @@ const nextConfig: NextConfig = {
       "**/node_modules/electron/**",
       "**/node_modules/electron-*/**",
       "**/node_modules/@electron/**",
-      // Assets runtime user (audio, screenshots, PDFs locaux dev)
-      "**/.runtime-assets/**",
-      "**/data/**",
-      "**/build/**",
-      "**/dist/**",
+      // Assets runtime user (audio, screenshots, PDFs locaux dev).
+      // Patterns non-ambigus : pas de **/dist/** qui matcherait node_modules/*/dist.
+      ".runtime-assets/**",
+      "data/**",
+      "build/**",
       // 3D / WebGL — client-only, dynamic imports côté browser
       "**/node_modules/three/**",
       "**/node_modules/@splinetool/**",
