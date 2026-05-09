@@ -1176,6 +1176,14 @@
   --font-satoshi: 'Satoshi Variable', 'Satoshi', sans-serif;
   --font-sans: 'Satoshi Variable', 'Satoshi', sans-serif;
   --font-mono: 'Satoshi Variable', 'Satoshi', sans-serif;
+
+  /* Hearst Connect — surfaces & accent (Tailwind utilities `bg-background`,
+   * `bg-surface`, `bg-rail`, `text-cyan-accent`, etc.) */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-rail: var(--rail);
+  --color-cyan-accent: var(--cyan-accent);
+  --color-accent-teal: var(--accent-teal);
 }
 
 *,

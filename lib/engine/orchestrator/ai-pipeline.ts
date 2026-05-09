@@ -789,7 +789,10 @@ export async function runAiPipeline(
     // Avec stopWhen: stepCountIs(10) + maxOutputTokens: 8000, le worst-case
     // théorique est 80k tokens. On coupe à 35k pour éviter les runaway réels.
     let crossStepTokens = 0;
+<<<<<<< Updated upstream
     let crossStepWarned = false;
+=======
+>>>>>>> Stashed changes
     const MAX_CROSS_STEP_TOKENS = 35_000;
     const CROSS_STEP_WARNING = 25_000;
 
@@ -958,8 +961,12 @@ export async function runAiPipeline(
             streamingTokenCount = Math.max(streamingTokenCount, ev.usage.outputTokens);
             crossStepTokens += ev.usage.outputTokens;
 
+<<<<<<< Updated upstream
             if (!crossStepWarned && crossStepTokens >= CROSS_STEP_WARNING && crossStepTokens < MAX_CROSS_STEP_TOKENS) {
               crossStepWarned = true;
+=======
+            if (crossStepTokens >= CROSS_STEP_WARNING && crossStepTokens < MAX_CROSS_STEP_TOKENS) {
+>>>>>>> Stashed changes
               console.warn(
                 `[AiPipeline] Cross-step token warning: ${crossStepTokens} output tokens cumulated. ` +
                 `Run=${engine.id}`
