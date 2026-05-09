@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T06:24:11.427Z",
+  "generatedAt": "2026-05-09T10:58:31.987Z",
   "total": 32,
   "counts": {
     "verrouillé": 32,
@@ -237,7 +237,7 @@
         "I-3. Honest empty state (Phase B3)",
         "I-4. Cache live providers",
         "I-5. Stage routing",
-        "I-6. Hero particules (HearstParticlesCloud)",
+        "I-6. Centerpiece atmosphérique (ParticlesWave)",
         "I-7. RSC prefetch + client refetch",
         "I-8. Pivot visuel \"silent luxury OS\" (v1.4)"
       ],

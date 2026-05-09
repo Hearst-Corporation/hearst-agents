@@ -27,11 +27,11 @@ Philosophie : **fail-soft** (une source en erreur ne casse pas le cockpit) et **
 
 ### Composants câblés (rendus actuellement)
 - [CockpitStage.tsx](../../app/(user)/components/stages/CockpitStage.tsx) — conteneur stage : fetch `/api/v2/cockpit/today`, gère loading/error/success, sync client même si RSC prefetch
-- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit (header → activity strip → **HearstParticlesCloud hero** → KPI strip → accordion agenda+watchlist)
-- [CockpitHeader.tsx](../../app/(user)/components/cockpit/CockpitHeader.tsx) — greeting prénom + date/heure + missions running count
-- [ActivityStrip.tsx](../../app/(user)/components/cockpit/ActivityStrip.tsx) — ticker live (dernier SSE event > dernier run > briefing > "no recent activity")
-- [HearstParticlesCloud.tsx](../../app/(user)/components/cockpit/HearstParticlesCloud.tsx) — nuage de ~15k particules (Three.js Points + AdditiveBlending) formant le H Hearst par sampling alpha de `public/hearst-mark-h.svg`. Réactif souris (force répulsive cykan), ResizeObserver container-relative, `flex-1` minHeight `--space-48`. Remplace HearstLogo3D (v1.3)
-- [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 cartes Assets | Missions | Reports
+- [CockpitHome.tsx](../../app/(user)/components/cockpit/CockpitHome.tsx) — layout cockpit v1.4 (header → activity strip → **ParticlesWave** atmosphère → KPI strip flottant → accordion agenda+watchlist replié par défaut). Padding généreux pour 60-70% d'espace vide.
+- [CockpitHeader.tsx](../../app/(user)/components/cockpit/CockpitHeader.tsx) — greeting éditorial 48px FR ("Bonjour, [Prénom].") + eyebrow date au-dessus + "X missions en cours" inline avec dot pulse teal
+- [ActivityStrip.tsx](../../app/(user)/components/cockpit/ActivityStrip.tsx) — ticker live mince entre 2 hairlines, grille 3 colonnes, labels SSE FR (Étape lancée / Run terminé / etc.)
+- [ParticlesWave.tsx](../../app/(user)/components/cockpit/ParticlesWave.tsx) — onde sinusoïdale de particules (Three.js Points + AdditiveBlending, 60×140 = 8400 points, color blanc opacity 0.55, blending additif). Centerpiece atmosphérique unique, container-relative via ResizeObserver. (Remplace HearstParticlesCloud / HearstLogo3D)
+- [KPIStrip.tsx](../../app/(user)/components/cockpit/KPIStrip.tsx) — 3 KPIs flottants Assets | Missions | Reports (typographie t-48 font-extralight, pas de card, gap var(--space-24))
 - [CockpitAgenda.tsx](../../app/(user)/components/cockpit/CockpitAgenda.tsx) — agenda du jour (max 4 items, empty CTA → /apps#calendar)
 - [WatchlistMini.tsx](../../app/(user)/components/cockpit/WatchlistMini.tsx) — watchlist compacte (max 3 items, sparkline 7pts, anomaly badge)
 
@@ -144,13 +144,13 @@ Toute modification de l'un des points ci-dessous **exige une mise à jour de cet
 - `CockpitStage` reste l'unique conteneur pour ce mode
 - Pas de fork "CockpitStageV2" sans spec
 
-### I-6. Hero particules (HearstParticlesCloud)
-- Asset SVG obligatoire : `public/hearst-mark-h.svg` (synchronisé avec Hearst-app marketing) — sampling pixel alpha pour la silhouette du H
+### I-6. Centerpiece atmosphérique (ParticlesWave)
+- Composant : `ParticlesWave` (onde sinusoïdale 60×140 = 8400 points). Remplace HearstParticlesCloud (v1.3) et HearstLogo3D (v1.2). Pas de SVG mask, pas de logo silhouette.
 - Rendu vanilla `three` (`THREE.Points` + `BufferGeometry` + `PointsMaterial` + `AdditiveBlending`). Pas de R3F ni drei.
-- Couleur lue runtime depuis le **token d'accent système** (cible v1.4 : `--accent-teal`, teal sourd ; actuellement `--cykan #2DD4BF` dans le code, rename différé après validation mockup `docs/visual/cockpit-2026-05.html`)
+- Color blanc (`0xffffff`) opacity 0.55 + blending additif → atmosphère monochrome diffuse, embedded dans le Stage. Pivot v1.4 (silent luxury OS) : pas de teinte teal sur les particules — le teal est réservé aux signaux système live.
 - Sizing **container-relative** : `getBoundingClientRect()` + `ResizeObserver`, jamais `window.innerWidth/Height` (le cockpit est un panneau, pas un viewport)
 - `dynamic(() => …, { ssr: false })` obligatoire — Three.js manipule WebGL au mount
-- Particle count : 15k desktop / 6k mobile (override possible via prop) — ne pas remonter sans benchmark perf
+- Densité : 60 rows × 140 cols (8400 points) avec amplitude variable par row + phase offset progressive — ne pas augmenter sans benchmark perf mobile
 
 ### I-7. RSC prefetch + client refetch
 - La page reste un RSC qui prefetch côté serveur
