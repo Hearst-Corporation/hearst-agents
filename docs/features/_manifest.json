@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T22:05:41.966Z",
+  "generatedAt": "2026-05-09T22:33:09.840Z",
   "total": 32,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 358,
-    "testsExistants": 1630,
+    "testsExistants": 1627,
     "testsManquants": 189,
     "orphans": 12
   },
   "actualTests": {
     "files": 251,
-    "cases": 2262,
+    "cases": 2259,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -631,8 +631,8 @@
         "I-9. `meta` JSON flexible (non typé strictement)",
         "I-10. `user_id null` = broadcast tenant entier"
       ],
-      "testsExistantsCount": 70,
-      "testsOnDisk": 70,
+      "testsExistantsCount": 68,
+      "testsOnDisk": 68,
       "testFilesOnDisk": 6,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
@@ -662,8 +662,8 @@
         "I-9. Redirect après submit → toujours `/`",
         "I-10. Hospitalité → persona concierge"
       ],
-      "testsExistantsCount": 60,
-      "testsOnDisk": 60,
+      "testsExistantsCount": 59,
+      "testsOnDisk": 59,
       "testFilesOnDisk": 10,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
