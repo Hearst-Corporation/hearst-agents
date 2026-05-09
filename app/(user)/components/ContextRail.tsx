@@ -22,7 +22,7 @@ import { useNavigationStore } from "@/stores/navigation";
 import { voiceToolDefs, VOICE_TOOL_LABELS } from "@/lib/voice/tool-defs";
 import { ProviderChip } from "./ProviderChip";
 import { GeneralDashboard } from "./right-panel/GeneralDashboard";
-import { SystemGraph } from "./right-panel/SystemGraph";
+import { AgentsConstellation } from "./right-panel/AgentsConstellation";
 import { ContextRailForMission } from "./ContextRailForMission";
 import {
   ContextRailForRuns,
@@ -253,13 +253,29 @@ function EmptyHint({ children }: { children: React.ReactNode }) {
 function CockpitChatBody() {
   return (
     <div className="h-full flex flex-col">
-      {/* Strate 1 — Graph système 3D : 6 agents en hexagone, particules
-          circulant sur les edges entre rôles co-actifs (lib 3d-force-graph).
-          Remplace constellation + services particules + strip SVG. */}
-      <div className="shrink-0">
-        <SystemGraph />
+      {/* Agents constellation — hexagone 2D décoratif, structure fixe */}
+      <div
+        className="shrink-0 px-5"
+        style={{ paddingTop: "var(--space-4)" }}
+      >
+        <div className="flex items-center justify-between mb-3">
+          <span
+            className="t-9 font-medium"
+            style={{
+              color: "var(--text-faint)",
+              letterSpacing: "var(--tracking-wide)",
+              textTransform: "uppercase",
+            }}
+          >
+            Agents
+          </span>
+          <span className="t-9 font-mono tabular-nums" style={{ color: "var(--text-faint)" }}>
+            6
+          </span>
+        </div>
+        <AgentsConstellation />
       </div>
-      {/* Strates 2, 3, 4 — Actions / Statut / Contexte sélectionné */}
+      {/* Actions / Statut / Contexte sélectionné */}
       <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollbar-hide">
         <GeneralDashboard />
       </div>

@@ -104,7 +104,7 @@ export function ChatDock() {
   const handleSubmit = useCallback(
     async (
       message: string,
-      opts?: { attachedAssetIds?: string[]; personaId?: string | null },
+      opts?: { attachedAssetIds?: string[] },
     ) => {
       // Si on n'est pas sur la page racine, on y revient pour que l'utilisateur
       // voie le Stage chat se mettre à jour avec ses messages.
@@ -170,9 +170,6 @@ export function ChatDock() {
             capability_mode: "general",
             ...(opts?.attachedAssetIds && opts.attachedAssetIds.length > 0
               ? { attached_asset_ids: opts.attachedAssetIds }
-              : {}),
-            ...(opts?.personaId
-              ? { persona_id: opts.personaId }
               : {}),
           }),
           signal: controller.signal,
@@ -269,7 +266,6 @@ export function ChatDock() {
     <ChatInput
       onSubmit={handleSubmit}
       connectedServices={connectedServices}
-      threadId={activeThreadId ?? null}
     />
   );
 }

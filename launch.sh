@@ -33,14 +33,14 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}1. Arrêt des processus existants...${NC}"
 echo ""
 
-# Port 9000 (hearst-os)
-if lsof -ti tcp:9000 >/dev/null 2>&1; then
-  echo -e "  ${RED}✗${NC} Port 9000 occupé, kill en cours..."
-  lsof -ti tcp:9000 | xargs kill -9 2>/dev/null || true
+# Port 9001 (hearst-os — Next.js dev)
+if lsof -ti tcp:9001 >/dev/null 2>&1; then
+  echo -e "  ${RED}✗${NC} Port 9001 occupé, kill en cours..."
+  lsof -ti tcp:9001 | xargs kill -9 2>/dev/null || true
   sleep 1
-  echo -e "  ${GREEN}✓${NC} Port 9000 libéré"
+  echo -e "  ${GREEN}✓${NC} Port 9001 libéré"
 else
-  echo -e "  ${GREEN}✓${NC} Port 9000 libre"
+  echo -e "  ${GREEN}✓${NC} Port 9001 libre"
 fi
 
 # Port 8100 (hearst-connect)
@@ -128,7 +128,7 @@ echo ""
 echo -e "${YELLOW}4. Démarrage du frontend principal (hearst-os)...${NC}"
 echo ""
 
-echo -e "  ${CYAN}▶${NC} hearst-os (port 9000)..."
+echo -e "  ${CYAN}▶${NC} hearst-os (port 9001)..."
 mkdir -p .next
 xattr -w com.apple.fileprovider.ignore#P 1 .next 2>/dev/null || true
 
@@ -139,6 +139,23 @@ echo -e "  ${GREEN}✓${NC} PID: $OS_PID"
 
 sleep 5
 
+# 5. Démarrage Electron
+echo -e "${YELLOW}5. Démarrage Electron...${NC}"
+echo ""
+echo -e "  ${CYAN}▶${NC} Attente Next.js (5s)..."
+sleep 5
+
+# Compile le main process Electron puis ouvre la fenêtre
+nohup npm run electron:compile > /tmp/hearst-electron-compile.log 2>&1
+if [ $? -eq 0 ]; then
+  unset ELECTRON_RUN_AS_NODE
+  nohup electron . > /tmp/hearst-electron.log 2>&1 &
+  ELECTRON_PID=$!
+  echo -e "  ${GREEN}✓${NC} Electron démarré (PID: $ELECTRON_PID)"
+else
+  echo -e "  ${RED}✗${NC} Compilation Electron échouée — voir /tmp/hearst-electron-compile.log"
+fi
+
 echo ""
 echo -e "${GREEN}===================="
 echo -e "✓ Tous les services sont démarrés${NC}"
@@ -147,13 +164,13 @@ echo -e "${CYAN}Services actifs:${NC}"
 echo ""
 
 # Vérification des ports
-for port in 3000 8100 9000; do
+for port in 3000 8100 9001; do
   if lsof -ti tcp:$port >/dev/null 2>&1; then
     pid=$(lsof -ti tcp:$port)
     case $port in
       3000) name="Hearst-app (landing)" ;;
       8100) name="hearst-connect" ;;
-      9000) name="hearst-os (main)" ;;
+      9001) name="hearst-os (main)" ;;
     esac
     echo -e "  ${GREEN}✓${NC} Port $port: $name (PID: $pid)"
   else
@@ -164,7 +181,8 @@ done
 echo ""
 echo -e "${CYAN}URLs:${NC}"
 echo ""
-echo -e "  🌐 hearst-os:      ${GREEN}http://localhost:9000${NC}"
+echo -e "  🖥️  Electron:       ${GREEN}app://localhost${NC}"
+echo -e "  🌐 hearst-os:      ${GREEN}http://localhost:9001${NC}"
 echo -e "  🌐 hearst-connect: ${GREEN}http://localhost:8100${NC}"
 echo -e "  🌐 Hearst-app:     ${GREEN}http://localhost:3000${NC}"
 echo ""

@@ -1,0 +1,359 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - log [ref=e3]:
+      - generic [ref=e4]: "Selected Date: samedi 9 mai 2026"
+    - log
+  - link "Skip to content":
+    - /url: "#geist-skip-nav"
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e12]:
+            - link "Hearst corporation Pro" [ref=e13] [cursor=pointer]:
+              - /url: /hearst-corporation
+              - img [ref=e14]
+              - generic [ref=e15]:
+                - generic [ref=e16]: Hearst corporation
+                - generic [ref=e18]: Pro
+            - button [ref=e19] [cursor=pointer]:
+              - img [ref=e21]
+          - button "Find… F" [ref=e24]:
+            - generic [ref=e26]:
+              - img [ref=e28]
+              - generic [ref=e30]: Find…
+              - generic [ref=e32]: F
+        - navigation [ref=e34]:
+          - generic [ref=e35]:
+            - generic:
+              - generic:
+                - link "Overview":
+                  - /url: /hearst-corporation/hearst-os
+                  - generic:
+                    - generic: Overview
+                - link "Deployments":
+                  - /url: /hearst-corporation/hearst-os/deployments
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Deployments
+                - link "Logs":
+                  - /url: /hearst-corporation/hearst-os/logs
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Logs
+                  - generic:
+                    - img
+                - link "Analytics":
+                  - /url: /hearst-corporation/hearst-os/analytics
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Analytics
+                - link "Speed Insights":
+                  - /url: /hearst-corporation/hearst-os/speed-insights
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Speed Insights
+                - link "Observability":
+                  - /url: /hearst-corporation/hearst-os/observability
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Observability
+                  - generic:
+                    - img
+                - link "Firewall":
+                  - /url: /hearst-corporation/hearst-os/firewall
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Firewall
+                  - generic:
+                    - img
+                - link "CDN":
+                  - /url: /hearst-corporation/hearst-os/cdn
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: CDN
+                  - generic:
+                    - img
+                - separator
+                - link "Environment Variables":
+                  - /url: /hearst-corporation/hearst-os/settings/environment-variables
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Environment Variables
+                - link "Domains":
+                  - /url: /hearst-corporation/hearst-os/settings/domains
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Domains
+                - link "Integrations":
+                  - /url: /hearst-corporation/hearst-os/settings/integrations
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Integrations
+                - link "Storage":
+                  - /url: /hearst-corporation/hearst-os/stores
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Storage
+                - link "Flags":
+                  - /url: /hearst-corporation/hearst-os/flags
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Flags
+                  - generic:
+                    - img
+                - link "Agent":
+                  - /url: /hearst-corporation/hearst-os/agent
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Agent
+                  - generic:
+                    - img
+                - link "AI Gateway":
+                  - /url: /hearst-corporation/hearst-os/ai-gateway
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: AI Gateway
+                  - generic:
+                    - img
+                - link "Sandboxes":
+                  - /url: /hearst-corporation/hearst-os/sandboxes
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Sandboxes
+                - link "Workflows":
+                  - /url: /hearst-corporation/hearst-os/workflows
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Workflows
+                - separator
+                - link "Usage":
+                  - /url: /hearst-corporation/hearst-os/usage
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Usage
+                - link "Support":
+                  - /url: /hearst-corporation/hearst-os/support
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Support
+                - link "Settings":
+                  - /url: /hearst-corporation/hearst-os/settings
+                  - generic:
+                    - img
+                  - generic:
+                    - generic: Settings
+                  - generic:
+                    - img
+            - generic [ref=e36]:
+              - button "Logs" [ref=e38] [cursor=pointer]:
+                - img [ref=e40]
+                - generic [ref=e42]: Logs
+              - generic [ref=e44]:
+                - generic [ref=e45]:
+                  - generic [ref=e47]: Filters
+                  - button "Reset" [disabled] [ref=e49]:
+                    - generic [ref=e50]: Reset
+                - generic [ref=e51]:
+                  - paragraph [ref=e52]:
+                    - button "Timeline" [disabled] [expanded] [ref=e53] [cursor=pointer]:
+                      - generic [ref=e55]:
+                        - img [ref=e58]
+                        - generic [ref=e60]: Timeline
+                  - region "Timeline" [ref=e61]:
+                    - generic [ref=e63]:
+                      - button "8:03 - 8:33" [ref=e65] [cursor=pointer]:
+                        - img [ref=e67]
+                      - generic [ref=e69]:
+                        - generic [ref=e70]: Combobox Menu
+                        - generic [ref=e71]:
+                          - combobox "Combobox Menu" [expanded] [ref=e72]: Last 30 minutes
+                          - img
+                - generic [ref=e73]:
+                  - paragraph [ref=e74]:
+                    - button "Contains Console Level" [disabled] [expanded] [ref=e75] [cursor=pointer]:
+                      - generic [ref=e77]:
+                        - img [ref=e80]
+                        - generic [ref=e82]: Contains Console Level
+                  - region "Contains Console Level" [ref=e83]:
+                    - generic [ref=e86]:
+                      - generic [ref=e90] [cursor=pointer]:
+                        - generic [ref=e91]:
+                          - checkbox "Warning" [ref=e92]
+                          - img [ref=e94]
+                        - generic [ref=e97]: Warning
+                      - generic [ref=e102] [cursor=pointer]:
+                        - generic [ref=e103]:
+                          - checkbox "Error" [ref=e104]
+                          - img [ref=e106]
+                        - generic [ref=e109]: Error
+                      - generic [ref=e114] [cursor=pointer]:
+                        - generic [ref=e115]:
+                          - checkbox "Fatal" [ref=e116]
+                          - img [ref=e118]
+                        - generic [ref=e121]: Fatal
+                - paragraph [ref=e124]:
+                  - button "Resource" [ref=e125] [cursor=pointer]:
+                    - generic [ref=e127]:
+                      - img [ref=e130]
+                      - generic [ref=e132]: Resource
+                - paragraph [ref=e137]:
+                  - button "Environment" [ref=e138] [cursor=pointer]:
+                    - generic [ref=e140]:
+                      - img [ref=e143]
+                      - generic [ref=e145]: Environment
+                - paragraph [ref=e147]:
+                  - button "Route" [ref=e148] [cursor=pointer]:
+                    - generic [ref=e150]:
+                      - img [ref=e153]
+                      - generic [ref=e155]: Route
+                - paragraph [ref=e157]:
+                  - button "Request Path" [ref=e158] [cursor=pointer]:
+                    - generic [ref=e160]:
+                      - img [ref=e163]
+                      - generic [ref=e165]: Request Path
+                - paragraph [ref=e167]:
+                  - button "Status Code" [ref=e168] [cursor=pointer]:
+                    - generic [ref=e170]:
+                      - img [ref=e173]
+                      - generic [ref=e175]: Status Code
+                - paragraph [ref=e177]:
+                  - button "Request Type" [ref=e178] [cursor=pointer]:
+                    - generic [ref=e180]:
+                      - img [ref=e183]
+                      - generic [ref=e185]: Request Type
+                - paragraph [ref=e187]:
+                  - button "Host" [ref=e188] [cursor=pointer]:
+                    - generic [ref=e190]:
+                      - img [ref=e193]
+                      - generic [ref=e195]: Host
+                - paragraph [ref=e197]:
+                  - button "Request Method" [ref=e198] [cursor=pointer]:
+                    - generic [ref=e200]:
+                      - img [ref=e203]
+                      - generic [ref=e205]: Request Method
+                - paragraph [ref=e207]:
+                  - button "Cache" [ref=e208] [cursor=pointer]:
+                    - generic [ref=e210]:
+                      - img [ref=e213]
+                      - generic [ref=e215]: Cache
+                - paragraph [ref=e217]:
+                  - button "Branch" [ref=e218] [cursor=pointer]:
+                    - generic [ref=e220]:
+                      - img [ref=e223]
+                      - generic [ref=e225]: Branch
+                - paragraph [ref=e227]:
+                  - button "Deployment ID" [ref=e228] [cursor=pointer]:
+                    - generic [ref=e230]:
+                      - img [ref=e233]
+                      - generic [ref=e235]: Deployment ID
+                - paragraph [ref=e237]:
+                  - button "Workflow Run" [ref=e238] [cursor=pointer]:
+                    - generic [ref=e240]:
+                      - img [ref=e243]
+                      - generic [ref=e245]: Workflow Run
+                      - img [ref=e248]
+                - paragraph [ref=e252]:
+                  - button "Workflow Step" [ref=e253] [cursor=pointer]:
+                    - generic [ref=e255]:
+                      - img [ref=e258]
+                      - generic [ref=e260]: Workflow Step
+                      - img [ref=e263]
+        - generic [ref=e268]:
+          - generic [ref=e269]:
+            - generic [ref=e270]:
+              - generic [ref=e273]:
+                - generic [ref=e274]: Ship
+                - generic [ref=e276]: "26"
+              - button "Dismiss" [ref=e277] [cursor=pointer]:
+                - img [ref=e279]
+            - generic [ref=e281]:
+              - generic [ref=e282]: Coming to five cities worldwide.
+              - button "Get your ticket" [ref=e284] [cursor=pointer]:
+                - generic [ref=e285]: Get your ticket
+          - generic [ref=e287]:
+            - button "Avatar for adrien-2853 adrien-2853" [ref=e288] [cursor=pointer]:
+              - img "Avatar for adrien-2853" [ref=e289]:
+                - img "Avatar for adrien-2853" [ref=e290]
+              - generic [ref=e292]: adrien-2853
+              - img [ref=e294]
+            - img [ref=e298]
+      - button [ref=e301] [cursor=pointer]:
+        - img [ref=e302]
+    - generic [ref=e305]:
+      - generic [ref=e306]:
+        - generic [ref=e309]:
+          - link "hearst-os" [ref=e310] [cursor=pointer]:
+            - /url: /hearst-corporation/hearst-os
+            - generic [ref=e313]: hearst-os
+          - button [ref=e314] [cursor=pointer]:
+            - img [ref=e316]
+          - link "Back to team view" [ref=e320] [cursor=pointer]:
+            - /url: /hearst-corporation/~/logs
+            - img [ref=e322]
+        - generic [ref=e326]: Logs
+        - button "Open page actions menu" [ref=e328] [cursor=pointer]:
+          - img [ref=e330]
+      - generic [ref=e339]:
+        - generic [ref=e340]:
+          - generic [ref=e341]:
+            - button "Enable My Logs" [ref=e343] [cursor=pointer]:
+              - img [ref=e345]
+            - button "Enable Has Traces" [ref=e350] [cursor=pointer]:
+              - img [ref=e352]
+            - generic [ref=e359]:
+              - textbox [ref=e360]:
+                - paragraph [ref=e361]
+              - generic: Search logs...
+          - generic [ref=e362]:
+            - generic [ref=e363]:
+              - button "Live" [ref=e364] [cursor=pointer]:
+                - img [ref=e366]
+                - generic [ref=e368]: Live
+              - button "Refresh Logs" [disabled] [ref=e369]
+            - button "Query Actions" [ref=e383] [cursor=pointer]:
+              - img [ref=e385]
+        - generic [ref=e387]:
+          - generic:
+            - img:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 08:04:00
+                  - generic:
+                    - generic: 08:12:30
+                  - generic:
+                    - generic: 08:20:40
+                  - generic:
+                    - generic: 08:33:50
+        - generic [ref=e389]:
+          - generic [ref=e390]: Time
+          - generic [ref=e391]: Status
+          - generic [ref=e392]: Host
+          - generic [ref=e393]: Request
+          - generic [ref=e394]: Messages
+  - alert [ref=e548]
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - img
+  - generic [ref=e549]: 08:20:40

@@ -18,13 +18,11 @@ const DocumentParseModal = lazy(() =>
 interface ChatInputProps {
   onSubmit: (
     message: string,
-    opts?: { attachedAssetIds?: string[]; personaId?: string | null },
+    opts?: { attachedAssetIds?: string[] },
   ) => void;
   placeholder?: string;
   connectedServices?: ServiceDefinition[];
   onProviderMention?: (providerId: string) => void;
-  /** Thread courant — utilisé pour scoper la persona active per-thread. */
-  threadId?: string | null;
 }
 
 function AutoPill() {
@@ -61,7 +59,6 @@ export function ChatInput({
   placeholder,
   connectedServices = [],
   onProviderMention,
-  threadId = null,
 }: ChatInputProps) {
   const router = useRouter();
   const [input, setInput] = useState("");
@@ -97,7 +94,6 @@ export function ChatInput({
   const [hideTypeahead, setHideTypeahead] = useState(false);
   const [attachedAssets, setAttachedAssets] = useState<AssetDragPayload[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
-  const [personaId, setPersonaId] = useState<string | null>(null);
 
   // Parse @mention from input
   const lastAtIndex = input.lastIndexOf("@");
@@ -173,10 +169,7 @@ export function ChatInput({
       ? `Parsed document (${attachment.fileName}, ${attachment.pageCount} pages):\n\n${attachment.text}\n\n---\n\n${input.trim()}`
       : input.trim();
     const attachedAssetIds = attachedAssets.map((a) => a.assetId);
-    const opts: { attachedAssetIds?: string[]; personaId?: string | null } = {};
-    if (attachedAssetIds.length > 0) opts.attachedAssetIds = attachedAssetIds;
-    if (personaId) opts.personaId = personaId;
-    onSubmit(finalMessage, Object.keys(opts).length > 0 ? opts : undefined);
+    onSubmit(finalMessage, attachedAssetIds.length > 0 ? { attachedAssetIds } : undefined);
     setInput("");
     setAttachment(null);
     setAttachedAssets([]);

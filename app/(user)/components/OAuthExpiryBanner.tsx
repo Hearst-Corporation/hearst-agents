@@ -1,63 +1,10 @@
 "use client";
 
-/**
- * OAuthExpiryBanner — bandeau d'alerte discret pour les tokens OAuth expirants.
- *
- * - Visible si des connexions expirent dans moins de AUTH_EXPIRING_DAYS_THRESHOLD jours
- * - Rouge si < AUTH_CRITICAL_DAYS_THRESHOLD jours, jaune sinon
- * - Dismissable (état local React — pas de DB)
- * - Charge les connexions via API /api/connections/expiring (lazy, SSR-safe)
- *
- * Tokens utilisés : --danger, --warn, --text-muted, --space-*, --radius-sm
- * Typo : .t-9 (label mono)
- */
-
 import { useState, useEffect } from "react";
 import {
   AUTH_EXPIRING_DAYS_THRESHOLD,
-  AUTH_CRITICAL_DAYS_THRESHOLD,
   type ExpiringConnection,
 } from "@/lib/connections/oauth-constants";
-
-// ── Composant interne : badge connexion ──────────────────────
-
-function ConnectionBadge({
-  conn,
-}: {
-  conn: ExpiringConnection;
-}) {
-  const isCritical =
-    conn.daysUntilExpiry !== null &&
-    conn.daysUntilExpiry <= AUTH_CRITICAL_DAYS_THRESHOLD;
-  const color = isCritical ? "var(--danger)" : "var(--warn)";
-
-  const label =
-    conn.daysUntilExpiry === 0 || conn.status === "expired"
-      ? "expiré"
-      : conn.daysUntilExpiry !== null
-        ? `${conn.daysUntilExpiry}j`
-        : "bientôt";
-
-  return (
-    <span
-      className="inline-flex items-center gap-1 px-2 rounded-sm"
-      style={{
-        background: `color-mix(in srgb, ${color} 12%, transparent)`,
-        border: `1px solid color-mix(in srgb, ${color} 25%, transparent)`,
-        height: "var(--space-5)",
-      }}
-    >
-      <span className="t-9 font-mono" style={{ color }}>
-        {conn.appName}
-      </span>
-      <span className="t-9 font-mono" style={{ color: "var(--text-muted)" }}>
-        {label}
-      </span>
-    </span>
-  );
-}
-
-// ── Composant principal ──────────────────────────────────────
 
 export function OAuthExpiryBanner() {
   const [connections, setConnections] = useState<ExpiringConnection[]>([]);
@@ -89,11 +36,6 @@ export function OAuthExpiryBanner() {
 
   if (!loaded || dismissed || connections.length === 0) return null;
 
-  // Couleur globale du banner = rouge si au moins une critique
-  const hasCritical = connections.some(
-    (c) => c.daysUntilExpiry !== null && c.daysUntilExpiry <= AUTH_CRITICAL_DAYS_THRESHOLD,
-  );
-  const bannerColor = hasCritical ? "var(--danger)" : "var(--warn)";
   const count = connections.length;
   const plural = count > 1 ? "connexions expirent" : "connexion expire";
 
