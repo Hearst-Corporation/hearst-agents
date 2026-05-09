@@ -3,7 +3,7 @@
  * Source de vérité : hom/agents/<id>/contracts.json
  */
 import { HOM } from "./paths";
-import { readJson, fileExists } from "./fs-utils";
+import { readJson } from "./fs-utils";
 import { ALL_AGENTS } from "./types";
 import type { AgentContract, AgentId } from "./types";
 
@@ -29,10 +29,6 @@ export async function loadAllContracts(): Promise<AgentContract[]> {
     out.push(await loadContract(id));
   }
   return out;
-}
-
-export function clearContractCache() {
-  cache.clear();
 }
 
 /** Valide qu'un fichier respecte le scope d'un agent. */
@@ -67,9 +63,3 @@ function matchGlob(pattern: string, file: string): boolean {
   return false;
 }
 
-export async function contractsExist(): Promise<boolean> {
-  for (const id of ALL_AGENTS) {
-    if (!(await fileExists(HOM.agentContract(id)))) return false;
-  }
-  return true;
-}

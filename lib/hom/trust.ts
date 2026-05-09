@@ -5,13 +5,10 @@
  */
 import { HOM } from "./paths";
 import { readJson, writeJson, nowIso } from "./fs-utils";
-import { SEVERITY_RANK } from "./types";
 import type {
   AgentRunResult,
-  Finding,
   TrustHistoryEntry,
   TrustScores,
-  Severity,
 } from "./types";
 
 const DEFAULT_SCORES: TrustScores = {
@@ -36,7 +33,6 @@ export async function latestScores(): Promise<TrustScores> {
 export interface TrustComputeInput {
   runId: string;
   agentResults: AgentRunResult[];
-  allFindings?: Finding[];
   driftFindings: number;
   retries: number;
   quarantinedAgents: number;
@@ -97,14 +93,6 @@ export async function appendHistory(
   // Cap à 500 entrées en clair (compaction simple).
   const trimmed = history.slice(-500);
   await writeJson(HOM.trustHistory, trimmed);
-}
-
-export function severityMaxOf(findings: Finding[]): Severity {
-  let max: Severity = "info";
-  for (const f of findings) {
-    if (SEVERITY_RANK[f.severity] > SEVERITY_RANK[max]) max = f.severity;
-  }
-  return max;
 }
 
 export function trustGate(scores: TrustScores): {

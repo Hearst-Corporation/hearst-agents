@@ -49,11 +49,11 @@ describe("BlockActions", () => {
     expect(onAction).not.toHaveBeenCalled();
   });
 
-  it("affiche un feedback 'Bientôt' pour mission et refine", () => {
+  it("affiche un feedback 'Créée' pour mission", () => {
     render(<BlockActions onAction={() => {}} />);
     fireEvent.click(screen.getByTestId("block-action-mission"));
     const status = screen.getByRole("status");
-    expect(status.textContent).toMatch(/Bientôt/i);
+    expect(status.textContent).toMatch(/Créée/i);
   });
 
   it("affiche un feedback 'Sauvegardé' pour asset", () => {

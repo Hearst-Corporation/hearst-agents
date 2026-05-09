@@ -37,7 +37,6 @@ import { ALL_AGENTS, SEVERITY_RANK } from "./types";
 import type {
   AgentId,
   AgentRunResult,
-  Finding,
   RunDecision,
   RunDecisionFile,
   RunIntake,
@@ -116,7 +115,6 @@ export async function startRun(opts: RunOptions): Promise<RunOutcome> {
   // DISPATCH
   await setPhase(runId, "dispatch");
   const results: AgentRunResult[] = [];
-  const allFindings: Finding[] = [];
 
   for (const agentId of intake.scope) {
     const available = await isAgentAvailable(agentId);
@@ -152,10 +150,6 @@ export async function startRun(opts: RunOptions): Promise<RunOutcome> {
     await recordAnomaly(agentId, runId, result);
     results.push(result);
 
-    if (result.report_path) {
-      const reportFindings = await readReportFindings(result.report_path);
-      allFindings.push(...reportFindings);
-    }
   }
 
   // AGGREGATE + CROSS-CHECK
@@ -170,7 +164,6 @@ export async function startRun(opts: RunOptions): Promise<RunOutcome> {
   const { before, after } = await computeTrust({
     runId,
     agentResults: results,
-    allFindings,
     driftFindings: driftCount,
     retries: results.reduce((a, r) => a + r.retries, 0),
     quarantinedAgents: results.filter((r) => r.quarantined).length,
@@ -309,18 +302,6 @@ function deltaOf(
     d[k] = after[k] - before[k];
   }
   return d;
-}
-
-async function readReportFindings(_reportPath: string): Promise<Finding[]> {
-  return [];
-}
-
-export async function listAvailableAgents(): Promise<AgentId[]> {
-  const out: AgentId[] = [];
-  for (const id of ALL_AGENTS) {
-    if (await isAgentAvailable(id)) out.push(id);
-  }
-  return out;
 }
 
 export async function quickHealthCheck(): Promise<{
