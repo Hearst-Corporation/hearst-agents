@@ -14,6 +14,17 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: import.meta.dirname,
   },
+  // Force l'inclusion de next/dist/server/node-environment dans chaque function
+  // serverless. Sans ça, /var/task/node_modules/next/setup-node-env.js crash au
+  // boot avec "Cannot find module 'next/dist/server/node-environment'".
+  // Le static tracer Vercel rate ce fichier car il est require() dynamiquement.
+  outputFileTracingIncludes: {
+    "**/*": [
+      "./node_modules/next/dist/server/node-environment.js",
+      "./node_modules/next/dist/server/node-environment-baseline.js",
+      "./node_modules/next/dist/server/node-environment-extensions/**",
+    ],
+  },
   // Exclusions du file-tracing Next.js — Vercel package chaque function avec
   // les fichiers tracés. Sans exclusions, le bundle a explosé à 590 MB (cap
   // Vercel: 250 MB unzipped) à cause d'Electron desktop runtime + assets
