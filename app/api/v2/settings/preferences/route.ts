@@ -9,7 +9,6 @@ import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import {
   getUserPreference,
   setUserPreference,
-  getUserTheme,
   getUserLocale,
   getUserNotificationPrefs,
 } from "@/lib/platform/settings";
@@ -23,14 +22,13 @@ export async function GET() {
   const db = requireServerSupabase();
 
   try {
-    const [theme, locale, notifications] = await Promise.all([
-      getUserTheme(db, scope.userId),
+    const [locale, notifications] = await Promise.all([
       getUserLocale(db, scope.userId),
       getUserNotificationPrefs(db, scope.userId),
     ]);
 
     return NextResponse.json({
-      preferences: { theme, locale, notifications },
+      preferences: { locale, notifications },
     });
   } catch (e) {
     console.error("[Settings API] GET /preferences error:", e);

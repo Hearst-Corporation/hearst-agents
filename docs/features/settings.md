@@ -30,7 +30,7 @@ Système de configuration en trois couches (system → tenant → user) stocké 
 - `lib/platform/settings/index.ts` — point d'entrée public (re-exports system + user + tenant)
 - `lib/platform/settings/store.ts` — CRUD Supabase (`getSetting`, `setSetting`, `getAllSettings`)
 - `lib/platform/settings/system.ts` — `getFeatureFlag`, `setFeatureFlag`, `getThreshold`, `getLimit`, `seedDefaults`
-- `lib/platform/settings/user.ts` — `getUserPreference`, `setUserPreference`, `getUserTheme`, `getUserLocale`, `getUserNotificationPrefs`
+- `lib/platform/settings/user.ts` — `getUserPreference`, `setUserPreference`, `getUserLocale`, `getUserNotificationPrefs`
 - `lib/platform/settings/tenant.ts` — `getTenantSetting`, `setTenantSetting`, `getTenantFeatureFlag`, `getTenantLimit`, `resetTenantSettings`
 
 **Composant UI**

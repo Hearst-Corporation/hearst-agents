@@ -32,11 +32,11 @@ test('Inspect Stage container properties', async ({ page }) => {
   const cssVars = await stage.evaluate(el => {
     const style = window.getComputedStyle(el);
     return {
-      bgLightStage: style.getPropertyValue('--bg-light-stage'),
-      textDarkStrong: style.getPropertyValue('--text-dark-strong'),
+      bg: style.getPropertyValue('--bg'),
+      bgElev: style.getPropertyValue('--bg-elev'),
     };
   });
-  
+
   console.log('=== CSS VARIABLES ===');
   console.log('CSS Vars:', cssVars);
 });

@@ -67,7 +67,7 @@ Pour les changements UI lourds (refonte d'écran, nouveau Stage), screenshot Pla
 
 ### 5. États couverts
 
-Quand tu construis un écran neuf : empty, loading, error, hover/focus/active, disabled, mobile, dark mode (défaut). Pour un polish ciblé sur un écran existant, ne refais pas tous les états — fix ce qui est demandé.
+Quand tu construis un écran neuf : empty, loading, error, hover/focus/active, disabled, mobile. Pour un polish ciblé sur un écran existant, ne refais pas tous les états — fix ce qui est demandé. L'app est dark mode unique — pas de light mode, pas de toggle theme.
 
 ## Pratiques codeur
 

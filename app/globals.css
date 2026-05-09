@@ -4,7 +4,7 @@
  * HEARST OS — Design Tokens v3 (Ghost Protocol).
  */
 
-:root, [data-theme="dark"] {
+:root {
   /* Core surfaces — deep dark hierarchy with 'material'
      Pivot 2026-05-01 v4 : valeurs réelles après démontage tokens fantômes.
      Pivot 2026-05-10 — silent luxury OS : recalibrage --bg-elev / --bg-soft
@@ -285,91 +285,6 @@
   --color-info-bg: rgba(59, 130, 246, 0.10);
   --color-info-border: rgba(59, 130, 246, 0.20);
 
-}
-
-/* ─── Light theme — variant 10 "Linear day" ────────────────────
- * Activé via [data-theme="light"] sur la racine du layout user,
- * ou sur `CanvasShell` (pipeline admin) pour fond blanc + grille technique.
- * On flip surfaces / texte / bordures vers le light cool neutre, on
- * conserve le accent-teal turquoise (#4A8B86) comme accent — il porte sur
- * fond clair grâce à sa saturation. Les autres routes admin sans cet
- * attribut restent en dark hérité de :root. */
-[data-theme="light"] {
-  /* Surfaces */
-  --bg: #F4F4F6;
-  --bg-elev: #FAFAFB;
-  --bg-soft: #ECECEE;
-  --background: #F4F4F6;
-  --foreground: #1C1D20;
-  --surface: #FFFFFF;
-  --rail: #FAFAFB;
-  --bg-light-stage: #FFFFFF;
-  --text-dark-strong: var(--text-dark);
-
-  /* Material scale (light) — utilisé par les cards admin/dashboard */
-  --mat-050: #FAFAFB;
-  --mat-100: #F4F4F6;
-  --mat-200: #EFEFF1;
-  --mat-300: #E9E9EC;
-  --mat-400: #E2E2E5;
-  --mat-gray: #DCDCE0;
-
-  /* Floating input capsule — même teinte que les rails (anthracite) */
-  --input-floating-bg: #26272B;
-
-  /* Text scale — sombre sur fond clair */
-  --text: #1C1D20;
-  --text-soft: rgba(28, 29, 32, 0.88);
-  --text-muted: rgba(28, 29, 32, 0.68);
-  --text-faint: rgba(28, 29, 32, 0.46);
-  --text-ghost: rgba(28, 29, 32, 0.26);
-  --text-inactive: rgba(28, 29, 32, 0.55);
-  --text-subtitle: rgba(28, 29, 32, 0.55);
-  --text-placeholder: rgba(28, 29, 32, 0.42);
-
-  /* Lines / borders */
-  --line: rgba(28, 29, 32, 0.06);
-  --line-strong: rgba(28, 29, 32, 0.10);
-  --line-active: rgba(74, 139, 134, 0.30);
-
-  --border-shell: rgba(28, 29, 32, 0.08);
-  --border-soft: rgba(28, 29, 32, 0.05);
-  --border-input: rgba(28, 29, 32, 0.12);
-  --ghost-modal-top: rgba(28, 29, 32, 0.10);
-  /* Voir :root pour la doc. Light theme : même opacité — l'utilisateur
-   * voit du sombre derrière le modal, indépendamment du thème. */
-  --overlay-scrim: rgba(0, 0, 0, 0.40);
-  --text-on-accent-teal: var(--text-dark);
-  --border-subtle: rgba(28, 29, 32, 0.08);
-  --border-default: rgba(28, 29, 32, 0.14);
-  --border-strong: rgba(28, 29, 32, 0.20);
-  --border-focus: rgba(28, 29, 32, 0.40);
-
-  /* Translucent surfaces */
-  --surface-1: rgba(28, 29, 32, 0.025);
-  --surface-2: rgba(28, 29, 32, 0.045);
-  --surface-card: rgba(28, 29, 32, 0.035);
-  --card-flat-bg: rgba(28, 29, 32, 0.025);
-  --card-flat-border: rgba(28, 29, 32, 0.08);
-
-  /* Cykan turquoise conservé — opacités lift pour passer sur clair */
-  --accent-teal-bg-active: rgba(74, 139, 134, 0.14);
-  --accent-teal-bg-hover: rgba(74, 139, 134, 0.08);
-  --accent-teal-border-hover: rgba(74, 139, 134, 0.45);
-  --accent-teal-surface: rgba(74, 139, 134, 0.06);
-  --accent-teal-border: rgba(74, 139, 134, 0.35);
-
-  /* Shadows — plus discrètes sur clair */
-  --shadow-sm: 0 1px 2px rgba(28, 29, 32, 0.06);
-  --shadow-md: 0 4px 12px rgba(28, 29, 32, 0.08);
-  --shadow-lg: 0 12px 32px rgba(28, 29, 32, 0.10);
-  --shadow-card: 0 1px 2px rgba(28, 29, 32, 0.04),
-                 0 12px 24px rgba(28, 29, 32, 0.06);
-  --shadow-input-focus: 4px 4px 0px var(--cyan-accent);
-  /* Stage card — version light : shadows plus douces sur fond clair */
-  --shadow-stage-card:
-    0 1px 2px rgba(28, 29, 32, 0.04),
-    0 8px 28px rgba(28, 29, 32, 0.05);
 }
 
 /* ─── Cockpit Poster — typo éditoriale ────────────────────────────

@@ -37,7 +37,7 @@ export default function AdminShell({ children, userLabel, userInitial, env }: Pr
   const isCollapsed = collapsed;
 
   return (
-    <div data-theme="light" className="flex h-screen w-screen bg-bg text-text overflow-hidden">
+    <div className="flex h-screen w-screen bg-bg text-text overflow-hidden">
       {/* Desktop sidebar — width follows the persisted collapsed state. */}
       <div
         className="hidden md:flex shrink-0 transition-[width] duration-(--duration-base) ease-(--ease-standard)"

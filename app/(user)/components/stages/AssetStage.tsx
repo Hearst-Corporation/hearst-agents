@@ -604,7 +604,7 @@ function AssetBody({ contentRef, title }: { contentRef?: string; title: string }
         title={title}
         srcDoc={contentRef}
         sandbox="allow-same-origin"
-        className="w-full rounded-sm border border-[var(--surface-2)] bg-[var(--bg-light-stage)]"
+        className="w-full rounded-sm border border-[var(--surface-2)] bg-white"
         style={{ height: "var(--space-32)", minHeight: "var(--height-focal-min)" }}
       />
     );

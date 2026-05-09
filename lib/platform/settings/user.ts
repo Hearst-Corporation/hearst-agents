@@ -1,7 +1,7 @@
 /**
  * Platform Settings — User Preferences
  *
- * Per-user settings: UI theme, notification preferences, language, etc.
+ * Per-user settings: notification preferences, language, etc.
  * Stored in system_settings with a composite key "user:{userId}:{key}".
  */
 
@@ -34,21 +34,6 @@ export async function setUserPreference(
     description: `User preference: ${key}`,
     updatedBy: userId,
   });
-}
-
-export async function getUserTheme(
-  db: SupabaseClient,
-  userId: string,
-): Promise<string> {
-  return getUserPreference(db, userId, "theme", "dark");
-}
-
-export async function setUserTheme(
-  db: SupabaseClient,
-  userId: string,
-  theme: string,
-): Promise<void> {
-  await setUserPreference(db, userId, "theme", theme);
 }
 
 export async function getUserLocale(

@@ -49,15 +49,6 @@ export const DEFAULT_SETTINGS: SettingDefinition[] = [
     schema: "number",
   },
 
-  // UI
-  {
-    key: "ui.theme.default",
-    category: "ui",
-    defaultValue: "dark",
-    description: "Default UI theme",
-    schema: "string",
-  },
-
   // Analytics
   {
     key: "analytics.retention_days",

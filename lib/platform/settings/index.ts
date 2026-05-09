@@ -99,8 +99,6 @@ export {
 export {
   getUserPreference,
   setUserPreference,
-  getUserTheme,
-  setUserTheme,
   getUserLocale,
   getUserNotificationPrefs,
 } from "./user";
