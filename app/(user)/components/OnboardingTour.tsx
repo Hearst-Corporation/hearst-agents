@@ -152,7 +152,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
         <h2
           className="t-28"
           style={{
-            fontWeight: 500,
+            fontWeight: "var(--weight-medium)",
             lineHeight: "var(--leading-tight)",
             color: "var(--text-l1)",
             marginBottom: "var(--space-5)",
@@ -165,7 +165,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
           className="t-15 font-light"
           style={{
             color: "var(--text-l2)",
-            lineHeight: 1.55,
+            lineHeight: "var(--leading-relaxed)",
             marginBottom: "var(--space-10)",
           }}
         >

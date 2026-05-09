@@ -64,7 +64,7 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
         <h1
           className="t-30"
           style={{
-            fontWeight: 500,
+            fontWeight: "var(--weight-medium)",
             lineHeight: "var(--leading-tight)",
             color: "var(--text-l1)",
           }}
@@ -102,7 +102,7 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
               <p
                 className="t-15"
                 style={{
-                  fontWeight: 400,
+                  fontWeight: "var(--weight-regular)",
                   lineHeight: "var(--leading-tight)",
                   color: "var(--text-l1)",
                 }}
@@ -132,7 +132,7 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
           <p
             className="t-15"
             style={{
-              fontWeight: 400,
+              fontWeight: "var(--weight-regular)",
               lineHeight: "var(--leading-tight)",
               color: "var(--text-l1)",
             }}
@@ -187,7 +187,7 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
               style={{
                 color: "var(--text-l1)",
                 marginTop: "var(--space-3)",
-                lineHeight: 1.5,
+                lineHeight: "var(--leading-base)",
                 fontStyle: "italic",
               }}
             >
@@ -198,7 +198,7 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
               style={{
                 color: "var(--text-l2)",
                 marginTop: "var(--space-2)",
-                lineHeight: 1.5,
+                lineHeight: "var(--leading-base)",
               }}
             >
               9 signaux ingérés cross-app — 3 emails urgents, 2 PRs stuck, 1 issue P1.

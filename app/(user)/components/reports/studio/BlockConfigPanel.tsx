@@ -421,7 +421,7 @@ function PropsJsonEditor({
           borderRadius: "var(--radius-xs)",
           outline: "none",
           resize: "vertical",
-          lineHeight: 1.5,
+          lineHeight: "var(--leading-base)",
         }}
       />
       {err && (

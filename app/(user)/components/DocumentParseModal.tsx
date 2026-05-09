@@ -166,7 +166,7 @@ export function DocumentParseModal({
           </h2>
           <p
             className="t-11 font-light text-[var(--text-muted)]"
-            style={{ margin: 0, lineHeight: 1.5 }}
+            style={{ margin: 0, lineHeight: "var(--leading-base)" }}
           >
             Colle l&apos;URL d&apos;un document accessible (Drive, S3 signé,
             CDN public). Phase B : upload natif.

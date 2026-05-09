@@ -178,22 +178,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
   return (
     <article
       data-testid={`report-card-${report.id}`}
-      className="group relative flex flex-col gap-4 p-6 rounded-xl border transition-all"
-      style={{
-        background: "var(--surface-card)",
-        borderColor: "var(--border-default)",
-        boxShadow: "var(--shadow-card)",
-        transitionDuration: "var(--duration-slow)",
-        transitionTimingFunction: "var(--ease-standard)",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-card-hover)";
-        (e.currentTarget as HTMLElement).style.borderColor = "var(--cykan-border-hover)";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-card)";
-        (e.currentTarget as HTMLElement).style.borderColor = "var(--border-default)";
-      }}
+      className="group relative flex flex-col gap-4 p-6 rounded-xl border border-[var(--border-default)] bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--cykan-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
     >
       {/* Badges top row */}
       <div className="flex items-center gap-2 flex-wrap">

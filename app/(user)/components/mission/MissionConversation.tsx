@@ -286,7 +286,7 @@ function MessageRow({ message }: { message: MissionMessage }) {
         style={{
           color: "var(--text-l1)",
           whiteSpace: "pre-wrap",
-          lineHeight: 1.55,
+          lineHeight: "var(--leading-relaxed)",
         }}
       >
         {message.content}
@@ -327,7 +327,7 @@ function SummaryRendered({ text }: { text: string }) {
                 style={{
                   color: "var(--text-l1)",
                   whiteSpace: "pre-wrap",
-                  lineHeight: 1.5,
+                  lineHeight: "var(--leading-base)",
                 }}
               >
                 {body}
@@ -342,7 +342,7 @@ function SummaryRendered({ text }: { text: string }) {
             style={{
               color: "var(--text-l1)",
               whiteSpace: "pre-wrap",
-              lineHeight: 1.5,
+              lineHeight: "var(--leading-base)",
             }}
           >
             {block}

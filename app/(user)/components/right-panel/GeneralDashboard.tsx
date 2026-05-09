@@ -105,23 +105,11 @@ function QuickActions() {
             <button
               type="button"
               onClick={a.onClick}
-              className="group flex items-center w-full text-left transition-all focus:outline-none focus-visible:ring-1"
+              className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--border-subtle)] hover:bg-[var(--surface-2)] hover:border-[var(--cykan-border)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan)]"
               style={{
                 gap: "var(--space-3)",
-                padding: "var(--space-3) var(--space-3)",
+                padding: "var(--space-3)",
                 borderRadius: "var(--radius-sm)",
-                background: "var(--surface-1)",
-                border: "1px solid var(--border-subtle)",
-                ["--tw-ring-color" as string]: "var(--cykan)",
-                transition: "background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--cykan-border)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-1)";
-                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-subtle)";
               }}
             >
               {/* Icône dans cercle */}
@@ -218,7 +206,6 @@ function StatusSection() {
       style={{
         padding: "var(--space-4)",
         borderTop: "1px solid var(--border-subtle)",
-        borderBottom: "1px solid var(--border-subtle)",
       }}
     >
       <SectionLabel label="Statut" icon={<RadarIcon />} />
@@ -403,20 +390,11 @@ function CockpitContextSection({ selection }: { selection: Selection | null }) {
       <button
         type="button"
         onClick={handleOpen}
-        className="group flex items-center w-full text-left focus:outline-none focus-visible:ring-1 transition-all"
+        className="group flex items-center w-full text-left bg-[var(--surface-1)] border border-[var(--cykan-border)] hover:bg-[var(--surface-2)] transition-colors duration-(--duration-fast) ease-(--ease-standard) focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--cykan)]"
         style={{
           gap: "var(--space-3)",
           padding: "var(--space-3)",
           borderRadius: "var(--radius-sm)",
-          background: "var(--surface-1)",
-          border: "1px solid var(--cykan-border)",
-          ["--tw-ring-color" as string]: "var(--cykan)",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-1)";
         }}
       >
         {/* Icône agent ou type objet */}

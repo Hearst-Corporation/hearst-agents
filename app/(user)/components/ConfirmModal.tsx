@@ -100,7 +100,7 @@ export function ConfirmModal({
         {description && (
           <p
             className="t-13 font-light text-[var(--text-muted)]"
-            style={{ margin: 0, lineHeight: 1.6 }}
+            style={{ margin: 0, lineHeight: "var(--leading-relaxed)" }}
           >
             {description}
           </p>

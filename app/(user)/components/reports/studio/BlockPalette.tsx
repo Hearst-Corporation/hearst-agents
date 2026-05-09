@@ -77,23 +77,11 @@ export function BlockPalette({ onAdd }: BlockPaletteProps) {
               }}
               onClick={() => onAdd(entry.kind)}
               data-testid={`palette-${entry.kind}`}
-              className="w-full flex items-center text-left transition-colors"
+              className="w-full flex items-center text-left bg-transparent border border-[var(--surface-2)] hover:bg-[var(--surface-2)] hover:border-[var(--cykan-border)] cursor-grab transition-colors duration-(--duration-base) ease-(--ease-standard)"
               style={{
                 gap: "var(--space-3)",
                 padding: "var(--space-3)",
-                background: "transparent",
-                border: "1px solid var(--surface-2)",
                 borderRadius: "var(--radius-xs)",
-                cursor: "grab",
-                transitionDuration: "var(--duration-base)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "var(--surface-2)";
-                e.currentTarget.style.borderColor = "var(--cykan-border)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.borderColor = "var(--surface-2)";
               }}
             >
               <span

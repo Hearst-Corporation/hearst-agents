@@ -317,7 +317,7 @@ function MissionMemorySection({ missionId }: { missionId: string }) {
                 className="t-11 font-light"
                 style={{
                   color: "var(--text-soft)",
-                  lineHeight: 1.45,
+                  lineHeight: "var(--leading-base)",
                 }}
               >
                 {s.body}

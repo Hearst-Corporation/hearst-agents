@@ -46,14 +46,7 @@ export function CockpitHome({ data }: CockpitHomeProps) {
         <ParticlesWave />
       </div>
 
-      <div
-        className="flex flex-col shrink-0"
-        style={{
-          gap: "var(--space-2)",
-          paddingBottom: "var(--space-3)",
-          borderBottom: "1px solid var(--border-subtle)",
-        }}
-      >
+      <div className="flex flex-col shrink-0">
         <KPIStrip data={data} />
       </div>
 
