@@ -15,8 +15,6 @@
  */
 
 import type { ProviderId } from "@/lib/providers/types";
-// Inlined from deleted halo-state.ts
-type HaloArtifactKind = "report" | "draft" | "file" | "task" | "event";
 import type { OutputTier } from "@/lib/engine/runtime/formatting/pipeline";
 
 // ── Asset types ─────────────────────────────────────────────
@@ -177,12 +175,6 @@ export function evictAssetById(assetId: string): void {
   }
 }
 
-/** Wipe every cached asset and action across all threads. Server-only. */
-export function clearAllAssetCaches(): void {
-  assetCache.clear();
-  actionCache.clear();
-}
-
 export async function storeAsset(asset: Asset): Promise<void> {
   // Reject assets without a meaningful title at the source rather than
   // letting them land in the DB and filtering them out everywhere downstream.
@@ -249,55 +241,6 @@ export async function storeAsset(asset: Asset): Promise<void> {
       }).catch(() => {});
     }
   }
-}
-
-/**
- * Sync accessor — returns cached assets only (for client-side hooks).
- * On the server, call loadAssetsForThread() first to hydrate from DB.
- */
-export function getAssetsForThread(threadId: string): Asset[] {
-  return assetCache.get(threadId) ?? [];
-}
-
-export function getLatestAssetForThread(threadId: string): Asset | null {
-  const list = assetCache.get(threadId);
-  return list && list.length > 0 ? list[list.length - 1] : null;
-}
-
-/**
- * Async loader — hydrates cache from Supabase. Call from server-side code.
- */
-export async function loadAssetsForThread(threadId: string): Promise<Asset[]> {
-  const cached = assetCache.get(threadId);
-  if (cached && cached.length > 0) return cached;
-
-  const sb = getServerSupabase();
-  if (!sb) return [];
-
-  const { data, error } = await rawDb(sb)!
-    .from("assets")
-    .select("*")
-    .eq("thread_id", threadId)
-    .order("created_at", { ascending: true })
-    .limit(50);
-
-  if (error || !data) return [];
-
-  const assets: Asset[] = data.map((row: Record<string, unknown>) => ({
-    id: row.id as string,
-    threadId: row.thread_id as string,
-    kind: row.kind as AssetKind,
-    title: row.title as string,
-    summary: (row.summary as string | undefined) ?? undefined,
-    outputTier: (row.output_tier as OutputTier | undefined) ?? undefined,
-    provenance: (row.provenance ?? {}) as AssetProvenance,
-    createdAt: new Date(row.created_at as string).getTime(),
-    contentRef: (row.content_ref as string | undefined) ?? undefined,
-    runId: (row.run_id as string | undefined) ?? undefined,
-  }));
-
-  assetCache.set(threadId, assets);
-  return assets;
 }
 
 /**
@@ -417,54 +360,3 @@ export function storeAction(action: Action): void {
   }
 }
 
-export function getActionsForThread(threadId: string): Action[] {
-  return actionCache.get(threadId) ?? [];
-}
-
-export async function loadActionsForThread(threadId: string): Promise<Action[]> {
-  const cached = actionCache.get(threadId);
-  if (cached && cached.length > 0) return cached;
-
-  const sb = getServerSupabase();
-  if (!sb) return [];
-
-  const { data, error } = await rawDb(sb)!
-    .from("actions")
-    .select("*")
-    .eq("thread_id", threadId)
-    .order("timestamp", { ascending: true })
-    .limit(50);
-
-  if (error || !data) return [];
-
-  const actions: Action[] = data.map((row: Record<string, unknown>) => ({
-    id: row.id as string,
-    threadId: row.thread_id as string,
-    type: row.type as ActionType,
-    provider: row.provider as ProviderId,
-    status: row.status as ActionStatus,
-    timestamp: new Date(row.timestamp as string).getTime(),
-    metadata: (row.metadata ?? {}) as Record<string, unknown>,
-    assetId: (row.asset_id as string | undefined) ?? undefined,
-  }));
-
-  actionCache.set(threadId, actions);
-  return actions;
-}
-
-// ── Bridge: Asset → Halo artifact kind ──────────────────────
-
-export function assetKindToHaloKind(kind: AssetKind): HaloArtifactKind {
-  switch (kind) {
-    case "report": return "report";
-    case "brief": return "draft";
-    case "message": return "draft";
-    case "document": return "file";
-    case "spreadsheet": return "file";
-    case "task": return "task";
-    case "event": return "event";
-    case "inbox_brief": return "report";
-    case "daily_brief": return "report";
-    case "artifact": return "file";
-  }
-}

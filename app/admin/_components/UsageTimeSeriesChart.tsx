@@ -36,7 +36,7 @@ export function UsageTimeSeriesChart({
           background: "var(--bg-elev)",
         }}
       >
-        <span className="t-11 font-mono uppercase text-[var(--text-faint)]">
+        <span className="t-11 font-mono uppercase text-text-faint">
           Aucune donnée sur la fenêtre
         </span>
       </div>
@@ -76,9 +76,9 @@ export function UsageTimeSeriesChart({
         background: "var(--bg-elev)",
       }}
     >
-      <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
-        <h3 className="t-13 font-medium text-[var(--text)]">Usage cross-tenant</h3>
-        <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
+      <header className="flex items-baseline justify-between gap-(--space-3)">
+        <h3 className="t-13 font-medium text-text">Usage cross-tenant</h3>
+        <div className="flex items-center gap-(--space-3)">
           <Legend label="runs" colorVar="var(--accent-teal)" />
           <Legend label="cost USD" colorVar="var(--warn)" />
         </div>
@@ -119,11 +119,11 @@ export function UsageTimeSeriesChart({
           strokeLinejoin="round"
         />
       </svg>
-      <div className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
-        <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
+      <div className="flex items-center justify-between gap-(--space-3)">
+        <span className="t-9 font-mono uppercase text-text-faint">
           {firstLabel}
         </span>
-        <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
+        <span className="t-9 font-mono uppercase text-text-faint">
           {lastLabel}
         </span>
       </div>
@@ -134,8 +134,7 @@ export function UsageTimeSeriesChart({
 function Legend({ label, colorVar }: { label: string; colorVar: string }) {
   return (
     <span
-      className="flex items-center t-9 font-mono uppercase text-[var(--text-muted)]"
-      style={{ gap: "var(--space-2)" }}
+      className="flex items-center gap-(--space-2) t-9 font-mono uppercase text-text-muted"
     >
       <span
         aria-hidden="true"

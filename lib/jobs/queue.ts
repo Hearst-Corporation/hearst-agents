@@ -108,10 +108,3 @@ export async function getJobState(
   };
 }
 
-/** Utilitaire de tests : libère les queues en mémoire. */
-export function resetQueuesForTests(): void {
-  for (const q of queues.values()) {
-    void q.close().catch(() => {});
-  }
-  queues.clear();
-}

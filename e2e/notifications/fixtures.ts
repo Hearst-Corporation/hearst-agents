@@ -8,9 +8,9 @@ import type { Page } from "@playwright/test";
 
 // ── IDs stables ─────────────────────────────────────────────────────────────
 
-export const NOTIF_ID_1 = "00000000-0000-4000-8000-notif00000001";
-export const NOTIF_ID_2 = "00000000-0000-4000-8000-notif00000002";
-export const NOTIF_ID_3 = "00000000-0000-4000-8000-notif00000003";
+const NOTIF_ID_1 = "00000000-0000-4000-8000-notif00000001";
+const NOTIF_ID_2 = "00000000-0000-4000-8000-notif00000002";
+const NOTIF_ID_3 = "00000000-0000-4000-8000-notif00000003";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -32,7 +32,7 @@ export interface MockNotificationInput {
 /**
  * mockNotification — génère une notification in-app avec valeurs par défaut.
  */
-export function mockNotification(overrides: MockNotificationInput = {}) {
+function mockNotification(overrides: MockNotificationInput = {}) {
   return {
     id: overrides.id ?? NOTIF_ID_1,
     tenant_id: "tenant-test",
