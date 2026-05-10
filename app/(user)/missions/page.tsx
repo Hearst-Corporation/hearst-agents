@@ -56,9 +56,9 @@ function MissionsPageContent() {
         if (opsRes.ok) {
           const opsData = await opsRes.json();
           const opsMap = new Map(
-            opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number }) => [
+            opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number; drift?: { staleRuns: number; suggestion: string } }) => [
               op.missionId,
-              { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince },
+              { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince, drift: op.drift },
             ]) || []
           );
 
@@ -87,9 +87,9 @@ function MissionsPageContent() {
       if (!res.ok) return;
       const opsData = await res.json();
       const opsMap = new Map(
-        opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number }) => [
+        opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number; drift?: { staleRuns: number; suggestion: string } }) => [
           op.missionId,
-          { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince },
+          { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince, drift: op.drift },
         ]) || []
       );
       setMissions((prev) =>

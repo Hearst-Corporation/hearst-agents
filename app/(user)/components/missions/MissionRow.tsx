@@ -12,6 +12,16 @@ import { GhostIconPencil, GhostIconPlay, GhostIconTrash } from "../ghost-icons";
 
 export type MissionOpsStatus = "idle" | "running" | "success" | "failed" | "blocked";
 
+/**
+ * Drift Alert (S3-E) — payload propagé depuis l'ops-store côté server.
+ * Présent uniquement si la mission a tourné ≥ 3 fois sans changement
+ * significatif d'output. Allume un badge gold + tooltip dans la rangée.
+ */
+export interface MissionDriftPayload {
+  staleRuns: number;
+  suggestion: string;
+}
+
 export interface Mission {
   id: string;
   name: string;
@@ -31,6 +41,7 @@ export interface Mission {
   opsStatus?: MissionOpsStatus;
   lastError?: string;
   runningSince?: number;
+  drift?: MissionDriftPayload;
 }
 
 interface MissionRowProps {
@@ -112,6 +123,16 @@ export function MissionRow({
         </button>
       </div>
       <div className="text-right space-y-2">
+        {mission.drift && (
+          <button
+            type="button"
+            onClick={() => onOpen(mission)}
+            className="block ml-auto t-9 font-medium border-b border-(--gold) text-(--gold) pb-0.5 cursor-pointer hover:opacity-80 transition-opacity"
+            title={mission.drift.suggestion}
+          >
+            Drift · {mission.drift.staleRuns} runs
+          </button>
+        )}
         <span className={`inline-block t-9 font-medium border-b pb-0.5 ${STATUS_LINE[ops]}`}>
           {STATUS_LABEL[ops]}
         </span>

@@ -51,6 +51,8 @@ export async function GET() {
         lastRunStatus: live?.lastRunStatus ?? m.lastRunStatus,
         lastError: live?.lastError ?? m.lastError,
         runningSince: isLiveRunning ? live?.runningSince : undefined,
+        // Drift Alert (S3-E) — exposé au cockpit pour afficher le badge gold.
+        drift: live?.drift,
       };
     });
 
