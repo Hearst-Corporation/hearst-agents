@@ -65,7 +65,7 @@ export function ArtifactKernel() {
 
   const rimGeometry = useMemo(() => {
     const shape = lensShape(0.91, 0.61, 0.19);
-    shape.holes.push(lensPath(0.90, 0.60, 0.185));
+    shape.holes.push(lensPath(0.906, 0.606, 0.188)); // Filament hyper fin
     return new THREE.ShapeGeometry(shape, 96);
   }, []);
 
@@ -95,9 +95,10 @@ export function ArtifactKernel() {
     }
 
     if (rimRef.current) {
-      // Effet de respiration énergétique sur le rebord
-      const intensity = 0.6 + Math.sin(t * 1.5) * 0.4;
+      // Respiration très lente, type veille Mac
+      const intensity = 0.25 + Math.sin(t * 0.8) * 0.2;
       rimRef.current.emissiveIntensity = intensity;
+      rimRef.current.opacity = 0.7 + Math.sin(t * 0.8) * 0.15;
     }
 
     if (logoRef.current) {
@@ -143,14 +144,14 @@ export function ArtifactKernel() {
         <meshPhysicalMaterial
           ref={rimRef}
           color="#ffffff"
-          emissive="#e2e8f0" // Glow blanc/argent très subtil
-          emissiveIntensity={0.5} // Animé dans useFrame
+          emissive="#ffffff" // Lumière pure
+          emissiveIntensity={0.25} // Animé dans useFrame
           transparent
-          opacity={0.9}
-          roughness={0.05}
+          opacity={0.8}
+          roughness={0.1}
           metalness={0.9}
           clearcoat={1}
-          envMapIntensity={4}
+          envMapIntensity={2}
           depthWrite={false}
         />
       </mesh>
