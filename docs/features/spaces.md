@@ -2,13 +2,13 @@
 
 ## Métadonnées
 
-| Champ              | Valeur                                                         |
-| ------------------ | -------------------------------------------------------------- |
-| **id**             | `spaces`                                                       |
+| Champ              | Valeur                                                          |
+| ------------------ | --------------------------------------------------------------- |
+| **id**             | `spaces`                                                        |
 | **statut**         | `in_progress` (preview — Phases 1 & 2 livrées, Phase 3 à venir) |
-| **owner**          | Adrien                                                         |
-| **dernière revue** | 2026-05-10                                                     |
-| **version spec**   | 1.1                                                            |
+| **owner**          | Adrien                                                          |
+| **dernière revue** | 2026-05-10                                                      |
+| **version spec**   | 1.1                                                             |
 
 ## Description
 
@@ -105,14 +105,14 @@ Migration : [`supabase/migrations/0062_spaces_foundation.sql`](../../supabase/mi
 
 Tables ayant reçu `space_id text NOT NULL DEFAULT 'personal'` :
 
-| Table             | Index composite              | Notes                                   |
-| ----------------- | ---------------------------- | --------------------------------------- |
-| `assets`          | `(thread_id, space_id)`      | pas de tenant_id direct                 |
-| `missions`        | `(user_id, space_id)`        | user-scoped                             |
-| `mission_runs`    | `(mission_id, space_id)`     | dérivé de mission                       |
-| `runs`            | `(tenant_id, space_id)`      | tenant_id posé en migration 0051        |
-| `personas`        | `(tenant_id, space_id)`      | tenant_id posé en migration 0050/0052   |
-| `report_versions` | `(tenant_id, space_id)`      | tenant_id posé en migration 0042        |
+| Table             | Index composite          | Notes                                 |
+| ----------------- | ------------------------ | ------------------------------------- |
+| `assets`          | `(thread_id, space_id)`  | pas de tenant_id direct               |
+| `missions`        | `(user_id, space_id)`    | user-scoped                           |
+| `mission_runs`    | `(mission_id, space_id)` | dérivé de mission                     |
+| `runs`            | `(tenant_id, space_id)`  | tenant_id posé en migration 0051      |
+| `personas`        | `(tenant_id, space_id)`  | tenant_id posé en migration 0050/0052 |
+| `report_versions` | `(tenant_id, space_id)`  | tenant_id posé en migration 0042      |
 
 Volontairement exclus :
 
