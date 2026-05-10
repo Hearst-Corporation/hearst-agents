@@ -4,6 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { useRuntimeStore } from "@/stores/runtime";
 import { ChatToolStream } from "./ChatToolStream";
 import { ChatActionReceipts } from "./ChatActionReceipts";
+import { ChatRunReceipt } from "./ChatRunReceipt";
 import { ChatConnectInline } from "./ChatConnectInline";
 import { ChatMissionRunInline } from "./ChatMissionRunInline";
 import { ThinkingDisclosure } from "./ThinkingDisclosure";
@@ -268,6 +269,7 @@ export function ChatMessages({
                   <ChatConnectInline />
                   <ChatMissionRunInline />
                   <ChatActionReceipts />
+                  <ChatRunReceipt />
                 </>
               )}
               {isLastAssistant && !showShimmer && hasPendingConfirmation(liveContent) && onQuickReply && (
