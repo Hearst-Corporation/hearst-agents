@@ -22,6 +22,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useStageStore, type StagePayload } from "@/stores/stage";
+import { useFocalStore } from "@/stores/focal";
 import { useVoiceStore } from "@/stores/voice";
 import { useNavigationStore } from "@/stores/navigation";
 import { CommandeurResultRow, type CommandeurResultKind } from "./CommandeurResultRow";
@@ -445,10 +446,21 @@ export function Commandeur() {
       setActiveIndex(0);
       return;
     }
-    // À l'ouverture, consomme la query préremplie si présente.
+    // À l'ouverture, consomme la query préremplie explicite si présente.
     const prefill = consumePrefill();
     if (prefill) {
       setQuery(prefill);
+      return;
+    }
+    // Sinon, génère un prefill contextuel selon le Stage actif + focal courant.
+    const stageMode = useStageStore.getState().current.mode;
+    const focal = useFocalStore.getState().focal;
+    if (focal?.title) {
+      if (stageMode === "asset") {
+        setQuery(`Améliorer "${focal.title}"`);
+      } else if (stageMode === "mission") {
+        setQuery(`Résumé de la mission "${focal.title}"`);
+      }
     }
   }, [isOpen, consumePrefill]);
 
