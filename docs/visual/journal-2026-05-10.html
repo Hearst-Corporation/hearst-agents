@@ -1,0 +1,1583 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hearst OS — Journal v1 (silent luxury, agent-orchestrateur)</title>
+<style>
+  /* =========================================================
+     MOCKUP STANDALONE — Journal v1 (2026-05-10)
+     Vision après QA manuel + correctifs P0.
+     Refonte : rail gauche conversations only, voix éditoriale
+     "majordome", Commandeur conversationnel, suppression jargon.
+     Aucune dépendance, aucun JS — basculement d'état via radio CSS.
+     Cohérent avec docs/visual/cockpit-2026-05.html (silent luxury).
+     ========================================================= */
+
+  :root {
+    /* Surfaces — matière noire feuilletée */
+    --bg-base:        #0A0A0B;
+    --bg-rail:        #08080A;
+    --bg-stage:       #050709;
+    --bg-module:      #131318;
+    --bg-module-hi:   #1A1A20;
+    --bg-overlay:     rgba(5, 7, 9, 0.86);
+
+    /* Hairlines */
+    --hairline:        rgba(255, 255, 255, 0.04);
+    --hairline-soft:   rgba(255, 255, 255, 0.025);
+    --hairline-strong: rgba(255, 255, 255, 0.08);
+
+    /* Profondeur */
+    --inset-module:  inset 0 1px 0 rgba(255,255,255,0.025), inset 0 -1px 0 rgba(0,0,0,0.45);
+    --shadow-paper:  0 1px 2px rgba(0,0,0,0.18), 0 12px 36px -12px rgba(0,0,0,0.6);
+    --shadow-overlay: 0 24px 80px -20px rgba(0,0,0,0.8);
+
+    /* Texte — Mastered Contrast */
+    --t-l0:  #E8E8EA;
+    --t-l1:  #98989D;
+    --t-l2:  #5A5A60;
+    --t-l3:  #38383C;
+
+    /* Accents */
+    --teal:        #4A8B86;
+    --teal-soft:   rgba(74, 139, 134, 0.16);
+    --teal-glow:   rgba(74, 139, 134, 0.32);
+    --teal-faint:  rgba(74, 139, 134, 0.06);
+    --teal-line:   rgba(74, 139, 134, 0.22);
+
+    /* Gold éditorial — transitions narratives */
+    --gold:        #C8A961;
+    --gold-soft:   rgba(200, 169, 97, 0.14);
+    --gold-faint:  rgba(200, 169, 97, 0.06);
+
+    /* Sémantiques */
+    --warn:    #FFCC00;
+    --warn-soft: rgba(255, 204, 0, 0.10);
+    --danger:  #FF5252;
+
+    /* Atmosphère */
+    --grain-opacity: 0.025;
+
+    /* Typographie */
+    --font-sans:  -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Satoshi", system-ui, sans-serif;
+    --font-mono:  "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+
+    /* Échelle typo */
+    --t-9:  9px;
+    --t-11: 11px;
+    --t-13: 13px;
+    --t-15: 15px;
+    --t-18: 18px;
+    --t-22: 22px;
+    --t-32: 32px;
+    --t-44: 44px;
+    --t-56: 56px;
+
+    /* Layout */
+    --h-pulsebar:   48px;
+    --h-stagefoot:  28px;
+    --h-chatdock:   72px;
+    --w-rail-left:  280px;
+    --w-rail-right: 380px;
+
+    /* Motion */
+    --d-fast:   180ms;
+    --d-base:   280ms;
+    --d-slow:   420ms;
+    --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg-base); }
+  body {
+    font-family: var(--font-sans);
+    color: var(--t-l0);
+    font-weight: 300;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; letter-spacing: inherit; }
+  ul, li { list-style: none; padding: 0; margin: 0; }
+  input { font: inherit; color: inherit; background: none; border: none; outline: none; letter-spacing: inherit; }
+
+  /* Grain global — bruit visuel très discret */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    z-index: 9999;
+  }
+
+  /* ==========================================================
+     DEMO TOGGLE — basculement entre 2 états dans le même fichier
+     ========================================================== */
+  .demo-toggle {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 10000;
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 999px;
+    box-shadow: var(--shadow-paper);
+  }
+  .demo-toggle label {
+    padding: 6px 12px;
+    font-size: var(--t-11);
+    color: var(--t-l2);
+    cursor: pointer;
+    border-radius: 999px;
+    transition: all var(--d-base) var(--ease);
+    user-select: none;
+  }
+  .demo-toggle label:hover { color: var(--t-l1); }
+  .demo-toggle input { display: none; }
+  .demo-toggle input:checked + label {
+    color: var(--t-l0);
+    background: var(--teal-soft);
+  }
+
+  #state-default:checked ~ .commandeur { display: none; }
+  #state-commandeur:checked ~ .commandeur { display: flex; }
+
+  /* ==========================================================
+     SHELL
+     ========================================================== */
+  .shell {
+    display: grid;
+    grid-template-rows: var(--h-pulsebar) 1fr var(--h-stagefoot);
+    grid-template-columns: var(--w-rail-left) 1fr var(--w-rail-right);
+    grid-template-areas:
+      "pulse pulse pulse"
+      "left  stage right"
+      "foot  foot  foot";
+    min-height: 100vh;
+  }
+
+  /* ==========================================================
+     PULSEBAR
+     ========================================================== */
+  .pulsebar {
+    grid-area: pulse;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 16px 0 calc(16px + 70px); /* déport titlebar Electron */
+    background: var(--bg-rail);
+    border-bottom: 1px solid var(--hairline);
+    position: relative;
+    z-index: 10;
+    -webkit-app-region: drag;
+  }
+  .pulsebar > * { -webkit-app-region: no-drag; }
+
+  .pulse-left {
+    display: flex; align-items: center; gap: 12px;
+    min-width: 0;
+  }
+  .pulse-right {
+    display: flex; align-items: center; gap: 18px;
+    justify-content: flex-end;
+  }
+
+  /* Space selector */
+  .space-selector {
+    display: flex; gap: 2px;
+    padding: 3px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+  }
+  .space-pill {
+    padding: 4px 10px;
+    font-size: var(--t-11);
+    color: var(--t-l2);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all var(--d-base) var(--ease);
+  }
+  .space-pill.active {
+    color: var(--t-l0);
+    background: var(--teal-soft);
+  }
+
+  /* Cmd+K pill — central */
+  .cmdk-pill {
+    display: flex; align-items: center; gap: 12px;
+    width: 360px;
+    padding: 6px 12px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    color: var(--t-l2);
+    font-size: var(--t-13);
+    font-weight: 300;
+    box-shadow: var(--inset-module);
+    transition: border-color var(--d-base) var(--ease);
+  }
+  .cmdk-pill:hover { border-color: var(--hairline-strong); }
+  .cmdk-pill .ph { flex: 1; min-width: 0; text-align: left; }
+  .cmdk-pill .kbd {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--t-9);
+    color: var(--t-l3);
+    letter-spacing: 0.05em;
+    padding: 2px 5px;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+  }
+
+  /* Pulse indicators (right) */
+  .pulse-status {
+    display: flex; align-items: center; gap: 6px;
+    font-size: var(--t-11);
+    color: var(--t-l1);
+    font-weight: 300;
+  }
+  .pulse-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 6px var(--teal-glow);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+  }
+  .pulse-bell {
+    width: 16px; height: 16px;
+    color: var(--t-l2);
+    cursor: pointer;
+    position: relative;
+    transition: color var(--d-base) var(--ease);
+  }
+  .pulse-bell:hover { color: var(--t-l0); }
+  .pulse-bell::after {
+    content: "";
+    position: absolute;
+    top: 0; right: -1px;
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1.5px var(--bg-rail);
+  }
+
+  /* AmbientWhisper */
+  .whisper {
+    display: flex; align-items: center; gap: 8px;
+    max-width: 360px;
+    min-width: 0;
+    padding: 0;
+    font-size: var(--t-11);
+    color: var(--t-l2);
+    font-weight: 300;
+    cursor: pointer;
+    transition: opacity var(--d-slow) var(--ease);
+  }
+  .whisper:hover { color: var(--t-l1); }
+  .whisper-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 6px var(--teal-glow);
+    flex-shrink: 0;
+  }
+  .whisper-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .whisper-arrow {
+    color: var(--t-l3);
+    flex-shrink: 0;
+  }
+
+  /* ==========================================================
+     RAIL GAUCHE — Conversations only (style ChatGPT)
+     ========================================================== */
+  .rail-left {
+    grid-area: left;
+    background: var(--bg-rail);
+    border-right: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .rail-logo {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .rail-logo .h {
+    font-size: 22px;
+    color: var(--t-l0);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+  }
+  .rail-logo .h em {
+    color: var(--teal);
+    font-style: normal;
+  }
+
+  .rail-new {
+    margin: 16px 12px 0;
+    padding: 10px 14px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    font-size: var(--t-13);
+    color: var(--t-l1);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all var(--d-base) var(--ease);
+  }
+  .rail-new:hover {
+    background: var(--bg-module-hi);
+    border-color: var(--hairline-strong);
+    color: var(--t-l0);
+  }
+  .rail-new .plus {
+    color: var(--teal);
+    font-size: var(--t-15);
+    font-weight: 400;
+  }
+
+  .rail-threads {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 0 16px;
+  }
+  .rail-threads::-webkit-scrollbar { width: 0; }
+
+  .thread-group {
+    margin-bottom: 20px;
+  }
+  .thread-group h3 {
+    margin: 0 20px 8px;
+    font-size: var(--t-9);
+    font-weight: 500;
+    color: var(--t-l3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .thread {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 20px;
+    font-size: var(--t-13);
+    color: var(--t-l1);
+    cursor: pointer;
+    transition: all var(--d-base) var(--ease);
+    border-left: 2px solid transparent;
+  }
+  .thread:hover {
+    background: rgba(255,255,255,0.018);
+    color: var(--t-l0);
+  }
+  .thread.active {
+    color: var(--t-l0);
+    background: rgba(255,255,255,0.025);
+    border-left-color: var(--teal);
+  }
+  .thread .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--t-l3);
+    flex-shrink: 0;
+    transition: all var(--d-base) var(--ease);
+  }
+  .thread.active .dot {
+    background: var(--teal);
+    box-shadow: 0 0 6px var(--teal-glow);
+  }
+  .thread .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .rail-footer {
+    border-top: 1px solid var(--hairline);
+    padding: 14px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rail-user {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rail-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--bg-module-hi);
+    border: 1px solid var(--hairline-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--t-13);
+    font-weight: 400;
+    color: var(--t-l0);
+    position: relative;
+  }
+  .rail-avatar::after {
+    content: "";
+    position: absolute;
+    bottom: 1px; right: 1px;
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--teal-glow), 0 0 0 1.5px var(--bg-rail);
+  }
+  .rail-user-meta {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .rail-user-meta .name {
+    font-size: var(--t-13);
+    color: var(--t-l0);
+  }
+  .rail-user-meta .role {
+    font-size: var(--t-9);
+    color: var(--t-l3);
+    letter-spacing: 0.06em;
+  }
+  .rail-actions {
+    display: flex; gap: 14px;
+    font-size: var(--t-11);
+    color: var(--t-l2);
+  }
+  .rail-actions a {
+    color: var(--t-l2);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--d-base) var(--ease);
+  }
+  .rail-actions a:hover { color: var(--t-l0); }
+
+  /* ==========================================================
+     STAGE — Le journal (mode cockpit)
+     ========================================================== */
+  .stage {
+    grid-area: stage;
+    background: var(--bg-stage);
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-paper);
+  }
+  .stage::-webkit-scrollbar { width: 0; }
+
+  .stage-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 56px calc(var(--h-chatdock) + 80px);
+  }
+
+  .stage-meta {
+    display: flex; align-items: center;
+    gap: 10px;
+    font-size: var(--t-11);
+    color: var(--t-l3);
+    margin-bottom: 36px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+  .stage-meta .sep { color: var(--t-l3); opacity: 0.5; }
+  .stage-meta .refresh {
+    margin-left: auto;
+    color: var(--t-l3);
+    cursor: pointer;
+    transition: color var(--d-base) var(--ease);
+  }
+  .stage-meta .refresh:hover { color: var(--t-l0); }
+
+  .stage h1 {
+    font-size: var(--t-44);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    color: var(--t-l0);
+    line-height: 1.05;
+  }
+
+  /* Briefing — chiffres clés en intro */
+  .lead {
+    font-size: var(--t-15);
+    color: var(--t-l1);
+    line-height: 1.55;
+    margin: 0 0 24px;
+    max-width: 580px;
+  }
+  .lead-stats {
+    display: flex; align-items: center;
+    gap: 24px;
+    padding: 12px 0;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 48px;
+  }
+  .lead-stats span {
+    font-size: var(--t-11);
+    color: var(--t-l2);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+  .lead-stats b {
+    color: var(--t-l0);
+    font-weight: 400;
+  }
+
+  /* Transitions narratives — italique gold */
+  .transition {
+    font-family: "Iowan Old Style", "Charter", Georgia, serif;
+    font-size: var(--t-22);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    margin: 56px 0 22px;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .transition:first-of-type { margin-top: 0; }
+
+  /* Brief bullets — style narratif */
+  .brief-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 0 24px;
+  }
+  .brief-list li {
+    font-size: var(--t-15);
+    color: var(--t-l1);
+    line-height: 1.55;
+    padding-left: 14px;
+    position: relative;
+  }
+  .brief-list li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--t-l3);
+  }
+
+  .brief-actions {
+    display: flex; gap: 10px;
+    margin-top: 12px;
+  }
+  .btn-ghost {
+    padding: 7px 14px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    font-size: var(--t-11);
+    color: var(--t-l1);
+    transition: all var(--d-base) var(--ease);
+  }
+  .btn-ghost:hover {
+    background: var(--bg-module-hi);
+    border-color: var(--hairline-strong);
+    color: var(--t-l0);
+  }
+  .btn-ghost .glyph {
+    margin-right: 6px;
+    color: var(--teal);
+  }
+
+  /* Agenda */
+  .agenda { display: flex; flex-direction: column; gap: 22px; }
+  .agenda li {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 18px;
+    align-items: baseline;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .agenda li:last-child { border-bottom: none; }
+  .agenda time {
+    font-family: var(--font-mono);
+    font-size: var(--t-13);
+    color: var(--t-l1);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+  }
+  .agenda .title {
+    font-size: var(--t-15);
+    color: var(--t-l0);
+    line-height: 1.4;
+  }
+  .agenda .meta {
+    display: block;
+    margin-top: 4px;
+    font-size: var(--t-13);
+    color: var(--t-l2);
+    line-height: 1.4;
+  }
+  .agenda .suggest {
+    display: block;
+    margin-top: 6px;
+    font-size: var(--t-13);
+    color: var(--gold);
+    line-height: 1.4;
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  /* Agent working */
+  .working-list { display: flex; flex-direction: column; gap: 18px; }
+  .working-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--hairline-soft);
+    font-size: var(--t-15);
+    color: var(--t-l1);
+    line-height: 1.55;
+  }
+  .working-list li:last-child { border-bottom: none; }
+  .working-list .glyph {
+    flex-shrink: 0;
+    margin-top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 8px var(--teal-glow);
+    position: relative;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .working-list b {
+    color: var(--t-l0);
+    font-weight: 400;
+  }
+
+  /* When you have 5 min */
+  .later-list { display: flex; flex-direction: column; gap: 0; }
+  .later-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    cursor: pointer;
+    transition: padding var(--d-base) var(--ease);
+  }
+  .later-list li:last-child { border-bottom: none; }
+  .later-list li:hover { padding-left: 8px; }
+  .later-list .glyph {
+    font-size: var(--t-18);
+    color: var(--gold);
+    text-align: center;
+  }
+  .later-list .title {
+    font-size: var(--t-15);
+    color: var(--t-l0);
+    line-height: 1.3;
+  }
+  .later-list .meta {
+    display: block;
+    margin-top: 3px;
+    font-size: var(--t-11);
+    color: var(--t-l2);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+  .later-list .arrow {
+    color: var(--t-l3);
+    font-size: var(--t-15);
+    transition: color var(--d-base) var(--ease), transform var(--d-base) var(--ease);
+  }
+  .later-list li:hover .arrow {
+    color: var(--teal);
+    transform: translateX(3px);
+  }
+
+  /* État terminal — quand tout est calme */
+  .all-clear {
+    text-align: center;
+    padding: 96px 24px;
+    color: var(--t-l2);
+    font-style: italic;
+    font-family: "Iowan Old Style", "Charter", Georgia, serif;
+    font-size: var(--t-18);
+    line-height: 1.6;
+  }
+
+  /* ==========================================================
+     CHATDOCK — Demande quelque chose
+     ========================================================== */
+  .chatdock {
+    position: absolute;
+    bottom: 24px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .chatdock-inner {
+    pointer-events: auto;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 56px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-paper);
+    transition: border-color var(--d-base) var(--ease), box-shadow var(--d-base) var(--ease);
+  }
+  .chatdock-inner:focus-within {
+    border-color: var(--teal-line);
+    box-shadow: var(--shadow-paper), 0 0 0 1px var(--teal-soft);
+  }
+  .chatdock-input {
+    flex: 1;
+    font-size: var(--t-15);
+    color: var(--t-l0);
+  }
+  .chatdock-input::placeholder {
+    color: var(--t-l2);
+  }
+  .chatdock-tools {
+    display: flex; gap: 8px;
+    color: var(--t-l3);
+    font-size: var(--t-13);
+  }
+  .chatdock-tool {
+    width: 24px; height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--d-base) var(--ease);
+  }
+  .chatdock-tool:hover {
+    color: var(--t-l1);
+    background: rgba(255,255,255,0.04);
+  }
+  .chatdock-send {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--teal-soft);
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--t-15);
+    cursor: pointer;
+    transition: all var(--d-base) var(--ease);
+  }
+  .chatdock-send:hover {
+    background: var(--teal);
+    color: #000;
+  }
+
+  /* ==========================================================
+     RAIL DROIT — voix éditoriale (4 zones humaines)
+     ========================================================== */
+  .rail-right {
+    grid-area: right;
+    background: var(--bg-rail);
+    border-left: 1px solid var(--hairline);
+    overflow-y: auto;
+    padding: 28px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .rail-right::-webkit-scrollbar { width: 0; }
+
+  .ctx-section h3 {
+    margin: 0 0 14px;
+    font-size: var(--t-9);
+    font-weight: 500;
+    color: var(--t-l3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex; align-items: center;
+    justify-content: space-between;
+  }
+  .ctx-section h3 .count {
+    color: var(--t-l1);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+
+  /* À valider */
+  .validate-card {
+    padding: 14px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: var(--inset-module);
+    transition: all var(--d-base) var(--ease);
+  }
+  .validate-card:hover {
+    border-color: var(--hairline-strong);
+    background: var(--bg-module-hi);
+  }
+  .validate-card .who {
+    font-size: var(--t-13);
+    color: var(--t-l0);
+    margin: 0 0 4px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .validate-card .who::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--teal-glow);
+    flex-shrink: 0;
+  }
+  .validate-card .quote {
+    font-size: var(--t-13);
+    color: var(--t-l1);
+    line-height: 1.5;
+    margin: 0 0 12px;
+    font-style: italic;
+    padding-left: 14px;
+  }
+  .validate-card .actions {
+    display: flex; gap: 8px;
+  }
+  .btn-mini {
+    flex: 1;
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 5px;
+    font-size: var(--t-11);
+    color: var(--t-l1);
+    transition: all var(--d-base) var(--ease);
+  }
+  .btn-mini:hover {
+    background: rgba(255,255,255,0.03);
+    color: var(--t-l0);
+    border-color: var(--hairline-strong);
+  }
+  .btn-mini.primary {
+    background: var(--teal-soft);
+    border-color: var(--teal-line);
+    color: var(--teal);
+  }
+  .btn-mini.primary:hover {
+    background: var(--teal);
+    color: #000;
+    border-color: var(--teal);
+  }
+
+  /* Pendant que tu lis ça */
+  .working-card {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .working-card:last-child { border-bottom: none; padding-bottom: 0; }
+  .working-card .pulse-dot-md {
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--teal-glow);
+    flex-shrink: 0;
+    margin-top: 6px;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .working-card p {
+    margin: 0;
+    font-size: var(--t-13);
+    color: var(--t-l0);
+    line-height: 1.55;
+  }
+  .working-card .meta {
+    display: block;
+    color: var(--t-l2);
+    margin-top: 3px;
+  }
+
+  /* Ce matin — timeline humaine */
+  .morning-list { display: flex; flex-direction: column; gap: 0; }
+  .morning-list li {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    align-items: baseline;
+    font-size: var(--t-13);
+    color: var(--t-l1);
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .morning-list li:last-child { border-bottom: none; }
+  .morning-list li:last-child .label { color: var(--t-l0); }
+  .morning-list time {
+    font-family: var(--font-mono);
+    font-size: var(--t-11);
+    color: var(--t-l3);
+    letter-spacing: 0.02em;
+  }
+
+  /* Attention */
+  .attention-card {
+    padding: 12px 14px;
+    background: var(--warn-soft);
+    border: 1px solid rgba(255, 204, 0, 0.20);
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .attention-card .warn-glyph {
+    color: var(--warn);
+    font-size: var(--t-13);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .attention-card-body { flex: 1; }
+  .attention-card p {
+    margin: 0 0 8px;
+    font-size: var(--t-13);
+    color: var(--t-l0);
+    line-height: 1.5;
+  }
+  .attention-card .btn-mini {
+    background: rgba(0,0,0,0.18);
+    border-color: rgba(255, 204, 0, 0.20);
+  }
+  .attention-card .btn-mini:hover {
+    background: var(--warn);
+    color: #000;
+    border-color: var(--warn);
+  }
+
+  /* ==========================================================
+     STAGE FOOTER — ligne système discrète
+     ========================================================== */
+  .stage-footer {
+    grid-area: foot;
+    background: var(--bg-rail);
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: var(--t-9);
+    color: var(--t-l3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .stage-footer .left { display: flex; align-items: center; gap: 10px; }
+  .stage-footer .right { color: var(--t-l3); }
+
+  /* ==========================================================
+     COMMANDEUR — overlay conversationnel agent
+     ========================================================== */
+  .commandeur {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    z-index: 100;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 120px;
+    animation: fade-in var(--d-base) var(--ease);
+  }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+  .commandeur-modal {
+    width: 100%;
+    max-width: 680px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline-strong);
+    border-radius: 16px;
+    box-shadow: var(--shadow-overlay);
+    overflow: hidden;
+    animation: scale-in var(--d-base) var(--ease-spring);
+  }
+  @keyframes scale-in {
+    from { transform: scale(0.94); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+
+  .commandeur-input {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .commandeur-input .ic {
+    width: 18px; height: 18px;
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+  .commandeur-input input {
+    flex: 1;
+    font-size: var(--t-22);
+    font-weight: 300;
+    color: var(--t-l0);
+    letter-spacing: -0.01em;
+  }
+  .commandeur-input input::placeholder {
+    color: var(--t-l2);
+  }
+  .commandeur-input .esc {
+    font-family: var(--font-mono);
+    font-size: var(--t-9);
+    color: var(--t-l3);
+    padding: 3px 7px;
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .commandeur-suggestions {
+    padding: 14px 0 18px;
+  }
+  .commandeur-suggestions h4 {
+    margin: 0 24px 10px;
+    font-size: var(--t-9);
+    font-weight: 500;
+    color: var(--t-l3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .suggest-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 24px;
+    cursor: pointer;
+    transition: background var(--d-base) var(--ease);
+  }
+  .suggest-row:hover {
+    background: rgba(255,255,255,0.025);
+  }
+  .suggest-row.active {
+    background: rgba(255,255,255,0.035);
+  }
+  .suggest-row.active .arrow {
+    color: var(--teal);
+  }
+  .suggest-row .ic {
+    width: 14px; height: 14px;
+    color: var(--t-l2);
+    flex-shrink: 0;
+  }
+  .suggest-row .text {
+    flex: 1;
+    font-size: var(--t-15);
+    color: var(--t-l0);
+    line-height: 1.4;
+    font-weight: 300;
+  }
+  .suggest-row .text em {
+    color: var(--t-l2);
+    font-style: normal;
+  }
+  .suggest-row .arrow {
+    color: var(--t-l3);
+    font-size: var(--t-13);
+  }
+
+  .commandeur-footer {
+    border-top: 1px solid var(--hairline);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: var(--t-9);
+    color: var(--t-l3);
+    letter-spacing: 0.04em;
+  }
+  .commandeur-footer kbd {
+    font-family: var(--font-mono);
+    color: var(--t-l2);
+    padding: 2px 5px;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    margin: 0 2px;
+  }
+
+  /* ==========================================================
+     Annotations dev (pour le mockup)
+     ========================================================== */
+  .anno {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    z-index: 9998;
+    padding: 8px 14px;
+    background: var(--bg-module);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    font-size: var(--t-9);
+    color: var(--t-l2);
+    letter-spacing: 0.04em;
+    max-width: 320px;
+    line-height: 1.5;
+  }
+  .anno b { color: var(--t-l0); font-weight: 400; }
+</style>
+</head>
+<body>
+
+  <!-- =========================================================
+       DEMO TOGGLE — bascule entre 2 états
+       ========================================================= -->
+  <div class="demo-toggle">
+    <input type="radio" name="state" id="state-default" checked>
+    <label for="state-default">Cockpit</label>
+    <input type="radio" name="state" id="state-commandeur">
+    <label for="state-commandeur">⌘K Commandeur</label>
+  </div>
+
+  <!-- =========================================================
+       SHELL — vue cockpit par défaut
+       ========================================================= -->
+  <div class="shell">
+
+    <!-- ═════════════ PULSEBAR ═════════════ -->
+    <header class="pulsebar">
+
+      <div class="pulse-left">
+        <div class="space-selector" role="radiogroup" aria-label="Espace de travail">
+          <span class="space-pill active">Perso</span>
+          <span class="space-pill">Side</span>
+          <span class="space-pill">Venture</span>
+        </div>
+        <div class="whisper">
+          <span class="whisper-dot"></span>
+          <span class="whisper-text">Aether AI a publié quelque chose ce week-end</span>
+          <span class="whisper-arrow">→</span>
+        </div>
+      </div>
+
+      <button class="cmdk-pill">
+        <span class="ph">Demande quelque chose à Hearst…</span>
+        <span class="kbd">⌘K</span>
+      </button>
+
+      <div class="pulse-right">
+        <div class="pulse-status">
+          <span class="pulse-dot"></span>
+          <span>Tout va bien</span>
+        </div>
+        <div class="pulse-bell" title="2 notifications"></div>
+      </div>
+
+    </header>
+
+    <!-- ═════════════ RAIL GAUCHE — Conversations only ═════════════ -->
+    <aside class="rail-left">
+
+      <div class="rail-logo">
+        <span class="h">Hearst<em>.</em></span>
+      </div>
+
+      <button class="rail-new">
+        <span class="plus">+</span>
+        <span>Nouvelle conversation</span>
+      </button>
+
+      <nav class="rail-threads">
+
+        <div class="thread-group">
+          <h3>Aujourd'hui</h3>
+          <div class="thread active">
+            <span class="dot"></span>
+            <span class="label">Brief client Aether — axes éditoriaux</span>
+          </div>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Sync produit — préparation</span>
+          </div>
+        </div>
+
+        <div class="thread-group">
+          <h3>7 derniers jours</h3>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Newsletter quotidien — angle</span>
+          </div>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Veille Q2 — synthèse</span>
+          </div>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Persona éditorial — réglages</span>
+          </div>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Recording newsletter — script</span>
+          </div>
+        </div>
+
+        <div class="thread-group">
+          <h3>Plus ancien</h3>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Setup initial</span>
+          </div>
+          <div class="thread">
+            <span class="dot"></span>
+            <span class="label">Connexion Slack</span>
+          </div>
+        </div>
+
+      </nav>
+
+      <div class="rail-footer">
+        <div class="rail-user">
+          <div class="rail-avatar">A</div>
+          <div class="rail-user-meta">
+            <span class="name">Adrien</span>
+            <span class="role">Founder · Hearst</span>
+          </div>
+        </div>
+        <div class="rail-actions">
+          <a>Réglages</a>
+          <a>Admin</a>
+          <a>Quitter</a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ═════════════ STAGE — Le journal ═════════════ -->
+    <main class="stage">
+      <div class="stage-inner">
+
+        <div class="stage-meta">
+          <span>lundi 10 mai · 07:42</span>
+          <span class="sep">·</span>
+          <span>brief mis à jour il y a 2 minutes</span>
+          <span class="refresh" title="Régénérer">↻</span>
+        </div>
+
+        <h1>Bonjour, Adrien.</h1>
+
+        <p class="lead">
+          Voici ce qui se passe pour toi ce matin. Je t'ai préparé l'essentiel — tu peux tout lire, ou m'écouter te le résumer.
+        </p>
+
+        <div class="lead-stats">
+          <span><b>3</b> trucs à valider</span>
+          <span><b>4</b> moments aujourd'hui</span>
+          <span><b>6</b> articles repérés en veille</span>
+        </div>
+
+        <h2 class="transition">Pendant que tu dormais.</h2>
+
+        <ul class="brief-list">
+          <li>12 emails important sur 64 reçus depuis hier soir.</li>
+          <li>Aether AI a publié une annonce ce week-end. Mathieu pense qu'on devrait répondre.</li>
+          <li>Ta newsletter de mardi est prête à relire — j'ai un brouillon.</li>
+        </ul>
+
+        <div class="brief-actions">
+          <button class="btn-ghost"><span class="glyph">▤</span>Tout lire</button>
+          <button class="btn-ghost"><span class="glyph">◔</span>M'écouter ça</button>
+        </div>
+
+        <h2 class="transition">Aujourd'hui. Quatre moments.</h2>
+
+        <ul class="agenda">
+          <li>
+            <time>10:00</time>
+            <div>
+              <span class="title">Sync produit</span>
+              <span class="meta">avec Camille, Léo et Sarah · Google Meet</span>
+            </div>
+          </li>
+          <li>
+            <time>11:30</time>
+            <div>
+              <span class="title">Brief client Aether</span>
+              <span class="meta">avec Mathieu</span>
+              <span class="suggest">— préparer les trois axes éditoriaux ?</span>
+            </div>
+          </li>
+          <li>
+            <time>14:00</time>
+            <div>
+              <span class="title">Recording newsletter</span>
+              <span class="meta">studio · 45 min</span>
+            </div>
+          </li>
+          <li>
+            <time>16:00</time>
+            <div>
+              <span class="title">Revue de la semaine</span>
+              <span class="meta">solo</span>
+            </div>
+          </li>
+        </ul>
+
+        <h2 class="transition">Pendant que tu lis ça.</h2>
+
+        <ul class="working-list">
+          <li>
+            <span class="glyph"></span>
+            <div>Ta routine <b>Veille concurrents</b> tourne — elle a déjà repéré 6 articles ce matin.</div>
+          </li>
+          <li>
+            <span class="glyph"></span>
+            <div>Ton <b>brief de demain</b> est en préparation — prêt vers 18h.</div>
+          </li>
+        </ul>
+
+        <h2 class="transition">À regarder quand tu auras 5 minutes.</h2>
+
+        <ul class="later-list">
+          <li>
+            <span class="glyph">▦</span>
+            <div>
+              <span class="title">Le rapport Tendances Q2 est prêt</span>
+              <span class="meta">12 graphes · 3 pages · 4 min de lecture</span>
+            </div>
+            <span class="arrow">→</span>
+          </li>
+          <li>
+            <span class="glyph">◇</span>
+            <div>
+              <span class="title">Aether AI a fait quelque chose d'inhabituel</span>
+              <span class="meta">2 nouvelles annonces · publié hier 18h00</span>
+            </div>
+            <span class="arrow">→</span>
+          </li>
+          <li>
+            <span class="glyph">✎</span>
+            <div>
+              <span class="title">Founder Cockpit — encore à compléter</span>
+              <span class="meta">setup à finaliser · 8 min</span>
+            </div>
+            <span class="arrow">→</span>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- ═════════════ CHATDOCK ═════════════ -->
+      <div class="chatdock">
+        <div class="chatdock-inner">
+          <input class="chatdock-input" placeholder="Demande-moi quelque chose…" />
+          <div class="chatdock-tools">
+            <span class="chatdock-tool" title="Joindre un fichier">⌬</span>
+            <span class="chatdock-tool" title="Mentionner une app">@</span>
+            <span class="chatdock-tool" title="Mode voix">◔</span>
+          </div>
+          <span class="chatdock-send" title="Envoyer">↑</span>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ═════════════ RAIL DROIT — voix éditoriale ═════════════ -->
+    <aside class="rail-right">
+
+      <section class="ctx-section">
+        <h3>À valider <span class="count">02</span></h3>
+
+        <article class="validate-card">
+          <p class="who">Mathieu attend ta réponse</p>
+          <p class="quote">« Tu peux confirmer les trois axes éditoriaux pour Aether ? »</p>
+          <div class="actions">
+            <button class="btn-mini">Lire</button>
+            <button class="btn-mini primary">Répondre</button>
+          </div>
+        </article>
+
+        <article class="validate-card">
+          <p class="who">Ton assistant te propose</p>
+          <p class="quote">de programmer la newsletter de mardi. Brouillon prêt — relis avant 17h.</p>
+          <div class="actions">
+            <button class="btn-mini">Voir</button>
+            <button class="btn-mini">Plus tard</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="ctx-section">
+        <h3>Pendant que tu lis ça <span class="count">02</span></h3>
+
+        <article class="working-card">
+          <span class="pulse-dot-md"></span>
+          <p>
+            Ta veille concurrents tourne.
+            <span class="meta">6 articles repérés ce matin.</span>
+          </p>
+        </article>
+
+        <article class="working-card">
+          <span class="pulse-dot-md"></span>
+          <p>
+            Ton brief de demain est en préparation.
+            <span class="meta">prêt vers 18h00.</span>
+          </p>
+        </article>
+      </section>
+
+      <section class="ctx-section">
+        <h3>Ce matin</h3>
+
+        <ul class="morning-list">
+          <li>
+            <time>06:00</time>
+            <span class="label">Brief généré</span>
+          </li>
+          <li>
+            <time>06:15</time>
+            <span class="label">Veille mise à jour</span>
+          </li>
+          <li>
+            <time>07:30</time>
+            <span class="label">Résumé Slack envoyé</span>
+          </li>
+          <li>
+            <time>07:42</time>
+            <span class="label">Tu es arrivé.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="ctx-section">
+        <h3>Attention</h3>
+
+        <article class="attention-card">
+          <span class="warn-glyph">⚠</span>
+          <div class="attention-card-body">
+            <p>Ton compte Slack se déconnecte demain.</p>
+            <button class="btn-mini">Reconnecter</button>
+          </div>
+        </article>
+      </section>
+
+    </aside>
+
+    <!-- ═════════════ FOOTER ═════════════ -->
+    <footer class="stage-footer">
+      <div class="left">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 5px var(--teal-glow);"></span>
+        <span>en ligne</span>
+        <span style="opacity:0.4;">·</span>
+        <span>3 routines actives</span>
+      </div>
+      <div class="right">
+        <span>v1.6 · brief 06:00</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- =========================================================
+       COMMANDEUR — état overlay (Cmd+K ouvert)
+       ========================================================= -->
+  <div class="commandeur">
+    <div class="commandeur-modal">
+
+      <div class="commandeur-input">
+        <span class="ic">◆</span>
+        <input placeholder="Que veux-tu que je fasse ?" autofocus />
+        <span class="esc">esc</span>
+      </div>
+
+      <div class="commandeur-suggestions">
+        <h4>Hearst peut</h4>
+
+        <div class="suggest-row active">
+          <span class="ic">▤</span>
+          <span class="text">Te résumer ta journée <em>— quatre moments, trois trucs à valider</em></span>
+          <span class="arrow">↵</span>
+        </div>
+
+        <div class="suggest-row">
+          <span class="ic">◇</span>
+          <span class="text">Te montrer ce que ta veille a repéré <em>— 6 articles ce matin</em></span>
+          <span class="arrow">→</span>
+        </div>
+
+        <div class="suggest-row">
+          <span class="ic">⊙</span>
+          <span class="text">Ouvrir le rapport Tendances Q2 <em>— prêt, 4 min de lecture</em></span>
+          <span class="arrow">→</span>
+        </div>
+
+        <div class="suggest-row">
+          <span class="ic">✎</span>
+          <span class="text">Préparer un brouillon de réponse à Mathieu <em>— sur Aether</em></span>
+          <span class="arrow">→</span>
+        </div>
+
+        <div class="suggest-row">
+          <span class="ic">◔</span>
+          <span class="text">Te lire le brief du matin à voix haute</span>
+          <span class="arrow">→</span>
+        </div>
+
+        <div class="suggest-row">
+          <span class="ic">⊕</span>
+          <span class="text">Créer une nouvelle routine <em>— dis-moi ce que tu veux automatiser</em></span>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+
+      <div class="commandeur-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span>
+        <span><kbd>↵</kbd> envoyer</span>
+        <span><kbd>esc</kbd> fermer</span>
+        <span style="margin-left:auto;color:var(--t-l3);">— ou tape ce que tu veux, je comprends.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================
+       ANNOTATION (mockup uniquement, à virer en code prod)
+       ========================================================= -->
+  <div class="anno">
+    <b>Mockup Journal v1 · 2026-05-10</b><br>
+    Bascule en haut à droite → cockpit · ⌘K Commandeur. Voix éditoriale "majordome", silent luxury, agent-orchestrateur.
+  </div>
+
+</body>
+</html>
