@@ -514,7 +514,7 @@ export function VideoQuickLaunch() {
       style={{
         width: "var(--width-quick-launch)",
         maxWidth: "100vw",
-        background: "var(--surface-1)",
+        background: "var(--bg-elev)",
         borderLeft: "1px solid var(--border-shell)",
         boxShadow: "var(--shadow-card)",
         transform: open ? "translateX(0)" : "translateX(100%)",
