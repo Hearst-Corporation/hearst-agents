@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { runSeed, type SeedResource } from "@/lib/admin/seed";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 
 export const dynamic = "force-dynamic";
+
+const log = withRoute("POST /api/admin/seed/[resource]");
 
 const VALID: SeedResource[] = ["agents", "tools", "datasets", "workflows", "skills", "all"];
 
@@ -36,7 +39,7 @@ export async function POST(
     );
     return NextResponse.json({ ok: true, totals, reports });
   } catch (e) {
-    console.error("[Admin API] seed error:", e);
+    log.error({ err: redactedError(e), resource }, "seed_failed");
     return NextResponse.json({ error: "seed_failed" }, { status: 500 });
   }
 }

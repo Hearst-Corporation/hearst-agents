@@ -10,8 +10,12 @@ import {
   upsertSystemSetting,
   type SettingCategory,
 } from "@/lib/admin/settings";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 
 export const dynamic = "force-dynamic";
+
+const logGet = withRoute("GET /api/admin/settings");
+const logPost = withRoute("POST /api/admin/settings");
 
 export async function GET(req: NextRequest) {
   const guard = await requireAdmin("GET /api/admin/settings", { resource: "settings", action: "read" });
@@ -30,7 +34,7 @@ export async function GET(req: NextRequest) {
     });
     return NextResponse.json({ settings });
   } catch (e) {
-    console.error("[Admin API] GET /settings error:", e);
+    logGet.error({ err: redactedError(e), category, tenantId }, "list_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }
@@ -61,7 +65,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ setting });
   } catch (e) {
-    console.error("[Admin API] POST /settings error:", e);
+    logPost.error({ err: redactedError(e) }, "upsert_failed");
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
 }

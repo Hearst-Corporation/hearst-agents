@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getMission, disableMission, evictMission } from "@/lib/engine/runtime/missions/store";
 import { updateScheduledMission, deleteScheduledMission, getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { updateMissionSchema } from "@/lib/contracts/missions";
 
 export const dynamic = "force-dynamic";
 
@@ -69,49 +70,21 @@ export async function PATCH(
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
 
-  let body: {
-    name?: string;
-    description?: string;
-    prompt?: string;
-    frequency?: "daily" | "weekly" | "monthly" | "custom";
-    customCron?: string;
-    enabled?: boolean;
-    budgetUsd?: number | null;
-    approvers?: string[] | null;
-    approvalMode?: "all" | "any" | "majority";
-  };
-
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  // Validate budgetUsd if provided
-  if (body.budgetUsd !== undefined && body.budgetUsd !== null) {
-    if (typeof body.budgetUsd !== "number" || !Number.isFinite(body.budgetUsd) || body.budgetUsd < 0) {
-      return NextResponse.json(
-        { error: "invalid_budget_usd" },
-        { status: 400 },
-      );
-    }
+  const parsed = updateMissionSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", issues: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
-
-  // Validate approvers if provided (Q3-D)
-  if (body.approvers !== undefined && body.approvers !== null) {
-    if (!Array.isArray(body.approvers)) {
-      return NextResponse.json({ error: "invalid_approvers" }, { status: 400 });
-    }
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (body.approvers.some((e) => typeof e !== "string" || !emailRe.test(e))) {
-      return NextResponse.json({ error: "invalid_approver_email" }, { status: 400 });
-    }
-  }
-  if (body.approvalMode !== undefined) {
-    if (!["all", "any", "majority"].includes(body.approvalMode)) {
-      return NextResponse.json({ error: "invalid_approval_mode" }, { status: 400 });
-    }
-  }
+  const body = parsed.data;
 
   // Update in-memory
   const memMission = getMission(id);

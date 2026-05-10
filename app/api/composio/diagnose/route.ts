@@ -15,6 +15,9 @@ import {
   listConnections,
   listAvailableApps,
 } from "@/lib/connectors/composio";
+import { redactedError, withRoute } from "@/lib/observability/logger";
+
+const log = withRoute("GET /api/composio/diagnose");
 
 interface RawAuthConfig {
   id?: string;
@@ -70,7 +73,7 @@ export async function GET(req: NextRequest) {
         .filter((it) => it.id && it.toolkit === slug);
     }
   } catch (err) {
-    console.error("[Composio/Diagnose] authConfigs.list failed:", err);
+    log.error({ err: redactedError(err), userId, app: slug }, "auth_configs_list_failed");
   }
 
   // 3. Is the user already connected?

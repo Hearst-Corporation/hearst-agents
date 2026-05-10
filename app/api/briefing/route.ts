@@ -3,9 +3,12 @@ import { requireScope } from "@/lib/platform/auth/scope";
 import { scheduleDailyBriefing, getTodayBriefingKey } from "@/lib/engine/runtime/briefing-scheduler";
 import { getRedis } from "@/lib/platform/redis/client";
 import { getVariantsForAsset } from "@/lib/assets/variants";
+import { withRoute, redactedError } from "@/lib/observability/logger";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+const logPost = withRoute("POST /api/briefing");
 
 export async function POST() {
   const { scope, error: scopeError } = await requireScope({ context: "POST /api/briefing" });
@@ -22,7 +25,7 @@ export async function POST() {
     return NextResponse.json({ ok: true });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error("[POST /api/briefing]", message);
+    logPost.error({ err: redactedError(err) }, "schedule_briefing_failed");
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

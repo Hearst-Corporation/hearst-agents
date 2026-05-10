@@ -10,6 +10,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/platform/auth/options";
 import { listWebhooks } from "@/lib/webhooks/store";
 import { dispatchWebhookEventAsync } from "@/lib/webhooks/dispatcher";
+import { redactedError, withRoute } from "@/lib/observability/logger";
+
+const log = withRoute("POST /api/webhooks/[webhookId]/test");
 
 function getTenantId(session: unknown): string | null {
   const s = session as { user?: { tenantId?: string } } | null;
@@ -58,7 +61,7 @@ export async function POST(
       dispatched: result.dispatched,
     });
   } catch (err) {
-    console.error(`[API /api/webhooks/${webhookId}/test POST]`, err);
+    log.error({ err: redactedError(err), webhookId, tenantId }, "test_failed");
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

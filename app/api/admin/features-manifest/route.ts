@@ -3,11 +3,13 @@ import { requireScope } from "@/lib/platform/auth/scope";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import path from "node:path";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const execAsync = promisify(exec);
+const log = withRoute("POST /api/admin/features-manifest");
 
 export async function POST(_request: Request) {
   const { scope, error } = await requireScope({ context: "admin/features-manifest" });
@@ -32,6 +34,7 @@ export async function POST(_request: Request) {
       scope: { isDevFallback: scope.isDevFallback },
     });
   } catch (e) {
+    log.error({ err: redactedError(e) }, "manifest_build_failed");
     const msg = e instanceof Error ? e.message : "unknown";
     return NextResponse.json({ error: "manifest_error", message: msg }, { status: 500 });
   }

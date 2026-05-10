@@ -14,6 +14,7 @@ import {
 import { requireScope } from "@/lib/platform/auth/scope";
 import { validateGraph } from "@/lib/workflows/validate";
 import type { WorkflowGraph } from "@/lib/workflows/types";
+import { createMissionSchema, toggleMissionSchema } from "@/lib/contracts/missions";
 
 export const dynamic = "force-dynamic";
 
@@ -46,7 +47,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let body: {
+  let rawBody: unknown;
+  try {
+    rawBody = await req.json();
+  } catch {
+    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  }
+
+  const parsed = createMissionSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", issues: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
+
+  // Mutable copy : la route dérive `schedule`/`input` à partir du graphe
+  // C3 si manquants (cf logique legacy ci-dessous).
+  const body: {
     name?: string;
     input?: string;
     schedule?: string;
@@ -54,13 +72,10 @@ export async function POST(req: NextRequest) {
     workflowGraph?: WorkflowGraph;
     approvers?: string[];
     approvalMode?: "all" | "any" | "majority";
+  } = {
+    ...parsed.data,
+    workflowGraph: parsed.data.workflowGraph as WorkflowGraph | undefined,
   };
-
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
 
   // Cas Builder C3 : si workflowGraph fourni, input/schedule peuvent être
   // dérivés du graphe (cron du trigger, name fourni). Sinon comportement
@@ -174,17 +189,21 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let body: { id?: string; enabled?: boolean };
-
+  let rawBody: unknown;
   try {
-    body = await req.json();
+    rawBody = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  if (!body.id || body.enabled === undefined) {
-    return NextResponse.json({ error: "id_and_enabled_required" }, { status: 400 });
+  const parsed = toggleMissionSchema.safeParse(rawBody);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", issues: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
+  const body = parsed.data;
 
   // Verify ownership before updating
   const mem = getMission(body.id);

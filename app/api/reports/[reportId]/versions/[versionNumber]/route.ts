@@ -4,11 +4,11 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getVersion } from "@/lib/reports/versions/store";
 import { restoreVersion } from "@/lib/reports/versions/restore";
+import { reportVersionNumberSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,8 +16,6 @@ export const dynamic = "force-dynamic";
 interface RouteContext {
   params: Promise<{ reportId: string; versionNumber: string }>;
 }
-
-const versionNumberSchema = z.coerce.number().int().min(1);
 
 async function resolveAssetTenant(
   reportId: string,
@@ -53,7 +51,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  const vnParsed = versionNumberSchema.safeParse(vn);
+  const vnParsed = reportVersionNumberSchema.safeParse(vn);
   if (!vnParsed.success) {
     return NextResponse.json({ error: "invalid_version_number" }, { status: 400 });
   }
@@ -89,7 +87,7 @@ export async function POST(_req: NextRequest, ctx: RouteContext) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  const vnParsed = versionNumberSchema.safeParse(vn);
+  const vnParsed = reportVersionNumberSchema.safeParse(vn);
   if (!vnParsed.success) {
     return NextResponse.json({ error: "invalid_version_number" }, { status: 400 });
   }

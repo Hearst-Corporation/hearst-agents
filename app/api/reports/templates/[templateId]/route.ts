@@ -7,14 +7,13 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { reportSpecSchema } from "@/lib/reports/spec/schema";
 import {
   loadTemplate,
   deleteTemplate,
   updateTemplate,
 } from "@/lib/reports/templates/store";
+import { updateReportTemplateSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -45,13 +44,6 @@ export async function GET(
 
 // ── PUT ───────────────────────────────────────────────────────
 
-const patchSchema = z.object({
-  name: z.string().min(1).max(100).optional(),
-  description: z.string().max(500).optional(),
-  spec: reportSpecSchema.optional(),
-  isPublic: z.boolean().optional(),
-});
-
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ templateId: string }> },
@@ -73,10 +65,10 @@ export async function PUT(
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const parsed = patchSchema.safeParse(body);
+  const parsed = updateReportTemplateSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
+      { error: "invalid_payload", details: parsed.error.issues },
       { status: 400 },
     );
   }

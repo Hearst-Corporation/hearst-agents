@@ -9,26 +9,30 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { loadAssetById, storeAsset, type Asset } from "@/lib/assets/types";
 import { getCatalogEntry } from "@/lib/reports/catalog";
 import { loadTemplate } from "@/lib/reports/templates/store";
 import { runReport } from "@/lib/reports/engine/run-report";
 import { createSourceLoader } from "@/lib/reports/sources";
+import {
+  rerunReportSchema,
+  reportIdParamSchema,
+} from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const paramsSchema = z.object({ reportId: z.string().min(1) });
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ reportId: string }> },
 ) {
-  const parsed = paramsSchema.safeParse(await params);
+  const parsed = reportIdParamSchema.safeParse(await params);
   if (!parsed.success) {
-    return NextResponse.json({ error: "invalid_report_id" }, { status: 400 });
+    return NextResponse.json(
+      { error: "invalid_payload", details: parsed.error.issues },
+      { status: 400 },
+    );
   }
   const { reportId } = parsed.data;
 
@@ -42,12 +46,21 @@ export async function POST(
     );
   }
 
-  let body: { noCache?: boolean } = {};
+  let rawBody: unknown = {};
   try {
-    body = await req.json().catch(() => ({}));
+    rawBody = await req.json().catch(() => ({}));
   } catch {
-    body = {};
+    rawBody = {};
   }
+
+  const bodyParsed = rerunReportSchema.safeParse(rawBody);
+  if (!bodyParsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", details: bodyParsed.error.issues },
+      { status: 400 },
+    );
+  }
+  const body = bodyParsed.data;
 
   // 1. Charger l'asset source
   const asset = await loadAssetById(reportId, {

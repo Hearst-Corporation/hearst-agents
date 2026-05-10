@@ -10,13 +10,13 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import {
   addComment,
   listComments,
 } from "@/lib/reports/comments/store";
+import { createReportCommentSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -24,11 +24,6 @@ export const dynamic = "force-dynamic";
 interface RouteContext {
   params: Promise<{ reportId: string }>;
 }
-
-const postBodySchema = z.object({
-  body: z.string().min(1).max(4000),
-  blockRef: z.string().min(1).max(120).optional(),
-});
 
 /**
  * Vérifie que l'asset existe et que le caller a accès. Retourne le tenant_id
@@ -106,10 +101,10 @@ export async function POST(req: NextRequest, ctx: RouteContext) {
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
-  const parsed = postBodySchema.safeParse(body);
+  const parsed = createReportCommentSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
+      { error: "invalid_payload", details: parsed.error.issues },
       { status: 400 },
     );
   }

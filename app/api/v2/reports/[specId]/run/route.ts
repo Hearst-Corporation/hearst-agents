@@ -29,17 +29,11 @@ import { createSourceLoader } from "@/lib/reports/sources";
 import { storeAsset, type Asset } from "@/lib/assets/types";
 import { loadTemplate } from "@/lib/reports/templates/store";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
+import { runReportSchema } from "@/lib/contracts/reports";
 import { randomUUID } from "crypto";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-interface RunBody {
-  threadId?: string;
-  customerEmail?: string;
-  noCache?: boolean;
-  sample?: boolean;
-}
 
 export async function POST(
   req: NextRequest,
@@ -53,12 +47,21 @@ export async function POST(
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let body: RunBody = {};
+  let rawBody: unknown = {};
   try {
-    body = await req.json().catch(() => ({}));
+    rawBody = await req.json().catch(() => ({}));
   } catch {
-    body = {};
+    rawBody = {};
   }
+
+  const bodyParsed = runReportSchema.safeParse(rawBody);
+  if (!bodyParsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", details: bodyParsed.error.issues },
+      { status: 400 },
+    );
+  }
+  const body = bodyParsed.data;
 
   const callerScope = {
     tenantId: scope.tenantId,

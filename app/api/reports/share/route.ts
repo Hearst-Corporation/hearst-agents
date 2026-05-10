@@ -20,7 +20,6 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import crypto from "node:crypto";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
@@ -28,24 +27,12 @@ import {
   signToken,
   buildShareUrl,
   checkShareRateLimit,
-  TTL_DEFAULT_HOURS,
-  TTL_MIN_HOURS,
-  TTL_MAX_HOURS,
 } from "@/lib/reports/sharing/signed-url";
 import { createShareRow } from "@/lib/reports/sharing/store";
+import { createReportShareSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const bodySchema = z.object({
-  assetId: z.string().min(1).max(200),
-  ttlHours: z
-    .number()
-    .int()
-    .min(TTL_MIN_HOURS)
-    .max(TTL_MAX_HOURS)
-    .default(TTL_DEFAULT_HOURS),
-});
 
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "reports/share" });
@@ -68,10 +55,10 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
-  const parsed = bodySchema.safeParse(body);
+  const parsed = createReportShareSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
+      { error: "invalid_payload", details: parsed.error.issues },
       { status: 400 },
     );
   }

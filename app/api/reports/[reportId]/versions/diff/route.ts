@@ -7,11 +7,11 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getVersion } from "@/lib/reports/versions/store";
 import { diffVersions } from "@/lib/reports/versions/diff";
+import { diffReportVersionsQuerySchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -19,11 +19,6 @@ export const dynamic = "force-dynamic";
 interface RouteContext {
   params: Promise<{ reportId: string }>;
 }
-
-const diffQuerySchema = z.object({
-  from: z.coerce.number().int().min(1),
-  to: z.coerce.number().int().min(1),
-});
 
 async function resolveAssetTenant(
   reportId: string,
@@ -60,13 +55,13 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   }
 
   const url = new URL(req.url);
-  const qParsed = diffQuerySchema.safeParse({
+  const qParsed = diffReportVersionsQuerySchema.safeParse({
     from: url.searchParams.get("from"),
     to: url.searchParams.get("to"),
   });
   if (!qParsed.success) {
     return NextResponse.json(
-      { error: "invalid_query", details: qParsed.error.issues },
+      { error: "invalid_payload", details: qParsed.error.issues },
       { status: 400 },
     );
   }

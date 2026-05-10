@@ -6,19 +6,17 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { reportSpecSchema } from "@/lib/reports/spec/schema";
 import { listTemplates, saveTemplate } from "@/lib/reports/templates/store";
+import {
+  createReportTemplateSchema,
+  listReportTemplatesQuerySchema,
+} from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 // ── GET ───────────────────────────────────────────────────────
-
-const listQuerySchema = z.object({
-  domain: z.string().min(1).optional(),
-});
 
 export async function GET(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "reports/templates GET" });
@@ -27,12 +25,12 @@ export async function GET(req: NextRequest) {
   }
 
   const { searchParams } = new URL(req.url);
-  const parsed = listQuerySchema.safeParse({
+  const parsed = listReportTemplatesQuerySchema.safeParse({
     domain: searchParams.get("domain") ?? undefined,
   });
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "invalid_query", details: parsed.error.issues },
+      { error: "invalid_payload", details: parsed.error.issues },
       { status: 400 },
     );
   }
@@ -47,13 +45,6 @@ export async function GET(req: NextRequest) {
 
 // ── POST ──────────────────────────────────────────────────────
 
-const bodySchema = z.object({
-  name: z.string().min(1).max(100),
-  description: z.string().max(500).optional(),
-  spec: reportSpecSchema,
-  isPublic: z.boolean().default(false),
-});
-
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "reports/templates POST" });
   if (error) {
@@ -67,10 +58,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const parsed = bodySchema.safeParse(body);
+  const parsed = createReportTemplateSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
+      { error: "invalid_payload", details: parsed.error.issues },
       { status: 400 },
     );
   }

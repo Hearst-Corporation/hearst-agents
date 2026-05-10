@@ -20,18 +20,13 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { reportSpecSchema } from "@/lib/reports/spec/schema";
 import { runReport } from "@/lib/reports/engine/run-report";
 import { createSourceLoader } from "@/lib/reports/sources";
+import { sampleReportSpecSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const bodySchema = z.object({
-  spec: reportSpecSchema,
-});
 
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({
@@ -48,10 +43,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const parsed = bodySchema.safeParse(body);
+  const parsed = sampleReportSpecSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "invalid_input", details: parsed.error.issues },
+      { error: "invalid_payload", details: parsed.error.issues },
       { status: 400 },
     );
   }

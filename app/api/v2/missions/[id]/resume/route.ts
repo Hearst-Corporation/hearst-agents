@@ -12,15 +12,35 @@ import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runti
 import { resumeMission as resumePlannerMission } from "@/lib/engine/planner/mission-engine";
 import { getMission as getPlannerMission } from "@/lib/engine/planner/store";
 import { manifestMission } from "@/lib/ui/right-panel/manifestation";
+import { resumeMissionSchema } from "@/lib/contracts/missions";
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
   // Resolve scope with dev fallback allowed
   const { scope, error } = await requireScope({ context: "POST /api/v2/missions/[id]/resume" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });
+  }
+
+  // Body optionnel — strict empty si fourni.
+  const contentLength = req.headers.get("content-length");
+  if (contentLength && contentLength !== "0") {
+    let rawBody: unknown = {};
+    try {
+      const text = await req.text();
+      rawBody = text.length > 0 ? JSON.parse(text) : {};
+    } catch {
+      return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+    }
+    const parsed = resumeMissionSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "invalid_payload", issues: parsed.error.flatten() },
+        { status: 400 },
+      );
+    }
   }
 
   const missionId = (await params).id;

@@ -20,18 +20,40 @@ import {
 } from "@/lib/memory/mission-context";
 import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
 import { randomUUID } from "crypto";
+import { runMissionSchema } from "@/lib/contracts/missions";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   // Resolve scope with dev fallback allowed
   const { scope, error } = await requireScope({ context: "POST /api/v2/missions/[id]/run" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });
+  }
+
+  // Body optionnel : la plupart des clients POSTent sans payload, mais
+  // certains sérialisent `{}` par défaut. On tolère les deux cas et on
+  // refuse les bodies mal formés (clés inattendues incluses, schema strict).
+  const contentLength = req.headers.get("content-length");
+  if (contentLength && contentLength !== "0") {
+    let rawBody: unknown = {};
+    try {
+      const text = await req.text();
+      rawBody = text.length > 0 ? JSON.parse(text) : {};
+    } catch {
+      return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+    }
+    const parsed = runMissionSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "invalid_payload", issues: parsed.error.flatten() },
+        { status: 400 },
+      );
+    }
   }
 
   const { id } = await params;

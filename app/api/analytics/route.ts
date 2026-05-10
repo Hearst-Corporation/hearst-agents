@@ -12,6 +12,9 @@
 import { NextResponse } from "next/server";
 import { logAnalyticsEvent, type AnalyticsEventType } from "@/lib/analytics/events";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { withRoute, redactedError } from "@/lib/observability/logger";
+
+const log = withRoute("POST /api/analytics");
 
 export async function POST(req: Request) {
   const { scope, error: scopeError } = await requireScope({ context: "POST /api/analytics" });
@@ -28,9 +31,9 @@ export async function POST(req: Request) {
     };
 
     if (typeof bodyUserId !== "undefined") {
-      console.warn(
-        `[Analytics API] body contains userId — ignored. Client should not send this field. ` +
-        `Detected userId=${typeof bodyUserId}`,
+      log.warn(
+        { bodyUserIdType: typeof bodyUserId },
+        "body_userid_ignored",
       );
     }
 
@@ -45,7 +48,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("[Analytics API] POST failed:", err instanceof Error ? err.message : "unknown");
+    log.error({ err: redactedError(err) }, "log_event_failed");
     return NextResponse.json(
       { error: "Failed to log event" },
       { status: 500 }

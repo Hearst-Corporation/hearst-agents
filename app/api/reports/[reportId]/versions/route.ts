@@ -9,10 +9,10 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { listVersions } from "@/lib/reports/versions/store";
+import { listReportVersionsQuerySchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,10 +20,6 @@ export const dynamic = "force-dynamic";
 interface RouteContext {
   params: Promise<{ reportId: string }>;
 }
-
-const querySchema = z.object({
-  limit: z.coerce.number().int().min(1).max(200).default(50),
-});
 
 async function resolveAssetTenant(
   reportId: string,
@@ -60,8 +56,16 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   }
 
   const url = new URL(req.url);
-  const qParsed = querySchema.safeParse({ limit: url.searchParams.get("limit") ?? 50 });
-  const limit = qParsed.success ? qParsed.data.limit : 50;
+  const qParsed = listReportVersionsQuerySchema.safeParse({
+    limit: url.searchParams.get("limit") ?? 50,
+  });
+  if (!qParsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", details: qParsed.error.issues },
+      { status: 400 },
+    );
+  }
+  const limit = qParsed.data.limit;
 
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {

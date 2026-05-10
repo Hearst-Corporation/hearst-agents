@@ -13,18 +13,13 @@ import { NextResponse, type NextRequest } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getPersonaById } from "@/lib/personas/store";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
+import { abTestPersonaSchema } from "@/lib/contracts/personas";
 import Anthropic from "@anthropic-ai/sdk";
 
 export const dynamic = "force-dynamic";
 
 const MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 800;
-
-interface Payload {
-  message?: unknown;
-  personaIdA?: unknown;
-  personaIdB?: unknown;
-}
 
 async function runOne(opts: {
   client: Anthropic;
@@ -53,28 +48,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let payload: Payload;
+  let raw: unknown;
   try {
-    payload = (await req.json()) as Payload;
+    raw = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const message =
-    typeof payload.message === "string" && payload.message.trim().length > 0
-      ? payload.message.trim()
-      : null;
-  const personaIdA =
-    typeof payload.personaIdA === "string" ? payload.personaIdA : null;
-  const personaIdB =
-    typeof payload.personaIdB === "string" ? payload.personaIdB : null;
-
-  if (!message || !personaIdA || !personaIdB) {
+  const parsed = abTestPersonaSchema.safeParse(raw);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "missing_fields", required: ["message", "personaIdA", "personaIdB"] },
+      { error: "invalid_payload", issues: parsed.error.flatten() },
       { status: 400 },
     );
   }
+  const message = parsed.data.message.trim();
+  const { personaIdA, personaIdB } = parsed.data;
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {

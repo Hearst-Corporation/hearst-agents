@@ -13,7 +13,6 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { exportPdf } from "@/lib/reports/export/pdf";
@@ -23,11 +22,10 @@ import type { ExportInput } from "@/lib/reports/export/types";
 import { getCatalogEntry } from "@/lib/reports/catalog";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
+import { exportReportQuerySchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const formatSchema = z.enum(["pdf", "xlsx", "csv"]);
 
 interface RouteContext {
   params: Promise<{ reportId: string }>;
@@ -91,14 +89,20 @@ function fallbackMeta(title: string): ReportMeta {
 export async function GET(req: NextRequest, ctx: RouteContext) {
   const { reportId } = await ctx.params;
   const url = new URL(req.url);
-  const formatParsed = formatSchema.safeParse(url.searchParams.get("format") ?? "pdf");
+  const formatParsed = exportReportQuerySchema.safeParse({
+    format: url.searchParams.get("format") ?? undefined,
+  });
   if (!formatParsed.success) {
     return NextResponse.json(
-      { error: "invalid_format", allowed: ["pdf", "xlsx", "csv"] },
+      {
+        error: "invalid_payload",
+        allowed: ["pdf", "xlsx", "csv"],
+        details: formatParsed.error.issues,
+      },
       { status: 400 },
     );
   }
-  const format = formatParsed.data;
+  const format = formatParsed.data.format;
 
   const { scope, error } = await requireScope({
     context: `GET /api/reports/${reportId}/export`,

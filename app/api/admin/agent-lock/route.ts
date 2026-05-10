@@ -5,9 +5,12 @@ import {
   setAgentLockState,
   type AgentLockState,
 } from "@/lib/agent-lock";
+import { withRoute } from "@/lib/observability/logger";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const log = withRoute("POST /api/admin/agent-lock");
 
 export async function GET() {
   const state = await getAgentLockState();
@@ -49,6 +52,11 @@ export async function POST(request: NextRequest) {
     lockedBy: scope.userId,
     reason,
   });
+
+  log.info(
+    { locked: next.locked, userId: scope.userId, hasReason: reason !== null },
+    "agent_lock_toggled",
+  );
 
   return NextResponse.json(next);
 }

@@ -11,23 +11,13 @@ import {
   updatePersona,
   deletePersona,
 } from "@/lib/personas/store";
-import type { PersonaUpdate, PersonaTone } from "@/lib/personas/types";
-import { PERSONA_TONES } from "@/lib/personas/types";
+import type { PersonaUpdate } from "@/lib/personas/types";
+import { updatePersonaSchema } from "@/lib/contracts/personas";
 
 export const dynamic = "force-dynamic";
 
 interface Ctx {
   params: Promise<{ id: string }>;
-}
-
-function asString(v: unknown): string | undefined {
-  return typeof v === "string" ? v : undefined;
-}
-
-function asTone(v: unknown): PersonaTone | null | undefined {
-  if (v === null) return null;
-  if (typeof v !== "string") return undefined;
-  return (PERSONA_TONES as string[]).includes(v) ? (v as PersonaTone) : undefined;
 }
 
 export async function GET(_req: NextRequest, ctx: Ctx) {
@@ -64,43 +54,44 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
     );
   }
 
-  let payload: Record<string, unknown>;
+  let raw: unknown;
   try {
-    payload = (await req.json()) as Record<string, unknown>;
+    raw = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
+  const parsed = updatePersonaSchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", issues: parsed.error.flatten() },
+      { status: 400 },
+    );
+  }
+
+  // On ne propage au store que les clés effectivement présentes dans le
+  // payload (sémantique PATCH stricte : absente = pas de patch). zod ne
+  // distingue pas optional-absent/optional-undefined dans `data`, donc on
+  // re-checke la présence sur le payload brut.
+  const rawObj = (raw && typeof raw === "object" ? raw : {}) as Record<
+    string,
+    unknown
+  >;
+  const data = parsed.data;
   const patch: PersonaUpdate = {};
-  if ("name" in payload) {
-    const v = asString(payload.name);
-    if (v) patch.name = v.slice(0, 80);
+  if ("name" in rawObj && data.name !== undefined) patch.name = data.name;
+  if ("description" in rawObj && data.description !== undefined) {
+    patch.description = data.description;
   }
-  if ("description" in payload) {
-    const v = asString(payload.description);
-    patch.description = v ? v.slice(0, 280) : undefined;
+  if ("tone" in rawObj) patch.tone = data.tone ?? null;
+  if ("vocabulary" in rawObj) patch.vocabulary = data.vocabulary ?? null;
+  if ("styleGuide" in rawObj) patch.styleGuide = data.styleGuide ?? null;
+  if ("systemPromptAddon" in rawObj) {
+    patch.systemPromptAddon = data.systemPromptAddon ?? null;
   }
-  if ("tone" in payload) {
-    const v = asTone(payload.tone);
-    if (v !== undefined) patch.tone = v;
-  }
-  if ("vocabulary" in payload && typeof payload.vocabulary === "object") {
-    patch.vocabulary = payload.vocabulary as PersonaUpdate["vocabulary"];
-  }
-  if ("styleGuide" in payload) {
-    const v = asString(payload.styleGuide);
-    patch.styleGuide = v ? v.slice(0, 2000) : null;
-  }
-  if ("systemPromptAddon" in payload) {
-    const v = asString(payload.systemPromptAddon);
-    patch.systemPromptAddon = v ? v.slice(0, 1500) : null;
-  }
-  if ("surface" in payload) {
-    const v = asString(payload.surface);
-    patch.surface = v ?? null;
-  }
-  if ("isDefault" in payload && typeof payload.isDefault === "boolean") {
-    patch.isDefault = payload.isDefault;
+  if ("surface" in rawObj) patch.surface = data.surface ?? null;
+  if ("isDefault" in rawObj && data.isDefault !== undefined) {
+    patch.isDefault = data.isDefault;
   }
 
   const updated = await updatePersona(

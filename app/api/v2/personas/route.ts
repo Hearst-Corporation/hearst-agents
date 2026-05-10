@@ -9,8 +9,8 @@ import {
   listPersonasForUser,
   createPersona,
 } from "@/lib/personas/store";
-import type { PersonaInsert, PersonaTone } from "@/lib/personas/types";
-import { PERSONA_TONES } from "@/lib/personas/types";
+import type { PersonaInsert } from "@/lib/personas/types";
+import { createPersonaSchema } from "@/lib/contracts/personas";
 
 export const dynamic = "force-dynamic";
 
@@ -23,58 +23,39 @@ export async function GET() {
   return NextResponse.json({ personas });
 }
 
-interface CreatePayload {
-  name?: unknown;
-  description?: unknown;
-  tone?: unknown;
-  vocabulary?: unknown;
-  styleGuide?: unknown;
-  systemPromptAddon?: unknown;
-  surface?: unknown;
-  isDefault?: unknown;
-}
-
-function asString(v: unknown): string | undefined {
-  return typeof v === "string" && v.trim().length > 0 ? v : undefined;
-}
-
-function asTone(v: unknown): PersonaTone | undefined {
-  if (typeof v !== "string") return undefined;
-  return (PERSONA_TONES as string[]).includes(v) ? (v as PersonaTone) : undefined;
-}
-
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "POST /api/v2/personas" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let payload: CreatePayload;
+  let raw: unknown;
   try {
-    payload = (await req.json()) as CreatePayload;
+    raw = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const name = asString(payload.name);
-  if (!name) {
-    return NextResponse.json({ error: "name_required" }, { status: 400 });
+  const parsed = createPersonaSchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_payload", issues: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
+  const data = parsed.data;
 
   const insert: PersonaInsert = {
     userId: scope.userId,
     tenantId: scope.tenantId,
-    name: name.slice(0, 80),
-    description: asString(payload.description)?.slice(0, 280),
-    tone: asTone(payload.tone) ?? null,
-    vocabulary:
-      payload.vocabulary && typeof payload.vocabulary === "object"
-        ? (payload.vocabulary as PersonaInsert["vocabulary"])
-        : null,
-    styleGuide: asString(payload.styleGuide)?.slice(0, 2000) ?? null,
-    systemPromptAddon: asString(payload.systemPromptAddon)?.slice(0, 1500) ?? null,
-    surface: asString(payload.surface) ?? null,
-    isDefault: payload.isDefault === true,
+    name: data.name,
+    description: data.description,
+    tone: data.tone ?? null,
+    vocabulary: data.vocabulary ?? null,
+    styleGuide: data.styleGuide ?? null,
+    systemPromptAddon: data.systemPromptAddon ?? null,
+    surface: data.surface ?? null,
+    isDefault: data.isDefault === true,
   };
 
   try {
