@@ -3,98 +3,73 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Hearst OS — Journal v1 (silent luxury, agent-orchestrateur)</title>
+<title>Hearst OS — Linear/Things v1</title>
 <style>
   /* =========================================================
-     MOCKUP STANDALONE — Journal v1 (2026-05-10)
-     Vision après QA manuel + correctifs P0.
-     Refonte : rail gauche conversations only, voix éditoriale
-     "majordome", Commandeur conversationnel, suppression jargon.
-     Aucune dépendance, aucun JS — basculement d'état via radio CSS.
-     Cohérent avec docs/visual/cockpit-2026-05.html (silent luxury).
+     MOCKUP STANDALONE — v3 (2026-05-10)
+     Direction Linear / Things 3 : monochrome, typographique,
+     SVG icons fins (lucide-style), pas de cards ni grilles,
+     hiérarchie par taille/poids/opacité de texte. Beaucoup d'air.
      ========================================================= */
 
   :root {
-    /* Surfaces — matière noire feuilletée */
-    --bg-base:        #0A0A0B;
-    --bg-rail:        #08080A;
-    --bg-stage:       #050709;
-    --bg-module:      #131318;
-    --bg-module-hi:   #1A1A20;
-    --bg-overlay:     rgba(5, 7, 9, 0.86);
+    /* Surfaces — un seul fond uniforme, hairlines pour séparer */
+    --bg:           #0B0B0D;
+    --bg-rail:      #08080A;
+    --bg-hover:     rgba(255,255,255,0.025);
+    --bg-active:    rgba(255,255,255,0.04);
+    --bg-overlay:   rgba(8, 8, 10, 0.86);
 
-    /* Hairlines */
-    --hairline:        rgba(255, 255, 255, 0.04);
-    --hairline-soft:   rgba(255, 255, 255, 0.025);
-    --hairline-strong: rgba(255, 255, 255, 0.08);
+    --hairline:     rgba(255,255,255,0.06);
+    --hairline-soft: rgba(255,255,255,0.03);
 
-    /* Profondeur */
-    --inset-module:  inset 0 1px 0 rgba(255,255,255,0.025), inset 0 -1px 0 rgba(0,0,0,0.45);
-    --shadow-paper:  0 1px 2px rgba(0,0,0,0.18), 0 12px 36px -12px rgba(0,0,0,0.6);
     --shadow-overlay: 0 24px 80px -20px rgba(0,0,0,0.8);
 
-    /* Texte — Mastered Contrast */
-    --t-l0:  #E8E8EA;
-    --t-l1:  #98989D;
-    --t-l2:  #5A5A60;
-    --t-l3:  #38383C;
+    /* Texte — hiérarchie par opacité (pas de couleurs) */
+    --t-0:  rgba(255,255,255,0.96);  /* headlines */
+    --t-1:  rgba(255,255,255,0.78);  /* body principal */
+    --t-2:  rgba(255,255,255,0.50);  /* secondary, meta */
+    --t-3:  rgba(255,255,255,0.32);  /* labels caps, hints */
+    --t-4:  rgba(255,255,255,0.18);  /* dim, séparateurs texte */
 
-    /* Accents */
-    --teal:        #4A8B86;
-    --teal-soft:   rgba(74, 139, 134, 0.16);
-    --teal-glow:   rgba(74, 139, 134, 0.32);
-    --teal-faint:  rgba(74, 139, 134, 0.06);
-    --teal-line:   rgba(74, 139, 134, 0.22);
+    /* Accent unique — teal ultra-subtil, jamais en glow */
+    --accent:        #4A8B86;
+    --accent-soft:   rgba(74, 139, 134, 0.14);
+    --accent-line:   rgba(74, 139, 134, 0.30);
 
-    /* Gold éditorial — transitions narratives */
-    --gold:        #C8A961;
-    --gold-soft:   rgba(200, 169, 97, 0.14);
-    --gold-faint:  rgba(200, 169, 97, 0.06);
+    --grain-opacity: 0.018;
 
-    /* Sémantiques */
-    --warn:    #FFCC00;
-    --warn-soft: rgba(255, 204, 0, 0.10);
-    --danger:  #FF5252;
-
-    /* Atmosphère */
-    --grain-opacity: 0.025;
-
-    /* Typographie */
-    --font-sans:  -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Satoshi", system-ui, sans-serif;
+    --font-sans:  -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
     --font-mono:  "SF Mono", "JetBrains Mono", ui-monospace, monospace;
 
-    /* Échelle typo */
     --t-9:  9px;
     --t-11: 11px;
+    --t-12: 12px;
     --t-13: 13px;
+    --t-14: 14px;
     --t-15: 15px;
-    --t-18: 18px;
+    --t-17: 17px;
     --t-22: 22px;
-    --t-32: 32px;
-    --t-44: 44px;
-    --t-56: 56px;
+    --t-28: 28px;
+    --t-34: 34px;
 
-    /* Layout */
-    --h-pulsebar:   48px;
-    --h-stagefoot:  28px;
-    --h-chatdock:   72px;
-    --w-rail-left:  280px;
-    --w-rail-right: 380px;
+    --h-pulsebar:  44px;
+    --h-stagefoot: 26px;
+    --w-rail-left:  240px;
+    --w-rail-right: 300px;
 
-    /* Motion */
-    --d-fast:   180ms;
-    --d-base:   280ms;
-    --d-slow:   420ms;
-    --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+    --d-fast: 160ms;
+    --d-base: 220ms;
+    --ease:   cubic-bezier(0.4, 0, 0.2, 1);
     --ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg-base); }
+  html, body { margin: 0; padding: 0; background: var(--bg); }
   body {
     font-family: var(--font-sans);
-    color: var(--t-l0);
-    font-weight: 300;
+    color: var(--t-1);
+    font-weight: 400;
     letter-spacing: -0.005em;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
@@ -104,49 +79,50 @@
   ul, li { list-style: none; padding: 0; margin: 0; }
   input { font: inherit; color: inherit; background: none; border: none; outline: none; letter-spacing: inherit; }
 
-  /* Grain global — bruit visuel très discret */
   body::before {
     content: "";
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     pointer-events: none;
     opacity: var(--grain-opacity);
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
     z-index: 9999;
   }
 
+  /* SVG icons — line, stroke 1.5, taille héritée */
+  svg.ic { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  svg.ic-sm { width: 12px; height: 12px; }
+  svg.ic-md { width: 16px; height: 16px; }
+  svg.ic-lg { width: 18px; height: 18px; }
+
   /* ==========================================================
-     DEMO TOGGLE — basculement entre 2 états dans le même fichier
+     DEMO TOGGLE
      ========================================================== */
+  input[name="state"] { display: none; }
   .demo-toggle {
     position: fixed;
-    top: 12px;
-    right: 12px;
+    top: 10px; right: 10px;
     z-index: 10000;
-    display: flex;
-    gap: 4px;
-    padding: 4px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline-strong);
+    display: flex; gap: 2px;
+    padding: 3px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--hairline);
     border-radius: 999px;
-    box-shadow: var(--shadow-paper);
   }
   .demo-toggle label {
-    padding: 6px 12px;
+    padding: 5px 11px;
     font-size: var(--t-11);
-    color: var(--t-l2);
+    color: var(--t-3);
     cursor: pointer;
     border-radius: 999px;
     transition: all var(--d-base) var(--ease);
     user-select: none;
   }
-  .demo-toggle label:hover { color: var(--t-l1); }
-  .demo-toggle input { display: none; }
-  .demo-toggle input:checked + label {
-    color: var(--t-l0);
-    background: var(--teal-soft);
+  .demo-toggle label:hover { color: var(--t-1); }
+  #state-default:checked ~ .demo-toggle .lbl-default,
+  #state-commandeur:checked ~ .demo-toggle .lbl-commandeur {
+    color: var(--t-0);
+    background: rgba(255,255,255,0.06);
   }
-
   #state-default:checked ~ .commandeur { display: none; }
   #state-commandeur:checked ~ .commandeur { display: flex; }
 
@@ -165,847 +141,575 @@
   }
 
   /* ==========================================================
-     PULSEBAR
+     PULSEBAR — minimaliste typographique
      ========================================================== */
   .pulsebar {
     grid-area: pulse;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: var(--w-rail-left) 1fr auto;
     align-items: center;
-    padding: 0 16px 0 calc(16px + 70px); /* déport titlebar Electron */
     background: var(--bg-rail);
     border-bottom: 1px solid var(--hairline);
-    position: relative;
-    z-index: 10;
     -webkit-app-region: drag;
   }
   .pulsebar > * { -webkit-app-region: no-drag; }
 
-  .pulse-left {
-    display: flex; align-items: center; gap: 12px;
-    min-width: 0;
+  .pulse-l {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 16px 0 calc(16px + 70px);
+    height: 100%;
+    border-right: 1px solid var(--hairline);
   }
-  .pulse-right {
-    display: flex; align-items: center; gap: 18px;
-    justify-content: flex-end;
-  }
-
-  /* Space selector */
-  .space-selector {
-    display: flex; gap: 2px;
-    padding: 3px;
-    background: rgba(255,255,255,0.025);
-    border: 1px solid var(--hairline);
-    border-radius: 999px;
-  }
-  .space-pill {
-    padding: 4px 10px;
-    font-size: var(--t-11);
-    color: var(--t-l2);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all var(--d-base) var(--ease);
-  }
-  .space-pill.active {
-    color: var(--t-l0);
-    background: var(--teal-soft);
-  }
-
-  /* Cmd+K pill — central */
-  .cmdk-pill {
-    display: flex; align-items: center; gap: 12px;
-    width: 360px;
-    padding: 6px 12px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline);
-    border-radius: 8px;
-    color: var(--t-l2);
+  .pulse-l .h {
     font-size: var(--t-13);
-    font-weight: 300;
-    box-shadow: var(--inset-module);
-    transition: border-color var(--d-base) var(--ease);
+    color: var(--t-0);
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
-  .cmdk-pill:hover { border-color: var(--hairline-strong); }
+  .pulse-l .badge {
+    margin-left: auto;
+    font-size: var(--t-9);
+    color: var(--t-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .pulse-c {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 16px;
+    height: 100%;
+  }
+  .cmdk-pill {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%;
+    max-width: 420px;
+    padding: 5px 10px;
+    color: var(--t-2);
+    font-size: var(--t-12);
+    border-radius: 6px;
+    transition: background var(--d-base) var(--ease);
+  }
+  .cmdk-pill:hover { background: var(--bg-hover); color: var(--t-1); }
+  .cmdk-pill .ic { color: var(--t-3); }
   .cmdk-pill .ph { flex: 1; min-width: 0; text-align: left; }
   .cmdk-pill .kbd {
-    margin-left: auto;
     font-family: var(--font-mono);
-    font-size: var(--t-9);
-    color: var(--t-l3);
+    font-size: 10px;
+    color: var(--t-3);
     letter-spacing: 0.05em;
-    padding: 2px 5px;
+    padding: 1px 5px;
     border: 1px solid var(--hairline);
     border-radius: 3px;
   }
 
-  /* Pulse indicators (right) */
-  .pulse-status {
-    display: flex; align-items: center; gap: 6px;
-    font-size: var(--t-11);
-    color: var(--t-l1);
-    font-weight: 300;
+  .pulse-r {
+    display: flex; align-items: center; gap: 4px;
+    padding: 0 12px;
+    height: 100%;
   }
-  .pulse-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--teal);
-    box-shadow: 0 0 6px var(--teal-glow);
-    animation: pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.55; }
-    50%      { opacity: 1; }
-  }
-  .pulse-bell {
-    width: 16px; height: 16px;
-    color: var(--t-l2);
+  .icon-btn {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px;
+    color: var(--t-2);
     cursor: pointer;
     position: relative;
-    transition: color var(--d-base) var(--ease);
+    transition: all var(--d-base) var(--ease);
   }
-  .pulse-bell:hover { color: var(--t-l0); }
-  .pulse-bell::after {
-    content: "";
+  .icon-btn:hover { color: var(--t-0); background: var(--bg-hover); }
+  .icon-btn .badge-dot {
     position: absolute;
-    top: 0; right: -1px;
-    width: 6px; height: 6px;
-    background: var(--gold);
+    top: 6px; right: 6px;
+    width: 5px; height: 5px;
+    background: var(--accent);
     border-radius: 50%;
-    box-shadow: 0 0 0 1.5px var(--bg-rail);
   }
 
-  /* AmbientWhisper */
-  .whisper {
-    display: flex; align-items: center; gap: 8px;
-    max-width: 360px;
-    min-width: 0;
-    padding: 0;
-    font-size: var(--t-11);
-    color: var(--t-l2);
-    font-weight: 300;
+  .space-selector {
+    display: flex; gap: 2px;
+    padding: 2px;
+    background: rgba(255,255,255,0.025);
+    border-radius: 999px;
+    margin-left: auto;
+  }
+  .space-pill {
+    padding: 3px 9px;
+    font-size: 10px;
+    color: var(--t-3);
+    border-radius: 999px;
     cursor: pointer;
-    transition: opacity var(--d-slow) var(--ease);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: all var(--d-base) var(--ease);
   }
-  .whisper:hover { color: var(--t-l1); }
-  .whisper-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--teal);
-    box-shadow: 0 0 6px var(--teal-glow);
-    flex-shrink: 0;
-  }
-  .whisper-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .whisper-arrow {
-    color: var(--t-l3);
-    flex-shrink: 0;
+  .space-pill.active {
+    color: var(--t-0);
+    background: rgba(255,255,255,0.06);
   }
 
   /* ==========================================================
-     RAIL GAUCHE — Conversations only (style ChatGPT)
+     RAIL GAUCHE — Conversations only, typographique pur
      ========================================================== */
   .rail-left {
     grid-area: left;
     background: var(--bg-rail);
     border-right: 1px solid var(--hairline);
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     overflow: hidden;
   }
 
-  .rail-logo {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 20px;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .rail-logo .h {
-    font-size: 22px;
-    color: var(--t-l0);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    cursor: pointer;
-  }
-  .rail-logo .h em {
-    color: var(--teal);
-    font-style: normal;
-  }
-
   .rail-new {
-    margin: 16px 12px 0;
-    padding: 10px 14px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline);
-    border-radius: 8px;
+    margin: 12px;
+    padding: 7px 10px;
     font-size: var(--t-13);
-    color: var(--t-l1);
+    color: var(--t-1);
     text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 9px;
+    border-radius: 6px;
     transition: all var(--d-base) var(--ease);
   }
   .rail-new:hover {
-    background: var(--bg-module-hi);
-    border-color: var(--hairline-strong);
-    color: var(--t-l0);
+    background: var(--bg-hover);
+    color: var(--t-0);
   }
-  .rail-new .plus {
-    color: var(--teal);
-    font-size: var(--t-15);
-    font-weight: 400;
-  }
+  .rail-new .ic { color: var(--t-2); }
 
   .rail-threads {
     flex: 1;
     overflow-y: auto;
-    padding: 24px 0 16px;
+    padding: 0 0 12px;
   }
   .rail-threads::-webkit-scrollbar { width: 0; }
 
-  .thread-group {
-    margin-bottom: 20px;
-  }
+  .thread-group { margin-bottom: 14px; }
   .thread-group h3 {
-    margin: 0 20px 8px;
+    margin: 0 16px 4px;
     font-size: var(--t-9);
     font-weight: 500;
-    color: var(--t-l3);
-    letter-spacing: 0.18em;
+    color: var(--t-3);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
   .thread {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 7px 20px;
+    display: flex; align-items: center; gap: 9px;
+    padding: 5px 16px;
     font-size: var(--t-13);
-    color: var(--t-l1);
+    color: var(--t-1);
     cursor: pointer;
-    transition: all var(--d-base) var(--ease);
-    border-left: 2px solid transparent;
+    transition: all var(--d-fast) var(--ease);
   }
-  .thread:hover {
-    background: rgba(255,255,255,0.018);
-    color: var(--t-l0);
-  }
+  .thread:hover { background: var(--bg-hover); color: var(--t-0); }
   .thread.active {
-    color: var(--t-l0);
-    background: rgba(255,255,255,0.025);
-    border-left-color: var(--teal);
+    background: var(--bg-active);
+    color: var(--t-0);
   }
-  .thread .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--t-l3);
-    flex-shrink: 0;
-    transition: all var(--d-base) var(--ease);
-  }
-  .thread.active .dot {
-    background: var(--teal);
-    box-shadow: 0 0 6px var(--teal-glow);
-  }
+  .thread .ic { color: var(--t-3); }
+  .thread.active .ic { color: var(--accent); }
   .thread .label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     flex: 1;
   }
 
-  .rail-footer {
+  .rail-foot {
     border-top: 1px solid var(--hairline);
-    padding: 14px 20px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .rail-user {
-    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px;
+    display: flex; align-items: center; gap: 8px;
   }
   .rail-avatar {
-    width: 30px; height: 30px;
+    width: 24px; height: 24px;
     border-radius: 50%;
-    background: var(--bg-module-hi);
-    border: 1px solid var(--hairline-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--t-13);
-    font-weight: 400;
-    color: var(--t-l0);
-    position: relative;
-  }
-  .rail-avatar::after {
-    content: "";
-    position: absolute;
-    bottom: 1px; right: 1px;
-    width: 6px; height: 6px;
-    background: var(--teal);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--teal-glow), 0 0 0 1.5px var(--bg-rail);
-  }
-  .rail-user-meta {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.3;
-  }
-  .rail-user-meta .name {
-    font-size: var(--t-13);
-    color: var(--t-l0);
-  }
-  .rail-user-meta .role {
-    font-size: var(--t-9);
-    color: var(--t-l3);
-    letter-spacing: 0.06em;
-  }
-  .rail-actions {
-    display: flex; gap: 14px;
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
     font-size: var(--t-11);
-    color: var(--t-l2);
+    color: var(--t-1);
+    font-weight: 500;
+    flex-shrink: 0;
   }
-  .rail-actions a {
-    color: var(--t-l2);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color var(--d-base) var(--ease);
+  .rail-name {
+    flex: 1;
+    font-size: var(--t-13);
+    color: var(--t-1);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .rail-actions a:hover { color: var(--t-l0); }
+  .rail-foot-icons { display: flex; gap: 0; }
 
   /* ==========================================================
-     STAGE — Le journal (mode cockpit)
+     STAGE — typographie pure
      ========================================================== */
   .stage {
     grid-area: stage;
-    background: var(--bg-stage);
+    background: var(--bg);
     overflow-y: auto;
-    position: relative;
-    box-shadow: var(--shadow-paper);
   }
   .stage::-webkit-scrollbar { width: 0; }
 
   .stage-inner {
     max-width: 720px;
     margin: 0 auto;
-    padding: 56px 56px calc(var(--h-chatdock) + 80px);
+    padding: 56px 48px 140px;
   }
 
-  .stage-meta {
-    display: flex; align-items: center;
-    gap: 10px;
-    font-size: var(--t-11);
-    color: var(--t-l3);
-    margin-bottom: 36px;
-    font-family: var(--font-mono);
-    letter-spacing: 0.02em;
+  /* Greeting */
+  .greet {
+    margin-bottom: 56px;
   }
-  .stage-meta .sep { color: var(--t-l3); opacity: 0.5; }
-  .stage-meta .refresh {
-    margin-left: auto;
-    color: var(--t-l3);
-    cursor: pointer;
-    transition: color var(--d-base) var(--ease);
-  }
-  .stage-meta .refresh:hover { color: var(--t-l0); }
-
-  .stage h1 {
-    font-size: var(--t-44);
-    font-weight: 300;
+  .greet h1 {
+    margin: 0 0 4px;
+    font-size: var(--t-28);
+    font-weight: 500;
+    color: var(--t-0);
     letter-spacing: -0.02em;
-    margin: 0 0 28px;
-    color: var(--t-l0);
-    line-height: 1.05;
+    line-height: 1.1;
+  }
+  .greet .meta {
+    font-size: var(--t-13);
+    color: var(--t-2);
+    font-weight: 400;
   }
 
-  /* Briefing — chiffres clés en intro */
-  .lead {
-    font-size: var(--t-15);
-    color: var(--t-l1);
-    line-height: 1.55;
-    margin: 0 0 24px;
-    max-width: 580px;
-  }
-  .lead-stats {
+  /* Section labels */
+  .sec {
     display: flex; align-items: center;
-    gap: 24px;
-    padding: 12px 0;
-    border-top: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
-    margin-bottom: 48px;
-  }
-  .lead-stats span {
+    margin: 48px 0 14px;
     font-size: var(--t-11);
-    color: var(--t-l2);
+    font-weight: 500;
+    color: var(--t-3);
+    letter-spacing: 0.04em;
+  }
+  .sec .count {
+    margin-left: 8px;
+    color: var(--t-3);
     font-family: var(--font-mono);
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
   }
-  .lead-stats b {
-    color: var(--t-l0);
-    font-weight: 400;
-  }
+  .sec:first-child { margin-top: 0; }
 
-  /* Transitions narratives — italique gold */
-  .transition {
-    font-family: "Iowan Old Style", "Charter", Georgia, serif;
-    font-size: var(--t-22);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
-    margin: 56px 0 22px;
-    letter-spacing: -0.005em;
-    line-height: 1.3;
-  }
-  .transition:first-of-type { margin-top: 0; }
-
-  /* Brief bullets — style narratif */
-  .brief-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0 0 24px;
-  }
-  .brief-list li {
-    font-size: var(--t-15);
-    color: var(--t-l1);
-    line-height: 1.55;
-    padding-left: 14px;
-    position: relative;
-  }
-  .brief-list li::before {
-    content: "—";
-    position: absolute;
-    left: 0;
-    color: var(--t-l3);
-  }
-
-  .brief-actions {
-    display: flex; gap: 10px;
-    margin-top: 12px;
-  }
-  .btn-ghost {
-    padding: 7px 14px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline);
-    border-radius: 6px;
-    font-size: var(--t-11);
-    color: var(--t-l1);
-    transition: all var(--d-base) var(--ease);
-  }
-  .btn-ghost:hover {
-    background: var(--bg-module-hi);
-    border-color: var(--hairline-strong);
-    color: var(--t-l0);
-  }
-  .btn-ghost .glyph {
-    margin-right: 6px;
-    color: var(--teal);
-  }
-
-  /* Agenda */
-  .agenda { display: flex; flex-direction: column; gap: 22px; }
-  .agenda li {
+  /* Listes — pure typo, aucune card */
+  .list {}
+  .row {
     display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 18px;
-    align-items: baseline;
-    padding-bottom: 22px;
+    grid-template-columns: 18px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 11px 0;
+    cursor: pointer;
+    transition: all var(--d-fast) var(--ease);
     border-bottom: 1px solid var(--hairline-soft);
   }
-  .agenda li:last-child { border-bottom: none; }
-  .agenda time {
-    font-family: var(--font-mono);
-    font-size: var(--t-13);
-    color: var(--t-l1);
-    letter-spacing: 0.02em;
-    font-weight: 400;
-  }
-  .agenda .title {
+  .row:last-child { border-bottom: none; }
+  .row .ic { color: var(--t-2); transition: color var(--d-fast) var(--ease); }
+  .row:hover { padding-left: 4px; }
+  .row:hover .ic { color: var(--t-0); }
+  .row:hover .row-label { color: var(--t-0); }
+  .row-label {
     font-size: var(--t-15);
-    color: var(--t-l0);
-    line-height: 1.4;
+    color: var(--t-1);
+    font-weight: 400;
+    transition: color var(--d-fast) var(--ease);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .agenda .meta {
-    display: block;
-    margin-top: 4px;
-    font-size: var(--t-13);
-    color: var(--t-l2);
-    line-height: 1.4;
+  .row-meta {
+    font-size: var(--t-12);
+    color: var(--t-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
   }
-  .agenda .suggest {
-    display: block;
-    margin-top: 6px;
-    font-size: var(--t-13);
-    color: var(--gold);
-    line-height: 1.4;
-    font-style: italic;
-    opacity: 0.85;
+  .row-meta.live {
+    color: var(--accent);
   }
 
-  /* Agent working */
-  .working-list { display: flex; flex-direction: column; gap: 18px; }
-  .working-list li {
-    display: flex;
+  /* Agenda — heure mono devant + titre + chips minis */
+  .agenda-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
     gap: 14px;
-    align-items: flex-start;
-    padding-bottom: 18px;
+    align-items: center;
+    padding: 11px 0;
     border-bottom: 1px solid var(--hairline-soft);
-    font-size: var(--t-15);
-    color: var(--t-l1);
-    line-height: 1.55;
+    cursor: pointer;
+    transition: padding var(--d-fast) var(--ease);
   }
-  .working-list li:last-child { border-bottom: none; }
-  .working-list .glyph {
-    flex-shrink: 0;
-    margin-top: 4px;
-    width: 14px;
-    height: 14px;
+  .agenda-row:last-child { border-bottom: none; }
+  .agenda-row:hover { padding-left: 4px; }
+  .agenda-row time {
+    font-family: var(--font-mono);
+    font-size: var(--t-12);
+    color: var(--t-2);
+    letter-spacing: 0.02em;
+  }
+  .agenda-row .title {
+    font-size: var(--t-15);
+    color: var(--t-1);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .agenda-row.now time { color: var(--t-0); }
+  .agenda-row.now .title { color: var(--t-0); }
+  .agenda-row.now::before {
+    content: "";
+    display: block;
+    width: 2px; height: 14px;
+    background: var(--accent);
+    border-radius: 1px;
+    position: absolute;
+    margin-left: -10px;
+  }
+  .agenda-row { position: relative; }
+  .agenda-row.passed time,
+  .agenda-row.passed .title {
+    color: var(--t-3);
+  }
+  .people {
+    display: flex;
+  }
+  .people .av {
+    width: 18px; height: 18px;
     border-radius: 50%;
-    background: var(--teal);
-    box-shadow: 0 0 8px var(--teal-glow);
-    position: relative;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid var(--bg);
+    margin-left: -5px;
+    font-size: 9px;
+    color: var(--t-2);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 500;
+  }
+  .people .av:first-child { margin-left: 0; }
+
+  /* En cours — lignes avec point teal subtle */
+  .running-row {
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .running-row:last-child { border-bottom: none; }
+  .running-row .live-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-left: 6px;
     animation: pulse 2.4s ease-in-out infinite;
   }
-  .working-list b {
-    color: var(--t-l0);
-    font-weight: 400;
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50%      { opacity: 1; }
   }
-
-  /* When you have 5 min */
-  .later-list { display: flex; flex-direction: column; gap: 0; }
-  .later-list li {
-    display: grid;
-    grid-template-columns: 28px 1fr auto;
-    gap: 16px;
-    align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--hairline-soft);
-    cursor: pointer;
-    transition: padding var(--d-base) var(--ease);
-  }
-  .later-list li:last-child { border-bottom: none; }
-  .later-list li:hover { padding-left: 8px; }
-  .later-list .glyph {
-    font-size: var(--t-18);
-    color: var(--gold);
-    text-align: center;
-  }
-  .later-list .title {
+  .running-row .label {
     font-size: var(--t-15);
-    color: var(--t-l0);
-    line-height: 1.3;
+    color: var(--t-1);
   }
-  .later-list .meta {
-    display: block;
-    margin-top: 3px;
-    font-size: var(--t-11);
-    color: var(--t-l2);
+  .running-row .meta {
+    font-size: var(--t-12);
+    color: var(--t-3);
     font-family: var(--font-mono);
     letter-spacing: 0.02em;
   }
-  .later-list .arrow {
-    color: var(--t-l3);
-    font-size: var(--t-15);
-    transition: color var(--d-base) var(--ease), transform var(--d-base) var(--ease);
-  }
-  .later-list li:hover .arrow {
-    color: var(--teal);
-    transform: translateX(3px);
-  }
-
-  /* État terminal — quand tout est calme */
-  .all-clear {
-    text-align: center;
-    padding: 96px 24px;
-    color: var(--t-l2);
-    font-style: italic;
-    font-family: "Iowan Old Style", "Charter", Georgia, serif;
-    font-size: var(--t-18);
-    line-height: 1.6;
-  }
 
   /* ==========================================================
-     CHATDOCK — Demande quelque chose
+     CHATDOCK — flottant
      ========================================================== */
   .chatdock {
-    position: absolute;
+    position: sticky;
     bottom: 24px;
-    left: 0; right: 0;
-    display: flex;
-    justify-content: center;
-    pointer-events: none;
+    margin: 0 auto;
+    max-width: 640px;
+    padding: 0 48px;
+    z-index: 5;
   }
   .chatdock-inner {
-    pointer-events: auto;
-    width: 100%;
-    max-width: 720px;
-    margin: 0 56px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline-strong);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--hairline);
     border-radius: 12px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: var(--shadow-paper);
-    transition: border-color var(--d-base) var(--ease), box-shadow var(--d-base) var(--ease);
+    padding: 9px 10px 9px 14px;
+    display: flex; align-items: center; gap: 8px;
+    backdrop-filter: blur(20px);
+    transition: border-color var(--d-base) var(--ease);
   }
-  .chatdock-inner:focus-within {
-    border-color: var(--teal-line);
-    box-shadow: var(--shadow-paper), 0 0 0 1px var(--teal-soft);
-  }
+  .chatdock-inner:focus-within { border-color: var(--accent-line); }
   .chatdock-input {
     flex: 1;
-    font-size: var(--t-15);
-    color: var(--t-l0);
+    font-size: var(--t-14);
+    color: var(--t-0);
   }
-  .chatdock-input::placeholder {
-    color: var(--t-l2);
-  }
-  .chatdock-tools {
-    display: flex; gap: 8px;
-    color: var(--t-l3);
-    font-size: var(--t-13);
-  }
-  .chatdock-tool {
-    width: 24px; height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all var(--d-base) var(--ease);
-  }
-  .chatdock-tool:hover {
-    color: var(--t-l1);
-    background: rgba(255,255,255,0.04);
-  }
+  .chatdock-input::placeholder { color: var(--t-2); }
+  .chatdock-tools { display: flex; gap: 0; color: var(--t-3); }
+  .chatdock-tools .icon-btn { width: 26px; height: 26px; }
   .chatdock-send {
-    width: 28px; height: 28px;
+    width: 26px; height: 26px;
     border-radius: 6px;
-    background: var(--teal-soft);
-    color: var(--teal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--t-15);
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
     cursor: pointer;
     transition: all var(--d-base) var(--ease);
   }
-  .chatdock-send:hover {
-    background: var(--teal);
-    color: #000;
-  }
+  .chatdock-send:hover { background: var(--accent); color: #0B0B0D; }
 
   /* ==========================================================
-     RAIL DROIT — voix éditoriale (4 zones humaines)
+     RAIL DROIT — listes typographiques sobres
      ========================================================== */
   .rail-right {
     grid-area: right;
     background: var(--bg-rail);
     border-left: 1px solid var(--hairline);
     overflow-y: auto;
-    padding: 28px 24px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    padding: 24px 18px 24px;
+    display: flex; flex-direction: column; gap: 32px;
   }
   .rail-right::-webkit-scrollbar { width: 0; }
 
-  .ctx-section h3 {
-    margin: 0 0 14px;
-    font-size: var(--t-9);
+  .ctx h3 {
+    margin: 0 0 10px;
+    font-size: var(--t-11);
     font-weight: 500;
-    color: var(--t-l3);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    display: flex; align-items: center;
-    justify-content: space-between;
+    color: var(--t-3);
+    letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 8px;
   }
-  .ctx-section h3 .count {
-    color: var(--t-l1);
+  .ctx h3 .count {
+    color: var(--t-3);
     font-family: var(--font-mono);
-    letter-spacing: 0.02em;
   }
 
-  /* À valider */
-  .validate-card {
-    padding: 14px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline);
-    border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: var(--inset-module);
-    transition: all var(--d-base) var(--ease);
-  }
-  .validate-card:hover {
-    border-color: var(--hairline-strong);
-    background: var(--bg-module-hi);
-  }
-  .validate-card .who {
-    font-size: var(--t-13);
-    color: var(--t-l0);
-    margin: 0 0 4px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .validate-card .who::before {
-    content: "";
-    width: 6px; height: 6px;
-    background: var(--teal);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--teal-glow);
-    flex-shrink: 0;
-  }
-  .validate-card .quote {
-    font-size: var(--t-13);
-    color: var(--t-l1);
-    line-height: 1.5;
-    margin: 0 0 12px;
-    font-style: italic;
-    padding-left: 14px;
-  }
-  .validate-card .actions {
-    display: flex; gap: 8px;
-  }
-  .btn-mini {
-    flex: 1;
-    padding: 6px 10px;
-    background: transparent;
-    border: 1px solid var(--hairline);
-    border-radius: 5px;
-    font-size: var(--t-11);
-    color: var(--t-l1);
-    transition: all var(--d-base) var(--ease);
-  }
-  .btn-mini:hover {
-    background: rgba(255,255,255,0.03);
-    color: var(--t-l0);
-    border-color: var(--hairline-strong);
-  }
-  .btn-mini.primary {
-    background: var(--teal-soft);
-    border-color: var(--teal-line);
-    color: var(--teal);
-  }
-  .btn-mini.primary:hover {
-    background: var(--teal);
-    color: #000;
-    border-color: var(--teal);
-  }
-
-  /* Pendant que tu lis ça */
-  .working-card {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--hairline-soft);
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .working-card:last-child { border-bottom: none; padding-bottom: 0; }
-  .working-card .pulse-dot-md {
-    width: 8px; height: 8px;
-    background: var(--teal);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--teal-glow);
-    flex-shrink: 0;
-    margin-top: 6px;
-    animation: pulse 2.4s ease-in-out infinite;
-  }
-  .working-card p {
-    margin: 0;
-    font-size: var(--t-13);
-    color: var(--t-l0);
-    line-height: 1.55;
-  }
-  .working-card .meta {
-    display: block;
-    color: var(--t-l2);
-    margin-top: 3px;
-  }
-
-  /* Ce matin — timeline humaine */
-  .morning-list { display: flex; flex-direction: column; gap: 0; }
-  .morning-list li {
+  /* Validate rows — typographique */
+  .v-row {
     display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 12px;
-    padding: 8px 0;
-    align-items: baseline;
-    font-size: var(--t-13);
-    color: var(--t-l1);
-    border-bottom: 1px solid var(--hairline-soft);
-  }
-  .morning-list li:last-child { border-bottom: none; }
-  .morning-list li:last-child .label { color: var(--t-l0); }
-  .morning-list time {
-    font-family: var(--font-mono);
-    font-size: var(--t-11);
-    color: var(--t-l3);
-    letter-spacing: 0.02em;
-  }
-
-  /* Attention */
-  .attention-card {
-    padding: 12px 14px;
-    background: var(--warn-soft);
-    border: 1px solid rgba(255, 204, 0, 0.20);
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-start;
+    grid-template-columns: 24px 1fr auto;
     gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    cursor: pointer;
+    transition: all var(--d-fast) var(--ease);
   }
-  .attention-card .warn-glyph {
-    color: var(--warn);
+  .v-row:last-child { border-bottom: none; }
+  .v-row:hover { padding-left: 4px; }
+  .v-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--t-11);
+    color: var(--t-1);
+    font-weight: 500;
+  }
+  .v-avatar .ic { color: var(--t-2); }
+  .v-body { min-width: 0; }
+  .v-title {
     font-size: var(--t-13);
-    flex-shrink: 0;
+    color: var(--t-1);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .v-meta {
+    font-size: var(--t-11);
+    color: var(--t-3);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     margin-top: 1px;
   }
-  .attention-card-body { flex: 1; }
-  .attention-card p {
-    margin: 0 0 8px;
+  .v-act {
+    color: var(--t-3);
+    transition: color var(--d-fast) var(--ease);
+  }
+  .v-row:hover .v-act { color: var(--t-1); }
+
+  /* Running rows rail droit */
+  .r-row {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .r-row:last-child { border-bottom: none; }
+  .r-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-left: 4px;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .r-label {
     font-size: var(--t-13);
-    color: var(--t-l0);
-    line-height: 1.5;
+    color: var(--t-1);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .attention-card .btn-mini {
-    background: rgba(0,0,0,0.18);
-    border-color: rgba(255, 204, 0, 0.20);
+  .r-meta {
+    font-size: var(--t-11);
+    color: var(--t-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
   }
-  .attention-card .btn-mini:hover {
-    background: var(--warn);
-    color: #000;
-    border-color: var(--warn);
+
+  /* Timeline matin */
+  .m-list {}
+  .m-row {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 10px;
+    padding: 7px 0;
+    align-items: center;
+    font-size: var(--t-13);
+    color: var(--t-2);
+  }
+  .m-row time {
+    font-family: var(--font-mono);
+    font-size: var(--t-11);
+    color: var(--t-3);
+    letter-spacing: 0.02em;
+  }
+  .m-row.now { color: var(--t-0); }
+  .m-row.now time { color: var(--accent); }
+
+  /* Attention row */
+  .a-row {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all var(--d-fast) var(--ease);
+  }
+  .a-row:hover { padding-left: 4px; }
+  .a-row .ic { color: var(--t-2); }
+  .a-row .label {
+    font-size: var(--t-13);
+    color: var(--t-1);
+  }
+  .a-row .meta {
+    font-size: var(--t-11);
+    color: var(--t-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
   }
 
   /* ==========================================================
-     STAGE FOOTER — ligne système discrète
+     STAGE FOOTER
      ========================================================== */
   .stage-footer {
     grid-area: foot;
     background: var(--bg-rail);
     border-top: 1px solid var(--hairline);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px;
     font-size: var(--t-9);
-    color: var(--t-l3);
+    color: var(--t-3);
     font-family: var(--font-mono);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
-  .stage-footer .left { display: flex; align-items: center; gap: 10px; }
-  .stage-footer .right { color: var(--t-l3); }
+  .stage-footer .left { display: flex; align-items: center; gap: 8px; }
+  .stage-footer .live-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
 
   /* ==========================================================
-     COMMANDEUR — overlay conversationnel agent
+     COMMANDEUR — overlay typographique
      ========================================================== */
   .commandeur {
     display: none;
@@ -1015,206 +719,198 @@
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
     z-index: 100;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: flex-start; justify-content: center;
     padding-top: 120px;
     animation: fade-in var(--d-base) var(--ease);
   }
   @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
-  .commandeur-modal {
+  .cmdr-modal {
     width: 100%;
-    max-width: 680px;
-    background: var(--bg-module);
-    border: 1px solid var(--hairline-strong);
-    border-radius: 16px;
+    max-width: 600px;
+    background: rgba(20, 20, 23, 0.96);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
     box-shadow: var(--shadow-overlay);
     overflow: hidden;
     animation: scale-in var(--d-base) var(--ease-spring);
   }
   @keyframes scale-in {
-    from { transform: scale(0.94); opacity: 0; }
+    from { transform: scale(0.96); opacity: 0; }
     to   { transform: scale(1); opacity: 1; }
   }
 
-  .commandeur-input {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 22px 24px;
+  .cmdr-input {
+    display: flex; align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
     border-bottom: 1px solid var(--hairline);
   }
-  .commandeur-input .ic {
-    width: 18px; height: 18px;
-    color: var(--teal);
-    flex-shrink: 0;
-  }
-  .commandeur-input input {
+  .cmdr-input .ic { color: var(--t-2); }
+  .cmdr-input input {
     flex: 1;
-    font-size: var(--t-22);
-    font-weight: 300;
-    color: var(--t-l0);
+    font-size: var(--t-17);
+    font-weight: 400;
+    color: var(--t-0);
     letter-spacing: -0.01em;
   }
-  .commandeur-input input::placeholder {
-    color: var(--t-l2);
-  }
-  .commandeur-input .esc {
+  .cmdr-input input::placeholder { color: var(--t-3); }
+  .cmdr-input .esc {
     font-family: var(--font-mono);
     font-size: var(--t-9);
-    color: var(--t-l3);
-    padding: 3px 7px;
+    color: var(--t-3);
+    padding: 2px 6px;
     border: 1px solid var(--hairline);
-    border-radius: 4px;
+    border-radius: 3px;
     letter-spacing: 0.05em;
   }
 
-  .commandeur-suggestions {
-    padding: 14px 0 18px;
-  }
-  .commandeur-suggestions h4 {
-    margin: 0 24px 10px;
-    font-size: var(--t-9);
-    font-weight: 500;
-    color: var(--t-l3);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .suggest-row {
-    display: flex;
+  .cmdr-list { padding: 6px 0; }
+  .cmdr-row {
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    gap: 12px;
     align-items: center;
-    gap: 14px;
-    padding: 11px 24px;
+    padding: 9px 18px;
     cursor: pointer;
-    transition: background var(--d-base) var(--ease);
+    transition: background var(--d-fast) var(--ease);
   }
-  .suggest-row:hover {
-    background: rgba(255,255,255,0.025);
+  .cmdr-row:hover { background: var(--bg-hover); }
+  .cmdr-row.active { background: var(--bg-hover); }
+  .cmdr-row .ic { color: var(--t-2); }
+  .cmdr-row.active .ic { color: var(--accent); }
+  .cmdr-row .label {
+    font-size: var(--t-14);
+    color: var(--t-0);
+    line-height: 1.3;
   }
-  .suggest-row.active {
-    background: rgba(255,255,255,0.035);
-  }
-  .suggest-row.active .arrow {
-    color: var(--teal);
-  }
-  .suggest-row .ic {
-    width: 14px; height: 14px;
-    color: var(--t-l2);
-    flex-shrink: 0;
-  }
-  .suggest-row .text {
-    flex: 1;
-    font-size: var(--t-15);
-    color: var(--t-l0);
-    line-height: 1.4;
-    font-weight: 300;
-  }
-  .suggest-row .text em {
-    color: var(--t-l2);
-    font-style: normal;
-  }
-  .suggest-row .arrow {
-    color: var(--t-l3);
-    font-size: var(--t-13);
+  .cmdr-row .meta {
+    font-size: var(--t-11);
+    color: var(--t-3);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
   }
 
-  .commandeur-footer {
+  .cmdr-foot {
     border-top: 1px solid var(--hairline);
-    padding: 10px 24px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
+    padding: 8px 18px;
+    display: flex; align-items: center; gap: 14px;
     font-size: var(--t-9);
-    color: var(--t-l3);
+    color: var(--t-3);
     letter-spacing: 0.04em;
   }
-  .commandeur-footer kbd {
+  .cmdr-foot kbd {
     font-family: var(--font-mono);
-    color: var(--t-l2);
-    padding: 2px 5px;
+    color: var(--t-2);
+    padding: 1px 4px;
     border: 1px solid var(--hairline);
     border-radius: 3px;
     margin: 0 2px;
   }
 
-  /* ==========================================================
-     Annotations dev (pour le mockup)
-     ========================================================== */
+  /* Annotation */
   .anno {
     position: fixed;
-    bottom: 12px;
-    left: 12px;
+    bottom: 10px; left: 10px;
     z-index: 9998;
-    padding: 8px 14px;
-    background: var(--bg-module);
+    padding: 7px 12px;
+    background: rgba(20, 20, 23, 0.92);
     border: 1px solid var(--hairline);
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: var(--t-9);
-    color: var(--t-l2);
+    color: var(--t-3);
     letter-spacing: 0.04em;
-    max-width: 320px;
+    max-width: 280px;
     line-height: 1.5;
   }
-  .anno b { color: var(--t-l0); font-weight: 400; }
+  .anno b { color: var(--t-1); font-weight: 500; }
 </style>
 </head>
 <body>
 
-  <!-- =========================================================
-       DEMO TOGGLE — bascule entre 2 états
-       ========================================================= -->
+  <input type="radio" name="state" id="state-default" checked>
+  <input type="radio" name="state" id="state-commandeur">
+
   <div class="demo-toggle">
-    <input type="radio" name="state" id="state-default" checked>
-    <label for="state-default">Cockpit</label>
-    <input type="radio" name="state" id="state-commandeur">
-    <label for="state-commandeur">⌘K Commandeur</label>
+    <label for="state-default" class="lbl-default">Cockpit</label>
+    <label for="state-commandeur" class="lbl-commandeur">⌘K</label>
   </div>
 
   <!-- =========================================================
-       SHELL — vue cockpit par défaut
+       SVG icon definitions (Lucide-inspired, line stroke 1.5)
+       ========================================================= -->
+  <svg width="0" height="0" style="position:absolute;visibility:hidden;">
+    <defs>
+      <symbol id="ic-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+      <symbol id="ic-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+      <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+      <symbol id="ic-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+      <symbol id="ic-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="19" x2="12" y2="22"/></symbol>
+      <symbol id="ic-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+      <symbol id="ic-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
+      <symbol id="ic-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+      <symbol id="ic-mail" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+      <symbol id="ic-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="ic-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+      <symbol id="ic-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+      <symbol id="ic-trending" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+      <symbol id="ic-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+      <symbol id="ic-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="ic-video" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></symbol>
+      <symbol id="ic-mic-2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></symbol>
+      <symbol id="ic-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+      <symbol id="ic-reply" viewBox="0 0 24 24"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></symbol>
+      <symbol id="ic-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+      <symbol id="ic-paperclip" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+      <symbol id="ic-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></symbol>
+      <symbol id="ic-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol>
+      <symbol id="ic-circle-fill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="ic-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/></symbol>
+      <symbol id="ic-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol>
+      <symbol id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- =========================================================
+       SHELL
        ========================================================= -->
   <div class="shell">
 
     <!-- ═════════════ PULSEBAR ═════════════ -->
     <header class="pulsebar">
-
-      <div class="pulse-left">
-        <div class="space-selector" role="radiogroup" aria-label="Espace de travail">
+      <div class="pulse-l">
+        <span class="h">Hearst</span>
+        <div class="space-selector">
           <span class="space-pill active">Perso</span>
           <span class="space-pill">Side</span>
           <span class="space-pill">Venture</span>
         </div>
-        <div class="whisper">
-          <span class="whisper-dot"></span>
-          <span class="whisper-text">Aether AI a publié quelque chose ce week-end</span>
-          <span class="whisper-arrow">→</span>
-        </div>
       </div>
 
-      <button class="cmdk-pill">
-        <span class="ph">Demande quelque chose à Hearst…</span>
-        <span class="kbd">⌘K</span>
-      </button>
-
-      <div class="pulse-right">
-        <div class="pulse-status">
-          <span class="pulse-dot"></span>
-          <span>Tout va bien</span>
-        </div>
-        <div class="pulse-bell" title="2 notifications"></div>
+      <div class="pulse-c">
+        <button class="cmdk-pill">
+          <svg class="ic ic-sm"><use href="#ic-search"/></svg>
+          <span class="ph">Demande à Hearst…</span>
+          <span class="kbd">⌘K</span>
+        </button>
       </div>
 
+      <div class="pulse-r">
+        <span class="icon-btn" title="Voix">
+          <svg class="ic"><use href="#ic-mic"/></svg>
+        </span>
+        <span class="icon-btn" title="Notifications">
+          <svg class="ic"><use href="#ic-bell"/></svg>
+          <span class="badge-dot"></span>
+        </span>
+      </div>
     </header>
 
-    <!-- ═════════════ RAIL GAUCHE — Conversations only ═════════════ -->
+    <!-- ═════════════ RAIL GAUCHE ═════════════ -->
     <aside class="rail-left">
 
-      <div class="rail-logo">
-        <span class="h">Hearst<em>.</em></span>
-      </div>
-
       <button class="rail-new">
-        <span class="plus">+</span>
+        <svg class="ic"><use href="#ic-plus"/></svg>
         <span>Nouvelle conversation</span>
       </button>
 
@@ -1223,273 +919,260 @@
         <div class="thread-group">
           <h3>Aujourd'hui</h3>
           <div class="thread active">
-            <span class="dot"></span>
-            <span class="label">Brief client Aether — axes éditoriaux</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Brief Aether</span>
           </div>
           <div class="thread">
-            <span class="dot"></span>
-            <span class="label">Sync produit — préparation</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Sync produit</span>
           </div>
         </div>
 
         <div class="thread-group">
           <h3>7 derniers jours</h3>
           <div class="thread">
-            <span class="dot"></span>
-            <span class="label">Newsletter quotidien — angle</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Newsletter — angle</span>
           </div>
           <div class="thread">
-            <span class="dot"></span>
-            <span class="label">Veille Q2 — synthèse</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Veille Q2</span>
           </div>
           <div class="thread">
-            <span class="dot"></span>
-            <span class="label">Persona éditorial — réglages</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Persona éditorial</span>
           </div>
           <div class="thread">
-            <span class="dot"></span>
-            <span class="label">Recording newsletter — script</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Recording script</span>
           </div>
         </div>
 
         <div class="thread-group">
           <h3>Plus ancien</h3>
           <div class="thread">
-            <span class="dot"></span>
-            <span class="label">Setup initial</span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
+            <span class="label">Setup</span>
           </div>
           <div class="thread">
-            <span class="dot"></span>
+            <svg class="ic ic-sm"><use href="#ic-msg"/></svg>
             <span class="label">Connexion Slack</span>
           </div>
         </div>
 
       </nav>
 
-      <div class="rail-footer">
-        <div class="rail-user">
-          <div class="rail-avatar">A</div>
-          <div class="rail-user-meta">
-            <span class="name">Adrien</span>
-            <span class="role">Founder · Hearst</span>
-          </div>
-        </div>
-        <div class="rail-actions">
-          <a>Réglages</a>
-          <a>Admin</a>
-          <a>Quitter</a>
+      <div class="rail-foot">
+        <div class="rail-avatar">A</div>
+        <span class="rail-name">Adrien</span>
+        <div class="rail-foot-icons">
+          <span class="icon-btn" title="Réglages">
+            <svg class="ic ic-sm"><use href="#ic-settings"/></svg>
+          </span>
+          <span class="icon-btn" title="Quitter">
+            <svg class="ic ic-sm"><use href="#ic-logout"/></svg>
+          </span>
         </div>
       </div>
 
     </aside>
 
-    <!-- ═════════════ STAGE — Le journal ═════════════ -->
+    <!-- ═════════════ STAGE ═════════════ -->
     <main class="stage">
       <div class="stage-inner">
 
-        <div class="stage-meta">
-          <span>lundi 10 mai · 07:42</span>
-          <span class="sep">·</span>
-          <span>brief mis à jour il y a 2 minutes</span>
-          <span class="refresh" title="Régénérer">↻</span>
+        <div class="greet">
+          <h1>Bonjour, Adrien</h1>
+          <div class="meta">Lundi 10 mai · 07:42</div>
         </div>
 
-        <h1>Bonjour, Adrien.</h1>
+        <!-- À voir -->
+        <div class="sec">À voir <span class="count">06</span></div>
+        <div class="list">
 
-        <p class="lead">
-          Voici ce qui se passe pour toi ce matin. Je t'ai préparé l'essentiel — tu peux tout lire, ou m'écouter te le résumer.
-        </p>
+          <div class="row">
+            <svg class="ic"><use href="#ic-file"/></svg>
+            <span class="row-label">Brief du matin</span>
+            <span class="row-meta">5 min</span>
+          </div>
 
-        <div class="lead-stats">
-          <span><b>3</b> trucs à valider</span>
-          <span><b>4</b> moments aujourd'hui</span>
-          <span><b>6</b> articles repérés en veille</span>
+          <div class="row">
+            <svg class="ic"><use href="#ic-mail"/></svg>
+            <span class="row-label">Mathieu attend ta réponse</span>
+            <span class="row-meta">brief Aether</span>
+          </div>
+
+          <div class="row">
+            <svg class="ic"><use href="#ic-eye"/></svg>
+            <span class="row-label">Veille concurrents</span>
+            <span class="row-meta live">+6</span>
+          </div>
+
+          <div class="row">
+            <svg class="ic"><use href="#ic-trending"/></svg>
+            <span class="row-label">Rapport Tendances Q2</span>
+            <span class="row-meta">prêt</span>
+          </div>
+
+          <div class="row">
+            <svg class="ic"><use href="#ic-edit"/></svg>
+            <span class="row-label">Newsletter mardi</span>
+            <span class="row-meta">brouillon</span>
+          </div>
+
+          <div class="row">
+            <svg class="ic"><use href="#ic-alert"/></svg>
+            <span class="row-label">Slack expire</span>
+            <span class="row-meta">24h</span>
+          </div>
+
         </div>
 
-        <h2 class="transition">Pendant que tu dormais.</h2>
+        <!-- Agenda -->
+        <div class="sec">Aujourd'hui <span class="count">04</span></div>
+        <div class="list">
 
-        <ul class="brief-list">
-          <li>12 emails important sur 64 reçus depuis hier soir.</li>
-          <li>Aether AI a publié une annonce ce week-end. Mathieu pense qu'on devrait répondre.</li>
-          <li>Ta newsletter de mardi est prête à relire — j'ai un brouillon.</li>
-        </ul>
-
-        <div class="brief-actions">
-          <button class="btn-ghost"><span class="glyph">▤</span>Tout lire</button>
-          <button class="btn-ghost"><span class="glyph">◔</span>M'écouter ça</button>
-        </div>
-
-        <h2 class="transition">Aujourd'hui. Quatre moments.</h2>
-
-        <ul class="agenda">
-          <li>
+          <div class="agenda-row">
             <time>10:00</time>
-            <div>
-              <span class="title">Sync produit</span>
-              <span class="meta">avec Camille, Léo et Sarah · Google Meet</span>
+            <span class="title">Sync produit</span>
+            <div class="people">
+              <span class="av">C</span>
+              <span class="av">L</span>
+              <span class="av">S</span>
             </div>
-          </li>
-          <li>
+          </div>
+
+          <div class="agenda-row now">
             <time>11:30</time>
-            <div>
-              <span class="title">Brief client Aether</span>
-              <span class="meta">avec Mathieu</span>
-              <span class="suggest">— préparer les trois axes éditoriaux ?</span>
+            <span class="title">Brief Aether</span>
+            <div class="people">
+              <span class="av">M</span>
             </div>
-          </li>
-          <li>
+          </div>
+
+          <div class="agenda-row">
             <time>14:00</time>
-            <div>
-              <span class="title">Recording newsletter</span>
-              <span class="meta">studio · 45 min</span>
-            </div>
-          </li>
-          <li>
+            <span class="title">Recording newsletter</span>
+            <span></span>
+          </div>
+
+          <div class="agenda-row">
             <time>16:00</time>
-            <div>
-              <span class="title">Revue de la semaine</span>
-              <span class="meta">solo</span>
-            </div>
-          </li>
-        </ul>
+            <span class="title">Revue de la semaine</span>
+            <span></span>
+          </div>
 
-        <h2 class="transition">Pendant que tu lis ça.</h2>
+        </div>
 
-        <ul class="working-list">
-          <li>
-            <span class="glyph"></span>
-            <div>Ta routine <b>Veille concurrents</b> tourne — elle a déjà repéré 6 articles ce matin.</div>
-          </li>
-          <li>
-            <span class="glyph"></span>
-            <div>Ton <b>brief de demain</b> est en préparation — prêt vers 18h.</div>
-          </li>
-        </ul>
+        <!-- En cours -->
+        <div class="sec">En cours <span class="count">02</span></div>
+        <div class="list">
 
-        <h2 class="transition">À regarder quand tu auras 5 minutes.</h2>
+          <div class="running-row">
+            <span class="live-dot"></span>
+            <span class="label">Veille concurrents</span>
+            <span class="meta">+6 articles</span>
+          </div>
 
-        <ul class="later-list">
-          <li>
-            <span class="glyph">▦</span>
-            <div>
-              <span class="title">Le rapport Tendances Q2 est prêt</span>
-              <span class="meta">12 graphes · 3 pages · 4 min de lecture</span>
-            </div>
-            <span class="arrow">→</span>
-          </li>
-          <li>
-            <span class="glyph">◇</span>
-            <div>
-              <span class="title">Aether AI a fait quelque chose d'inhabituel</span>
-              <span class="meta">2 nouvelles annonces · publié hier 18h00</span>
-            </div>
-            <span class="arrow">→</span>
-          </li>
-          <li>
-            <span class="glyph">✎</span>
-            <div>
-              <span class="title">Founder Cockpit — encore à compléter</span>
-              <span class="meta">setup à finaliser · 8 min</span>
-            </div>
-            <span class="arrow">→</span>
-          </li>
-        </ul>
+          <div class="running-row">
+            <span class="live-dot"></span>
+            <span class="label">Brief de demain</span>
+            <span class="meta">prêt 18:00</span>
+          </div>
+
+        </div>
 
       </div>
 
-      <!-- ═════════════ CHATDOCK ═════════════ -->
+      <!-- ChatDock -->
       <div class="chatdock">
         <div class="chatdock-inner">
-          <input class="chatdock-input" placeholder="Demande-moi quelque chose…" />
+          <input class="chatdock-input" placeholder="Demande à Hearst…" />
           <div class="chatdock-tools">
-            <span class="chatdock-tool" title="Joindre un fichier">⌬</span>
-            <span class="chatdock-tool" title="Mentionner une app">@</span>
-            <span class="chatdock-tool" title="Mode voix">◔</span>
+            <span class="icon-btn" title="Joindre"><svg class="ic ic-sm"><use href="#ic-paperclip"/></svg></span>
+            <span class="icon-btn" title="Mentionner"><svg class="ic ic-sm"><use href="#ic-at"/></svg></span>
+            <span class="icon-btn" title="Voix"><svg class="ic ic-sm"><use href="#ic-mic-2"/></svg></span>
           </div>
-          <span class="chatdock-send" title="Envoyer">↑</span>
+          <span class="chatdock-send" title="Envoyer">
+            <svg class="ic ic-sm"><use href="#ic-up"/></svg>
+          </span>
         </div>
       </div>
 
     </main>
 
-    <!-- ═════════════ RAIL DROIT — voix éditoriale ═════════════ -->
+    <!-- ═════════════ RAIL DROIT ═════════════ -->
     <aside class="rail-right">
 
-      <section class="ctx-section">
+      <section class="ctx">
         <h3>À valider <span class="count">02</span></h3>
 
-        <article class="validate-card">
-          <p class="who">Mathieu attend ta réponse</p>
-          <p class="quote">« Tu peux confirmer les trois axes éditoriaux pour Aether ? »</p>
-          <div class="actions">
-            <button class="btn-mini">Lire</button>
-            <button class="btn-mini primary">Répondre</button>
+        <div class="v-row">
+          <div class="v-avatar">M</div>
+          <div class="v-body">
+            <div class="v-title">Mathieu</div>
+            <div class="v-meta">brief Aether — 3 axes</div>
           </div>
-        </article>
+          <span class="v-act"><svg class="ic ic-sm"><use href="#ic-reply"/></svg></span>
+        </div>
 
-        <article class="validate-card">
-          <p class="who">Ton assistant te propose</p>
-          <p class="quote">de programmer la newsletter de mardi. Brouillon prêt — relis avant 17h.</p>
-          <div class="actions">
-            <button class="btn-mini">Voir</button>
-            <button class="btn-mini">Plus tard</button>
+        <div class="v-row">
+          <div class="v-avatar"><svg class="ic ic-sm"><use href="#ic-edit"/></svg></div>
+          <div class="v-body">
+            <div class="v-title">Newsletter mardi</div>
+            <div class="v-meta">brouillon prêt — 17h</div>
           </div>
-        </article>
+          <span class="v-act"><svg class="ic ic-sm"><use href="#ic-arrow"/></svg></span>
+        </div>
       </section>
 
-      <section class="ctx-section">
-        <h3>Pendant que tu lis ça <span class="count">02</span></h3>
+      <section class="ctx">
+        <h3>En cours <span class="count">02</span></h3>
 
-        <article class="working-card">
-          <span class="pulse-dot-md"></span>
-          <p>
-            Ta veille concurrents tourne.
-            <span class="meta">6 articles repérés ce matin.</span>
-          </p>
-        </article>
+        <div class="r-row">
+          <span class="r-dot"></span>
+          <span class="r-label">Veille</span>
+          <span class="r-meta">+6</span>
+        </div>
 
-        <article class="working-card">
-          <span class="pulse-dot-md"></span>
-          <p>
-            Ton brief de demain est en préparation.
-            <span class="meta">prêt vers 18h00.</span>
-          </p>
-        </article>
+        <div class="r-row">
+          <span class="r-dot"></span>
+          <span class="r-label">Brief demain</span>
+          <span class="r-meta">18:00</span>
+        </div>
       </section>
 
-      <section class="ctx-section">
+      <section class="ctx">
         <h3>Ce matin</h3>
 
-        <ul class="morning-list">
-          <li>
+        <div class="m-list">
+          <div class="m-row">
             <time>06:00</time>
             <span class="label">Brief généré</span>
-          </li>
-          <li>
+          </div>
+          <div class="m-row">
             <time>06:15</time>
             <span class="label">Veille mise à jour</span>
-          </li>
-          <li>
+          </div>
+          <div class="m-row">
             <time>07:30</time>
-            <span class="label">Résumé Slack envoyé</span>
-          </li>
-          <li>
+            <span class="label">Résumé Slack</span>
+          </div>
+          <div class="m-row now">
             <time>07:42</time>
-            <span class="label">Tu es arrivé.</span>
-          </li>
-        </ul>
+            <span class="label">Tu es là</span>
+          </div>
+        </div>
       </section>
 
-      <section class="ctx-section">
+      <section class="ctx">
         <h3>Attention</h3>
 
-        <article class="attention-card">
-          <span class="warn-glyph">⚠</span>
-          <div class="attention-card-body">
-            <p>Ton compte Slack se déconnecte demain.</p>
-            <button class="btn-mini">Reconnecter</button>
-          </div>
-        </article>
+        <div class="a-row">
+          <svg class="ic ic-sm"><use href="#ic-alert"/></svg>
+          <span class="label">Slack expire</span>
+          <span class="meta">24h</span>
+        </div>
       </section>
 
     </aside>
@@ -1497,86 +1180,81 @@
     <!-- ═════════════ FOOTER ═════════════ -->
     <footer class="stage-footer">
       <div class="left">
-        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 5px var(--teal-glow);"></span>
-        <span>en ligne</span>
+        <span class="live-dot"></span>
+        <span>3 routines</span>
         <span style="opacity:0.4;">·</span>
-        <span>3 routines actives</span>
+        <span>brief 06:00</span>
       </div>
-      <div class="right">
-        <span>v1.6 · brief 06:00</span>
-      </div>
+      <div class="right">v1.6</div>
     </footer>
 
   </div>
 
   <!-- =========================================================
-       COMMANDEUR — état overlay (Cmd+K ouvert)
+       COMMANDEUR — overlay liste typographique
        ========================================================= -->
   <div class="commandeur">
-    <div class="commandeur-modal">
+    <div class="cmdr-modal">
 
-      <div class="commandeur-input">
-        <span class="ic">◆</span>
+      <div class="cmdr-input">
+        <svg class="ic ic-md"><use href="#ic-search"/></svg>
         <input placeholder="Que veux-tu que je fasse ?" autofocus />
         <span class="esc">esc</span>
       </div>
 
-      <div class="commandeur-suggestions">
-        <h4>Hearst peut</h4>
+      <div class="cmdr-list">
 
-        <div class="suggest-row active">
-          <span class="ic">▤</span>
-          <span class="text">Te résumer ta journée <em>— quatre moments, trois trucs à valider</em></span>
-          <span class="arrow">↵</span>
+        <div class="cmdr-row active">
+          <svg class="ic"><use href="#ic-file"/></svg>
+          <span class="label">Résumer ma journée</span>
+          <span class="meta">4 moments · 3 valid</span>
         </div>
 
-        <div class="suggest-row">
-          <span class="ic">◇</span>
-          <span class="text">Te montrer ce que ta veille a repéré <em>— 6 articles ce matin</em></span>
-          <span class="arrow">→</span>
+        <div class="cmdr-row">
+          <svg class="ic"><use href="#ic-eye"/></svg>
+          <span class="label">Voir la veille</span>
+          <span class="meta">+6 ce matin</span>
         </div>
 
-        <div class="suggest-row">
-          <span class="ic">⊙</span>
-          <span class="text">Ouvrir le rapport Tendances Q2 <em>— prêt, 4 min de lecture</em></span>
-          <span class="arrow">→</span>
+        <div class="cmdr-row">
+          <svg class="ic"><use href="#ic-trending"/></svg>
+          <span class="label">Ouvrir le rapport Tendances Q2</span>
+          <span class="meta">prêt · 4 min</span>
         </div>
 
-        <div class="suggest-row">
-          <span class="ic">✎</span>
-          <span class="text">Préparer un brouillon de réponse à Mathieu <em>— sur Aether</em></span>
-          <span class="arrow">→</span>
+        <div class="cmdr-row">
+          <svg class="ic"><use href="#ic-mail"/></svg>
+          <span class="label">Répondre à Mathieu</span>
+          <span class="meta">brief Aether</span>
         </div>
 
-        <div class="suggest-row">
-          <span class="ic">◔</span>
-          <span class="text">Te lire le brief du matin à voix haute</span>
-          <span class="arrow">→</span>
+        <div class="cmdr-row">
+          <svg class="ic"><use href="#ic-mic-2"/></svg>
+          <span class="label">Lire le brief à voix haute</span>
+          <span class="meta"></span>
         </div>
 
-        <div class="suggest-row">
-          <span class="ic">⊕</span>
-          <span class="text">Créer une nouvelle routine <em>— dis-moi ce que tu veux automatiser</em></span>
-          <span class="arrow">→</span>
+        <div class="cmdr-row">
+          <svg class="ic"><use href="#ic-sparkle"/></svg>
+          <span class="label">Créer une nouvelle routine</span>
+          <span class="meta">automatiser</span>
         </div>
+
       </div>
 
-      <div class="commandeur-footer">
-        <span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span>
+      <div class="cmdr-foot">
+        <span><kbd>↑↓</kbd> nav</span>
         <span><kbd>↵</kbd> envoyer</span>
         <span><kbd>esc</kbd> fermer</span>
-        <span style="margin-left:auto;color:var(--t-l3);">— ou tape ce que tu veux, je comprends.</span>
+        <span style="margin-left:auto;color:var(--t-3);">tape ce que tu veux.</span>
       </div>
 
     </div>
   </div>
 
-  <!-- =========================================================
-       ANNOTATION (mockup uniquement, à virer en code prod)
-       ========================================================= -->
   <div class="anno">
-    <b>Mockup Journal v1 · 2026-05-10</b><br>
-    Bascule en haut à droite → cockpit · ⌘K Commandeur. Voix éditoriale "majordome", silent luxury, agent-orchestrateur.
+    <b>v3 · Linear/Things style</b><br>
+    Monochrome typographique. SVG line icons. Pas de cards. Toggle haut-droite.
   </div>
 
 </body>
