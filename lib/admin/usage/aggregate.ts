@@ -49,12 +49,6 @@ export interface UsageOverview {
 
 export const DEFAULT_LOOKBACK_DAYS = 30;
 
-export function startOfTodayUtc(): Date {
-  const d = new Date();
-  d.setUTCHours(0, 0, 0, 0);
-  return d;
-}
-
 export function defaultDateRange(): DateRange {
   const end = new Date();
   const start = new Date(end);

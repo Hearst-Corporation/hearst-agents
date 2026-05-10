@@ -61,8 +61,6 @@ export const NARRATION_PRESETS = {
   },
 } as const;
 
-export type NarrationPresetName = keyof typeof NARRATION_PRESETS;
-
 const STYLE_PROMPTS = {
   executive:
     "Style cadre exécutif : factuel, orienté décision, signal-to-noise élevé. " +

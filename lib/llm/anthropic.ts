@@ -54,11 +54,6 @@ export interface ToolUseRequest {
   input: Record<string, unknown>;
 }
 
-export interface AnthropicToolMessage {
-  role: "user" | "assistant";
-  content: Anthropic.MessageParam["content"];
-}
-
 export interface ToolChatResult {
   text: string;
   toolCalls: ToolUseRequest[];

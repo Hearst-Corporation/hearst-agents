@@ -24,8 +24,7 @@ import {
 
 const ELEVEN_API_BASE = "https://api.elevenlabs.io/v1";
 
-// Voix par défaut publiques ElevenLabs (Pre-made voices, pas besoin de clone)
-export const ELEVEN_DEFAULT_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"; // "Rachel" — neutre claire FR/EN
+// Voix par défaut publique ElevenLabs (Pre-made voices, pas besoin de clone)
 export const ELEVEN_DEFAULT_MODEL_ID = "eleven_multilingual_v2";
 
 export interface SynthesizeSpeechInput {

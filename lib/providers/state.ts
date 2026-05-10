@@ -159,10 +159,6 @@ export function setStateStore(store: ProviderStateStore): void {
   activeStore = store;
 }
 
-export function getStateStore(): ProviderStateStore {
-  return activeStore;
-}
-
 // ── Public API (convenience wrappers) ───────────────────────
 
 export function getUsageState(

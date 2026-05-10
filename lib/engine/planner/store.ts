@@ -57,12 +57,6 @@ export function getAllPlans(): ExecutionPlan[] {
   return Array.from(plans.values());
 }
 
-export function getActivePlans(): ExecutionPlan[] {
-  return Array.from(plans.values()).filter(
-    (p) => p.status === "executing" || p.status === "awaiting_approval" || p.status === "ready",
-  );
-}
-
 export function deletePlan(planId: string): void {
   const plan = plans.get(planId);
   if (plan) {

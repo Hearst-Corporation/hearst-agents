@@ -142,14 +142,6 @@ export function isPlanTerminal(status: PlanStatus): boolean {
   return status === "completed" || status === "failed";
 }
 
-export function isStepTerminal(status: PlanStepStatus): boolean {
-  return status === "done" || status === "failed" || status === "skipped";
-}
-
-export function hasApprovalGate(plan: ExecutionPlan): boolean {
-  return plan.steps.some((s) => s.kind === "wait_for_approval");
-}
-
 export function getReadySteps(plan: ExecutionPlan): ExecutionPlanStep[] {
   const doneIds = new Set(
     plan.steps.filter((s) => s.status === "done").map((s) => s.id),

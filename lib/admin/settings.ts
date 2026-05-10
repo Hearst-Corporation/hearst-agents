@@ -15,7 +15,6 @@ import {
 
 export type {
   SettingCategory,
-  SettingValue,
   SystemSetting,
 } from "@/lib/platform/settings/types";
 

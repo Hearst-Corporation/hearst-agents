@@ -42,8 +42,3 @@ export interface ConnectorPreflightResult {
   reason?: string;
 }
 
-export interface ConnectorHealthSummary {
-  healthy: number;
-  degraded: number;
-  disconnected: number;
-}
