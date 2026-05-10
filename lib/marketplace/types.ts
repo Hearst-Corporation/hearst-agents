@@ -1,7 +1,8 @@
 /**
  * Marketplace — types et schémas Zod.
  *
- * Trois kinds : workflow (WorkflowGraph), report_spec (ReportSpec), persona.
+ * Quatre kinds : workflow (WorkflowGraph), report_spec (ReportSpec), persona,
+ * creative_prompt (prompt créatif vidéo/image/audio pré-configuré).
  * Le payload est validé à la publication selon le kind, puis stocké en JSONB
  * et revalidé au chargement (defense-in-depth).
  */
@@ -10,7 +11,12 @@ import { z } from "zod";
 import { reportSpecSchema, type ReportSpec } from "@/lib/reports/spec/schema";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 
-export const MARKETPLACE_KINDS = ["workflow", "report_spec", "persona"] as const;
+export const MARKETPLACE_KINDS = [
+  "workflow",
+  "report_spec",
+  "persona",
+  "creative_prompt",
+] as const;
 export type MarketplaceKind = (typeof MARKETPLACE_KINDS)[number];
 
 /** Tag : alphanumérique + dash, 2-24 caractères, max 5 par template. */
@@ -49,6 +55,28 @@ export const workflowGraphSchema = z.object({
   version: z.number().int().min(1).optional(),
 });
 
+// ── CreativePrompt payload ──────────────────────────────────
+//
+// Pack créatif pré-configuré : un prompt + provider + paramètres minimaux,
+// destiné à être consommé par VideoQuickLaunch ou AssetVariantTabs (clone
+// 1-clic du prompt vers le launcher). Tags + recommendedFor permettent
+// la reco contextuelle (persona active, vertical tenant).
+export const creativePromptPayloadSchema = z.object({
+  prompt: z.string().min(1).max(2000),
+  provider: z.enum(["runway", "heygen", "fal", "elevenlabs"]),
+  kind: z.enum(["video", "image", "audio"]),
+  params: z
+    .object({
+      duration: z.number().int().min(1).max(120).optional(),
+      ratio: z.enum(["1280:720", "720:1280"]).optional(),
+      tone: z.string().min(1).max(40).optional(),
+    })
+    .optional(),
+  tags: z.array(z.string().min(1).max(40)).max(8).default([]),
+  recommendedFor: z.array(z.string().min(1).max(80)).max(10).optional(),
+});
+export type CreativePromptPayload = z.infer<typeof creativePromptPayloadSchema>;
+
 // ── Persona payload ─────────────────────────────────────────
 //
 // On ne valide que le sous-ensemble qu'on accepte de partager : pas de
@@ -75,11 +103,17 @@ export type PersonaPayload = z.infer<typeof personaPayloadSchema>;
 
 // ── Payload union ───────────────────────────────────────────
 
+export type MarketplacePayload =
+  | WorkflowGraph
+  | ReportSpec
+  | PersonaPayload
+  | CreativePromptPayload;
+
 export function validatePayload(
   kind: MarketplaceKind,
   payload: unknown,
 ):
-  | { ok: true; data: WorkflowGraph | ReportSpec | PersonaPayload }
+  | { ok: true; data: MarketplacePayload }
   | { ok: false; error: string } {
   if (kind === "workflow") {
     const r = workflowGraphSchema.safeParse(payload);
@@ -92,6 +126,15 @@ export function validatePayload(
     return r.success
       ? { ok: true, data: r.data }
       : { ok: false, error: r.error.issues[0]?.message ?? "report_spec_invalid" };
+  }
+  if (kind === "creative_prompt") {
+    const r = creativePromptPayloadSchema.safeParse(payload);
+    return r.success
+      ? { ok: true, data: r.data }
+      : {
+          ok: false,
+          error: r.error.issues[0]?.message ?? "creative_prompt_invalid",
+        };
   }
   const r = personaPayloadSchema.safeParse(payload);
   return r.success
@@ -115,10 +158,16 @@ export interface MarketplaceTemplateSummary {
   isFeatured: boolean;
   createdAt: string;
   updatedAt: string;
+  /**
+   * Persona IDs (`builtin:*` ou UUID) pour lesquels le template est recommandé.
+   * Présent uniquement pour `creative_prompt` ; sinon `undefined`.
+   * Permet à l'UI marketplace de pré-trier selon la persona active du tenant.
+   */
+  recommendedFor?: string[];
 }
 
 export interface MarketplaceTemplate extends MarketplaceTemplateSummary {
-  payload: WorkflowGraph | ReportSpec | PersonaPayload;
+  payload: MarketplacePayload;
   authorUserId: string;
 }
 

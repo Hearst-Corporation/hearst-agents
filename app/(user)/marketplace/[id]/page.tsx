@@ -18,6 +18,7 @@ import { Action } from "../../components/ui";
 import type {
   MarketplaceTemplate,
   MarketplaceRating,
+  CreativePromptPayload,
 } from "@/lib/marketplace/types";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
@@ -35,6 +36,7 @@ const KIND_LABELS: Record<string, string> = {
   workflow: "Workflow",
   report_spec: "Rapport",
   persona: "Persona",
+  creative_prompt: "Pack créatif",
 };
 
 function escapeHtml(s: string): string {
@@ -108,6 +110,8 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       } else if (data?.template.kind === "persona") {
         router.push(`/personas`);
       }
+      // creative_prompt : pas de redirect — l'action "Utiliser" est gérée
+      // par useCreativePromptPack ci-dessous (clipboard ou hook launcher).
       setFlash("Template cloné dans ton espace.");
     } catch (e) {
       setFlash(e instanceof Error ? e.message : "clone_failed");
@@ -141,6 +145,29 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         const body = (await fresh.json()) as DetailResponse;
         setData(body);
       }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleUseCreativePack() {
+    if (!data || data.template.kind !== "creative_prompt") return;
+    const payload = data.template.payload as CreativePromptPayload;
+    setBusy(true);
+    setFlash(null);
+    try {
+      // Pas encore de hook VideoQuickLaunch — copie le prompt en clipboard
+      // et invite l'user à le coller dans le launcher de son choix.
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(payload.prompt);
+        setFlash(
+          "Prompt copié dans le presse-papiers — colle-le dans VideoQuickLaunch ou AssetVariantTabs.",
+        );
+      } else {
+        setFlash("Prompt prêt — copie manuelle requise (clipboard indisponible).");
+      }
+    } catch (e) {
+      setFlash(e instanceof Error ? e.message : "copy_failed");
     } finally {
       setBusy(false);
     }
@@ -207,16 +234,30 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         back={{ label: "Marketplace", href: "/marketplace" }}
         actions={
           <div className="flex gap-2">
-            <Action
-              variant="primary"
-              tone="brand"
-              size="sm"
-              onClick={() => void handleClone()}
-              loading={busy}
-              testId="detail-clone"
-            >
-              Cloner
-            </Action>
+            {tpl.kind === "creative_prompt" && (
+              <Action
+                variant="primary"
+                tone="brand"
+                size="sm"
+                onClick={() => void handleUseCreativePack()}
+                loading={busy}
+                testId="detail-use-creative"
+              >
+                Utiliser dans VideoQuickLaunch
+              </Action>
+            )}
+            {tpl.kind !== "creative_prompt" && (
+              <Action
+                variant="primary"
+                tone="brand"
+                size="sm"
+                onClick={() => void handleClone()}
+                loading={busy}
+                testId="detail-clone"
+              >
+                Cloner
+              </Action>
+            )}
             <button
               type="button"
               onClick={() => setReportOpen((v) => !v)}
@@ -271,6 +312,9 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
           )}
           {tpl.kind === "persona" && (
             <PersonaPreview payload={tpl.payload as Record<string, unknown>} />
+          )}
+          {tpl.kind === "creative_prompt" && (
+            <CreativePromptPreview payload={tpl.payload as CreativePromptPayload} />
           )}
         </section>
 
@@ -493,6 +537,39 @@ function ReportPreview({ spec }: { spec: ReportSpec }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function CreativePromptPreview({ payload }: { payload: CreativePromptPayload }) {
+  const params = payload.params ?? {};
+  const ratio = params.ratio;
+  const duration = params.duration;
+  const tone = params.tone;
+  return (
+    <div
+      className="flex flex-col gap-3 p-4 bg-bg-elev"
+      style={{
+        border: "1px solid var(--line-strong)",
+        borderRadius: "var(--radius-md)",
+      }}
+    >
+      <div className="flex flex-wrap" style={{ gap: "var(--space-2)" }}>
+        <Chip>{payload.provider}</Chip>
+        <Chip>{payload.kind}</Chip>
+        {duration && <Chip>{duration}s</Chip>}
+        {ratio && <Chip>{ratio}</Chip>}
+        {tone && <Chip>{escapeHtml(tone)}</Chip>}
+      </div>
+      <div>
+        <p className="t-11 text-text-soft mb-1">Prompt</p>
+        <p
+          className="t-13 text-text whitespace-pre-wrap"
+          style={{ lineHeight: "var(--leading-normal)" }}
+        >
+          {escapeHtml(payload.prompt)}
+        </p>
+      </div>
     </div>
   );
 }

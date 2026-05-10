@@ -12,18 +12,21 @@ import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
 interface MarketplaceTemplateCardProps {
   template: MarketplaceTemplateSummary;
+  recommended?: boolean;
 }
 
 const KIND_LABELS: Record<string, string> = {
   workflow: "Workflow",
   report_spec: "Rapport",
   persona: "Persona",
+  creative_prompt: "Pack créatif",
 };
 
 const KIND_GLYPHS: Record<string, string> = {
   workflow: "▶",
   report_spec: "▦",
   persona: "◉",
+  creative_prompt: "✦",
 };
 
 function escapeHtml(s: string): string {
@@ -33,7 +36,10 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;");
 }
 
-export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardProps) {
+export function MarketplaceTemplateCard({
+  template,
+  recommended = false,
+}: MarketplaceTemplateCardProps) {
   const kindLabel = KIND_LABELS[template.kind] ?? template.kind;
   const glyph = KIND_GLYPHS[template.kind] ?? "·";
   const author = template.authorDisplayName?.trim() || "Anonyme";
@@ -71,6 +77,15 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
           {template.isFeatured && (
             <span className="t-11 font-medium text-(--accent-teal)">
               · Featured
+            </span>
+          )}
+          {recommended && (
+            <span
+              className="t-11 font-medium"
+              style={{ color: "var(--accent-teal)" }}
+              title="Recommandé pour la persona active"
+            >
+              · Recommandé
             </span>
           )}
         </div>
