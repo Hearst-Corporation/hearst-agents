@@ -12,9 +12,11 @@ import {
   weeklyDigestCronFunction,
   weeklyDigestPerUserFunction,
 } from "./weekly-digest";
+import { preMeetingIntelFunction } from "./pre-meeting-intel";
 
 export const inngestFunctions = [
   dailyBriefFunction,
   weeklyDigestCronFunction,
   weeklyDigestPerUserFunction,
+  preMeetingIntelFunction,
 ];
