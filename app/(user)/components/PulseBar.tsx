@@ -16,7 +16,7 @@
  * dans le flow de travail).
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
 import { useNavigationStore } from "@/stores/navigation";
@@ -27,6 +27,25 @@ interface ConnectionsMeta {
   connected: number;
   total: number;
 }
+
+interface AmbientSignal {
+  id: string;
+  kind:
+    | "mission_failed"
+    | "oauth_expired"
+    | "brief_stale"
+    | "variant_timeout"
+    | "mission_silent";
+  narration: string;
+  detectedAt: string;
+  ctaHref?: string;
+  severity: "info" | "warning";
+}
+
+/** Un signal détecté il y a > 30 min n'est plus rendu (whisper, pas alerte). */
+const SIGNAL_TTL_MS = 30 * 60_000;
+/** Crossfade entre signaux quand il y en a plusieurs. */
+const SIGNAL_ROTATION_MS = 5_000;
 
 export function PulseBar() {
   const coreState = useRuntimeStore((s) => s.coreState);
@@ -68,6 +87,60 @@ export function PulseBar() {
       clearInterval(interval);
     };
   }, []);
+
+  // ── Anomaly Whisper — signaux ambient OS humain ──
+  // Source : /api/v2/cockpit/signals. Refresh 60s. Filtrage côté client : on
+  // drop les signaux détectés il y a > 30min (le whisper s'efface tout seul
+  // si la condition tient toujours, le serveur le re-détectera au prochain tick).
+  const [signals, setSignals] = useState<AmbientSignal[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    async function refreshSignals() {
+      try {
+        const r = await fetch("/api/v2/cockpit/signals", { cache: "no-store" });
+        if (!r.ok) return;
+        const data = (await r.json()) as { signals?: AmbientSignal[] };
+        if (!cancelled && Array.isArray(data?.signals)) {
+          setSignals(data.signals);
+        }
+      } catch {
+        // Fail-soft : silence radio, jamais de crash.
+      }
+    }
+    refreshSignals();
+    const interval = setInterval(refreshSignals, 60_000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Tick monotone pour invalider le filtre TTL et faire avancer la rotation.
+  // On stocke le `now` côté state plutôt que d'appeler Date.now() pendant le
+  // render (purety rule react-hooks/purity).
+  const [nowMs, setNowMs] = useState(() => Date.now());
+  const [signalIndex, setSignalIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNowMs(Date.now());
+      setSignalIndex((i) => i + 1);
+    }, SIGNAL_ROTATION_MS);
+    return () => clearInterval(interval);
+  }, []);
+
+  const visibleSignals = useMemo(() => {
+    return signals.filter((s) => {
+      const detectedMs = Date.parse(s.detectedAt);
+      if (Number.isNaN(detectedMs)) return false;
+      return nowMs - detectedMs <= SIGNAL_TTL_MS;
+    });
+  }, [signals, nowMs]);
+
+  // Modulo lazy à la lecture : pas besoin d'effect de reset, l'index "déborde"
+  // simplement et est ramené dans la fenêtre via le modulo (length safe).
+  const currentSignal =
+    visibleSignals.length > 0 ? visibleSignals[signalIndex % visibleSignals.length] : null;
 
   return (
     <div
@@ -121,6 +194,16 @@ export function PulseBar() {
         </span>
       </button>
 
+      {/* Anomaly Whisper — slot ambient dédié.
+         Pivot v1.6 (2026-05-10) : narration qualitative (mission failed,
+         OAuth, brief stale, variant timeout, mission silencieuse). Voix
+         sourde, point accent-teal — pas de rouge même pour severity warning,
+         c'est un whisper, pas une alerte. Crossfade lent entre signaux
+         quand il y en a plusieurs. */}
+      {currentSignal && (
+        <AmbientWhisper key={currentSignal.id} signal={currentSignal} />
+      )}
+
       {/* Droite : run/voice/credits/profile (tout conditionnel).
          Pivot UI 2026-05-01 : on retire les labels mono caps tracking-marquee
          (RUN_ACTIVE / VOICE_ON / CREDITS) qui criaient comme des états critiques
@@ -173,6 +256,87 @@ export function PulseBar() {
 
         <NotificationBell />
       </div>
+    </div>
+  );
+}
+
+/**
+ * AmbientWhisper — ligne ambient dans la PulseBar.
+ *
+ * Format : `⬤ [narration] →` cliquable. Style "silent luxury" : t-11
+ * font-light, text-faint, point en var(--accent-teal) — pas de rouge même
+ * pour severity warning. Crossfade opacity 0 → 1 sur var(--duration-slow)
+ * pour un fondu doux à chaque changement de signal (la prop `key` du parent
+ * remonte la rotation au remount).
+ */
+function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
+  const [visible, setVisible] = useState(false);
+
+  // Fade-in au mount (visible: false → true au tick suivant pour déclencher la transition).
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const content = (
+    <>
+      <span
+        className="rounded-pill shrink-0"
+        style={{
+          width: "var(--space-2)",
+          height: "var(--space-2)",
+          background: "var(--accent-teal)",
+        }}
+        aria-hidden
+      />
+      <span
+        className="t-11 font-light truncate"
+        style={{ color: "var(--text-faint)" }}
+      >
+        {signal.narration}
+      </span>
+      <span
+        className="t-11 shrink-0"
+        aria-hidden
+        style={{ color: "var(--text-faint)" }}
+      >
+        →
+      </span>
+    </>
+  );
+
+  const baseClass =
+    "hidden md:flex items-center min-w-0 max-w-sm hover:opacity-100 transition-opacity";
+  const baseStyle: React.CSSProperties = {
+    gap: "var(--space-2)",
+    opacity: visible ? 1 : 0,
+    transition: `opacity var(--duration-slow) var(--ease-standard)`,
+  };
+
+  if (signal.ctaHref) {
+    return (
+      <a
+        href={signal.ctaHref}
+        className={baseClass}
+        style={baseStyle}
+        title={signal.narration}
+        data-testid="ambient-whisper"
+        data-signal-kind={signal.kind}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      className={baseClass}
+      style={baseStyle}
+      title={signal.narration}
+      data-testid="ambient-whisper"
+      data-signal-kind={signal.kind}
+    >
+      {content}
     </div>
   );
 }
