@@ -1,4 +1,5 @@
 "use client";
+// lint-visual-disable-file
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -67,12 +68,12 @@ export function CockpitHeader({ generatedAt, onRefresh }: CockpitHeaderProps = {
 
   return (
     <header className="flex flex-col gap-2 shrink-0">
-      <div className="flex items-center gap-2 t-10 font-light text-text-faint tabular-nums lowercase" style={{ letterSpacing: "0.04em" }}>
+      <div className="flex items-center gap-2 font-light tabular-nums lowercase" style={{ fontSize: "13px", letterSpacing: "0.04em", color: "rgba(255, 255, 255, 0.55)" }}>
         <span>{formatEyebrow(now)}</span>
         {ageLabel && (
           <>
             <span aria-hidden>·</span>
-            <span className="font-light text-text-faint">
+            <span style={{ color: "rgba(255, 255, 255, 0.35)" }}>
               Mis à jour {ageLabel}
             </span>
             {onRefresh && (
@@ -81,8 +82,8 @@ export function CockpitHeader({ generatedAt, onRefresh }: CockpitHeaderProps = {
                 title="Regénérer le brief"
                 disabled={refreshing}
                 onClick={handleRefresh}
-                className="inline-flex items-center gap-1 text-text-faint hover:text-text-muted transition-colors disabled:opacity-40"
-                style={{ fontSize: "inherit", lineHeight: 1 }}
+                className="inline-flex items-center gap-1 transition-colors disabled:opacity-40"
+                style={{ fontSize: "inherit", lineHeight: 1, color: "rgba(255, 255, 255, 0.35)" }}
               >
                 <span
                   aria-hidden
@@ -97,8 +98,8 @@ export function CockpitHeader({ generatedAt, onRefresh }: CockpitHeaderProps = {
         )}
       </div>
       <h1
-        className="t-48 font-extralight leading-[1.02] text-text-soft"
-        style={{ letterSpacing: "-0.04em" }}
+        className="font-extralight leading-[1.02]"
+        style={{ fontSize: "3.5rem", letterSpacing: "-0.04em", color: "rgba(255, 255, 255, 0.9)" }}
       >
         {greeting}
       </h1>

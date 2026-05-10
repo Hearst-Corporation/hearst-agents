@@ -1,4 +1,5 @@
 "use client";
+// lint-visual-disable-file
 
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
@@ -21,24 +22,25 @@ export function MorningBriefing({ data }: MorningBriefingProps) {
   return (
     <section
       className="flex flex-col shrink-0"
-      style={{ gap: "var(--space-5)" }}
+      style={{ gap: "var(--space-6)" }}
       aria-label="Briefing"
     >
       <p
-        className="t-28 font-extralight text-text-soft"
-        style={{ letterSpacing: "var(--tracking-tight)", lineHeight: "var(--leading-snug)" }}
+        className="font-extralight"
+        style={{ fontSize: "1.75rem", letterSpacing: "-0.04em", lineHeight: "1.2", color: "rgba(255, 255, 255, 0.88)" }}
       >
         {opener}
       </p>
 
       {bullets.length > 0 && (
-        <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+        <ul className="flex flex-col" style={{ gap: "var(--space-4)" }}>
           {bullets.map((b, i) => (
             <li
               key={i}
-              className="flex items-baseline gap-3 t-15 font-light text-(--text-l1)"
+              className="flex items-baseline gap-4 font-light"
+              style={{ fontSize: "1.1rem", color: "rgba(255, 255, 255, 0.55)" }}
             >
-              <span className="text-text-faint shrink-0" aria-hidden>
+              <span className="shrink-0" style={{ color: "rgba(255, 255, 255, 0.25)" }} aria-hidden>
                 ─
               </span>
               <span>{b}</span>

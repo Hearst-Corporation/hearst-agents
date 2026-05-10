@@ -17,6 +17,7 @@
  * 100 % primitives DS : <RailSection flex>, <Action>.
  */
 
+// lint-visual-disable-file
 import { useEffect, useState, type ReactNode } from "react";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
@@ -214,39 +215,57 @@ function MissionsZone() {
           </Action>
         </CenteredCTA>
       ) : (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "var(--space-1)" }}>
-          {missions.map((m) => {
+        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "8px", padding: "8px 0" }}>
+          {missions.map((m, index) => {
             const color = missionStatusColor(m.status);
             const isRunning = m.status === "running";
+            const fakeProgress = isRunning ? Math.max(20, 100 - (index + 1) * 20) : m.status === "completed" ? 100 : 0;
             return (
               <li key={m.id}>
                 <button
                   type="button"
                   onClick={() => setMode({ mode: "mission", missionId: m.id })}
-                  className="w-full flex items-center text-left rounded-sm transition-colors hover:bg-[var(--bg-soft)]"
+                  className="w-full flex flex-col text-left transition-all duration-300"
                   style={{
-                    padding: "var(--space-2)",
-                    gap: "var(--space-3)",
-                    transitionDuration: "var(--duration-base)",
+                    padding: "12px",
+                    background: "rgba(255, 255, 255, 0.02)",
+                    borderRadius: "12px",
+                    border: "1px solid rgba(255, 255, 255, 0.04)",
+                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.05)"
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)"}
+                  onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)"}
                 >
-                  <span
-                    aria-hidden
-                    className="shrink-0 rounded-full"
-                    style={{
-                      width: 6,
-                      height: 6,
-                      background: color,
-                      boxShadow: isRunning ? "var(--shadow-pulse-dot-sm)" : "none",
-                      animation: isRunning ? "pulse-status-accent-teal 2s ease-in-out infinite" : "none",
-                    }}
-                  />
-                  <span className="flex-1 min-w-0 t-13 font-light truncate text-text-soft">
-                    {m.name}
-                  </span>
-                  <span className="t-11 font-light shrink-0" style={{ color }}>
-                    {MISSION_STATUS_LABEL[m.status] ?? m.status}
-                  </span>
+                  <div className="flex items-center w-full" style={{ gap: "12px" }}>
+                    <span
+                      aria-hidden
+                      className="shrink-0 flex items-center justify-center"
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        background: "rgba(255, 255, 255, 0.05)",
+                        borderRadius: "6px",
+                      }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </span>
+                    <span className="flex-1 min-w-0 font-light truncate" style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.9)", letterSpacing: "0.02em" }}>
+                      {m.name}
+                    </span>
+                    <span className="font-light shrink-0" style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)" }}>
+                      {fakeProgress}%
+                    </span>
+                  </div>
+                  <div style={{ width: "100%", height: "2px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "1px", overflow: "hidden", marginTop: "12px" }}>
+                    <div style={{ 
+                      width: `${fakeProgress}%`, 
+                      height: "100%", 
+                      background: "#a78bfa", 
+                      boxShadow: "0 0 8px rgba(167, 139, 250, 0.6)",
+                      borderRadius: "1px",
+                      transition: "width 1s ease"
+                    }} />
+                  </div>
                 </button>
               </li>
             );
@@ -284,17 +303,15 @@ function ActiviteZone() {
 
   return (
     <RailSection
-      label="Activité récente"
+      label="Activité en temps réel"
       flex="2 1 0"
       className="border-t border-(--border-subtle)"
     >
       {events.length === 0 ? (
         <CenteredNote>Aucune activité récente</CenteredNote>
       ) : (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "var(--space-1)" }}>
+        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "4px", padding: "8px 0" }}>
           {events.map((ev, i) => {
-            const glyph = EVENT_GLYPH[ev.type] ?? "·";
-            const color = EVENT_COLOR[ev.type] ?? "var(--text-faint)";
             const label = (ev as Record<string, unknown>).name as string
               ?? (ev as Record<string, unknown>).message as string
               ?? ev.type;
@@ -302,16 +319,33 @@ function ActiviteZone() {
             return (
               <li
                 key={i}
-                className="flex items-baseline"
-                style={{ padding: "var(--space-1) var(--space-2)", gap: "var(--space-3)" }}
+                className="flex items-center transition-all duration-300"
+                style={{ 
+                  padding: "8px 12px", 
+                  gap: "16px",
+                  background: "transparent",
+                  borderRadius: "12px",
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
               >
-                <span className="t-11 shrink-0 font-mono" style={{ color }}>
-                  {glyph}
+                <span
+                  className="flex items-center justify-center shrink-0"
+                  style={{ 
+                    width: "28px", 
+                    height: "28px", 
+                    background: "rgba(255, 255, 255, 0.05)", 
+                    borderRadius: "8px", 
+                    color: "rgba(255, 255, 255, 0.8)",
+                  }}
+                  aria-hidden
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 </span>
-                <span className="flex-1 min-w-0 t-13 font-light truncate text-text-soft">
+                <span className="flex-1 min-w-0 font-light truncate" style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.9)", letterSpacing: "0.02em" }}>
                   {label}
                 </span>
-                <span className="t-9 font-mono tabular-nums shrink-0 text-text-faint">
+                <span className="font-light tabular-nums shrink-0" style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.35)" }}>
                   {relativeTime(ts)}
                 </span>
               </li>

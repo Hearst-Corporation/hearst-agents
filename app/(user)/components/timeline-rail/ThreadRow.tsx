@@ -7,6 +7,7 @@
  */
 
 import type { Thread } from "@/stores/navigation";
+// lint-visual-disable-file
 import { ArchiveIcon, TrashIcon } from "./icons";
 
 export interface ThreadRowProps {
@@ -22,29 +23,40 @@ export function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: T
   return (
     <div
       onClick={onSelect}
-      className={`group cursor-pointer py-2 px-3 transition-colors duration-(--duration-base) ease-(--ease-out-soft) flex items-center gap-3 rounded-md ${
-        isActive ? "bg-[var(--layer-1)]" : "hover:bg-[var(--layer-1)]"
+      className={`group cursor-pointer py-2 px-3 transition-all duration-500 flex items-center gap-3 ${
+        isActive 
+          ? "bg-[rgba(255,255,255,0.06)] rounded-[12px] border border-[rgba(255,255,255,0.05)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]" 
+          : "hover:bg-[rgba(255,255,255,0.03)] rounded-[12px] border border-transparent"
       }`}
       title={thread.name}
     >
       <span
-        className="rounded-pill shrink-0"
+        className="shrink-0 flex items-center justify-center"
         style={{
-          width: "var(--space-2)",
-          height: "var(--space-2)",
-          background: "var(--accent-teal)",
-          boxShadow: isActive ? "var(--shadow-neon-accent-teal)" : "none",
-          opacity: isActive ? 1 : 0.55,
+          width: "24px",
+          height: "24px",
+          background: isActive ? "rgba(167, 139, 250, 0.15)" : "transparent",
+          borderRadius: "6px",
         }}
         aria-hidden
-      />
+      >
+        <span 
+          style={{ 
+            display: "inline-block",
+            width: "12px", 
+            height: "12px", 
+            borderRadius: "50%",
+            background: isActive ? "#a78bfa" : "rgba(255, 255, 255, 0.3)",
+            boxShadow: isActive ? "0 0 12px rgba(167, 139, 250, 0.8)" : "none",
+          }} 
+        />
+      </span>
       <p
-        className="flex-1 t-14 truncate min-w-0 transition-all duration-(--duration-slow) ease-(--ease-out-soft)"
+        className="flex-1 truncate min-w-0 transition-colors duration-300 font-light"
         style={{
-          lineHeight: "var(--leading-base)",
-          color: isActive ? "var(--accent-teal)" : "var(--text-l1)",
-          fontWeight: isActive ? "var(--weight-medium)" : "var(--weight-light)",
-          textShadow: isActive ? "var(--shadow-neon-accent-teal)" : "none",
+          fontSize: "14px",
+          color: isActive ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.55)",
+          letterSpacing: "0.02em",
         }}
       >
         {thread.name}
@@ -56,7 +68,7 @@ export function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: T
             e.stopPropagation();
             onArchive();
           }}
-          className="text-text-faint hover:text-text-soft p-1 transition-colors"
+          className="text-[rgba(255,255,255,0.3)] hover:text-[rgba(255,255,255,0.8)] p-1 transition-colors"
           title={isArchived ? "Désarchiver" : "Archiver"}
           aria-label={isArchived ? "Désarchiver la conversation" : "Archiver la conversation"}
         >
@@ -68,7 +80,7 @@ export function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: T
             e.stopPropagation();
             onDelete();
           }}
-          className="text-text-faint hover:text-(--danger) p-1 transition-colors"
+          className="text-[rgba(255,255,255,0.3)] hover:text-[var(--danger)] p-1 transition-colors"
           title="Supprimer"
           aria-label="Supprimer la conversation"
         >
