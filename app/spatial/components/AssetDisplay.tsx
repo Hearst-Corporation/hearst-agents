@@ -13,13 +13,12 @@ export function AssetDisplay({ stage, onClose }: AssetDisplayProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Very subtle rotation (max 3 degrees) for a premium, heavy glass feel
-  const rotateX = useTransform(mouseY, [-1, 1], [3, -3]);
-  const rotateY = useTransform(mouseX, [-1, 1], [-3, 3]);
+  // Ultra-subtle rotation for a heavy, premium glass feel
+  const rotateX = useTransform(mouseY, [-1, 1], [2, -2]);
+  const rotateY = useTransform(mouseX, [-1, 1], [-2, 2]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Normalize mouse position between -1 and 1
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = (e.clientY / window.innerHeight) * 2 - 1;
       mouseX.set(x);
@@ -33,69 +32,64 @@ export function AssetDisplay({ stage, onClose }: AssetDisplayProps) {
   }, [stage, mouseX, mouseY]);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center" style={{ perspective: "1200px" }}>
+    <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center" style={{ perspective: "2000px" }}>
       <AnimatePresence>
         {stage === "asset" && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, z: -100, filter: "blur(20px)" }}
+            initial={{ opacity: 0, scale: 0.95, z: -100, filter: "blur(20px)" }}
             animate={{ opacity: 1, scale: 1, z: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 0.95, z: -50, filter: "blur(10px)" }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, scale: 0.98, z: -50, filter: "blur(10px)" }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ rotateX, rotateY }}
-            className="pointer-events-auto relative w-[600px] max-w-[90vw] bg-[var(--bg)]/60 border border-white/10 rounded-2xl p-10 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)]"
+            className="pointer-events-auto relative w-[600px] max-w-[90vw] rounded-3xl p-10 backdrop-blur-3xl shadow-[0_32px_80px_rgba(0,0,0,0.8)] overflow-hidden"
           >
-            {/* Subtle glass reflection */}
-            <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-white/5 to-transparent pointer-events-none" />
+            {/* Deep frosted glass background */}
+            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+            
+            {/* Delicate border lighting */}
+            <div className="absolute inset-0 rounded-3xl border border-white/[0.08] pointer-events-none mix-blend-overlay" />
+            
+            {/* Subtle inner reflection */}
+            <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-white/[0.05] via-transparent to-transparent pointer-events-none" />
 
             <button 
               onClick={onClose}
-              className="absolute top-6 right-6 text-white/30 hover:text-white transition-colors"
+              className="absolute top-8 right-8 text-white/30 hover:text-white transition-colors duration-500 z-10"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
             
-            <div className="flex items-center gap-4 mb-10">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/80">
-                ⚲
+            <div className="relative z-10 flex items-center gap-5 mb-12">
+              <div className="w-12 h-12 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-white/80 shadow-inner">
+                <span className="text-lg font-light">⚲</span>
               </div>
               <div>
                 <h3 className="text-white/90 text-lg font-light tracking-wide">Analyse Stratégique</h3>
-                <p className="text-white/40 text-xs tracking-wider uppercase mt-1">Généré par l&apos;Agent Analyst</p>
+                <p className="text-white/40 text-[10px] tracking-[0.2em] uppercase mt-1.5">Agent Analyst — Terminé</p>
               </div>
             </div>
 
-            <div className="space-y-8 text-white/60 font-light leading-relaxed text-sm">
-              <p>
+            <div className="relative z-10 space-y-10 text-white/60 font-light leading-relaxed text-sm">
+              <p className="text-white/70">
                 L&apos;orchestration de la mission a permis de consolider les données de marché.
                 Les indicateurs clés montrent une progression stable sur le dernier trimestre, avec une accélération notable sur le segment B2B.
               </p>
               
-              <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent" />
-              
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/5 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="text-white/40 text-xs tracking-widest uppercase mb-3">Croissance</div>
-                  <div className="text-3xl text-white/90 font-light">+24%</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/[0.02] rounded-2xl p-6 border border-white/[0.04] relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-linear-to-br from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="text-white/30 text-[10px] tracking-[0.2em] uppercase mb-4">Croissance</div>
+                  <div className="text-4xl text-white/90 font-light tracking-tight">+24%</div>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/5 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="text-white/40 text-xs tracking-widest uppercase mb-3">Engagement</div>
-                  <div className="text-3xl text-white/90 font-light">8.4s</div>
+                <div className="bg-white/[0.02] rounded-2xl p-6 border border-white/[0.04] relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-linear-to-br from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="text-white/30 text-[10px] tracking-[0.2em] uppercase mb-4">Engagement</div>
+                  <div className="text-4xl text-white/90 font-light tracking-tight">8.4s</div>
                 </div>
               </div>
-            </div>
-            
-            <div className="mt-10 flex justify-end">
-              <button 
-                onClick={onClose}
-                className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition-colors tracking-wide"
-              >
-                Terminer
-              </button>
             </div>
           </motion.div>
         )}

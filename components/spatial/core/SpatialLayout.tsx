@@ -4,6 +4,7 @@ import { type ReactNode } from "react";
 import { SpatialThemeProvider } from "@/providers/spatial/SpatialThemeProvider";
 import { SpatialMotionProvider } from "@/providers/spatial/SpatialMotionProvider";
 import { SpatialStageProvider } from "@/providers/spatial/SpatialStageProvider";
+import { SpatialMouseProvider } from "@/providers/spatial/SpatialMouseProvider";
 import type { SpatialStage } from "@/lib/spatial/types";
 
 interface SpatialLayoutProps {
@@ -25,14 +26,16 @@ export function SpatialLayout({
   return (
     <SpatialThemeProvider>
       <SpatialMotionProvider>
-        <SpatialStageProvider initialStage={initialStage}>
-          <main
-            className={`fixed inset-0 w-screen h-screen overflow-hidden font-sans selection:bg-white/20 ${className ?? ""}`}
-            style={{ background: "var(--sp-bg, #000000)", zIndex: 50 }}
-          >
-            {children}
-          </main>
-        </SpatialStageProvider>
+        <SpatialMouseProvider>
+          <SpatialStageProvider initialStage={initialStage}>
+            <main
+              className={`spatial-root fixed inset-0 w-screen h-screen overflow-hidden font-sans selection:bg-white/20 ${className ?? ""}`}
+              style={{ background: "var(--sp-bg, #000000)", zIndex: 50 }}
+            >
+              {children}
+            </main>
+          </SpatialStageProvider>
+        </SpatialMouseProvider>
       </SpatialMotionProvider>
     </SpatialThemeProvider>
   );

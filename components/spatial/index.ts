@@ -1,5 +1,5 @@
 // Core
-export { SpatialScene, SpatialLayout, SpatialOrbCore } from "./core";
+export { SpatialScene, SpatialLayout, SpatialOrbCore, SpatialSignatureScene } from "./core";
 
 // Motion
 export { SpatialTransition, EMERGE, DISSOLVE, SNAP, FLOAT_UP, ORBITAL_NODE, PANEL_EMERGE, STAGGER_CHILDREN } from "./motion";
@@ -14,7 +14,7 @@ export { AmbientBackground } from "./background";
 export { OrbitalItem, OrbitalRing } from "./orbital";
 
 // Panels
-export { FloatingPanel } from "./panels";
+export { FloatingPanel, BriefPanel, MissionPanel, AssetsPanel } from "./panels";
 
 // Overlays
 export { SpatialOverlayManager, useSpatialOverlay, SpatialHUD } from "./overlays";

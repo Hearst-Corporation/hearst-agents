@@ -22,7 +22,7 @@ export function SpatialChatBar({ stage, onSubmit }: SpatialChatBarProps) {
     if (stage === "focus" && inputRef.current) {
       setTimeout(() => {
         inputRef.current?.focus();
-      }, 300);
+      }, 500); // Slower, calmer appearance
     }
   }, [stage]);
 
@@ -39,20 +39,20 @@ export function SpatialChatBar({ stage, onSubmit }: SpatialChatBarProps) {
       <AnimatePresence>
         {stage === "focus" && (
           <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="flex gap-4 mb-8 pointer-events-auto"
+            exit={{ opacity: 0, y: 5, filter: "blur(8px)" }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="flex gap-3 mb-8 pointer-events-auto"
           >
             {suggestions.map((suggestion, idx) => (
               <button
                 key={idx}
                 onClick={() => {
                   setValue(suggestion);
-                  setTimeout(() => handleSubmit({ preventDefault: () => {} } as React.FormEvent), 100);
+                  setTimeout(() => handleSubmit({ preventDefault: () => {} } as React.FormEvent), 150);
                 }}
-                className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:text-white/90 transition-all duration-500 backdrop-blur-md text-xs font-light tracking-wide"
+                className="px-5 py-2.5 rounded-full bg-white/[0.02] border border-white/[0.05] text-white/40 hover:bg-white/[0.08] hover:text-white/80 hover:border-white/[0.1] transition-all duration-700 backdrop-blur-md text-[11px] font-light tracking-[0.05em] shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
               >
                 {suggestion}
               </button>
@@ -64,17 +64,17 @@ export function SpatialChatBar({ stage, onSubmit }: SpatialChatBarProps) {
       <AnimatePresence>
         {stage === "focus" && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.95, filter: "blur(10px)" }}
+            initial={{ opacity: 0, y: 20, scale: 0.98, filter: "blur(12px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: 20, scale: 0.95, filter: "blur(10px)" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.98, filter: "blur(12px)" }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="w-full max-w-2xl px-6 pointer-events-auto"
           >
             <form onSubmit={handleSubmit} className="relative group">
-              <div className="absolute -inset-0.5 bg-linear-to-r from-white/0 via-white/10 to-white/0 rounded-full blur opacity-0 group-focus-within:opacity-100 transition-opacity duration-1000" />
-              <div className="relative flex items-center bg-[var(--bg-elev)]/80 border border-white/10 rounded-full backdrop-blur-2xl shadow-2xl overflow-hidden transition-colors duration-500 group-focus-within:border-white/20 group-focus-within:bg-black/90">
-                <div className="pl-6 pr-4 text-white/40">
-                  ✧
+              <div className="absolute -inset-1 bg-linear-to-r from-white/0 via-white/[0.08] to-white/0 rounded-[2rem] blur-md opacity-0 group-focus-within:opacity-100 transition-opacity duration-1000" />
+              <div className="relative flex items-center bg-black/40 border border-white/[0.08] rounded-[2rem] backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-700 group-focus-within:border-white/[0.15] group-focus-within:bg-black/60">
+                <div className="pl-6 pr-3 text-white/30 group-focus-within:text-white/60 transition-colors duration-700">
+                  <span className="text-xl font-light">✧</span>
                 </div>
                 <input
                   ref={inputRef}
@@ -82,14 +82,14 @@ export function SpatialChatBar({ stage, onSubmit }: SpatialChatBarProps) {
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
                   placeholder="Que souhaitez-vous orchestrer ?"
-                  className="w-full bg-transparent border-none outline-none text-white/90 placeholder:text-white/30 py-5 text-sm font-light tracking-wide focus:ring-0"
+                  className="w-full bg-transparent border-none outline-none text-white/90 placeholder:text-white/20 py-5 text-sm font-light tracking-wide focus:ring-0"
                 />
                 <button
                   type="submit"
                   disabled={!value.trim()}
-                  className="pr-6 pl-4 text-white/30 hover:text-white transition-colors disabled:opacity-50 disabled:hover:text-white/30"
+                  className="pr-6 pl-4 text-white/20 hover:text-white/80 transition-colors duration-500 disabled:opacity-30 disabled:hover:text-white/20"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="19" x2="12" y2="5"></line>
                     <polyline points="5 12 12 5 19 12"></polyline>
                   </svg>

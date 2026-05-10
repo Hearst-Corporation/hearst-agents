@@ -1,79 +1,141 @@
 "use client";
 
-import { motion, AnimatePresence, useTransform, type MotionValue } from "framer-motion";
+import { motion, AnimatePresence, useTransform } from "framer-motion";
 import type { ReactNode } from "react";
-import { PANEL_EMERGE } from "@/components/spatial/motion/variants";
 import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
+import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
+
+type Anchor =
+  | "left"
+  | "right"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "bottom-center"
+  | "center";
 
 interface FloatingPanelProps {
   show: boolean;
   children: ReactNode;
-  /** MotionValues pour le parallax souris */
-  mouseX?: MotionValue<number>;
-  mouseY?: MotionValue<number>;
-  /** Amplitude max de rotation en degrés */
+  anchor?: Anchor;
+  delay?: number;
+  width?: number | string;
+  noParallax?: boolean;
   rotationAmplitude?: number;
   className?: string;
-  onClose?: () => void;
 }
 
+const ANCHOR_CLASSES: Record<Anchor, string> = {
+  "left":          "left-12 top-1/2 -translate-y-1/2",
+  "right":         "right-12 top-1/2 -translate-y-1/2",
+  "top-left":      "left-12 top-12",
+  "top-right":     "right-12 top-12",
+  "bottom-left":   "left-12 bottom-16",
+  "bottom-right":  "right-12 bottom-16",
+  "bottom-center": "left-1/2 -translate-x-1/2 bottom-16",
+  "center":        "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+};
+
 /**
- * Panel HTML flottant avec parallax souris et glass material CSS.
- * Aucune logique métier — reçoit children arbitraires.
+ * Origine d'émergence — chaque panel part visuellement de l'orbe (centre écran)
+ * et glisse vers son ancrage. Sensation magnétique : attiré par le noyau.
  */
+const ANCHOR_EMERGENCE: Record<Anchor, { x: number; y: number }> = {
+  "left":          { x: 180, y: 0 },
+  "right":         { x: -180, y: 0 },
+  "top-left":      { x: 120, y: 80 },
+  "top-right":     { x: -120, y: 80 },
+  "bottom-left":   { x: 120, y: -80 },
+  "bottom-right":  { x: -120, y: -80 },
+  "bottom-center": { x: 0, y: -120 },
+  "center":        { x: 0, y: 0 },
+};
+
 export function FloatingPanel({
   show,
   children,
-  mouseX,
-  mouseY,
-  rotationAmplitude = 3,
+  anchor = "center",
+  delay = 0,
+  width,
+  noParallax = false,
+  rotationAmplitude = 1.4,
   className,
-  onClose,
 }: FloatingPanelProps) {
-  const rotateX = useTransform(mouseY ?? { get: () => 0 } as MotionValue<number>, [-1, 1], [rotationAmplitude, -rotationAmplitude]);
-  const rotateY = useTransform(mouseX ?? { get: () => 0 } as MotionValue<number>, [-1, 1], [-rotationAmplitude, rotationAmplitude]);
+  const { smoothX, smoothY } = useSpatialMouseContext();
+  const rotateX = useTransform(smoothY, [-1, 1], [rotationAmplitude, -rotationAmplitude]);
+  const rotateY = useTransform(smoothX, [-1, 1], [-rotationAmplitude, rotationAmplitude]);
+
+  const emergence = ANCHOR_EMERGENCE[anchor];
 
   return (
-    <div
-      className="absolute inset-0 pointer-events-none flex items-center justify-center"
-      style={{ perspective: "1200px", zIndex: SPATIAL_Z_LAYERS.surface }}
-    >
-      <AnimatePresence>
-        {show && (
+    <AnimatePresence>
+      {show && (
+        <div
+          className={`absolute pointer-events-none ${ANCHOR_CLASSES[anchor]}`}
+          style={{ perspective: 1400, zIndex: SPATIAL_Z_LAYERS.surface }}
+        >
           <motion.div
-            variants={PANEL_EMERGE}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            style={{
-              rotateX: mouseX ? rotateX : 0,
-              rotateY: mouseX ? rotateY : 0,
-              background: "var(--sp-surface, rgba(255,255,255,0.04))",
-              borderColor: "var(--sp-border, rgba(255,255,255,0.10))",
+            initial={{
+              opacity: 0,
+              scale: 0.88,
+              x: emergence.x,
+              y: emergence.y,
+              filter: "blur(18px)",
             }}
-            className={`pointer-events-auto relative max-w-[90vw] backdrop-blur-3xl border rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.8)] ${className ?? ""}`}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              y: 0,
+              filter: "blur(0px)",
+              transition: {
+                duration: 1.6,
+                ease: [0.16, 1, 0.3, 1],
+                delay,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.92,
+              x: emergence.x * 0.4,
+              y: emergence.y * 0.4,
+              filter: "blur(12px)",
+              transition: { duration: 0.7, ease: [0.4, 0, 1, 1] },
+            }}
+            style={{
+              width: width ?? undefined,
+              rotateX: noParallax ? 0 : rotateX,
+              rotateY: noParallax ? 0 : rotateY,
+            }}
+            className={`pointer-events-auto relative rounded-[18px] overflow-hidden ${className ?? ""}`}
           >
-            {/* Glass reflection */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+            {/* Frozen glass — opacité légèrement remontée pour lisibilité */}
+            <div
+              className="absolute inset-0 rounded-[18px]"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.055)",
+                border: "1px solid rgba(255,255,255,0.11)",
+                backdropFilter: "blur(36px) saturate(125%)",
+                WebkitBackdropFilter: "blur(36px) saturate(125%)",
+                boxShadow:
+                  "0 36px 100px -24px rgba(0,0,0,0.85), 0 6px 18px -4px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07)",
+              }}
+            />
 
-            {/* Close button */}
-            {onClose && (
-              <button
-                onClick={onClose}
-                className="absolute top-6 right-6 text-white/30 hover:text-white transition-colors z-10"
-                aria-label="Fermer"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            )}
+            {/* Reflet diagonal subtil — ton froid, pas de glow coloré */}
+            <div
+              className="absolute inset-0 rounded-[18px] pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(140deg, rgba(220,228,238,0.06) 0%, transparent 38%, transparent 100%)",
+              }}
+            />
 
-            {children}
+            <div className="relative">{children}</div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

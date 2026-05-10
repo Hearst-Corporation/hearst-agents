@@ -4,7 +4,7 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { MeshTransmissionMaterial, Sphere, Ring, Html } from "@react-three/drei";
+import { MeshTransmissionMaterial, Sphere, Ring, Html, Billboard } from "@react-three/drei";
 
 interface LogoCoreProps {
   stage: "idle" | "focus" | "mission" | "asset";
@@ -15,76 +15,83 @@ interface LogoCoreProps {
 export function LogoCore({ stage, hoveredNode, onClick }: LogoCoreProps) {
   const groupRef = useRef<THREE.Group>(null);
   const outerRef = useRef<THREE.Mesh>(null);
-  const ringMaterialRef = useRef<THREE.MeshStandardMaterial>(null);
   const htmlContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Materials for the peripheral energy
+  const haloBaseRef = useRef<THREE.MeshBasicMaterial>(null);
+  const haloMaterial1Ref = useRef<THREE.MeshBasicMaterial>(null);
+  const haloMaterial2Ref = useRef<THREE.MeshBasicMaterial>(null);
 
   // Animation target values
   const targetScale = useMemo(() => new THREE.Vector3(1, 1, 1), []);
-  const targetEmissiveIntensity = useRef(1);
+  const glowIntensity = useRef(0.5);
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
 
-    // Breathing effect
-    const breath = Math.sin(time * 2) * 0.05;
+    // Slower, calmer breathing
+    const breath = Math.sin(time * 1.2) * 0.015;
     
     if (groupRef.current) {
-      groupRef.current.scale.lerp(targetScale.clone().addScalar(breath), 0.1);
+      groupRef.current.scale.lerp(targetScale.clone().addScalar(breath), 0.05);
     }
     
     if (outerRef.current) {
-      // Subtle rotation for the glass shell
-      outerRef.current.rotation.y = time * 0.1;
-      outerRef.current.rotation.x = time * 0.05;
+      // Extremely subtle glass rotation (frozen water feeling)
+      outerRef.current.rotation.y = time * 0.02;
+      outerRef.current.rotation.x = time * 0.01;
       
-      // If a node is hovered, the glass reacts by spinning slightly faster
       if (hoveredNode) {
-        outerRef.current.rotation.y += 0.01;
+        outerRef.current.rotation.y += 0.005;
       }
     }
 
     // Stage based animations
-    let targetIntensity = 1;
+    let targetIntensity = 0.5;
     switch (stage) {
       case "idle":
         targetScale.set(1, 1, 1);
-        targetIntensity = 1 + Math.sin(time * 1.5) * 0.5; // Pulsing glow
+        targetIntensity = 0.6 + Math.sin(time * 0.8) * 0.2;
         break;
       case "focus":
-        targetScale.set(1.2, 1.2, 1.2);
-        targetIntensity = 3; // Bright glow
+        targetScale.set(1.05, 1.05, 1.05);
+        targetIntensity = 1.0;
         break;
       case "mission":
-        targetScale.set(0.8, 0.8, 0.8);
-        targetIntensity = 0.5; // Dimmed
+        targetScale.set(0.9, 0.9, 0.9);
+        targetIntensity = 0.3;
         break;
       case "asset":
-        targetScale.set(0.6, 0.6, 0.6);
-        targetIntensity = 0.2; // Very dim
+        targetScale.set(0.8, 0.8, 0.8);
+        targetIntensity = 0.15;
         break;
     }
 
-    // Node hover reactions (keep intensity glow, but stay white)
     if (hoveredNode) {
-      targetIntensity = 4;
+      targetIntensity = 1.2;
     }
 
-    targetEmissiveIntensity.current = THREE.MathUtils.lerp(targetEmissiveIntensity.current, targetIntensity, 0.1);
+    glowIntensity.current = THREE.MathUtils.lerp(glowIntensity.current, targetIntensity, 0.05);
 
-    // Update Ring Material
-    if (ringMaterialRef.current) {
-      ringMaterialRef.current.emissiveIntensity = targetEmissiveIntensity.current * 0.5;
+    // Animate peripheral energy rings (calm center, living edge)
+    if (haloBaseRef.current) {
+      haloBaseRef.current.opacity = 0.25 * glowIntensity.current;
+    }
+    if (haloMaterial1Ref.current) {
+      haloMaterial1Ref.current.opacity = (0.15 + Math.sin(time * 2.5) * 0.05) * glowIntensity.current;
+    }
+    if (haloMaterial2Ref.current) {
+      haloMaterial2Ref.current.opacity = (0.05 + Math.cos(time * 1.5) * 0.02) * glowIntensity.current;
     }
 
-    // Update HTML Logo
     if (htmlContainerRef.current) {
-      // Applique le scale exact du groupe 3D pour rester synchronisé avec la respiration
       const currentScale = groupRef.current ? groupRef.current.scale.x : 1;
       htmlContainerRef.current.style.transform = `scale(${currentScale})`;
       
-      // Applique l'intensité lumineuse via un drop-shadow CSS
-      const glow = targetEmissiveIntensity.current;
-      htmlContainerRef.current.style.filter = `drop-shadow(0 0 ${glow * 4}px #ffffff)`;
+      const glow = glowIntensity.current;
+      // Cleaner, sharper drop shadow for pure legibility
+      htmlContainerRef.current.style.filter = `drop-shadow(0 0 ${glow * 10}px rgba(255,255,255,1))`;
+      htmlContainerRef.current.style.opacity = `${Math.min(1, glow * 0.6 + 0.5)}`;
     }
   });
 
@@ -95,50 +102,79 @@ export function LogoCore({ stage, hoveredNode, onClick }: LogoCoreProps) {
       onPointerOver={() => document.body.style.cursor = 'pointer'} 
       onPointerOut={() => document.body.style.cursor = 'auto'}
     >
-      {/* Inner Core — donne du corps au noyau, reculé par rapport au glass
-         pour éviter les rebonds de transmission qui cassaient la silhouette. */}
-      <Sphere args={[0.95, 64, 64]}>
-        <meshStandardMaterial
-          color="#0a0a0c"
-          roughness={0.55}
-          metalness={0.1}
-        />
-      </Sphere>
+      {/* 
+        Peripheral Magnetic Energy
+        Using Billboard to keep the aura perfectly circular on the 2D plane.
+        Positioned slightly backward (-0.05) so the inner part of these rings 
+        is refracted by the glass, creating a beautiful "internal halo" effect 
+        strictly on the rim, leaving the center perfectly calm and black.
+      */}
+      <Billboard position={[0, 0, -0.05]}>
+        {/* Core Rim - sharp, refracted inside the edge */}
+        <Ring args={[1.36, 1.40, 128]}>
+          <meshBasicMaterial
+            ref={haloBaseRef}
+            color="#ffffff"
+            transparent
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+          />
+        </Ring>
+        
+        {/* Living Edge Aura 1 - pulsing gently */}
+        <Ring args={[1.39, 1.43, 128]}>
+          <meshBasicMaterial
+            ref={haloMaterial1Ref}
+            color="#ffffff"
+            transparent
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+          />
+        </Ring>
 
-      {/* Outer Glass Shell — vraie sphère, transmission propre. */}
-      <Sphere ref={outerRef} args={[1.5, 96, 96]}>
+        {/* Living Edge Aura 2 - dissipating magnetic field */}
+        <Ring args={[1.41, 1.46, 128]}>
+          <meshBasicMaterial
+            ref={haloMaterial2Ref}
+            color="#ffffff"
+            transparent
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+          />
+        </Ring>
+      </Billboard>
+
+      {/* 
+        Outer Glass Shell — Frozen liquid lens, no inner opaque core.
+        This allows the pure black background to show through, creating 
+        a deep, premium crystal appearance.
+      */}
+      <Sphere ref={outerRef} args={[1.4, 128, 128]}>
         <MeshTransmissionMaterial
+          backside={true}
+          backsideThickness={1}
           samples={16}
-          thickness={0.25}
-          chromaticAberration={hoveredNode ? 0.04 : 0.02}
-          anisotropy={0.05}
-          distortion={hoveredNode ? 0.08 : 0.04}
-          distortionScale={0.15}
-          temporalDistortion={0}
-          ior={1.25}
-          clearcoat={1}
-          clearcoatRoughness={0}
-          attenuationDistance={2}
+          resolution={1024}
+          transmission={1}
+          thickness={1.2}
+          roughness={0.25} // Frozen/frosted interior finish
+          chromaticAberration={0.01} // Ultra minimal, no cheap rainbow
+          anisotropy={0.1}
+          distortion={0.05} // Very subtle frozen water imperfection
+          distortionScale={0.1}
+          temporalDistortion={0.02} // Almost imperceptible flow
+          ior={1.33} // Water/Ice refraction
+          clearcoat={1} // Wet/polished outer shell
+          clearcoatRoughness={0.02} // Sharp specular reflections
+          attenuationDistance={10} // No heavy darkening
           attenuationColor="#ffffff"
           color="#ffffff"
         />
       </Sphere>
 
-      {/* Glowing Ring */}
-      <Ring args={[1.1, 1.12, 64]} position={[0, 0, 0]}>
-        <meshStandardMaterial
-          ref={ringMaterialRef}
-          color="#ffffff"
-          emissive="#ffffff"
-          emissiveIntensity={1}
-          transparent
-          opacity={0.8}
-          side={THREE.DoubleSide}
-        />
-      </Ring>
-      {/* HTML Logo (Pixel Perfect, No Vibration) */}
+      {/* HTML Logo - Perfectly centered, highly legible against the dark crystal */}
       <Html center pointerEvents="none" zIndexRange={[100, 0]}>
-        <div ref={htmlContainerRef} className="flex items-center justify-center will-change-transform">
+        <div ref={htmlContainerRef} className="flex items-center justify-center will-change-transform transition-opacity duration-1000">
           <div 
             style={{
               width: "110px",
