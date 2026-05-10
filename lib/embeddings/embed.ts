@@ -16,7 +16,7 @@
 
 import OpenAI from "openai";
 
-export const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = "text-embedding-3-small";
 export const EMBEDDING_DIM = 1536;
 
 // 8192 tokens × ~4 chars/token = 32_768 chars. On laisse une marge.

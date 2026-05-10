@@ -47,7 +47,7 @@ export interface UsageOverview {
   totalTenants: number;
 }
 
-export const DEFAULT_LOOKBACK_DAYS = 30;
+const DEFAULT_LOOKBACK_DAYS = 30;
 
 export function defaultDateRange(): DateRange {
   const end = new Date();

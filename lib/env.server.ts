@@ -64,5 +64,3 @@ function validateEnv(): void {
 
 // Execute validation immediately on module load
 validateEnv();
-
-export { validateEnv };

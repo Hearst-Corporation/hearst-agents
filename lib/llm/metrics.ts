@@ -31,13 +31,13 @@ import { type CircuitState, defaultCircuitBreaker, LLMCircuitBreaker } from "./c
 export const LATENCY_WINDOW_SIZE = 100;
 
 /** Anthropic cache pricing : read tokens are billed at ~10 % of standard input rate. */
-export const ANTHROPIC_CACHE_READ_DISCOUNT = 0.1;
+const ANTHROPIC_CACHE_READ_DISCOUNT = 0.1;
 
 /** Anthropic cache pricing : creation tokens cost 1.25× standard input rate. */
-export const ANTHROPIC_CACHE_CREATION_PREMIUM = 1.25;
+const ANTHROPIC_CACHE_CREATION_PREMIUM = 1.25;
 
 /** Tokens per "thousand" unit used by every public price sheet. */
-export const PRICING_TOKEN_UNIT = 1000;
+const PRICING_TOKEN_UNIT = 1000;
 
 /**
  * Per-provider/model price table (USD per 1000 tokens). Used as a fallback when
@@ -144,7 +144,7 @@ export interface ProviderMetrics {
   };
 }
 
-export interface CircuitBreakerEntry {
+interface CircuitBreakerEntry {
   state: CircuitState;
   failures: number;
   lastFailureAt?: string;  // ISO — non utilisé dans le snapshot actuel (pas stocké côté CB)
