@@ -193,6 +193,7 @@ export function buildHearstActionTools(opts: {
           userId: scope.userId,
           tenantId: scope.tenantId,
           workspaceId: scope.workspaceId,
+          metadata: { prompt: fullPrompt },
         },
       });
 
