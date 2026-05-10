@@ -326,7 +326,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
               background: "var(--accent-teal)",
             }}
           />
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             {asset
               ? "Mode hors ligne — affichage cache"
               : "Hors ligne — connecte-toi pour voir cet asset"}
@@ -348,7 +348,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
           <button
             type="button"
             onClick={back}
-            className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors shrink-0"
+            className="t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors shrink-0"
             style={{ background: "transparent", border: "none", cursor: "pointer" }}
             aria-label="Retour"
           >
@@ -356,7 +356,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
           </button>
           {asset?.title && (
             <span
-              className="t-11 font-light text-[var(--text-muted)] truncate"
+              className="t-11 font-light text-text-muted truncate"
               title={asset.title}
             >
               {asset.title}
@@ -367,19 +367,19 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
         <StageActionBar
           context={
             <>
-              <span className="t-11 font-light text-[var(--text-faint)]">Asset</span>
+              <span className="t-11 font-light text-text-faint">Asset</span>
               <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
-              <span className="t-11 font-light text-[var(--text-muted)]">{assetId.slice(0, 8)}</span>
+              <span className="t-11 font-light text-text-muted">{assetId.slice(0, 8)}</span>
               {asset && (
                 <>
                   <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
-                  <span className="t-11 font-medium text-[var(--accent-teal)]">{asset.kind}</span>
+                  <span className="t-11 font-medium text-(--accent-teal)">{asset.kind}</span>
                 </>
               )}
               {variantKind && (
                 <>
                   <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
-                  <span className="t-11 font-medium text-[var(--accent-teal)]">{variantKind}</span>
+                  <span className="t-11 font-medium text-(--accent-teal)">{variantKind}</span>
                 </>
               )}
             </>
@@ -419,17 +419,17 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
           {loading && (
             <div className="flex flex-col items-center justify-center py-24" style={{ rowGap: "var(--space-4)" }}>
               <span
-                className="rounded-pill bg-[var(--accent-teal)] animate-pulse"
+                className="rounded-pill bg-(--accent-teal) animate-pulse"
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
                 aria-hidden
               />
-              <p className="t-11 font-light text-[var(--text-faint)]">{"Chargement de l'asset…"}</p>
+              <p className="t-11 font-light text-text-faint">{"Chargement de l'asset…"}</p>
             </div>
           )}
 
           {error && !loading && (
-            <div className="border-l-2 border-[var(--danger)] bg-[var(--danger)]/5 px-4 py-3">
-              <p className="t-11 font-medium text-[var(--danger)]">Erreur · {error}</p>
+            <div className="border-l-2 border-(--danger) bg-(--danger)/5 px-4 py-3">
+              <p className="t-11 font-medium text-(--danger)">Erreur · {error}</p>
             </div>
           )}
 
@@ -449,20 +449,20 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
                     }}
                   />
                   <h1
-                    className="t-28 font-medium tracking-tight text-[var(--text)]"
+                    className="t-28 font-medium tracking-tight text-text"
                     style={{ lineHeight: "var(--leading-snug)", marginBottom: "var(--space-3)" }}
                   >
                     {asset.title}
                   </h1>
 
-                  <div className="flex items-center gap-3 mb-10 t-11 font-light text-[var(--text-faint)]">
+                  <div className="flex items-center gap-3 mb-10 t-11 font-light text-text-faint">
                     <span>{asset.kind}</span>
                     <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
                     <span>{FORMATTER.format(new Date(asset.createdAt))}</span>
                     {asset.summary && (
                       <>
                         <span className="rounded-pill bg-[var(--text-ghost)]" style={{ width: "var(--space-1)", height: "var(--space-1)" }} />
-                        <span className="normal-case tracking-normal font-sans text-[var(--text-muted)] truncate">{asset.summary}</span>
+                        <span className="normal-case tracking-normal font-sans text-text-muted truncate">{asset.summary}</span>
                       </>
                     )}
                   </div>
@@ -517,10 +517,10 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
                     background: "var(--surface-1)",
                   }}
                 >
-                  <p className="t-11 font-medium text-[var(--danger)]">
+                  <p className="t-11 font-medium text-(--danger)">
                     Échec de la génération d&apos;image
                   </p>
-                  <p className="t-13 font-light text-[var(--text-muted)]">
+                  <p className="t-13 font-light text-text-muted">
                     La génération a échoué. Tu peux relancer une nouvelle
                     tentative.
                   </p>
@@ -589,7 +589,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
 function AssetBody({ contentRef, title }: { contentRef?: string; title: string }) {
   if (!contentRef) {
     return (
-      <p className="t-13 font-light text-[var(--text-muted)]">
+      <p className="t-13 font-light text-text-muted">
         Aucun contenu disponible pour cet asset.
       </p>
     );

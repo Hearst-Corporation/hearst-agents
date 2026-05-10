@@ -195,17 +195,17 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
+              className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               MEETING
             </span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
             />
-            <span className="t-11 font-light text-[var(--text-muted)]">
+            <span className="t-11 font-light text-text-muted">
               {headerLabel}
             </span>
           </>
@@ -218,20 +218,20 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center max-w-md flex flex-col gap-6">
             <span
-              className="block text-[var(--accent-teal)] opacity-30 mx-auto t-34"
+              className="block text-(--accent-teal) opacity-30 mx-auto t-34"
               style={{ height: "var(--height-stage-empty-icon)" }}
               aria-hidden
             >
               ◍
             </span>
             <p
-              className="t-15 font-medium tracking-tight text-[var(--text)]"
+              className="t-15 font-medium tracking-tight text-text"
               style={{ lineHeight: "var(--leading-snug)" }}
             >
               Aucun meeting actif
             </p>
             <p
-              className="t-13 text-[var(--text-muted)]"
+              className="t-13 text-text-muted"
               style={{ lineHeight: "var(--leading-base)" }}
             >
               Colle l{"'"}URL d{"'"}un meeting Zoom, Meet ou Teams. L
@@ -250,7 +250,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                 value={meetingUrl}
                 onChange={(e) => setMeetingUrl(e.target.value)}
                 placeholder="https://zoom.us/j/..."
-                className="input-focus-signature w-full bg-transparent border border-[var(--border-shell)] focus:outline-none t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
+                className="input-focus-signature w-full bg-transparent border border-(--border-shell) focus:outline-none t-13 text-text placeholder:text-text-faint"
                 style={{
                   padding: "var(--space-3)",
                   borderRadius: "var(--radius-sm)",
@@ -270,8 +270,8 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                     aria-pressed={language === code}
                     className={`px-3 py-1 t-11 font-light border transition-colors ${
                       language === code
-                        ? "border-[var(--accent-teal)] text-[var(--accent-teal)] bg-[var(--accent-teal)]/[0.08]"
-                        : "border-[var(--border-shell)] text-[var(--text-muted)] hover:border-[var(--accent-teal)]/50"
+                        ? "border-(--accent-teal) text-(--accent-teal) bg-(--accent-teal)/[0.08]"
+                        : "border-(--border-shell) text-text-muted hover:border-(--accent-teal)/50"
                     }`}
                     style={{ borderRadius: "var(--radius-sm)" }}
                   >
@@ -298,16 +298,16 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
             className="basis-3/5 flex flex-col min-h-0 border-r border-[var(--border-default)]"
             style={{ padding: "var(--space-6)", gap: "var(--space-4)" }}
           >
-            <header className="t-11 font-light text-[var(--text-faint)]">
+            <header className="t-11 font-light text-text-faint">
               TRANSCRIPT
             </header>
             <div className="flex-1 min-h-0 overflow-y-auto">
               {transcript.trim().length === 0 ? (
-                <p className="t-11 font-light text-[var(--text-faint)]">
+                <p className="t-11 font-light text-text-faint">
                   En attente du transcript…
                 </p>
               ) : (
-                <pre className="t-13 font-light text-[var(--text-muted)] whitespace-pre-wrap font-sans">
+                <pre className="t-13 font-light text-text-muted whitespace-pre-wrap font-sans">
                   {transcript}
                 </pre>
               )}
@@ -318,7 +318,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
             className="basis-2/5 flex flex-col min-h-0"
             style={{ padding: "var(--space-6)", gap: "var(--space-4)" }}
           >
-            <header className="t-11 font-light text-[var(--text-faint)]">
+            <header className="t-11 font-light text-text-faint">
               ACTION_ITEMS · {actionItems.length}
             </header>
             <div
@@ -326,7 +326,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
               style={{ gap: "var(--space-3)" }}
             >
               {actionItems.length === 0 ? (
-                <p className="t-11 font-light text-[var(--text-faint)]">
+                <p className="t-11 font-light text-text-faint">
                   Aucune action détectée pour le moment
                 </p>
               ) : (
@@ -335,7 +335,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                   return (
                     <label
                       key={idx}
-                      className="flex items-start gap-3 border-l-2 border-[var(--accent-teal)]/30 cursor-pointer hover:border-[var(--accent-teal)] transition-colors"
+                      className="flex items-start gap-3 border-l-2 border-(--accent-teal)/30 cursor-pointer hover:border-(--accent-teal) transition-colors"
                       style={{ padding: "var(--space-3)" }}
                     >
                       <input
@@ -345,9 +345,9 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                         className="mt-1 accent-[var(--accent-teal)]"
                       />
                       <div className="flex-1 flex flex-col gap-1 min-w-0">
-                        <p className="t-13 text-[var(--text)]">{item.action}</p>
+                        <p className="t-13 text-text">{item.action}</p>
                         {(item.owner || item.deadline) && (
-                          <p className="t-11 font-light text-[var(--text-faint)]">
+                          <p className="t-11 font-light text-text-faint">
                             {[item.owner, item.deadline]
                               .filter(Boolean)
                               .join(" · ")}

@@ -172,24 +172,24 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
 
   if (error) {
     return (
-      <div className="h-full min-h-0 overflow-y-auto bg-[var(--bg-elev)] text-[var(--text)]">
+      <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
         <PageHeader
           title="Marketplace"
           back={{ label: "Retour", href: "/marketplace" }}
         />
-        <p className="px-12 py-8 t-13 text-[var(--danger)]">{error}</p>
+        <p className="px-12 py-8 t-13 text-(--danger)">{error}</p>
       </div>
     );
   }
 
   if (!data) {
     return (
-      <div className="h-full min-h-0 overflow-y-auto bg-[var(--bg-elev)] text-[var(--text)]">
+      <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
         <PageHeader
           title="Marketplace"
           back={{ label: "Retour", href: "/marketplace" }}
         />
-        <p className="px-12 py-8 t-11 font-light text-[var(--text-faint)]">
+        <p className="px-12 py-8 t-11 font-light text-text-faint">
           Chargement…
         </p>
       </div>
@@ -200,7 +200,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
   const author = tpl.authorDisplayName?.trim() || "Anonyme";
 
   return (
-    <div className="h-full min-h-0 overflow-y-auto bg-[var(--bg-elev)] text-[var(--text)]">
+    <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
       <PageHeader
         title={tpl.title}
         subtitle={tpl.description ?? undefined}
@@ -221,7 +221,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
               type="button"
               onClick={() => setReportOpen((v) => !v)}
               disabled={busy}
-              className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--danger)]"
+              className="t-11 font-light text-text-faint hover:text-(--danger)"
               style={{ background: "transparent", border: "none", cursor: "pointer" }}
             >
               Signaler
@@ -265,7 +265,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
 
         {/* Preview */}
         <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-          <h2 className="t-13 text-[var(--text-soft)]">Aperçu</h2>
+          <h2 className="t-13 text-text-soft">Aperçu</h2>
           {tpl.kind === "workflow" && (
             <WorkflowPreview graph={tpl.payload as WorkflowGraph} />
           )}
@@ -289,14 +289,14 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
               background: "var(--bg-elev)",
             }}
           >
-            <h3 className="t-13 text-[var(--text)]">Signaler ce template</h3>
+            <h3 className="t-13 text-text">Signaler ce template</h3>
             <textarea
               value={reportReason}
               onChange={(e) => setReportReason(e.target.value)}
               rows={3}
               placeholder="Raison (3-500 caractères)…"
               maxLength={500}
-              className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none resize-none"
+              className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--line-strong)",
@@ -311,7 +311,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
               <button
                 type="button"
                 onClick={() => setReportOpen(false)}
-                className="t-11 font-light text-[var(--text-faint)]"
+                className="t-11 font-light text-text-faint"
                 style={{ background: "transparent", border: "none", cursor: "pointer" }}
               >
                 Annuler
@@ -348,7 +348,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
             background: "var(--bg-elev)",
           }}
         >
-          <h3 className="t-13 text-[var(--text)]">Donner une note</h3>
+          <h3 className="t-13 text-text">Donner une note</h3>
           <div className="flex" style={{ gap: "var(--space-2)" }}>
             {[1, 2, 3, 4, 5].map((n) => (
               <button
@@ -375,7 +375,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
             rows={2}
             placeholder="Commentaire (optionnel)…"
             maxLength={500}
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none resize-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -401,7 +401,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         {/* Ratings list */}
         {data.ratings.length > 0 && (
           <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <h2 className="t-13 text-[var(--text-soft)]">
+            <h2 className="t-13 text-text-soft">
               Notes ({data.ratings.length})
             </h2>
             <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
@@ -417,12 +417,12 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
                     background: "var(--bg-elev)",
                   }}
                 >
-                  <span className="t-11 font-medium text-[var(--accent-teal)]">
+                  <span className="t-11 font-medium text-(--accent-teal)">
                     {"★".repeat(r.rating)}
                     {"·".repeat(5 - r.rating)}
                   </span>
                   {r.comment && (
-                    <p className="t-11 text-[var(--text-soft)]">
+                    <p className="t-11 text-text-soft">
                       {escapeHtml(r.comment)}
                     </p>
                   )}
@@ -439,7 +439,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
 function Chip({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="t-11 font-light text-[var(--text-faint)]"
+      className="t-11 font-light text-text-faint"
       style={{
         padding: "var(--space-1) var(--space-2)",
         border: "1px solid var(--line-strong)",
@@ -469,13 +469,13 @@ function WorkflowPreview({ graph }: { graph: WorkflowGraph }) {
           className="flex items-baseline"
           style={{ gap: "var(--space-2)" }}
         >
-          <span className="t-9 font-mono text-[var(--text-faint)]">
+          <span className="t-9 font-mono text-text-faint">
             {String(i + 1).padStart(2, "0")}
           </span>
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             {n.kind}
           </span>
-          <span className="t-11 text-[var(--text)]">{escapeHtml(n.label)}</span>
+          <span className="t-11 text-text">{escapeHtml(n.label)}</span>
         </li>
       ))}
     </ol>
@@ -494,7 +494,7 @@ function ReportPreview({ spec }: { spec: ReportSpec }) {
         background: "var(--bg-elev)",
       }}
     >
-      <p className="t-11 text-[var(--text-muted)]">
+      <p className="t-11 text-text-muted">
         {spec.sources.length} source{spec.sources.length === 1 ? "" : "s"} ·{" "}
         {spec.transforms.length} transform{spec.transforms.length === 1 ? "" : "s"} ·{" "}
         {spec.blocks.length} block{spec.blocks.length === 1 ? "" : "s"}
@@ -506,10 +506,10 @@ function ReportPreview({ spec }: { spec: ReportSpec }) {
             className="flex items-baseline"
             style={{ gap: "var(--space-2)" }}
           >
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               {b.type}
             </span>
-            <span className="t-11 text-[var(--text)]">
+            <span className="t-11 text-text">
               {escapeHtml(b.label ?? b.id)}
             </span>
           </li>
@@ -536,18 +536,18 @@ function PersonaPreview({ payload }: { payload: Record<string, unknown> }) {
       }}
     >
       {tone && (
-        <p className="t-11 text-[var(--text-soft)]">
+        <p className="t-11 text-text-soft">
           Ton : <strong>{escapeHtml(tone)}</strong>
         </p>
       )}
       {styleGuide && (
-        <p className="t-11 text-[var(--text-soft)] whitespace-pre-wrap">
+        <p className="t-11 text-text-soft whitespace-pre-wrap">
           {escapeHtml(styleGuide)}
         </p>
       )}
       {systemPromptAddon && (
         <p
-          className="t-11 text-[var(--text-muted)] whitespace-pre-wrap"
+          className="t-11 text-text-muted whitespace-pre-wrap"
           style={{ fontStyle: "italic" }}
         >
           {escapeHtml(systemPromptAddon)}

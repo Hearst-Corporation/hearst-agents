@@ -54,7 +54,7 @@ export default function RunDetailPage() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center" style={{ background: "var(--bg-elev)" }}>
-        <div className="text-[var(--text-muted)] t-13">Chargement…</div>
+        <div className="text-text-muted t-13">Chargement…</div>
       </div>
     );
   }
@@ -62,10 +62,10 @@ export default function RunDetailPage() {
   if (!run) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8" style={{ background: "var(--bg-elev)" }}>
-        <div className="text-[var(--text-muted)] t-13 mb-4">Run non trouvé</div>
+        <div className="text-text-muted t-13 mb-4">Run non trouvé</div>
         <button
           onClick={() => router.push("/")}
-          className="text-[var(--accent-teal)] hover:text-[var(--accent-teal)]/80 t-13"
+          className="text-(--accent-teal) hover:text-(--accent-teal)/80 t-13"
         >
           Retour à l&apos;accueil
         </button>
@@ -74,11 +74,11 @@ export default function RunDetailPage() {
   }
 
   const statusColors: Record<string, string> = {
-    running: "text-[var(--accent-teal)]",
-    completed: "text-[var(--money)]",
-    failed: "text-[var(--danger)]",
-    awaiting_approval: "text-[var(--warn)]",
-    awaiting_clarification: "text-[var(--text-muted)]",
+    running: "text-(--accent-teal)",
+    completed: "text-(--money)",
+    failed: "text-(--danger)",
+    awaiting_approval: "text-(--warn)",
+    awaiting_clarification: "text-text-muted",
   };
 
   const statusLabels: Record<string, string> = {
@@ -96,7 +96,7 @@ export default function RunDetailPage() {
         subtitle={run.input}
         back={{ label: "Retour aux runs", href: "/runs" }}
         actions={
-          <span className={`t-13 font-medium ${statusColors[run.status] || "text-[var(--text-muted)]"}`}>
+          <span className={`t-13 font-medium ${statusColors[run.status] || "text-text-muted"}`}>
             {statusLabels[run.status] || run.status}
           </span>
         }
@@ -107,16 +107,16 @@ export default function RunDetailPage() {
           {/* Timeline */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="t-13 font-medium text-[var(--text-l1)]">
+              <h2 className="t-13 font-medium text-(--text-l1)">
                 Timeline
               </h2>
               {timelineSource !== "empty" && (
-                <span className="t-9 text-[var(--text-faint)]">
+                <span className="t-9 text-text-faint">
                   {timelineSource === "memory" ? "Live" : "Persisted"}
                 </span>
               )}
             </div>
-            <div className="border-t border-[var(--line)] p-4 bg-[var(--bg)]">
+            <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
               <RunTimeline timeline={timeline} isLive={isLive} />
             </div>
           </div>
@@ -125,31 +125,31 @@ export default function RunDetailPage() {
           <div className="space-y-4">
             {/* Metrics */}
             {run.metrics && (
-              <div className="border-t border-[var(--line)] p-4 bg-[var(--bg)]">
+              <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
                 <h3 className="ghost-meta-label mb-4">Metrics</h3>
                 <div className="space-y-2">
                   {run.metrics.tokensIn !== undefined && (
                     <div className="flex justify-between t-13">
-                      <span className="text-[var(--text-faint)]">Tokens in</span>
-                      <span className="text-[var(--text)]">{run.metrics.tokensIn}</span>
+                      <span className="text-text-faint">Tokens in</span>
+                      <span className="text-text">{run.metrics.tokensIn}</span>
                     </div>
                   )}
                   {run.metrics.tokensOut !== undefined && (
                     <div className="flex justify-between t-13">
-                      <span className="text-[var(--text-faint)]">Tokens out</span>
-                      <span className="text-[var(--text)]">{run.metrics.tokensOut}</span>
+                      <span className="text-text-faint">Tokens out</span>
+                      <span className="text-text">{run.metrics.tokensOut}</span>
                     </div>
                   )}
                   {run.metrics.costUsd !== undefined && (
                     <div className="flex justify-between t-13">
-                      <span className="text-[var(--text-faint)]">Coût</span>
-                      <span className="text-[var(--text)]">${run.metrics.costUsd.toFixed(4)}</span>
+                      <span className="text-text-faint">Coût</span>
+                      <span className="text-text">${run.metrics.costUsd.toFixed(4)}</span>
                     </div>
                   )}
                   {run.metrics.latencyMs !== undefined && (
                     <div className="flex justify-between t-13">
-                      <span className="text-[var(--text-faint)]">Latence</span>
-                      <span className="text-[var(--text)]">{run.metrics.latencyMs}ms</span>
+                      <span className="text-text-faint">Latence</span>
+                      <span className="text-text">{run.metrics.latencyMs}ms</span>
                     </div>
                   )}
                 </div>
@@ -158,7 +158,7 @@ export default function RunDetailPage() {
 
             {/* Assets */}
             {run.assets && run.assets.length > 0 && (
-              <div className="border-t border-[var(--line)] p-4 bg-[var(--bg)]">
+              <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
                 <h3 className="ghost-meta-label mb-4">Assets</h3>
                 <div className="divide-y divide-[var(--line)]">
                   {run.assets.map((asset) => (
@@ -170,10 +170,10 @@ export default function RunDetailPage() {
                     >
                       <ServiceIdGlyph id={asset.id} size="sm" />
                       <div className="flex-1 min-w-0">
-                        <p className="t-13 text-[var(--text)] truncate">{asset.name}</p>
-                        <p className="t-9 font-light text-[var(--text-muted)]">{asset.type}</p>
+                        <p className="t-13 text-text truncate">{asset.name}</p>
+                        <p className="t-9 font-light text-text-muted">{asset.type}</p>
                       </div>
-                      <GhostIconChevronRight className="w-4 h-4 shrink-0 text-[var(--accent-teal)]" />
+                      <GhostIconChevronRight className="w-4 h-4 shrink-0 text-(--accent-teal)" />
                     </button>
                   ))}
                 </div>
@@ -181,27 +181,27 @@ export default function RunDetailPage() {
             )}
 
             {/* Info */}
-            <div className="border-t border-[var(--line)] p-4 bg-[var(--bg)]">
+            <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
               <h3 className="ghost-meta-label mb-4">Info</h3>
               <div className="space-y-2 t-13">
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">Backend</span>
-                  <span className="text-[var(--text)]">{run.backend || "-"}</span>
+                  <span className="text-text-faint">Backend</span>
+                  <span className="text-text">{run.backend || "-"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">Mode</span>
-                  <span className="text-[var(--text)]">{run.executionMode || "-"}</span>
+                  <span className="text-text-faint">Mode</span>
+                  <span className="text-text">{run.executionMode || "-"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">Créé</span>
-                  <span className="text-[var(--text)]">
+                  <span className="text-text-faint">Créé</span>
+                  <span className="text-text">
                     {new Date(run.createdAt).toLocaleString()}
                   </span>
                 </div>
                 {run.completedAt && (
                   <div className="flex justify-between">
-                    <span className="text-[var(--text-faint)]">Terminé</span>
-                    <span className="text-[var(--text)]">
+                    <span className="text-text-faint">Terminé</span>
+                    <span className="text-text">
                       {new Date(run.completedAt).toLocaleString()}
                     </span>
                   </div>

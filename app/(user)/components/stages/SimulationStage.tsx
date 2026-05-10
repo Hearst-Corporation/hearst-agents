@@ -144,17 +144,17 @@ export function SimulationStage() {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
+              className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               SIMULATION
             </span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
             />
-            <span className="t-11 font-light text-[var(--text-muted)]">
+            <span className="t-11 font-light text-text-muted">
               {headerLabel}
             </span>
           </>
@@ -219,7 +219,7 @@ function SimulationForm({
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           SCÉNARIO
         </span>
         <textarea
@@ -227,20 +227,20 @@ function SimulationForm({
           onChange={(e) => onScenarioChange(e.target.value)}
           placeholder="ex: lancer une nouvelle ligne SaaS PME en Europe au Q3, budget 800k€"
           rows={4}
-          className="w-full bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--accent-teal)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)] resize-y"
+          className="w-full bg-transparent border border-(--border-shell) focus:outline-none focus:border-(--accent-teal) t-13 text-text placeholder:text-text-faint resize-y"
           style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
         />
       </div>
 
       <div className="flex flex-col gap-4">
         <header className="flex items-center justify-between">
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             VARIABLES CLÉS
           </span>
           <button
             type="button"
             onClick={onVariableAdd}
-            className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] transition-all"
+            className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all"
           >
             + Ajouter
           </button>
@@ -253,7 +253,7 @@ function SimulationForm({
                 value={variable.key}
                 onChange={(e) => onVariableChange(idx, { key: e.target.value })}
                 placeholder="Variable"
-                className="flex-1 min-w-0 bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--accent-teal)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
+                className="flex-1 min-w-0 bg-transparent border border-(--border-shell) focus:outline-none focus:border-(--accent-teal) t-13 text-text placeholder:text-text-faint"
                 style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
               />
               <input
@@ -261,14 +261,14 @@ function SimulationForm({
                 value={variable.value}
                 onChange={(e) => onVariableChange(idx, { value: e.target.value })}
                 placeholder="Valeur"
-                className="flex-1 min-w-0 bg-transparent border border-[var(--border-shell)] focus:outline-none focus:border-[var(--accent-teal)] t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
+                className="flex-1 min-w-0 bg-transparent border border-(--border-shell) focus:outline-none focus:border-(--accent-teal) t-13 text-text placeholder:text-text-faint"
                 style={{ padding: "var(--space-3)", borderRadius: "var(--radius-sm)" }}
               />
               <button
                 type="button"
                 onClick={() => onVariableRemove(idx)}
                 disabled={variables.length === 1}
-                className="w-8 h-8 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--danger)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-8 h-8 flex items-center justify-center text-text-faint hover:text-(--danger) transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label="Retirer la variable"
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -298,17 +298,17 @@ function SimulationRunning() {
   return (
     <div className="flex-1 flex flex-col items-center justify-center gap-6 text-center">
       <span
-        className="rounded-pill bg-[var(--warn)] animate-pulse"
+        className="rounded-pill bg-(--warn) animate-pulse"
         style={{ width: "var(--space-4)", height: "var(--space-4)" }}
         aria-hidden
       />
       <p
-        className="t-15 font-medium text-[var(--text)]"
+        className="t-15 font-medium text-text"
         style={{ lineHeight: "var(--leading-snug)" }}
       >
         Génération de scénarios… DeepSeek R1 raisonne.
       </p>
-      <p className="t-11 font-light text-[var(--text-faint)]">
+      <p className="t-11 font-light text-text-faint">
         30-50 secondes habituellement
       </p>
     </div>
@@ -333,7 +333,7 @@ function SimulationResults({ scenarios, reasoning, assetId, onReset }: Simulatio
 
       <div className="flex flex-col gap-4">
         {scenarios.length === 0 ? (
-          <p className="t-13 text-[var(--text-muted)]">Aucun scénario retourné.</p>
+          <p className="t-13 text-text-muted">Aucun scénario retourné.</p>
         ) : (
           scenarios.map((scenario, idx) => <ScenarioCard key={idx} scenario={scenario} />)
         )}
@@ -353,7 +353,7 @@ function SimulationResults({ scenarios, reasoning, assetId, onReset }: Simulatio
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] transition-all"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all"
         >
           Nouvelle simulation
         </button>
@@ -369,18 +369,18 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
 
   return (
     <article
-      className="flex flex-col gap-4 border border-[var(--surface-2)] border-l-2 border-l-[var(--accent-teal)] bg-[var(--bg-elev)] rounded-sm"
+      className="flex flex-col gap-4 border border-[var(--surface-2)] border-l-2 border-l-[var(--accent-teal)] bg-bg-elev rounded-sm"
       style={{ padding: "var(--space-6)" }}
     >
       <header className="flex items-start justify-between gap-4">
-        <h3 className="t-15 font-medium text-[var(--text)]">{scenario.name}</h3>
-        <span className="t-11 font-medium text-[var(--accent-teal)] shrink-0">
+        <h3 className="t-15 font-medium text-text">{scenario.name}</h3>
+        <span className="t-11 font-medium text-(--accent-teal) shrink-0">
           {probabilityPct}%
         </span>
       </header>
 
       {scenario.narrative && (
-        <p className="t-13 text-[var(--text-muted)]" style={{ lineHeight: "var(--leading-base)" }}>
+        <p className="t-13 text-text-muted" style={{ lineHeight: "var(--leading-base)" }}>
           {scenario.narrative}
         </p>
       )}
@@ -389,10 +389,10 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
         <dl className="flex flex-col gap-2 border-t border-[var(--surface-2)] pt-3">
           {metricsEntries.map(([label, value]) => (
             <div key={label} className="flex items-baseline justify-between gap-3 min-w-0">
-              <dt className="t-9 font-mono uppercase text-[var(--text-faint)] truncate flex-1 min-w-0">
+              <dt className="t-9 font-mono uppercase text-text-faint truncate flex-1 min-w-0">
                 {label.replace(/_/g, " ")}
               </dt>
-              <dd className="t-13 text-[var(--text)] shrink-0 font-mono">{String(value)}</dd>
+              <dd className="t-13 text-text shrink-0 font-mono">{String(value)}</dd>
             </div>
           ))}
         </dl>
@@ -403,10 +403,10 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
           {risks.map((risk, idx) => (
             <li
               key={idx}
-              className="t-11 text-[var(--warn)] flex items-start gap-2"
+              className="t-11 text-(--warn) flex items-start gap-2"
               style={{ lineHeight: "var(--leading-base)" }}
             >
-              <span className="text-[var(--warn)] mt-0.5 shrink-0" aria-hidden>▲</span>
+              <span className="text-(--warn) mt-0.5 shrink-0" aria-hidden>▲</span>
               <span className="flex-1 min-w-0">{risk}</span>
             </li>
           ))}

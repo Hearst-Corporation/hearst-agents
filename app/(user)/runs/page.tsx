@@ -25,14 +25,14 @@ interface RunListItem {
 }
 
 const STATUS_COLOR: Record<string, string> = {
-  succeeded: "bg-[var(--money)]",
-  success: "bg-[var(--money)]",
-  failed: "bg-[var(--danger)]",
-  running: "bg-[var(--accent-teal)] animate-pulse halo-dot",
-  awaiting_approval: "bg-[var(--warn)]",
-  awaiting_clarification: "bg-[var(--warn)]",
-  cancelled: "bg-[var(--text-ghost)]",
-  idle: "bg-[var(--text-ghost)]",
+  succeeded: "bg-(--money)",
+  success: "bg-(--money)",
+  failed: "bg-(--danger)",
+  running: "bg-(--accent-teal) animate-pulse halo-dot",
+  awaiting_approval: "bg-(--warn)",
+  awaiting_clarification: "bg-(--warn)",
+  cancelled: "bg-text-ghost",
+  idle: "bg-text-ghost",
 };
 
 const STATUS_LABEL: Record<string, string> = {
@@ -228,7 +228,7 @@ export default function RunsPage() {
                   {actionError}
                 </div>
               )}
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-[var(--text-l1)] border-b border-[var(--border-soft)]">
+              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
                 <span className="w-2" />
                 <span>Entrée</span>
                 <span className="text-right">Statut</span>
@@ -240,7 +240,7 @@ export default function RunsPage() {
 
               {runs.map((run) => {
                 const statusKey = run.status?.toLowerCase() ?? "idle";
-                const dotClass = STATUS_COLOR[statusKey] || "bg-[var(--text-ghost)]";
+                const dotClass = STATUS_COLOR[statusKey] || "bg-text-ghost";
                 const statusLabel = STATUS_LABEL[statusKey] || statusKey.toUpperCase().slice(0, 5);
                 const isPendingRerun = pendingAction === `rerun-${run.id}`;
                 const isPendingDelete = pendingAction === `delete-${run.id}`;
@@ -277,37 +277,37 @@ export default function RunsPage() {
                   <div
                     key={run.id}
                     onClick={() => handleOpen(run.id)}
-                    className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-[var(--border-soft)] group cursor-pointer transition-colors"
+                    className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-(--border-soft) group cursor-pointer transition-colors"
                     title={`Open run ${run.id.slice(0, 8)}`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-pill shrink-0 ${dotClass}`} />
                     <div className="min-w-0">
-                      <p className="t-13 text-[var(--text-soft)] group-hover:text-[var(--accent-teal)] transition-colors truncate">
+                      <p className="t-13 text-text-soft group-hover:text-(--accent-teal) transition-colors truncate">
                         {run.input || `Run ${run.id.slice(0, 8)}`}
                       </p>
-                      <p className="t-9 font-light text-[var(--text-ghost)] mt-1">
+                      <p className="t-9 font-light text-text-ghost mt-1">
                         {run.surface || "—"}
                         {run.missionId ? ` · Mission ${run.missionId.slice(0, 6)}` : ""}
                         {run.executionMode ? ` · ${run.executionMode}` : ""}
                       </p>
                     </div>
                     <span className={`t-9 font-medium text-right ${
-                      statusKey === "running" ? "text-[var(--accent-teal)]" :
-                      statusKey === "failed" ? "text-[var(--danger)]" :
-                      statusKey === "succeeded" || statusKey === "success" ? "text-[var(--money)]" :
-                      "text-[var(--text-faint)]"
+                      statusKey === "running" ? "text-(--accent-teal)" :
+                      statusKey === "failed" ? "text-(--danger)" :
+                      statusKey === "succeeded" || statusKey === "success" ? "text-(--money)" :
+                      "text-text-faint"
                     }`}>
                       {statusLabel}
                     </span>
-                    <span className="t-9 font-mono tabular-nums text-[var(--text-faint)] text-right">
+                    <span className="t-9 font-mono tabular-nums text-text-faint text-right">
                       {run.assetCount > 0 ? `${run.assetCount}×` : "—"}
                     </span>
-                    <span className="t-9 font-mono tabular-nums text-[var(--text-faint)] text-right">
+                    <span className="t-9 font-mono tabular-nums text-text-faint text-right">
                       {formatDuration(run.metrics?.durationMs)}
                     </span>
                     <RelativeTime
                       ts={run.createdAt}
-                      className="t-9 font-mono tabular-nums text-[var(--text-ghost)] text-right"
+                      className="t-9 font-mono tabular-nums text-text-ghost text-right"
                     />
                     <div className="flex justify-end">
                       <RowActions actions={actions} />

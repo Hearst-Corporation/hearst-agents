@@ -352,7 +352,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
       <StageActionBar
         context={
           <>
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               KNOWLEDGE
             </span>
             {entityId && (
@@ -361,7 +361,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                   className="rounded-pill bg-[var(--text-ghost)]"
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                 />
-                <span className="t-11 font-light text-[var(--text-muted)]">
+                <span className="t-11 font-light text-text-muted">
                   {entityId.slice(0, 16)}
                 </span>
               </>
@@ -372,7 +372,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                   className="rounded-pill bg-[var(--text-ghost)]"
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                 />
-                <span className="t-9 font-mono italic text-[var(--text-muted)]">
+                <span className="t-9 font-mono italic text-text-muted">
                   « {query.slice(0, 40)}... »
                 </span>
               </>
@@ -383,7 +383,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                   className="rounded-pill bg-[var(--text-ghost)]"
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                 />
-                <span className="t-11 font-light text-[var(--text-muted)]">
+                <span className="t-11 font-light text-text-muted">
                   {graph.nodes.length} ENT · {graph.edges.length} REL
                 </span>
               </>
@@ -410,11 +410,11 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         <div className="flex-1 flex items-center justify-center">
           <div className="flex items-center gap-3">
             <span
-              className="rounded-pill bg-[var(--warn)] animate-pulse"
+              className="rounded-pill bg-(--warn) animate-pulse"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-light text-[var(--text-muted)]">
+            <span className="t-11 font-light text-text-muted">
               Chargement du graphe…
             </span>
           </div>
@@ -425,20 +425,20 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         <div className="flex-1 flex items-center justify-center px-8">
           <div className="text-center max-w-md flex flex-col gap-6">
             <span
-              className="block text-[var(--accent-teal)] opacity-30 mx-auto t-34"
+              className="block text-(--accent-teal) opacity-30 mx-auto t-34"
               style={{ height: "var(--height-stage-empty-icon)" }}
               aria-hidden
             >
               ◈
             </span>
             <p
-              className="t-15 font-medium tracking-tight text-[var(--text)]"
+              className="t-15 font-medium tracking-tight text-text"
               style={{ lineHeight: "var(--leading-snug)" }}
             >
               Aucune entité extraite
             </p>
             <p
-              className="t-13 text-[var(--text-muted)]"
+              className="t-13 text-text-muted"
               style={{ lineHeight: "var(--leading-base)" }}
             >
               Ingest le thread actif pour démarrer ton graphe. L{"'"}agent extrait
@@ -454,7 +454,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
               Ingest le thread actif
             </Action>
             {!activeThreadId && (
-              <p className="t-11 font-light text-[var(--text-faint)]">
+              <p className="t-11 font-light text-text-faint">
                 Sélectionne un thread d{"'"}abord
               </p>
             )}
@@ -474,18 +474,18 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
               loading={searchLoading}
             />
             <div className="flex flex-wrap items-center gap-3">
-              <span className="t-11 font-light text-[var(--text-faint)]">
+              <span className="t-11 font-light text-text-faint">
                 Chemin :
               </span>
               <span
-                className="t-11 font-light text-[var(--text-soft)] truncate"
+                className="t-11 font-light text-text-soft truncate"
                 style={{ maxWidth: "var(--space-32)" }}
               >
                 {fromLabel ? `↦ ${fromLabel}` : "départ ?"}
               </span>
-              <span className="t-9 font-mono text-[var(--text-faint)]">→</span>
+              <span className="t-9 font-mono text-text-faint">→</span>
               <span
-                className="t-11 font-light text-[var(--text-soft)] truncate"
+                className="t-11 font-light text-text-soft truncate"
                 style={{ maxWidth: "var(--space-32)" }}
               >
                 {toLabel ?? "arrivée ?"}
@@ -494,7 +494,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                 type="button"
                 onClick={() => void handleFindPath()}
                 disabled={!pathFrom || !pathTo || pathLoading}
-                className="t-11 font-medium text-[var(--accent-teal)] disabled:opacity-50"
+                className="t-11 font-medium text-(--accent-teal) disabled:opacity-50"
                 style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)" }}
               >
                 {pathLoading ? "…" : "Trouver chemin"}
@@ -503,13 +503,13 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                 <button
                   type="button"
                   onClick={handleResetPath}
-                  className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--text)] transition-colors"
+                  className="t-11 font-light text-text-faint hover:text-text transition-colors"
                 >
                   Reset
                 </button>
               )}
               {pathMessage && (
-                <span className="t-11 font-medium text-[var(--warn)]">
+                <span className="t-11 font-medium text-(--warn)">
                   {pathMessage}
                 </span>
               )}
@@ -540,7 +540,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
             className="flex-shrink-0 border-t border-[var(--border-default)] flex items-center justify-center"
             style={{ padding: "var(--space-3) var(--space-8)" }}
           >
-            <p className="t-11 font-light text-[var(--text-faint)]">
+            <p className="t-11 font-light text-text-faint">
               Letta + Zep en Phase B — vector search + raisonnement long terme
             </p>
           </footer>
