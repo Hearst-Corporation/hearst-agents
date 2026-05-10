@@ -3149,10 +3149,22 @@
       "codex_refs": [],
       "post_adv_refs": [],
       "evidence": [
-        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 406, "note": "lineRef.current.position.set(0,0,0.2) — passing ref to function may read its value during render" },
-        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 433, "note": "{lineRef.current && <primitive object={lineRef.current} />} — cannot access ref value during render" },
+        {
+          "file": "components/spatial-v2/ArtifactKernel.tsx",
+          "line": 406,
+          "note": "lineRef.current.position.set(0,0,0.2) — passing ref to function may read its value during render"
+        },
+        {
+          "file": "components/spatial-v2/ArtifactKernel.tsx",
+          "line": 433,
+          "note": "{lineRef.current && <primitive object={lineRef.current} />} — cannot access ref value during render"
+        },
         { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 433, "note": "occurrence 2" },
-        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 433, "note": "occurrence 3 (col 46)" }
+        {
+          "file": "components/spatial-v2/ArtifactKernel.tsx",
+          "line": 433,
+          "note": "occurrence 3 (col 46)"
+        }
       ],
       "attack_scenario": "N/A — bug DX/correctness React 19. Le composant peut ne pas update comme attendu (cf react.dev/reference/react/useRef). En dev React peut throw warning mais en prod le rendu est non-déterministe (race entre render et ref assignment).",
       "production_impact": "Bug visuel intermittent dans le module spatial-v2 (cockpit luxe). Bloque le pre-commit hook (lint-staged ESLint refuse le staging) — empêche tout commit qui touche ce fichier.",
@@ -3163,8 +3175,18 @@
       "blocked_workflow": "Bloque tout commit qui touche components/spatial-v2/* via le pre-commit hook ESLint (lint-staged --fix).",
       "discovered_via": "Tentative de commit du Battle Plan workflow le 2026-05-11 — pre-commit hook eslint a refusé (6 errors, 0 warnings).",
       "lifecycle": [
-        { "ts": "2026-05-11", "actor": "console-runtime", "action": "discovered", "note": "Detected pendant pre-commit hook ESLint (npx lint-staged) tentative commit Battle Plan" },
-        { "ts": "2026-05-11", "actor": "orchestrator", "action": "consolidated", "note": "Ajouté comme P1 DX — bloque workflow commit mais pas vuln sécu" }
+        {
+          "ts": "2026-05-11",
+          "actor": "console-runtime",
+          "action": "discovered",
+          "note": "Detected pendant pre-commit hook ESLint (npx lint-staged) tentative commit Battle Plan"
+        },
+        {
+          "ts": "2026-05-11",
+          "actor": "orchestrator",
+          "action": "consolidated",
+          "note": "Ajouté comme P1 DX — bloque workflow commit mais pas vuln sécu"
+        }
       ]
     }
   ]

@@ -1,4 +1,5 @@
 "use client";
+// lint-visual-disable-file
 
 /**
  * GeneralDashboard — rail droit Cockpit (mode cockpit/chat).
@@ -17,7 +18,6 @@
  * 100 % primitives DS : <RailSection flex>, <Action>.
  */
 
-// lint-visual-disable-file
 import { useEffect, useState, type ReactNode } from "react";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";

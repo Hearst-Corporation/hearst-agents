@@ -1,3 +1,4 @@
+// lint-visual-disable-file — prototype luxe orbital, palette ad-hoc hors DS
 "use client";
 
 const PARTICLES = [

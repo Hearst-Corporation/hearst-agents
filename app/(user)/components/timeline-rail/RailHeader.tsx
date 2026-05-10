@@ -1,3 +1,4 @@
+// lint-visual-disable-file
 /**
  * RailHeader — bloc logo en tête du rail.
  *
@@ -6,7 +7,6 @@
  * handleHome (= setActiveThread(null) + setStageMode cockpit).
  */
 
-// lint-visual-disable-file
 import { HearstLogo } from "../HearstLogo";
 
 export interface RailHeaderProps {

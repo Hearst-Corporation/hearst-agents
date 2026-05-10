@@ -19,7 +19,7 @@
   --bg: #000000;
   --bg-elev: rgba(255, 255, 255, 0.05);
   --bg-soft: rgba(255, 255, 255, 0.02);
-  --background: #000000;
+  --background: transparent;
   --foreground: #ffffff;
   --surface: var(--vision-glass-bg, rgba(255, 255, 255, 0.02));
   --rail: transparent;

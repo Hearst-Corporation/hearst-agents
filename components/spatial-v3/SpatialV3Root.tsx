@@ -158,7 +158,7 @@ function CommandDock() {
   );
 }
 
-export function SpatialV2Root() {
+export function SpatialV3Root() {
   return (
     <main className="fixed inset-0 isolate overflow-hidden bg-black text-white">
       <div
@@ -171,17 +171,6 @@ export function SpatialV2Root() {
 
       <div className="absolute inset-0">
         <SpatialCanvas />
-      </div>
-
-      <div className="pointer-events-none absolute inset-0">
-        <header className="absolute left-[clamp(22px,4vw,58px)] top-[clamp(20px,4vh,44px)] text-[11px] font-light tracking-widest text-white/30 drop-shadow-sm">
-          HEARST OS
-        </header>
-
-        <SideRail side="left" title="Signal" items={["Contexte prêt", "Sources calmes", "Décision nette"]} />
-        <SideRail side="right" title="Orchestration" items={["Mémoire active", "Agents distants", "Sortie contrôlée"]} />
-
-        <CommandDock />
       </div>
     </main>
   );

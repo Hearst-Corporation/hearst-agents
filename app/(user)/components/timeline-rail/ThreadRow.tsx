@@ -1,3 +1,4 @@
+// lint-visual-disable-file
 /**
  * ThreadRow — ligne d'un thread dans une section (Investigations / Archive).
  *
@@ -7,7 +8,6 @@
  */
 
 import type { Thread } from "@/stores/navigation";
-// lint-visual-disable-file
 import { ArchiveIcon, TrashIcon } from "./icons";
 
 export interface ThreadRowProps {
