@@ -12,8 +12,8 @@ const STATE_COLOR: Record<NodeState, string> = {
   idle: "text-text-faint",
   active: "text-(--accent-teal)",
   success: "text-(--color-success)",
-  failed: "text-(--color-danger)",
-  blocked: "text-(--color-warning, var(--gold))",
+  failed: "text-(--danger)",
+  blocked: "text-(--warn)",
   disabled: "text-text-ghost",
 };
 

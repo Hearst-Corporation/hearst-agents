@@ -75,16 +75,17 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
   };
 
   return (
-    <div className="flex flex-col h-[500px] border border-[var(--border-shell)] bg-[var(--surface)]">
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+    <div className="flex flex-col rounded-(--radius-md) border border-(--border-shell) bg-surface overflow-hidden" style={{ height: "var(--height-admin-prompt-max)" }}>
+      <div className="flex-1 overflow-y-auto p-(--space-4) space-y-(--space-3)">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`max-w-[80%] px-3 py-2 t-13 ${
+              className={`rounded-(--radius-sm) px-(--space-3) py-(--space-2) t-13 ${
                 m.role === "user"
-                  ? "bg-[var(--surface-2)] text-[var(--text)]"
-                  : "bg-[var(--surface-1)] text-[var(--text-soft)]"
+                  ? "bg-surface-2 text-text"
+                  : "bg-surface-1 text-text-soft"
               }`}
+              style={{ maxWidth: "80%" }}
             >
               {m.content}
             </div>
@@ -92,20 +93,20 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         ))}
         <div ref={bottomRef} />
       </div>
-      <div className="border-t border-[var(--border-shell)] p-3 flex gap-2">
+      <div className="border-t border-(--border-shell) p-(--space-3) flex gap-(--space-2)">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && send()}
-          placeholder="Message..."
-          className="flex-1 bg-[var(--bg-soft)] border border-[var(--border-input)] px-3 py-2 t-13 text-[var(--text)] placeholder:text-[var(--text-faint)]"
+          placeholder="Message…"
+          className="flex-1 rounded-(--radius-sm) bg-bg-soft border border-(--border-input) px-(--space-3) py-(--space-2) t-13 text-text placeholder:text-text-faint outline-none focus:border-(--accent-teal) transition-colors"
         />
         <button
           onClick={send}
           disabled={loading || !input.trim()}
-          className="ghost-btn-solid ghost-btn-accent-teal disabled:opacity-50"
+          className="t-12 font-medium px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
         >
-          {loading ? "..." : "Envoyer"}
+          {loading ? "…" : "Envoyer"}
         </button>
       </div>
     </div>

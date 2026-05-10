@@ -197,7 +197,7 @@ export default function AdminAnalyticsPage() {
         <UsageTimeSeriesChart points={usage?.timeSeries ?? []} />
 
         <section className="flex flex-col gap-(--space-3)">
-          <h2 className="t-15 font-medium text-text">Top tenants</h2>
+          <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Top tenants</h2>
           {tenants ? (
             <TenantsTable
               tenants={tenants}
@@ -267,20 +267,14 @@ function Filters({
           { value: "month", label: "mois" },
         ]}
       />
-      <label className="flex items-center" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
-          Kind
+      <label className="flex items-center gap-(--space-2)">
+        <span className="t-9 font-mono uppercase text-text-faint">
+          Type
         </span>
         <select
           value={kind}
           onChange={(e) => onKind(e.target.value)}
-          className="t-13 text-[var(--text)] focus:outline-none"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            border: "1px solid var(--line-strong)",
-            borderRadius: "var(--radius-sm)",
-            background: "var(--bg-elev)",
-          }}
+          className="rounded-(--radius-sm) border border-(--line-strong) bg-bg-elev px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
         >
           {KIND_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>

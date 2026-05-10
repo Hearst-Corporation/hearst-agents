@@ -42,7 +42,3 @@ export function evictMission(id: string): void {
   missions.delete(id);
 }
 
-/** Wipe every mission from the in-memory store. Server-only cleanup. */
-export function clearAllMissions(): void {
-  missions.clear();
-}

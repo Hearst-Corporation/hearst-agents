@@ -121,7 +121,7 @@ function StatusPill({ status }: { status: HealthStatus }) {
 
   return (
     <span
-      className={`t-10 px-(--space-2) py-[2px] rounded-pill border font-medium ${cls}`}
+      className={`t-10 px-(--space-2) py-(--space-1) rounded-pill border font-medium ${cls}`}
     >
       {label}
     </span>
@@ -143,7 +143,7 @@ function CircuitBadge({ state }: { state: CircuitState }) {
   const label = state === "CLOSED" ? "Fermé" : state === "HALF_OPEN" ? "Mi-ouvert" : "Ouvert";
 
   return (
-    <span className={`t-10 px-(--space-2) py-[2px] rounded-pill font-medium ${cls}`}>
+    <span className={`t-10 px-(--space-2) py-(--space-1) rounded-pill font-medium ${cls}`}>
       {label}
     </span>
   );
@@ -346,7 +346,7 @@ export default function HealthPage() {
                   Endpoint dédié non disponible pour l&apos;instant
                 </span>
               </div>
-              <span className="t-10 px-(--space-2) py-[2px] rounded-pill border border-(--border-shell) text-text-ghost">
+              <span className="t-10 px-(--space-2) py-(--space-1) rounded-pill border border-(--border-shell) text-text-ghost">
                 À venir
               </span>
             </div>

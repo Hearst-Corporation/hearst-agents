@@ -120,7 +120,3 @@ export async function getLiveAgenda(scope: {
   cache.set(k, { items, expiresAt: Date.now() + CACHE_TTL_MS });
   return items;
 }
-
-export function _resetAgendaCache(): void {
-  cache.clear();
-}

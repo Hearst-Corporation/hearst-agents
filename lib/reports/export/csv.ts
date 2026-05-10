@@ -103,11 +103,6 @@ export async function exportCsv(input: ExportInput): Promise<ExportResult> {
   };
 }
 
-/** Helper test-only : sérialise UN seul bloc en CSV (sans header meta). */
-export function _renderBlockCsv(block: RenderedBlock): string {
-  return blockToCsvSection(block);
-}
-
 /** Helper test-only : full report → string CSV (sans buffer/BOM). */
 export function _renderPayloadCsv(payload: RenderPayload): string {
   return payload.blocks.map(blockToCsvSection).join("\n\n");

@@ -69,7 +69,7 @@ function StatutBadge({ statut, raw }: { statut: string; raw: string }) {
   const cls = STATUT_STYLES[statut] ?? "bg-(--surface-2) text-text-muted border-line";
   return (
     <span
-      className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-(--radius-sm) border t-9 font-mono uppercase tracking-(--tracking-stretch) ${cls}`}
+      className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-pill border t-9 font-mono uppercase tracking-(--tracking-stretch) ${cls}`}
       title={raw}
     >
       {statut}

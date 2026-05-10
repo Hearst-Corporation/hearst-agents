@@ -27,10 +27,6 @@
     "app/admin/orchestrator/**",
     "app/api/orchestrator/**"
   ],
-  "ignoreDependencies": [
-    "@types/*",
-    "eslint-*",
-    "prettier-*"
-  ],
+  "ignoreDependencies": ["@types/*", "eslint-*", "prettier-*", "playwright-core"],
   "ignoreBinaries": ["lsof", "xattr", "unset", "tsx"]
 }

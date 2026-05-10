@@ -72,13 +72,13 @@ export default async function AuditPage() {
             </span>
             <span>
               {log.success ? (
-                <span className="text-money t-10">OK</span>
+                <span className="text-(--money) t-10">Réussi</span>
               ) : (
-                <span className="text-danger t-10">FAIL</span>
+                <span className="text-(--danger) t-10">Échec</span>
               )}
             </span>
             <span
-              className={`t-10 px-(--space-2) py-[2px] rounded-pill w-fit ${SEVERITY_COLORS[log.severity] ?? "text-text-faint"}`}
+              className={`t-10 px-(--space-2) py-(--space-1) rounded-pill w-fit ${SEVERITY_COLORS[log.severity] ?? "text-text-faint"}`}
             >
               {log.severity}
             </span>
