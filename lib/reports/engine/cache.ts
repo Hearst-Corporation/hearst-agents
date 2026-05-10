@@ -186,25 +186,3 @@ export async function setRenderCache(
     { onConflict: "spec_id,version,payload_hash" },
   );
 }
-
-// ── Cleanup utilitaire (à brancher sur cron) ───────────────
-
-async function pruneExpired(): Promise<{
-  source: number;
-  transform: number;
-  render: number;
-}> {
-  const sb = client();
-  if (!sb) return { source: 0, transform: 0, render: 0 };
-  const now = new Date().toISOString();
-  const [a, b, c] = await Promise.all([
-    sb.from(TABLE_SOURCE).delete().lt("expires_at", now).select("hash"),
-    sb.from(TABLE_TRANSFORM).delete().lt("expires_at", now).select("hash"),
-    sb.from(TABLE_RENDER).delete().lt("expires_at", now).select("spec_id"),
-  ]);
-  return {
-    source: (a.data as Array<unknown> | null)?.length ?? 0,
-    transform: (b.data as Array<unknown> | null)?.length ?? 0,
-    render: (c.data as Array<unknown> | null)?.length ?? 0,
-  };
-}
