@@ -10,9 +10,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockGetUserId = vi.hoisted(() => vi.fn());
+const mockGetServerSession = vi.hoisted(() => vi.fn());
 
 vi.mock("@/lib/platform/auth/get-user-id", () => ({
   getUserId: mockGetUserId,
+}));
+
+// getServerSession retourne null par défaut → scope.ts tombe sur fallback env
+vi.mock("next-auth", () => ({
+  getServerSession: mockGetServerSession,
+}));
+
+vi.mock("@/lib/platform/auth/options", () => ({
+  authOptions: {},
 }));
 
 const ENV_BACKUP_TENANT = process.env.HEARST_TENANT_ID;
@@ -23,6 +33,9 @@ describe("requireScope (401 sur UUID non résolu)", () => {
   beforeEach(() => {
     vi.resetModules();
     mockGetUserId.mockReset();
+    mockGetServerSession.mockReset();
+    // Pas de tenantId en session → scope.ts lit l'env (dev fallback)
+    mockGetServerSession.mockResolvedValue(null);
     // Force dev fallback OK pour tenant/workspace afin d'isoler le test
     // sur la résolution userId uniquement.
     process.env.HEARST_TENANT_ID = "test-tenant";

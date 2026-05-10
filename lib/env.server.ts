@@ -21,19 +21,31 @@ function validateEnv(): void {
     );
   }
 
-  // Critical: tenant isolation requires explicit scope in production.
-  // Without these vars every user shares the "dev-tenant" fallback — full
-  // cross-user data exposure on shared infrastructure.
-  if (isProd && !process.env.HEARST_TENANT_ID) {
+  // Critical: allowlist domaine obligatoire en prod pour empêcher l'enrôlement
+  // libre de n'importe quel compte Google/Azure. Sans cette var, le callback
+  // signIn() refuse tous les logins OAuth en production (fail-closed).
+  // Format CSV : "hearstcorporation.io,partner.com"
+  if (isProd && !process.env.HEARST_ALLOWED_EMAIL_DOMAINS) {
     throw new Error(
-      "[ENV ERROR] HEARST_TENANT_ID is required in production. " +
-        "Without it all users share the dev-tenant scope."
+      "[ENV ERROR] HEARST_ALLOWED_EMAIL_DOMAINS is required in production. " +
+        "Without it, any Google/Azure user can self-enroll in the production tenant. " +
+        "Set it as CSV (e.g. 'hearstcorporation.io,partner.com')."
+    );
+  }
+
+  // Safety net 7j — HEARST_TENANT_ID/HEARST_WORKSPACE_ID conservés le temps
+  // que tous les fallbacks ?? "dev-tenant" soient supprimés en PR 3.
+  // Ces checks seront retirés en PR 4 (après 7 jours sans incident).
+  if (isProd && !process.env.HEARST_TENANT_ID) {
+    console.warn(
+      "[ENV] HEARST_TENANT_ID not set — scope.ts lit désormais session.tenantId (DB). " +
+        "Ce check sera supprimé en PR 4 après confirmation que les 28 fallbacks ?? 'dev-tenant' sont clean."
     );
   }
   if (isProd && !process.env.HEARST_WORKSPACE_ID) {
-    throw new Error(
-      "[ENV ERROR] HEARST_WORKSPACE_ID is required in production. " +
-        "Without it all users share the dev-workspace scope."
+    console.warn(
+      "[ENV] HEARST_WORKSPACE_ID not set — scope.ts lit désormais session.workspaceId (DB). " +
+        "Ce check sera supprimé en PR 4."
     );
   }
 

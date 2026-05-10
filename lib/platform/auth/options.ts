@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { saveTokens } from "@/lib/platform/auth/tokens";
 import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
 import { resolveOrCreateUserUuid } from "./user-resolver";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 const DEV_BYPASS = process.env.HEARST_DEV_AUTH_BYPASS === "1";
 const DEV_USER_UUID = "36914162-75f9-4c27-b38b-bb050f51d52b";
@@ -69,11 +70,59 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
+    // Mod 1.A — Domain allowlist : empêche l'enrôlement d'email hors périmètre.
+    // En prod : HEARST_ALLOWED_EMAIL_DOMAINS requis (CSV de domaines autorisés).
+    // En dev : pass-through si var absente pour faciliter les tests locaux.
+    async signIn({ user, account, profile }) {
+      // Dev bypass NextAuth provider — toujours autorisé
+      if (account?.provider === "dev-bypass") return true;
+
+      const email = (profile as { email?: string } | undefined)?.email
+        ?? user?.email
+        ?? null;
+      if (!email) {
+        console.warn(`[Auth] signIn rejected: no email (provider=${account?.provider})`);
+        return false;
+      }
+
+      const allowed = (process.env.HEARST_ALLOWED_EMAIL_DOMAINS ?? "")
+        .split(",")
+        .map((d) => d.trim().toLowerCase())
+        .filter(Boolean);
+
+      // En prod : allowlist obligatoire. En dev : pass-through si vide.
+      if (process.env.NODE_ENV === "production" && allowed.length === 0) {
+        console.error("[Auth] HEARST_ALLOWED_EMAIL_DOMAINS not set in production — rejecting all signins");
+        return false;
+      }
+      if (allowed.length === 0) return true; // dev only
+
+      const domain = email.split("@")[1]?.toLowerCase() ?? "";
+      if (!allowed.includes(domain)) {
+        console.warn(`[Auth] signIn rejected: domain ${domain} not in allowlist (email=${email}, provider=${account?.provider})`);
+        return false;
+      }
+      return true;
+    },
     async jwt({ token, account, profile, user }) {
-      // Dev bypass : injecter l'userId directement depuis le user object
+      // Dev bypass : injecter l'userId depuis le user object + charger tenant
       if (account?.provider === "dev-bypass" && user) {
         token.userId = user.id;
         token.email = user.email ?? undefined;
+        // Charger primary_tenant_id depuis DB (backfill migration 0070 garantit
+        // que le user dev a un tenant_id valide en DB)
+        const sb = getServerSupabase();
+        if (sb && user.id) {
+          const { data } = await sb
+            .from("users")
+            .select("primary_tenant_id, primary_workspace_id")
+            .eq("id", user.id)
+            .single();
+          if (data) {
+            token.tenantId = data.primary_tenant_id;
+            token.workspaceId = data.primary_workspace_id;
+          }
+        }
         return token;
       }
       if (account && profile) {
@@ -99,10 +148,34 @@ export const authOptions: AuthOptions = {
           console.warn(`[Auth] Unable to resolve UUID for email=${email ?? "<none>"}, provider=${providerName}`);
         }
 
+        // Mod 1.B — Charge primary_tenant_id/primary_workspace_id depuis la DB
+        // (source de vérité). Stocké dans le JWT pour hydrater scope sans DB
+        // supplémentaire à chaque requête.
+        let primaryTenantId: string | undefined;
+        let primaryWorkspaceId: string | undefined;
+        if (uuid) {
+          const sb = getServerSupabase();
+          if (sb) {
+            const { data, error } = await sb
+              .from("users")
+              .select("primary_tenant_id, primary_workspace_id")
+              .eq("id", uuid)
+              .single();
+            if (!error && data) {
+              primaryTenantId = data.primary_tenant_id;
+              primaryWorkspaceId = data.primary_workspace_id;
+            } else if (error) {
+              console.error(`[Auth] Failed to load tenant for user ${uuid.slice(0, 8)}: ${error.message}`);
+            }
+          }
+        }
+
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
         token.expiresAt = account.expires_at ?? 0;
         token.userId = uuid ?? undefined;
+        token.tenantId = primaryTenantId;
+        token.workspaceId = primaryWorkspaceId;
         if (email) token.email = email;
 
         if (uuid) {
@@ -116,12 +189,17 @@ export const authOptions: AuthOptions = {
             providerName,
           );
 
-          const tenantId = process.env.HEARST_TENANT_ID ?? "dev-tenant";
-          const workspaceId = process.env.HEARST_WORKSPACE_ID ?? "dev-workspace";
-          void registerProviderUsage({
-            provider: providerName as "google",
-            scope: { tenantId, workspaceId, userId: uuid },
-          });
+          // Mod 1.D — tenant chargé depuis la DB, plus depuis process.env
+          const tenantId = primaryTenantId;
+          const workspaceId = primaryWorkspaceId;
+          if (!tenantId || !workspaceId) {
+            console.error(`[Auth] No primary_tenant for user ${uuid.slice(0, 8)} — registerProviderUsage skipped`);
+          } else {
+            void registerProviderUsage({
+              provider: providerName as "google",
+              scope: { tenantId, workspaceId, userId: uuid },
+            });
+          }
         }
       }
       return token;
@@ -130,12 +208,19 @@ export const authOptions: AuthOptions = {
       const s = session as unknown as Record<string, unknown>;
       s.accessToken = token.accessToken;
       s.userId = token.userId;
+      // Mod 1.C — tenantId + workspaceId exposés top-level sur la session
+      // (chargés depuis DB lors du jwt callback, pas depuis process.env).
+      s.tenantId = token.tenantId;
+      s.workspaceId = token.workspaceId;
       // Expose user.id (UUID) en plus de user.email pour que le frontend
       // ait accès à l'identifiant canonique sans transiter par un appel
       // serveur. À utiliser comme identifiant dans tout React state qui
       // a besoin d'une key user.
       if (session.user && typeof token.userId === "string") {
-        (session.user as { id?: string }).id = token.userId;
+        const u = session.user as { id?: string; tenantId?: string; workspaceId?: string };
+        u.id = token.userId;
+        u.tenantId = token.tenantId;
+        u.workspaceId = token.workspaceId;
       }
       return session;
     },

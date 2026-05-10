@@ -4,10 +4,15 @@
  * Centralized helper for resolving the current execution scope.
  * All user-facing API routes MUST use this to ensure data isolation.
  *
- * Dev fallback is explicit and logged — never silent.
+ * Source de vérité : session.user.tenantId chargé depuis public.users.primary_tenant_id
+ * dans le callback jwt() de NextAuth. Plus de lecture directe de process.env ici.
+ *
+ * Dev fallback explicite et bruyant — jamais silencieux.
  */
 
 import { getUserId } from "./get-user-id";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./options";
 
 export interface CanonicalScope {
   userId: string;
@@ -50,14 +55,31 @@ export async function resolveScope(
     return null;
   }
 
-  const explicitTenant = process.env.HEARST_TENANT_ID;
-  const explicitWorkspace = process.env.HEARST_WORKSPACE_ID;
+  // Lecture depuis la session JWT (chargée depuis DB dans le callback jwt())
+  // — source de vérité, pas depuis process.env.
+  const session = await getServerSession(authOptions);
+  const sessionTenantId = (session?.user as { tenantId?: string } | undefined)?.tenantId
+    ?? (session as unknown as Record<string, unknown> | null)?.tenantId as string | undefined
+    ?? null;
+  const sessionWorkspaceId = (session?.user as { workspaceId?: string } | undefined)?.workspaceId
+    ?? (session as unknown as Record<string, unknown> | null)?.workspaceId as string | undefined
+    ?? null;
 
-  let tenantId: string | null = explicitTenant ?? null;
-  let workspaceId: string | null = explicitWorkspace ?? null;
+  let tenantId: string | null = sessionTenantId;
+  let workspaceId: string | null = sessionWorkspaceId;
   let isDevFallback = false;
 
   if (!tenantId || !workspaceId) {
+    if (process.env.NODE_ENV === "production") {
+      // Fail-closed en prod : session sans tenant = 401. Pas de fallback env.
+      console.error(
+        `[Scope] CRITICAL: session.tenantId absent en prod (${context}, user: ${userId.slice(0, 8)})`,
+      );
+      return null;
+    }
+
+    // DEV uniquement : fallback bruyant sur env vars / constants.
+    // Permet de bosser sans flow OAuth complet en local.
     if (requireTenant && !tenantId) {
       console.error(`[Scope] Tenant required but not resolved (${context}, user: ${userId.slice(0, 8)})`);
       return null;
@@ -67,18 +89,13 @@ export async function resolveScope(
       return null;
     }
 
-    tenantId = tenantId ?? DEV_TENANT_ID;
-    workspaceId = workspaceId ?? DEV_WORKSPACE_ID;
+    tenantId = tenantId ?? process.env.HEARST_TENANT_ID ?? DEV_TENANT_ID;
+    workspaceId = workspaceId ?? process.env.HEARST_WORKSPACE_ID ?? DEV_WORKSPACE_ID;
     isDevFallback = true;
 
-    if (process.env.NODE_ENV === "production") {
-      console.error(
-        `[Scope] CRITICAL: dev fallback active in production — set HEARST_TENANT_ID + HEARST_WORKSPACE_ID ` +
-        `(${context}, user: ${userId.slice(0, 8)})`
-      );
-    } else {
-      console.log(`[Scope] Dev fallback used — tenant: ${tenantId}, workspace: ${workspaceId} (${context}, user: ${userId.slice(0, 8)})`);
-    }
+    console.warn(
+      `[Scope] DEV fallback active — tenant: ${tenantId}, workspace: ${workspaceId} (${context}, user: ${userId.slice(0, 8)})`,
+    );
   }
 
   return {
