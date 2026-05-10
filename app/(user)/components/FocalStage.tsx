@@ -24,14 +24,14 @@ const STATUS_LABELS: Record<FocalStatus, string> = {
 };
 
 const STATUS_COLORS: Record<FocalStatus, string> = {
-  composing: "bg-[var(--accent-teal)]",
-  ready: "bg-[var(--accent-teal)]",
-  awaiting_approval: "bg-[var(--warn)]",
-  delivering: "bg-[var(--accent-teal)]",
-  delivered: "bg-[var(--accent-teal)]",
-  active: "bg-[var(--accent-teal)]",
-  paused: "bg-[var(--warn)]",
-  failed: "bg-[var(--danger)]",
+  composing: "bg-(--accent-teal)",
+  ready: "bg-(--accent-teal)",
+  awaiting_approval: "bg-(--warn)",
+  delivering: "bg-(--accent-teal)",
+  delivered: "bg-(--accent-teal)",
+  active: "bg-(--accent-teal)",
+  paused: "bg-(--warn)",
+  failed: "bg-(--danger)",
 };
 
 const TYPE_LABELS: Record<FocalObject["type"], string> = {
@@ -141,30 +141,30 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
         <div className="flex items-center gap-6">
           <span className={`w-2 h-2 rounded-pill ${STATUS_COLORS[focal.status]} ${isLive ? "animate-pulse" : ""}`} />
           <div className="flex items-center gap-4">
-            <span className="t-13 font-medium text-[var(--text-l1)]">{TYPE_LABELS[focal.type]}</span>
+            <span className="t-13 font-medium text-(--text-l1)">{TYPE_LABELS[focal.type]}</span>
             <span className="w-1 h-1 rounded-pill bg-[var(--text-ghost)]" />
-            <span className={`t-13 font-light ${focal.status === "awaiting_approval" ? "text-[var(--warn)]" : focal.status === "failed" ? "text-[var(--danger)]" : "text-[var(--text-faint)]"}`}>
+            <span className={`t-13 font-light ${focal.status === "awaiting_approval" ? "text-(--warn)" : focal.status === "failed" ? "text-(--danger)" : "text-text-faint"}`}>
               {STATUS_LABELS[focal.status]}
             </span>
           </div>
         </div>
-        <div className="t-11 font-mono tabular-nums text-[var(--text-faint)]">
+        <div className="t-11 font-mono tabular-nums text-text-faint">
           {focal.sourcePlanId && (
             <span>Réf {focal.sourcePlanId.slice(0, 8)}</span>
           )}
         </div>
       </header>
 
-      <h1 className="t-28 font-medium text-[var(--text)] mb-10 tracking-tight" style={{ lineHeight: "var(--leading-snug)" }}>{focal.title}</h1>
+      <h1 className="t-28 font-medium text-text mb-10 tracking-tight" style={{ lineHeight: "var(--leading-snug)" }}>{focal.title}</h1>
 
       {focal.body && (
         <div className="prose prose-invert max-w-none">
-          <div className="t-15 leading-[1.7] text-[var(--text-muted)] font-normal whitespace-pre-wrap">{focal.body}</div>
+          <div className="t-15 leading-[1.7] text-text-muted font-normal whitespace-pre-wrap">{focal.body}</div>
         </div>
       )}
 
       {!focal.body && focal.summary && (
-        <p className="t-15 leading-[1.7] text-[var(--text-muted)] font-normal">{focal.summary}</p>
+        <p className="t-15 leading-[1.7] text-text-muted font-normal">{focal.summary}</p>
       )}
 
       {focal.sections && focal.sections.length > 0 && (
@@ -172,16 +172,16 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
           {focal.sections.map((section, i) => (
             <div key={i} className="border-t border-[var(--surface-2)] pt-8">
               {section.heading && (
-                <h3 className="t-13 font-medium text-[var(--text-l1)] mb-4">{section.heading}</h3>
+                <h3 className="t-13 font-medium text-(--text-l1) mb-4">{section.heading}</h3>
               )}
-              <div className="t-15 leading-[1.7] text-[var(--text-muted)] font-normal">{section.body}</div>
+              <div className="t-15 leading-[1.7] text-text-muted font-normal">{section.body}</div>
             </div>
           ))}
         </div>
       )}
 
       {error && (
-        <div className="mt-8 p-4 bg-[var(--danger)]/5 border-l-2 border-[var(--danger)] t-13 font-light text-[var(--danger)]">
+        <div className="mt-8 p-4 bg-(--danger)/5 border-l-2 border-(--danger) t-13 font-light text-(--danger)">
           {error}
         </div>
       )}
@@ -189,9 +189,9 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
       {sourceAssetId && (previewLoading || previewContent) && (
         <div className="mt-12 pt-8 border-t border-[var(--surface-2)]">
           <div className="flex items-baseline gap-3 mb-4">
-            <span className="t-13 font-medium text-[var(--text-l1)]">Aperçu</span>
+            <span className="t-13 font-medium text-(--text-l1)">Aperçu</span>
             {previewLoading && (
-              <span className="t-11 font-light text-[var(--text-faint)]">Chargement…</span>
+              <span className="t-11 font-light text-text-faint">Chargement…</span>
             )}
           </div>
           {previewContent && tryParseReportPayload(previewContent) ? (
@@ -220,7 +220,7 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
       )}
 
       <footer className="mt-12 pt-8 border-t border-[var(--surface-2)] flex items-center justify-between">
-        <div className="flex items-center gap-6 t-11 font-light text-[var(--text-faint)]">
+        <div className="flex items-center gap-6 t-11 font-light text-text-faint">
           {focal.wordCount ? <span>{focal.wordCount} mots</span> : null}
           {focal.provider ? <span>Source · {focal.provider}</span> : null}
         </div>
@@ -236,7 +236,7 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
               focalStatus={focal.status}
               label={focal.primaryAction.label}
               onSuccess={onActionComplete}
-              className="px-6 py-3 t-13 font-medium bg-[var(--accent-teal)] text-[var(--text-on-accent-teal)] transition-colors duration-base hover:opacity-90"
+              className="px-6 py-3 t-13 font-medium bg-(--accent-teal) text-[var(--text-on-accent-teal)] transition-colors duration-base hover:opacity-90"
             />
           ) : (
             <Action
@@ -287,8 +287,8 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
     return (
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center relative z-10">
-          <span className="block t-34 text-[var(--accent-teal)] opacity-30 mb-8 animate-pulse">◉</span>
-          <p className="t-11 font-light text-[var(--text-faint)]">Waiting_For_Data</p>
+          <span className="block t-34 text-(--accent-teal) opacity-30 mb-8 animate-pulse">◉</span>
+          <p className="t-11 font-light text-text-faint">Waiting_For_Data</p>
         </div>
       </div>
     );

@@ -206,10 +206,10 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         }}
       >
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-          <span className="t-13 font-medium text-[var(--text-l1)]">
+          <span className="t-13 font-medium text-(--text-l1)">
             Éditeur
           </span>
-          <span className="t-13 text-[var(--text)] tabular-nums">
+          <span className="t-13 text-text tabular-nums">
             {visibleCount} / {totalCount} blocs visibles
           </span>
         </div>
@@ -219,7 +219,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
             onClick={onClose}
             aria-label="Fermer l'éditeur"
             data-testid="report-editor-close"
-            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--text-soft)]"
+            className="t-11 font-light text-text-muted hover:text-text-soft"
             style={{
               padding: "var(--space-1) var(--space-3)",
               border: "1px solid var(--surface-2)",
@@ -242,7 +242,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
           type="button"
           onClick={reset}
           data-testid="report-editor-reset"
-          className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)]"
+          className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
           style={{
                         padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--surface-2)",
@@ -258,7 +258,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
           onClick={() => setJsonOpen((v) => !v)}
           data-testid="report-editor-json-toggle"
           aria-expanded={jsonOpen}
-          className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)]"
+          className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
           style={{
                         padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--surface-2)",
@@ -275,7 +275,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
             type="button"
             onClick={openSaveForm}
             data-testid="report-editor-save-template"
-            className="t-9 font-mono uppercase text-[var(--accent-teal)] hover:text-[var(--text-soft)]"
+            className="t-9 font-mono uppercase text-(--accent-teal) hover:text-text-soft"
             style={{
                             padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--accent-teal)",
@@ -290,7 +290,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         {saveStatus === "saved" && (
           <span
             data-testid="report-editor-save-feedback"
-            className="t-9 font-mono uppercase text-[var(--accent-teal)]"
+            className="t-9 font-mono uppercase text-(--accent-teal)"
                      >
             Template sauvegardé
           </span>
@@ -310,7 +310,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
             type="button"
             onClick={openLoadList}
             data-testid="report-editor-load-template"
-            className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)]"
+            className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
             style={{
                             padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--surface-2)",
@@ -324,7 +324,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         )}
         {(loadStatus === "loading_list" || loadStatus === "loading_spec") && (
           <span
-            className="t-9 font-mono uppercase text-[var(--text-faint)]"
+            className="t-9 font-mono uppercase text-text-faint"
                      >
             Chargement…
           </span>
@@ -354,7 +354,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
           }}
         >
           <span
-            className="t-9 font-mono uppercase text-[var(--text-muted)]"
+            className="t-9 font-mono uppercase text-text-muted"
                      >
             Nom du template
           </span>
@@ -366,7 +366,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
             placeholder="Mon template…"
             data-testid="report-editor-save-name"
             maxLength={100}
-            className="t-11 text-[var(--text)]"
+            className="t-11 text-text"
             style={{
               padding: "var(--space-2) var(--space-3)",
               background: "var(--card-flat-bg)",
@@ -382,7 +382,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
             placeholder="Description optionnelle…"
             data-testid="report-editor-save-desc"
             maxLength={500}
-            className="t-11 text-[var(--text-soft)]"
+            className="t-11 text-text-soft"
             style={{
               padding: "var(--space-2) var(--space-3)",
               background: "var(--card-flat-bg)",
@@ -397,7 +397,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
               onClick={confirmSave}
               disabled={!saveName.trim() || isSaving}
               data-testid="report-editor-save-confirm"
-              className="t-9 font-mono uppercase text-[var(--accent-teal)] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="t-9 font-mono uppercase text-(--accent-teal) disabled:opacity-40 disabled:cursor-not-allowed"
               style={{
                                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--accent-teal)",
@@ -412,7 +412,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
               type="button"
               onClick={cancelSave}
               data-testid="report-editor-save-cancel"
-              className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)]"
+              className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
               style={{
                                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--surface-2)",
@@ -442,7 +442,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         >
           <div className="flex items-center justify-between">
             <span
-              className="t-9 font-mono uppercase text-[var(--text-muted)]"
+              className="t-9 font-mono uppercase text-text-muted"
                          >
               Templates disponibles
             </span>
@@ -450,7 +450,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
               type="button"
               onClick={cancelLoad}
               data-testid="report-editor-load-cancel"
-              className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)]"
+              className="t-9 font-mono uppercase text-text-muted hover:text-text-soft"
               style={{
                                 padding: "var(--space-1) var(--space-2)",
                 border: "1px solid var(--surface-2)",
@@ -464,7 +464,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
           </div>
           {templateList.length === 0 ? (
             <span
-              className="t-11 text-[var(--text-faint)]"
+              className="t-11 text-text-faint"
               data-testid="report-editor-load-empty"
             >
               Aucun template sauvegardé.
@@ -477,7 +477,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
                     type="button"
                     onClick={() => loadTemplateSpec(tpl.id)}
                     data-testid={`report-editor-load-item-${tpl.id}`}
-                    className="w-full text-left t-11 text-[var(--text-soft)] hover:text-[var(--text)]"
+                    className="w-full text-left t-11 text-text-soft hover:text-text"
                     style={{
                       padding: "var(--space-2) var(--space-3)",
                       background: "transparent",
@@ -489,7 +489,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
                     <span className="block truncate">{tpl.name}</span>
                     {tpl.description && (
                       <span
-                        className="block truncate t-9 font-mono text-[var(--text-faint)]"
+                        className="block truncate t-9 font-mono text-text-faint"
                                              >
                         {tpl.description}
                       </span>
@@ -525,7 +525,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
       {jsonOpen && (
         <pre
           data-testid="report-editor-json"
-          className="t-9 font-mono text-[var(--text-soft)] overflow-auto"
+          className="t-9 font-mono text-text-soft overflow-auto"
           style={{
             padding: "var(--space-3)",
             background: "var(--surface-1)",
@@ -589,7 +589,7 @@ function BlockEditorRow({
       <div className="flex flex-col flex-1 min-w-0" style={{ gap: "var(--space-1)" }}>
         <span
           className={`t-11 truncate ${
-            isVisible ? "text-[var(--text-soft)]" : "text-[var(--text-faint)]"
+            isVisible ? "text-text-soft" : "text-text-faint"
           }`}
           title={titleText}
         >
@@ -597,17 +597,17 @@ function BlockEditorRow({
         </span>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           <span
-            className="t-9 font-mono uppercase text-[var(--accent-teal)]"
+            className="t-9 font-mono uppercase text-(--accent-teal)"
                      >
             {block.type}
           </span>
           <span
-            className="t-9 font-mono uppercase text-[var(--text-faint)]"
+            className="t-9 font-mono uppercase text-text-faint"
                      >
             #{block.id}
           </span>
           <span
-            className="t-9 font-mono uppercase text-[var(--text-faint)]"
+            className="t-9 font-mono uppercase text-text-faint"
                      >
             col_{block.layout.col}
           </span>
@@ -620,7 +620,7 @@ function BlockEditorRow({
           disabled={!canMoveUp}
           aria-label={`Remonter ${block.id}`}
           data-testid={`report-editor-up-${block.id}`}
-          className="t-9 font-mono text-[var(--text-muted)] hover:text-[var(--accent-teal)] disabled:opacity-30 disabled:cursor-not-allowed"
+          className="t-9 font-mono text-text-muted hover:text-(--accent-teal) disabled:opacity-30 disabled:cursor-not-allowed"
           style={{
             padding: "var(--space-1) var(--space-2)",
             border: "1px solid var(--surface-2)",
@@ -637,7 +637,7 @@ function BlockEditorRow({
           disabled={!canMoveDown}
           aria-label={`Descendre ${block.id}`}
           data-testid={`report-editor-down-${block.id}`}
-          className="t-9 font-mono text-[var(--text-muted)] hover:text-[var(--accent-teal)] disabled:opacity-30 disabled:cursor-not-allowed"
+          className="t-9 font-mono text-text-muted hover:text-(--accent-teal) disabled:opacity-30 disabled:cursor-not-allowed"
           style={{
             padding: "var(--space-1) var(--space-2)",
             border: "1px solid var(--surface-2)",

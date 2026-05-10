@@ -3,7 +3,7 @@
 /**
  * <Action> — primitive bouton/lien unifiée du DS Hearst OS.
  *
- * Remplace les 60+ usages ad-hoc de `bg-[var(--accent-teal)]`, `border-accent-teal`,
+ * Remplace les 60+ usages ad-hoc de `bg-(--accent-teal)`, `border-accent-teal`,
  * `t-9 font-mono uppercase tracking-marquee`, etc. dispersés dans l'app.
  *
  * Axes :
@@ -71,42 +71,42 @@ const SIZE_CLASSES: Record<ActionSize, string> = {
 
 const PRIMARY_TONE: Record<ActionTone, string> = {
   brand:
-    "bg-[var(--accent-teal)] text-[var(--text-on-accent-teal)] hover:opacity-90 active:opacity-80",
+    "bg-(--accent-teal) text-[var(--text-on-accent-teal)] hover:opacity-90 active:opacity-80",
   gold:
     "bg-[var(--gold)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
   neutral:
     "bg-[var(--text)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
   danger:
-    "bg-[var(--danger)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
+    "bg-(--danger) text-[var(--bg)] hover:opacity-90 active:opacity-80",
 };
 
 const SECONDARY_TONE: Record<ActionTone, string> = {
   brand:
-    "border border-[var(--accent-teal-border)] text-[var(--accent-teal)] bg-[var(--accent-teal-surface)] hover:border-[var(--accent-teal-border-hover)] hover:bg-[var(--accent-teal-bg-hover)]",
+    "border border-[var(--accent-teal-border)] text-(--accent-teal) bg-[var(--accent-teal-surface)] hover:border-[var(--accent-teal-border-hover)] hover:bg-[var(--accent-teal-bg-hover)]",
   gold:
-    "border border-[var(--gold-border)] text-[var(--gold)] bg-[var(--gold-surface)] hover:bg-[var(--gold-bg-hover)]",
+    "border border-[var(--gold-border)] text-(--gold) bg-[var(--gold-surface)] hover:bg-[var(--gold-bg-hover)]",
   neutral:
-    "border border-[var(--border-shell)] text-[var(--text-soft)] hover:border-[var(--border-default)] hover:text-[var(--text)]",
+    "border border-(--border-shell) text-text-soft hover:border-(--border-default) hover:text-text",
   danger:
-    "border border-[var(--danger)] text-[var(--danger)] hover:bg-[var(--danger)]/5",
+    "border border-(--danger) text-(--danger) hover:bg-(--danger)/5",
 };
 
 const GHOST_TONE: Record<ActionTone, string> = {
-  brand: "text-[var(--text-faint)] hover:text-[var(--accent-teal)]",
-  gold: "text-[var(--text-faint)] hover:text-[var(--gold)]",
-  neutral: "text-[var(--text-faint)] hover:text-[var(--text)]",
-  danger: "text-[var(--text-faint)] hover:text-[var(--danger)]",
+  brand: "text-text-faint hover:text-(--accent-teal)",
+  gold: "text-text-faint hover:text-(--gold)",
+  neutral: "text-text-faint hover:text-text",
+  danger: "text-text-faint hover:text-(--danger)",
 };
 
 const LINK_TONE: Record<ActionTone, string> = {
   brand:
-    "text-[var(--accent-teal)] border-b border-[var(--accent-teal)] hover:opacity-80 px-0",
+    "text-(--accent-teal) border-b border-[var(--accent-teal)] hover:opacity-80 px-0",
   gold:
-    "text-[var(--gold)] border-b border-[var(--gold-border)] hover:opacity-80 px-0",
+    "text-(--gold) border-b border-[var(--gold-border)] hover:opacity-80 px-0",
   neutral:
-    "text-[var(--text-soft)] border-b border-[var(--border-default)] hover:text-[var(--text)] px-0",
+    "text-text-soft border-b border-(--border-default) hover:text-text px-0",
   danger:
-    "text-[var(--danger)] border-b border-[var(--danger)] hover:opacity-80 px-0",
+    "text-(--danger) border-b border-(--danger) hover:opacity-80 px-0",
 };
 
 const FONT_WEIGHT: Record<ActionVariant, string> = {

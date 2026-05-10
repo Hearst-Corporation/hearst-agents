@@ -168,11 +168,11 @@ function ContextRailShell({
             boxShadow: "var(--shadow-divider-bottom-subtle)",
           }}
         >
-          <p className="t-13 font-light text-[var(--text-soft)]">Context</p>
+          <p className="t-13 font-light text-text-soft">Context</p>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="w-8 h-8 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-text-faint hover:text-(--accent-teal) transition-colors"
           >
             <svg
               width="14"
@@ -302,7 +302,7 @@ function ContextRailForAsset() {
     <div className="h-full overflow-y-auto">
       <Section label="Title">
         <p
-          className="t-13 font-light text-[var(--text)]"
+          className="t-13 font-light text-text"
           style={{ lineHeight: "var(--leading-snug)" }}
         >
           {assetTitle || "—"}
@@ -312,7 +312,7 @@ function ContextRailForAsset() {
       {assetSummary && (
         <Section label="Prompt">
           <p
-            className="t-11 font-light text-[var(--text-muted)]"
+            className="t-11 font-light text-text-muted"
             style={{ lineHeight: "var(--leading-relaxed)" }}
           >
             {assetSummary}
@@ -322,7 +322,7 @@ function ContextRailForAsset() {
 
       {assetCreatedAt && (
         <Section label="Created">
-          <p className="t-11 font-mono text-[var(--text-faint)]">
+          <p className="t-11 font-mono text-text-faint">
             {fmtDate(assetCreatedAt)}
           </p>
         </Section>
@@ -330,7 +330,7 @@ function ContextRailForAsset() {
 
       {assetKind && (
         <Section label="Type">
-          <p className="t-11 font-medium text-[var(--accent-teal)]">
+          <p className="t-11 font-medium text-(--accent-teal)">
             {assetKind}
           </p>
         </Section>
@@ -341,30 +341,30 @@ function ContextRailForAsset() {
           <ul className="flex flex-col gap-2">
             {variantMeta.width && variantMeta.height && (
               <li className="flex items-baseline gap-3">
-                <span className="t-11 font-light text-[var(--text-faint)]">
+                <span className="t-11 font-light text-text-faint">
                   Dimensions
                 </span>
-                <span className="t-11 font-mono text-[var(--text-muted)]">
+                <span className="t-11 font-mono text-text-muted">
                   {variantMeta.width}×{variantMeta.height}
                 </span>
               </li>
             )}
             {variantMeta.model && (
               <li className="flex items-baseline gap-3">
-                <span className="t-11 font-light text-[var(--text-faint)]">
+                <span className="t-11 font-light text-text-faint">
                   Model
                 </span>
-                <span className="t-11 font-mono text-[var(--text-muted)] truncate">
+                <span className="t-11 font-mono text-text-muted truncate">
                   {variantMeta.model}
                 </span>
               </li>
             )}
             {imageVariant.provider && (
               <li className="flex items-baseline gap-3">
-                <span className="t-11 font-light text-[var(--text-faint)]">
+                <span className="t-11 font-light text-text-faint">
                   Provider
                 </span>
-                <span className="t-11 font-mono text-[var(--text-muted)] uppercase">
+                <span className="t-11 font-mono text-text-muted uppercase">
                   {imageVariant.provider}
                 </span>
               </li>
@@ -383,10 +383,10 @@ function ContextRailForAsset() {
             <ul className="flex flex-col gap-2">
               {readyVariants.map((v) => (
                 <li key={v.id} className="flex items-baseline gap-3">
-                  <span className="t-9 font-medium text-[var(--accent-teal)]">
+                  <span className="t-9 font-medium text-(--accent-teal)">
                     {v.kind.toUpperCase()}
                   </span>
-                  <span className="t-11 text-[var(--text-faint)] tracking-wide">
+                  <span className="t-11 text-text-faint tracking-wide">
                     {v.provider ?? ""}
                   </span>
                 </li>
@@ -403,7 +403,7 @@ function ContextRailForBrowser() {
   return (
     <div className="h-full overflow-y-auto">
       <Section label="Co-pilot">
-        <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
+        <p className="t-13 font-light text-text-faint leading-relaxed">
           Agent navigating in the live session. Take Over coming with
           Stagehand.
         </p>
@@ -428,11 +428,11 @@ function ContextRailForMeeting() {
                 key={i}
                 className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
               >
-                <p className="t-13 font-light text-[var(--text-soft)] truncate mb-1">
+                <p className="t-13 font-light text-text-soft truncate mb-1">
                   {item.action}
                 </p>
                 {(item.owner || item.deadline) && (
-                  <p className="t-9 font-medium text-[var(--text-ghost)]">
+                  <p className="t-9 font-medium text-text-ghost">
                     {[item.owner, item.deadline].filter(Boolean).join(" · ")}
                   </p>
                 )}
@@ -443,7 +443,7 @@ function ContextRailForMeeting() {
       </Section>
 
       <Section label="Mission templates">
-        <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
+        <p className="t-13 font-light text-text-faint leading-relaxed">
           Approve all → Composio execution (Slack, Linear, Notion, Gmail).
         </p>
       </Section>
@@ -458,10 +458,10 @@ function ContextRailForKnowledge() {
       <Section label="Focus entity">
         {selectedNode ? (
           <div className="flex flex-col gap-3">
-            <span className="t-9 font-medium text-[var(--accent-teal)]">
+            <span className="t-9 font-medium text-(--accent-teal)">
               {selectedNode.type}
             </span>
-            <p className="t-13 font-light text-[var(--text-soft)]">{selectedNode.label}</p>
+            <p className="t-13 font-light text-text-soft">{selectedNode.label}</p>
             {Object.keys(selectedNode.properties ?? {}).length > 0 && (
               <ul className="flex flex-col gap-2 mt-3">
                 {Object.entries(
@@ -470,10 +470,10 @@ function ContextRailForKnowledge() {
                   .slice(0, 6)
                   .map(([k, v]) => (
                     <li key={k} className="flex items-baseline gap-3">
-                      <span className="t-9 font-medium text-[var(--text-ghost)] truncate">
+                      <span className="t-9 font-medium text-text-ghost truncate">
                         {k}
                       </span>
-                      <span className="t-11 font-light text-[var(--text-muted)] truncate">
+                      <span className="t-11 font-light text-text-muted truncate">
                         {String(v)}
                       </span>
                     </li>
@@ -486,7 +486,7 @@ function ContextRailForKnowledge() {
         )}
       </Section>
       <Section label="Graph" count={graph.nodes.length}>
-        <p className="t-9 font-light text-[var(--text-faint)]">
+        <p className="t-9 font-light text-text-faint">
           {graph.nodes.length} entities · {graph.edges.length} relations
         </p>
       </Section>
@@ -537,7 +537,7 @@ function ContextRailForVoice() {
               if (entry.role === "tool_call") {
                 return (
                   <li key={entry.id} className="flex flex-col gap-1.5">
-                    <span className="t-9 font-medium text-[var(--warn)]">
+                    <span className="t-9 font-medium text-(--warn)">
                       TOOL CALL
                     </span>
                     <div className="flex items-center gap-2">
@@ -556,13 +556,13 @@ function ContextRailForVoice() {
                     <span
                       className={`t-9 font-medium ${
                         entry.status === "error"
-                          ? "text-[var(--danger)]"
-                          : "text-[var(--accent-teal)]"
+                          ? "text-(--danger)"
+                          : "text-(--accent-teal)"
                       }`}
                     >
                       {entry.status === "error" ? "TOOL ERROR" : "TOOL RESULT"}
                     </span>
-                    <p className="t-11 font-light text-[var(--text-muted)] line-clamp-2 leading-relaxed">
+                    <p className="t-11 font-light text-text-muted line-clamp-2 leading-relaxed">
                       {entry.text}
                     </p>
                   </li>
@@ -573,13 +573,13 @@ function ContextRailForVoice() {
                   <span
                     className={`t-9 font-medium ${
                       entry.role === "user"
-                        ? "text-[var(--accent-teal)]"
-                        : "text-[var(--text-ghost)]"
+                        ? "text-(--accent-teal)"
+                        : "text-text-ghost"
                     }`}
                   >
                     {entry.role === "user" ? "USER" : "AGENT"}
                   </span>
-                  <p className="t-11 font-light text-[var(--text-muted)] line-clamp-2 leading-relaxed">
+                  <p className="t-11 font-light text-text-muted line-clamp-2 leading-relaxed">
                     {entry.text}
                   </p>
                 </li>
@@ -591,7 +591,7 @@ function ContextRailForVoice() {
           <button
             type="button"
             onClick={handleLinkThread}
-            className="mt-4 t-9 font-medium text-[var(--accent-teal)] hover:text-[var(--text)] transition-colors"
+            className="mt-4 t-9 font-medium text-(--accent-teal) hover:text-text transition-colors"
           >
             Lier au thread →
           </button>
@@ -601,7 +601,7 @@ function ContextRailForVoice() {
         {toolCallCount === 0 ? (
           <EmptyHint>No tool calls yet</EmptyHint>
         ) : (
-          <p className="t-9 font-light text-[var(--text-faint)] leading-relaxed">
+          <p className="t-9 font-light text-text-faint leading-relaxed">
             {transcript
               .filter((e) => e.role === "tool_call")
               .slice(-5)
@@ -611,7 +611,7 @@ function ContextRailForVoice() {
         )}
       </Section>
       <Section label="Available tools" count={totalToolsCount}>
-        <p className="t-9 font-light text-[var(--text-faint)] leading-relaxed">
+        <p className="t-9 font-light text-text-faint leading-relaxed">
           {[
             ...voiceToolDefs.map((t) => VOICE_TOOL_LABELS[t.name] ?? t.name),
             ...connectedApps.map((a) => a.name),
@@ -619,9 +619,9 @@ function ContextRailForVoice() {
         </p>
       </Section>
       <Section label="Voice settings">
-        <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
+        <p className="t-13 font-light text-text-faint leading-relaxed">
           Model{" "}
-          <span className="text-[var(--accent-teal)]">openai-realtime</span>, target
+          <span className="text-(--accent-teal)">openai-realtime</span>, target
           latency &lt; 500&nbsp;ms.
         </p>
       </Section>
@@ -633,7 +633,7 @@ function ContextRailForArtifact() {
   return (
     <div className="h-full overflow-y-auto">
       <Section label="Sandbox">
-        <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
+        <p className="t-13 font-light text-text-faint leading-relaxed">
           Environnement E2B isolé. Exécution Python ou Node selon la sélection.
         </p>
       </Section>
@@ -645,8 +645,8 @@ function ContextRailForArtifact() {
             ["FS", "Éphémère"],
           ].map(([k, v]) => (
             <li key={k} className="flex items-baseline gap-3">
-              <span className="t-9 font-medium text-[var(--text-ghost)]">{k}</span>
-              <span className="t-11 font-mono text-[var(--text-muted)]">{v}</span>
+              <span className="t-9 font-medium text-text-ghost">{k}</span>
+              <span className="t-11 font-mono text-text-muted">{v}</span>
             </li>
           ))}
         </ul>
@@ -659,7 +659,7 @@ function ContextRailForAssetCompare() {
   return (
     <div className="h-full overflow-y-auto">
       <Section label="Comparaison">
-        <p className="t-13 font-light text-[var(--text-faint)] leading-relaxed">
+        <p className="t-13 font-light text-text-faint leading-relaxed">
           Deux assets côte à côte. Le diff structurel apparaît en bas du Stage.
         </p>
       </Section>
@@ -671,8 +671,8 @@ function ContextRailForAssetCompare() {
             ["Esc", "Fermer"],
           ].map(([k, v]) => (
             <li key={k} className="flex items-baseline gap-3">
-              <span className="t-9 font-mono font-medium text-[var(--accent-teal)]">{k}</span>
-              <span className="t-11 font-light text-[var(--text-muted)]">{v}</span>
+              <span className="t-9 font-mono font-medium text-(--accent-teal)">{k}</span>
+              <span className="t-11 font-light text-text-muted">{v}</span>
             </li>
           ))}
         </ul>
@@ -693,10 +693,10 @@ function ContextRailForSimulation() {
           <ul className="flex flex-col gap-3">
             {cleanVars.map((v, i) => (
               <li key={i} className="flex items-baseline gap-3">
-                <span className="t-9 font-medium text-[var(--text-ghost)] truncate">
+                <span className="t-9 font-medium text-text-ghost truncate">
                   {v.key}
                 </span>
-                <span className="t-13 font-light text-[var(--text-soft)] truncate">
+                <span className="t-13 font-light text-text-soft truncate">
                   {v.value || "—"}
                 </span>
               </li>
@@ -716,8 +716,8 @@ function ContextRailForSimulation() {
                 key={i}
                 className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
               >
-                <p className="t-13 font-light text-[var(--text-soft)] truncate mb-1">{s.name}</p>
-                <p className="t-9 font-medium text-[var(--text-ghost)]">
+                <p className="t-13 font-light text-text-soft truncate mb-1">{s.name}</p>
+                <p className="t-9 font-medium text-text-ghost">
                   PROB · {(s.probability * 100).toFixed(0)}%
                 </p>
               </li>

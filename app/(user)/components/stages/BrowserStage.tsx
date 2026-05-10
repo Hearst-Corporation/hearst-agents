@@ -329,17 +329,17 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
           context={
             <>
               <span
-                className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
+                className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               />
-              <span className="t-11 font-medium text-[var(--accent-teal)]">
+              <span className="t-11 font-medium text-(--accent-teal)">
                 BROWSER
               </span>
               <span
                 className="rounded-pill bg-[var(--text-ghost)]"
                 style={{ width: "var(--space-1)", height: "var(--space-1)" }}
               />
-              <span className="t-11 font-light text-[var(--text-muted)]">
+              <span className="t-11 font-light text-text-muted">
                 AWAITING
               </span>
             </>
@@ -349,20 +349,20 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
         <div className="flex-1 flex items-center justify-center px-8">
           <div className="text-center max-w-md flex flex-col gap-6 w-full">
             <span
-              className="block text-[var(--accent-teal)] opacity-30 mx-auto t-34"
+              className="block text-(--accent-teal) opacity-30 mx-auto t-34"
               style={{ height: "var(--height-stage-empty-icon)" }}
               aria-hidden
             >
               ◐
             </span>
             <p
-              className="t-15 font-medium tracking-tight text-[var(--text)]"
+              className="t-15 font-medium tracking-tight text-text"
               style={{ lineHeight: "var(--leading-snug)" }}
             >
               Aucune session browser active
             </p>
             <p
-              className="t-13 text-[var(--text-muted)]"
+              className="t-13 text-text-muted"
               style={{ lineHeight: "var(--leading-base)" }}
             >
               Décris la tâche à confier au browser agent — la session live
@@ -390,7 +390,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
                 Lancer la session
               </Action>
               {error && (
-                <p className="t-11 font-medium text-[var(--danger)]">
+                <p className="t-11 font-medium text-(--danger)">
                   {error}
                 </p>
               )}
@@ -435,26 +435,26 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
+              className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               BROWSER
             </span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
             />
-            <span className="t-11 font-light text-[var(--text-muted)]">
+            <span className="t-11 font-light text-text-muted">
               {sessionId.slice(0, 8)}
             </span>
             {executing && (
-              <span className="t-11 font-medium text-[var(--accent-teal)]">
+              <span className="t-11 font-medium text-(--accent-teal)">
                 · RUNNING
               </span>
             )}
             {isControlled && (
-              <span className="t-11 font-medium text-[var(--warn)]">
+              <span className="t-11 font-medium text-(--warn)">
                 · USER
               </span>
             )}
@@ -482,11 +482,11 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
             <div className="flex-1 flex items-center justify-center">
               <div className="flex items-center gap-3">
                 <span
-                  className="rounded-pill bg-[var(--warn)] animate-pulse"
+                  className="rounded-pill bg-(--warn) animate-pulse"
                   style={{ width: "var(--space-2)", height: "var(--space-2)" }}
                   aria-hidden
                 />
-                <span className="t-11 font-light text-[var(--text-muted)]">
+                <span className="t-11 font-light text-text-muted">
                   Connexion à la session…
                 </span>
               </div>
@@ -509,10 +509,10 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
 
       {error && (
         <div
-          className="flex-shrink-0 px-12 py-3 border-t border-[var(--border-default)]"
+          className="flex-shrink-0 px-12 py-3 border-t border-(--border-default)"
           style={{ background: "var(--bg-soft)" }}
         >
-          <span className="t-11 font-medium text-[var(--danger)]">
+          <span className="t-11 font-medium text-(--danger)">
             {error}
           </span>
         </div>

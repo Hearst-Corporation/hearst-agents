@@ -207,7 +207,7 @@ export function ReportLayout({
               transition: "opacity var(--duration-fast) var(--ease-standard)",
             }}
           >
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               Rapport rafraîchi automatiquement
             </span>
           </div>
@@ -226,7 +226,7 @@ export function ReportLayout({
                 onClick={() => { setHistoryOpen((v) => !v); setEditorOpen(false); }}
                 data-testid="report-layout-history-toggle"
                 aria-expanded={historyOpen}
-                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
+                className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
                 style={{
                                     padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--surface-2)",
@@ -244,7 +244,7 @@ export function ReportLayout({
                 onClick={() => { setEditorOpen((v) => !v); setHistoryOpen(false); }}
                 data-testid="report-layout-edit-toggle"
                 aria-expanded={editorOpen}
-                className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
+                className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
                 style={{
                                     padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--surface-2)",
@@ -275,7 +275,7 @@ export function ReportLayout({
               >
                 {block.label && block.type !== "kpi" && (
                   <div
-                    className="t-11 font-medium text-[var(--text-muted)]"
+                    className="t-11 font-medium text-text-muted"
                     style={{
                                             marginBottom: "var(--space-3)",
                       paddingBottom: "var(--space-2)",
@@ -301,10 +301,10 @@ export function ReportLayout({
               borderTop: "1px solid var(--surface-2)",
             }}
           >
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               Version {effectivePayload.version}
             </span>
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               Généré · {fmtTimestamp(effectivePayload.generatedAt)}
             </span>
           </div>
@@ -494,7 +494,7 @@ function BlockRenderer({ block }: { block: RenderedBlock }) {
             minHeight: "var(--space-12)",
           }}
         >
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             {block.type}_pending
           </span>
         </div>
@@ -629,13 +629,13 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
     >
       {/* Header */}
       <div className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
-        <span className="t-13 font-medium text-[var(--text-muted)]">
+        <span className="t-13 font-medium text-text-muted">
           Historique
         </span>
         <button
           type="button"
           onClick={onClose}
-          className="t-11 font-medium text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
+          className="t-11 font-medium text-text-faint hover:text-(--accent-teal)"
           style={{
             background: "transparent",
             border: "none",
@@ -649,19 +649,19 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
 
       {/* États */}
       {loading && (
-        <span className="t-11 font-light text-[var(--text-faint)]">Chargement…</span>
+        <span className="t-11 font-light text-text-faint">Chargement…</span>
       )}
       {error && (
-        <span className="t-11 font-light text-[var(--danger)]">{error}</span>
+        <span className="t-11 font-light text-(--danger)">{error}</span>
       )}
       {!loading && !error && versions.length === 0 && (
-        <span className="t-11 font-light text-[var(--text-faint)]">Aucune version enregistrée.</span>
+        <span className="t-11 font-light text-text-faint">Aucune version enregistrée.</span>
       )}
 
       {/* Feedback restauration */}
       {restoreMsg && (
         <div
-          className="t-11 font-light text-[var(--accent-teal)]"
+          className="t-11 font-light text-(--accent-teal)"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--border-default)",
@@ -691,14 +691,14 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                 <span className="t-11 font-mono tabular-nums text-[var(--text-default)]">
                   v{v.versionNumber}
                 </span>
-                <span className="t-11 font-light text-[var(--text-faint)]">
+                <span className="t-11 font-light text-text-faint">
                   {v.triggeredBy}
                 </span>
               </div>
-              <span className="t-11 font-light text-[var(--text-muted)]">
+              <span className="t-11 font-light text-text-muted">
                 {fmtIso(v.createdAt)}
               </span>
-              <span className="t-11 font-light text-[var(--text-faint)]">
+              <span className="t-11 font-light text-text-faint">
                 {v.signalsCount} signal{v.signalsCount !== 1 ? "s" : ""}
               </span>
               <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
@@ -730,7 +730,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                   type="button"
                   onClick={() => void handleRestore(v.versionNumber)}
                   disabled={restoring === v.versionNumber}
-                  className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
+                  className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
                   style={{
                     background: "transparent",
                     border: "1px solid var(--border-default)",
@@ -756,7 +756,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
             type="button"
             onClick={() => void handleCompare()}
             disabled={diffLoading}
-            className="t-11 font-medium text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
+            className="t-11 font-medium text-text-muted hover:text-(--accent-teal)"
             style={{
               background: "transparent",
               border: "1px solid var(--border-default)",
@@ -775,7 +775,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
           {diffs !== null && (
             <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
               {diffs.length === 0 ? (
-                <span className="t-11 font-light text-[var(--text-faint)]">Aucune différence détectée.</span>
+                <span className="t-11 font-light text-text-faint">Aucune différence détectée.</span>
               ) : (
                 diffs.map((d, i) => (
                   <div
@@ -806,7 +806,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                       </span>
                     </div>
                     {d.fieldPath && (
-                      <span className="t-9 font-mono text-[var(--text-faint)]">
+                      <span className="t-9 font-mono text-text-faint">
                         {d.fieldPath}: {String(d.before)} → {String(d.after)}
                       </span>
                     )}

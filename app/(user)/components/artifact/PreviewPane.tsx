@@ -63,10 +63,10 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
         className="flex h-full flex-1 flex-col items-center justify-center text-center"
         style={{ padding: "var(--space-8)" }}
       >
-        <p className="t-13 font-light text-[var(--text-faint)]">
+        <p className="t-13 font-light text-text-faint">
           La sortie d&apos;exécution apparaîtra ici.
         </p>
-        <p className="t-11 mt-2 font-light text-[var(--text-faint)]">
+        <p className="t-11 mt-2 font-light text-text-faint">
           ⌘Enter pour lancer
         </p>
       </div>
@@ -80,7 +80,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
         style={{ padding: "var(--space-8)" }}
       >
         <span
-          className="rounded-pill bg-[var(--accent-teal)]"
+          className="rounded-pill bg-(--accent-teal)"
           style={{
             width: "var(--space-3)",
             height: "var(--space-3)",
@@ -88,7 +88,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
           }}
           aria-hidden
         />
-        <p className="t-11 font-medium text-[var(--accent-teal)]">
+        <p className="t-11 font-medium text-(--accent-teal)">
           E2B · EXÉCUTION{progress != null ? ` · ${Math.round(progress)}%` : ""}
         </p>
       </div>
@@ -101,11 +101,11 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
         className="flex h-full flex-1 flex-col gap-3"
         style={{ padding: "var(--space-6)" }}
       >
-        <span className="t-11 font-medium text-[var(--danger)]">
+        <span className="t-11 font-medium text-(--danger)">
           ÉCHEC
         </span>
         <pre
-          className="t-11 font-mono whitespace-pre-wrap text-[var(--danger)]"
+          className="t-11 font-mono whitespace-pre-wrap text-(--danger)"
           style={{
             padding: "var(--space-3)",
             background: "var(--surface-1)",
@@ -128,11 +128,11 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
     >
       {result.error && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-[var(--danger)]">
+          <span className="t-11 font-medium text-(--danger)">
             ERROR
           </span>
           <pre
-            className="t-11 font-mono whitespace-pre-wrap text-[var(--danger)]"
+            className="t-11 font-mono whitespace-pre-wrap text-(--danger)"
             style={{
               padding: "var(--space-3)",
               background: "var(--surface-1)",
@@ -146,7 +146,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {imageResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             IMAGE
           </span>
           <Image
@@ -155,21 +155,21 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
             alt="Sortie image E2B"
             width={1600}
             height={1200}
-            className="max-w-full h-auto rounded-md border border-[var(--border-default)]"
+            className="max-w-full h-auto rounded-md border border-(--border-default)"
           />
         </section>
       )}
 
       {htmlResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             HTML
           </span>
           <iframe
             sandbox="allow-scripts"
             srcDoc={htmlResult.data as string}
             title="Sortie HTML E2B"
-            className="rounded-md border border-[var(--border-default)] bg-[var(--surface-1)]"
+            className="rounded-md border border-(--border-default) bg-surface-1"
             style={{ width: "100%", minHeight: "var(--space-32)" }}
           />
         </section>
@@ -177,11 +177,11 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {jsonResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             JSON
           </span>
           <pre
-            className="t-11 font-mono whitespace-pre-wrap text-[var(--text-muted)]"
+            className="t-11 font-mono whitespace-pre-wrap text-text-muted"
             style={{
               padding: "var(--space-3)",
               background: "var(--surface-1)",
@@ -196,11 +196,11 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {result.stdout && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             STDOUT
           </span>
           <pre
-            className="t-11 font-mono whitespace-pre-wrap text-[var(--text)]"
+            className="t-11 font-mono whitespace-pre-wrap text-text"
             style={{
               padding: "var(--space-3)",
               background: "var(--surface-1)",
@@ -215,11 +215,11 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {result.stderr && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-[var(--warn)]">
+          <span className="t-11 font-medium text-(--warn)">
             STDERR
           </span>
           <pre
-            className="t-11 font-mono whitespace-pre-wrap text-[var(--warn)]"
+            className="t-11 font-mono whitespace-pre-wrap text-(--warn)"
             style={{
               padding: "var(--space-3)",
               background: "var(--surface-1)",
@@ -233,7 +233,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
       )}
 
       {!result.stdout && !result.stderr && !result.error && result.results.length === 0 && (
-        <p className="t-13 font-light text-[var(--text-faint)]">
+        <p className="t-13 font-light text-text-faint">
           Exécution terminée sans sortie.
         </p>
       )}

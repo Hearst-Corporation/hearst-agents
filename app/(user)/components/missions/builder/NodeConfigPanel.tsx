@@ -53,7 +53,7 @@ function NodeConfigInner({
         className="flex flex-col"
         style={{ padding: "var(--space-4)" }}
       >
-        <p className="t-11 text-[var(--text-muted)]">
+        <p className="t-11 text-text-muted">
           Sélectionne un node pour éditer sa configuration.
         </p>
       </div>
@@ -93,18 +93,18 @@ function NodeConfigInner({
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="t-11 font-light text-[var(--text-faint)]">{node.label}</span>
+        <span className="t-11 font-light text-text-faint">{node.label}</span>
         <button
           type="button"
           onClick={onDelete}
-          className="t-11 font-light text-[var(--danger)] hover:text-[var(--text)] transition-colors"
+          className="t-11 font-light text-(--danger) hover:text-text transition-colors"
         >
           Supprimer
         </button>
       </div>
 
       <Field label="Type">
-        <span className="t-11 font-light text-[var(--text-muted)]">
+        <span className="t-11 font-light text-text-muted">
           {node.kind}
         </span>
       </Field>
@@ -114,7 +114,7 @@ function NodeConfigInner({
           type="text"
           value={node.label}
           onChange={(e) => update("label", e.target.value)}
-          className="w-full t-11 text-[var(--text)] bg-transparent rounded-md"
+          className="w-full t-11 text-text bg-transparent rounded-md"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--border-soft)",
@@ -128,7 +128,7 @@ function NodeConfigInner({
             <select
               value={String(node.config.mode ?? "manual")}
               onChange={(e) => updateConfig("mode", e.target.value)}
-              className="w-full t-11 text-[var(--text)] bg-transparent rounded-md"
+              className="w-full t-11 text-text bg-transparent rounded-md"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--border-soft)",
@@ -146,7 +146,7 @@ function NodeConfigInner({
                 value={String(node.config.cron ?? "")}
                 onChange={(e) => updateConfig("cron", e.target.value)}
                 placeholder="0 9 * * *"
-                className="w-full t-11 font-mono text-[var(--text)] bg-transparent rounded-md"
+                className="w-full t-11 font-mono text-text bg-transparent rounded-md"
                 style={{
                   padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--border-soft)",
@@ -165,7 +165,7 @@ function NodeConfigInner({
               value={String(node.config.tool ?? "")}
               onChange={(e) => updateConfig("tool", e.target.value)}
               placeholder="gmail_send"
-              className="w-full t-11 font-mono text-[var(--text)] bg-transparent rounded-md"
+              className="w-full t-11 font-mono text-text bg-transparent rounded-md"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--border-soft)",
@@ -177,7 +177,7 @@ function NodeConfigInner({
               value={argsText}
               onChange={(e) => commitArgs(e.target.value, "args")}
               rows={6}
-              className="w-full t-11 font-mono text-[var(--text)] bg-transparent rounded-md"
+              className="w-full t-11 font-mono text-text bg-transparent rounded-md"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 border: argsError
@@ -187,7 +187,7 @@ function NodeConfigInner({
               placeholder={'{ "to": "${nodeId.email}" }'}
             />
             {argsError && (
-              <p className="t-9 text-[var(--danger)]">{argsError}</p>
+              <p className="t-9 text-(--danger)">{argsError}</p>
             )}
           </Field>
         </>
@@ -200,7 +200,7 @@ function NodeConfigInner({
             value={String(node.config.expression ?? "")}
             onChange={(e) => updateConfig("expression", e.target.value)}
             placeholder="output.field == 'value'"
-            className="w-full t-11 font-mono text-[var(--text)] bg-transparent rounded-md"
+            className="w-full t-11 font-mono text-text bg-transparent rounded-md"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--border-soft)",
@@ -215,7 +215,7 @@ function NodeConfigInner({
             value={String(node.config.preview ?? "")}
             onChange={(e) => updateConfig("preview", e.target.value)}
             rows={3}
-            className="w-full t-11 text-[var(--text)] bg-transparent rounded-md"
+            className="w-full t-11 text-text bg-transparent rounded-md"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--border-soft)",
@@ -230,7 +230,7 @@ function NodeConfigInner({
             value={argsText}
             onChange={(e) => commitArgs(e.target.value, "payload")}
             rows={6}
-            className="w-full t-11 font-mono text-[var(--text)] bg-transparent rounded-md"
+            className="w-full t-11 font-mono text-text bg-transparent rounded-md"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: argsError
@@ -238,7 +238,7 @@ function NodeConfigInner({
                 : "1px solid var(--border-soft)",
             }}
           />
-          {argsError && <p className="t-9 text-[var(--danger)]">{argsError}</p>}
+          {argsError && <p className="t-9 text-(--danger)">{argsError}</p>}
         </Field>
       )}
 
@@ -248,7 +248,7 @@ function NodeConfigInner({
           onChange={(e) =>
             update("onError", e.target.value as WorkflowNode["onError"])
           }
-          className="w-full t-11 text-[var(--text)] bg-transparent rounded-md"
+          className="w-full t-11 text-text bg-transparent rounded-md"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--border-soft)",
@@ -272,7 +272,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-      <span className="t-11 font-light text-[var(--text-faint)]">
+      <span className="t-11 font-light text-text-faint">
         {label}
       </span>
       {children}

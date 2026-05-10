@@ -64,18 +64,18 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
 
   return (
     <div className="border-t border-[var(--ghost-modal-top)] bg-[var(--bg)] overflow-hidden">
-      <div className="p-6 border-b border-[var(--line)] flex flex-wrap items-start gap-6">
+      <div className="p-6 border-b border-(--line) flex flex-wrap items-start gap-6">
         <span
-          className="font-mono t-9 uppercase text-[var(--text-muted)] border-b border-[var(--accent-teal)] pb-1"
+          className="font-mono t-9 uppercase text-text-muted border-b border-[var(--accent-teal)] pb-1"
           style={{ letterSpacing: "var(--tracking-banner)" }}
         >
           {kindRef}
         </span>
         <div className="flex-1 min-w-0">
-          <h3 className="t-15 font-black uppercase tracking-tighter text-[var(--text)] truncate">
+          <h3 className="t-15 font-black uppercase tracking-tighter text-text truncate">
             {asset.title}
           </h3>
-          <p className="t-11 font-light text-[var(--text-muted)] mt-2">
+          <p className="t-11 font-light text-text-muted mt-2">
             {mimeLabel}
             {pdfFile?.sizeBytes != null && (
               <span className="ml-3 font-mono t-10">
@@ -98,21 +98,21 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
         )}
       </div>
 
-      <div className="p-6 min-h-[200px] flex items-center justify-center border-b border-[var(--line)]">
+      <div className="p-6 min-h-[200px] flex items-center justify-center border-b border-(--line)">
         {canPreviewInline && narration ? (
-          <div className="w-full max-h-96 overflow-auto bg-[var(--bg-elev)] p-4 font-mono t-11 text-[var(--text-muted)] border border-[var(--line)]">
+          <div className="w-full max-h-96 overflow-auto bg-[var(--bg-elev)] p-4 font-mono t-11 text-text-muted border border-(--line)">
             <pre className="whitespace-pre-wrap">{narration}</pre>
           </div>
         ) : narration ? (
-          <div className="w-full max-h-96 overflow-auto p-4 t-13 text-[var(--text-soft)] leading-relaxed prose prose-invert max-w-none">
+          <div className="w-full max-h-96 overflow-auto p-4 t-13 text-text-soft leading-relaxed prose prose-invert max-w-none">
             {narration}
           </div>
         ) : (
           <div className="text-center space-y-4">
-            <p className="t-11 font-medium text-[var(--text-faint)]">
+            <p className="t-11 font-medium text-text-faint">
               {kindRef.toLowerCase()}
             </p>
-            <p className="t-9 font-light text-[var(--text-muted)]">
+            <p className="t-9 font-light text-text-muted">
               {pdfFile ? "Fichier binaire — téléchargement disponible" : "Aucun contenu preview disponible"}
             </p>
           </div>
@@ -120,31 +120,31 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
       </div>
 
       <div className="p-6 bg-[var(--bg-soft)]">
-        <p className="t-11 font-medium text-[var(--text-l1)] mb-4">Métadonnées</p>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-3 t-11 font-light text-[var(--text-muted)]">
+        <p className="t-11 font-medium text-(--text-l1) mb-4">Métadonnées</p>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-3 t-11 font-light text-text-muted">
           <div>
-            <span className="text-[var(--text-faint)]">Réf</span>
+            <span className="text-text-faint">Réf</span>
             <span className="ml-2 font-mono">{asset.id.slice(0, 8)}…</span>
           </div>
           {asset.runId && (
             <div>
-              <span className="text-[var(--text-faint)]">Run</span>
+              <span className="text-text-faint">Run</span>
               <span className="ml-2 font-mono">{asset.runId.slice(0, 8)}…</span>
             </div>
           )}
           <div className="col-span-2 sm:col-span-1">
-            <span className="text-[var(--text-faint)]">TS_CREATED</span>
+            <span className="text-text-faint">TS_CREATED</span>
             <span className="ml-2">{new Date(asset.createdAt).toLocaleString()}</span>
           </div>
           {asset.provenance?.userId && (
             <div>
-              <span className="text-[var(--text-faint)]">ACTOR</span>
+              <span className="text-text-faint">ACTOR</span>
               <span className="ml-2">{asset.provenance.userId}</span>
             </div>
           )}
           {asset.provenance?.specId && (
             <div>
-              <span className="text-[var(--text-faint)]">SPEC</span>
+              <span className="text-text-faint">SPEC</span>
               <span className="ml-2">{asset.provenance.specId}</span>
             </div>
           )}

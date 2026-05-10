@@ -363,11 +363,11 @@ export function ChatInput({
         {showTypeahead && (
           <div
             ref={typeaheadRef}
-            className="absolute bottom-full mb-4 w-full rounded-2xl border border-[var(--border-shell)] overflow-hidden z-50"
+            className="absolute bottom-full mb-4 w-full rounded-2xl border border-(--border-shell) overflow-hidden z-50"
             style={{ background: "var(--bg-elev)", boxShadow: "var(--shadow-card-hover)" }}
           >
             {matchingServices.length === 0 ? (
-              <div className="p-4 t-11 font-light text-[var(--text-ghost)]">
+              <div className="p-4 t-11 font-light text-text-ghost">
                 {typeaheadQuery ? (
                   <>No source found&nbsp;: {typeaheadQuery}</>
                 ) : (
@@ -380,16 +380,16 @@ export function ChatInput({
                   <button
                     key={service.id}
                     onClick={() => selectService(service)}
-                    className="w-full flex items-center gap-4 px-4 py-3 text-left border-b border-[var(--line)] transition-all duration-300 group hover:bg-[var(--surface-1)]"
+                    className="w-full flex items-center gap-4 px-4 py-3 text-left border-b border-(--line) transition-all duration-300 group hover:bg-surface-1"
                   >
-                    <span className="t-18 text-[var(--text-faint)] group-hover:text-[var(--accent-teal)] transition-colors">
+                    <span className="t-18 text-text-faint group-hover:text-(--accent-teal) transition-colors">
                       {service.icon}
                     </span>
                     <div className="flex-1">
-                      <p className="t-13 font-medium tracking-wide text-[var(--text-soft)] group-hover:text-[var(--text)] transition-colors">
+                      <p className="t-13 font-medium tracking-wide text-text-soft group-hover:text-text transition-colors">
                         @{service.id}
                       </p>
-                      <p className="t-10 tracking-snug uppercase text-[var(--text-ghost)] mt-0.5">
+                      <p className="t-10 tracking-snug uppercase text-text-ghost mt-0.5">
                         {service.name}
                       </p>
                     </div>
@@ -439,17 +439,17 @@ export function ChatInput({
                     borderRadius: "var(--radius-pill)",
                   }}
                 >
-                  <span className="t-11 font-medium text-[var(--accent-teal)]">
+                  <span className="t-11 font-medium text-(--accent-teal)">
                     @{a.kind}
                   </span>
-                  <span className="t-11 font-light text-[var(--text)] truncate" style={{ maxWidth: "var(--space-32)" }}>
+                  <span className="t-11 font-light text-text truncate" style={{ maxWidth: "var(--space-32)" }}>
                     {a.title}
                   </span>
                   <button
                     type="button"
                     onClick={() => removeAttachedAsset(a.assetId)}
                     aria-label={`Remove ${a.title}`}
-                    className="t-11 text-[var(--text-ghost)] hover:text-[var(--danger)]"
+                    className="t-11 text-text-ghost hover:text-(--danger)"
                     style={{ background: "transparent", border: "none", cursor: "pointer" }}
                   >
                     ×
@@ -459,20 +459,20 @@ export function ChatInput({
             </div>
           )}
           {attachment && (
-            <div className="flex items-center gap-3 px-1 pb-4 mb-4 border-b border-[var(--line)]">
-              <span className="t-9 font-medium text-[var(--accent-teal)]">
+            <div className="flex items-center gap-3 px-1 pb-4 mb-4 border-b border-(--line)">
+              <span className="t-9 font-medium text-(--accent-teal)">
                 PDF
               </span>
-              <span className="t-13 text-[var(--text-muted)] truncate max-w-xs font-light">
+              <span className="t-13 text-text-muted truncate max-w-xs font-light">
                 {attachment.fileName}
               </span>
-              <span className="t-9 font-mono tabular-nums text-[var(--text-ghost)]">
+              <span className="t-9 font-mono tabular-nums text-text-ghost">
                 {attachment.pageCount}P
               </span>
               <button
                 type="button"
                 onClick={() => setAttachment(null)}
-                className="ml-auto t-13 text-[var(--text-ghost)] hover:text-[var(--danger)] transition-colors"
+                className="ml-auto t-13 text-text-ghost hover:text-(--danger) transition-colors"
                 aria-label="Remove document"
               >
                 ×
@@ -480,7 +480,7 @@ export function ChatInput({
             </div>
           )}
           {uploadError && (
-            <p className="t-10 tracking-wide text-[var(--danger)] px-1 pb-3">
+            <p className="t-10 tracking-wide text-(--danger) px-1 pb-3">
               {uploadError}
             </p>
           )}
@@ -488,8 +488,8 @@ export function ChatInput({
             <p
               className={`t-10 tracking-wide px-1 pb-3 ${
                 imageGenStatus === "error"
-                  ? "text-[var(--danger)]"
-                  : "text-[var(--accent-teal)]"
+                  ? "text-(--danger)"
+                  : "text-(--accent-teal)"
               }`}
             >
               {imageGenMessage}
@@ -499,8 +499,8 @@ export function ChatInput({
             <p
               className={`t-10 tracking-wide px-1 pb-3 ${
                 audioGenStatus === "error"
-                  ? "text-[var(--danger)]"
-                  : "text-[var(--accent-teal)]"
+                  ? "text-(--danger)"
+                  : "text-(--accent-teal)"
               }`}
             >
               {audioGenMessage}
@@ -510,15 +510,15 @@ export function ChatInput({
             <p
               className={`t-10 tracking-wide px-1 pb-3 ${
                 codeExecStatus === "error"
-                  ? "text-[var(--danger)]"
-                  : "text-[var(--accent-teal)]"
+                  ? "text-(--danger)"
+                  : "text-(--accent-teal)"
               }`}
             >
               {codeExecMessage}
             </p>
           )}
           {docParseMessage && (
-            <p className="t-10 tracking-wide px-1 pb-3 text-[var(--accent-teal)]">
+            <p className="t-10 tracking-wide px-1 pb-3 text-(--accent-teal)">
               {docParseMessage}
             </p>
           )}
@@ -552,7 +552,7 @@ export function ChatInput({
               "Ask anything…"
             }
             rows={1}
-            className="block w-full bg-transparent t-18 font-light text-[var(--text)] placeholder:text-[var(--text-muted)] border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed py-1"
+            className="block w-full bg-transparent t-18 font-light text-text placeholder:text-text-muted border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed py-1"
             style={{
               minHeight: "var(--space-8)",
               maxHeight: "var(--height-input-max)",
@@ -613,11 +613,11 @@ export function ChatInput({
                 aria-label="Synthesize to audio"
                 className={`transition-colors duration-base ${
                   audioGenStatus === "pending"
-                    ? "text-[var(--warn)] animate-pulse"
+                    ? "text-(--warn) animate-pulse"
                     : audioGenStatus === "error"
-                      ? "text-[var(--danger)]"
+                      ? "text-(--danger)"
                       : input.trim()
-                        ? "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
+                        ? "text-(--text-l2) hover:text-(--accent-teal)"
                         : "text-[var(--text-l3)] cursor-not-allowed"
                 }`}
               >
@@ -638,11 +638,11 @@ export function ChatInput({
                 aria-label="Run code"
                 className={`transition-colors duration-base ${
                   codeExecStatus === "pending"
-                    ? "text-[var(--warn)] animate-pulse"
+                    ? "text-(--warn) animate-pulse"
                     : codeExecStatus === "error"
-                      ? "text-[var(--danger)]"
+                      ? "text-(--danger)"
                       : input.trim()
-                        ? "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
+                        ? "text-(--text-l2) hover:text-(--accent-teal)"
                         : "text-[var(--text-l3)] cursor-not-allowed"
                 }`}
               >
@@ -663,11 +663,11 @@ export function ChatInput({
                 aria-label="Generate image"
                 className={`transition-colors duration-base ${
                   imageGenStatus === "pending"
-                    ? "text-[var(--warn)] animate-pulse"
+                    ? "text-(--warn) animate-pulse"
                     : imageGenStatus === "error"
-                      ? "text-[var(--danger)]"
+                      ? "text-(--danger)"
                       : input.trim()
-                        ? "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
+                        ? "text-(--text-l2) hover:text-(--accent-teal)"
                         : "text-[var(--text-l3)] cursor-not-allowed"
                 }`}
               >
@@ -687,7 +687,7 @@ export function ChatInput({
                 className={`transition-colors duration-base ${
                   isRunning
                     ? "text-[var(--text-l3)] cursor-not-allowed"
-                    : "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
+                    : "text-(--text-l2) hover:text-(--accent-teal)"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -705,10 +705,10 @@ export function ChatInput({
                 aria-label="Attach a PDF"
                 className={`transition-colors duration-base ${
                   uploading
-                    ? "text-[var(--warn)] animate-pulse"
+                    ? "text-(--warn) animate-pulse"
                     : attachment
-                      ? "text-[var(--accent-teal)]"
-                      : "text-[var(--text-l2)] hover:text-[var(--accent-teal)]"
+                      ? "text-(--accent-teal)"
+                      : "text-(--text-l2) hover:text-(--accent-teal)"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -726,8 +726,8 @@ export function ChatInput({
                   aria-label="Envoyer"
                   className={`transition-colors duration-base ${
                     input.trim()
-                      ? "text-[var(--accent-teal)]"
-                      : "text-[var(--text-l3)] cursor-not-allowed hover:text-[var(--text-l2)]"
+                      ? "text-(--accent-teal)"
+                      : "text-[var(--text-l3)] cursor-not-allowed hover:text-(--text-l2)"
                   }`}
                   title="Envoyer"
                 >
@@ -773,7 +773,7 @@ export function ChatInput({
                       aria-hidden
                     />
                   ) : (
-                    <span className="t-9 font-mono text-[var(--text-faint)]">
+                    <span className="t-9 font-mono text-text-faint">
                       {service.id.slice(0, 2)}
                     </span>
                   )}
@@ -794,7 +794,7 @@ export function ChatInput({
               onClick={() => router.push("/apps")}
               title="Connect a new app"
               aria-label="Connect a new app"
-              className="inline-flex items-center justify-center shrink-0 transition-colors text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
+              className="inline-flex items-center justify-center shrink-0 transition-colors text-text-faint hover:text-(--accent-teal)"
               style={{
                 width: "var(--space-5)",
                 height: "var(--space-5)",
