@@ -10,18 +10,29 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 **Workers Next (CPU / orphelins)** : si la machine chauffe après un build ou un arrêt brutal, des `jest-worker/processChild.js` peuvent rester avec **PPID=1**. Audit : `npm run workers:audit` ; nettoyage **uniquement des orphelins** (sans casser un `next build` en cours) : `npm run workers:kill-orphans` — script [`scripts/next-worker-helper.sh`](./scripts/next-worker-helper.sh).
 
-## État du repo (29/04/2026)
+## État du repo (10/05/2026)
 
 | Métrique | Valeur |
 |----------|--------|
 | TypeScript | ✅ 0 erreur (`npx tsc --noEmit`) |
 | ESLint | ✅ 0 erreur, 0 warning (`npm run lint`) |
 | Lint visuel | ✅ 0 violation (`npm run lint:visual`) |
+| Tests | ✅ 2498 / 2498 (`npm run test`) |
 | Build | ✅ via `npm run build` (bloque si lint visuel échoue) |
 | Pipeline runtime | Capability-first (`lib/capabilities/router.ts`) + Backend V2 multi-provider |
 | Connector Packs | 5 (finance, crm, productivity, design, developer) — 1500+ OAuth via Composio |
 | Reports | V2 catalog (`/api/v2/reports/[specId]/run`) — cron Railway *supprimés* (voir section Reports) |
 | RightPanel | Structure fixe : 4 sections always-on, empty states internes, scope strict du lint |
+
+**Dernière session 10/05/2026 — audit complet + cleanup** :
+- **proxy.ts** : correction convention Next.js 16.2.4 — fichier `proxy.ts` + export `proxy` (plus `middleware.ts`/`middleware`). La garde Arcjet + auth + redirect login est maintenant active.
+- **Exports morts** : ~25 exports privatisés ou supprimés sur 5 vagues (`clearAllMissions`, `_resetAgendaCache`, `_renderBlockCsv`, `isCatalogueReportRequest`, `pruneExpired`, `resolveToolIntent`, `getExtraProviderFor`, etc.)
+- **Voix éditoriale** : 17 occurrences `tracking-marquee`/`tracking-display` retirées du JSX admin + login. 12 occurrences `(--cykan)` → `(--accent-teal)` dans `_canvas/`.
+- **Mission UI** : interface `Mission` alignée sur `PersistedScheduledMission` (champs `description`/`frequency` rendus optionnels + fallback `input`/`schedule`).
+- **Tests** : `restoreMocks: true` ajouté à vitest.config ; `ScheduledMission` complétée avec `lastRunStatus`/`lastError`.
+- **Composants morts** : `BuilderSidePanel.tsx`, `AgentIcons.tsx` supprimés (confirmés par knip).
+- **lint:visual** : opt-out `WorkflowCanvas` + `NodePalette` (stylesheet Cytoscape + logos marques tierces ne supportent pas `var(--token)`).
+- Voir `docs/audit-2026-05-10.md` pour le rapport complet (P0/P1/P2/P3).
 
 **Dernière session — nettoyage public & proxy** : suppression des SVG Next boilerplate (`next.svg`, `vercel.svg`, etc.), `hearst-logo.svg` et `public/assets/hearst-ai-logo.png` non référencés, `patterns/hcyan.svg`, dump `presentation.html`, icônes services sans entrée dans `service-map` (`shopify`, `trello`, `salesforce`), scripts orphelins `scripts/__halo-screenshot.mjs` et `scripts/screenshot-halo.mjs` (route `/halo-test` inexistante). `proxy.ts` : retrait de `/halo-test` des chemins publics, extension `STATIC_RE` pour `.glb`/`.gltf`. Onboarding vertical : icône « Général » → `notion.svg` (fichier `general.svg` absent). Cockpit : conteneur `HaloAgentCore` avec `minHeight` pour éviter un canvas à hauteur nulle en flex.
 
@@ -46,10 +57,11 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 - ⚠️ P0 — Migration `0027_drop_daily_reports.sql` à **appliquer en DB** + regen `lib/database.types.ts` (la table orpheline est marquée pour drop, le SQL est prêt)
 - 🟡 P1 — Triple chemin de persistance assets (`storeAsset` × 2 + `saveAsset`) à consolider
 - 🟡 P1 — Recâbler `runResearchReport` sur le pipeline V2
+- 🟢 P2 — `TimelineRail.tsx` : `SectionHeader` locale à consolider vers primitive DS (signatures différentes, migration non triviale)
+- 🟢 P2 — Barrels `lib/engine/runtime/index.ts`, `lib/llm/index.ts` : consommateurs importent en direct sous-module — supprimer les barrels ou forcer leur usage
 - 🟢 P2 — Élargir `STRICT_PATHS` du lint visuel au-delà de `right-panel/`
 - 🟢 P2 — Réactiver E2E reports en CI (retirer `@skip-ci`)
 - 🟢 P2 — Indicateur progress chat surface pendant un run report
-- 🟢 P2 — Décision macro spacing Tailwind v4 (~532 occurrences `px-N`/`gap-N` brutes)
 
 
 ## 📚 Références visuelles
