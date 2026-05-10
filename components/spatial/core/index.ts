@@ -1,4 +1,4 @@
 export { SpatialScene } from "./SpatialScene";
 export { SpatialLayout } from "./SpatialLayout";
-export { SpatialOrbCore } from "./SpatialOrbCore";
+export { OrbMinimal } from "./OrbMinimal";
 export { SpatialSignatureScene } from "./SpatialSignatureScene";

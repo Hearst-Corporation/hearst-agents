@@ -33,24 +33,31 @@ export function SpatialScene({ children, className }: SpatialSceneProps) {
           <Environment resolution={environment.resolution}>
             <Lightformer
               form="rect"
-              intensity={2.8}
+              intensity={0.38}
               color="#ffffff"
-              position={[0, 4, 4]}
-              scale={[7, 5, 1]}
+              position={[0, 6.4, 2.2]}
+              scale={[7.8, 0.52, 1]}
             />
             <Lightformer
               form="rect"
-              intensity={4.2}
+              intensity={0.82}
               color="#ffffff"
-              position={[-3.2, 0.2, 3]}
-              scale={[0.22, 5.8, 1]}
+              position={[-7.2, 0, 1.8]}
+              scale={[0.05, 6.2, 1]}
             />
             <Lightformer
               form="rect"
-              intensity={3.4}
+              intensity={0.82}
               color="#ffffff"
-              position={[0, -2.2, 3]}
-              scale={[5.8, 0.18, 1]}
+              position={[7.2, 0, 1.8]}
+              scale={[0.05, 6.2, 1]}
+            />
+            <Lightformer
+              form="rect"
+              intensity={0.92}
+              color="#ffffff"
+              position={[0, -3.2, 2.6]}
+              scale={[4.2, 0.06, 1]}
             />
           </Environment>
 

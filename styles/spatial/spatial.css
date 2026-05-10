@@ -15,7 +15,7 @@
   --sp-surface-blur: rgba(0, 0, 0, 0.6);
 
   /* Text */
-  --sp-text: rgba(255, 255, 255, 1.0);
+  --sp-text: rgba(255, 255, 255, 1);
   --sp-text-secondary: rgba(255, 255, 255, 0.85);
   --sp-text-muted: rgba(255, 255, 255, 0.6);
   --sp-text-ghost: rgba(255, 255, 255, 0.35);

@@ -1,7 +1,8 @@
 // lint-visual-disable-file
 "use client";
 
-import { useLoader } from "@react-three/fiber";
+import { useRef } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import type { SpatialStage } from "@/lib/spatial/types";
 
@@ -23,6 +24,7 @@ const MARK_SVG = encodeURIComponent(`
 
 const DEFAULT_MARK_SRC = `data:image/svg+xml;charset=utf-8,${MARK_SVG}`;
 const RADIUS = 1.5;
+const BREATH_AMPLITUDE = 0.004;
 
 const STAGE_SCALE: Record<SpatialStage, number> = {
   idle: 1,
@@ -38,12 +40,20 @@ export function OrbMinimal({
   onClick,
   logoSrc = DEFAULT_MARK_SRC,
 }: OrbMinimalProps) {
+  const groupRef = useRef<THREE.Group>(null);
   const markTexture = useLoader(THREE.TextureLoader, logoSrc);
   const scale = STAGE_SCALE[stage];
 
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    const breath = 1 + Math.sin(state.clock.elapsedTime * 0.65) * BREATH_AMPLITUDE;
+    const s = scale * breath;
+    groupRef.current.scale.set(s, s, s);
+  });
+
   return (
     <group
-      scale={[scale, scale, scale]}
+      ref={groupRef}
       onClick={onClick}
       onPointerOver={() => {
         document.body.style.cursor = "pointer";
@@ -52,23 +62,23 @@ export function OrbMinimal({
         document.body.style.cursor = "auto";
       }}
     >
-      <mesh position={[0, 0, -0.32]}>
-        <planeGeometry args={[1.02, 0.92]} />
+      <mesh position={[0, 0, RADIUS + 0.018]}>
+        <planeGeometry args={[0.58, 0.52]} />
         <meshBasicMaterial
           map={markTexture}
           transparent
-          opacity={0.92}
+          opacity={0.82}
           toneMapped={false}
           depthWrite={false}
         />
       </mesh>
 
-      <mesh position={[0, 0, 1.54]}>
-        <ringGeometry args={[1.18, 1.2, 96]} />
+      <mesh position={[0, 0, RADIUS + 0.012]}>
+        <ringGeometry args={[RADIUS * 0.988, RADIUS * 0.996, 160]} />
         <meshBasicMaterial
           color="#ffffff"
           transparent
-          opacity={0.38}
+          opacity={0.84}
           toneMapped={false}
           depthWrite={false}
           side={THREE.DoubleSide}
@@ -80,13 +90,13 @@ export function OrbMinimal({
         <meshPhysicalMaterial
           color="#050505"
           transmission={1}
-          thickness={0.7}
-          roughness={0.05}
-          clearcoat={1}
-          clearcoatRoughness={0.03}
+          roughness={0.04}
+          thickness={1.2}
           ior={1.4}
+          clearcoat={1}
+          clearcoatRoughness={0.02}
           attenuationColor="#f3f6fb"
-          attenuationDistance={8}
+          attenuationDistance={10}
           metalness={0}
         />
       </mesh>

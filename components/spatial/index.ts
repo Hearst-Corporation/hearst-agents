@@ -1,5 +1,5 @@
 // Core
-export { SpatialScene, SpatialLayout, SpatialOrbCore, SpatialSignatureScene } from "./core";
+export { SpatialScene, SpatialLayout, OrbMinimal, SpatialSignatureScene } from "./core";
 
 // Motion
 export { SpatialTransition, EMERGE, DISSOLVE, SNAP, FLOAT_UP, ORBITAL_NODE, PANEL_EMERGE, STAGGER_CHILDREN } from "./motion";

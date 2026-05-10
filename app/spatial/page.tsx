@@ -7,7 +7,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SpatialLayout } from "@/components/spatial/core/SpatialLayout";
 import { SpatialSignatureScene } from "@/components/spatial/core/SpatialSignatureScene";
-import { AmbientBackground } from "@/components/spatial/background/AmbientBackground";
 import { SpatialHUD } from "@/components/spatial/overlays/SpatialHUD";
 import { CommandBar } from "@/components/spatial/overlays/CommandBar";
 import { MissionStatus } from "@/components/spatial/overlays/MissionStatus";
@@ -110,12 +109,6 @@ function SpatialOSScene() {
 
   return (
     <>
-      <AmbientBackground
-        baseColor="#030303"
-        ambientColor="rgba(20,20,22,0.35)"
-        vignetteOpacity={0.92}
-      />
-
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}

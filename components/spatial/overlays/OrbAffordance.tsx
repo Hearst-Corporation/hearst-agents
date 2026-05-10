@@ -20,7 +20,7 @@ export function OrbAffordance({
 }: OrbAffordanceProps) {
   return (
     <div
-      className="absolute inset-x-0 top-1/2 mt-[140px] flex items-center justify-center pointer-events-none"
+      className="absolute inset-x-0 top-1/2 mt-[250px] flex items-center justify-center pointer-events-none"
       style={{ zIndex: SPATIAL_Z_LAYERS.ground }}
     >
       <AnimatePresence>
