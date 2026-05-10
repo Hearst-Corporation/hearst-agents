@@ -84,17 +84,8 @@ export function getArchitectureGraph(map?: ArchitectureMap) {
   return { nodes, edges };
 }
 
-function getArchitectureNodes(map?: ArchitectureMap): ArchNode[] {
-  return getArchitectureGraph(map).nodes;
-}
-
 function getArchitectureEdges(map?: ArchitectureMap): ArchEdge[] {
   return getArchitectureGraph(map).edges;
-}
-
-function getFlowById(flowId: string, map?: ArchitectureMap): FlowEntry | undefined {
-  const data = map ?? loadArchitectureMap();
-  return data.flows.find((f) => f.id === flowId);
 }
 
 export function getReverseDependencies(nodeId: string, map?: ArchitectureMap): string[] {
