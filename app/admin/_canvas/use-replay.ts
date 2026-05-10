@@ -192,7 +192,6 @@ export function useReplay(events: PersistedEvent[]): ReplayController {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsPlaying(false);
     posRef.current = 0;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(0);
   }, [events, stopInterval]);
 

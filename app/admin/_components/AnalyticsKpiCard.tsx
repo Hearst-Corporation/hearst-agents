@@ -1,15 +1,12 @@
 "use client";
 
-/**
- * Carte KPI réutilisable pour /admin/analytics.
- * Tokens uniquement.
- */
-
 interface AnalyticsKpiCardProps {
   label: string;
   value: string;
   sub?: string;
   accent?: "default" | "accent-teal" | "warn" | "danger";
+  /** "lg" = t-28 pour dashboard analytics, "md" = t-24 pour grilles compactes (défaut) */
+  size?: "md" | "lg";
 }
 
 export function AnalyticsKpiCard({
@@ -17,32 +14,26 @@ export function AnalyticsKpiCard({
   value,
   sub,
   accent = "default",
+  size = "md",
 }: AnalyticsKpiCardProps) {
   const valueColor =
     accent === "accent-teal"
-      ? "text-[var(--accent-teal)]"
+      ? "text-(--accent-teal)"
       : accent === "warn"
-        ? "text-[var(--warn)]"
+        ? "text-(--warn)"
         : accent === "danger"
-          ? "text-[var(--danger)]"
-          : "text-[var(--text)]";
+          ? "text-(--danger)"
+          : "text-text";
 
   return (
-    <div
-      className="flex flex-col"
-      style={{
-        gap: "var(--space-2)",
-        padding: "var(--space-4)",
-        border: "1px solid var(--line-strong)",
-        borderRadius: "var(--radius-md)",
-        background: "var(--bg-elev)",
-      }}
-    >
-      <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
+    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-2)">
+      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
         {label}
       </span>
-      <span className={`t-28 font-light tracking-tight ${valueColor}`}>{value}</span>
-      {sub && <span className="t-11 text-[var(--text-muted)]">{sub}</span>}
+      <span className={`font-light ${size === "lg" ? "t-28 tracking-tight" : "t-24"} ${valueColor}`}>
+        {value}
+      </span>
+      {sub && <span className="t-10 text-text-ghost">{sub}</span>}
     </div>
   );
 }

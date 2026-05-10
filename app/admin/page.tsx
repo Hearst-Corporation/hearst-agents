@@ -1,5 +1,6 @@
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getSystemHealth } from "@/lib/admin/health";
+import { AnalyticsKpiCard } from "./_components/AnalyticsKpiCard";
 
 export const dynamic = "force-dynamic";
 
@@ -123,14 +124,14 @@ export default async function AdminHomePage() {
               Dernière heure
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4)">
-              <Kpi label="Runs" value={String(kpis.totalRuns)} />
-              <Kpi label="Runs / min" value={String(kpis.runsPerMin)} />
-              <Kpi
+              <AnalyticsKpiCard label="Runs" value={String(kpis.totalRuns)} />
+              <AnalyticsKpiCard label="Runs / min" value={String(kpis.runsPerMin)} />
+              <AnalyticsKpiCard
                 label="Taux d'erreur"
                 value={`${(kpis.errorRate * 100).toFixed(1)} %`}
-                danger={kpis.errorRate > 0.1}
+                accent={kpis.errorRate > 0.1 ? "danger" : "default"}
               />
-              <Kpi
+              <AnalyticsKpiCard
                 label="Latence p95"
                 value={kpis.p95LatencyMs !== null ? `${Math.round(kpis.p95LatencyMs)} ms` : "—"}
               />
@@ -181,11 +182,3 @@ export default async function AdminHomePage() {
   );
 }
 
-function Kpi({ label, value, danger }: { label: string; value: string; danger?: boolean }) {
-  return (
-    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-2)">
-      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{label}</span>
-      <span className={`t-24 font-light ${danger ? "text-(--danger)" : "text-text"}`}>{value}</span>
-    </div>
-  );
-}

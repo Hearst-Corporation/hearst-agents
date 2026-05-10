@@ -11,6 +11,7 @@ import { useEffect, useState, useCallback } from "react";
 import type { MetricsSnapshot, ProviderMetrics } from "@/lib/llm/metrics";
 import type { CustomWebhook } from "@/lib/webhooks/types";
 import type { CircuitState } from "@/lib/llm/circuit-breaker";
+import { AnalyticsKpiCard } from "../_components/AnalyticsKpiCard";
 
 // ---------------------------------------------------------------------------
 // Types locaux
@@ -63,35 +64,6 @@ function relativeTime(iso: string | undefined): string {
 // ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
-
-function KpiCard({
-  label,
-  value,
-  sub,
-  accent,
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-  accent?: "accent-teal" | "warn" | "danger";
-}) {
-  const accentClass =
-    accent === "accent-teal"
-      ? "text-(--accent-teal)"
-      : accent === "warn"
-        ? "text-(--warn)"
-        : accent === "danger"
-          ? "text-(--danger)"
-          : "text-text";
-
-  return (
-    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{label}</span>
-      <span className={`t-24 font-light ${accentClass}`}>{value}</span>
-      {sub && <span className="t-10 text-text-ghost">{sub}</span>}
-    </div>
-  );
-}
 
 function CircuitBadge({ state }: { state: CircuitState }) {
   const cls =
@@ -278,24 +250,24 @@ export default function MetricsPage() {
               LLM — Vue globale
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4)">
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Cache hit rate"
                 value={fmtPct(globalCacheHit)}
                 sub="Anthropic prompt cache"
                 accent="accent-teal"
               />
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Latence p95"
                 value={fmtMs(globalP95)}
                 sub="pire provider"
               />
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Coût total"
                 value={fmtUsd(globalCost)}
                 sub="depuis démarrage"
                 accent={globalCost > 1 ? "warn" : undefined}
               />
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Taux d'erreur"
                 value={fmtPct(globalErrorRate)}
                 sub="moyenne providers"
@@ -314,17 +286,17 @@ export default function MetricsPage() {
               Compteurs
             </h2>
             <div className="grid grid-cols-3 gap-(--space-4)">
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Circuit breaker trips"
                 value={String(snapshot.counters.circuitBreakerTrips)}
                 accent={snapshot.counters.circuitBreakerTrips > 0 ? "danger" : undefined}
               />
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Rate limit hits"
                 value={String(snapshot.counters.rateLimitHits)}
                 accent={snapshot.counters.rateLimitHits > 0 ? "warn" : undefined}
               />
-              <KpiCard
+              <AnalyticsKpiCard
                 label="Tool loops détectés"
                 value={String(snapshot.counters.toolLoopsDetected)}
                 accent={snapshot.counters.toolLoopsDetected > 0 ? "warn" : undefined}

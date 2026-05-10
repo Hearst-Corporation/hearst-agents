@@ -196,6 +196,3 @@ export const EXTRAS_PROVIDERS: Record<string, ExtraProvider> = Object.fromEntrie
   providers.map((p) => [p.toolkit, p]),
 );
 
-export function getExtraProviderFor(toolkit: string): ExtraProvider | null {
-  return EXTRAS_PROVIDERS[toolkit.toLowerCase()] ?? null;
-}

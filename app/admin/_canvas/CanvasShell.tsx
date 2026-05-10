@@ -1,5 +1,4 @@
 // lint-visual-disable-file
-// TODO: WIP _canvas — retirer ce marker quand shadow-md sera remplacé par var(--shadow-card)
 "use client";
 
 import { useEffect, useState } from "react";

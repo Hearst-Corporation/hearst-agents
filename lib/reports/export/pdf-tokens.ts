@@ -117,15 +117,6 @@ export const RULES = {
   accentWidth: 60,
 } as const;
 
-/** Radius (pdfkit supporte roundedRect). */
-export const RADIUS = {
-  none: 0,
-  xs: 2,
-  sm: 4,
-  md: 8,
-  lg: 12,
-} as const;
-
 /** Métadonnées brand. */
 export const BRAND = {
   name: "HEARST OS",

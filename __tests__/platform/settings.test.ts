@@ -4,7 +4,7 @@
  * Validation du module settings dynamiques avec tenant override.
  */
 
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import {
   getSetting,
   setSetting,
@@ -33,14 +33,18 @@ const mockDb = {
   })),
 } as unknown as import("@supabase/supabase-js").SupabaseClient;
 
-// Console error spy
-const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+// Console error spy — doit être sur globalThis.console pour traverser les boundaries de module Vitest
+let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
 describe("Platform Settings", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     invalidateSettingsCache();
-    consoleErrorSpy.mockClear();
+    consoleErrorSpy = vi.spyOn(globalThis.console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleErrorSpy?.mockRestore();
   });
 
   describe("getSetting", () => {

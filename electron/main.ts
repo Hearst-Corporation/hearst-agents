@@ -95,7 +95,7 @@ function waitForServer(port: number, maxMs = 30_000): Promise<void> {
     const attempt = () => {
       const req = http.get(`http://127.0.0.1:${port}/api/health`, (res) => {
         res.resume();
-        if (res.statusCode !== undefined && res.statusCode < 500) {
+        if (res.statusCode === 200) {
           resolve();
         } else {
           scheduleRetry();
@@ -465,6 +465,10 @@ app.on("activate", () => {
 });
 
 app.on("before-quit", () => {
-  nextServer?.kill("SIGTERM");
+  if (nextServer) {
+    nextServer.stdout?.removeAllListeners();
+    nextServer.stderr?.removeAllListeners();
+    nextServer.kill("SIGTERM");
+  }
   tray?.destroy();
 });
