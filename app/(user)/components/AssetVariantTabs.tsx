@@ -16,6 +16,21 @@
  *
  * [WF5] Timeout watchdog : si un variant reste en `generating` > 10 min,
  * on le marque localement comme failed sans attendre le backend.
+ *
+ * [S2-B] Enrichissement prompt : avant la génération vidéo Runway, l'user
+ * peut activer un toggle "Enrichir automatiquement". Au clic Générer, on
+ * appelle /api/v2/assets/enrich-video-prompt et on affiche un mini-modal
+ * avec diff inline (original vs enrichi). 3 actions : utiliser l'enrichi /
+ * garder l'original / modifier manuellement.
+ *
+ * [S2-C] Variant fork : sur un variant `ready`, un bouton "Modifier" ouvre
+ * un mini-panel pré-rempli avec le prompt original. L'user fait un delta,
+ * le système crée un nouveau variant via `derivedFrom` (lineage B4) sans
+ * toucher l'original.
+ *
+ * [S2-D] Notifications desktop : quand un variant passe à `ready` (fin de
+ * génération), une `Notification` Web est déclenchée pour informer l'user
+ * même s'il a switché d'app. Au clic → focus + setStageMode asset.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -24,6 +39,8 @@ import { ImageViewer } from "./ImageViewer";
 import { VideoPlayer } from "./VideoPlayer";
 import { CodeRunner } from "./CodeRunner";
 import { useStageData } from "@/stores/stage-data";
+import { useStageStore } from "@/stores/stage";
+import { useVariantReadyNotification } from "@/app/hooks/use-variant-ready-notification";
 import { Action } from "./ui";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
 
@@ -56,6 +73,16 @@ const GENERATION_TIMEOUT_MS = 10 * 60 * 1000;
 
 type VideoRatio = "1280:720" | "720:1280";
 
+const VARIANT_LABELS: Record<AssetVariantKind, string> = {
+  audio: "Audio",
+  video: "Vidéo",
+  image: "Image",
+  code: "Code",
+  text: "Texte",
+  slides: "Slides",
+  site: "Site",
+};
+
 export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVariantTabsProps) {
   const [activeTab, setActiveTab] = useState<AssetVariantKind>(defaultKind ?? "audio");
   const [variants, setVariants] = useState<AssetVariant[]>([]);
@@ -65,10 +92,37 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
   // [S2-F] Ratio Runway
   const [videoRatio, setVideoRatio] = useState<VideoRatio>("1280:720");
 
+  // [S2-B] Enrichissement automatique prompt vidéo
+  const [enrichEnabled, setEnrichEnabled] = useState(false);
+  const [enrichLoading, setEnrichLoading] = useState(false);
+  const [enrichmentPreview, setEnrichmentPreview] = useState<{
+    original: string;
+    enriched: string;
+    diff: string[];
+  } | null>(null);
+  const [manualPrompt, setManualPrompt] = useState<string>("");
+  const [editingManually, setEditingManually] = useState(false);
+
+  // [S2-C] Variant fork (modifier un variant ready)
+  const [forkPanel, setForkPanel] = useState<{
+    parentId: string;
+    parentKind: AssetVariantKind;
+    prompt: string;
+    duration: number;
+    ratio: VideoRatio;
+  } | null>(null);
+
   // [WF5] Timestamp de début de génération par kind
   const generationStartedAt = useRef<Partial<Record<AssetVariantKind, number>>>({});
   // [WF5] Variants en timeout local (failed côté UI uniquement)
   const [timedOutKinds, setTimedOutKinds] = useState<Set<AssetVariantKind>>(new Set());
+
+  // [S2-D] Notifications desktop sur variant ready
+  const { notify } = useVariantReadyNotification();
+  const setStageMode = useStageStore((s) => s.setMode);
+  // Map kind → status précédent. Permet de détecter la transition
+  // pending|generating → ready et déclencher la notification une seule fois.
+  const previousStatusByKind = useRef<Map<AssetVariantKind, AssetVariant["status"]>>(new Map());
 
   // Sync vers stage-data pour ContextRailForAsset (variants list).
   // currentAsset est lu via getState() pour ne pas re-déclencher l'effect
@@ -153,8 +207,56 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
     });
   }, [variants, timedOutKinds]);
 
+  // [S2-D] Détection transition pending|generating → ready et trigger notif desktop.
+  useEffect(() => {
+    variants.forEach((v) => {
+      const prev = previousStatusByKind.current.get(v.kind);
+      const wasInProgress = prev === "pending" || prev === "generating";
+      if (wasInProgress && v.status === "ready") {
+        const label = VARIANT_LABELS[v.kind] ?? v.kind;
+        notify({
+          title: `${label} prêt${v.kind === "video" || v.kind === "image" ? "e" : ""}`,
+          body: "Votre génération est disponible — cliquez pour ouvrir.",
+          icon: "/hearst-logo.svg",
+          tag: `variant-${v.id}`,
+          onClick: () => {
+            setStageMode({ mode: "asset", assetId, variantKind: v.kind });
+          },
+        });
+      }
+      previousStatusByKind.current.set(v.kind, v.status);
+    });
+  }, [variants, notify, assetId, setStageMode]);
+
+  /** [S2-B] Appelle l'API d'enrichissement et retourne le résultat. */
+  const fetchEnrichment = useCallback(
+    async (rawPrompt: string): Promise<{ enriched: string; diff: string[] } | null> => {
+      try {
+        const res = await fetch("/api/v2/assets/enrich-video-prompt", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: rawPrompt }),
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (typeof data.enriched !== "string") return null;
+        return {
+          enriched: data.enriched,
+          diff: Array.isArray(data.diff) ? (data.diff as string[]) : [],
+        };
+      } catch {
+        return null;
+      }
+    },
+    [],
+  );
+
   const requestVariant = useCallback(
-    async (kind: AssetVariantKind) => {
+    async (
+      kind: AssetVariantKind,
+      overrides?: { prompt?: string; derivedFrom?: string[]; ratio?: VideoRatio; duration?: number },
+    ) => {
       setGenerating(kind);
       setError(null);
       // [WF5] Enregistrer le début local dès le POST
@@ -169,15 +271,21 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
       try {
         const requestBody: Record<string, unknown> = { kind };
         if (kind === "video") {
+          const promptToUse = overrides?.prompt ?? sourceText;
           requestBody.provider = videoProvider;
-          requestBody.scriptText = sourceText;
-          requestBody.prompt = sourceText;
+          requestBody.scriptText = promptToUse;
+          requestBody.prompt = promptToUse;
           // [S2-F] Ratio Runway
           if (videoProvider === "runway") {
-            requestBody.ratio = videoRatio;
+            requestBody.ratio = overrides?.ratio ?? videoRatio;
           }
+          if (overrides?.duration) requestBody.duration = overrides.duration;
         } else {
-          requestBody.text = sourceText;
+          requestBody.text = overrides?.prompt ?? sourceText;
+        }
+        // [S2-C] Lineage fork
+        if (overrides?.derivedFrom && overrides.derivedFrom.length > 0) {
+          requestBody.derivedFrom = overrides.derivedFrom;
         }
         const res = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
           method: "POST",
@@ -207,6 +315,60 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
     },
     [requestVariant],
   );
+
+  /** [S2-B] Pipeline génération vidéo Runway avec enrichissement optionnel. */
+  const handleVideoGenerate = useCallback(async () => {
+    setError(null);
+    // Pas d'enrichissement → flow direct.
+    if (!enrichEnabled || videoProvider !== "runway") {
+      void requestVariant("video");
+      return;
+    }
+    const raw = (sourceText ?? "").trim();
+    if (raw.length === 0) {
+      void requestVariant("video");
+      return;
+    }
+    setEnrichLoading(true);
+    const result = await fetchEnrichment(raw);
+    setEnrichLoading(false);
+    if (!result) {
+      // Enrichissement KO → on continue avec le prompt brut, on ne bloque pas.
+      void requestVariant("video");
+      return;
+    }
+    setEnrichmentPreview({ original: raw, enriched: result.enriched, diff: result.diff });
+  }, [enrichEnabled, videoProvider, sourceText, fetchEnrichment, requestVariant]);
+
+  /** [S2-C] Ouvrir le panel Modifier sur un variant ready. */
+  const openForkPanel = useCallback((variant: AssetVariant) => {
+    const meta = (variant.metadata ?? {}) as { prompt?: unknown; ratio?: unknown; duration?: unknown };
+    const prevPrompt = typeof meta.prompt === "string" ? meta.prompt : (sourceText ?? "");
+    const prevRatio: VideoRatio = meta.ratio === "720:1280" ? "720:1280" : "1280:720";
+    const prevDuration = typeof meta.duration === "number" ? meta.duration : 5;
+    setForkPanel({
+      parentId: variant.id,
+      parentKind: variant.kind,
+      prompt: prevPrompt,
+      duration: prevDuration,
+      ratio: prevRatio,
+    });
+  }, [sourceText]);
+
+  /** [S2-C] Régénérer un variant via fork. */
+  const submitFork = useCallback(async () => {
+    if (!forkPanel) return;
+    const overrides: { prompt: string; derivedFrom: string[]; ratio?: VideoRatio; duration?: number } = {
+      prompt: forkPanel.prompt,
+      derivedFrom: [forkPanel.parentId],
+    };
+    if (forkPanel.parentKind === "video") {
+      overrides.ratio = forkPanel.ratio;
+      overrides.duration = forkPanel.duration;
+    }
+    setForkPanel(null);
+    void requestVariant(forkPanel.parentKind, overrides);
+  }, [forkPanel, requestVariant]);
 
   return (
     <div className="border-t border-[var(--surface-2)] pt-8">
@@ -281,6 +443,8 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
 
         // [WF3] Bouton Réessayer si variant failed
         const isFailed = effectiveVariant?.status === "failed";
+        const isReady = effectiveVariant?.status === "ready";
+
         const retryButton = isFailed ? (
           <button
             type="button"
@@ -293,40 +457,69 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
           </button>
         ) : null;
 
+        // [S2-C] Bouton Modifier sur variant ready (audio/video/image/code)
+        const modifyButton = isReady && effectiveVariant ? (
+          <button
+            type="button"
+            onClick={() => openForkPanel(effectiveVariant)}
+            disabled={generating === activeTab}
+            className="flex items-center gap-1.5 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted transition-colors hover:border-(--accent-teal) hover:text-(--accent-teal) disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <span aria-hidden>✎</span>
+            <span>Modifier</span>
+          </button>
+        ) : null;
+
+        const actionRow = (retryButton || modifyButton) ? (
+          <div className="flex items-center gap-2">
+            {retryButton}
+            {modifyButton}
+          </div>
+        ) : null;
+
         const renderer = effectiveVariant ? (
-          activeTab === "audio" ? <AudioPlayer variant={effectiveVariant} /> :
+          activeTab === "audio" ? (
+            <div className="flex flex-col gap-3">
+              <AudioPlayer variant={effectiveVariant} />
+              {actionRow}
+            </div>
+          ) :
           activeTab === "video" ? (
             <div className="flex flex-col gap-3">
               <VideoPlayer variant={effectiveVariant} />
-              {retryButton}
+              {actionRow}
             </div>
           ) :
           activeTab === "image" ? (
             <div className="flex flex-col gap-3">
               <ImageViewer variant={effectiveVariant} />
-              {retryButton}
+              {actionRow}
             </div>
           ) :
           activeTab === "code"  ? (
             <div className="flex flex-col gap-3">
               <CodeRunner  variant={effectiveVariant} />
-              {retryButton}
+              {actionRow}
             </div>
           ) :
           null
         ) : null;
 
-        // [WF3] Pour audio, injecter le retry en dessous du player
-        const audioRenderer = effectiveVariant && activeTab === "audio" ? (
-          <div className="flex flex-col gap-3">
-            <AudioPlayer variant={effectiveVariant} />
-            {retryButton}
-          </div>
-        ) : null;
-
-        const finalRenderer = activeTab === "audio" ? audioRenderer : renderer;
-
-        if (finalRenderer) return <div>{finalRenderer}</div>;
+        if (renderer) {
+          return (
+            <>
+              <div>{renderer}</div>
+              {forkPanel && forkPanel.parentKind === activeTab && (
+                <ForkPanel
+                  state={forkPanel}
+                  setState={setForkPanel}
+                  onSubmit={submitFork}
+                  generating={generating === activeTab}
+                />
+              )}
+            </>
+          );
+        }
         if (!meta) return null;
 
         return (
@@ -390,22 +583,361 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
                     </div>
                   </div>
                 )}
+                {/* [S2-B] Toggle enrichissement automatique (Runway uniquement) */}
+                {videoProvider === "runway" && (
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={enrichEnabled}
+                      onChange={(e) => setEnrichEnabled(e.target.checked)}
+                      disabled={generating === "video" || enrichLoading}
+                      className="accent-(--accent-teal)"
+                    />
+                    <span className="t-11 font-light text-text-muted">
+                      Enrichir automatiquement le prompt (Claude Haiku → cinématographique)
+                    </span>
+                  </label>
+                )}
               </div>
             )}
             <Action
               variant="primary"
               tone="brand"
-              onClick={() => void requestVariant(activeTab)}
-              loading={generating === activeTab}
+              onClick={
+                activeTab === "video"
+                  ? () => void handleVideoGenerate()
+                  : () => void requestVariant(activeTab)
+              }
+              loading={generating === activeTab || enrichLoading}
             >
-              {meta.cta}
+              {enrichLoading ? "Enrichissement…" : meta.cta}
             </Action>
             {error && (
               <p className="t-13 font-light text-(--danger)">{error}</p>
             )}
+            {/* [S2-B] Modal enrichment preview */}
+            {enrichmentPreview && (
+              <EnrichmentPreviewModal
+                preview={enrichmentPreview}
+                editingManually={editingManually}
+                manualPrompt={manualPrompt}
+                setManualPrompt={setManualPrompt}
+                setEditingManually={setEditingManually}
+                onUseEnriched={() => {
+                  const enriched = enrichmentPreview.enriched;
+                  setEnrichmentPreview(null);
+                  setEditingManually(false);
+                  void requestVariant("video", { prompt: enriched });
+                }}
+                onKeepOriginal={() => {
+                  const original = enrichmentPreview.original;
+                  setEnrichmentPreview(null);
+                  setEditingManually(false);
+                  void requestVariant("video", { prompt: original });
+                }}
+                onUseManual={() => {
+                  const final = manualPrompt.trim();
+                  if (final.length === 0) return;
+                  setEnrichmentPreview(null);
+                  setEditingManually(false);
+                  void requestVariant("video", { prompt: final });
+                }}
+                onCancel={() => {
+                  setEnrichmentPreview(null);
+                  setEditingManually(false);
+                }}
+              />
+            )}
+            {/* [S2-C] Fork panel sur empty state (rare — mais possible si variant supprimé entre temps) */}
+            {forkPanel && forkPanel.parentKind === activeTab && (
+              <ForkPanel
+                state={forkPanel}
+                setState={setForkPanel}
+                onSubmit={submitFork}
+                generating={generating === activeTab}
+              />
+            )}
           </div>
         );
       })()}
+    </div>
+  );
+}
+
+// ── [S2-B] Modal enrichment preview ────────────────────────────
+
+interface EnrichmentPreviewModalProps {
+  preview: { original: string; enriched: string; diff: string[] };
+  editingManually: boolean;
+  manualPrompt: string;
+  setManualPrompt: (v: string) => void;
+  setEditingManually: (v: boolean) => void;
+  onUseEnriched: () => void;
+  onKeepOriginal: () => void;
+  onUseManual: () => void;
+  onCancel: () => void;
+}
+
+function EnrichmentPreviewModal({
+  preview,
+  editingManually,
+  manualPrompt,
+  setManualPrompt,
+  setEditingManually,
+  onUseEnriched,
+  onKeepOriginal,
+  onUseManual,
+  onCancel,
+}: EnrichmentPreviewModalProps) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+      onClick={onCancel}
+    >
+      <div
+        className="flex flex-col gap-6 max-w-2xl w-full mx-4 p-6 border border-(--border-shell)"
+        style={{ backgroundColor: "var(--card-flat-bg)" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex flex-col gap-1">
+          <span className="t-15 font-medium text-(--text-l1)">Prompt enrichi</span>
+          <span className="t-11 font-light text-text-muted">
+            Claude a réécrit votre prompt en direction cinématographique. Vérifiez avant génération.
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <span className="t-11 font-medium text-text-muted">Original</span>
+          <p className="t-13 font-light text-text-muted whitespace-pre-wrap">{preview.original}</p>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <span className="t-11 font-medium text-(--accent-teal)">Enrichi</span>
+          <p className="t-13 font-light text-text whitespace-pre-wrap">
+            {renderEnrichedWithDiff(preview.enriched, preview.diff)}
+          </p>
+        </div>
+
+        {editingManually && (
+          <div className="flex flex-col gap-2">
+            <span className="t-11 font-medium text-(--text-l1)">Modification manuelle</span>
+            <textarea
+              value={manualPrompt}
+              onChange={(e) => setManualPrompt(e.target.value)}
+              rows={4}
+              className="px-3 py-2 t-13 font-light text-text bg-[var(--surface-1)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] focus:border-(--accent-teal) outline-none transition-colors resize-y"
+              autoFocus
+            />
+          </div>
+        )}
+
+        <div className="flex items-center justify-end gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted transition-colors hover:text-text"
+          >
+            Annuler
+          </button>
+          {!editingManually ? (
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  setManualPrompt(preview.enriched);
+                  setEditingManually(true);
+                }}
+                className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted transition-colors hover:text-text"
+              >
+                Modifier manuellement
+              </button>
+              <button
+                type="button"
+                onClick={onKeepOriginal}
+                className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text transition-colors hover:border-(--accent-teal) hover:text-(--accent-teal)"
+              >
+                Garder l&apos;original
+              </button>
+              <button
+                type="button"
+                onClick={onUseEnriched}
+                className="px-3 py-1.5 t-11 font-medium border border-(--accent-teal) text-(--accent-teal) transition-colors"
+                style={{ backgroundColor: "var(--accent-teal-bg-hover)" }}
+              >
+                Utiliser l&apos;enrichi
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={onUseManual}
+              disabled={manualPrompt.trim().length === 0}
+              className="px-3 py-1.5 t-11 font-medium border border-(--accent-teal) text-(--accent-teal) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{ backgroundColor: "var(--accent-teal-bg-hover)" }}
+            >
+              Utiliser ma version
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Surligne les fragments du diff dans le texte enrichi pour l'UI. */
+function renderEnrichedWithDiff(enriched: string, diff: string[]): React.ReactNode {
+  if (diff.length === 0) return enriched;
+
+  // Construction d'une regex qui capture tous les fragments du diff
+  // (escape des chars spéciaux). On split en gardant les matchs, et on
+  // surligne ceux qui correspondent à un fragment du diff.
+  const escapedFragments = diff
+    .map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .filter((f) => f.length > 0);
+  if (escapedFragments.length === 0) return enriched;
+
+  const pattern = new RegExp(`(${escapedFragments.join("|")})`, "gi");
+  const parts = enriched.split(pattern);
+
+  return parts.map((part, idx) => {
+    const isMatch = diff.some((f) => f.toLowerCase() === part.toLowerCase());
+    if (isMatch) {
+      return (
+        <span
+          key={idx}
+          className="text-(--accent-teal)"
+          style={{ backgroundColor: "var(--accent-teal-bg-hover)", padding: "0 var(--space-1)" }}
+        >
+          {part}
+        </span>
+      );
+    }
+    return <span key={idx}>{part}</span>;
+  });
+}
+
+// ── [S2-C] Fork Panel ────────────────────────────────────────
+
+interface ForkPanelState {
+  parentId: string;
+  parentKind: AssetVariantKind;
+  prompt: string;
+  duration: number;
+  ratio: VideoRatio;
+}
+
+interface ForkPanelProps {
+  state: ForkPanelState;
+  setState: (s: ForkPanelState | null) => void;
+  onSubmit: () => void;
+  generating: boolean;
+}
+
+function ForkPanel({ state, setState, onSubmit, generating }: ForkPanelProps) {
+  const isVideo = state.parentKind === "video";
+  return (
+    <div
+      className="mt-4 flex flex-col gap-4 p-4 border border-(--border-shell)"
+      style={{ backgroundColor: "var(--card-flat-bg)" }}
+    >
+      <div className="flex items-baseline justify-between">
+        <span className="t-13 font-medium text-(--text-l1)">Modifier ce variant</span>
+        <span className="t-11 font-light text-text-muted">
+          Lineage : nouveau variant dérivé de l&apos;original
+        </span>
+      </div>
+
+      <label className="flex flex-col gap-2">
+        <span className="t-11 font-medium text-(--text-l1)">Prompt</span>
+        <textarea
+          value={state.prompt}
+          onChange={(e) => setState({ ...state, prompt: e.target.value })}
+          rows={4}
+          disabled={generating}
+          className="px-3 py-2 t-13 font-light text-text bg-[var(--surface-1)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] focus:border-(--accent-teal) outline-none transition-colors resize-y disabled:opacity-50"
+        />
+      </label>
+
+      {isVideo && (
+        <div className="flex flex-col gap-3">
+          <label className="flex flex-col gap-2">
+            <span className="t-11 font-medium text-(--text-l1)">
+              Durée (secondes) : {state.duration}
+            </span>
+            <input
+              type="range"
+              min={3}
+              max={10}
+              step={1}
+              value={state.duration}
+              onChange={(e) => setState({ ...state, duration: Number(e.target.value) })}
+              disabled={generating}
+              className="accent-(--accent-teal)"
+            />
+          </label>
+
+          <div className="flex flex-col gap-2">
+            <span className="t-11 font-medium text-(--text-l1)">Format</span>
+            <div className="flex items-center">
+              <button
+                type="button"
+                onClick={() => setState({ ...state, ratio: "1280:720" })}
+                disabled={generating}
+                className={`px-3 py-1.5 t-11 font-light border transition-colors disabled:opacity-50 ${
+                  state.ratio === "1280:720"
+                    ? "border-(--accent-teal) text-(--accent-teal)"
+                    : "border-(--border-shell) text-text-muted hover:text-text"
+                }`}
+                style={
+                  state.ratio === "1280:720"
+                    ? { backgroundColor: "var(--accent-teal-bg-hover)" }
+                    : undefined
+                }
+              >
+                Paysage
+              </button>
+              <button
+                type="button"
+                onClick={() => setState({ ...state, ratio: "720:1280" })}
+                disabled={generating}
+                className={`px-3 py-1.5 t-11 font-light border-t border-b border-r transition-colors disabled:opacity-50 ${
+                  state.ratio === "720:1280"
+                    ? "border-(--accent-teal) text-(--accent-teal)"
+                    : "border-(--border-shell) text-text-muted hover:text-text"
+                }`}
+                style={
+                  state.ratio === "720:1280"
+                    ? { backgroundColor: "var(--accent-teal-bg-hover)" }
+                    : undefined
+                }
+              >
+                Portrait
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center justify-end gap-2">
+        <button
+          type="button"
+          onClick={() => setState(null)}
+          disabled={generating}
+          className="px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted transition-colors hover:text-text disabled:opacity-50"
+        >
+          Annuler
+        </button>
+        <button
+          type="button"
+          onClick={onSubmit}
+          disabled={generating || state.prompt.trim().length === 0}
+          className="px-3 py-1.5 t-11 font-medium border border-(--accent-teal) text-(--accent-teal) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          style={{ backgroundColor: "var(--accent-teal-bg-hover)" }}
+        >
+          {generating ? "Régénération…" : "Régénérer avec ces modifications"}
+        </button>
+      </div>
     </div>
   );
 }

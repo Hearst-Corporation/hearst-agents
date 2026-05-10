@@ -47,6 +47,12 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     prompt?: string;
     scriptText?: string;
     avatarId?: string;
+    /** [S2-F] Ratio Runway 16:9 ou 9:16. */
+    ratio?: string;
+    /** [S2-C] Variant fork : ID(s) du/des variant(s) parent(s) dont on dérive. */
+    derivedFrom?: string[];
+    /** [S2-C] Durée vidéo souhaitée en secondes (Runway). */
+    duration?: number;
   };
   try {
     body = await req.json();
@@ -185,6 +191,9 @@ async function handleVideoVariant({
     prompt?: string;
     scriptText?: string;
     avatarId?: string;
+    ratio?: string;
+    derivedFrom?: string[];
+    duration?: number;
   };
   asset: { summary?: string; title: string };
 }): Promise<NextResponse> {
@@ -194,18 +203,24 @@ async function handleVideoVariant({
     return NextResponse.json({ error: "no_video_source" }, { status: 400 });
   }
 
-  // Idempotence légère : si un variant video est déjà ready ou en cours, retour direct.
+  // [S2-C] Si derivedFrom est passé, on autorise la création d'un nouveau
+  // variant même si un variant video existe (fork explicite — variant fork).
+  // Sinon, idempotence légère : si un variant video est déjà ready ou en
+  // cours, retour direct.
+  const isFork = Array.isArray(body.derivedFrom) && body.derivedFrom.length > 0;
   const existing = await getVariantsForAsset(assetId);
-  const videoActive = existing.find(
-    (v) => v.kind === "video" && (v.status === "ready" || v.status === "generating" || v.status === "pending"),
-  );
-  if (videoActive) {
-    return NextResponse.json({
-      variantId: videoActive.id,
-      jobId: videoActive.jobId,
-      status: videoActive.status,
-      reused: true,
-    });
+  if (!isFork) {
+    const videoActive = existing.find(
+      (v) => v.kind === "video" && (v.status === "ready" || v.status === "generating" || v.status === "pending"),
+    );
+    if (videoActive) {
+      return NextResponse.json({
+        variantId: videoActive.id,
+        jobId: videoActive.jobId,
+        status: videoActive.status,
+        reused: true,
+      });
+    }
   }
 
   // Cost estimate MVP (Phase B.6) :
@@ -243,7 +258,11 @@ async function handleVideoVariant({
     return NextResponse.json({ error: "variant_create_failed" }, { status: 500 });
   }
 
-  const payload: VideoGenInput & { variantId: string } = {
+  const payload: VideoGenInput & {
+    variantId: string;
+    ratio?: string;
+    derivedFrom?: string[];
+  } = {
     jobKind: "video-gen",
     userId: scope.userId,
     tenantId: scope.tenantId,
@@ -254,9 +273,31 @@ async function handleVideoVariant({
     scriptText: body.scriptText ?? sourceText,
     provider,
     avatarId: body.avatarId,
+    durationSeconds: body.duration,
     variantKind: "video",
     variantId,
+    // [S2-F] Ratio Runway transmis au worker
+    ...(body.ratio ? { ratio: body.ratio } : {}),
+    // [S2-C] Lineage : variant(s) parent(s) si fork
+    ...(isFork ? { derivedFrom: body.derivedFrom } : {}),
   };
+
+  // [S2-C] Persister derivedFrom + prompt utilisateur dans metadata pour
+  // que le lineage soit tracé même avant que le worker ne pousse ses propres
+  // metadata. Le worker peut écraser ces clés ensuite — c'est OK, on a au
+  // moins le derivedFrom ancré au moment du POST.
+  if (isFork || body.prompt) {
+    await updateVariant(variantId, {
+      metadata: {
+        prompt: body.prompt ?? sourceText,
+        ...(isFork ? { derivedFrom: body.derivedFrom } : {}),
+        ...(body.ratio ? { ratio: body.ratio } : {}),
+        ...(body.duration ? { duration: body.duration } : {}),
+      },
+    }).catch((err) => {
+      console.warn("[Variants] failed to persist fork metadata:", err);
+    });
+  }
 
   try {
     const result = await enqueueJob(payload);
