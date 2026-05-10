@@ -14,11 +14,43 @@
  *   - Ne PAS dériver de logique métier de `activeSpaceId` tant que la migration
  *     DB (Phase 2) n'a pas posé la colonne `space_id` côté Supabase.
  *
+ * Sync cookie (Phase 2) :
+ *   En complément du `localStorage` géré par `persist`, le store réplique
+ *   l'`activeSpaceId` dans un cookie `hearst-active-space-id` (path `/`,
+ *   max-age 1 an). Ce cookie est lu côté serveur par
+ *   `lib/multi-tenant/active-space.ts#getActiveSpaceIdFromRequest()` pour
+ *   que les RSC / route handlers puissent connaître le space actif sans
+ *   passer par un payload explicite. Pas d'info sensible → cookie non signé.
+ *
  * Voir `lib/multi-tenant/types.ts` pour le type `SpaceId` partagé.
  */
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
+/**
+ * Nom du cookie partagé client/serveur. Doit rester synchronisé avec
+ * `lib/multi-tenant/active-space.ts#ACTIVE_SPACE_COOKIE`.
+ */
+const ACTIVE_SPACE_COOKIE = "hearst-active-space-id";
+
+/** 1 an en secondes — assez pour survivre à la majorité des reloads. */
+const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
+
+/**
+ * Écrit l'`activeSpaceId` dans le cookie partagé. No-op côté serveur
+ * (SSR initial pre-hydration) — on attend que React monte côté client
+ * avant de toucher `document.cookie`.
+ */
+function writeActiveSpaceCookie(spaceId: string) {
+  if (typeof document === "undefined") return;
+  const value = encodeURIComponent(spaceId);
+  // SameSite=Lax : on a besoin que le cookie remonte sur les nav top-level
+  // (RSC, route handlers internes). Pas de Secure en local dev (http) ; en
+  // prod le cookie sera de toute façon servi sur https donc Secure implicite
+  // côté navigateur via Strict-Transport-Security.
+  document.cookie = `${ACTIVE_SPACE_COOKIE}=${value}; path=/; max-age=${COOKIE_MAX_AGE_SECONDS}; SameSite=Lax`;
+}
 
 export interface SpaceConfig {
   /** Slug stable, sert de FK future côté DB (Phase 2). Ex: `personal`. */
@@ -85,6 +117,30 @@ export const useActiveSpace = create<ActiveSpaceState>()(
         activeSpaceId: state.activeSpaceId,
         spaces: state.spaces,
       }),
+      // Réhydratation depuis localStorage : on en profite pour resync le
+      // cookie au cas où il ait été cleaned (DevTools, autre device, etc.).
+      onRehydrateStorage: () => (state) => {
+        if (state?.activeSpaceId) {
+          writeActiveSpaceCookie(state.activeSpaceId);
+        }
+      },
     },
   ),
 );
+
+// Subscription au store : à chaque changement d'`activeSpaceId`, on
+// réécrit le cookie partagé pour que `getActiveSpaceIdFromRequest()`
+// (server-side) reste aligné avec l'état client. Souscription unique au
+// niveau module — pas besoin de cleanup, le store est singleton.
+useActiveSpace.subscribe((state, prevState) => {
+  if (state.activeSpaceId !== prevState.activeSpaceId) {
+    writeActiveSpaceCookie(state.activeSpaceId);
+  }
+});
+
+// Initialisation au boot client : `subscribe` ne fire qu'au prochain
+// changement, donc on amorce explicitement le cookie avec la valeur
+// initiale (utile au tout premier render avant le moindre clic).
+if (typeof document !== "undefined") {
+  writeActiveSpaceCookie(useActiveSpace.getState().activeSpaceId);
+}

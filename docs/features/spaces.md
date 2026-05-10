@@ -5,10 +5,10 @@
 | Champ              | Valeur                                                         |
 | ------------------ | -------------------------------------------------------------- |
 | **id**             | `spaces`                                                       |
-| **statut**         | `in_progress` (preview — Phase 1 livrée, Phases 2 & 3 à venir) |
+| **statut**         | `in_progress` (preview — Phases 1 & 2 livrées, Phase 3 à venir) |
 | **owner**          | Adrien                                                         |
 | **dernière revue** | 2026-05-10                                                     |
-| **version spec**   | 1.0                                                            |
+| **version spec**   | 1.1                                                            |
 
 ## Description
 
@@ -33,8 +33,12 @@ dans le store mais aucune query n'est encore filtrée.
 
 ### Endpoints API
 
-- N/A en Phase 1. Phase 2 ajoutera les colonnes côté Supabase, Phase 3 les
-  filtres dans les routes existantes.
+- N/A côté HTTP. Phase 2 expose un helper server-side
+  [`getActiveSpaceIdFromRequest()`](../../lib/multi-tenant/active-space.ts)
+  qui lit le cookie `hearst-active-space-id` (synchronisé par le store
+  client) — utilisable depuis RSC, route handlers et server actions.
+  Phase 3 brancher ce helper dans les routes existantes pour filtrer
+  les queries par `space_id`.
 
 ## Architecture interne
 
@@ -51,8 +55,14 @@ dans le store mais aucune query n'est encore filtrée.
 ### Librairies internes
 
 - [lib/multi-tenant/types.ts](../../lib/multi-tenant/types.ts) — expose le type
-  `SpaceId = string` et le champ optionnel `spaceId?` sur `TenantScope` /
-  `ScopedMetadata` (foundation seulement, non lu côté query).
+  `SpaceId = string`, la constante `DEFAULT_SPACE_ID = "personal"`, le champ
+  optionnel `spaceId?` sur `TenantScope` / `ScopedMetadata`, et le helper
+  `resolveSpaceId(scope)` qui retombe sur `DEFAULT_SPACE_ID`.
+- [lib/multi-tenant/active-space.ts](../../lib/multi-tenant/active-space.ts)
+  — helper server-side `getActiveSpaceIdFromRequest()` qui lit le cookie
+  `hearst-active-space-id` (synchronisé par `stores/active-space.ts`) et
+  retombe sur `DEFAULT_SPACE_ID` si absent. À consommer depuis RSC, route
+  handlers et server actions (Phase 3).
 
 ### Dépendances externes (npm / services)
 
@@ -66,10 +76,15 @@ dans le store mais aucune query n'est encore filtrée.
 [SpaceSelector.onClick → useActiveSpace.setActiveSpace(id)]
   ↓
 [zustand persist → localStorage `hearst-active-space`]
+[                ↘ subscription store → cookie `hearst-active-space-id`]
+  ↓                                            ↓
+[Phase 2 stop ici — colonne `space_id` posée   [getActiveSpaceIdFromRequest()
+ sur les tables tenant-scoped, helper server-   lit le cookie côté server]
+ side dispo ; aucun WHERE space_id encore      ]
+ branché côté query]
   ↓
-[Phase 1 stop ici — aucune query downstream ne consomme encore activeSpaceId]
-  ↓
-[Phase 3 future : queries asset/mission/run/report/brief filtrent par spaceId]
+[Phase 3 future : queries asset/mission/run/report filtrent par spaceId
+ via WHERE space_id = getActiveSpaceIdFromRequest()]
 ```
 
 ## Roadmap de migration
@@ -84,21 +99,46 @@ La feature est livrée en **3 phases** pour éviter une bascule big-bang risqué
 - Persistance localStorage.
 - **Aucune query existante n'est modifiée.** Le selector est cosmétique.
 
-### Phase 2 — Schéma DB (À VENIR)
+### Phase 2 — Schéma DB + helper server-side (LIVRÉE)
 
-- Ajouter une colonne `space_id text NOT NULL DEFAULT 'personal'` sur :
-  - `assets`
-  - `missions`
-  - `runs`
-  - `reports`
-  - `briefs`
-  - `watchlist_items`
-  - (à confirmer) `personas`, `meetings`, `datasets`, `notebooks`
-- Créer une table `spaces` (id, label, color, workspace_id, created_at) si on
-  veut sortir des defaults hardcodés et permettre custom spaces par utilisateur.
-- Migration Supabase + backfill des rows existantes vers `space_id = 'personal'`.
-- Mettre à jour les types générés (`lib/db/types.ts` ou équivalent).
-- **Toujours pas de filtre côté query** — on prépare juste la donnée.
+Migration : [`supabase/migrations/0062_spaces_foundation.sql`](../../supabase/migrations/0062_spaces_foundation.sql).
+
+Tables ayant reçu `space_id text NOT NULL DEFAULT 'personal'` :
+
+| Table             | Index composite              | Notes                                   |
+| ----------------- | ---------------------------- | --------------------------------------- |
+| `assets`          | `(thread_id, space_id)`      | pas de tenant_id direct                 |
+| `missions`        | `(user_id, space_id)`        | user-scoped                             |
+| `mission_runs`    | `(mission_id, space_id)`     | dérivé de mission                       |
+| `runs`            | `(tenant_id, space_id)`      | tenant_id posé en migration 0051        |
+| `personas`        | `(tenant_id, space_id)`      | tenant_id posé en migration 0050/0052   |
+| `report_versions` | `(tenant_id, space_id)`      | tenant_id posé en migration 0042        |
+
+Volontairement exclus :
+
+- `marketplace_*` — catalogue public, hors scope tenant.
+- `audit_logs`, `usage_logs`, `credit_ledger` — télémétrie cross-space.
+- `briefs`, `watchlist_items`, `inbox_briefs` — tables qui n'existent pas
+  encore en DB ; à étendre quand elles seront créées.
+
+Helper server-side livré :
+[`lib/multi-tenant/active-space.ts`](../../lib/multi-tenant/active-space.ts)
+
+- `getActiveSpaceIdFromRequest(): Promise<string>` — lit le cookie
+  `hearst-active-space-id` via `next/headers#cookies()`, retombe sur
+  `DEFAULT_SPACE_ID = "personal"` si absent.
+- Cookie synchronisé côté client par [`stores/active-space.ts`](../../stores/active-space.ts)
+  (subscription Zustand qui réécrit le cookie à chaque switch + au boot).
+
+Backfill : implicite via `DEFAULT 'personal'` sur la colonne — pas de
+script de backfill requis. Les rows existants reçoivent automatiquement
+`space_id = 'personal'` au moment de l'`ALTER`.
+
+Pas de table `spaces` séparée pour l'instant — defaults hardcodés dans
+`DEFAULT_SPACES`. À introduire le jour où on ouvre les custom-spaces.
+
+**Toujours pas de filtre côté query** — Phase 3 branche les `WHERE
+space_id = ?` route par route.
 
 ### Phase 3 — Filtrage des queries (À VENIR)
 
@@ -178,3 +218,8 @@ Tant que la feature reste en preview (Phase 3 non livrée) :
 
 - **2026-05-10** — Phase 1 livrée : `useActiveSpace` + `SpaceSelector` + types
   étendus. Aucune query existante touchée.
+- **2026-05-10** — Phase 2 livrée : migration `0062_spaces_foundation.sql`
+  (colonne `space_id` + index composites sur 6 tables), helper server-side
+  `getActiveSpaceIdFromRequest()`, sync cookie côté `useActiveSpace` et
+  helper `resolveSpaceId(scope)` côté `lib/multi-tenant/types.ts`. Migration
+  pas encore appliquée — à faire au moment d'ouvrir Phase 3.
