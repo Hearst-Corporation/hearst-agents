@@ -69,6 +69,17 @@ function StreamShimmer() {
   );
 }
 
+function FlowLabelBadge({ label }: { label: string }) {
+  return (
+    <p
+      className="t-11 font-light text-text-faint animate-fade-in"
+      style={{ marginBottom: "var(--space-2)" }}
+    >
+      {label}
+    </p>
+  );
+}
+
 function ConfirmActionChips({
   onConfirm,
   onCancel,
@@ -119,6 +130,7 @@ export function ChatMessages({
 }: ChatMessagesProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const coreState = useRuntimeStore((s) => s.coreState);
+  const flowLabel = useRuntimeStore((s) => s.flowLabel);
   const isRunning = coreState !== "idle";
   // Map id → contenu édité localement (refond éditoriale, persistance hors scope).
   const [edits, setEdits] = useState<Record<string, string>>({});
@@ -230,6 +242,7 @@ export function ChatMessages({
               {showShimmer ? (
                 <>
                   <ChatToolStream />
+                  {flowLabel && <FlowLabelBadge label={flowLabel} />}
                   <StreamShimmer />
                 </>
               ) : message.assetRef ? (
@@ -251,6 +264,9 @@ export function ChatMessages({
                             handleBlockAction(message.id, main, action)
                           }
                         />
+                        {showCursor && flowLabel && (
+                          <FlowLabelBadge label={flowLabel} />
+                        )}
                         {showCursor && (
                           <span
                             className="chat-caret inline-block align-text-bottom"
@@ -284,6 +300,7 @@ export function ChatMessages({
           <div className="relative">
             <MetaLine author="Hearst" ts="…" />
             <ChatToolStream />
+            {flowLabel && <FlowLabelBadge label={flowLabel} />}
             <StreamShimmer />
           </div>
         )}
