@@ -341,8 +341,8 @@
   </div>
   <div class="stat-card">
     <div class="label">Findings tracked</div>
-    <div class="value">125</div>
-    <div class="sub">sur 130 totaux</div>
+    <div class="value">126</div>
+    <div class="sub">sur 131 totaux</div>
   </div>
 </section>
 
@@ -372,30 +372,35 @@
             <div class="batch-header" onclick="toggleBatch('B0.1')">
               <span class="status-badge status-pending">pending</span>
               <span class="id">B0.1</span>
-              <span class="title">Fix CI build (visual lint + design-token test)</span>
-              <span class="effort">1-2h</span>
+              <span class="title">Fix CI build (visual lint + design-token test) + ESLint refs spatial-v2</span>
+              <span class="effort">2-3h</span>
             </div>
             <div class="batch-content" id="batch-B0.1">
               
               <div class="batch-grid">
                 <div class="batch-block">
-                  <h4>Findings inclus (1)</h4>
+                  <h4>Findings inclus (2)</h4>
                   <ul class="findings-list">
                     <li>
                           <span class="fid">F-024</span>
                           <span class="badge sev-P0">P0</span>
                           <span class="ftitle">CI build cassé (visual lint + design-token test failed) — bloque tout deploy</span>
                           <a href="AUDIT-MASTER.html#F-024">→</a>
+                        </li><li>
+                          <span class="fid">F-131</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">ArtifactKernel.tsx — 6 erreurs ESLint react-hooks/refs (accès .current pendant render)</span>
+                          <a href="AUDIT-MASTER.html#F-131">→</a>
                         </li>
                     
                   </ul>
                   
                 </div>
                 <div class="batch-block">
-                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">validator</span></p>
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">validator + cleanup-fixer (pour F-131 spatial-v2)</span></p>
                   <h4>Validation criteria</h4>
                   <ul>
-                    <li>npm run validate passe</li><li>npm run build passe</li>
+                    <li>npm run validate passe</li><li>npm run build passe</li><li>npm run lint sur components/spatial-v2/ → 0 errors</li><li>Pre-commit hook lint-staged accepte les .tsx spatial-v2 modifiés</li>
                     
                   </ul>
                 </div>

@@ -29,12 +29,17 @@
       "batches": [
         {
           "id": "B0.1",
-          "title": "Fix CI build (visual lint + design-token test)",
-          "findings": ["F-024"],
-          "sub_agent_recommended": "validator",
+          "title": "Fix CI build (visual lint + design-token test) + ESLint refs spatial-v2",
+          "findings": ["F-024", "F-131"],
+          "sub_agent_recommended": "validator + cleanup-fixer (pour F-131 spatial-v2)",
           "pre_conditions": [],
-          "estimated_effort": "1-2h",
-          "validation": ["npm run validate passe", "npm run build passe"],
+          "estimated_effort": "2-3h",
+          "validation": [
+            "npm run validate passe",
+            "npm run build passe",
+            "npm run lint sur components/spatial-v2/ → 0 errors",
+            "Pre-commit hook lint-staged accepte les .tsx spatial-v2 modifiés"
+          ],
           "status": "pending"
         },
         {

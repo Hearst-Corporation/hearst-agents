@@ -1,21 +1,21 @@
 {
   "version": "1.0.0",
   "description": "Index global des audits production-grade. Source de vérité pour le tracker multi-scope. Chaque audit a son propre dossier avec findings.json + sources/ + findings/ + reaudits/.",
-  "last_updated": "2026-05-11T01:30:00+02:00",
+  "last_updated": "2026-05-11T02:00:00+02:00",
   "audits": [
     {
       "id": "2026-05-10-security",
       "scope": "security",
       "status": "active",
       "started_at": "2026-05-10",
-      "sources_count": 4,
-      "findings_count": 130,
+      "sources_count": 5,
+      "findings_count": 131,
       "p0_count": 45,
-      "p1_count": 49,
+      "p1_count": 50,
       "p2_count": 35,
       "wont_fix_count": 1,
       "progress": {
-        "pending": 129,
+        "pending": 130,
         "implementing": 0,
         "validated": 0,
         "closed": 0,

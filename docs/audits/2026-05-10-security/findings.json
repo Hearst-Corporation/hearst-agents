@@ -42,10 +42,10 @@
     }
   ],
   "summary": {
-    "total_consolidated": 130,
-    "by_severity": { "P0": 45, "P1": 49, "P2": 35, "wont_fix": 1 },
+    "total_consolidated": 131,
+    "by_severity": { "P0": 45, "P1": 50, "P2": 35, "wont_fix": 1 },
     "by_status": {
-      "pending": 129,
+      "pending": 130,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
@@ -59,7 +59,8 @@
       "exclusive_claude": 38,
       "exclusive_codex": 10,
       "exclusive_post_master": 33,
-      "exclusive_post_master_adv": 37
+      "exclusive_post_master_adv": 37,
+      "exclusive_runtime": 1
     },
     "convergences_post_adv_with_existing": [
       "CRIT-04 → confirme F-001/F-002 (admin RBAC)",
@@ -3133,6 +3134,37 @@
       "lifecycle": [
         { "ts": "2026-05-10", "actor": "post-master-adv", "action": "discovered" },
         { "ts": "2026-05-11", "actor": "orchestrator", "action": "consolidated" }
+      ]
+    },
+    {
+      "id": "F-131",
+      "title": "ArtifactKernel.tsx — 6 erreurs ESLint react-hooks/refs (accès .current pendant render)",
+      "severity": "P1",
+      "category": "dx",
+      "status": "pending",
+      "confidence": "max",
+      "sources": ["console-runtime"],
+      "convergence": "exclusive_runtime",
+      "claude_refs": [],
+      "codex_refs": [],
+      "post_adv_refs": [],
+      "evidence": [
+        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 406, "note": "lineRef.current.position.set(0,0,0.2) — passing ref to function may read its value during render" },
+        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 433, "note": "{lineRef.current && <primitive object={lineRef.current} />} — cannot access ref value during render" },
+        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 433, "note": "occurrence 2" },
+        { "file": "components/spatial-v2/ArtifactKernel.tsx", "line": 433, "note": "occurrence 3 (col 46)" }
+      ],
+      "attack_scenario": "N/A — bug DX/correctness React 19. Le composant peut ne pas update comme attendu (cf react.dev/reference/react/useRef). En dev React peut throw warning mais en prod le rendu est non-déterministe (race entre render et ref assignment).",
+      "production_impact": "Bug visuel intermittent dans le module spatial-v2 (cockpit luxe). Bloque le pre-commit hook (lint-staged ESLint refuse le staging) — empêche tout commit qui touche ce fichier.",
+      "exploitability": "N/A (correctness bug, pas vuln)",
+      "fix_minimal": "Wrapper l'init du THREE.Line dans useEffect (création + cleanup au unmount). Stocker l'objet en useState au lieu de useRef si on doit le rendre via <primitive>. Pattern : const [line, setLine] = useState<THREE.Line>(); useEffect(() => { const l = new THREE.Line(...); l.position.set(0,0,0.2); setLine(l); return () => l.geometry.dispose() }, []).",
+      "fix_ideal": "Audit complet du module spatial-v2 pour les patterns ref-during-render et corriger (probablement plusieurs occurrences au-delà de ce fichier).",
+      "estimated_effort": "1h",
+      "blocked_workflow": "Bloque tout commit qui touche components/spatial-v2/* via le pre-commit hook ESLint (lint-staged --fix).",
+      "discovered_via": "Tentative de commit du Battle Plan workflow le 2026-05-11 — pre-commit hook eslint a refusé (6 errors, 0 warnings).",
+      "lifecycle": [
+        { "ts": "2026-05-11", "actor": "console-runtime", "action": "discovered", "note": "Detected pendant pre-commit hook ESLint (npx lint-staged) tentative commit Battle Plan" },
+        { "ts": "2026-05-11", "actor": "orchestrator", "action": "consolidated", "note": "Ajouté comme P1 DX — bloque workflow commit mais pas vuln sécu" }
       ]
     }
   ]
