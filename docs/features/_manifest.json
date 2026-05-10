@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T01:14:28.304Z",
+  "generatedAt": "2026-05-10T01:26:45.000Z",
   "total": 32,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 358,
-    "testsExistants": 1620,
+    "testsExistants": 1617,
     "testsManquants": 189,
     "orphans": 12
   },
   "actualTests": {
     "files": 252,
-    "cases": 2252,
+    "cases": 2249,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -241,8 +241,8 @@
         "I-7. RSC prefetch + client refetch",
         "I-8. Pivot visuel \"silent luxury OS\" (v1.4 → v1.5)"
       ],
-      "testsExistantsCount": 59,
-      "testsOnDisk": 59,
+      "testsExistantsCount": 56,
+      "testsOnDisk": 56,
       "testFilesOnDisk": 4,
       "testsDocExistants": 3,
       "testsManquantsCount": 7,

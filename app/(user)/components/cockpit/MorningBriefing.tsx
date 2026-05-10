@@ -7,21 +7,22 @@ interface MorningBriefingProps {
 }
 
 /**
- * Briefing du matin — narratif humain, 1 phrase d'ouverture + 3 bullets.
+ * Briefing — 1 phrase d'ouverture adaptée à l'heure + jusqu'à 3 bullets
+ * calculés depuis vraies données (mails / agenda / agent).
  *
- * Tire ses signaux du briefing (conversation-summary), de l'inbox,
- * de l'agenda et des missions pour produire un récap doux. Pas de
- * chiffres bruts, pas de jargon SaaS.
+ * Le headline NE vient PAS de getSummary (concaténation brute de conv qui
+ * commence par "Utilisateur: …" / "Assistant: …" — incompréhensible en hero).
+ * On reste sur du déterministe : greeting heure + signaux factuels.
  */
 export function MorningBriefing({ data }: MorningBriefingProps) {
   const bullets = buildBullets(data);
-  const opener = buildOpener(data);
+  const opener = buildOpener(data, bullets.length);
 
   return (
     <section
       className="flex flex-col shrink-0"
       style={{ gap: "var(--space-5)" }}
-      aria-label="Briefing du matin"
+      aria-label="Briefing"
     >
       <p
         className="t-28 font-extralight text-[var(--text-soft)]"
@@ -49,20 +50,10 @@ export function MorningBriefing({ data }: MorningBriefingProps) {
   );
 }
 
-function buildOpener(data: CockpitTodayPayload): string {
-  if (!data.briefing.empty && data.briefing.headline) {
-    return data.briefing.headline;
-  }
-
-  const totalSignals =
-    data.missionsRunning.length +
-    data.agenda.length +
-    (data.inbox.brief?.items.length ?? 0);
-
-  if (totalSignals === 0) {
+function buildOpener(data: CockpitTodayPayload, bulletsCount: number): string {
+  if (bulletsCount === 0) {
     return "Journée calme. Profite-en.";
   }
-
   return "Voici ce qui se passe pour toi.";
 }
 

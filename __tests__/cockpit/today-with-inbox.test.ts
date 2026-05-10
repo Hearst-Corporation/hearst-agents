@@ -5,7 +5,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
-  getSummary: vi.fn(),
   getAllMissionOps: vi.fn(),
   getScheduledMissions: vi.fn(),
   getMemoryMissions: vi.fn(),
@@ -16,7 +15,6 @@ const mocks = vi.hoisted(() => ({
   loadLatestInboxBrief: vi.fn(),
 }));
 
-vi.mock("@/lib/memory/conversation-summary", () => ({ getSummary: mocks.getSummary }));
 vi.mock("@/lib/engine/runtime/missions/ops-store", () => ({ getAllMissionOps: mocks.getAllMissionOps }));
 vi.mock("@/lib/engine/runtime/state/adapter", () => ({ getScheduledMissions: mocks.getScheduledMissions }));
 vi.mock("@/lib/engine/runtime/missions/store", () => ({ getAllMissions: mocks.getMemoryMissions }));
@@ -47,7 +45,6 @@ const SCOPE = { userId: "user-1", tenantId: "tenant-1", workspaceId: "ws-1" };
 describe("getCockpitToday — section inbox", () => {
   beforeEach(() => {
     Object.values(mocks).forEach((m) => m.mockReset());
-    mocks.getSummary.mockResolvedValue("");
     mocks.getAllMissionOps.mockReturnValue(new Map());
     mocks.getScheduledMissions.mockResolvedValue([]);
     mocks.getMemoryMissions.mockReturnValue([]);

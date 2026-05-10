@@ -4,7 +4,6 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 // Vitest exige `vi.hoisted` pour les variables référencées dans `vi.mock`.
 
 const mocks = vi.hoisted(() => ({
-  getSummary: vi.fn(),
   getAllMissionOps: vi.fn(),
   getScheduledMissions: vi.fn(),
   getMemoryMissions: vi.fn(),
@@ -14,10 +13,6 @@ const mocks = vi.hoisted(() => ({
   getProviderIdForService: vi.fn(),
   getLiveAgenda: vi.fn(),
   getTokens: vi.fn(),
-}));
-
-vi.mock("@/lib/memory/conversation-summary", () => ({
-  getSummary: mocks.getSummary,
 }));
 
 vi.mock("@/lib/engine/runtime/missions/ops-store", () => ({
@@ -70,7 +65,6 @@ const SCOPE = {
 describe("getCockpitToday", () => {
   beforeEach(() => {
     Object.values(mocks).forEach((m) => m.mockReset());
-    mocks.getSummary.mockResolvedValue("");
     mocks.getAllMissionOps.mockReturnValue(new Map());
     mocks.getScheduledMissions.mockResolvedValue([]);
     mocks.getMemoryMissions.mockReturnValue([]);
@@ -85,7 +79,6 @@ describe("getCockpitToday", () => {
   it("retourne un payload complet avec toutes les sections", async () => {
     const payload = await getCockpitToday(SCOPE);
 
-    expect(payload).toHaveProperty("briefing");
     expect(payload).toHaveProperty("agenda");
     expect(payload).toHaveProperty("calendarConnected");
     expect(payload).toHaveProperty("missionsRunning");
@@ -106,31 +99,6 @@ describe("getCockpitToday", () => {
     });
   });
 
-  it("briefing.empty=true quand aucun summary", async () => {
-    mocks.getSummary.mockResolvedValue("");
-    const payload = await getCockpitToday(SCOPE);
-    expect(payload.briefing.empty).toBe(true);
-    expect(payload.briefing.body).toBeNull();
-  });
-
-  it("briefing.empty=false quand un summary existe, body extrait", async () => {
-    mocks.getSummary.mockResolvedValue(
-      "Headline du jour\n\nDétails plus longs sur les actions à prendre.",
-    );
-    const payload = await getCockpitToday(SCOPE);
-    expect(payload.briefing.empty).toBe(false);
-    expect(payload.briefing.headline).toBe("Headline du jour");
-    expect(payload.briefing.body).toContain("Détails plus longs");
-  });
-
-  it("briefing tronque le body à 360 chars max avec ellipsis", async () => {
-    const long = "A".repeat(600);
-    mocks.getSummary.mockResolvedValue(`Headline\n\n${long}`);
-    const payload = await getCockpitToday(SCOPE);
-    expect(payload.briefing.body).toBeTruthy();
-    expect(payload.briefing.body!.length).toBeLessThanOrEqual(361);
-    expect(payload.briefing.body!.endsWith("…")).toBe(true);
-  });
 
   it("missionsRunning join scheduled + live ops, running first", async () => {
     mocks.getMemoryMissions.mockReturnValue([
@@ -212,7 +180,6 @@ describe("getCockpitToday", () => {
   });
 
   it("fail-soft : une source en erreur ne casse pas les autres", async () => {
-    mocks.getSummary.mockRejectedValue(new Error("redis down"));
     mocks.getAllMissionOps.mockImplementation(() => {
       throw new Error("memory store crash");
     });
@@ -220,8 +187,6 @@ describe("getCockpitToday", () => {
 
     const payload = await getCockpitToday(SCOPE);
 
-    // Briefing fallback
-    expect(payload.briefing.empty).toBe(true);
     // Missions fallback
     expect(payload.missionsRunning).toEqual([]);
     // Suggestions fallback

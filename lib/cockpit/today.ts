@@ -22,7 +22,6 @@ import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
 import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
-import { getSummary } from "@/lib/memory/conversation-summary";
 import { loadLatestInboxBrief } from "@/lib/inbox/store";
 import { getTokens } from "@/lib/platform/auth/tokens";
 import type { InboxBrief } from "@/lib/inbox/inbox-brief";
@@ -32,14 +31,6 @@ interface CockpitScope {
   userId: string;
   tenantId: string;
   workspaceId: string;
-}
-
-interface CockpitBriefing {
-  headline: string;
-  body: string | null;
-  generatedAt: number | null;
-  /** True quand on n'a aucun signal user → on affiche un empty state CTA. */
-  empty: boolean;
 }
 
 interface CockpitMission {
@@ -82,7 +73,6 @@ interface CockpitInboxSection {
 }
 
 export interface CockpitTodayPayload {
-  briefing: CockpitBriefing;
   agenda: CockpitAgendaItem[];
   /** True si l'user a un refresh token Google (NextAuth) ou une connexion
    *  Composio "google"/"gmail". */
@@ -109,38 +99,6 @@ async function safe<T>(label: string, fn: () => Promise<T> | T, fallback: T): Pr
     console.warn(`[cockpit/today] source "${label}" en erreur, fallback appliqué:`, err);
     return fallback;
   }
-}
-
-async function buildBriefing(scope: CockpitScope): Promise<CockpitBriefing> {
-  const summary = await safe("briefing.summary", () => getSummary(scope.userId), "");
-
-  if (!summary || summary.trim().length === 0) {
-    return {
-      headline: "Bienvenue",
-      body: null,
-      generatedAt: null,
-      empty: true,
-    };
-  }
-
-  const trimmed = summary.trim();
-  const split = trimmed.split(/\n{2,}/);
-  const firstNonEmpty = split.find((p) => p.trim().length > 0) ?? trimmed;
-  const headline = firstNonEmpty.trim().slice(0, 160);
-  const remainder = split
-    .slice(1)
-    .map((p) => p.trim())
-    .filter((p) => p.length > 0)
-    .join("\n\n");
-  const bodyRaw = remainder.length > 0 ? remainder : "";
-  const body = bodyRaw.length > 360 ? `${bodyRaw.slice(0, 360).trim()}…` : bodyRaw || null;
-
-  return {
-    headline,
-    body,
-    generatedAt: Date.now(),
-    empty: false,
-  };
 }
 
 async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission[]> {
@@ -334,13 +292,7 @@ async function isCalendarConnected(scope: CockpitScope): Promise<boolean> {
 }
 
 export async function getCockpitToday(scope: CockpitScope): Promise<CockpitTodayPayload> {
-  const [briefing, missionsRunning, suggestions, inbox, calendarConnected, agenda] = await Promise.all([
-    safe("briefing", () => buildBriefing(scope), {
-      headline: "Bienvenue",
-      body: null,
-      generatedAt: null,
-      empty: true,
-    } satisfies CockpitBriefing),
+  const [missionsRunning, suggestions, inbox, calendarConnected, agenda] = await Promise.all([
     safe("missionsRunning", () => buildMissionsRunning(scope), [] as CockpitMission[]),
     safe("suggestions", () => buildSuggestions(scope), [] as CockpitSuggestion[]),
     safe(
@@ -359,7 +311,6 @@ export async function getCockpitToday(scope: CockpitScope): Promise<CockpitToday
   const favoriteReports = buildFavoriteReports();
 
   return {
-    briefing,
     agenda: agenda.slice(0, MAX_AGENDA_ITEMS),
     calendarConnected,
     missionsRunning,
