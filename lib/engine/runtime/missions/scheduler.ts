@@ -31,6 +31,7 @@ import { buildExportJobPayload, runExportScheduledReportJob } from "./export-job
 import { getMonthlyMissionCost } from "./budget";
 import { analyzeMissionDrift, generateDriftNarration } from "@/lib/cockpit/drift-detection";
 import { hasActiveApprovalSession, requestApprovals } from "@/lib/missions/approvals";
+import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
 
 const POLL_INTERVAL_MS = 60_000;
 const triggeredThisMinute = new Set<string>();
@@ -367,6 +368,12 @@ export function startScheduler(
       console.error("[Scheduler] Tick error:", e),
     );
   }, POLL_INTERVAL_MS);
+  
+  // Register HMR cleanup
+  registerHMRCleanup(() => {
+    console.log("[Scheduler] HMR cleanup — stopping scheduler");
+    stopScheduler();
+  });
 
   return () => stopScheduler();
 }

@@ -9,6 +9,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { StorageProvider } from "../storage/types";
 import { runAssetCleanup, type CleanupConfig, type CleanupResult } from "./worker";
+import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
 
 export interface SchedulerConfig {
   cronExpression: string; // e.g., "0 2 * * *" (daily at 2am)
@@ -54,7 +55,17 @@ export class CleanupScheduler {
     this.initialTimeout = setTimeout(() => {
       void this.tick();
       this.timer = setInterval(() => void this.tick(), DAILY_MS);
+      
+      // Register HMR cleanup for recurring timer
+      registerHMRCleanup(() => {
+        if (this.timer) clearInterval(this.timer);
+      });
     }, msUntilFirst);
+    
+    // Register HMR cleanup for initial timeout
+    registerHMRCleanup(() => {
+      if (this.initialTimeout) clearTimeout(this.initialTimeout);
+    });
   }
 
   stop(): void {

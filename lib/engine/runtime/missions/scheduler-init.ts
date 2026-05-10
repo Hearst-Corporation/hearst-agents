@@ -23,6 +23,7 @@ import {
 } from "./leader-lease";
 import { cleanupExpiredSchedulerLeases } from "./cleanup-leases";
 import { INSTANCE_ID } from "../instance-id";
+import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
 
 const GLOBAL_KEY = "__hearst_scheduler_started__";
 const HEARTBEAT_INTERVAL_MS = 30_000;
@@ -91,11 +92,14 @@ async function heartbeat(): Promise<void> {
 }
 
 function startHeartbeat(): void {
-  setInterval(() => {
+  const timer = setInterval(() => {
     heartbeat().catch((e) =>
       console.error("[Scheduler] Heartbeat error:", e),
     );
   }, HEARTBEAT_INTERVAL_MS);
+  
+  // Register HMR cleanup to prevent timer leaks
+  registerHMRCleanup(() => clearInterval(timer));
 }
 
 // ── Stream drain helper ──────────────────────────────────
@@ -262,7 +266,13 @@ export async function ensureSchedulerStarted(): Promise<void> {
 
   const trigger = buildTrigger();
   const isLeader = buildIsLeader();
-  startScheduler(trigger, isLeader);
+  const stopSchedulerFn = startScheduler(trigger, isLeader);
+  
+  // Register HMR cleanup for scheduler
+  registerHMRCleanup(() => {
+    console.log("[Scheduler] HMR cleanup triggered");
+    stopSchedulerFn();
+  });
 
   if (_dbAvailable) {
     startHeartbeat();

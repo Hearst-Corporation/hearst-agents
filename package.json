@@ -49,7 +49,12 @@
     "features:test": "node scripts/features-test.mjs",
     "hom:run": "npx tsx scripts/hom-run.ts",
     "audit:render": "node docs/audits/scripts/render-audit-html.mjs",
-    "prepare": "simple-git-hooks || true"
+    "battle:render": "node docs/audits/scripts/render-battle-plan-html.mjs",
+    "battle:status": "node scripts/battle-status.mjs",
+    "battle:next": "node scripts/battle-next.mjs",
+    "battle:mark": "node scripts/battle-mark.mjs",
+    "prepare": "simple-git-hooks || true",
+    "kill:zombies": "bash scripts/kill-node-zombies.sh"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged && npm run features:manifest && git add docs/features/_manifest.json"
