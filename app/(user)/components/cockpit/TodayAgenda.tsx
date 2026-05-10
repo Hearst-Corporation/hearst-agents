@@ -24,10 +24,9 @@ export function TodayAgenda({ data }: TodayAgendaProps) {
           {items.map((item) => (
             <li
               key={item.id}
-              className="flex items-baseline gap-3"
+              className="vision-list-item flex items-baseline gap-3"
               style={{
                 padding: "var(--space-2) var(--space-3)",
-                borderRadius: "var(--radius-xs)",
               }}
             >
               <span className="t-13 font-mono tabular-nums text-(--accent-teal) shrink-0">

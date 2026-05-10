@@ -35,7 +35,7 @@ export function CockpitHome({ data, onRefresh }: CockpitHomeProps) {
 
   return (
     <div
-      className="flex-1 flex flex-col min-h-0 min-w-0 overflow-y-auto"
+      className="flex-1 flex flex-col min-h-0 min-w-0 overflow-y-auto vision-scrollbar-none"
       style={{
         padding: "var(--space-12) var(--space-16)",
         gap: "var(--space-10)",
@@ -50,7 +50,7 @@ export function CockpitHome({ data, onRefresh }: CockpitHomeProps) {
         style={{
           gap: "var(--space-10)",
           paddingTop: "var(--space-6)",
-          borderTop: "1px solid var(--border-soft)",
+          borderTop: "1px solid rgba(255, 255, 255, 0.06)",
         }}
       >
         <TodayAgenda data={data} />

@@ -148,12 +148,9 @@ export function ChatInput({
           <ContextChips />
         </div>
 
-        {/* Input "two-lines" — pivot 2026-05-03. Deux filets top/bottom
-           en gradient (fade aux extrémités), background transparent, plus
-           de coquille ni de halo accent-teal. Drag-over passe en accent-teal via le
-           data-drag-over (CSS le pickup, pas de style inline). */}
+        {/* Input "two-lines" — remplacé par vision-input (Apple Vision). */}
         <div
-          className="cockpit-input-pill-line peer group px-6 py-3 relative"
+          className="vision-input peer group px-6 py-3 relative"
           onDragOver={handleAssetDragOver}
           onDragLeave={handleAssetDragLeave}
           onDrop={handleAssetDrop}

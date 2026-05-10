@@ -67,7 +67,7 @@ export function CockpitHeader({ generatedAt, onRefresh }: CockpitHeaderProps = {
 
   return (
     <header className="flex flex-col gap-2 shrink-0">
-      <div className="flex items-center gap-2 t-10 font-medium text-text-faint tabular-nums lowercase">
+      <div className="flex items-center gap-2 t-10 font-light text-text-faint tabular-nums lowercase" style={{ letterSpacing: "0.04em" }}>
         <span>{formatEyebrow(now)}</span>
         {ageLabel && (
           <>
@@ -98,7 +98,7 @@ export function CockpitHeader({ generatedAt, onRefresh }: CockpitHeaderProps = {
       </div>
       <h1
         className="t-48 font-extralight leading-[1.02] text-text-soft"
-        style={{ letterSpacing: "var(--tracking-editorial)" }}
+        style={{ letterSpacing: "-0.04em" }}
       >
         {greeting}
       </h1>

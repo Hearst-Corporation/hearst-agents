@@ -38,10 +38,9 @@ export function WhenYouHave5Min({ data }: WhenYouHave5MinProps) {
             <li key={item.id}>
               <Link
                 href={item.href}
-                className="flex items-baseline gap-3 group no-underline"
+                className="vision-list-item flex items-baseline gap-3 group no-underline"
                 style={{
                   padding: "var(--space-2) var(--space-3)",
-                  borderRadius: "var(--radius-xs)",
                 }}
               >
                 <span className="t-13 text-text-faint shrink-0" aria-hidden>

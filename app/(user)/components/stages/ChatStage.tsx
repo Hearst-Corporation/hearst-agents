@@ -56,7 +56,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
   const focalVisible = !!focal && isFocalVisible;
 
   return (
-    <div className="flex-1 flex min-h-0 relative" style={{ background: "var(--surface)" }}>
+    <div className="flex-1 flex relative min-h-0 bg-transparent">
       {/* Pane gauche — chat (+ focal embedded). Largeur fluide :
           flex-1 quand split actif, max-w-[var(--width-center-max)] sinon. */}
       <div className="flex-1 flex flex-col min-h-0 relative min-w-0">
@@ -122,7 +122,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
         {!hasMessages && !focal && <WelcomePanel />}
 
         {hasMessages && (
-          <div className={focalVisible ? "flex-shrink-0 border-t border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent" : "flex-1 min-h-0 bg-bg-elev"} style={focalVisible ? { height: "var(--height-chat-collapsed)" } : undefined}>
+          <div className={focalVisible ? "flex-shrink-0 border-t border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent" : "flex-1 min-h-0 bg-transparent"} style={focalVisible ? { height: "var(--height-chat-collapsed)" } : undefined}>
             {/* Padding uniforme px-12 py-8 dans les 2 états (focal visible/caché) — évite le saut horizontal de 40px↔48px */}
             <ChatMessages
               messages={messages}

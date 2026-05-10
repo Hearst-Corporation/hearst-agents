@@ -224,7 +224,7 @@ export function ChatMessages({
 
           if (message.role === "user") {
             return (
-              <div key={message.id} className="w-full">
+              <div key={message.id} className="vision-msg-user px-6 py-4 backdrop-blur-lg ml-auto max-w-2xl self-end">
                 <MetaLine author="Toi" ts={ts} />
                 <div className="t-15 font-light leading-(--leading-body) text-text-soft whitespace-pre-wrap">
                   {liveContent}
@@ -236,7 +236,7 @@ export function ChatMessages({
           const showShimmer = isLastAssistant && liveContent.length === 0 && isRunning;
 
           return (
-            <div key={message.id} className="relative">
+            <div key={message.id} className="relative vision-msg-ai pl-6 py-2 max-w-3xl self-start">
               <MetaLine author={source ?? "Hearst"} ts={ts} />
 
               {showShimmer ? (

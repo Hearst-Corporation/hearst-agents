@@ -16,13 +16,13 @@
      visible au-dessus du noir Stage sans casser la cohérence charbon.
      Le shadow-stage-card crée naturellement un halo de récession qui
      renforce l'effet « well » du Stage encadré par les rails plus clairs. */
-  --bg: #050709;
-  --bg-elev: #131318;
-  --bg-soft: #1b1b22;
-  --background: #050709;
+  --bg: #000000;
+  --bg-elev: rgba(255, 255, 255, 0.05);
+  --bg-soft: rgba(255, 255, 255, 0.02);
+  --background: #000000;
   --foreground: #ffffff;
-  --surface: #000000;
-  --rail: #16161b;
+  --surface: var(--vision-glass-bg, rgba(255, 255, 255, 0.02));
+  --rail: transparent;
   /* Material scale — Technological Luxury */
   --mat-100: #040404;
   --mat-200: #070707;
@@ -2344,3 +2344,142 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   app-region: drag;
   pointer-events: none;
 }
+
+/* ─── VISION OS / WATER THEME OVERRIDE (2026-05-10) ─────────────── */
+
+:root {
+  --fluid-1: rgba(10, 25, 47, 0.4);
+  --fluid-2: rgba(0, 40, 60, 0.3);
+  --vision-glass-bg: rgba(255, 255, 255, 0.02);
+  --vision-glass-border: rgba(255, 255, 255, 0.08);
+  --vision-glass-border-hi: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes ambientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.vision-ambient-bg {
+  background-color: #000000;
+  background-image: 
+    radial-gradient(circle at 15% 50%, var(--fluid-1), transparent 50%),
+    radial-gradient(circle at 85% 30%, var(--fluid-2), transparent 50%);
+  background-attachment: fixed;
+  animation: ambientShift 30s ease-in-out infinite;
+}
+
+.vision-ambient-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 30% 70%, rgba(20, 50, 80, 0.2), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(5, 20, 40, 0.3), transparent 60%);
+  animation: ambientShift 25s ease-in-out infinite reverse;
+  filter: blur(60px);
+}
+
+.vision-glass {
+  background: var(--vision-glass-bg);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--vision-glass-border);
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.vision-nav {
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px;
+}
+
+.vision-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.vision-nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.vision-nav-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.vision-input {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.vision-input:focus-within {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.vision-msg-user {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+}
+
+.vision-msg-ai {
+  background: transparent;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Hover subtil glass sur les items de liste cockpit */
+.vision-list-item {
+  transition: background 0.2s ease;
+  border-radius: 8px;
+}
+
+.vision-list-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Scrollbar masquée — cockpit Vision */
+.vision-scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.vision-scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+

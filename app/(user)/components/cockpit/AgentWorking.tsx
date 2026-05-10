@@ -31,10 +31,9 @@ export function AgentWorking({ data }: AgentWorkingProps) {
             return (
               <li
                 key={item.id}
-                className="flex items-baseline gap-3"
+                className="vision-list-item flex items-baseline gap-3"
                 style={{
                   padding: "var(--space-2) var(--space-3)",
-                  borderRadius: "var(--radius-xs)",
                 }}
               >
                 <span
