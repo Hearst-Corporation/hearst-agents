@@ -1,25 +1,30 @@
 {
   "version": "1.0.0",
   "description": "Index global des audits production-grade. Source de vérité pour le tracker multi-scope. Chaque audit a son propre dossier avec findings.json + sources/ + findings/ + reaudits/.",
-  "last_updated": "2026-05-10T20:30:00+02:00",
+  "last_updated": "2026-05-11T01:30:00+02:00",
   "audits": [
     {
       "id": "2026-05-10-security",
       "scope": "security",
       "status": "active",
       "started_at": "2026-05-10",
-      "sources_count": 2,
-      "findings_count": 60,
-      "p0_count": 25,
-      "p1_count": 25,
-      "p2_count": 10,
+      "sources_count": 4,
+      "findings_count": 130,
+      "p0_count": 45,
+      "p1_count": 49,
+      "p2_count": 35,
+      "wont_fix_count": 1,
       "progress": {
-        "pending": 60,
+        "pending": 129,
         "implementing": 0,
         "validated": 0,
-        "closed": 0
+        "closed": 0,
+        "wont_fix": 1
       },
-      "note": "Audit fondateur : auth, RLS, secrets, LLM runtime, API/SSRF, agents AI, workers, deps. Sources : Claude Opus 4.7 (6 sub-agents parallèles) + Codex externe."
+      "note": "Audit fondateur multi-source : auth, RLS, secrets, LLM runtime, API/SSRF, agents AI, workers, deps, perf, archi, DX, a11y, billing, dead code, multi-tenant, supply chain. Sources : Claude Opus 4.7 (6 sub-agents) + Codex externe + post-master challenger (5 agents) + post-master-adv adversarial (4 agents).",
+      "reclassifications_applied": "2026-05-10 : 4 upgrades P1→P0 (F-038, F-040, F-048, F-049) + 3 upgrades P2→P1 (F-052, F-054, F-056) + 7 downgrades P0→P1/P2 (F-013, F-014, F-016, F-019, F-021, F-022, F-023) + 3 downgrades P1→P2 (F-027, F-030, F-036) + 1 false positive dropped (F-059).",
+      "post_adv_findings": "37 nouveaux findings F-094 à F-130. 4 nouveaux P0 critiques (F-094 agent_memory cross-tenant, F-095 tenant unique env-only, F-096 Google signup ouvert, F-097 Sentry PII fuite, F-098 rate-limit chat jamais appliqué). 23 confirmations cross-source des findings existants (voir summary.convergences_post_adv_with_existing).",
+      "show_stopper": "F-095 (tenant unique HEARST_TENANT_ID env-only) + F-096 (Google signup ouvert) = combo bloquant tout déploiement multi-user public. Combinés, ces 2 findings rendent ~30 autres findings IDOR cosmétiques (l'isolation tenant promise n'existe pas)."
     }
   ],
   "convention": {

@@ -40,7 +40,8 @@ function SpatialCanvas() {
     <Canvas dpr={[1, 1.8]} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
       <PerspectiveCamera makeDefault position={[0, 0, 4.95]} fov={33} />
       <color attach="background" args={["#000000"]} />
-      <fog attach="fog" args={["#000000", 5.8, 9.4]} />
+      {/* On repousse le brouillard pour que la caméra (Z=8.5) ne plonge pas la scène dans le noir */}
+      <fog attach="fog" args={["#000000", 9.5, 18]} />
 
       <Suspense fallback={null}>
         <CameraRig />
@@ -57,7 +58,7 @@ function SideRail({ side, title, items }: { side: "left" | "right"; title: strin
   return (
     <aside
       className={[
-        "pointer-events-auto hidden xl:block absolute top-1/2 w-[220px] -translate-y-1/2",
+        "pointer-events-auto hidden md:block absolute top-1/2 w-[220px] -translate-y-1/2",
         side === "left" ? "left-[clamp(44px,8vw,132px)]" : "right-[clamp(44px,8vw,132px)]",
         "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105",
         isExpanded ? "opacity-0 translate-x-[calc(var(--tw-translate-x)*2)] pointer-events-none" : "opacity-100 translate-x-0"
