@@ -130,7 +130,7 @@ export async function getUserRole(
 /**
  * Assign a role to a user
  */
-export async function assignRole(
+async function assignRole(
   db: SupabaseClient,
   userId: string,
   role: Role,
@@ -172,7 +172,7 @@ export async function assignRole(
 /**
  * Remove a role assignment
  */
-export async function removeRole(
+async function removeRole(
   db: SupabaseClient,
   userId: string,
   tenantId?: string
@@ -204,6 +204,6 @@ export async function removeRole(
 /**
  * Get all permissions for a role
  */
-export function getRolePermissions(role: Role): Record<string, string[]> {
+function getRolePermissions(role: Role): Record<string, string[]> {
   return PERMISSION_MATRIX[role] || {};
 }

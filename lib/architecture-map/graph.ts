@@ -84,15 +84,15 @@ export function getArchitectureGraph(map?: ArchitectureMap) {
   return { nodes, edges };
 }
 
-export function getArchitectureNodes(map?: ArchitectureMap): ArchNode[] {
+function getArchitectureNodes(map?: ArchitectureMap): ArchNode[] {
   return getArchitectureGraph(map).nodes;
 }
 
-export function getArchitectureEdges(map?: ArchitectureMap): ArchEdge[] {
+function getArchitectureEdges(map?: ArchitectureMap): ArchEdge[] {
   return getArchitectureGraph(map).edges;
 }
 
-export function getFlowById(flowId: string, map?: ArchitectureMap): FlowEntry | undefined {
+function getFlowById(flowId: string, map?: ArchitectureMap): FlowEntry | undefined {
   const data = map ?? loadArchitectureMap();
   return data.flows.find((f) => f.id === flowId);
 }
