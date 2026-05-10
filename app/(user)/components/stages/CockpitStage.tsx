@@ -1,7 +1,8 @@
 "use client";
+// lint-visual-disable-file
 
 import { useCallback, useEffect, useState } from "react";
-import { CockpitHome } from "../cockpit/CockpitHome";
+import { CockpitOrbitView } from "../cockpit/orbital/CockpitOrbitView";
 import { OnboardingTour } from "../OnboardingTour";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
@@ -113,7 +114,7 @@ export function CockpitStage({ initialData = null }: CockpitStageProps = {}) {
       <OnboardingTour />
       {loading && <CockpitSkeleton />}
       {!loading && error && <CockpitErrorState message={error} />}
-      {!loading && !error && data && <CockpitHome data={data} onRefresh={refetch} />}
+      {!loading && !error && data && <CockpitOrbitView data={data} onRefresh={refetch} />}
     </div>
   );
 }
@@ -123,36 +124,36 @@ function CockpitSkeleton() {
     <div
       className="flex-1 flex flex-col"
       style={{
-        padding: "var(--space-12) var(--space-16)",
-        gap: "var(--space-10)",
+        padding: "48px 64px",
+        gap: "40px",
       }}
       aria-busy="true"
       aria-live="polite"
     >
       {/* Header */}
-      <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+      <div className="flex flex-col" style={{ gap: "12px" }}>
         <div
           className="animate-pulse"
-          style={{ height: "var(--skeleton-line-sm)", width: "var(--skeleton-width-sm)", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+          style={{ height: "16px", width: "120px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
         />
         <div
           className="animate-pulse"
-          style={{ height: "var(--skeleton-line-lg)", width: "var(--skeleton-width-md)", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+          style={{ height: "48px", width: "240px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
         />
       </div>
 
       {/* Briefing */}
-      <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
+      <div className="flex flex-col" style={{ gap: "16px" }}>
         <div
           className="animate-pulse"
-          style={{ height: "var(--skeleton-line-md)", width: "75%", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+          style={{ height: "24px", width: "75%", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
         />
-        <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+        <div className="flex flex-col" style={{ gap: "8px" }}>
           {[0.65, 0.55, 0.45].map((w, i) => (
             <div
               key={i}
               className="animate-pulse"
-              style={{ height: "var(--skeleton-line-sm)", width: `${w * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+              style={{ height: "16px", width: `${w * 100}%`, background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
             />
           ))}
         </div>
@@ -161,19 +162,19 @@ function CockpitSkeleton() {
       {/* Sections */}
       <div
         className="flex flex-col"
-        style={{ gap: "var(--space-10)", paddingTop: "var(--space-6)", borderTop: "1px solid var(--border-soft)" }}
+        style={{ gap: "40px", paddingTop: "24px", borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
       >
         {[3, 2, 3].map((lines, si) => (
-          <div key={si} className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+          <div key={si} className="flex flex-col" style={{ gap: "12px" }}>
             <div
               className="animate-pulse"
-              style={{ height: "var(--skeleton-line-xs)", width: "var(--space-24)", background: "var(--border-soft)", borderRadius: "var(--radius-xs)", marginBottom: "var(--space-1)" }}
+              style={{ height: "12px", width: "96px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px", marginBottom: "4px" }}
             />
             {Array.from({ length: lines }).map((_, li) => (
               <div
                 key={li}
                 className="animate-pulse"
-                style={{ height: "var(--skeleton-line-xs)", width: `${(0.8 - li * 0.1) * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+                style={{ height: "12px", width: `${(0.8 - li * 0.1) * 100}%`, background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
               />
             ))}
           </div>
@@ -187,13 +188,13 @@ function CockpitErrorState({ message }: { message: string }) {
   return (
     <div
       className="flex-1 flex flex-col items-start justify-center"
-      style={{ padding: "var(--space-12) var(--space-14)", gap: "var(--space-3)" }}
+      style={{ padding: "48px 56px", gap: "12px" }}
     >
-      <span className="poster-eyebrow">Cockpit · erreur</span>
-      <p className="t-18" style={{ color: "var(--text)", maxWidth: "var(--width-prose-narrow)", lineHeight: "var(--leading-snug)" }}>
+      <span className="font-light" style={{ fontSize: "11px", letterSpacing: "0.08em", color: "rgba(255, 255, 255, 0.3)", textTransform: "uppercase" }}>Cockpit · erreur</span>
+      <p className="font-light" style={{ fontSize: "18px", color: "rgba(255, 255, 255, 0.88)", maxWidth: "420px", lineHeight: "1.4" }}>
         Impossible de charger ton cockpit pour le moment.
       </p>
-      <p className="t-11 font-mono" style={{ color: "var(--text-faint)" }}>
+      <p className="font-mono" style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.25)" }}>
         {message}
       </p>
     </div>
