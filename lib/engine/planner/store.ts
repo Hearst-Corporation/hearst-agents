@@ -7,25 +7,6 @@
 
 import type { ExecutionPlan, MissionDefinition } from "./types";
 
-// ── Interfaces (for future DB adapter) ──────────────────────
-
-export interface PlanStore {
-  save(plan: ExecutionPlan): void;
-  get(planId: string): ExecutionPlan | null;
-  getForThread(threadId: string): ExecutionPlan[];
-  getActive(): ExecutionPlan[];
-  delete(planId: string): void;
-}
-
-export interface MissionStore {
-  save(mission: MissionDefinition): void;
-  get(missionId: string): MissionDefinition | null;
-  getForThread(threadId: string): MissionDefinition[];
-  getActive(): MissionDefinition[];
-  getDue(now: number): MissionDefinition[];
-  delete(missionId: string): void;
-}
-
 // ── In-memory plan store ────────────────────────────────────
 
 const plans = new Map<string, ExecutionPlan>();
@@ -55,14 +36,6 @@ export function getPlansForThread(threadId: string): ExecutionPlan[] {
 
 export function getAllPlans(): ExecutionPlan[] {
   return Array.from(plans.values());
-}
-
-export function deletePlan(planId: string): void {
-  const plan = plans.get(planId);
-  if (plan) {
-    plansByThread.get(plan.threadId)?.delete(planId);
-    plans.delete(planId);
-  }
 }
 
 // ── In-memory mission store ─────────────────────────────────
@@ -100,14 +73,6 @@ export function getDueMissions(now: number): MissionDefinition[] {
   return Array.from(missions.values()).filter(
     (m) => m.status === "active" && m.nextRunAt !== undefined && m.nextRunAt <= now,
   );
-}
-
-export function deleteMission(missionId: string): void {
-  const mission = missions.get(missionId);
-  if (mission) {
-    missionsByThread.get(mission.threadId)?.delete(missionId);
-    missions.delete(missionId);
-  }
 }
 
 /** Wipe every plan and planner-mission from memory. Server-only cleanup. */

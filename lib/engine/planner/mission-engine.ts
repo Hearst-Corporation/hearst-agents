@@ -13,76 +13,11 @@
  * It provides the mission lifecycle management layer above it.
  */
 
-import type { MissionDefinition, MissionMode } from "./types";
-import { getPlan, saveMission, getMission, getActiveMissions, getDueMissions } from "./store";
+import type { MissionDefinition } from "./types";
+import { saveMission, getMission, getActiveMissions, getDueMissions } from "./store";
 import { logPlanEvent } from "./debug";
 
-// ── Mission creation from plan ──────────────────────────────
-
-let missionCounter = 0;
-
-export function activateMissionFromPlan(
-  planId: string,
-  overrides?: {
-    schedule?: string;
-    condition?: string;
-    mode?: MissionMode;
-  },
-): MissionDefinition | null {
-  const plan = getPlan(planId);
-  if (!plan) {
-    logPlanEvent("mission_activation_failed", { planId, reason: "plan_not_found" });
-    return null;
-  }
-
-  if (plan.type !== "mission" && plan.type !== "monitoring") {
-    logPlanEvent("mission_activation_failed", { planId, reason: "wrong_plan_type", type: plan.type });
-    return null;
-  }
-
-  const mode: MissionMode = overrides?.mode ?? (plan.type === "monitoring" ? "monitoring" : "recurring");
-  const now = Date.now();
-
-  const mission: MissionDefinition = {
-    id: `mission_${now}_${++missionCounter}`,
-    threadId: plan.threadId,
-    userId: plan.userId,
-    tenantId: plan.tenantId,
-    workspaceId: plan.workspaceId,
-    sourcePlanId: planId,
-    mode,
-    naturalLanguageRule: plan.intent,
-    schedule: overrides?.schedule,
-    condition: overrides?.condition,
-    status: "draft",
-    createdAt: now,
-    updatedAt: now,
-  };
-
-  saveMission(mission);
-  logPlanEvent("mission_created", { missionId: mission.id, planId, mode });
-
-  return mission;
-}
-
 // ── Lifecycle transitions ───────────────────────────────────
-
-export function startMission(missionId: string): MissionDefinition | null {
-  const mission = getMission(missionId);
-  if (!mission || mission.status !== "draft") return null;
-
-  mission.status = "active";
-  mission.updatedAt = Date.now();
-
-  if (mission.schedule) {
-    mission.nextRunAt = computeNextRun(mission.schedule, Date.now());
-  }
-
-  saveMission(mission);
-  logPlanEvent("mission_started", { missionId, nextRunAt: mission.nextRunAt });
-
-  return mission;
-}
 
 export function pauseMission(missionId: string): MissionDefinition | null {
   const mission = getMission(missionId);
@@ -109,36 +44,6 @@ export function resumeMission(missionId: string): MissionDefinition | null {
 
   saveMission(mission);
   logPlanEvent("mission_resumed", { missionId });
-
-  return mission;
-}
-
-export function completeMission(missionId: string): MissionDefinition | null {
-  const mission = getMission(missionId);
-  if (!mission) return null;
-
-  mission.status = "completed";
-  mission.nextRunAt = undefined;
-  mission.updatedAt = Date.now();
-  saveMission(mission);
-  logPlanEvent("mission_completed", { missionId });
-
-  return mission;
-}
-
-export function recordMissionRun(missionId: string): MissionDefinition | null {
-  const mission = getMission(missionId);
-  if (!mission || mission.status !== "active") return null;
-
-  mission.lastRunAt = Date.now();
-  mission.updatedAt = Date.now();
-
-  if (mission.schedule) {
-    mission.nextRunAt = computeNextRun(mission.schedule, Date.now());
-  }
-
-  saveMission(mission);
-  logPlanEvent("mission_run_recorded", { missionId, nextRunAt: mission.nextRunAt });
 
   return mission;
 }

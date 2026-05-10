@@ -47,8 +47,3 @@ export interface ScheduledMission {
   workflowGraph?: unknown;
 }
 
-export interface ScheduledMissionRun {
-  missionId: string;
-  runId: string;
-  triggeredAt: number;
-}

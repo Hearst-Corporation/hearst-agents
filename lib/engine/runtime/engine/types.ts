@@ -17,26 +17,6 @@ export type EngineRunStatus =
 
 export type EngineEntrypoint = "chat" | "webhook" | "api";
 
-export interface EngineRun {
-  id: string;
-  user_id: string;
-  conversation_id: string | null;
-  entrypoint: EngineEntrypoint;
-  status: EngineRunStatus;
-  intent: string | null;
-  request: {
-    message: string;
-    surface?: string;
-    context?: Record<string, unknown>;
-  };
-  cost: RunCost;
-  current_plan_id: string | null;
-  current_action_plan_id: string | null;
-  created_at: string;
-  updated_at: string;
-  completed_at: string | null;
-}
-
 export interface CreateRunInput {
   user_id: string;
   /**
@@ -168,20 +148,3 @@ export interface UsageMetrics {
   cache_read_input_tokens?: number;
 }
 
-// ── Preflight ────────────────────────────────────────────
-
-export type PreflightErrorCode =
-  | "TOKEN_MISSING"
-  | "TOKEN_EXPIRED"
-  | "RATE_LIMITED"
-  | "PACK_DISABLED";
-
-export type PreflightResult =
-  | { ok: true }
-  | {
-      ok: false;
-      errorCode: PreflightErrorCode;
-      message: string;
-      retryable: boolean;
-      retry_after_ms?: number;
-    };
