@@ -54,8 +54,8 @@ export function Toast({ id, type, title, message, duration = 5000, onDismiss }: 
     >
       <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center mt-0.5">{styles.icon}</span>
       <div className="flex-1 min-w-0">
-        <p className={`text-sm font-medium ${styles.text}`}>{title}</p>
-        {message && <p className="text-xs text-text-muted mt-1 line-clamp-2 font-light">{message}</p>}
+        <p className={`t-13 font-medium ${styles.text}`}>{title}</p>
+        {message && <p className="t-11 text-text-muted mt-1 line-clamp-2 font-light">{message}</p>}
       </div>
       <button
         onClick={() => onDismiss(id)}

@@ -66,18 +66,20 @@ Tu dois aussi détecter :
 
 ## Inspection statique du codebase
 
-!find app/ -name "*.tsx" | xargs grep -l "style={{" | grep -v node_modules | head -30
-!find app/ -name "*.tsx" | xargs grep -l "className=.*\[" | grep -v node_modules | head -30
-!grep -rn "z-index\|z-\[" app/ --include="*.tsx" --include="*.css" | grep -v node_modules | head -30
-!grep -rn "overflow" app/ --include="*.tsx" --include="*.css" | grep -v node_modules | head -30
-!grep -rn "position.*absolute\|position.*fixed" app/ --include="*.tsx" | grep -v node_modules | head -30
+!find app/ -name "_.tsx" | xargs grep -l "style={{" | grep -v node_modules | head -30
+!find app/ -name "_.tsx" | xargs grep -l "className=._\[" | grep -v node_modules | head -30
+!grep -rn "z-index\|z-\[" app/ --include="_.tsx" --include="_.css" | grep -v node_modules | head -30
+!grep -rn "overflow" app/ --include="_.tsx" --include="*.css" | grep -v node_modules | head -30
+!grep -rn "position.*absolute\|position._fixed" app/ --include="_.tsx" | grep -v node_modules | head -30
 
 ## Sous-agents à déclencher
 
 Spawn 3 sous-agents en parallèle :
 
 ### 1. Sous-agent Layout & Alignment QA
+
 Détecte tous les problèmes d'alignement, spacing, tailles et grilles.
+
 - Scanne tous les composants dans `app/` et `components/`
 - Cherche les magic numbers de spacing (valeurs arbitraires hors token)
 - Identifie les flex/grid incohérents
@@ -85,7 +87,9 @@ Détecte tous les problèmes d'alignement, spacing, tailles et grilles.
 - Vérifie que les containers utilisent les bons tokens `--space-*`
 
 ### 2. Sous-agent Interaction & States QA
+
 Teste hover, focus, loading, modales, dropdowns, scrolls, responsive et comportements dynamiques.
+
 - Cherche les états manquants (loading sans skeleton, error sans message, empty sans fallback)
 - Vérifie les `hover:` et `focus:` sur tous les éléments interactifs
 - Identifie les modales sans trap focus
@@ -93,7 +97,9 @@ Teste hover, focus, loading, modales, dropdowns, scrolls, responsive et comporte
 - Vérifie les transitions (`transition-*`, `duration-*`)
 
 ### 3. Sous-agent Visual Consistency QA
+
 Vérifie typographie, couleurs, cartes, boutons, formulaires, shadows, radius et cohérence admin/app.
+
 - Compare les composants admin vs app principale
 - Vérifie que les boutons sont tous issus du même composant Button
 - Contrôle la cohérence des `--radius-*` sur les cartes
@@ -111,6 +117,7 @@ Vérifie typographie, couleurs, cartes, boutons, formulaires, shadows, radius et
 ```
 
 **Gravité :**
+
 - `CRITIQUE` — casse l'UX, illisible, chevauchement, crash visuel
 - `MOYEN` — incohérence notable, impression non premium
 - `MINEUR` — pixel off, détail imperceptible à froid
@@ -151,6 +158,7 @@ Produis le rapport textuel :
 Puis génère un fichier HTML complet à `/tmp/rapport-qa.html` et ouvre-le dans Chrome.
 
 Le HTML doit :
+
 - Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
 - Header avec titre "QA UI/UX Audit", date/heure, scope analysé, score /10 en grand
 - Jauge score visuelle : arc SVG coloré (rouge < 5, orange < 7, vert >= 8)

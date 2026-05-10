@@ -28,7 +28,7 @@ Identifie les fichiers < 80% de couverture ligne.
 
 !find app/api/ -name "route.ts" | while read f; do base="${f%route.ts}"; if ! find . -name "*.test.ts" -path "*${base}\*" 2>/dev/null | grep -q .; then echo "SANS TEST: $f"; fi; done | head -30
 
-!find app/ lib/ -name "_.ts" -not -name "_.test._" -not -path "_/node_modules/_" | while read f; do base=$(basename "$f" .ts); if ! grep -rq "$base" . --include="_.test._" --include="_.spec.\*" 2>/dev/null; then echo "SANS TEST: $f"; fi; done | head -30
+!find app/ lib/ -name "_.ts" -not -name "_.test._" -not -path "_/node*modules/*" | while read f; do base=$(basename "$f" .ts); if ! grep -rq "$base" . --include="_.test._" --include="\_.spec.\*" 2>/dev/null; then echo "SANS TEST: $f"; fi; done | head -30
 
 ## Étape 4 — Analyse des cas manquants
 

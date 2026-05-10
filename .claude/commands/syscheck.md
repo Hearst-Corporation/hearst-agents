@@ -54,7 +54,7 @@ Identifie :
 - Cache npm > 500 Mo → propose `npm cache clean --force`
 - `node_modules` non touchés depuis > 30 jours dans des projets inactifs → propose suppression
 
-!find /Users/adrienbeyondcrypto/Dev -name "node_modules" -maxdepth 3 -type d -not -path "_/\._" | while read d; do proj=$(dirname "$d"); if [ ! -f "$proj/package.json" ]; then echo "ORPHELIN: $d"; fi; done
+!find /Users/adrienbeyondcrypto/Dev -name "node*modules" -maxdepth 3 -type d -not -path "*/\.\_" | while read d; do proj=$(dirname "$d"); if [ ! -f "$proj/package.json" ]; then echo "ORPHELIN: $d"; fi; done
 
 ## Passe 5 — Fichiers temporaires et logs lourds
 

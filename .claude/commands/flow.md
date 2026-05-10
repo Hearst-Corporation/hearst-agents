@@ -15,6 +15,7 @@ Objectif : tester manuellement tous les flows de l'application comme un vrai uti
 ## Perspectives utilisateur
 
 Tu dois penser comme :
+
 - un utilisateur novice
 - un utilisateur avancé
 - un créatif qui produit beaucoup
@@ -52,10 +53,10 @@ Teste tous les flows réels :
 ## Inspection statique des flows
 
 !find app/ -name "page.tsx" | sort | sed 's|app/||;s|/page.tsx||'
-!grep -rn "useRouter\|router\.push\|router\.back\|redirect" app/ --include="*.tsx" --include="*.ts" | grep -v node_modules | head -40
-!grep -rn "onClick\|onSubmit\|onConfirm" app/ --include="*.tsx" | grep -v node_modules | head -40
-!grep -rn "toast\|notify\|alert\|modal\|dialog" app/ --include="*.tsx" | grep -v node_modules | head -30
-!grep -rn "loading\|isLoading\|isPending" app/ --include="*.tsx" | grep -v node_modules | head -30
+!grep -rn "useRouter\|router\.push\|router\.back\|redirect" app/ --include="_.tsx" --include="_.ts" | grep -v node_modules | head -40
+!grep -rn "onClick\|onSubmit\|onConfirm" app/ --include="_.tsx" | grep -v node_modules | head -40
+!grep -rn "toast\|notify\|alert\|modal\|dialog" app/ --include="_.tsx" | grep -v node_modules | head -30
+!grep -rn "loading\|isLoading\|isPending" app/ --include="\*.tsx" | grep -v node_modules | head -30
 
 ## Pour chaque flow, vérifie
 
@@ -106,7 +107,9 @@ Tu dois aussi détecter :
 Spawn 3 sous-agents en parallèle :
 
 ### 1. Sous-agent Navigation & Flow QA
+
 Teste navigation, retour arrière, transitions, cohérence des CTA et logique de parcours.
+
 - Mappe tous les chemins possibles entre pages
 - Vérifie que chaque page a une issue claire
 - Identifie les dead-ends (pages sans retour)
@@ -114,7 +117,9 @@ Teste navigation, retour arrière, transitions, cohérence des CTA et logique de
 - Vérifie que les transitions entre étapes sont logiques
 
 ### 2. Sous-agent Product Logic QA
+
 Détecte les incohérences métier, étapes inutiles, flows trop complexes et optimisations possibles.
+
 - Compte le nombre de clics pour chaque flow critique
 - Identifie les étapes qui peuvent être fusionnées ou supprimées
 - Repère les confirmations redondantes
@@ -122,7 +127,9 @@ Détecte les incohérences métier, étapes inutiles, flows trop complexes et op
 - Identifie les flows où l'utilisateur peut perdre des données
 
 ### 3. Sous-agent Interaction QA
+
 Teste états loading/error/success, feedback utilisateur, confirmations, modales et comportements dynamiques.
+
 - Vérifie que chaque action asynchrone a un loader
 - Contrôle que les erreurs sont toujours expliquées et actionnables
 - Vérifie que les succès sont confirmés visuellement
@@ -142,6 +149,7 @@ Teste états loading/error/success, feedback utilisateur, confirmations, modales
 ```
 
 **Gravité :**
+
 - `CRITIQUE` — flow cassé, perte de données, blocage utilisateur
 - `MOYEN` — friction notable, confusion possible, incohérence visible
 - `MINEUR` — détail UX, wording, micro-interaction
@@ -183,6 +191,7 @@ Produis le rapport textuel :
 Puis génère un fichier HTML complet à `/tmp/rapport-flow.html` et ouvre-le dans Chrome.
 
 Le HTML doit :
+
 - Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
 - Header avec titre "QA Flows utilisateur", date/heure, scope analysé, score UX /10 en grand
 - Jauge score SVG arc coloré (rouge < 5, orange < 7, vert >= 8)

@@ -688,7 +688,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
               }}
             >
               <div className="flex items-center justify-between">
-                <span className="t-11 font-mono tabular-nums text-[var(--text-default)]">
+                <span className="t-11 font-mono tabular-nums text-text">
                   v{v.versionNumber}
                 </span>
                 <span className="t-11 font-light text-text-faint">
@@ -790,7 +790,7 @@ function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps) {
                     }}
                   >
                     <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-                      <span className="t-11 font-mono tabular-nums text-[var(--text-default)]">
+                      <span className="t-11 font-mono tabular-nums text-text">
                         {d.blockRef}
                       </span>
                       <span
