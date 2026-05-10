@@ -2,15 +2,15 @@
 
 ## Métadonnées
 
-| Champ | Valeur |
-|-------|--------|
-| **id** | `video-quick-launch` |
-| **statut** | `in_progress` |
-| **owner** | Adrien |
-| **dernière revue** | 2026-05-10 |
-| **version spec** | 1.0 |
-| **niveau** | P1 — flow génération vidéo critique, hotkey global, batch jusqu'à 4 jobs parallèles |
-| **livrée** | Sprint 2 (S2-A) + Q3 (Q3-A batch mode) |
+| Champ              | Valeur                                                                              |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| **id**             | `video-quick-launch`                                                                |
+| **statut**         | `in_progress`                                                                       |
+| **owner**          | Adrien                                                                              |
+| **dernière revue** | 2026-05-10                                                                          |
+| **version spec**   | 1.0                                                                                 |
+| **niveau**         | P1 — flow génération vidéo critique, hotkey global, batch jusqu'à 4 jobs parallèles |
+| **livrée**         | Sprint 2 (S2-A) + Q3 (Q3-A batch mode)                                              |
 
 ## Description
 
@@ -21,10 +21,12 @@ Philosophie : **chemin court vers la vidéo** (≤ 30 secondes du désir au job 
 ## Surface publique
 
 ### Composants
-- [app/(user)/components/VideoQuickLaunch.tsx](../../app/(user)/components/VideoQuickLaunch.tsx) — panel modal/sheet avec form prompt + uploads + bouton "Générer" / "Générer 4 variants"
+
+- [app/(user)/components/VideoQuickLaunch.tsx](<../../app/(user)/components/VideoQuickLaunch.tsx>) — panel modal/sheet avec form prompt + uploads + bouton "Générer" / "Générer 4 variants"
 - AssetCompareStage (cf [stage.md](stage.md)) — utilisé en post-génération pour le mode batch
 
 ### Endpoints API
+
 - `GET /api/v2/jobs/[jobId]/progress` ([route.ts](../../app/api/v2/jobs/[jobId]/progress/route.ts))
   - **Auth** : `requireScope()` + ownership
   - **Output** : SSE stream `progress` events `{ pct, status, eta }` via QueueEvents Bull
@@ -35,6 +37,7 @@ Philosophie : **chemin court vers la vidéo** (≤ 30 secondes du désir au job 
   - **Output** : `{ jobIds: string[] }` — un job par variant
 
 ### Stores Zustand
+
 - [stores/video-quick-launch.ts](../../stores/video-quick-launch.ts) — `useVideoQuickLaunchStore`
   - State : `isOpen`, `prompt`, `references`, `count`, `jobs[]`, `mode: "single" | "batch"`
   - Actions : `open()`, `close()`, `submit()`, `setProgress(jobId, pct)`, `reset()`
@@ -42,10 +45,12 @@ Philosophie : **chemin court vers la vidéo** (≤ 30 secondes du désir au job 
 ## Architecture interne
 
 ### Hotkey
+
 - Enregistré dans `app/hooks/use-global-hotkeys.ts` : ⌘G (Mac) / Ctrl+G (Windows) → toggle panel
 - ESC pour fermer le panel
 
 ### Flow batch
+
 ```
 [User presse ⌘G]
    ↓ open panel
@@ -61,6 +66,7 @@ Philosophie : **chemin court vers la vidéo** (≤ 30 secondes du désir au job 
 ```
 
 ### Dépendances externes
+
 - BullMQ + QueueEvents — progress updates
 - Runway / fal SDK — génération vidéo (côté worker)
 - R2 — storage des assets résultants
@@ -83,21 +89,27 @@ Philosophie : **chemin court vers la vidéo** (≤ 30 secondes du désir au job 
 ## Invariants verrouillés
 
 ### I-1. Hotkey ⌘G (Mac) / Ctrl+G (Windows) — toggle global
+
 Enregistré dans `use-global-hotkeys.ts`. ESC pour fermer. Ne doit pas conflicter avec Cmd+K (commandeur), Cmd+/, ou autre hotkey OS.
 
 ### I-2. Max 4 variants par batch
+
 Validation Zod côté endpoint `POST /api/v2/assets/batch` : `count` borné `[1, 4]`. Au-dessus = 400. Choix conscient pour ne pas saturer la queue Runway.
 
 ### I-3. SSE QueueEvents + fallback poll 2s
+
 Le client tente d'abord SSE sur `/api/v2/jobs/[jobId]/progress`. Si le stream close avant `pct=100`, fallback poll `/api/v2/jobs/[jobId]` toutes les 2s. Pas de migration full-poll sans spec (perte de feedback live).
 
 ### I-4. AssetCompareStage en sortie batch
+
 Si `mode === "batch"` et tous jobs réussis, navigation auto vers `AssetCompareStage` avec les assetIds. Pas de retour cockpit silencieux.
 
 ### I-5. Ownership obligatoire sur progress endpoint
+
 `GET /api/v2/jobs/[jobId]/progress` vérifie `job.userId === scope.userId`. Pas de leak cross-user.
 
 ### I-6. Persistance store via session uniquement
+
 `useVideoQuickLaunchStore` n'est **pas** persisté localStorage (state éphémère). Une fois la session fermée, l'historique des batchs est perdu (les assets eux sont persistés normalement).
 
 ## Évolutions autorisées sans spec
@@ -111,17 +123,18 @@ Si `mode === "batch"` et tous jobs réussis, navigation auto vers `AssetCompareS
 
 ## Risques & modes de défaillance
 
-| Risque | Impact | Mitigation actuelle |
-|--------|--------|---------------------|
-| Queue Bull saturée (batch x N users) | Latence élevée | Cap count=4 + queue priorité |
-| SSE close inopiné (proxy timeout) | Progress figé | Fallback poll 2s |
-| Runway quota dépassé | Job fail | Status surfaced dans `/api/v2/jobs/[jobId]` |
+| Risque                                | Impact                      | Mitigation actuelle                                 |
+| ------------------------------------- | --------------------------- | --------------------------------------------------- |
+| Queue Bull saturée (batch x N users)  | Latence élevée              | Cap count=4 + queue priorité                        |
+| SSE close inopiné (proxy timeout)     | Progress figé               | Fallback poll 2s                                    |
+| Runway quota dépassé                  | Job fail                    | Status surfaced dans `/api/v2/jobs/[jobId]`         |
 | Hotkey conflit IME / éditeur Markdown | Panel s'ouvre dans textarea | À surveiller — exclude `<input>`/`<textarea>` focus |
-| Batch partiel (3/4 réussis) | UX ambigu | AssetCompareStage gère N assets variable |
+| Batch partiel (3/4 réussis)           | UX ambigu                   | AssetCompareStage gère N assets variable            |
 
 ## Tests
 
 ### Manquants (gap)
+
 - Test endpoint `POST /api/v2/assets/batch` count borné [1,4]
 - Test SSE progress events ordering
 - Test fallback poll après SSE close
