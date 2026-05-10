@@ -57,7 +57,14 @@ export interface RightPanelMission {
   enabled: boolean;
   lastRunAt?: number;
   lastRunId?: string;
-  opsStatus?: "idle" | "running" | "success" | "failed" | "blocked";
+  opsStatus?:
+    | "idle"
+    | "running"
+    | "success"
+    | "failed"
+    | "blocked"
+    /** Q3-D — session d'approbation collaborative en cours. */
+    | "awaiting_approval";
   lastError?: string;
 }
 

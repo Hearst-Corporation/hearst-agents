@@ -25,6 +25,10 @@ type SubmitState =
 export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps) {
   const [comment, setComment] = useState("");
   const [state, setState] = useState<SubmitState>({ kind: "idle" });
+  // presetAction sert à mettre visuellement en avant le bouton choisi
+  // dans l'email (ring de focus). Le clic reste obligatoire (CSRF-safe).
+  const approvePreselect = presetAction === "approved";
+  const rejectPreselect = presetAction === "rejected";
 
   const submit = async (vote: "approved" | "rejected") => {
     setState({ kind: "submitting" });
@@ -174,10 +178,9 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
           style={{
             flex: 1,
             padding: "var(--space-3) var(--space-5)",
-            background:
-              presetAction === "approved" ? "var(--accent-teal)" : "var(--accent-teal)",
-            color: "var(--text-on-accent, #0b0d0f)",
-            border: "none",
+            background: "var(--accent-teal)",
+            color: "var(--text-on-accent, var(--bg))",
+            border: approvePreselect ? "2px solid var(--accent-teal)" : "none",
             borderRadius: "var(--radius-pill, 9999px)",
             fontWeight: 500,
             fontSize: "14px",
@@ -197,7 +200,9 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
             padding: "var(--space-3) var(--space-5)",
             background: "transparent",
             color: "var(--text)",
-            border: "1px solid var(--border-subtle)",
+            border: rejectPreselect
+              ? "2px solid var(--text)"
+              : "1px solid var(--border-subtle)",
             borderRadius: "var(--radius-pill, 9999px)",
             fontWeight: 500,
             fontSize: "14px",
