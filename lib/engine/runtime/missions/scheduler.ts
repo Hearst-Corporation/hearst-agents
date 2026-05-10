@@ -22,6 +22,7 @@ import { setMissionRunning as opsRunning, setMissionResult as opsResult } from "
 import { normalizeMissionResult } from "./normalize-result";
 import { INSTANCE_ID } from "../instance-id";
 import { buildExportJobPayload, runExportScheduledReportJob } from "./export-job";
+import { getMonthlyMissionCost } from "./budget";
 
 const POLL_INTERVAL_MS = 60_000;
 const triggeredThisMinute = new Set<string>();
@@ -98,6 +99,7 @@ async function hydrateIfNeeded(): Promise<void> {
         createdAt: m.createdAt,
         lastRunAt: m.lastRunAt,
         lastRunId: m.lastRunId,
+        budgetUsd: m.budgetUsd,
       });
     }
     hydrated = true;
@@ -141,6 +143,36 @@ async function tick(
     if (!mission.tenantId || !mission.workspaceId) {
       console.warn(`[Scheduler] Mission skipped — missing tenant scope (${mission.id})`);
       continue;
+    }
+
+    // Layer 2.5 (S3-D): hard-stop budget mensuel
+    if (mission.budgetUsd && mission.budgetUsd > 0) {
+      try {
+        const monthlyCost = await getMonthlyMissionCost(mission.id);
+        if (monthlyCost >= mission.budgetUsd) {
+          console.warn(
+            `[Scheduler] Mission "${mission.name}" skipped — monthly budget exceeded ($${monthlyCost.toFixed(2)} / $${mission.budgetUsd.toFixed(2)})`,
+          );
+          opsResult(mission.id, {
+            status: "blocked",
+            error: `Plafond mensuel atteint ($${monthlyCost.toFixed(2)} / $${mission.budgetUsd.toFixed(2)})`,
+          });
+          void persistUpdateMission(mission.id, {
+            lastRunAt: Date.now(),
+            lastRunStatus: "blocked",
+            lastError: `Plafond mensuel atteint ($${monthlyCost.toFixed(2)} / $${mission.budgetUsd.toFixed(2)})`,
+          });
+          continue;
+        }
+      } catch (err) {
+        // Lecture budget en erreur — fail-open : on laisse passer pour ne pas
+        // bloquer l'agent si Supabase est down. L'enforcement sera retenté
+        // au prochain tick.
+        console.warn(
+          `[Scheduler] Mission "${mission.name}" budget check failed (fail-open):`,
+          err,
+        );
+      }
     }
 
     // Layer 3: in-memory overlap guard

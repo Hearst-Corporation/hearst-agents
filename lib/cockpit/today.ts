@@ -20,6 +20,7 @@ import { CATALOG, getApplicableReports } from "@/lib/reports/catalog";
 import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
 import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
+import { getMonthlyMissionCost } from "@/lib/engine/runtime/missions/budget";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
 import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
 import { loadLatestInboxBrief } from "@/lib/inbox/store";
@@ -40,6 +41,10 @@ interface CockpitMission {
   runningSince: number | null;
   lastRunAt: number | null;
   lastError: string | null;
+  /** Budget mensuel max USD (S3-D). Null si pas de cap configuré. */
+  budgetUsd: number | null;
+  /** Cumul USD des runs du mois calendaire courant. 0 si pas de budget. */
+  currentMonthUsd: number;
 }
 
 interface CockpitSuggestion {
@@ -139,18 +144,26 @@ async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission
   }
 
   const knownIds = new Set<string>();
-  const enriched: CockpitMission[] = missions.map((m) => {
-    knownIds.add(m.id);
-    const live = opsMap.get(m.id);
-    return {
-      id: m.id,
-      name: m.name,
-      status: (live?.status ?? m.lastRunStatus ?? "idle") as CockpitMission["status"],
-      runningSince: live?.runningSince ?? null,
-      lastRunAt: live?.lastRunAt ?? m.lastRunAt ?? null,
-      lastError: live?.lastError ?? m.lastError ?? null,
-    };
-  });
+  const enriched: CockpitMission[] = await Promise.all(
+    missions.map(async (m) => {
+      knownIds.add(m.id);
+      const live = opsMap.get(m.id);
+      const hasBudget = typeof m.budgetUsd === "number" && m.budgetUsd > 0;
+      const currentMonthUsd = hasBudget
+        ? await safe(`mission.budget.${m.id}`, () => getMonthlyMissionCost(m.id), 0)
+        : 0;
+      return {
+        id: m.id,
+        name: m.name,
+        status: (live?.status ?? m.lastRunStatus ?? "idle") as CockpitMission["status"],
+        runningSince: live?.runningSince ?? null,
+        lastRunAt: live?.lastRunAt ?? m.lastRunAt ?? null,
+        lastError: live?.lastError ?? m.lastError ?? null,
+        budgetUsd: hasBudget ? (m.budgetUsd as number) : null,
+        currentMonthUsd,
+      };
+    }),
+  );
 
   for (const [missionId, op] of opsMap.entries()) {
     if (knownIds.has(missionId)) continue;
@@ -161,6 +174,8 @@ async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission
       runningSince: op.runningSince ?? null,
       lastRunAt: op.lastRunAt ?? null,
       lastError: op.lastError ?? null,
+      budgetUsd: null,
+      currentMonthUsd: 0,
     });
   }
 

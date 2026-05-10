@@ -251,6 +251,7 @@ export async function saveScheduledMission(
         lastRunAt: mission.lastRunAt,
         lastRunId: mission.lastRunId,
         workflowGraph: mission.workflowGraph,
+        budgetUsd: mission.budgetUsd,
       },
       services: [],
     });
@@ -286,7 +287,8 @@ export async function updateScheduledMission(
       patch.lastRunStatus !== undefined ||
       patch.lastError !== undefined ||
       patch.contextSummary !== undefined ||
-      patch.contextSummaryUpdatedAt !== undefined;
+      patch.contextSummaryUpdatedAt !== undefined ||
+      patch.budgetUsd !== undefined;
 
     if (hasOpsFields) {
       const { data: existing } = await sb
@@ -304,6 +306,7 @@ export async function updateScheduledMission(
       if (patch.contextSummaryUpdatedAt !== undefined) {
         actions.contextSummaryUpdatedAt = patch.contextSummaryUpdatedAt;
       }
+      if (patch.budgetUsd !== undefined) actions.budgetUsd = patch.budgetUsd;
       update.actions = actions;
     }
 
@@ -419,5 +422,6 @@ function toScheduledMission(row: any): PersistedScheduledMission {
     workflowGraph: actions.workflowGraph as PersistedScheduledMission["workflowGraph"],
     contextSummary: (actions.contextSummary as string | null | undefined) ?? null,
     contextSummaryUpdatedAt: actions.contextSummaryUpdatedAt as number | undefined,
+    budgetUsd: actions.budgetUsd as number | undefined,
   };
 }

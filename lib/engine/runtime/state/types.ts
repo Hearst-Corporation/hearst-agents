@@ -64,4 +64,10 @@ export interface PersistedScheduledMission {
   contextSummary?: string | null;
   /** Timestamp epoch ms de la dernière mise à jour du contextSummary. */
   contextSummaryUpdatedAt?: number;
+  /**
+   * Budget mensuel max USD (S3-D). Stocké dans `actions.budgetUsd` JSONB.
+   * Hard-stop côté scheduler quand le cumul du mois courant atteint ou
+   * dépasse cette valeur.
+   */
+  budgetUsd?: number;
 }

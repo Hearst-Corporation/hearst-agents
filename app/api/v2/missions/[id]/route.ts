@@ -76,6 +76,7 @@ export async function PATCH(
     frequency?: "daily" | "weekly" | "monthly" | "custom";
     customCron?: string;
     enabled?: boolean;
+    budgetUsd?: number | null;
   };
 
   try {
@@ -84,11 +85,24 @@ export async function PATCH(
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
+  // Validate budgetUsd if provided
+  if (body.budgetUsd !== undefined && body.budgetUsd !== null) {
+    if (typeof body.budgetUsd !== "number" || !Number.isFinite(body.budgetUsd) || body.budgetUsd < 0) {
+      return NextResponse.json(
+        { error: "invalid_budget_usd" },
+        { status: 400 },
+      );
+    }
+  }
+
   // Update in-memory
   const memMission = getMission(id);
   if (memMission) {
     if (body.name !== undefined) memMission.name = body.name;
     if (body.prompt !== undefined) memMission.input = body.prompt;
+    if (body.budgetUsd !== undefined) {
+      memMission.budgetUsd = body.budgetUsd === null ? undefined : body.budgetUsd;
+    }
     if (body.enabled !== undefined) {
       if (body.enabled) {
         memMission.enabled = true;
@@ -115,6 +129,9 @@ export async function PATCH(
   if (body.prompt !== undefined) updates.input = body.prompt;
   if (schedule !== undefined) updates.schedule = schedule;
   if (body.enabled !== undefined) updates.enabled = body.enabled;
+  if (body.budgetUsd !== undefined) {
+    updates.budgetUsd = body.budgetUsd === null ? undefined : body.budgetUsd;
+  }
 
   if (Object.keys(updates).length > 0) {
     await updateScheduledMission(id, updates);

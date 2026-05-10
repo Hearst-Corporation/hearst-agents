@@ -45,5 +45,12 @@ export interface ScheduledMission {
    * standard. La forme correspond à WorkflowGraph (lib/workflows/types).
    */
   workflowGraph?: unknown;
+  /**
+   * Budget mensuel maximum en USD (S3-D). Quand défini, le scheduler hard-stop
+   * la mission si la somme des `cost_usd` des runs du mois courant atteint ou
+   * dépasse cette valeur. La fenêtre est calendaire (UTC), reset implicite le
+   * 1er du mois. Valeur 0 ou négative ignorée.
+   */
+  budgetUsd?: number;
 }
 

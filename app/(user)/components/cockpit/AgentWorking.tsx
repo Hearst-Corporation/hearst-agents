@@ -2,6 +2,7 @@
 
 import { SectionHeader } from "../ui/SectionHeader";
 import { EmptyState } from "../ui/EmptyState";
+import { MissionBudgetBadge } from "./MissionBudgetBadge";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface AgentWorkingProps {
@@ -46,6 +47,12 @@ export function AgentWorking({ data }: AgentWorkingProps) {
                 <span className="t-13 font-light text-(--text-l1) truncate flex-1">
                   {item.name}
                 </span>
+                {item.budgetUsd !== null && (
+                  <MissionBudgetBadge
+                    currentUsd={item.currentMonthUsd}
+                    budgetUsd={item.budgetUsd}
+                  />
+                )}
                 <span className="t-11 font-light text-text-faint shrink-0">
                   {meta.label}
                 </span>
