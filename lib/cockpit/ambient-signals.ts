@@ -54,11 +54,22 @@ interface AmbientSignalsScope {
 }
 
 const CACHE_TTL_MS = 60_000;
-const RECENT_FAILURE_WINDOW_MS = 60 * 60_000; // 1h
+const RECENT_FAILURE_WINDOW_MS = 60 * 60_000; // 1h (PulseBar default)
 const BRIEF_STALE_THRESHOLD_MS = 6 * 60 * 60_000; // 6h
 const MISSION_SILENT_THRESHOLD_MS = 7 * 24 * 60 * 60_000; // 7j
 const VARIANT_RECENT_LIMIT = 50;
 const NARRATION_MAX_LENGTH = 140;
+
+/** Fenêtre temporelle pour la collecte des signaux. */
+export type AmbientSignalsRange = "1h" | "7d" | "30d" | "all";
+
+const RANGE_TO_MS: Record<AmbientSignalsRange, number> = {
+  "1h": 60 * 60_000,
+  "7d": 7 * 24 * 60 * 60_000,
+  "30d": 30 * 24 * 60 * 60_000,
+  // "all" : effectivement illimité (fallback côté détecteurs).
+  all: Number.MAX_SAFE_INTEGER,
+};
 
 interface CachedEntry {
   expiresAt: number;
@@ -67,8 +78,8 @@ interface CachedEntry {
 
 const cache = new Map<string, CachedEntry>();
 
-function cacheKey(scope: AmbientSignalsScope): string {
-  return `${scope.tenantId}:${scope.workspaceId ?? "*"}:${scope.userId}`;
+function cacheKey(scope: AmbientSignalsScope, range: AmbientSignalsRange): string {
+  return `${scope.tenantId}:${scope.workspaceId ?? "*"}:${scope.userId}:${range}`;
 }
 
 /** Tronque une narration à NARRATION_MAX_LENGTH (incluant "…" si tronqué). */
@@ -98,7 +109,10 @@ function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | 
 
 // ── Source 1 : missions failed récemment ───────────────────────────────────
 
-async function detectMissionFailed(scope: AmbientSignalsScope): Promise<AmbientSignal[]> {
+async function detectMissionFailed(
+  scope: AmbientSignalsScope,
+  windowMs: number,
+): Promise<AmbientSignal[]> {
   const now = Date.now();
   const opsMap = getAllMissionOps();
 
@@ -140,13 +154,15 @@ async function detectMissionFailed(scope: AmbientSignalsScope): Promise<AmbientS
     const status = op?.lastRunStatus ?? mission.lastRunStatus;
     const lastRunAt = op?.lastRunAt ?? mission.lastRunAt;
     if (status !== "failed") continue;
-    if (!lastRunAt || now - lastRunAt > RECENT_FAILURE_WINDOW_MS) continue;
+    if (!lastRunAt || now - lastRunAt > windowMs) continue;
 
     signals.push({
       id: `mission_failed:${mission.id}`,
       kind: "mission_failed",
       narration: clampNarration(`Mission ${mission.name} a échoué — voir`),
-      detectedAt: new Date(now).toISOString(),
+      // detectedAt = lastRunAt si dispo (sinon now) → timeline chronologique exacte
+      // dans le SignalBoard, et le filtre TTL côté PulseBar reste cohérent.
+      detectedAt: new Date(lastRunAt ?? now).toISOString(),
       ctaHref: `/missions/${mission.id}`,
       severity: "warning",
     });
@@ -211,7 +227,8 @@ async function detectBriefStale(scope: AmbientSignalsScope): Promise<AmbientSign
       id: "brief_stale",
       kind: "brief_stale",
       narration: "Briefing du matin pas encore régénéré — actualiser",
-      detectedAt: new Date(now).toISOString(),
+      // detectedAt = generatedAt + threshold (instant où le brief est devenu stale).
+      detectedAt: new Date(brief.generatedAt + BRIEF_STALE_THRESHOLD_MS).toISOString(),
       ctaHref: "/inbox",
       severity: "info",
     },
@@ -235,12 +252,15 @@ interface AssetTitleRow {
   provenance: Record<string, unknown> | null;
 }
 
-async function detectVariantTimeout(scope: AmbientSignalsScope): Promise<AmbientSignal[]> {
+async function detectVariantTimeout(
+  scope: AmbientSignalsScope,
+  windowMs: number,
+): Promise<AmbientSignal[]> {
   const sb = getServerSupabase();
   const client = rawDb(sb);
   if (!client) return [];
 
-  const sinceIso = new Date(Date.now() - RECENT_FAILURE_WINDOW_MS).toISOString();
+  const sinceIso = new Date(Date.now() - windowMs).toISOString();
 
   const { data: variantRows, error: variantErr } = await client
     .from("asset_variants")
@@ -287,11 +307,12 @@ async function detectVariantTimeout(scope: AmbientSignalsScope): Promise<Ambient
     if (prov.userId && prov.userId !== scope.userId) continue;
 
     const title = asset.title ?? "Variant";
+    const updatedMs = Date.parse(row.updated_at);
     signals.push({
       id: `variant_timeout:${row.id}`,
       kind: "variant_timeout",
       narration: clampNarration(`Vidéo ${title} a expiré — réessayer`),
-      detectedAt: new Date(now).toISOString(),
+      detectedAt: new Date(Number.isFinite(updatedMs) ? updatedMs : now).toISOString(),
       ctaHref: `/assets/${row.asset_id}`,
       severity: "warning",
     });
@@ -345,7 +366,8 @@ async function detectMissionSilent(scope: AmbientSignalsScope): Promise<AmbientS
       narration: clampNarration(
         `Mission ${mission.name} silencieuse depuis 7j — toujours pertinente ?`,
       ),
-      detectedAt: new Date(now).toISOString(),
+      // detectedAt = lastRunAt + threshold (instant où la mission est devenue silencieuse).
+      detectedAt: new Date(mission.lastRunAt + MISSION_SILENT_THRESHOLD_MS).toISOString(),
       ctaHref: `/missions/${mission.id}`,
       severity: "info",
     });
@@ -359,10 +381,12 @@ export async function getAmbientSignals(
   userId: string,
   tenantId: string,
   workspaceId?: string,
+  range: AmbientSignalsRange = "1h",
 ): Promise<AmbientSignal[]> {
   const scope: AmbientSignalsScope = { userId, tenantId, workspaceId };
-  const key = cacheKey(scope);
+  const key = cacheKey(scope, range);
   const now = Date.now();
+  const windowMs = RANGE_TO_MS[range] ?? RECENT_FAILURE_WINDOW_MS;
 
   const cached = cache.get(key);
   if (cached && cached.expiresAt > now) {
@@ -370,10 +394,10 @@ export async function getAmbientSignals(
   }
 
   const sources: Array<Promise<AmbientSignal[]>> = [
-    safeSource("mission_failed", () => detectMissionFailed(scope)),
+    safeSource("mission_failed", () => detectMissionFailed(scope, windowMs)),
     safeSource("oauth_expired", () => detectOauthExpired(scope)),
     safeSource("brief_stale", () => detectBriefStale(scope)),
-    safeSource("variant_timeout", () => detectVariantTimeout(scope)),
+    safeSource("variant_timeout", () => detectVariantTimeout(scope, windowMs)),
     safeSource("mission_silent", () => detectMissionSilent(scope)),
   ];
 
@@ -387,6 +411,10 @@ export async function getAmbientSignals(
       merged.push(sig);
     }
   }
+
+  // Tri chronologique décroissant (récent en haut) — utile pour le SignalBoard
+  // timeline view, et inoffensif pour la PulseBar qui prend visibleSignals[0..n].
+  merged.sort((a, b) => Date.parse(b.detectedAt) - Date.parse(a.detectedAt));
 
   cache.set(key, { signals: merged, expiresAt: now + CACHE_TTL_MS });
   return merged;

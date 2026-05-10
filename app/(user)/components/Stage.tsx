@@ -12,6 +12,7 @@ import { KnowledgeStage } from "./stages/KnowledgeStage";
 import { VoiceStage } from "./stages/VoiceStage";
 import { SimulationStage } from "./stages/SimulationStage";
 import { ArtifactStage } from "./stages/ArtifactStage";
+import { SignalBoardStage } from "./stages/SignalBoardStage";
 import type { Message } from "@/lib/core/types";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
@@ -72,6 +73,8 @@ export function Stage(props: StageProps) {
           initialLanguage={current.language}
         />
       );
+    case "signal":
+      return <SignalBoardStage />;
     default:
       return null;
   }
