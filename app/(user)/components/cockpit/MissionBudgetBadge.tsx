@@ -52,8 +52,8 @@ export function MissionBudgetBadge({ currentUsd, budgetUsd }: MissionBudgetBadge
             key={i}
             style={{
               display: "inline-block",
-              width: "8px",
-              height: "4px",
+              width: "var(--size-progress-segment-w)",
+              height: "var(--size-progress-segment-h)",
               borderRadius: "var(--radius-xs)",
               background: i < filledSegments ? tone.color : "var(--border-soft)",
             }}

@@ -139,6 +139,8 @@
    * les `w-8 h-8` répétés quand un élément a une sémantique propre. */
   --size-avatar-sm: 32px; /* Avatar profil — TimelineRail footer, badges initiale */
   --size-dot: 6px; /* Dot status (FocusBadge, pulse "En cours" PulseBar, status indicators) */
+  --size-progress-segment-w: 8px; /* Largeur d'un segment de barre de progression discrète (MissionBudgetBadge) */
+  --size-progress-segment-h: 4px; /* Hauteur d'un segment de barre de progression discrète (MissionBudgetBadge) */
 
   /* ─── Cockpit visualizations ──────────────────────────────────
    * Dimensions des visualisations signatures du Cockpit. Les hauteurs
