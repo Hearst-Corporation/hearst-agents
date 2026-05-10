@@ -37,7 +37,6 @@ export const REPORT_DOMAINS = [
   "people",
   "marketing",
 ] as const;
-export type ReportDomain = (typeof REPORT_DOMAINS)[number];
 
 /**
  * Profil d'utilisateur ciblé. Influence la narration et le ton.
@@ -59,7 +58,6 @@ export const REPORT_PERSONAS = [
   "product",
   "support",
 ] as const;
-export type ReportPersona = (typeof REPORT_PERSONAS)[number];
 
 export const REPORT_CADENCES = [
   "ad-hoc",
@@ -68,10 +66,8 @@ export const REPORT_CADENCES = [
   "monthly",
   "event",
 ] as const;
-export type ReportCadence = (typeof REPORT_CADENCES)[number];
 
 export const REPORT_CONFIDENTIALITY = ["internal", "shared"] as const;
-export type ReportConfidentiality = (typeof REPORT_CONFIDENTIALITY)[number];
 
 // ── Sources ─────────────────────────────────────────────────
 
@@ -152,7 +148,6 @@ export const sourceRefSchema = z
     ]),
   );
 export type SourceRef = z.infer<typeof sourceRefSchema>;
-export type SourceKind = SourceRef extends { kind: infer K } ? K : never;
 
 // ── Transforms (DAG déterministe) ───────────────────────────
 
@@ -309,7 +304,6 @@ export const transformOpSchema = z
   })
   .and(transformOpUnion);
 export type TransformOp = z.infer<typeof transformOpSchema>;
-export type TransformKind = TransformOp extends { op: infer O } ? O : never;
 
 // ── Blocs graphiques ────────────────────────────────────────
 
@@ -364,7 +358,6 @@ export const waterfallDatumSchema = z.object({
   value: z.number().finite(),
   type: z.enum(["start", "delta", "total"]),
 });
-export type WaterfallDatum = z.infer<typeof waterfallDatumSchema>;
 
 export const waterfallPropsSchema = z.object({
   data: z.array(waterfallDatumSchema).min(2).max(20),
@@ -372,20 +365,17 @@ export const waterfallPropsSchema = z.object({
   currency: z.string().min(1).max(8).default("EUR"),
   height: z.number().int().min(80).max(800).optional(),
 });
-export type WaterfallPropsSpec = z.infer<typeof waterfallPropsSchema>;
 
 export const cohortRowSchema = z.object({
   label: z.string().min(1).max(40),
   values: z.array(z.number().finite()).min(1).max(60),
 });
-export type CohortRowSpec = z.infer<typeof cohortRowSchema>;
 
 export const cohortTrianglePropsSchema = z.object({
   cohorts: z.array(cohortRowSchema).min(1).max(60),
   periodPrefix: z.string().min(1).max(8).default("M"),
   asPercent: z.boolean().default(true),
 });
-export type CohortTrianglePropsSpec = z.infer<typeof cohortTrianglePropsSchema>;
 
 export const heatmapPropsSchema = z
   .object({
@@ -414,7 +404,6 @@ export const heatmapPropsSchema = z
       }
     });
   });
-export type HeatmapPropsSpec = z.infer<typeof heatmapPropsSchema>;
 
 // ── Sankey ──────────────────────────────────────────────────
 
@@ -426,14 +415,12 @@ export const sankeyNodeSchema = z.object({
     .regex(/^[a-z][a-z0-9_]*$/, "id node : minuscules, chiffres, underscore"),
   label: z.string().min(1).max(80),
 });
-export type SankeyNodeSpec = z.infer<typeof sankeyNodeSchema>;
 
 export const sankeyLinkSchema = z.object({
   source: z.string().min(1).max(80),
   target: z.string().min(1).max(80),
   value: z.number().finite().min(0),
 });
-export type SankeyLinkSpec = z.infer<typeof sankeyLinkSchema>;
 
 export const sankeyPropsSchema = z
   .object({
@@ -478,7 +465,6 @@ export const sankeyPropsSchema = z
       }
     });
   });
-export type SankeyPropsSpec = z.infer<typeof sankeyPropsSchema>;
 
 // ── Bullet ──────────────────────────────────────────────────
 
@@ -487,7 +473,6 @@ export const bulletRangeSchema = z.object({
   ok: z.number().finite(),
   good: z.number().finite(),
 });
-export type BulletRangeSpec = z.infer<typeof bulletRangeSchema>;
 
 export const bulletItemSchema = z.object({
   label: z.string().min(1).max(80),
@@ -495,14 +480,12 @@ export const bulletItemSchema = z.object({
   target: z.number().finite(),
   ranges: bulletRangeSchema,
 });
-export type BulletItemSpec = z.infer<typeof bulletItemSchema>;
 
 export const bulletPropsSchema = z.object({
   items: z.array(bulletItemSchema).min(1).max(20),
   format: z.enum(["number", "currency"]).default("number"),
   currency: z.string().min(1).max(8).default("EUR"),
 });
-export type BulletPropsSpec = z.infer<typeof bulletPropsSchema>;
 
 // ── Radar ───────────────────────────────────────────────────
 
@@ -510,7 +493,6 @@ export const radarSeriesSchema = z.object({
   label: z.string().min(1).max(80),
   values: z.array(z.number().finite()).min(1).max(20),
 });
-export type RadarSeriesSpec = z.infer<typeof radarSeriesSchema>;
 
 export const radarPropsSchema = z
   .object({
@@ -531,7 +513,6 @@ export const radarPropsSchema = z
       }
     });
   });
-export type RadarPropsSpec = z.infer<typeof radarPropsSchema>;
 
 // ── Gantt ───────────────────────────────────────────────────
 
@@ -546,7 +527,6 @@ export const ganttRangeSchema = z.object({
   start: isoDateSchema,
   end: isoDateSchema,
 });
-export type GanttRangeSpec = z.infer<typeof ganttRangeSchema>;
 
 export const ganttTaskSchema = z.object({
   id: z
@@ -560,7 +540,6 @@ export const ganttTaskSchema = z.object({
   progress: z.number().finite().min(0).max(1),
   dependsOn: z.array(z.string().min(1).max(80)).optional(),
 });
-export type GanttTaskSpec = z.infer<typeof ganttTaskSchema>;
 
 export const ganttPropsSchema = z
   .object({
@@ -632,7 +611,6 @@ export const ganttPropsSchema = z
       }
     });
   });
-export type GanttPropsSpec = z.infer<typeof ganttPropsSchema>;
 
 /**
  * Validation des sous-scalaires d'un block KPI.
@@ -811,7 +789,6 @@ export const refreshSpecSchema = z
       });
     }
   });
-export type RefreshSpec = z.infer<typeof refreshSpecSchema>;
 
 export const cacheTTLSchema = z.object({
   /** TTL en secondes. Défauts conservateurs. */
@@ -819,7 +796,6 @@ export const cacheTTLSchema = z.object({
   transform: z.number().int().min(0).max(86_400).default(600),
   render: z.number().int().min(0).max(86_400).default(3600),
 });
-export type CacheTTL = z.infer<typeof cacheTTLSchema>;
 
 // ── Scope multi-tenant ──────────────────────────────────────
 
@@ -828,7 +804,6 @@ export const reportScopeSchema = z.object({
   workspaceId: z.string().min(1),
   userId: z.string().min(1).optional(),
 });
-export type ReportScope = z.infer<typeof reportScopeSchema>;
 
 // ── Métadonnées ─────────────────────────────────────────────
 
