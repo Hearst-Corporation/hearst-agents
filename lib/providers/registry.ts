@@ -197,20 +197,14 @@ const PROVIDERS: ProviderDefinition[] = [
 // ── Indexes (built once at module load) ─────────────────────
 
 const byId = new Map<ProviderId, ProviderDefinition>();
-const byTool = new Map<string, ProviderDefinition>();
 const byCap = new Map<ConnectorCapability, ProviderDefinition[]>();
 
 function buildIndexes(): void {
   byId.clear();
-  byTool.clear();
   byCap.clear();
 
   for (const p of PROVIDERS) {
     byId.set(p.id, p);
-
-    for (const tool of p.tools) {
-      byTool.set(tool, p);
-    }
 
     for (const cap of p.capabilities) {
       const list = byCap.get(cap) ?? [];
@@ -226,10 +220,6 @@ buildIndexes();
 
 export function getProviderById(id: ProviderId | string): ProviderDefinition | undefined {
   return byId.get(id as ProviderId);
-}
-
-export function getProviderForTool(toolName: string): ProviderDefinition | undefined {
-  return byTool.get(toolName);
 }
 
 export function getProvidersByCapability(cap: ConnectorCapability): ProviderDefinition[] {
@@ -256,10 +246,3 @@ export function getProviderCapabilitiesFromRegistry(id: ProviderId | string): Co
   return byId.get(id as ProviderId)?.capabilities ?? [];
 }
 
-export function getProviderUi(id: ProviderId | string): { initial: string; color: string } {
-  return byId.get(id as ProviderId)?.ui ?? { initial: id.charAt(0).toUpperCase(), color: "border-zinc-600/40 text-zinc-400" };
-}
-
-export function getProviderTokenBucket(id: ProviderId | string): string {
-  return byId.get(id as ProviderId)?.auth.tokenBucket ?? id;
-}

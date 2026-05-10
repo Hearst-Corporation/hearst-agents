@@ -73,24 +73,6 @@ export interface FallbackResult extends ResolverResult {
   degraded: boolean;
 }
 
-// ── Observability ───────────────────────────────────────────
-
-export interface ResolverDecisionLog {
-  capability: ConnectorCapability;
-  candidates: Array<{ id: ProviderId; score: number }>;
-  selectedProvider: ProviderId;
-  reason: string;
-  stickiness: boolean;
-  coldStart: boolean;
-}
-
-type ResolverLogger = (decision: ResolverDecisionLog) => void;
-let resolverLogger: ResolverLogger | null = null;
-
-export function setResolverLogger(logger: ResolverLogger | null): void {
-  resolverLogger = logger;
-}
-
 // ── Tenant guard ────────────────────────────────────────────
 
 function assertTenantScope(userId: string, tenantId: string): void {
@@ -178,8 +160,6 @@ export function resolveProvider(ctx: ResolverContext): ResolverResultWithFallbac
       const remaining = getProvidersByCapability(ctx.capability)
         .filter((p) => p.id !== forced.id && ctx.connectedProviders.includes(p.id));
 
-      logDecision(ctx.capability, [{ id: forced.id, score: Infinity }], forced.id, "forced", false, false);
-
       return {
         provider: forced,
         score: Infinity,
@@ -199,8 +179,6 @@ export function resolveProvider(ctx: ResolverContext): ResolverResultWithFallbac
     recordProviderUsed(candidates[0].id, ctx.userId, ctx.tenantId, ctx.capability);
     const { score } = scoreProvider(candidates[0], ctx.capability, ctx.userId, ctx.tenantId);
 
-    logDecision(ctx.capability, [{ id: candidates[0].id, score }], candidates[0].id, "only_option", false, false);
-
     return {
       provider: candidates[0],
       score,
@@ -219,15 +197,6 @@ export function resolveProvider(ctx: ResolverContext): ResolverResultWithFallbac
 
   const best = scored[0];
   recordProviderUsed(best.provider.id, ctx.userId, ctx.tenantId, ctx.capability);
-
-  logDecision(
-    ctx.capability,
-    scored.map((s) => ({ id: s.provider.id, score: s.score })),
-    best.provider.id,
-    "scored",
-    best.sticky,
-    best.coldStart,
-  );
 
   return {
     provider: best.provider,
@@ -280,80 +249,3 @@ export function resolveFallback(
   };
 }
 
-// ── User correction detection (noise-filtered) ──────────────
-
-/**
- * Stricter patterns — only match explicit directives.
- * "not X use Y" and "use X" / "utilise X" / "avec X" / "via X".
- * Ignores ambiguous mentions like "send a slack message".
- */
-const FORCE_PATTERNS: Array<{ pattern: RegExp; resolve: (match: RegExpMatchArray) => ProviderId | null }> = [
-  {
-    pattern: /\b(?:pas|not)\s+\w+[,.]?\s*(?:use|utilise|avec|via)\s+(\w+)\b/i,
-    resolve: (m) => matchProviderName(m[1]),
-  },
-  {
-    pattern: /\b(?:use|utilise|avec|via)\s+(\w+)\b/i,
-    resolve: (m) => matchProviderName(m[1]),
-  },
-];
-
-const PROVIDER_NAME_MAP = new Map<string, ProviderId>();
-
-function ensureNameMap(): void {
-  if (PROVIDER_NAME_MAP.size > 0) return;
-  for (const p of getAllProviders()) {
-    PROVIDER_NAME_MAP.set(p.id.toLowerCase(), p.id);
-    PROVIDER_NAME_MAP.set(p.label.toLowerCase(), p.id);
-  }
-  PROVIDER_NAME_MAP.set("gmail", "google");
-  PROVIDER_NAME_MAP.set("drive", "google");
-  PROVIDER_NAME_MAP.set("calendar", "google");
-}
-
-function matchProviderName(name: string): ProviderId | null {
-  ensureNameMap();
-  return PROVIDER_NAME_MAP.get(name.toLowerCase()) ?? null;
-}
-
-export function detectForcedProvider(userInput: string): ProviderId | null {
-  for (const { pattern, resolve } of FORCE_PATTERNS) {
-    const match = userInput.match(pattern);
-    if (match) {
-      const id = resolve(match);
-      if (id) return id;
-    }
-  }
-  return null;
-}
-
-/**
- * Runtime boundary helper — safely cast a string to ProviderId.
- */
-export function toProviderId(value: string): ProviderId | null {
-  return isProviderId(value) ? value : null;
-}
-
-// ── Observability helper ────────────────────────────────────
-
-function logDecision(
-  capability: ConnectorCapability,
-  candidates: Array<{ id: ProviderId; score: number }>,
-  selectedProvider: ProviderId,
-  reason: string,
-  stickiness: boolean,
-  coldStart: boolean,
-): void {
-  if (!resolverLogger) return;
-  resolverLogger({ capability, candidates, selectedProvider, reason, stickiness, coldStart });
-}
-
-// ── Exports for testing ─────────────────────────────────────
-
-export const _testing = {
-  MAX_FALLBACK_DEPTH,
-  STICKINESS_WINDOW_MS,
-  FAILURE_COOLDOWN_MS,
-  computeRecencyDecay,
-  computeFailurePenalty,
-} as const;

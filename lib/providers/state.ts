@@ -98,66 +98,9 @@ class MemoryStateStore implements ProviderStateStore {
   }
 }
 
-// ── Supabase adapter (prod-ready stub) ──────────────────────
+// ── Singleton store ─────────────────────────────────────────
 
-/**
- * Production adapter skeleton.
- * Reads/writes to `provider_usage_states` table via Supabase.
- * Enable by calling setStateStore(new SupabaseStateStore(client)).
- *
- * Table schema:
- *   provider_id text, user_id uuid, tenant_id text,
- *   usage_count int, last_used_at timestamptz,
- *   success_count int, failure_count int,
- *   last_failed_at timestamptz, last_capability text,
- *   PRIMARY KEY (tenant_id, user_id, provider_id)
- */
-export class SupabaseStateStore implements ProviderStateStore {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(private db: any) {}
-
-  get(providerId: ProviderId, userId: string, tenantId: string): ProviderUsageStats {
-    assertTenantScope(userId, tenantId);
-    // Sync read from cache; async hydration happens elsewhere
-    void this.db; // placeholder
-    return toStats(createEmpty(providerId, userId, tenantId));
-  }
-
-  getAll(userId: string, tenantId: string): ProviderUsageStats[] {
-    assertTenantScope(userId, tenantId);
-    return [];
-  }
-
-  update(state: ProviderUsageState): void {
-    assertTenantScope(state.userId, state.tenantId);
-    // Fire-and-forget upsert
-    void this.db
-      ?.from("provider_usage_states")
-      ?.upsert({
-        provider_id: state.providerId,
-        user_id: state.userId,
-        tenant_id: state.tenantId,
-        usage_count: state.usageCount,
-        last_used_at: state.lastUsedAt ? new Date(state.lastUsedAt).toISOString() : null,
-        success_count: state.successCount,
-        failure_count: state.failureCount,
-        last_failed_at: state.lastFailedAt ? new Date(state.lastFailedAt).toISOString() : null,
-        last_capability: state.lastCapability,
-      })
-      ?.then(() => {})
-      ?.catch((err: unknown) => {
-        console.error("[ProviderState] Supabase upsert failed:", err);
-      });
-  }
-}
-
-// ── Singleton store (swappable at startup) ──────────────────
-
-let activeStore: ProviderStateStore = new MemoryStateStore();
-
-export function setStateStore(store: ProviderStateStore): void {
-  activeStore = store;
-}
+const activeStore: ProviderStateStore = new MemoryStateStore();
 
 // ── Public API (convenience wrappers) ───────────────────────
 
@@ -167,13 +110,6 @@ export function getUsageState(
   tenantId: string,
 ): ProviderUsageStats {
   return activeStore.get(providerId, userId, tenantId);
-}
-
-export function getAllUsageStates(
-  userId: string,
-  tenantId: string,
-): ProviderUsageStats[] {
-  return activeStore.getAll(userId, tenantId);
 }
 
 export function recordProviderUsed(
