@@ -124,7 +124,7 @@ export function NotificationBell() {
   const hasUnread = unreadCount > 0;
 
   return (
-    <div ref={containerRef} style={{ position: "relative", display: "inline-flex" }}>
+    <div ref={containerRef} className="relative inline-flex">
       {/* Bouton cloche */}
       <button
         onClick={() => setOpen((v) => !v)}
@@ -233,7 +233,7 @@ export function NotificationBell() {
           {/* Liste */}
           <div
             style={{
-              maxHeight: "clamp(200px, 40vh, 400px)",
+              maxHeight: "var(--max-height-notification-popover)",
               overflowY: "auto",
             }}
           >

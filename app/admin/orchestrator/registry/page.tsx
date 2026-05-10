@@ -82,7 +82,7 @@ export default async function RegistryPage({
             Test
           </span>
         </div>
-        <div className="max-h-[60vh] overflow-y-auto">
+        <div className="max-h-(--max-height-admin-scroll-area) overflow-y-auto">
           {filtered.slice(0, 500).map((entry, i) => (
             <div
               key={`${entry.path}-${i}`}

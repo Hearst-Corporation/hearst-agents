@@ -98,7 +98,7 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
         )}
       </div>
 
-      <div className="p-6 min-h-[200px] flex items-center justify-center border-b border-(--line)">
+      <div className="p-6 min-h-(--height-textarea-md) flex items-center justify-center border-b border-(--line)">
         {canPreviewInline && narration ? (
           <div className="w-full max-h-96 overflow-auto bg-bg-elev p-4 font-mono t-11 text-text-muted border border-(--line)">
             <pre className="whitespace-pre-wrap">{narration}</pre>

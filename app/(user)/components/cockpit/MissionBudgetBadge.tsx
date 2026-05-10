@@ -44,7 +44,7 @@ export function MissionBudgetBadge({ currentUsd, budgetUsd }: MissionBudgetBadge
       </span>
       <span
         className="inline-flex"
-        style={{ gap: "2px" }}
+        style={{ gap: "var(--space-0-5)" }}
         aria-hidden
       >
         {Array.from({ length: SEGMENT_COUNT }).map((_, i) => (

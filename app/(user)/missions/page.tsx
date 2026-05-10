@@ -23,6 +23,8 @@ function MissionsPageContent() {
   const [currentTime, setCurrentTime] = useState(() => Date.now());
   const [confirmDelete, setConfirmDelete] = useState<Mission | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [togglingMissionId, setTogglingMissionId] = useState<string | null>(null);
+  const [runningMissionId, setRunningMissionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (searchParams.get("new") === "1") {
@@ -203,6 +205,8 @@ function MissionsPageContent() {
   };
 
   const handleToggle = async (mission: Mission) => {
+    if (togglingMissionId) return;
+    setTogglingMissionId(mission.id);
     try {
       const res = await fetch(`/api/v2/missions`, {
         method: "PATCH",
@@ -220,10 +224,14 @@ function MissionsPageContent() {
       }
     } catch (error) {
       console.error("Failed to toggle mission:", error);
+    } finally {
+      setTogglingMissionId(null);
     }
   };
 
   const handleRunNow = async (missionId: string) => {
+    if (runningMissionId) return;
+    setRunningMissionId(missionId);
     try {
       const res = await fetch(`/api/v2/missions/${missionId}/run`, {
         method: "POST",
@@ -237,6 +245,8 @@ function MissionsPageContent() {
     } catch (error) {
       console.error("Failed to run mission:", error);
       toast.error("Erreur de lancement", "Une erreur est survenue");
+    } finally {
+      setRunningMissionId(null);
     }
   };
 
@@ -322,6 +332,8 @@ function MissionsPageContent() {
               onEdit={openEditMission}
               onRunNow={handleRunNow}
               onDelete={setConfirmDelete}
+              isToggling={togglingMissionId === mission.id}
+              isRunning={runningMissionId === mission.id}
             />
           ))}
         </div>
@@ -344,7 +356,7 @@ function MissionsPageContent() {
         <div className="ghost-overlay-backdrop z-[60]" onClick={closeEditor} />
         <div
           className="fixed top-0 right-0 bottom-0 z-[61] flex flex-col overflow-y-auto pointer-events-auto"
-          style={{ width: "clamp(320px, 36vw, 520px)", background: "var(--rail)", borderLeft: "1px solid var(--border-shell)" }}
+          style={{ width: "clamp(var(--width-drawer-min), 36vw, var(--width-drawer-max))", background: "var(--rail)", borderLeft: "1px solid var(--border-shell)" }}
           onClick={(e) => e.stopPropagation()}
         >
             <div className="p-8">

@@ -131,7 +131,7 @@ function MoteurZone() {
           animation: isIdle ? "none" : "pulse-status-accent-teal 2s ease-in-out infinite",
         }}
       />
-      <div className="flex-1 min-w-0 flex flex-col" style={{ gap: 2 }}>
+      <div className="flex-1 min-w-0 flex flex-col" style={{ gap: "var(--space-0-5)" }}>
         <span className="t-13 font-medium" style={{ color: stateColor }}>
           {stateLabel}
         </span>

@@ -80,6 +80,8 @@ interface MissionRowProps {
   onEdit: (mission: Mission) => void;
   onRunNow: (missionId: string) => void;
   onDelete: (mission: Mission) => void;
+  isToggling?: boolean;
+  isRunning?: boolean;
 }
 
 const STATUS_LINE: Record<MissionOpsStatus, string> = {
@@ -108,6 +110,8 @@ export function MissionRow({
   onEdit,
   onRunNow,
   onDelete,
+  isToggling = false,
+  isRunning = false,
 }: MissionRowProps) {
   const ops: MissionOpsStatus = mission.opsStatus ?? "idle";
 
@@ -118,12 +122,13 @@ export function MissionRow({
       <div className="min-w-0 flex gap-4">
         <button
           type="button"
-          onClick={() => onToggle(mission)}
+          onClick={() => !isToggling && onToggle(mission)}
+          disabled={isToggling}
           className={`w-2 h-2 rounded-pill mt-1 shrink-0 transition-colors ${
-            mission.enabled ? "bg-[var(--money)]" : "bg-[var(--text-faint)]"
+            isToggling ? "animate-pulse bg-[var(--text-ghost)]" : mission.enabled ? "bg-[var(--money)]" : "bg-[var(--text-faint)]"
           }`}
-          title={mission.enabled ? "Désactiver" : "Activer"}
-          aria-label={mission.enabled ? "Désactiver" : "Activer"}
+          title={isToggling ? "En cours…" : mission.enabled ? "Désactiver" : "Activer"}
+          aria-label={isToggling ? "En cours…" : mission.enabled ? "Désactiver" : "Activer"}
         />
         <button
           type="button"
@@ -230,12 +235,16 @@ export function MissionRow({
       <div className="flex items-start justify-end gap-1 pt-0.5">
         <button
           type="button"
-          onClick={() => onRunNow(mission.id)}
-          disabled={ops === "running"}
+          onClick={() => !isRunning && onRunNow(mission.id)}
+          disabled={ops === "running" || isRunning}
           className="p-2 text-text-faint hover:text-(--accent-teal) transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-          title="Exécuter maintenant"
+          title={isRunning ? "Démarrage en cours…" : "Exécuter maintenant"}
         >
-          <GhostIconPlay className="w-4 h-4" />
+          {isRunning ? (
+            <span className="w-4 h-4 inline-block rounded-full border-2 border-[var(--text-ghost)] border-t-[var(--accent-teal)] animate-spin" />
+          ) : (
+            <GhostIconPlay className="w-4 h-4" />
+          )}
         </button>
         <button
           type="button"

@@ -34,7 +34,9 @@ interface PersonaLite {
 
 export default function MarketplacePage() {
   const [templates, setTemplates] = useState<MarketplaceTemplateSummary[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
   const [kind, setKind] = useState<KindFilter>("all");
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -73,6 +75,7 @@ export default function MarketplacePage() {
     params.set("limit", "60");
 
     void (async () => {
+      if (!cancelled) setIsLoading(true);
       try {
         const res = await fetch(`/api/v2/marketplace/templates?${params.toString()}`, {
           credentials: "include",
@@ -81,17 +84,20 @@ export default function MarketplacePage() {
         if (!res.ok) {
           setError(`HTTP ${res.status}`);
           setTemplates([]);
+          setIsLoading(false);
           return;
         }
         const body = (await res.json()) as { templates: MarketplaceTemplateSummary[] };
         if (!cancelled) {
           setTemplates(body.templates ?? []);
           setError(null);
+          setIsLoading(false);
         }
       } catch (e) {
         if (!cancelled) {
           setError(e instanceof Error ? e.message : "fetch_failed");
           setTemplates([]);
+          setIsLoading(false);
         }
       }
     })();
@@ -99,10 +105,9 @@ export default function MarketplacePage() {
     return () => {
       cancelled = true;
     };
-  }, [kind, debouncedSearch]);
+  }, [kind, debouncedSearch, retryCount]);
 
-  const isLoading = templates === null;
-  const isEmpty = !isLoading && templates.length === 0;
+  const isEmpty = !isLoading && !error && templates !== null && templates.length === 0;
 
   const recommendedIds = useMemo(() => {
     if (!activePersonaId || !templates) return new Set<string>();
@@ -206,12 +211,19 @@ export default function MarketplacePage() {
         </section>
 
         {error && (
-          <p
-            className="t-11 font-light"
-            style={{ color: "var(--danger)" }}
-          >
-            Erreur : {error}
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="t-11 font-light" style={{ color: "var(--danger)" }}>
+              Erreur : {error}
+            </p>
+            <button
+              type="button"
+              onClick={() => { setError(null); setTemplates(null); setRetryCount((n) => n + 1); }}
+              className="t-11 font-light border-b transition-colors"
+              style={{ color: "var(--text-muted)", borderColor: "var(--line-strong)" }}
+            >
+              Réessayer
+            </button>
+          </div>
         )}
 
         {!isLoading && !isEmpty && (

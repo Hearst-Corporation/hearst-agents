@@ -338,7 +338,7 @@ function CommentsDrawer({
             Pas encore de commentaire.
           </p>
         ) : (
-          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          <ul className="list-none p-0 m-0">
             {comments.map((c) => (
               <li
                 key={c.id}

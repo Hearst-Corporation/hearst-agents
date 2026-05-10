@@ -83,7 +83,7 @@ export default async function DriftPage() {
             Findings récents (50 derniers)
           </span>
         </div>
-        <div className="max-h-[60vh] overflow-y-auto">
+        <div className="max-h-(--max-height-admin-scroll-area) overflow-y-auto">
           {drift
             .slice(-50)
             .reverse()

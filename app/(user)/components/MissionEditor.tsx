@@ -103,7 +103,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
           onChange={(e) => setFormData({ ...formData, prompt: e.target.value })}
           placeholder="Instructions pour l'IA..."
           rows={4}
-          className="ghost-input-line w-full resize-none min-h-[120px]"
+          className="ghost-input-line w-full resize-none min-h-(--height-textarea-sm)"
         />
       </div>
 

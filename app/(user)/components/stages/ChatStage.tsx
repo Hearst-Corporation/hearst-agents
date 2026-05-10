@@ -84,7 +84,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
             : [{ label: threadLabel || "Hearst" }, { label: focalTypeLabel }, { label: focal.title, accent: true }];
 
           return (
-            <div className="flex-1 flex flex-col min-h-0 border-b border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent">
+            <div className="flex flex-col min-h-0 border-b border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent" style={{ maxHeight: "60%" }}>
               <div className="flex items-center justify-between px-12 py-6 flex-shrink-0 relative z-10 border-b border-(--border-default)">
                 <Breadcrumb trail={trail} className="min-w-0 truncate" />
                 <button
@@ -96,7 +96,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
                   <span className="t-9 font-mono tabular-nums opacity-60">ESC</span>
                 </button>
               </div>
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto min-h-0">
                 <FocalStage />
               </div>
             </div>

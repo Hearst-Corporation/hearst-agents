@@ -96,8 +96,20 @@
   --space-20: 80px;
   --space-24: 120px;
   --space-32: 160px;
+  --space-0-5: 2px;
   --space-40: 192px; /* zone Quick Actions / Constellation cockpit */
   --space-48: 224px;
+
+  /* ── Layout tokens (composants spécifiques) ── */
+  --width-drawer-min: 320px;
+  --width-drawer-max: 520px;
+  --max-height-notification-popover: clamp(200px, 40vh, 400px);
+  --max-height-admin-scroll-area: 60vh;
+  --height-textarea-sm: 120px;
+  --height-textarea-md: 200px;
+  --size-icon-sm: 2rem;
+  --size-icon-md: 2.25rem;
+  --size-icon-lg: 3rem;
 
   /* ─── Skeleton lines — hauteurs typographiques pour blocs animate-pulse ─── */
   --skeleton-line-xs: 13px; /* t-13 — labels, captions */
@@ -1239,6 +1251,42 @@
   --color-rail: var(--rail);
   --color-cyan-accent: var(--cyan-accent);
   --color-accent-teal: var(--accent-teal);
+
+  /* Hearst Connect — text opacity scale → classes `text-text-soft`, `text-text-muted`,
+   * `text-text-faint`, `text-text-ghost`, `text-text` (Tailwind v4 exige --color-X
+   * dans @theme pour que la classe utilitaire `text-X` génère du CSS). */
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-ghost: var(--text-ghost);
+
+  /* Hearst Connect — surface scale → classes `bg-surface-1`, `bg-surface-2` */
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+
+  /* Hearst Connect — bg scale → classes `bg-bg`, `bg-bg-elev`, `bg-bg-soft` */
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-bg-soft: var(--bg-soft);
+
+  /* Hearst Connect — border tokens → classes `border-border-shell`, `border-border-default`,
+   * `border-border-soft`, `border-border-strong`, `border-line`, `border-line-strong` */
+  --color-border-shell: var(--border-shell);
+  --color-border-default: var(--border-default);
+  --color-border-soft: var(--border-soft);
+  --color-border-strong: var(--border-strong);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  /* Hearst Connect — semantic colors → classes `text-danger`, `text-warn`, `text-money`,
+   * `text-gold`, `bg-accent-teal`, etc. */
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --color-money: var(--money);
+  --color-gold: var(--gold);
+  --color-accent-llm: var(--accent-llm);
+  --color-accent-agent: var(--accent-agent);
 }
 
 *,

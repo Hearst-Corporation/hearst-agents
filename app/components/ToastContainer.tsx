@@ -26,7 +26,7 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
 
   return (
     <div
-      className="fixed z-[60] top-4 right-4 left-auto flex flex-col gap-2 w-[calc(100%-2rem)] max-w-[400px]"
+      className="fixed z-[60] top-4 right-4 left-auto flex flex-col gap-2 w-[calc(100%-var(--space-8))] max-w-[400px]"
     >
       {/* Mobile adjustment via CSS media query handled by Tailwind classes */}
       <div className="md:static fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-[360px] flex flex-col gap-2">

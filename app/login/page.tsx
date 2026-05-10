@@ -102,7 +102,7 @@ function LoginContent() {
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/10 border-t-white/50" />
-          <p className="t-13 text-white/70">
+          <p className="t-13 text-(--text-soft)">
             {status === "authenticated" ? "Redirection\u2026" : "Chargement\u2026"}
           </p>
         </div>
@@ -119,12 +119,12 @@ function LoginContent() {
         <div className="rounded-2xl border border-white/6 bg-white/2 px-6 py-8 sm:px-7 sm:py-9 md:px-8 md:py-10">
           {/* Brand */}
           <div className="flex flex-col items-center">
-            <span className="t-13 font-medium text-white/70">
+            <span className="t-13 font-medium text-(--text-soft)">
               Hearst OS
             </span>
 
             {/* Secure access label */}
-            <span className="mt-3 t-11 font-medium uppercase tracking-body text-white/25">
+            <span className="mt-3 t-11 font-medium uppercase tracking-body text-(--text-ghost)">
               Accès sécurisé
             </span>
 
@@ -134,7 +134,7 @@ function LoginContent() {
             </h1>
 
             {/* Description */}
-            <p className="mt-4 max-w-[340px] text-center t-15 leading-[1.55] text-white/70 sm:text-base">
+            <p className="mt-4 max-w-[340px] text-center t-15 leading-[1.55] text-(--text-soft) sm:text-base">
               Connectez-vous via votre fournisseur d&apos;identité professionnel.
             </p>
           </div>
@@ -174,13 +174,13 @@ function LoginContent() {
           )}
 
           {/* Micro-copy */}
-          <p className="mt-6 text-center text-xs leading-[1.6] text-white/50">
+          <p className="mt-6 text-center text-xs leading-[1.6] text-(--text-faint)">
             En continuant, vous vous authentifiez via votre fournisseur d&apos;entreprise.
           </p>
         </div>
 
         {/* Footer */}
-        <div className="mt-6 flex items-center justify-center gap-4 t-11 text-white/30">
+        <div className="mt-6 flex items-center justify-center gap-4 t-11 text-(--text-ghost)">
           <span>Confidentialité</span>
           <span className="text-white/8">&middot;</span>
           <span>Conditions</span>

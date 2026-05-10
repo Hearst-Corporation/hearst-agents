@@ -70,8 +70,9 @@ function IconButton({ action }: { action: RowAction }) {
       data-testid={`row-action-${action.id}`}
       className="inline-flex items-center justify-center"
       style={{
-        width: "var(--space-6)",
-        height: "var(--space-6)",
+        width: "44px",
+        height: "44px",
+        padding: "10px",
         background: "transparent",
         color: isDanger ? "var(--danger)" : "var(--text-faint)",
         border: "1px solid transparent",
