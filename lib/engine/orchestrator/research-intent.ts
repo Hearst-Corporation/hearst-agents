@@ -82,7 +82,7 @@ const CATALOGUE_REPORT_PATTERNS = [
   "hospitality daily brief", "daily brief hospitality",
 ];
 
-export function isCatalogueReportRequest(input: string): boolean {
+function isCatalogueReportRequest(input: string): boolean {
   const lower = input.toLowerCase();
   return CATALOGUE_REPORT_PATTERNS.some((p) => lower.includes(p));
 }
@@ -103,7 +103,7 @@ const NATIVE_TOOL_PATTERNS = [
   /\bcot(ation|ations)\s+([A-Z]{2,5})\b/,
 ];
 
-export function matchesNativeDeterministicTool(input: string): boolean {
+function matchesNativeDeterministicTool(input: string): boolean {
   return NATIVE_TOOL_PATTERNS.some((p) => p.test(input));
 }
 

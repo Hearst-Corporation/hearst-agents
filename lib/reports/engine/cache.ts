@@ -189,7 +189,7 @@ export async function setRenderCache(
 
 // ── Cleanup utilitaire (à brancher sur cron) ───────────────
 
-export async function pruneExpired(): Promise<{
+async function pruneExpired(): Promise<{
   source: number;
   transform: number;
   render: number;
