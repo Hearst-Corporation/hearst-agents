@@ -1,5 +1,5 @@
 /**
- * Next.js Middleware — Global Auth Guard + Arcjet Edge Protection
+ * Next.js Proxy — Global Auth Guard + Arcjet Edge Protection
  *
  * Canonical request guard for Next.js 16 / Turbopack.
  * It runs before route handlers and enforces:
