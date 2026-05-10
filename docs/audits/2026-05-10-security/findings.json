@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-10T22:28:16.004Z",
+  "last_updated": "2026-05-10T23:21:23.098Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 126,
+      "pending": 122,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 4,
+      "closed": 8,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -127,10 +127,20 @@
       "category": "auth",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C1", "C2", "C3"],
-      "codex_refs": ["Architectural Weakness", "Quick Win #1"],
+      "claude_refs": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "codex_refs": [
+        "Architectural Weakness",
+        "Quick Win #1"
+      ],
       "evidence": [
         {
           "file": "app/admin/layout.tsx",
@@ -189,10 +199,17 @@
       "category": "idor",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C8"],
-      "codex_refs": ["CV-1"],
+      "claude_refs": [
+        "C8"
+      ],
+      "codex_refs": [
+        "CV-1"
+      ],
       "evidence": [
         {
           "file": "app/api/agents/route.ts",
@@ -238,10 +255,14 @@
       "category": "idor",
       "status": "pending",
       "confidence": "high",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["CV-2"],
+      "codex_refs": [
+        "CV-2"
+      ],
       "evidence": [
         {
           "file": "app/api/orchestrate/route.ts",
@@ -284,10 +305,17 @@
       "category": "idor",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C10"],
-      "codex_refs": ["CV-7"],
+      "claude_refs": [
+        "C10"
+      ],
+      "codex_refs": [
+        "CV-7"
+      ],
       "evidence": [
         {
           "file": "app/api/v2/jobs/[jobId]/status/route.ts",
@@ -337,10 +365,14 @@
       "category": "idor",
       "status": "pending",
       "confidence": "high",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["CV-8"],
+      "codex_refs": [
+        "CV-8"
+      ],
       "evidence": [
         {
           "file": "app/api/v2/browser/start/route.ts",
@@ -383,10 +415,17 @@
       "category": "auth",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C6"],
-      "codex_refs": ["CV-4"],
+      "claude_refs": [
+        "C6"
+      ],
+      "codex_refs": [
+        "CV-4"
+      ],
       "evidence": [
         {
           "file": "app/api/auth/slack/route.ts",
@@ -426,12 +465,19 @@
       "title": "Inngest signing key warn-only en prod — exec arbitraire",
       "severity": "P0",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C22"],
-      "codex_refs": ["CV-5"],
+      "claude_refs": [
+        "C22"
+      ],
+      "codex_refs": [
+        "CV-5"
+      ],
       "evidence": [
         {
           "file": "app/api/inngest/route.ts",
@@ -467,6 +513,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-10T23:21:23.097Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -477,10 +529,17 @@
       "category": "ssrf",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C11"],
-      "codex_refs": ["CV-6"],
+      "claude_refs": [
+        "C11"
+      ],
+      "codex_refs": [
+        "CV-6"
+      ],
       "evidence": [
         {
           "file": "lib/contracts/jobs.ts",
@@ -526,10 +585,18 @@
       "category": "ssrf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C12", "C13"],
-      "codex_refs": ["Security Risks #3"],
+      "claude_refs": [
+        "C12",
+        "C13"
+      ],
+      "codex_refs": [
+        "Security Risks #3"
+      ],
       "evidence": [
         {
           "file": "lib/webhooks/store.ts",
@@ -575,10 +642,18 @@
       "category": "tool_execution",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C14", "C15"],
-      "codex_refs": ["CV-3"],
+      "claude_refs": [
+        "C14",
+        "C15"
+      ],
+      "codex_refs": [
+        "CV-3"
+      ],
       "evidence": [
         {
           "file": "lib/tools/native/extras-services.ts",
@@ -636,9 +711,13 @@
       "category": "tool_execution",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C16"],
+      "claude_refs": [
+        "C16"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -676,9 +755,13 @@
       "category": "tool_execution",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C17"],
+      "claude_refs": [
+        "C17"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -717,9 +800,13 @@
       "category": "rls",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C4"],
+      "claude_refs": [
+        "C4"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -754,9 +841,13 @@
       "category": "rls",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C5"],
+      "claude_refs": [
+        "C5"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -790,9 +881,13 @@
       "category": "auth",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C7"],
+      "claude_refs": [
+        "C7"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -827,10 +922,14 @@
       "category": "xss",
       "status": "pending",
       "confidence": "high",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["Security Risks #1"],
+      "codex_refs": [
+        "Security Risks #1"
+      ],
       "evidence": [
         {
           "file": "lib/reports/blocks/KpiTile.tsx",
@@ -865,10 +964,17 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "max",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["C20"],
-      "codex_refs": ["Scalability Bottlenecks #4"],
+      "claude_refs": [
+        "C20"
+      ],
+      "codex_refs": [
+        "Scalability Bottlenecks #4"
+      ],
       "evidence": [
         {
           "file": "app/api/v2/jobs/audio-gen/route.ts",
@@ -922,9 +1028,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C21"],
+      "claude_refs": [
+        "C21"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -959,9 +1069,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C23"],
+      "claude_refs": [
+        "C23"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -995,10 +1109,17 @@
       "category": "auth",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["F3 (cross-tenant via dev-tenant fallback)"],
-      "codex_refs": ["Architectural Weakness #3"],
+      "claude_refs": [
+        "F3 (cross-tenant via dev-tenant fallback)"
+      ],
+      "codex_refs": [
+        "Architectural Weakness #3"
+      ],
       "evidence": [
         {
           "file": "lib/assets/types.ts",
@@ -1049,9 +1170,13 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C19"],
+      "claude_refs": [
+        "C19"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1086,9 +1211,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C24"],
+      "claude_refs": [
+        "C24"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1127,10 +1256,16 @@
       "category": "code_execution",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["C18"],
-      "codex_refs": ["Security Risks #5 (related)"],
+      "claude_refs": [
+        "C18"
+      ],
+      "codex_refs": [
+        "Security Risks #5 (related)"
+      ],
       "evidence": [
         {
           "file": "lib/tools/native/extras-media.ts",
@@ -1163,10 +1298,15 @@
       "category": "ci_build",
       "status": "closed",
       "confidence": "high",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["Validation signal", "Reliability #3"],
+      "codex_refs": [
+        "Validation signal",
+        "Reliability #3"
+      ],
       "evidence": [
         {
           "file": "package.json",
@@ -1210,10 +1350,14 @@
       "category": "idor",
       "status": "pending",
       "confidence": "high",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["Security Risks #2"],
+      "codex_refs": [
+        "Security Risks #2"
+      ],
       "evidence": [
         {
           "file": "app/api/v2/search/route.ts",
@@ -1245,12 +1389,19 @@
       "title": "proxy hasSession() lit cookie présence pas validité",
       "severity": "P1",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
-      "sources": ["claude-opus", "codex"],
+      "sources": [
+        "claude-opus",
+        "codex"
+      ],
       "convergence": "convergent",
-      "claude_refs": ["S1"],
-      "codex_refs": ["Security Risks #4"],
+      "claude_refs": [
+        "S1"
+      ],
+      "codex_refs": [
+        "Security Risks #4"
+      ],
       "evidence": [
         {
           "file": "proxy.ts",
@@ -1277,6 +1428,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-10T23:21:23.007Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1286,11 +1443,15 @@
       "severity": "P2",
       "_reclassified": "P1→P2 par post-master (impraticable HTTPS Internet)",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S2"],
+      "claude_refs": [
+        "S2"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1313,6 +1474,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-10T23:21:23.040Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1323,9 +1490,13 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S3"],
+      "claude_refs": [
+        "S3"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1358,9 +1529,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R15"],
+      "claude_refs": [
+        "R15"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1393,9 +1568,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R17"],
+      "claude_refs": [
+        "R17"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1427,10 +1606,16 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R8"],
-      "codex_refs": ["Reliability #5"],
+      "claude_refs": [
+        "R8"
+      ],
+      "codex_refs": [
+        "Reliability #5"
+      ],
       "evidence": [
         {
           "file": "lib/jobs/queue.ts",
@@ -1462,9 +1647,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R9"],
+      "claude_refs": [
+        "R9"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1496,9 +1685,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R10"],
+      "claude_refs": [
+        "R10"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1529,9 +1722,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R11"],
+      "claude_refs": [
+        "R11"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1562,9 +1759,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R12"],
+      "claude_refs": [
+        "R12"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1596,9 +1797,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R14"],
+      "claude_refs": [
+        "R14"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1627,9 +1832,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R2"],
+      "claude_refs": [
+        "R2"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1663,9 +1872,13 @@
       "category": "observability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R3"],
+      "claude_refs": [
+        "R3"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1698,9 +1911,13 @@
       "category": "observability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R4"],
+      "claude_refs": [
+        "R4"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1732,9 +1949,13 @@
       "category": "observability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S8"],
+      "claude_refs": [
+        "S8"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1765,9 +1986,13 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R5"],
+      "claude_refs": [
+        "R5"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1797,10 +2022,16 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["R7"],
-      "codex_refs": ["AI Risks (token explosion)"],
+      "claude_refs": [
+        "R7"
+      ],
+      "codex_refs": [
+        "AI Risks (token explosion)"
+      ],
       "evidence": [
         {
           "file": "app/api/orchestrate/route.ts",
@@ -1834,9 +2065,13 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S8 (file upload)"],
+      "claude_refs": [
+        "S8 (file upload)"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1868,9 +2103,13 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["AI11"],
+      "claude_refs": [
+        "AI11"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1901,10 +2140,16 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["AI5"],
-      "codex_refs": ["AI Risks (memory poisoning)"],
+      "claude_refs": [
+        "AI5"
+      ],
+      "codex_refs": [
+        "AI Risks (memory poisoning)"
+      ],
       "evidence": [
         {
           "file": "lib/engine/orchestrator/ai-pipeline.ts",
@@ -1938,9 +2183,13 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["AI6"],
+      "claude_refs": [
+        "AI6"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -1971,9 +2220,13 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["AI7"],
+      "claude_refs": [
+        "AI7"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2005,9 +2258,13 @@
       "category": "tool_execution",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["AI8"],
+      "claude_refs": [
+        "AI8"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2039,10 +2296,14 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["AI Agent #1"],
+      "codex_refs": [
+        "AI Agent #1"
+      ],
       "evidence": [
         {
           "file": "lib/browser/agent-loop.ts",
@@ -2073,10 +2334,14 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["codex"],
+      "sources": [
+        "codex"
+      ],
       "convergence": "exclusive_codex",
       "claude_refs": [],
-      "codex_refs": ["Reliability #2"],
+      "codex_refs": [
+        "Reliability #2"
+      ],
       "evidence": [
         {
           "file": "(plan approval routes)"
@@ -2106,9 +2371,13 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S5"],
+      "claude_refs": [
+        "S5"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2139,9 +2408,13 @@
       "category": "csrf",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S6"],
+      "claude_refs": [
+        "S6"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2169,11 +2442,15 @@
       "title": "HEARST_ENV precedence sur NODE_ENV (devBypass guard contournable)",
       "severity": "P2",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S7"],
+      "claude_refs": [
+        "S7"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2193,6 +2470,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-10T23:21:23.068Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2204,9 +2487,13 @@
       "category": "idor",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S10"],
+      "claude_refs": [
+        "S10"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2236,9 +2523,13 @@
       "category": "xss",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S9"],
+      "claude_refs": [
+        "S9"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2277,9 +2568,13 @@
       "category": "idor",
       "status": "pending",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S11"],
+      "claude_refs": [
+        "S11"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2309,9 +2604,13 @@
       "category": "deps",
       "status": "closed",
       "confidence": "high",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S17"],
+      "claude_refs": [
+        "S17"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2347,9 +2646,13 @@
       "category": "deps",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S18"],
+      "claude_refs": [
+        "S18"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2380,9 +2683,13 @@
       "status": "wont_fix",
       "_reclassified": "DROPPED par post-master (false positive : raisonnement circulaire — npm run features:manifest ne peut pas être plus compromis que le reste de la supply chain)",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S20"],
+      "claude_refs": [
+        "S20"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2413,9 +2720,13 @@
       "category": "perf",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["claude-opus"],
+      "sources": [
+        "claude-opus"
+      ],
       "convergence": "exclusive_claude",
-      "claude_refs": ["S3"],
+      "claude_refs": [
+        "S3"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -2445,7 +2756,9 @@
       "category": "observability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2484,7 +2797,9 @@
       "category": "perf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2519,7 +2834,9 @@
       "category": "archi",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2554,7 +2871,9 @@
       "category": "perf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2589,7 +2908,9 @@
       "category": "dx",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2624,7 +2945,9 @@
       "category": "perf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2678,7 +3001,9 @@
       "category": "deps",
       "status": "closed",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2718,7 +3043,9 @@
       "category": "archi",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2753,7 +3080,9 @@
       "category": "dx",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2787,7 +3116,9 @@
       "category": "dx",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2825,7 +3156,9 @@
       "category": "a11y",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2858,7 +3191,9 @@
       "category": "a11y",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2891,7 +3226,9 @@
       "category": "tests",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2925,7 +3262,9 @@
       "category": "tests",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -2967,7 +3306,9 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3000,7 +3341,9 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3036,7 +3379,9 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3071,9 +3416,13 @@
       "category": "xss",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
-      "claude_refs": ["A8"],
+      "claude_refs": [
+        "A8"
+      ],
       "codex_refs": [],
       "evidence": [
         {
@@ -3105,7 +3454,9 @@
       "category": "billing",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3140,7 +3491,9 @@
       "category": "deps",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3173,7 +3526,9 @@
       "category": "auth",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3211,7 +3566,9 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3243,7 +3600,9 @@
       "category": "billing",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3276,7 +3635,9 @@
       "category": "perf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3308,7 +3669,9 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3342,7 +3705,9 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3374,7 +3739,9 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3407,7 +3774,9 @@
       "category": "dx",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3485,7 +3854,9 @@
       "category": "perf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3517,7 +3888,9 @@
       "category": "dx",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3549,7 +3922,9 @@
       "category": "observability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3581,7 +3956,9 @@
       "category": "dx",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3613,7 +3990,9 @@
       "category": "dead_code",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master"],
+      "sources": [
+        "post-master"
+      ],
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
@@ -3674,11 +4053,15 @@
       "category": "rls",
       "status": "pending",
       "confidence": "max",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["CRIT-01"],
+      "post_adv_refs": [
+        "CRIT-01"
+      ],
       "evidence": [
         {
           "file": "supabase/migrations/0002_full_schema.sql",
@@ -3719,11 +4102,15 @@
       "category": "multi_tenant",
       "status": "pending",
       "confidence": "max",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["CRIT-02"],
+      "post_adv_refs": [
+        "CRIT-02"
+      ],
       "evidence": [
         {
           "file": "lib/platform/auth/scope.ts",
@@ -3762,11 +4149,15 @@
       "category": "auth",
       "status": "pending",
       "confidence": "max",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["CRIT-03"],
+      "post_adv_refs": [
+        "CRIT-03"
+      ],
       "evidence": [
         {
           "file": "lib/platform/auth/options.ts",
@@ -3803,11 +4194,15 @@
       "category": "observability",
       "status": "pending",
       "confidence": "max",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["CRIT-10"],
+      "post_adv_refs": [
+        "CRIT-10"
+      ],
       "evidence": [
         {
           "file": "sentry.server.config.ts",
@@ -3848,11 +4243,15 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-01"],
+      "post_adv_refs": [
+        "DANG-01"
+      ],
       "evidence": [
         {
           "file": "app/api/agents/[id]/chat/route.ts",
@@ -3891,11 +4290,15 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-02"],
+      "post_adv_refs": [
+        "DANG-02"
+      ],
       "evidence": [
         {
           "file": "app/api/agents/[id]/chat/route.ts",
@@ -3925,11 +4328,15 @@
       "category": "idor",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-07"],
+      "post_adv_refs": [
+        "DANG-07"
+      ],
       "evidence": [
         {
           "file": "app/api/agents/[id]/memory/govern/route.ts",
@@ -3959,11 +4366,15 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-08"],
+      "post_adv_refs": [
+        "DANG-08"
+      ],
       "evidence": [
         {
           "file": "lib/tools/native/web-search.ts",
@@ -3997,11 +4408,15 @@
       "category": "tool_execution",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-10"],
+      "post_adv_refs": [
+        "DANG-10"
+      ],
       "evidence": [
         {
           "file": "lib/tools/native/extras-services.ts",
@@ -4035,11 +4450,15 @@
       "category": "ssrf",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-12"],
+      "post_adv_refs": [
+        "DANG-12"
+      ],
       "evidence": [
         {
           "file": "lib/browser/agent-loop.ts",
@@ -4069,11 +4488,15 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-13"],
+      "post_adv_refs": [
+        "DANG-13"
+      ],
       "evidence": [
         {
           "file": "lib/memory/conversation-summary.ts",
@@ -4107,11 +4530,17 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
-      "claude_refs": ["S13 partial"],
+      "claude_refs": [
+        "S13 partial"
+      ],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-14"],
+      "post_adv_refs": [
+        "DANG-14"
+      ],
       "evidence": [
         {
           "file": "app/api/v2/kg/ingest/route.ts",
@@ -4145,11 +4574,15 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["DANG-17"],
+      "post_adv_refs": [
+        "DANG-17"
+      ],
       "evidence": [
         {
           "file": "lib/agent-lock/index.ts",
@@ -4180,11 +4613,15 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-01"],
+      "post_adv_refs": [
+        "RISK-01"
+      ],
       "evidence": [
         {
           "file": "lib/llm/gemini.ts",
@@ -4218,11 +4655,15 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-02"],
+      "post_adv_refs": [
+        "RISK-02"
+      ],
       "evidence": [
         {
           "file": "lib/llm/circuit-breaker.ts",
@@ -4252,11 +4693,15 @@
       "category": "auth",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-04"],
+      "post_adv_refs": [
+        "RISK-04"
+      ],
       "evidence": [
         {
           "file": "app/api/admin/runs/recent/route.ts"
@@ -4284,11 +4729,15 @@
       "category": "auth",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-05"],
+      "post_adv_refs": [
+        "RISK-05"
+      ],
       "evidence": [
         {
           "file": "app/api/admin/features-manifest/route.ts"
@@ -4317,11 +4766,15 @@
       "category": "perf",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-08"],
+      "post_adv_refs": [
+        "RISK-08"
+      ],
       "evidence": [
         {
           "file": "lib/memory/kg-context.ts"
@@ -4349,11 +4802,15 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-09"],
+      "post_adv_refs": [
+        "RISK-09"
+      ],
       "evidence": [
         {
           "file": "(Hearst Card token routes)"
@@ -4381,11 +4838,17 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
-      "claude_refs": ["R6 partial"],
+      "claude_refs": [
+        "R6 partial"
+      ],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-10"],
+      "post_adv_refs": [
+        "RISK-10"
+      ],
       "evidence": [
         {
           "file": "app/api/agents/[id]/chat/route.ts"
@@ -4413,11 +4876,15 @@
       "category": "perf",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-12"],
+      "post_adv_refs": [
+        "RISK-12"
+      ],
       "evidence": [
         {
           "file": "lib/memory/kg.ts (searchNodes)"
@@ -4445,11 +4912,15 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["RISK-13"],
+      "post_adv_refs": [
+        "RISK-13"
+      ],
       "evidence": [
         {
           "file": "(persona system prompt addon injection)"
@@ -4478,11 +4949,15 @@
       "category": "supply_chain",
       "status": "pending",
       "confidence": "high",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-02"],
+      "post_adv_refs": [
+        "SUS-02"
+      ],
       "evidence": [
         {
           "file": "scripts/claude-session-start.mjs"
@@ -4516,11 +4991,15 @@
       "category": "auth",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-03"],
+      "post_adv_refs": [
+        "SUS-03"
+      ],
       "evidence": [
         {
           "file": "lib/connectors/composio/"
@@ -4548,11 +5027,15 @@
       "category": "idor",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-04"],
+      "post_adv_refs": [
+        "SUS-04"
+      ],
       "evidence": [
         {
           "file": "(audio-gen worker / route)"
@@ -4580,11 +5063,15 @@
       "category": "prompt_injection",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-05"],
+      "post_adv_refs": [
+        "SUS-05"
+      ],
       "evidence": [
         {
           "file": "(runKgQuery)"
@@ -4612,11 +5099,15 @@
       "category": "perf",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-06"],
+      "post_adv_refs": [
+        "SUS-06"
+      ],
       "evidence": [
         {
           "file": "lib/memory/kg.ts (findPath)"
@@ -4644,11 +5135,15 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-07"],
+      "post_adv_refs": [
+        "SUS-07"
+      ],
       "evidence": [
         {
           "file": "(appendToSummary)"
@@ -4676,11 +5171,15 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-08"],
+      "post_adv_refs": [
+        "SUS-08"
+      ],
       "evidence": [
         {
           "file": "lib/embeddings/store.ts (embedText cache)"
@@ -4708,11 +5207,17 @@
       "category": "ssrf",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
-      "claude_refs": ["M8"],
+      "claude_refs": [
+        "M8"
+      ],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-09"],
+      "post_adv_refs": [
+        "SUS-09"
+      ],
       "evidence": [
         {
           "file": "(Sentry tunnel /monitoring)"
@@ -4740,11 +5245,15 @@
       "category": "rate_limit",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-10"],
+      "post_adv_refs": [
+        "SUS-10"
+      ],
       "evidence": [
         {
           "file": "app/api/admin/seed/[resource]/route.ts"
@@ -4772,11 +5281,15 @@
       "category": "auth",
       "status": "pending",
       "confidence": "low",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-12"],
+      "post_adv_refs": [
+        "SUS-12"
+      ],
       "evidence": [
         {
           "file": "app/api/v2/approvals/[token]/vote/route.ts"
@@ -4805,11 +5318,15 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-13"],
+      "post_adv_refs": [
+        "SUS-13"
+      ],
       "evidence": [
         {
           "file": "lib/browser/stagehand-executor.ts"
@@ -4837,11 +5354,15 @@
       "category": "reliability",
       "status": "pending",
       "confidence": "medium",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["SUS-14"],
+      "post_adv_refs": [
+        "SUS-14"
+      ],
       "evidence": [
         {
           "file": "lib/llm/router.ts (retryWithBackoff)"
@@ -4870,11 +5391,15 @@
       "category": "multi_tenant",
       "status": "pending",
       "confidence": "low",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["TENANT-04"],
+      "post_adv_refs": [
+        "TENANT-04"
+      ],
       "evidence": [
         {
           "file": "lib/multi-tenant/active-space.ts"
@@ -4902,11 +5427,15 @@
       "category": "secrets",
       "status": "pending",
       "confidence": "low",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["AUTH-03"],
+      "post_adv_refs": [
+        "AUTH-03"
+      ],
       "evidence": [
         {
           "file": "lib/platform/auth/dev-bypass.ts"
@@ -4934,11 +5463,15 @@
       "category": "observability",
       "status": "pending",
       "confidence": "low",
-      "sources": ["post-master-adv"],
+      "sources": [
+        "post-master-adv"
+      ],
       "convergence": "exclusive_post_master_adv",
       "claude_refs": [],
       "codex_refs": [],
-      "post_adv_refs": ["OBS-04"],
+      "post_adv_refs": [
+        "OBS-04"
+      ],
       "evidence": [
         {
           "file": "(Langfuse subscription)"
@@ -4966,7 +5499,9 @@
       "category": "dx",
       "status": "closed",
       "confidence": "max",
-      "sources": ["console-runtime"],
+      "sources": [
+        "console-runtime"
+      ],
       "convergence": "exclusive_runtime",
       "claude_refs": [],
       "codex_refs": [],

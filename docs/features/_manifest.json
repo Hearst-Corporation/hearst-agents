@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T23:03:21.299Z",
+  "generatedAt": "2026-05-10T23:22:04.720Z",
   "total": 41,
   "counts": {
     "verrouillé": 32,
@@ -15,8 +15,8 @@
     "orphans": 13
   },
   "actualTests": {
-    "files": 262,
-    "cases": 2378,
+    "files": 265,
+    "cases": 2402,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [

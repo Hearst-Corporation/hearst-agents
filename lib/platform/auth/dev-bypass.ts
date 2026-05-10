@@ -15,9 +15,15 @@ function readBypassRaw(): string | undefined {
   return process.env.HEARST_DEV_AUTH_BYPASS;
 }
 
+// F-053 : OR logic — si l'un des 3 vecteurs indique prod, c'est prod.
+// L'ancienne logique (HEARST_ENV ?? NODE_ENV) permettait à HEARST_ENV=staging
+// de masquer NODE_ENV=production et de contourner le guard.
 function isProductionEnv(): boolean {
-  const env = (process.env.HEARST_ENV ?? process.env.NODE_ENV ?? "").toLowerCase();
-  return env === "production" || env === "prod";
+  if (process.env.NODE_ENV === "production") return true;
+  if (process.env.VERCEL_ENV === "production") return true;
+  const hearstEnv = (process.env.HEARST_ENV ?? "").toLowerCase();
+  if (hearstEnv === "production" || hearstEnv === "prod") return true;
+  return false;
 }
 
 let asserted = false;
@@ -31,7 +37,8 @@ export function assertDevBypassNotInProduction(): void {
   asserted = true;
   if (readBypassRaw() === BYPASS_FLAG && isProductionEnv()) {
     throw new Error(
-      "[auth] HEARST_DEV_AUTH_BYPASS=1 detected with NODE_ENV/HEARST_ENV=production. " +
+      "[auth] HEARST_DEV_AUTH_BYPASS=1 detected in a production environment " +
+        "(NODE_ENV, VERCEL_ENV, or HEARST_ENV indicates production). " +
         "Refusing to boot — this flag must NEVER ship to production. " +
         "Unset HEARST_DEV_AUTH_BYPASS or fix the environment."
     );

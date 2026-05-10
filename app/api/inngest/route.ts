@@ -11,7 +11,8 @@ import { inngest } from "@/lib/jobs/inngest/client";
 import { assertInngestSigningKey } from "@/lib/jobs/inngest/check";
 import { inngestFunctions } from "@/lib/jobs/inngest/functions";
 
-// Garde-fou : warn bruyant si INNGEST_SIGNING_KEY absente en prod.
+// Garde-fou F-007 : hard-throw au boot en prod si INNGEST_SIGNING_KEY absente
+// (warn-only en dev). Sans la clé, /api/inngest accepterait tout POST.
 assertInngestSigningKey();
 
 // INNGEST_SIGNING_KEY est lu automatiquement depuis l'env par le SDK.

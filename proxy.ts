@@ -12,6 +12,7 @@
  */
 
 import "@/lib/env.server";
+import { timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { aj, ajOrchestrate, ajLlmJobs, isArcjetEnabled } from "@/lib/security/arcjet";
@@ -35,11 +36,12 @@ function isPublic(path: string): boolean {
   return PUBLIC_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
-function hasSession(req: NextRequest): boolean {
-  return (
-    req.cookies.has("next-auth.session-token") ||
-    req.cookies.has("__Secure-next-auth.session-token")
-  );
+// F-026 : valide la signature JWT du cookie, ne se contente pas de sa présence
+async function hasSession(req: NextRequest): Promise<boolean> {
+  const secret = process.env.NEXTAUTH_SECRET;
+  if (!secret) return false;
+  const token = await getToken({ req, secret });
+  return token != null && typeof token === "object";
 }
 
 function hasValidApiKey(req: NextRequest): boolean {
@@ -51,7 +53,11 @@ function hasValidApiKey(req: NextRequest): boolean {
     req.headers.get("authorization")?.replace("Bearer ", "") ??
     null;
 
-  return token === apiKey;
+  if (!token) return false;
+
+  // F-027 : comparaison en temps constant pour prévenir les timing attacks
+  if (token.length !== apiKey.length) return false;
+  return timingSafeEqual(Buffer.from(token), Buffer.from(apiKey));
 }
 
 function isDevBypass(): boolean {
@@ -143,7 +149,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
       return NextResponse.next();
     }
 
-    if (hasSession(req)) {
+    if (await hasSession(req)) {
       return NextResponse.next();
     }
 
@@ -151,7 +157,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  if (!hasSession(req)) {
+  if (!(await hasSession(req))) {
     if (isDevBypass()) return NextResponse.next();
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", path);
