@@ -47,11 +47,7 @@ function SideRail({ side, title, items }: { side: "left" | "right"; title: strin
       aria-label={title}
     >
       <div 
-        className="bg-white/[0.02] px-6 py-6 backdrop-blur-[32px]" 
-        style={{ 
-          borderRadius: 24, 
-          boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.02), 0 24px 48px rgba(0, 0, 0, 0.6)",
-        }}
+        className="bg-white/[0.02] px-6 py-6 backdrop-blur-[32px] rounded-[24px] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_0_20px_rgba(255,255,255,0.02),0_24px_48px_rgba(0,0,0,0.6)]" 
       >
         <div className="mb-5 text-[10px] uppercase tracking-[0.2em] text-white/50">
           {title}
@@ -73,13 +69,15 @@ function SideRail({ side, title, items }: { side: "left" | "right"; title: strin
 
 function CommandDock() {
   return (
-    <form className="pointer-events-auto absolute inset-x-0 bottom-[88px] flex justify-center px-5 md:bottom-[clamp(32px,6vh,64px)]">
+    <form 
+      className="pointer-events-auto absolute inset-x-0 bottom-[88px] flex justify-center px-5 md:bottom-[clamp(32px,6vh,64px)]"
+      onSubmit={(e) => {
+        e.preventDefault();
+        // TODO: Orchestration de la commande
+      }}
+    >
       <div
-        className="flex h-[44px] w-[min(320px,calc(100vw-40px))] items-center bg-white/[0.02] px-6 backdrop-blur-[32px] transition-all duration-500 ease-out hover:bg-white/[0.04] hover:scale-[1.02]"
-        style={{ 
-          borderRadius: 24,
-          boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.02), 0 24px 48px rgba(0, 0, 0, 0.6)"
-        }}
+        className="flex h-[44px] w-[min(320px,calc(100vw-40px))] items-center bg-white/[0.02] px-6 backdrop-blur-[32px] rounded-[24px] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_0_20px_rgba(255,255,255,0.02),0_24px_48px_rgba(0,0,0,0.6)] transition-all duration-500 ease-out hover:bg-white/[0.04] hover:scale-[1.02]"
       >
         <input
           className="w-full bg-transparent text-[14px] font-light text-white/70 outline-none placeholder:text-white/40 text-center drop-shadow-sm transition-colors focus:text-white"

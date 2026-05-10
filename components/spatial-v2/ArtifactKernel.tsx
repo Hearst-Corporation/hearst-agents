@@ -16,6 +16,18 @@ const MARK_SVG = encodeURIComponent(`
 
 const DEFAULT_MARK_SRC = `data:image/svg+xml;charset=utf-8,${MARK_SVG}`;
 
+// Configuration physique du noyau central
+const KERNEL_CONFIG = {
+  depth: 0.28,
+  bevelSize: 0.09,
+  bevelThickness: 0.08,
+  bevelSegments: 48,
+  curveSegments: 64,
+  rimOffsetInner: 0.90,
+  rimOffsetOuter: 0.60,
+  rimHoleRadius: 0.185,
+};
+
 function lensShape(width: number, height: number, radius: number) {
   const x = -width / 2;
   const y = -height / 2;
@@ -48,16 +60,17 @@ export function ArtifactKernel() {
   const { viewport, pointer } = useThree();
   const logoTexture = useLoader(THREE.TextureLoader, DEFAULT_MARK_SRC);
   
-  const baseScale = viewport.width < 2 ? 0.74 : 1.15;
+  // Échelle fluide basée sur le viewport, avec limites (min/max)
+  const baseScale = THREE.MathUtils.clamp(viewport.width * 0.18 + 0.5, 0.74, 1.3);
 
   const bodyGeometry = useMemo(() => {
     const geometry = new THREE.ExtrudeGeometry(lensShape(0.86, 0.56, 0.17), {
-      depth: 0.28, // Plus lourd, plus profond
+      depth: KERNEL_CONFIG.depth,
       bevelEnabled: true,
-      bevelSize: 0.09, // Biseau plus large pour capter la lumière sur une plus grande surface
-      bevelThickness: 0.08, // Adoucit fortement la pente
-      bevelSegments: 48, // Hyper lisse
-      curveSegments: 64, // Précision maximale
+      bevelSize: KERNEL_CONFIG.bevelSize,
+      bevelThickness: KERNEL_CONFIG.bevelThickness,
+      bevelSegments: KERNEL_CONFIG.bevelSegments,
+      curveSegments: KERNEL_CONFIG.curveSegments,
     });
     geometry.center();
     return geometry;
@@ -65,7 +78,7 @@ export function ArtifactKernel() {
 
   const rimGeometry = useMemo(() => {
     const shape = lensShape(0.91, 0.61, 0.19);
-    shape.holes.push(lensPath(0.906, 0.606, 0.188)); // Filament hyper fin
+    shape.holes.push(lensPath(KERNEL_CONFIG.rimOffsetInner, KERNEL_CONFIG.rimOffsetOuter, KERNEL_CONFIG.rimHoleRadius));
     return new THREE.ShapeGeometry(shape, 96);
   }, []);
 
@@ -95,10 +108,10 @@ export function ArtifactKernel() {
     }
 
     if (rimRef.current) {
-      // Respiration très lente, type veille Mac
-      const intensity = 0.25 + Math.sin(t * 0.8) * 0.2;
+      // Respiration plus visible et légèrement plus rapide pour être perçue
+      const intensity = 0.5 + Math.sin(t * 1.5) * 0.3;
       rimRef.current.emissiveIntensity = intensity;
-      rimRef.current.opacity = 0.7 + Math.sin(t * 0.8) * 0.15;
+      rimRef.current.opacity = 0.85 + Math.sin(t * 1.5) * 0.15;
     }
 
     if (logoRef.current) {
