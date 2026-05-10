@@ -170,7 +170,13 @@ async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission
     enriched.push({
       id: missionId,
       name: missionId,
-      status: op.status,
+      // Q3-D — `awaiting_approval` est exposé via `approval` côté ops API.
+      // Pour les surfaces cockpit qui n'ont pas encore intégré l'état, on
+      // mappe en "blocked" (sémantiquement proche : la mission est gated).
+      status:
+        op.status === "awaiting_approval"
+          ? "blocked"
+          : (op.status as CockpitMission["status"]),
       runningSince: op.runningSince ?? null,
       lastRunAt: op.lastRunAt ?? null,
       lastError: op.lastError ?? null,

@@ -2,15 +2,15 @@
 
 ## Métadonnées
 
-| Champ | Valeur |
-|-------|--------|
-| **id** | `stage` |
-| **statut** | `verrouillé v1.0` |
-| **owner** | Adrien |
-| **dernière revue** | 2026-05-04 |
-| **version spec** | 1.0 |
-| **niveau** | **P0** — régression = tous les écrans utilisateur cassés |
-| **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes) |
+| Champ               | Valeur                                                   |
+| ------------------- | -------------------------------------------------------- |
+| **id**              | `stage`                                                  |
+| **statut**          | `verrouillé v1.0`                                        |
+| **owner**           | Adrien                                                   |
+| **dernière revue**  | 2026-05-04                                               |
+| **version spec**    | 1.0                                                      |
+| **niveau**          | **P0** — régression = tous les écrans utilisateur cassés |
+| **pivot d'origine** | 2026-04-29 (cockpit polymorphe post-shell 3 colonnes)    |
 
 ## Description
 
@@ -21,30 +21,34 @@ Cœur architectural post-pivot 2026-04-29 : remplace l'ancien shell 3 colonnes p
 ## Surface publique
 
 ### Conteneurs centraux
-- [Stage.tsx](../../app/(user)/components/Stage.tsx) — router pur, switch sur `useStageStore.current.mode`
-- [FocalStage.tsx](../../app/(user)/components/FocalStage.tsx) — afficheur read-only d'un `FocalObject` (compact embedded ou full-width)
-- [StageFooter.tsx](../../app/(user)/components/StageFooter.tsx) — barre de statut runtime (DotsCluster animé + label flow)
-- [stages/StageActionBar.tsx](../../app/(user)/components/stages/StageActionBar.tsx) — barre d'actions cohérente (back / context / primary / secondary / overflow)
+
+- [Stage.tsx](<../../app/(user)/components/Stage.tsx>) — router pur, switch sur `useStageStore.current.mode`
+- [FocalStage.tsx](<../../app/(user)/components/FocalStage.tsx>) — afficheur read-only d'un `FocalObject` (compact embedded ou full-width)
+- [StageFooter.tsx](<../../app/(user)/components/StageFooter.tsx>) — barre de statut runtime (DotsCluster animé + label flow)
+- [stages/StageActionBar.tsx](<../../app/(user)/components/stages/StageActionBar.tsx>) — barre d'actions cohérente (back / context / primary / secondary / overflow)
 
 ### 11 sous-Stages (un par mode)
-- [CockpitStage.tsx](../../app/(user)/components/stages/CockpitStage.tsx) → mode `cockpit`
-- [ChatStage.tsx](../../app/(user)/components/stages/ChatStage.tsx) → mode `chat`
-- [AssetStage.tsx](../../app/(user)/components/stages/AssetStage.tsx) → mode `asset`
-- [AssetCompareStage.tsx](../../app/(user)/components/stages/AssetCompareStage.tsx) → mode `asset_compare`
-- [MissionStage.tsx](../../app/(user)/components/stages/MissionStage.tsx) → mode `mission`
-- [BrowserStage.tsx](../../app/(user)/components/stages/BrowserStage.tsx) → mode `browser`
-- [MeetingStage.tsx](../../app/(user)/components/stages/MeetingStage.tsx) → mode `meeting`
-- [KnowledgeStage.tsx](../../app/(user)/components/stages/KnowledgeStage.tsx) → mode `kg`
-- [VoiceStage.tsx](../../app/(user)/components/stages/VoiceStage.tsx) → mode `voice`
-- [SimulationStage.tsx](../../app/(user)/components/stages/SimulationStage.tsx) → mode `simulation`
-- [ArtifactStage.tsx](../../app/(user)/components/stages/ArtifactStage.tsx) → mode `artifact`
+
+- [CockpitStage.tsx](<../../app/(user)/components/stages/CockpitStage.tsx>) → mode `cockpit`
+- [ChatStage.tsx](<../../app/(user)/components/stages/ChatStage.tsx>) → mode `chat`
+- [AssetStage.tsx](<../../app/(user)/components/stages/AssetStage.tsx>) → mode `asset`
+- [AssetCompareStage.tsx](<../../app/(user)/components/stages/AssetCompareStage.tsx>) → mode `asset_compare`
+- [MissionStage.tsx](<../../app/(user)/components/stages/MissionStage.tsx>) → mode `mission`
+- [BrowserStage.tsx](<../../app/(user)/components/stages/BrowserStage.tsx>) → mode `browser`
+- [MeetingStage.tsx](<../../app/(user)/components/stages/MeetingStage.tsx>) → mode `meeting`
+- [KnowledgeStage.tsx](<../../app/(user)/components/stages/KnowledgeStage.tsx>) → mode `kg`
+- [VoiceStage.tsx](<../../app/(user)/components/stages/VoiceStage.tsx>) → mode `voice`
+- [SimulationStage.tsx](<../../app/(user)/components/stages/SimulationStage.tsx>) → mode `simulation`
+- [ArtifactStage.tsx](<../../app/(user)/components/stages/ArtifactStage.tsx>) → mode `artifact`
 
 ### Stores
+
 - [stores/stage.ts](../../stores/stage.ts) — état du mode actif + history + commandeur + tool override guard
 - [stores/stage-data.ts](../../stores/stage-data.ts) — miroir read-only de l'état des Stages (consommé par les Rails)
 - [stores/focal.ts](../../stores/focal.ts) — état du `FocalObject` en cours + secondary history + pin lock
 
 ### Types & mappers
+
 - [lib/core/types/focal.ts](../../lib/core/types/focal.ts) — types `FocalObject`, `FocalType`, `FocalStatus` + `mapFocalObject()` (validation universelle)
 - [lib/ui/focal-mappers.ts](../../lib/ui/focal-mappers.ts) — `missionToFocal()`, `assetToFocal()` (transformation domaine → focal)
 
@@ -80,14 +84,23 @@ function Stage({ messages, onSubmit, hasMessages, initialCockpitData }) {
 
 ```ts
 type StageMode =
-  | "cockpit" | "chat" | "asset" | "asset_compare" | "mission"
-  | "browser" | "meeting" | "kg" | "voice" | "simulation" | "artifact";
+  | "cockpit"
+  | "chat"
+  | "asset"
+  | "asset_compare"
+  | "mission"
+  | "browser"
+  | "meeting"
+  | "kg"
+  | "voice"
+  | "simulation"
+  | "artifact";
 
 type StagePayload =
   | { mode: "cockpit" }
   | { mode: "chat"; threadId?: string }
   | { mode: "asset"; assetId: string; variantKind?: string }
-  | { mode: "asset_compare"; assetIds: string[] }  // Q3-A : 2 à 4 variants
+  | { mode: "asset_compare"; assetIds: string[] } // Q3-A : 2 à 4 variants
   | { mode: "mission"; missionId: string }
   | { mode: "browser"; sessionId: string }
   | { mode: "meeting"; meetingId: string }
@@ -99,23 +112,23 @@ type StagePayload =
 
 ### Actions du store stage
 
-| Action | Comportement |
-|--------|-------------|
-| `setMode(payload)` | Met à jour `current`, push history (max 20), update `lastAssetId`/`lastMissionId` si applicable, met `lastManualChangeAt = Date.now()` |
-| `setModeFromTool(payload)` | **No-op** si `Date.now() - lastManualChangeAt < TOOL_OVERRIDE_GUARD_MS (10_000)`. Sinon = setMode mais ne touche **pas** à `lastManualChangeAt`. |
-| `back()` | Dépile le history (max 20 entries) |
-| `reset()` | Goto `cockpit`, clear history |
-| `setCommandeurOpen(open, options?)` | Ouvre le Commandeur, peut pré-remplir une `prefilledQuery` (utilisé par MeetingStage → "Créer mission") |
-| `consumeCommandeurPrefilledQuery()` | Lit + clear (pattern one-shot) |
+| Action                              | Comportement                                                                                                                                     |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `setMode(payload)`                  | Met à jour `current`, push history (max 20), update `lastAssetId`/`lastMissionId` si applicable, met `lastManualChangeAt = Date.now()`           |
+| `setModeFromTool(payload)`          | **No-op** si `Date.now() - lastManualChangeAt < TOOL_OVERRIDE_GUARD_MS (10_000)`. Sinon = setMode mais ne touche **pas** à `lastManualChangeAt`. |
+| `back()`                            | Dépile le history (max 20 entries)                                                                                                               |
+| `reset()`                           | Goto `cockpit`, clear history                                                                                                                    |
+| `setCommandeurOpen(open, options?)` | Ouvre le Commandeur, peut pré-remplir une `prefilledQuery` (utilisé par MeetingStage → "Créer mission")                                          |
+| `consumeCommandeurPrefilledQuery()` | Lit + clear (pattern one-shot)                                                                                                                   |
 
 ### State store stage
 
 ```ts
 interface StageState {
-  current: StagePayload;             // Mode actif
-  history: StageEntry[];             // Stack pour back() (max 20)
-  lastAssetId: string | null;        // Hotkey ⌘3 re-ouvre asset
-  lastMissionId: string | null;      // Hotkey ⌘9 re-ouvre mission
+  current: StagePayload; // Mode actif
+  history: StageEntry[]; // Stack pour back() (max 20)
+  lastAssetId: string | null; // Hotkey ⌘3 re-ouvre asset
+  lastMissionId: string | null; // Hotkey ⌘9 re-ouvre mission
   commandeurOpen: boolean;
   commandeurPrefilledQuery: string | null;
   lastManualChangeAt: number | null;
@@ -128,11 +141,12 @@ interface StageState {
 
 ### Hotkeys
 
-`STAGE_HOTKEYS` figé (mapping ⌘1..9, ⌘0) — branché via [app/hooks/use-global-hotkeys.ts](../../app/hooks/use-global-hotkeys.ts) et [components/MobileBottomNav.tsx](../../app/(user)/components/MobileBottomNav.tsx).
+`STAGE_HOTKEYS` figé (mapping ⌘1..9, ⌘0) — branché via [app/hooks/use-global-hotkeys.ts](../../app/hooks/use-global-hotkeys.ts) et [components/MobileBottomNav.tsx](<../../app/(user)/components/MobileBottomNav.tsx>).
 
 ### Stage-data (miroir pour Rails)
 
 [stores/stage-data.ts](../../stores/stage-data.ts) garde 4 slices :
+
 - `meeting` (`actionItems`, `transcript`, `status`)
 - `simulation` (`scenario`, `variables`, `scenarios`, `phase`)
 - `asset` (`assetId`, `assetTitle`, `assetSummary`, `assetCreatedAt`, `assetKind`, `variants`)
@@ -145,8 +159,8 @@ Pattern : chaque sous-Stage écrit son state local via `useEffect` après update
 ```ts
 interface FocalObject {
   id: string;
-  type: FocalType;       // brief | report | doc | mission_active | etc. (10 valeurs)
-  status: FocalStatus;   // ready | awaiting_approval | active | etc. (8 valeurs)
+  type: FocalType; // brief | report | doc | mission_active | etc. (10 valeurs)
+  status: FocalStatus; // ready | awaiting_approval | active | etc. (8 valeurs)
   title: string;
   body?: string;
   summary?: string;
@@ -154,19 +168,19 @@ interface FocalObject {
   createdAt: number;
   updatedAt: number;
   threadId?: string;
-  sourcePlanId?: string;   // si dérivé d'un plan
-  sourceAssetId?: string;  // si preview asset
-  missionId?: string;      // pour pause/resume
+  sourcePlanId?: string; // si dérivé d'un plan
+  sourceAssetId?: string; // si preview asset
+  missionId?: string; // pour pause/resume
   primaryAction?: { kind: string; label: string };
   // … cf lib/core/types/focal.ts
 }
 
 interface FocalState {
   focal: FocalObject | null;
-  secondary: FocalObject[];      // Historique max 3
+  secondary: FocalObject[]; // Historique max 3
   isFocused: boolean;
   hasContent: boolean;
-  isVisible: boolean;            // FocalStage plein écran
+  isVisible: boolean; // FocalStage plein écran
   pinnedFocalKey: string | null; // sourceAssetId ?? missionId ?? null
 }
 ```
@@ -178,43 +192,45 @@ interface FocalState {
 ### Mappers focal
 
 `mapFocalObject(obj, fallbackThreadId)` ([lib/core/types/focal.ts](../../lib/core/types/focal.ts)) :
+
 - Validation universelle de tout objet API
 - Fallbacks : `type` invalide → `"brief"`, `status` invalide → `"ready"`, body manquant → fallback summary ou première section, timestamp manquant → `Date.now()`, ID manquant → `focal-{ts}`
 
 `missionToFocal()`, `assetToFocal()` ([lib/ui/focal-mappers.ts](../../lib/ui/focal-mappers.ts)) :
+
 - Transformation domaine → focal (mission active vs draft, asset vers report/brief/doc/message_receipt)
 
 ### Stores Zustand consommés (par les sous-Stages)
 
-| Sous-Stage | Stores |
-|-----------|--------|
-| CockpitStage | (pur client state, pas de store) |
-| ChatStage | focal, navigation, runtime, working-document |
-| AssetStage | stage, stage-data |
-| AssetCompareStage | stage |
-| MissionStage | stage, runtime |
-| BrowserStage | stage |
-| KnowledgeStage | stage, navigation, stage-data |
-| VoiceStage | stage, voice |
-| MeetingStage | stage, stage-data |
-| SimulationStage | stage, stage-data |
-| ArtifactStage | stage |
+| Sous-Stage        | Stores                                       |
+| ----------------- | -------------------------------------------- |
+| CockpitStage      | (pur client state, pas de store)             |
+| ChatStage         | focal, navigation, runtime, working-document |
+| AssetStage        | stage, stage-data                            |
+| AssetCompareStage | stage                                        |
+| MissionStage      | stage, runtime                               |
+| BrowserStage      | stage                                        |
+| KnowledgeStage    | stage, navigation, stage-data                |
+| VoiceStage        | stage, voice                                 |
+| MeetingStage      | stage, stage-data                            |
+| SimulationStage   | stage, stage-data                            |
+| ArtifactStage     | stage                                        |
 
 ### Endpoints API (par sous-Stage)
 
-| Sous-Stage | Endpoints |
-|-----------|-----------|
-| CockpitStage | `GET /api/v2/cockpit/today` |
-| ChatStage | (délègue à ChatMessages — voir feature `chat`) |
-| AssetStage | `GET /api/v2/assets/{id}`, `GET /api/v2/assets/{id}/variants`, `POST /api/reports/{id}/rerun`, `POST /api/reports/share`, `DELETE /api/v2/assets/{id}`, `POST /api/reports/{id}/export` |
-| AssetCompareStage | `GET /api/v2/assets/{a}` + `{b}`, `POST /api/v2/assets/diff` |
-| MissionStage | `GET/PATCH/POST/DELETE /api/v2/missions[/{id}]`, `GET /api/v2/runs?limit=50`, custom event `mission:edit` |
-| BrowserStage | `POST /api/v2/browser/start`, `GET/DELETE /api/v2/browser/{id}`, `POST /api/v2/browser/{id}/take-over|capture|extract`, SSE `/api/admin/events-stream` |
-| KnowledgeStage | `GET /api/v2/kg/graph`, `POST /api/v2/kg/ingest`, `GET /api/v2/kg/search`, `GET /api/v2/kg/path` |
-| VoiceStage | (WebRTC géré dans VoicePulse, pas d'endpoint direct) |
-| MeetingStage | `POST/GET/DELETE /api/v2/meetings[/{id}]` |
-| SimulationStage | `POST /api/v2/simulations/start` |
-| ArtifactStage | `GET /api/v2/assets/{id}`, `GET /api/v2/assets/{id}/variants`, `POST /api/v2/jobs/code-exec`, `GET /api/v2/jobs/{id}/status` |
+| Sous-Stage        | Endpoints                                                                                                                                                                               |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------- |
+| CockpitStage      | `GET /api/v2/cockpit/today`                                                                                                                                                             |
+| ChatStage         | (délègue à ChatMessages — voir feature `chat`)                                                                                                                                          |
+| AssetStage        | `GET /api/v2/assets/{id}`, `GET /api/v2/assets/{id}/variants`, `POST /api/reports/{id}/rerun`, `POST /api/reports/share`, `DELETE /api/v2/assets/{id}`, `POST /api/reports/{id}/export` |
+| AssetCompareStage | `GET /api/v2/assets/{a}` + `{b}`, `POST /api/v2/assets/diff`                                                                                                                            |
+| MissionStage      | `GET/PATCH/POST/DELETE /api/v2/missions[/{id}]`, `GET /api/v2/runs?limit=50`, custom event `mission:edit`                                                                               |
+| BrowserStage      | `POST /api/v2/browser/start`, `GET/DELETE /api/v2/browser/{id}`, `POST /api/v2/browser/{id}/take-over                                                                                   | capture | extract`, SSE `/api/admin/events-stream` |
+| KnowledgeStage    | `GET /api/v2/kg/graph`, `POST /api/v2/kg/ingest`, `GET /api/v2/kg/search`, `GET /api/v2/kg/path`                                                                                        |
+| VoiceStage        | (WebRTC géré dans VoicePulse, pas d'endpoint direct)                                                                                                                                    |
+| MeetingStage      | `POST/GET/DELETE /api/v2/meetings[/{id}]`                                                                                                                                               |
+| SimulationStage   | `POST /api/v2/simulations/start`                                                                                                                                                        |
+| ArtifactStage     | `GET /api/v2/assets/{id}`, `GET /api/v2/assets/{id}/variants`, `POST /api/v2/jobs/code-exec`, `GET /api/v2/jobs/{id}/status`                                                            |
 
 ## Data flow (mode change)
 
@@ -335,32 +351,35 @@ Pas de Framer Motion, pas de transitions CSS sur changement de mode. Si tu veux 
 
 ## Risques & modes de défaillance
 
-| Risque | Impact | Mitigation actuelle |
-|--------|--------|---------------------|
-| Mode invalide arrive (corrupted state, tool malicieux) | Rendu vide (white screen) | `default: return null` ; pas de throw ; user peut faire `back()` ou `reset()` |
-| Tool override guard contourné (un dev appelle `setMode` au lieu de `setModeFromTool`) | Téléportation user non sollicitée | Aucune mitigation — discipline appel + code review |
-| Pin lock bloqué (focal pinné mais source disparaît) | Focal stale | `clearFocal()` libère le pin manuellement ; pas de TTL automatique |
-| `stage-data` désync vs sous-Stage | Rails affichent données obsolètes | `useEffect` doit fire à chaque update — discipline ; pas de mécanisme de réconciliation |
-| History overflow | Aucun (cap 20 FIFO) | Acceptable, pas de mitigation |
-| Mount re-init à `cockpit` | Perte du contexte mode au refresh | Choix conscient (pas de persist) — deeplinking serait une feature à part |
-| Cytoscape lourd au chargement de KnowledgeStage | First paint lent sur ce mode | `ssr: false` + dynamic — acceptable, mode peu fréquent |
-| isValidContent filtre trop large | Vrais focals legitimes rejetés | Liste de patterns conservatrice ; ajouter un pattern reste possible |
-| Race condition `hydrateThreadState` (SSE) vs `setFocal` (user) | Pin lock résout, mais edge cases possibles | Pin lock plus robuste que l'ancien timer 30s |
+| Risque                                                                                | Impact                                     | Mitigation actuelle                                                                     |
+| ------------------------------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------- |
+| Mode invalide arrive (corrupted state, tool malicieux)                                | Rendu vide (white screen)                  | `default: return null` ; pas de throw ; user peut faire `back()` ou `reset()`           |
+| Tool override guard contourné (un dev appelle `setMode` au lieu de `setModeFromTool`) | Téléportation user non sollicitée          | Aucune mitigation — discipline appel + code review                                      |
+| Pin lock bloqué (focal pinné mais source disparaît)                                   | Focal stale                                | `clearFocal()` libère le pin manuellement ; pas de TTL automatique                      |
+| `stage-data` désync vs sous-Stage                                                     | Rails affichent données obsolètes          | `useEffect` doit fire à chaque update — discipline ; pas de mécanisme de réconciliation |
+| History overflow                                                                      | Aucun (cap 20 FIFO)                        | Acceptable, pas de mitigation                                                           |
+| Mount re-init à `cockpit`                                                             | Perte du contexte mode au refresh          | Choix conscient (pas de persist) — deeplinking serait une feature à part                |
+| Cytoscape lourd au chargement de KnowledgeStage                                       | First paint lent sur ce mode               | `ssr: false` + dynamic — acceptable, mode peu fréquent                                  |
+| isValidContent filtre trop large                                                      | Vrais focals legitimes rejetés             | Liste de patterns conservatrice ; ajouter un pattern reste possible                     |
+| Race condition `hydrateThreadState` (SSE) vs `setFocal` (user)                        | Pin lock résout, mais edge cases possibles | Pin lock plus robuste que l'ancien timer 30s                                            |
 
 ## Tests
 
 ### Existants
+
 - [`__tests__/stores/stage.test.ts`](../../__tests__/stores/stage.test.ts) — `setModeFromTool` guard 10s, history stack max 20 FIFO, `lastAssetId`/`lastMissionId` persistance, `lastManualChangeAt` non touché par tool calls, hotkeys mapping
 - [`__tests__/stores/focal.test.ts`](../../__tests__/stores/focal.test.ts) — focal store de base (présence)
 
 ### Manquants (gap élevé — feature P0 critique)
 
 **Stage routing** :
+
 - Test que `Stage.tsx` rend le bon sous-composant pour chaque mode (11 cas)
 - Test que mode invalide rend `null` sans throw
 - Test que `initialCockpitData` est bien propagé à `CockpitStage`
 
 **Focal store** :
+
 - Test du pin lock : `pinnedFocalKey` empêche `hydrateThreadState` de remplacer
 - Test que `clearFocal()` libère le pin
 - Test que nouveau focal matchant le pin update le contenu
@@ -368,6 +387,7 @@ Pas de Framer Motion, pas de transitions CSS sur changement de mode. Si tu veux 
 - Test `secondary` historique max 3 FIFO
 
 **Mappers** :
+
 - Test `mapFocalObject()` validation : type invalide → fallback "brief", status → "ready"
 - Test fallbacks body / summary / sections
 - Test ID manquant → `focal-{ts}`
@@ -375,6 +395,7 @@ Pas de Framer Motion, pas de transitions CSS sur changement de mode. Si tu veux 
 - Test `assetToFocal()` mapping ASSET_TYPE_MAP
 
 **FocalStage** :
+
 - Test mode `compact` (height fixe, embedded ChatStage)
 - Test mode `full` (max-w-4xl centered)
 - Test absence focal en compact → `null`
@@ -382,18 +403,22 @@ Pas de Framer Motion, pas de transitions CSS sur changement de mode. Si tu veux 
 - Test action primaire (approve, pause, resume, retry) avec mock fetch
 
 **Sous-Stages individuels** :
+
 - Aucun test unitaire dans `__tests__/components/stages/` actuellement
 - Au minimum : smoke test rendu par mode, mock des stores, verify pas de crash
 
 **Stage-data** :
+
 - Test que chaque sous-Stage écrit bien dans la slice attendue
 - Test que `setMeeting`, `setSimulation`, `setAsset`, `setKg` mergent correctement
 
 **Hotkeys** :
+
 - Test que ⌘0..9 trigger les bons modes via `STAGE_HOTKEYS`
 - Test que `MobileBottomNav` mappe les bons modes
 
 **Tool override** :
+
 - E2E : user fait setMode → 5s plus tard tool fait setModeFromTool → no-op
 - E2E : 11s plus tard tool fait setModeFromTool → applique
 
