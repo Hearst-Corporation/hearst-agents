@@ -2,17 +2,17 @@
 
 ## Métadonnées
 
-| Champ | Valeur |
-|-------|--------|
-| **id** | `spaces` |
-| **statut** | `in_progress` (preview — Phase 1 livrée, Phases 2 & 3 à venir) |
-| **owner** | Adrien |
-| **dernière revue** | 2026-05-10 |
-| **version spec** | 1.0 |
+| Champ              | Valeur                                                         |
+| ------------------ | -------------------------------------------------------------- |
+| **id**             | `spaces`                                                       |
+| **statut**         | `in_progress` (preview — Phase 1 livrée, Phases 2 & 3 à venir) |
+| **owner**          | Adrien                                                         |
+| **dernière revue** | 2026-05-10                                                     |
+| **version spec**   | 1.0                                                            |
 
 ## Description
 
-Les **Espaces** (ou *Spaces*) cloisonnent l'OS en silos logiques multi-projets à
+Les **Espaces** (ou _Spaces_) cloisonnent l'OS en silos logiques multi-projets à
 l'intérieur d'un même workspace. L'utilisateur bascule entre `Perso`, `Side`,
 `Venture` (defaults hardcodés) via un mini-selector dans la PulseBar — chaque
 space portera à terme ses propres assets, missions, runs, reports, briefs,
@@ -22,20 +22,24 @@ dans le store mais aucune query n'est encore filtrée.
 ## Surface publique
 
 ### Pages
+
 - N/A — la feature vit dans le chrome (PulseBar) et est globale à l'app cockpit.
 
 ### Composants exportés
-- [SpaceSelector.tsx](../../app/(user)/components/SpaceSelector.tsx) — 3 dots
+
+- [SpaceSelector.tsx](<../../app/(user)/components/SpaceSelector.tsx>) — 3 dots
   colorés (radio group) montés dans la zone gauche de la PulseBar. Pas de
   props : lit/écrit directement `useActiveSpace`.
 
 ### Endpoints API
+
 - N/A en Phase 1. Phase 2 ajoutera les colonnes côté Supabase, Phase 3 les
   filtres dans les routes existantes.
 
 ## Architecture interne
 
 ### Stores Zustand
+
 - [`useActiveSpace`](../../stores/active-space.ts) — selectors :
   - `activeSpaceId: string` — id du space en cours.
   - `spaces: SpaceConfig[]` — liste des spaces (3 defaults seedés).
@@ -45,11 +49,13 @@ dans le store mais aucune query n'est encore filtrée.
   - Persistance : clé `hearst-active-space`, version 1.
 
 ### Librairies internes
+
 - [lib/multi-tenant/types.ts](../../lib/multi-tenant/types.ts) — expose le type
   `SpaceId = string` et le champ optionnel `spaceId?` sur `TenantScope` /
   `ScopedMetadata` (foundation seulement, non lu côté query).
 
 ### Dépendances externes (npm / services)
+
 - `zustand` (déjà présent) — store + middleware `persist`.
 
 ## Data flow
@@ -102,18 +108,18 @@ qui retournent des données scopées.
 
 Estimation des fichiers à toucher (non exhaustif) :
 
-| Domaine | Fichiers approximatifs | Notes |
-|---------|-------------------------|-------|
-| Assets | `app/api/v2/assets/**`, `lib/assets/**`, `stores/asset-*` | filtrer list + create |
-| Missions | `app/api/v2/missions/**`, `lib/missions/**`, `stores/missions*` | inclut runs liés |
-| Runs | `app/api/v2/runs/**`, `lib/runs/**` | dérivé de mission, propage automatiquement |
-| Reports | `app/api/v2/reports/**`, `lib/reports/**` | filtrer list |
-| Briefs | `app/api/v2/briefs/**`, `lib/briefs/**` | daily-brief par space |
-| Watchlist | `app/api/v2/watchlist/**` | filtrer list + alertes |
-| Personas | `app/api/v2/personas/**` | TBD : space-scoped ou workspace-scoped ? |
-| Cockpit signals | `app/api/v2/cockpit/signals/**` | filtrer par activeSpaceId |
-| TimelineRail | `stores/timeline-*`, components rail | filtrer entries par space |
-| Stage data | `stores/stage-data.ts` | bind par space |
+| Domaine         | Fichiers approximatifs                                          | Notes                                      |
+| --------------- | --------------------------------------------------------------- | ------------------------------------------ |
+| Assets          | `app/api/v2/assets/**`, `lib/assets/**`, `stores/asset-*`       | filtrer list + create                      |
+| Missions        | `app/api/v2/missions/**`, `lib/missions/**`, `stores/missions*` | inclut runs liés                           |
+| Runs            | `app/api/v2/runs/**`, `lib/runs/**`                             | dérivé de mission, propage automatiquement |
+| Reports         | `app/api/v2/reports/**`, `lib/reports/**`                       | filtrer list                               |
+| Briefs          | `app/api/v2/briefs/**`, `lib/briefs/**`                         | daily-brief par space                      |
+| Watchlist       | `app/api/v2/watchlist/**`                                       | filtrer list + alertes                     |
+| Personas        | `app/api/v2/personas/**`                                        | TBD : space-scoped ou workspace-scoped ?   |
+| Cockpit signals | `app/api/v2/cockpit/signals/**`                                 | filtrer par activeSpaceId                  |
+| TimelineRail    | `stores/timeline-*`, components rail                            | filtrer entries par space                  |
+| Stage data      | `stores/stage-data.ts`                                          | bind par space                             |
 
 Ordre suggéré : assets → missions → runs → reports → briefs → watchlist →
 cockpit signals → timeline → personas. Chaque step = une PR séparée avec tests
@@ -139,24 +145,26 @@ Tant que la feature reste en preview (Phase 3 non livrée) :
 2. Modifier le style visuel du selector (taille, gap, animation) tant que la
    voix "silent luxury" est respectée.
 3. Renommer les ids des spaces (mais alors prévoir une migration localStorage).
-4. Brancher de nouveaux call-sites sur `useActiveSpace()` qui *lisent* l'id en
+4. Brancher de nouveaux call-sites sur `useActiveSpace()` qui _lisent_ l'id en
    readonly (logging, télémétrie) sans encore filtrer les queries.
 
 ## Risques & modes de défaillance
 
-| Risque | Impact | Mitigation actuelle |
-|--------|--------|---------------------|
-| User switche un space en attendant Phase 3 → croit que les queries filtrent déjà | Confusion UX | Tooltip simple, pas de promesse de filtrage. Doc preview claire. |
-| `activeSpaceId` pointe vers un id absent (après edit manuel localStorage) | Selector vide | Garde-fou dans `setActiveSpace` (refuse ids inconnus) |
-| Suppression du dernier space | Plus de space actif | `removeSpace` refuse si length ≤ 1 |
-| Migration Phase 2 oublie de backfill `space_id` | Rows orphelines en DB | À couvrir dans la migration : `DEFAULT 'personal'` non-null |
+| Risque                                                                           | Impact                | Mitigation actuelle                                              |
+| -------------------------------------------------------------------------------- | --------------------- | ---------------------------------------------------------------- |
+| User switche un space en attendant Phase 3 → croit que les queries filtrent déjà | Confusion UX          | Tooltip simple, pas de promesse de filtrage. Doc preview claire. |
+| `activeSpaceId` pointe vers un id absent (après edit manuel localStorage)        | Selector vide         | Garde-fou dans `setActiveSpace` (refuse ids inconnus)            |
+| Suppression du dernier space                                                     | Plus de space actif   | `removeSpace` refuse si length ≤ 1                               |
+| Migration Phase 2 oublie de backfill `space_id`                                  | Rows orphelines en DB | À couvrir dans la migration : `DEFAULT 'personal'` non-null      |
 
 ## Tests
 
 ### Existants
+
 - N/A en Phase 1.
 
 ### Manquants (gap)
+
 - Vitest sur `useActiveSpace` (set/add/remove edge cases).
 - Playwright e2e : clic sur SpaceSelector → store updated, persistance reload.
 - Tests Phase 2/3 : à définir au moment de la migration DB.
