@@ -122,58 +122,62 @@ function CockpitSkeleton() {
   return (
     <div
       className="flex-1 flex flex-col"
-      style={{ padding: "var(--space-12) var(--space-14)" }}
+      style={{
+        padding: "var(--space-12) var(--space-16)",
+        gap: "var(--space-10)",
+      }}
       aria-busy="true"
       aria-live="polite"
     >
+      {/* Header */}
+      <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+        <div
+          className="animate-pulse"
+          style={{ height: "14px", width: "160px", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+        />
+        <div
+          className="animate-pulse"
+          style={{ height: "52px", width: "280px", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+        />
+      </div>
+
+      {/* Briefing */}
+      <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
+        <div
+          className="animate-pulse"
+          style={{ height: "28px", width: "75%", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+        />
+        <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+          {[0.65, 0.55, 0.45].map((w, i) => (
+            <div
+              key={i}
+              className="animate-pulse"
+              style={{ height: "14px", width: `${w * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Sections */}
       <div
-        className="grid"
-        style={{
-          gridTemplateColumns: "minmax(280px, 0.9fr) minmax(0, 1.4fr)",
-          gap: "var(--space-12)",
-          alignItems: "start",
-        }}
+        className="flex flex-col"
+        style={{ gap: "var(--space-10)", paddingTop: "var(--space-6)", borderTop: "1px solid var(--border-soft)" }}
       >
-        <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
-          <div
-            className="animate-pulse"
-            style={{
-              height: "var(--space-24)",
-              width: "70%",
-              background: "var(--surface-1)",
-              borderRadius: "var(--radius-xs)",
-            }}
-          />
-          <div
-            className="animate-pulse"
-            style={{
-              height: "var(--space-16)",
-              width: "55%",
-              background: "var(--surface-1)",
-              borderRadius: "var(--radius-xs)",
-            }}
-          />
-        </div>
-        <div className="flex flex-col" style={{ gap: "var(--space-5)" }}>
-          <div
-            className="animate-pulse"
-            style={{
-              height: "var(--space-10)",
-              width: "var(--space-32)",
-              background: "var(--surface-1)",
-              borderRadius: "var(--radius-xs)",
-            }}
-          />
-          <div
-            className="animate-pulse"
-            style={{
-              height: "var(--space-24)",
-              width: "80%",
-              background: "var(--surface-1)",
-              borderRadius: "var(--radius-xs)",
-            }}
-          />
-        </div>
+        {[3, 2, 3].map((lines, si) => (
+          <div key={si} className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+            <div
+              className="animate-pulse"
+              style={{ height: "13px", width: "120px", background: "var(--border-soft)", borderRadius: "var(--radius-xs)", marginBottom: "var(--space-1)" }}
+            />
+            {Array.from({ length: lines }).map((_, li) => (
+              <div
+                key={li}
+                className="animate-pulse"
+                style={{ height: "13px", width: `${(0.8 - li * 0.1) * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+              />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

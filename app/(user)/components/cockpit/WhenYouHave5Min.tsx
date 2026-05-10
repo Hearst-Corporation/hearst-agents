@@ -33,7 +33,7 @@ export function WhenYouHave5Min({ data }: WhenYouHave5MinProps) {
     <section className="flex flex-col min-h-0 min-w-0" aria-label="À regarder plus tard">
       <SectionHeader label="À regarder quand tu auras 5 min" />
       {hasItems ? (
-        <ul className="flex flex-col" style={{ gap: "var(--space-1)" }}>
+        <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
           {items.map((item) => (
             <li key={item.id}>
               <Link

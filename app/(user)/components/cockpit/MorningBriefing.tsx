@@ -26,7 +26,7 @@ export function MorningBriefing({ data }: MorningBriefingProps) {
     >
       <p
         className="t-28 font-extralight text-text-soft"
-        style={{ letterSpacing: "-0.02em", lineHeight: "1.25" }}
+        style={{ letterSpacing: "var(--tracking-tight)", lineHeight: "var(--leading-snug)" }}
       >
         {opener}
       </p>

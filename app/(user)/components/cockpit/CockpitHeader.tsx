@@ -32,12 +32,12 @@ export function CockpitHeader() {
 
   return (
     <header className="flex flex-col gap-2 shrink-0">
-      <div className="t-10 font-light text-text-faint tabular-nums lowercase">
+      <div className="t-10 font-medium text-text-faint tabular-nums lowercase">
         {formatEyebrow(now)}
       </div>
       <h1
         className="t-48 font-extralight leading-[1.02] text-text-soft"
-        style={{ letterSpacing: "-0.035em" }}
+        style={{ letterSpacing: "var(--tracking-editorial)" }}
       >
         {greeting}
       </h1>
