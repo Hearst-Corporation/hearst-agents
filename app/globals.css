@@ -99,6 +99,14 @@
   --space-40: 192px; /* zone Quick Actions / Constellation cockpit */
   --space-48: 224px;
 
+  /* ─── Skeleton lines — hauteurs typographiques pour blocs animate-pulse ─── */
+  --skeleton-line-xs: 13px; /* t-13 — labels, captions */
+  --skeleton-line-sm: 14px; /* t-13/15 — meta lines */
+  --skeleton-line-md: 28px; /* t-28 — briefing opener */
+  --skeleton-line-lg: 52px; /* t-48 — H1 cockpit greeting */
+  --skeleton-width-sm: 160px; /* eyebrow / section label */
+  --skeleton-width-md: 280px; /* greeting H1 estimé */
+
   /* ─── Hearst Connect — Layout shell (3 zones) ─────────────────
    * Sidebars : largeurs égales, fluides ~20vw (18–22% selon viewport),
    * bornées pour rester lisibles à toute taille. Le centre prend le
@@ -249,7 +257,7 @@
 
   /* ─── Hearst Connect — Letter spacing scale ─────────────────── */
   --tracking-tight: -0.02em;
-  --tracking-editorial: -0.035em;  /* H1 éditorial serré — cockpit greeting, wordmark */
+  --tracking-editorial: -0.035em; /* H1 éditorial serré — cockpit greeting, wordmark */
   --tracking-hairline: 0.02em;
   --tracking-subtle: 0.03em;
   --tracking-caption: 0.08em;
@@ -313,7 +321,6 @@
   --page-padding-y: var(--space-8); /* padding vertical standard des pages admin */
   --card-padding: var(--space-4); /* padding interne standard des cartes */
   --section-gap: var(--space-8); /* gap vertical entre sections d'une page */
-
 }
 
 /* ─── Cockpit Poster — typo éditoriale ────────────────────────────

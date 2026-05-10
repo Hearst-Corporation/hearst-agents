@@ -133,11 +133,11 @@ function CockpitSkeleton() {
       <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
         <div
           className="animate-pulse"
-          style={{ height: "14px", width: "160px", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+          style={{ height: "var(--skeleton-line-sm)", width: "var(--skeleton-width-sm)", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
         />
         <div
           className="animate-pulse"
-          style={{ height: "52px", width: "280px", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+          style={{ height: "var(--skeleton-line-lg)", width: "var(--skeleton-width-md)", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
         />
       </div>
 
@@ -145,14 +145,14 @@ function CockpitSkeleton() {
       <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
         <div
           className="animate-pulse"
-          style={{ height: "28px", width: "75%", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+          style={{ height: "var(--skeleton-line-md)", width: "75%", background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
         />
         <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
           {[0.65, 0.55, 0.45].map((w, i) => (
             <div
               key={i}
               className="animate-pulse"
-              style={{ height: "14px", width: `${w * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+              style={{ height: "var(--skeleton-line-sm)", width: `${w * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
             />
           ))}
         </div>
@@ -167,13 +167,13 @@ function CockpitSkeleton() {
           <div key={si} className="flex flex-col" style={{ gap: "var(--space-3)" }}>
             <div
               className="animate-pulse"
-              style={{ height: "13px", width: "120px", background: "var(--border-soft)", borderRadius: "var(--radius-xs)", marginBottom: "var(--space-1)" }}
+              style={{ height: "var(--skeleton-line-xs)", width: "var(--space-24)", background: "var(--border-soft)", borderRadius: "var(--radius-xs)", marginBottom: "var(--space-1)" }}
             />
             {Array.from({ length: lines }).map((_, li) => (
               <div
                 key={li}
                 className="animate-pulse"
-                style={{ height: "13px", width: `${(0.8 - li * 0.1) * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
+                style={{ height: "var(--skeleton-line-xs)", width: `${(0.8 - li * 0.1) * 100}%`, background: "var(--border-soft)", borderRadius: "var(--radius-xs)" }}
               />
             ))}
           </div>
