@@ -165,7 +165,7 @@ export default function AdminAnalyticsPage() {
         />
 
         {error && (
-          <p className="t-11 font-mono uppercase text-[var(--danger)]">
+          <p className="t-11 font-mono uppercase text-(--danger)">
             {error}
           </p>
         )}
@@ -205,7 +205,7 @@ export default function AdminAnalyticsPage() {
               onSelect={loadTenantDetail}
             />
           ) : (
-            <p className="t-11 font-mono uppercase text-[var(--text-faint)]">
+            <p className="t-11 font-mono uppercase text-text-faint">
               Chargement…
             </p>
           )}
@@ -284,7 +284,7 @@ function Filters({
         </select>
       </label>
       {loading && (
-        <span className="t-9 font-mono uppercase text-[var(--accent-teal)]">
+        <span className="t-9 font-mono uppercase text-(--accent-teal)">
           chargement…
         </span>
       )}
@@ -305,7 +305,7 @@ function SegmentedControl({
 }) {
   return (
     <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-      <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
+      <span className="t-9 font-mono uppercase text-text-faint">
         {label}
       </span>
       <div
@@ -367,13 +367,13 @@ function TenantDrillDown({
         className="flex items-baseline justify-between"
         style={{ gap: "var(--space-3)" }}
       >
-        <h2 className="t-15 font-medium text-[var(--text)]">
+        <h2 className="t-15 font-medium text-text">
           Drill-down : {t.tenantId}
         </h2>
         <button
           type="button"
           onClick={onClose}
-          className="t-9 font-mono uppercase text-[var(--text-ghost)] hover:text-[var(--accent-teal)]"
+          className="t-9 font-mono uppercase text-text-ghost hover:text-(--accent-teal)"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Fermer
@@ -388,9 +388,9 @@ function TenantDrillDown({
         <Mini label="Missions" value={t.totalMissions.toString()} />
         <Mini label="Active users" value={t.activeUsers.toString()} />
       </div>
-      <h3 className="t-13 font-medium text-[var(--text)]">Top users</h3>
+      <h3 className="t-13 font-medium text-text">Top users</h3>
       {t.users.length === 0 ? (
-        <p className="t-11 text-[var(--text-muted)]">
+        <p className="t-11 text-text-muted">
           Aucun user actif sur cette fenêtre.
         </p>
       ) : (
@@ -405,13 +405,13 @@ function TenantDrillDown({
                 gap: "var(--space-3)",
               }}
             >
-              <span className="col-span-7 t-11 font-mono text-[var(--text-soft)] truncate">
+              <span className="col-span-7 t-11 font-mono text-text-soft truncate">
                 {u.userId}
               </span>
-              <span className="col-span-2 text-right t-11 font-mono text-[var(--text-muted)]">
+              <span className="col-span-2 text-right t-11 font-mono text-text-muted">
                 {u.runs} runs
               </span>
-              <span className="col-span-3 text-right t-11 font-mono text-[var(--accent-teal)]">
+              <span className="col-span-3 text-right t-11 font-mono text-(--accent-teal)">
                 ${u.costUsd.toFixed(4)}
               </span>
             </li>
@@ -434,10 +434,10 @@ function Mini({ label, value }: { label: string; value: string }) {
         background: "var(--surface-1)",
       }}
     >
-      <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
+      <span className="t-9 font-mono uppercase text-text-faint">
         {label}
       </span>
-      <span className="t-15 font-medium text-[var(--text)]">{value}</span>
+      <span className="t-15 font-medium text-text">{value}</span>
     </div>
   );
 }

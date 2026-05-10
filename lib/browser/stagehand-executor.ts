@@ -68,11 +68,11 @@ export interface BrowserExecutor {
 
 const activeRuns = new Map<string, AbortController>();
 
-export function registerActiveRun(sessionId: string, controller: AbortController): void {
+function registerActiveRun(sessionId: string, controller: AbortController): void {
   activeRuns.set(sessionId, controller);
 }
 
-export function clearActiveRun(sessionId: string): void {
+function clearActiveRun(sessionId: string): void {
   activeRuns.delete(sessionId);
 }
 

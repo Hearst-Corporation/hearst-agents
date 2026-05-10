@@ -467,13 +467,6 @@ export function getProvidersForDomain(domain: Domain): string[] {
 }
 
 /**
- * Get the tools allowed for a domain.
- */
-export function getToolsForDomain(domain: Domain): string[] {
-  return DOMAIN_TAXONOMY[domain].tools;
-}
-
-/**
  * Resolve retrieval mode from message (replaces detectRetrievalMode in index.ts).
  */
 export function resolveRetrievalMode(message: string): RetrievalMode | null {

@@ -77,9 +77,9 @@ export default async function AgentDetailPage({ params }: Props) {
     : 0;
 
   const statusDot: Record<string, string> = {
-    active: "bg-[var(--money)]",
-    paused: "bg-[var(--warn)]",
-    archived: "bg-[var(--text-muted)]",
+    active: "bg-(--money)",
+    paused: "bg-(--warn)",
+    archived: "bg-text-muted",
   };
 
   return (

@@ -7,14 +7,14 @@ import { getServerSupabase } from "@/lib/platform/db/supabase";
 export const dynamic = "force-dynamic";
 
 const traceKindColor: Record<string, string> = {
-  llm_call: "border-[var(--accent-teal)]/50 text-[var(--cyan-accent)]",
-  tool_call: "border-[var(--accent-llm)]/50 text-[var(--accent-llm)]",
-  memory_read: "border-[var(--accent-teal)]/50 text-[var(--accent-teal)]",
-  memory_write: "border-[var(--accent-teal)]/50 text-[var(--accent-teal)]",
-  skill_invoke: "border-[var(--warn)]/50 text-[var(--warn)]",
-  error: "border-[var(--danger)]/70 text-[var(--danger)]",
-  guard: "border-[var(--warn)]/50 text-[var(--warn)]",
-  custom: "border-[var(--line-strong)] text-[var(--text-muted)]",
+  llm_call:     "border-(--accent-teal)/50 text-(--accent-teal)",
+  tool_call:    "border-(--accent-llm)/50 text-(--accent-llm)",
+  memory_read:  "border-(--accent-teal)/50 text-(--accent-teal)",
+  memory_write: "border-(--accent-teal)/50 text-(--accent-teal)",
+  skill_invoke: "border-(--warn)/50 text-(--warn)",
+  error:        "border-(--danger)/70 text-(--danger)",
+  guard:        "border-(--warn)/50 text-(--warn)",
+  custom:       "border-(--line-strong) text-text-muted",
 };
 
 interface Props {
@@ -42,10 +42,10 @@ export default async function RunDetailPage({ params }: Props) {
   const agent = run.agents as { name: string; slug: string } | null;
 
   const statusColor: Record<string, string> = {
-    completed: "text-[var(--money)]",
-    running: "text-[var(--cyan-accent)]",
-    failed: "text-[var(--danger)]",
-    pending: "text-[var(--text-muted)]",
+    completed: "text-(--money)",
+    running: "text-(--cyan-accent)",
+    failed: "text-(--danger)",
+    pending: "text-text-muted",
   };
 
   return (
@@ -95,7 +95,7 @@ export default async function RunDetailPage({ params }: Props) {
       </div>
 
       {run.error && (
-        <div className="mb-(--space-8) admin-callout-danger t-13 text-[var(--danger)]">
+        <div className="mb-(--space-8) admin-callout-danger t-13 text-(--danger)">
           {run.error}
         </div>
       )}

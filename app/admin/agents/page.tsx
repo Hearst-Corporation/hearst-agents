@@ -48,7 +48,7 @@ export default async function AgentsPage() {
       </div>
 
       {error && (
-        <div className="mb-(--space-6) admin-callout-danger t-13 text-[var(--danger)]">
+        <div className="mb-(--space-6) admin-callout-danger t-13 text-(--danger)">
           {error}
         </div>
       )}

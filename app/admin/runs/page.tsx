@@ -21,12 +21,12 @@ interface RunRow {
 }
 
 const statusColor: Record<string, string> = {
-  completed: "text-[var(--money)]",
-  running: "text-[var(--cyan-accent)]",
-  failed: "text-[var(--danger)]",
-  pending: "text-[var(--text-muted)]",
-  cancelled: "text-[var(--text-muted)]",
-  timeout: "text-[var(--warn)]",
+  completed: "text-(--money)",
+  running: "text-(--cyan-accent)",
+  failed: "text-(--danger)",
+  pending: "text-text-muted",
+  cancelled: "text-text-muted",
+  timeout: "text-(--warn)",
 };
 
 const kindLabel: Record<string, string> = {
@@ -67,13 +67,13 @@ export default async function RunsPage() {
       </div>
 
       {error && (
-        <div className="mb-(--space-6) admin-callout-danger t-13 text-[var(--danger)]">
+        <div className="mb-(--space-6) admin-callout-danger t-13 text-(--danger)">
           {error}
         </div>
       )}
 
       {runs.length === 0 && !error ? (
-        <p className="t-13 text-[var(--text-muted)]">Aucun run enregistré. Lancez un chat ou un workflow.</p>
+        <p className="t-13 text-text-muted">Aucun run enregistré. Lancez un chat ou un workflow.</p>
       ) : (
         <div className="space-y-(--space-2)">
           {runs.map((run) => (
