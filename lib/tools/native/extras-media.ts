@@ -150,6 +150,10 @@ export function buildExtrasMediaTools(opts: {
           userId: scope.userId,
           tenantId: scope.tenantId,
           workspaceId: scope.workspaceId,
+          metadata: {
+            prompt: text,
+            ...(args.tone ? { tone: args.tone } : {}),
+          },
         },
       });
 
@@ -335,6 +339,11 @@ export function buildExtrasMediaTools(opts: {
           userId: scope.userId,
           tenantId: scope.tenantId,
           workspaceId: scope.workspaceId,
+          metadata: {
+            prompt,
+            ...(args.scriptText ? { scriptText: args.scriptText } : {}),
+            provider,
+          },
         },
       });
 

@@ -94,6 +94,12 @@ export interface AssetProvenance {
   latencyMs?: number;
   /** Identifiant modèle/provider utilisé (claude-sonnet-4-6, fal-ai/flux/schnell, e2b-python, …). */
   modelUsed?: string;
+  /**
+   * Métadonnées libres associées à la génération.
+   * Utilisé notamment pour stocker le prompt de génération (`metadata.prompt`)
+   * des assets produits via Runway, HeyGen, fal.ai, ElevenLabs, etc.
+   */
+  metadata?: Record<string, unknown>;
 }
 
 export interface Asset {
