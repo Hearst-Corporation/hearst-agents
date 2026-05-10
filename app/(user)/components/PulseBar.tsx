@@ -22,6 +22,7 @@ import { useStageStore } from "@/stores/stage";
 import { useNavigationStore } from "@/stores/navigation";
 import { GhostIconMenu } from "./ghost-icons";
 import { NotificationBell } from "./NotificationBell";
+import { SpaceSelector } from "./SpaceSelector";
 
 interface ConnectionsMeta {
   connected: number;
@@ -153,8 +154,11 @@ export function PulseBar() {
         boxShadow: "var(--shadow-divider-bottom-subtle)",
       }}
     >
-      {/* Gauche : hamburger mobile uniquement (branding vit dans la sidebar) */}
-      <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+      {/* Gauche : hamburger mobile + SpaceSelector (foundation Q3-C, preview).
+         Le selector vit ici dans la zone non saturée à gauche du Cmd+K — il
+         reste visible mobile et desktop, c'est un signal d'identité du
+         workspace (perso / side / venture) plus qu'un control fréquent. */}
+      <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
         <button
           type="button"
           onClick={toggleLeftDrawer}
@@ -163,6 +167,7 @@ export function PulseBar() {
         >
           <GhostIconMenu className="w-4 h-4" />
         </button>
+        <SpaceSelector />
       </div>
 
       {/* Centre : Cmd+K trigger plein-largeur — pill glass.
