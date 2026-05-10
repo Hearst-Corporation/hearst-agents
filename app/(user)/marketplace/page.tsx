@@ -12,14 +12,25 @@ import { ScreenShell } from "../components/ui";
 import { MarketplaceTemplateCard } from "../components/marketplace/MarketplaceTemplateCard";
 import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
-type KindFilter = "all" | "workflow" | "report_spec" | "persona";
+type KindFilter =
+  | "all"
+  | "workflow"
+  | "report_spec"
+  | "persona"
+  | "creative_prompt";
 
 const KIND_TABS: ReadonlyArray<{ value: KindFilter; label: string }> = [
   { value: "all", label: "Tous" },
   { value: "workflow", label: "Workflows" },
   { value: "report_spec", label: "Rapports" },
   { value: "persona", label: "Personas" },
+  { value: "creative_prompt", label: "Packs créatifs" },
 ];
+
+interface PersonaLite {
+  id: string;
+  isDefault: boolean;
+}
 
 export default function MarketplacePage() {
   const [templates, setTemplates] = useState<MarketplaceTemplateSummary[] | null>(null);
@@ -27,11 +38,31 @@ export default function MarketplacePage() {
   const [kind, setKind] = useState<KindFilter>("all");
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [activePersonaId, setActivePersonaId] = useState<string | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search.trim()), 250);
     return () => clearTimeout(t);
   }, [search]);
+
+  // Persona active = celle marquée isDefault (best-effort, fail-soft).
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/v2/personas", { credentials: "include" });
+        if (cancelled || !res.ok) return;
+        const body = (await res.json()) as { personas?: PersonaLite[] };
+        const def = body.personas?.find((p) => p.isDefault);
+        if (!cancelled && def) setActivePersonaId(def.id);
+      } catch {
+        // fail-soft : pas de reco si l'API est down
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -73,13 +104,33 @@ export default function MarketplacePage() {
   const isLoading = templates === null;
   const isEmpty = !isLoading && templates.length === 0;
 
+  const recommendedIds = useMemo(() => {
+    if (!activePersonaId || !templates) return new Set<string>();
+    return new Set(
+      templates
+        .filter((t) => t.recommendedFor?.includes(activePersonaId))
+        .map((t) => t.id),
+    );
+  }, [activePersonaId, templates]);
+
+  const recommended = useMemo(
+    () =>
+      (templates ?? []).filter((t) => recommendedIds.has(t.id)),
+    [templates, recommendedIds],
+  );
   const featured = useMemo(
-    () => (templates ?? []).filter((t) => t.isFeatured),
-    [templates],
+    () =>
+      (templates ?? []).filter(
+        (t) => t.isFeatured && !recommendedIds.has(t.id),
+      ),
+    [templates, recommendedIds],
   );
   const others = useMemo(
-    () => (templates ?? []).filter((t) => !t.isFeatured),
-    [templates],
+    () =>
+      (templates ?? []).filter(
+        (t) => !t.isFeatured && !recommendedIds.has(t.id),
+      ),
+    [templates, recommendedIds],
   );
 
   return (
@@ -165,21 +216,29 @@ export default function MarketplacePage() {
 
         {!isLoading && !isEmpty && (
           <>
+            {recommended.length > 0 && (
+              <section className="flex flex-col gap-3">
+                <h2 className="t-11 font-medium text-(--accent-teal)">
+                  Recommandé pour vous
+                </h2>
+                <Grid templates={recommended} recommendedIds={recommendedIds} />
+              </section>
+            )}
             {featured.length > 0 && (
               <section className="flex flex-col gap-3">
                 <h2 className="t-11 font-medium text-(--accent-teal)">
                   Featured
                 </h2>
-                <Grid templates={featured} />
+                <Grid templates={featured} recommendedIds={recommendedIds} />
               </section>
             )}
             <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-              {featured.length > 0 && (
+              {(featured.length > 0 || recommended.length > 0) && (
                 <h2 className="t-11 font-light text-text-faint">
                   Tous les templates
                 </h2>
               )}
-              <Grid templates={others} />
+              <Grid templates={others} recommendedIds={recommendedIds} />
             </section>
           </>
         )}
@@ -188,14 +247,24 @@ export default function MarketplacePage() {
   );
 }
 
-function Grid({ templates }: { templates: MarketplaceTemplateSummary[] }) {
+function Grid({
+  templates,
+  recommendedIds,
+}: {
+  templates: MarketplaceTemplateSummary[];
+  recommendedIds: Set<string>;
+}) {
   return (
     <div
       data-testid="marketplace-grid"
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
     >
       {templates.map((t) => (
-        <MarketplaceTemplateCard key={t.id} template={t} />
+        <MarketplaceTemplateCard
+          key={t.id}
+          template={t}
+          recommended={recommendedIds.has(t.id)}
+        />
       ))}
     </div>
   );

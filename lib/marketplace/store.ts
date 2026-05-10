@@ -30,6 +30,11 @@ import {
   type CloneResult,
   type PersonaPayload,
 } from "./types";
+import {
+  CREATIVE_PACKS_BUILTINS,
+  isBuiltinCreativePackId,
+  getBuiltinCreativePack,
+} from "./creative-packs";
 
 // ── Row Supabase (snake_case, untyped — table absente de Database). ─
 
@@ -51,6 +56,54 @@ interface TemplateRow {
   created_at: string;
   updatedAt?: string;
   updated_at: string;
+}
+
+// ── Builtins helpers (creative packs livrés en code-as-data) ─
+
+function templateToSummary(t: MarketplaceTemplate): MarketplaceTemplateSummary {
+  const recommendedFor =
+    t.kind === "creative_prompt"
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((t.payload as any)?.recommendedFor as string[] | undefined)
+      : undefined;
+  return {
+    id: t.id,
+    kind: t.kind,
+    title: t.title,
+    description: t.description,
+    authorDisplayName: t.authorDisplayName,
+    authorTenantId: t.authorTenantId,
+    tags: t.tags,
+    ratingAvg: t.ratingAvg,
+    ratingCount: t.ratingCount,
+    cloneCount: t.cloneCount,
+    isFeatured: t.isFeatured,
+    createdAt: t.createdAt,
+    updatedAt: t.updatedAt,
+    recommendedFor,
+  };
+}
+
+/**
+ * Filtre les builtins selon les critères de listTemplates (kind/tags/q/featured).
+ * Pas de pagination côté builtins (10 max) — on retourne tout ce qui matche.
+ */
+function filterBuiltins(input: ListTemplatesInput): MarketplaceTemplate[] {
+  const all: MarketplaceTemplate[] = CREATIVE_PACKS_BUILTINS;
+  return all.filter((t) => {
+    if (input.kind && t.kind !== input.kind) return false;
+    if (input.featured && !t.isFeatured) return false;
+    if (input.tags && input.tags.length > 0) {
+      const tagSet = new Set(t.tags);
+      if (!input.tags.every((tag) => tagSet.has(tag))) return false;
+    }
+    if (input.q && input.q.trim().length > 0) {
+      const term = input.q.trim().toLowerCase();
+      const haystack = `${t.title} ${t.description ?? ""}`.toLowerCase();
+      if (!haystack.includes(term)) return false;
+    }
+    return true;
+  });
 }
 
 function rowToSummary(row: TemplateRow): MarketplaceTemplateSummary {
@@ -165,8 +218,10 @@ export async function listTemplates(
   input: ListTemplatesInput = {},
   client?: SupabaseClient,
 ): Promise<MarketplaceTemplateSummary[]> {
+  const builtins = filterBuiltins(input).map(templateToSummary);
+
   const sb = client ?? getServerSupabase();
-  if (!sb) return [];
+  if (!sb) return builtins;
 
   const limit = Math.min(Math.max(input.limit ?? 30, 1), 100);
   const offset = Math.max(input.offset ?? 0, 0);
@@ -196,9 +251,11 @@ export async function listTemplates(
   const { data, error } = await query;
   if (error) {
     console.error("[marketplace/store] list error:", error.message);
-    return [];
+    return builtins;
   }
-  return (data ?? []).map((row: TemplateRow) => rowToSummary(row));
+  const dbRows = (data ?? []).map((row: TemplateRow) => rowToSummary(row));
+  // Builtins en tête — featured d'abord, ensuite les rows DB.
+  return [...builtins, ...dbRows];
 }
 
 // ── getTemplate ─────────────────────────────────────────────
@@ -207,6 +264,10 @@ export async function getTemplate(
   id: string,
   client?: SupabaseClient,
 ): Promise<MarketplaceTemplate | null> {
+  if (isBuiltinCreativePackId(id)) {
+    return getBuiltinCreativePack(id);
+  }
+
   const sb = client ?? getServerSupabase();
   if (!sb) return null;
 
@@ -255,6 +316,15 @@ export async function cloneTemplate(
   targetWorkspaceId: string,
   client?: SupabaseClient,
 ): Promise<CloneResult> {
+  // Builtins creative_prompt : pas d'écriture (le launcher consommera le payload).
+  // On retourne le template lui-même comme resourceId, le caller frontend
+  // gère le redirect/clipboard.
+  if (isBuiltinCreativePackId(id)) {
+    const tpl = getBuiltinCreativePack(id);
+    if (!tpl) return { ok: false, error: "template_not_found" };
+    return { ok: true, resourceId: tpl.id };
+  }
+
   const sb = client ?? getServerSupabase();
   if (!sb) return { ok: false, error: "supabase_unavailable" };
 
@@ -312,6 +382,10 @@ export async function cloneTemplate(
       );
       if (!saved) return { ok: false, error: "save_failed" };
       resourceId = saved.id;
+    } else if (tpl.kind === "creative_prompt") {
+      // Pas d'écriture côté tenant — le payload est consommé par
+      // VideoQuickLaunch / AssetVariantTabs au moment du "Use".
+      resourceId = tpl.id;
     } else if (tpl.kind === "persona") {
       const p = tpl.payload as PersonaPayload;
       const persona = await createPersona({
