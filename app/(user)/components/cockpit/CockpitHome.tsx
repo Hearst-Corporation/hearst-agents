@@ -9,6 +9,8 @@ import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface CockpitHomeProps {
   data: CockpitTodayPayload;
+  /** Callback pour regénérer le brief depuis CockpitStage */
+  onRefresh?: () => Promise<void>;
 }
 
 /**
@@ -27,7 +29,7 @@ interface CockpitHomeProps {
  *
  * Une seule colonne, pas de grid 2-cols : la home se lit comme un journal.
  */
-export function CockpitHome({ data }: CockpitHomeProps) {
+export function CockpitHome({ data, onRefresh }: CockpitHomeProps) {
   return (
     <div
       className="flex-1 flex flex-col min-h-0 min-w-0 overflow-y-auto"
@@ -36,7 +38,7 @@ export function CockpitHome({ data }: CockpitHomeProps) {
         gap: "var(--space-10)",
       }}
     >
-      <CockpitHeader />
+      <CockpitHeader generatedAt={data.generatedAt} onRefresh={onRefresh} />
 
       <MorningBriefing data={data} />
 

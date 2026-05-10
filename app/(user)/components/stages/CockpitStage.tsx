@@ -113,7 +113,7 @@ export function CockpitStage({ initialData = null }: CockpitStageProps = {}) {
       <OnboardingTour />
       {loading && <CockpitSkeleton />}
       {!loading && error && <CockpitErrorState message={error} />}
-      {!loading && !error && data && <CockpitHome data={data} />}
+      {!loading && !error && data && <CockpitHome data={data} onRefresh={refetch} />}
     </div>
   );
 }
