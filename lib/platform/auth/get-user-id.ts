@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "./options";
+import { isDevBypassEnabled } from "./dev-bypass";
 
-const DEV_BYPASS = process.env.HEARST_DEV_AUTH_BYPASS === "1";
 // UUID Adrien dans public.users — utilisé en mode dev bypass (HEARST_DEV_AUTH_BYPASS=1)
 // pour avoir un identifiant cohérent avec les rows post-migration UUID.
 const DEV_USER = "36914162-75f9-4c27-b38b-bb050f51d52b";
@@ -20,7 +20,7 @@ const DEV_USER = "36914162-75f9-4c27-b38b-bb050f51d52b";
  * un identifiant alternatif.
  */
 export async function getUserId(): Promise<string | null> {
-  if (DEV_BYPASS) {
+  if (isDevBypassEnabled()) {
     return DEV_USER;
   }
 

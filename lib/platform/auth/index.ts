@@ -36,3 +36,8 @@ export {
   requireScope,
   type CanonicalScope,
 } from "./scope";
+
+export {
+  isDevBypassEnabled,
+  assertDevBypassNotInProduction,
+} from "./dev-bypass";

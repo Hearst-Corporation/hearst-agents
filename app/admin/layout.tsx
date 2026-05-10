@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getHearstSession } from "@/lib/platform/auth";
+import { getHearstSession, isDevBypassEnabled } from "@/lib/platform/auth";
 import AdminShell from "./_shell/AdminShell";
 
 export default async function AdminLayout({
@@ -8,7 +8,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await getHearstSession();
-  const devBypass = process.env.HEARST_DEV_AUTH_BYPASS === "1";
+  const devBypass = isDevBypassEnabled();
 
   if (!session?.user && !devBypass) {
     redirect("/login?callbackUrl=/admin");

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
 
 /**
  * GET /api/auth/dev-login
@@ -9,10 +10,10 @@ import { NextResponse } from "next/server";
  *   2. POST les credentials au callback
  *   3. Redirige vers / une fois la session créée
  *
- * Désactivé en prod (403 si bypass inactif).
+ * Désactivé en prod : isDevBypassEnabled() throw au boot si bypass=1 + NODE_ENV=production.
  */
 export async function GET() {
-  if (process.env.HEARST_DEV_AUTH_BYPASS !== "1") {
+  if (!isDevBypassEnabled()) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
 

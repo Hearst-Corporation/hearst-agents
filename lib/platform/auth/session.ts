@@ -7,6 +7,10 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "./options";
+import { isDevBypassEnabled } from "./dev-bypass";
+
+// UUID Adrien dans public.users — cohérent avec lib/platform/auth/get-user-id.ts.
+const DEV_USER = "36914162-75f9-4c27-b38b-bb050f51d52b";
 
 export interface HearstSession {
   user: {
@@ -30,11 +34,11 @@ export async function getHearstSession(): Promise<HearstSession | null> {
 
 /**
  * Get the current user ID from the session.
- * Falls back to dev bypass if HEARST_DEV_AUTH_BYPASS is set.
+ * En mode dev bypass (HEARST_DEV_AUTH_BYPASS=1), retourne le UUID dev fixe.
  */
 export async function getCurrentUserId(): Promise<string | null> {
-  if (process.env.HEARST_DEV_AUTH_BYPASS) {
-    return process.env.HEARST_DEV_AUTH_BYPASS;
+  if (isDevBypassEnabled()) {
+    return DEV_USER;
   }
 
   const session = await getHearstSession();

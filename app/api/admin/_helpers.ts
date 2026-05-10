@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireScope, type CanonicalScope } from "@/lib/platform/auth/scope";
+import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { checkPermission, type PermissionCheck } from "@/lib/admin/permissions";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -27,7 +28,7 @@ export async function requireAdmin(
   // skipped auth for /api/* paths in this mode (proxy.ts:49), so we mirror
   // that here — `getUserById` would otherwise throw on the email-shaped
   // dev userId and return 503.
-  if (process.env.HEARST_DEV_AUTH_BYPASS === "1") {
+  if (isDevBypassEnabled()) {
     return { scope, db };
   }
 

@@ -14,7 +14,8 @@
 import "@/lib/env.server";
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { aj, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
+import { aj, ajOrchestrate, ajLlmJobs, isArcjetEnabled } from "@/lib/security/arcjet";
+import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -54,26 +55,53 @@ function hasValidApiKey(req: NextRequest): boolean {
 }
 
 function isDevBypass(): boolean {
-  return process.env.HEARST_DEV_AUTH_BYPASS === "1";
+  return isDevBypassEnabled();
 }
 
 const ARCJET_PROTECTED_PATHS = [
   "/api/orchestrate",
   "/api/v2/jobs",
   "/api/v2/missions",
+  "/api/v2/assets/diff",
+  "/api/v2/personas/ab-test",
   "/api/auth",
+];
+
+// Routes qui déclenchent 1 appel provider IA externe payant par requête.
+// Quota strict via ajLlmJobs (20 req/min/IP). Les routes de polling
+// (ex: /api/v2/jobs/[jobId]/status) restent sur `aj` (100 req/min).
+const ARCJET_LLM_JOB_PATHS = [
+  "/api/v2/jobs/code-exec",
+  "/api/v2/jobs/image-gen",
+  "/api/v2/jobs/audio-gen",
+  "/api/v2/jobs/document-parse",
+  "/api/v2/assets/diff",
+  "/api/v2/personas/ab-test",
 ];
 
 function isArcjetProtected(path: string): boolean {
   return ARCJET_PROTECTED_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
+function isLlmJobPath(path: string): boolean {
+  return ARCJET_LLM_JOB_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
+}
+
 async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
   if (!isArcjetEnabled()) return null;
-  // Règles strictes sur orchestrate (coût LLM), générales sur les autres chemins
-  const instance = req.nextUrl.pathname.startsWith("/api/orchestrate")
-    ? ajOrchestrate
-    : aj;
+  const path = req.nextUrl.pathname;
+  // Routing par coût :
+  //  - orchestrate (chat LLM streaming)        → ajOrchestrate (10 req/min)
+  //  - jobs IA externes + diff/ab-test         → ajLlmJobs    (20 req/min)
+  //  - reste (auth, missions, polling status)  → aj           (100 req/min)
+  let instance: typeof aj;
+  if (path.startsWith("/api/orchestrate")) {
+    instance = ajOrchestrate;
+  } else if (isLlmJobPath(path)) {
+    instance = ajLlmJobs;
+  } else {
+    instance = aj;
+  }
   if (!instance) return null;
   const decision = await instance.protect(req, { requested: 1 });
   if (decision.isDenied()) {
