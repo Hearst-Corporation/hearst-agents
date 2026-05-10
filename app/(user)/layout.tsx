@@ -11,6 +11,7 @@ import { PulseBar } from "./components/PulseBar";
 import { MobileBottomNav } from "./components/MobileBottomNav";
 import { VoicePulse } from "./components/voice/VoicePulse";
 import { FocusBadge } from "./components/FocusBadge";
+import { VideoQuickLaunch } from "./components/VideoQuickLaunch";
 import { ToastContainer } from "@/app/components/ToastContainer";
 import { useToast } from "@/app/hooks/use-toast";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
@@ -196,6 +197,10 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
           {/* Mini-badge flottant Mode Focus (S4-B) — visible uniquement quand
              le mode est actif. Clic ou ESC pour sortir. */}
           <FocusBadge />
+
+          {/* VideoQuickLaunch — panel latéral ⌘G (S2-A). Toujours monté pour
+             la transition slide ; visibility:hidden quand fermé. */}
+          <VideoQuickLaunch />
         </div>
       </ToastProvider>
     </SessionProvider>

@@ -48,11 +48,13 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     scriptText?: string;
     avatarId?: string;
     /** [S2-F] Ratio Runway 16:9 ou 9:16. */
-    ratio?: string;
+    ratio?: "1280:720" | "720:1280";
     /** [S2-C] Variant fork : ID(s) du/des variant(s) parent(s) dont on dérive. */
     derivedFrom?: string[];
     /** [S2-C] Durée vidéo souhaitée en secondes (Runway). */
     duration?: number;
+    /** [S2-A] Durée VideoQuickLaunch (5 ou 10s). */
+    durationSeconds?: 5 | 10;
   };
   try {
     body = await req.json();
@@ -191,9 +193,10 @@ async function handleVideoVariant({
     prompt?: string;
     scriptText?: string;
     avatarId?: string;
-    ratio?: string;
+    ratio?: "1280:720" | "720:1280";
     derivedFrom?: string[];
     duration?: number;
+    durationSeconds?: 5 | 10;
   };
   asset: { summary?: string; title: string };
 }): Promise<NextResponse> {
@@ -273,11 +276,11 @@ async function handleVideoVariant({
     scriptText: body.scriptText ?? sourceText,
     provider,
     avatarId: body.avatarId,
-    durationSeconds: body.duration,
+    durationSeconds: body.duration ?? (body.durationSeconds === 10 ? 10 : 5),
     variantKind: "video",
     variantId,
-    // [S2-F] Ratio Runway transmis au worker
-    ...(body.ratio ? { ratio: body.ratio } : {}),
+    // [S2-F/A] Ratio Runway transmis au worker
+    ratio: body.ratio ?? "1280:720",
     // [S2-C] Lineage : variant(s) parent(s) si fork
     ...(isFork ? { derivedFrom: body.derivedFrom } : {}),
   };

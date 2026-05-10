@@ -130,6 +130,10 @@
   /** Popover / dropdown chrome (NotificationBell, menus contextuels) — fluide
    * mais borné, plus étroit que --width-context. */
   --width-popover: clamp(300px, 22vw, 380px);
+  /** Side panel "quick launch" (VideoQuickLaunch ⌘G — S2-A). Plus large
+   * qu'un popover (formulaire prompt + provider + ratio + progress bar)
+   * mais borné pour ne pas envahir le canvas. */
+  --width-quick-launch: 400px;
   /** Bloc prompt / code en page détail admin (scroll). */
   --height-admin-prompt-max: min(60dvh, var(--width-center-max));
   --height-topbar: 48px;
