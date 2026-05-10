@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-05-10T06:58:14.025Z",
-  "total": 33,
+  "generatedAt": "2026-05-10T07:16:37.194Z",
+  "total": 39,
   "counts": {
     "verrouillé": 32,
-    "in_progress": 1,
+    "in_progress": 7,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 358,
-    "testsExistants": 1618,
-    "testsManquants": 192,
+    "invariants": 397,
+    "testsExistants": 1661,
+    "testsManquants": 229,
     "orphans": 13
   },
   "actualTests": {
-    "files": 252,
-    "cases": 2249,
+    "files": 256,
+    "cases": 2292,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -241,9 +241,9 @@
         "I-7. RSC prefetch + client refetch",
         "I-8. Pivot visuel \"silent luxury OS\" (v1.4 → v1.5)"
       ],
-      "testsExistantsCount": 56,
-      "testsOnDisk": 56,
-      "testFilesOnDisk": 4,
+      "testsExistantsCount": 99,
+      "testsOnDisk": 99,
+      "testFilesOnDisk": 8,
       "testsDocExistants": 3,
       "testsManquantsCount": 7,
       "testGap": "faible",
@@ -439,6 +439,33 @@
       "orphansCount": 0
     },
     {
+      "id": "hearst-card",
+      "file": "hearst-card.md",
+      "href": "docs/features/hearst-card.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P2",
+      "invariantsCount": 6,
+      "invariantsTitles": [
+        "I-1. Token HMAC obligatoire pour le partage public",
+        "I-2. Format `yearMonth` strict `YYYY-MM`",
+        "I-3. Fail-soft Playwright",
+        "I-4. Cache 1h sur l'endpoint",
+        "I-5. Cron mensuel `0 9 1 * *` Paris TZ",
+        "I-6. TTL token public 30 jours"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 5,
+      "testGap": "élevé",
+      "orphansCount": 0
+    },
+    {
       "id": "hospitality",
       "file": "hospitality.md",
       "href": "docs/features/hospitality.md",
@@ -567,6 +594,62 @@
       "testsDocExistants": 10,
       "testsManquantsCount": 23,
       "testGap": "moyen",
+      "orphansCount": 0
+    },
+    {
+      "id": "mission-approvals",
+      "file": "mission-approvals.md",
+      "href": "docs/features/mission-approvals.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P1",
+      "invariantsCount": 7,
+      "invariantsTitles": [
+        "I-1. 3 modes : `all` / `any` / `majority`",
+        "I-2. HMAC token TTL 7 jours",
+        "I-3. Pas de session sur la page publique",
+        "I-4. Fail-soft email",
+        "I-5. Fail-open scheduler gate",
+        "I-6. Cascade delete sur mission",
+        "I-7. Append-only sur les votes (pas de mutation hors `recordVote`)"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 8,
+      "testGap": "élevé",
+      "orphansCount": 0
+    },
+    {
+      "id": "mission-budget",
+      "file": "mission-budget.md",
+      "href": "docs/features/mission-budget.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P1",
+      "invariantsCount": 7,
+      "invariantsTitles": [
+        "I-1. Storage JSONB sur `missions.actions`",
+        "I-2. Cache 5min côté `checkBudget()`",
+        "I-3. Fail-open scheduler si Supabase down",
+        "I-4. Reset implicite mensuel UTC",
+        "I-5. Layer 2.5 dans scheduler — ordre figé",
+        "I-6. Currency = USD uniquement",
+        "I-7. `null` = pas de cap (default)"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 6,
+      "testGap": "élevé",
       "orphansCount": 0
     },
     {
@@ -733,6 +816,33 @@
       "orphansCount": 0
     },
     {
+      "id": "pre-meeting-intel",
+      "file": "pre-meeting-intel.md",
+      "href": "docs/features/pre-meeting-intel.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P2",
+      "invariantsCount": 6,
+      "invariantsTitles": [
+        "I-1. Cron `*/5 * * * *` (toutes les 5 minutes)",
+        "I-2. Fenêtre 25-35min avant l'event",
+        "I-3. Dédup 30min par event",
+        "I-4. Fail-soft Calendar + KG",
+        "I-5. Asset kind = `pre_meeting_intel`",
+        "I-6. ContextRail dédié pendant la fenêtre active"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 6,
+      "testGap": "élevé",
+      "orphansCount": 0
+    },
+    {
       "id": "pulsebar",
       "file": "pulsebar.md",
       "href": "docs/features/pulsebar.md",
@@ -863,6 +973,34 @@
       "orphansCount": 0
     },
     {
+      "id": "signal-board",
+      "file": "signal-board.md",
+      "href": "docs/features/signal-board.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P2",
+      "invariantsCount": 7,
+      "invariantsTitles": [
+        "I-1. 5 kinds figés",
+        "I-2. Severity sourde — pas de rouge intense",
+        "I-3. TTL 30min par signal",
+        "I-4. Cache 60s côté endpoint",
+        "I-5. Fail-soft par détecteur",
+        "I-6. Whisper dans PulseBar uniquement",
+        "I-7. Voix régulière FR"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 6,
+      "testGap": "élevé",
+      "orphansCount": 0
+    },
+    {
       "id": "simulation",
       "file": "simulation.md",
       "href": "docs/features/simulation.md",
@@ -895,8 +1033,8 @@
       "file": "spaces.md",
       "href": "docs/features/spaces.md",
       "statut": "in_progress",
-      "statutRaw": "in_progress (preview — Phase 1 livrée, Phases 2 & 3 à venir)",
-      "version": "1.0",
+      "statutRaw": "in_progress (preview — Phases 1 & 2 livrées, Phase 3 à venir)",
+      "version": "1.1",
       "owner": "Adrien",
       "derniereRevue": "2026-05-10",
       "niveau": null,
@@ -977,6 +1115,33 @@
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
+      "id": "video-quick-launch",
+      "file": "video-quick-launch.md",
+      "href": "docs/features/video-quick-launch.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P1",
+      "invariantsCount": 6,
+      "invariantsTitles": [
+        "I-1. Hotkey ⌘G (Mac) / Ctrl+G (Windows) — toggle global",
+        "I-2. Max 4 variants par batch",
+        "I-3. SSE QueueEvents + fallback poll 2s",
+        "I-4. AssetCompareStage en sortie batch",
+        "I-5. Ownership obligatoire sur progress endpoint",
+        "I-6. Persistance store via session uniquement"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 6,
+      "testGap": "élevé",
       "orphansCount": 0
     },
     {
