@@ -25,7 +25,7 @@ export function MorningBriefing({ data }: MorningBriefingProps) {
       aria-label="Briefing"
     >
       <p
-        className="t-28 font-extralight text-[var(--text-soft)]"
+        className="t-28 font-extralight text-text-soft"
         style={{ letterSpacing: "-0.02em", lineHeight: "1.25" }}
       >
         {opener}
@@ -36,9 +36,9 @@ export function MorningBriefing({ data }: MorningBriefingProps) {
           {bullets.map((b, i) => (
             <li
               key={i}
-              className="flex items-baseline gap-3 t-15 font-light text-[var(--text-l1)]"
+              className="flex items-baseline gap-3 t-15 font-light text-(--text-l1)"
             >
-              <span className="text-[var(--text-faint)] shrink-0" aria-hidden>
+              <span className="text-text-faint shrink-0" aria-hidden>
                 ─
               </span>
               <span>{b}</span>

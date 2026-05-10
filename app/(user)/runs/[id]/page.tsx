@@ -116,7 +116,7 @@ export default function RunDetailPage() {
                 </span>
               )}
             </div>
-            <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
+            <div className="border-t border-(--line) p-4 bg-bg">
               <RunTimeline timeline={timeline} isLive={isLive} />
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function RunDetailPage() {
           <div className="space-y-4">
             {/* Metrics */}
             {run.metrics && (
-              <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
+              <div className="border-t border-(--line) p-4 bg-bg">
                 <h3 className="ghost-meta-label mb-4">Metrics</h3>
                 <div className="space-y-2">
                   {run.metrics.tokensIn !== undefined && (
@@ -158,7 +158,7 @@ export default function RunDetailPage() {
 
             {/* Assets */}
             {run.assets && run.assets.length > 0 && (
-              <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
+              <div className="border-t border-(--line) p-4 bg-bg">
                 <h3 className="ghost-meta-label mb-4">Assets</h3>
                 <div className="divide-y divide-[var(--line)]">
                   {run.assets.map((asset) => (
@@ -181,7 +181,7 @@ export default function RunDetailPage() {
             )}
 
             {/* Info */}
-            <div className="border-t border-(--line) p-4 bg-[var(--bg)]">
+            <div className="border-t border-(--line) p-4 bg-bg">
               <h3 className="ghost-meta-label mb-4">Info</h3>
               <div className="space-y-2 t-13">
                 <div className="flex justify-between">

@@ -8,10 +8,10 @@ interface RunTimelineProps {
 }
 
 const SEVERITY_STYLES: Record<TimelineSeverity, string> = {
-  info: "text-[var(--text-muted)]",
-  success: "text-[var(--money)]",
-  warning: "text-[var(--warn)]",
-  error: "text-[var(--danger)]",
+  info: "text-text-muted",
+  success: "text-(--money)",
+  warning: "text-(--warn)",
+  error: "text-(--danger)",
 };
 
 const SEVERITY_REF: Record<TimelineSeverity, string> = {
@@ -39,7 +39,7 @@ const TYPE_REF: Record<string, string> = {
 export function RunTimeline({ timeline, isLive }: RunTimelineProps) {
   if (timeline.length === 0) {
     return (
-      <div className="flex items-center justify-center py-8 text-[var(--text-muted)] t-13 font-light">
+      <div className="flex items-center justify-center py-8 text-text-muted t-13 font-light">
         {isLive ? "STREAM_WAIT" : "NO_EVENTS"}
       </div>
     );
@@ -59,22 +59,22 @@ export function RunTimeline({ timeline, isLive }: RunTimelineProps) {
               {sevRef}
             </span>
             <div className="flex-1 min-w-0">
-              <p className="font-mono t-9 uppercase tracking-snug text-[var(--text-faint)] mb-1">{typeRef}</p>
+              <p className="font-mono t-9 uppercase tracking-snug text-text-faint mb-1">{typeRef}</p>
               <p className={`t-13 font-light leading-snug ${severityClass}`}>{item.title}</p>
               {item.description && (
-                <p className="t-11 text-[var(--text-muted)] truncate mt-1">{item.description}</p>
+                <p className="t-11 text-text-muted truncate mt-1">{item.description}</p>
               )}
               {item.backend && (
-                <p className="t-10 font-mono text-[var(--text-faint)] mt-1">BACKEND_{item.backend}</p>
+                <p className="t-10 font-mono text-text-faint mt-1">BACKEND_{item.backend}</p>
               )}
               {item.provider && (
-                <p className="t-10 font-mono text-[var(--text-faint)]">PROVIDER_{item.provider}</p>
+                <p className="t-10 font-mono text-text-faint">PROVIDER_{item.provider}</p>
               )}
               {item.assetName && (
-                <p className="t-10 font-mono text-[var(--money)] mt-1">ASSET_{item.assetName}</p>
+                <p className="t-10 font-mono text-(--money) mt-1">ASSET_{item.assetName}</p>
               )}
             </div>
-            {isLast && isLive && <span className="w-1.5 h-1.5 shrink-0 mt-1 bg-[var(--accent-teal)] animate-pulse" />}
+            {isLast && isLive && <span className="w-1.5 h-1.5 shrink-0 mt-1 bg-(--accent-teal) animate-pulse" />}
           </div>
         );
       })}

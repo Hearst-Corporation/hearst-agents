@@ -63,7 +63,7 @@ export function ChatAssetCard({ assetRef }: { assetRef: MessageAssetRef }) {
       }}
     >
       <span
-        className="flex items-center justify-center shrink-0 transition-colors duration-base text-[var(--text-faint)] group-hover:text-[var(--accent-teal)]"
+        className="flex items-center justify-center shrink-0 transition-colors duration-base text-text-faint group-hover:text-(--accent-teal)"
         style={{
           width: "var(--space-9)",
           height: "var(--space-9)",
@@ -74,14 +74,14 @@ export function ChatAssetCard({ assetRef }: { assetRef: MessageAssetRef }) {
         <AssetIcon type={assetRef.type} />
       </span>
       <div className="flex flex-col flex-1 min-w-0">
-        <span className="t-11 font-light text-[var(--text-faint)] group-hover:text-[var(--accent-teal)] transition-colors">
+        <span className="t-11 font-light text-text-faint group-hover:text-(--accent-teal) transition-colors">
           {typeLabel}
         </span>
-        <span className="t-13 text-[var(--text)] font-light truncate">
+        <span className="t-13 text-text font-light truncate">
           {assetRef.title}
         </span>
       </div>
-      <span className="t-11 font-light text-[var(--text-faint)] group-hover:text-[var(--accent-teal)] transition-colors shrink-0">
+      <span className="t-11 font-light text-text-faint group-hover:text-(--accent-teal) transition-colors shrink-0">
         Ouvrir →
       </span>
     </button>

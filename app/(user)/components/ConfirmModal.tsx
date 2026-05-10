@@ -92,14 +92,14 @@ export function ConfirmModal({
       >
         <h2
           id="confirm-modal-title"
-          className="t-15 font-medium text-[var(--text)]"
+          className="t-15 font-medium text-text"
           style={{ margin: 0, lineHeight: "var(--leading-snug)" }}
         >
           {title}
         </h2>
         {description && (
           <p
-            className="t-13 font-light text-[var(--text-muted)]"
+            className="t-13 font-light text-text-muted"
             style={{ margin: 0, lineHeight: "var(--leading-relaxed)" }}
           >
             {description}

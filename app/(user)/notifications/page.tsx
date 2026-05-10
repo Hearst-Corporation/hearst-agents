@@ -112,7 +112,7 @@ export default function NotificationsPage() {
           <button
             type="button"
             onClick={() => void markAllRead()}
-            className="t-11 font-medium px-3 py-2 rounded-md transition-colors text-[var(--accent-teal)] bg-[var(--surface-1)] border border-[var(--border-default)] hover:text-[var(--text)] hover:border-[var(--accent-teal-border-hover)]"
+            className="t-11 font-medium px-3 py-2 rounded-md transition-colors text-(--accent-teal) bg-surface-1 border border-(--border-default) hover:text-text hover:border-[var(--accent-teal-border-hover)]"
             style={{
               transitionDuration: "var(--duration-fast)",
               transitionTimingFunction: "var(--ease-standard)",
@@ -206,7 +206,7 @@ export default function NotificationsPage() {
         {/* Liste */}
         {filtered.length > 0 && (
           <div
-            className="flex flex-col overflow-hidden rounded-md border border-[var(--border-subtle)]"
+            className="flex flex-col overflow-hidden rounded-md border border-(--border-subtle)"
             /**
              * gap: 1px → fait apparaître la couleur de la bordure parente
              * entre chaque carte comme un séparateur fin (hairline divider).
@@ -242,8 +242,8 @@ function NotifCard({
 
   return (
     <div
-      className={`flex border-b border-[var(--border-subtle)] last:border-b-0 transition-colors ${
-        isUnread ? "bg-[var(--surface-1)] cursor-pointer" : "bg-transparent"
+      className={`flex border-b border-(--border-subtle) last:border-b-0 transition-colors ${
+        isUnread ? "bg-surface-1 cursor-pointer" : "bg-transparent"
       }`}
       style={{
         gap: "var(--space-3)",
@@ -265,17 +265,17 @@ function NotifCard({
       <div className="flex-1 min-w-0 flex flex-col" style={{ gap: "var(--space-1)" }}>
         <div className="flex flex-wrap items-baseline justify-between" style={{ gap: "var(--space-2)" }}>
           <span
-            className={`t-13 ${isUnread ? "text-[var(--text-soft)] font-semibold" : "text-[var(--text-muted)] font-normal"}`}
+            className={`t-13 ${isUnread ? "text-text-soft font-semibold" : "text-text-muted font-normal"}`}
           >
             {notif.title}
           </span>
-          <span className="t-9 text-[var(--text-ghost)] whitespace-nowrap">
+          <span className="t-9 text-text-ghost whitespace-nowrap">
             {relativeTime(notif.created_at)}
           </span>
         </div>
 
         {notif.body && (
-          <p className="t-11 text-[var(--text-faint)] m-0">
+          <p className="t-11 text-text-faint m-0">
             {notif.body}
           </p>
         )}
@@ -300,7 +300,7 @@ function NotifCard({
           >
             {SEVERITY_LABELS[notif.severity]}
           </span>
-          <span className="t-9 font-light text-[var(--text-ghost)]">
+          <span className="t-9 font-light text-text-ghost">
             {KIND_LABELS[notif.kind]}
           </span>
         </div>
@@ -314,7 +314,7 @@ function NotifCard({
             e.stopPropagation();
             onRead();
           }}
-          className="t-9 self-start whitespace-nowrap shrink-0 px-2 py-1 rounded-xs border border-[var(--border-subtle)] bg-transparent text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors"
+          className="t-9 self-start whitespace-nowrap shrink-0 px-2 py-1 rounded-xs border border-(--border-subtle) bg-transparent text-text-ghost hover:text-(--accent-teal) transition-colors"
           style={{
             borderRadius: "var(--radius-xs)",
             transitionDuration: "var(--duration-fast)",

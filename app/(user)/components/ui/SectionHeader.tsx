@@ -42,11 +42,11 @@ export function SectionHeader({
       style={{ marginBottom }}
     >
       <div className="flex items-baseline gap-3 min-w-0">
-        <span className="t-13 font-medium text-[var(--text-l1)] truncate">
+        <span className="t-13 font-medium text-(--text-l1) truncate">
           {label}
         </span>
         {typeof count === "number" && (
-          <span className="t-11 font-mono tabular-nums text-[var(--text-faint)] shrink-0">
+          <span className="t-11 font-mono tabular-nums text-text-faint shrink-0">
             {count.toString().padStart(2, "0")}
           </span>
         )}

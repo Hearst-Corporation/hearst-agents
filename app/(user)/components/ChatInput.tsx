@@ -618,7 +618,7 @@ export function ChatInput({
                       ? "text-(--danger)"
                       : input.trim()
                         ? "text-(--text-l2) hover:text-(--accent-teal)"
-                        : "text-[var(--text-l3)] cursor-not-allowed"
+                        : "text-(--text-l3) cursor-not-allowed"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -643,7 +643,7 @@ export function ChatInput({
                       ? "text-(--danger)"
                       : input.trim()
                         ? "text-(--text-l2) hover:text-(--accent-teal)"
-                        : "text-[var(--text-l3)] cursor-not-allowed"
+                        : "text-(--text-l3) cursor-not-allowed"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -668,7 +668,7 @@ export function ChatInput({
                       ? "text-(--danger)"
                       : input.trim()
                         ? "text-(--text-l2) hover:text-(--accent-teal)"
-                        : "text-[var(--text-l3)] cursor-not-allowed"
+                        : "text-(--text-l3) cursor-not-allowed"
                 }`}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -686,7 +686,7 @@ export function ChatInput({
                 data-testid="chat-input-document-parse"
                 className={`transition-colors duration-base ${
                   isRunning
-                    ? "text-[var(--text-l3)] cursor-not-allowed"
+                    ? "text-(--text-l3) cursor-not-allowed"
                     : "text-(--text-l2) hover:text-(--accent-teal)"
                 }`}
               >
@@ -717,7 +717,7 @@ export function ChatInput({
               </button>
               {isRunning ? (
                 <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <div className="w-3 h-3 border border-[var(--border-subtle)] border-t-[var(--accent-teal)] rounded-full animate-spin" />
+                  <div className="w-3 h-3 border border-(--border-subtle) border-t-[var(--accent-teal)] rounded-full animate-spin" />
                 </div>
               ) : (
                 <button
@@ -727,7 +727,7 @@ export function ChatInput({
                   className={`transition-colors duration-base ${
                     input.trim()
                       ? "text-(--accent-teal)"
-                      : "text-[var(--text-l3)] cursor-not-allowed hover:text-(--text-l2)"
+                      : "text-(--text-l3) cursor-not-allowed hover:text-(--text-l2)"
                   }`}
                   title="Envoyer"
                 >

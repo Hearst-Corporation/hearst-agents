@@ -43,12 +43,12 @@ export function KgQueryBar({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-3 border border-[var(--border-default)] bg-[var(--surface-card)] rounded-md"
+      className="flex items-center gap-3 border border-(--border-default) bg-[var(--surface-card)] rounded-md"
       style={{ padding: "var(--space-2) var(--space-4)" }}
     >
       <span
         aria-hidden
-        className="t-13 text-[var(--text-faint)]"
+        className="t-13 text-text-faint"
       >
         ⌕
       </span>
@@ -57,14 +57,14 @@ export function KgQueryBar({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Rechercher une entité (ex: Adrien, ACME, …)"
-        className="flex-1 bg-transparent outline-none t-13 font-light text-[var(--text-soft)] placeholder:text-[var(--text-ghost)]"
+        className="flex-1 bg-transparent outline-none t-13 font-light text-text-soft placeholder:text-text-ghost"
         aria-label="Rechercher dans le Knowledge Graph"
       />
       {value && (
         <button
           type="button"
           onClick={handleClear}
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--text)] transition-colors"
+          className="t-11 font-light text-text-faint hover:text-text transition-colors"
           aria-label="Effacer la recherche"
         >
           ESC
@@ -73,7 +73,7 @@ export function KgQueryBar({
       <button
         type="submit"
         disabled={loading}
-        className="t-11 font-medium text-[var(--accent-teal)] disabled:opacity-50"
+        className="t-11 font-medium text-(--accent-teal) disabled:opacity-50"
         style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)", transitionTimingFunction: "var(--ease-out)" }}
       >
         {loading ? "…" : "GO"}

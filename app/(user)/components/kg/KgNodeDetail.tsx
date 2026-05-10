@@ -69,7 +69,7 @@ export function KgNodeDetail({ node, edges, nodes, onClose, onPickPath }: KgNode
 
   return (
     <aside
-      className="border-t border-(--border-default) bg-[var(--bg-elev)] flex flex-col gap-4 overflow-y-auto"
+      className="border-t border-(--border-default) bg-bg-elev flex flex-col gap-4 overflow-y-auto"
       style={{ padding: "var(--space-6) var(--space-12)", maxHeight: "var(--height-focal-min)" }}
     >
       <header className="flex items-start justify-between gap-4">

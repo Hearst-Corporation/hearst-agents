@@ -92,7 +92,7 @@ function renderInline(text: string): ReactNode[] {
       tokens.push(
         <code
           key={`c-${key++}`}
-          className="t-13 font-mono px-1 rounded-xs bg-[var(--surface-1)] text-[var(--text-soft)]"
+          className="t-13 font-mono px-1 rounded-xs bg-surface-1 text-text-soft"
         >
           {raw.slice(1, -1)}
         </code>,
@@ -106,7 +106,7 @@ function renderInline(text: string): ReactNode[] {
             href={m2[2]}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--accent-teal)] underline underline-offset-2 hover:text-[var(--accent-teal)] transition-colors"
+            className="text-(--accent-teal) underline underline-offset-2 hover:text-(--accent-teal) transition-colors"
           >
             {m2[1]}
           </a>,
@@ -116,7 +116,7 @@ function renderInline(text: string): ReactNode[] {
       }
     } else if (raw.startsWith("**")) {
       tokens.push(
-        <strong key={`b-${key++}`} className="font-semibold text-[var(--text)]">
+        <strong key={`b-${key++}`} className="font-semibold text-text">
           {raw.slice(2, -2)}
         </strong>,
       );
@@ -136,7 +136,7 @@ function renderInline(text: string): ReactNode[] {
 function HeadingPrimary({ text }: { text: string }) {
   return (
     <h2
-      className="t-18 font-light tracking-tight text-[var(--text)]"
+      className="t-18 font-light tracking-tight text-text"
       style={{ marginBottom: "var(--space-2)" }}
     >
       {renderInline(text)}
@@ -147,7 +147,7 @@ function HeadingPrimary({ text }: { text: string }) {
 function HeadingSecondary({ text }: { text: string }) {
   return (
     <h3
-      className="t-15 font-medium tracking-tight text-[var(--text-soft)]"
+      className="t-15 font-medium tracking-tight text-text-soft"
       style={{ marginBottom: "var(--space-2)" }}
     >
       {renderInline(text)}
@@ -163,7 +163,7 @@ function ParagraphView({ text }: { text: string }) {
       {paragraphs.map((p, i) => (
         <p
           key={i}
-          className="t-15 leading-relaxed font-light text-[var(--text-soft)] whitespace-pre-wrap"
+          className="t-15 leading-relaxed font-light text-text-soft whitespace-pre-wrap"
         >
           {renderInline(p)}
         </p>
@@ -182,10 +182,10 @@ function ListView({ text }: { text: string }) {
       {items.map((it, i) => (
         <li
           key={i}
-          className="flex items-baseline t-15 leading-relaxed font-light text-[var(--text-soft)]"
+          className="flex items-baseline t-15 leading-relaxed font-light text-text-soft"
           style={{ gap: "var(--space-3)" }}
         >
-          <span className="t-9 font-mono text-[var(--accent-teal)] shrink-0" aria-hidden>
+          <span className="t-9 font-mono text-(--accent-teal) shrink-0" aria-hidden>
             ─
           </span>
           <span>{renderInline(it)}</span>
@@ -216,7 +216,7 @@ function ActionItemsView({
       {items.map((it, i) => (
         <li
           key={i}
-          className="flex items-start t-15 leading-relaxed font-light text-[var(--text-soft)]"
+          className="flex items-start t-15 leading-relaxed font-light text-text-soft"
           style={{ gap: "var(--space-3)" }}
         >
           <input
@@ -231,7 +231,7 @@ function ActionItemsView({
               marginTop: "var(--space-1)",
             }}
           />
-          <span className={it.checked ? "line-through text-[var(--text-faint)]" : ""}>
+          <span className={it.checked ? "line-through text-text-faint" : ""}>
             {renderInline(it.label)}
           </span>
         </li>
@@ -247,16 +247,16 @@ function InsightView({ text }: { text: string }) {
   const label = labelMatch ? labelMatch[1] : "Insight";
   return (
     <div
-      className="border-l border-[var(--accent-teal)]"
+      className="border-l border-(--accent-teal)"
       style={{ paddingLeft: "var(--space-4)" }}
     >
       <div
-        className="t-11 font-medium text-[var(--accent-teal)]"
+        className="t-11 font-medium text-(--accent-teal)"
         style={{ marginBottom: "var(--space-2)" }}
       >
         {label}
       </div>
-      <div className="t-15 leading-relaxed font-light text-[var(--text-soft)] whitespace-pre-wrap">
+      <div className="t-15 leading-relaxed font-light text-text-soft whitespace-pre-wrap">
         {renderInline(body)}
       </div>
     </div>

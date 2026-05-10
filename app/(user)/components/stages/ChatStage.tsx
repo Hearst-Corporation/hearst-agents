@@ -63,7 +63,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
         {activeThreadId && <ConversationHeader />}
         {currentPlan && (
           <div
-            className="flex-shrink-0 border-b border-[var(--border-default)]"
+            className="flex-shrink-0 border-b border-(--border-default)"
             style={{ padding: "var(--space-4) var(--space-12)" }}
           >
             <MissionStepGraph plan={currentPlan} />
@@ -84,12 +84,12 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
             : [{ label: threadLabel || "Hearst" }, { label: focalTypeLabel }, { label: focal.title, accent: true }];
 
           return (
-            <div className="flex-1 flex flex-col min-h-0 border-b border-[var(--border-default)] bg-gradient-to-b from-[var(--surface-1)] to-transparent">
-              <div className="flex items-center justify-between px-12 py-6 flex-shrink-0 relative z-10 border-b border-[var(--border-default)]">
+            <div className="flex-1 flex flex-col min-h-0 border-b border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent">
+              <div className="flex items-center justify-between px-12 py-6 flex-shrink-0 relative z-10 border-b border-(--border-default)">
                 <Breadcrumb trail={trail} className="min-w-0 truncate" />
                 <button
                   onClick={hideFocalStage}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] transition-all shrink-0"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all shrink-0"
                   title="Close (Esc)"
                 >
                   <span>Close</span>
@@ -106,12 +106,12 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
         {focal && !isFocalVisible && (
           <div className="flex-shrink-0 px-12 py-8 relative z-10">
             <button onClick={showFocalStage} className="inline-flex items-center gap-6 group">
-              <span className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot" style={{ width: "var(--space-2)", height: "var(--space-2)" }} />
+              <span className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot" style={{ width: "var(--space-2)", height: "var(--space-2)" }} />
               <div className="flex flex-col items-start">
-                <span className="t-11 font-light text-[var(--text-faint)] group-hover:text-[var(--accent-teal)]  transition-colors">
+                <span className="t-11 font-light text-text-faint group-hover:text-(--accent-teal)  transition-colors">
                   {focal.type === "brief" ? "Active Brief" : focal.type === "report" ? "Active Report" : "Active Document"}
                 </span>
-                <span className="t-15 font-medium tracking-tight text-[var(--text-muted)] group-hover:translate-x-1 group-hover:text-[var(--text)] transition-all duration-slow">
+                <span className="t-15 font-medium tracking-tight text-text-muted group-hover:translate-x-1 group-hover:text-text transition-all duration-slow">
                   {focal.title}
                 </span>
               </div>
@@ -122,7 +122,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
         {!hasMessages && !focal && <WelcomePanel />}
 
         {hasMessages && (
-          <div className={focalVisible ? "flex-shrink-0 border-t border-[var(--border-default)] bg-gradient-to-b from-[var(--surface-1)] to-transparent" : "flex-1 min-h-0 bg-[var(--bg-elev)]"} style={focalVisible ? { height: "var(--height-chat-collapsed)" } : undefined}>
+          <div className={focalVisible ? "flex-shrink-0 border-t border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent" : "flex-1 min-h-0 bg-bg-elev"} style={focalVisible ? { height: "var(--height-chat-collapsed)" } : undefined}>
             <ChatMessages
               messages={messages}
               compact={focalVisible}

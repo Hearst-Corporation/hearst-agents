@@ -130,8 +130,8 @@ export function NotificationBell() {
         onClick={() => setOpen((v) => !v)}
         aria-label={`Notifications${hasUnread ? ` (${unreadCount} non lues)` : ""}`}
         aria-expanded={open}
-        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-[var(--surface-1)] focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border)] ${
-          open ? "bg-[var(--surface-2)]" : "bg-transparent"
+        className={`relative inline-flex items-center justify-center rounded-md border-none cursor-pointer outline-none transition-colors duration-(--duration-base) ease-(--ease-standard) hover:bg-surface-1 focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border)] ${
+          open ? "bg-surface-2" : "bg-transparent"
         }`}
         style={{
           width: "var(--space-8)",
@@ -311,7 +311,7 @@ function NotifRow({
   return (
     <button
       onClick={onRead}
-      className="w-full flex text-left border-none cursor-pointer hover:bg-[var(--surface-2)] transition-colors duration-(--duration-fast) ease-(--ease-standard)"
+      className="w-full flex text-left border-none cursor-pointer hover:bg-surface-2 transition-colors duration-(--duration-fast) ease-(--ease-standard)"
       style={{
         gap: "var(--space-3)",
         padding: "var(--space-3) var(--space-4)",

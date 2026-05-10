@@ -56,7 +56,7 @@ export default function ArchivePage() {
       actions={
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-[var(--border-shell)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] transition-all shrink-0"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all shrink-0"
         >
           <span>Retour</span>
           <span className="t-9 font-mono tabular-nums opacity-60">ESC</span>
@@ -69,7 +69,7 @@ export default function ArchivePage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Chercher dans l'archive…"
-          className="w-full bg-transparent t-15 text-[var(--text)] placeholder-[var(--text-faint)] outline-none"
+          className="w-full bg-transparent t-15 text-text placeholder-[var(--text-faint)] outline-none"
         />
       }
       empty={
@@ -89,15 +89,15 @@ export default function ArchivePage() {
             key={thread.id}
             type="button"
             onClick={() => handleOpen(thread.id)}
-            className="w-full text-left group flex items-baseline gap-6 py-3 px-4 -mx-4 hover:bg-[var(--surface-1)] transition-colors"
+            className="w-full text-left group flex items-baseline gap-6 py-3 px-4 -mx-4 hover:bg-surface-1 transition-colors"
           >
-            <span className="t-9 font-mono tabular-nums text-[var(--text-ghost)] shrink-0" style={{ width: "var(--space-20)" }}>
+            <span className="t-9 font-mono tabular-nums text-text-ghost shrink-0" style={{ width: "var(--space-20)" }}>
               {thread.lastActivity ? FORMATTER.format(new Date(thread.lastActivity)) : "—"}
             </span>
-            <span className="flex-1 t-15 font-light text-[var(--text-muted)] group-hover:text-[var(--text)] transition-colors truncate">
+            <span className="flex-1 t-15 font-light text-text-muted group-hover:text-text transition-colors truncate">
               {thread.name}
             </span>
-            <span className="t-11 font-light text-[var(--text-faint)] opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+            <span className="t-11 font-light text-text-faint opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
               OUVRIR →
             </span>
           </button>

@@ -64,7 +64,7 @@ export function PageHeader({
       {back ? (
         <Link
           href={back.href}
-          className="inline-flex items-center gap-2 t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors w-fit"
+          className="inline-flex items-center gap-2 t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit"
         >
           <ChevronLeftIcon />
           <span>{back.label}</span>
@@ -79,11 +79,11 @@ export function PageHeader({
         style={{ gap: "var(--space-4)" }}
       >
         <div className="flex flex-col min-w-0" style={{ gap: "var(--space-2)" }}>
-          <h1 className="t-28 font-medium tracking-tight text-[var(--text)]">
+          <h1 className="t-28 font-medium tracking-tight text-text">
             {title}
           </h1>
           {subtitle && (
-            <p className="t-13 font-light text-[var(--text-muted)]">
+            <p className="t-13 font-light text-text-muted">
               {subtitle}
             </p>
           )}

@@ -92,7 +92,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
 
   return (
     <section
-      className="border border-[var(--border-shell)]"
+      className="border border-(--border-shell)"
       style={{
         background: "var(--rail)",
         padding: "var(--space-4) var(--space-6)",
@@ -113,7 +113,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
           >
             Plan multi-étapes
           </p>
-          <p className="t-15 font-light text-[var(--text)] whitespace-pre-wrap">
+          <p className="t-15 font-light text-text whitespace-pre-wrap">
             {plan.intent || "Plan sans intention"}
           </p>
         </div>
@@ -124,11 +124,11 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
           >
             {STATUS_LABEL[plan.status]}
           </span>
-          <span className="t-11 font-mono tabular-nums text-[var(--text-faint)]">
+          <span className="t-11 font-mono tabular-nums text-text-faint">
             {formatCost(plan.totalCostUsd)} / ~{formatCost(plan.estimatedCostUsd)}
           </span>
           {eta !== null && plan.status === "running" && (
-            <span className="t-11 font-mono tabular-nums text-[var(--text-faint)]">
+            <span className="t-11 font-mono tabular-nums text-text-faint">
               {eta} s restant
             </span>
           )}
@@ -141,13 +141,13 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
           className="flex items-center"
           style={{ gap: "var(--space-2)", marginBottom: "var(--space-4)" }}
         >
-          <span className="t-11 font-medium text-[var(--text-l1)]">
+          <span className="t-11 font-medium text-(--text-l1)">
             Apps requises
           </span>
           {plan.requiredApps.map((app) => (
             <span
               key={app}
-              className="t-11 font-light border border-[var(--border-shell)] rounded-pill"
+              className="t-11 font-light border border-(--border-shell) rounded-pill"
               style={{
                 padding: "var(--space-1) var(--space-2)",
                 color: "var(--text-muted)",
@@ -177,7 +177,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
       </ol>
 
       {plan.steps.length === 0 && (
-        <p className="t-11 font-light text-[var(--text-faint)]">
+        <p className="t-11 font-light text-text-faint">
           Pas encore de step planifié.
         </p>
       )}

@@ -178,7 +178,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
   return (
     <article
       data-testid={`report-card-${report.id}`}
-      className="group relative flex flex-col gap-4 p-6 rounded-xl border border-[var(--border-default)] bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--accent-teal-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
+      className="group relative flex flex-col gap-4 p-6 rounded-xl border border-(--border-default) bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--accent-teal-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
     >
       {/* Badges top row */}
       <div className="flex items-center gap-2 flex-wrap">

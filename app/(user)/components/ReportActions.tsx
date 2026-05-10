@@ -153,7 +153,7 @@ function SharePopover({
   return (
     <PopoverShell onClose={onClose} title="Partager le rapport">
       <p
-        className="t-9 font-mono uppercase text-[var(--text-muted)]"
+        className="t-9 font-mono uppercase text-text-muted"
         style={{
                     marginBottom: "var(--space-2)",
         }}
@@ -413,7 +413,7 @@ function ActionButton({
     <button
       type="button"
       onClick={onClick}
-      className="t-9 font-mono uppercase hover:text-[var(--accent-teal)]"
+      className="t-9 font-mono uppercase hover:text-(--accent-teal)"
       style={{
                 padding: "var(--space-2) var(--space-3)",
         border: "1px solid var(--surface-2)",
@@ -439,7 +439,7 @@ function MenuItem({
     <button
       type="button"
       onClick={onClick}
-      className="t-9 font-mono uppercase block w-full text-left hover:text-[var(--accent-teal)]"
+      className="t-9 font-mono uppercase block w-full text-left hover:text-(--accent-teal)"
       style={{
         padding: "var(--space-2) var(--space-3)",
         background: "transparent",

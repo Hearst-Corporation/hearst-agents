@@ -100,7 +100,7 @@ const GHOST_TONE: Record<ActionTone, string> = {
 
 const LINK_TONE: Record<ActionTone, string> = {
   brand:
-    "text-(--accent-teal) border-b border-[var(--accent-teal)] hover:opacity-80 px-0",
+    "text-(--accent-teal) border-b border-(--accent-teal) hover:opacity-80 px-0",
   gold:
     "text-(--gold) border-b border-[var(--gold-border)] hover:opacity-80 px-0",
   neutral:

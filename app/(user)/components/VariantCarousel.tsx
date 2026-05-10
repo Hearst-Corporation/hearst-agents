@@ -150,11 +150,11 @@ export function VariantCarousel({
         className="flex items-center justify-between"
         style={{ marginBottom: "var(--space-4)" }}
       >
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           VARIANTS · {variants.length}
         </span>
         {error && (
-          <span className="t-11 font-medium text-[var(--danger)]">
+          <span className="t-11 font-medium text-(--danger)">
             {error}
           </span>
         )}
@@ -193,7 +193,7 @@ export function VariantCarousel({
               <div className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
                 <span
                   className={`t-11 font-light ${
-                    isActive ? "text-[var(--accent-teal)]" : "text-[var(--text-muted)]"
+                    isActive ? "text-(--accent-teal)" : "text-text-muted"
                   }`}
                 >
                   {KIND_LABEL[kind]}
@@ -256,7 +256,7 @@ function VariantThumbnail({
   if (!variant || variant.status !== "ready" || !variant.storageUrl) {
     return (
       <div style={baseStyle}>
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           {variant?.status === "failed"
             ? "Échec"
             : variant?.status === "pending" || variant?.status === "generating"
@@ -291,7 +291,7 @@ function VariantThumbnail({
   if (kind === "video") {
     return (
       <div style={baseStyle}>
-        <span className="t-13 text-[var(--accent-teal)]">▶</span>
+        <span className="t-13 text-(--accent-teal)">▶</span>
       </div>
     );
   }
@@ -299,14 +299,14 @@ function VariantThumbnail({
   if (kind === "code") {
     return (
       <div style={baseStyle}>
-        <span className="t-9 font-mono text-[var(--accent-teal)]">{"</>"}</span>
+        <span className="t-9 font-mono text-(--accent-teal)">{"</>"}</span>
       </div>
     );
   }
 
   return (
     <div style={baseStyle}>
-      <span className="t-11 font-light text-[var(--text-faint)]">
+      <span className="t-11 font-light text-text-faint">
         {KIND_LABEL[kind]}
       </span>
     </div>
@@ -360,7 +360,7 @@ function ActiveVariantPanel({
           gap: "var(--space-3)",
         }}
       >
-        <p className="t-13 font-light text-[var(--text-muted)]">
+        <p className="t-13 font-light text-text-muted">
           Pas encore de variant {KIND_LABEL[kind]}. Génère-en un à partir
           du contenu source.
         </p>
@@ -392,15 +392,15 @@ function ActiveVariantPanel({
       }}
     >
       <header className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
-        <span className="t-13 font-medium text-[var(--text-l1)]">
-          {KIND_LABEL[kind]} · <span className="font-light text-[var(--text-faint)]">{variant.status}</span>
+        <span className="t-13 font-medium text-(--text-l1)">
+          {KIND_LABEL[kind]} · <span className="font-light text-text-faint">{variant.status}</span>
         </span>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           <button
             type="button"
             onClick={onRegenerate}
             disabled={generating}
-            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)] transition-colors duration-base"
+            className="t-11 font-light text-text-muted hover:text-(--accent-teal) transition-colors duration-base"
             style={{
               padding: "var(--space-1) var(--space-3)",
               background: "transparent",
@@ -416,7 +416,7 @@ function ActiveVariantPanel({
             type="button"
             onClick={onFork}
             disabled={generating}
-            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
+            className="t-11 font-light text-text-muted hover:text-(--accent-teal)"
             style={{
               padding: "var(--space-1) var(--space-3)",
               background: "transparent",
@@ -455,13 +455,13 @@ function ActiveVariantPanel({
           href={variant.storageUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="t-11 font-mono text-[var(--accent-teal)] hover:underline"
+          className="t-11 font-mono text-(--accent-teal) hover:underline"
         >
           Ouvrir l&apos;output {variant.storageUrl}
         </a>
       )}
       {isFailed && variant.error && (
-        <p className="t-11 font-mono text-[var(--danger)]">{variant.error}</p>
+        <p className="t-11 font-mono text-(--danger)">{variant.error}</p>
       )}
     </div>
   );

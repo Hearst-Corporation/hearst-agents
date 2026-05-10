@@ -55,7 +55,7 @@ export function ApprovalInline({
 
   return (
     <div
-      className="border-l-2 border-[var(--accent-teal)]"
+      className="border-l-2 border-(--accent-teal)"
       style={{
         background: "var(--accent-teal-surface)",
         padding: "var(--space-3) var(--space-4)",
@@ -68,14 +68,14 @@ export function ApprovalInline({
         className="flex items-center"
         style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
       >
-        <span className="t-11 font-medium text-[var(--accent-teal)]">
+        <span className="t-11 font-medium text-(--accent-teal)">
           Validation requise
         </span>
         <span
           className="rounded-pill bg-[var(--text-ghost)]"
           style={{ width: "var(--space-1)", height: "var(--space-1)" }}
         />
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           {kind}
         </span>
         {providerId && (
@@ -90,7 +90,7 @@ export function ApprovalInline({
       </div>
 
       <p
-        className="t-13 font-light text-[var(--text-soft)] whitespace-pre-wrap"
+        className="t-13 font-light text-text-soft whitespace-pre-wrap"
         style={{ marginBottom: "var(--space-3)" }}
       >
         {preview}

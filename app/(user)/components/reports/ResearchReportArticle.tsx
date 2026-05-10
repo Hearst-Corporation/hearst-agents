@@ -99,39 +99,39 @@ export function ResearchReportArticle({ content }: { content: string }) {
   const blocks = useMemo(() => parse(markdown), [markdown]);
 
   return (
-    <article className="flex flex-col gap-6 max-w-[var(--width-center-max)] text-[var(--text)]">
+    <article className="flex flex-col gap-6 max-w-[var(--width-center-max)] text-text">
       {blocks.map((block, idx) => {
         switch (block.kind) {
           case "h1":
             return (
-              <h1 key={idx} className="t-28 font-light leading-tight tracking-tight text-[var(--text)] mt-2">
+              <h1 key={idx} className="t-28 font-light leading-tight tracking-tight text-text mt-2">
                 {block.text}
               </h1>
             );
           case "h2":
             return (
-              <h2 key={idx} className="t-20 font-light leading-tight tracking-tight text-[var(--text)] mt-4">
+              <h2 key={idx} className="t-20 font-light leading-tight tracking-tight text-text mt-4">
                 {block.text}
               </h2>
             );
           case "h3":
             return (
-              <h3 key={idx} className="t-15 font-medium leading-snug text-[var(--text-soft)] mt-2">
+              <h3 key={idx} className="t-15 font-medium leading-snug text-text-soft mt-2">
                 {block.text}
               </h3>
             );
           case "bullet":
             return (
               <div key={idx} className="flex items-baseline gap-3">
-                <span className="t-9 font-mono text-[var(--accent-teal)] mt-1 shrink-0" aria-hidden="true">
+                <span className="t-9 font-mono text-(--accent-teal) mt-1 shrink-0" aria-hidden="true">
                   ─
                 </span>
                 <div className="flex-1 flex flex-col gap-1">
-                  <p className="t-15 leading-[1.6] font-light text-[var(--text-muted)]">
+                  <p className="t-15 leading-[1.6] font-light text-text-muted">
                     {block.text}
                   </p>
                   {block.meta && (
-                    <span className="t-11 font-light text-[var(--text-faint)]">
+                    <span className="t-11 font-light text-text-faint">
                       {block.meta}
                     </span>
                   )}
@@ -141,16 +141,16 @@ export function ResearchReportArticle({ content }: { content: string }) {
           case "p":
           default:
             return (
-              <p key={idx} className="t-15 leading-[1.7] font-light text-[var(--text-muted)]">
+              <p key={idx} className="t-15 leading-[1.7] font-light text-text-muted">
                 {block.text}
               </p>
             );
         }
       })}
       {sources && sources.length > 0 && (
-        <section className="mt-8 pt-6 border-t border-[var(--line)] flex flex-col gap-3">
+        <section className="mt-8 pt-6 border-t border-(--line) flex flex-col gap-3">
           <h3
-            className="t-9 font-mono uppercase text-[var(--text-muted)]"
+            className="t-9 font-mono uppercase text-text-muted"
             style={{ letterSpacing: "var(--tracking-banner)" }}
           >
             Sources · {sources.length}
@@ -158,14 +158,14 @@ export function ResearchReportArticle({ content }: { content: string }) {
           <ul className="flex flex-col gap-2">
             {sources.map((s, i) => (
               <li key={i} className="flex items-baseline gap-3">
-                <span className="t-9 font-mono text-[var(--text-faint)] shrink-0" aria-hidden="true">
+                <span className="t-9 font-mono text-text-faint shrink-0" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <a
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] underline underline-offset-2 decoration-[var(--line)] hover:decoration-[var(--accent-teal)]"
+                  className="t-13 font-light text-text-soft hover:text-(--accent-teal) underline underline-offset-2 decoration-[var(--line)] hover:decoration-[var(--accent-teal)]"
                 >
                   {s.title}
                 </a>

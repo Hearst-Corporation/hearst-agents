@@ -267,7 +267,7 @@ function MissionsPageContent() {
           className={`rounded-pill ${s.pulse ? "animate-pulse" : ""}`}
           style={{ width: "var(--space-2)", height: "var(--space-2)", background: s.color }}
         />
-        <span className="text-[var(--text-muted)]">{s.count} {s.label}</span>
+        <span className="text-text-muted">{s.count} {s.label}</span>
       </div>
     ));
   })();
@@ -302,8 +302,8 @@ function MissionsPageContent() {
             : undefined
         }
       >
-        <div className="border-t border-[var(--line)]">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 gap-y-0 px-2 py-3 t-11 font-medium text-[var(--text-l1)] border-b border-[var(--border-soft)]">
+        <div className="border-t border-(--line)">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 gap-y-0 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
             <span>Référence</span>
             <span className="text-right">État</span>
             <span className="text-right">Actions</span>
@@ -344,11 +344,11 @@ function MissionsPageContent() {
           onClick={(e) => e.stopPropagation()}
         >
             <div className="p-8">
-              <div className="flex items-center justify-between mb-8 border-b border-[var(--line)] pb-4">
-                <h2 className="t-15 font-medium tracking-tight text-[var(--text)]">
+              <div className="flex items-center justify-between mb-8 border-b border-(--line) pb-4">
+                <h2 className="t-15 font-medium tracking-tight text-text">
                   {editingMission ? "Modifier la mission" : "Nouvelle mission"}
                 </h2>
-                <button type="button" onClick={closeEditor} className="text-[var(--text-muted)] hover:text-[var(--text)] p-1" aria-label="Fermer">
+                <button type="button" onClick={closeEditor} className="text-text-muted hover:text-text p-1" aria-label="Fermer">
                   <GhostIconX className="w-5 h-5" />
                 </button>
               </div>

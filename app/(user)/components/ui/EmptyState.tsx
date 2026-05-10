@@ -57,14 +57,14 @@ export function EmptyState({
       }}
     >
       {icon && (
-        <span className="block t-34 text-[var(--accent-teal)] opacity-30" aria-hidden>
+        <span className="block t-34 text-(--accent-teal) opacity-30" aria-hidden>
           {icon}
         </span>
       )}
-      <p className="t-15 font-light text-[var(--text-soft)]">{title}</p>
+      <p className="t-15 font-light text-text-soft">{title}</p>
       {description && (
         <p
-          className="t-13 font-light text-[var(--text-muted)] leading-relaxed"
+          className="t-13 font-light text-text-muted leading-relaxed"
           style={{ maxWidth: "var(--space-96, 32rem)" }}
         >
           {description}

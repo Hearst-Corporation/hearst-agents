@@ -43,10 +43,10 @@ export function AgentWorking({ data }: AgentWorkingProps) {
                 >
                   {meta.glyph}
                 </span>
-                <span className="t-13 font-light text-[var(--text-l1)] truncate flex-1">
+                <span className="t-13 font-light text-(--text-l1) truncate flex-1">
                   {item.name}
                 </span>
-                <span className="t-11 font-light text-[var(--text-faint)] shrink-0">
+                <span className="t-11 font-light text-text-faint shrink-0">
                   {meta.label}
                 </span>
               </li>

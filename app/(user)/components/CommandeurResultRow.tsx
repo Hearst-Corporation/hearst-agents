@@ -70,15 +70,15 @@ export function CommandeurResultRow({
       <span
         className={`t-13 font-mono shrink-0 transition-colors duration-200 ${
           active && !disabled
-            ? "text-[var(--accent-teal)]"
-            : "text-[var(--text-ghost)]"
+            ? "text-(--accent-teal)"
+            : "text-text-ghost"
         }`}
       >
         {renderedGlyph}
       </span>
       <span
         className={`t-24 leading-none tracking-tight transition-colors duration-200 ${
-          active && !disabled ? "text-[var(--text)]" : "text-[var(--text-muted)]"
+          active && !disabled ? "text-text" : "text-text-muted"
         }`}
       >
         {label}
@@ -86,7 +86,7 @@ export function CommandeurResultRow({
       {hint && (
         <span
           className={`t-11 font-light transition-colors duration-200 ${
-            active && !disabled ? "text-[var(--text-muted)]" : "text-[var(--text-ghost)]"
+            active && !disabled ? "text-text-muted" : "text-text-ghost"
           }`}
         >
           {hint}

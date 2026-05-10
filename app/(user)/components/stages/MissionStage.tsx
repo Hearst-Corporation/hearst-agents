@@ -436,7 +436,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-[var(--border-default)]">
+              <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-(--border-default)">
                 <Stat label="Statut" value={statusLabel(status)} />
                 <Stat label="Activée" value={mission.enabled ? "Oui" : "Non"} />
                 <Stat
@@ -448,7 +448,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
               {/* Derniers runs */}
               {/* The ConfirmModal lives below the scroll container so the
                   backdrop overlays the entire stage. */}
-              <div className="mt-12 pt-8 border-t border-[var(--border-default)]">
+              <div className="mt-12 pt-8 border-t border-(--border-default)">
                 <p
                   className="t-11 font-light mb-4"
                   style={{ color: "var(--text-l2)" }}

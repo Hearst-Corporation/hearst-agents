@@ -75,17 +75,17 @@ export function ExtractSchemaModal({
         aria-modal="true"
         aria-label="Extraction structurée"
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-2xl flex flex-col gap-4 p-6 rounded-md border border-[var(--border-default)]"
+        className="w-full max-w-2xl flex flex-col gap-4 p-6 rounded-md border border-(--border-default)"
         style={{ background: "var(--bg-elev)" }}
       >
         <div className="flex items-center justify-between">
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             EXTRACT
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="t-13 text-[var(--text-muted)] hover:text-[var(--text)]"
+            className="t-13 text-text-muted hover:text-text"
             aria-label="Fermer"
           >
             ✕
@@ -93,14 +93,14 @@ export function ExtractSchemaModal({
         </div>
 
         <p
-          className="t-15 text-[var(--text)]"
+          className="t-15 text-text"
           style={{ lineHeight: "var(--leading-snug)" }}
         >
           Décris ce que l{"'"}agent doit extraire de la page courante.
         </p>
 
         <label className="flex flex-col gap-2">
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             INSTRUCTION
           </span>
           <textarea
@@ -108,21 +108,21 @@ export function ExtractSchemaModal({
             onChange={(e) => setInstruction(e.target.value)}
             placeholder="ex: extrais le titre et le prix du produit affiché"
             rows={2}
-            className="w-full p-3 rounded-md border border-[var(--border-input)] t-13 text-[var(--text)] font-mono"
+            className="w-full p-3 rounded-md border border-(--border-input) t-13 text-text font-mono"
             style={{ background: "var(--bg-soft)" }}
             disabled={loading}
           />
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             SCHEMA (JSON)
           </span>
           <textarea
             value={schemaText}
             onChange={(e) => setSchemaText(e.target.value)}
             rows={8}
-            className="w-full p-3 rounded-md border border-[var(--border-input)] t-13 text-[var(--text)] font-mono"
+            className="w-full p-3 rounded-md border border-(--border-input) t-13 text-text font-mono"
             style={{ background: "var(--bg-soft)" }}
             disabled={loading}
             spellCheck={false}
@@ -130,7 +130,7 @@ export function ExtractSchemaModal({
         </label>
 
         {parseError && (
-          <p className="t-11 font-medium text-[var(--danger)]">
+          <p className="t-11 font-medium text-(--danger)">
             {parseError}
           </p>
         )}

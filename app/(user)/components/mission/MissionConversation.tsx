@@ -141,7 +141,7 @@ export function MissionConversation({
 
   return (
     <section
-      className="border-t border-[var(--border-default)]"
+      className="border-t border-(--border-default)"
       style={{ marginTop: "var(--space-12)", paddingTop: "var(--space-8)" }}
     >
       <header
@@ -152,7 +152,7 @@ export function MissionConversation({
           Conversation
         </p>
         {context?.summaryUpdatedAt && (
-          <span className="t-9 font-light text-[var(--text-faint)]">
+          <span className="t-9 font-light text-text-faint">
             Mis à jour {MSG_TIME_FMT.format(new Date(context.summaryUpdatedAt))}
           </span>
         )}
@@ -175,7 +175,7 @@ export function MissionConversation({
 
       {/* Liste messages */}
       {loading ? (
-        <p className="t-11 font-light text-[var(--text-faint)]">Chargement…</p>
+        <p className="t-11 font-light text-text-faint">Chargement…</p>
       ) : context && context.recentMessages.length > 0 ? (
         <ul
           className="flex flex-col"
@@ -187,7 +187,7 @@ export function MissionConversation({
         </ul>
       ) : (
         <p
-          className="t-11 font-light text-[var(--text-faint)]"
+          className="t-11 font-light text-text-faint"
           style={{ marginBottom: "var(--space-6)" }}
         >
           Aucun échange enregistré. Pose une question pour démarrer le fil.
@@ -218,7 +218,7 @@ export function MissionConversation({
           }}
         />
         <div className="flex items-center justify-between">
-          <span className="t-9 font-light text-[var(--text-faint)]">
+          <span className="t-9 font-light text-text-faint">
             ⌘ + Entrée pour envoyer
           </span>
           <button
@@ -277,7 +277,7 @@ function MessageRow({ message }: { message: MissionMessage }) {
         >
           {label}
         </span>
-        <span className="t-9 font-light text-[var(--text-faint)]">
+        <span className="t-9 font-light text-text-faint">
           {MSG_TIME_FMT.format(new Date(message.createdAt))}
         </span>
       </div>

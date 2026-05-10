@@ -280,7 +280,7 @@ export default function WorkflowBuilderPage() {
             value={missionName}
             onChange={(e) => setMissionName(e.target.value)}
             placeholder="Nom de la mission"
-            className="t-13 text-[var(--text)] bg-transparent rounded-md"
+            className="t-13 text-text bg-transparent rounded-md"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--border-soft)",
@@ -324,7 +324,7 @@ export default function WorkflowBuilderPage() {
 
       {showTemplates && (
         <div
-          className="flex border-b border-[var(--border-shell)]"
+          className="flex border-b border-(--border-shell)"
           style={{
             padding: "var(--space-3) var(--space-12)",
             gap: "var(--space-3)",
@@ -337,7 +337,7 @@ export default function WorkflowBuilderPage() {
               key={tpl.id}
               type="button"
               onClick={() => handlePickTemplate(tpl.id)}
-              className="flex flex-col text-left rounded-md hover:border-[var(--accent-teal)] transition-colors"
+              className="flex flex-col text-left rounded-md hover:border-(--accent-teal) transition-colors"
               style={{
                 padding: "var(--space-3)",
                 gap: "var(--space-1)",
@@ -346,8 +346,8 @@ export default function WorkflowBuilderPage() {
                 minWidth: "240px",
               }}
             >
-              <span className="t-13 text-[var(--text)]">{tpl.name}</span>
-              <span className="t-9 text-[var(--text-muted)]">
+              <span className="t-13 text-text">{tpl.name}</span>
+              <span className="t-9 text-text-muted">
                 {tpl.description}
               </span>
             </button>
@@ -372,13 +372,13 @@ export default function WorkflowBuilderPage() {
             background: "var(--surface-1)",
           }}
         >
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             Vue desktop
           </span>
-          <h2 className="t-15 text-[var(--text)]">
+          <h2 className="t-15 text-text">
             Builder de workflow optimisé pour ordinateur
           </h2>
-          <p className="t-13 text-[var(--text-muted)]">
+          <p className="t-13 text-text-muted">
             Cette vue utilise un canvas graphique pour composer les missions
             multi-step. Ouvre-la sur ordinateur pour la meilleure expérience.
           </p>

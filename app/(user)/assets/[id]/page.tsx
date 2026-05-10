@@ -60,7 +60,7 @@ export default function AssetDetailPage() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <div className="t-13 text-[var(--text-faint)]">Chargement…</div>
+        <div className="t-13 text-text-faint">Chargement…</div>
       </div>
     );
   }
@@ -68,10 +68,10 @@ export default function AssetDetailPage() {
   if (!asset) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8">
-        <div className="t-13 text-[var(--text-ghost)] mb-4">Asset non trouvé</div>
+        <div className="t-13 text-text-ghost mb-4">Asset non trouvé</div>
         <button
           onClick={() => router.push("/")}
-          className="t-13 text-[var(--accent-teal)] hover:text-[var(--accent-teal)]/80"
+          className="t-13 text-(--accent-teal) hover:text-(--accent-teal)/80"
         >
           Retour à l&apos;accueil
         </button>

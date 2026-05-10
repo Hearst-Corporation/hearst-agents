@@ -112,14 +112,14 @@ export function ProviderChip({
   // error   : danger (échec visible)
   const dotClass =
     status === "error"
-      ? "bg-[var(--danger)]"
+      ? "bg-(--danger)"
       : status === "pending"
         ? "bg-[var(--text-faint)] animate-pulse"
-        : "bg-[var(--accent-teal)]";
+        : "bg-(--accent-teal)";
 
   return (
     <span
-      className="relative inline-flex items-center rounded-pill border border-[var(--border-shell)] bg-[var(--surface-1)] px-2 py-0.5 t-9 font-mono text-[var(--text-muted)] transition-colors hover:border-[var(--accent-teal-border)] hover:text-[var(--text)]"
+      className="relative inline-flex items-center rounded-pill border border-(--border-shell) bg-surface-1 px-2 py-0.5 t-9 font-mono text-text-muted transition-colors hover:border-[var(--accent-teal-border)] hover:text-text"
       style={{ gap: "var(--space-1)" }}
       data-provider={providerId}
       data-status={status}
@@ -132,7 +132,7 @@ export function ProviderChip({
     >
       <span
         aria-hidden
-        className="inline-flex items-center justify-center rounded-pill bg-[var(--surface-2)] text-[var(--text)] t-9 font-bold"
+        className="inline-flex items-center justify-center rounded-pill bg-surface-2 text-text t-9 font-bold"
         style={{ width: "var(--space-3)", height: "var(--space-3)" }}
       >
         {glyphFor(providerId)}
@@ -147,9 +147,9 @@ export function ProviderChip({
       {showTooltip && (latencyMs != null || costUSD != null) && (
         <span
           role="tooltip"
-          className="absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 whitespace-nowrap rounded-md border border-[var(--border-shell)] bg-[var(--rail)] px-2 py-1 t-9 font-mono text-[var(--text-muted)] shadow-[var(--shadow-card)]"
+          className="absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 whitespace-nowrap rounded-md border border-(--border-shell) bg-[var(--rail)] px-2 py-1 t-9 font-mono text-text-muted shadow-[var(--shadow-card)]"
         >
-          <span className="text-[var(--text)]">{displayLabel}</span>
+          <span className="text-text">{displayLabel}</span>
           <span className="ml-2">⌛ {formatLatency(latencyMs)}</span>
           <span className="ml-2">{formatCost(costUSD)}</span>
         </span>

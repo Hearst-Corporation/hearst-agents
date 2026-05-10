@@ -30,10 +30,10 @@ export function TodayAgenda({ data }: TodayAgendaProps) {
                 borderRadius: "var(--radius-xs)",
               }}
             >
-              <span className="t-13 font-mono tabular-nums text-[var(--accent-teal)] shrink-0">
+              <span className="t-13 font-mono tabular-nums text-(--accent-teal) shrink-0">
                 {formatHHMM(item.startsAt)}
               </span>
-              <span className="t-13 font-light text-[var(--text-l1)] truncate">
+              <span className="t-13 font-light text-(--text-l1) truncate">
                 {item.title}
               </span>
             </li>

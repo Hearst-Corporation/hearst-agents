@@ -101,19 +101,19 @@ export function ChatConnectInline() {
 
   return (
     <div
-      className="mt-3 border border-[var(--warn)]/40 bg-[var(--warn)]/[0.04] px-4 py-3"
+      className="mt-3 border border-(--warn)/40 bg-(--warn)/[0.04] px-4 py-3"
       role="region"
       aria-label="Connexion d'un service requise"
     >
-      <div className="flex items-center gap-2 mb-2 t-9 font-medium text-[var(--warn)]">
+      <div className="flex items-center gap-2 mb-2 t-9 font-medium text-(--warn)">
         <span>Connexion requise</span>
-        <span className="text-[var(--text-ghost)]">·</span>
-        <span className="text-[var(--text-faint)]">{request.app}</span>
+        <span className="text-text-ghost">·</span>
+        <span className="text-text-faint">{request.app}</span>
       </div>
-      <p className="t-13 text-[var(--text-soft)] leading-[1.5] mb-3">{request.reason}</p>
+      <p className="t-13 text-text-soft leading-[1.5] mb-3">{request.reason}</p>
 
       {lastError && (
-        <div className="mb-3 border border-[var(--danger)]/40 bg-[var(--danger)]/[0.06] px-3 py-2 t-11 text-[var(--danger)]">
+        <div className="mb-3 border border-(--danger)/40 bg-(--danger)/[0.06] px-3 py-2 t-11 text-(--danger)">
           <div className="font-medium mb-1">
             {lastError.code === "NO_INTEGRATION"
               ? "Aucune intégration configurée"
@@ -121,12 +121,12 @@ export function ChatConnectInline() {
                 ? "Auth config manquante"
                 : "Échec"}
           </div>
-          <div className="text-[var(--text-soft)] leading-[1.45]">{lastError.message}</div>
+          <div className="text-text-soft leading-[1.45]">{lastError.message}</div>
           <a
             href={`https://app.composio.dev/app/${encodeURIComponent(request.app)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-2 t-9 font-light text-[var(--accent-teal)] hover:underline"
+            className="inline-block mt-2 t-9 font-light text-(--accent-teal) hover:underline"
           >
             Configurer sur app.composio.dev →
           </a>
@@ -137,11 +137,11 @@ export function ChatConnectInline() {
         <button
           onClick={handleConnect}
           disabled={busy}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-medium border border-[var(--warn)] text-[var(--warn)] bg-[var(--warn)]/[0.06] hover:bg-[var(--warn)]/[0.12] transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-medium border border-(--warn) text-(--warn) bg-(--warn)/[0.06] hover:bg-(--warn)/[0.12] transition-colors disabled:opacity-50"
         >
           {busy ? (
             <>
-              <span className="w-1 h-1 rounded-pill bg-[var(--warn)] animate-pulse" />
+              <span className="w-1 h-1 rounded-pill bg-(--warn) animate-pulse" />
               <span>Redirection…</span>
             </>
           ) : lastError ? (
@@ -159,7 +159,7 @@ export function ChatConnectInline() {
           href={`/api/composio/diagnose?app=${encodeURIComponent(request.app)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="t-9 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)]"
+          className="t-9 font-light text-text-faint hover:text-(--accent-teal)"
           title="Voir le diagnostic Composio (JSON)"
         >
           Diagnostic

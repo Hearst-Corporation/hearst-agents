@@ -44,13 +44,13 @@ export function PersonaCard({
         className="flex items-baseline justify-between"
         style={{ gap: "var(--space-2)" }}
       >
-        <span className="t-13 font-medium text-[var(--text)]">{persona.name}</span>
+        <span className="t-13 font-medium text-text">{persona.name}</span>
         {persona.isDefault && (
-          <span className="t-11 font-medium text-[var(--accent-teal)]">Par défaut</span>
+          <span className="t-11 font-medium text-(--accent-teal)">Par défaut</span>
         )}
       </header>
       {persona.description && (
-        <p className="t-11 text-[var(--text-muted)]">{persona.description}</p>
+        <p className="t-11 text-text-muted">{persona.description}</p>
       )}
       <div className="flex flex-wrap" style={{ gap: "var(--space-2)" }}>
         {persona.tone && <Chip>{persona.tone}</Chip>}
@@ -65,7 +65,7 @@ export function PersonaCard({
           type="button"
           onClick={() => onEdit(persona)}
           disabled={isBuiltin || busy}
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors duration-base"
+          className="t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors duration-base"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Éditer
@@ -74,7 +74,7 @@ export function PersonaCard({
           type="button"
           onClick={() => onRemove(persona)}
           disabled={isBuiltin || busy}
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--danger)] transition-colors duration-base"
+          className="t-11 font-light text-text-faint hover:text-(--danger) transition-colors duration-base"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Supprimer
@@ -83,7 +83,7 @@ export function PersonaCard({
           type="button"
           onClick={() => onPublish(persona)}
           disabled={busy}
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors duration-base"
+          className="t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors duration-base"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Publier
@@ -96,7 +96,7 @@ export function PersonaCard({
 function Chip({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="t-11 font-light text-[var(--text-faint)]"
+      className="t-11 font-light text-text-faint"
       style={{
         padding: "var(--space-1) var(--space-2)",
         border: "1px solid var(--line-strong)",

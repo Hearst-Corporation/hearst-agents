@@ -51,11 +51,11 @@ function tsFromId(id: string): number | null {
 function MetaLine({ author, ts }: { author: string; ts: string }) {
   return (
     <div
-      className="t-11 font-light text-[var(--text-faint)]"
+      className="t-11 font-light text-text-faint"
       style={{ marginBottom: "var(--space-2)" }}
     >
       <span>{author}</span>
-      <span className="text-[var(--text-ghost)]" style={{ marginLeft: "var(--space-2)", marginRight: "var(--space-2)" }}>·</span>
+      <span className="text-text-ghost" style={{ marginLeft: "var(--space-2)", marginRight: "var(--space-2)" }}>·</span>
       <span className="font-mono tabular-nums">{ts}</span>
     </div>
   );
@@ -63,7 +63,7 @@ function MetaLine({ author, ts }: { author: string; ts: string }) {
 
 function StreamShimmer() {
   return (
-    <p className="t-13 font-light text-[var(--text-faint)] tracking-tight" style={{ marginTop: "var(--space-2)" }}>
+    <p className="t-13 font-light text-text-faint tracking-tight" style={{ marginTop: "var(--space-2)" }}>
       <span className="chat-typing-dots" aria-hidden>···</span>
     </p>
   );
@@ -214,7 +214,7 @@ export function ChatMessages({
             return (
               <div key={message.id} className="w-full">
                 <MetaLine author="Toi" ts={ts} />
-                <div className="t-15 font-light leading-relaxed text-[var(--text-soft)] whitespace-pre-wrap">
+                <div className="t-15 font-light leading-relaxed text-text-soft whitespace-pre-wrap">
                   {liveContent}
                 </div>
               </div>

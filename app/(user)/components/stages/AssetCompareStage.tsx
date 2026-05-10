@@ -104,7 +104,7 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
       <StageActionBar
         onBack={back}
         context={
-          <span className="t-11 font-light text-[var(--text-muted)]">
+          <span className="t-11 font-light text-text-muted">
             Comparer · {assetIdA.slice(0, 8)} ↔ {assetIdB.slice(0, 8)}
           </span>
         }
@@ -126,13 +126,13 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
             margin: "var(--space-4) var(--space-6)",
           }}
         >
-          <p className="t-11 font-medium text-[var(--danger)]">{error}</p>
+          <p className="t-11 font-medium text-(--danger)">{error}</p>
         </div>
       )}
 
       {loading && (
         <div className="flex items-center justify-center" style={{ padding: "var(--space-12)" }}>
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             Chargement…
           </span>
         </div>
@@ -165,7 +165,7 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
                 marginBottom: "var(--space-6)",
               }}
             >
-              <p className="t-11 font-medium text-[var(--danger)]">
+              <p className="t-11 font-medium text-(--danger)">
                 {diffError}
               </p>
             </div>
@@ -184,11 +184,11 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
               }}
             >
               <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
-                <span className="t-13 font-medium text-[var(--accent-teal)]">
+                <span className="t-13 font-medium text-(--accent-teal)">
                   Différences · {diff.differences.length}
                 </span>
               </header>
-              <p className="t-13 font-light text-[var(--text)] leading-relaxed">
+              <p className="t-13 font-light text-text leading-relaxed">
                 {diff.summary}
               </p>
               <ul className="flex flex-col" style={{ gap: "var(--space-2)", listStyle: "none", paddingLeft: 0 }}>
@@ -204,10 +204,10 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
                       borderRadius: "var(--radius-xs)",
                     }}
                   >
-                    <span className="t-11 font-medium text-[var(--accent-teal)] shrink-0">
+                    <span className="t-11 font-medium text-(--accent-teal) shrink-0">
                       {d.kind}
                     </span>
-                    <span className="t-11 font-light text-[var(--text-soft)]">
+                    <span className="t-11 font-light text-text-soft">
                       {d.description}
                     </span>
                   </li>
@@ -242,11 +242,11 @@ function ComparePane({
         gap: "var(--space-3)",
       }}
     >
-      <span className="t-11 font-medium text-[var(--accent-teal)]">
+      <span className="t-11 font-medium text-(--accent-teal)">
         Asset {side}
       </span>
       <h2
-        className="t-15 font-medium tracking-tight text-[var(--text)]"
+        className="t-15 font-medium tracking-tight text-text"
         style={{ marginBottom: "var(--space-2)" }}
       >
         {asset.title}
@@ -262,7 +262,7 @@ function ComparePane({
           borderRadius: "var(--radius-xs)",
         }}
       >
-        <pre className="t-11 font-mono text-[var(--text-muted)]" style={{ whiteSpace: "pre-wrap" }}>
+        <pre className="t-11 font-mono text-text-muted" style={{ whiteSpace: "pre-wrap" }}>
           {(asset.contentRef ?? asset.summary ?? "Aucun contenu").slice(0, 4000)}
         </pre>
       </div>

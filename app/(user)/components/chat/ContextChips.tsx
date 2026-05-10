@@ -28,7 +28,7 @@ export function ContextChips() {
         <span
           key={chip.id}
           data-testid={`context-chip-${chip.id}`}
-          className="group inline-flex items-center gap-2 rounded-pill border border-[var(--border-shell)] bg-[var(--surface-1)] hover:bg-[var(--surface-2)] transition-colors duration-base"
+          className="group inline-flex items-center gap-2 rounded-pill border border-(--border-shell) bg-surface-1 hover:bg-surface-2 transition-colors duration-base"
           style={{ padding: "var(--space-2) var(--space-3)" }}
         >
           <button
@@ -41,7 +41,7 @@ export function ContextChips() {
                 }),
               );
             }}
-            className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--text-soft)] transition-colors"
+            className="t-11 font-light text-text-muted hover:text-text-soft transition-colors"
             data-testid={`context-chip-label-${chip.id}`}
           >
             {chip.label}
@@ -50,7 +50,7 @@ export function ContextChips() {
             type="button"
             onClick={() => removeChip(chip.id)}
             aria-label={`Retirer ${chip.label}`}
-            className="text-[var(--text-faint)] hover:text-[var(--danger)] transition-colors flex items-center justify-center"
+            className="text-text-faint hover:text-(--danger) transition-colors flex items-center justify-center"
             data-testid={`context-chip-remove-${chip.id}`}
           >
             <svg

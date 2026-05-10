@@ -136,18 +136,18 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
   return (
     <div className="border-t border-[var(--surface-2)] pt-8">
       <header className="flex items-baseline justify-between mb-6">
-        <span className="t-13 font-medium text-[var(--text-l1)]">Formats alternatifs</span>
+        <span className="t-13 font-medium text-(--text-l1)">Formats alternatifs</span>
         <div className="flex items-center gap-2">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.kind;
             const variant = variants.find((v) => v.kind === tab.kind);
             const dotColor =
               variant?.status === "ready"
-                ? "bg-[var(--accent-teal)]"
+                ? "bg-(--accent-teal)"
                 : variant?.status === "pending" || variant?.status === "generating"
-                ? "bg-[var(--warn)] animate-pulse"
+                ? "bg-(--warn) animate-pulse"
                 : variant?.status === "failed"
-                ? "bg-[var(--danger)]"
+                ? "bg-(--danger)"
                 : "bg-[var(--text-ghost)]";
             return (
               <button
@@ -156,8 +156,8 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
                 onClick={() => setActiveTab(tab.kind)}
                 className={`px-3 py-1.5 t-11 font-light border transition-colors duration-base ${
                   isActive
-                    ? "border-[var(--accent-teal)] text-[var(--accent-teal)]"
-                    : "border-[var(--border-shell)] text-[var(--text-muted)] hover:text-[var(--text)]"
+                    ? "border-(--accent-teal) text-(--accent-teal)"
+                    : "border-(--border-shell) text-text-muted hover:text-text"
                 }`}
               >
                 <span className="flex items-center gap-2">
@@ -210,17 +210,17 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
 
         return (
           <div className="flex flex-col items-start gap-4">
-            <p className="t-13 font-light text-[var(--text-muted)]">{meta.empty}</p>
+            <p className="t-13 font-light text-text-muted">{meta.empty}</p>
             {activeTab === "video" && (
               <label className="flex flex-col gap-2">
-                <span className="t-11 font-medium text-[var(--text-l1)]">
+                <span className="t-11 font-medium text-(--text-l1)">
                   Fournisseur
                 </span>
                 <select
                   value={videoProvider}
                   onChange={(e) => setVideoProvider(e.target.value === "heygen" ? "heygen" : "runway")}
                   disabled={generating === "video"}
-                  className="px-3 py-2 t-13 font-light text-[var(--text)] bg-[var(--card-flat-bg)] border border-[var(--border-shell)] hover:border-[var(--accent-teal-border-hover)] transition-colors disabled:opacity-60"
+                  className="px-3 py-2 t-13 font-light text-text bg-[var(--card-flat-bg)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] transition-colors disabled:opacity-60"
                 >
                   <option value="runway">Runway (text-to-video)</option>
                   <option value="heygen">HeyGen (avatar)</option>
@@ -236,7 +236,7 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
               {meta.cta}
             </Action>
             {error && (
-              <p className="t-13 font-light text-[var(--danger)]">{error}</p>
+              <p className="t-13 font-light text-(--danger)">{error}</p>
             )}
           </div>
         );

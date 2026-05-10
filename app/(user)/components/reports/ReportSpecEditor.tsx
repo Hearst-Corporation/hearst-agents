@@ -83,11 +83,11 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
       >
         <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
           <span
-            className="t-9 font-mono uppercase text-[var(--text-muted)]"
+            className="t-9 font-mono uppercase text-text-muted"
                      >
             Visibilité
           </span>
-          <span className="t-13 text-[var(--text)] tabular-nums">
+          <span className="t-13 text-text tabular-nums">
             {visibleCount} / {totalCount}
           </span>
         </div>
@@ -95,7 +95,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
           <button
             type="button"
             onClick={resetAll}
-            className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)] transition-colors"
+            className="t-9 font-mono uppercase text-text-muted hover:text-text-soft transition-colors"
             style={{
                             padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--surface-2)",
@@ -148,7 +148,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
                 style={{ accentColor: "var(--accent-teal)" }}
               />
               <span
-                className="t-9 font-mono uppercase text-[var(--accent-teal)]"
+                className="t-9 font-mono uppercase text-(--accent-teal)"
                 style={{
                                     minWidth: "var(--space-20)",
                 }}
@@ -157,14 +157,14 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
               </span>
               <span
                 className={`t-11 truncate flex-1 ${
-                  isVisible ? "text-[var(--text-soft)]" : "text-[var(--text-faint)]"
+                  isVisible ? "text-text-soft" : "text-text-faint"
                 }`}
                 title={block.label ?? block.id}
               >
                 {block.label ?? block.id}
               </span>
               <span
-                className="t-9 font-mono uppercase text-[var(--text-faint)]"
+                className="t-9 font-mono uppercase text-text-faint"
                              >
                 col_{block.layout.col}
               </span>
@@ -185,7 +185,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
       >
         {visibleBlocks.length === 0 ? (
           <div
-            className="t-9 font-mono uppercase text-[var(--text-faint)]"
+            className="t-9 font-mono uppercase text-text-faint"
             style={{
                             textAlign: "center",
               padding: "var(--space-8)",

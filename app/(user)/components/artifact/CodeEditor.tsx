@@ -82,13 +82,13 @@ export function CodeEditor({
 
   return (
     <div
-      className="flex h-full min-h-0 flex-1 overflow-hidden rounded-md border border-[var(--border-default)] bg-[var(--rail)]"
+      className="flex h-full min-h-0 flex-1 overflow-hidden rounded-md border border-(--border-default) bg-[var(--rail)]"
       style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
     >
       <div
         ref={gutterRef}
         aria-hidden
-        className="select-none overflow-hidden border-r border-[var(--border-default)] text-right t-11"
+        className="select-none overflow-hidden border-r border-(--border-default) text-right t-11"
         style={{
           paddingTop: "var(--space-3)",
           paddingBottom: "var(--space-3)",

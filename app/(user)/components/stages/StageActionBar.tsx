@@ -53,7 +53,7 @@ export function StageActionBar({
 }: StageActionBarProps) {
   return (
     <header
-      className="flex items-center justify-between flex-shrink-0 relative z-10 border-b border-[var(--border-default)]"
+      className="flex items-center justify-between flex-shrink-0 relative z-10 border-b border-(--border-default)"
       style={{
         paddingLeft: "var(--space-12)",
         paddingRight: "var(--space-12)",
@@ -67,7 +67,7 @@ export function StageActionBar({
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center t-11 font-light border border-[var(--border-shell)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border-hover)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] shrink-0"
+            className="inline-flex items-center t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] shrink-0"
             style={{
               gap: "var(--space-2)",
               paddingLeft: "var(--space-3)",
@@ -240,7 +240,7 @@ function OverflowMenu({ actions }: { actions: StageAction[] }) {
               }}
               disabled={a.disabled}
               data-testid={`stage-action-${a.id}`}
-              className="inline-flex items-center w-full t-11 font-light text-left hover:text-[var(--accent-teal)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
+              className="inline-flex items-center w-full t-11 font-light text-left hover:text-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
               style={{
                 gap: "var(--space-2)",
                 paddingLeft: "var(--space-3)",

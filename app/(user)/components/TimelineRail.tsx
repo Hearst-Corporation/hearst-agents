@@ -206,7 +206,7 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
             e.stopPropagation();
             onArchive();
           }}
-          className="text-[var(--text-faint)] hover:text-[var(--text-soft)] p-1 transition-colors"
+          className="text-text-faint hover:text-text-soft p-1 transition-colors"
           title={isArchived ? "Unarchive" : "Archive"}
           aria-label={isArchived ? "Unarchive thread" : "Archive thread"}
         >
@@ -222,7 +222,7 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
             e.stopPropagation();
             if (window.confirm(`Delete "${thread.name}" ?`)) onDelete();
           }}
-          className="text-[var(--text-faint)] hover:text-[var(--danger)] p-1 transition-colors"
+          className="text-text-faint hover:text-(--danger) p-1 transition-colors"
           title="Delete"
           aria-label="Delete thread"
         >
@@ -472,7 +472,7 @@ export function TimelineRail() {
           title="Hearst"
         >
           {leftCollapsed ? (
-            <span className="t-15 font-medium tracking-tight text-[var(--accent-teal)] halo-cyan-sm leading-none">H</span>
+            <span className="t-15 font-medium tracking-tight text-(--accent-teal) halo-cyan-sm leading-none">H</span>
           ) : (
             <HearstLogo className="h-10 w-auto transition-all duration-slow" />
           )}
@@ -485,7 +485,7 @@ export function TimelineRail() {
           <>
             <button
               onClick={handleNewThread}
-              className="mb-3 w-8 h-8 flex items-center justify-center rounded-md border border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
+              className="mb-3 w-8 h-8 flex items-center justify-center rounded-md border border-(--border-subtle) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)] transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0"
               title="Nouvelle conversation"
             >
               <PlusIcon />
@@ -498,8 +498,8 @@ export function TimelineRail() {
               aria-current={isAppsActive ? "page" : undefined}
               className={`relative mb-6 w-8 h-8 flex items-center justify-center rounded-md border transition-all duration-(--duration-slow) ease-(--ease-out-soft) shrink-0 ${
                 isAppsActive
-                  ? "border-[var(--accent-teal-border)] bg-[var(--accent-teal-bg-active)] text-[var(--accent-teal)]"
-                  : "border-[var(--border-subtle)] text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)]"
+                  ? "border-[var(--accent-teal-border)] bg-[var(--accent-teal-bg-active)] text-(--accent-teal)"
+                  : "border-(--border-subtle) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border)] hover:bg-[var(--accent-teal-bg-hover)]"
               }`}
               title={oauthBadgeTitle ?? "Apps"}
             >
@@ -588,7 +588,7 @@ export function TimelineRail() {
                 className="w-full flex items-center justify-between first:mt-0 mt-12 mb-6 px-3 group"
               >
                 <span
-                  className="t-9 font-medium transition-colors group-hover:text-[var(--text-soft)]"
+                  className="t-9 font-medium transition-colors group-hover:text-text-soft"
                   style={{
                     color: "var(--text-faint)",
                     letterSpacing: "var(--tracking-wide)",
@@ -598,7 +598,7 @@ export function TimelineRail() {
                   Investigations
                 </span>
                 <span
-                  className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-[var(--text-faint)] group-hover:text-[var(--text-soft)]"
+                  className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-text-faint group-hover:text-text-soft"
                   style={{
                     transform: recentsExpanded ? "rotate(0deg)" : "rotate(-90deg)",
                   }}
@@ -683,7 +683,7 @@ export function TimelineRail() {
             <Link
               href="/admin"
               title="Admin console"
-              className="w-6 h-6 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors"
+              className="w-6 h-6 flex items-center justify-center text-text-ghost hover:text-(--accent-teal) transition-colors"
             >
               <AdminIcon />
             </Link>
@@ -692,7 +692,7 @@ export function TimelineRail() {
               onClick={() => signOut({ callbackUrl: "/login" })}
               title="Sign out"
               aria-label="Sign out"
-              className="w-6 h-6 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--danger)] transition-colors"
+              className="w-6 h-6 flex items-center justify-center text-text-ghost hover:text-(--danger) transition-colors"
             >
               <LogoutIcon />
             </button>
@@ -700,7 +700,7 @@ export function TimelineRail() {
               onClick={toggleLeftCollapsed}
               title="Expand"
               aria-label="Expand"
-              className="w-6 h-5 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors"
+              className="w-6 h-5 flex items-center justify-center text-text-ghost hover:text-(--accent-teal) transition-colors"
             >
               <ChevronRightIcon />
             </button>
@@ -759,7 +759,7 @@ export function TimelineRail() {
               onClick={toggleLeftCollapsed}
               title="Collapse"
               aria-label="Collapse"
-              className="w-5 h-5 flex items-center justify-center text-[var(--text-ghost)] hover:text-[var(--accent-teal)] transition-colors mt-2"
+              className="w-5 h-5 flex items-center justify-center text-text-ghost hover:text-(--accent-teal) transition-colors mt-2"
             >
               <ChevronLeftIcon />
             </button>

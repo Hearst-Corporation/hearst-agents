@@ -295,7 +295,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
       ) : (
         <div className="flex-1 flex min-h-0">
           <section
-            className="basis-3/5 flex flex-col min-h-0 border-r border-[var(--border-default)]"
+            className="basis-3/5 flex flex-col min-h-0 border-r border-(--border-default)"
             style={{ padding: "var(--space-6)", gap: "var(--space-4)" }}
           >
             <header className="t-11 font-light text-text-faint">

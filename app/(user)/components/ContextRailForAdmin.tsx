@@ -120,11 +120,11 @@ function CollapsibleRailSection({
         className="w-full flex items-baseline justify-between gap-3 group"
         style={{ marginBottom: expanded ? "var(--space-4)" : 0 }}
       >
-        <span className="t-13 font-medium text-[var(--text-l1)] truncate text-left">
+        <span className="t-13 font-medium text-(--text-l1) truncate text-left">
           {label}
         </span>
         <span
-          className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-[var(--text-faint)] group-hover:text-[var(--text-soft)] shrink-0"
+          className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-text-faint group-hover:text-text-soft shrink-0"
           style={{ transform: expanded ? "rotate(0deg)" : "rotate(-90deg)" }}
           aria-hidden
         >
@@ -194,7 +194,7 @@ function ShortcutActive({ children }: { children: ReactNode }) {
       />
       <span
         aria-current="page"
-        className="inline-flex items-center t-13 font-medium text-[var(--text-l1)] rounded-sm"
+        className="inline-flex items-center t-13 font-medium text-(--text-l1) rounded-sm"
         style={{
           paddingInline: "var(--space-2)",
           paddingBlock: "var(--space-1)",
@@ -228,7 +228,7 @@ export function ContextRailForRuns() {
               <button
                 type="button"
                 onClick={() => router.push(`/runs${f.q}`)}
-                className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] transition-colors duration-base text-left w-full"
+                className="t-13 font-light text-text-soft hover:text-(--accent-teal) transition-colors duration-base text-left w-full"
               >
                 {f.label}
               </button>
@@ -247,7 +247,7 @@ export function ContextRailForRuns() {
       </CollapsibleRailSection>
 
       <RailSection label="Aide">
-        <p className="t-11 font-light text-[var(--text-faint)]">
+        <p className="t-11 font-light text-text-faint">
           Chaque run garde sa trace complète : prompt, modèle, coût, latence,
           assets produits. Re-run un run conserve le contexte.
         </p>
@@ -349,10 +349,10 @@ export function ContextRailForMissionsAdmin() {
                 key={c.label}
                 className="flex items-baseline justify-between"
               >
-                <span className="t-13 font-light text-[var(--text-soft)]">
+                <span className="t-13 font-light text-text-soft">
                   {c.label}
                 </span>
-                <span className="t-11 font-mono tabular-nums text-[var(--text-faint)]">
+                <span className="t-11 font-mono tabular-nums text-text-faint">
                   {c.cron === "custom" ? "—" : c.cron}
                 </span>
               </li>
@@ -376,7 +376,7 @@ export function ContextRailForMissionsAdmin() {
         </CollapsibleRailSection>
 
         <RailSection label="Aide">
-          <p className="t-11 font-light text-[var(--text-faint)]">
+          <p className="t-11 font-light text-text-faint">
             Les missions sont des automatisations planifiées. Elles s&apos;exécutent
             selon une cadence cron, peuvent enchaîner plusieurs étapes et
             déclencher des actions sur tes apps connectées.
@@ -430,7 +430,7 @@ export function ContextRailForApps() {
       </CollapsibleRailSection>
 
       <RailSection label="Aide">
-        <p className="t-11 font-light text-[var(--text-faint)]">
+        <p className="t-11 font-light text-text-faint">
           Connecte tes outils via OAuth. Une fois liés, ils alimentent
           automatiquement Hearst : emails, calendrier, fichiers, code, etc.
         </p>
@@ -459,7 +459,7 @@ export function ContextRailForReports() {
             <li key={d.slug}>
               <a
                 href={`/reports?domain=${d.slug}`}
-                className="t-13 font-light text-[var(--text-soft)] hover:text-[var(--accent-teal)] transition-colors duration-base"
+                className="t-13 font-light text-text-soft hover:text-(--accent-teal) transition-colors duration-base"
               >
                 {d.label}
               </a>
@@ -480,7 +480,7 @@ export function ContextRailForReports() {
       </CollapsibleRailSection>
 
       <RailSection label="Aide">
-        <p className="t-11 font-light text-[var(--text-faint)]">
+        <p className="t-11 font-light text-text-faint">
           Les rapports génèrent des analyses chiffrées à la demande ou
           planifiées (en mission). Chaque rapport peut être exporté en PDF
           ou partagé via lien signé.

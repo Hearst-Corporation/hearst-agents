@@ -63,10 +63,10 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
   const narration = extractNarration(asset.contentRef);
 
   return (
-    <div className="border-t border-[var(--ghost-modal-top)] bg-[var(--bg)] overflow-hidden">
+    <div className="border-t border-[var(--ghost-modal-top)] bg-bg overflow-hidden">
       <div className="p-6 border-b border-(--line) flex flex-wrap items-start gap-6">
         <span
-          className="font-mono t-9 uppercase text-text-muted border-b border-[var(--accent-teal)] pb-1"
+          className="font-mono t-9 uppercase text-text-muted border-b border-(--accent-teal) pb-1"
           style={{ letterSpacing: "var(--tracking-banner)" }}
         >
           {kindRef}
@@ -100,7 +100,7 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
 
       <div className="p-6 min-h-[200px] flex items-center justify-center border-b border-(--line)">
         {canPreviewInline && narration ? (
-          <div className="w-full max-h-96 overflow-auto bg-[var(--bg-elev)] p-4 font-mono t-11 text-text-muted border border-(--line)">
+          <div className="w-full max-h-96 overflow-auto bg-bg-elev p-4 font-mono t-11 text-text-muted border border-(--line)">
             <pre className="whitespace-pre-wrap">{narration}</pre>
           </div>
         ) : narration ? (

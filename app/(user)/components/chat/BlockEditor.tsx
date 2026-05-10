@@ -72,7 +72,7 @@ export function BlockEditor({
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         aria-label="Éditer le block"
-        className="t-15 leading-relaxed font-light text-[var(--text-soft)] bg-transparent w-full resize-none outline-none whitespace-pre-wrap border-l border-[var(--accent-teal)]"
+        className="t-15 leading-relaxed font-light text-text-soft bg-transparent w-full resize-none outline-none whitespace-pre-wrap border-l border-(--accent-teal)"
         style={{
           paddingLeft: "var(--space-4)",
           minHeight: "var(--space-12)",
@@ -87,7 +87,7 @@ export function BlockEditor({
           onClick={onCancel}
           aria-label="Annuler l'édition"
           data-testid="block-editor-cancel"
-          className="t-11 font-light text-[var(--text-faint)] hover:text-[var(--text)] transition-colors bg-transparent"
+          className="t-11 font-light text-text-faint hover:text-text transition-colors bg-transparent"
           style={{ transitionDuration: "var(--duration-base)" }}
         >
           Annuler
@@ -97,13 +97,13 @@ export function BlockEditor({
           onClick={() => onSave(value)}
           aria-label="Enregistrer le block"
           data-testid="block-editor-save"
-          className="t-11 font-medium text-[var(--accent-teal)] hover:text-[var(--accent-teal)] transition-colors bg-transparent"
+          className="t-11 font-medium text-(--accent-teal) hover:text-(--accent-teal) transition-colors bg-transparent"
           style={{ transitionDuration: "var(--duration-base)" }}
         >
           Enregistrer
         </button>
         <span
-          className="t-11 font-light text-[var(--text-faint)]"
+          className="t-11 font-light text-text-faint"
           aria-hidden
         >
           ESC · ⌘+↵

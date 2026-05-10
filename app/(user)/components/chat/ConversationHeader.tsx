@@ -60,7 +60,7 @@ export function ConversationHeader() {
 
   return (
     <header
-      className="shrink-0 flex items-center justify-between border-b border-[var(--border-default)]"
+      className="shrink-0 flex items-center justify-between border-b border-(--border-default)"
       style={{
         padding: "var(--space-4) var(--space-12)",
         gap: "var(--space-4)",
@@ -92,7 +92,7 @@ export function ConversationHeader() {
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={commitEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--accent-teal)] hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
+              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-(--accent-teal) hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
               title="Valider (Entrée)"
               aria-label="Valider le renommage"
             >
@@ -102,7 +102,7 @@ export function ConversationHeader() {
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={cancelEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--text-faint)] hover:text-[var(--text)] hover:bg-[var(--layer-1)] transition-colors"
+              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-text-faint hover:text-text hover:bg-[var(--layer-1)] transition-colors"
               title="Annuler (Échap)"
               aria-label="Annuler le renommage"
             >
@@ -120,7 +120,7 @@ export function ConversationHeader() {
             <button
               type="button"
               onClick={startEdit}
-              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-[var(--text-faint)] hover:text-[var(--accent-teal)] hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
+              className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-sm text-text-faint hover:text-(--accent-teal) hover:bg-[var(--accent-teal-bg-hover)] transition-colors"
               title="Renommer la conversation"
               aria-label="Renommer la conversation"
             >

@@ -13,7 +13,7 @@ export function ThinkingDisclosure({ thinking }: ThinkingDisclosureProps) {
   return (
     <details
       open={open}
-      className="mb-3 border-l-2 border-[var(--warn)]/40 bg-[var(--surface-1)] rounded-sm"
+      className="mb-3 border-l-2 border-(--warn)/40 bg-surface-1 rounded-sm"
       style={{ padding: "var(--space-3) var(--space-4)" }}
     >
       <summary
@@ -22,16 +22,16 @@ export function ThinkingDisclosure({ thinking }: ThinkingDisclosureProps) {
         onClick={(e) => { e.preventDefault(); setOpen((v) => !v); }}
       >
         <span
-          className={`rounded-pill ${open ? "bg-[var(--warn)] animate-pulse" : "bg-[var(--accent-teal)]"}`}
+          className={`rounded-pill ${open ? "bg-(--warn) animate-pulse" : "bg-(--accent-teal)"}`}
           style={{ width: "var(--space-2)", height: "var(--space-2)", flexShrink: 0 }}
           aria-hidden
         />
-        <span className="t-11 font-medium text-[var(--warn)]">
+        <span className="t-11 font-medium text-(--warn)">
           RAISONNEMENT · {lines} lignes
         </span>
       </summary>
       <pre
-        className="t-11 font-mono text-[var(--text-faint)] whitespace-pre-wrap overflow-x-auto"
+        className="t-11 font-mono text-text-faint whitespace-pre-wrap overflow-x-auto"
         style={{ padding: "var(--space-4)", maxHeight: "var(--space-64)", overflow: "auto" }}
       >
         {thinking}

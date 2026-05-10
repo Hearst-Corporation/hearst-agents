@@ -191,7 +191,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Déclencheurs */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-[var(--text-faint)] uppercase tracking-wider">
+        <span className="t-9 font-medium text-text-faint uppercase tracking-wider">
           Déclencheurs
         </span>
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
@@ -218,13 +218,13 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                   e.currentTarget.style.background = "var(--bg-elev)";
                 }}
               >
-                <span className="text-[var(--text-muted)] group-hover:text-[var(--accent-teal)] transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
+                <span className="text-text-muted group-hover:text-(--accent-teal) transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
                   <Icon />
                 </span>
-                <span className="t-11 font-medium text-[var(--text-soft)] group-hover:text-[var(--accent-teal)] transition-colors flex-1" style={{ transitionDuration: "var(--duration-base)" }}>
+                <span className="t-11 font-medium text-text-soft group-hover:text-(--accent-teal) transition-colors flex-1" style={{ transitionDuration: "var(--duration-base)" }}>
                   {entry.label}
                 </span>
-                <span className="t-9 font-mono text-[var(--text-faint)] opacity-0 group-hover:opacity-100 transition-opacity" style={{ transitionDuration: "var(--duration-base)" }}>
+                <span className="t-9 font-mono text-text-faint opacity-0 group-hover:opacity-100 transition-opacity" style={{ transitionDuration: "var(--duration-base)" }}>
                   +
                 </span>
               </button>
@@ -235,7 +235,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Actions — apps */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-[var(--text-faint)] uppercase tracking-wider">
+        <span className="t-9 font-medium text-text-faint uppercase tracking-wider">
           Actions
         </span>
         <div
@@ -267,7 +267,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
               <span style={{ color }}>
                 <Logo />
               </span>
-              <span className="t-9 font-medium text-[var(--text-muted)]">
+              <span className="t-9 font-medium text-text-muted">
                 {entry.label}
               </span>
             </button>
@@ -277,7 +277,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Logique + Validation + Sortie */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-[var(--text-faint)] uppercase tracking-wider">
+        <span className="t-9 font-medium text-text-faint uppercase tracking-wider">
           Logique & sorties
         </span>
         <div className="grid gap-1" style={{ gridTemplateColumns: "1fr 1fr" }}>
@@ -302,10 +302,10 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                 e.currentTarget.style.background = "transparent";
               }}
             >
-              <span className="text-[var(--text-faint)] group-hover:text-[var(--text-muted)] transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
+              <span className="text-text-faint group-hover:text-text-muted transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
                 <Icon />
               </span>
-              <span className="t-9 font-medium text-[var(--text-faint)] group-hover:text-[var(--text-soft)] transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
+              <span className="t-9 font-medium text-text-faint group-hover:text-text-soft transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
                 {label}
               </span>
             </button>

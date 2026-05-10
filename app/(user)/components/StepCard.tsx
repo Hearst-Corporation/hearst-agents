@@ -84,7 +84,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
 
   return (
     <div
-      className="border border-[var(--border-shell)]"
+      className="border border-(--border-shell)"
       style={{
         background: "var(--surface-1)",
         padding: "var(--space-3) var(--space-4)",
@@ -114,7 +114,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
           {STATUS_GLYPH[step.status]}
         </span>
         <div className="flex-1 min-w-0">
-          <p className="t-13 font-medium text-[var(--text-l1)] truncate">{step.label}</p>
+          <p className="t-13 font-medium text-(--text-l1) truncate">{step.label}</p>
           <p className="t-11 font-light" style={{ color }}>
             {STATUS_LABEL[step.status]}
           </p>
@@ -132,10 +132,10 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
                 costUSD={step.costUSD}
               />
             )}
-            <span className="t-9 font-mono text-[var(--text-faint)]">
+            <span className="t-9 font-mono text-text-faint">
               {formatLatency(step.latencyMs)}
             </span>
-            <span className="t-9 font-mono text-[var(--text-faint)]">
+            <span className="t-9 font-mono text-text-faint">
               {formatCost(step.costUSD)}
             </span>
           </div>
@@ -144,7 +144,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
 
       {expanded && step.output && (
         <div
-          className="t-11 font-light text-[var(--text-muted)] whitespace-pre-wrap"
+          className="t-11 font-light text-text-muted whitespace-pre-wrap"
           style={{
             marginTop: "var(--space-3)",
             paddingTop: "var(--space-3)",
@@ -157,7 +157,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
 
       {expanded && step.error && (
         <div
-          className="t-11 font-light text-[var(--danger)]"
+          className="t-11 font-light text-(--danger)"
           style={{
             marginTop: "var(--space-3)",
             paddingTop: "var(--space-3)",

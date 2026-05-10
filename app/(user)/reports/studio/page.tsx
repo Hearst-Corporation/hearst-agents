@@ -450,13 +450,13 @@ function ReportStudioPageContent() {
             background: "var(--surface-1)",
           }}
         >
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             Vue desktop
           </span>
-          <h2 className="t-15 text-[var(--text)]">
+          <h2 className="t-15 text-text">
             Report Studio optimisé pour ordinateur
           </h2>
-          <p className="t-13 text-[var(--text-muted)]">
+          <p className="t-13 text-text-muted">
             Le block editor utilise un layout 3 colonnes (palette / preview /
             config). Ouvre Report Studio sur ordinateur pour la meilleure
             expérience.

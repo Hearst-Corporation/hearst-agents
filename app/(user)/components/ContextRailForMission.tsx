@@ -163,7 +163,7 @@ export function ContextRailForMission() {
           </span>
         </header>
         {missionLoading ? (
-          <p className="t-9 font-light text-[var(--text-ghost)] font-light">
+          <p className="t-9 font-light text-text-ghost font-light">
             Chargement…
           </p>
         ) : missionError ? (
@@ -174,7 +174,7 @@ export function ContextRailForMission() {
             {missionError}
           </p>
         ) : (
-          <p className="t-13 font-light text-[var(--text-soft)] truncate">
+          <p className="t-13 font-light text-text-soft truncate">
             {mission?.name ?? "—"}
           </p>
         )}
@@ -187,7 +187,7 @@ export function ContextRailForMission() {
             <span className="rail-section-label">Prompt</span>
           </header>
           <p
-            className="t-11 font-light text-[var(--text-muted)]"
+            className="t-11 font-light text-text-muted"
             style={{ lineHeight: "var(--leading-relaxed)" }}
           >
             {promptText}
@@ -201,7 +201,7 @@ export function ContextRailForMission() {
           <header className="flex items-center justify-between mb-4">
             <span className="rail-section-label">Cadence</span>
           </header>
-          <p className="t-11 font-mono text-[var(--text-faint)]">{cadence}</p>
+          <p className="t-11 font-mono text-text-faint">{cadence}</p>
         </section>
       )}
 
@@ -209,16 +209,16 @@ export function ContextRailForMission() {
       <section className="px-6 py-6">
         <header className="flex items-center justify-between mb-4">
           <span className="rail-section-label">Derniers runs</span>
-          <span className="t-9 font-medium text-[var(--text-ghost)]">
+          <span className="t-9 font-medium text-text-ghost">
             {runs.length.toString().padStart(2, "0")}
           </span>
         </header>
         {runsLoading ? (
-          <p className="t-9 font-light text-[var(--text-ghost)] font-light">
+          <p className="t-9 font-light text-text-ghost font-light">
             Chargement…
           </p>
         ) : runs.length === 0 ? (
-          <p className="t-9 font-light text-[var(--text-ghost)] font-light">
+          <p className="t-9 font-light text-text-ghost font-light">
             Aucun run pour cette mission
           </p>
         ) : (
@@ -228,10 +228,10 @@ export function ContextRailForMission() {
                 key={r.id}
                 className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
               >
-                <p className="t-11 font-light text-[var(--text-soft)] truncate">
+                <p className="t-11 font-light text-text-soft truncate">
                   {TIME_FORMATTER.format(new Date(r.createdAt))}
                 </p>
-                <p className="t-9 font-medium text-[var(--text-ghost)]">
+                <p className="t-9 font-medium text-text-ghost">
                   {runStatusLabel(r.status)}
                 </p>
               </li>
@@ -289,14 +289,14 @@ function MissionMemorySection({ missionId }: { missionId: string }) {
       <header className="flex items-center justify-between mb-4">
         <span className="rail-section-label">Mémoire</span>
         {messageCount > 0 && (
-          <span className="t-9 font-medium text-[var(--text-ghost)]">
+          <span className="t-9 font-medium text-text-ghost">
             {messageCount.toString().padStart(2, "0")} msg
           </span>
         )}
       </header>
 
       {sections.length === 0 ? (
-        <p className="t-9 font-light text-[var(--text-ghost)] font-light">
+        <p className="t-9 font-light text-text-ghost font-light">
           Pas encore de mémoire — lance une fois pour démarrer.
         </p>
       ) : (
@@ -321,7 +321,7 @@ function MissionMemorySection({ missionId }: { missionId: string }) {
             </div>
           ))}
           {ctx?.summaryUpdatedAt && (
-            <span className="t-9 font-light text-[var(--text-faint)]">
+            <span className="t-9 font-light text-text-faint">
               Mis à jour {SUMMARY_CACHE_RAIL_FMT.format(new Date(ctx.summaryUpdatedAt))}
             </span>
           )}

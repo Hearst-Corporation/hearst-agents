@@ -29,8 +29,8 @@ export function Breadcrumb({ trail, className }: BreadcrumbProps) {
       {filtered.map((crumb, idx) => {
         const isLast = idx === filtered.length - 1;
         const baseClass = isLast
-          ? `${crumb.accent ? "text-[var(--accent-teal)]" : "text-[var(--text)]"}`
-          : "text-[var(--text-faint)] hover:text-[var(--text)] transition-colors";
+          ? `${crumb.accent ? "text-(--accent-teal)" : "text-text"}`
+          : "text-text-faint hover:text-text transition-colors";
         return (
           <span key={`${crumb.label}-${idx}`} className="flex items-center gap-2">
             {crumb.href && !isLast ? (
@@ -41,7 +41,7 @@ export function Breadcrumb({ trail, className }: BreadcrumbProps) {
               <span className={baseClass}>{crumb.label}</span>
             )}
             {!isLast && (
-              <span className="text-[var(--text-ghost)]" aria-hidden>
+              <span className="text-text-ghost" aria-hidden>
                 ›
               </span>
             )}

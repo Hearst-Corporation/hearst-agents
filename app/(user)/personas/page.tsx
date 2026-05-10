@@ -129,7 +129,7 @@ export default function PersonasPage() {
         style={{ gap: "var(--space-6)", maxWidth: "var(--width-actions)" }}
       >
         {flash && (
-          <p className="t-13 font-light text-[var(--accent-teal)]">
+          <p className="t-13 font-light text-(--accent-teal)">
             {flash}
           </p>
         )}
@@ -147,7 +147,7 @@ export default function PersonasPage() {
         )}
 
         <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-          <h2 className="t-15 font-medium text-[var(--text)]">Personas</h2>
+          <h2 className="t-15 font-medium text-text">Personas</h2>
           {personas === null ? (
             <CardSkeleton count={6} columns={3} height="var(--space-24)" />
           ) : personas.length === 0 ? (
@@ -299,7 +299,7 @@ function PersonaForm({
         background: "var(--bg-elev)",
       }}
     >
-      <h3 className="t-15 font-medium text-[var(--text)]">
+      <h3 className="t-15 font-medium text-text">
         {initial ? `Éditer "${initial.name}"` : "Nouvelle persona"}
       </h3>
 
@@ -313,7 +313,7 @@ function PersonaForm({
             required
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -327,7 +327,7 @@ function PersonaForm({
             type="text"
             value={form.description}
             onChange={(e) => update("description", e.target.value)}
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -340,7 +340,7 @@ function PersonaForm({
           <select
             value={form.tone}
             onChange={(e) => update("tone", e.target.value as PersonaTone | "")}
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -360,7 +360,7 @@ function PersonaForm({
           <select
             value={form.surface}
             onChange={(e) => update("surface", e.target.value)}
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -383,7 +383,7 @@ function PersonaForm({
             onChange={(e) =>
               update("vocabulary", { ...form.vocabulary, preferred: e.target.value })
             }
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -399,7 +399,7 @@ function PersonaForm({
             onChange={(e) =>
               update("vocabulary", { ...form.vocabulary, avoid: e.target.value })
             }
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -415,7 +415,7 @@ function PersonaForm({
           rows={3}
           value={form.styleGuide}
           onChange={(e) => update("styleGuide", e.target.value)}
-          className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none resize-none"
+          className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--line-strong)",
@@ -429,7 +429,7 @@ function PersonaForm({
           rows={3}
           value={form.systemPromptAddon}
           onChange={(e) => update("systemPromptAddon", e.target.value)}
-          className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none resize-none"
+          className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--line-strong)",
@@ -445,7 +445,7 @@ function PersonaForm({
           checked={form.isDefault}
           onChange={(e) => update("isDefault", e.target.checked)}
         />
-        <span className="t-11 text-[var(--text-soft)]">Persona par défaut</span>
+        <span className="t-11 text-text-soft">Persona par défaut</span>
       </label>
 
       <div className="flex items-center justify-end" style={{ gap: "var(--space-3)" }}>
@@ -482,7 +482,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <span className="t-11 font-light text-[var(--text-faint)]">
+      <span className="t-11 font-light text-text-faint">
         {label}
       </span>
       {children}

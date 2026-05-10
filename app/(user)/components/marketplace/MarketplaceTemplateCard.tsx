@@ -65,11 +65,11 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
           >
             {glyph}
           </span>
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             {kindLabel}
           </span>
           {template.isFeatured && (
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               · Featured
             </span>
           )}
@@ -78,14 +78,14 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
       </header>
 
       <h3
-        className="t-15 font-medium text-[var(--text)]"
+        className="t-15 font-medium text-text"
         style={{ lineHeight: "var(--leading-snug)" }}
       >
         {escapeHtml(template.title)}
       </h3>
 
       {template.description && (
-        <p className="t-11 text-[var(--text-muted)]" style={{ lineHeight: "var(--leading-normal)" }}>
+        <p className="t-11 text-text-muted" style={{ lineHeight: "var(--leading-normal)" }}>
           {escapeHtml(template.description.slice(0, 160))}
           {template.description.length > 160 ? "…" : ""}
         </p>
@@ -96,7 +96,7 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
           {template.tags.slice(0, 5).map((tag) => (
             <span
               key={tag}
-              className="t-11 font-light text-[var(--text-faint)]"
+              className="t-11 font-light text-text-faint"
               style={{
                 padding: "var(--space-0) var(--space-2)",
                 border: "1px solid var(--line-strong)",
@@ -113,10 +113,10 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
         className="flex items-center justify-between"
         style={{ gap: "var(--space-2)", marginTop: "var(--space-1)" }}
       >
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           {escapeHtml(author)}
         </span>
-        <span className="t-9 font-mono text-[var(--text-faint)]">
+        <span className="t-9 font-mono text-text-faint">
           {template.cloneCount} clone{template.cloneCount === 1 ? "" : "s"}
         </span>
       </footer>
@@ -127,7 +127,7 @@ export function MarketplaceTemplateCard({ template }: MarketplaceTemplateCardPro
 function RatingChip({ avg, count }: { avg: number; count: number }) {
   if (count === 0) {
     return (
-      <span className="t-9 font-mono text-[var(--text-faint)]">—</span>
+      <span className="t-9 font-mono text-text-faint">—</span>
     );
   }
   return (

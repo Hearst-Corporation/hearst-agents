@@ -79,7 +79,7 @@ function CenteredCTA({ children }: { children: ReactNode }) {
 function CenteredNote({ children }: { children: ReactNode }) {
   return (
     <div className="flex-1 flex items-center justify-center">
-      <span className="t-11 font-light text-[var(--text-faint)]">
+      <span className="t-11 font-light text-text-faint">
         {children}
       </span>
     </div>
@@ -135,11 +135,11 @@ function MoteurZone() {
         <span className="t-13 font-medium" style={{ color: stateColor }}>
           {stateLabel}
         </span>
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           {counts.missionsActive ?? 0} actifs · {alertCount} alerte{alertCount > 1 ? "s" : ""}
         </span>
       </div>
-      <span className="t-11 font-mono tabular-nums shrink-0 text-[var(--text-faint)]">
+      <span className="t-11 font-mono tabular-nums shrink-0 text-text-faint">
         {now ? TIME_FMT.format(now) : "--:--"}
       </span>
     </div>
@@ -163,10 +163,10 @@ function ValiderZone() {
       {pending ? (
         <div className="flex-1 flex flex-col justify-between" style={{ gap: "var(--space-3)" }}>
           <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-            <span className="t-11 font-light italic text-[var(--accent-teal)]">
+            <span className="t-11 font-light italic text-(--accent-teal)">
               {pending.agent} propose
             </span>
-            <span className="t-13 font-light text-[var(--text-soft)]">
+            <span className="t-13 font-light text-text-soft">
               {pending.title}
             </span>
           </div>
@@ -205,7 +205,7 @@ function MissionsZone() {
         </Action>
       )}
       flex="3 1 0"
-      className="border-t border-[var(--border-subtle)]"
+      className="border-t border-(--border-subtle)"
     >
       {missions.length === 0 ? (
         <CenteredCTA>
@@ -241,7 +241,7 @@ function MissionsZone() {
                       animation: isRunning ? "pulse-status-accent-teal 2s ease-in-out infinite" : "none",
                     }}
                   />
-                  <span className="flex-1 min-w-0 t-13 font-light truncate text-[var(--text-soft)]">
+                  <span className="flex-1 min-w-0 t-13 font-light truncate text-text-soft">
                     {m.name}
                   </span>
                   <span className="t-11 font-light shrink-0" style={{ color }}>
@@ -286,7 +286,7 @@ function ActiviteZone() {
     <RailSection
       label="Activité récente"
       flex="2 1 0"
-      className="border-t border-[var(--border-subtle)]"
+      className="border-t border-(--border-subtle)"
     >
       {events.length === 0 ? (
         <CenteredNote>Aucune activité récente</CenteredNote>
@@ -308,10 +308,10 @@ function ActiviteZone() {
                 <span className="t-11 shrink-0 font-mono" style={{ color }}>
                   {glyph}
                 </span>
-                <span className="flex-1 min-w-0 t-13 font-light truncate text-[var(--text-soft)]">
+                <span className="flex-1 min-w-0 t-13 font-light truncate text-text-soft">
                   {label}
                 </span>
-                <span className="t-9 font-mono tabular-nums shrink-0 text-[var(--text-faint)]">
+                <span className="t-9 font-mono tabular-nums shrink-0 text-text-faint">
                   {relativeTime(ts)}
                 </span>
               </li>

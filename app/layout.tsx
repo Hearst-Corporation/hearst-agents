@@ -39,7 +39,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="h-full text-[var(--text)] overflow-hidden">
+      <body className="h-full text-text overflow-hidden">
         <div className="ghost-bg" />
         {children}
         <NoiseLayer />

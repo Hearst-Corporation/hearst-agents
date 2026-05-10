@@ -501,7 +501,7 @@ export function Commandeur() {
       onClick={() => setOpen(false)}
     >
       <div
-        className="w-full max-w-3xl overflow-hidden transition-all duration-500 border-l border-[var(--border-shell)]"
+        className="w-full max-w-3xl overflow-hidden transition-all duration-500 border-l border-(--border-shell)"
         style={{ background: "transparent" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -512,10 +512,10 @@ export function Commandeur() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Rechercher..."
-            className="flex-1 bg-transparent t-48 leading-none font-bold tracking-tight text-[var(--text)] placeholder-[var(--text-ghost)] outline-none"
+            className="flex-1 bg-transparent t-48 leading-none font-bold tracking-tight text-text placeholder-[var(--text-ghost)] outline-none"
           />
           {loading && (
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               Recherche…
             </span>
           )}
@@ -523,7 +523,7 @@ export function Commandeur() {
 
         <div className="max-h-[60vh] overflow-y-auto px-12 pb-16 scrollbar-hide">
           {sections.length === 0 ? (
-            <p className="t-13 text-[var(--text-ghost)] font-light">Aucun résultat.</p>
+            <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>
           ) : (
             <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
               {sections.map((section) => (

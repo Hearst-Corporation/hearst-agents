@@ -26,10 +26,10 @@ export function ChatToolStream() {
         // Read ops use cyan (data flow). Write ops use amber to flag side
         // effects on the user's account — the eye reads "this changed
         // something" instantly.
-        const accent = isWrite ? "text-[var(--warn)]" : "text-[var(--accent-teal)]";
-        const dot = isWrite ? "bg-[var(--warn)]" : "bg-[var(--accent-teal)]";
-        const labelTone = isDone ? "text-[var(--text-muted)]" : "text-[var(--text)]";
-        const statusTone = isDone ? accent : "text-[var(--text-faint)]";
+        const accent = isWrite ? "text-(--warn)" : "text-(--accent-teal)";
+        const dot = isWrite ? "bg-(--warn)" : "bg-(--accent-teal)";
+        const labelTone = isDone ? "text-text-muted" : "text-text";
+        const statusTone = isDone ? accent : "text-text-faint";
 
         return (
           <li
@@ -53,7 +53,7 @@ export function ChatToolStream() {
                 costUSD={entry.costUSD}
               />
             )}
-            <span className="text-[var(--text-ghost)]">{isDone ? "—" : "·"}</span>
+            <span className="text-text-ghost">{isDone ? "—" : "·"}</span>
             <span className={statusTone}>
               {isDone ? `${catalog.completedVerb}${isWrite ? " ✓" : ""}` : catalog.runningVerb}
             </span>

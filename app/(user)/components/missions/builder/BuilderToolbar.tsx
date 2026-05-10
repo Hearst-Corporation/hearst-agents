@@ -43,7 +43,7 @@ export function BuilderToolbar({
 
   return (
     <div
-      className="flex items-center justify-between border-b border-[var(--border-shell)]"
+      className="flex items-center justify-between border-b border-(--border-shell)"
       style={{
         padding: "var(--space-3) var(--space-12)",
         gap: "var(--space-4)",
@@ -69,7 +69,7 @@ export function BuilderToolbar({
       </div>
 
       {previewSummary && (
-        <span className="t-11 text-[var(--text-muted)] truncate max-w-md">
+        <span className="t-11 text-text-muted truncate max-w-md">
           {previewSummary}
         </span>
       )}

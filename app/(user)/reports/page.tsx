@@ -355,7 +355,7 @@ export default function ReportsDiscoveryPage() {
         {/* Section : Vos rapports (custom specs) */}
         {!loading && !error && customReports.length > 0 && statusFilter !== "ready" && statusFilter !== "needs-connection" && (
           <section className="flex flex-col gap-3" data-testid="reports-custom-section">
-            <h2 className="t-13 font-medium text-[var(--text-l1)]">
+            <h2 className="t-13 font-medium text-(--text-l1)">
               Vos rapports
             </h2>
             <div

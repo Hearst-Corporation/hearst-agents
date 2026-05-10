@@ -76,7 +76,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
           marginBottom: "var(--space-6)",
         }}
       >
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           Provenance incomplète
         </span>
       </div>
@@ -102,14 +102,14 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
       }}
     >
       <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
-        <span className="t-11 font-medium text-[var(--accent-teal)]">
+        <span className="t-11 font-medium text-(--accent-teal)">
           PROVENANCE
         </span>
         <span
           className="rounded-pill bg-[var(--text-ghost)]"
           style={{ width: "var(--space-1)", height: "var(--space-1)" }}
         />
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           {DATE_FORMATTER.format(new Date(asset.createdAt))}
         </span>
       </header>
@@ -145,7 +145,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
           className="flex flex-col"
           style={{ gap: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--surface-2)" }}
         >
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             Basé sur · {derived.length}
           </span>
           <div className="flex flex-wrap" style={{ gap: "var(--space-2)" }}>
@@ -155,7 +155,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
                 type="button"
                 onClick={() => onOpenParent?.(parentId)}
                 disabled={!onOpenParent}
-                className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)]"
+                className="t-11 font-light text-text-muted hover:text-(--accent-teal)"
                 style={{
                   padding: "var(--space-1) var(--space-3)",
                   background: "transparent",
@@ -200,10 +200,10 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
             aria-expanded={showSources}
             data-testid="asset-lineage-sources-toggle"
           >
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               Sources · {sources.length}
             </span>
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               {showSources ? "−" : "+"}
             </span>
           </button>
@@ -218,7 +218,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="t-11 font-light text-[var(--text-muted)] hover:text-[var(--accent-teal)] truncate inline-block w-full"
+                    className="t-11 font-light text-text-muted hover:text-(--accent-teal) truncate inline-block w-full"
                     style={{
                       transition: "color var(--duration-fast) var(--ease-standard)",
                     }}
@@ -229,7 +229,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
                 </li>
               ))}
               {sources.length > 12 && (
-                <li className="t-11 font-light text-[var(--text-faint)]">
+                <li className="t-11 font-light text-text-faint">
                   + {sources.length - 12} autres
                 </li>
               )}
@@ -244,11 +244,11 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
 function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-      <dt className="t-11 font-light text-[var(--text-faint)]">
+      <dt className="t-11 font-light text-text-faint">
         {label}
       </dt>
       <dd
-        className={`t-11 ${accent ? "text-[var(--accent-teal)]" : "text-[var(--text-soft)]"} font-mono truncate`}
+        className={`t-11 ${accent ? "text-(--accent-teal)" : "text-text-soft"} font-mono truncate`}
         title={value}
       >
         {value}

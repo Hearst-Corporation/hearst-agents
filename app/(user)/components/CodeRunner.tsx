@@ -37,17 +37,17 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
   }, [storageUrl]);
 
   if (loading) {
-    return <p className="t-13 font-light text-[var(--text-muted)]">Chargement des résultats…</p>;
+    return <p className="t-13 font-light text-text-muted">Chargement des résultats…</p>;
   }
   if (fetchError || !result) {
-    return <p className="t-13 text-[var(--danger)]">{fetchError ?? "Impossible de charger les résultats"}</p>;
+    return <p className="t-13 text-(--danger)">{fetchError ?? "Impossible de charger les résultats"}</p>;
   }
 
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
       {result.stdout && (
         <pre
-          className="t-11 font-mono text-[var(--text-muted)] bg-[var(--surface-1)] rounded-sm overflow-x-auto"
+          className="t-11 font-mono text-text-muted bg-surface-1 rounded-sm overflow-x-auto"
           style={{ padding: "var(--space-4)" }}
         >
           {result.stdout}
@@ -55,7 +55,7 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
       )}
       {(result.error || result.stderr) && (
         <pre
-          className="t-11 font-mono text-[var(--danger)] bg-[var(--surface-1)] rounded-sm overflow-x-auto"
+          className="t-11 font-mono text-(--danger) bg-surface-1 rounded-sm overflow-x-auto"
           style={{ padding: "var(--space-4)" }}
         >
           {result.error ?? result.stderr}
@@ -64,11 +64,11 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
       {result.outputs?.map((out, i) =>
         out.type === "image" ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={i} src={out.data} alt={`output-${i}`} className="w-full rounded-sm border border-[var(--border-shell)]" />
+          <img key={i} src={out.data} alt={`output-${i}`} className="w-full rounded-sm border border-(--border-shell)" />
         ) : (
           <pre
             key={i}
-            className="t-11 font-mono text-[var(--text-muted)] bg-[var(--surface-1)] rounded-sm overflow-x-auto"
+            className="t-11 font-mono text-text-muted bg-surface-1 rounded-sm overflow-x-auto"
             style={{ padding: "var(--space-4)" }}
           >
             {out.data}
@@ -84,19 +84,19 @@ export function CodeRunner({ variant }: CodeRunnerProps) {
   const isFailed = variant.status === "failed";
 
   return (
-    <div className="border border-[var(--surface-2)] rounded-md bg-[var(--surface-1)] p-6">
+    <div className="border border-[var(--surface-2)] rounded-md bg-surface-1 p-6">
       <header className="flex items-center mb-4">
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${
-              isReady ? "bg-[var(--accent-teal)]" : isFailed ? "bg-[var(--danger)]" : "bg-[var(--warn)] animate-pulse"
+              isReady ? "bg-(--accent-teal)" : isFailed ? "bg-(--danger)" : "bg-(--warn) animate-pulse"
             }`}
             style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             aria-hidden
           />
           <span
             className={`t-13 font-medium ${
-              isReady ? "text-[var(--accent-teal)]" : isFailed ? "text-[var(--danger)]" : "text-[var(--warn)]"
+              isReady ? "text-(--accent-teal)" : isFailed ? "text-(--danger)" : "text-(--warn)"
             }`}
           >
             {isReady ? "Code prêt" : isFailed ? "Échec" : "Exécution…"}
@@ -107,9 +107,9 @@ export function CodeRunner({ variant }: CodeRunnerProps) {
       {isReady && variant.storageUrl ? (
         <CodeResults storageUrl={variant.storageUrl} />
       ) : isFailed ? (
-        <p className="t-13 text-[var(--danger)]">{variant.error ?? "Génération échouée"}</p>
+        <p className="t-13 text-(--danger)">{variant.error ?? "Génération échouée"}</p>
       ) : (
-        <p className="t-13 font-light text-[var(--text-muted)]">
+        <p className="t-13 font-light text-text-muted">
           Exécution sandbox E2B…
         </p>
       )}

@@ -44,11 +44,11 @@ interface MissionRowProps {
 }
 
 const STATUS_LINE: Record<MissionOpsStatus, string> = {
-  running: "border-[var(--accent-teal)] text-[var(--accent-teal)]",
-  success: "border-[var(--money)] text-[var(--money)]",
-  failed: "border-[var(--danger)] text-[var(--danger)]",
-  blocked: "border-[var(--warn)] text-[var(--warn)]",
-  idle: "border-[var(--line-strong)] text-[var(--text-muted)]",
+  running: "border-(--accent-teal) text-(--accent-teal)",
+  success: "border-[var(--money)] text-(--money)",
+  failed: "border-(--danger) text-(--danger)",
+  blocked: "border-(--warn) text-(--warn)",
+  idle: "border-(--line-strong) text-text-muted",
 };
 
 const STATUS_LABEL: Record<MissionOpsStatus, string> = {
@@ -72,7 +72,7 @@ export function MissionRow({
 
   return (
     <div
-      className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 items-start py-6 border-b border-[var(--border-soft)] px-2 group transition-colors"
+      className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 items-start py-6 border-b border-(--border-soft) px-2 group transition-colors"
     >
       <div className="min-w-0 flex gap-4">
         <button
@@ -90,20 +90,20 @@ export function MissionRow({
           className="min-w-0 text-left group/open cursor-pointer"
           title={`Open ${mission.name}`}
         >
-          <p className="t-9 font-light text-[var(--text-faint)] mb-1">
+          <p className="t-9 font-light text-text-faint mb-1">
             Réf {mission.id.slice(0, 8)}
           </p>
-          <h3 className="t-13 font-medium text-[var(--text)] tracking-tight group-hover/open:text-[var(--accent-teal)] transition-colors">
+          <h3 className="t-13 font-medium text-text tracking-tight group-hover/open:text-(--accent-teal) transition-colors">
             {mission.name}
           </h3>
           {(mission.description ?? mission.input) && (
-            <p className="t-11 font-light leading-relaxed text-[var(--text-muted)] mt-1">
+            <p className="t-11 font-light leading-relaxed text-text-muted mt-1">
               {mission.description ?? mission.input}
             </p>
           )}
           {mission.lastError && (
             <p
-              className="t-10 font-mono text-[var(--danger)] truncate mt-2 border-b border-[var(--danger)] pb-0.5 inline-block max-w-full"
+              className="t-10 font-mono text-(--danger) truncate mt-2 border-b border-(--danger) pb-0.5 inline-block max-w-full"
               title={mission.lastError}
             >
               Erreur : {mission.lastError}
@@ -115,12 +115,12 @@ export function MissionRow({
         <span className={`inline-block t-9 font-medium border-b pb-0.5 ${STATUS_LINE[ops]}`}>
           {STATUS_LABEL[ops]}
         </span>
-        <div className="t-10 font-mono tabular-nums text-[var(--text-faint)] space-y-1">
+        <div className="t-10 font-mono tabular-nums text-text-faint space-y-1">
           {(mission.frequency ?? mission.schedule) && (
             <div>{mission.frequency ?? mission.schedule}</div>
           )}
           {mission.runningSince && (
-            <div className="text-[var(--accent-teal)]">
+            <div className="text-(--accent-teal)">
               {Math.floor((currentTime - mission.runningSince) / 1000)} s
             </div>
           )}
@@ -134,7 +134,7 @@ export function MissionRow({
           type="button"
           onClick={() => onRunNow(mission.id)}
           disabled={ops === "running"}
-          className="p-2 text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-2 text-text-faint hover:text-(--accent-teal) transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           title="Exécuter maintenant"
         >
           <GhostIconPlay className="w-4 h-4" />
@@ -142,7 +142,7 @@ export function MissionRow({
         <button
           type="button"
           onClick={() => onEdit(mission)}
-          className="p-2 text-[var(--text-faint)] hover:text-[var(--text)] transition-colors"
+          className="p-2 text-text-faint hover:text-text transition-colors"
           title="Modifier"
         >
           <GhostIconPencil className="w-4 h-4" />
@@ -150,7 +150,7 @@ export function MissionRow({
         <button
           type="button"
           onClick={() => onDelete(mission)}
-          className="p-2 text-[var(--text-faint)] hover:text-[var(--danger)] transition-colors"
+          className="p-2 text-text-faint hover:text-(--danger) transition-colors"
           title="Supprimer"
         >
           <GhostIconTrash className="w-4 h-4" />

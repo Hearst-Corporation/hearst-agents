@@ -261,11 +261,11 @@ export function ArtifactStage({
         context={
           <>
             <span
-              className="rounded-pill bg-[var(--accent-teal)]"
+              className="rounded-pill bg-(--accent-teal)"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-medium text-[var(--accent-teal)]">
+            <span className="t-11 font-medium text-(--accent-teal)">
               ARTIFACT
             </span>
             <span
@@ -277,7 +277,7 @@ export function ArtifactStage({
               value={language}
               onChange={(e) => setLanguage(e.target.value as "python" | "node")}
               disabled={runState === "running"}
-              className="t-11 font-light bg-transparent border border-[var(--border-default)] rounded-md text-[var(--text-muted)] hover:text-[var(--text)] focus:outline-none"
+              className="t-11 font-light bg-transparent border border-(--border-default) rounded-md text-text-muted hover:text-text focus:outline-none"
               style={{
                 paddingLeft: "var(--space-2)",
                 paddingRight: "var(--space-2)",
@@ -296,7 +296,7 @@ export function ArtifactStage({
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                   aria-hidden
                 />
-                <span className="t-11 font-light text-[var(--text-muted)]">
+                <span className="t-11 font-light text-text-muted">
                   {currentAssetId.slice(0, 8)}
                 </span>
               </>
@@ -311,7 +311,7 @@ export function ArtifactStage({
                     void loadVariantOutput(v);
                   }
                 }}
-                className="t-11 font-light bg-transparent border border-[var(--border-default)] rounded-md text-[var(--text-muted)] hover:text-[var(--text)] focus:outline-none"
+                className="t-11 font-light bg-transparent border border-(--border-default) rounded-md text-text-muted hover:text-text focus:outline-none"
                 style={{
                   paddingLeft: "var(--space-2)",
                   paddingRight: "var(--space-2)",
@@ -336,7 +336,7 @@ export function ArtifactStage({
 
       <div className="flex flex-1 min-h-0">
         <div
-          className="flex flex-1 flex-col min-h-0 border-r border-[var(--border-default)]"
+          className="flex flex-1 flex-col min-h-0 border-r border-(--border-default)"
           style={{ padding: "var(--space-4)" }}
         >
           <CodeEditor
@@ -355,7 +355,7 @@ export function ArtifactStage({
             progress={progress}
           />
           <footer
-            className="flex items-center justify-between border-t border-[var(--border-default)]"
+            className="flex items-center justify-between border-t border-(--border-default)"
             style={{
               paddingLeft: "var(--space-6)",
               paddingRight: "var(--space-6)",
@@ -376,7 +376,7 @@ export function ArtifactStage({
               latencyMs={latencyMs}
               costUSD={costUsd}
             />
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               {runState === "idle"
                 ? "STANDBY"
                 : runState === "running"

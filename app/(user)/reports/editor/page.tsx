@@ -146,8 +146,8 @@ export default function ReportEditorDemoPage() {
         }}
       >
         <header className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <h1 className="t-15 text-[var(--text)]">Report Spec Editor</h1>
-          <p className="t-13 text-[var(--text-muted)]">
+          <h1 className="t-15 text-text">Report Spec Editor</h1>
+          <p className="t-13 text-text-muted">
             Aperçu visuel d&apos;un ReportSpec — toggler la visibilité des blocks
             puis Apply pour figer la sélection finale.
           </p>
@@ -167,14 +167,14 @@ export default function ReportEditorDemoPage() {
         >
           <div className="flex items-center justify-between">
             <span
-              className="t-9 font-mono uppercase text-[var(--text-muted)]"
+              className="t-9 font-mono uppercase text-text-muted"
                          >
               Spec final {appliedSpec ? "(applied)" : "(en attente)"}
             </span>
             <button
               type="button"
               onClick={() => setShowJson((v) => !v)}
-              className="t-9 font-mono uppercase text-[var(--text-muted)] hover:text-[var(--text-soft)] transition-colors"
+              className="t-9 font-mono uppercase text-text-muted hover:text-text-soft transition-colors"
               style={{
                                 padding: "var(--space-1) var(--space-3)",
                 border: "1px solid var(--surface-2)",
@@ -187,7 +187,7 @@ export default function ReportEditorDemoPage() {
           </div>
           {showJson && (
             <pre
-              className="t-9 font-mono text-[var(--text-soft)] overflow-x-auto"
+              className="t-9 font-mono text-text-soft overflow-x-auto"
               style={{
                 padding: "var(--space-4)",
                 background: "var(--surface-1)",

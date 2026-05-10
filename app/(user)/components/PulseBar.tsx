@@ -85,7 +85,7 @@ export function PulseBar() {
         <button
           type="button"
           onClick={toggleLeftDrawer}
-          className="md:hidden w-7 h-7 flex items-center justify-center text-[var(--text-faint)] hover:text-[var(--accent-teal)] transition-colors shrink-0"
+          className="md:hidden w-7 h-7 flex items-center justify-center text-text-faint hover:text-(--accent-teal) transition-colors shrink-0"
           aria-label="Ouvrir les conversations"
         >
           <GhostIconMenu className="w-4 h-4" />
@@ -106,7 +106,7 @@ export function PulseBar() {
         }}
         title="Ouvrir le Commandeur"
       >
-        <span className="t-11 truncate text-[var(--text-soft)]">Demande à Hearst…</span>
+        <span className="t-11 truncate text-text-soft">Demande à Hearst…</span>
         <span
           className="t-9 font-mono shrink-0 ml-3"
           style={{
@@ -130,22 +130,22 @@ export function PulseBar() {
         {isRunning && (
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
             <span
-              className="rounded-pill bg-[var(--accent-teal)] animate-pulse halo-dot"
+              className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-light text-[var(--accent-teal)]">En cours</span>
+            <span className="t-11 font-light text-(--accent-teal)">En cours</span>
           </div>
         )}
 
         {isVoiceActive && (
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
             <span
-              className="rounded-pill bg-[var(--accent-teal)] halo-cyan-sm animate-pulse"
+              className="rounded-pill bg-(--accent-teal) halo-cyan-sm animate-pulse"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-light text-[var(--accent-teal)]">Voix</span>
+            <span className="t-11 font-light text-(--accent-teal)">Voix</span>
           </div>
         )}
 
@@ -158,14 +158,14 @@ export function PulseBar() {
             data-testid="connections-meter"
           >
             <span
-              className="rounded-pill bg-[var(--accent-teal)]"
+              className="rounded-pill bg-(--accent-teal)"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-mono tabular-nums text-[var(--text-soft)]">
+            <span className="t-11 font-mono tabular-nums text-text-soft">
               {connections.connected}
             </span>
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               / {connections.total} services
             </span>
           </a>

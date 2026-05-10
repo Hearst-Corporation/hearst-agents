@@ -159,13 +159,13 @@ export function DocumentParseModal({
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
           <h2
             id="document-parse-modal-title"
-            className="t-15 font-medium text-[var(--text)]"
+            className="t-15 font-medium text-text"
             style={{ margin: 0, lineHeight: "var(--leading-snug)" }}
           >
             Parser un document
           </h2>
           <p
-            className="t-11 font-light text-[var(--text-muted)]"
+            className="t-11 font-light text-text-muted"
             style={{ margin: 0, lineHeight: "var(--leading-base)" }}
           >
             Colle l&apos;URL d&apos;un document accessible (Drive, S3 signé,
@@ -174,7 +174,7 @@ export function DocumentParseModal({
         </div>
 
         <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             URL du fichier
           </span>
           <input
@@ -184,7 +184,7 @@ export function DocumentParseModal({
             onChange={(e) => setFileUrl(e.target.value)}
             placeholder="https://…/document.pdf"
             data-testid="document-parse-modal-url"
-            className="t-13 font-light text-[var(--text)]"
+            className="t-13 font-light text-text"
             style={{
               padding: "var(--space-2) var(--space-3)",
               background: "var(--surface-2)",
@@ -204,14 +204,14 @@ export function DocumentParseModal({
           }}
         >
           <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               Type
             </span>
             <select
               value={mimeType}
               onChange={(e) => setMimeType(e.target.value)}
               data-testid="document-parse-modal-mime"
-              className="t-13 font-light text-[var(--text)]"
+              className="t-13 font-light text-text"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 background: "var(--surface-2)",
@@ -229,7 +229,7 @@ export function DocumentParseModal({
             </select>
           </label>
           <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-[var(--text-faint)]">
+            <span className="t-11 font-light text-text-faint">
               Nom (optionnel)
             </span>
             <input
@@ -238,7 +238,7 @@ export function DocumentParseModal({
               onChange={(e) => setFileName(e.target.value)}
               placeholder="Mon document"
               data-testid="document-parse-modal-name"
-              className="t-13 font-light text-[var(--text)]"
+              className="t-13 font-light text-text"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 background: "var(--surface-2)",
@@ -253,7 +253,7 @@ export function DocumentParseModal({
 
         {errorMsg && (
           <p
-            className="t-11 font-light text-[var(--danger)]"
+            className="t-11 font-light text-(--danger)"
             style={{ margin: 0 }}
           >
             {errorMsg}

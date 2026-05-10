@@ -67,8 +67,8 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
       }}
     >
       <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
-        <h2 className="t-15 font-medium text-[var(--text)]">A/B test inline</h2>
-        <p className="t-11 font-light text-[var(--text-faint)]">
+        <h2 className="t-15 font-medium text-text">A/B test inline</h2>
+        <p className="t-11 font-light text-text-faint">
           2 personas · 1 message · 2 réponses
         </p>
       </header>
@@ -78,7 +78,7 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
         onChange={(e) => setMessage(e.target.value)}
         rows={3}
         placeholder="Message à tester sur les deux personas…"
-        className="block w-full bg-transparent t-13 font-light text-[var(--text)] placeholder:text-[var(--text-soft)] focus:ring-0 focus:outline-none resize-none"
+        className="block w-full bg-transparent t-13 font-light text-text placeholder:text-text-soft focus:ring-0 focus:outline-none resize-none"
         style={{
           padding: "var(--space-3)",
           border: "1px solid var(--line-strong)",
@@ -96,7 +96,7 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
       </div>
 
       <div className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
-        <p className="t-11 font-light text-[var(--text-faint)]">
+        <p className="t-11 font-light text-text-faint">
           {loading ? "Génération en parallèle…" : "Lance la comparaison"}
         </p>
         <Action
@@ -112,7 +112,7 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
       </div>
 
       {error && (
-        <p className="t-11 font-medium text-[var(--danger)]">
+        <p className="t-11 font-medium text-(--danger)">
           {error}
         </p>
       )}
@@ -157,13 +157,13 @@ function PersonaSelect({
 }) {
   return (
     <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <span className="t-11 font-light text-[var(--text-faint)]">
+      <span className="t-11 font-light text-text-faint">
         {label}
       </span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+        className="block w-full bg-transparent t-13 text-text focus:outline-none"
         style={{
           padding: "var(--space-2) var(--space-3)",
           border: "1px solid var(--line-strong)",
@@ -212,17 +212,17 @@ function ResponseColumn({
     >
       <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
         <div className="flex items-baseline" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-medium text-[var(--accent-teal)]">
+          <span className="t-11 font-medium text-(--accent-teal)">
             {label}
           </span>
-          <span className="t-13 font-medium text-[var(--text)]">{persona.name}</span>
+          <span className="t-13 font-medium text-text">{persona.name}</span>
         </div>
-        <span className="t-11 font-light text-[var(--text-faint)]">
+        <span className="t-11 font-light text-text-faint">
           {latencyMs}ms
         </span>
       </header>
       <pre
-        className="whitespace-pre-wrap t-13 font-light text-[var(--text-soft)]"
+        className="whitespace-pre-wrap t-13 font-light text-text-soft"
         style={{ margin: 0, fontFamily: "inherit" }}
       >
         {response}
@@ -238,7 +238,7 @@ function ResponseColumn({
           background: preferred ? "var(--accent-teal-surface)" : "transparent",
         }}
       >
-        <span className="t-11 font-medium text-[var(--text-soft)]">
+        <span className="t-11 font-medium text-text-soft">
           {preferred ? "préférée" : `préférer ${label}`}
         </span>
       </button>

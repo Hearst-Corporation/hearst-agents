@@ -136,7 +136,7 @@ export default function AssetsPage() {
       >
         <div className="max-w-4xl mx-auto">
           <div>
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-[var(--text-l1)] border-b border-[var(--border-soft)]">
+              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
                 <span className="w-4" />
                 <span>Name</span>
                 <span className="text-right">Type</span>
@@ -150,32 +150,32 @@ export default function AssetsPage() {
                 <div
                   key={asset.id}
                   onClick={() => handleOpen(asset)}
-                  className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-[var(--border-soft)] group cursor-pointer transition-colors"
+                  className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-(--border-soft) group cursor-pointer transition-colors"
                   title={`Open ${asset.title}`}
                 >
-                  <span className="t-15 text-[var(--accent-teal)] opacity-40 group-hover:opacity-100 transition-opacity leading-none w-4 text-center">
+                  <span className="t-15 text-(--accent-teal) opacity-40 group-hover:opacity-100 transition-opacity leading-none w-4 text-center">
                     {glyph(asset.kind)}
                   </span>
-                  <span className="t-13 text-[var(--text-soft)] group-hover:text-[var(--accent-teal)] transition-colors truncate">
+                  <span className="t-13 text-text-soft group-hover:text-(--accent-teal) transition-colors truncate">
                     {asset.title}
                   </span>
-                  <span className="t-9 font-medium text-[var(--text-faint)] text-right">
+                  <span className="t-9 font-medium text-text-faint text-right">
                     {asset.kind}
                   </span>
-                  <span className="t-9 font-mono tabular-nums text-[var(--text-faint)] text-right">
+                  <span className="t-9 font-mono tabular-nums text-text-faint text-right">
                     {asset.provenance?.pdfFile?.sizeBytes
                       ? `${(asset.provenance.pdfFile.sizeBytes / 1024).toFixed(1)} KB`
                       : "—"}
                   </span>
                   <RelativeTime
                     ts={asset.createdAt}
-                    className="t-9 font-mono tabular-nums text-[var(--text-ghost)] text-right"
+                    className="t-9 font-mono tabular-nums text-text-ghost text-right"
                   />
                   <button
                     type="button"
                     onClick={(e) => handleDownload(asset, e)}
                     disabled={!asset.provenance?.pdfFile}
-                    className="t-9 font-light text-[var(--text-ghost)] hover:text-[var(--accent-teal)] opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
+                    className="t-9 font-light text-text-ghost hover:text-(--accent-teal) opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
                   >
                     Télécharger
                   </button>
@@ -185,7 +185,7 @@ export default function AssetsPage() {
                       e.stopPropagation();
                       setConfirmDelete(asset);
                     }}
-                    className="t-9 font-light text-[var(--text-ghost)] hover:text-[var(--danger)] opacity-0 group-hover:opacity-100 transition-all"
+                    className="t-9 font-light text-text-ghost hover:text-(--danger) opacity-0 group-hover:opacity-100 transition-all"
                     title={`Supprimer ${asset.title}`}
                     aria-label={`Supprimer ${asset.title}`}
                   >

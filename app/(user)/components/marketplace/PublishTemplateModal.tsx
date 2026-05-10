@@ -116,10 +116,10 @@ export function PublishTemplateModal({
           className="flex items-baseline justify-between"
           style={{ gap: "var(--space-3)" }}
         >
-          <h2 className="t-15 font-medium text-[var(--text)]">
+          <h2 className="t-15 font-medium text-text">
             Publier au marketplace
           </h2>
-          <span className="t-11 font-light text-[var(--text-faint)]">
+          <span className="t-11 font-light text-text-faint">
             {KIND_LABELS[kind]}
           </span>
         </header>
@@ -131,7 +131,7 @@ export function PublishTemplateModal({
             onChange={(e) => setTitle(e.target.value)}
             maxLength={120}
             data-testid="publish-title"
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -148,7 +148,7 @@ export function PublishTemplateModal({
             onChange={(e) => setDescription(e.target.value)}
             maxLength={500}
             data-testid="publish-desc"
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none resize-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -165,7 +165,7 @@ export function PublishTemplateModal({
             onChange={(e) => setTagsInput(e.target.value)}
             placeholder="growth, sales, slack"
             data-testid="publish-tags"
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -183,7 +183,7 @@ export function PublishTemplateModal({
             disabled={anonymize}
             placeholder="Adrien · Hearst"
             maxLength={80}
-            className="block w-full bg-transparent t-13 text-[var(--text)] focus:outline-none disabled:opacity-50"
+            className="block w-full bg-transparent t-13 text-text focus:outline-none disabled:opacity-50"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -200,13 +200,13 @@ export function PublishTemplateModal({
             onChange={(e) => setAnonymize(e.target.checked)}
             data-testid="publish-anonymize"
           />
-          <span className="t-11 text-[var(--text-soft)]">
+          <span className="t-11 text-text-soft">
             Publier en anonyme (masquer le nom)
           </span>
         </label>
 
         {err && (
-          <p className="t-11 font-medium text-[var(--danger)]">
+          <p className="t-11 font-medium text-(--danger)">
             {err}
           </p>
         )}
@@ -250,7 +250,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <span className="t-11 font-light text-[var(--text-faint)]">
+      <span className="t-11 font-light text-text-faint">
         {label}
       </span>
       {children}

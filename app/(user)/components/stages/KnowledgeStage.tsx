@@ -465,7 +465,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
       {phase === "ready" && (
         <div className="flex-1 flex flex-col min-h-0 relative">
           <div
-            className="flex flex-col gap-3 border-b border-[var(--border-default)]"
+            className="flex flex-col gap-3 border-b border-(--border-default)"
             style={{ padding: "var(--space-4) var(--space-12)" }}
           >
             <KgQueryBar
@@ -537,7 +537,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
           )}
 
           <footer
-            className="flex-shrink-0 border-t border-[var(--border-default)] flex items-center justify-center"
+            className="flex-shrink-0 border-t border-(--border-default) flex items-center justify-center"
             style={{ padding: "var(--space-3) var(--space-8)" }}
           >
             <p className="t-11 font-light text-text-faint">

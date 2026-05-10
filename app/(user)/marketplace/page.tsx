@@ -144,7 +144,7 @@ export default function MarketplacePage() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher un template…"
               data-testid="marketplace-search"
-              className="t-11 text-[var(--text)] focus:outline-none"
+              className="t-11 text-text focus:outline-none"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 background: "var(--surface-1)",
@@ -169,7 +169,7 @@ export default function MarketplacePage() {
           <>
             {featured.length > 0 && (
               <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-                <h2 className="t-11 font-medium text-[var(--accent-teal)]">
+                <h2 className="t-11 font-medium text-(--accent-teal)">
                   Featured
                 </h2>
                 <Grid templates={featured} />
@@ -177,7 +177,7 @@ export default function MarketplacePage() {
             )}
             <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
               {featured.length > 0 && (
-                <h2 className="t-11 font-light text-[var(--text-faint)]">
+                <h2 className="t-11 font-light text-text-faint">
                   Tous les templates
                 </h2>
               )}

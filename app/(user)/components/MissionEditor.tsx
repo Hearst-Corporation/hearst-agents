@@ -89,11 +89,11 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
                 type="button"
                 onClick={() => setFormData({ ...formData, frequency: option.value })}
                 className={`text-left p-4 transition-colors ${
-                  selected ? "bg-[var(--bg-soft)] text-[var(--accent-teal)]" : "bg-[var(--bg)] text-[var(--text-muted)] hover:bg-[var(--bg-elev)]"
+                  selected ? "bg-[var(--bg-soft)] text-(--accent-teal)" : "bg-bg text-text-muted hover:bg-bg-elev"
                 }`}
               >
-                <p className={`t-9 font-black uppercase tracking-tight ${selected ? "" : "text-[var(--text-soft)]"}`}>{option.label}</p>
-                <p className="t-11 font-light text-[var(--text-faint)] mt-1">{option.description}</p>
+                <p className={`t-9 font-black uppercase tracking-tight ${selected ? "" : "text-text-soft"}`}>{option.label}</p>
+                <p className="t-11 font-light text-text-faint mt-1">{option.description}</p>
               </button>
             );
           })}
@@ -110,26 +110,26 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
             placeholder="0 9 * * 1"
             className="ghost-input-line w-full font-mono t-9"
           />
-          <p className="t-10 font-mono text-[var(--text-faint)] mt-2 uppercase tracking-caption">min heure jour mois jour-semaine</p>
+          <p className="t-10 font-mono text-text-faint mt-2 uppercase tracking-caption">min heure jour mois jour-semaine</p>
         </div>
       )}
 
-      <div className="flex items-center justify-between py-4 border-y border-[var(--line)]">
+      <div className="flex items-center justify-between py-4 border-y border-(--line)">
         <div>
-          <p className="t-9 font-medium text-[var(--text-soft)]">Mission activée</p>
-          <p className="t-10 font-mono text-[var(--text-faint)] mt-1 uppercase tracking-wide">Exécution selon fréquence</p>
+          <p className="t-9 font-medium text-text-soft">Mission activée</p>
+          <p className="t-10 font-mono text-text-faint mt-1 uppercase tracking-wide">Exécution selon fréquence</p>
         </div>
         <button
           type="button"
           onClick={() => setFormData({ ...formData, enabled: !formData.enabled })}
           className={`w-12 h-6 rounded-sm transition-colors relative border ${
-            formData.enabled ? "border-[var(--accent-teal)] bg-[var(--bg-soft)]" : "border-[var(--line-strong)] bg-[var(--bg)]"
+            formData.enabled ? "border-(--accent-teal) bg-[var(--bg-soft)]" : "border-(--line-strong) bg-bg"
           }`}
           aria-pressed={formData.enabled}
         >
           <span
             className={`absolute top-1 w-4 h-4 rounded-sm transition-all ${
-              formData.enabled ? "left-6 bg-[var(--accent-teal)]" : "left-1 bg-[var(--text-muted)]"
+              formData.enabled ? "left-6 bg-(--accent-teal)" : "left-1 bg-[var(--text-muted)]"
             }`}
           />
         </button>

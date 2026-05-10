@@ -44,14 +44,14 @@ export function WhenYouHave5Min({ data }: WhenYouHave5MinProps) {
                   borderRadius: "var(--radius-xs)",
                 }}
               >
-                <span className="t-13 text-[var(--text-faint)] shrink-0" aria-hidden>
+                <span className="t-13 text-text-faint shrink-0" aria-hidden>
                   →
                 </span>
-                <span className="t-13 font-light text-[var(--text-l1)] truncate group-hover:text-[var(--accent-teal)] transition-colors">
+                <span className="t-13 font-light text-(--text-l1) truncate group-hover:text-(--accent-teal) transition-colors">
                   {item.title}
                 </span>
                 {item.hint && (
-                  <span className="t-11 font-light text-[var(--text-faint)] shrink-0 ml-auto">
+                  <span className="t-11 font-light text-text-faint shrink-0 ml-auto">
                     {item.hint}
                   </span>
                 )}

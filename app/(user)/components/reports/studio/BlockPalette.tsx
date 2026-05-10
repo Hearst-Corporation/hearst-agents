@@ -77,7 +77,7 @@ export function BlockPalette({ onAdd }: BlockPaletteProps) {
               }}
               onClick={() => onAdd(entry.kind)}
               data-testid={`palette-${entry.kind}`}
-              className="w-full flex items-center text-left bg-transparent border border-[var(--surface-2)] hover:bg-[var(--surface-2)] hover:border-[var(--accent-teal-border)] cursor-grab transition-colors duration-(--duration-base) ease-(--ease-standard)"
+              className="w-full flex items-center text-left bg-transparent border border-[var(--surface-2)] hover:bg-surface-2 hover:border-[var(--accent-teal-border)] cursor-grab transition-colors duration-(--duration-base) ease-(--ease-standard)"
               style={{
                 gap: "var(--space-3)",
                 padding: "var(--space-3)",
