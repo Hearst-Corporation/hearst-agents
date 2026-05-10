@@ -159,12 +159,12 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
 
       {focal.body && (
         <div className="prose prose-invert max-w-none">
-          <div className="t-15 leading-[1.7] text-text-muted font-normal whitespace-pre-wrap">{focal.body}</div>
+          <div className="t-15 leading-(--leading-body) text-text-muted font-normal whitespace-pre-wrap">{focal.body}</div>
         </div>
       )}
 
       {!focal.body && focal.summary && (
-        <p className="t-15 leading-[1.7] text-text-muted font-normal">{focal.summary}</p>
+        <p className="t-15 leading-(--leading-body) text-text-muted font-normal">{focal.summary}</p>
       )}
 
       {focal.sections && focal.sections.length > 0 && (
@@ -174,7 +174,7 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
               {section.heading && (
                 <h3 className="t-13 font-medium text-(--text-l1) mb-4">{section.heading}</h3>
               )}
-              <div className="t-15 leading-[1.7] text-text-muted font-normal">{section.body}</div>
+              <div className="t-15 leading-(--leading-body) text-text-muted font-normal">{section.body}</div>
             </div>
           ))}
         </div>
@@ -201,7 +201,7 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
               title={focal.title}
               srcDoc={previewContent}
               sandbox="allow-same-origin"
-              className="w-full rounded-sm border border-[var(--surface-2)] bg-white"
+              className="w-full rounded-sm border border-[var(--surface-2)] bg-[var(--surface-1)]"
               style={{ height: "var(--space-32)", minHeight: "var(--height-focal-min)" }}
             />
           ) : previewContent ? (
@@ -285,7 +285,7 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
   if (!focal) {
     if (compact) return null;
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center min-h-0">
         <div className="text-center relative z-10">
           <span className="block t-34 text-(--accent-teal) opacity-30 mb-8 animate-pulse">◉</span>
           <p className="t-11 font-light text-text-faint">Waiting_For_Data</p>
@@ -295,11 +295,12 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
   }
 
   if (compact) {
-return (
-    <div className="max-w-none px-8 py-6 bg-[var(--bg-soft)]">
-      <FocalContent focal={focal} onActionComplete={handleActionComplete} />
-    </div>
-  );
+    // Padding compact aligné sur ChatStage (px-12 py-8) pour éviter tout saut.
+    return (
+      <div className="max-w-none px-12 py-8 bg-[var(--bg-soft)]">
+        <FocalContent focal={focal} onActionComplete={handleActionComplete} />
+      </div>
+    );
   }
 
   return (

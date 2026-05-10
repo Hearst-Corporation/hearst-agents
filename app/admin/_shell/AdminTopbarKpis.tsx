@@ -39,7 +39,7 @@ function Kpi({ label, value, tone = "default", title }: KpiProps) {
         : "text-text";
   return (
     <div className="flex items-baseline gap-(--space-2)" title={title}>
-      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+      <span className="t-10 text-text-faint">
         {label}
       </span>
       <span className={`t-12 font-mono font-medium tabular-nums ${valueColor}`}>
@@ -81,7 +81,7 @@ export default function AdminTopbarKpis() {
 
   if (!metrics) {
     return (
-      <div className="hidden md:flex items-center gap-(--space-5) text-text-faint t-10 font-mono uppercase tracking-(--tracking-stretch)">
+      <div className="hidden md:flex items-center gap-(--space-5) text-text-faint t-10">
         <span>—</span>
       </div>
     );
@@ -95,19 +95,19 @@ export default function AdminTopbarKpis() {
       className={`hidden md:flex items-center gap-(--space-5) ${stale ? "opacity-50" : ""}`}
     >
       <Kpi
-        label="runs/min"
+        label="Runs/min"
         value={String(metrics.runsPerMin)}
         title="Nombre de runs créés dans la dernière minute"
       />
       <span className="size-(--space-1) rounded-(--radius-pill) bg-(--text-ghost)" aria-hidden />
       <Kpi
-        label="p95"
+        label="Latence p95"
         value={fmtLatency(metrics.p95LatencyMs)}
         title="Latence p95 sur les 100 derniers runs (dernière heure)"
       />
       <span className="size-(--space-1) rounded-(--radius-pill) bg-(--text-ghost)" aria-hidden />
       <Kpi
-        label="err"
+        label="Erreurs"
         value={fmtErrorRate(metrics.errorRate)}
         tone={errorTone}
         title={`Taux d'échec sur ${metrics.sampleSize} runs de la dernière heure`}

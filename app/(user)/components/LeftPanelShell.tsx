@@ -8,7 +8,8 @@
  * (`useNavigationStore.toggleLeftDrawer`). Backdrop cliquable pour fermer.
  *
  * Mirroir du pattern utilisé par [RightPanel.tsx](./RightPanel.tsx). Z-index
- * cohérent : drawer 50, backdrop 40, sous le ToastContainer (z-60).
+ * cohérent : drawer = --z-modal (50), backdrop = --z-backdrop (45),
+ * sous le ToastContainer (--z-toast = 70).
  */
 
 import { useEffect, useState } from "react";
@@ -43,16 +44,20 @@ export function LeftPanelShell() {
     <>
       {leftDrawerOpen && (
         <div
-          className="fixed inset-0 z-40"
-          style={{ background: "var(--overlay-scrim)" }}
+          className="fixed inset-0"
+          style={{
+            zIndex: "var(--z-backdrop)" as unknown as number,
+            background: "var(--overlay-scrim)",
+          }}
           onClick={closeLeftDrawer}
           aria-hidden
         />
       )}
       <div
-        className={`fixed top-0 left-0 h-full z-50 transform transition-transform duration-slow ease-out-soft ${
+        className={`fixed top-0 left-0 h-full transform transition-transform duration-slow ease-out-soft ${
           leftDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        style={{ zIndex: "var(--z-modal)" as unknown as number }}
       >
         <TimelineRail />
       </div>

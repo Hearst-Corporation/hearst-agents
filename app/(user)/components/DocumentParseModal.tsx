@@ -17,6 +17,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Action } from "./ui";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 export interface DocumentParseModalProps {
   open: boolean;
@@ -46,7 +47,6 @@ export function DocumentParseModal({
   const [fileName, setFileName] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   function resetState() {
@@ -62,18 +62,22 @@ export function DocumentParseModal({
     onClose();
   }
 
-  useEffect(() => {
-    if (!open) return;
-    function handleKey(ev: KeyboardEvent) {
-      if (ev.key === "Escape" && status !== "submitting") {
+  // Hook a11y : focus trap, body scroll lock, restore focus, Escape.
+  // autoFocus=false → on focalise manuellement l'input URL (premier champ).
+  const dialogRef = useModalA11y<HTMLDivElement>(open, {
+    onClose: () => {
+      if (status !== "submitting") {
         resetState();
         onClose();
       }
-    }
-    document.addEventListener("keydown", handleKey);
+    },
+    autoFocus: false,
+  });
+
+  useEffect(() => {
+    if (!open) return;
     inputRef.current?.focus();
-    return () => document.removeEventListener("keydown", handleKey);
-  }, [open, status, onClose]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -133,8 +137,9 @@ export function DocumentParseModal({
       aria-modal="true"
       aria-labelledby="document-parse-modal-title"
       data-testid="document-parse-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 flex items-center justify-center"
       style={{
+        zIndex: "var(--z-modal)" as unknown as number,
         background: "color-mix(in srgb, var(--bg) 70%, transparent)",
       }}
       onClick={(e) => {

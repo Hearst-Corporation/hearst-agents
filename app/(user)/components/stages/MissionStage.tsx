@@ -306,7 +306,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
         );
       })()}
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         <div className="max-w-4xl mx-auto px-12 py-12 min-h-full">
           {loading && (
             <div
@@ -382,7 +382,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                   >
                     Prompt
                   </p>
-                  <p className="t-15 leading-[1.7] font-light text-text-muted whitespace-pre-wrap">
+                  <p className="t-15 leading-(--leading-body) font-light text-text-muted whitespace-pre-wrap">
                     {mission.input ?? mission.description}
                   </p>
                 </div>

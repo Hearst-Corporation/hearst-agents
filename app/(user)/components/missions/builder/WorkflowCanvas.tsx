@@ -525,7 +525,7 @@ export function WorkflowCanvas({
               if (selectedNodeId === pendingSource) setPendingSource(null);
               else setPendingSource(selectedNodeId);
             }}
-            className="t-11 font-medium pointer-events-auto rounded-md transition-all"
+            className="t-11 font-medium pointer-events-auto rounded-md transition-[background-color,border-color,color] duration-(--duration-slow) ease-(--ease-standard)"
             style={{
               padding: "var(--space-2) var(--space-3)",
               background: pendingSource === selectedNodeId ? "rgba(255,204,0,0.15)" : "rgba(74,139,134,0.15)",

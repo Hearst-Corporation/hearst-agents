@@ -27,6 +27,7 @@ import { useVoiceStore } from "@/stores/voice";
 import { useNavigationStore } from "@/stores/navigation";
 import { CommandeurResultRow, type CommandeurResultKind } from "./CommandeurResultRow";
 import { useCommandeurData } from "./use-commandeur-data";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 interface CommandRow {
   id: string;
@@ -496,14 +497,25 @@ export function Commandeur() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, flatRows, activeIndex, setOpen]);
 
+  // Hook a11y : focus trap + scroll lock body + restore focus à la
+  // fermeture. Escape est géré localement (handler ci-dessus + nav clavier
+  // ↑↓/Enter), donc on désactive `closeOnEscape` pour éviter le double-call.
+  // autoFocus=false : <input autoFocus> du palette pose déjà le focus.
+  const dialogRef = useModalA11y<HTMLDivElement>(isOpen, {
+    onClose: () => setOpen(false),
+    closeOnEscape: false,
+    autoFocus: false,
+  });
+
   if (!isOpen) return null;
 
   let runningIndex = 0;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center transition-all duration-500"
+      className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
       style={{
+        zIndex: "var(--z-modal)" as unknown as number,
         background: "var(--overlay-scrim)",
         backdropFilter: "var(--blur-lg)",
         WebkitBackdropFilter: "var(--blur-lg)",
@@ -512,7 +524,11 @@ export function Commandeur() {
       onClick={() => setOpen(false)}
     >
       <div
-        className="w-full max-w-3xl overflow-hidden transition-all duration-500 border-l border-(--border-shell)"
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Palette de commandes"
+        className="w-full max-w-3xl overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
         style={{ background: "transparent" }}
         onClick={(e) => e.stopPropagation()}
       >

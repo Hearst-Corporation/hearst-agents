@@ -39,6 +39,14 @@ const STATUT_STYLES: Record<string, string> = {
   legacy: "bg-(--danger)/10 text-danger border-(--danger)/30",
 };
 
+const STATUT_LABELS: Record<string, string> = {
+  verrouillé: "Verrouillé",
+  in_progress: "En cours",
+  review: "En revue",
+  active: "Actif",
+  legacy: "Legacy",
+};
+
 const NIVEAU_STYLES: Record<string, string> = {
   P0: "text-danger",
   P1: "text-warn",
@@ -110,10 +118,10 @@ export default async function FeatureDetailPage({
           {feature && (
             <>
               <span
-                className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-(--radius-sm) border t-9 font-mono uppercase tracking-(--tracking-stretch) ${statutCls}`}
+                className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-(--radius-sm) border t-10 font-medium ${statutCls}`}
                 title={feature.statutRaw}
               >
-                {feature.statut}
+                {STATUT_LABELS[feature.statut] ?? feature.statut}
               </span>
               {feature.niveau && (
                 <span className={`t-13 font-medium ${niveauCls}`}>{feature.niveau}</span>
@@ -148,20 +156,20 @@ export default async function FeatureDetailPage({
       {feature && (
         <div className="grid gap-(--space-4) sm:grid-cols-3">
           <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-            <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            <span className="t-11 font-medium text-text-faint">
               Invariants
             </span>
             <span className="t-24 font-light text-text">{feature.invariantsCount}</span>
             <span className="t-10 text-text-ghost">règles figées</span>
           </div>
           <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-            <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            <span className="t-11 font-medium text-text-faint">
               Tests existants
             </span>
             <span className="t-24 font-light text-money">{feature.testsExistantsCount}</span>
           </div>
           <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-            <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            <span className="t-11 font-medium text-text-faint">
               Tests manquants
             </span>
             <span className={`t-24 font-light ${gapCls}`}>{feature.testsManquantsCount}</span>
@@ -180,7 +188,7 @@ export default async function FeatureDetailPage({
         </div>
 
         {specContent ? (
-          <pre className="bg-surface-1 border border-(--border-shell) rounded-(--radius-md) p-(--space-6) t-12 font-mono text-text-soft overflow-auto max-h-[70vh] leading-relaxed whitespace-pre-wrap break-words">
+          <pre className="bg-surface-1 border border-(--border-shell) rounded-(--radius-md) p-(--space-6) t-12 font-mono text-text-soft overflow-auto max-h-[var(--max-height-page-content)] leading-(--leading-relaxed) whitespace-pre-wrap break-words">
             {specContent}
           </pre>
         ) : (

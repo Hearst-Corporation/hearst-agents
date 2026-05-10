@@ -202,7 +202,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                 key={entry.label}
                 type="button"
                 onClick={() => onAdd(entry)}
-                className="flex items-center gap-3 w-full text-left rounded-md transition-all group"
+                className="flex items-center gap-3 w-full text-left rounded-md transition-[background-color,border-color,color] group"
                 style={{
                   padding: "var(--space-2) var(--space-3)",
                   border: "1px solid var(--border-soft)",
@@ -247,7 +247,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
               key={entry.label}
               type="button"
               onClick={() => onAdd(entry)}
-              className="flex flex-col items-center justify-center rounded-md border transition-all group"
+              className="flex flex-col items-center justify-center rounded-md border transition-[background-color,border-color,color] group"
               style={{
                 padding: "var(--space-3) var(--space-2)",
                 gap: "var(--space-2)",
@@ -286,7 +286,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
               key={label}
               type="button"
               onClick={() => onAdd({ label, ...entry })}
-              className="flex items-center gap-2 rounded-md border transition-all group"
+              className="flex items-center gap-2 rounded-md border transition-[background-color,border-color,color] group"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--border-soft)",

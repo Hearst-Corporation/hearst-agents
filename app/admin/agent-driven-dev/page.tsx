@@ -65,14 +65,23 @@ const TEST_GAP_STYLES: Record<string, string> = {
   aucun: "text-text-ghost",
 };
 
+const STATUT_LABELS: Record<string, string> = {
+  verrouillé: "Verrouillé",
+  in_progress: "En cours",
+  review: "En revue",
+  active: "Actif",
+  legacy: "Legacy",
+};
+
 function StatutBadge({ statut, raw }: { statut: string; raw: string }) {
   const cls = STATUT_STYLES[statut] ?? "bg-(--surface-2) text-text-muted border-line";
+  const label = STATUT_LABELS[statut] ?? statut;
   return (
     <span
-      className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-pill border t-9 font-mono uppercase tracking-(--tracking-stretch) ${cls}`}
+      className={`inline-flex items-center px-(--space-2) py-(--space-1) rounded-pill border t-10 font-medium ${cls}`}
       title={raw}
     >
-      {statut}
+      {label}
     </span>
   );
 }
@@ -132,7 +141,7 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
         </div>
 
         <div>
-          <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-2)">
+          <p className="t-11 font-medium text-text-faint mb-(--space-2)">
             Invariants verrouillés ({feature.invariantsCount})
           </p>
           {feature.invariantsTitles.length > 0 ? (
@@ -150,7 +159,7 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
         </div>
 
         <div className="flex items-center gap-(--space-3) pt-(--space-2) border-t border-line">
-          <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+          <span className="t-11 font-medium text-text-faint">
             Spec
           </span>
           <code className="t-11 font-mono px-(--space-1) py-(--space-1) bg-(--surface-2) rounded-(--radius-xs) text-text-muted">
@@ -187,7 +196,7 @@ function Kpi({
   };
   return (
     <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+      <span className="t-11 font-medium text-text-faint">
         {label}
       </span>
       <span className={`t-24 font-light ${toneCls[tone]}`}>{value}</span>
@@ -260,7 +269,7 @@ export default async function AgentDrivenDevPage() {
           </div>
 
           <div className="space-y-(--space-2)">
-            <div className="grid grid-cols-12 items-center gap-(--space-3) px-(--space-4) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            <div className="grid grid-cols-12 items-center gap-(--space-3) px-(--space-4) t-11 font-medium text-text-faint">
               <div className="col-span-3">Feature</div>
               <div className="col-span-2">Statut</div>
               <div className="col-span-1">Version</div>

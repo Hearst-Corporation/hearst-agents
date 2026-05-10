@@ -41,6 +41,7 @@ import { CodeRunner } from "./CodeRunner";
 import { useStageData } from "@/stores/stage-data";
 import { useStageStore } from "@/stores/stage";
 import { useVariantReadyNotification } from "@/app/hooks/use-variant-ready-notification";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { Action } from "./ui";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
 
@@ -689,19 +690,33 @@ function EnrichmentPreviewModal({
   onUseManual,
   onCancel,
 }: EnrichmentPreviewModalProps) {
+  // Hook a11y : focus trap + scroll lock + Escape (annule) + restore focus.
+  // Le modal n'est rendu QUE quand `preview` est non-null côté caller, donc
+  // isOpen=true tant que ce composant est monté.
+  const dialogRef = useModalA11y<HTMLDivElement>(true, {
+    onClose: onCancel,
+  });
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ backgroundColor: "var(--modal-backdrop)" }}
+      className="fixed inset-0 flex items-center justify-center"
+      style={{
+        zIndex: "var(--z-modal)" as unknown as number,
+        backgroundColor: "var(--modal-backdrop)",
+      }}
       onClick={onCancel}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="enrichment-preview-title"
         className="flex flex-col gap-6 max-w-2xl w-full mx-4 p-6 border border-(--border-shell)"
         style={{ backgroundColor: "var(--card-flat-bg)" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col gap-1">
-          <span className="t-15 font-medium text-(--text-l1)">Prompt enrichi</span>
+          <span id="enrichment-preview-title" className="t-15 font-medium text-(--text-l1)">Prompt enrichi</span>
           <span className="t-11 font-light text-text-muted">
             Claude a réécrit votre prompt en direction cinématographique. Vérifiez avant génération.
           </span>

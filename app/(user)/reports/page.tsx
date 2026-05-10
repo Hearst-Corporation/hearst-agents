@@ -214,7 +214,7 @@ export default function ReportsDiscoveryPage() {
                   type="button"
                   onClick={() => setStatusFilter(value)}
                   data-testid={`filter-status-${value}`}
-                  className="px-3 py-1.5 t-13 font-medium rounded-md border transition-all"
+                  className="px-3 py-1.5 t-13 font-medium rounded-md border transition-[background-color,color,border-color]"
                   style={{
                     background: isActive ? "var(--accent-teal-bg-active)" : "var(--surface-1)",
                     color: isActive ? "var(--accent-teal)" : "var(--text-muted)",
@@ -255,7 +255,7 @@ export default function ReportsDiscoveryPage() {
                   type="button"
                   onClick={() => setDomainFilter(value)}
                   data-testid={`filter-domain-${value}`}
-                  className="px-2.5 py-1 t-11 font-light rounded-md transition-all"
+                  className="px-2.5 py-1 t-11 font-light rounded-md transition-[background-color,color]"
                   style={{
                     background: isActive ? "var(--accent-teal-surface)" : "transparent",
                     color: isActive ? "var(--accent-teal)" : "var(--text-ghost)",

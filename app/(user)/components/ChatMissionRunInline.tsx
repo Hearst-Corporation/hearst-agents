@@ -96,7 +96,7 @@ export function ChatMissionRunInline() {
         <span className="text-text-ghost">·</span>
         <span className="text-text-faint">{MATCH_LABEL[request.matchKind]}</span>
       </div>
-      <p className="t-13 text-text-soft leading-[1.5]">
+      <p className="t-13 text-text-soft leading-(--leading-body-tight)">
         <span className="font-medium text-(--text-l1)">{request.missionName}</span>
         {request.scheduleLabel && (
           <span className="text-text-faint">
@@ -109,7 +109,7 @@ export function ChatMissionRunInline() {
       {lastError && (
         <div className="mt-3 border border-(--danger)/40 bg-(--danger)/[0.06] px-3 py-2 t-11 text-(--danger)">
           <div className="font-medium mb-1">Échec</div>
-          <div className="text-text-soft leading-[1.45]">{lastError}</div>
+          <div className="text-text-soft leading-(--leading-base)">{lastError}</div>
         </div>
       )}
 

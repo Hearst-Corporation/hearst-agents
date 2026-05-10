@@ -99,7 +99,7 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && send()}
           placeholder="Message…"
-          className="flex-1 rounded-(--radius-sm) bg-bg-soft border border-(--border-input) px-(--space-3) py-(--space-2) t-13 text-text placeholder:text-text-faint outline-none focus:border-(--accent-teal) transition-colors"
+          className="flex-1 rounded-(--radius-sm) bg-bg-soft border border-(--border-input) px-(--space-3) py-(--space-2) t-13 text-text placeholder:text-text-faint focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
         />
         <button
           onClick={send}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Action } from "./ui";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 interface MissionFormData {
   name: string;
@@ -72,8 +73,28 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
 
   const isValid = formData.name.trim() && formData.prompt.trim();
 
+  // Hook a11y : focus trap + scroll lock + Escape (annule, sauf en cours
+  // de sauvegarde) + restore focus. Le composant n'est rendu que quand le
+  // drawer parent (missions/page.tsx) est ouvert, donc isOpen=true tant
+  // que monté.
+  const dialogRef = useModalA11y<HTMLFormElement>(true, {
+    onClose: () => {
+      if (!isLoading) onCancel();
+    },
+  });
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mission-editor-title"
+      onSubmit={handleSubmit}
+      className="space-y-8"
+    >
+      <h2 id="mission-editor-title" className="sr-only">
+        {initialData?.name ? "Modifier la mission" : "Nouvelle mission"}
+      </h2>
       <div>
         <label className="ghost-meta-label block mb-2">Nom</label>
         <input
@@ -121,7 +142,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
                   selected ? "bg-[var(--bg-soft)] text-(--accent-teal)" : "bg-bg text-text-muted hover:bg-bg-elev"
                 }`}
               >
-                <p className={`t-9 font-black uppercase tracking-tight ${selected ? "" : "text-text-soft"}`}>{option.label}</p>
+                <p className={`t-13 font-medium ${selected ? "" : "text-text-soft"}`}>{option.label}</p>
                 <p className="t-11 font-light text-text-faint mt-1">{option.description}</p>
               </button>
             );
@@ -172,7 +193,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
                     selected ? "bg-[var(--bg-soft)] text-(--accent-teal)" : "bg-bg text-text-muted hover:bg-bg-elev"
                   }`}
                 >
-                  <p className={`t-9 font-black uppercase tracking-tight ${selected ? "" : "text-text-soft"}`}>
+                  <p className={`t-13 font-medium ${selected ? "" : "text-text-soft"}`}>
                     {option.label}
                   </p>
                   <p className="t-11 font-light text-text-faint mt-1">{option.description}</p>
@@ -197,7 +218,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
           aria-pressed={formData.enabled}
         >
           <span
-            className={`absolute top-1 w-4 h-4 rounded-sm transition-all ${
+            className={`absolute top-1 w-4 h-4 rounded-sm transition-[left,background-color] duration-(--duration-base) ${
               formData.enabled ? "left-6 bg-(--accent-teal)" : "left-1 bg-[var(--text-muted)]"
             }`}
           />

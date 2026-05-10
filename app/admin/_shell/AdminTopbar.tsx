@@ -35,12 +35,12 @@ export default function AdminTopbar({ onMenuClick, env }: Props) {
       </button>
 
       <nav aria-label="Fil d'Ariane" className="flex items-center gap-(--space-2) min-w-0">
-        <span className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+        <span className="t-12 text-text-faint">
           Admin
         </span>
         {current && (
           <>
-            <span className="t-10 text-text-faint">/</span>
+            <span className="t-12 text-text-faint">/</span>
             <span className="t-12 font-medium text-text truncate">{current.label}</span>
           </>
         )}
@@ -48,7 +48,7 @@ export default function AdminTopbar({ onMenuClick, env }: Props) {
 
       <div className="ml-auto flex items-center gap-(--space-5)">
         <AdminTopbarKpis />
-        <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--accent-teal) px-(--space-2) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/30 bg-(--accent-teal-bg-active)">
+        <span className="t-10 font-mono text-(--accent-teal) px-(--space-2) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/30 bg-(--accent-teal-bg-active)">
           {env}
         </span>
       </div>

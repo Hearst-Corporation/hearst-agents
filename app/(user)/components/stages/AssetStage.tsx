@@ -426,7 +426,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         <div className="max-w-4xl mx-auto px-12 py-12 min-h-full">
           {loading && (
             <div className="flex flex-col items-center justify-center py-24" style={{ rowGap: "var(--space-4)" }}>
@@ -773,7 +773,7 @@ function AssetBody({ contentRef, title }: { contentRef?: string; title: string }
         title={title}
         srcDoc={contentRef}
         sandbox="allow-same-origin"
-        className="w-full rounded-sm border border-[var(--surface-2)] bg-white"
+        className="w-full rounded-sm border border-[var(--surface-2)] bg-[var(--surface-1)]"
         style={{ height: "var(--space-32)", minHeight: "var(--height-focal-min)" }}
       />
     );

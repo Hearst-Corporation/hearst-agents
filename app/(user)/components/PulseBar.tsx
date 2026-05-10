@@ -248,7 +248,7 @@ export function PulseBar() {
         {isVoiceActive && (
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
             <span
-              className="rounded-pill bg-(--accent-teal) halo-cyan-sm animate-pulse"
+              className="rounded-pill bg-(--accent-teal) halo-dot animate-pulse"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />

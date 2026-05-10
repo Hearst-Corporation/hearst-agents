@@ -127,3 +127,10 @@ Français pour tout : réponses, commits, commentaires code, microcopy UI.
 - Pas de gimmick `hover:tracking-[Xem]`
 - Statuts en voix régulière FR ("Réussi" / "Échec" / "En cours") plutôt que mono caps abrégés ("OK" / "FAIL" / "RUN")
 - `<Action>`, `<SectionHeader>`, `<RailSection>`, `<EmptyState>`, `<RowSkeleton>`, `<CardSkeleton>` sont les primitives canoniques
+
+## Modules hors DS
+
+`app/spatial/*` est un prototype luxe intentionnellement hors design system. Les
+règles tokens, voix éditoriale et lint visuel ne s'y appliquent pas. Toute
+modification du module doit rester confinée au module et ne pas propager ses
+patterns ailleurs.

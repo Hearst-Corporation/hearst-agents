@@ -139,7 +139,7 @@ export function FocalRetryButton({
       disabled={isRetrying}
       className={
         className ||
-        `${baseClasses} bg-(--accent-teal) text-[var(--text-on-accent-teal)] transition-all duration-emphasis disabled:opacity-50 disabled:cursor-not-allowed`
+        `${baseClasses} bg-(--accent-teal) text-[var(--text-on-accent-teal)] transition-[background-color,opacity,box-shadow] duration-(--duration-emphasis) disabled:opacity-50 disabled:cursor-not-allowed`
       }
       style={{ boxShadow: "var(--shadow-card-hover)" }}
       title={isRetrying ? "Réessai en cours…" : "Réessayer l'opération"}

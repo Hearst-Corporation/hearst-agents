@@ -175,7 +175,7 @@ export default function AssetsPage() {
                     type="button"
                     onClick={(e) => handleDownload(asset, e)}
                     disabled={!asset.provenance?.pdfFile}
-                    className="t-9 font-light text-text-ghost hover:text-(--accent-teal) opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
+                    className="t-9 font-light text-text-ghost hover:text-(--accent-teal) opacity-0 group-hover:opacity-100 transition-[color,opacity] disabled:opacity-0"
                   >
                     Télécharger
                   </button>
@@ -185,7 +185,7 @@ export default function AssetsPage() {
                       e.stopPropagation();
                       setConfirmDelete(asset);
                     }}
-                    className="t-9 font-light text-text-ghost hover:text-(--danger) opacity-0 group-hover:opacity-100 transition-all"
+                    className="t-9 font-light text-text-ghost hover:text-(--danger) opacity-0 group-hover:opacity-100 transition-[color,opacity]"
                     title={`Supprimer ${asset.title}`}
                     aria-label={`Supprimer ${asset.title}`}
                   >

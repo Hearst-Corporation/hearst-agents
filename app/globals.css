@@ -75,10 +75,16 @@
 
   /* ─── Z-index scale ─────────────────────────────────────────── */
   --z-base: 0;
+  --z-noise: 1;
   --z-sticky: 20;
-  --z-dropdown: 50;
+  --z-rail: 20;
+  --z-pulsebar: 30;
+  --z-dropdown: 40;
+  --z-backdrop: 45;
+  --z-modal: 50;
+  --z-modal-stack: 60;
+  --z-toast: 70;
   --z-overlay: 100;
-  --z-modal: 60;
 
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
   --space-0: 0px;
@@ -105,11 +111,25 @@
   --width-drawer-max: 520px;
   --max-height-notification-popover: clamp(200px, 40vh, 400px);
   --max-height-admin-scroll-area: 60vh;
+  /** Hauteur max des zones de contenu paginé (logs telemetry, spec preview ADD).
+   * Centralise le 70vh récurrent. */
+  --max-height-page-content: 70vh;
   --height-textarea-sm: 120px;
   --height-textarea-md: 200px;
+  /** Estimation hauteur MobileBottomNav (icône t-15 ≈ 18px + label t-11 ≈ 14px +
+   * 2*space-2 padding + space-1 gap + safe-area). RightPanel FAB s'appuie dessus
+   * pour éviter le chevauchement (bottom = nav + space-4). */
+  --height-mobile-nav: 56px;
+  /** Grid template colonnes — Audit log table (cf. app/admin/audit/page.tsx).
+   * Time | Action | Resource (flex) | Status | Severity. */
+  --grid-audit: 160px 100px 1fr 80px 100px;
   --size-icon-sm: 2rem;
   --size-icon-md: 2.25rem;
   --size-icon-lg: 3rem;
+  /** Hit target touch (WCAG 2.5.5 / Apple HIG) — utilisé pour boutons icon RowActions. */
+  --size-touch-target: 44px;
+  /** Demi-step entre --space-2 (8px) et --space-3 (12px) — padding interne RowActions. */
+  --space-2-5: 10px;
 
   /* ─── Skeleton lines — hauteurs typographiques pour blocs animate-pulse ─── */
   --skeleton-line-xs: 13px; /* t-13 — labels, captions */
@@ -178,6 +198,9 @@
   /* ─── Prose — largeurs de lecture éditoriale ───────────────────────── */
   --width-prose-narrow: 560px;
   --width-working-doc: min(50%, 720px);
+
+  /* ─── Login — carte d'auth (page /login) ──────────────────────────── */
+  --width-login-card: 480px;
 
   /* ─── ChatInput ─────────────────────────────────────────────── */
   --height-input-max: 200px; /* textarea : hauteur max avant scroll */
@@ -304,6 +327,11 @@
   --leading-base: 1.45;
   --leading-relaxed: 1.6;
   --leading-loose: 1.8;
+  /* Pivot 2026-05-10 : tokens body unifiés pour la prose
+   * (articles, focal, missions). Évite les magic numbers
+   * leading-[1.5] / leading-[1.7] disséminés. */
+  --leading-body-tight: 1.5;
+  --leading-body: 1.7;
 
   /* ─── Hearst Connect — Motion ───────────────────────────────── */
   --duration-fast: 75ms;

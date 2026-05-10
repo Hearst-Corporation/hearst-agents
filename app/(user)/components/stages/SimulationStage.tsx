@@ -240,7 +240,7 @@ function SimulationForm({
           <button
             type="button"
             onClick={onVariableAdd}
-            className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all"
+            className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-[color,border-color] duration-(--duration-slow) ease-(--ease-standard)"
           >
             + Ajouter
           </button>
@@ -353,7 +353,7 @@ function SimulationResults({ scenarios, reasoning, assetId, onReset }: Simulatio
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all"
+          className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-muted hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-[color,border-color] duration-(--duration-slow) ease-(--ease-standard)"
         >
           Nouvelle simulation
         </button>

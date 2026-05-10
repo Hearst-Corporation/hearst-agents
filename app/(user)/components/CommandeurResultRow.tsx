@@ -59,7 +59,7 @@ export function CommandeurResultRow({
       disabled={disabled}
       onClick={onSelect}
       onMouseEnter={onHover}
-      className={`w-full py-3 flex items-baseline gap-6 text-left transition-all duration-200 ${
+      className={`w-full py-3 flex items-baseline gap-6 text-left transition-[transform,color] duration-(--duration-slow) ${
         disabled
           ? "opacity-20 cursor-not-allowed"
           : active
@@ -68,7 +68,7 @@ export function CommandeurResultRow({
       }`}
     >
       <span
-        className={`t-13 font-mono shrink-0 transition-colors duration-200 ${
+        className={`t-13 font-mono shrink-0 transition-colors duration-(--duration-slow) ${
           active && !disabled
             ? "text-(--accent-teal)"
             : "text-text-ghost"
@@ -77,7 +77,7 @@ export function CommandeurResultRow({
         {renderedGlyph}
       </span>
       <span
-        className={`t-24 leading-none tracking-tight transition-colors duration-200 ${
+        className={`t-24 leading-none tracking-tight transition-colors duration-(--duration-slow) ${
           active && !disabled ? "text-text" : "text-text-muted"
         }`}
       >
@@ -85,7 +85,7 @@ export function CommandeurResultRow({
       </span>
       {hint && (
         <span
-          className={`t-11 font-light transition-colors duration-200 ${
+          className={`t-11 font-light transition-colors duration-(--duration-slow) ${
             active && !disabled ? "text-text-muted" : "text-text-ghost"
           }`}
         >

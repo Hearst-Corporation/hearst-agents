@@ -125,7 +125,7 @@ function ConfirmActionChips({
 export function ChatMessages({
   messages,
   className,
-  compact = false,
+  compact: _compact = false,
   source,
   onQuickReply,
 }: ChatMessagesProps) {
@@ -203,9 +203,8 @@ export function ChatMessages({
     return null;
   }
 
-  const defaultClass = compact
-    ? "h-full overflow-y-auto px-7 py-4 flex flex-col"
-    : "h-full overflow-y-auto px-10 py-8 flex flex-col";
+  // Padding uniforme entre modes compact et plein — évite le saut horizontal quand le focal s'ouvre/ferme.
+  const defaultClass = "h-full overflow-y-auto px-12 py-8 flex flex-col min-h-0";
 
   const lastMessage = messages[messages.length - 1];
   const lastIsUser = lastMessage?.role === "user";
@@ -227,7 +226,7 @@ export function ChatMessages({
             return (
               <div key={message.id} className="w-full">
                 <MetaLine author="Toi" ts={ts} />
-                <div className="t-15 font-light leading-relaxed text-text-soft whitespace-pre-wrap">
+                <div className="t-15 font-light leading-(--leading-body) text-text-soft whitespace-pre-wrap">
                   {liveContent}
                 </div>
               </div>

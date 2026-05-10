@@ -32,6 +32,13 @@ const STRICT_PATHS = [
   "app/components/system/",
 ];
 
+// Modules intentionnellement hors design system. Aucun fichier sous ces
+// préfixes n'est scanné (ni règles globales, ni règles strict).
+// Voir CLAUDE.md section "Modules hors DS".
+const IGNORE_PATH_PREFIXES = [
+  "app/spatial/",
+];
+
 const SKIP_DIRS = new Set(["node_modules", ".next", "test-results", ".git"]);
 
 // — Règles globales —
@@ -83,12 +90,20 @@ function isStrict(relPath) {
   return STRICT_PATHS.some((p) => relPath.startsWith(p));
 }
 
+function isIgnored(relPath) {
+  return IGNORE_PATH_PREFIXES.some((p) => relPath.startsWith(p));
+}
+
 const violations = [];
 
 for (const file of walk(SCAN_DIR)) {
+  const relPath = relative(ROOT, file);
+
+  // Modules hors DS : skip total (cf. IGNORE_PATH_PREFIXES).
+  if (isIgnored(relPath)) continue;
+
   const text = readFileSync(file, "utf8");
   const lines = text.split("\n");
-  const relPath = relative(ROOT, file);
 
   // File-level opt-out (5 premières lignes).
   const head = lines.slice(0, 5).join("\n");

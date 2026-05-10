@@ -299,7 +299,7 @@ export function ContextRailForMissionsAdmin() {
                   key={t}
                   type="button"
                   onClick={() => setTab(t)}
-                  className="t-11 font-medium transition-all rounded-md"
+                  className="t-11 font-medium transition-[background-color,color,border-color] rounded-md"
                   style={{
                     padding: "var(--space-1) var(--space-3)",
                     background: isActive ? "var(--accent-teal-bg-active)" : "transparent",

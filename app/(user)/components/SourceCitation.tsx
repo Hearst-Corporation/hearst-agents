@@ -105,8 +105,9 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
         <div
           role="tooltip"
           data-testid="source-citation-tooltip"
-          className="fixed z-50"
+          className="fixed"
           style={{
+            zIndex: "var(--z-dropdown)" as unknown as number,
             top: tooltipPos.y,
             left: tooltipPos.x,
             padding: "var(--space-3) var(--space-4)",

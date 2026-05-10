@@ -13,8 +13,9 @@
  * `var(--*)`.
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Action } from "./ui";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 export interface ConfirmModalProps {
   open: boolean;
@@ -39,23 +40,24 @@ export function ConfirmModal({
   onConfirm,
   onCancel,
 }: ConfirmModalProps) {
-  const dialogRef = useRef<HTMLDivElement>(null);
+  // Le hook gère focus trap, scroll lock, restore focus, Escape (avec
+  // garde-fou loading via closeOnEscape). On désactive autoFocus pour
+  // poser le focus initial sur le bouton "Annuler" (option safe).
+  const dialogRef = useModalA11y<HTMLDivElement>(open, {
+    onClose: () => {
+      if (!loading) onCancel();
+    },
+    autoFocus: false,
+  });
 
   useEffect(() => {
     if (!open) return;
-    function handleKey(ev: KeyboardEvent) {
-      if (ev.key === "Escape" && !loading) onCancel();
-    }
-    document.addEventListener("keydown", handleKey);
     // Focus initial sur le bouton "Annuler" (option safe par défaut).
     const cancelBtn = dialogRef.current?.querySelector<HTMLButtonElement>(
       "[data-testid='confirm-modal-cancel']",
     );
     cancelBtn?.focus();
-    return () => {
-      document.removeEventListener("keydown", handleKey);
-    };
-  }, [open, loading, onCancel]);
+  }, [open, dialogRef]);
 
   if (!open) return null;
 
@@ -67,8 +69,9 @@ export function ConfirmModal({
       aria-modal="true"
       aria-labelledby="confirm-modal-title"
       data-testid="confirm-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 flex items-center justify-center"
       style={{
+        zIndex: "var(--z-modal)" as unknown as number,
         // Backdrop : color-mix sur le shell ambient (--bg) pour rester token-only.
         background: "color-mix(in srgb, var(--bg) 70%, transparent)",
       }}

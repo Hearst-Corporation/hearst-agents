@@ -31,8 +31,8 @@ export default async function AuditPage() {
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       <div className="flex items-center justify-between">
-        <h1 className="t-24 font-light text-text">Audit Log</h1>
-        <span className="t-13 text-text-faint">{total} total, showing {logs.length}</span>
+        <h1 className="t-24 font-light text-text">Journal d&apos;audit</h1>
+        <span className="t-13 text-text-faint">{total} au total — affichage de {logs.length}</span>
       </div>
 
       {dbError && (
@@ -41,24 +41,24 @@ export default async function AuditPage() {
         </div>
       )}
 
-      {/* Log table */}
+      {/* Tableau des entrées d'audit */}
       <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
-        <div className="grid grid-cols-[160px_100px_1fr_80px_100px] gap-(--space-2) px-(--space-4) py-(--space-2) t-10 text-text-ghost uppercase tracking-(--tracking-stretch) border-b border-(--border-shell)">
-          <span>Time</span>
+        <div className="grid grid-cols-[var(--grid-audit)] gap-(--space-2) px-(--space-4) py-(--space-2) t-10 font-medium text-text-ghost border-b border-(--border-shell)">
+          <span>Horodatage</span>
           <span>Action</span>
-          <span>Resource</span>
-          <span>Status</span>
-          <span>Severity</span>
+          <span>Ressource</span>
+          <span>Statut</span>
+          <span>Sévérité</span>
         </div>
 
         {logs.length === 0 && (
-          <p className="px-(--space-4) py-(--space-8) text-center t-13 text-text-ghost">No audit logs found</p>
+          <p className="px-(--space-4) py-(--space-8) text-center t-13 text-text-ghost">Aucune entrée d&apos;audit</p>
         )}
 
         {logs.map((log) => (
           <div
             key={log.id}
-            className="grid grid-cols-[160px_100px_1fr_80px_100px] gap-(--space-2) px-(--space-4) py-(--space-2) t-13 border-b border-line hover:bg-surface-2 transition-colors"
+            className="grid grid-cols-[var(--grid-audit)] gap-(--space-2) px-(--space-4) py-(--space-2) t-13 border-b border-line hover:bg-surface-2 transition-colors"
           >
             <span className="text-text-faint t-10 font-mono">
               {new Date(log.timestamp).toLocaleString()}

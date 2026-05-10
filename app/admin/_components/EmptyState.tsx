@@ -56,7 +56,7 @@ export default function EmptyState({
           type="button"
           onClick={onSeed}
           disabled={seeding}
-          className="t-11 font-mono uppercase tracking-(--tracking-wide) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/40 text-(--accent-teal) hover:bg-(--accent-teal)/10 transition-colors disabled:opacity-40"
+          className="t-12 font-medium px-(--space-3) py-(--space-1) rounded-(--radius-xs) border border-(--accent-teal)/40 text-(--accent-teal) hover:bg-(--accent-teal)/10 transition-colors disabled:opacity-40"
         >
           {seeding ? "Seed en cours…" : "+ samples dev"}
         </button>

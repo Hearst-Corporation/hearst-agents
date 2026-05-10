@@ -57,7 +57,7 @@ export default async function TelemetryPage({
       </div>
 
       <Card className="p-0 overflow-hidden">
-        <div className="max-h-[70vh] overflow-y-auto font-mono">
+        <div className="max-h-[var(--max-height-page-content)] overflow-y-auto font-mono">
           {logs.length === 0 ? (
             <div className="p-(--space-4) t-12 text-text-faint">
               Aucun log pour cet agent ce jour.

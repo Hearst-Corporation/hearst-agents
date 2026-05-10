@@ -127,7 +127,7 @@ export function ResearchReportArticle({ content }: { content: string }) {
                   ─
                 </span>
                 <div className="flex-1 flex flex-col gap-1">
-                  <p className="t-15 leading-[1.6] font-light text-text-muted">
+                  <p className="t-15 leading-(--leading-body) font-light text-text-muted">
                     {block.text}
                   </p>
                   {block.meta && (
@@ -141,7 +141,7 @@ export function ResearchReportArticle({ content }: { content: string }) {
           case "p":
           default:
             return (
-              <p key={idx} className="t-15 leading-[1.7] font-light text-text-muted">
+              <p key={idx} className="t-15 leading-(--leading-body) font-light text-text-muted">
                 {block.text}
               </p>
             );

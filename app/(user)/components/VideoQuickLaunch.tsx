@@ -28,6 +28,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import { useStageStore } from "@/stores/stage";
 import { Action } from "./ui";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 type Provider = "runway" | "heygen";
 type DurationOption = 5 | 10;
@@ -159,7 +160,18 @@ export function VideoQuickLaunch() {
     batchEventSourcesRef.current = [];
   }, []);
 
-  // ── ESC + auto-focus ───────────────────────────────────────────
+  // ── ESC handler + focus trap + restore focus (hook a11y) ───────
+  // Side panel : pas de scroll lock body (panel non-bloquant côté UX —
+  // l'utilisateur peut toujours scroller le shell derrière). autoFocus
+  // désactivé : on focalise manuellement le textarea (premier champ
+  // d'intérêt) avec un léger délai (animation slide-in).
+  const panelRef = useModalA11y<HTMLElement>(open, {
+    onClose: close,
+    autoFocus: false,
+    lockBodyScroll: false,
+  });
+
+  // ── Reset au close + auto-focus textarea à l'open ─────────────
   useEffect(() => {
     if (!open) {
       const t = setTimeout(resetAll, 250);
@@ -168,18 +180,8 @@ export function VideoQuickLaunch() {
     const t = setTimeout(() => {
       textareaRef.current?.focus();
     }, 150);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        close();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open, close, resetAll]);
+    return () => clearTimeout(t);
+  }, [open, resetAll]);
 
   // ── Cleanup au unmount ─────────────────────────────────────────
   useEffect(() => {
@@ -507,11 +509,14 @@ export function VideoQuickLaunch() {
 
   return (
     <aside
+      ref={panelRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Lancement rapide vidéo"
       aria-hidden={!open}
-      className="fixed top-0 right-0 h-screen z-50 flex flex-col"
+      className="fixed top-0 right-0 h-screen flex flex-col"
       style={{
+        zIndex: "var(--z-modal)" as unknown as number,
         width: "var(--width-quick-launch)",
         maxWidth: "100vw",
         background: "var(--bg-elev)",

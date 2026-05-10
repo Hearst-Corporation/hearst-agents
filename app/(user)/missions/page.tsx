@@ -353,10 +353,19 @@ function MissionsPageContent() {
       {/* Editor — drawer depuis la droite */}
       {showEditor && (
         <>
-        <div className="ghost-overlay-backdrop z-[60]" onClick={closeEditor} />
         <div
-          className="fixed top-0 right-0 bottom-0 z-[61] flex flex-col overflow-y-auto pointer-events-auto"
-          style={{ width: "clamp(var(--width-drawer-min), 36vw, var(--width-drawer-max))", background: "var(--rail)", borderLeft: "1px solid var(--border-shell)" }}
+          className="ghost-overlay-backdrop"
+          style={{ zIndex: "var(--z-backdrop)" as unknown as number }}
+          onClick={closeEditor}
+        />
+        <div
+          className="fixed top-0 right-0 bottom-0 flex flex-col overflow-y-auto pointer-events-auto"
+          style={{
+            zIndex: "var(--z-modal)" as unknown as number,
+            width: "clamp(var(--width-drawer-min), 36vw, var(--width-drawer-max))",
+            background: "var(--rail)",
+            borderLeft: "1px solid var(--border-shell)",
+          }}
           onClick={(e) => e.stopPropagation()}
         >
             <div className="p-8">

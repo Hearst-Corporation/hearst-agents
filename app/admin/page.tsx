@@ -77,7 +77,7 @@ export default async function AdminHomePage() {
 
   return (
     <div className="h-full min-h-0 overflow-y-auto bg-bg text-text">
-      <div className="px-(--space-8) py-(--space-10) space-y-(--space-8)">
+      <div className="p-(--space-8) space-y-(--space-8)">
 
         <div>
           <h1 className="t-24 font-light text-text">Administration</h1>

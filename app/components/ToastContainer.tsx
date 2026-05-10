@@ -5,6 +5,11 @@
  *
  * Renders toasts in a fixed position stack. Mobile-aware positioning
  * (avoids overlap with floating action buttons).
+ *
+ * Un seul `<div fixed>` (pas de double conteneur). Mobile : toasts collés
+ * top + plein largeur (left-4/right-4). Desktop : largeur fixe ancrée à
+ * droite. Z-index via token `--z-toast` (= 70) pour rester au-dessus des
+ * modales, drawers et backdrops.
  */
 
 import { Toast, type ToastType } from "./Toast";
@@ -26,21 +31,22 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
 
   return (
     <div
-      className="fixed z-[60] top-4 right-4 left-auto flex flex-col gap-2 w-[calc(100%-var(--space-8))] max-w-[400px]"
+      role="region"
+      aria-live="polite"
+      aria-label="Notifications"
+      className="fixed top-4 right-4 left-4 md:left-auto md:w-[360px] flex flex-col gap-2"
+      style={{ zIndex: "var(--z-toast)" as unknown as number }}
     >
-      {/* Mobile adjustment via CSS media query handled by Tailwind classes */}
-      <div className="md:static fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-[360px] flex flex-col gap-2">
-        {toasts.map((toast) => (
-          <Toast
-            key={toast.id}
-            id={toast.id}
-            type={toast.type}
-            title={toast.title}
-            message={toast.message}
-            onDismiss={onDismiss}
-          />
-        ))}
-      </div>
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.id}
+          id={toast.id}
+          type={toast.type}
+          title={toast.title}
+          message={toast.message}
+          onDismiss={onDismiss}
+        />
+      ))}
     </div>
   );
 }

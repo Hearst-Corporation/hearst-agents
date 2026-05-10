@@ -65,6 +65,12 @@ function relativeTime(iso: string | undefined): string {
 // Sub-components
 // ---------------------------------------------------------------------------
 
+const CIRCUIT_LABELS: Record<CircuitState, string> = {
+  CLOSED: "Fermé",
+  HALF_OPEN: "Mi-ouvert",
+  OPEN: "Ouvert",
+};
+
 function CircuitBadge({ state }: { state: CircuitState }) {
   const cls =
     state === "CLOSED"
@@ -75,9 +81,9 @@ function CircuitBadge({ state }: { state: CircuitState }) {
 
   return (
     <span
-      className={`t-10 px-(--space-2) rounded-pill font-medium uppercase ${cls}`}
+      className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}
     >
-      {state}
+      {CIRCUIT_LABELS[state]}
     </span>
   );
 }
@@ -88,9 +94,10 @@ function WebhookStatusBadge({ status }: { status: "success" | "failed" | undefin
     status === "success"
       ? "bg-(--accent-teal)/15 text-(--accent-teal)"
       : "bg-(--danger)/15 text-(--danger)";
+  const label = status === "success" ? "Réussi" : "Échec";
   return (
-    <span className={`t-10 px-(--space-2) rounded-pill font-medium uppercase ${cls}`}>
-      {status}
+    <span className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}>
+      {label}
     </span>
   );
 }
@@ -99,7 +106,7 @@ function WebhookStatusBadge({ status }: { status: "success" | "failed" | undefin
 function TableHeader({ cols }: { cols: string[] }) {
   return (
     <div
-      className="grid px-(--space-4) py-(--space-2) t-10 text-text-ghost uppercase tracking-(--tracking-stretch) border-b border-(--border-shell)"
+      className="grid px-(--space-4) py-(--space-2) t-10 font-medium text-text-ghost border-b border-(--border-shell)"
       style={{ gridTemplateColumns: `repeat(${cols.length}, minmax(0, 1fr))` }}
     >
       {cols.map((c) => (
@@ -246,7 +253,7 @@ export default function MetricsPage() {
 
           {/* ── Section 1 : KPIs LLM ─────────────────────────── */}
           <section>
-            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
               LLM — Vue globale
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4)">
@@ -282,7 +289,7 @@ export default function MetricsPage() {
 
           {/* ── Section 2 : Compteurs ────────────────────────── */}
           <section>
-            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
               Compteurs
             </h2>
             <div className="grid grid-cols-3 gap-(--space-4)">
@@ -307,7 +314,7 @@ export default function MetricsPage() {
           {/* ── Section 3 : Latences par provider ───────────── */}
           {snapshot.providers.length > 0 && (
             <section>
-              <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
+              <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
                 Latences par provider (ms)
               </h2>
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
@@ -338,7 +345,7 @@ export default function MetricsPage() {
           {/* ── Section 4 : Coûts par provider ──────────────── */}
           {snapshot.providers.length > 0 && (
             <section>
-              <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
+              <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
                 Coûts par provider (USD)
               </h2>
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
@@ -368,7 +375,7 @@ export default function MetricsPage() {
 
           {/* ── Section 5 : Circuit Breaker ──────────────────── */}
           <section>
-            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
               Circuit Breaker — État par provider
             </h2>
             {circuitEntries.length === 0 ? (
@@ -400,7 +407,7 @@ export default function MetricsPage() {
 
           {/* ── Section 6 : Webhooks ─────────────────────────── */}
           <section>
-            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
               Webhooks custom
             </h2>
             {webhooks.length === 0 ? (
@@ -408,7 +415,7 @@ export default function MetricsPage() {
             ) : (
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
                 {/* Header */}
-                <div className="grid px-(--space-4) py-(--space-2) t-10 text-text-ghost uppercase tracking-(--tracking-stretch) border-b border-(--border-shell)"
+                <div className="grid px-(--space-4) py-(--space-2) t-10 font-medium text-text-ghost border-b border-(--border-shell)"
                   style={{ gridTemplateColumns: "1fr 1fr 1fr auto auto auto" }}
                 >
                   <span>Nom</span>

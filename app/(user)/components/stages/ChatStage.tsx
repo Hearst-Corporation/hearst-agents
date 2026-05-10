@@ -89,7 +89,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
                 <Breadcrumb trail={trail} className="min-w-0 truncate" />
                 <button
                   onClick={hideFocalStage}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-all shrink-0"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-colors shrink-0"
                   title="Close (Esc)"
                 >
                   <span>Close</span>
@@ -111,7 +111,7 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
                 <span className="t-11 font-light text-text-faint group-hover:text-(--accent-teal)  transition-colors">
                   {focal.type === "brief" ? "Active Brief" : focal.type === "report" ? "Active Report" : "Active Document"}
                 </span>
-                <span className="t-15 font-medium tracking-tight text-text-muted group-hover:translate-x-1 group-hover:text-text transition-all duration-slow">
+                <span className="t-15 font-medium tracking-tight text-text-muted group-hover:translate-x-1 group-hover:text-text transition-[transform,color] duration-(--duration-slow)">
                   {focal.title}
                 </span>
               </div>
@@ -123,10 +123,11 @@ export function ChatStage({ messages, hasMessages, onSubmit }: ChatStageProps) {
 
         {hasMessages && (
           <div className={focalVisible ? "flex-shrink-0 border-t border-(--border-default) bg-gradient-to-b from-[var(--surface-1)] to-transparent" : "flex-1 min-h-0 bg-bg-elev"} style={focalVisible ? { height: "var(--height-chat-collapsed)" } : undefined}>
+            {/* Padding uniforme px-12 py-8 dans les 2 états (focal visible/caché) — évite le saut horizontal de 40px↔48px */}
             <ChatMessages
               messages={messages}
               compact={focalVisible}
-              className={focalVisible ? "h-full overflow-y-auto px-10 py-6 flex flex-col" : "h-full overflow-y-auto px-12 py-10 flex flex-col"}
+              className="h-full overflow-y-auto px-12 py-8 flex flex-col min-h-0"
               onQuickReply={onSubmit}
             />
           </div>

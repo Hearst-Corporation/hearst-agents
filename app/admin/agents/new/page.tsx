@@ -71,7 +71,7 @@ export default function NewAgentPage() {
             required
             value={form.name}
             onChange={(e) => set("name", e.target.value)}
-            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none focus:border-(--accent-teal) transition-colors"
+            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
           />
         </label>
 
@@ -83,7 +83,7 @@ export default function NewAgentPage() {
           <input
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
-            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none focus:border-(--accent-teal) transition-colors"
+            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
           />
         </label>
 
@@ -100,7 +100,7 @@ export default function NewAgentPage() {
                 set("model_provider", prov);
                 set("model_name", defaultModels[prov]?.[0] ?? "");
               }}
-              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
+              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
             >
               {providers.map((p) => (
                 <option key={p.value} value={p.value}>
@@ -117,7 +117,7 @@ export default function NewAgentPage() {
             <select
               value={form.model_name}
               onChange={(e) => set("model_name", e.target.value)}
-              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
+              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
             >
               {(defaultModels[form.model_provider] ?? []).map((m) => (
                 <option key={m} value={m}>
@@ -137,7 +137,7 @@ export default function NewAgentPage() {
             rows={6}
             value={form.system_prompt}
             onChange={(e) => set("system_prompt", e.target.value)}
-            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) font-mono t-13 text-text outline-none focus:border-(--accent-teal) transition-colors"
+            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) font-mono t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
             placeholder="Tu es un assistant expert en..."
           />
         </label>
@@ -169,7 +169,7 @@ export default function NewAgentPage() {
               max={128000}
               value={form.max_tokens}
               onChange={(e) => set("max_tokens", parseInt(e.target.value, 10))}
-              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
+              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text focus:border-(--accent-teal) focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] transition-colors"
             />
           </label>
         </div>

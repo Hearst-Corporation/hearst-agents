@@ -35,7 +35,7 @@ const PROVIDERS: ProviderEntry[] = [
     id: "google",
     label: "Continuer avec Google",
     icon: (
-      <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" aria-hidden="true">
+      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
         <path
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1Z"
           fill="#4285F4"
@@ -59,7 +59,7 @@ const PROVIDERS: ProviderEntry[] = [
     id: "azure-ad",
     label: "Continuer avec Outlook",
     icon: (
-      <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" aria-hidden="true">
+      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
         <path d="M11.4 24H0V8.8l11.4-2.6V24Z" fill="#0078D4" />
         <path d="M24 5.5V19l-8.8 3.5V1.5L24 5.5Z" fill="#0078D4" />
         <path d="M15.2 1.5v21L11.4 24V6.2l-6-1.4L11.4 0l3.8 1.5Z" fill="#0364B8" />
@@ -101,7 +101,7 @@ function LoginContent() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/10 border-t-white/50" />
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--line-strong) border-t-(--text-faint)" />
           <p className="t-13 text-(--text-soft)">
             {status === "authenticated" ? "Redirection\u2026" : "Chargement\u2026"}
           </p>
@@ -114,9 +114,9 @@ function LoginContent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-6 py-8 sm:px-8 md:px-10 md:py-16">
       {/* glow removed — invariant: no blur, no shadow */}
 
-      <div className="relative w-full max-w-[480px]">
+      <div className="relative w-full max-w-[var(--width-login-card)]">
         {/* Login card */}
-        <div className="rounded-2xl border border-white/6 bg-white/2 px-6 py-8 sm:px-7 sm:py-9 md:px-8 md:py-10">
+        <div className="rounded-2xl border border-(--border-shell) bg-(--surface-1) px-6 py-8 sm:px-7 sm:py-9 md:px-8 md:py-10">
           {/* Brand */}
           <div className="flex flex-col items-center">
             <span className="t-13 font-medium text-(--text-soft)">
@@ -129,12 +129,12 @@ function LoginContent() {
             </span>
 
             {/* Title */}
-            <h1 className="mt-4 text-center t-26 font-semibold leading-[1.15] tracking-tight text-white sm:t-30 md:t-34">
+            <h1 className="mt-4 text-center t-26 font-semibold leading-[1.15] tracking-tight text-text sm:t-30 md:t-34">
               Accédez à votre espace de travail
             </h1>
 
             {/* Description */}
-            <p className="mt-4 max-w-[340px] text-center t-15 leading-[1.55] text-(--text-soft) sm:text-base">
+            <p className="mt-4 text-center t-15 leading-[1.55] text-(--text-soft) sm:text-base">
               Connectez-vous via votre fournisseur d&apos;identité professionnel.
             </p>
           </div>
@@ -151,10 +151,10 @@ function LoginContent() {
                   onClick={() => handleSignIn(provider.id)}
                   disabled={isDisabled}
                   aria-label={provider.label}
-                  className="group relative flex h-[50px] w-full items-center justify-center gap-3 rounded-md border border-white/8 bg-white/3 text-sm font-medium text-white/80 transition-[color,background-color,border-color,transform,opacity] duration-200 hover:border-white/14 hover:bg-white/6 hover:text-white/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50"
+                  className="group relative flex h-12 w-full items-center justify-center gap-3 rounded-md border border-(--border-shell) bg-(--surface-1) text-sm font-medium text-text-soft transition-[color,background-color,border-color,transform,opacity] duration-200 hover:border-(--accent-teal-border) hover:bg-(--surface-card) hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent-teal-border) focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50"
                 >
                   {isLoading ? (
-                    <div className="h-[18px] w-[18px] animate-spin rounded-full border-2 border-white/10 border-t-white/50" />
+                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--line-strong) border-t-(--text-faint)" />
                   ) : (
                     provider.icon
                   )}
@@ -182,9 +182,9 @@ function LoginContent() {
         {/* Footer */}
         <div className="mt-6 flex items-center justify-center gap-4 t-11 text-(--text-ghost)">
           <span>Confidentialité</span>
-          <span className="text-white/8">&middot;</span>
+          <span className="text-(--text-ghost)">&middot;</span>
           <span>Conditions</span>
-          <span className="text-white/8">&middot;</span>
+          <span className="text-(--text-ghost)">&middot;</span>
           <span>Aide</span>
         </div>
       </div>
@@ -200,7 +200,7 @@ export default function LoginPage() {
       <Suspense
         fallback={
           <div className="flex min-h-screen items-center justify-center bg-background">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/10 border-t-white/50" />
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--line-strong) border-t-(--text-faint)" />
           </div>
         }
       >

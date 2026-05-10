@@ -36,7 +36,7 @@ export function LibraryTabs({ active }: LibraryTabsProps) {
               key={tab.id}
               href={tab.href}
               data-active={isActive}
-              className="t-13 font-medium transition-all"
+              className="t-13 font-medium transition-[background-color,color,border-color]"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 borderRadius: "var(--radius-md)",

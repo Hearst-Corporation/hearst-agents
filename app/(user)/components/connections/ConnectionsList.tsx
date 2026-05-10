@@ -535,7 +535,7 @@ function WallpaperTile({
       onClick={onClick}
       title={isConnectable ? app.name : `${app.name} — config Composio requise`}
       aria-label={app.name}
-      className="group relative aspect-square flex items-center justify-center rounded-none border transition-all"
+      className="group relative aspect-square flex items-center justify-center rounded-none border transition-[border-color,filter] duration-(--duration-slow) ease-(--ease-standard)"
       style={{
         borderColor: connected ? "var(--accent-teal-border)" : "var(--border-soft)",
         filter,

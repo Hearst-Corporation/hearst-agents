@@ -52,7 +52,7 @@ export default function AgentLockCard({ initial }: Props) {
           <div className="flex items-start gap-(--space-3) min-w-0">
             <span className="size-(--space-3) rounded-(--radius-full) bg-danger animate-pulse shrink-0 mt-(--space-1)" />
             <div className="min-w-0 space-y-(--space-1)">
-              <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-danger">
+              <p className="t-11 font-medium text-danger">
                 Agents verrouillés
               </p>
               <p className="t-15 text-text">
@@ -89,7 +89,7 @@ export default function AgentLockCard({ initial }: Props) {
         <div className="flex items-start gap-(--space-3) min-w-0">
           <span className="size-(--space-3) rounded-(--radius-full) bg-money shrink-0 mt-(--space-1)" />
           <div className="min-w-0 space-y-(--space-1)">
-            <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            <p className="t-11 font-medium text-text-faint">
               Édition libre
             </p>
             <p className="t-15 text-text">

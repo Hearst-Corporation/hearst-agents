@@ -334,7 +334,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
               rows={3}
               placeholder="Raison (3-500 caractères)…"
               maxLength={500}
-              className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
+              className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] resize-none"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 border: "1px solid var(--line-strong)",
@@ -408,7 +408,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
             rows={2}
             placeholder="Commentaire (optionnel)…"
             maxLength={500}
-            className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] resize-none"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",

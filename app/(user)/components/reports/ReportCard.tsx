@@ -178,7 +178,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
   return (
     <article
       data-testid={`report-card-${report.id}`}
-      className="group relative flex flex-col gap-4 p-6 rounded-xl border border-(--border-default) bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--accent-teal-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
+      className="group relative flex flex-col gap-4 p-6 rounded-(--radius-xl) border border-(--border-default) bg-[var(--surface-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-[var(--accent-teal-border-hover)] transition-[box-shadow,border-color] duration-(--duration-slow) ease-(--ease-standard)"
     >
       {/* Badges top row */}
       <div className="flex items-center gap-2 flex-wrap">
@@ -285,7 +285,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
             type="button"
             onClick={handleConfigure}
             data-testid={`report-configure-${report.id}`}
-            className="inline-flex items-center gap-2 px-4 py-2 t-12 font-semibold rounded-md border transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 t-12 font-semibold rounded-md border transition-[background-color,color,border-color]"
             style={{
               background: "var(--color-warning-bg)",
               color: "var(--color-warning)",
@@ -304,7 +304,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
             type="button"
             onClick={handleConnect}
             data-testid={`report-connect-${report.id}`}
-            className="inline-flex items-center gap-2 px-4 py-2 t-12 font-medium rounded-md border transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 t-12 font-medium rounded-md border transition-[background-color,color,border-color]"
             disabled
             style={{
               background: "var(--surface-1)",
@@ -329,7 +329,7 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
 export function ReportCardSkeleton() {
   return (
     <div
-      className="flex flex-col gap-4 p-6 rounded-xl border animate-pulse"
+      className="flex flex-col gap-4 p-6 rounded-(--radius-xl) border animate-pulse"
       style={{
         background: "var(--surface-card)",
         borderColor: "var(--border-subtle)",

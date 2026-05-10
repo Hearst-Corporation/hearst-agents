@@ -57,26 +57,26 @@ export default function AdminSidebar({
         ].join(" ")}
       >
         <span className="size-(--space-6) rounded-(--radius-sm) bg-(--accent-teal-bg-active) border border-(--accent-teal)/40 flex items-center justify-center shrink-0">
-          <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--accent-teal)">H</span>
+          <span className="t-11 font-medium text-(--accent-teal)">H</span>
         </span>
         {!collapsed && (
           <div className="flex flex-col leading-tight min-w-0">
             <span className="t-13 font-medium text-text truncate">Hearst OS</span>
-            <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-(--accent-teal)">Admin</span>
+            <span className="t-10 text-(--accent-teal)">Admin</span>
           </div>
         )}
       </div>
 
       <nav
         className={[
-          "flex-1 overflow-y-auto py-(--space-4) flex flex-col gap-(--space-5)",
+          "flex-1 overflow-y-auto py-(--space-5) flex flex-col gap-(--space-5)",
           collapsed ? "px-(--space-2)" : "px-(--space-3)",
         ].join(" ")}
       >
         {NAV_SECTIONS.map((section) => (
           <div key={section.title} className="flex flex-col gap-(--space-1)">
             {!collapsed && (
-              <p className="px-(--space-3) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-1)">
+              <p className="px-(--space-3) t-10 font-medium text-text-faint mb-(--space-1)">
                 {section.title}
               </p>
             )}

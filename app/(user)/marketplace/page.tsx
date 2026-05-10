@@ -198,7 +198,7 @@ export default function MarketplacePage() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher un template…"
               data-testid="marketplace-search"
-              className="t-11 text-text focus:outline-none"
+              className="t-11 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 background: "var(--surface-1)",

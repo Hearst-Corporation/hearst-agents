@@ -9,6 +9,7 @@
 
 import { useState } from "react";
 import { Action } from "../ui";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
 interface PublishTemplateModalProps {
   open: boolean;
@@ -43,6 +44,13 @@ export function PublishTemplateModal({
   const [anonymize, setAnonymize] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+
+  // Hook a11y : focus trap, scroll lock, restore focus, Escape ferme.
+  const dialogRef = useModalA11y<HTMLDivElement>(open, {
+    onClose: () => {
+      if (!busy) onClose();
+    },
+  });
 
   if (!open) return null;
 
@@ -90,17 +98,23 @@ export function PublishTemplateModal({
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      data-testid="publish-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      data-testid="publish-modal-backdrop"
+      className="fixed inset-0 flex items-center justify-center"
       style={{
+        zIndex: "var(--z-modal)" as unknown as number,
         background: "var(--overlay-scrim)",
         backdropFilter: "var(--blur-md)",
       }}
-      onClick={onClose}
+      onClick={() => {
+        if (!busy) onClose();
+      }}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="publish-modal-title"
+        data-testid="publish-modal"
         className="w-full max-w-lg flex flex-col"
         style={{
           gap: "var(--space-4)",
@@ -116,7 +130,7 @@ export function PublishTemplateModal({
           className="flex items-baseline justify-between"
           style={{ gap: "var(--space-3)" }}
         >
-          <h2 className="t-15 font-medium text-text">
+          <h2 id="publish-modal-title" className="t-15 font-medium text-text">
             Publier au marketplace
           </h2>
           <span className="t-11 font-light text-text-faint">

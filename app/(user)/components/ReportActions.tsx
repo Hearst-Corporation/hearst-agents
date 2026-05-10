@@ -153,7 +153,7 @@ function SharePopover({
   return (
     <PopoverShell onClose={onClose} title="Partager le rapport">
       <p
-        className="t-9 font-mono uppercase text-text-muted"
+        className="t-11 font-light text-text-muted"
         style={{
                     marginBottom: "var(--space-2)",
         }}
@@ -166,7 +166,7 @@ function SharePopover({
             key={o.hours}
             type="button"
             onClick={() => setTtlHours(o.hours)}
-            className="t-9 font-mono uppercase"
+            className="t-11 font-light"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border:
@@ -221,7 +221,7 @@ function SharePopover({
           />
           {expiresAt && (
             <p
-              className="t-9 font-mono uppercase"
+              className="t-11 font-light"
               style={{
                 color: "var(--text-faint)",
                 marginTop: "var(--space-1)",
@@ -235,7 +235,7 @@ function SharePopover({
             onClick={() => {
               if (shareUrl) void navigator.clipboard?.writeText(shareUrl);
             }}
-            className="t-9 font-mono uppercase"
+            className="t-11 font-light"
             style={{
               marginTop: "var(--space-2)",
               padding: "var(--space-2) var(--space-3)",
@@ -413,7 +413,7 @@ function ActionButton({
     <button
       type="button"
       onClick={onClick}
-      className="t-9 font-mono uppercase hover:text-(--accent-teal)"
+      className="t-11 font-light hover:text-(--accent-teal)"
       style={{
                 padding: "var(--space-2) var(--space-3)",
         border: "1px solid var(--surface-2)",
@@ -439,7 +439,7 @@ function MenuItem({
     <button
       type="button"
       onClick={onClick}
-      className="t-9 font-mono uppercase block w-full text-left hover:text-(--accent-teal)"
+      className="t-11 font-light block w-full text-left hover:text-(--accent-teal)"
       style={{
         padding: "var(--space-2) var(--space-3)",
         background: "transparent",
@@ -482,7 +482,7 @@ function PopoverShell({
         style={{ marginBottom: "var(--space-3)" }}
       >
         <h3
-          className="t-9 font-mono uppercase"
+          className="t-11 font-light"
           style={{
                         color: "var(--text)",
             margin: 0,
@@ -494,7 +494,7 @@ function PopoverShell({
           type="button"
           onClick={onClose}
           aria-label="Fermer"
-          className="t-9 font-mono uppercase"
+          className="t-11 font-light"
           style={{
             padding: "var(--space-1) var(--space-2)",
             background: "transparent",

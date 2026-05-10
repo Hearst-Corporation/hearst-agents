@@ -33,7 +33,7 @@ function AutoPill() {
       type="button"
       onClick={() => setVoiceActive(!voiceActive)}
       aria-pressed={voiceActive}
-      className="flex items-center gap-1 transition-all"
+      className="flex items-center gap-1 transition-[background-color,border-color,color] duration-(--duration-slow) ease-(--ease-standard)"
       style={{
         padding: "var(--space-1) var(--space-3)",
         borderRadius: "var(--radius-pill)",
@@ -363,8 +363,12 @@ export function ChatInput({
         {showTypeahead && (
           <div
             ref={typeaheadRef}
-            className="absolute bottom-full mb-4 w-full rounded-2xl border border-(--border-shell) overflow-hidden z-50"
-            style={{ background: "var(--bg-elev)", boxShadow: "var(--shadow-card-hover)" }}
+            className="absolute bottom-full mb-4 w-full rounded-(--radius-2xl) border border-(--border-shell) overflow-hidden"
+            style={{
+              zIndex: "var(--z-dropdown)" as unknown as number,
+              background: "var(--bg-elev)",
+              boxShadow: "var(--shadow-card-hover)",
+            }}
           >
             {matchingServices.length === 0 ? (
               <div className="p-4 t-11 font-light text-text-ghost">
@@ -380,7 +384,7 @@ export function ChatInput({
                   <button
                     key={service.id}
                     onClick={() => selectService(service)}
-                    className="w-full flex items-center gap-4 px-4 py-3 text-left border-b border-(--line) transition-all duration-300 group hover:bg-surface-1"
+                    className="w-full flex items-center gap-4 px-4 py-3 text-left border-b border-(--line) transition-colors duration-(--duration-emphasis) group hover:bg-surface-1"
                   >
                     <span className="t-18 text-text-faint group-hover:text-(--accent-teal) transition-colors">
                       {service.icon}

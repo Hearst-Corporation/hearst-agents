@@ -60,10 +60,14 @@ export default function AdminShell({ children, userLabel, userInitial, env }: Pr
         <>
           <div
             aria-hidden
-            className="md:hidden fixed inset-0 z-40 bg-(--overlay-scrim)"
+            className="md:hidden fixed inset-0 bg-(--overlay-scrim)"
+            style={{ zIndex: "var(--z-backdrop)" as unknown as number }}
             onClick={() => setDrawerOpen(false)}
           />
-          <div className="md:hidden fixed inset-y-0 left-0 w-(--width-admin-sidebar) z-50">
+          <div
+            className="md:hidden fixed inset-y-0 left-0 w-(--width-admin-sidebar)"
+            style={{ zIndex: "var(--z-modal)" as unknown as number }}
+          >
             <AdminSidebar
               userLabel={userLabel}
               userInitial={userInitial}

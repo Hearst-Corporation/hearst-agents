@@ -313,7 +313,7 @@ function PersonaForm({
             required
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
-            className="block w-full bg-transparent t-13 text-text focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -327,7 +327,7 @@ function PersonaForm({
             type="text"
             value={form.description}
             onChange={(e) => update("description", e.target.value)}
-            className="block w-full bg-transparent t-13 text-text focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -340,7 +340,7 @@ function PersonaForm({
           <select
             value={form.tone}
             onChange={(e) => update("tone", e.target.value as PersonaTone | "")}
-            className="block w-full bg-transparent t-13 text-text focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -360,7 +360,7 @@ function PersonaForm({
           <select
             value={form.surface}
             onChange={(e) => update("surface", e.target.value)}
-            className="block w-full bg-transparent t-13 text-text focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -383,7 +383,7 @@ function PersonaForm({
             onChange={(e) =>
               update("vocabulary", { ...form.vocabulary, preferred: e.target.value })
             }
-            className="block w-full bg-transparent t-13 text-text focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -399,7 +399,7 @@ function PersonaForm({
             onChange={(e) =>
               update("vocabulary", { ...form.vocabulary, avoid: e.target.value })
             }
-            className="block w-full bg-transparent t-13 text-text focus:outline-none"
+            className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--line-strong)",
@@ -415,7 +415,7 @@ function PersonaForm({
           rows={3}
           value={form.styleGuide}
           onChange={(e) => update("styleGuide", e.target.value)}
-          className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
+          className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] resize-none"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--line-strong)",
@@ -429,7 +429,7 @@ function PersonaForm({
           rows={3}
           value={form.systemPromptAddon}
           onChange={(e) => update("systemPromptAddon", e.target.value)}
-          className="block w-full bg-transparent t-13 text-text focus:outline-none resize-none"
+          className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)] resize-none"
           style={{
             padding: "var(--space-2) var(--space-3)",
             border: "1px solid var(--line-strong)",
