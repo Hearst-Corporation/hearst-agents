@@ -11,6 +11,7 @@
  * - ⌘⇧V       : toggle direct mode voix ambient (raccourci alternatif
  *               à ⌘7, accessible même quand un autre Stage est actif)
  * - ⌘B        : toggle WorkingDocument (Thinking Canvas — Lot C)
+ * - ⌘G        : toggle VideoQuickLaunch (S2-A — panel ⌘G + SSE progress)
  * - ⌘⌫        : back stage
  *
  * Ignore les inputs / textarea / contenteditable pour ne pas voler les
@@ -21,6 +22,7 @@ import { useEffect } from "react";
 import { useStageStore, STAGE_HOTKEYS } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
 import { useWorkingDocumentStore } from "@/stores/working-document";
+import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 
 export function useGlobalHotkeys() {
   const toggleCommandeur = useStageStore((s) => s.toggleCommandeur);
@@ -69,6 +71,15 @@ export function useGlobalHotkeys() {
       if (e.key === "b" || e.key === "B") {
         e.preventDefault();
         useWorkingDocumentStore.getState().toggle();
+        return;
+      }
+
+      // ⌘G → toggle VideoQuickLaunch (S2-A). Autorisé même en input pour
+      // ouvrir le panel depuis n'importe quel contexte (le panel ouvre son
+      // propre textarea — l'utilisateur peut continuer à taper dedans).
+      if (e.key === "g" || e.key === "G") {
+        e.preventDefault();
+        useVideoQuickLaunchStore.getState().toggle();
         return;
       }
 

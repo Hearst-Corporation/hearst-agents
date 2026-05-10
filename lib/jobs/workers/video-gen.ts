@@ -67,6 +67,7 @@ const handler: WorkerHandler<VideoGenInput> = {
       const { taskId } = await runwayGenerateVideo({
         promptText: payload.prompt,
         duration: payload.durationSeconds === 10 ? 10 : 5,
+        ratio: payload.ratio ?? "1280:720",
       });
       await reportProgress(20, `Runway: tâche ${taskId} soumise, polling…`);
       videoUrl = await pollRunway(taskId);

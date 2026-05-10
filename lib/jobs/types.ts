@@ -74,6 +74,8 @@ export interface VideoGenInput extends JobScopeFields {
   avatarId?: string;
   provider?: "heygen" | "runway";
   durationSeconds?: number;
+  /** Ratio Runway uniquement. "1280:720" = paysage, "720:1280" = portrait. */
+  ratio?: "1280:720" | "720:1280";
   variantKind?: "video";
 }
 

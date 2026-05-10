@@ -47,6 +47,8 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     prompt?: string;
     scriptText?: string;
     avatarId?: string;
+    durationSeconds?: 5 | 10;
+    ratio?: "1280:720" | "720:1280";
   };
   try {
     body = await req.json();
@@ -185,6 +187,8 @@ async function handleVideoVariant({
     prompt?: string;
     scriptText?: string;
     avatarId?: string;
+    durationSeconds?: 5 | 10;
+    ratio?: "1280:720" | "720:1280";
   };
   asset: { summary?: string; title: string };
 }): Promise<NextResponse> {
@@ -254,6 +258,8 @@ async function handleVideoVariant({
     scriptText: body.scriptText ?? sourceText,
     provider,
     avatarId: body.avatarId,
+    durationSeconds: body.durationSeconds === 10 ? 10 : 5,
+    ratio: body.ratio ?? "1280:720",
     variantKind: "video",
     variantId,
   };
