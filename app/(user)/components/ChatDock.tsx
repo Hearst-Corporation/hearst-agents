@@ -5,7 +5,9 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useNavigationStore } from "@/stores/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore, type StagePayload } from "@/stores/stage";
+import { useStageData } from "@/stores/stage-data";
 import { useServicesStore } from "@/stores/services";
+import { useChatContext } from "@/stores/chat-context";
 import { getAllServices } from "@/lib/integrations/catalog";
 import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 import { toast } from "@/app/hooks/use-toast";
@@ -51,6 +53,49 @@ export function ChatDock() {
   const setStageMode = useStageStore((s) => s.setMode);
   const setStageModeFromTool = useStageStore((s) => s.setModeFromTool);
   const stageMode = useStageStore((s) => s.current.mode);
+  const stageAssetId = useStageStore((s) =>
+    s.current.mode === "asset" ? s.current.assetId : null,
+  );
+  const stageMissionId = useStageStore((s) =>
+    s.current.mode === "mission" ? s.current.missionId : null,
+  );
+
+  const stageAssetTitle = useStageData((s) => s.asset.assetTitle);
+
+  // Injection automatique du contexte Stage dans les chips du ChatDock.
+  // Quand l'utilisateur switch vers un mode avec un objet focal (asset,
+  // mission), on ajoute automatiquement le chip correspondant.
+  //
+  // Pour les assets : le titre (stageAssetTitle) est chargé de manière async
+  // par AssetStage via setAsset. On re-exécute quand le titre arrive pour
+  // remplacer le label générique par le vrai titre — removeChip puis addChip
+  // pour contourner la dédup native (idempotente sur l'id).
+  useEffect(() => {
+    if (stageMode === "asset" && stageAssetId) {
+      const ctx = useChatContext.getState();
+      // Retire l'ancien chip (générique ou périmé) avant de re-ajouter
+      // avec le titre le plus récent, pour éviter de rester bloqué sur
+      // "Asset" si le titre arrive après le premier rendu.
+      ctx.removeChip(stageAssetId);
+      ctx.addChip({
+        id: stageAssetId,
+        kind: "asset",
+        label: stageAssetTitle || "Asset",
+      });
+    }
+    // Modes sans objet focal asset : rien à injecter ici.
+  }, [stageMode, stageAssetId, stageAssetTitle]);
+
+  useEffect(() => {
+    if (stageMode === "mission" && stageMissionId) {
+      useChatContext.getState().addChip({
+        id: stageMissionId,
+        kind: "mission",
+        label: "Mission",
+      });
+    }
+    // Modes sans objet focal mission : rien à injecter ici.
+  }, [stageMode, stageMissionId]);
 
   const services = useServicesStore((s) => s.services);
   const setStoreServices = useServicesStore((s) => s.setServices);
