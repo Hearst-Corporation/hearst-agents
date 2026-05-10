@@ -13,6 +13,7 @@
 
 import "@/lib/env.server";
 import { NextResponse, type NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 import { aj, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
 
 const PUBLIC_PATHS = [
@@ -128,6 +129,19 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     loginUrl.searchParams.set("callbackUrl", path);
     console.log(`[Proxy] Redirecting unauthenticated user to login — ${path}`);
     return NextResponse.redirect(loginUrl);
+  }
+
+  // Session présente mais refreshToken Google absent → token pas en base,
+  // impossible d'appeler Gmail/Calendar/Drive. Forcer reconnexion Google.
+  if (!isDevBypass()) {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    if (!token?.refreshToken) {
+      const signinUrl = new URL("/api/auth/signin", req.url);
+      signinUrl.searchParams.set("callbackUrl", path);
+      signinUrl.searchParams.set("reason", "token_missing");
+      console.warn(`[Proxy] Session without refreshToken — forcing re-auth — ${path}`);
+      return NextResponse.redirect(signinUrl);
+    }
   }
 
   return NextResponse.next();
