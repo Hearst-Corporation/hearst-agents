@@ -17,15 +17,15 @@ L'audit master sécurité (60 findings, 6 sub-agents Claude + Codex) couvre bien
 
 ## Distribution P0/P1/P2 consolidée
 
-| Axe | P0 | P1 | P2 | Source |
-|---|---|---|---|---|
-| Sécurité (post-challenge) | 17 | 25 | 14 | master + challenger |
-| Gaps sécurité non couverts | +10 | — | — | challenger |
-| Runtime LLM | 3 | 6 | 7 | llm-auditor |
-| Perf + archi Next.js | 9 | 17 | 8 | perf agent |
-| DX / tests / a11y / dead code | ~3 | ~10 | ~15 | dx agent |
-| Routes API / stores | 4 | 6 | — | route-mapper |
-| **TOTAL** | **~46** | **~64** | **~44** | **154 findings actifs** |
+| Axe                           | P0      | P1      | P2      | Source                  |
+| ----------------------------- | ------- | ------- | ------- | ----------------------- |
+| Sécurité (post-challenge)     | 17      | 25      | 14      | master + challenger     |
+| Gaps sécurité non couverts    | +10     | —       | —       | challenger              |
+| Runtime LLM                   | 3       | 6       | 7       | llm-auditor             |
+| Perf + archi Next.js          | 9       | 17      | 8       | perf agent              |
+| DX / tests / a11y / dead code | ~3      | ~10     | ~15     | dx agent                |
+| Routes API / stores           | 4       | 6       | —       | route-mapper            |
+| **TOTAL**                     | **~46** | **~64** | **~44** | **154 findings actifs** |
 
 ---
 
@@ -136,47 +136,47 @@ Ces 20 P0 ne sont dans aucun des 60 findings existants.
 
 ## 5) RÉCAP CHIFFRES BRUTS
 
-| Indicateur | Valeur |
-|---|---|
-| Routes API totales | ~155-158 |
-| Routes auth-protégées | 90% |
-| Routes validées Zod | 23% (~36) |
-| Routes rate-limitées | 3% (5) |
-| Stores Zustand | 17 (5 persist localStorage) |
-| Fichiers "use client" | 298 (217 dans app/(user)/) |
-| Suspense boundaries | 9 (6 réelles hors spatial) |
-| `console.*` en code prod | 648 (top : scheduler.ts:22, ai-pipeline.ts:20) |
-| `: any` / `as any` explicites | 30-47 selon scope |
-| `@ts-ignore` | 2 (justifiés peer deps) |
-| `eslint-disable` | 113 (~30% paresseux) |
-| Tests fichiers | 284 (263 unit + 21 e2e) |
-| Tests `vi.mock` | 275 (bonne discipline) |
-| Tests skipped/conditionnels | 58 (top : reports/auth) |
-| Server Actions ("use server") | 0 |
-| Cache Next.js usages | 0 |
-| Fichiers > 600 lignes (prod) | 11 |
-| ai-pipeline.ts | 1114 lignes + 20 console |
-| Magic numbers (top file) | `lib/cockpit/monthly-card-view.tsx:54` |
-| Dépendances circulaires | 5 |
+| Indicateur                    | Valeur                                         |
+| ----------------------------- | ---------------------------------------------- |
+| Routes API totales            | ~155-158                                       |
+| Routes auth-protégées         | 90%                                            |
+| Routes validées Zod           | 23% (~36)                                      |
+| Routes rate-limitées          | 3% (5)                                         |
+| Stores Zustand                | 17 (5 persist localStorage)                    |
+| Fichiers "use client"         | 298 (217 dans app/(user)/)                     |
+| Suspense boundaries           | 9 (6 réelles hors spatial)                     |
+| `console.*` en code prod      | 648 (top : scheduler.ts:22, ai-pipeline.ts:20) |
+| `: any` / `as any` explicites | 30-47 selon scope                              |
+| `@ts-ignore`                  | 2 (justifiés peer deps)                        |
+| `eslint-disable`              | 113 (~30% paresseux)                           |
+| Tests fichiers                | 284 (263 unit + 21 e2e)                        |
+| Tests `vi.mock`               | 275 (bonne discipline)                         |
+| Tests skipped/conditionnels   | 58 (top : reports/auth)                        |
+| Server Actions ("use server") | 0                                              |
+| Cache Next.js usages          | 0                                              |
+| Fichiers > 600 lignes (prod)  | 11                                             |
+| ai-pipeline.ts                | 1114 lignes + 20 console                       |
+| Magic numbers (top file)      | `lib/cockpit/monthly-card-view.tsx:54`         |
+| Dépendances circulaires       | 5                                              |
 
 ---
 
 ## 6) CHIFFRES EN DUR LLM RUNTIME (extraits du tableau de 33)
 
-| File:line | Constante | Valeur | Risque |
-|---|---|---|---|
-| `router.ts:58` | retry codes | `429\|502\|503` | Manque 500, 504 |
-| `router.ts:73` | jitter | `base * 0.2` | ±20% petit vs thundering herd |
-| `anthropic.ts:262` | max_tokens default | 4096 | Tronque silencieusement (Sonnet 8192, Opus 16384) |
-| `anthropic.ts:304` | auto-cache | 500 chars | "~125 tokens" approx grossière |
-| `circuit-breaker.ts:11` | failureThreshold | 5 | Pas configurable, race serverless |
-| `circuit-breaker.ts:12` | resetWindowMs | 60000 | 1 min trop court pour Anthropic outages |
-| `rate-limiter.ts:56-58` | proactive seuils | 5 req / 1000 tok / 1000ms | Trivial pour appels 100k tokens |
-| `ai-pipeline.ts:733` | stopWhen stepCountIs | 10 | Pas configurable par agent |
-| `ai-pipeline.ts:738` | maxOutputTokens | 8000 | Incohérent vs MAX_STREAMING_TOKENS: 10000 |
-| `ai-pipeline.ts:759` | LOOP_ABORT_THRESHOLD | 3 | 3 calls identiques abort |
-| `browser/agent-loop.ts:422` | maxSteps | min(15, 30) | Pas de wallclock → 15min runaway possible |
-| `browser/agent-loop.ts:449` | max_tokens call | 1024 | Tool-use complexe tronqué |
+| File:line                   | Constante            | Valeur                    | Risque                                            |
+| --------------------------- | -------------------- | ------------------------- | ------------------------------------------------- |
+| `router.ts:58`              | retry codes          | `429\|502\|503`           | Manque 500, 504                                   |
+| `router.ts:73`              | jitter               | `base * 0.2`              | ±20% petit vs thundering herd                     |
+| `anthropic.ts:262`          | max_tokens default   | 4096                      | Tronque silencieusement (Sonnet 8192, Opus 16384) |
+| `anthropic.ts:304`          | auto-cache           | 500 chars                 | "~125 tokens" approx grossière                    |
+| `circuit-breaker.ts:11`     | failureThreshold     | 5                         | Pas configurable, race serverless                 |
+| `circuit-breaker.ts:12`     | resetWindowMs        | 60000                     | 1 min trop court pour Anthropic outages           |
+| `rate-limiter.ts:56-58`     | proactive seuils     | 5 req / 1000 tok / 1000ms | Trivial pour appels 100k tokens                   |
+| `ai-pipeline.ts:733`        | stopWhen stepCountIs | 10                        | Pas configurable par agent                        |
+| `ai-pipeline.ts:738`        | maxOutputTokens      | 8000                      | Incohérent vs MAX_STREAMING_TOKENS: 10000         |
+| `ai-pipeline.ts:759`        | LOOP_ABORT_THRESHOLD | 3                         | 3 calls identiques abort                          |
+| `browser/agent-loop.ts:422` | maxSteps             | min(15, 30)               | Pas de wallclock → 15min runaway possible         |
+| `browser/agent-loop.ts:449` | max_tokens call      | 1024                      | Tool-use complexe tronqué                         |
 
 ---
 

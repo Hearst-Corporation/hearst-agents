@@ -11,6 +11,7 @@
 This codebase is not production-safe yet for hostile multi-user traffic. The dominant risk is not TypeScript correctness, it is authorization and tool-execution trust: several authenticated routes use service-role or privileged backends while trusting client-supplied IDs, tool names, OAuth state, or job/session IDs.
 
 **Validation signal**:
+
 - `npm run typecheck`: passed.
 - `npm audit --omit=dev --audit-level=high`: no high/critical prod advisories; moderate advisories in @anthropic-ai/sdk and postcss via next.
 - `npm run lint`: failed due visual lint.
@@ -21,7 +22,7 @@ This codebase is not production-safe yet for hostile multi-user traffic. The dom
 
 ## Critical Vulnerabilities
 
-### CV-1. Global agent takeover via /api/agents/*
+### CV-1. Global agent takeover via /api/agents/\*
 
 - **Severity**: Critical
 - **Attack scenario**: any authenticated user lists, edits, deletes, chats with, or poisons memory for global agents.
