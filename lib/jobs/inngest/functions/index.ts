@@ -8,5 +8,13 @@
  */
 
 import { dailyBriefFunction } from "./daily-brief";
+import {
+  weeklyDigestCronFunction,
+  weeklyDigestPerUserFunction,
+} from "./weekly-digest";
 
-export const inngestFunctions = [dailyBriefFunction];
+export const inngestFunctions = [
+  dailyBriefFunction,
+  weeklyDigestCronFunction,
+  weeklyDigestPerUserFunction,
+];

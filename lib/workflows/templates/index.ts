@@ -5,6 +5,7 @@
 import type { WorkflowGraph } from "../types";
 import { dailyStandupTemplate } from "./daily-standup";
 import { leadNurtureTemplate } from "./lead-nurture";
+import { weeklySlackDigestTemplate } from "./weekly-slack-digest";
 import { guestArrivalPrepTemplate } from "./hospitality/guest-arrival-prep";
 import { serviceRequestDispatchTemplate } from "./hospitality/service-request-dispatch";
 
@@ -33,6 +34,14 @@ export const WORKFLOW_TEMPLATES: WorkflowTemplateMeta[] = [
       "Webhook → HubSpot → branche selon stage → brouillon email → approval → envoi",
     vertical: "general",
     build: leadNurtureTemplate,
+  },
+  {
+    id: "weekly-slack-digest",
+    name: "Digest Slack hebdomadaire",
+    description:
+      "Cron vendredi 17h → agrégation activité semaine (missions, anomalies, top assets) → Slack #hearst-digest",
+    vertical: "general",
+    build: weeklySlackDigestTemplate,
   },
   {
     id: "hospitality-guest-arrival-prep",
