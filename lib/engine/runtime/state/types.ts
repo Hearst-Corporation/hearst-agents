@@ -33,7 +33,11 @@ export interface PersistedRunRecord {
   metadata?: Record<string, unknown>;
 }
 
-export type PersistedMissionRunStatus = "success" | "failed" | "blocked";
+export type PersistedMissionRunStatus =
+  | "success"
+  | "failed"
+  | "blocked"
+  | "awaiting_approval";
 
 export interface PersistedScheduledMission {
   id: string;
@@ -70,4 +74,14 @@ export interface PersistedScheduledMission {
    * dépasse cette valeur.
    */
   budgetUsd?: number;
+  /**
+   * Approbation collaborative multi-acteur (Q3-D). Liste d'emails
+   * approbateurs. Stocké dans `actions.approvers` JSONB.
+   */
+  approvers?: string[];
+  /**
+   * Mode d'agrégation des votes (Q3-D) : "all" | "any" | "majority".
+   * Stocké dans `actions.approvalMode` JSONB.
+   */
+  approvalMode?: "all" | "any" | "majority";
 }

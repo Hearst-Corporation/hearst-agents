@@ -10,7 +10,14 @@
 
 import { GhostIconPencil, GhostIconPlay, GhostIconTrash } from "../ghost-icons";
 
-export type MissionOpsStatus = "idle" | "running" | "success" | "failed" | "blocked";
+export type MissionOpsStatus =
+  | "idle"
+  | "running"
+  | "success"
+  | "failed"
+  | "blocked"
+  /** Q3-D — session d'approbation collaborative en cours. */
+  | "awaiting_approval";
 
 /**
  * Drift Alert (S3-E) — payload propagé depuis l'ops-store côté server.
@@ -20,6 +27,19 @@ export type MissionOpsStatus = "idle" | "running" | "success" | "failed" | "bloc
 export interface MissionDriftPayload {
   staleRuns: number;
   suggestion: string;
+}
+
+/**
+ * Approbation collaborative (Q3-D) — payload propagé depuis ops-store.
+ * Présent uniquement si la mission a des approvers et qu'une session
+ * est active. Allume un badge gold "En attente d'approbation — N/M votes".
+ */
+export interface MissionApprovalPayload {
+  mode: "all" | "any" | "majority";
+  total: number;
+  approved: number;
+  rejected: number;
+  pending: number;
 }
 
 export interface Mission {
@@ -37,11 +57,16 @@ export interface Mission {
   input?: string;
   schedule?: string;
   lastRunAt?: number;
-  lastRunStatus?: "success" | "failed" | "blocked";
+  lastRunStatus?: "success" | "failed" | "blocked" | "awaiting_approval";
   opsStatus?: MissionOpsStatus;
   lastError?: string;
   runningSince?: number;
   drift?: MissionDriftPayload;
+  approval?: MissionApprovalPayload;
+  /** Q3-D — config persistée des approbateurs (sert à pré-remplir l'éditeur). */
+  approvers?: string[];
+  /** Q3-D — mode d'agrégation des votes. */
+  approvalMode?: "all" | "any" | "majority";
 }
 
 interface MissionRowProps {
@@ -59,6 +84,7 @@ const STATUS_LINE: Record<MissionOpsStatus, string> = {
   success: "border-[var(--money)] text-(--money)",
   failed: "border-(--danger) text-(--danger)",
   blocked: "border-(--warn) text-(--warn)",
+  awaiting_approval: "border-(--gold) text-(--gold)",
   idle: "border-(--line-strong) text-text-muted",
 };
 
@@ -67,6 +93,7 @@ const STATUS_LABEL: Record<MissionOpsStatus, string> = {
   success: "Réussi",
   failed: "Échec",
   blocked: "Bloqué",
+  awaiting_approval: "En attente d'approbation",
   idle: "En pause",
 };
 
@@ -131,6 +158,16 @@ export function MissionRow({
             title={mission.drift.suggestion}
           >
             Drift · {mission.drift.staleRuns} runs
+          </button>
+        )}
+        {mission.approval && (
+          <button
+            type="button"
+            onClick={() => onOpen(mission)}
+            className="block ml-auto t-9 font-medium border-b border-(--gold) text-(--gold) pb-0.5 cursor-pointer hover:opacity-80 transition-opacity"
+            title={`Mode ${mission.approval.mode} · ${mission.approval.approved} approuvé(s) · ${mission.approval.pending} en attente${mission.approval.rejected > 0 ? ` · ${mission.approval.rejected} rejeté(s)` : ""}`}
+          >
+            En attente d&apos;approbation · {mission.approval.approved}/{mission.approval.total} votes
           </button>
         )}
         <span className={`inline-block t-9 font-medium border-b pb-0.5 ${STATUS_LINE[ops]}`}>

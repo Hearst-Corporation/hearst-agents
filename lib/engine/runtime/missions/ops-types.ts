@@ -18,7 +18,9 @@ export type MissionExecutionStatus =
   | "running"
   | "success"
   | "failed"
-  | "blocked";
+  | "blocked"
+  /** Q3-D — session d'approbation collaborative en cours. */
+  | "awaiting_approval";
 
 /**
  * Drift Alert (S3-E) — exposé côté UI via `MissionOpsRecord.drift`.
@@ -35,6 +37,24 @@ export interface MissionDriftState {
   notifiedAt: number;
 }
 
+/**
+ * État d'approbation collaborative (Q3-D) — exposé au cockpit pour
+ * afficher le badge "En attente d'approbation — N/M votes" dans
+ * MissionRow. Présent uniquement si une session pending existe.
+ */
+export interface MissionApprovalState {
+  /** Mode d'agrégation : "all" | "any" | "majority". */
+  mode: "all" | "any" | "majority";
+  /** Nombre total d'approbateurs sollicités. */
+  total: number;
+  /** Nombre de votes "approved". */
+  approved: number;
+  /** Nombre de votes "rejected". */
+  rejected: number;
+  /** Nombre de votes "pending". */
+  pending: number;
+}
+
 export interface MissionOpsRecord {
   missionId: string;
   name: string;
@@ -45,11 +65,18 @@ export interface MissionOpsRecord {
   status: MissionExecutionStatus;
   lastRunAt?: number;
   lastRunId?: string;
-  lastRunStatus?: "success" | "failed" | "blocked";
+  lastRunStatus?: "success" | "failed" | "blocked" | "awaiting_approval";
   lastError?: string;
 
   runningSince?: number;
 
   /** Présent quand un drift a été détecté (≥ minStaleRuns sans changement). */
   drift?: MissionDriftState;
+
+  /**
+   * Approbation collaborative (Q3-D) — présent quand des approvers ont
+   * été configurés ET qu'une session est en cours. Allume un badge
+   * gold "En attente d'approbation — N/M votes" dans MissionRow.
+   */
+  approval?: MissionApprovalState;
 }

@@ -67,8 +67,7 @@ const MODES: ReadonlyArray<ModeFixture> = [
     id: "asset-compare",
     payload: {
       mode: "asset_compare",
-      assetIdA: "visual-regression-mock-a",
-      assetIdB: "visual-regression-mock-b",
+      assetIds: ["visual-regression-mock-a", "visual-regression-mock-b"],
     },
   },
   {

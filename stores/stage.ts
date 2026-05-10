@@ -37,7 +37,7 @@ export type StagePayload =
   | { mode: "cockpit" }
   | { mode: "chat"; threadId?: string }
   | { mode: "asset"; assetId: string; variantKind?: string }
-  | { mode: "asset_compare"; assetIdA: string; assetIdB: string }
+  | { mode: "asset_compare"; assetIds: string[] }
   | { mode: "mission"; missionId: string }
   | { mode: "browser"; sessionId: string }
   | { mode: "meeting"; meetingId: string }

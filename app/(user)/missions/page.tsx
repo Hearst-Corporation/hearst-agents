@@ -87,9 +87,9 @@ function MissionsPageContent() {
       if (!res.ok) return;
       const opsData = await res.json();
       const opsMap = new Map(
-        opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number; drift?: { staleRuns: number; suggestion: string } }) => [
+        opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number; drift?: { staleRuns: number; suggestion: string }; approval?: { mode: "all" | "any" | "majority"; total: number; approved: number; rejected: number; pending: number } }) => [
           op.missionId,
-          { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince, drift: op.drift },
+          { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince, drift: op.drift, approval: op.approval },
         ]) || []
       );
       setMissions((prev) =>
@@ -119,6 +119,8 @@ function MissionsPageContent() {
     frequency: "daily" | "weekly" | "monthly" | "custom";
     customCron?: string;
     enabled: boolean;
+    approvers?: string[];
+    approvalMode?: "all" | "any" | "majority";
   }) => {
     setIsSaving(true);
     try {
@@ -152,6 +154,8 @@ function MissionsPageContent() {
             input: formData.prompt,
             schedule,
             enabled: formData.enabled,
+            approvers: formData.approvers,
+            approvalMode: formData.approvalMode,
           }),
         });
         if (res.ok) {
@@ -362,6 +366,8 @@ function MissionsPageContent() {
                         prompt: editingMission.input || "",
                         frequency: editingMission.frequency as "daily" | "weekly" | "monthly" | "custom",
                         enabled: editingMission.enabled,
+                        approvers: editingMission.approvers,
+                        approvalMode: editingMission.approvalMode,
                       }
                     : undefined
                 }

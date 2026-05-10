@@ -30,6 +30,7 @@ import { INSTANCE_ID } from "../instance-id";
 import { buildExportJobPayload, runExportScheduledReportJob } from "./export-job";
 import { getMonthlyMissionCost } from "./budget";
 import { analyzeMissionDrift, generateDriftNarration } from "@/lib/cockpit/drift-detection";
+import { hasActiveApprovalSession, requestApprovals } from "@/lib/missions/approvals";
 
 const POLL_INTERVAL_MS = 60_000;
 const triggeredThisMinute = new Set<string>();
@@ -107,6 +108,8 @@ async function hydrateIfNeeded(): Promise<void> {
         lastRunAt: m.lastRunAt,
         lastRunId: m.lastRunId,
         budgetUsd: m.budgetUsd,
+        approvers: m.approvers,
+        approvalMode: m.approvalMode,
       });
     }
     hydrated = true;
@@ -179,6 +182,54 @@ async function tick(
           `[Scheduler] Mission "${mission.name}" budget check failed (fail-open):`,
           err,
         );
+      }
+    }
+
+    // Layer 2.7 (Q3-D) : approbation collaborative
+    // Si la mission a des approvers, on gate l'exécution :
+    //  - Session active ?  → skip ce tick (les votes arrivent en async)
+    //  - Pas de session ?  → en créer une et attendre les votes
+    // L'exécution réelle se fera depuis l'endpoint /vote quand la session
+    // bascule en "approved" (cf. lib/missions/approvals.ts → recordVote).
+    if (mission.approvers && mission.approvers.length > 0) {
+      try {
+        const active = await hasActiveApprovalSession(mission.id);
+        if (active) {
+          console.log(
+            `[Scheduler] Mission "${mission.name}" — session approbation en cours, skip tick`,
+          );
+          continue;
+        }
+        console.log(
+          `[Scheduler] Mission "${mission.name}" — création session approbation (${mission.approvers.length} approvers, mode=${mission.approvalMode ?? "all"})`,
+        );
+        const result = await requestApprovals({
+          missionId: mission.id,
+          missionName: mission.name,
+          missionInput: mission.input,
+          tenantId: mission.tenantId,
+          approvers: mission.approvers,
+          mode: mission.approvalMode ?? "all",
+        });
+        opsResult(mission.id, {
+          status: "blocked",
+          error: result.ok
+            ? `En attente d'approbation (${mission.approvers.length} approbateurs)`
+            : `Échec création session approbation : ${result.error ?? "unknown"}`,
+        });
+        void persistUpdateMission(mission.id, {
+          lastRunAt: Date.now(),
+          lastRunStatus: "awaiting_approval",
+          lastError: result.ok ? undefined : `approval_session_failed: ${result.error}`,
+        });
+        continue;
+      } catch (err) {
+        console.warn(
+          `[Scheduler] Mission "${mission.name}" approval gate failed (fail-open):`,
+          err,
+        );
+        // Fail-open : on continue le run normalement plutôt que de tout
+        // bloquer si la table mission_approvals est indispo.
       }
     }
 

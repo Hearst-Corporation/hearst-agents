@@ -77,6 +77,8 @@ export async function PATCH(
     customCron?: string;
     enabled?: boolean;
     budgetUsd?: number | null;
+    approvers?: string[] | null;
+    approvalMode?: "all" | "any" | "majority";
   };
 
   try {
@@ -95,6 +97,22 @@ export async function PATCH(
     }
   }
 
+  // Validate approvers if provided (Q3-D)
+  if (body.approvers !== undefined && body.approvers !== null) {
+    if (!Array.isArray(body.approvers)) {
+      return NextResponse.json({ error: "invalid_approvers" }, { status: 400 });
+    }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (body.approvers.some((e) => typeof e !== "string" || !emailRe.test(e))) {
+      return NextResponse.json({ error: "invalid_approver_email" }, { status: 400 });
+    }
+  }
+  if (body.approvalMode !== undefined) {
+    if (!["all", "any", "majority"].includes(body.approvalMode)) {
+      return NextResponse.json({ error: "invalid_approval_mode" }, { status: 400 });
+    }
+  }
+
   // Update in-memory
   const memMission = getMission(id);
   if (memMission) {
@@ -102,6 +120,15 @@ export async function PATCH(
     if (body.prompt !== undefined) memMission.input = body.prompt;
     if (body.budgetUsd !== undefined) {
       memMission.budgetUsd = body.budgetUsd === null ? undefined : body.budgetUsd;
+    }
+    if (body.approvers !== undefined) {
+      memMission.approvers =
+        body.approvers === null || body.approvers.length === 0
+          ? undefined
+          : body.approvers;
+    }
+    if (body.approvalMode !== undefined) {
+      memMission.approvalMode = body.approvalMode;
     }
     if (body.enabled !== undefined) {
       if (body.enabled) {
@@ -131,6 +158,15 @@ export async function PATCH(
   if (body.enabled !== undefined) updates.enabled = body.enabled;
   if (body.budgetUsd !== undefined) {
     updates.budgetUsd = body.budgetUsd === null ? undefined : body.budgetUsd;
+  }
+  if (body.approvers !== undefined) {
+    updates.approvers =
+      body.approvers === null || body.approvers.length === 0
+        ? []
+        : body.approvers;
+  }
+  if (body.approvalMode !== undefined) {
+    updates.approvalMode = body.approvalMode;
   }
 
   if (Object.keys(updates).length > 0) {

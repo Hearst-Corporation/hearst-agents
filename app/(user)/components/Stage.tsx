@@ -51,7 +51,7 @@ export function Stage(props: StageProps) {
     case "asset":
       return <AssetStage assetId={current.assetId} variantKind={current.variantKind} />;
     case "asset_compare":
-      return <AssetCompareStage assetIdA={current.assetIdA} assetIdB={current.assetIdB} />;
+      return <AssetCompareStage assetIds={current.assetIds} />;
     case "mission":
       return <MissionStage missionId={current.missionId} />;
     case "browser":

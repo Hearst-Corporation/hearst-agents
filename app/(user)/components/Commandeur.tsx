@@ -296,8 +296,7 @@ export function Commandeur() {
         if (!idB) return;
         setStageMode({
           mode: "asset_compare",
-          assetIdA: idA,
-          assetIdB: idB,
+          assetIds: [idA, idB],
         } as StagePayload);
         setOpen(false);
       },

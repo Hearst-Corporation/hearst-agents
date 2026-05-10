@@ -52,6 +52,8 @@ export async function POST(req: NextRequest) {
     schedule?: string;
     enabled?: boolean;
     workflowGraph?: WorkflowGraph;
+    approvers?: string[];
+    approvalMode?: "all" | "any" | "majority";
   };
 
   try {
@@ -127,6 +129,18 @@ export async function POST(req: NextRequest) {
     (mission as { enabled: boolean }).enabled = false;
   }
 
+  // Q3-D — approbation collaborative
+  if (body.approvers && body.approvers.length > 0) {
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const valid = body.approvers.every((e) => typeof e === "string" && emailRe.test(e));
+    if (!valid) {
+      return NextResponse.json({ error: "invalid_approver_email" }, { status: 400 });
+    }
+    (mission as { approvers?: string[] }).approvers = body.approvers;
+    (mission as { approvalMode?: "all" | "any" | "majority" }).approvalMode =
+      body.approvalMode ?? "all";
+  }
+
   addMission(mission);
 
   const persisted = await saveScheduledMission({
@@ -140,6 +154,8 @@ export async function POST(req: NextRequest) {
     enabled: mission.enabled,
     createdAt: mission.createdAt,
     workflowGraph: body.workflowGraph,
+    approvers: mission.approvers,
+    approvalMode: mission.approvalMode,
   });
 
   if (!persisted) {

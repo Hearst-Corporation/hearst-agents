@@ -252,6 +252,8 @@ export async function saveScheduledMission(
         lastRunId: mission.lastRunId,
         workflowGraph: mission.workflowGraph,
         budgetUsd: mission.budgetUsd,
+        approvers: mission.approvers,
+        approvalMode: mission.approvalMode,
       },
       services: [],
     });
@@ -288,7 +290,9 @@ export async function updateScheduledMission(
       patch.lastError !== undefined ||
       patch.contextSummary !== undefined ||
       patch.contextSummaryUpdatedAt !== undefined ||
-      patch.budgetUsd !== undefined;
+      patch.budgetUsd !== undefined ||
+      patch.approvers !== undefined ||
+      patch.approvalMode !== undefined;
 
     if (hasOpsFields) {
       const { data: existing } = await sb
@@ -307,6 +311,8 @@ export async function updateScheduledMission(
         actions.contextSummaryUpdatedAt = patch.contextSummaryUpdatedAt;
       }
       if (patch.budgetUsd !== undefined) actions.budgetUsd = patch.budgetUsd;
+      if (patch.approvers !== undefined) actions.approvers = patch.approvers;
+      if (patch.approvalMode !== undefined) actions.approvalMode = patch.approvalMode;
       update.actions = actions;
     }
 
@@ -423,5 +429,9 @@ function toScheduledMission(row: any): PersistedScheduledMission {
     contextSummary: (actions.contextSummary as string | null | undefined) ?? null,
     contextSummaryUpdatedAt: actions.contextSummaryUpdatedAt as number | undefined,
     budgetUsd: actions.budgetUsd as number | undefined,
+    approvers: Array.isArray(actions.approvers)
+      ? (actions.approvers as string[])
+      : undefined,
+    approvalMode: actions.approvalMode as PersistedScheduledMission["approvalMode"],
   };
 }

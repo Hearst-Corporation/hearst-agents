@@ -59,7 +59,7 @@ function Stage({ messages, onSubmit, hasMessages, initialCockpitData }) {
     case "cockpit":      return <CockpitStage initialData={initialCockpitData} />;
     case "chat":         return <ChatStage messages={messages} hasMessages={hasMessages} onSubmit={onSubmit} />;
     case "asset":        return <AssetStage assetId={current.assetId} variantKind={current.variantKind} />;
-    case "asset_compare":return <AssetCompareStage assetIdA={current.assetIdA} assetIdB={current.assetIdB} />;
+    case "asset_compare":return <AssetCompareStage assetIds={current.assetIds} />;
     case "mission":      return <MissionStage missionId={current.missionId} />;
     case "browser":      return <BrowserStage sessionId={current.sessionId} />;
     case "meeting":      return <MeetingStage meetingId={current.meetingId} />;
@@ -87,7 +87,7 @@ type StagePayload =
   | { mode: "cockpit" }
   | { mode: "chat"; threadId?: string }
   | { mode: "asset"; assetId: string; variantKind?: string }
-  | { mode: "asset_compare"; assetIdA: string; assetIdB: string }
+  | { mode: "asset_compare"; assetIds: string[] }  // Q3-A : 2 à 4 variants
   | { mode: "mission"; missionId: string }
   | { mode: "browser"; sessionId: string }
   | { mode: "meeting"; meetingId: string }

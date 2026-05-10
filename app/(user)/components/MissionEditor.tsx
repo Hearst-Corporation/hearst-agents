@@ -10,6 +10,10 @@ interface MissionFormData {
   frequency: "daily" | "weekly" | "monthly" | "custom";
   customCron?: string;
   enabled: boolean;
+  /** Q3-D — emails approbateurs (séparés par virgule en input). */
+  approvers?: string[];
+  /** Q3-D — mode d'agrégation des votes. */
+  approvalMode?: "all" | "any" | "majority";
 }
 
 interface MissionEditorProps {
@@ -26,6 +30,23 @@ const FREQUENCY_OPTIONS = [
   { value: "custom", label: "Personnalisé", description: "Expression cron custom" },
 ] as const;
 
+const APPROVAL_MODE_OPTIONS: ReadonlyArray<{
+  value: "all" | "any" | "majority";
+  label: string;
+  description: string;
+}> = [
+  { value: "all", label: "Unanimité", description: "Tous doivent approuver" },
+  { value: "any", label: "Un seul suffit", description: "N'importe quel vote positif lance" },
+  { value: "majority", label: "Majorité", description: "Plus de la moitié doit approuver" },
+];
+
+function parseApproversInput(raw: string): string[] {
+  return raw
+    .split(/[,\s;]+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+}
+
 export function MissionEditor({ initialData, onSave, onCancel, isLoading }: MissionEditorProps) {
   const [formData, setFormData] = useState<MissionFormData>({
     name: initialData?.name || "",
@@ -34,11 +55,19 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
     frequency: initialData?.frequency || "daily",
     customCron: initialData?.customCron || "",
     enabled: initialData?.enabled ?? true,
+    approvers: initialData?.approvers ?? [],
+    approvalMode: initialData?.approvalMode ?? "all",
   });
+  const [approversRaw, setApproversRaw] = useState<string>(
+    (initialData?.approvers ?? []).join(", "),
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    onSave({
+      ...formData,
+      approvers: parseApproversInput(approversRaw),
+    });
   };
 
   const isValid = formData.name.trim() && formData.prompt.trim();
@@ -111,6 +140,46 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
             className="ghost-input-line w-full font-mono t-9"
           />
           <p className="t-10 font-mono text-text-faint mt-2 uppercase tracking-caption">min heure jour mois jour-semaine</p>
+        </div>
+      )}
+
+      <div>
+        <label className="ghost-meta-label block mb-2">Approbateurs (optionnel)</label>
+        <input
+          type="text"
+          value={approversRaw}
+          onChange={(e) => setApproversRaw(e.target.value)}
+          placeholder="email1@exemple.com, email2@exemple.com"
+          className="ghost-input-line w-full"
+        />
+        <p className="t-10 font-mono text-text-faint mt-2">
+          Avant chaque exécution, un email d&apos;approbation est envoyé à chaque adresse. Séparées par virgule.
+        </p>
+      </div>
+
+      {parseApproversInput(approversRaw).length > 0 && (
+        <div>
+          <label className="ghost-meta-label block mb-4">Mode d&apos;approbation</label>
+          <div className="grid grid-cols-3 gap-px bg-[var(--line)]">
+            {APPROVAL_MODE_OPTIONS.map((option) => {
+              const selected = (formData.approvalMode ?? "all") === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, approvalMode: option.value })}
+                  className={`text-left p-4 transition-colors ${
+                    selected ? "bg-[var(--bg-soft)] text-(--accent-teal)" : "bg-bg text-text-muted hover:bg-bg-elev"
+                  }`}
+                >
+                  <p className={`t-9 font-black uppercase tracking-tight ${selected ? "" : "text-text-soft"}`}>
+                    {option.label}
+                  </p>
+                  <p className="t-11 font-light text-text-faint mt-1">{option.description}</p>
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
 

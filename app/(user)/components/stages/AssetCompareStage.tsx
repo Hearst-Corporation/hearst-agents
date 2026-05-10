@@ -1,15 +1,23 @@
 "use client";
 
 /**
- * AssetCompareStage — Compare 2 assets côte-à-côte.
+ * AssetCompareStage — Compare 2 à 4 assets côte-à-côte.
  *
- * Layout split 50/50 : Asset A | Asset B. Chaque colonne montre titre +
- * lineage compact + body texte tronqué. Header global propose un bouton
- * "Diff sémantique" qui POST /api/v2/assets/diff et affiche la synthèse
- * des différences sous le split.
+ * Layout adaptatif :
+ *   - 2 assets : split 50/50 horizontal
+ *   - 3 assets : grid 3 colonnes
+ *   - 4 assets : grid 2×2
  *
- * Activé via `useStageStore.setMode({ mode: "asset_compare", assetIdA,
- * assetIdB })` — typiquement déclenché par le Commandeur.
+ * Chaque pane montre titre + lineage compact + body texte tronqué + provider/
+ * prompt en header. Bouton "Choisir" sur chaque pane (Q3-A) pour marquer un
+ * variant comme "best" (no-op MVP — flag dans metadata).
+ *
+ * Header global propose un bouton "Diff sémantique" — actif uniquement quand
+ * exactement 2 assets sont comparés (l'API `/assets/diff` reste pairwise).
+ *
+ * Activé via `useStageStore.setMode({ mode: "asset_compare", assetIds: [...] })` —
+ * typiquement déclenché par le Commandeur (2 assets) ou par VideoQuickLaunch
+ * en mode batch (jusqu'à 4 variants).
  */
 
 import { useEffect, useState } from "react";
@@ -20,8 +28,8 @@ import { AssetLineage } from "../AssetLineage";
 import { StageActionBar } from "./StageActionBar";
 
 interface AssetCompareStageProps {
-  assetIdA: string;
-  assetIdB: string;
+  /** 2 à 4 assetIds — au-delà, seuls les 4 premiers sont rendus. */
+  assetIds: string[];
 }
 
 interface DiffResult {
@@ -29,34 +37,54 @@ interface DiffResult {
   differences: Array<{ kind: string; description: string }>;
 }
 
-export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps) {
+const MAX_PANES = 4;
+
+export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
   const back = useStageStore((s) => s.back);
   const setMode = useStageStore((s) => s.setMode);
-  const [assetA, setAssetA] = useState<Asset | null>(null);
-  const [assetB, setAssetB] = useState<Asset | null>(null);
+
+  // Cap dur à 4 panes pour préserver la lisibilité.
+  const ids = assetIds.slice(0, MAX_PANES);
+  const count = ids.length;
+
+  const [assets, setAssets] = useState<(Asset | null)[]>(() => ids.map(() => null));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [diff, setDiff] = useState<DiffResult | null>(null);
   const [diffLoading, setDiffLoading] = useState(false);
   const [diffError, setDiffError] = useState<string | null>(null);
+  const [bestIndex, setBestIndex] = useState<number | null>(null);
+
+  const idsKey = ids.join("|");
 
   useEffect(() => {
     let cancelled = false;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset intentionnel avant fetch : nécessaire pour afficher le loading au changement d'assetIds
     setLoading(true);
     setError(null);
-    Promise.all([
-      fetch(`/api/v2/assets/${encodeURIComponent(assetIdA)}`, { credentials: "include" }).then((r) => r.json()),
-      fetch(`/api/v2/assets/${encodeURIComponent(assetIdB)}`, { credentials: "include" }).then((r) => r.json()),
-    ])
-      .then(([a, b]) => {
+    setDiff(null);
+    setDiffError(null);
+    setBestIndex(null);
+
+    Promise.all(
+      ids.map((id) =>
+        fetch(`/api/v2/assets/${encodeURIComponent(id)}`, { credentials: "include" })
+          .then((r) => r.json())
+          .catch(() => null),
+      ),
+    )
+      .then((results) => {
         if (cancelled) return;
-        if (!a?.asset || !b?.asset) {
-          setError("Un des assets est introuvable");
+        const loaded: (Asset | null)[] = results.map((r) => (r?.asset ?? null) as Asset | null);
+        const missing = loaded.filter((a) => a === null).length;
+        if (missing === ids.length) {
+          setError("Aucun asset trouvé");
           return;
         }
-        setAssetA(a.asset as Asset);
-        setAssetB(b.asset as Asset);
+        if (missing > 0) {
+          setError(`${missing} asset${missing > 1 ? "s" : ""} introuvable${missing > 1 ? "s" : ""}`);
+        }
+        setAssets(loaded);
       })
       .catch((err) => {
         if (cancelled) return;
@@ -68,9 +96,15 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
     return () => {
       cancelled = true;
     };
-  }, [assetIdA, assetIdB]);
+    // idsKey capture la liste — ESLint ignore les deps ids/setters volontairement.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idsKey]);
+
+  const canDiff = count === 2;
 
   const handleDiff = async () => {
+    if (!canDiff) return;
+    const [a, b] = ids;
     setDiffLoading(true);
     setDiffError(null);
     setDiff(null);
@@ -79,7 +113,7 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ assetIdA, assetIdB }),
+        body: JSON.stringify({ assetIdA: a, assetIdB: b }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -99,22 +133,31 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
     setMode({ mode: "asset", assetId });
   };
 
+  // Grille adaptative : 2 → 1×2, 3 → 1×3, 4 → 2×2.
+  const gridTemplate =
+    count === 4 ? "1fr 1fr" : count === 3 ? "1fr 1fr 1fr" : "1fr 1fr";
+  const gridRows = count === 4 ? "repeat(2, minmax(0, 1fr))" : "minmax(0, 1fr)";
+
+  const ctxLabel = `Comparer · ${count} variant${count > 1 ? "s" : ""}`;
+
   return (
     <div className="flex-1 flex flex-col min-h-0" style={{ background: "var(--surface)" }}>
       <StageActionBar
         onBack={back}
         context={
-          <span className="t-11 font-light text-text-muted">
-            Comparer · {assetIdA.slice(0, 8)} ↔ {assetIdB.slice(0, 8)}
-          </span>
+          <span className="t-11 font-light text-text-muted">{ctxLabel}</span>
         }
-        primary={{
-          id: "diff",
-          label: "Diff sémantique",
-          onClick: () => void handleDiff(),
-          disabled: loading || !assetA || !assetB,
-          loading: diffLoading,
-        }}
+        primary={
+          canDiff
+            ? {
+                id: "diff",
+                label: "Diff sémantique",
+                onClick: () => void handleDiff(),
+                disabled: loading || assets.some((a) => a === null),
+                loading: diffLoading,
+              }
+            : undefined
+        }
       />
 
       {error && (
@@ -138,7 +181,7 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
         </div>
       )}
 
-      {!loading && assetA && assetB && (
+      {!loading && (
         <div
           className="flex-1 overflow-y-auto"
           style={{ padding: "var(--space-6)" }}
@@ -146,14 +189,28 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
           <div
             className="grid"
             style={{
-              gridTemplateColumns: "1fr 1fr",
+              gridTemplateColumns: gridTemplate,
+              gridTemplateRows: gridRows,
               gap: "var(--space-6)",
               marginBottom: "var(--space-8)",
             }}
             data-testid="asset-compare-grid"
+            data-pane-count={count}
           >
-            <ComparePane asset={assetA} onOpenParent={openParent} side="A" />
-            <ComparePane asset={assetB} onOpenParent={openParent} side="B" />
+            {ids.map((id, i) => {
+              const asset = assets[i];
+              return (
+                <ComparePane
+                  key={id}
+                  index={i}
+                  assetId={id}
+                  asset={asset}
+                  isBest={bestIndex === i}
+                  onChooseBest={() => setBestIndex((prev) => (prev === i ? null : i))}
+                  onOpenParent={openParent}
+                />
+              );
+            })}
           </div>
 
           {diffError && (
@@ -222,50 +279,108 @@ export function AssetCompareStage({ assetIdA, assetIdB }: AssetCompareStageProps
 }
 
 function ComparePane({
+  index,
+  assetId,
   asset,
+  isBest,
+  onChooseBest,
   onOpenParent,
-  side,
 }: {
-  asset: Asset;
+  index: number;
+  assetId: string;
+  asset: Asset | null;
+  isBest: boolean;
+  onChooseBest: () => void;
   onOpenParent: (assetId: string) => void;
-  side: "A" | "B";
 }) {
+  const labelLetter = String.fromCharCode(65 + index); // A, B, C, D
+  const meta = asset?.provenance?.metadata as
+    | { prompt?: string; ratio?: string; duration?: number }
+    | undefined;
+  const provider = asset?.provenance?.providerId;
+  const promptOriginal = typeof meta?.prompt === "string" ? meta.prompt : undefined;
+
   return (
     <div
-      data-testid={`asset-compare-pane-${side}`}
+      data-testid={`asset-compare-pane-${labelLetter}`}
+      data-pane-index={index}
       className="flex flex-col"
       style={{
         padding: "var(--space-5)",
         background: "var(--surface-1)",
-        border: "1px solid var(--border-shell)",
+        border: isBest ? "1px solid var(--accent-teal)" : "1px solid var(--border-shell)",
         borderRadius: "var(--radius-md)",
         gap: "var(--space-3)",
+        minWidth: 0,
       }}
     >
-      <span className="t-11 font-medium text-(--accent-teal)">
-        Asset {side}
-      </span>
-      <h2
-        className="t-15 font-medium tracking-tight text-text"
-        style={{ marginBottom: "var(--space-2)" }}
-      >
-        {asset.title}
-      </h2>
-      <AssetLineage asset={asset} onOpenParent={onOpenParent} />
-      <div
-        className="overflow-y-auto"
-        style={{
-          maxHeight: "var(--space-32)",
-          padding: "var(--space-3)",
-          background: "var(--bg-elev)",
-          border: "1px solid var(--surface-2)",
-          borderRadius: "var(--radius-xs)",
-        }}
-      >
-        <pre className="t-11 font-mono text-text-muted" style={{ whiteSpace: "pre-wrap" }}>
-          {(asset.contentRef ?? asset.summary ?? "Aucun contenu").slice(0, 4000)}
-        </pre>
-      </div>
+      <header className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
+        <span className="t-11 font-medium text-(--accent-teal)">
+          Variant {labelLetter}
+        </span>
+        {provider && (
+          <span className="t-11 font-light text-text-muted truncate" style={{ maxWidth: "60%" }}>
+            {provider}
+            {typeof meta?.ratio === "string" ? ` · ${meta.ratio}` : ""}
+            {typeof meta?.duration === "number" ? ` · ${meta.duration}s` : ""}
+          </span>
+        )}
+      </header>
+
+      {asset === null ? (
+        <span className="t-11 font-light text-text-faint">
+          Asset {assetId.slice(0, 8)} introuvable
+        </span>
+      ) : (
+        <>
+          <h2
+            className="t-15 font-medium tracking-tight text-text"
+            style={{ marginBottom: "var(--space-1)" }}
+          >
+            {asset.title}
+          </h2>
+          {promptOriginal && (
+            <p
+              className="t-11 font-light text-text-muted leading-relaxed"
+              style={{ marginBottom: "var(--space-2)" }}
+            >
+              {promptOriginal.length > 180 ? `${promptOriginal.slice(0, 180)}…` : promptOriginal}
+            </p>
+          )}
+          <AssetLineage asset={asset} onOpenParent={onOpenParent} />
+          <div
+            className="overflow-y-auto"
+            style={{
+              maxHeight: "var(--space-32)",
+              padding: "var(--space-3)",
+              background: "var(--bg-elev)",
+              border: "1px solid var(--surface-2)",
+              borderRadius: "var(--radius-xs)",
+            }}
+          >
+            <pre className="t-11 font-mono text-text-muted" style={{ whiteSpace: "pre-wrap" }}>
+              {(asset.contentRef ?? asset.summary ?? "Aucun contenu").slice(0, 4000)}
+            </pre>
+          </div>
+          <button
+            type="button"
+            onClick={onChooseBest}
+            className={`t-11 font-light transition-colors duration-base ${
+              isBest
+                ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
+                : "border border-(--border-shell) text-text-muted hover:text-text"
+            }`}
+            style={{
+              padding: "var(--space-2) var(--space-3)",
+              borderRadius: "var(--radius-sm)",
+              alignSelf: "flex-start",
+            }}
+            aria-pressed={isBest}
+          >
+            {isBest ? "Variant choisi" : "Choisir ce variant"}
+          </button>
+        </>
+      )}
     </div>
   );
 }

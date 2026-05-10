@@ -4,6 +4,7 @@ import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missio
 import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
 import { requireScope } from "@/lib/platform/auth/scope";
 import type { MissionOpsRecord } from "@/lib/engine/runtime/missions/ops-types";
+import { getApprovalState } from "@/lib/missions/approvals";
 
 export const dynamic = "force-dynamic";
 
@@ -27,10 +28,33 @@ export async function GET() {
         createdAt: m.createdAt,
         lastRunAt: m.lastRunAt,
         lastRunId: m.lastRunId,
+        approvers: m.approvers,
+        approvalMode: m.approvalMode,
       }));
     }
 
     const opsMap = getAllMissionOps();
+
+    // Récupère en parallèle l'état d'approbation des missions qui ont
+    // des approvers configurés. Best-effort — un échec DB ne casse pas
+    // l'endpoint, l'approval state est juste absent du payload.
+    const approvalStates = await Promise.all(
+      missionList.map(async (m) => {
+        if (!m.approvers || m.approvers.length === 0) return null;
+        try {
+          return await getApprovalState(m.id);
+        } catch {
+          return null;
+        }
+      }),
+    );
+    const approvalByMissionId = new Map<string, ReturnType<typeof toApprovalSummary>>();
+    missionList.forEach((m, idx) => {
+      const state = approvalStates[idx];
+      if (state && state.pending > 0) {
+        approvalByMissionId.set(m.id, toApprovalSummary(state));
+      }
+    });
 
     const missions: MissionOpsRecord[] = missionList.map((m) => {
       const live = opsMap.get(m.id);
@@ -53,6 +77,8 @@ export async function GET() {
         runningSince: isLiveRunning ? live?.runningSince : undefined,
         // Drift Alert (S3-E) — exposé au cockpit pour afficher le badge gold.
         drift: live?.drift,
+        // Q3-D — approbation collaborative en cours pour cette mission
+        approval: approvalByMissionId.get(m.id),
       };
     });
 
@@ -61,4 +87,20 @@ export async function GET() {
     console.error("GET /api/v2/missions/ops:", e);
     return NextResponse.json({ error: "internal_error" }, { status: 500 });
   }
+}
+
+function toApprovalSummary(state: {
+  mode: "all" | "any" | "majority";
+  total: number;
+  approved: number;
+  rejected: number;
+  pending: number;
+}): NonNullable<MissionOpsRecord["approval"]> {
+  return {
+    mode: state.mode,
+    total: state.total,
+    approved: state.approved,
+    rejected: state.rejected,
+    pending: state.pending,
+  };
 }
