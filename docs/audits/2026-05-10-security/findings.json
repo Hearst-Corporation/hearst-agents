@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-10T21:56:18.909Z",
+  "last_updated": "2026-05-10T22:28:16.004Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 128,
+      "pending": 126,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 2,
+      "closed": 4,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -2578,7 +2578,7 @@
       "title": "@anthropic-ai/sdk@0.90.0 CVE GHSA-p7fg-763f-g4gf",
       "severity": "P2",
       "category": "deps",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2606,6 +2606,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-10T22:28:16.004Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2969,7 +2975,7 @@
       "title": "lucide-react@^1.14.0 — version suspecte, 0 import, supply chain risk",
       "severity": "P0",
       "category": "deps",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -2997,6 +3003,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-10T22:28:15.967Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
