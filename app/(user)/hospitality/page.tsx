@@ -53,8 +53,7 @@ const HOSPITALITY_WORKFLOWS = [
 export default function HospitalityPage() {
   return (
     <div
-      className="flex-1 flex flex-col min-h-0"
-      style={{ background: "var(--bg-elev)" }}
+      className="flex-1 flex flex-col min-h-0 bg-bg-elev"
     >
       <PageHeader
         title="Hospitality"
@@ -63,27 +62,25 @@ export default function HospitalityPage() {
       />
 
       <div
-        className="flex flex-col"
+        className="flex flex-col gap-12"
         style={{
           padding: "var(--space-8) var(--space-12) var(--space-14)",
-          gap: "var(--space-12)",
         }}
       >
         {/* Banner mode démo : PMS connectors out-of-scope MVP */}
         <div
-          className="t-11"
+          className="t-11 text-text-muted"
           style={{
             padding: "var(--space-3) var(--space-4)",
             background: "var(--surface-2)",
             borderLeft: "2px solid var(--warn)",
             borderRadius: "var(--radius-xs)",
-            color: "var(--text-muted)",
           }}
         >
-          <strong style={{ color: "var(--text)" }}>Mode démo</strong> — les
+          <strong className="text-text">Mode démo</strong> — les
           données PMS (Mews, Cloudbeds, Opera) sont mockées. Connecte ton PMS
           via{" "}
-          <Link href="/apps" style={{ color: "var(--accent-teal)" }}>
+          <Link href="/apps" className="text-(--accent-teal)">
             /apps
           </Link>{" "}
           quand l&apos;intégration sera disponible (intégrations PMS planifiées Q3 2026).
@@ -92,39 +89,33 @@ export default function HospitalityPage() {
           label="Reports recommandés"
           meta="3 specs"
         >
-          <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+          <div className="flex flex-col gap-3">
             {HOSPITALITY_REPORTS.map((r) => (
               <Link
                 key={r.id}
                 href={`/reports?spec=${r.id}`}
-                className="card-depth flex flex-col"
-                style={{
-                  padding: "var(--space-5)",
-                  gap: "var(--space-2)",
-                  textDecoration: "none",
-                }}
+                className="card-depth flex flex-col p-5 gap-2 no-underline"
               >
                 <div className="flex items-center gap-(--space-3)">
                   <span
-                    className="t-15"
-                    style={{ color: "var(--text-l0)", fontWeight: 500, flex: 1 }}
+                    className="t-15 font-medium flex-1"
+                    style={{ color: "var(--text-l0)" }}
                   >
                     {r.title}
                   </span>
                   <span
-                    className="t-9 font-medium"
+                    className="t-9 font-medium shrink-0"
                     style={{
                       color: "var(--warn)",
                       border: "1px solid var(--warn)",
                       borderRadius: "var(--radius-pill)",
                       padding: "0 var(--space-2)",
-                      flexShrink: 0,
                     }}
                   >
                     Démo
                   </span>
                 </div>
-                <span className="t-13" style={{ color: "var(--text-l2)" }}>
+                <span className="t-13 text-(--text-l2)">
                   {r.description}
                 </span>
               </Link>
@@ -133,25 +124,20 @@ export default function HospitalityPage() {
         </Section>
 
         <Section label="Workflows clé en main" meta="2 templates">
-          <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+          <div className="flex flex-col gap-3">
             {HOSPITALITY_WORKFLOWS.map((w) => (
               <Link
                 key={w.id}
                 href={`/missions?template=${w.id}`}
-                className="card-depth flex flex-col"
-                style={{
-                  padding: "var(--space-5)",
-                  gap: "var(--space-2)",
-                  textDecoration: "none",
-                }}
+                className="card-depth flex flex-col p-5 gap-2 no-underline"
               >
                 <span
-                  className="t-15"
-                  style={{ color: "var(--text-l0)", fontWeight: 500 }}
+                  className="t-15 font-medium"
+                  style={{ color: "var(--text-l0)" }}
                 >
                   {w.name}
                 </span>
-                <span className="t-13" style={{ color: "var(--text-l2)" }}>
+                <span className="t-13 text-(--text-l2)">
                   {w.description}
                 </span>
               </Link>
@@ -162,20 +148,15 @@ export default function HospitalityPage() {
         <Section label="Persona dédiée">
           <Link
             href="/personas?builtin=hospitality-concierge"
-            className="card-depth flex flex-col"
-            style={{
-              padding: "var(--space-5)",
-              gap: "var(--space-2)",
-              textDecoration: "none",
-            }}
+            className="card-depth flex flex-col p-5 gap-2 no-underline"
           >
             <span
-              className="t-15"
-              style={{ color: "var(--text-l0)", fontWeight: 500 }}
+              className="t-15 font-medium"
+              style={{ color: "var(--text-l0)" }}
             >
               Hospitality Concierge
             </span>
-            <span className="t-13" style={{ color: "var(--text-l2)" }}>
+            <span className="t-13 text-(--text-l2)">
               Voix éditoriale calibrée hôtelier — chaleureuse, discrète, vocabulaire
               métier (guest, room, VIP, ADR, RevPAR), anticipe les besoins.
             </span>
@@ -184,16 +165,12 @@ export default function HospitalityPage() {
 
         <Section label="État des connecteurs">
           <div
-            className="card-depth flex flex-col"
-            style={{
-              padding: "var(--space-5)",
-              gap: "var(--space-3)",
-            }}
+            className="card-depth flex flex-col p-5 gap-3"
           >
             <span className="t-9 font-light text-text-faint">
               PMS · POS · Guest messaging
             </span>
-            <p className="t-13" style={{ color: "var(--text-l2)" }}>
+            <p className="t-13 text-(--text-l2)">
               Aucun connecteur hospitality natif pour MVP. Les KPIs et tables
               affichés ailleurs sont des données démo. Contacte ton commercial
               pour brancher Mews, Cloudbeds, Opera ou Hotelogix.
@@ -215,7 +192,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex flex-col" style={{ gap: "var(--space-5)" }}>
+    <section className="flex flex-col gap-5">
       <header className="flex items-baseline justify-between">
         <span className="t-13 font-medium text-(--text-l1)">
           {label}

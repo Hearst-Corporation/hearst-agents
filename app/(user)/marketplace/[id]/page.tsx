@@ -206,7 +206,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         subtitle={tpl.description ?? undefined}
         back={{ label: "Marketplace", href: "/marketplace" }}
         actions={
-          <div className="flex" style={{ gap: "var(--space-2)" }}>
+          <div className="flex gap-2">
             <Action
               variant="primary"
               tone="brand"
@@ -231,13 +231,11 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       />
 
       <div
-        className="px-12 py-8 mx-auto w-full max-w-[min(100%,var(--width-actions))] flex flex-col"
-        style={{ gap: "var(--space-6)" }}
+        className="px-12 py-8 mx-auto w-full max-w-[min(100%,var(--width-actions))] flex flex-col gap-6"
       >
         {flash && (
           <p
-            className="t-11 font-light"
-            style={{ color: "var(--accent-teal)" }}
+            className="t-11 font-light text-(--accent-teal)"
           >
             {flash}
           </p>
@@ -245,8 +243,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
 
         {/* Méta */}
         <section
-          className="flex flex-wrap"
-          style={{ gap: "var(--space-3)" }}
+          className="flex flex-wrap gap-3"
         >
           <Chip>{KIND_LABELS[tpl.kind] ?? tpl.kind}</Chip>
           <Chip>par {escapeHtml(author)}</Chip>
@@ -264,7 +261,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         </section>
 
         {/* Preview */}
-        <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+        <section className="flex flex-col gap-3">
           <h2 className="t-13 text-text-soft">Aperçu</h2>
           {tpl.kind === "workflow" && (
             <WorkflowPreview graph={tpl.payload as WorkflowGraph} />
@@ -280,13 +277,10 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         {/* Report form */}
         {reportOpen && (
           <section
-            className="flex flex-col"
+            className="flex flex-col gap-3 p-4 bg-bg-elev"
             style={{
-              gap: "var(--space-3)",
-              padding: "var(--space-4)",
               border: "1px solid var(--line-strong)",
               borderRadius: "var(--radius-md)",
-              background: "var(--bg-elev)",
             }}
           >
             <h3 className="t-13 text-text">Signaler ce template</h3>
@@ -305,8 +299,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
               }}
             />
             <div
-              className="flex items-center justify-end"
-              style={{ gap: "var(--space-3)" }}
+              className="flex items-center justify-end gap-3"
             >
               <button
                 type="button"
@@ -320,11 +313,10 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
                 type="button"
                 onClick={() => void handleReport()}
                 disabled={busy || reportReason.trim().length < 3}
-                className="t-11 font-medium"
+                className="t-11 font-medium text-text"
                 style={{
                   padding: "var(--space-2) var(--space-4)",
                   background: "var(--danger)",
-                  color: "var(--text)",
                   border: "1px solid var(--danger)",
                   borderRadius: "var(--radius-sm)",
                   cursor: busy ? "not-allowed" : "pointer",
@@ -339,17 +331,14 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
 
         {/* Notation */}
         <section
-          className="flex flex-col"
+          className="flex flex-col gap-3 p-4 bg-bg-elev"
           style={{
-            gap: "var(--space-3)",
-            padding: "var(--space-4)",
             border: "1px solid var(--line-strong)",
             borderRadius: "var(--radius-md)",
-            background: "var(--bg-elev)",
           }}
         >
           <h3 className="t-13 text-text">Donner une note</h3>
-          <div className="flex" style={{ gap: "var(--space-2)" }}>
+          <div className="flex gap-2">
             {[1, 2, 3, 4, 5].map((n) => (
               <button
                 key={n}
@@ -400,21 +389,18 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
 
         {/* Ratings list */}
         {data.ratings.length > 0 && (
-          <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+          <section className="flex flex-col gap-3">
             <h2 className="t-13 text-text-soft">
               Notes ({data.ratings.length})
             </h2>
-            <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+            <ul className="flex flex-col gap-2">
               {data.ratings.map((r) => (
                 <li
                   key={`${r.templateId}-${r.userId}`}
-                  className="flex flex-col"
+                  className="flex flex-col gap-1 p-3 bg-bg-elev"
                   style={{
-                    gap: "var(--space-1)",
-                    padding: "var(--space-3)",
                     border: "1px solid var(--line-strong)",
                     borderRadius: "var(--radius-sm)",
-                    background: "var(--bg-elev)",
                   }}
                 >
                   <span className="t-11 font-medium text-(--accent-teal)">
@@ -454,20 +440,16 @@ function Chip({ children }: { children: React.ReactNode }) {
 function WorkflowPreview({ graph }: { graph: WorkflowGraph }) {
   return (
     <ol
-      className="flex flex-col"
+      className="flex flex-col gap-2 p-4 bg-bg-elev"
       style={{
-        gap: "var(--space-2)",
-        padding: "var(--space-4)",
         border: "1px solid var(--line-strong)",
         borderRadius: "var(--radius-md)",
-        background: "var(--bg-elev)",
       }}
     >
       {graph.nodes.map((n, i) => (
         <li
           key={n.id}
-          className="flex items-baseline"
-          style={{ gap: "var(--space-2)" }}
+          className="flex items-baseline gap-2"
         >
           <span className="t-9 font-mono text-text-faint">
             {String(i + 1).padStart(2, "0")}
@@ -485,13 +467,10 @@ function WorkflowPreview({ graph }: { graph: WorkflowGraph }) {
 function ReportPreview({ spec }: { spec: ReportSpec }) {
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col gap-2 p-4 bg-bg-elev"
       style={{
-        gap: "var(--space-2)",
-        padding: "var(--space-4)",
         border: "1px solid var(--line-strong)",
         borderRadius: "var(--radius-md)",
-        background: "var(--bg-elev)",
       }}
     >
       <p className="t-11 text-text-muted">
@@ -499,12 +478,11 @@ function ReportPreview({ spec }: { spec: ReportSpec }) {
         {spec.transforms.length} transform{spec.transforms.length === 1 ? "" : "s"} ·{" "}
         {spec.blocks.length} block{spec.blocks.length === 1 ? "" : "s"}
       </p>
-      <ul className="flex flex-col" style={{ gap: "var(--space-1)" }}>
+      <ul className="flex flex-col gap-1">
         {spec.blocks.map((b) => (
           <li
             key={b.id}
-            className="flex items-baseline"
-            style={{ gap: "var(--space-2)" }}
+            className="flex items-baseline gap-2"
           >
             <span className="t-11 font-medium text-(--accent-teal)">
               {b.type}
@@ -526,13 +504,10 @@ function PersonaPreview({ payload }: { payload: Record<string, unknown> }) {
     typeof payload.systemPromptAddon === "string" ? payload.systemPromptAddon : null;
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col gap-2 p-4 bg-bg-elev"
       style={{
-        gap: "var(--space-2)",
-        padding: "var(--space-4)",
         border: "1px solid var(--line-strong)",
         borderRadius: "var(--radius-md)",
-        background: "var(--bg-elev)",
       }}
     >
       {tone && (
@@ -546,10 +521,7 @@ function PersonaPreview({ payload }: { payload: Record<string, unknown> }) {
         </p>
       )}
       {systemPromptAddon && (
-        <p
-          className="t-11 text-text-muted whitespace-pre-wrap"
-          style={{ fontStyle: "italic" }}
-        >
+        <p className="t-11 text-text-muted whitespace-pre-wrap italic">
           {escapeHtml(systemPromptAddon)}
         </p>
       )}

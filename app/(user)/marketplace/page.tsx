@@ -100,18 +100,16 @@ export default function MarketplacePage() {
       }
     >
       <div
-        className="mx-auto w-full flex flex-col"
-        style={{ gap: "var(--space-6)", maxWidth: "var(--width-actions)" }}
+        className="mx-auto w-full flex flex-col gap-6"
+        style={{ maxWidth: "var(--width-actions)" }}
       >
         {/* Filters */}
         <section
-          className="flex flex-wrap items-center justify-between"
-          style={{ gap: "var(--space-3)" }}
+          className="flex flex-wrap items-center justify-between gap-3"
         >
           <div
             data-testid="marketplace-kind-tabs"
-            className="flex flex-wrap"
-            style={{ gap: "var(--space-1)" }}
+            className="flex flex-wrap gap-1"
           >
             {KIND_TABS.map((tab) => {
               const active = tab.value === kind;
@@ -137,7 +135,7 @@ export default function MarketplacePage() {
             })}
           </div>
 
-          <div className="flex" style={{ gap: "var(--space-2)" }}>
+          <div className="flex gap-2">
             <input
               type="search"
               value={search}
@@ -168,7 +166,7 @@ export default function MarketplacePage() {
         {!isLoading && !isEmpty && (
           <>
             {featured.length > 0 && (
-              <section className="flex flex-col" style={{ gap: "var(--space-3)" }}>
+              <section className="flex flex-col gap-3">
                 <h2 className="t-11 font-medium text-(--accent-teal)">
                   Featured
                 </h2>
@@ -194,8 +192,7 @@ function Grid({ templates }: { templates: MarketplaceTemplateSummary[] }) {
   return (
     <div
       data-testid="marketplace-grid"
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-      style={{ gap: "var(--space-3)" }}
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
     >
       {templates.map((t) => (
         <MarketplaceTemplateCard key={t.id} template={t} />

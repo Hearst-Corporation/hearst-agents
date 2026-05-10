@@ -263,8 +263,7 @@ export default function WorkflowBuilderPage() {
 
   return (
     <div
-      className="flex-1 flex flex-col min-h-0"
-      style={{ background: "var(--surface)" }}
+      className="flex-1 flex flex-col min-h-0 bg-surface"
     >
       <PageHeader
         title="Workflow Builder"
@@ -324,12 +323,9 @@ export default function WorkflowBuilderPage() {
 
       {showTemplates && (
         <div
-          className="flex border-b border-(--border-shell)"
+          className="flex flex-wrap gap-3 border-b border-(--border-shell) bg-surface-1"
           style={{
             padding: "var(--space-3) var(--space-12)",
-            gap: "var(--space-3)",
-            background: "var(--surface-1)",
-            flexWrap: "wrap",
           }}
         >
           {WORKFLOW_TEMPLATES.map((tpl) => (
@@ -337,12 +333,9 @@ export default function WorkflowBuilderPage() {
               key={tpl.id}
               type="button"
               onClick={() => handlePickTemplate(tpl.id)}
-              className="flex flex-col text-left rounded-md hover:border-(--accent-teal) transition-colors"
+              className="flex flex-col gap-1 p-3 text-left rounded-md hover:border-(--accent-teal) transition-colors bg-rail"
               style={{
-                padding: "var(--space-3)",
-                gap: "var(--space-1)",
                 border: "1px solid var(--border-soft)",
-                background: "var(--rail)",
                 minWidth: "240px",
               }}
             >
@@ -358,18 +351,14 @@ export default function WorkflowBuilderPage() {
       {/* Workflow Builder = canvas Cytoscape, pas adaptable mobile.
           On affiche un message dédié < lg pour économiser le travail visuel. */}
       <div
-        className="flex-1 lg:hidden flex items-center justify-center"
-        style={{ padding: "var(--space-8)" }}
+        className="flex-1 lg:hidden flex items-center justify-center p-8"
       >
         <div
-          className="flex flex-col items-center text-center"
+          className="flex flex-col items-center text-center gap-3 p-8 bg-surface-1"
           style={{
-            gap: "var(--space-3)",
             maxWidth: "var(--width-actions)",
-            padding: "var(--space-8)",
             border: "1px solid var(--border-default)",
             borderRadius: "var(--radius-md)",
-            background: "var(--surface-1)",
           }}
         >
           <span className="t-11 font-medium text-(--accent-teal)">
