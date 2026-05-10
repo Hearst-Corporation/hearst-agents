@@ -146,6 +146,9 @@
   --size-progress-segment-w: 8px; /* Largeur d'un segment de barre de progression discrète (MissionBudgetBadge) */
   --size-progress-segment-h: 4px; /* Hauteur d'un segment de barre de progression discrète (MissionBudgetBadge) */
 
+  /* ─── Modal backdrop ───────────────────────────────────────── */
+  --modal-backdrop: rgba(0, 0, 0, 0.6); /* Backdrop modal (enrichment diff, fork panel) */
+
   /* ─── Cockpit visualizations ──────────────────────────────────
    * Dimensions des visualisations signatures du Cockpit. Les hauteurs
    * sont fluides via clamp pour respirer en grand viewport sans

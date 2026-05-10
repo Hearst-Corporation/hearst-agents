@@ -248,7 +248,7 @@ function CtaFooter() {
             gap: "var(--space-2)",
             padding: "var(--space-3) var(--space-6)",
             background: "var(--accent-teal)",
-            color: "#ffffff",
+            color: "var(--text-on-accent, var(--text))",
             textDecoration: "none",
             borderRadius: "var(--radius-pill, 9999px)",
             fontWeight: 500,

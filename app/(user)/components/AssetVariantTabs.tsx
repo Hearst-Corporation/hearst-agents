@@ -692,7 +692,7 @@ function EnrichmentPreviewModal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+      style={{ backgroundColor: "var(--modal-backdrop)" }}
       onClick={onCancel}
     >
       <div
