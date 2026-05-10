@@ -10,8 +10,10 @@
  * - ⌘0        : ArtifactStage (B8 — code editor + E2B run)
  * - ⌘⇧V       : toggle direct mode voix ambient (raccourci alternatif
  *               à ⌘7, accessible même quand un autre Stage est actif)
+ * - ⌘⇧F       : toggle Mode Focus (S4-B — Stage 100vw, Rails masqués)
  * - ⌘B        : toggle WorkingDocument (Thinking Canvas — Lot C)
  * - ⌘⌫        : back stage
+ * - Échap     : sort du Mode Focus si actif
  *
  * Ignore les inputs / textarea / contenteditable pour ne pas voler les
  * touches au user en pleine saisie.
@@ -21,6 +23,7 @@ import { useEffect } from "react";
 import { useStageStore, STAGE_HOTKEYS } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
 import { useWorkingDocumentStore } from "@/stores/working-document";
+import { useFocusMode } from "@/stores/focus-mode";
 
 export function useGlobalHotkeys() {
   const toggleCommandeur = useStageStore((s) => s.toggleCommandeur);
@@ -52,6 +55,25 @@ export function useGlobalHotkeys() {
           voice.setVoiceActive(true);
           stage.setMode({ mode: "voice" });
         }
+        return;
+      }
+
+      // ⌘⇧F → toggle Mode Focus (S4-B). Stage 100vw, Rails masqués,
+      // PulseBar rétracté. Checké AVANT le early return meta pour
+      // prendre la priorité sur ⌘F natif (rare, browser only).
+      if (meta && e.shiftKey && (e.key === "f" || e.key === "F")) {
+        e.preventDefault();
+        useFocusMode.getState().toggle();
+        return;
+      }
+
+      // Échap → sort du Mode Focus si actif. Pas de meta requis,
+      // donc checké hors du `if (!meta) return;`. Ne préempte pas
+      // les autres usages d'ESC (modales, etc.) car le toggle ne
+      // s'applique que si le mode focus est effectivement enabled.
+      if (e.key === "Escape" && useFocusMode.getState().enabled) {
+        e.preventDefault();
+        useFocusMode.getState().disable();
         return;
       }
 

@@ -138,6 +138,7 @@
    * Tokens de taille pour avatars, badges, dots dimensionnés. Évite
    * les `w-8 h-8` répétés quand un élément a une sémantique propre. */
   --size-avatar-sm: 32px; /* Avatar profil — TimelineRail footer, badges initiale */
+  --size-dot: 6px; /* Dot status (FocusBadge, pulse "En cours" PulseBar, status indicators) */
 
   /* ─── Cockpit visualizations ──────────────────────────────────
    * Dimensions des visualisations signatures du Cockpit. Les hauteurs

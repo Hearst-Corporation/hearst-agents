@@ -10,11 +10,13 @@ import { StageFooter } from "./components/StageFooter";
 import { PulseBar } from "./components/PulseBar";
 import { MobileBottomNav } from "./components/MobileBottomNav";
 import { VoicePulse } from "./components/voice/VoicePulse";
+import { FocusBadge } from "./components/FocusBadge";
 import { ToastContainer } from "@/app/components/ToastContainer";
 import { useToast } from "@/app/hooks/use-toast";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
 import { useVoiceStore } from "@/stores/voice";
 import { useNotificationsStore } from "@/stores/notifications";
+import { useFocusMode } from "@/stores/focus-mode";
 
 function BriefingAutoTrigger() {
   useEffect(() => {
@@ -82,6 +84,7 @@ function NotificationsHydrate() {
  */
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   useGlobalHotkeys();
+  const focusMode = useFocusMode((s) => s.enabled);
 
   return (
     <SessionProvider>
@@ -97,19 +100,44 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               aux boutons du PulseBar. */}
           <div className="electron-titlebar" aria-hidden />
 
-          {/* PulseBar — top fixed, état système + Cmd+K + voice + notifications */}
-          <PulseBar />
+          {/* PulseBar — top fixed, état système + Cmd+K + voice + notifications.
+             Focus Mode (S4-B) : rétracté hors écran via translateY(-100%) pour
+             laisser le Stage prendre 100vh (animation slow + ease-standard). */}
+          <div
+            style={{
+              transform: focusMode ? "translateY(-100%)" : "translateY(0)",
+              maxHeight: focusMode ? "0" : "var(--height-pulsebar)",
+              overflow: "hidden",
+              transition:
+                "transform var(--duration-slow) var(--ease-standard), max-height var(--duration-slow) var(--ease-standard)",
+            }}
+          >
+            <PulseBar />
+          </div>
 
           {/* Row 3 colonnes : TimelineRail / Stage / ContextRail
              Pivot UI 2026-05-03 : le Stage central devient une carte
              détachée — radius lg, shadow douce, padding shell vertical
              16px (top + bot). Les rails restent bord-à-bord. Mobile :
-             pb-20 préservé pour MobileBottomNav. */}
+             pb-20 préservé pour MobileBottomNav.
+             Focus Mode (S4-B) : les Rails passent à width 0 avec animation,
+             le Stage prend tout l'espace via flex-1. */}
           <div
             className="flex-1 flex min-h-0 w-full overflow-hidden pb-20 md:pb-0"
             style={{ background: "var(--bg)", color: "var(--text)" }}
           >
-            <LeftPanelShell />
+            <div
+              aria-hidden={focusMode}
+              style={{
+                width: focusMode ? "0" : "auto",
+                overflow: "hidden",
+                flexShrink: 0,
+                transition: "width var(--duration-slow) var(--ease-standard)",
+                pointerEvents: focusMode ? "none" : "auto",
+              }}
+            >
+              <LeftPanelShell />
+            </div>
 
             <div
               className="flex-1 flex flex-col min-w-0 min-h-0 relative overflow-hidden"
@@ -119,6 +147,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                 margin: "0",
                 borderRadius: "0",
                 boxShadow: "var(--shadow-stage-card)",
+                transition: "box-shadow var(--duration-slow) var(--ease-standard)",
               }}
             >
               {/* Alerte tokens OAuth expirants : badge dot sur l'item Apps de
@@ -134,13 +163,25 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               </Suspense>
             </div>
 
-            <RightPanel />
+            <div
+              aria-hidden={focusMode}
+              style={{
+                width: focusMode ? "0" : "auto",
+                overflow: "hidden",
+                flexShrink: 0,
+                transition: "width var(--duration-slow) var(--ease-standard)",
+                pointerEvents: focusMode ? "none" : "auto",
+              }}
+            >
+              <RightPanel />
+            </div>
           </div>
 
           {/* StageFooter — full-width sous les 3 colonnes. Sorti du div
              central pour ne pas hériter des bordures border-l/border-r du
              paper (qui ressortaient en clair sur le fond noir du footer).
-             Devient une "ligne système" continue, pendant bas de la PulseBar. */}
+             Devient une "ligne système" continue, pendant bas de la PulseBar.
+             Conservé en Focus Mode pour la continuité du flowLabel. */}
           <StageFooter />
 
           {/* Bottom nav mobile — < md uniquement, fixed bottom */}
@@ -151,6 +192,10 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
 
           {/* Pipeline WebRTC voix — vit au root, n'est rendu que si voiceActive */}
           <VoiceMount />
+
+          {/* Mini-badge flottant Mode Focus (S4-B) — visible uniquement quand
+             le mode est actif. Clic ou ESC pour sortir. */}
+          <FocusBadge />
         </div>
       </ToastProvider>
     </SessionProvider>
