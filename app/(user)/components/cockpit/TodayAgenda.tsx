@@ -5,50 +5,51 @@ import { EmptyState } from "../ui/EmptyState";
 import { formatHHMM } from "@/lib/utils/date-format";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
-interface CockpitAgendaProps {
+interface TodayAgendaProps {
   data: CockpitTodayPayload;
 }
 
 const MAX_ITEMS = 4;
 
-export function CockpitAgenda({ data }: CockpitAgendaProps) {
+export function TodayAgenda({ data }: TodayAgendaProps) {
   const items = data.agenda.slice(0, MAX_ITEMS);
   const hasItems = items.length > 0;
+  const connected = data.calendarConnected;
 
   return (
     <section className="flex flex-col min-h-0 min-w-0" aria-label="Agenda du jour">
       <SectionHeader label="Aujourd'hui" />
       {hasItems ? (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "var(--space-1)" }}>
+        <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
           {items.map((item) => (
             <li
               key={item.id}
-              className="flex items-baseline gap-2"
+              className="flex items-baseline gap-3"
               style={{
                 padding: "var(--space-2) var(--space-3)",
                 borderRadius: "var(--radius-xs)",
               }}
             >
-              <span className="t-11 font-mono tabular-nums text-[var(--accent-teal)] shrink-0">
+              <span className="t-13 font-mono tabular-nums text-[var(--accent-teal)] shrink-0">
                 {formatHHMM(item.startsAt)}
               </span>
-              <span className="t-11 text-[var(--text-faint)]">·</span>
-              <span className="t-13 font-light text-[var(--text-soft)] truncate">
+              <span className="t-13 font-light text-[var(--text-l1)] truncate">
                 {item.title}
               </span>
-              {item.source === "mock" && (
-                <span className="t-9 font-mono text-[var(--text-faint)] shrink-0 ml-auto">
-                  demo
-                </span>
-              )}
             </li>
           ))}
         </ul>
+      ) : connected ? (
+        <EmptyState
+          density="compact"
+          title="Rien de prévu"
+          description="Ta journée est libre."
+        />
       ) : (
         <EmptyState
           density="compact"
-          title="Aucun événement"
-          description="Connecte ton calendrier pour voir ta journée."
+          title="Calendrier non connecté"
+          description="Connecte Google Calendar pour voir ta journée."
           cta={{ label: "Connecter le calendrier →", href: "/apps#calendar" }}
         />
       )}

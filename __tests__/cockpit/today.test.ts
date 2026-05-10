@@ -12,8 +12,8 @@ const mocks = vi.hoisted(() => ({
   getApplicableReports: vi.fn(),
   getAllServiceIds: vi.fn(),
   getProviderIdForService: vi.fn(),
-  getLiveWatchlist: vi.fn(),
   getLiveAgenda: vi.fn(),
+  getTokens: vi.fn(),
 }));
 
 vi.mock("@/lib/memory/conversation-summary", () => ({
@@ -41,12 +41,12 @@ vi.mock("@/lib/integrations/service-map", () => ({
   getProviderIdForService: mocks.getProviderIdForService,
 }));
 
-vi.mock("@/lib/cockpit/watchlist-live", () => ({
-  getLiveWatchlist: mocks.getLiveWatchlist,
-}));
-
 vi.mock("@/lib/cockpit/agenda-live", () => ({
   getLiveAgenda: mocks.getLiveAgenda,
+}));
+
+vi.mock("@/lib/platform/auth/tokens", () => ({
+  getTokens: mocks.getTokens,
 }));
 
 // Le catalog reste réel — on a besoin de CATALOG.slice() pour favorites,
@@ -78,8 +78,8 @@ describe("getCockpitToday", () => {
     mocks.getApplicableReports.mockReturnValue([]);
     mocks.getAllServiceIds.mockReturnValue([]);
     mocks.getProviderIdForService.mockReturnValue(undefined);
-    mocks.getLiveWatchlist.mockResolvedValue([]); // fallback mock
     mocks.getLiveAgenda.mockResolvedValue([]);
+    mocks.getTokens.mockResolvedValue({ refreshToken: null, accessToken: null, expiresAt: 0 });
   });
 
   it("retourne un payload complet avec toutes les sections", async () => {
@@ -87,21 +87,13 @@ describe("getCockpitToday", () => {
 
     expect(payload).toHaveProperty("briefing");
     expect(payload).toHaveProperty("agenda");
+    expect(payload).toHaveProperty("calendarConnected");
     expect(payload).toHaveProperty("missionsRunning");
-    expect(payload).toHaveProperty("watchlist");
     expect(payload).toHaveProperty("suggestions");
     expect(payload).toHaveProperty("favoriteReports");
-    expect(payload).toHaveProperty("mockSections");
+    expect(payload).toHaveProperty("inbox");
     expect(payload).toHaveProperty("generatedAt");
     expect(typeof payload.generatedAt).toBe("number");
-  });
-
-  it("renvoie une watchlist vide quand Stripe/HubSpot ne sont pas connectés (Phase B3 — empty state honnête, plus de mock)", async () => {
-    const payload = await getCockpitToday(SCOPE);
-    expect(payload.watchlist).toHaveLength(0);
-    // mockSections doit toujours flagger watchlist comme "non live" pour
-    // que l'UI sache afficher l'empty state CTA.
-    expect(payload.mockSections).toContain("watchlist");
   });
 
   it("retourne les 3 premiers reports du catalogue comme favoris", async () => {
@@ -234,8 +226,6 @@ describe("getCockpitToday", () => {
     expect(payload.missionsRunning).toEqual([]);
     // Suggestions fallback
     expect(payload.suggestions).toEqual([]);
-    // Watchlist : empty state (Phase B3 — plus de mock fallback)
-    expect(payload.watchlist).toHaveLength(0);
     // Favorites toujours là (catalog pur)
     expect(payload.favoriteReports.length).toBeGreaterThan(0);
   });

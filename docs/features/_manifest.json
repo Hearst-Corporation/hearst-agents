@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-10T00:51:56.679Z",
+  "generatedAt": "2026-05-10T01:11:41.400Z",
   "total": 32,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 358,
-    "testsExistants": 1628,
+    "testsExistants": 1620,
     "testsManquants": 189,
     "orphans": 12
   },
   "actualTests": {
-    "files": 255,
-    "cases": 2274,
+    "files": 252,
+    "cases": 2252,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -241,9 +241,9 @@
         "I-7. RSC prefetch + client refetch",
         "I-8. Pivot visuel \"silent luxury OS\" (v1.4 → v1.5)"
       ],
-      "testsExistantsCount": 64,
-      "testsOnDisk": 64,
-      "testFilesOnDisk": 5,
+      "testsExistantsCount": 59,
+      "testsOnDisk": 59,
+      "testFilesOnDisk": 4,
       "testsDocExistants": 3,
       "testsManquantsCount": 7,
       "testGap": "faible",
@@ -459,8 +459,8 @@
         "I-7. Banner mode démo doit rester visible tant qu'aucun PMS n'est connecté",
         "I-8. Sources ReportSpec hospitality = kind \"composio\", action PMS_*"
       ],
-      "testsExistantsCount": 9,
-      "testsOnDisk": 9,
+      "testsExistantsCount": 6,
+      "testsOnDisk": 6,
       "testFilesOnDisk": 1,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,

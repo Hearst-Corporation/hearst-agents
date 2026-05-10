@@ -1,41 +1,8 @@
 /**
- * Tests — hospitality vertical.
- * Industry detection (memory fallback) + briefing enrichment via getCockpitToday.
+ * Tests — hospitality vertical (industry detection + vocabulary).
+ * Le payload Cockpit n'expose plus de section hospitality (pivot v1.6).
  */
-import { describe, it, expect, beforeEach, vi } from "vitest";
-
-const mocks = vi.hoisted(() => ({
-  getSummary: vi.fn(),
-  getAllMissionOps: vi.fn(),
-  getScheduledMissions: vi.fn(),
-  getMemoryMissions: vi.fn(),
-  getConnectionsByScope: vi.fn(),
-  getApplicableReports: vi.fn(),
-  getAllServiceIds: vi.fn(),
-  getProviderIdForService: vi.fn(),
-}));
-
-vi.mock("@/lib/memory/conversation-summary", () => ({ getSummary: mocks.getSummary }));
-vi.mock("@/lib/engine/runtime/missions/ops-store", () => ({
-  getAllMissionOps: mocks.getAllMissionOps,
-}));
-vi.mock("@/lib/engine/runtime/state/adapter", () => ({
-  getScheduledMissions: mocks.getScheduledMissions,
-}));
-vi.mock("@/lib/engine/runtime/missions/store", () => ({
-  getAllMissions: mocks.getMemoryMissions,
-}));
-vi.mock("@/lib/connectors/control-plane/store", () => ({
-  getConnectionsByScope: mocks.getConnectionsByScope,
-}));
-vi.mock("@/lib/integrations/service-map", () => ({
-  getAllServiceIds: mocks.getAllServiceIds,
-  getProviderIdForService: mocks.getProviderIdForService,
-}));
-vi.mock("@/lib/reports/catalog", async (importOriginal) => {
-  const actual = (await importOriginal()) as typeof import("@/lib/reports/catalog");
-  return { ...actual, getApplicableReports: mocks.getApplicableReports };
-});
+import { describe, it, expect, beforeEach } from "vitest";
 
 import {
   getTenantIndustry,
@@ -45,26 +12,10 @@ import {
   HOSPITALITY_VOCABULARY,
   HOSPITALITY_KPIS,
 } from "@/lib/verticals/hospitality";
-import { getCockpitToday } from "@/lib/cockpit/today";
-
-const SCOPE = {
-  userId: "user-1",
-  tenantId: "tenant-hospitality",
-  workspaceId: "ws-1",
-};
 
 describe("hospitality — industry detection", () => {
   beforeEach(() => {
     __resetHospitalityCache();
-    Object.values(mocks).forEach((m) => m.mockReset());
-    mocks.getSummary.mockResolvedValue("");
-    mocks.getAllMissionOps.mockReturnValue(new Map());
-    mocks.getScheduledMissions.mockResolvedValue([]);
-    mocks.getMemoryMissions.mockReturnValue([]);
-    mocks.getConnectionsByScope.mockResolvedValue([]);
-    mocks.getApplicableReports.mockReturnValue([]);
-    mocks.getAllServiceIds.mockReturnValue([]);
-    mocks.getProviderIdForService.mockReturnValue(undefined);
   });
 
   it("default industry est 'general' quand non défini", async () => {
@@ -101,55 +52,5 @@ describe("hospitality — industry detection", () => {
     expect(HOSPITALITY_KPIS).toContain("occupancy");
     expect(HOSPITALITY_KPIS).toContain("revpar");
     expect(HOSPITALITY_KPIS).toContain("guest_satisfaction_nps");
-  });
-});
-
-describe("hospitality — briefing enrichment via getCockpitToday", () => {
-  beforeEach(() => {
-    __resetHospitalityCache();
-    Object.values(mocks).forEach((m) => m.mockReset());
-    mocks.getSummary.mockResolvedValue("");
-    mocks.getAllMissionOps.mockReturnValue(new Map());
-    mocks.getScheduledMissions.mockResolvedValue([]);
-    mocks.getMemoryMissions.mockReturnValue([]);
-    mocks.getConnectionsByScope.mockResolvedValue([]);
-    mocks.getApplicableReports.mockReturnValue([]);
-    mocks.getAllServiceIds.mockReturnValue([]);
-    mocks.getProviderIdForService.mockReturnValue(undefined);
-  });
-
-  it("payload.industry === 'general' par défaut, hospitality null", async () => {
-    const payload = await getCockpitToday(SCOPE);
-    expect(payload.industry).toBe("general");
-    expect(payload.hospitality).toBeNull();
-    expect(payload.mockSections).not.toContain("hospitality");
-  });
-
-  it("payload.hospitality enrichi quand tenant industry === 'hospitality'", async () => {
-    await setTenantIndustry(SCOPE.tenantId, "hospitality");
-    const payload = await getCockpitToday(SCOPE);
-
-    expect(payload.industry).toBe("hospitality");
-    expect(payload.hospitality).not.toBeNull();
-    expect(payload.hospitality!.occupancy).toBeGreaterThan(0);
-    expect(payload.hospitality!.adr).toBeGreaterThan(0);
-    expect(payload.hospitality!.revpar).toBeGreaterThan(0);
-    expect(payload.hospitality!.vipArrivals.length).toBeGreaterThan(0);
-    expect(payload.hospitality!.vipArrivals.every((a) => a.guestName.length > 0)).toBe(
-      true,
-    );
-    expect(payload.hospitality!.source).toBe("demo");
-    expect(payload.mockSections).toContain("hospitality");
-  });
-
-  it("fail-soft : industry detection en erreur ne casse pas le payload", async () => {
-    await setTenantIndustry(SCOPE.tenantId, "hospitality");
-    // Force une erreur en mockant la lecture industry sans ce qui suit
-    // (ici on s'appuie sur le wrapper safe — pas d'opportunité directe de
-    // simuler l'erreur sans extraire un mock supplémentaire). On vérifie
-    // simplement que le payload reste bien formé même si hospitality null.
-    const payload = await getCockpitToday(SCOPE);
-    expect(payload).toHaveProperty("industry");
-    expect(payload).toHaveProperty("hospitality");
   });
 });

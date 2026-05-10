@@ -31,10 +31,9 @@ interface CockpitStageProps {
 function logCockpitSyncedDev(payload: CockpitTodayPayload) {
   if (process.env.NODE_ENV !== "development") return;
   console.info("[CockpitStage] cockpit/today synchronisé", {
-    assets: payload.counts.assets,
-    missions: payload.counts.missions,
-    reports: payload.counts.reports,
     missionsRunning: payload.missionsRunning.length,
+    agendaCount: payload.agenda.length,
+    suggestions: payload.suggestions.length,
     generatedAt: payload.generatedAt,
   });
 }
@@ -107,43 +106,15 @@ export function CockpitStage({ initialData = null }: CockpitStageProps = {}) {
     };
   }, [applyCockpitPayload]);
 
-  const isHospitality = data?.industry === "hospitality";
-
-  // Polling 60s — maintient les KPIs à jour sans reload de page
+  // Polling 60s — maintient le cockpit à jour sans reload de page
   usePollingEffect(refetch, 60_000, [], { enabled: true, immediate: false });
 
   return (
     <div className="flex-1 flex flex-col min-h-0 relative overflow-hidden">
       <OnboardingTour />
-      {isHospitality && <HospitalityBadge />}
       {loading && <CockpitSkeleton />}
       {!loading && error && <CockpitErrorState message={error} />}
       {!loading && !error && data && <CockpitHome data={data} />}
-    </div>
-  );
-}
-
-function HospitalityBadge() {
-  return (
-    <div
-      className="flex items-center justify-end"
-      style={{
-        padding: "var(--space-3) var(--space-12) 0",
-      }}
-    >
-      <a
-        href="/hospitality"
-        className="t-11 font-light transition-opacity hover:opacity-80"
-        style={{
-          color: "var(--gold)",
-          padding: "var(--space-1) var(--space-3)",
-          border: "1px solid var(--gold-border)",
-          borderRadius: "var(--radius-pill)",
-          background: "var(--gold-surface)",
-        }}
-      >
-        Hospitality
-      </a>
     </div>
   );
 }

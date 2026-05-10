@@ -1,41 +1,31 @@
 /**
- * Cockpit "Today" — Orchestrateur d'agrégation pour la home Stage.
+ * Cockpit "Today" — Orchestrateur d'agrégation pour la home Cockpit.
  *
- * Compose un payload unique consommé par /api/v2/cockpit/today qui alimente
- * le CockpitStage (Hero briefing + Watchlist KPIs + Missions running +
- * Suggestions + Reports favoris + Agenda).
+ * Pivot v1.6 (2026-05-10, "OS humain") : suppression watchlist KPIs founder
+ * (MRR/ARR/Runway/Pipeline), hospitality vertical, counts assets/missions/
+ * reports en hero. La home redevient un OS personnel : briefing humain,
+ * agenda du jour, ce que l'agent fait, suggestions douces "quand tu auras 5 min".
  *
- * Fail-soft : chaque source est isolée. Une erreur sur l'une ne casse pas
- * les autres — la section apparaîtra simplement vide (ou en empty state).
+ * Fail-soft : chaque source est isolée. Une erreur sur l'une n'impacte pas
+ * les autres.
  *
- * Sources actuelles :
- *  - Briefing : conversation-summary (sans appel LLM ici, on lit juste le
- *    cache existant pour éviter le coût d'un Anthropic call sur chaque
- *    chargement de la home).
- *  - Missions running : ops-store + state adapter.
- *  - Reports favoris : top du catalogue (pas de signal d'usage encore
- *    persisté → on retourne les premiers du CATALOG comme proxy pour MVP).
- *  - Suggestions : applicable reports calculées via connections + catalog.
- *  - Watchlist & Agenda : MOCK pour MVP (sources live = phase B).
+ * Sources :
+ *  - Briefing : conversation-summary (cache existant, pas d'appel LLM ici).
+ *  - Agenda : Google Calendar live (Composio ou SSO natif), fenêtre 24h.
+ *  - Agent working : missions running + planifiées du jour.
+ *  - Suggestions : applicable reports + signaux contextuels.
  */
 
 import { CATALOG, getApplicableReports } from "@/lib/reports/catalog";
 import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
 import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
-import { getAssets } from "@/lib/engine/runtime/assets/adapter";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
 import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
 import { getSummary } from "@/lib/memory/conversation-summary";
 import { loadLatestInboxBrief } from "@/lib/inbox/store";
+import { getTokens } from "@/lib/platform/auth/tokens";
 import type { InboxBrief } from "@/lib/inbox/inbox-brief";
-import { getTenantIndustry, type TenantIndustry } from "@/lib/verticals/hospitality";
-import {
-  getMockKpiSnapshot,
-  getMockArrivals,
-  getMockServiceRequests,
-} from "@/lib/verticals/hospitality/mock-data";
-import { getLiveWatchlist } from "./watchlist-live";
 import { getLiveAgenda } from "./agenda-live";
 
 interface CockpitScope {
@@ -50,28 +40,6 @@ interface CockpitBriefing {
   generatedAt: number | null;
   /** True quand on n'a aucun signal user → on affiche un empty state CTA. */
   empty: boolean;
-}
-
-export interface CockpitWatchlistItem {
-  id: string;
-  label: string;
-  value: string;
-  delta: string | null;
-  /** Variation sur 7 derniers points (sparkline). */
-  trend: number[];
-  source: "mock" | "live";
-  /**
-   * Anomaly détectée vs baseline 7j (vague 9, action #3). Présent uniquement
-   * quand la métrique est numérique, qu'on a ≥ 2 snapshots historiques, et
-   * que la variation dépasse 5%. La `narration` est une phrase courte
-   * (≤140 chars) générée par Haiku qui contextualise causalement le mouvement.
-   */
-  anomaly?: {
-    changePct: number;
-    direction: "up" | "down";
-    severity: "warning" | "critical";
-    narration: string;
-  } | null;
 }
 
 interface CockpitMission {
@@ -113,62 +81,16 @@ interface CockpitInboxSection {
   needsConnection: boolean;
 }
 
-interface CockpitHospitalityVipArrival {
-  guestName: string;
-  room: string;
-  eta: string;
-  specialRequest: string | null;
-}
-
-interface CockpitHospitalityServiceRequest {
-  id: string;
-  guestName: string;
-  room: string;
-  type: string;
-  priority: "low" | "normal" | "urgent";
-  text: string;
-}
-
-interface CockpitHospitalitySection {
-  occupancy: number;
-  occupancyYesterday: number;
-  occupancyForecast: number;
-  adr: number;
-  revpar: number;
-  arrivalsCount: number;
-  vipCount: number;
-  pendingServiceRequests: number;
-  vipArrivals: CockpitHospitalityVipArrival[];
-  urgentRequests: CockpitHospitalityServiceRequest[];
-  /** "demo" tant qu'aucun PMS connecté — UI peut afficher un badge. */
-  source: "demo" | "live";
-}
-
-interface CockpitCounts {
-  /** Total assets dans la bibliothèque (tous types confondus). */
-  assets: number;
-  /** Total missions planifiées (enabled ou non). */
-  missions: number;
-  /** Sous-ensemble des assets dont type === "report". */
-  reports: number;
-}
-
 export interface CockpitTodayPayload {
   briefing: CockpitBriefing;
   agenda: CockpitAgendaItem[];
+  /** True si l'user a un refresh token Google (NextAuth) ou une connexion
+   *  Composio "google"/"gmail". */
+  calendarConnected: boolean;
   missionsRunning: CockpitMission[];
-  watchlist: CockpitWatchlistItem[];
   suggestions: CockpitSuggestion[];
   favoriteReports: CockpitFavoriteReport[];
   inbox: CockpitInboxSection;
-  /** Compteurs globaux pour la home Cockpit (poster éditorial). */
-  counts: CockpitCounts;
-  /** Industry du tenant — drive l'affichage de sections verticales. */
-  industry: TenantIndustry;
-  /** Présent uniquement si industry === "hospitality". */
-  hospitality: CockpitHospitalitySection | null;
-  /** Sections qui sont en mock (UI peut afficher un badge "demo data"). */
-  mockSections: ReadonlyArray<"watchlist" | "agenda" | "hospitality">;
   generatedAt: number;
 }
 
@@ -179,7 +101,6 @@ const MAX_AGENDA_ITEMS = 4;
 
 /**
  * Fail-soft wrapper : exécute le getter, retourne fallback si throw.
- * Centralisé pour cohérence + log unique.
  */
 async function safe<T>(label: string, fn: () => Promise<T> | T, fallback: T): Promise<T> {
   try {
@@ -202,11 +123,6 @@ async function buildBriefing(scope: CockpitScope): Promise<CockpitBriefing> {
     };
   }
 
-  // getSummary peut retourner soit un vrai briefing structuré (LLM-généré
-  // avec doubles newlines), soit la concaténation brute des messages d'une
-  // conversation. On extrait headline + premier paragraphe utile et on cap
-  // à 360 chars max pour garder le cockpit lisible (le briefing complet
-  // reste accessible via Voice ou /assets briefings).
   const trimmed = summary.trim();
   const split = trimmed.split(/\n{2,}/);
   const firstNonEmpty = split.find((p) => p.trim().length > 0) ?? trimmed;
@@ -230,8 +146,6 @@ async function buildBriefing(scope: CockpitScope): Promise<CockpitBriefing> {
 async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission[]> {
   const opsMap = getAllMissionOps();
 
-  // Pour résoudre nom + scope d'une op (la map ne stocke que l'état runtime),
-  // on join sur les missions persistées + en mémoire.
   let missions = await safe(
     "missions.scheduled",
     () =>
@@ -280,10 +194,6 @@ async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission
     };
   });
 
-  // Inclure aussi les ops orphelines (mission absente du store persisté
-  // mais présente dans la map runtime — ex: mission lancée puis le scheduler
-  // a redémarré et perdu sa référence). On évite ainsi un cockpit "vide"
-  // alors que des jobs tournent vraiment.
   for (const [missionId, op] of opsMap.entries()) {
     if (knownIds.has(missionId)) continue;
     enriched.push({
@@ -296,7 +206,6 @@ async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission
     });
   }
 
-  // Tri : running first, puis par lastRunAt desc.
   enriched.sort((a, b) => {
     if (a.status === "running" && b.status !== "running") return -1;
     if (b.status === "running" && a.status !== "running") return 1;
@@ -354,22 +263,12 @@ async function buildSuggestions(scope: CockpitScope): Promise<CockpitSuggestion[
 }
 
 function buildFavoriteReports(): CockpitFavoriteReport[] {
-  // MVP : on prend les 3 premiers du catalog comme "favoris par défaut".
-  // Phase B : ranking par usage utilisateur (table report_runs).
   return CATALOG.slice(0, MAX_FAVORITE_REPORTS).map((c) => ({
     id: c.id,
     title: c.title,
     domain: String(c.domain),
   }));
 }
-
-// Watchlist mock retiré 2026-05-01 (Phase B3) — getLiveWatchlist gère
-// déjà tout. Si Stripe/HubSpot ne sont pas connectés via Composio, la
-// watchlist remonte vide ; l'UI affiche un empty state honnête avec CTA
-// vers /apps. Plus de fake KPI à "—" qui camouflait la vraie cause.
-
-// Agenda mock retiré — l'agenda live (lib/cockpit/agenda-live.ts) gère
-// déjà le fallback vide quand Calendar n'est pas connecté.
 
 const INBOX_STALE_MS = 60 * 60_000; // 1h
 
@@ -401,7 +300,6 @@ async function buildInbox(scope: CockpitScope): Promise<CockpitInboxSection> {
   const ageMs = brief ? Date.now() - brief.generatedAt : Infinity;
   const stale = !brief || ageMs > INBOX_STALE_MS;
 
-  // Filtre les snoozed jusqu'à demain
   const filteredItems = brief
     ? brief.items.filter((it) => !it.snoozedUntil || it.snoozedUntil <= Date.now())
     : [];
@@ -413,43 +311,30 @@ async function buildInbox(scope: CockpitScope): Promise<CockpitInboxSection> {
   };
 }
 
-function buildHospitalitySection(): CockpitHospitalitySection {
-  const snap = getMockKpiSnapshot();
-  const arrivals = getMockArrivals();
-  const requests = getMockServiceRequests();
-  return {
-    occupancy: snap.occupancy,
-    occupancyYesterday: snap.occupancyYesterday,
-    occupancyForecast: snap.occupancyForecast,
-    adr: snap.adr,
-    revpar: snap.revpar,
-    arrivalsCount: snap.arrivalsCount,
-    vipCount: snap.vipCount,
-    pendingServiceRequests: snap.pendingServiceRequests,
-    vipArrivals: arrivals
-      .filter((a) => a.vip)
-      .map((a) => ({
-        guestName: a.guestName,
-        room: a.room,
-        eta: a.eta,
-        specialRequest: a.specialRequest,
-      })),
-    urgentRequests: requests
-      .filter((r) => r.priority === "urgent")
-      .map((r) => ({
-        id: r.id,
-        guestName: r.guestName,
-        room: r.room,
-        type: r.type,
-        priority: r.priority,
-        text: r.text,
-      })),
-    source: "demo",
-  };
+async function isCalendarConnected(scope: CockpitScope): Promise<boolean> {
+  try {
+    const tokens = await getTokens(scope.userId);
+    if (tokens.refreshToken) return true;
+  } catch {
+    // ignore — fallback Composio
+  }
+
+  try {
+    const conns = await getConnectionsByScope({
+      tenantId: scope.tenantId,
+      workspaceId: scope.workspaceId,
+      userId: scope.userId,
+    });
+    return conns.some(
+      (c) => c.status === "connected" && (c.provider === "google" || c.provider === "gmail"),
+    );
+  } catch {
+    return false;
+  }
 }
 
 export async function getCockpitToday(scope: CockpitScope): Promise<CockpitTodayPayload> {
-  const [briefing, missionsRunning, suggestions, inbox, industry, allAssets, allMissions] = await Promise.all([
+  const [briefing, missionsRunning, suggestions, inbox, calendarConnected, agenda] = await Promise.all([
     safe("briefing", () => buildBriefing(scope), {
       headline: "Bienvenue",
       body: null,
@@ -463,86 +348,24 @@ export async function getCockpitToday(scope: CockpitScope): Promise<CockpitToday
       () => buildInbox(scope),
       { brief: null, stale: true, needsConnection: false } satisfies CockpitInboxSection,
     ),
-    safe<TenantIndustry>("industry", () => getTenantIndustry(scope.tenantId), "general"),
+    safe("calendarConnected", () => isCalendarConnected(scope), false),
     safe(
-      "counts.assets",
-      () => getAssets({ tenantId: scope.tenantId, workspaceId: scope.workspaceId, limit: 500 }),
-      [] as Awaited<ReturnType<typeof getAssets>>,
-    ),
-    safe(
-      "counts.missions",
-      () =>
-        getScheduledMissions({
-          userId: scope.userId,
-          tenantId: scope.tenantId,
-          workspaceId: scope.workspaceId,
-        }),
-      [] as Awaited<ReturnType<typeof getScheduledMissions>>,
+      "agenda.live",
+      () => getLiveAgenda({ userId: scope.userId, tenantId: scope.tenantId }),
+      [] as CockpitAgendaItem[],
     ),
   ]);
 
-  const counts: CockpitCounts = {
-    assets: allAssets.length,
-    reports: allAssets.filter((a) => a.type === "report").length,
-    missions: allMissions.length,
-  };
-
   const favoriteReports = buildFavoriteReports();
-
-  // Watchlist live (Stripe + HubSpot via Composio) — fail-soft : si throw
-  // global, on retourne `[]` plutôt qu'un mock à 4 cards "—". L'UI rend
-  // alors un empty state honnête ("Connecte Stripe + HubSpot pour activer
-  // ta watchlist") plutôt que de camoufler la cause derrière des fake KPI.
-  const liveWatchlist = await safe(
-    "watchlist.live",
-    () => getLiveWatchlist({ userId: scope.userId, tenantId: scope.tenantId }),
-    [] as CockpitWatchlistItem[],
-  );
-  const watchlist = liveWatchlist;
-
-  // Agenda live (Google Calendar via Composio) — fallback empty si throw.
-  const liveAgenda = await safe(
-    "agenda.live",
-    () => getLiveAgenda({ userId: scope.userId, tenantId: scope.tenantId }),
-    [] as CockpitAgendaItem[],
-  );
-  const agenda = liveAgenda.slice(0, MAX_AGENDA_ITEMS);
-
-  const isHospitality = industry === "hospitality";
-  const hospitality = isHospitality
-    ? safeSync("hospitality", () => buildHospitalitySection(), null)
-    : null;
-
-  // Watchlist vide = pas de connecteur Stripe/HubSpot ou throw global.
-  // L'UI affiche un empty state CTA → /apps. Plus de mock fallback.
-  const watchlistIsLive = liveWatchlist.length > 0;
-  const agendaIsLive = liveAgenda.length > 0;
-  const mockSections: Array<"watchlist" | "agenda" | "hospitality"> = [];
-  if (!watchlistIsLive) mockSections.push("watchlist");
-  if (!agendaIsLive) mockSections.push("agenda");
-  if (hospitality) mockSections.push("hospitality");
 
   return {
     briefing,
-    agenda,
+    agenda: agenda.slice(0, MAX_AGENDA_ITEMS),
+    calendarConnected,
     missionsRunning,
-    watchlist,
     suggestions,
     favoriteReports,
     inbox,
-    counts,
-    industry,
-    hospitality,
-    mockSections,
     generatedAt: Date.now(),
   };
-}
-
-function safeSync<T>(label: string, fn: () => T, fallback: T): T {
-  try {
-    return fn();
-  } catch (err) {
-    console.warn(`[cockpit/today] sync source "${label}" en erreur, fallback:`, err);
-    return fallback;
-  }
 }
