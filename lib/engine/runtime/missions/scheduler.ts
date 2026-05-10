@@ -18,10 +18,17 @@ import { getEnabledMissions, addMission, getAllMissions, updateMissionLastRun } 
 import { getScheduledMissions, updateScheduledMission as persistUpdateMission } from "../state/adapter";
 import { isMissionRunning, markMissionRunning, markMissionCompleted } from "./lease";
 import { tryAcquireMissionLease, releaseMissionLease } from "./distributed-lease";
-import { setMissionRunning as opsRunning, setMissionResult as opsResult } from "./ops-store";
+import {
+  setMissionRunning as opsRunning,
+  setMissionResult as opsResult,
+  setMissionDrift,
+  clearMissionDrift,
+  getMissionDrift,
+} from "./ops-store";
 import { normalizeMissionResult } from "./normalize-result";
 import { INSTANCE_ID } from "../instance-id";
 import { buildExportJobPayload, runExportScheduledReportJob } from "./export-job";
+import { analyzeMissionDrift, generateDriftNarration } from "@/lib/cockpit/drift-detection";
 
 const POLL_INTERVAL_MS = 60_000;
 const triggeredThisMinute = new Set<string>();
@@ -184,6 +191,15 @@ async function tick(
 
       if (result.status === "success") {
         console.log(`[Scheduler] Mission "${mission.name}" completed → run ${runId}`);
+        // ── Drift Alert (S3-E) ─────────────────────────────────
+        // Fire-and-forget : la détection de drift et la notification ne
+        // doivent jamais bloquer le tick suivant ni faire échouer le run.
+        runDriftHook(mission).catch((err) => {
+          console.warn(
+            `[Scheduler] Drift hook failed for mission "${mission.name}":`,
+            err,
+          );
+        });
         // ── Webhook mission.completed (fire-and-forget) ───────
         try {
           const { dispatchWebhookEvent } = await import("@/lib/webhooks/dispatcher");
@@ -277,6 +293,76 @@ export function stopScheduler(): void {
     clearInterval(intervalId);
     intervalId = null;
     console.log("[Scheduler] Stopped");
+  }
+}
+
+// ── Drift Alert (S3-E) ─────────────────────────────────────
+
+/**
+ * Re-notifie au plus 1× toutes les `DRIFT_RENOTIFY_COOLDOWN_MS`. Tant que le
+ * drift persiste, on conserve le badge UI mais on ne pousse pas de nouvelle
+ * notification ; la séquence est "rearmée" dès qu'un run franc reset le
+ * compteur.
+ */
+const DRIFT_RENOTIFY_COOLDOWN_MS = 24 * 60 * 60_000;
+
+async function runDriftHook(mission: ScheduledMission): Promise<void> {
+  const analysis = await analyzeMissionDrift(mission.id);
+
+  // Pas de drift détecté → on s'assure que l'état UI est nettoyé.
+  if (analysis.consecutiveStaleRuns < 3) {
+    clearMissionDrift(mission.id);
+    return;
+  }
+
+  const previous = getMissionDrift(mission.id);
+  const now = Date.now();
+  const inCooldown = previous && now - previous.notifiedAt < DRIFT_RENOTIFY_COOLDOWN_MS;
+  // Si on était déjà en drift sur la même longueur de séquence, on évite de
+  // repousser la même narration : c'est le même alert state.
+  const sameSequence = previous && previous.staleRuns === analysis.consecutiveStaleRuns;
+
+  // Génère la narration (cache 1h en interne).
+  const suggestion = await generateDriftNarration(mission.name, analysis.consecutiveStaleRuns);
+
+  // Met à jour l'état ops (badge UI), avec timestamp préservé si on
+  // ne renotifie pas, sinon avec le nouveau now.
+  const shouldNotify = !inCooldown || !sameSequence;
+  setMissionDrift(mission.id, {
+    staleRuns: analysis.consecutiveStaleRuns,
+    suggestion,
+    lastChangeAt: analysis.lastChangeAt,
+    notifiedAt: shouldNotify ? now : previous?.notifiedAt ?? now,
+  });
+
+  if (!shouldNotify) return;
+
+  // Push notification in-app (fire-and-forget). On réutilise le canal "signal"
+  // existant pour ne pas avoir à migrer le schéma `in_app_notifications` ;
+  // `meta.signal_type = "mission_drift"` permet aux clients de filtrer.
+  try {
+    const [{ requireServerSupabase }, { createNotification }] = await Promise.all([
+      import("@/lib/platform/db/supabase"),
+      import("@/lib/notifications/in-app"),
+    ]);
+    const sb = requireServerSupabase();
+    void createNotification(sb, {
+      tenantId: mission.tenantId,
+      userId: mission.userId,
+      kind: "signal",
+      severity: "info",
+      title: "Drift détecté",
+      body: suggestion,
+      meta: {
+        signal_type: "mission_drift",
+        mission_id: mission.id,
+        mission_name: mission.name,
+        stale_runs: analysis.consecutiveStaleRuns,
+        last_change_at: analysis.lastChangeAt,
+      },
+    });
+  } catch (err) {
+    console.warn(`[Scheduler] Drift notification failed for ${mission.id}:`, err);
   }
 }
 
