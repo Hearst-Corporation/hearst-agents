@@ -91,7 +91,7 @@ async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
   return null;
 }
 
-export async function middleware(req: NextRequest): Promise<NextResponse> {
+export async function proxy(req: NextRequest): Promise<NextResponse> {
   const path = req.nextUrl.pathname;
 
   // 1. Arcjet check sur les routes sensibles (avant auth pour bloquer
