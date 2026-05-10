@@ -158,10 +158,3 @@ export const BUILTIN_PERSONAS: Persona[] = [
   },
 ];
 
-/**
- * Retourne la persona builtin pour une surface, ou null.
- * Utilisé par l'orchestrator quand aucun personaId explicite n'est passé.
- */
-export function builtinPersonaForSurface(surface: string): Persona | null {
-  return BUILTIN_PERSONAS.find((p) => p.surface === surface) ?? null;
-}

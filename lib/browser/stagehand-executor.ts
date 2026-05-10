@@ -512,10 +512,6 @@ async function extractStructured(opts: {
 
 let executorOverride: BrowserExecutor | null = null;
 
-export function setBrowserExecutor(exec: BrowserExecutor | null): void {
-  executorOverride = exec;
-}
-
 export function getBrowserExecutor(): BrowserExecutor {
   return executorOverride ?? new DefaultBrowserExecutor();
 }

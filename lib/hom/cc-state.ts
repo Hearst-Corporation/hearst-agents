@@ -55,12 +55,6 @@ function defaultCC(): CommandCenterState {
   };
 }
 
-export async function writeCC(state: CommandCenterState): Promise<void> {
-  state.ts = nowIso();
-  state.master_heartbeat = nowIso();
-  await writeJson(HOM.ccState, state);
-}
-
 export async function patchCC(
   patch: Partial<CommandCenterState>,
 ): Promise<CommandCenterState> {

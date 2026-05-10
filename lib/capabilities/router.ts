@@ -223,13 +223,4 @@ function surfaceToDomain(surface: string): Domain {
   }
 }
 
-// ── Tool Intent Resolution ───────────────────────────────────
-
-export type ToolIntent =
-  | "generate_image"
-  | "execute_code"
-  | "parse_document"
-  | "generate_video"
-  | "search_web"
-  | null;
 

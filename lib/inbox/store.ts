@@ -11,7 +11,6 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { storeAsset } from "@/lib/assets/types";
 import type { InboxBrief, InboxItem } from "./inbox-brief";
 
 interface AssetRow {
@@ -62,72 +61,4 @@ export async function loadLatestInboxBrief(userId: string): Promise<InboxBrief |
   return null;
 }
 
-export interface SnoozeResult {
-  ok: boolean;
-  assetId?: string;
-  error?: string;
-}
 
-/**
- * Snooze un item — re-stocke l'asset avec snoozedUntil mis à jour.
- * Crée un nouveau row asset (immutable trail) plutôt que d'updater.
- */
-export async function snoozeInboxItem(params: {
-  userId: string;
-  tenantId: string;
-  workspaceId: string;
-  itemId: string;
-  /** Timestamp ms de fin de snooze (par défaut demain 8h locale). */
-  until?: number;
-}): Promise<SnoozeResult> {
-  const brief = await loadLatestInboxBrief(params.userId);
-  if (!brief) return { ok: false, error: "no_brief" };
-
-  const until = params.until ?? defaultSnoozeUntil();
-
-  const updated: InboxItem[] = brief.items.map((it) =>
-    it.id === params.itemId ? { ...it, snoozedUntil: until } : it,
-  );
-
-  if (updated.find((it) => it.id === params.itemId) === undefined) {
-    return { ok: false, error: "item_not_found" };
-  }
-
-  const newBrief: InboxBrief = {
-    items: updated,
-    generatedAt: brief.generatedAt,
-    sources: brief.sources,
-    empty: brief.empty,
-  };
-
-  const { randomUUID } = await import("node:crypto");
-  const newAssetId = randomUUID();
-  await storeAsset({
-    id: newAssetId,
-    threadId: `inbox:${params.userId}`,
-    kind: "inbox_brief",
-    title: `Inbox · ${new Date(brief.generatedAt).toLocaleTimeString("fr-FR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })} (snooze)`,
-    summary: `${updated.length} signaux`,
-    contentRef: JSON.stringify(newBrief),
-    createdAt: Date.now(),
-    provenance: {
-      providerId: "system",
-      userId: params.userId,
-      tenantId: params.tenantId,
-      workspaceId: params.workspaceId,
-    },
-  });
-
-  return { ok: true, assetId: newAssetId };
-}
-
-function defaultSnoozeUntil(): number {
-  // demain 8h locale
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  d.setHours(8, 0, 0, 0);
-  return d.getTime();
-}

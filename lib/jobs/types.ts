@@ -207,15 +207,3 @@ export interface JobResult {
   metadata?: Record<string, unknown>;
 }
 
-// ── Progress events streamés vers le client ──────────────────
-
-export interface JobProgressEvent {
-  jobId: string;
-  jobKind: JobKind;
-  /** 0–100 ; 100 = ready, mais l'event final peut aussi être "failed". */
-  progress: number;
-  message?: string;
-  assetId?: string;
-  variantId?: string;
-  status?: "pending" | "running" | "ready" | "failed";
-}

@@ -39,12 +39,6 @@ export type ServiceTier = "tier_1" | "tier_2" | "tier_3";
 export type ServiceStatus = "active" | "beta" | "planned" | "connected" | "disconnected";
 export type IntegrationType = "native" | "hybrid";
 
-export interface ServiceCategory {
-  id: string;
-  label: string;
-  icon: string;
-}
-
 export interface ServiceDefinition {
   id: ServiceId;
   name: string;

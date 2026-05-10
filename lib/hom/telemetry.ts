@@ -118,12 +118,6 @@ export async function writeLog(event: LogEvent): Promise<void> {
   }
 }
 
-export async function writeMetric(sample: MetricSample): Promise<void> {
-  const day = todayUtc();
-  const file = path.join(HOM.metrics, `${day}.jsonl`);
-  await appendJsonl(file, sample);
-}
-
 export async function ensureTelemetryDirs(): Promise<void> {
   const day = todayUtc();
   await ensureDir(path.join(HOM.traces, day));

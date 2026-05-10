@@ -128,13 +128,3 @@ export async function getSummary(userId: string): Promise<string> {
   }
 }
 
-export async function clearSummary(userId: string): Promise<void> {
-  const redis = getRedis();
-  if (!redis) return;
-
-  try {
-    await redis.del(key(userId));
-  } catch (err) {
-    console.warn("[memory/summary] clearSummary échouée:", err);
-  }
-}

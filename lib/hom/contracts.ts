@@ -31,12 +31,6 @@ export async function loadAllContracts(): Promise<AgentContract[]> {
   return out;
 }
 
-/** Valide qu'un fichier respecte le scope d'un agent. */
-export function isFileInScope(contract: AgentContract, relPath: string): boolean {
-  if (contract.scope.files_denied.some((p) => matchGlob(p, relPath))) return false;
-  return contract.scope.files_allowed.some((p) => matchGlob(p, relPath));
-}
-
 function matchGlob(pattern: string, file: string): boolean {
   if (pattern === file) return true;
   if (pattern.includes("**")) {

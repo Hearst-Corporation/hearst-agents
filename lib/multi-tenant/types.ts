@@ -17,10 +17,3 @@ export interface ScopedMetadata {
   userId?: string;
 }
 
-export function isScopedMetadata(
-  value: unknown,
-): value is ScopedMetadata {
-  if (!value || typeof value !== "object") return false;
-  const v = value as Record<string, unknown>;
-  return typeof v.tenantId === "string" && typeof v.workspaceId === "string";
-}

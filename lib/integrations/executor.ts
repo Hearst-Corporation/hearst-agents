@@ -161,31 +161,3 @@ async function updateConnectionHealth(sb: DB, connectionId: string, success: boo
     .eq("id", connectionId);
 }
 
-export async function checkConnectionHealth(
-  sb: DB,
-  connectionId: string,
-): Promise<{ healthy: boolean; latency_ms: number; error?: string }> {
-  const { data: connection } = await sb
-    .from("integration_connections")
-    .select("*")
-    .eq("id", connectionId)
-    .single();
-
-  if (!connection) {
-    return { healthy: false, latency_ms: 0, error: "Connection not found" };
-  }
-
-  const adapter = getAdapter(connection.provider);
-  const credentials = connection.credentials as unknown as IntegrationCredentials;
-  const result = await adapter.healthCheck(credentials);
-
-  await sb
-    .from("integration_connections")
-    .update({
-      health: result.healthy ? "healthy" : "down",
-      last_health_check: new Date().toISOString(),
-    })
-    .eq("id", connectionId);
-
-  return result;
-}

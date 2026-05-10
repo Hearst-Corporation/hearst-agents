@@ -133,6 +133,3 @@ export function recordVital(record: Omit<VitalRecord, "recordedAt">): void {
   defaultVitalsStore.recordVital(record);
 }
 
-export function getVitalsSnapshot(): VitalsSnapshot {
-  return defaultVitalsStore.getSnapshot();
-}

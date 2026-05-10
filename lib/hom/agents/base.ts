@@ -275,18 +275,6 @@ function renderMarkdown(r: Omit<AgentReport, "hash_self">): string {
   return `${fm}\n${summary}\n${findingsBlock}`;
 }
 
-/** Append un événement plain-text dans le journal du run. */
-export async function event(
-  runId: string,
-  level: "info" | "warn" | "error",
-  msg: string,
-): Promise<void> {
-  await appendText(
-    HOM.runEvents(runId),
-    `${nowIso()} [${level}] ${msg}\n`,
-  );
-}
-
 export function makeFindingId(): string {
   return shortId("f");
 }

@@ -27,12 +27,6 @@ export interface SystemSetting {
   updatedBy?: string;
 }
 
-export interface SettingCache {
-  data: Record<string, SystemSetting>;
-  loadedAt: number;
-  ttlMs: number;
-}
-
 export interface SettingDefinition {
   key: string;
   category: SettingCategory;

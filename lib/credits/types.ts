@@ -25,19 +25,6 @@ export interface CreditBalance {
   updatedAt: number;
 }
 
-export interface CreditLedgerEntry {
-  id: string;
-  userId: string;
-  tenantId: string;
-  operation: CreditOperation;
-  amountUsd: number;
-  balanceAfterUsd: number;
-  jobId?: string;
-  jobKind?: JobKind;
-  description: string;
-  createdAt: number;
-}
-
 export interface CreditGuardResult {
   allowed: boolean;
   availableUsd: number;
