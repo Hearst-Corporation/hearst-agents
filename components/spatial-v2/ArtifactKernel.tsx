@@ -4,6 +4,7 @@
 import { useMemo, useRef } from "react";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useSpatialStore } from "./store";
 
 const MARK_SVG = encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 190">
@@ -53,7 +54,62 @@ function lensPath(width: number, height: number, radius: number) {
   return path;
 }
 
+// Les "pétales" de l'orchestration qui se déploient au clic
+function MechanicalRings() {
+  const isExpanded = useSpatialStore((state) => state.isExpanded);
+  const ring1Ref = useRef<THREE.Group>(null);
+  const ring2Ref = useRef<THREE.Group>(null);
+
+  useFrame((state, delta) => {
+    if (!ring1Ref.current || !ring2Ref.current) return;
+    
+    // Déploiement : L'échelle et l'opacité augmentent quand étendu
+    const targetScale = isExpanded ? 1.6 : 0.6;
+    const targetOpacity = isExpanded ? 0.35 : 0;
+    
+    // Amortissement très fluide (horlogerie)
+    ring1Ref.current.scale.setScalar(THREE.MathUtils.lerp(ring1Ref.current.scale.x, targetScale, 0.04));
+    ring2Ref.current.scale.setScalar(THREE.MathUtils.lerp(ring2Ref.current.scale.x, targetScale * 1.15, 0.03));
+    
+    // La rotation s'accélère légèrement pendant le déploiement
+    const speed = isExpanded ? 0.2 : 0.05;
+    ring1Ref.current.rotation.z += speed * delta;
+    ring2Ref.current.rotation.z -= (speed * 0.8) * delta;
+    
+    // Fade in/out de l'opacité
+    ring1Ref.current.children.forEach((child) => {
+      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
+        child.material.opacity = THREE.MathUtils.lerp(child.material.opacity, targetOpacity, 0.05);
+      }
+    });
+    ring2Ref.current.children.forEach((child) => {
+      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
+        child.material.opacity = THREE.MathUtils.lerp(child.material.opacity, targetOpacity * 0.6, 0.05);
+      }
+    });
+  });
+
+  return (
+    <group position={[0, 0, -0.05]}>
+      <group ref={ring1Ref}>
+        <mesh>
+          <torusGeometry args={[0.8, 0.002, 16, 100, Math.PI * 1.6]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0} depthWrite={false} />
+        </mesh>
+      </group>
+      <group ref={ring2Ref} position={[0, 0, -0.05]}>
+        <mesh rotation={[0, 0, Math.PI]}>
+          <torusGeometry args={[0.9, 0.001, 16, 100, Math.PI * 1.8]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0} depthWrite={false} />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
 export function ArtifactKernel() {
+  const isExpanded = useSpatialStore((state) => state.isExpanded);
+  const toggleExpanded = useSpatialStore((state) => state.toggleExpanded);
   const rootRef = useRef<THREE.Group>(null);
   const rimRef = useRef<THREE.MeshPhysicalMaterial>(null);
   const logoRef = useRef<THREE.MeshBasicMaterial>(null);
@@ -87,24 +143,29 @@ export function ArtifactKernel() {
     const breath = 1 + Math.sin(t * 0.62) * 0.005;
 
     if (rootRef.current) {
-      const driftX = pointer.x * 0.08;
-      const driftY = pointer.y * 0.08;
+      // Quand déployé, le noyau se fige parfaitement au centre (pas de dérive)
+      const targetDriftX = isExpanded ? 0 : pointer.x * 0.08;
+      const targetDriftY = isExpanded ? 0 : pointer.y * 0.08;
+      const targetRotY = isExpanded ? 0 : pointer.x * 0.2 + Math.sin(t * 0.2) * 0.02;
+      const targetRotX = isExpanded ? 0 : -pointer.y * 0.2 + Math.sin(t * 0.16 + 1.3) * 0.014;
       
-      rootRef.current.position.x = THREE.MathUtils.lerp(rootRef.current.position.x, driftX, 0.08);
-      rootRef.current.position.y = THREE.MathUtils.lerp(rootRef.current.position.y, driftY, 0.08);
+      rootRef.current.position.x = THREE.MathUtils.lerp(rootRef.current.position.x, targetDriftX, 0.08);
+      rootRef.current.position.y = THREE.MathUtils.lerp(rootRef.current.position.y, targetDriftY, 0.08);
       
       rootRef.current.rotation.y = THREE.MathUtils.lerp(
         rootRef.current.rotation.y,
-        pointer.x * 0.2 + Math.sin(t * 0.2) * 0.02,
+        targetRotY,
         0.06
       );
       rootRef.current.rotation.x = THREE.MathUtils.lerp(
         rootRef.current.rotation.x,
-        -pointer.y * 0.2 + Math.sin(t * 0.16 + 1.3) * 0.014,
+        targetRotX,
         0.06
       );
-      const s = baseScale * breath;
-      rootRef.current.scale.set(s, s, s);
+      
+      // La respiration du scale s'arrête également quand étendu
+      const targetScale = isExpanded ? baseScale : baseScale * breath;
+      rootRef.current.scale.setScalar(THREE.MathUtils.lerp(rootRef.current.scale.x, targetScale, 0.08));
     }
 
     if (rimRef.current) {
@@ -120,7 +181,21 @@ export function ArtifactKernel() {
   });
 
   return (
-    <group ref={rootRef}>
+    <group 
+      ref={rootRef}
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleExpanded();
+      }}
+      onPointerOver={() => {
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = 'default';
+      }}
+    >
+      <MechanicalRings />
+
       <mesh geometry={bodyGeometry}>
         {/* Retour au MeshPhysicalMaterial, de l'obsidienne pure et nette. */}
         <meshPhysicalMaterial

@@ -2,9 +2,23 @@
 "use client";
 
 import { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, PerspectiveCamera } from "@react-three/drei";
+import * as THREE from "three";
 import { ArtifactKernel } from "./ArtifactKernel";
+import { useSpatialStore } from "./store";
+
+function CameraRig() {
+  const isExpanded = useSpatialStore((state) => state.isExpanded);
+
+  useFrame((state) => {
+    // Si étendu, on recule la caméra pour faire de la place à la constellation
+    const targetZ = isExpanded ? 8.5 : 4.95;
+    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.04);
+  });
+
+  return null;
+}
 
 function StudioLights() {
   return (
@@ -29,6 +43,7 @@ function SpatialCanvas() {
       <fog attach="fog" args={["#000000", 5.8, 9.4]} />
 
       <Suspense fallback={null}>
+        <CameraRig />
         <StudioLights />
         <ArtifactKernel />
       </Suspense>
@@ -37,12 +52,15 @@ function SpatialCanvas() {
 }
 
 function SideRail({ side, title, items }: { side: "left" | "right"; title: string; items: string[] }) {
+  const isExpanded = useSpatialStore((state) => state.isExpanded);
+
   return (
     <aside
       className={[
         "pointer-events-auto hidden xl:block absolute top-1/2 w-[220px] -translate-y-1/2",
         side === "left" ? "left-[clamp(44px,8vw,132px)]" : "right-[clamp(44px,8vw,132px)]",
-        "transition-transform duration-1000 ease-out hover:scale-105"
+        "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105",
+        isExpanded ? "opacity-0 translate-x-[calc(var(--tw-translate-x)*2)] pointer-events-none" : "opacity-100 translate-x-0"
       ].join(" ")}
       aria-label={title}
     >
@@ -68,9 +86,15 @@ function SideRail({ side, title, items }: { side: "left" | "right"; title: strin
 }
 
 function CommandDock() {
+  const isExpanded = useSpatialStore((state) => state.isExpanded);
+
   return (
     <form 
-      className="pointer-events-auto absolute inset-x-0 bottom-[88px] flex justify-center px-5 md:bottom-[clamp(32px,6vh,64px)]"
+      className={[
+        "pointer-events-auto absolute inset-x-0 bottom-[88px] flex justify-center px-5 md:bottom-[clamp(32px,6vh,64px)]",
+        "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        isExpanded ? "opacity-0 translate-y-8 pointer-events-none" : "opacity-100 translate-y-0"
+      ].join(" ")}
       onSubmit={(e) => {
         e.preventDefault();
         // TODO: Orchestration de la commande
