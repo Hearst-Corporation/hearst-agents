@@ -226,7 +226,6 @@ describe("getAmbientSignals", () => {
   });
 
   it("fail-soft : missions throw → autres sources continuent", async () => {
-    const now = Date.now();
     mocks.getScheduledMissions.mockRejectedValue(new Error("crash"));
     mocks.getMemoryMissions.mockImplementation(() => {
       throw new Error("crash memory");

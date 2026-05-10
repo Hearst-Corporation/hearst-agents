@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { updateAgentSchema, ok, err, parseBody, dbErr } from "@/lib/domain";
 import type { Database, Json } from "@/lib/database.types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 type AgentUpdate = Database["public"]["Tables"]["agents"]["Update"];
 
@@ -11,6 +12,8 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { error: scopeError } = await requireScope({ context: "GET /api/agents/[id]" });
+  if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const sb = requireServerSupabase();
@@ -27,6 +30,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { error: scopeError } = await requireScope({ context: "PUT /api/agents/[id]" });
+  if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const body = await req.json();
@@ -86,6 +91,8 @@ export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const { error: scopeError } = await requireScope({ context: "DELETE /api/agents/[id]" });
+  if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const sb = requireServerSupabase();

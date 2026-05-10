@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveTokens } from "@/lib/platform/auth/tokens";
 import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
+import { aj } from "@/lib/security/arcjet";
+import { withRoute, redactedError } from "@/lib/observability/logger";
+
+const log = withRoute("GET /api/auth/callback/slack");
 
 interface StatePayload {
   v: string; // codeVerifier
@@ -19,12 +23,18 @@ function parseState(raw: string | null): StatePayload | null {
 }
 
 export async function GET(request: NextRequest) {
+  if (aj) {
+    const decision = await aj.protect(request, { requested: 1 });
+    if (decision.isDenied()) {
+      return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+    }
+  }
   const code = request.nextUrl.searchParams.get("code");
   const error = request.nextUrl.searchParams.get("error");
   const appUrl = process.env.NEXTAUTH_URL ?? "http://localhost:9000";
 
   if (error || !code) {
-    console.error("[Slack OAuth] Error or missing code:", error);
+    log.error({ slackError: error, hasCode: Boolean(code) }, "callback_error_or_missing_code");
     return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
   }
 
@@ -33,13 +43,13 @@ export async function GET(request: NextRequest) {
   const redirectUri = process.env.SLACK_REDIRECT_URI ?? `${appUrl}/api/auth/callback/slack`;
 
   if (!clientId || !clientSecret) {
-    console.error("[Slack OAuth] Missing SLACK_CLIENT_ID or SLACK_CLIENT_SECRET");
+    log.error({}, "missing_slack_client_credentials");
     return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
   }
 
   const state = parseState(request.nextUrl.searchParams.get("state"));
   if (!state) {
-    console.error("[Slack OAuth] Missing or invalid state parameter");
+    log.error({}, "missing_or_invalid_state");
     return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
   }
 
@@ -67,7 +77,7 @@ export async function GET(request: NextRequest) {
     const data = await tokenRes.json();
 
     if (!data.ok) {
-      console.error("[Slack OAuth] Token exchange failed:", data.error);
+      log.error({ slackError: data.error }, "token_exchange_failed");
       return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
     }
 
@@ -76,7 +86,7 @@ export async function GET(request: NextRequest) {
     const token = userToken ?? botToken;
 
     if (!token) {
-      console.error("[Slack OAuth] No token in response");
+      log.error({}, "no_token_in_response");
       return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
     }
 
@@ -104,9 +114,19 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    log.info(
+      {
+        userId,
+        teamId,
+        hasRefreshToken: refreshToken !== null,
+        expiresAt: expiresIn > 0 ? Date.now() + expiresIn * 1000 : 0,
+      },
+      "slack_connected",
+    );
+
     return NextResponse.redirect(new URL("/apps?slack=connected", appUrl));
   } catch (err) {
-    console.error("[Slack OAuth] Exchange error:", err instanceof Error ? err.message : err);
+    log.error({ err: redactedError(err) }, "exchange_error");
     return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
   }
 }

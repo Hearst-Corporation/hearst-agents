@@ -503,9 +503,9 @@ export function WorkflowCanvas({
             className="t-11 font-light pointer-events-auto rounded-md"
             style={{
               padding: "var(--space-2) var(--space-4)",
-              background: "rgba(255,204,0,0.12)",
-              border: "1px solid rgba(255,204,0,0.3)",
-              color: "#FFCC00",
+              background: "var(--warn-surface)",
+              border: "1px solid color-mix(in srgb, var(--warn) 30%, transparent)",
+              color: "var(--warn)",
             }}
           >
             Clique sur le node cible pour créer le lien

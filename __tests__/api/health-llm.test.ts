@@ -10,15 +10,25 @@
  */
 
 import { describe, it, expect, vi } from "vitest";
+import { NextResponse } from "next/server";
 
 vi.mock("@/lib/observability/langfuse", () => ({
   getLangfuseClient: vi.fn(() => null),
 }));
 
+// Bypass admin guard pour ce test smoke (la garde elle-même est testée
+// ailleurs). On retourne un objet AdminGuardResult-like mais le helper
+// `isError` regarde uniquement si c'est une NextResponse — donc un objet
+// nu suffit.
+vi.mock("@/app/api/admin/_helpers", () => ({
+  requireAdmin: vi.fn(async () => ({ scope: {}, db: {} })),
+  isError: (result: unknown): result is NextResponse => result instanceof NextResponse,
+}));
+
 describe("GET /api/health/llm", () => {
   it("retourne 200 + structure JSON conforme", async () => {
     const { GET } = await import("@/app/api/health/llm/route");
-    const res = GET();
+    const res = await GET();
 
     expect(res.status).toBe(200);
     const body = await res.json();
@@ -55,7 +65,7 @@ describe("GET /api/health/llm", () => {
 
   it("cache_hit_ratio_24h est null pour openai et gemini (Anthropic-only)", async () => {
     const { GET } = await import("@/app/api/health/llm/route");
-    const res = GET();
+    const res = await GET();
     const body = await res.json();
 
     expect(body.providers.openai.cache_hit_ratio_24h).toBeNull();

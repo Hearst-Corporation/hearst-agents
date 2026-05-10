@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { loadDriftLog } from "@/lib/hom/drift";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const guard = await requireAdmin("GET /api/orchestrator/drift", { resource: "settings", action: "read" });
+  if (isError(guard)) return guard;
   const drift = await loadDriftLog();
   // Stats par type
   const byType: Record<string, number> = {};

@@ -5,10 +5,13 @@ import { loadDriftLog } from "@/lib/hom/drift";
 import { loadCC } from "@/lib/hom/cc-state";
 import { listRuns } from "@/lib/hom/registry";
 import { listQuarantined } from "@/lib/hom/quarantine";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const guard = await requireAdmin("GET /api/orchestrator/overview", { resource: "settings", action: "read" });
+  if (isError(guard)) return guard;
   const [health, scores, history, drift, cc, runs, quarantined] = await Promise.all([
     quickHealthCheck(),
     latestScores(),

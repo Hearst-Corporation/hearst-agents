@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { readDayLogs, readRunSpans } from "@/lib/hom/telemetry";
 import { todayUtc } from "@/lib/hom/paths";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
+  const guard = await requireAdmin("GET /api/orchestrator/telemetry", { resource: "settings", action: "read" });
+  if (isError(guard)) return guard;
   const url = new URL(req.url);
   const runId = url.searchParams.get("run");
   const day = url.searchParams.get("day") ?? todayUtc();

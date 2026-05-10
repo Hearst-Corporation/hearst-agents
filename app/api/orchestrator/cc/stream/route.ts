@@ -1,4 +1,5 @@
 import { loadCC } from "@/lib/hom/cc-state";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -9,6 +10,8 @@ export const runtime = "nodejs";
  * configuré (EventSource auto-reconnect) gère cette contrainte sans bruit.
  */
 export async function GET() {
+  const guard = await requireAdmin("GET /api/orchestrator/cc/stream", { resource: "settings", action: "read" });
+  if (isError(guard)) return guard;
   const encoder = new TextEncoder();
   let active = true;
 

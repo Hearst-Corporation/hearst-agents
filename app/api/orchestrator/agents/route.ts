@@ -2,10 +2,13 @@ import { NextResponse } from "next/server";
 import { loadAllContracts } from "@/lib/hom/contracts";
 import { loadCC } from "@/lib/hom/cc-state";
 import { loadQuarantine } from "@/lib/hom/quarantine";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const guard = await requireAdmin("GET /api/orchestrator/agents", { resource: "settings", action: "read" });
+  if (isError(guard)) return guard;
   const [contracts, cc, q] = await Promise.all([
     loadAllContracts(),
     loadCC(),

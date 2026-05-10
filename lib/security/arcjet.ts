@@ -18,6 +18,7 @@
  */
 
 import arcjet, { tokenBucket, detectBot, shield } from "@arcjet/next";
+import { NextResponse, type NextRequest } from "next/server";
 
 const KEY = process.env.ARCJET_KEY;
 // En dev, le renderer Electron est flagué comme bot et casse NextAuth.
@@ -89,3 +90,41 @@ export const ajLlmJobs = KEY
       ],
     })
   : null;
+
+/**
+ * Helper de défense en profondeur pour les handlers de jobs IA payants.
+ *
+ * Le proxy Next.js (`proxy.ts`) applique déjà `ajLlmJobs` sur ces routes,
+ * mais ce helper offre une protection redondante au niveau handler :
+ *  - couvre le cas où une route serait appelée hors-proxy (server action,
+ *    RSC interne, regression future du `matcher`)
+ *  - garantit que la décision d'Arcjet est respectée même si quelqu'un
+ *    bypasse le proxy en injectant un appel direct au handler
+ *
+ * No-op gracieux si ARCJET_KEY absente (`ajLlmJobs === null`).
+ *
+ * Usage :
+ * ```ts
+ * const denied = await protectLlmJob(req);
+ * if (denied) return denied;
+ * ```
+ *
+ * @returns NextResponse 429/403 si bloqué, null sinon (continuer le handler).
+ */
+export async function protectLlmJob(
+  req: NextRequest,
+): Promise<NextResponse | null> {
+  if (!ajLlmJobs) return null;
+  const decision = await ajLlmJobs.protect(req, { requested: 1 });
+  if (!decision.isDenied()) return null;
+  if (decision.reason.isRateLimit()) {
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  }
+  if (decision.reason.isBot()) {
+    return NextResponse.json({ error: "bot_detected" }, { status: 403 });
+  }
+  if (decision.reason.isShield()) {
+    return NextResponse.json({ error: "request_blocked" }, { status: 403 });
+  }
+  return NextResponse.json({ error: "denied" }, { status: 403 });
+}

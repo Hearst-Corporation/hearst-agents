@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { aj } from "@/lib/security/arcjet";
 
 // Helper to resolve dev scope (same logic as lib/scope.ts, but sync)
 function resolveDevScope(): { tenantId: string; workspaceId: string } {
@@ -18,7 +19,13 @@ function generateCodeChallenge(verifier: string): string {
   return crypto.createHash("sha256").update(verifier).digest("base64url");
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (aj) {
+    const decision = await aj.protect(req, { requested: 1 });
+    if (decision.isDenied()) {
+      return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+    }
+  }
   const userId = await getUserId();
   if (!userId) {
     return NextResponse.json({ error: "not_authenticated" }, { status: 401 });

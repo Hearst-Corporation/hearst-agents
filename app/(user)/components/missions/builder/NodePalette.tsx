@@ -3,6 +3,7 @@
 
 import type React from "react";
 import type { WorkflowNodeKind } from "@/lib/workflows/types";
+import { BRAND_COLORS } from "@/lib/connectors/composio/brand-colors";
 
 export interface PaletteEntry {
   kind: WorkflowNodeKind;
@@ -152,27 +153,27 @@ const APP_ACTIONS: AppAction[] = [
   {
     entry: { kind: "tool_call", label: "Gmail",    defaultConfig: { tool: "gmail_send", args: { to: "", content: "" } } },
     Logo: LogoGmail,
-    color: "#EA4335",
+    color: BRAND_COLORS.gmail,
   },
   {
     entry: { kind: "tool_call", label: "Slack",    defaultConfig: { tool: "slack_send_message", args: { channel: "", content: "" } } },
     Logo: LogoSlack,
-    color: "#4A154B",
+    color: BRAND_COLORS.slack,
   },
   {
     entry: { kind: "tool_call", label: "Agenda",   defaultConfig: { tool: "calendar_create_event", args: { title: "", start: "", end: "" } } },
     Logo: LogoCalendar,
-    color: "#1A73E8",
+    color: BRAND_COLORS.googleCalendar,
   },
   {
     entry: { kind: "tool_call", label: "Drive",    defaultConfig: { tool: "drive_create_doc", args: { title: "", content: "" } } },
     Logo: LogoDrive,
-    color: "#34A853",
+    color: BRAND_COLORS.googleDrive,
   },
   {
     entry: { kind: "tool_call", label: "Recherche", defaultConfig: { tool: "search_web", args: { query: "" } } },
     Logo: LogoSearch,
-    color: "#5F6368",
+    color: BRAND_COLORS.searchWeb,
   },
 ];
 

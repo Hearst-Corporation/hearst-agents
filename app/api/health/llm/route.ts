@@ -13,9 +13,9 @@
  * tokens). Les valeurs viennent uniquement des aggregateurs in-process
  * (`defaultMetrics`, `defaultCircuitBreaker`, `defaultRateLimiter`).
  *
- * Auth : déléguée au proxy Next.js global (cookie session NextAuth ou API
- * key). La route n'est PAS dans la liste `PUBLIC_PATHS` du proxy → toute
- * requête sans session/clé est interceptée en amont avec un 401.
+ * Auth : `requireAdmin()` (resource=settings, action=read). Les metrics
+ * peuvent fuiter la stack et les providers utilisés → admin only. Le proxy
+ * Next.js global filtre déjà sans session/clé, mais on durcit côté handler.
  *
  * Cache : `revalidate = 30` pour éviter de surcharger en cas de polling
  * dashboard. Le snapshot est cheap (memoire process), mais on garde un
@@ -23,6 +23,7 @@
  */
 
 import { NextResponse } from "next/server";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { defaultCircuitBreaker, type CircuitState } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics } from "@/lib/llm/metrics";
 import { defaultRateLimiter } from "@/lib/llm/rate-limiter";
@@ -184,7 +185,13 @@ function buildLangfuseHealth(): LangfuseHealth {
 // GET handler
 // ---------------------------------------------------------------------------
 
-export function GET() {
+export async function GET() {
+  const guard = await requireAdmin("GET /api/health/llm", {
+    resource: "settings",
+    action: "read",
+  });
+  if (isError(guard)) return guard;
+
   const providers = {} as Record<TrackedProvider, ProviderHealth>;
   let anyDown = false;
 

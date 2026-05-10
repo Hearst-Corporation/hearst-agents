@@ -4,7 +4,7 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { MeshTransmissionMaterial, Sphere, Ring } from "@react-three/drei";
+import { MeshTransmissionMaterial, Sphere, Ring, Html } from "@react-three/drei";
 
 interface LogoCoreProps {
   stage: "idle" | "focus" | "mission" | "asset";
@@ -16,6 +16,7 @@ export function LogoCore({ stage, hoveredNode, onClick }: LogoCoreProps) {
   const groupRef = useRef<THREE.Group>(null);
   const outerRef = useRef<THREE.Mesh>(null);
   const ringMaterialRef = useRef<THREE.MeshStandardMaterial>(null);
+  const htmlContainerRef = useRef<HTMLDivElement>(null);
 
   // Animation target values
   const targetScale = useMemo(() => new THREE.Vector3(1, 1, 1), []);
@@ -74,6 +75,17 @@ export function LogoCore({ stage, hoveredNode, onClick }: LogoCoreProps) {
     if (ringMaterialRef.current) {
       ringMaterialRef.current.emissiveIntensity = targetEmissiveIntensity.current * 0.5;
     }
+
+    // Update HTML Logo
+    if (htmlContainerRef.current) {
+      // Applique le scale exact du groupe 3D pour rester synchronisé avec la respiration
+      const currentScale = groupRef.current ? groupRef.current.scale.x : 1;
+      htmlContainerRef.current.style.transform = `scale(${currentScale})`;
+      
+      // Applique l'intensité lumineuse via un drop-shadow CSS
+      const glow = targetEmissiveIntensity.current;
+      htmlContainerRef.current.style.filter = `drop-shadow(0 0 ${glow * 4}px #ffffff)`;
+    }
   });
 
   return (
@@ -124,6 +136,26 @@ export function LogoCore({ stage, hoveredNode, onClick }: LogoCoreProps) {
           side={THREE.DoubleSide}
         />
       </Ring>
+      {/* HTML Logo (Pixel Perfect, No Vibration) */}
+      <Html center pointerEvents="none" zIndexRange={[100, 0]}>
+        <div ref={htmlContainerRef} className="flex items-center justify-center will-change-transform">
+          <div 
+            style={{
+              width: "110px",
+              height: "120px",
+              backgroundColor: "#ffffff",
+              maskImage: `url('/hearst-dot-h.svg')`,
+              maskSize: "contain",
+              maskRepeat: "no-repeat",
+              maskPosition: "center",
+              WebkitMaskImage: `url('/hearst-dot-h.svg')`,
+              WebkitMaskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+            }}
+          />
+        </div>
+      </Html>
     </group>
   );
 }

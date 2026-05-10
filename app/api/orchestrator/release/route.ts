@@ -6,10 +6,13 @@ import { listRuns } from "@/lib/hom/registry";
 import { readJson } from "@/lib/hom/fs-utils";
 import { HOM } from "@/lib/hom/paths";
 import type { RunDecisionFile } from "@/lib/hom/types";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const guard = await requireAdmin("GET /api/orchestrator/release", { resource: "settings", action: "read" });
+  if (isError(guard)) return guard;
   const [scores, drift, runs] = await Promise.all([
     latestScores(),
     loadDriftLog(),

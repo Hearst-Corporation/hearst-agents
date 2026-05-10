@@ -13,6 +13,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { headers } from "next/headers";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
 import { buildMonthlyCardData } from "@/lib/cockpit/monthly-card";
@@ -27,6 +28,24 @@ interface PageProps {
 }
 
 const STORAGE_BUCKET = "assets";
+
+const COPY_LINK_BUTTON_ID = "hearst-card-copy-link";
+// Statique : aucune interpolation. Tag stable pour next/script (au lieu de
+// document.currentScript.previousElementSibling, fragile si Next déplace
+// le tag).
+const COPY_LINK_SCRIPT = `
+  (function(){
+    var btn = document.getElementById('${"hearst-card-copy-link"}');
+    if (!btn) return;
+    btn.addEventListener('click', function(){
+      navigator.clipboard.writeText(window.location.href).then(function(){
+        var prev = btn.textContent;
+        btn.textContent = 'Lien copié';
+        setTimeout(function(){ btn.textContent = prev; }, 1600);
+      });
+    });
+  })();
+`;
 
 async function lookupPngUrl(
   userId: string,
@@ -363,26 +382,15 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
 }
 
 /**
- * Bouton "Copier le lien" — minimal, client-side via inline script.
+ * Bouton "Copier le lien" — minimal, client-side via next/script.
  * Pas de useState/useEffect : on reste server component pur.
+ * Le script est 100% statique (constante module COPY_LINK_SCRIPT) — zéro XSS.
  */
 function CopyLinkButton() {
-  const script = `
-    (function(){
-      var btn = document.currentScript.previousElementSibling;
-      if (!btn) return;
-      btn.addEventListener('click', function(){
-        navigator.clipboard.writeText(window.location.href).then(function(){
-          var prev = btn.textContent;
-          btn.textContent = 'Lien copié';
-          setTimeout(function(){ btn.textContent = prev; }, 1600);
-        });
-      });
-    })();
-  `;
   return (
     <>
       <button
+        id={COPY_LINK_BUTTON_ID}
         type="button"
         className="t-13"
         style={{
@@ -397,7 +405,9 @@ function CopyLinkButton() {
       >
         Copier le lien
       </button>
-      <script dangerouslySetInnerHTML={{ __html: script }} />
+      <Script id="hearst-card-copy-link-init" strategy="afterInteractive">
+        {COPY_LINK_SCRIPT}
+      </Script>
     </>
   );
 }

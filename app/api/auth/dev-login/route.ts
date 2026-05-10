@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
+import { aj } from "@/lib/security/arcjet";
 
 /**
  * GET /api/auth/dev-login
@@ -12,7 +13,13 @@ import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
  *
  * Désactivé en prod : isDevBypassEnabled() throw au boot si bypass=1 + NODE_ENV=production.
  */
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (aj) {
+    const decision = await aj.protect(req, { requested: 1 });
+    if (decision.isDenied()) {
+      return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+    }
+  }
   if (!isDevBypassEnabled()) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }

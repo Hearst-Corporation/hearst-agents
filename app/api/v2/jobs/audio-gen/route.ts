@@ -13,7 +13,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant, updateVariant } from "@/lib/assets/variants";
@@ -21,33 +20,23 @@ import { enqueueJob } from "@/lib/jobs/queue";
 import { requireCreditsForJob, formatInsufficientCreditsMessage } from "@/lib/credits/middleware";
 import { settleCredits } from "@/lib/credits/client";
 import { estimateSpeechCost } from "@/lib/capabilities/providers/elevenlabs";
+import { protectLlmJob } from "@/lib/security/arcjet";
+import { audioGenSchema } from "@/lib/contracts/jobs";
 import type { AudioGenInput } from "@/lib/jobs/types";
+import { withRoute, redactedError } from "@/lib/observability/logger";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const bodySchema = z.object({
-  text: z.string().min(1).max(5000),
-  voiceId: z.string().optional(),
-  modelId: z.string().optional(),
-  threadId: z.string().optional(),
-  /** Tone de la persona pour mapping voix automatique. */
-  tone: z
-    .enum([
-      "formal",
-      "direct",
-      "analytical",
-      "casual",
-      "warm-professional",
-      "creative",
-      "default",
-    ])
-    .optional(),
-  /** ID persona (alternatif à tone — non utilisé pour résolution serveur ici). */
-  personaId: z.string().optional(),
-});
+const log = withRoute("POST /api/v2/jobs/audio-gen");
 
 export async function POST(req: NextRequest) {
+  // Défense en profondeur : Arcjet est déjà appliqué dans `proxy.ts`
+  // mais on re-vérifie ici pour couvrir les appels hors-proxy. No-op
+  // si ARCJET_KEY absente.
+  const denied = await protectLlmJob(req);
+  if (denied) return denied;
+
   if (!process.env.ELEVENLABS_API_KEY) {
     return NextResponse.json(
       {
@@ -75,7 +64,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const parsed = bodySchema.safeParse(raw);
+  const parsed = audioGenSchema.safeParse(raw);
   if (!parsed.success) {
     return NextResponse.json(
       { error: "validation_error", details: parsed.error.format() },
@@ -164,7 +153,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error("[POST /api/v2/jobs/audio-gen] enqueue failed:", message);
+    log.error({ err: redactedError(err), placeholderJobId, assetId }, "enqueue_failed");
 
     await settleCredits({
       userId: scope.userId,
@@ -175,7 +164,7 @@ export async function POST(req: NextRequest) {
       jobKind: "audio-gen",
       description: `enqueue_failed: ${message.slice(0, 200)}`,
     }).catch((settleErr) => {
-      console.error("[POST /api/v2/jobs/audio-gen] credit refund failed:", settleErr);
+      log.error({ err: redactedError(settleErr), placeholderJobId }, "credit_refund_failed");
     });
 
     if (variantId) {
