@@ -199,7 +199,10 @@ export function PulseBar() {
          OAuth, brief stale, variant timeout, mission silencieuse). Voix
          sourde, point accent-teal — pas de rouge même pour severity warning,
          c'est un whisper, pas une alerte. Crossfade lent entre signaux
-         quand il y en a plusieurs. */}
+         quand il y en a plusieurs.
+         Q3-B (2026-05-10) : ajout d'un mini-bouton "Voir tous" sur hover
+         qui ouvre le SignalBoardStage en drill-down. Le clic principal
+         garde le ctaHref direct — le bouton "Voir tous" est secondaire. */}
       {currentSignal && (
         <AmbientWhisper key={currentSignal.id} signal={currentSignal} />
       )}
@@ -268,8 +271,12 @@ export function PulseBar() {
  * pour severity warning. Crossfade opacity 0 → 1 sur var(--duration-slow)
  * pour un fondu doux à chaque changement de signal (la prop `key` du parent
  * remonte la rotation au remount).
+ *
+ * Q3-B : un bouton secondaire "Voir tous →" apparaît en hover (group-hover)
+ * et ouvre le SignalBoardStage avec le signal pré-sélectionné.
  */
 function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
+  const setMode = useStageStore((s) => s.setMode);
   const [visible, setVisible] = useState(false);
 
   // Fade-in au mount (visible: false → true au tick suivant pour déclencher la transition).
@@ -278,7 +285,7 @@ function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
     return () => cancelAnimationFrame(id);
   }, []);
 
-  const content = (
+  const dotAndNarration = (
     <>
       <span
         className="rounded-pill shrink-0"
@@ -305,38 +312,78 @@ function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
     </>
   );
 
-  const baseClass =
-    "hidden md:flex items-center min-w-0 max-w-sm hover:opacity-100 transition-opacity";
-  const baseStyle: React.CSSProperties = {
+  const onSeeAll = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMode({ mode: "signal", selectedSignalId: signal.id });
+  };
+
+  const groupClass =
+    "hidden md:flex items-center min-w-0 max-w-sm group transition-opacity";
+  const groupStyle: React.CSSProperties = {
     gap: "var(--space-2)",
     opacity: visible ? 1 : 0,
     transition: `opacity var(--duration-slow) var(--ease-standard)`,
   };
 
+  const seeAllButton = (
+    <button
+      type="button"
+      onClick={onSeeAll}
+      className="t-9 font-light shrink-0 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
+      style={{
+        paddingLeft: "var(--space-2)",
+        paddingRight: "var(--space-2)",
+        paddingTop: "2px",
+        paddingBottom: "2px",
+        color: "var(--text-muted)",
+        background: "transparent",
+        border: "1px solid var(--border-soft)",
+        borderRadius: "var(--radius-xs)",
+        cursor: "pointer",
+        transition:
+          "opacity var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
+      }}
+      title="Voir tous les signaux"
+      data-testid="ambient-whisper-see-all"
+    >
+      Voir tous
+    </button>
+  );
+
   if (signal.ctaHref) {
     return (
-      <a
-        href={signal.ctaHref}
-        className={baseClass}
-        style={baseStyle}
-        title={signal.narration}
+      <div
+        className={groupClass}
+        style={groupStyle}
         data-testid="ambient-whisper"
         data-signal-kind={signal.kind}
       >
-        {content}
-      </a>
+        <a
+          href={signal.ctaHref}
+          className="flex items-center min-w-0 hover:opacity-100"
+          style={{ gap: "var(--space-2)" }}
+          title={signal.narration}
+        >
+          {dotAndNarration}
+        </a>
+        {seeAllButton}
+      </div>
     );
   }
 
   return (
     <div
-      className={baseClass}
-      style={baseStyle}
+      className={groupClass}
+      style={groupStyle}
       title={signal.narration}
       data-testid="ambient-whisper"
       data-signal-kind={signal.kind}
     >
-      {content}
+      <div className="flex items-center min-w-0" style={{ gap: "var(--space-2)" }}>
+        {dotAndNarration}
+      </div>
+      {seeAllButton}
     </div>
   );
 }

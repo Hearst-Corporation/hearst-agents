@@ -2,7 +2,7 @@
  * Stage Store — Zustand
  *
  * Pivot 2026-04-29 : l'app passe de chat-first à cockpit polymorphe.
- * Le Stage central peut afficher 8 modes différents :
+ * Le Stage central peut afficher plusieurs modes :
  *
  *   - cockpit    : home configurable (briefing du jour, agenda, missions, KPIs)
  *   - chat       : conversation classique (chat + ChatMessages)
@@ -12,6 +12,7 @@
  *   - kg         : Knowledge Graph explorer (Cytoscape)
  *   - voice      : overlay voix ambient temps réel (WebRTC)
  *   - simulation : DeepSeek scenarios chiffrés (Chambre de Simulation)
+ *   - signal     : Signal Board — drill-down des signaux ambient (Q3-B)
  *
  * Le store gère le mode actif, son payload contextuel, l'historique de
  * navigation (pour Back), et les hotkeys → mode mapping.
@@ -30,7 +31,8 @@ export type StageMode =
   | "kg"
   | "voice"
   | "simulation"
-  | "artifact";
+  | "artifact"
+  | "signal";
 
 /** Payload contextuel attaché au mode (selon le Stage actif). */
 export type StagePayload =
@@ -44,7 +46,8 @@ export type StagePayload =
   | { mode: "kg"; entityId?: string; query?: string }
   | { mode: "voice"; sessionId?: string }
   | { mode: "simulation"; scenario?: string }
-  | { mode: "artifact"; artifactId?: string; code?: string; language?: "python" | "node" };
+  | { mode: "artifact"; artifactId?: string; code?: string; language?: "python" | "node" }
+  | { mode: "signal"; selectedSignalId?: string };
 
 export interface StageEntry {
   payload: StagePayload;
