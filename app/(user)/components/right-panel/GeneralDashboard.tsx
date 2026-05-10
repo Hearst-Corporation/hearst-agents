@@ -3,17 +3,18 @@
 /**
  * GeneralDashboard — rail droit Cockpit (mode cockpit/chat).
  *
- * Layout instrument panel : 5 zones FIXES occupant toute la hauteur sans scroll,
- * sections vides → CTA actionnables, jamais masquées (pas de saut de layout).
+ * Layout instrument panel : 4 zones FIXES occupant toute la hauteur sans scroll,
+ * sections vides → état neutre ou CTA unique, jamais de saut de layout.
  *
  *   1. Moteur     (shrink-0)   — état moteur + compteurs + horloge
- *   2. À valider  (flex 1)     — propositions agents (CTA si vide)
- *   3. Missions   (flex 3)     — missions en vie (CTA si vide)
+ *   2. À valider  (flex 1)     — propositions agents en attente
+ *   3. Missions   (flex 3)     — missions en vie (seul endroit qui pousse "créer")
  *   4. Activité   (flex 2)     — flux events runtime
- *   5. Accès      (shrink-0)   — 2 CTAs primaires
  *
- * 100 % primitives DS : <RailSection flex>, <Action>, <EmptyState>.
- * Voix éditoriale : pas de mono caps, voix régulière FR, tokens uniquement.
+ * Sources sont déjà dans la PulseBar (header "N / M services") → pas dupliquées.
+ * "Nouvelle mission" vit uniquement dans l'empty state Missions.
+ *
+ * 100 % primitives DS : <RailSection flex>, <Action>.
  */
 
 import { useEffect, useState, type ReactNode } from "react";
@@ -65,7 +66,7 @@ function missionStatusColor(status: string): string {
   return "var(--text-muted)";
 }
 
-// ── CTA centered (slot vide d'une RailSection flex) ────────────
+// ── Slots centrés pour RailSection flex ────────────────────────
 
 function CenteredCTA({ children }: { children: ReactNode }) {
   return (
@@ -74,8 +75,6 @@ function CenteredCTA({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-// ── Centered note (slot empty sans CTA — Activité vide) ────────
 
 function CenteredNote({ children }: { children: ReactNode }) {
   return (
@@ -181,11 +180,7 @@ function ValiderZone() {
           </div>
         </div>
       ) : (
-        <CenteredCTA>
-          <Action variant="link" tone="brand" href="/missions/builder">
-            Démarrer une mission →
-          </Action>
-        </CenteredCTA>
+        <CenteredNote>Rien en attente</CenteredNote>
       )}
     </RailSection>
   );
@@ -329,35 +324,6 @@ function ActiviteZone() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// 5 — ACCÈS (shrink-0)
-// ══════════════════════════════════════════════════════════════
-
-function AccesZone() {
-  const counts = useDashboardCounts();
-  const srcLabel = counts.connectionsConnected !== null && counts.connectionsTotal !== null
-    ? `Sources  ${counts.connectionsConnected} / ${counts.connectionsTotal}`
-    : "Sources";
-
-  return (
-    <div
-      className="shrink-0 flex flex-col"
-      style={{
-        padding: "var(--space-4) var(--space-5)",
-        gap: "var(--space-2)",
-        borderTop: "1px solid var(--border-subtle)",
-      }}
-    >
-      <Action variant="secondary" tone="brand" size="sm" href="/missions/builder" className="w-full justify-start">
-        + Nouvelle mission
-      </Action>
-      <Action variant="ghost" tone="neutral" size="sm" href="/apps" iconRight={<span>→</span>} className="w-full justify-between">
-        {srcLabel}
-      </Action>
-    </div>
-  );
-}
-
-// ══════════════════════════════════════════════════════════════
 // ROOT
 // ══════════════════════════════════════════════════════════════
 
@@ -368,7 +334,6 @@ export function GeneralDashboard() {
       <ValiderZone />
       <MissionsZone />
       <ActiviteZone />
-      <AccesZone />
     </div>
   );
 }
