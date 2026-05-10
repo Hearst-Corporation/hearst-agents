@@ -14,9 +14,17 @@
 
 import { useEffect, useState } from "react";
 
+export interface MissionSummary {
+  id: string;
+  name: string;
+  status: string;
+  schedule?: string | null;
+}
+
 export interface DashboardCounts {
   missionsTotal: number | null;
   missionsActive: number | null;
+  missionsLive: MissionSummary[];
   reportsCount: number | null;
   assetsCount: number | null;
   connectionsConnected: number | null;
@@ -29,6 +37,7 @@ export function useDashboardCounts(): DashboardCounts {
   const [state, setState] = useState<DashboardCounts>({
     missionsTotal: null,
     missionsActive: null,
+    missionsLive: [],
     reportsCount: null,
     assetsCount: null,
     connectionsConnected: null,
@@ -54,13 +63,19 @@ export function useDashboardCounts(): DashboardCounts {
       if (todayRes.status === "fulfilled" && todayRes.value) {
         const data = todayRes.value as {
           counts?: { missions?: number; reports?: number; assets?: number };
-          missionsRunning?: Array<{ status: string }>;
+          missionsRunning?: Array<{ id: string; name?: string; status: string; schedule?: string | null }>;
         };
         next.missionsTotal = data.counts?.missions ?? null;
         next.reportsCount = data.counts?.reports ?? null;
         next.assetsCount = data.counts?.assets ?? null;
-        next.missionsActive =
-          data.missionsRunning?.filter((m) => m.status === "running").length ?? null;
+        const live = (data.missionsRunning ?? []).slice(0, 5);
+        next.missionsActive = live.filter((m) => m.status === "running").length;
+        next.missionsLive = live.map((m) => ({
+          id: m.id,
+          name: m.name ?? m.id,
+          status: m.status,
+          schedule: m.schedule ?? null,
+        }));
       }
       if (connRes.status === "fulfilled" && connRes.value) {
         const data = connRes.value as { meta?: { connected: number; total: number } };
