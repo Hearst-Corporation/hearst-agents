@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/electron/main.js",
   "scripts": {
-    "dev": "lsof -ti tcp:9001 | xargs kill -9 2>/dev/null || true; sleep 1; mkdir -p .next && xattr -w com.apple.fileprovider.ignore#P 1 .next 2>/dev/null; next dev -p 9001",
+    "dev": "lsof -ti tcp:9001 | xargs kill -9 2>/dev/null || true; sleep 1; mkdir -p .next && xattr -w com.apple.fileprovider.ignore#P 1 .next 2>/dev/null; NODE_OPTIONS=\"${NODE_OPTIONS:-} --disable-warning=DEP0108\" next dev -p 9001",
     "dev:solo": "npm run dev",
     "dev:stack": "bash scripts/dev-stack.sh",
     "dev:fresh": "lsof -ti tcp:9001 | xargs kill -9 2>/dev/null || true; sleep 1; rm -rf .next && npm run dev",
