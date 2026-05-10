@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-10T07:16:37.194Z",
-  "total": 39,
+  "generatedAt": "2026-05-10T07:18:20.646Z",
+  "total": 41,
   "counts": {
     "verrouillé": 32,
-    "in_progress": 7,
+    "in_progress": 9,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
-    "invariants": 397,
+    "invariants": 410,
     "testsExistants": 1661,
-    "testsManquants": 229,
+    "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
@@ -411,6 +411,34 @@
       "orphansCount": 0
     },
     {
+      "id": "drift-detection",
+      "file": "drift-detection.md",
+      "href": "docs/features/drift-detection.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P2",
+      "invariantsCount": 7,
+      "invariantsTitles": [
+        "I-1. Threshold delta = 5%",
+        "I-2. minStaleRuns = 3",
+        "I-3. Cooldown 24h",
+        "I-4. Fail-soft outputs incompatibles",
+        "I-5. Hook post-run fire-and-forget",
+        "I-6. Notification kind = `signal`, subtype = `mission_drift`",
+        "I-7. Storage cooldown sur `missions.actions.driftLastNotifiedAt`"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 7,
+      "testGap": "élevé",
+      "orphansCount": 0
+    },
+    {
       "id": "electron",
       "file": "electron.md",
       "href": "docs/features/electron.md",
@@ -436,6 +464,33 @@
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
+      "id": "focus-mode",
+      "file": "focus-mode.md",
+      "href": "docs/features/focus-mode.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": "P2",
+      "invariantsCount": 6,
+      "invariantsTitles": [
+        "I-1. Hotkey ⌘⇧F (toggle)",
+        "I-2. ESC pour quitter (jamais pour activer)",
+        "I-3. Persistance localStorage",
+        "I-4. Transition CSS via tokens",
+        "I-5. FocusBadge non interactif primary action",
+        "I-6. Rails masqués, pas démontés"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 6,
+      "testGap": "élevé",
       "orphansCount": 0
     },
     {
