@@ -11,7 +11,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import type { InboxBrief, InboxItem } from "./inbox-brief";
+import type { InboxBrief } from "./inbox-brief";
 
 interface AssetRow {
   id: string;

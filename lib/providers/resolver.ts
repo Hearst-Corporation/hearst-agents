@@ -18,8 +18,7 @@
 
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
 import type { ProviderId, ProviderDefinition } from "./types";
-import { isProviderId } from "./types";
-import { getProvidersByCapability, getProviderById, getAllProviders } from "./registry";
+import { getProvidersByCapability, getProviderById } from "./registry";
 import { getUsageState, recordProviderUsed } from "./state";
 
 // ── Configuration ───────────────────────────────────────────

@@ -6,7 +6,6 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { HOM } from "../paths";
 import {
-  appendText,
   ensureDir,
   nowIso,
   readTextSafe,

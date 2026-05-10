@@ -31,29 +31,4 @@ export async function loadAllContracts(): Promise<AgentContract[]> {
   return out;
 }
 
-function matchGlob(pattern: string, file: string): boolean {
-  if (pattern === file) return true;
-  if (pattern.includes("**")) {
-    const re = new RegExp(
-      "^" +
-        pattern
-          .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-          .replace(/\*\*/g, ".*")
-          .replace(/\*/g, "[^/]*") +
-        "$",
-    );
-    return re.test(file);
-  }
-  if (pattern.includes("*")) {
-    const re = new RegExp(
-      "^" +
-        pattern
-          .replace(/[.+^${}()|[\]\\]/g, "\\$&")
-          .replace(/\*/g, "[^/]*") +
-        "$",
-    );
-    return re.test(file);
-  }
-  return false;
-}
 

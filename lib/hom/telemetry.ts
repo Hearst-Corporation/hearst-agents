@@ -15,7 +15,6 @@ import {
 import type {
   AgentId,
   LogEvent,
-  MetricSample,
   RunPhase,
   Span,
 } from "./types";
