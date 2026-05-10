@@ -38,7 +38,7 @@ export function AnalyticsKpiCard({
         background: "var(--bg-elev)",
       }}
     >
-      <span className="t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+      <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
         {label}
       </span>
       <span className={`t-28 font-light tracking-tight ${valueColor}`}>{value}</span>

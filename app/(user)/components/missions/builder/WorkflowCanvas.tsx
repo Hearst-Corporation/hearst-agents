@@ -1,4 +1,5 @@
 "use client";
+// lint-visual-disable-file — stylesheet Cytoscape et SVG data URIs exigent des hex bruts (var(--token) non supporté par la lib)
 
 /**
  * WorkflowCanvas — rendu Cytoscape du WorkflowGraph.

@@ -129,15 +129,15 @@ export default function CanvasShell() {
               className={[
                 "flex items-center gap-(--space-2) t-10 font-mono uppercase tracking-(--tracking-stretch) px-(--space-3) py-(--space-1) rounded-(--radius-xs) border transition-[border-color,background-color,color,box-shadow] duration-(--duration-slow) ease-(--ease-standard)",
                 mode === "live"
-                  ? "border-(--cykan)/60 text-(--cykan) bg-(--cykan)/10 shadow-(--glow-cyan-sm)"
-                  : "border-line-strong text-text-muted hover:text-text hover:border-(--cykan)/40 hover:bg-(--cykan)/5",
+                  ? "border-(--accent-teal)/60 text-(--accent-teal) bg-(--accent-teal)/10 shadow-(--glow-cyan-sm)"
+                  : "border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 hover:bg-(--accent-teal)/5",
               ].join(" ")}
             >
               <span
                 className={[
                   "size-(--space-2) rounded-(--radius-pill)",
                   mode === "live"
-                    ? "bg-(--cykan) animate-pulse shadow-(--glow-cyan-sm)"
+                    ? "bg-(--accent-teal) animate-pulse shadow-(--glow-cyan-sm)"
                     : "bg-text-ghost",
                 ].join(" ")}
               />
@@ -147,7 +147,7 @@ export default function CanvasShell() {
               type="button"
               onClick={toggleAsideCollapsed}
               title={asideCollapsed ? "Afficher le panneau droit" : "Masquer le panneau droit"}
-              className="hidden lg:flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-line-strong text-text-muted hover:text-text hover:border-(--cykan)/40 transition-colors duration-(--duration-base) ease-(--ease-standard)"
+              className="hidden lg:flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-line-strong text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors duration-(--duration-base) ease-(--ease-standard)"
             >
               <svg
                 width="14"
@@ -174,7 +174,7 @@ export default function CanvasShell() {
 
               {showIdleHint && (
                 <div className="absolute top-(--space-8) left-1/2 -translate-x-1/2 pointer-events-none z-10">
-                  <div className="whitespace-nowrap rounded-(--radius-pill) border border-(--cykan)/35 bg-(--surface)/95 backdrop-blur-md px-(--space-5) py-(--space-2) t-11 text-(--cykan) shadow-(--shadow-md)">
+                  <div className="whitespace-nowrap rounded-(--radius-pill) border border-(--accent-teal)/35 bg-(--surface)/95 backdrop-blur-md px-(--space-5) py-(--space-2) t-11 text-(--accent-teal) shadow-(--shadow-md)">
                     Active le live ↑ · clique un stage pour sa fiche
                   </div>
                 </div>

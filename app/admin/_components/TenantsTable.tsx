@@ -24,7 +24,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
           background: "var(--bg-elev)",
         }}
       >
-        <span className="t-11 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+        <span className="t-11 font-mono uppercase text-[var(--text-faint)]">
           Aucun tenant sur la fenêtre
         </span>
       </div>
@@ -105,7 +105,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
 function Th({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <span
-      className={`t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)] ${className ?? ""}`}
+      className={`t-9 font-mono uppercase text-[var(--text-faint)] ${className ?? ""}`}
     >
       {children}
     </span>

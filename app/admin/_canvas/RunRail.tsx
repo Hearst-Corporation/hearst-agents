@@ -22,7 +22,7 @@ interface Props {
 const STATUS_COLOR: Record<string, string> = {
   completed: "text-(--color-success)",
   failed: "text-(--color-danger)",
-  running: "text-(--cykan)",
+  running: "text-(--accent-teal)",
   cancelled: "text-text-faint",
   aborted: "text-text-faint",
 };

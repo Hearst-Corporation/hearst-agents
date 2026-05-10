@@ -10,7 +10,7 @@ interface Props {
 
 const STATE_COLOR: Record<NodeState, string> = {
   idle: "text-text-faint",
-  active: "text-(--cykan)",
+  active: "text-(--accent-teal)",
   success: "text-(--color-success)",
   failed: "text-(--color-danger)",
   blocked: "text-(--color-warning, var(--gold))",

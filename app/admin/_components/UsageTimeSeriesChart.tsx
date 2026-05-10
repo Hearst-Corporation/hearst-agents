@@ -36,7 +36,7 @@ export function UsageTimeSeriesChart({
           background: "var(--bg-elev)",
         }}
       >
-        <span className="t-11 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+        <span className="t-11 font-mono uppercase text-[var(--text-faint)]">
           Aucune donnée sur la fenêtre
         </span>
       </div>
@@ -120,10 +120,10 @@ export function UsageTimeSeriesChart({
         />
       </svg>
       <div className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
-        <span className="t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+        <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
           {firstLabel}
         </span>
-        <span className="t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+        <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
           {lastLabel}
         </span>
       </div>
@@ -134,7 +134,7 @@ export function UsageTimeSeriesChart({
 function Legend({ label, colorVar }: { label: string; colorVar: string }) {
   return (
     <span
-      className="flex items-center t-9 font-mono uppercase tracking-marquee text-[var(--text-muted)]"
+      className="flex items-center t-9 font-mono uppercase text-[var(--text-muted)]"
       style={{ gap: "var(--space-2)" }}
     >
       <span

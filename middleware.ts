@@ -1,5 +1,5 @@
 /**
- * Next.js Proxy — Global Auth Guard + Arcjet Edge Protection
+ * Next.js Middleware — Global Auth Guard + Arcjet Edge Protection
  *
  * Canonical request guard for Next.js 16 / Turbopack.
  * It runs before route handlers and enforces:
@@ -91,7 +91,7 @@ async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
   return null;
 }
 
-export async function proxy(req: NextRequest): Promise<NextResponse> {
+export async function middleware(req: NextRequest): Promise<NextResponse> {
   const path = req.nextUrl.pathname;
 
   // 1. Arcjet check sur les routes sensibles (avant auth pour bloquer

@@ -22,8 +22,8 @@ interface Props {
 const SPEEDS = [0.5, 1, 2, 4];
 
 const EVENT_DOT: Record<string, string> = {
-  run_created: "bg-(--cykan)",
-  run_started: "bg-(--cykan)",
+  run_created: "bg-(--accent-teal)",
+  run_started: "bg-(--accent-teal)",
   run_completed: "bg-(--color-success)",
   run_failed: "bg-(--color-danger)",
   tool_call_started: "bg-(--accent-teal)",
@@ -81,7 +81,7 @@ export default function RunWaterfall({
         }}
       >
         <div
-          className="absolute inset-y-0 left-0 bg-(--cykan)/70 transition-[width] duration-(--duration-base)"
+          className="absolute inset-y-0 left-0 bg-(--accent-teal)/70 transition-[width] duration-(--duration-base)"
           style={{ width: `${progress * 100}%` }}
         />
         {/* Ticks événements */}
@@ -125,7 +125,7 @@ export default function RunWaterfall({
             onClick={onPlayToggle}
             disabled={disabled}
             title={isPlaying ? "Pause" : "Lecture"}
-            className="flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-(--cykan)/40 text-(--cykan) hover:bg-(--cykan)/10 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
+            className="flex items-center justify-center size-(--space-8) rounded-(--radius-xs) border border-(--accent-teal)/40 text-(--accent-teal) hover:bg-(--accent-teal)/10 disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
           >
             {isPlaying ? (
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
@@ -151,7 +151,7 @@ export default function RunWaterfall({
               className={[
                 "t-10 px-(--space-2) py-(--space-1) rounded-(--radius-xs) transition-colors duration-(--duration-base) disabled:opacity-40 disabled:pointer-events-none",
                 speed === s
-                  ? "bg-(--cykan)/15 text-(--cykan)"
+                  ? "bg-(--accent-teal)/15 text-(--accent-teal)"
                   : "text-text-muted hover:text-text hover:bg-surface",
               ].join(" ")}
             >

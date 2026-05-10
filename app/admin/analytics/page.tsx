@@ -165,7 +165,7 @@ export default function AdminAnalyticsPage() {
         />
 
         {error && (
-          <p className="t-11 font-mono uppercase tracking-marquee text-[var(--danger)]">
+          <p className="t-11 font-mono uppercase text-[var(--danger)]">
             {error}
           </p>
         )}
@@ -205,7 +205,7 @@ export default function AdminAnalyticsPage() {
               onSelect={loadTenantDetail}
             />
           ) : (
-            <p className="t-11 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+            <p className="t-11 font-mono uppercase text-[var(--text-faint)]">
               Chargement…
             </p>
           )}
@@ -268,7 +268,7 @@ function Filters({
         ]}
       />
       <label className="flex items-center" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+        <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
           Kind
         </span>
         <select
@@ -290,7 +290,7 @@ function Filters({
         </select>
       </label>
       {loading && (
-        <span className="t-9 font-mono uppercase tracking-marquee text-[var(--accent-teal)]">
+        <span className="t-9 font-mono uppercase text-[var(--accent-teal)]">
           chargement…
         </span>
       )}
@@ -311,7 +311,7 @@ function SegmentedControl({
 }) {
   return (
     <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-      <span className="t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+      <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
         {label}
       </span>
       <div
@@ -331,7 +331,7 @@ function SegmentedControl({
               key={o.value}
               type="button"
               onClick={() => onChange(o.value)}
-              className="t-11 font-mono uppercase tracking-marquee transition-colors"
+              className="t-11 font-mono uppercase transition-colors"
               style={{
                 padding: "var(--space-1) var(--space-3)",
                 borderRadius: "var(--radius-pill)",
@@ -379,7 +379,7 @@ function TenantDrillDown({
         <button
           type="button"
           onClick={onClose}
-          className="t-9 font-mono uppercase tracking-marquee text-[var(--text-ghost)] hover:text-[var(--accent-teal)]"
+          className="t-9 font-mono uppercase text-[var(--text-ghost)] hover:text-[var(--accent-teal)]"
           style={{ background: "transparent", border: "none", cursor: "pointer" }}
         >
           Fermer
@@ -440,7 +440,7 @@ function Mini({ label, value }: { label: string; value: string }) {
         background: "var(--surface-1)",
       }}
     >
-      <span className="t-9 font-mono uppercase tracking-marquee text-[var(--text-faint)]">
+      <span className="t-9 font-mono uppercase text-[var(--text-faint)]">
         {label}
       </span>
       <span className="t-15 font-medium text-[var(--text)]">{value}</span>

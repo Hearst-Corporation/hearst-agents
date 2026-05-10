@@ -119,7 +119,7 @@ function LoginContent() {
         <div className="rounded-2xl border border-white/6 bg-white/2 px-6 py-8 sm:px-7 sm:py-9 md:px-8 md:py-10">
           {/* Brand */}
           <div className="flex flex-col items-center">
-            <span className="t-13 font-medium uppercase tracking-display text-white/70">
+            <span className="t-13 font-medium text-white/70">
               Hearst OS
             </span>
 

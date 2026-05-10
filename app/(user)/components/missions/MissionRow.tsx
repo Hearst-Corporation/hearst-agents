@@ -15,13 +15,19 @@ export type MissionOpsStatus = "idle" | "running" | "success" | "failed" | "bloc
 export interface Mission {
   id: string;
   name: string;
-  description: string;
-  status: "active" | "paused" | "error";
+  /** Absent du payload API — champ optionnel pour ne pas casser l'affichage. */
+  description?: string;
+  /** Absent du payload API — dérivé de `enabled` + `lastRunStatus` côté page. */
+  status?: "active" | "paused" | "error";
   lastRun?: string;
   nextRun?: string;
-  frequency: string;
+  /** Absent du payload API — copié depuis `schedule` (cron string). */
+  frequency?: string;
   enabled: boolean;
   input?: string;
+  schedule?: string;
+  lastRunAt?: number;
+  lastRunStatus?: "success" | "failed" | "blocked";
   opsStatus?: MissionOpsStatus;
   lastError?: string;
   runningSince?: number;
@@ -90,9 +96,11 @@ export function MissionRow({
           <h3 className="t-13 font-medium text-[var(--text)] tracking-tight group-hover/open:text-[var(--accent-teal)] transition-colors">
             {mission.name}
           </h3>
-          <p className="t-11 font-light leading-relaxed text-[var(--text-muted)] mt-1">
-            {mission.description}
-          </p>
+          {(mission.description ?? mission.input) && (
+            <p className="t-11 font-light leading-relaxed text-[var(--text-muted)] mt-1">
+              {mission.description ?? mission.input}
+            </p>
+          )}
           {mission.lastError && (
             <p
               className="t-10 font-mono text-[var(--danger)] truncate mt-2 border-b border-[var(--danger)] pb-0.5 inline-block max-w-full"
@@ -108,7 +116,9 @@ export function MissionRow({
           {STATUS_LABEL[ops]}
         </span>
         <div className="t-10 font-mono tabular-nums text-[var(--text-faint)] space-y-1">
-          <div>{mission.frequency}</div>
+          {(mission.frequency ?? mission.schedule) && (
+            <div>{mission.frequency ?? mission.schedule}</div>
+          )}
           {mission.runningSince && (
             <div className="text-[var(--accent-teal)]">
               {Math.floor((currentTime - mission.runningSince) / 1000)} s

@@ -1,4 +1,5 @@
 "use client";
+// lint-visual-disable-file — couleurs hex = identités visuelles de marques tierces (Gmail, Slack, Calendar, Google) non tokenisables
 
 import type React from "react";
 import type { WorkflowNodeKind } from "@/lib/workflows/types";
