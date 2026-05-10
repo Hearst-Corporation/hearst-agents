@@ -6,16 +6,6 @@ import { describe, it, expect } from "vitest";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const globalsCss = readFileSync(path.join(__dirname, "../../app/globals.css"), "utf8");
 
-function parseHexTokens(css: string): Record<string, string> {
-  const out: Record<string, string> = {};
-  const re = /--([\w-]+):\s*(#[0-9a-fA-F]{3,8})\b/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(css)) !== null) {
-    out[m[1]] = m[2].toLowerCase();
-  }
-  return out;
-}
-
 describe("design tokens (app/globals.css)", () => {
   it("expose les surfaces et le rail pour Tailwind @theme", () => {
     expect(globalsCss).toContain("--surface:");
@@ -31,18 +21,10 @@ describe("design tokens (app/globals.css)", () => {
     expect(globalsCss).toContain("--color-cyan-accent:");
   });
 
-  it("surface, background et rail sont 3 valeurs distinctes", () => {
-    const tokens = parseHexTokens(globalsCss);
-    expect(tokens.surface, "--surface absent ou non-hex dans :root").toBeDefined();
-    expect(tokens.background, "--background absent ou non-hex dans :root").toBeDefined();
-    expect(tokens.rail, "--rail absent ou non-hex dans :root").toBeDefined();
-
-    const distinct = new Set([tokens.surface, tokens.background, tokens.rail]);
-    expect(distinct.size, `surface/background/rail doivent être 3 valeurs différentes, vu : ${[...distinct].join(", ")}`).toBe(3);
-  });
-
-  it("pas de dégradés décoratifs dans body (anti-régression)", () => {
-    // Le nouveau design est purement noir, sans effets de fond
-    expect(globalsCss).not.toContain("radial-gradient(circle at top");
+  it("supporte le design Vision OS avec des backgrounds transparents", () => {
+    // Le design Vision OS (pivot 2026-05-10) utilise des fonds transparents
+    // pour laisser passer le vision-ambient-bg
+    expect(globalsCss).toContain("--background: transparent;");
+    expect(globalsCss).toContain("--rail: transparent;");
   });
 });

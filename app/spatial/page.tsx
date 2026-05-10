@@ -77,20 +77,6 @@ export default function SpatialOS() {
       >
         Interagissez avec le noyau
       </div>
-
-      {/* Lien discret vers le playground (bas-droite) */}
-      <a
-        href="/spatial/playground"
-        className="absolute bottom-6 right-6 z-40 flex items-center gap-2 text-white/30 hover:text-white/80 text-xs font-light transition-colors"
-        title="Comparer les variantes visuelles"
-      >
-        <span
-          className="rounded-full bg-white/30"
-          style={{ width: "4px", height: "4px" }}
-          aria-hidden
-        />
-        Playground
-      </a>
     </main>
   );
 }

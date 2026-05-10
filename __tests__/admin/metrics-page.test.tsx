@@ -195,7 +195,7 @@ describe("MetricsPage — badges circuit breaker", () => {
     });
 
     await waitFor(() => {
-      const badges = screen.getAllByText("CLOSED");
+      const badges = screen.getAllByText("Fermé");
       expect(badges.length).toBeGreaterThanOrEqual(1);
     });
   });
@@ -208,7 +208,7 @@ describe("MetricsPage — badges circuit breaker", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("OPEN")).toBeTruthy();
+      expect(screen.getByText("Ouvert")).toBeTruthy();
     });
   });
 
@@ -242,7 +242,7 @@ describe("MetricsPage — badges circuit breaker", () => {
 
     await waitFor(() => {
       // Aucun badge OPEN — preuve que l'état réel prime sur l'heuristique
-      expect(screen.queryByText("OPEN")).toBeNull();
+      expect(screen.queryByText("Ouvert")).toBeNull();
     });
   });
 });
@@ -269,7 +269,7 @@ describe("MetricsPage — tableau webhooks", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("success")).toBeTruthy();
+      expect(screen.getByText("Réussi")).toBeTruthy();
     });
   });
 
@@ -281,7 +281,7 @@ describe("MetricsPage — tableau webhooks", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("failed")).toBeTruthy();
+      expect(screen.getByText("Échec")).toBeTruthy();
     });
   });
 });
