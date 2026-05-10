@@ -1,0 +1,121 @@
+// lint-visual-disable-file
+"use client";
+
+import { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Environment, Lightformer, PerspectiveCamera } from "@react-three/drei";
+import { ArtifactKernel } from "./ArtifactKernel";
+
+function StudioLights() {
+  return (
+    <>
+      <Environment resolution={1024}>
+        <Lightformer form="rect" intensity={3.5} color="#ffffff" position={[0, 3.85, 3.7]} scale={[4.2, 0.56, 1]} />
+        <Lightformer form="rect" intensity={4.5} color="#e2e8f0" position={[-2.65, 0.08, 2.9]} scale={[0.08, 3.25, 1]} />
+        <Lightformer form="rect" intensity={3.0} color="#f8fafc" position={[2.74, -0.12, 2.56]} scale={[0.065, 2.8, 1]} />
+        <Lightformer form="rect" intensity={3.0} color="#ffffff" position={[0.16, -1.66, 2.84]} scale={[2.25, 0.08, 1]} />
+        <Lightformer form="rect" intensity={1.5} color="#d1d5db" position={[-1.08, 1.42, 3.36]} scale={[1.28, 0.06, 1]} />
+        <Lightformer form="rect" intensity={1.2} color="#f1f5f9" position={[1.22, -1.08, 3.18]} scale={[1.0, 0.05, 1]} />
+      </Environment>
+    </>
+  );
+}
+
+function SpatialCanvas() {
+  return (
+    <Canvas dpr={[1, 1.8]} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
+      <PerspectiveCamera makeDefault position={[0, 0, 4.95]} fov={33} />
+      <color attach="background" args={["#000000"]} />
+      <fog attach="fog" args={["#000000", 5.8, 9.4]} />
+
+      <Suspense fallback={null}>
+        <StudioLights />
+        <ArtifactKernel />
+      </Suspense>
+    </Canvas>
+  );
+}
+
+function SideRail({ side, title, items }: { side: "left" | "right"; title: string; items: string[] }) {
+  return (
+    <aside
+      className={[
+        "pointer-events-auto hidden xl:block absolute top-1/2 w-[220px] -translate-y-1/2",
+        side === "left" ? "left-[clamp(44px,8vw,132px)]" : "right-[clamp(44px,8vw,132px)]",
+        "transition-transform duration-1000 ease-out hover:scale-105"
+      ].join(" ")}
+      aria-label={title}
+    >
+      <div 
+        className="bg-white/[0.02] px-6 py-6 backdrop-blur-[32px]" 
+        style={{ 
+          borderRadius: 24, 
+          boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.02), 0 24px 48px rgba(0, 0, 0, 0.6)",
+        }}
+      >
+        <div className="mb-5 text-[10px] uppercase tracking-[0.2em] text-white/50">
+          {title}
+        </div>
+        <div className="space-y-3">
+          {items.map((item) => (
+            <div
+              key={item}
+              className="text-[13px] font-light tracking-wide text-white/70 drop-shadow-sm cursor-default hover:text-white transition-colors"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function CommandDock() {
+  return (
+    <form className="pointer-events-auto absolute inset-x-0 bottom-[88px] flex justify-center px-5 md:bottom-[clamp(32px,6vh,64px)]">
+      <div
+        className="flex h-[44px] w-[min(320px,calc(100vw-40px))] items-center bg-white/[0.02] px-6 backdrop-blur-[32px] transition-all duration-500 ease-out hover:bg-white/[0.04] hover:scale-[1.02]"
+        style={{ 
+          borderRadius: 24,
+          boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 20px rgba(255, 255, 255, 0.02), 0 24px 48px rgba(0, 0, 0, 0.6)"
+        }}
+      >
+        <input
+          className="w-full bg-transparent text-[14px] font-light text-white/70 outline-none placeholder:text-white/40 text-center drop-shadow-sm transition-colors focus:text-white"
+          placeholder="Demander une orchestration"
+          aria-label="Demander une orchestration"
+        />
+      </div>
+    </form>
+  );
+}
+
+export function SpatialV2Root() {
+  return (
+    <main className="fixed inset-0 isolate overflow-hidden bg-black text-white">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(1200px 700px at 50% 48%, rgba(255,255,255,0.06), rgba(0,0,0,0) 62%)",
+        }}
+      />
+
+      <div className="absolute inset-0">
+        <SpatialCanvas />
+      </div>
+
+      <div className="pointer-events-none absolute inset-0">
+        <header className="absolute left-[clamp(22px,4vw,58px)] top-[clamp(20px,4vh,44px)] text-[11px] font-light tracking-widest text-white/30 drop-shadow-sm">
+          HEARST OS
+        </header>
+
+        <SideRail side="left" title="Signal" items={["Contexte prêt", "Sources calmes", "Décision nette"]} />
+        <SideRail side="right" title="Orchestration" items={["Mémoire active", "Agents distants", "Sortie contrôlée"]} />
+
+        <CommandDock />
+      </div>
+    </main>
+  );
+}
