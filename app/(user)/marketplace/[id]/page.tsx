@@ -15,6 +15,7 @@ import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "../../components/PageHeader";
 import { Action } from "../../components/ui";
+import { toast } from "@/app/hooks/use-toast";
 import type {
   MarketplaceTemplate,
   MarketplaceRating,
@@ -99,9 +100,13 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         error?: string;
       };
       if (!res.ok || !body.ok) {
-        setFlash(`Clone échoué : ${body.error ?? `HTTP ${res.status}`}`);
+        const msg = body.error ?? `HTTP ${res.status}`;
+        toast.error("Clone échoué", msg);
+        setFlash(`Clone échoué : ${msg}`);
         return;
       }
+      toast.success("Template cloné", "La copie est dans ton espace.");
+      setFlash("Template cloné dans ton espace.");
       // Redirige vers la ressource créée selon le kind.
       if (data?.template.kind === "workflow") {
         router.push(`/missions`);
@@ -112,9 +117,10 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       }
       // creative_prompt : pas de redirect — l'action "Utiliser" est gérée
       // par useCreativePromptPack ci-dessous (clipboard ou hook launcher).
-      setFlash("Template cloné dans ton espace.");
     } catch (e) {
-      setFlash(e instanceof Error ? e.message : "clone_failed");
+      const msg = e instanceof Error ? e.message : "clone_failed";
+      toast.error("Clone échoué", msg);
+      setFlash(msg);
     } finally {
       setBusy(false);
     }
@@ -133,9 +139,12 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       });
       if (!res.ok) {
         const body = (await res.json().catch(() => ({}))) as { error?: string };
-        setFlash(`Note échouée : ${body.error ?? res.status}`);
+        const msg = body.error ?? `HTTP ${res.status}`;
+        toast.error("Note échouée", msg);
+        setFlash(`Note échouée : ${msg}`);
         return;
       }
+      toast.success("Merci pour la note", "Ta note a été enregistrée.");
       setFlash("Merci pour la note.");
       // Refresh
       const fresh = await fetch(`/api/v2/marketplace/templates/${id}`, {

@@ -166,10 +166,20 @@ function LoginContent() {
 
           {/* Error */}
           {error && (
-            <div className="mt-5 rounded-lg border border-red-500/10 bg-red-500/4 px-4 py-3 text-center t-13 leading-normal text-red-400/70">
-              {error === "OAuthCallback"
-                ? "L'authentification a été annulée ou a échoué. Veuillez réessayer."
-                : "Nous n'avons pas pu vous connecter. Veuillez réessayer ou utiliser l'autre fournisseur."}
+            <div className="mt-5 flex flex-col items-center gap-3 rounded-lg border border-red-500/10 bg-red-500/4 px-4 py-3 text-center t-13 leading-normal text-red-400/70">
+              <span>
+                {error === "OAuthCallback"
+                  ? "L'authentification a été annulée ou a échoué. Veuillez réessayer."
+                  : "Nous n'avons pas pu vous connecter. Veuillez réessayer ou utiliser l'autre fournisseur."}
+              </span>
+              <button
+                type="button"
+                onClick={() => handleSignIn("google")}
+                disabled={loadingProvider !== null}
+                className="t-13 font-light text-(--text-soft) underline underline-offset-2 hover:text-text transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Réessayer la connexion
+              </button>
             </div>
           )}
 

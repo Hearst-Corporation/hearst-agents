@@ -25,6 +25,8 @@ function MissionsPageContent() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [togglingMissionId, setTogglingMissionId] = useState<string | null>(null);
   const [runningMissionId, setRunningMissionId] = useState<string | null>(null);
+  const [formDirty, setFormDirty] = useState(false);
+  const [confirmAbandon, setConfirmAbandon] = useState(false);
 
   useEffect(() => {
     if (searchParams.get("new") === "1") {
@@ -141,6 +143,13 @@ function MissionsPageContent() {
                 : m
             )
           );
+          toast.success("Mission mise à jour", `« ${formData.name} » a été enregistrée`);
+          setShowEditor(false);
+          setEditingMission(null);
+          setFormDirty(false);
+        } else {
+          const data = await res.json().catch(() => ({}));
+          toast.error("Mise à jour impossible", data.error ?? `Erreur serveur (${res.status})`);
         }
       } else {
         // Create new — la route POST attend `input` + `schedule`, pas `prompt` + `frequency`
@@ -166,12 +175,18 @@ function MissionsPageContent() {
             ...newMission.mission,
             frequency: formData.frequency,
           }]);
+          toast.success("Mission créée", `« ${formData.name} » est prête`);
+          setShowEditor(false);
+          setEditingMission(null);
+          setFormDirty(false);
+        } else {
+          const data = await res.json().catch(() => ({}));
+          toast.error("Création impossible", data.error ?? `Erreur serveur (${res.status})`);
         }
       }
-      setShowEditor(false);
-      setEditingMission(null);
     } catch (error) {
       console.error("Failed to save mission:", error);
+      toast.error("Erreur d'enregistrement", "Une erreur est survenue");
     } finally {
       setIsSaving(false);
     }
@@ -252,17 +267,31 @@ function MissionsPageContent() {
 
   const openNewMission = () => {
     setEditingMission(null);
+    setFormDirty(false);
     setShowEditor(true);
   };
 
   const openEditMission = (mission: Mission) => {
     setEditingMission(mission);
+    setFormDirty(false);
     setShowEditor(true);
   };
 
   const closeEditor = () => {
+    if (formDirty) {
+      setConfirmAbandon(true);
+      return;
+    }
     setShowEditor(false);
     setEditingMission(null);
+    setFormDirty(false);
+  };
+
+  const handleConfirmAbandon = () => {
+    setConfirmAbandon(false);
+    setShowEditor(false);
+    setEditingMission(null);
+    setFormDirty(false);
   };
 
   // Stats compactes — chips visibles uniquement si compteur > 0 (pas de bruit
@@ -350,6 +379,16 @@ function MissionsPageContent() {
         onCancel={() => setConfirmDelete(null)}
       />
 
+      <ConfirmModal
+        open={confirmAbandon}
+        title="Abandonner les modifications ?"
+        description="Tes changements seront perdus."
+        confirmLabel="Abandonner"
+        variant="danger"
+        onConfirm={handleConfirmAbandon}
+        onCancel={() => setConfirmAbandon(false)}
+      />
+
       {/* Editor — drawer depuis la droite */}
       {showEditor && (
         <>
@@ -395,6 +434,7 @@ function MissionsPageContent() {
                 onSave={handleSave}
                 onCancel={closeEditor}
                 isLoading={isSaving}
+                onDirtyChange={setFormDirty}
               />
             </div>
           </div>

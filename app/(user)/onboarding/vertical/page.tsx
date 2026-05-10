@@ -14,6 +14,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "../../components/PageHeader";
+import { Action } from "../../components/ui";
 import { toast } from "@/app/hooks/use-toast";
 
 type Industry =
@@ -176,9 +177,16 @@ export default function OnboardingVerticalPage() {
       </div>
 
       <div
-        className="flex justify-end"
-        style={{ marginTop: "var(--space-8)", gap: "var(--space-3)" }}
+        className="flex items-center justify-end"
+        style={{ marginTop: "var(--space-8)", gap: "var(--space-4)" }}
       >
+        <Action
+          variant="link"
+          tone="neutral"
+          onClick={() => router.push("/")}
+        >
+          Décider plus tard
+        </Action>
         <button
           type="button"
           onClick={handleSubmit}

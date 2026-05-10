@@ -5,7 +5,9 @@ import { useParams, useRouter } from "next/navigation";
 import { RunTimeline } from "../../components/RunTimeline";
 import { GhostIconChevronRight, ServiceIdGlyph } from "../../components/ghost-icons";
 import { PageHeader } from "../../components/PageHeader";
+import { Action } from "../../components/ui";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
+import { toast } from "@/app/hooks/use-toast";
 import type { RunRecord } from "@/lib/engine/runtime/runs/types";
 import type { TimelineItem } from "@/lib/engine/runtime/timeline/types";
 
@@ -19,6 +21,7 @@ export default function RunDetailPage() {
   const [timelineSource, setTimelineSource] = useState<"memory" | "persistent" | "empty">("empty");
   const [loading, setLoading] = useState(true);
   const [isLive, setIsLive] = useState(false);
+  const [rerunning, setRerunning] = useState(false);
 
   // Track run status locally to avoid including entire run object in effect deps
   const runStatus = run?.status;
@@ -50,6 +53,32 @@ export default function RunDetailPage() {
   const liveStatuses = ["running", "awaiting_approval", "awaiting_clarification"];
   const shouldPoll = !!runStatus && liveStatuses.includes(runStatus);
   usePollingEffect(loadRun, 2000, [runId], { enabled: shouldPoll });
+
+  const handleRerun = useCallback(async () => {
+    if (rerunning) return;
+    setRerunning(true);
+    try {
+      const res = await fetch(`/api/v2/runs/${runId}/rerun`, { method: "POST" });
+      if (!res.ok) {
+        toast.error("Relance impossible", `Erreur serveur (${res.status})`);
+        return;
+      }
+      const data = (await res.json().catch(() => ({}))) as { queuedRunId?: string };
+      toast.success("Run relancé", "Un nouveau run a été mis en file d'attente");
+      if (data.queuedRunId) {
+        router.push(`/runs/${data.queuedRunId}`);
+      } else {
+        await loadRun();
+      }
+    } catch (err) {
+      toast.error(
+        "Erreur de relance",
+        err instanceof Error ? err.message : "Erreur inconnue",
+      );
+    } finally {
+      setRerunning(false);
+    }
+  }, [rerunning, runId, router, loadRun]);
 
   if (loading) {
     return (
@@ -96,9 +125,22 @@ export default function RunDetailPage() {
         subtitle={run.input}
         back={{ label: "Retour aux runs", href: "/runs" }}
         actions={
-          <span className={`t-13 font-medium ${statusColors[run.status] || "text-text-muted"}`}>
-            {statusLabels[run.status] || run.status}
-          </span>
+          <>
+            <span className={`t-13 font-medium ${statusColors[run.status] || "text-text-muted"}`}>
+              {statusLabels[run.status] || run.status}
+            </span>
+            {(run.status === "failed" || run.status === "completed") && (
+              <Action
+                variant="primary"
+                tone="brand"
+                size="sm"
+                onClick={handleRerun}
+                loading={rerunning}
+              >
+                Relancer le run
+              </Action>
+            )}
+          </>
         }
       />
 

@@ -28,6 +28,7 @@ import { useNavigationStore } from "@/stores/navigation";
 import { CommandeurResultRow, type CommandeurResultKind } from "./CommandeurResultRow";
 import { useCommandeurData } from "./use-commandeur-data";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { AssetCompareModal } from "./AssetCompareModal";
 
 interface CommandRow {
   id: string;
@@ -56,6 +57,7 @@ export function Commandeur() {
   const setActiveThread = useNavigationStore((s) => s.setActiveThread);
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [compareOpen, setCompareOpen] = useState(false);
 
   const { results, loading } = useCommandeurData(query, isOpen);
 
@@ -175,9 +177,9 @@ export function Commandeur() {
       id: "action-launch-report",
       kind: "action",
       label: "Lancer un rapport",
-      hint: "Choisis depuis le catalog",
+      hint: "Studio création rapport",
       perform: () => {
-        router.push("/reports");
+        router.push("/reports/studio");
         setOpen(false);
       },
     },
@@ -291,14 +293,7 @@ export function Commandeur() {
       label: "Comparer 2 assets",
       hint: "Split view + diff sémantique",
       perform: () => {
-        const idA = window.prompt("ID du premier asset (A) :")?.trim();
-        if (!idA) return;
-        const idB = window.prompt("ID du deuxième asset (B) :")?.trim();
-        if (!idB) return;
-        setStageMode({
-          mode: "asset_compare",
-          assetIds: [idA, idB],
-        } as StagePayload);
+        setCompareOpen(true);
         setOpen(false);
       },
     },
@@ -507,11 +502,29 @@ export function Commandeur() {
     autoFocus: false,
   });
 
-  if (!isOpen) return null;
+  // ── Modale "Comparer 2 assets" — rendue indépendamment de l'ouverture du
+  // palette. Le clic sur "Comparer 2 assets" ferme le palette et ouvre
+  // cette modale, donc elle doit pouvoir s'afficher quand isOpen=false.
+  const compareModal = (
+    <AssetCompareModal
+      open={compareOpen}
+      onCancel={() => setCompareOpen(false)}
+      onCompare={(idA, idB) => {
+        setCompareOpen(false);
+        setStageMode({
+          mode: "asset_compare",
+          assetIds: [idA, idB],
+        } as StagePayload);
+      }}
+    />
+  );
+
+  if (!isOpen) return compareModal;
 
   let runningIndex = 0;
 
   return (
+    <>
     <div
       className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
       style={{
@@ -591,5 +604,7 @@ export function Commandeur() {
         </div>
       </div>
     </div>
+    {compareModal}
+    </>
   );
 }

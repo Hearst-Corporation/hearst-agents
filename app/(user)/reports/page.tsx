@@ -26,15 +26,6 @@ type DomainFilter = "all" | string;
 
 // ── Icons ──────────────────────────────────────────────────────
 
-function RefreshIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="1 4 1 10 7 10" />
-      <path d="M3.51 15a9 9 0 1 0 .49-5.83" />
-    </svg>
-  );
-}
-
 function PlugIcon() {
   return (
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -278,29 +269,15 @@ export default function ReportsDiscoveryPage() {
 
         {/* Error */}
         {!loading && error && (
-          <div
-            className="flex flex-col items-center gap-4 py-16 text-center"
-            data-testid="reports-error"
-          >
-            <p className="t-13 font-light" style={{ color: "var(--color-error)" }}>
-              {error}
-            </p>
-            <button
-              type="button"
-              onClick={fetchReports}
-              className="inline-flex items-center gap-2 px-4 py-2 t-13 font-medium rounded-md border transition-all"
-              style={{
-                background: "var(--surface-1)",
-                color: "var(--text-muted)",
-                borderColor: "var(--border-default)",
-                borderRadius: "var(--radius-sm)",
-                transitionDuration: "var(--duration-base)",
-              }}
-            >
-              <RefreshIcon />
-              Réessayer
-            </button>
-          </div>
+          <EmptyState
+            testId="reports-error"
+            title="Impossible de charger les rapports"
+            description={error}
+            cta={{
+              label: "Réessayer",
+              onClick: () => { void fetchReports(); },
+            }}
+          />
         )}
 
         {/* Sub-banner onboarding non-bloquant — affiché si zéro app connectée

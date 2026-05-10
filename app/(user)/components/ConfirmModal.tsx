@@ -24,6 +24,16 @@ export interface ConfirmModalProps {
   confirmLabel?: string;
   cancelLabel?: string;
   variant?: "primary" | "danger";
+  /**
+   * État "soumission en cours". Quand `true` :
+   *   - le bouton confirm passe en spinner et est `disabled`
+   *   - le bouton cancel est `disabled`
+   *   - Escape n'appelle PAS `onCancel` (cf. useModalA11y.onClose ci-dessous)
+   *   - le clic sur le backdrop est ignoré
+   * Garantit qu'une action destructive en cours ne peut pas être interrompue
+   * par un Escape ou un clic accidentel — évite les états zombies si l'API
+   * répond après que le user ait fermé la modale.
+   */
   loading?: boolean;
   onConfirm: () => void;
   onCancel: () => void;

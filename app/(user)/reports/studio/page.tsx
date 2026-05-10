@@ -18,7 +18,8 @@
  */
 
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import type {
   ReportSpec,
   BlockSpec,
@@ -165,7 +166,6 @@ export default function ReportStudioPage() {
 
 function ReportStudioPageContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const cloneId = searchParams.get("clone");
   const editId = searchParams.get("edit");
 
@@ -405,6 +405,35 @@ function ReportStudioPageContent() {
       className="flex flex-col flex-1 min-h-0"
       style={{ background: "var(--bg-elev)", color: "var(--text)" }}
     >
+      {/* Breadcrumb retour bibliothèque — voix éditoriale, typo régulière. */}
+      <div
+        style={{
+          padding: "var(--space-3) var(--space-6)",
+          borderBottom: "1px solid var(--border-subtle)",
+          background: "var(--surface-1)",
+        }}
+      >
+        <Link
+          href="/reports"
+          className="inline-flex items-center gap-2 t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span>Bibliothèque</span>
+        </Link>
+      </div>
+
       {/* Top toolbar */}
       <div style={{ position: "relative" }}>
         <StudioToolbar
@@ -514,26 +543,6 @@ function ReportStudioPageContent() {
         </div>
       </div>
 
-      {/* Footer link back */}
-      <div
-        style={{
-          padding: "var(--space-2) var(--space-4)",
-          background: "var(--surface-card)",
-          borderTop: "1px solid var(--border-subtle)",
-        }}
-      >
-        <button
-          type="button"
-          onClick={() => router.push("/reports")}
-          className="t-9 font-mono uppercase transition-colors"
-          style={{
-            color: "var(--text-muted)",
-            background: "transparent",
-                      }}
-        >
-          ← Retour au catalogue
-        </button>
-      </div>
     </div>
   );
 }

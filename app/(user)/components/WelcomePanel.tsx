@@ -30,9 +30,9 @@ export function WelcomePanel() {
   };
 
   const QUICK_ACTIONS = [
-    { label: "Brief du jour",      hotkey: "⌘B", action: newBrief },
-    { label: "Lancer une recherche", hotkey: "⌘Q", action: focusInput },
-    { label: "Mes artefacts",      hotkey: "⌘A", action: () => router.push("/assets") },
+    { label: "Brief du jour", action: newBrief },
+    { label: "Lancer une recherche", action: focusInput },
+    { label: "Mes artefacts", action: () => router.push("/assets") },
   ];
 
   return (
@@ -58,7 +58,6 @@ export function WelcomePanel() {
         {QUICK_ACTIONS.map((a) => (
           <button key={a.label} type="button" onClick={a.action} className="cockpit-action">
             <span className="ca-label">{a.label}</span>
-            <span className="ca-hotkey">{a.hotkey}</span>
           </button>
         ))}
       </div>

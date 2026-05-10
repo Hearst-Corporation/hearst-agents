@@ -55,7 +55,7 @@ export default function ArchivePage() {
       subtitle={`${filtered.length.toString().padStart(3, "0")} entrées`}
       actions={
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/")}
           className="inline-flex items-center gap-2 px-3 py-1.5 t-11 font-light border border-(--border-shell) text-text-faint hover:text-(--accent-teal) hover:border-[var(--accent-teal-border-hover)] transition-colors shrink-0"
         >
           <span>Retour</span>

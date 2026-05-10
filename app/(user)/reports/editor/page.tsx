@@ -13,6 +13,7 @@
 import { useState } from "react";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 import { ReportSpecEditor } from "@/app/(user)/components/reports/ReportSpecEditor";
+import { PageHeader } from "@/app/(user)/components/PageHeader";
 import { buildFounderCockpit } from "@/lib/reports/catalog/founder-cockpit";
 
 const DEMO_SCOPE = {
@@ -135,6 +136,11 @@ export default function ReportEditorDemoPage() {
       className="flex-1 flex flex-col min-h-0 overflow-y-auto"
       style={{ background: "var(--bg-elev)" }}
     >
+      <PageHeader
+        title="Report Spec Editor"
+        subtitle="Aperçu visuel d'un ReportSpec — toggler la visibilité des blocks puis Apply pour figer la sélection finale."
+        back={{ label: "Bibliothèque", href: "/reports" }}
+      />
       <div
         className="flex flex-col"
         style={{
@@ -145,14 +151,6 @@ export default function ReportEditorDemoPage() {
           margin: "0 auto",
         }}
       >
-        <header className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <h1 className="t-15 text-text">Report Spec Editor</h1>
-          <p className="t-13 text-text-muted">
-            Aperçu visuel d&apos;un ReportSpec — toggler la visibilité des blocks
-            puis Apply pour figer la sélection finale.
-          </p>
-        </header>
-
         <ReportSpecEditor spec={demoSpec} onChange={setAppliedSpec} />
 
         <section

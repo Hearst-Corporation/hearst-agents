@@ -24,6 +24,7 @@ import { useNavigationStore, type Thread } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
 import { useOAuthExpiry } from "@/app/hooks/use-oauth-expiry";
 import { HearstLogo } from "./HearstLogo";
+import { ConfirmModal } from "./ConfirmModal";
 
 // ── Icons ──────────────────────────────────────────────────
 
@@ -220,11 +221,11 @@ function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: ThreadRo
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            if (window.confirm(`Delete "${thread.name}" ?`)) onDelete();
+            onDelete();
           }}
           className="text-text-faint hover:text-(--danger) p-1 transition-colors"
-          title="Delete"
-          aria-label="Delete thread"
+          title="Supprimer"
+          aria-label="Supprimer la conversation"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="3 6 5 6 21 6" />
@@ -427,6 +428,7 @@ export function TimelineRail() {
 
   const groups = useMemo(() => groupThreadsByDate(threads), [threads]);
   const [recentsExpanded, setRecentsExpanded] = useState(true);
+  const [confirmDeleteThread, setConfirmDeleteThread] = useState<{ id: string; name: string } | null>(null);
 
   const handleThreadSelect = (threadId: string) => {
     setActiveThread(threadId);
@@ -434,9 +436,15 @@ export function TimelineRail() {
     if (pathname !== "/") router.push("/");
   };
 
-  const handleThreadDelete = (threadId: string) => {
-    if (threadId === activeThreadId) setActiveThread(null);
-    removeThread(threadId);
+  const requestThreadDelete = (thread: Thread) => {
+    setConfirmDeleteThread({ id: thread.id, name: thread.name });
+  };
+
+  const confirmThreadDelete = () => {
+    if (!confirmDeleteThread) return;
+    if (confirmDeleteThread.id === activeThreadId) setActiveThread(null);
+    removeThread(confirmDeleteThread.id);
+    setConfirmDeleteThread(null);
   };
 
   const handleNewThread = () => {
@@ -618,7 +626,7 @@ export function TimelineRail() {
                         thread={t}
                         isActive={t.id === activeThreadId}
                         onSelect={() => handleThreadSelect(t.id)}
-                        onDelete={() => handleThreadDelete(t.id)}
+                        onDelete={() => requestThreadDelete(t)}
                         onArchive={() => toggleArchived(t.id)}
                       />
                     ))}
@@ -628,7 +636,7 @@ export function TimelineRail() {
                         thread={t}
                         isActive={t.id === activeThreadId}
                         onSelect={() => handleThreadSelect(t.id)}
-                        onDelete={() => handleThreadDelete(t.id)}
+                        onDelete={() => requestThreadDelete(t)}
                         onArchive={() => toggleArchived(t.id)}
                       />
                     ))}
@@ -647,7 +655,7 @@ export function TimelineRail() {
                       thread={t}
                       isActive={t.id === activeThreadId}
                       onSelect={() => handleThreadSelect(t.id)}
-                      onDelete={() => handleThreadDelete(t.id)}
+                      onDelete={() => requestThreadDelete(t)}
                       onArchive={() => toggleArchived(t.id)}
                     />
                   ))}
@@ -766,6 +774,20 @@ export function TimelineRail() {
           </>
         )}
       </div>
+
+      <ConfirmModal
+        open={confirmDeleteThread !== null}
+        title="Supprimer cette conversation ?"
+        description={
+          confirmDeleteThread
+            ? `« ${confirmDeleteThread.name} » sera supprimée définitivement. Cette action est irréversible.`
+            : undefined
+        }
+        confirmLabel="Supprimer"
+        variant="danger"
+        onConfirm={confirmThreadDelete}
+        onCancel={() => setConfirmDeleteThread(null)}
+      />
     </aside>
   );
 }

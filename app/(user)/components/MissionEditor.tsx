@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Action } from "./ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 
@@ -22,6 +22,13 @@ interface MissionEditorProps {
   onSave: (data: MissionFormData) => void;
   onCancel: () => void;
   isLoading?: boolean;
+  /**
+   * Notifie le parent dès que le formulaire devient "dirty" (premier
+   * changement utilisateur après le mount). Permet au parent d'afficher
+   * un dirty guard avant fermeture du drawer. Pas appelé au mount initial
+   * ni à l'hydratation des `initialData`.
+   */
+  onDirtyChange?: (dirty: boolean) => void;
 }
 
 const FREQUENCY_OPTIONS = [
@@ -48,7 +55,7 @@ function parseApproversInput(raw: string): string[] {
     .filter((s) => s.length > 0);
 }
 
-export function MissionEditor({ initialData, onSave, onCancel, isLoading }: MissionEditorProps) {
+export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirtyChange }: MissionEditorProps) {
   const [formData, setFormData] = useState<MissionFormData>({
     name: initialData?.name || "",
     description: initialData?.description || "",
@@ -62,6 +69,21 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading }: Miss
   const [approversRaw, setApproversRaw] = useState<string>(
     (initialData?.approvers ?? []).join(", "),
   );
+
+  // Dirty guard — on notifie le parent une seule fois au premier changement
+  // utilisateur (skip first render + skip si déjà dirty). Le parent reset
+  // le flag après save réussi en remountant via `key`.
+  const isFirstRender = useRef(true);
+  const hasNotifiedDirty = useRef(false);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (hasNotifiedDirty.current) return;
+    hasNotifiedDirty.current = true;
+    onDirtyChange?.(true);
+  }, [formData, approversRaw, onDirtyChange]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
