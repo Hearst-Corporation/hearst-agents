@@ -3,23 +3,25 @@
 /**
  * GeneralDashboard — rail droit Cockpit (mode cockpit/chat).
  *
- * Layout instrument panel : 5 sections FIXES qui occupent toute la hauteur
- * disponible sans scroll. Proportions flex, zéro saut de layout.
- * Sections vides → CTA actionnables, jamais masquées.
+ * Layout instrument panel : 5 zones FIXES occupant toute la hauteur sans scroll,
+ * sections vides → CTA actionnables, jamais masquées (pas de saut de layout).
  *
- *  1. MOTEUR    (shrink-0)   — état moteur IA + compteurs clés
- *  2. À VALIDER (flex-1)     — propositions d'agents en attente
- *  3. MISSIONS  (flex-[3])   — missions en vie + statuts live
- *  4. ACTIVITÉ  (flex-[2])   — flux d'événements récents
- *  5. ACCÈS     (shrink-0)   — 2 CTAs primaires toujours visibles
+ *   1. Moteur     (shrink-0)   — état moteur + compteurs + horloge
+ *   2. À valider  (flex 1)     — propositions agents (CTA si vide)
+ *   3. Missions   (flex 3)     — missions en vie (CTA si vide)
+ *   4. Activité   (flex 2)     — flux events runtime
+ *   5. Accès      (shrink-0)   — 2 CTAs primaires
+ *
+ * 100 % primitives DS : <RailSection flex>, <Action>, <EmptyState>.
+ * Voix éditoriale : pas de mono caps, voix régulière FR, tokens uniquement.
  */
 
 import { useEffect, useState, type ReactNode } from "react";
-import { useRouter } from "next/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
 import { useNotificationsStore } from "@/stores/notifications";
+import { Action, RailSection } from "../ui";
 import { useDashboardCounts } from "./use-dashboard-counts";
 
 // ── Helpers ────────────────────────────────────────────────────
@@ -29,6 +31,7 @@ const TIME_FMT = new Intl.DateTimeFormat("fr-FR", {
 });
 
 function relativeTime(ts: number): string {
+  if (!ts) return "—";
   const diff = Date.now() - ts;
   if (diff < 60_000) return "à l'instant";
   if (diff < 3_600_000) return `${Math.floor(diff / 60_000)} min`;
@@ -62,98 +65,33 @@ function missionStatusColor(status: string): string {
   return "var(--text-muted)";
 }
 
-// ── Section shell — titre + slot contenu fixe ──────────────────
+// ── CTA centered (slot vide d'une RailSection flex) ────────────
 
-function RailPane({
-  label,
-  badge,
-  children,
-  flex,
-  className = "",
-}: {
-  label: string;
-  badge?: ReactNode;
-  children: ReactNode;
-  flex?: string;
-  className?: string;
-}) {
+function CenteredCTA({ children }: { children: ReactNode }) {
   return (
-    <div
-      className={`flex flex-col min-h-0 ${className}`}
-      style={{ flex: flex ?? "1 1 0" }}
-    >
-      {/* Header */}
-      <div
-        className="flex items-center justify-between shrink-0"
-        style={{
-          padding: "var(--space-3) var(--space-4) var(--space-2)",
-          borderBottom: "1px solid var(--border-subtle)",
-        }}
-      >
-        <span
-          className="t-9 font-medium uppercase tracking-wider"
-          style={{ color: "var(--text-faint)", letterSpacing: "0.08em" }}
-        >
-          {label}
-        </span>
-        {badge}
-      </div>
-      {/* Body */}
-      <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+    <div className="flex-1 flex items-center justify-center">
+      {children}
+    </div>
+  );
+}
+
+// ── Centered note (slot empty sans CTA — Activité vide) ────────
+
+function CenteredNote({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex-1 flex items-center justify-center">
+      <span className="t-11 font-light text-[var(--text-faint)]">
         {children}
-      </div>
+      </span>
     </div>
   );
 }
 
-// ── Empty state CTA ────────────────────────────────────────────
-
-function PaneCTA({
-  label,
-  onClick,
-  href,
-}: {
-  label: string;
-  onClick?: () => void;
-  href?: string;
-}) {
-  const router = useRouter();
-  const go = onClick ?? (() => href && router.push(href));
-  return (
-    <div className="flex-1 flex items-center justify-center" style={{ padding: "var(--space-4)" }}>
-      <button
-        type="button"
-        onClick={go}
-        className="t-11 font-light transition-colors"
-        style={{ color: "var(--text-faint)" }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent-teal)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-faint)"; }}
-      >
-        {label} →
-      </button>
-    </div>
-  );
-}
-
-// ── Badge compteur ─────────────────────────────────────────────
-
-function CountBadge({ n }: { n: number | null }) {
-  if (!n) return null;
-  return (
-    <span
-      className="t-9 font-mono tabular-nums"
-      style={{ color: "var(--text-faint)" }}
-    >
-      {String(n).padStart(2, "0")}
-    </span>
-  );
-}
-
 // ══════════════════════════════════════════════════════════════
-// SECTION 1 — MOTEUR (shrink-0)
+// 1 — MOTEUR (shrink-0, ~80px)
 // ══════════════════════════════════════════════════════════════
 
-function MoteurSection() {
+function MoteurZone() {
   const coreState = useRuntimeStore((s) => s.coreState);
   const voiceActive = useVoiceStore((s) => s.voiceActive);
   const notifications = useNotificationsStore((s) => s.notifications);
@@ -168,9 +106,7 @@ function MoteurSection() {
 
   const isIdle = coreState === "idle";
   const stateLabel = voiceActive ? "Session vocale" : (STATE_LABEL[coreState] ?? "En ligne");
-  const stateColor = coreState === "error" ? "var(--danger)"
-    : coreState === "idle" ? "var(--accent-teal)"
-    : "var(--accent-teal)";
+  const stateColor = coreState === "error" ? "var(--danger)" : "var(--accent-teal)";
 
   const alertCount = notifications.filter(
     (n) => (n.severity === "critical" || n.severity === "warning") && n.read_at === null,
@@ -180,41 +116,31 @@ function MoteurSection() {
     <div
       className="shrink-0 flex items-center"
       style={{
-        gap: "var(--space-4)",
-        padding: "var(--space-3) var(--space-4)",
+        gap: "var(--space-3)",
+        padding: "var(--space-4) var(--space-5)",
         borderBottom: "1px solid var(--border-subtle)",
       }}
     >
-      {/* Status dot */}
       <span
+        aria-hidden
         className="shrink-0 rounded-full"
         style={{
           width: 8,
           height: 8,
           background: stateColor,
-          boxShadow: isIdle ? "none" : `0 0 6px ${stateColor}`,
+          boxShadow: isIdle ? "none" : "var(--shadow-pulse-dot)",
           animation: isIdle ? "none" : "pulse-status-accent-teal 2s ease-in-out infinite",
         }}
-        aria-hidden
       />
-
-      {/* State + clock */}
       <div className="flex-1 min-w-0 flex flex-col" style={{ gap: 2 }}>
-        <span className="t-11 font-medium" style={{ color: stateColor }}>
+        <span className="t-13 font-medium" style={{ color: stateColor }}>
           {stateLabel}
         </span>
-        <div className="flex items-center" style={{ gap: "var(--space-4)" }}>
-          <span className="t-9 font-mono tabular-nums" style={{ color: "var(--text-faint)" }}>
-            {counts.missionsActive ?? 0} actifs
-          </span>
-          <span className="t-9 font-mono tabular-nums" style={{ color: alertCount > 0 ? "var(--warn)" : "var(--text-faint)" }}>
-            {alertCount} alertes
-          </span>
-        </div>
+        <span className="t-11 font-light text-[var(--text-faint)]">
+          {counts.missionsActive ?? 0} actifs · {alertCount} alerte{alertCount > 1 ? "s" : ""}
+        </span>
       </div>
-
-      {/* Clock */}
-      <span className="t-9 font-mono tabular-nums shrink-0" style={{ color: "var(--text-faint)" }}>
+      <span className="t-11 font-mono tabular-nums shrink-0 text-[var(--text-faint)]">
         {now ? TIME_FMT.format(now) : "--:--"}
       </span>
     </div>
@@ -222,144 +148,125 @@ function MoteurSection() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// SECTION 2 — À VALIDER (flex-1)
+// 2 — À VALIDER (flex 1)
 // ══════════════════════════════════════════════════════════════
 
-function ValiderSection() {
-  const router = useRouter();
+function ValiderZone() {
   // TODO: câbler à un store de propositions d'agents autonomes
   const pending: { agent: string; title: string } | null = null as { agent: string; title: string } | null;
 
   return (
-    <RailPane label="À valider" badge={<CountBadge n={pending ? 1 : null} />} flex="1 1 0">
+    <RailSection
+      label="À valider"
+      count={pending ? 1 : undefined}
+      flex="1 1 0"
+    >
       {pending ? (
-        <div className="flex-1 flex flex-col justify-between" style={{ padding: "var(--space-3) var(--space-4)" }}>
+        <div className="flex-1 flex flex-col justify-between" style={{ gap: "var(--space-3)" }}>
           <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-            <span className="t-9 font-light italic" style={{ color: "var(--accent-teal)" }}>
+            <span className="t-11 font-light italic text-[var(--accent-teal)]">
               {pending.agent} propose
             </span>
-            <span className="t-13 font-light" style={{ color: "var(--text-soft)" }}>
+            <span className="t-13 font-light text-[var(--text-soft)]">
               {pending.title}
             </span>
           </div>
           <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-            <button
-              type="button"
-              className="flex-1 t-9 font-light transition-colors rounded-sm"
-              style={{
-                padding: "var(--space-2)",
-                color: "var(--text-faint)",
-                border: "1px solid var(--border-soft)",
-              }}
-            >
+            <Action variant="secondary" tone="neutral" size="sm" className="flex-1">
               Refuser
-            </button>
-            <button
-              type="button"
-              className="flex-1 t-9 font-medium transition-colors rounded-sm"
-              style={{
-                padding: "var(--space-2)",
-                color: "var(--accent-teal)",
-                background: "var(--accent-teal-surface)",
-                border: "1px solid var(--accent-teal-border)",
-              }}
-            >
+            </Action>
+            <Action variant="secondary" tone="brand" size="sm" className="flex-1">
               Valider
-            </button>
+            </Action>
           </div>
         </div>
       ) : (
-        <PaneCTA label="Démarrer une mission" onClick={() => router.push("/missions/builder")} />
+        <CenteredCTA>
+          <Action variant="link" tone="brand" href="/missions/builder">
+            Démarrer une mission →
+          </Action>
+        </CenteredCTA>
       )}
-    </RailPane>
+    </RailSection>
   );
 }
 
 // ══════════════════════════════════════════════════════════════
-// SECTION 3 — MISSIONS EN VIE (flex-3)
+// 3 — MISSIONS (flex 3)
 // ══════════════════════════════════════════════════════════════
 
-function MissionsSection() {
-  const router = useRouter();
+function MissionsZone() {
   const setMode = useStageStore((s) => s.setMode);
   const counts = useDashboardCounts();
   const missions = counts.missionsLive;
 
   return (
-    <RailPane
+    <RailSection
       label="Missions en vie"
-      badge={<CountBadge n={counts.missionsTotal} />}
+      count={counts.missionsTotal ?? undefined}
+      action={missions.length > 0 && (
+        <Action variant="link" tone="brand" href="/missions">
+          Toutes
+        </Action>
+      )}
       flex="3 1 0"
       className="border-t border-[var(--border-subtle)]"
     >
       {missions.length === 0 ? (
-        <PaneCTA label="Créer une première mission" onClick={() => router.push("/missions/builder")} />
+        <CenteredCTA>
+          <Action variant="link" tone="brand" href="/missions/builder">
+            Créer une première mission →
+          </Action>
+        </CenteredCTA>
       ) : (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ padding: "var(--space-2) 0" }}>
-          {missions.map((m) => (
-            <li key={m.id}>
-              <button
-                type="button"
-                onClick={() => setMode({ mode: "mission", missionId: m.id })}
-                className="w-full flex items-center text-left transition-colors group"
-                style={{
-                  padding: "var(--space-2) var(--space-4)",
-                  gap: "var(--space-3)",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--bg-soft)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-              >
-                {/* Status dot */}
-                <span
-                  className="shrink-0 rounded-full"
+        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "var(--space-1)" }}>
+          {missions.map((m) => {
+            const color = missionStatusColor(m.status);
+            const isRunning = m.status === "running";
+            return (
+              <li key={m.id}>
+                <button
+                  type="button"
+                  onClick={() => setMode({ mode: "mission", missionId: m.id })}
+                  className="w-full flex items-center text-left rounded-sm transition-colors hover:bg-[var(--bg-soft)]"
                   style={{
-                    width: 6,
-                    height: 6,
-                    background: missionStatusColor(m.status),
-                    boxShadow: m.status === "running" ? `0 0 5px var(--accent-teal)` : "none",
-                    animation: m.status === "running" ? "pulse-status-accent-teal 2s ease-in-out infinite" : "none",
+                    padding: "var(--space-2)",
+                    gap: "var(--space-3)",
+                    transitionDuration: "var(--duration-base)",
                   }}
-                  aria-hidden
-                />
-                {/* Name */}
-                <span className="flex-1 min-w-0 t-11 font-light truncate" style={{ color: "var(--text-soft)" }}>
-                  {m.name}
-                </span>
-                {/* Status label */}
-                <span className="t-9 font-light shrink-0" style={{ color: missionStatusColor(m.status) }}>
-                  {MISSION_STATUS_LABEL[m.status] ?? m.status}
-                </span>
-              </button>
-            </li>
-          ))}
-          {/* Voir toutes */}
-          <li>
-            <button
-              type="button"
-              onClick={() => router.push("/missions")}
-              className="w-full flex items-center justify-end t-9 font-light transition-colors"
-              style={{
-                padding: "var(--space-2) var(--space-4)",
-                color: "var(--text-faint)",
-                marginTop: "auto",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent-teal)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-faint)"; }}
-            >
-              Voir toutes →
-            </button>
-          </li>
+                >
+                  <span
+                    aria-hidden
+                    className="shrink-0 rounded-full"
+                    style={{
+                      width: 6,
+                      height: 6,
+                      background: color,
+                      boxShadow: isRunning ? "var(--shadow-pulse-dot-sm)" : "none",
+                      animation: isRunning ? "pulse-status-accent-teal 2s ease-in-out infinite" : "none",
+                    }}
+                  />
+                  <span className="flex-1 min-w-0 t-13 font-light truncate text-[var(--text-soft)]">
+                    {m.name}
+                  </span>
+                  <span className="t-11 font-light shrink-0" style={{ color }}>
+                    {MISSION_STATUS_LABEL[m.status] ?? m.status}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
-    </RailPane>
+    </RailSection>
   );
 }
 
 // ══════════════════════════════════════════════════════════════
-// SECTION 4 — ACTIVITÉ RÉCENTE (flex-2)
+// 4 — ACTIVITÉ (flex 2)
 // ══════════════════════════════════════════════════════════════
 
-const EVENT_ICON: Record<string, string> = {
+const EVENT_GLYPH: Record<string, string> = {
   asset_generated: "▦",
   run_completed: "✓",
   run_failed: "✗",
@@ -370,32 +277,28 @@ const EVENT_ICON: Record<string, string> = {
 
 const EVENT_COLOR: Record<string, string> = {
   asset_generated: "var(--accent-teal)",
-  run_completed: "var(--money)",
+  run_completed: "var(--accent-teal)",
   run_failed: "var(--danger)",
   run_started: "var(--accent-teal)",
   connection_added: "var(--accent-teal)",
   connection_error: "var(--warn)",
 };
 
-function ActiviteSection() {
+function ActiviteZone() {
   const events = useRuntimeStore((s) => s.events).slice(0, 5);
 
   return (
-    <RailPane
+    <RailSection
       label="Activité récente"
       flex="2 1 0"
       className="border-t border-[var(--border-subtle)]"
     >
       {events.length === 0 ? (
-        <div className="flex-1 flex items-center justify-center" style={{ padding: "var(--space-4)" }}>
-          <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
-            Aucune activité récente
-          </span>
-        </div>
+        <CenteredNote>Aucune activité récente</CenteredNote>
       ) : (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ padding: "var(--space-2) 0" }}>
+        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "var(--space-1)" }}>
           {events.map((ev, i) => {
-            const icon = EVENT_ICON[ev.type] ?? "·";
+            const glyph = EVENT_GLYPH[ev.type] ?? "·";
             const color = EVENT_COLOR[ev.type] ?? "var(--text-faint)";
             const label = (ev as Record<string, unknown>).name as string
               ?? (ev as Record<string, unknown>).message as string
@@ -405,13 +308,15 @@ function ActiviteSection() {
               <li
                 key={i}
                 className="flex items-baseline"
-                style={{ padding: "var(--space-2) var(--space-4)", gap: "var(--space-3)" }}
+                style={{ padding: "var(--space-1) var(--space-2)", gap: "var(--space-3)" }}
               >
-                <span className="t-9 shrink-0 font-mono" style={{ color }}>{icon}</span>
-                <span className="flex-1 min-w-0 t-11 font-light truncate" style={{ color: "var(--text-soft)" }}>
+                <span className="t-11 shrink-0 font-mono" style={{ color }}>
+                  {glyph}
+                </span>
+                <span className="flex-1 min-w-0 t-13 font-light truncate text-[var(--text-soft)]">
                   {label}
                 </span>
-                <span className="t-9 font-mono tabular-nums shrink-0" style={{ color: "var(--text-faint)" }}>
+                <span className="t-9 font-mono tabular-nums shrink-0 text-[var(--text-faint)]">
                   {relativeTime(ts)}
                 </span>
               </li>
@@ -419,18 +324,16 @@ function ActiviteSection() {
           })}
         </ul>
       )}
-    </RailPane>
+    </RailSection>
   );
 }
 
 // ══════════════════════════════════════════════════════════════
-// SECTION 5 — ACCÈS (shrink-0)
+// 5 — ACCÈS (shrink-0)
 // ══════════════════════════════════════════════════════════════
 
-function AccesSection() {
-  const router = useRouter();
+function AccesZone() {
   const counts = useDashboardCounts();
-
   const srcLabel = counts.connectionsConnected !== null && counts.connectionsTotal !== null
     ? `Sources  ${counts.connectionsConnected} / ${counts.connectionsTotal}`
     : "Sources";
@@ -439,58 +342,33 @@ function AccesSection() {
     <div
       className="shrink-0 flex flex-col"
       style={{
-        padding: "var(--space-3) var(--space-4)",
+        padding: "var(--space-4) var(--space-5)",
         gap: "var(--space-2)",
         borderTop: "1px solid var(--border-subtle)",
       }}
     >
-      <button
-        type="button"
-        onClick={() => router.push("/missions/builder")}
-        className="w-full t-11 font-medium text-left transition-colors rounded-md"
-        style={{
-          padding: "var(--space-2) var(--space-3)",
-          background: "var(--accent-teal-surface)",
-          border: "1px solid var(--accent-teal-border)",
-          color: "var(--accent-teal)",
-          transitionDuration: "var(--duration-base)",
-        }}
-      >
+      <Action variant="secondary" tone="brand" size="sm" href="/missions/builder" className="w-full justify-start">
         + Nouvelle mission
-      </button>
-      <button
-        type="button"
-        onClick={() => router.push("/apps")}
-        className="w-full t-11 font-light text-left flex items-center justify-between transition-colors rounded-md"
-        style={{
-          padding: "var(--space-2) var(--space-3)",
-          background: "transparent",
-          border: "1px solid var(--border-soft)",
-          color: "var(--text-muted)",
-          transitionDuration: "var(--duration-base)",
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--border-default)"; e.currentTarget.style.color = "var(--text-soft)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-soft)"; e.currentTarget.style.color = "var(--text-muted)"; }}
-      >
-        <span>{srcLabel}</span>
-        <span style={{ color: "var(--text-faint)" }}>→</span>
-      </button>
+      </Action>
+      <Action variant="ghost" tone="neutral" size="sm" href="/apps" iconRight={<span>→</span>} className="w-full justify-between">
+        {srcLabel}
+      </Action>
     </div>
   );
 }
 
 // ══════════════════════════════════════════════════════════════
-// ROOT EXPORT
+// ROOT
 // ══════════════════════════════════════════════════════════════
 
 export function GeneralDashboard() {
   return (
     <div className="flex flex-col h-full min-h-0">
-      <MoteurSection />
-      <ValiderSection />
-      <MissionsSection />
-      <ActiviteSection />
-      <AccesSection />
+      <MoteurZone />
+      <ValiderZone />
+      <MissionsZone />
+      <ActiviteZone />
+      <AccesZone />
     </div>
   );
 }
