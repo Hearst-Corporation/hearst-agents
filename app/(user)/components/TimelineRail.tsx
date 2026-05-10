@@ -87,12 +87,6 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
-const FolderIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-  </svg>
-);
-
 // ── Section helpers ────────────────────────────────────────
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
@@ -560,7 +554,7 @@ export function TimelineRail() {
                   onClick={handleHome}
                 />
                 <TopMenuItem
-                  label="App"
+                  label="Apps"
                   icon={<AppIcon />}
                   isActive={isAppsActive}
                   badge={oauthSeverity}
@@ -640,34 +634,6 @@ export function TimelineRail() {
                     ))}
                   </div>
                 ))}
-            </section>
-
-            {/* Workspaces — stub visuel */}
-            <section style={{ marginTop: "var(--space-4)" }}>
-              <div className="flex items-center justify-between mb-6 px-3">
-                <span
-                  className="t-9 font-medium"
-                  style={{
-                    color: "var(--text-faint)",
-                    letterSpacing: "var(--tracking-wide)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Workspaces
-                </span>
-              </div>
-              <div className="space-y-px">
-                {["New", "New"].map((name, i) => (
-                  <div
-                    key={i}
-                    className="group cursor-pointer py-2 px-3 flex items-center gap-3 rounded-md hover:bg-[var(--layer-1)] transition-colors duration-(--duration-base) ease-(--ease-out-soft)"
-                    style={{ color: "var(--text-l2)" }}
-                  >
-                    <span className="shrink-0 text-[var(--text-faint)]"><FolderIcon /></span>
-                    <span className="t-13 font-light truncate" style={{ color: "var(--text-l2)" }}>{name}</span>
-                  </div>
-                ))}
-              </div>
             </section>
 
             {/* Archive */}
