@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-05-10T06:57:44.105Z",
-  "total": 32,
+  "generatedAt": "2026-05-10T06:57:54.538Z",
+  "total": 33,
   "counts": {
     "verrouillé": 32,
-    "in_progress": 0,
+    "in_progress": 1,
     "review": 0,
     "active": 0,
     "autres": 0
   },
   "totals": {
     "invariants": 358,
-    "testsExistants": 1617,
-    "testsManquants": 189,
-    "orphans": 12
+    "testsExistants": 1618,
+    "testsManquants": 192,
+    "orphans": 13
   },
   "actualTests": {
     "files": 252,
@@ -889,6 +889,26 @@
       "testsManquantsCount": 0,
       "testGap": "aucun",
       "orphansCount": 0
+    },
+    {
+      "id": "spaces",
+      "file": "spaces.md",
+      "href": "docs/features/spaces.md",
+      "statut": "in_progress",
+      "statutRaw": "in_progress (preview — Phase 1 livrée, Phases 2 & 3 à venir)",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-10",
+      "niveau": null,
+      "invariantsCount": 0,
+      "invariantsTitles": [],
+      "testsExistantsCount": 1,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 1,
+      "testsManquantsCount": 3,
+      "testGap": "élevé",
+      "orphansCount": 1
     },
     {
       "id": "stage",
