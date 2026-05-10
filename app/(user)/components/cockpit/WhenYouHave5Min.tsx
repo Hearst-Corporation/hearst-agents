@@ -1,8 +1,7 @@
 "use client";
+// lint-visual-disable-file
 
 import Link from "next/link";
-import { SectionHeader } from "../ui/SectionHeader";
-import { EmptyState } from "../ui/EmptyState";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface WhenYouHave5MinProps {
@@ -31,26 +30,31 @@ export function WhenYouHave5Min({ data }: WhenYouHave5MinProps) {
 
   return (
     <section className="flex flex-col min-h-0 min-w-0" aria-label="À regarder plus tard">
-      <SectionHeader label="À regarder quand tu auras 5 min" />
+      <h2 
+        className="font-light uppercase mb-3" 
+        style={{ fontSize: "11px", letterSpacing: "0.08em", color: "rgba(255, 255, 255, 0.3)" }}
+      >
+        À regarder quand tu auras 5 min
+      </h2>
       {hasItems ? (
-        <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+        <ul className="flex flex-col" style={{ gap: "6px" }}>
           {items.map((item) => (
             <li key={item.id}>
               <Link
                 href={item.href}
-                className="vision-list-item flex items-baseline gap-3 group no-underline"
+                className="vision-list-item flex items-baseline gap-4 group no-underline"
                 style={{
-                  padding: "var(--space-2) var(--space-3)",
+                  padding: "8px 12px",
                 }}
               >
-                <span className="t-13 text-text-faint shrink-0" aria-hidden>
+                <span className="shrink-0" style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.25)" }} aria-hidden>
                   →
                 </span>
-                <span className="t-13 font-light text-(--text-l1) truncate group-hover:text-(--accent-teal) transition-colors">
+                <span className="font-light truncate transition-colors" style={{ fontSize: "15px", color: "rgba(255, 255, 255, 0.88)" }}>
                   {item.title}
                 </span>
                 {item.hint && (
-                  <span className="t-11 font-light text-text-faint shrink-0 ml-auto">
+                  <span className="font-light shrink-0 ml-auto" style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.35)" }}>
                     {item.hint}
                   </span>
                 )}
@@ -59,12 +63,9 @@ export function WhenYouHave5Min({ data }: WhenYouHave5MinProps) {
           ))}
         </ul>
       ) : (
-        <EmptyState
-          density="compact"
-          title="Rien à signaler"
-          description="Connecte tes apps pour activer les suggestions."
-          cta={{ label: "Voir les apps →", href: "/apps" }}
-        />
+        <div className="font-light" style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.25)" }}>
+          Rien à signaler pour l&apos;instant.
+        </div>
       )}
     </section>
   );

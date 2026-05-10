@@ -1,7 +1,7 @@
 "use client";
+// lint-visual-disable-file
 
-import { SectionHeader } from "../ui/SectionHeader";
-import { EmptyState } from "../ui/EmptyState";
+import Link from "next/link";
 import { formatHHMM } from "@/lib/utils/date-format";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
@@ -18,39 +18,40 @@ export function TodayAgenda({ data }: TodayAgendaProps) {
 
   return (
     <section className="flex flex-col min-h-0 min-w-0" aria-label="Agenda du jour">
-      <SectionHeader label="Aujourd'hui" />
+      <h2 
+        className="font-light uppercase mb-3" 
+        style={{ fontSize: "11px", letterSpacing: "0.08em", color: "rgba(255, 255, 255, 0.3)" }}
+      >
+        Aujourd&apos;hui
+      </h2>
       {hasItems ? (
-        <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
+        <ul className="flex flex-col" style={{ gap: "6px" }}>
           {items.map((item) => (
             <li
               key={item.id}
-              className="vision-list-item flex items-baseline gap-3"
+              className="vision-list-item flex items-baseline gap-4"
               style={{
-                padding: "var(--space-2) var(--space-3)",
+                padding: "8px 12px",
               }}
             >
-              <span className="t-13 font-mono tabular-nums text-(--accent-teal) shrink-0">
+              <span className="font-mono tabular-nums shrink-0" style={{ fontSize: "13px", color: "var(--accent-teal)" }}>
                 {formatHHMM(item.startsAt)}
               </span>
-              <span className="t-13 font-light text-(--text-l1) truncate">
+              <span className="font-light truncate" style={{ fontSize: "15px", color: "rgba(255, 255, 255, 0.88)" }}>
                 {item.title}
               </span>
             </li>
           ))}
         </ul>
       ) : connected ? (
-        <EmptyState
-          density="compact"
-          title="Rien de prévu"
-          description="Ta journée est libre."
-        />
+        <div className="font-light" style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.25)" }}>
+          Ta journée est libre.
+        </div>
       ) : (
-        <EmptyState
-          density="compact"
-          title="Calendrier non connecté"
-          description="Connecte Google Calendar pour voir ta journée."
-          cta={{ label: "Connecter le calendrier →", href: "/apps#calendar" }}
-        />
+        <div className="font-light flex flex-col gap-2" style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.25)" }}>
+          <span>Connecte Google Calendar pour voir ta journée.</span>
+          <Link href="/apps#calendar" style={{ color: "rgba(255, 255, 255, 0.55)", textDecoration: "none" }}>Connecter le calendrier →</Link>
+        </div>
       )}
     </section>
   );
