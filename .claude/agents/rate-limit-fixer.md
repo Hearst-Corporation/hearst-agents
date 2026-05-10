@@ -63,10 +63,15 @@ const orchestrateBodySchema = z.object({
   message: z.string().min(1).max(20_000),
   conversationId: z.string().uuid().optional(),
   threadId: z.string().uuid().optional(),
-  history: z.array(z.object({
-    role: z.enum(["user", "assistant", "system"]),
-    content: z.string().max(4_000),
-  })).max(20).optional(),
+  history: z
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant", "system"]),
+        content: z.string().max(4_000),
+      }),
+    )
+    .max(20)
+    .optional(),
   attached_asset_ids: z.array(z.string().uuid()).max(5).optional(),
   // ...
 });
@@ -77,10 +82,13 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const parsed = orchestrateBodySchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "invalid_body", details: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const PRICE_CAP_USD = 0.50; // par run
+  const PRICE_CAP_USD = 0.5; // par run
   // ... pass to runAiPipeline as max_cost_usd
 }
 ```
@@ -91,7 +99,11 @@ export async function POST(req: NextRequest) {
 // lib/credits/daily-caps.ts (nouveau)
 import { redis } from "@/lib/platform/redis/client";
 
-export async function checkDailyCap(userId: string, key: string, max: number): Promise<{ allowed: boolean; current: number }> {
+export async function checkDailyCap(
+  userId: string,
+  key: string,
+  max: number,
+): Promise<{ allowed: boolean; current: number }> {
   const date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
   const k = `daily-cap:${key}:${userId}:${date}`;
   const current = await redis.incr(k);
@@ -104,7 +116,10 @@ export async function checkDailyCap(userId: string, key: string, max: number): P
 // app/api/v2/daily-brief/generate/route.ts
 const cap = await checkDailyCap(scope.userId, "daily-brief", 5);
 if (!cap.allowed) {
-  return NextResponse.json({ error: "daily_cap_exceeded", current: cap.current, max: 5 }, { status: 429 });
+  return NextResponse.json(
+    { error: "daily_cap_exceeded", current: cap.current, max: 5 },
+    { status: 429 },
+  );
 }
 ```
 

@@ -73,14 +73,14 @@ Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   integrations: [
     Sentry.replayIntegration({
-      maskAllText: true,        // CHANGÉ
-      maskAllInputs: true,      // CHANGÉ
-      blockAllMedia: true,      // CHANGÉ
+      maskAllText: true, // CHANGÉ
+      maskAllInputs: true, // CHANGÉ
+      blockAllMedia: true, // CHANGÉ
       networkDetailAllowUrls: [], // pas d'URLs détaillées
     }),
   ],
   replaysOnErrorSampleRate: 1.0,
-  replaysSessionSampleRate: 0,  // pas de replay continu
+  replaysSessionSampleRate: 0, // pas de replay continu
 });
 ```
 
@@ -88,7 +88,8 @@ Sentry.init({
 
 ```ts
 // lib/observability/langfuse-redact.ts (nouveau)
-const PII_FIELD_REGEX = /email|phone|ssn|token|secret|api_?key|authorization|prompt|system|message|content/i;
+const PII_FIELD_REGEX =
+  /email|phone|ssn|token|secret|api_?key|authorization|prompt|system|message|content/i;
 
 function redactString(s: string): string {
   return s
@@ -145,21 +146,26 @@ export function register() {
 ```ts
 // lib/llm/pricing.ts (nouveau)
 export const MODEL_PRICING: Record<string, { input: number; output: number; cacheRead: number }> = {
-  "claude-opus-4-7": { input: 15.0, output: 75.0, cacheRead: 1.5 },      // per 1M tokens
+  "claude-opus-4-7": { input: 15.0, output: 75.0, cacheRead: 1.5 }, // per 1M tokens
   "claude-sonnet-4-6": { input: 3.0, output: 15.0, cacheRead: 0.3 },
   "claude-haiku-4-5": { input: 0.8, output: 4.0, cacheRead: 0.08 },
   "gpt-4o": { input: 2.5, output: 10.0, cacheRead: 1.25 },
-  "gpt-4o-mini": { input: 0.15, output: 0.60, cacheRead: 0.075 },
-  "gemini-2.0-flash": { input: 0.10, output: 0.40, cacheRead: 0.025 },
+  "gpt-4o-mini": { input: 0.15, output: 0.6, cacheRead: 0.075 },
+  "gemini-2.0-flash": { input: 0.1, output: 0.4, cacheRead: 0.025 },
 };
 
-export function computeCostUsd(provider: string, model: string, usage: { input_tokens: number; output_tokens: number; cache_read_input_tokens?: number }): number {
+export function computeCostUsd(
+  provider: string,
+  model: string,
+  usage: { input_tokens: number; output_tokens: number; cache_read_input_tokens?: number },
+): number {
   const pricing = MODEL_PRICING[model];
   if (!pricing) {
     console.warn(`[pricing] Unknown model ${model} — cost defaulted to 0`);
     return 0;
   }
-  const inputCost = ((usage.input_tokens - (usage.cache_read_input_tokens ?? 0)) * pricing.input) / 1_000_000;
+  const inputCost =
+    ((usage.input_tokens - (usage.cache_read_input_tokens ?? 0)) * pricing.input) / 1_000_000;
   const outputCost = (usage.output_tokens * pricing.output) / 1_000_000;
   const cacheCost = ((usage.cache_read_input_tokens ?? 0) * pricing.cacheRead) / 1_000_000;
   return inputCost + outputCost + cacheCost;

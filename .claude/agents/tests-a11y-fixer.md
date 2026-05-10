@@ -123,11 +123,7 @@ export function ChatDock() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <section
-      role="region"
-      aria-label="Conversation avec l'assistant"
-      className="..."
-    >
+    <section role="region" aria-label="Conversation avec l'assistant" className="...">
       <div
         ref={messageListRef}
         role="log"

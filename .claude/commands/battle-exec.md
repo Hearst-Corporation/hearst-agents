@@ -8,6 +8,7 @@ argument-hint: <batch-id> (ex B0.1, B1.2)
 Argument : **$ARGUMENTS**
 
 Si `$ARGUMENTS` est vide :
+
 - Stop. Demande à l'utilisateur de fournir un `batch_id` (ex: `/battle-exec B1.2`).
 - Suggère de lancer `/battle-next` d'abord pour voir le prochain batch recommandé.
 
@@ -18,6 +19,7 @@ Sinon :
 !cat docs/AGENT-LOCK.json
 
 Si `locked: true` ci-dessus :
+
 - ABORT. Refuse d'exécuter le batch.
 - Indique à l'utilisateur de déverrouiller via `/admin/agent-driven-dev`.
 
@@ -36,10 +38,12 @@ Si batch déjà `done` → demander si on veut re-exécuter (idempotency check).
 ## Étape 2 — Spawn battle-orchestrator
 
 Spawne le sub-agent `battle-orchestrator` avec en input :
+
 - `batch_id`: $ARGUMENTS
 - Mission : exécuter le batch de bout en bout selon son workflow standard (lire findings → mark in_progress → spawn fixer → tests → re-audit → close)
 
 Le `battle-orchestrator` va lui-même spawner :
+
 1. Le fixer approprié (`auth-fixer`, `ssrf-fixer`, etc.) selon `sub_agent_recommended` du batch
 2. L'agent `validator` pour `npm run validate`
 3. L'agent `reauditer` pour vérification post-fix
@@ -62,6 +66,7 @@ Récupère le rapport final du `battle-orchestrator` et présente :
 ## Étape 4 — Suggérer next
 
 Lance mentalement `/battle-next` et propose :
+
 - Prochain batch recommandé
 - Si phase complète : féliciter + indiquer phase suivante
 - Si arrivé à GO-LIVE : annoncer 🚀

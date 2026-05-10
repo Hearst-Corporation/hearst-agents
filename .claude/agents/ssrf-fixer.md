@@ -31,21 +31,28 @@ Si pas encore créé :
 import { lookup } from "node:dns/promises";
 
 const PRIVATE_IPV4_RANGES = [
-  /^127\./, /^10\./, /^192\.168\./,
+  /^127\./,
+  /^10\./,
+  /^192\.168\./,
   /^172\.(1[6-9]|2\d|3[01])\./,
-  /^169\.254\./, /^0\./,
+  /^169\.254\./,
+  /^0\./,
 ];
 
-const PRIVATE_IPV6_PATTERNS = [
-  /^::1$/, /^fc/i, /^fd/i, /^fe80/i,
-];
+const PRIVATE_IPV6_PATTERNS = [/^::1$/, /^fc/i, /^fd/i, /^fe80/i];
 
 const BLOCKED_HOSTNAMES = new Set([
-  "localhost", "ip6-localhost", "ip6-loopback", "metadata.google.internal",
+  "localhost",
+  "ip6-localhost",
+  "ip6-loopback",
+  "metadata.google.internal",
 ]);
 
 export class SsrfBlockedError extends Error {
-  constructor(public readonly reason: string, public readonly url: string) {
+  constructor(
+    public readonly reason: string,
+    public readonly url: string,
+  ) {
     super(`SSRF blocked: ${reason} (${url})`);
   }
 }
@@ -62,7 +69,10 @@ function isPrivateIpv6(ip: string): boolean {
  * Valide qu'une URL ne pointe pas vers un IP privé / link-local.
  * Effectue DNS lookup pour empêcher DNS rebinding.
  */
-export async function assertSafeUrl(raw: string, opts?: { allowedSchemes?: string[] }): Promise<URL> {
+export async function assertSafeUrl(
+  raw: string,
+  opts?: { allowedSchemes?: string[] },
+): Promise<URL> {
   const allowedSchemes = opts?.allowedSchemes ?? ["http:", "https:"];
 
   let u: URL;

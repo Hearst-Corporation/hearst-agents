@@ -22,10 +22,12 @@ Lis le batch courant :
 !node scripts/battle-status.mjs --batch=$ARGUMENTS
 
 Vérifier :
+
 - batch existe
 - status actuel = `in_progress` (sinon demander confirmation)
 
 Demande à l'utilisateur :
+
 1. Quels findings sont VRAIMENT closed (peut être un sous-ensemble) ?
 2. Y a-t-il des régressions à ouvrir comme nouveaux findings F-XXX ?
 3. Confirmer : marquer `done` ?
@@ -50,6 +52,7 @@ Et pour chaque finding closed :
 ## Étape 4 — Suggérer commit
 
 Présente :
+
 ```
 ✅ Batch $ARGUMENTS marked DONE manually
 - Findings closed: <list>

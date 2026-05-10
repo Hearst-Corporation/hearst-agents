@@ -14,22 +14,22 @@ Ce document est le **runbook** complet pour exécuter le Battle Plan sécurité 
 
 ## Sources de vérité
 
-| Fichier | Rôle |
-|---|---|
-| `docs/audits/2026-05-10-security/BATTLE-PLAN.json` | Phases + batchs + statuts + dépendances |
-| `docs/audits/2026-05-10-security/findings.json` | 130 findings consolidés (4 sources) |
-| `docs/audits/2026-05-10-security/AUDIT-MASTER.html` | Vue tableau filtrable des findings |
-| `docs/audits/2026-05-10-security/BATTLE-PLAN.html` | Vue séquentielle phases/batchs |
+| Fichier                                             | Rôle                                    |
+| --------------------------------------------------- | --------------------------------------- |
+| `docs/audits/2026-05-10-security/BATTLE-PLAN.json`  | Phases + batchs + statuts + dépendances |
+| `docs/audits/2026-05-10-security/findings.json`     | 130 findings consolidés (4 sources)     |
+| `docs/audits/2026-05-10-security/AUDIT-MASTER.html` | Vue tableau filtrable des findings      |
+| `docs/audits/2026-05-10-security/BATTLE-PLAN.html`  | Vue séquentielle phases/batchs          |
 
 ## Slash commands disponibles
 
-| Command | Rôle |
-|---|---|
-| `/battle-status` | État global du plan (progression par phase) |
-| `/battle-next` | Recommande prochain batch éligible (deps satisfaites) |
-| `/battle-exec <batch-id>` | Pilote l'exécution complète d'un batch (orchestrateur + fixer + tests + re-audit + close) |
-| `/battle-close <batch-id>` | Marque batch done manuellement (uniquement si /battle-exec a partiellement échoué) |
-| `/battle-reaudit <batch-id\|finding-id>` | Re-audit isolé par modèle différent |
+| Command                                  | Rôle                                                                                      |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `/battle-status`                         | État global du plan (progression par phase)                                               |
+| `/battle-next`                           | Recommande prochain batch éligible (deps satisfaites)                                     |
+| `/battle-exec <batch-id>`                | Pilote l'exécution complète d'un batch (orchestrateur + fixer + tests + re-audit + close) |
+| `/battle-close <batch-id>`               | Marque batch done manuellement (uniquement si /battle-exec a partiellement échoué)        |
+| `/battle-reaudit <batch-id\|finding-id>` | Re-audit isolé par modèle différent                                                       |
 
 ## Sub-agents disponibles
 
@@ -39,18 +39,18 @@ Ce document est le **runbook** complet pour exécuter le Battle Plan sécurité 
 
 ### Fixers spécialisés (par phase du Battle Plan)
 
-| Agent | Modèle | Phases couvertes |
-|---|---|---|
-| `auth-fixer` | sonnet | P0 / P1 / P3 / P8 (auth, RBAC, RLS, OAuth, sessions, multi-tenant) |
-| `ssrf-fixer` | sonnet | P2 (SSRF guard, file upload caps, magic bytes) |
-| `tool-hitl-fixer` | sonnet | P3 (HITL crypto, allowedTools, scheduler isolation) |
-| `obs-fixer` | sonnet | P4 (Sentry/Langfuse redaction, cost tracking, assertLangfuseReady) |
-| `rate-limit-fixer` | haiku | P5 (rate-limit, budget caps, atomic DB, circuit breaker per-tenant) |
-| `prompt-injection-fixer` | sonnet | P6 (RAG/KG délimiteurs, spotlighting, sanitize externes) |
-| `reliability-fixer` | sonnet | P7 (workers, queues, idempotency, cancel propagation) |
-| `headers-fixer` | haiku | P8 (CSP, CSRF, headers, secrets rotation, mass assignment) |
-| `tests-a11y-fixer` | haiku | P9 (tests credits/arcjet, jsx-a11y, ChatDock ARIA) |
-| `cleanup-fixer` | haiku | P10 (deps circulaires, typing, dead code, CI lockfile) |
+| Agent                    | Modèle | Phases couvertes                                                    |
+| ------------------------ | ------ | ------------------------------------------------------------------- |
+| `auth-fixer`             | sonnet | P0 / P1 / P3 / P8 (auth, RBAC, RLS, OAuth, sessions, multi-tenant)  |
+| `ssrf-fixer`             | sonnet | P2 (SSRF guard, file upload caps, magic bytes)                      |
+| `tool-hitl-fixer`        | sonnet | P3 (HITL crypto, allowedTools, scheduler isolation)                 |
+| `obs-fixer`              | sonnet | P4 (Sentry/Langfuse redaction, cost tracking, assertLangfuseReady)  |
+| `rate-limit-fixer`       | haiku  | P5 (rate-limit, budget caps, atomic DB, circuit breaker per-tenant) |
+| `prompt-injection-fixer` | sonnet | P6 (RAG/KG délimiteurs, spotlighting, sanitize externes)            |
+| `reliability-fixer`      | sonnet | P7 (workers, queues, idempotency, cancel propagation)               |
+| `headers-fixer`          | haiku  | P8 (CSP, CSRF, headers, secrets rotation, mass assignment)          |
+| `tests-a11y-fixer`       | haiku  | P9 (tests credits/arcjet, jsx-a11y, ChatDock ARIA)                  |
+| `cleanup-fixer`          | haiku  | P10 (deps circulaires, typing, dead code, CI lockfile)              |
 
 ### Vérificateurs
 
@@ -77,6 +77,7 @@ Ce document est le **runbook** complet pour exécuter le Battle Plan sécurité 
 ```
 
 Output type :
+
 ```
 🎯 Prochain batch recommandé
 ⏳ B0.1 — Fix CI build (visual lint + design-token test)
@@ -175,6 +176,7 @@ node scripts/battle-mark.mjs --batch=BX.Y --status=blocked --reason="dep BZ.W im
 ### Batch deferred (post-go-live)
 
 Phase 11 = batchs deferred par défaut. Ne sont pas inclus dans `/battle-next`. Pour les attaquer après go-live, soit :
+
 - Édit manuel BATTLE-PLAN.json : `status: "pending"`
 - Soit nouveau Battle Plan dédié post-go-live
 
@@ -251,9 +253,11 @@ npm run battle:render  # force régénération
 Possible si pre_conditions overlap. Mais : ne pas paralléliser des batchs qui touchent les mêmes fichiers (risque de conflit git).
 
 Sequence en parallèle OK :
+
 - B4.1 (obs-fixer) + B5.1 (rate-limit-fixer) + B6.1 (prompt-injection-fixer)
 
 Sequence à séquencer :
+
 - B1.1 → B1.2 → B1.3 (touchent tous proxy.ts / auth)
 
 ### "Un fix touche un fichier verrouillé ADD"

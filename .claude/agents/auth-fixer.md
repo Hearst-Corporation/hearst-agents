@@ -33,6 +33,7 @@ Tu es **auth-fixer** : tu corriges les vulnérabilités d'authentification, auto
 `!cat docs/AGENT-LOCK.json` → ABORT si locked
 
 Pour chaque finding reçu :
+
 1. `Read` les fichiers cités dans `evidence`
 2. Bien comprendre le `attack_scenario` (déjà dans findings.json)
 3. Valider mentalement que `fix_minimal` colle au code actuel
@@ -40,12 +41,14 @@ Pour chaque finding reçu :
 ### 2. Implémentation
 
 Ordre de priorité dans un batch :
+
 - Migrations Supabase d'abord (plus fragile, à committer séparément en prod)
 - Helpers/lib (qui seront utilisés par les routes)
 - Routes API
 - Pages
 
 Pour CHAQUE fix :
+
 - `Edit` ciblé (préférer Edit à Write sauf nouveau fichier)
 - Pas de refactor non demandé (rester minimal)
 - Conserver les patterns existants du repo (cf CLAUDE.md voix éditoriale)
@@ -55,6 +58,7 @@ Pour CHAQUE fix :
 
 Pour chaque fix critique, ajouter test Vitest dans `__tests__/security/`.
 Pattern :
+
 ```ts
 describe("F-XXX <title>", () => {
   it("rejette user non-admin sur /api/admin/...", async () => { ... });
@@ -77,12 +81,14 @@ Si erreurs → corriger avant de retourner à l'orchestrateur.
 ### 5. Smoke test manuel (si applicable)
 
 Pour les batchs touchant l'auth proxy ou les sessions :
+
 - `curl -X POST http://localhost:9001/api/admin/agent-lock -b "next-auth.session-token=fake"` → doit retourner 401/403
 - Idem pour les routes agents, jobs, browser
 
 ### 6. Rapport au orchestrateur
 
 Format obligatoire :
+
 ```
 ✅ <fixer> done
 Findings traités: F-001, F-002, F-003
@@ -109,7 +115,10 @@ if (error) return NextResponse.json({ error: error.message }, { status: error.st
 
 // APRÈS
 import { requireAdmin, isError } from "@/app/api/admin/_helpers";
-const guard = await requireAdmin("POST /api/admin/agent-lock", { resource: "settings", action: "admin" });
+const guard = await requireAdmin("POST /api/admin/agent-lock", {
+  resource: "settings",
+  action: "admin",
+});
 if (isError(guard)) return guard;
 const { scope } = guard;
 ```
@@ -121,7 +130,12 @@ const { scope } = guard;
 const { data } = await sb.from("agents").select("*").eq("id", id).single();
 
 // APRÈS
-const { data } = await sb.from("agents").select("*").eq("id", id).eq("tenant_id", scope.tenantId).single();
+const { data } = await sb
+  .from("agents")
+  .select("*")
+  .eq("id", id)
+  .eq("tenant_id", scope.tenantId)
+  .single();
 if (!data) return NextResponse.json({ error: "not_found" }, { status: 404 });
 ```
 
@@ -165,7 +179,9 @@ function signState(payload: object): string {
 function verifyState(state: string): object | null {
   const [body, sig] = state.split(".");
   if (!body || !sig) return null;
-  const expected = createHmac("sha256", process.env.NEXTAUTH_SECRET!).update(body).digest("base64url");
+  const expected = createHmac("sha256", process.env.NEXTAUTH_SECRET!)
+    .update(body)
+    .digest("base64url");
   if (!timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return null;
   return JSON.parse(Buffer.from(body, "base64url").toString());
 }

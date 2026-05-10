@@ -37,8 +37,12 @@ npm run circular  # = madge --circular
 
 ```ts
 // lib/platform/settings/types.ts (NOUVEAU — fichier neutre, pas d'import lourd)
-export interface SettingsConfig { /* ... */ }
-export interface SystemConfig { /* ... */ }
+export interface SettingsConfig {
+  /* ... */
+}
+export interface SystemConfig {
+  /* ... */
+}
 
 // lib/platform/settings/index.ts
 import type { SettingsConfig, SystemConfig } from "./types"; // type-only import = pas de cycle runtime
@@ -89,6 +93,7 @@ rm components/spatial/AgentWorking.tsx
 ```
 
 Pour les modules entiers (`components/spatial/v1/`) :
+
 ```bash
 git rm -rf components/spatial/v1/  # ou rm -rf si déjà ignored
 ```
@@ -99,7 +104,7 @@ git rm -rf components/spatial/v1/  # ou rm -rf si déjà ignored
 # .github/workflows/ci.yml
 - name: Install deps
   # AVANT : npm install
-  run: npm ci  # respect lockfile
+  run: npm ci # respect lockfile
 ```
 
 ### Pattern F — CSS tokens unused

@@ -41,7 +41,11 @@ export async function enqueueJob(payload: JobPayload) {
 
 // APRÈS (en prod Vercel, TOUT passe par Inngest)
 const INNGEST_JOB_KINDS = new Set([
-  "daily-brief", "audio-gen", "image-gen", "code-exec", "document-parse",
+  "daily-brief",
+  "audio-gen",
+  "image-gen",
+  "code-exec",
+  "document-parse",
 ]);
 
 export async function enqueueJob(payload: JobPayload, opts?: { idempotencyKey?: string }) {
@@ -82,7 +86,10 @@ Et créer une fonction Inngest pour chaque jobKind migré (e.g. `lib/jobs/innges
 ```ts
 // lib/jobs/inngest/check.ts
 export function assertInngestSigningKey(): void {
-  const isProd = process.env.NODE_ENV === "production" || process.env.HEARST_ENV === "production" || process.env.VERCEL_ENV === "production";
+  const isProd =
+    process.env.NODE_ENV === "production" ||
+    process.env.HEARST_ENV === "production" ||
+    process.env.VERCEL_ENV === "production";
 
   if (!process.env.INNGEST_SIGNING_KEY) {
     if (isProd) {
@@ -209,13 +216,16 @@ CREATE INDEX IF NOT EXISTS idx_assets_last_accessed ON assets(last_accessed_at) 
 ```ts
 // lib/engine/runtime/assets/cleanup/worker.ts
 export async function findExpiredAssets(cutoff: Date) {
-  return db.from("assets")
-    .select("id, created_at, last_accessed_at")
-    .lt("created_at", cutoff.toISOString())
-    .or(`last_accessed_at.is.null,last_accessed_at.lt.${cutoff.toISOString()}`)
-    .eq("pinned", false)
-    // Exclude assets référencés par mission active OU report final
-    .not("id", "in", db.from("mission_artifacts").select("asset_id").not("asset_id", "is", null));
+  return (
+    db
+      .from("assets")
+      .select("id, created_at, last_accessed_at")
+      .lt("created_at", cutoff.toISOString())
+      .or(`last_accessed_at.is.null,last_accessed_at.lt.${cutoff.toISOString()}`)
+      .eq("pinned", false)
+      // Exclude assets référencés par mission active OU report final
+      .not("id", "in", db.from("mission_artifacts").select("asset_id").not("asset_id", "is", null))
+  );
 }
 ```
 
@@ -251,7 +261,10 @@ export async function getAgentLockState(): Promise<AgentLockState> {
   return JSON.parse(raw);
 }
 
-export async function setAgentLockState(state: AgentLockState, expectedVersion?: number): Promise<void> {
+export async function setAgentLockState(
+  state: AgentLockState,
+  expectedVersion?: number,
+): Promise<void> {
   // Optimistic concurrency via version
   const current = await getAgentLockState();
   if (expectedVersion !== undefined && current.version !== expectedVersion) {

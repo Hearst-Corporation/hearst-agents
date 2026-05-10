@@ -28,11 +28,13 @@ git diff HEAD~5 -- <files_modified>
 ## Étape 3 — Spawn reauditer
 
 Spawne sub-agent `reauditer` avec :
+
 - `batch_id` ou `finding_ids`
 - `files_modified` (depuis git diff)
 - Mission : vérifier indépendamment que les vulnérabilités initiales sont neutralisées sans régression
 
 Le reauditer est read-only, il va :
+
 1. Read les fichiers modifiés
 2. Re-créer mentalement chaque attack scenario
 3. Vérifier que le fix tient
@@ -63,6 +65,7 @@ Recommandations:
 ## Note multi-modèle
 
 Pour un re-audit encore plus rigoureux, l'utilisateur peut en parallèle :
+
 - Lancer une session Codex et lui faire le même check
 - Comparer les deux verdicts (méthode "deux modèles distincts" pour vrai cross-validation)
 

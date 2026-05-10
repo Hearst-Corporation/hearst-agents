@@ -54,7 +54,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "30 min",
-          "validation": ["git check-ignore .env.local", "grep -r 'HEARST_API_KEY' --include='*.tsx' = 0"],
+          "validation": [
+            "git check-ignore .env.local",
+            "grep -r 'HEARST_API_KEY' --include='*.tsx' = 0"
+          ],
           "status": "pending"
         }
       ]
@@ -73,7 +76,11 @@
           "sub_agent_recommended": "Plan (architecture) + general-purpose (impl)",
           "pre_conditions": ["B0.1"],
           "estimated_effort": "3-5j (architecture + migration backfill + tests)",
-          "validation": ["Tests : 2 users distincts → tenant_id différent en DB", "POST signIn email non whitelist → 403", "Smoke test multi-user manuel sur staging"],
+          "validation": [
+            "Tests : 2 users distincts → tenant_id différent en DB",
+            "POST signIn email non whitelist → 403",
+            "Smoke test multi-user manuel sur staging"
+          ],
           "blast_if_skipped": "Tous les findings IDOR (F-002 F-003 F-004 F-005 F-094 F-100 etc.) deviennent inopérants. Pas de go-live possible.",
           "status": "pending"
         },
@@ -84,7 +91,10 @@
           "sub_agent_recommended": "general-purpose + route-mapper (impact)",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "1-2j",
-          "validation": ["e2e : user A ne voit pas resource user B sur agents/conversations/jobs/browser/memory", "POST /api/admin/* sans role admin → 403"],
+          "validation": [
+            "e2e : user A ne voit pas resource user B sur agents/conversations/jobs/browser/memory",
+            "POST /api/admin/* sans role admin → 403"
+          ],
           "status": "pending"
         },
         {
@@ -94,7 +104,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
-          "validation": ["Tests OAuth flow Slack avec state forgé → reject", "session.user.email plus jamais utilisé comme userId"],
+          "validation": [
+            "Tests OAuth flow Slack avec state forgé → reject",
+            "session.user.email plus jamais utilisé comme userId"
+          ],
           "status": "pending"
         },
         {
@@ -104,7 +117,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1h",
-          "validation": ["Cookie forgé ne passe plus le proxy", "VERCEL_ENV=preview → bypass refusé"],
+          "validation": [
+            "Cookie forgé ne passe plus le proxy",
+            "VERCEL_ENV=preview → bypass refusé"
+          ],
           "status": "pending"
         },
         {
@@ -133,7 +149,10 @@
           "sub_agent_recommended": "Explore (find call sites) + general-purpose (impl)",
           "pre_conditions": [],
           "estimated_effort": "3-4h",
-          "validation": ["Tests : POST avec fileUrl=169.254.169.254 → 400", "webhookUrl avec 172.16.x → reject"],
+          "validation": [
+            "Tests : POST avec fileUrl=169.254.169.254 → 400",
+            "webhookUrl avec 172.16.x → reject"
+          ],
           "status": "pending"
         },
         {
@@ -153,7 +172,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "3-4h",
-          "validation": ["Sandbox.create avec networkAccess:false confirmé", "POST /api/v2/jobs/code-exec sans confirm token → 403"],
+          "validation": [
+            "Sandbox.create avec networkAccess:false confirmé",
+            "POST /api/v2/jobs/code-exec sans confirm token → 403"
+          ],
           "status": "pending"
         }
       ]
@@ -172,7 +194,10 @@
           "sub_agent_recommended": "Plan + llm-auditor",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "1-2j",
-          "validation": ["Email injecté avec _preview:false → ne déclenche aucun tool destructif", "agent.allowedTools réellement appliqué dans aiTools intersection"],
+          "validation": [
+            "Email injecté avec _preview:false → ne déclenche aucun tool destructif",
+            "agent.allowedTools réellement appliqué dans aiTools intersection"
+          ],
           "status": "pending"
         },
         {
@@ -182,7 +207,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
-          "validation": ["user_tokens select avec ANON_KEY → 0 rows", "Persona avec </persona><system> → escape"],
+          "validation": [
+            "user_tokens select avec ANON_KEY → 0 rows",
+            "Persona avec </persona><system> → escape"
+          ],
           "status": "pending"
         },
         {
@@ -192,7 +220,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "3h",
-          "validation": ["captionHtml avec <script> → strippé", "select * from runs where user_id is null → 0 rows ou refus"],
+          "validation": [
+            "captionHtml avec <script> → strippé",
+            "select * from runs where user_id is null → 0 rows ou refus"
+          ],
           "status": "pending"
         }
       ]
@@ -211,7 +242,10 @@
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
-          "validation": ["Trigger error volontaire → Sentry payload sans system prompt", "Trace Langfuse sans PII brut"],
+          "validation": [
+            "Trigger error volontaire → Sentry payload sans system prompt",
+            "Trace Langfuse sans PII brut"
+          ],
           "status": "pending"
         },
         {
@@ -221,7 +255,10 @@
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": [],
           "estimated_effort": "2-3h",
-          "validation": ["Boot sans LANGFUSE_KEYS prod → throw", "tenant_usage_daily.cost_usd != 0"],
+          "validation": [
+            "Boot sans LANGFUSE_KEYS prod → throw",
+            "tenant_usage_daily.cost_usd != 0"
+          ],
           "status": "pending"
         }
       ]
@@ -240,7 +277,10 @@
           "sub_agent_recommended": "general-purpose + route-mapper",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "4-6h",
-          "validation": ["100 req/min sur /api/agents/[id]/chat → 429", "daily-brief 5/24h cap respecté"],
+          "validation": [
+            "100 req/min sur /api/agents/[id]/chat → 429",
+            "daily-brief 5/24h cap respecté"
+          ],
           "status": "pending"
         },
         {
@@ -260,7 +300,10 @@
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": [],
           "estimated_effort": "4h",
-          "validation": ["1 user trigger 5 errors → ne trip pas le breaker des autres", "Retry sur 500/504"],
+          "validation": [
+            "1 user trigger 5 errors → ne trip pas le breaker des autres",
+            "Retry sur 500/504"
+          ],
           "status": "pending"
         }
       ]
@@ -279,7 +322,10 @@
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "1j",
-          "validation": ["Email injecté 'IGNORE PRIOR' dans embeddings → ressort tagué <untrusted_memory>", "Web snippet avec instruction → wrapped"],
+          "validation": [
+            "Email injecté 'IGNORE PRIOR' dans embeddings → ressort tagué <untrusted_memory>",
+            "Web snippet avec instruction → wrapped"
+          ],
           "status": "pending"
         },
         {
@@ -299,7 +345,10 @@
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": ["B6.1"],
           "estimated_effort": "4h",
-          "validation": ["Email avec <div display:none>INSTRUCTION</div> → texte caché stripped", "Page web hostile → wrapped <untrusted_page_content>"],
+          "validation": [
+            "Email avec <div display:none>INSTRUCTION</div> → texte caché stripped",
+            "Page web hostile → wrapped <untrusted_page_content>"
+          ],
           "status": "pending"
         }
       ]
@@ -318,7 +367,10 @@
           "sub_agent_recommended": "Plan + general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1-2 sem",
-          "validation": ["POST /api/v2/jobs/audio-gen sur Vercel → job exécuté + asset livré", "0 jobs orphelins en Redis après 24h"],
+          "validation": [
+            "POST /api/v2/jobs/audio-gen sur Vercel → job exécuté + asset livré",
+            "0 jobs orphelins en Redis après 24h"
+          ],
           "blast_if_skipped": "Crédits réservés sans livrable. Asset_variants pending éternels. Risque #1 prod.",
           "status": "pending"
         },
@@ -329,7 +381,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "2h",
-          "validation": ["Connexions Redis stable < 50 après stress test SSE", "Env var manquante → log structuré pas 500"],
+          "validation": [
+            "Connexions Redis stable < 50 après stress test SSE",
+            "Env var manquante → log structuré pas 500"
+          ],
           "status": "pending"
         },
         {
@@ -339,7 +394,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B7.1"],
           "estimated_effort": "1-2j",
-          "validation": ["Retry POST → 1 seul job (Idempotency-Key respected)", "SIGTERM → workers close gracefully"],
+          "validation": [
+            "Retry POST → 1 seul job (Idempotency-Key respected)",
+            "SIGTERM → workers close gracefully"
+          ],
           "status": "pending"
         },
         {
@@ -349,7 +407,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
-          "validation": ["Cleanup ne supprime pas asset référencé par mission active", "Webhook Recall replayé → reject (window > 5min)"],
+          "validation": [
+            "Cleanup ne supprime pas asset référencé par mission active",
+            "Webhook Recall replayé → reject (window > 5min)"
+          ],
           "status": "pending"
         },
         {
@@ -388,7 +449,9 @@
           "sub_agent_recommended": "Plan + general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1j",
-          "validation": ["Rotation key → tokens existants déchiffrables ; nouveaux chiffrés avec keyId 2"],
+          "validation": [
+            "Rotation key → tokens existants déchiffrables ; nouveaux chiffrés avec keyId 2"
+          ],
           "status": "pending"
         },
         {
@@ -398,7 +461,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "3h",
-          "validation": ["localStorage hearst-navigation contient des IDs pas du contenu", "embedText cache key = hash"],
+          "validation": [
+            "localStorage hearst-navigation contient des IDs pas du contenu",
+            "embedText cache key = hash"
+          ],
           "status": "pending"
         },
         {
@@ -408,7 +474,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
-          "validation": ["filename avec \\r\\n → sanitized", "PUT agent avec champ inconnu → ignoré"],
+          "validation": [
+            "filename avec \\r\\n → sanitized",
+            "PUT agent avec champ inconnu → ignoré"
+          ],
           "status": "pending"
         },
         {
@@ -418,7 +487,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
-          "validation": ["query_axiom_logs sans where tenant_id → reject", "/api/admin/runs sans param userId override"],
+          "validation": [
+            "query_axiom_logs sans where tenant_id → reject",
+            "/api/admin/runs sans param userId override"
+          ],
           "status": "pending"
         }
       ]
@@ -437,7 +509,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["B1.4"],
           "estimated_effort": "1-2j",
-          "validation": ["e2e api-auth.spec.ts run sans bypass → green", "Coverage lib/credits >= 80%"],
+          "validation": [
+            "e2e api-auth.spec.ts run sans bypass → green",
+            "Coverage lib/credits >= 80%"
+          ],
           "status": "pending"
         },
         {
@@ -476,7 +551,10 @@
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
-          "validation": ["npm run typecheck inclut app/api/orchestrator", "0 'as any' dans personas/marketplace"],
+          "validation": [
+            "npm run typecheck inclut app/api/orchestrator",
+            "0 'as any' dans personas/marketplace"
+          ],
           "status": "pending"
         },
         {
@@ -558,7 +636,18 @@
         {
           "id": "B11.6",
           "title": "Misc P2 (Sentry tunnel + telemetry runAiPipeline + conversationHistory cap + pdfkit Vercel + .claude supply chain)",
-          "findings": ["F-039", "F-042", "F-060", "F-116", "F-121", "F-123", "F-125", "F-128", "F-129", "F-130"],
+          "findings": [
+            "F-039",
+            "F-042",
+            "F-060",
+            "F-116",
+            "F-121",
+            "F-123",
+            "F-125",
+            "F-128",
+            "F-129",
+            "F-130"
+          ],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "1 sem",

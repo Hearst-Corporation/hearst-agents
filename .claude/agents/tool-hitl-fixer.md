@@ -38,7 +38,9 @@ export interface ToolConfirmationPayload {
   expiresAt: number;
 }
 
-export function issueConfirmationToken(payload: Omit<ToolConfirmationPayload, "nonce" | "expiresAt">): string {
+export function issueConfirmationToken(
+  payload: Omit<ToolConfirmationPayload, "nonce" | "expiresAt">,
+): string {
   const body: ToolConfirmationPayload = {
     ...payload,
     nonce: randomBytes(16).toString("base64url"),
@@ -49,7 +51,10 @@ export function issueConfirmationToken(payload: Omit<ToolConfirmationPayload, "n
   return `${Buffer.from(json).toString("base64url")}.${sig}`;
 }
 
-export function verifyConfirmationToken(token: string, expected: { userId: string; tenantId: string; toolSlug: string; argsHash: string }): { ok: true } | { ok: false; reason: string } {
+export function verifyConfirmationToken(
+  token: string,
+  expected: { userId: string; tenantId: string; toolSlug: string; argsHash: string },
+): { ok: true } | { ok: false; reason: string } {
   const [bodyB64, sig] = token.split(".");
   if (!bodyB64 || !sig) return { ok: false, reason: "malformed" };
 
@@ -86,7 +91,11 @@ export function hashToolArgs(args: object): string {
 import { isWriteAction } from "./write-guard";
 import { verifyConfirmationToken, hashToolArgs } from "@/lib/tools/hitl/confirmation-token";
 
-export async function executeComposioAction(slug: string, args: Record<string, unknown>, opts: { userId: string; tenantId: string; confirmationToken?: string }) {
+export async function executeComposioAction(
+  slug: string,
+  args: Record<string, unknown>,
+  opts: { userId: string; tenantId: string; confirmationToken?: string },
+) {
   if (isWriteAction(slug)) {
     if (!opts.confirmationToken) {
       // Return draft for UI confirmation
@@ -120,16 +129,17 @@ Même pattern : require confirmation token via `_preview` workflow. Mais prévie
 const aiTools = { ...nativeTools, ...composioTools };
 
 // APRÈS
-const allowedSet = input._allowedTools instanceof Set
-  ? input._allowedTools
-  : Array.isArray(input._allowedTools)
-    ? new Set(input._allowedTools)
-    : null;
+const allowedSet =
+  input._allowedTools instanceof Set
+    ? input._allowedTools
+    : Array.isArray(input._allowedTools)
+      ? new Set(input._allowedTools)
+      : null;
 
 const aiTools = Object.fromEntries(
   Object.entries({ ...nativeTools, ...composioTools }).filter(
-    ([name]) => !allowedSet || allowedSet.has(name)
-  )
+    ([name]) => !allowedSet || allowedSet.has(name),
+  ),
 );
 ```
 

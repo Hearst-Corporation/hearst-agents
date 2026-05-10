@@ -17,7 +17,7 @@ Tu es **headers-fixer** : defense in depth via headers HTTP + CSRF Origin check 
 - `app/api/agents/[id]/route.ts` (mass assignment whitelist)
 - `app/api/reports/[reportId]/export/route.ts` (CRLF Content-Disposition)
 - `app/api/v2/runs/[id]/export/route.ts`, `app/api/v2/assets/[id]/download/route.ts`
-- `proxy.ts:30-31` (STATIC_RE → restrict to /public/*)
+- `proxy.ts:30-31` (STATIC_RE → restrict to /public/\*)
 - `lib/embeddings/store.ts` (embedText cache hash)
 - `stores/navigation.ts` (localStorage threads cleanup)
 - `lib/browser/stagehand-executor.ts` (Anthropic apiKey explicit)
@@ -47,7 +47,10 @@ const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=(), interest-cohort=()" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(self), geolocation=(), interest-cohort=()",
+  },
 ];
 
 const nextConfig: NextConfig = {
@@ -93,7 +96,11 @@ if (!isCsrfSafe(req)) {
 ```ts
 // lib/platform/auth/tokens.ts (refactor)
 const KEY_PROVIDERS: Record<string, () => Buffer> = {
-  "1": () => Buffer.from(process.env.TOKEN_ENCRYPTION_KEY_1 ?? process.env.TOKEN_ENCRYPTION_KEY ?? "", "hex"),
+  "1": () =>
+    Buffer.from(
+      process.env.TOKEN_ENCRYPTION_KEY_1 ?? process.env.TOKEN_ENCRYPTION_KEY ?? "",
+      "hex",
+    ),
   "2": () => Buffer.from(process.env.TOKEN_ENCRYPTION_KEY_2 ?? "", "hex"),
 };
 
@@ -129,7 +136,18 @@ export function decryptToken(encrypted: string): string {
 
 ```ts
 // app/api/agents/[id]/route.ts PUT
-const updatable = ["name", "description", "system_prompt", "temperature", "max_tokens", "top_p", "status", "metadata", "model_provider", "model_name"];
+const updatable = [
+  "name",
+  "description",
+  "system_prompt",
+  "temperature",
+  "max_tokens",
+  "top_p",
+  "status",
+  "metadata",
+  "model_provider",
+  "model_name",
+];
 
 const updateData: Partial<AgentUpdate> = {};
 for (const key of updatable) {
@@ -159,7 +177,7 @@ const encoded = encodeURIComponent(safeName);
 "Content-Disposition": `attachment; filename="${safeName}"; filename*=UTF-8''${encoded}`,
 ```
 
-### Pattern F — STATIC_RE restrict /public/*
+### Pattern F — STATIC_RE restrict /public/\*
 
 ```ts
 // proxy.ts
