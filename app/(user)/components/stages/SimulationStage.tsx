@@ -138,7 +138,7 @@ export function SimulationStage() {
   return (
     <div
       className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--bg-elev)" }}
+      style={{ background: "var(--surface)" }}
     >
       <StageActionBar
         context={

@@ -30,6 +30,21 @@ const FORMATTER = new Intl.DateTimeFormat("fr-FR", {
   timeZone: "Europe/Paris",
 });
 
+const STATUS_LABEL: Record<string, string> = {
+  active: "Actif",
+  paused: "En pause",
+  running: "En cours",
+  failed: "Échec",
+  completed: "Terminé",
+  success: "Réussi",
+  pending: "En attente",
+};
+
+function statusLabel(s: string | undefined | null): string {
+  if (!s) return "—";
+  return STATUS_LABEL[s] ?? s;
+}
+
 export function MissionStage({ missionId }: MissionStageProps) {
   const back = useStageStore((s) => s.back);
   const setStageMode = useStageStore((s) => s.setMode);
@@ -207,7 +222,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
   return (
     <div
       className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--bg-elev)" }}
+      style={{ background: "var(--surface)" }}
     >
       {(() => {
         const primary: StageAction = {
@@ -258,7 +273,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
             context={
               <>
                 <span className="t-11 font-light text-[var(--text-faint)]">
-                  MISSION
+                  Mission
                 </span>
                 <span
                   className="rounded-pill bg-[var(--text-ghost)]"
@@ -277,7 +292,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                       className="t-11 font-medium"
                       style={{ color: statusColor }}
                     >
-                      {String(status).toUpperCase()}
+                      {statusLabel(status)}
                     </span>
                   </>
                 )}
@@ -314,7 +329,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
               style={{ background: "var(--surface-1)" }}
             >
               <p className="t-11 font-medium text-[var(--danger)]">
-                ERREUR · {error}
+                Erreur · {error}
               </p>
             </div>
           )}
@@ -409,19 +424,20 @@ export function MissionStage({ missionId }: MissionStageProps) {
                     >
                       Enregistrer
                     </Action>
-                    <button
-                      type="button"
+                    <Action
+                      variant="ghost"
+                      tone="neutral"
+                      size="sm"
                       onClick={() => setEditingCadence(false)}
-                      className="ghost-btn-solid ghost-btn-ghost t-9"
                     >
-                      <span className="tracking-wide uppercase">Annuler</span>
-                    </button>
+                      Annuler
+                    </Action>
                   </div>
                 </div>
               )}
 
               <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-[var(--border-default)]">
-                <Stat label="Statut" value={String(status)} />
+                <Stat label="Statut" value={statusLabel(status)} />
                 <Stat label="Activée" value={mission.enabled ? "Oui" : "Non"} />
                 <Stat
                   label="Fréquence"
@@ -450,7 +466,6 @@ export function MissionStage({ missionId }: MissionStageProps) {
                         r.completedAt && r.createdAt
                           ? Math.round((r.completedAt - r.createdAt) / 1000)
                           : null;
-                      const statusUp = r.status?.toUpperCase() ?? "—";
                       const statusCol =
                         r.status === "completed" || r.status === "success"
                           ? "var(--accent-teal)"
@@ -467,7 +482,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                               className="t-11 font-medium"
                               style={{ color: statusCol }}
                             >
-                              {statusUp}
+                              {statusLabel(r.status)}
                             </span>
                             <span className="t-11 font-light text-[var(--text-soft)]">
                               {FORMATTER.format(new Date(r.createdAt))}

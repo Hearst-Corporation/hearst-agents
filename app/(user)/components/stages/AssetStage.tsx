@@ -304,7 +304,7 @@ export function AssetStage({ assetId, variantKind }: AssetStageProps) {
     (!asset?.contentRef || asset.contentRef.length === 0);
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--bg-elev)" }}>
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       {!isOnline && (
         <div
           role="status"
