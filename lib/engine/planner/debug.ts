@@ -4,7 +4,7 @@
  * Enable: process.env.HEARST_PLANNER_DEBUG=1
  */
 
-let debugEnabled =
+const debugEnabled =
   typeof process !== "undefined" && process.env.HEARST_PLANNER_DEBUG === "1";
 
 export function logPlanEvent(

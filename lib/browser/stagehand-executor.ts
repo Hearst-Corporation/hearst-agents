@@ -510,7 +510,7 @@ async function extractStructured(opts: {
 
 // ── Public API ───────────────────────────────────────────
 
-let executorOverride: BrowserExecutor | null = null;
+const executorOverride: BrowserExecutor | null = null;
 
 export function getBrowserExecutor(): BrowserExecutor {
   return executorOverride ?? new DefaultBrowserExecutor();

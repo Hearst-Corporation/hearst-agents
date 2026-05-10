@@ -53,9 +53,9 @@ Teste tous les flows réels :
 ## Inspection statique des flows
 
 !find app/ -name "page.tsx" | sort | sed 's|app/||;s|/page.tsx||'
-!grep -rn "useRouter\|router\.push\|router\.back\|redirect" app/ --include="_.tsx" --include="_.ts" | grep -v node_modules | head -40
-!grep -rn "onClick\|onSubmit\|onConfirm" app/ --include="_.tsx" | grep -v node_modules | head -40
-!grep -rn "toast\|notify\|alert\|modal\|dialog" app/ --include="_.tsx" | grep -v node_modules | head -30
+!grep -rn "useRouter\|router\.push\|router\.back\|redirect" app/ --include="_.tsx" --include="_.ts" | grep -v node*modules | head -40
+!grep -rn "onClick\|onSubmit\|onConfirm" app/ --include="*.tsx" | grep -v node*modules | head -40
+!grep -rn "toast\|notify\|alert\|modal\|dialog" app/ --include="*.tsx" | grep -v node_modules | head -30
 !grep -rn "loading\|isLoading\|isPending" app/ --include="\*.tsx" | grep -v node_modules | head -30
 
 ## Pour chaque flow, vérifie
