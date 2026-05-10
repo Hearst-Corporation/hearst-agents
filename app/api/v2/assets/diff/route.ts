@@ -76,12 +76,13 @@ export async function POST(req: NextRequest) {
   }
 
   // Fallback déterministe si pas de clé Anthropic
-  if (!process.env.ANTHROPIC_API_KEY) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
     return NextResponse.json(naiveDiff(a, b));
   }
 
   try {
-    const result = await llmDiff(a, b);
+    const result = await llmDiff(a, b, apiKey);
     return NextResponse.json(result);
   } catch (err) {
     console.error("[POST /api/v2/assets/diff] llm error:", err);
@@ -117,8 +118,8 @@ function naiveDiff(a: Asset, b: Asset): DiffResult {
   };
 }
 
-async function llmDiff(a: Asset, b: Asset): Promise<DiffResult> {
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
+async function llmDiff(a: Asset, b: Asset, apiKey: string): Promise<DiffResult> {
+  const client = new Anthropic({ apiKey });
 
   const contentA = (a.contentRef ?? a.summary ?? "").slice(0, 6000);
   const contentB = (b.contentRef ?? b.summary ?? "").slice(0, 6000);

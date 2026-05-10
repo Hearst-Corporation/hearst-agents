@@ -15,6 +15,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
 import { Action } from "./ui";
 
@@ -443,8 +444,21 @@ function ActiveVariantPanel({
           className="block w-full"
           style={{ borderRadius: "var(--radius-md)", overflow: "hidden" }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={variant.storageUrl} alt="variant image" style={{ width: "100%" }} />
+          {/*
+            Storage URL dynamique (signed URL Supabase) — dimensions
+            réelles inconnues côté client. On donne un (width,height)
+            générique 16:10 et `max-w-full h-auto` pour laisser le CSS
+            jouer ; `unoptimized` car les URLs signées ne sont pas
+            cachables par l'optimizer Next.
+          */}
+          <Image
+            unoptimized
+            src={variant.storageUrl}
+            alt="variant image"
+            width={1600}
+            height={1000}
+            className="max-w-full h-auto"
+          />
         </a>
       )}
       {isReady && variant.storageUrl && kind === "video" && (

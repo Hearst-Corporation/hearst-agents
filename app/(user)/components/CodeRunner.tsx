@@ -63,8 +63,18 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
       )}
       {result.outputs?.map((out, i) =>
         out.type === "image" ? (
+          // Data URL (output Python/JS) — next/image n'apporte rien sur du
+          // base64 inline ; on garde <img> mais on donne width/height pour
+          // éviter le CLS (ratio 4:3 = défaut matplotlib/PIL).
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={i} src={out.data} alt={`output-${i}`} className="w-full rounded-sm border border-(--border-shell)" />
+          <img
+            key={i}
+            src={out.data}
+            alt={`output-${i}`}
+            width={800}
+            height={600}
+            className="w-full h-auto rounded-sm border border-(--border-shell)"
+          />
         ) : (
           <pre
             key={i}
