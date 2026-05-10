@@ -3,6 +3,11 @@
 import { useRuntimeStore, type CoreState } from "@/stores/runtime";
 import { useNavigationStore } from "@/stores/navigation";
 
+// États où l'action principale est "Annuler" (suspension en attente d'input)
+const CANCEL_STATES: CoreState[] = ["awaiting_approval", "awaiting_clarification"];
+// États actifs (pas idle, pas error)
+const ACTIVE_STATES: CoreState[] = ["connecting", "streaming", "processing", "awaiting_approval", "awaiting_clarification"];
+
 interface StateConfig {
   label: string;
   tone: "accent-teal" | "gold" | "danger" | "muted";
@@ -29,6 +34,8 @@ const TONE_VAR: Record<StateConfig["tone"], string> = {
 export function StageFooter() {
   const coreState = useRuntimeStore((s) => s.coreState);
   const flowLabel = useRuntimeStore((s) => s.flowLabel);
+  const stopRun = useRuntimeStore((s) => s.stopRun);
+  const completeRun = useRuntimeStore((s) => s.completeRun);
   const config = STATE_MAP[coreState];
   const color = TONE_VAR[config.tone];
   const leftCollapsed = useNavigationStore((s) => s.leftCollapsed);
@@ -38,6 +45,13 @@ export function StageFooter() {
     : "var(--width-threads)";
   const rightSpacer = "var(--width-context)";
   const labelText = flowLabel && coreState !== "idle" ? flowLabel : config.label;
+
+  const isActive = ACTIVE_STATES.includes(coreState);
+  const isError = coreState === "error";
+  const isCancel = CANCEL_STATES.includes(coreState);
+
+  const actionLabel = isError ? "Réinitialiser" : isCancel ? "Annuler" : "Arrêter";
+  const handleAction = isError ? completeRun : stopRun;
 
   return (
     <footer
@@ -57,6 +71,24 @@ export function StageFooter() {
         <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
           {labelText}
         </span>
+        {(isActive || isError) && (
+          <>
+            <span className="t-11 font-light" style={{ color: "var(--text-faint)", opacity: 0.5 }} aria-hidden>
+              ·
+            </span>
+            <button
+              type="button"
+              onClick={handleAction}
+              className="t-11 font-light transition-colors duration-[var(--duration-fast)]"
+              style={{ color: "var(--text-muted)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--danger)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+              aria-label={actionLabel}
+            >
+              {actionLabel}
+            </button>
+          </>
+        )}
       </div>
       <div className="shrink-0" style={{ width: rightSpacer }} aria-hidden />
     </footer>
