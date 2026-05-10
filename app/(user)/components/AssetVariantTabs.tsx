@@ -359,9 +359,14 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
                         disabled={generating === "video"}
                         className={`px-3 py-1.5 t-11 font-light border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                           videoRatio === "1280:720"
-                            ? "border-(--accent-teal) text-(--accent-teal) bg-[color-mix(in_srgb,var(--accent-teal)_8%,transparent)]"
+                            ? "border-(--accent-teal) text-(--accent-teal)"
                             : "border-(--border-shell) text-text-muted hover:text-text"
                         }`}
+                        style={
+                          videoRatio === "1280:720"
+                            ? { backgroundColor: "var(--accent-teal-bg-hover)" }
+                            : undefined
+                        }
                       >
                         Paysage
                       </button>
@@ -371,9 +376,14 @@ export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVari
                         disabled={generating === "video"}
                         className={`px-3 py-1.5 t-11 font-light border-t border-b border-r transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                           videoRatio === "720:1280"
-                            ? "border-(--accent-teal) text-(--accent-teal) bg-[color-mix(in_srgb,var(--accent-teal)_8%,transparent)]"
+                            ? "border-(--accent-teal) text-(--accent-teal)"
                             : "border-(--border-shell) text-text-muted hover:text-text"
                         }`}
+                        style={
+                          videoRatio === "720:1280"
+                            ? { backgroundColor: "var(--accent-teal-bg-hover)" }
+                            : undefined
+                        }
                       >
                         Portrait
                       </button>
