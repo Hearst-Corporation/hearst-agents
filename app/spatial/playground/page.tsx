@@ -47,7 +47,7 @@ export default function SpatialPlayground() {
     }
     const savedVariant = window.localStorage.getItem(STORAGE_VARIANT);
     if (savedVariant && CORE_VARIANTS.some((v) => v.id === savedVariant)) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- restore localStorage au mount, prototype hors DS
+       
       setVariantId(savedVariant);
     }
   }, []);

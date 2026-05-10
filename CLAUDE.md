@@ -11,6 +11,7 @@ Elle vérifie le verrou, te fait lire le rapport maître et la spec de la featur
 Lis [docs/AGENT-LOCK.json](docs/AGENT-LOCK.json) **avant tout appel à Edit, Write, NotebookEdit, ou Bash destructif** (rm, git commit, mv, etc.).
 
 Si `locked === true` :
+
 - **Refuse** toute modification de fichier ou exécution destructive
 - Informe l'utilisateur que les agents sont verrouillés (avec la `reason` si présente)
 - Indique-lui qu'il doit aller dans `/admin/agent-driven-dev` pour déverrouiller
@@ -27,6 +28,7 @@ Pour les features non verrouillées : mode autonomie standard ci-dessous.
 ## Mode autonomie (défaut)
 
 Adrien commande. Les règles ci-dessous sont des **principes de qualité**, pas des barrières bloquantes. Tu prends les décisions cohérentes au système et tu avances. Tu ne t'arrêtes pas pour demander sauf si :
+
 - Une décision impacte directement l'UX visible et il y a 2 directions opposées valides
 - Une action est destructive et irréversible (suppression branche, force-push prod, drop DB)
 - Tu ne sais pas quoi vouloir Adrien et la question coûte moins cher que l'erreur
@@ -53,6 +55,7 @@ Tout devrait passer par les tokens [app/globals.css](app/globals.css). Tailwind 
 ### 2. Une seule source de vérité par propriété
 
 Évite de cumuler Tailwind + classe custom + inline style pour la même propriété sur un même élément. Choisis :
+
 - Tailwind (layout, flex, grid) **OU**
 - Classes custom du DS (`.halo-suggestion`, `.card-depth`) **OU**
 - `style={{ ... }}` avec `var(--token)` quand la classe n'existe pas
@@ -113,7 +116,7 @@ Plan de N batches validé une fois → enchaîne sans s'arrêter entre chaque. V
 - **Tailwind v4** (`@import "tailwindcss"`) avec `@theme inline`
 - **Police** : Satoshi Variable (`--font-satoshi`)
 - **Tests** : Playwright e2e, Vitest unit
-- **Auth** : NextAuth (SessionProvider dans [app/(user)/layout.tsx](app/(user)/layout.tsx))
+- **Auth** : NextAuth (SessionProvider dans [app/(user)/layout.tsx](<app/(user)/layout.tsx>))
 - **Deploy** : Vercel (auto-deploy via webhook GitHub)
 
 ## Langue
