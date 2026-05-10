@@ -12,19 +12,20 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 ## État du repo (10/05/2026)
 
-| Métrique | Valeur |
-|----------|--------|
-| TypeScript | ✅ 0 erreur (`npx tsc --noEmit`) |
-| ESLint | ✅ 0 erreur, 0 warning (`npm run lint`) |
-| Lint visuel | ✅ 0 violation (`npm run lint:visual`) |
-| Tests | ✅ 2498 / 2498 (`npm run test`) |
-| Build | ✅ via `npm run build` (bloque si lint visuel échoue) |
-| Pipeline runtime | Capability-first (`lib/capabilities/router.ts`) + Backend V2 multi-provider |
-| Connector Packs | 5 (finance, crm, productivity, design, developer) — 1500+ OAuth via Composio |
-| Reports | V2 catalog (`/api/v2/reports/[specId]/run`) — cron Railway *supprimés* (voir section Reports) |
-| RightPanel | Structure fixe : 4 sections always-on, empty states internes, scope strict du lint |
+| Métrique         | Valeur                                                                                        |
+| ---------------- | --------------------------------------------------------------------------------------------- |
+| TypeScript       | ✅ 0 erreur (`npx tsc --noEmit`)                                                              |
+| ESLint           | ✅ 0 erreur, 0 warning (`npm run lint`)                                                       |
+| Lint visuel      | ✅ 0 violation (`npm run lint:visual`)                                                        |
+| Tests            | ✅ 2498 / 2498 (`npm run test`)                                                               |
+| Build            | ✅ via `npm run build` (bloque si lint visuel échoue)                                         |
+| Pipeline runtime | Capability-first (`lib/capabilities/router.ts`) + Backend V2 multi-provider                   |
+| Connector Packs  | 5 (finance, crm, productivity, design, developer) — 1500+ OAuth via Composio                  |
+| Reports          | V2 catalog (`/api/v2/reports/[specId]/run`) — cron Railway _supprimés_ (voir section Reports) |
+| RightPanel       | Structure fixe : 4 sections always-on, empty states internes, scope strict du lint            |
 
 **Dernière session 10/05/2026 — audit complet + cleanup** :
+
 - **proxy.ts** : correction convention Next.js 16.2.4 — fichier `proxy.ts` + export `proxy` (plus `middleware.ts`/`middleware`). La garde Arcjet + auth + redirect login est maintenant active.
 - **Exports morts** : ~25 exports privatisés ou supprimés sur 5 vagues (`clearAllMissions`, `_resetAgendaCache`, `_renderBlockCsv`, `isCatalogueReportRequest`, `pruneExpired`, `resolveToolIntent`, `getExtraProviderFor`, etc.)
 - **Voix éditoriale** : 17 occurrences `tracking-marquee`/`tracking-display` retirées du JSX admin + login. 12 occurrences `(--cykan)` → `(--accent-teal)` dans `_canvas/`.
@@ -38,6 +39,7 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 **Dernière session 03/05/2026 — ESLint sans warning** : hooks (`briefing` ref snapshot, `AssetLineage` / `SourceCitation` dépendances, `runs/[id]` `useCallback` + `queueMicrotask` pour le fetch initial), `next/image` (watermark `layout`, icônes onboarding, image base64 `PreviewPane` avec `unoptimized`), retrait de directives ESLint inutiles dans les scripts, types morts (`oauth-refresh`, `manifestation`, `stagehand-executor`).
 **Dernière session 03/05/2026 — HaloAgentCore refonte 3D complète** :
+
 - Performance : suppression rotation continue (rame), DPR limite [1, 1.5], ombres 1024×1024, materials instancies
 - Burst central 3D : particules orbitales cyan/gold animees, pulse respiratoire, glow ring
 - Icones 3D refaites : RoundedBox elegants avec details (base de donnees, document, graphique, bouclier, cerveau, curseur)
@@ -45,15 +47,16 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 - H central : halo glow cyan, bordure subtile, ombre portee
 - ESLint 100% clean, types checkes, lint:visual 0 violation
 
-
 **Dernière session 29/04/2026 — cleanup right-panel + lint bloquant** :
+
 - 6 composants UI orphelins supprimés (`LibraryTabs`, `GeneralRecap`, `ActivityTimeline`, `HaloLogo3D`, `HaloLogo3D.canvas`, doublon `RightPanelContent`)
 - Sous-système reports legacy supprimé (~700 lignes : `app/api/cron/{daily-report,market-alert,market-watch}`, `app/api/reports/{route,today,health}`, `lib/engine/runtime/report-runner.ts`)
-- Hook partagé [`useRunReportSuggestion`](./app/(user)/components/right-panel/useRunReportSuggestion.ts) (rapports + Quick Actions) : `threadId` obligatoire côté API pour persister l’asset ; création de thread et bascule `cockpit` → `chat` si besoin pour afficher le focal.
+- Hook partagé [`useRunReportSuggestion`](<./app/(user)/components/right-panel/useRunReportSuggestion.ts>) (rapports + Quick Actions) : `threadId` obligatoire côté API pour persister l’asset ; création de thread et bascule `cockpit` → `chat` si besoin pour afficher le focal.
 - Types signaux mono-domaine business → [`lib/reports/signals/types.ts`](./lib/reports/signals/types.ts)
-- Lint visuel renforcé (8 règles) + chaîné dans `npm run lint` + `prebuild` — voir section *Lint visuel* sous Tokens
+- Lint visuel renforcé (8 règles) + chaîné dans `npm run lint` + `prebuild` — voir section _Lint visuel_ sous Tokens
 
 **Dette restante priorisée** :
+
 - ⚠️ P0 — Migration `0027_drop_daily_reports.sql` à **appliquer en DB** + regen `lib/database.types.ts` (la table orpheline est marquée pour drop, le SQL est prêt)
 - 🟡 P1 — Triple chemin de persistance assets (`storeAsset` × 2 + `saveAsset`) à consolider
 - 🟡 P1 — Recâbler `runResearchReport` sur le pipeline V2
@@ -63,22 +66,21 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 - 🟢 P2 — Réactiver E2E reports en CI (retirer `@skip-ci`)
 - 🟢 P2 — Indicateur progress chat surface pendant un run report
 
-
 ## 📚 Références visuelles
 
-| Document | Contenu |
-|----------|---------|
-| [`HEARST-OS-DESIGN-SYSTEM.html`](./HEARST-OS-DESIGN-SYSTEM.html) | Langage visuel canonique — tokens, classes, composants |
-| [`hearst-ui-vision.html`](./hearst-ui-vision.html) | Interface utilisateur — 2 états (IDLE/ACTIVE), chat-first, assets, missions |
-| [`mock-chat-central.html`](./mock-chat-central.html) | Mock de la surface principale (chat-first) |
-| [`mock-cockpit-dashboard.html`](./mock-cockpit-dashboard.html) | Maquette accueil 3 colonnes — **direction visuelle libre** (split rail sombre / centre papier / panneau sauge, typo Fraunces + DM Sans) |
+| Document                                                         | Contenu                                                                                                                                 |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| [`HEARST-OS-DESIGN-SYSTEM.html`](./HEARST-OS-DESIGN-SYSTEM.html) | Langage visuel canonique — tokens, classes, composants                                                                                  |
+| [`hearst-ui-vision.html`](./hearst-ui-vision.html)               | Interface utilisateur — 2 états (IDLE/ACTIVE), chat-first, assets, missions                                                             |
+| [`mock-chat-central.html`](./mock-chat-central.html)             | Mock de la surface principale (chat-first)                                                                                              |
+| [`mock-cockpit-dashboard.html`](./mock-cockpit-dashboard.html)   | Maquette accueil 3 colonnes — **direction visuelle libre** (split rail sombre / centre papier / panneau sauge, typo Fraunces + DM Sans) |
 
 ### Core Types — Architecture Finale
 
-| Module | Path | Description |
-|--------|------|-------------|
-| `lib/core/types` | [`./lib/core/types/index.ts`](./lib/core/types/index.ts) | **Point d'entrée canonique** pour les types métier centraux. Barrel export unifié aligné sur Architecture Finale. |
-| `lib/core/types/focal` | [`./lib/core/types/focal.ts`](./lib/core/types/focal.ts) | Utilities focal (mapFocalObject, mapFocalObjects) — unification client/serveur. |
+| Module                 | Path                                                     | Description                                                                                                       |
+| ---------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `lib/core/types`       | [`./lib/core/types/index.ts`](./lib/core/types/index.ts) | **Point d'entrée canonique** pour les types métier centraux. Barrel export unifié aligné sur Architecture Finale. |
+| `lib/core/types/focal` | [`./lib/core/types/focal.ts`](./lib/core/types/focal.ts) | Utilities focal (mapFocalObject, mapFocalObjects) — unification client/serveur.                                   |
 
 **Migration** : nouveaux imports depuis `@/lib/core/types` (unifié) plutôt que dispersés.
 
@@ -93,7 +95,7 @@ Système d'action centré chat avec orchestration v2, artifacts file-backed, et 
 
 Règle non négociable : **toutes les sections sont toujours rendues.** Une donnée vide → empty state interne (`EmptyRow` muted, compteur `00`, skeleton). Jamais de `{xxx.length > 0 && (…)}` qui escamote un bloc — ça provoque des sauts de layout et brise le modèle mental « droite = bibliothèque + contexte permanent ».
 
-Empilement vertical (orchestré par [`RightPanelContent`](./app/(user)/components/RightPanelContent.tsx)) :
+Empilement vertical (orchestré par [`RightPanelContent`](<./app/(user)/components/RightPanelContent.tsx>)) :
 
 ```
 ┌──────────────────────────────────────────┐
@@ -115,38 +117,39 @@ Empilement vertical (orchestré par [`RightPanelContent`](./app/(user)/component
 └──────────────────────────────────────────┘
 ```
 
-| Composant | Fichier | Rôle |
-|-----------|---------|------|
-| `RightPanelContent` | [`app/(user)/components/RightPanelContent.tsx`](./app/(user)/components/RightPanelContent.tsx) | Orchestrateur SSE + state. Point d'entrée unique. |
-| `PulseStrip` | [`right-panel/PulseStrip.tsx`](./app/(user)/components/right-panel/PulseStrip.tsx) | Halo + label état (idle/running/awaiting/error) + compteur events permanent. |
-| `FocalCard` | [`right-panel/FocalCard.tsx`](./app/(user)/components/right-panel/FocalCard.tsx) | Notifications (emails, messages, approvals). Pas d'early return — un seul container, corps swap. |
-| `RightPanelNav` | [`right-panel/RightPanelNav.tsx`](./app/(user)/components/right-panel/RightPanelNav.tsx) | 4 tuiles cliquables avec compteurs live. |
-| `GeneralDashboard` | [`right-panel/GeneralDashboard.tsx`](./app/(user)/components/right-panel/GeneralDashboard.tsx) | Vue défaut. 4 sections always-on (Suggestions / Missions / Livrables / Alertes), chacune avec son `EmptyRow` ou `SkeletonRow`. |
-| `AssetsGrid` | [`right-panel/AssetsGrid.tsx`](./app/(user)/components/right-panel/AssetsGrid.tsx) | Grille 2 colonnes des livrables + bandeau suggestions cliquable. |
-| `MissionsList` | [`right-panel/MissionsList.tsx`](./app/(user)/components/right-panel/MissionsList.tsx) | Liste verticale des missions avec ring SVG par état. |
-| `useRunReportSuggestion` | [`right-panel/useRunReportSuggestion.ts`](./app/(user)/components/right-panel/useRunReportSuggestion.ts) | `POST /api/v2/reports/[specId]/run` avec `threadId` (crée un thread « Rapports » si besoin pour persister l’asset), focal + passage en `chat` si on était en `cockpit`. |
+| Composant                | Fichier                                                                                                    | Rôle                                                                                                                                                                    |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RightPanelContent`      | [`app/(user)/components/RightPanelContent.tsx`](<./app/(user)/components/RightPanelContent.tsx>)           | Orchestrateur SSE + state. Point d'entrée unique.                                                                                                                       |
+| `PulseStrip`             | [`right-panel/PulseStrip.tsx`](<./app/(user)/components/right-panel/PulseStrip.tsx>)                       | Halo + label état (idle/running/awaiting/error) + compteur events permanent.                                                                                            |
+| `FocalCard`              | [`right-panel/FocalCard.tsx`](<./app/(user)/components/right-panel/FocalCard.tsx>)                         | Notifications (emails, messages, approvals). Pas d'early return — un seul container, corps swap.                                                                        |
+| `RightPanelNav`          | [`right-panel/RightPanelNav.tsx`](<./app/(user)/components/right-panel/RightPanelNav.tsx>)                 | 4 tuiles cliquables avec compteurs live.                                                                                                                                |
+| `GeneralDashboard`       | [`right-panel/GeneralDashboard.tsx`](<./app/(user)/components/right-panel/GeneralDashboard.tsx>)           | Vue défaut. 4 sections always-on (Suggestions / Missions / Livrables / Alertes), chacune avec son `EmptyRow` ou `SkeletonRow`.                                          |
+| `AssetsGrid`             | [`right-panel/AssetsGrid.tsx`](<./app/(user)/components/right-panel/AssetsGrid.tsx>)                       | Grille 2 colonnes des livrables + bandeau suggestions cliquable.                                                                                                        |
+| `MissionsList`           | [`right-panel/MissionsList.tsx`](<./app/(user)/components/right-panel/MissionsList.tsx>)                   | Liste verticale des missions avec ring SVG par état.                                                                                                                    |
+| `useRunReportSuggestion` | [`right-panel/useRunReportSuggestion.ts`](<./app/(user)/components/right-panel/useRunReportSuggestion.ts>) | `POST /api/v2/reports/[specId]/run` avec `threadId` (crée un thread « Rapports » si besoin pour persister l’asset), focal + passage en `chat` si on était en `cockpit`. |
 
 **État** : la vue active est persistée dans `localStorage` (`hearst.rightpanel.view`). Au changement de thread, reset vers `general` + `setData(null)`.
 
 **Anti-confusion pour agents** :
+
 - ❌ Pas d'onglets classiques (ASSETS / MISSIONS / ACTIVITÉ) — remplacés par les 4 tuiles
 - ❌ Pas de `LibraryTabs`, `GeneralRecap`, `ActivityTimeline`, `HaloLogo3D`, doublon `right-panel/RightPanelContent.tsx` — **tous supprimés** (29/04/2026)
 - ❌ Pas de `{data && (...)}` autour d'une section entière — viole la règle structure fixe
 - ✅ Imports depuis `@/app/(user)/components/right-panel/`
-- ✅ Orchestrateur unique : [`RightPanelContent.tsx`](./app/(user)/components/RightPanelContent.tsx) (au niveau `components/`, pas dans `right-panel/`)
-- ✅ Scope strict du lint visuel actif sur `right-panel/` — toute violation `tracking-[…]`, `style={{ height: "Npx" }}`, `rgba(…)`, `shadow-md` etc. bloque le build (voir section *Lint visuel*)
+- ✅ Orchestrateur unique : [`RightPanelContent.tsx`](<./app/(user)/components/RightPanelContent.tsx>) (au niveau `components/`, pas dans `right-panel/`)
+- ✅ Scope strict du lint visuel actif sur `right-panel/` — toute violation `tracking-[…]`, `style={{ height: "Npx" }}`, `rgba(…)`, `shadow-md` etc. bloque le build (voir section _Lint visuel_)
 
 ### Tokens (source `app/globals.css`)
 
-Modèle d'élévation (du plus profond au plus clair) : **rail < background < surface**. Les panels sont *lifted* au-dessus du canvas pour être visibles sans OLED.
+Modèle d'élévation (du plus profond au plus clair) : **rail < background < surface**. Les panels sont _lifted_ au-dessus du canvas pour être visibles sans OLED.
 
-| Token | Var CSS | Hex | Usage |
-|-------|---------|-----|-------|
-| `bg-rail` | `--rail` | `#0c0c10` | Rail admin — `app/components/Sidebar.tsx` (`/admin/*`) |
-| `bg-background` | `--background` | `#09090b` | Canvas — `body` (`app/layout.tsx`), `/login` |
-| `bg-surface` | `--surface` | `#14141a` | Panels lifted — `LeftPanel`, barre d'input `ChatInput` |
-| `bg-cyan-accent` / `text-cyan-accent` | `--cyan-accent` | `#00e5ff` | Accent unique (focal, dot connecté, divider) |
-| `--glow-cyan-{sm,md,core,soft,dot}` | — | rgba(0,229,255,…) | Halos centralisés — **ne pas dupliquer en `rgba` dans les composants** |
+| Token                                 | Var CSS         | Hex               | Usage                                                                  |
+| ------------------------------------- | --------------- | ----------------- | ---------------------------------------------------------------------- |
+| `bg-rail`                             | `--rail`        | `#0c0c10`         | Rail admin — `app/components/Sidebar.tsx` (`/admin/*`)                 |
+| `bg-background`                       | `--background`  | `#09090b`         | Canvas — `body` (`app/layout.tsx`), `/login`                           |
+| `bg-surface`                          | `--surface`     | `#14141a`         | Panels lifted — `LeftPanel`, barre d'input `ChatInput`                 |
+| `bg-cyan-accent` / `text-cyan-accent` | `--cyan-accent` | `#00e5ff`         | Accent unique (focal, dot connecté, divider)                           |
+| `--glow-cyan-{sm,md,core,soft,dot}`   | —               | rgba(0,229,255,…) | Halos centralisés — **ne pas dupliquer en `rgba` dans les composants** |
 
 Garde-fou : `__tests__/ui/design-tokens.test.ts` valide la présence de tous ces tokens dans `app/globals.css` et dans le bloc `@theme inline`.
 
@@ -154,16 +157,16 @@ Garde-fou : `__tests__/ui/design-tokens.test.ts` valide la présence de tous ces
 
 [`scripts/lint-visual.mjs`](./scripts/lint-visual.mjs) interdit les magic numbers et les mélanges Tailwind/inline qui violent le DS. Branché sur `npm run lint` (eslint chainé) et `npm run build` (via `prebuild`) — le build est refusé si violation.
 
-| Règle | Scope | Fix |
-|-------|-------|-----|
-| `no-hex` | global | `#abc123` hors brand allowlist → `var(--token-couleur)` |
-| `no-arbitrary-text-size` | global | `text-[Npx]` → classe `.t-N` |
-| `no-arbitrary-tracking` | strict | `tracking-[0.22em]` → `tracking-section`, `tracking-display`, `tracking-stretch`, `tracking-label`, etc. |
-| `no-rgba` | strict | `rgba(…)` littéral → token `--xxx-bg` ou `--xxx-tint` |
-| `no-tailwind-shadow` | strict | `shadow-md/lg/xl/2xl` → `var(--shadow-card)` / `--shadow-card-hover` / `--shadow-input-focus` |
-| `no-magic-px-style` | strict | `style={{ height: "72px" }}` → `var(--space-N)` ou nouveau token sémantique |
-| `no-arbitrary-non-token` | strict | `bg-[#xxx]` → `bg-[var(--token)]` |
-| `no-inline-shadow` | strict | `boxShadow:` inline → `box-shadow: var(--shadow-XXX)` |
+| Règle                    | Scope  | Fix                                                                                                      |
+| ------------------------ | ------ | -------------------------------------------------------------------------------------------------------- |
+| `no-hex`                 | global | `#abc123` hors brand allowlist → `var(--token-couleur)`                                                  |
+| `no-arbitrary-text-size` | global | `text-[Npx]` → classe `.t-N`                                                                             |
+| `no-arbitrary-tracking`  | strict | `tracking-[0.22em]` → `tracking-section`, `tracking-display`, `tracking-stretch`, `tracking-label`, etc. |
+| `no-rgba`                | strict | `rgba(…)` littéral → token `--xxx-bg` ou `--xxx-tint`                                                    |
+| `no-tailwind-shadow`     | strict | `shadow-md/lg/xl/2xl` → `var(--shadow-card)` / `--shadow-card-hover` / `--shadow-input-focus`            |
+| `no-magic-px-style`      | strict | `style={{ height: "72px" }}` → `var(--space-N)` ou nouveau token sémantique                              |
+| `no-arbitrary-non-token` | strict | `bg-[#xxx]` → `bg-[var(--token)]`                                                                        |
+| `no-inline-shadow`       | strict | `boxShadow:` inline → `box-shadow: var(--shadow-XXX)`                                                    |
 
 **Scope strict actuel** (`STRICT_PATHS` en tête de [`lint-visual.mjs`](./scripts/lint-visual.mjs)) : `app/(user)/components/right-panel/`. Élargir fichier par fichier au fur et à mesure du clean.
 
@@ -285,6 +288,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 - **`awaiting_clarification`** — État canonique pour "précision requise". Émis via `clarification_requested` ou `run_suspended` avec `reason: "awaiting_clarification"`.
 
 **Règles**:
+
 - Le runtime (`stores/runtime.ts`) mappe ces événements vers `coreState` et `flowLabel`.
 - Le RightPanel affiche des labels lisibles (amber pour approval, violet pour clarification) au lieu de l'état brut.
 - La page run continue le polling tant que le run est dans un état live (running, awaiting_approval, awaiting_clarification).
@@ -297,6 +301,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 `/api/v2/right-panel` est la source canonique de narration focale thread-scopée. La résolution n'est plus "asset-only" mais prend en compte la chaîne complète:
 
 **Priorité de résolution focale** (implémentée dans `lib/right-panel/manifestation.ts:resolveFocalObject()`):
+
 1. **Plan en `awaiting_approval`** — Message draft, mission draft, watcher draft
 2. **Plan en exécution avec output visible** — Outline (pré-report en génération)
 3. **Latest asset** — Report, brief, message receipt
@@ -304,6 +309,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 5. **Idle** — Aucun focal
 
 **Métadonnées conservées** (client et API):
+
 - `threadId` — Traçabilité thread-scopée
 - `sourcePlanId` — Lien vers le plan d'origine (si applicable)
 - `sourceAssetId` — Lien vers l'asset d'origine (si applicable)
@@ -311,6 +317,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 - `primaryAction` — Action primaire affichable (approve/discard/pause/resume)
 
 **Architecture**:
+
 - `lib/right-panel/manifestation.ts` — Logique de manifestation (plan/mission/asset → focal)
 - `lib/ui/right-panel/aggregate.ts` — Résolution canonique côté API
 - `stores/focal.ts` — Store client avec métadonnées enrichies
@@ -318,12 +325,14 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 - `RightPanel.tsx` — Surface primaire focal + historique secondaire compact
 
 **Actions primaires opérantes**:
+
 - `approve` — Approuve un plan en `awaiting_approval` et reprend l'exécution
 - `pause` — Met en pause une mission/watcher active
 - `resume` — Reprend une mission/watcher en pause
 - **`retry`** — Réessaie un focal en statut `failed` (mission ou plan/run)
 
 **API endpoints**:
+
 - `POST /api/v2/plans/[id]/approve` — Approuve et exécute un plan
 - `POST /api/v2/missions/[id]/pause` — Met en pause une mission
 - `POST /api/v2/missions/[id]/resume` — Reprend une mission
@@ -331,6 +340,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 - **`POST /api/orchestrate`** — Relance un plan/run (retry avec message "Reprends depuis la dernière erreur") ; réponse **SSE** — le client lit le flux jusqu’à `run_failed` ou fin de stream (`lib/orchestrator/consume-sse-response.ts`)
 
 **Implémentation**:
+
 - `focal_context` sur `/api/orchestrate` : `{ id, objectType, title, status }` (aligné route `app/api/orchestrate`)
 - `FocalStage.tsx` et `RightPanel.tsx` appellent les APIs via `fetch()`
 - **`FocalRetryButton`** — Composant partagé pour actions retry (mission vs orchestrate)
@@ -345,6 +355,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 **Principe**: Un seul `run_id` user-facing pour tout le flux chat-first V2 — client et backend alignés.
 
 **Flow**:
+
 1. Client initie avec un `client_token` (temporaire, pour correlation)
 2. Backend génère le `run_id` canonique (`run_${timestamp}_${counter}`)
 3. Backend émet `run_started` avec ce `run_id` dès le début
@@ -353,11 +364,13 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 6. L'API `/api/v2/runs/[id]` expose ce même identifiant
 
 **Logs de cohérence**:
+
 - `[RuntimeStore]` logue les transitions de run_id (client → canonique)
 - `[RuntimeStore]` warning si un event arrive avec un run_id différent du courant
 - `[Chat]` logue le run_id canonique établi et final
 
 **Résolution d'IDs**:
+
 - `client_token` (`client-${Date.now()}`) → temporaire, remplacé par le canonique
 - `run_id` canonique (`run_${ts}_${n}`) → utilisé partout (SSE, store, API)
 - `dbRunId` → identique au `run_id` canonique pour correlation directe
@@ -365,22 +378,26 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 ### Connecteurs Réels — Flow OAuth Composio
 
 **Architecture**:
+
 - Source canonique: `/api/v2/user/connections` — retourne les statuts réels depuis control-plane + user_tokens
 - OAuth flow: Composio SDK (backend) + redirection frontend
 - Callback: redirection gérée par Composio vers l'app
 
 **APIs**:
+
 - `GET /api/v2/user/connections` — Liste des services avec statut de connexion
 - `POST /api/composio/connect` — Initie le flow OAuth (retourne `redirectUrl`)
 - `/api/composio/connections` — CRUD connections actives
 
 **État des connecteurs**:
+
 - `lib/integrations/catalog.ts:enrichWithConnectionStatus()` — fetch côté client, reconciler côté serveur
 - `stores` et composants reçoivent les vrais statuts (`connected`, `pending`, `error`, `disconnected`)
 - Les @mentions dans ChatInput sont filtrées sur les services réellement connectés
 - CapabilityTabs s'affiche uniquement si les services correspondants sont connectés
 
 **Logs backend**:
+
 - `[UserConnections] User xxx: N/M connected` — Chargement des connexions
 - `[Composio] Initiating OAuth: {provider}` — Début flow OAuth
 
@@ -389,35 +406,22 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 **North star**: `halo-design-direction.html` — cockpit premium avec surfaces profondes, accents cyan maîtrisés, typographie éditoriale.
 
 **Tokens CSS** (`app/globals.css`):
+
 ```css
 /* Surfaces — hiérarchie profonde */
---bg: #0a0a0b        /* Primary background */
---bg-elev: #111114    /* Elevated surfaces */
---bg-soft: #16161a    /* Cards, inputs */
---rail: #0c0c10      /* Side panels */
-
-/* Text — échelle d'opacité */
---text: rgba(255,255,255,0.9)       /* Titres */
---text-soft: rgba(255,255,255,0.55) /* Body */
---text-muted: rgba(255,255,255,0.32)/* Meta */
---text-faint: rgba(255,255,255,0.18)/* Labels */
-
-/* Accents */
---cykan: #00e5ff      /* Cyan primaire */
---money: #4ade80      /* Succès, positif */
---warn: #fbbf24       /* Attention */
---danger: #ef4444     /* Erreur */
-
-/* Bordures */
---line: rgba(255,255,255,0.06)       /* Bordures standard */
---line-strong: rgba(255,255,255,0.12)/* Bordures focus */
-
-/* Glows */
---glow-cyan-sm: 0 0 4px rgba(0, 229, 255, 0.3)
---glow-cyan-md: 0 0 8px rgba(0, 229, 255, 0.4)
+--bg: #0a0a0b /* Primary background */ --bg-elev: #111114 /* Elevated surfaces */ --bg-soft: #16161a
+  /* Cards, inputs */ --rail: #0c0c10 /* Side panels */ /* Text — échelle d'opacité */
+  --text: rgba(255, 255, 255, 0.9) /* Titres */ --text-soft: rgba(255, 255, 255, 0.55) /* Body */
+  --text-muted: rgba(255, 255, 255, 0.32) /* Meta */ --text-faint: rgba(255, 255, 255, 0.18)
+  /* Labels */ /* Accents */ --cykan: #00e5ff /* Cyan primaire */ --money: #4ade80
+  /* Succès, positif */ --warn: #fbbf24 /* Attention */ --danger: #ef4444 /* Erreur */
+  /* Bordures */ --line: rgba(255, 255, 255, 0.06) /* Bordures standard */
+  --line-strong: rgba(255, 255, 255, 0.12) /* Bordures focus */ /* Glows */ --glow-cyan-sm: 0 0 4px
+  rgba(0, 229, 255, 0.3) --glow-cyan-md: 0 0 8px rgba(0, 229, 255, 0.4);
 ```
 
 **Utilitaires typographiques**:
+
 - `.halo-title-xl` (56px, bold, tight tracking) — Valeurs principales
 - `.halo-title-lg` (24px, light) — Titres focaux
 - `.halo-title-md` (18px, semibold) — Sous-titres
@@ -427,6 +431,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 - `.halo-body` (13px, leading 1.6) — Contenu principal
 
 **Composants Halo**:
+
 - `.halo-card` — Surface carte avec bordure
 - `.halo-active` — État actif avec accent cyan
 - `.halo-progress` — Barre de progression avec glow
@@ -438,6 +443,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 **Principe**: Une seule stack runtime pour le chat-first user-facing. V2 est le chemin canonique, V1 est legacy explicite.
 
 **Chemin canonique**:
+
 ```
 /api/orchestrate (POST)
   └── lib/orchestrator/entry.ts::orchestrateV2()
@@ -453,6 +459,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 ```
 
 **Routing** (`lib/engine/orchestrator/entry.ts`):
+
 - Unified orchestrator: all requests go through the capability-first runtime.
 - `resolveCapabilityScope()` → domain/capability/provider resolution.
 - `resolveExecutionMode()` → maps scope to execution mode (direct_answer, workflow, custom_agent, managed_agent).
@@ -474,6 +481,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 | Synthetic retrieval | ❌ (roadmap) | ✅ |
 
 **Logs backend**:
+
 - `[Orchestrator] Canonical V2 path for user xxx` — Routing V2
 - `[Orchestrator] Fallback to V1 for user xxx` — Routing legacy
 - `[Orchestrator] Explicit legacy V1 requested` — Opt-out explicite
@@ -483,6 +491,7 @@ Le système utilise une nomenclature unifiée pour les états d'attente:
 **Principe**: Toutes les routes `/api/v2/*` user-facing sont protégées par auth et scopées au user/tenant/workspace courant.
 
 **Architecture**:
+
 ```
 proxy.ts (Next.js 16 Proxy)
 ├── Garde global auth — toutes les routes
@@ -511,6 +520,7 @@ Routes V2 scopées
 ```
 
 **Logs de sécurité**:
+
 - `[Proxy] Unauthorized API access — /api/v2/xxx` — Rejet auth
 - `[Proxy] Dev bypass active — /api/v2/xxx` — Bypass explicite
 - `[Scope] Dev fallback used — tenant: xxx, workspace: yyy` — Fallback loggé
@@ -525,6 +535,7 @@ Routes V2 scopées
 | `HEARST_WORKSPACE_ID` | Workspace explicite | Multi-tenant futur |
 
 **Surfaces mises à jour**:
+
 - `LeftPanel` — Rail avec tokens, active state cyan
 - `RightPanel` — Runtime panel avec halo progress bars
 - `ChatInput` — Command bar avec glow focus
@@ -559,45 +570,47 @@ npm run dev
 
 ## 🔧 Configuration Actuelle (26/04/2026)
 
-| Service | Clé configurée | Statut |
-|---------|----------------|--------|
-| **Supabase** | `SUPABASE_*` | ✅ Base de données connectée |
-| **Google OAuth** | `GOOGLE_CLIENT_ID/SECRET` | ✅ Gmail, Calendar, Drive |
-| **NextAuth** | `NEXTAUTH_SECRET` | ✅ Sessions activées |
-| **Composio** | `COMPOSIO_API_KEY` | ✅ 1500+ OAuth providers |
-| **Anthropic** | `ANTHROPIC_API_KEY` | ✅ LLM Claude |
-| **Hearst API** | `HEARST_API_KEY` | ✅ Auth interne |
-| **Dev Bypass** | `HEARST_DEV_AUTH_BYPASS=1` | ✅ Mode dev simplifié |
+| Service          | Clé configurée             | Statut                       |
+| ---------------- | -------------------------- | ---------------------------- |
+| **Supabase**     | `SUPABASE_*`               | ✅ Base de données connectée |
+| **Google OAuth** | `GOOGLE_CLIENT_ID/SECRET`  | ✅ Gmail, Calendar, Drive    |
+| **NextAuth**     | `NEXTAUTH_SECRET`          | ✅ Sessions activées         |
+| **Composio**     | `COMPOSIO_API_KEY`         | ✅ 1500+ OAuth providers     |
+| **Anthropic**    | `ANTHROPIC_API_KEY`        | ✅ LLM Claude                |
+| **Hearst API**   | `HEARST_API_KEY`           | ✅ Auth interne              |
+| **Dev Bypass**   | `HEARST_DEV_AUTH_BYPASS=1` | ✅ Mode dev simplifié        |
 
 ## 🌐 Pages UI Accessibles
 
-| Page | URL | Description |
-|------|-----|-------------|
-| **Home** | `/` | Chat principal avec orchestration |
-| **Apps** | `/apps` | Connecteurs OAuth (1500+ services) |
-| **Missions** | `/missions` | Missions planifiées et récurrentes |
-| **Assets** | `/assets` | Fichiers générés (PDF, Excel) |
-| **Admin** | `/admin` | Settings, health, audit, connectors |
-| **Runs** | `/runs/[id]` | Timeline des exécutions |
+| Page         | URL          | Description                         |
+| ------------ | ------------ | ----------------------------------- |
+| **Home**     | `/`          | Chat principal avec orchestration   |
+| **Apps**     | `/apps`      | Connecteurs OAuth (1500+ services)  |
+| **Missions** | `/missions`  | Missions planifiées et récurrentes  |
+| **Assets**   | `/assets`    | Fichiers générés (PDF, Excel)       |
+| **Admin**    | `/admin`     | Settings, health, audit, connectors |
+| **Runs**     | `/runs/[id]` | Timeline des exécutions             |
 
 ## 📁 Scripts Utilitaires
 
-| Script | Usage |
-|--------|-------|
-| `npm run dev` | Démarre le serveur Next (:9001) |
-| `npm run dev:fresh` | Idem, après `kill :9001` + `rm -rf .next` |
-| `npm run dev:electron` | Démarre Next (:9001) + ouvre la fenêtre Electron une fois prêt |
-| `npm run electron:compile` | Compile `electron/main.ts` + `preload.ts` → `dist/electron/` |
-| `npm run electron:build` | `next build` + recompile Electron (avant packaging) |
-| `npm run electron:dist` | Build + génère les artefacts `electron-builder` (DMG / NSIS) |
-| `npm run launch` | Stack complète (hearst-os + connect + app) via `launch.sh` |
-| `npm run stop` | Arrête tous les services (`launch-stop.sh`) |
-| `npm run build` | Build production |
-| `npm test` | Lance les 407 tests |
-| `npx tsx scripts/init-ui-config.ts` | Initialise les settings DB |
+| Script                              | Usage                                                          |
+| ----------------------------------- | -------------------------------------------------------------- |
+| `npm run dev`                       | Démarre le serveur Next (:9001)                                |
+| `npm run dev:fresh`                 | Idem, après `kill :9001` + `rm -rf .next`                      |
+| `npm run dev:electron`              | Démarre Next (:9001) + ouvre la fenêtre Electron une fois prêt |
+| `npm run electron:compile`          | Compile `electron/main.ts` + `preload.ts` → `dist/electron/`   |
+| `npm run electron:build`            | `next build` + recompile Electron (avant packaging)            |
+| `npm run electron:dist`             | Build + génère les artefacts `electron-builder` (DMG / NSIS)   |
+| `npm run launch`                    | Stack complète (hearst-os + connect + app) via `launch.sh`     |
+| `npm run stop`                      | Arrête tous les services (`launch-stop.sh`)                    |
+| `npm run build`                     | Build production                                               |
+| `npm test`                          | Lance les 407 tests                                            |
+| `npx tsx scripts/init-ui-config.ts` | Initialise les settings DB                                     |
 
 # 6. Tests
-npm test            # Vitest (LLM, momentum, design tokens, …)
+
+npm test # Vitest (LLM, momentum, design tokens, …)
+
 ```
 
 ## Services et Ports
@@ -638,25 +651,27 @@ Code Electron : [electron/main.ts](electron/main.ts) (process principal, ESM via
 ### Admin Layer (Phase 0–4)
 
 ```
+
 lib/admin/
-├── settings.ts              # Settings facade → stores/store.ts (Phase 0B)
-├── connectors.ts            # Connectors aligned with DB schema (Phase 0A)
-├── permissions.ts           # RBAC user role management
-├── health.ts                # System health checks (DB, storage, connectors, LLM)
-└── audit.ts                 # Audit log viewer
+├── settings.ts # Settings facade → stores/store.ts (Phase 0B)
+├── connectors.ts # Connectors aligned with DB schema (Phase 0A)
+├── permissions.ts # RBAC user role management
+├── health.ts # System health checks (DB, storage, connectors, LLM)
+└── audit.ts # Audit log viewer
 
 app/api/admin/
-├── _helpers.ts              # Shared auth + RBAC guard (Phase 1)
-├── settings/route.ts        # GET/POST settings
-├── health/route.ts          # GET health
-├── permissions/route.ts     # GET/POST/DELETE permissions
-├── audit/route.ts           # GET audit logs
-└── connectors/route.ts      # GET/POST/PATCH/DELETE connectors
+├── \_helpers.ts # Shared auth + RBAC guard (Phase 1)
+├── settings/route.ts # GET/POST settings
+├── health/route.ts # GET health
+├── permissions/route.ts # GET/POST/DELETE permissions
+├── audit/route.ts # GET audit logs
+└── connectors/route.ts # GET/POST/PATCH/DELETE connectors
 
 app/admin/
-├── settings/page.tsx        # Feature flags + settings UI (Phase 2)
-├── health/page.tsx          # Real-time health dashboard (Phase 2)
-└── audit/page.tsx           # Audit log viewer UI (Phase 2)
+├── settings/page.tsx # Feature flags + settings UI (Phase 2)
+├── health/page.tsx # Real-time health dashboard (Phase 2)
+└── audit/page.tsx # Audit log viewer UI (Phase 2)
+
 ```
 
 **Phase Summary**:
@@ -670,51 +685,53 @@ app/admin/
 - **Phase 4** — Agents capabilities endpoint (5 specialized agents + 4 connector packs catalog)
 
 ```
+
 lib/
-├── database.types.ts        # Types auto-générés Supabase
-├── supabase-server.ts       # Client serveur typé
+├── database.types.ts # Types auto-générés Supabase
+├── supabase-server.ts # Client serveur typé
 ├── domain/
-│   ├── schemas.ts           # Validation Zod
-│   ├── types.ts             # Types métier
-│   ├── api-helpers.ts       # ok/err/parseBody/dbErr
-│   └── slugify.ts
+│ ├── schemas.ts # Validation Zod
+│ ├── types.ts # Types métier
+│ ├── api-helpers.ts # ok/err/parseBody/dbErr
+│ └── slugify.ts
 ├── runtime/
-│   ├── lifecycle.ts         # Statuses, transitions, erreurs typées, timeout, retry
-│   ├── tracer.ts            # RunTracer: runs + traces + output validation auto
-│   ├── tool-executor.ts     # HTTP tool execution + gouvernance complète
-│   ├── workflow-engine.ts   # Versioned execution + smart tool/model selection
-│   ├── memory-governor.ts   # TTL, dedup, max_entries, importance
-│   ├── replay.ts            # Replay live/stub multi-step + comparaison
-│   ├── cost-sentinel.ts     # Budget enforcement par run
-│   ├── prompt-guard.ts      # Guards avancés + policies par agent
-│   └── output-validator.ts  # Classification + trust scoring
+│ ├── lifecycle.ts # Statuses, transitions, erreurs typées, timeout, retry
+│ ├── tracer.ts # RunTracer: runs + traces + output validation auto
+│ ├── tool-executor.ts # HTTP tool execution + gouvernance complète
+│ ├── workflow-engine.ts # Versioned execution + smart tool/model selection
+│ ├── memory-governor.ts # TTL, dedup, max_entries, importance
+│ ├── replay.ts # Replay live/stub multi-step + comparaison
+│ ├── cost-sentinel.ts # Budget enforcement par run
+│ ├── prompt-guard.ts # Guards avancés + policies par agent
+│ └── output-validator.ts # Classification + trust scoring
 ├── integrations/
-│   ├── adapter.ts           # IntegrationAdapter interface
-│   ├── http-adapter.ts      # HTTP fetch (read-only)
-│   ├── notion-adapter.ts    # Notion API (read-only)
-│   ├── executor.ts          # Safe execution: tracer + retry + timeout + health
-│   └── index.ts
+│ ├── adapter.ts # IntegrationAdapter interface
+│ ├── http-adapter.ts # HTTP fetch (read-only)
+│ ├── notion-adapter.ts # Notion API (read-only)
+│ ├── executor.ts # Safe execution: tracer + retry + timeout + health
+│ └── index.ts
 ├── analytics/
-│   ├── failure-classifier.ts # 10 catégories d'échec déterministes
-│   ├── metrics.ts            # Métriques tools + agents
-│   ├── tool-ranking.ts       # Score, classement, drift detection
-│   ├── feedback.ts           # Signaux d'amélioration
-│   └── index.ts
+│ ├── failure-classifier.ts # 10 catégories d'échec déterministes
+│ ├── metrics.ts # Métriques tools + agents
+│ ├── tool-ranking.ts # Score, classement, drift detection
+│ ├── feedback.ts # Signaux d'amélioration
+│ └── index.ts
 ├── decisions/
-│   ├── tool-selector.ts      # Sélection par goal
-│   ├── model-selector.ts     # Model scoring + goal-based selection
-│   ├── smart-executor.ts     # Exécution avec fallback auto
-│   ├── signal-manager.ts     # Lifecycle des improvement signals
-│   ├── guard-advisor.ts      # Suggestion de guard_policy
-│   ├── change-tracker.ts     # Audit trail: avant/après
-│   └── index.ts
+│ ├── tool-selector.ts # Sélection par goal
+│ ├── model-selector.ts # Model scoring + goal-based selection
+│ ├── smart-executor.ts # Exécution avec fallback auto
+│ ├── signal-manager.ts # Lifecycle des improvement signals
+│ ├── guard-advisor.ts # Suggestion de guard_policy
+│ ├── change-tracker.ts # Audit trail: avant/après
+│ └── index.ts
 └── llm/
-    ├── types.ts             # LLMProvider, ModelProfileConfig
-    ├── router.ts            # getProvider, resetLlmProviderCache (tests), loadFallbackChain, chatWithProfile…
-    ├── openai.ts
-    ├── anthropic.ts
-    ├── composer.ts          # Cursor Composer 2 (OpenAI-compatible HTTP)
-    └── gemini.ts            # Gemini API (gemini-3-flash-preview, …)
+├── types.ts # LLMProvider, ModelProfileConfig
+├── router.ts # getProvider, resetLlmProviderCache (tests), loadFallbackChain, chatWithProfile…
+├── openai.ts
+├── anthropic.ts
+├── composer.ts # Cursor Composer 2 (OpenAI-compatible HTTP)
+└── gemini.ts # Gemini API (gemini-3-flash-preview, …)
+
 ```
 
 ### Agent Backend V2 (Phase 1 — Structure Created)
@@ -722,17 +739,19 @@ lib/
 Multi-provider managed agent architecture. Unifies Anthropic Sessions, OpenAI Assistants/Responses/Computer Use, and Hybrid routing.
 
 ```
+
 lib/agents/
-├── backend-v2/              # NEW — Unified agent backends
-│   ├── types.ts            # AgentBackendV2, BackendCapabilities, Hybrid routing
-│   └── index.ts            # Barrel export
-├── sessions/               # NEW — Cross-provider session management
-│   ├── types.ts            # Session, SessionManager, SessionStore
-│   └── index.ts            # Barrel export
-└── backend/                # EXISTING (v1 — to migrate)
-    ├── types.ts
-    ├── selector.ts
-    └── run-anthropic-managed.ts
+├── backend-v2/ # NEW — Unified agent backends
+│ ├── types.ts # AgentBackendV2, BackendCapabilities, Hybrid routing
+│ └── index.ts # Barrel export
+├── sessions/ # NEW — Cross-provider session management
+│ ├── types.ts # Session, SessionManager, SessionStore
+│ └── index.ts # Barrel export
+└── backend/ # EXISTING (v1 — to migrate)
+├── types.ts
+├── selector.ts
+└── run-anthropic-managed.ts
+
 ```
 
 **Backends Supported:**
@@ -761,22 +780,24 @@ Système de backends unifiés avec sélection intelligente et sessions cross-pro
 ### 🎯 Architecture
 
 ```
+
 ┌─────────────────────────────────────────┐
-│         Orchestrator V2                 │
-│  POST /api/orchestrate → orchestrateV2  │
+│ Orchestrator V2 │
+│ POST /api/orchestrate → orchestrateV2 │
 └────────────────┬────────────────────────┘
-                 │
+│
 ┌────────────────▼──────────────────────────┐
-│     Session Manager (Factory)           │
-│  Unified interface for all backends     │
+│ Session Manager (Factory) │
+│ Unified interface for all backends │
 └────┬─────────────┬─────────────┬────────┘
-     │             │             │
+│ │ │
 ┌────▼────┐ ┌────▼────┐ ┌────▼────┐ ┌────▼────┐
-│ OpenAI  │ │ OpenAI  │ │ OpenAI  │ │Anthropic│
-│Assistant│ │Response │ │Computer │ │(stub)   │
-│  V1+V2  │ │   API   │ │  Use    │ │         │
+│ OpenAI │ │ OpenAI │ │ OpenAI │ │Anthropic│
+│Assistant│ │Response │ │Computer │ │(stub) │
+│ V1+V2 │ │ API │ │ Use │ │ │
 └─────────┘ └─────────┘ └─────────┘ └─────────┘
-```
+
+````
 
 ### 🧠 Backend Selector (Intelligent Routing)
 
@@ -798,17 +819,17 @@ const response = await session.send("What is 2+2?");
 // Forcer un backend spécifique
 const session = await SessionManager.getInstance()
   .createWithBackend("openai_responses");
-```
+````
 
 ### 📦 Backends Disponibles
 
-| Backend | Capacités | Status |
-|---------|-----------|--------|
-| `openai_assistants` | File Search, Code Interpreter, Tools, Vision | ✅ Prod |
-| `openai_responses` | Rapide, stateless, streaming | ✅ Prod |
-| `openai_computer_use` | Vision, UI automation (clic, scroll, type) | ✅ Beta |
-| `anthropic_sessions` | 200K context, Claude | 🚧 Stub |
-| `hearst_runtime` | Runtime interne (workflows) | ✅ Prod |
+| Backend               | Capacités                                    | Status  |
+| --------------------- | -------------------------------------------- | ------- |
+| `openai_assistants`   | File Search, Code Interpreter, Tools, Vision | ✅ Prod |
+| `openai_responses`    | Rapide, stateless, streaming                 | ✅ Prod |
+| `openai_computer_use` | Vision, UI automation (clic, scroll, type)   | ✅ Beta |
+| `anthropic_sessions`  | 200K context, Claude                         | 🚧 Stub |
+| `hearst_runtime`      | Runtime interne (workflows)                  | ✅ Prod |
 
 ### 🔧 Configuration
 
@@ -826,14 +847,14 @@ orchestratorV2: {
 
 Endpoints de test pour valider Backend V2:
 
-| Route | Description |
-|-------|-------------|
-| `POST /api/test/orchestrate-v2` | Test orchestration complète |
-| `GET /api/test/selector` | Voir backend sélectionné |
-| `GET /api/test/sessions` | Lister sessions actives |
-| `GET /api/test/openai-assistant` | Test Assistants API |
-| `GET /api/test/openai-responses` | Test Responses API |
-| `GET /api/test/openai-computer-use` | Test Computer Use |
+| Route                               | Description                 |
+| ----------------------------------- | --------------------------- |
+| `POST /api/test/orchestrate-v2`     | Test orchestration complète |
+| `GET /api/test/selector`            | Voir backend sélectionné    |
+| `GET /api/test/sessions`            | Lister sessions actives     |
+| `GET /api/test/openai-assistant`    | Test Assistants API         |
+| `GET /api/test/openai-responses`    | Test Responses API          |
+| `GET /api/test/openai-computer-use` | Test Computer Use           |
 
 ### 🔄 Rich Event Flow (Chat-First Canonique)
 
@@ -856,6 +877,7 @@ run_completed
 ```
 
 **Création d'assets automatique**:
+
 - Détection du tier: `detectOutputTier(input)` → "report" | "brief" | "message"
 - Type d'asset: "report" si tier=report, sinon "brief"
 - Stockage: `storeAsset()` + DB Supabase
@@ -863,6 +885,7 @@ run_completed
 - Events émis: `asset_generated` → `focal_object_ready`
 
 **Timeline persistence**:
+
 - Tous les événements clés persistés via `persistRunEvent()`
 - Table `run_logs` pour historique complet
 - Accès via `/api/v2/runs/[id]` avec events intégrés
@@ -876,75 +899,75 @@ run_completed
 
 ## API Routes
 
-| Route | Méthode | Description |
-|-------|---------|-------------|
-| `/api/health` | GET | Health check (public) |
-| `/api/agents` | GET/POST | Liste/création d'agents |
-| `/api/agents/[id]` | GET/PUT/DELETE | CRUD agent |
-| `/api/agents/[id]/chat` | POST | Chat streaming SSE tracé (opt-in smart routing) |
-| `/api/agents/[id]/memory` | GET/POST | Mémoire agent |
-| `/api/agents/[id]/memory/govern` | POST | Appliquer politique mémoire |
-| `/api/agents/[id]/evaluate` | POST | Évaluation avec run tracé |
-| `/api/agents/[id]/versions` | GET | Historique des versions |
-| `/api/runs` | GET | Liste des runs (filtrable) |
-| `/api/runs/[id]` | GET | Détail run + traces |
-| `/api/runs/[id]/replay` | POST | Replay live/stub + comparaison |
-| `/api/prompts` | GET/POST | Prompt artifact registry |
-| `/api/prompts/[slug]` | GET | Versions d'un prompt |
-| `/api/skills` | GET/POST | Catalogue skills |
-| `/api/tools` | GET/POST | Catalogue tools |
-| `/api/conversations` | GET/POST | Conversations |
-| `/api/conversations/[id]/messages` | GET | Messages |
-| `/api/workflows` | GET/POST | Workflows |
-| `/api/workflows/[id]/run` | POST | Exécuter un workflow |
-| `/api/workflows/[id]/publish` | POST | Publier version workflow |
-| `/api/model-profiles` | GET/POST | Profils modèle |
-| `/api/memory-policies` | GET/POST | Politiques mémoire |
-| `/api/datasets` | GET/POST | Jeux de tests |
-| `/api/datasets/[id]/entries` | GET/POST | Entrées dataset |
-| `/api/datasets/[id]/evaluate` | POST | Batch eval |
-| `/api/integrations` | GET/POST | Connexions + adapters |
-| `/api/integrations/[id]/execute` | POST | Exécuter action (read-only) |
-| `/api/integrations/[id]/health` | POST | Health check |
-| `/api/analytics/tools` | GET | Métriques + ranking tools |
-| `/api/analytics/agents` | GET | Métriques agents |
-| `/api/analytics/models` | GET | Scoring + sélection modèles |
-| `/api/analytics/generate` | POST | Générer improvement signals |
-| `/api/signals` | GET | Liste signals (filtrable) |
-| `/api/signals/[id]/resolve` | POST | Apply/dismiss/acknowledge + change tracking |
-| `/api/changes` | GET | Audit trail des changements |
-| `/api/v2/reports` | GET | Catalog des reports disponibles (Founder Cockpit, Customer 360, Deal-to-Cash) |
-| `/api/v2/reports/[specId]/run` | POST | Exécute un report catalogué (deterministic pipeline → asset persisté) |
+| Route                              | Méthode        | Description                                                                   |
+| ---------------------------------- | -------------- | ----------------------------------------------------------------------------- |
+| `/api/health`                      | GET            | Health check (public)                                                         |
+| `/api/agents`                      | GET/POST       | Liste/création d'agents                                                       |
+| `/api/agents/[id]`                 | GET/PUT/DELETE | CRUD agent                                                                    |
+| `/api/agents/[id]/chat`            | POST           | Chat streaming SSE tracé (opt-in smart routing)                               |
+| `/api/agents/[id]/memory`          | GET/POST       | Mémoire agent                                                                 |
+| `/api/agents/[id]/memory/govern`   | POST           | Appliquer politique mémoire                                                   |
+| `/api/agents/[id]/evaluate`        | POST           | Évaluation avec run tracé                                                     |
+| `/api/agents/[id]/versions`        | GET            | Historique des versions                                                       |
+| `/api/runs`                        | GET            | Liste des runs (filtrable)                                                    |
+| `/api/runs/[id]`                   | GET            | Détail run + traces                                                           |
+| `/api/runs/[id]/replay`            | POST           | Replay live/stub + comparaison                                                |
+| `/api/prompts`                     | GET/POST       | Prompt artifact registry                                                      |
+| `/api/prompts/[slug]`              | GET            | Versions d'un prompt                                                          |
+| `/api/skills`                      | GET/POST       | Catalogue skills                                                              |
+| `/api/tools`                       | GET/POST       | Catalogue tools                                                               |
+| `/api/conversations`               | GET/POST       | Conversations                                                                 |
+| `/api/conversations/[id]/messages` | GET            | Messages                                                                      |
+| `/api/workflows`                   | GET/POST       | Workflows                                                                     |
+| `/api/workflows/[id]/run`          | POST           | Exécuter un workflow                                                          |
+| `/api/workflows/[id]/publish`      | POST           | Publier version workflow                                                      |
+| `/api/model-profiles`              | GET/POST       | Profils modèle                                                                |
+| `/api/memory-policies`             | GET/POST       | Politiques mémoire                                                            |
+| `/api/datasets`                    | GET/POST       | Jeux de tests                                                                 |
+| `/api/datasets/[id]/entries`       | GET/POST       | Entrées dataset                                                               |
+| `/api/datasets/[id]/evaluate`      | POST           | Batch eval                                                                    |
+| `/api/integrations`                | GET/POST       | Connexions + adapters                                                         |
+| `/api/integrations/[id]/execute`   | POST           | Exécuter action (read-only)                                                   |
+| `/api/integrations/[id]/health`    | POST           | Health check                                                                  |
+| `/api/analytics/tools`             | GET            | Métriques + ranking tools                                                     |
+| `/api/analytics/agents`            | GET            | Métriques agents                                                              |
+| `/api/analytics/models`            | GET            | Scoring + sélection modèles                                                   |
+| `/api/analytics/generate`          | POST           | Générer improvement signals                                                   |
+| `/api/signals`                     | GET            | Liste signals (filtrable)                                                     |
+| `/api/signals/[id]/resolve`        | POST           | Apply/dismiss/acknowledge + change tracking                                   |
+| `/api/changes`                     | GET            | Audit trail des changements                                                   |
+| `/api/v2/reports`                  | GET            | Catalog des reports disponibles (Founder Cockpit, Customer 360, Deal-to-Cash) |
+| `/api/v2/reports/[specId]/run`     | POST           | Exécute un report catalogué (deterministic pipeline → asset persisté)         |
 
 ## Connectors (User Integrations)
 
 Services connectés via OAuth, données réelles uniquement (zéro mock).
 
-| Service | Provider | Scopes | Surface | Status |
-|---------|----------|--------|---------|--------|
-| Gmail | `google` | `gmail.readonly` | Inbox | Active |
-| Google Calendar | `google` | `calendar.readonly` | Calendar | Active |
-| Google Drive | `google` | `drive.readonly` | Files | Active |
-| Slack | `slack` | `channels:read`, `channels:history`, `im:read`, `im:history`, `users:read`, `groups:*`, `mpim:*` | Inbox | Active (V1, lecture seule) |
-| Tasks | — | — | Tasks | Non connecté |
+| Service         | Provider | Scopes                                                                                           | Surface  | Status                     |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------ | -------- | -------------------------- |
+| Gmail           | `google` | `gmail.readonly`                                                                                 | Inbox    | Active                     |
+| Google Calendar | `google` | `calendar.readonly`                                                                              | Calendar | Active                     |
+| Google Drive    | `google` | `drive.readonly`                                                                                 | Files    | Active                     |
+| Slack           | `slack`  | `channels:read`, `channels:history`, `im:read`, `im:history`, `users:read`, `groups:*`, `mpim:*` | Inbox    | Active (V1, lecture seule) |
+| Tasks           | —        | —                                                                                                | Tasks    | Non connecté               |
 
 Architecture : `lib/connectors/` (un connector par service), tokens chiffrés AES-256-GCM dans `user_tokens` (Supabase, RLS).
 
 ### Canonical APIs (v2)
 
-| Route | Description | RBAC |
-|-------|-------------|------|
-| `/api/orchestrate` | **Chat v2** — Pipeline SSE (Orchestrator → Plan → Agents) | User auth |
-| `/api/v2/right-panel` | Agrégat UI (runs, assets, missions, connectors) | User auth |
-| `/api/v2/right-panel/stream` | SSE — repousse le même agrégat (event `panel`, ~1s) | User auth (cookies) |
-| `/api/v2/runs`, `/api/v2/runs/{id}` | Runs v2 + timeline events | User auth |
-| `/api/v2/assets/{id}`, `.../download` | Asset detail + file download | User auth |
-| `/api/v2/missions`, `/api/v2/missions/[id]/run` | CRUD missions + Run Now | User auth |
-| `/api/v2/missions/ops` | Mission ops status (active, paused, errored) | `read:missions` — ✅ **Phase 0D** |
-| `/api/v2/scheduler/status` | Scheduler leadership & health | `read:scheduler` — ✅ **Phase 0D** |
-| `/api/v2/plans/[id]/approve` | Approve plan + resume execution | `approve:plans` — ✅ **Phase 0D** |
-| `/api/v2/architecture` | Architecture map (admin) | `read:architecture` — ✅ **Phase 0D** |
-| `/api/v2/user/connections` | User connections with service status | User auth |
+| Route                                           | Description                                               | RBAC                                  |
+| ----------------------------------------------- | --------------------------------------------------------- | ------------------------------------- |
+| `/api/orchestrate`                              | **Chat v2** — Pipeline SSE (Orchestrator → Plan → Agents) | User auth                             |
+| `/api/v2/right-panel`                           | Agrégat UI (runs, assets, missions, connectors)           | User auth                             |
+| `/api/v2/right-panel/stream`                    | SSE — repousse le même agrégat (event `panel`, ~1s)       | User auth (cookies)                   |
+| `/api/v2/runs`, `/api/v2/runs/{id}`             | Runs v2 + timeline events                                 | User auth                             |
+| `/api/v2/assets/{id}`, `.../download`           | Asset detail + file download                              | User auth                             |
+| `/api/v2/missions`, `/api/v2/missions/[id]/run` | CRUD missions + Run Now                                   | User auth                             |
+| `/api/v2/missions/ops`                          | Mission ops status (active, paused, errored)              | `read:missions` — ✅ **Phase 0D**     |
+| `/api/v2/scheduler/status`                      | Scheduler leadership & health                             | `read:scheduler` — ✅ **Phase 0D**    |
+| `/api/v2/plans/[id]/approve`                    | Approve plan + resume execution                           | `approve:plans` — ✅ **Phase 0D**     |
+| `/api/v2/architecture`                          | Architecture map (admin)                                  | `read:architecture` — ✅ **Phase 0D** |
+| `/api/v2/user/connections`                      | User connections with service status                      | User auth                             |
 
 **Phase 0D — Secured Routes**: 4 routes migrated from open access to `requireScope()` RBAC (missions/ops, scheduler/status, plans/approve, architecture).
 
@@ -952,28 +975,30 @@ Architecture : `lib/connectors/` (un connector par service), tokens chiffrés AE
 
 **Helper Guard**: `app/api/admin/_helpers.ts` — Shared auth + RBAC validation for all admin routes.
 
-| Route | Méthode | Description | RBAC Scope |
-|-------|---------|-------------|------------|
-| `/api/admin/settings` | GET/POST | CRUD system settings | `read:settings` / `update:settings` |
-| `/api/admin/health` | GET | System health check (DB, storage, connectors, LLM) | `read:settings` |
-| `/api/admin/permissions` | GET/POST/DELETE | User role management (assign/revoke) | `admin` |
-| `/api/admin/audit` | GET | Audit log viewer with filters | `admin` |
-| `/api/admin/connectors` | GET/POST/PATCH/DELETE | Connector registry & instance management | `manage:connectors` |
+| Route                    | Méthode               | Description                                        | RBAC Scope                          |
+| ------------------------ | --------------------- | -------------------------------------------------- | ----------------------------------- |
+| `/api/admin/settings`    | GET/POST              | CRUD system settings                               | `read:settings` / `update:settings` |
+| `/api/admin/health`      | GET                   | System health check (DB, storage, connectors, LLM) | `read:settings`                     |
+| `/api/admin/permissions` | GET/POST/DELETE       | User role management (assign/revoke)               | `admin`                             |
+| `/api/admin/audit`       | GET                   | Audit log viewer with filters                      | `admin`                             |
+| `/api/admin/connectors`  | GET/POST/PATCH/DELETE | Connector registry & instance management           | `manage:connectors`                 |
 
 **Architecture**:
+
 - **Auth layer**: `lib/admin/` — Business logic (settings, permissions, connectors, health, audit)
 - **API layer**: `app/api/admin/` — HTTP routes with RBAC guards
 - **Storage**: Supabase (settings, permissions), Store abstraction (`lib/admin/settings.ts` → `stores/store.ts`)
 
 ### Platform Settings APIs
 
-| Route | Méthode | Description |
-|-------|---------|-------------|
-| `/api/v2/settings/flags` | GET/POST | Feature flags (read/toggle) |
-| `/api/v2/settings/preferences` | GET/POST | User preferences (theme, locale, notifications) |
-| `/api/v2/agents/capabilities` | GET | Specialized agents (5) & connector packs (4) catalog |
+| Route                          | Méthode  | Description                                          |
+| ------------------------------ | -------- | ---------------------------------------------------- |
+| `/api/v2/settings/flags`       | GET/POST | Feature flags (read/toggle)                          |
+| `/api/v2/settings/preferences` | GET/POST | User preferences (theme, locale, notifications)      |
+| `/api/v2/agents/capabilities`  | GET      | Specialized agents (5) & connector packs (4) catalog |
 
 **Specialized Agents** (5):
+
 1. **Finance Agent** — Stripe integration (payments, invoices, subscriptions, balance, customers)
 2. **CRM Agent** — HubSpot integration (contacts, companies, deals)
 3. **Productivity Agent** — Notion integration (pages, databases, blocks, search)
@@ -981,6 +1006,7 @@ Architecture : `lib/connectors/` (un connector par service), tokens chiffrés AE
 5. **Developer Agent** — GitHub integration (repos, PRs, issues) — ✅ **NEW**
 
 **Connector Packs** (4):
+
 - `finance-pack/` — Stripe services
 - `crm-pack/` — HubSpot services
 - `productivity-pack/` — Notion services
@@ -989,28 +1015,29 @@ Architecture : `lib/connectors/` (un connector par service), tokens chiffrés AE
 
 ### Admin Pages (UI)
 
-| Page | Description |
-|------|-------------|
-| `/admin` | Admin dashboard — Quick stats + nav links |
-| `/admin/settings` | Feature flags + settings by category (system, auth, integrations) |
-| `/admin/health` | Real-time system health (DB, storage, connectors, LLM) |
-| `/admin/audit` | Audit log viewer with severity/action/resource columns |
-| `/admin/agents` | Agent registry — List, create, edit agents |
-| `/admin/agents/[id]` | Agent detail — Edit config, tools, skills |
-| `/admin/scheduler` | Mission scheduler status — Leadership, ops table |
-| `/admin/runs` | Runs history — Filter, search, detail |
-| `/admin/runs/[id]` | Run detail — Timeline, traces, events |
-| `/admin/workflows` | Workflows — List, create, edit |
-| `/admin/tools` | Tool catalog — List, create, edit |
-| `/admin/skills` | Skill catalog — List, create, edit |
-| `/admin/datasets` | Test datasets — List, create, entries |
-| `/admin/signals` | Improvement signals — Filter, acknowledge, apply |
-| `/admin/changes` | Change audit trail — Before/after diff |
-| `/admin/reports` | Cron reports — Health, history, manual trigger |
+| Page                 | Description                                                       |
+| -------------------- | ----------------------------------------------------------------- |
+| `/admin`             | Admin dashboard — Quick stats + nav links                         |
+| `/admin/settings`    | Feature flags + settings by category (system, auth, integrations) |
+| `/admin/health`      | Real-time system health (DB, storage, connectors, LLM)            |
+| `/admin/audit`       | Audit log viewer with severity/action/resource columns            |
+| `/admin/agents`      | Agent registry — List, create, edit agents                        |
+| `/admin/agents/[id]` | Agent detail — Edit config, tools, skills                         |
+| `/admin/scheduler`   | Mission scheduler status — Leadership, ops table                  |
+| `/admin/runs`        | Runs history — Filter, search, detail                             |
+| `/admin/runs/[id]`   | Run detail — Timeline, traces, events                             |
+| `/admin/workflows`   | Workflows — List, create, edit                                    |
+| `/admin/tools`       | Tool catalog — List, create, edit                                 |
+| `/admin/skills`      | Skill catalog — List, create, edit                                |
+| `/admin/datasets`    | Test datasets — List, create, entries                             |
+| `/admin/signals`     | Improvement signals — Filter, acknowledge, apply                  |
+| `/admin/changes`     | Change audit trail — Before/after diff                            |
+| `/admin/reports`     | Cron reports — Health, history, manual trigger                    |
 
 **Navigation**: `app/components/AdminSidebar.tsx` — 15 grouped links (Dashboard, Agents, Scheduler, Runs, Workflows, Tools/Skills, Datasets, Signals, Changes, Reports, Settings, Health, Audit, Architecture)
 
 **Phase 0–4 Complete**:
+
 - ✅ Phase 0A — Connectors aligned with DB schema (`lib/admin/connectors.ts`)
 - ✅ Phase 0B — Settings unified (facade on `stores/store.ts`)
 - ✅ Phase 0C — AdminSidebar 15 links grouped by section
@@ -1022,39 +1049,39 @@ Architecture : `lib/connectors/` (un connector par service), tokens chiffrés AE
 
 ### Data APIs
 
-| Route | Description |
-|-------|-------------|
-| `/api/gmail/messages` | Emails Gmail (lecture) |
-| `/api/calendar/events` | Événements calendrier |
-| `/api/files/list` | Fichiers Drive |
-| `/api/slack/messages` | Messages Slack (lecture) |
-| `/api/auth/slack` | OAuth Slack (redirect) |
-| `/api/auth/callback/slack` | Callback OAuth Slack |
+| Route                      | Description              |
+| -------------------------- | ------------------------ |
+| `/api/gmail/messages`      | Emails Gmail (lecture)   |
+| `/api/calendar/events`     | Événements calendrier    |
+| `/api/files/list`          | Fichiers Drive           |
+| `/api/slack/messages`      | Messages Slack (lecture) |
+| `/api/auth/slack`          | OAuth Slack (redirect)   |
+| `/api/auth/callback/slack` | Callback OAuth Slack     |
 
 ### Legacy APIs (removed in Phase 1)
 
-| Route | Status | Canonical replacement |
-|-------|--------|----------------------|
-| `/api/chat` | ❌ **REMOVED** | `/api/orchestrate` |
-| `/api/runs`, `/api/runs/{id}` | ⚠️ Deprecated | `/api/v2/runs` |
-| `/api/connectors/status` | ⚠️ Deprecated | `/api/v2/user/connections` |
-| `/api/missions/execute`, `/approve`, `/recent` | ❌ **REMOVED** | `/api/v2/missions` |
+| Route                                          | Status         | Canonical replacement      |
+| ---------------------------------------------- | -------------- | -------------------------- |
+| `/api/chat`                                    | ❌ **REMOVED** | `/api/orchestrate`         |
+| `/api/runs`, `/api/runs/{id}`                  | ⚠️ Deprecated  | `/api/v2/runs`             |
+| `/api/connectors/status`                       | ⚠️ Deprecated  | `/api/v2/user/connections` |
+| `/api/missions/execute`, `/approve`, `/recent` | ❌ **REMOVED** | `/api/v2/missions`         |
 
 ## Mission System
 
 Architecture canonique pour les missions planifiées/autonomes.
 
-| Layer | Path | Role |
-|-------|------|------|
-| Runtime (canonical) | `lib/engine/runtime/missions/*` | Scheduler, store, lease, ops, types |
-| Persistence | `lib/engine/runtime/state/adapter.ts` | Supabase read/write (missions.actions jsonb) |
-| APIs (canonical) | `/api/v2/missions`, `.../[id]/run`, `.../ops` | CRUD, Run Now, Ops status |
-| Scheduler | `lib/engine/runtime/missions/scheduler.ts` + `scheduler-init.ts` | Polling loop, leader lease, distributed dedup |
-| UI client (canonical) | `app/lib/missions-v2.ts` | Frontend helpers (fetch, create, toggle, run) |
-| Admin | `/admin/scheduler` | Leadership, ops table, run/toggle actions |
-| **Missions Page** | `app/(user)/missions/page.tsx` | **Live ops status UI** — running/idle/success/failed/blocked, auto-refresh 5s, duration counter |
-| Right Panel | `MissionsSection` + `MissionDetailSection` | Live status, schedule, errors |
-| ~~Legacy~~ | ~~`app/lib/missions/*`~~ | ❌ **REMOVED** — migrated to `app/lib/missions-v2.ts` |
+| Layer                 | Path                                                             | Role                                                                                            |
+| --------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Runtime (canonical)   | `lib/engine/runtime/missions/*`                                  | Scheduler, store, lease, ops, types                                                             |
+| Persistence           | `lib/engine/runtime/state/adapter.ts`                            | Supabase read/write (missions.actions jsonb)                                                    |
+| APIs (canonical)      | `/api/v2/missions`, `.../[id]/run`, `.../ops`                    | CRUD, Run Now, Ops status                                                                       |
+| Scheduler             | `lib/engine/runtime/missions/scheduler.ts` + `scheduler-init.ts` | Polling loop, leader lease, distributed dedup                                                   |
+| UI client (canonical) | `app/lib/missions-v2.ts`                                         | Frontend helpers (fetch, create, toggle, run)                                                   |
+| Admin                 | `/admin/scheduler`                                               | Leadership, ops table, run/toggle actions                                                       |
+| **Missions Page**     | `app/(user)/missions/page.tsx`                                   | **Live ops status UI** — running/idle/success/failed/blocked, auto-refresh 5s, duration counter |
+| Right Panel           | `MissionsSection` + `MissionDetailSection`                       | Live status, schedule, errors                                                                   |
+| ~~Legacy~~            | ~~`app/lib/missions/*`~~                                         | ❌ **REMOVED** — migrated to `app/lib/missions-v2.ts`                                           |
 
 ## Auth
 
@@ -1168,20 +1195,25 @@ pending → running → completed | failed | cancelled | timeout
 Chaque run produit des traces granulaires : `llm_call`, `tool_call`, `memory_read`, `memory_write`, `condition_eval`, `custom`.
 
 ### Cost Sentinel
+
 Budget par run, auto-injecté depuis `agents.cost_budget_per_run`. Warning à 80%, hard stop à 100%.
 
 ### Output Validation
+
 Classification (`valid`/`invalid`/`suspect`), trust scoring, guards composables (JSON, taille, regex, blacklist). Branché dans le tracer — automatique pour chaque LLM call.
 
 ### Tool Governance
+
 `kill_switch`, `risk_level`, `retry_policy`, `rate_limit`, `requires_sandbox`, per-agent overrides via `agent_tools`.
 
 ### Replay
+
 Live (re-exécution réelle) ou stub (zero cost, outputs originaux). Config figée : agent_version, model_profile, prompt_artifact, workflow_version.
 
 ## Smart Routing (opt-in)
 
 ### Tool Selection
+
 ```bash
 # Workflow avec smart tool fallback
 POST /api/workflows/{id}/run
@@ -1189,6 +1221,7 @@ POST /api/workflows/{id}/run
 ```
 
 ### Model Selection
+
 ```bash
 # Chat avec smart model routing
 POST /api/agents/{id}/chat
@@ -1214,14 +1247,14 @@ Couverture : lifecycle, cost sentinel, prompt guards, output validator, tracer i
 
 ### Scénarios end-to-end
 
-| Scénario | Vérifie |
-|----------|---------|
-| Tool failure + fallback | Détection, classification, fallback tracé, signal généré |
-| Cost limit hard stop | Warning 80%, COST_LIMIT_EXCEEDED, classification critical |
-| Guard failure strict | Blacklist + taille, trust guard_failed, no crash |
-| Model routing + fallback | Sélection, was_overridden, traces decision + fallback |
-| Full workflow E2E | Multi-step, cost accumulation, stub replay zero cost |
-| Drift detection | success_rate drop, latency spike, signal tool_replacement |
+| Scénario                 | Vérifie                                                   |
+| ------------------------ | --------------------------------------------------------- |
+| Tool failure + fallback  | Détection, classification, fallback tracé, signal généré  |
+| Cost limit hard stop     | Warning 80%, COST_LIMIT_EXCEEDED, classification critical |
+| Guard failure strict     | Blacklist + taille, trust guard_failed, no crash          |
+| Model routing + fallback | Sélection, was_overridden, traces decision + fallback     |
+| Full workflow E2E        | Multi-step, cost accumulation, stub replay zero cost      |
+| Drift detection          | success_rate drop, latency spike, signal tool_replacement |
 
 ## Reports — Pipeline V2
 
@@ -1229,7 +1262,7 @@ Le système legacy (cron Railway + `report-runner.ts` + endpoints `/api/cron/{da
 
 ### V2 catalog (chemin principal)
 
-Entry point UI : la tuile « Rapports » du RightPanel ([`AssetsGrid`](./app/(user)/components/right-panel/AssetsGrid.tsx) + [`GeneralDashboard`](./app/(user)/components/right-panel/GeneralDashboard.tsx)) liste les `reportSuggestions` venant du panneau SSE et déclenche la génération via le hook partagé [`useRunReportSuggestion`](./app/(user)/components/right-panel/useRunReportSuggestion.ts) → `POST /api/v2/reports/[specId]/run` → [`lib/reports/engine/run-report.ts`](./lib/reports/engine/run-report.ts).
+Entry point UI : la tuile « Rapports » du RightPanel ([`AssetsGrid`](<./app/(user)/components/right-panel/AssetsGrid.tsx>) + [`GeneralDashboard`](<./app/(user)/components/right-panel/GeneralDashboard.tsx>)) liste les `reportSuggestions` venant du panneau SSE et déclenche la génération via le hook partagé [`useRunReportSuggestion`](<./app/(user)/components/right-panel/useRunReportSuggestion.ts>) → `POST /api/v2/reports/[specId]/run` → [`lib/reports/engine/run-report.ts`](./lib/reports/engine/run-report.ts).
 
 Pendant le run : `runningSpecs` masque la suggestion en optimistic. Au retour : ouverture du focal sur l'asset généré + toast `Report généré`.
 
@@ -1248,6 +1281,7 @@ Extracteur déterministe : [`lib/reports/signals/extract.ts`](./lib/reports/sign
 La table `daily_reports` ([0010_daily_reports.sql](./supabase/migrations/0010_daily_reports.sql)) — registry du legacy cron — n'a plus aucun lecteur/écrivain depuis le commit `32667f1` (29/04/2026). La migration de drop est prête : [0027_drop_daily_reports.sql](./supabase/migrations/0027_drop_daily_reports.sql).
 
 Étapes restantes côté ops :
+
 1. Appliquer la migration 0026 sur l'environnement Supabase cible
 2. Régénérer les types : `npx supabase gen types typescript --project-id <id> > lib/database.types.ts`
 3. Le bloc `daily_reports` disparaît automatiquement de [`lib/database.types.ts`](./lib/database.types.ts)
@@ -1265,17 +1299,17 @@ docker run -p 9000:3000 --env-file .env.local hearst-agents
 
 ## Scripts
 
-| Commande | Description |
-|----------|-------------|
-| `npm run dev` | Kill + redémarre hearst-os uniquement (port 9000) |
-| `npm run dev:fresh` | Clean .next + redémarre hearst-os |
-| `npm run launch` | 🚀 **Lance TOUS les services** (kill + redémarre 9000, 8100, 3000) |
-| `npm run launch:all` | Alias de `npm run launch` |
-| `npm run stop` | 🛑 Arrête tous les services |
-| `npm run build` | Build production (refusé si `lint:visual` échoue, via `prebuild`) |
-| `npm run start` | Serveur production |
-| `npm run lint` | ESLint + lint visuel chainés (échec si l'un des deux casse) |
+| Commande              | Description                                                                                                                 |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`         | Kill + redémarre hearst-os uniquement (port 9000)                                                                           |
+| `npm run dev:fresh`   | Clean .next + redémarre hearst-os                                                                                           |
+| `npm run launch`      | 🚀 **Lance TOUS les services** (kill + redémarre 9000, 8100, 3000)                                                          |
+| `npm run launch:all`  | Alias de `npm run launch`                                                                                                   |
+| `npm run stop`        | 🛑 Arrête tous les services                                                                                                 |
+| `npm run build`       | Build production (refusé si `lint:visual` échoue, via `prebuild`)                                                           |
+| `npm run start`       | Serveur production                                                                                                          |
+| `npm run lint`        | ESLint + lint visuel chainés (échec si l'un des deux casse)                                                                 |
 | `npm run lint:visual` | Lint visuel seul — détecte magic numbers, mélanges Tailwind/inline ([`scripts/lint-visual.mjs`](./scripts/lint-visual.mjs)) |
-| `npm test` | Tests (vitest) |
-| `npm run test:watch` | Tests en watch mode |
-| `npm run test:e2e` | Tests Playwright (e2e) |
+| `npm test`            | Tests (vitest)                                                                                                              |
+| `npm run test:watch`  | Tests en watch mode                                                                                                         |
+| `npm run test:e2e`    | Tests Playwright (e2e)                                                                                                      |
