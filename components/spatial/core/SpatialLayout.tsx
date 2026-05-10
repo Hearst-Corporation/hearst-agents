@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode } from "react";
+import "@/styles/spatial/spatial.css";
 import { SpatialThemeProvider } from "@/providers/spatial/SpatialThemeProvider";
 import { SpatialMotionProvider } from "@/providers/spatial/SpatialMotionProvider";
 import { SpatialStageProvider } from "@/providers/spatial/SpatialStageProvider";

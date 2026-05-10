@@ -27,12 +27,12 @@ interface FloatingPanelProps {
 }
 
 const ANCHOR_CLASSES: Record<Anchor, string> = {
-  "left":          "left-12 top-1/2 -translate-y-1/2",
-  "right":         "right-12 top-1/2 -translate-y-1/2",
-  "top-left":      "left-12 top-12",
-  "top-right":     "right-12 top-12",
-  "bottom-left":   "left-12 bottom-16",
-  "bottom-right":  "right-12 bottom-16",
+  "left":          "left-8 top-1/2 -translate-y-1/2",
+  "right":         "right-8 top-1/2 -translate-y-1/2",
+  "top-left":      "left-8 top-12",
+  "top-right":     "right-8 top-12",
+  "bottom-left":   "left-8 bottom-16",
+  "bottom-right":  "right-8 bottom-16",
   "bottom-center": "left-1/2 -translate-x-1/2 bottom-16",
   "center":        "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
 };
@@ -110,16 +110,16 @@ export function FloatingPanel({
             }}
             className={`pointer-events-auto relative rounded-[18px] overflow-hidden ${className ?? ""}`}
           >
-            {/* Frozen glass — opacité légèrement remontée pour lisibilité */}
+            {/* Frozen glass — opacité réduite pour plus de légèreté */}
             <div
               className="absolute inset-0 rounded-[18px]"
               style={{
-                backgroundColor: "rgba(255,255,255,0.055)",
-                border: "1px solid rgba(255,255,255,0.11)",
-                backdropFilter: "blur(36px) saturate(125%)",
-                WebkitBackdropFilter: "blur(36px) saturate(125%)",
+                backgroundColor: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                backdropFilter: "blur(24px) saturate(110%)",
+                WebkitBackdropFilter: "blur(24px) saturate(110%)",
                 boxShadow:
-                  "0 36px 100px -24px rgba(0,0,0,0.85), 0 6px 18px -4px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07)",
+                  "0 36px 100px -24px rgba(0,0,0,0.6), 0 6px 18px -4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
               }}
             />
 

@@ -21,9 +21,9 @@ interface ActionRingProps {
 }
 
 const ACTIONS: ActionDef[] = [
-  { id: "brief",   label: "Brief du jour",       x: -260, y:    0, labelSide: "left"  },
-  { id: "mission", label: "Lancer une mission",  x:    0, y: -200, labelSide: "top"   },
-  { id: "assets",  label: "Voir les assets",     x:  260, y:    0, labelSide: "right" },
+  { id: "brief",   label: "Brief",       x: -320, y:    0, labelSide: "left"  },
+  { id: "mission", label: "Mission",     x:    0, y: -260, labelSide: "top"   },
+  { id: "assets",  label: "Assets",      x:  320, y:    0, labelSide: "right" },
 ];
 
 /**
@@ -114,13 +114,13 @@ function ActionNode({
 
         {/* Point central */}
         <div
-          className="relative w-[7px] h-[7px] rounded-full bg-white/75 group-hover:bg-white transition-colors duration-300"
-          style={{ boxShadow: "0 0 10px rgba(255,255,255,0.45)" }}
+          className="relative w-[5px] h-[5px] rounded-full bg-white/50 group-hover:bg-white/90 transition-colors duration-300"
+          style={{ boxShadow: "0 0 8px rgba(255,255,255,0.2)" }}
         />
 
         {/* Label */}
         <div className={`absolute whitespace-nowrap pointer-events-none ${labelClass}`}>
-          <span className="text-white/70 group-hover:text-white text-[11px] tracking-[0.22em] uppercase font-light transition-colors duration-300">
+          <span className="text-white/40 group-hover:text-white/80 text-[10px] tracking-[0.25em] uppercase font-light transition-colors duration-300">
             {action.label}
           </span>
         </div>
@@ -128,10 +128,10 @@ function ActionNode({
         {/* Ligne de tension HUD au hover */}
         <div
           className={`absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${
-            labelSide === "left"   ? "right-full w-3 h-px bg-gradient-to-l from-white/55 to-transparent mr-1" :
-            labelSide === "right"  ? "left-full w-3 h-px bg-gradient-to-r from-white/55 to-transparent ml-1" :
-            labelSide === "top"    ? "bottom-full h-3 w-px bg-gradient-to-t from-white/55 to-transparent mb-1 left-1/2 -translate-x-1/2" :
-                                      "top-full h-3 w-px bg-gradient-to-b from-white/55 to-transparent mt-1 left-1/2 -translate-x-1/2"
+            labelSide === "left"   ? "right-full w-3 h-px bg-linear-to-l from-white/55 to-transparent mr-1" :
+            labelSide === "right"  ? "left-full w-3 h-px bg-linear-to-r from-white/55 to-transparent ml-1" :
+            labelSide === "top"    ? "bottom-full h-3 w-px bg-linear-to-t from-white/55 to-transparent mb-1 left-1/2 -translate-x-1/2" :
+                                      "top-full h-3 w-px bg-linear-to-b from-white/55 to-transparent mt-1 left-1/2 -translate-x-1/2"
           }`}
         />
       </motion.div>

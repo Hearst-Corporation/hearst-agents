@@ -2,7 +2,7 @@
 "use client";
 
 import { SpatialScene } from "./SpatialScene";
-import { SpatialOrbCore } from "./SpatialOrbCore";
+import { OrbMinimal } from "./OrbMinimal";
 import { OrbitalRing } from "@/components/spatial/orbital/OrbitalRing";
 import type { SpatialStage } from "@/lib/spatial/types";
 
@@ -25,7 +25,7 @@ export function SpatialSignatureScene({
 
   return (
     <SpatialScene>
-      <SpatialOrbCore stage={stage} hovered={hovered} onClick={onOrbClick} />
+      <OrbMinimal stage={stage} hovered={hovered} onClick={onOrbClick} />
       <OrbitalRing opacity={ringOpacity} />
     </SpatialScene>
   );

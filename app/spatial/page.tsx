@@ -17,7 +17,6 @@ import { ActionRing, type SpatialActionId } from "@/components/spatial/orbital/A
 import {
   BriefPanel,
   MissionPanel,
-  AssetsPanel,
   AssetCard,
 } from "@/components/spatial/panels";
 import { useSpatialStage } from "@/providers/spatial/SpatialStageProvider";
@@ -112,8 +111,8 @@ function SpatialOSScene() {
   return (
     <>
       <AmbientBackground
-        baseColor="#020203"
-        ambientColor="rgba(28,28,32,0.45)"
+        baseColor="#030303"
+        ambientColor="rgba(20,20,22,0.35)"
         vignetteOpacity={0.92}
       />
 
@@ -138,7 +137,7 @@ function SpatialOSScene() {
       {/* Trois panels contextuels — uniquement au focus */}
       <BriefPanel show={showPanels} count={3} />
       <MissionPanel show={showPanels} state="idle" />
-      <AssetsPanel show={showPanels} count={2} />
+      {/* AssetsPanel supprimé pour alléger l'interface */}
 
       {/* Statut mission — uniquement en mission */}
       <MissionStatus show={showMissionStatus} label={missionLabel} />

@@ -10,24 +10,24 @@
   --sp-bg-scene: #020202;
 
   /* Surfaces (glass) */
-  --sp-surface: rgba(255, 255, 255, 0.04);
-  --sp-surface-high: rgba(255, 255, 255, 0.08);
+  --sp-surface: rgba(255, 255, 255, 0.12);
+  --sp-surface-high: rgba(255, 255, 255, 0.18);
   --sp-surface-blur: rgba(0, 0, 0, 0.6);
 
   /* Text */
-  --sp-text: rgba(255, 255, 255, 0.9);
-  --sp-text-secondary: rgba(255, 255, 255, 0.6);
-  --sp-text-muted: rgba(255, 255, 255, 0.4);
-  --sp-text-ghost: rgba(255, 255, 255, 0.2);
+  --sp-text: rgba(255, 255, 255, 1.0);
+  --sp-text-secondary: rgba(255, 255, 255, 0.85);
+  --sp-text-muted: rgba(255, 255, 255, 0.6);
+  --sp-text-ghost: rgba(255, 255, 255, 0.35);
 
   /* Accent (white-only spatial palette) */
   --sp-accent: #ffffff;
-  --sp-accent-glow: rgba(255, 255, 255, 0.6);
-  --sp-accent-soft: rgba(255, 255, 255, 0.1);
+  --sp-accent-glow: rgba(255, 255, 255, 0.8);
+  --sp-accent-soft: rgba(255, 255, 255, 0.35);
 
   /* Borders */
-  --sp-border: rgba(255, 255, 255, 0.1);
-  --sp-border-high: rgba(255, 255, 255, 0.2);
+  --sp-border: rgba(255, 255, 255, 0.25);
+  --sp-border-high: rgba(255, 255, 255, 0.4);
 
   /* Shadows */
   --sp-shadow-panel: 0 0 80px rgba(0, 0, 0, 0.8);
@@ -64,15 +64,15 @@
 .sp-glass {
   background: var(--sp-surface);
   border: 1px solid var(--sp-border);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
 }
 
 .sp-glass-high {
   background: var(--sp-surface-high);
   border: 1px solid var(--sp-border-high);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(48px);
+  -webkit-backdrop-filter: blur(48px);
 }
 
 /* Utilitaires typographiques spatiaux */
@@ -100,6 +100,13 @@
 
 /* Mission status pulse — utilisé par MissionPanel en stage=running */
 @keyframes spatial-mission-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%      { opacity: 1;    transform: scale(1.25); }
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
 }

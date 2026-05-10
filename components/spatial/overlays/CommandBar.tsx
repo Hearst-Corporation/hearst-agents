@@ -48,7 +48,7 @@ export function CommandBar({ show, autoFocus = true, onSubmit }: CommandBarProps
 
   return (
     <div
-      className="absolute inset-x-0 bottom-12 flex items-center justify-center pointer-events-none"
+      className="absolute inset-x-0 bottom-6 flex items-center justify-center pointer-events-none"
       style={{ perspective: 1400, zIndex: SPATIAL_Z_LAYERS.surface }}
     >
       <AnimatePresence>

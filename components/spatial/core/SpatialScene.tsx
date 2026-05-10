@@ -29,14 +29,29 @@ export function SpatialScene({ children, className }: SpatialSceneProps) {
 
         <color attach="background" args={["#000000"]} />
 
-        <ambientLight intensity={0.2} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-
         <Suspense fallback={null}>
           <Environment resolution={environment.resolution}>
-            <Lightformer intensity={3} position={[0, 4, 4]} scale={[8, 8, 1]} />
-            <Lightformer intensity={1.2} position={[0, -2, -6]} scale={[10, 10, 1]} />
+            <Lightformer
+              form="rect"
+              intensity={2.8}
+              color="#ffffff"
+              position={[0, 4, 4]}
+              scale={[7, 5, 1]}
+            />
+            <Lightformer
+              form="rect"
+              intensity={4.2}
+              color="#ffffff"
+              position={[-3.2, 0.2, 3]}
+              scale={[0.22, 5.8, 1]}
+            />
+            <Lightformer
+              form="rect"
+              intensity={3.4}
+              color="#ffffff"
+              position={[0, -2.2, 3]}
+              scale={[5.8, 0.18, 1]}
+            />
           </Environment>
 
           {children}

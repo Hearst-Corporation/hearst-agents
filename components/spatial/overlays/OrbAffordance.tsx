@@ -33,7 +33,7 @@ export function OrbAffordance({
               transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
             }}
             exit={{ opacity: 0, y: 4, transition: { duration: 0.4 } }}
-            className="text-white text-[10px] tracking-[0.34em] uppercase font-light select-none"
+            className="text-white text-[9px] tracking-[0.3em] uppercase font-light select-none"
           >
             {label}
           </motion.div>

@@ -14,17 +14,17 @@ interface BriefPanelProps {
  */
 export function BriefPanel({ show, count = 3 }: BriefPanelProps) {
   return (
-    <FloatingPanel show={show} anchor="left" delay={0.05} width={272}>
-      <div className="px-7 py-7">
-        <div className="text-white/45 text-[10px] tracking-[0.34em] uppercase font-light mb-5">
+    <FloatingPanel show={show} anchor="left" delay={0.05} width={240}>
+      <div className="px-6 py-6">
+        <div className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light mb-4">
           Brief
         </div>
-        <p className="text-white/90 text-[13px] font-light leading-[1.65]">
+        <p className="text-white/70 text-[12px] font-light leading-[1.6]">
           {count} sujets demandent votre attention.
         </p>
-        <div className="mt-6 h-px w-8 bg-white/15" />
-        <div className="mt-5 text-white/55 text-[11px] font-light leading-[1.7]">
-          Marché. Équipe. Décision en attente.
+        <div className="mt-5 h-px w-6 bg-white/10" />
+        <div className="mt-4 text-white/40 text-[10px] font-light leading-[1.6]">
+          Marché. Équipe. Décision.
         </div>
       </div>
     </FloatingPanel>
