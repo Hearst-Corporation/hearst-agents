@@ -107,6 +107,9 @@
   --skeleton-width-sm: 160px; /* eyebrow / section label */
   --skeleton-width-md: 280px; /* greeting H1 estimé */
 
+  /* ─── Card minimum width (grid auto-fill) ─── */
+  --card-min-width: 320px; /* breakpoint card grid — reports, marketplace */
+
   /* ─── Hearst Connect — Layout shell (3 zones) ─────────────────
    * Sidebars : largeurs égales, fluides ~20vw (18–22% selon viewport),
    * bornées pour rester lisibles à toute taille. Le centre prend le

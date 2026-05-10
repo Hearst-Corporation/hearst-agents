@@ -76,7 +76,7 @@ function SkeletonGrid() {
     <div
       data-testid="loading-skeleton"
       className="grid grid-cols-1 gap-4"
-      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}
+      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(var(--card-min-width), 1fr))" }}
     >
       {Array.from({ length: 9 }).map((_, i) => (
         <ReportCardSkeleton key={i} />
@@ -361,7 +361,7 @@ export default function ReportsDiscoveryPage() {
             <div
               className="grid gap-4"
               data-testid="reports-custom-grid"
-              style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}
+              style={{ gridTemplateColumns: "repeat(auto-fill, minmax(var(--card-min-width), 1fr))" }}
             >
               {customReports.map((report) => (
                 <ReportCard
@@ -379,7 +379,7 @@ export default function ReportsDiscoveryPage() {
           <div
             className="grid gap-4"
             data-testid="reports-grid"
-            style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))" }}
+            style={{ gridTemplateColumns: "repeat(auto-fill, minmax(var(--card-min-width), 1fr))" }}
           >
             {filtered.map((report) => (
               <ReportCard key={report.id} report={report} />
