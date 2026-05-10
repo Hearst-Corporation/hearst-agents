@@ -2,7 +2,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import { ArtifactKernel } from "./ArtifactKernel";
@@ -62,19 +62,34 @@ function SideRail({ side, title, items }: { side: "left" | "right"; title: strin
         "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105",
         isExpanded ? "opacity-0 translate-x-[calc(var(--tw-translate-x)*2)] pointer-events-none" : "opacity-100 translate-x-0"
       ].join(" ")}
+      style={{
+        transitionDelay: isExpanded ? "0ms" : side === "left" ? "100ms" : "200ms",
+      }}
       aria-label={title}
     >
       <div 
         className="bg-white/[0.02] px-6 py-6 backdrop-blur-[32px] rounded-[24px] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_0_20px_rgba(255,255,255,0.02),0_24px_48px_rgba(0,0,0,0.6)]" 
       >
-        <div className="mb-5 text-[10px] uppercase tracking-[0.2em] text-white/50">
+        <div 
+          className={[
+            "mb-5 text-[10px] uppercase tracking-[0.2em] text-white/50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            isExpanded ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+          ].join(" ")}
+          style={{ transitionDelay: `${isExpanded ? 0 : (items.length + 1) * 75 + (side === "left" ? 100 : 200)}ms` }}
+        >
           {title}
         </div>
         <div className="space-y-3">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <div
               key={item}
-              className="text-[13px] font-light tracking-wide text-white/70 drop-shadow-sm cursor-default hover:text-white transition-colors"
+              className={[
+                "text-[13px] font-light tracking-wide text-white/70 drop-shadow-sm cursor-default hover:text-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                isExpanded ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+              ].join(" ")}
+              style={{
+                transitionDelay: `${isExpanded ? index * 75 : (items.length - index) * 75 + (side === "left" ? 100 : 200)}ms`
+              }}
             >
               {item}
             </div>
@@ -95,6 +110,9 @@ function CommandDock() {
         "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]",
         isExpanded ? "opacity-0 translate-y-8 pointer-events-none" : "opacity-100 translate-y-0"
       ].join(" ")}
+      style={{
+        transitionDelay: isExpanded ? "100ms" : "300ms",
+      }}
       onSubmit={(e) => {
         e.preventDefault();
         // TODO: Orchestration de la commande

@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "description": "Index global des audits production-grade. Source de vérité pour le tracker multi-scope. Chaque audit a son propre dossier avec findings.json + sources/ + findings/ + reaudits/.",
+  "last_updated": "2026-05-10T20:30:00+02:00",
+  "audits": [
+    {
+      "id": "2026-05-10-security",
+      "scope": "security",
+      "status": "active",
+      "started_at": "2026-05-10",
+      "sources_count": 2,
+      "findings_count": 60,
+      "p0_count": 25,
+      "p1_count": 25,
+      "p2_count": 10,
+      "progress": {
+        "pending": 60,
+        "implementing": 0,
+        "validated": 0,
+        "closed": 0
+      },
+      "note": "Audit fondateur : auth, RLS, secrets, LLM runtime, API/SSRF, agents AI, workers, deps. Sources : Claude Opus 4.7 (6 sub-agents parallèles) + Codex externe."
+    }
+  ],
+  "convention": {
+    "naming": "<date-YYYY-MM-DD>-<scope-kebab>",
+    "examples": [
+      "2026-05-10-security",
+      "2026-05-15-llm-runtime",
+      "2026-05-20-perf",
+      "2026-05-25-agents-multi"
+    ],
+    "statuses": ["active", "implementing", "closed", "superseded"],
+    "finding_statuses": [
+      "pending",
+      "triaged",
+      "implementing",
+      "tested",
+      "reaudited",
+      "validated",
+      "closed",
+      "wont_fix"
+    ]
+  },
+  "workflow": {
+    "lifecycle": "pending → triaged → implementing → tested → reaudited → validated → closed",
+    "rule_no_self_audit": "Un modèle ne re-audite jamais son propre fix. Re-audit toujours par modèle différent.",
+    "render_command": "npm run audit:render"
+  }
+}

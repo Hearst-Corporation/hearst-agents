@@ -1,8 +1,9 @@
 // lint-visual-disable-file
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
+import { useCursor } from "@react-three/drei";
 import * as THREE from "three";
 import { useSpatialStore } from "./store";
 
@@ -59,9 +60,11 @@ function MechanicalRings() {
   const isExpanded = useSpatialStore((state) => state.isExpanded);
   const ring1Ref = useRef<THREE.Group>(null);
   const ring2Ref = useRef<THREE.Group>(null);
+  const mat1Ref = useRef<THREE.MeshBasicMaterial>(null);
+  const mat2Ref = useRef<THREE.MeshBasicMaterial>(null);
 
   useFrame((state, delta) => {
-    if (!ring1Ref.current || !ring2Ref.current) return;
+    if (!ring1Ref.current || !ring2Ref.current || !mat1Ref.current || !mat2Ref.current) return;
     
     // Déploiement : L'échelle et l'opacité augmentent quand étendu
     const targetScale = isExpanded ? 1.6 : 0.6;
@@ -76,31 +79,23 @@ function MechanicalRings() {
     ring1Ref.current.rotation.z += speed * delta;
     ring2Ref.current.rotation.z -= (speed * 0.8) * delta;
     
-    // Fade in/out de l'opacité
-    ring1Ref.current.children.forEach((child) => {
-      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
-        child.material.opacity = THREE.MathUtils.lerp(child.material.opacity, targetOpacity, 0.05);
-      }
-    });
-    ring2Ref.current.children.forEach((child) => {
-      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshBasicMaterial) {
-        child.material.opacity = THREE.MathUtils.lerp(child.material.opacity, targetOpacity * 0.6, 0.05);
-      }
-    });
+    // Fade in/out de l'opacité direct sur le matériau
+    mat1Ref.current.opacity = THREE.MathUtils.lerp(mat1Ref.current.opacity, targetOpacity, 0.05);
+    mat2Ref.current.opacity = THREE.MathUtils.lerp(mat2Ref.current.opacity, targetOpacity * 0.6, 0.05);
   });
 
   return (
-    <group position={[0, 0, -0.05]}>
+    <group position={[0, 0, -0.15]}>
       <group ref={ring1Ref}>
         <mesh>
           <torusGeometry args={[0.8, 0.002, 16, 100, Math.PI * 1.6]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0} depthWrite={false} />
+          <meshBasicMaterial ref={mat1Ref} color="#ffffff" transparent opacity={0} depthWrite={false} />
         </mesh>
       </group>
       <group ref={ring2Ref} position={[0, 0, -0.05]}>
         <mesh rotation={[0, 0, Math.PI]}>
           <torusGeometry args={[0.9, 0.001, 16, 100, Math.PI * 1.8]} />
-          <meshBasicMaterial color="#ffffff" transparent opacity={0} depthWrite={false} />
+          <meshBasicMaterial ref={mat2Ref} color="#ffffff" transparent opacity={0} depthWrite={false} />
         </mesh>
       </group>
     </group>
@@ -113,6 +108,8 @@ export function ArtifactKernel() {
   const rootRef = useRef<THREE.Group>(null);
   const rimRef = useRef<THREE.MeshPhysicalMaterial>(null);
   const logoRef = useRef<THREE.MeshBasicMaterial>(null);
+  const [hovered, setHovered] = useState(false);
+  useCursor(hovered);
   const { viewport, pointer } = useThree();
   const logoTexture = useLoader(THREE.TextureLoader, DEFAULT_MARK_SRC);
   
@@ -187,12 +184,8 @@ export function ArtifactKernel() {
         e.stopPropagation();
         toggleExpanded();
       }}
-      onPointerOver={() => {
-        document.body.style.cursor = 'pointer';
-      }}
-      onPointerOut={() => {
-        document.body.style.cursor = 'default';
-      }}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
     >
       <MechanicalRings />
 

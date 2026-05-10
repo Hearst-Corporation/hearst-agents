@@ -48,6 +48,7 @@
     "features:manifest": "node scripts/build-features-manifest.mjs",
     "features:test": "node scripts/features-test.mjs",
     "hom:run": "npx tsx scripts/hom-run.ts",
+    "audit:render": "node docs/audits/scripts/render-audit-html.mjs",
     "prepare": "simple-git-hooks || true"
   },
   "simple-git-hooks": {
