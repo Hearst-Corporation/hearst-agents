@@ -148,6 +148,7 @@ export function WorkflowCanvas({
 }: WorkflowCanvasProps) {
   const [pendingSource, setPendingSource] = useState<string | null>(null);
   const cyRef = useRef<unknown | null>(null);
+  const viewInitialized = useRef(false);
 
   const elements = useMemo<CytoscapeElement[]>(() => {
     const nodeEls: CytoscapeElement[] = graph.nodes.map((n) => {
@@ -426,60 +427,115 @@ export function WorkflowCanvas({
     };
   }, [pendingSource, onConnect, onSelect, onPositionChange]);
 
+  const hasNodes = graph.nodes.length > 0;
+
   return (
     <div
-      className="relative w-full h-full"
-      style={{ background: "var(--bg)" }}
+      className="relative w-full h-full overflow-hidden"
+      style={{
+        background: "#000000",
+        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)",
+        backgroundSize: "22px 22px",
+      }}
     >
       <CytoscapeComponent
         elements={elements}
         layout={{ name: "preset" }}
         stylesheet={stylesheet}
-        style={{ width: "100%", height: "100%" }}
-        cy={(cy) => {
+        style={{ width: "100%", height: "100%", background: "transparent" }}
+        cy={(rawCy) => {
+          const cy = rawCy as {
+            ready: (fn: () => void) => void;
+            zoom: (z?: number) => number | void;
+            center: () => void;
+            minZoom: (z: number) => void;
+            maxZoom: (z: number) => void;
+            on: (e: string, sel: string | undefined, h: (...a: unknown[]) => void) => void;
+            off: (e: string, sel?: string) => void;
+          };
           cyRef.current = cy;
+          if (!viewInitialized.current) {
+            viewInitialized.current = true;
+            cy.ready(() => {
+              cy.minZoom(0.25);
+              cy.maxZoom(2.5);
+              // Fixed zoom 1 — never auto-fit (prevents single-node zoom horror)
+              cy.zoom(1);
+              cy.center();
+            });
+          }
         }}
       />
+
+      {/* Empty state */}
+      {!hasNodes && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="flex flex-col items-center" style={{ gap: "var(--space-3)" }}>
+            <div
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: 48,
+                height: 48,
+                background: "rgba(74,139,134,0.12)",
+                border: "1px solid rgba(74,139,134,0.3)",
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A8B86" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </div>
+            <p className="t-11 font-light" style={{ color: "rgba(255,255,255,0.2)" }}>
+              Ajoute un node depuis la Palette →
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Connection mode hint — only when needed */}
       <div
         className="absolute pointer-events-none flex flex-col"
-        style={{
-          top: "var(--space-3)",
-          right: "var(--space-3)",
-          gap: "var(--space-2)",
-        }}
+        style={{ bottom: "var(--space-4)", left: "50%", transform: "translateX(-50%)", gap: "var(--space-2)" }}
       >
+        {pendingSource && (
+          <div
+            className="t-11 font-light pointer-events-auto rounded-md"
+            style={{
+              padding: "var(--space-2) var(--space-4)",
+              background: "rgba(255,204,0,0.12)",
+              border: "1px solid rgba(255,204,0,0.3)",
+              color: "#FFCC00",
+            }}
+          >
+            Clique sur le node cible pour créer le lien
+          </div>
+        )}
+      </div>
+
+      {/* Connect button — bottom right, only when node selected */}
+      {selectedNodeId && (
         <div
-          className="t-11 font-light text-[var(--text-faint)] pointer-events-auto rounded-md"
-          style={{
-            padding: "var(--space-2) var(--space-3)",
-            background: "var(--rail)",
-            border: "1px solid var(--border-soft)",
-          }}
+          className="absolute"
+          style={{ bottom: "var(--space-4)", right: "var(--space-4)" }}
         >
-          {pendingSource
-            ? "Choisis le node cible pour relier"
-            : "Sélectionne 2 nodes pour créer un lien"}
-        </div>
-        {selectedNodeId && (
           <button
             type="button"
             onClick={() => {
               if (selectedNodeId === pendingSource) setPendingSource(null);
               else setPendingSource(selectedNodeId);
             }}
-            className="t-11 font-light text-[var(--accent-teal)] pointer-events-auto rounded-md hover:text-[var(--text)] transition-colors"
+            className="t-11 font-medium pointer-events-auto rounded-md transition-all"
             style={{
               padding: "var(--space-2) var(--space-3)",
-              background: "var(--rail)",
-              border: "1px solid var(--accent-teal)",
+              background: pendingSource === selectedNodeId ? "rgba(255,204,0,0.15)" : "rgba(74,139,134,0.15)",
+              border: `1px solid ${pendingSource === selectedNodeId ? "rgba(255,204,0,0.4)" : "rgba(74,139,134,0.4)"}`,
+              color: pendingSource === selectedNodeId ? "#FFCC00" : "#4A8B86",
             }}
           >
-            {pendingSource === selectedNodeId
-              ? "Annuler connexion"
-              : "Connecter depuis ce node"}
+            {pendingSource === selectedNodeId ? "Annuler" : "Relier →"}
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
