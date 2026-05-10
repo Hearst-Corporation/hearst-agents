@@ -82,6 +82,7 @@
     "exceljs": "^4.4.0",
     "framer-motion": "^12.38.0",
     "googleapis": "^171.4.0",
+    "gsap": "^3.15.0",
     "inngest": "^4.2.6",
     "ioredis": "^5.10.1",
     "langfuse": "^3.38.20",

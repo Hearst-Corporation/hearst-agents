@@ -1,0 +1,97 @@
+/**
+ * Spatial Mode — Tokens CSS isolés
+ * Ces variables sont scopées à .spatial-root et n'affectent pas le DS global.
+ * Hors design system Hearst OS — voir CLAUDE.md section "Modules hors DS".
+ */
+
+.spatial-root {
+  /* Background */
+  --sp-bg: #000000;
+  --sp-bg-scene: #020202;
+
+  /* Surfaces (glass) */
+  --sp-surface: rgba(255, 255, 255, 0.04);
+  --sp-surface-high: rgba(255, 255, 255, 0.08);
+  --sp-surface-blur: rgba(0, 0, 0, 0.6);
+
+  /* Text */
+  --sp-text: rgba(255, 255, 255, 0.90);
+  --sp-text-secondary: rgba(255, 255, 255, 0.60);
+  --sp-text-muted: rgba(255, 255, 255, 0.40);
+  --sp-text-ghost: rgba(255, 255, 255, 0.20);
+
+  /* Accent (white-only spatial palette) */
+  --sp-accent: #ffffff;
+  --sp-accent-glow: rgba(255, 255, 255, 0.60);
+  --sp-accent-soft: rgba(255, 255, 255, 0.10);
+
+  /* Borders */
+  --sp-border: rgba(255, 255, 255, 0.10);
+  --sp-border-high: rgba(255, 255, 255, 0.20);
+
+  /* Shadows */
+  --sp-shadow-panel: 0 0 80px rgba(0, 0, 0, 0.8);
+  --sp-shadow-glow: 0 0 40px rgba(255, 255, 255, 0.15);
+  --sp-shadow-orb: 0 0 120px rgba(255, 255, 255, 0.08);
+
+  /* Motion */
+  --sp-duration-fast: 0.4s;
+  --sp-duration-base: 0.8s;
+  --sp-duration-slow: 1.2s;
+  --sp-duration-drift: 2.0s;
+  --sp-ease-emerge: cubic-bezier(0.16, 1, 0.3, 1);
+  --sp-ease-dissolve: cubic-bezier(0.22, 1, 0.36, 1);
+  --sp-ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Depth (z-index namespaced) */
+  --sp-z-bg: 0;
+  --sp-z-scene: 10;
+  --sp-z-ground: 20;
+  --sp-z-surface: 30;
+  --sp-z-overlay: 40;
+  --sp-z-hud: 50;
+  --sp-z-critical: 60;
+
+  /* Typography */
+  --sp-tracking-label: 0.2em;
+  --sp-tracking-display: 0.4em;
+  --sp-font-size-label: 10px;
+  --sp-font-size-body: 14px;
+  --sp-font-size-title: 18px;
+}
+
+/* Utilitaires glass */
+.sp-glass {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.sp-glass-high {
+  background: var(--sp-surface-high);
+  border: 1px solid var(--sp-border-high);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+/* Utilitaires typographiques spatiaux */
+.sp-label {
+  font-size: var(--sp-font-size-label);
+  letter-spacing: var(--sp-tracking-label);
+  text-transform: uppercase;
+  font-weight: 300;
+  color: var(--sp-text-muted);
+}
+
+.sp-body {
+  font-size: var(--sp-font-size-body);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--sp-text-secondary);
+}
+
+/* Glow ring utility */
+.sp-glow-ring {
+  box-shadow: 0 0 0 1px var(--sp-border), var(--sp-shadow-glow);
+}
