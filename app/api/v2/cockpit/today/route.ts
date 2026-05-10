@@ -2,7 +2,7 @@
  * GET /api/v2/cockpit/today
  *
  * Source de vérité unique pour la home Stage (mode="cockpit").
- * Agrège briefing, missions running, watchlist, suggestions et reports
+ * Agrège agenda, briefing humain, missions running, suggestions et reports
  * favoris derrière un seul endpoint pour minimiser le round-trip au mount.
  *
  * Voir lib/cockpit/today.ts pour la logique d'orchestration et fail-soft.

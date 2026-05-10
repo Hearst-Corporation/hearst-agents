@@ -9,13 +9,12 @@ import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 /**
  * CockpitStage — home polymorphe (mode="cockpit").
  *
- * Affiche au mount un agrégat /api/v2/cockpit/today : briefing + watchlist
- * KPIs + missions running + suggestions actionables + quick launch. La
- * constellation Hearst reste en background.
+ * Affiche au mount un agrégat /api/v2/cockpit/today : agenda + briefing humain
+ * + agents working + suggestions actionables. La constellation Hearst reste en
+ * background.
  *
- * Loading : skeleton 3 sections (Hero / Watchlist / Suggestions) — pas de
- * spinner. Sync client au mount (même si RSC a pré-hydraté) pour des KPI
- * à jour ; phase B : focus / visibilité.
+ * Loading : skeleton — pas de spinner. Sync client au mount (même si RSC a
+ * pré-hydraté) pour garantir la fraîcheur ; phase B : focus / visibilité.
  *
  * Empty states : chaque section a son CTA contextuel (pas de glyphes seuls
  * selon la règle CLAUDE.md §5).
@@ -23,7 +22,7 @@ import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 interface CockpitStageProps {
   /**
    * Phase C5 — payload Cockpit pré-fetché par le RSC parent (`page.tsx`).
-   * First paint immédiat + sync client au mount pour éviter des KPI figés.
+   * First paint immédiat + sync client au mount.
    */
   initialData?: CockpitTodayPayload | null;
 }

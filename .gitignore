@@ -23,6 +23,9 @@
 # Screenshots locaux (audits visuels, captures de session)
 /cockpit-*.png
 /screenshot-*.png
+/audit-*.png
+/qa-*.png
+/gcp-*.png
 
 # next.js
 /.next/

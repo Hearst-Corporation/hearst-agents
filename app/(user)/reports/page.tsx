@@ -344,6 +344,7 @@ export default function ReportsDiscoveryPage() {
           <EmptyState
             testId="reports-empty-filtered"
             title="Aucun rapport dans cette catégorie"
+            description="Essaie une autre catégorie ou réinitialise les filtres."
             cta={{
               label: "Réinitialiser les filtres",
               onClick: () => { setDomainFilter("all"); setStatusFilter("all"); },

@@ -35,6 +35,8 @@ export interface ScheduledMission {
   createdAt: number;
   lastRunAt?: number;
   lastRunId?: string;
+  lastRunStatus?: "success" | "failed" | "blocked";
+  lastError?: string;
   /** Export automatique optionnel — enqueué après chaque run réussi. */
   autoExport?: AutoExportConfig;
   /**

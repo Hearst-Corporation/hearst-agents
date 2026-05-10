@@ -9,6 +9,7 @@ export default defineConfig({
       "lib/**/__tests__/**/*.test.ts",
     ],
     globals: true,
+    restoreMocks: true,
   },
   resolve: {
     alias: {
