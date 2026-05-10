@@ -19,10 +19,15 @@ import { useStageData } from "@/stores/stage-data";
 import { useVoiceStore } from "@/stores/voice";
 import { useServicesStore } from "@/stores/services";
 import { useNavigationStore } from "@/stores/navigation";
+import { useNotificationsStore } from "@/stores/notifications";
 import { voiceToolDefs, VOICE_TOOL_LABELS } from "@/lib/voice/tool-defs";
 import { ProviderChip } from "./ProviderChip";
 import { GeneralDashboard } from "./right-panel/GeneralDashboard";
 import { ContextRailForMission } from "./ContextRailForMission";
+import {
+  ContextRailForPreMeeting,
+  type PreMeetingNotificationMeta,
+} from "./ContextRailForPreMeeting";
 import {
   ContextRailForRuns,
   ContextRailForMissionsAdmin,
@@ -37,6 +42,7 @@ interface ContextRailProps {
 export function ContextRail({ onClose }: ContextRailProps) {
   const pathname = usePathname();
   const mode = useStageStore((s) => s.current.mode);
+  const preMeetingActive = usePreMeetingActive();
 
   // Pages standalone : sub-rails admin overrident le mode du Stage central.
   // Promesse pivot 2026-04-29 « structure fixe par Stage » étendue aux pages
@@ -69,6 +75,21 @@ export function ContextRail({ onClose }: ContextRailProps) {
     return (
       <ContextRailShell onClose={onClose}>
         <ContextRailForReports />
+      </ContextRailShell>
+    );
+  }
+
+  // Pre-Meeting Intel — override sur cockpit/chat uniquement, et seulement
+  // si une notif pre_meeting non-lue récente est active (créée par le job
+  // Inngest 25-35min avant l'event). Pas affiché sur les autres modes pour
+  // ne pas casser leur structure fixe.
+  if (preMeetingActive && (mode === "cockpit" || mode === "chat")) {
+    return (
+      <ContextRailShell onClose={onClose}>
+        <ContextRailForPreMeeting
+          eventTitle={preMeetingActive.eventTitle}
+          meta={preMeetingActive.meta}
+        />
       </ContextRailShell>
     );
   }
@@ -679,6 +700,60 @@ function ContextRailForAssetCompare() {
       </Section>
     </div>
   );
+}
+
+/**
+ * usePreMeetingActive — détecte la notification pre_meeting non-lue la plus
+ * récente dont l'event n'a pas encore commencé. Sert de bascule pour
+ * afficher <ContextRailForPreMeeting> à la place du dashboard cockpit/chat.
+ *
+ * Retourne `null` si aucune notif active. Le store notifications est
+ * hydraté côté client via `startRealtime` (cf. layout user).
+ */
+function usePreMeetingActive(): {
+  eventTitle: string;
+  meta: PreMeetingNotificationMeta;
+} | null {
+  const notifications = useNotificationsStore((s) => s.notifications);
+
+  // `created_at` (string ISO ; figé côté DB) sert de référence stable pour
+  // déterminer si la notif est "trop vieille" (> 60min) — pure et idempotent
+  // contrairement à Date.now(). Si l'event est démarré depuis longtemps, la
+  // notif aura été marquée read par l'user ; on filtre simplement les notifs
+  // pre_meeting non-lues sans ré-évaluer l'écoulement temps réel ici.
+  for (const n of notifications) {
+    if (n.read_at !== null) continue;
+    const meta = n.meta as Record<string, unknown> | null;
+    if (!meta || meta.subtype !== "pre_meeting") continue;
+    const startsAt = typeof meta.startsAt === "number" ? meta.startsAt : null;
+    if (startsAt === null) continue;
+
+    const participants = Array.isArray(meta.participants)
+      ? (meta.participants as PreMeetingNotificationMeta["participants"])
+      : [];
+    const suggestedAgenda =
+      typeof meta.suggestedAgenda === "string" ? meta.suggestedAgenda : "";
+    const eventId = typeof meta.eventId === "string" ? meta.eventId : "";
+    const generatedAt =
+      typeof meta.generatedAt === "number" ? meta.generatedAt : startsAt;
+
+    // Le titre est dans la notif title : "Pre-meeting · <titre>"
+    const eventTitle = n.title.replace(/^Pre-meeting\s*·\s*/i, "").trim() || "(sans titre)";
+
+    return {
+      eventTitle,
+      meta: {
+        subtype: "pre_meeting",
+        eventId,
+        startsAt,
+        participants,
+        suggestedAgenda,
+        generatedAt,
+      },
+    };
+  }
+
+  return null;
 }
 
 function ContextRailForSimulation() {

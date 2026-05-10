@@ -8,5 +8,6 @@
  */
 
 import { dailyBriefFunction } from "./daily-brief";
+import { preMeetingIntelFunction } from "./pre-meeting-intel";
 
-export const inngestFunctions = [dailyBriefFunction];
+export const inngestFunctions = [dailyBriefFunction, preMeetingIntelFunction];
