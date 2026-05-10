@@ -116,6 +116,14 @@ if (rulesBlock) {
 
 lines.push("Validation rapide : `npm run validate` (typecheck + lint + test)");
 lines.push("Manifest features : `npm run features:manifest` après edit docs/features/*.md");
+lines.push("");
+lines.push("Commandes slash disponibles (tapez / dans le chat) :");
+lines.push("- `/nettoyage` — dead code, exports orphelins, magic numbers, dettes lint");
+lines.push("- `/audit`     — sécurité, perf, architecture, dépendances (P0/P1/P2)");
+lines.push("- `/map`       — cartographie routes, stores, modules, surface API");
+lines.push("- `/test`      — gaps de couverture + specs Vitest/Playwright générées");
+lines.push("- `/syscheck`  — zombies, doublons Node, ports fantômes, caches macOS");
+lines.push("→ Chaque commande génère un rapport HTML qui s'ouvre dans Chrome.");
 
 process.stdout.write(lines.join("\n") + "\n");
 process.exit(0);
