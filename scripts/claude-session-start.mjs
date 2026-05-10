@@ -124,6 +124,7 @@ lines.push("- `/map`       — cartographie routes, stores, modules, surface API
 lines.push("- `/test`      — gaps de couverture + specs Vitest/Playwright générées");
 lines.push("- `/syscheck`  — zombies, doublons Node, ports fantômes, caches macOS");
 lines.push("- `/qa`        — audit QA UI/UX complet (alignements, spacing, cohérence, états)");
+lines.push("- `/flow`      — QA flows utilisateur (navigation, friction, logique UX, CTA)");
 lines.push("→ Chaque commande génère un rapport HTML qui s'ouvre dans Chrome.");
 
 process.stdout.write(lines.join("\n") + "\n");

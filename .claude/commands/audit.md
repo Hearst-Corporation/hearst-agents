@@ -12,38 +12,41 @@ Audit multi-axe du codebase. Chaque finding reçoit une sévérité et un effort
 
 ## Axe 1 — Sécurité (OWASP top 10)
 
-!grep -rn "process\.env\." app/ --include="*.tsx" --include="*.ts" | grep -v "NEXT_PUBLIC" | head -30
+!grep -rn "process\.env\." app/ --include="_.tsx" --include="_.ts" | grep -v "NEXT_PUBLIC" | head -30
 
 Vérifie :
+
 - Variables d'env exposées côté client sans préfixe `NEXT_PUBLIC_`
 - `eval()`, `dangerouslySetInnerHTML` sans sanitisation
 - SQL/NoSQL injection dans les routes API (`app/api/`)
 - Auth manquante sur des routes qui manipulent des données utilisateur
 - Secrets hardcodés (regex: `(password|secret|key|token)\s*=\s*["'][^"']{8,}`)
 
-!grep -rn "dangerouslySetInnerHTML" app/ --include="*.tsx" | head -20
-!grep -rn "eval(" app/ lib/ --include="*.ts" --include="*.tsx" | head -20
-!grep -rEn "(password|secret|apikey|api_key)\s*=\s*[\"'][^\"']{6,}" app/ lib/ --include="*.ts" | head -20
+!grep -rn "dangerouslySetInnerHTML" app/ --include="_.tsx" | head -20
+!grep -rn "eval(" app/ lib/ --include="_.ts" --include="_.tsx" | head -20
+!grep -rEn "(password|secret|apikey|api_key)\s_=\s*[\"'][^\"']{6,}" app/ lib/ --include="*.ts" | head -20
 
 ## Axe 2 — Performance
 
-!find app/ -name "*.tsx" -exec wc -l {} + | sort -rn | head -20
+!find app/ -name "\*.tsx" -exec wc -l {} + | sort -rn | head -20
 
 Vérifie :
+
 - Composants > 300 lignes (candidats à la découpe)
 - `useEffect` sans dépendances stables (boucles infinies potentielles)
 - Images sans `next/image` ou sans `sizes`
 - `JSON.parse` / `JSON.stringify` dans des render loops
 - Imports barrel qui tirent tout un module pour un seul symbole
 
-!grep -rn "useEffect" app/ --include="*.tsx" | wc -l
-!grep -rn "<img " app/ --include="*.tsx" | grep -v "next/image" | head -20
+!grep -rn "useEffect" app/ --include="_.tsx" | wc -l
+!grep -rn "<img " app/ --include="_.tsx" | grep -v "next/image" | head -20
 
 ## Axe 3 — Cohérence architecture (ADD)
 
 @docs/AGENT-DRIVEN-DEV.md
 
 Vérifie :
+
 - Fichiers modifiés dans des zones verrouillées sans spec correspondante
 - Imports cross-feature qui violent l'isolation des modules
 - Stores Zustand avec état dupliqué entre plusieurs stores
@@ -81,6 +84,7 @@ Termine par un résumé : N findings, X P0, Y P1, Z P2.
 Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-audit.html` et ouvre-le dans Chrome.
 
 Le HTML doit :
+
 - Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
 - Header avec titre "Audit transversal", date/heure, axes analysés
 - Compteurs en haut : total findings, avec 3 jauges visuelles P0 / P1 / P2 (barres colorées rouge/orange/jaune)

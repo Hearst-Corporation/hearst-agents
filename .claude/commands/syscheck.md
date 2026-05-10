@@ -37,28 +37,30 @@ Identifie les instances Node multiples faisant le même travail (même script, m
 !lsof -i -P -n 2>/dev/null | grep LISTEN | grep -E ":[3-9][0-9]{3}" | awk '{print $2, $9, $1}' | sort -k2
 
 Ports > 3000 occupés par des processus inconnus ou orphelins. Pour chaque port fantôme (processus non reconnu) :
+
 - Identifie le PID et le chemin binaire
 - Vérifie si le processus a un parent vivant
 - **Kill automatique** si orphelin ET port non dans [3000, 3001, 5432, 54321, 8080]
 
 ## Passe 4 — Caches npm/node_modules
 
-!du -sh ~/.npm/_npx 2>/dev/null
+!du -sh ~/.npm/\_npx 2>/dev/null
 !du -sh ~/.npm/cache 2>/dev/null
 !find /Users/adrienbeyondcrypto/Dev -name "node_modules" -maxdepth 3 -type d 2>/dev/null | while read d; do echo "$(du -sh "$d" 2>/dev/null | cut -f1) $d"; done | sort -rh | head -15
 
 Identifie :
+
 - `node_modules` dans des projets sans `package.json` sibling → orphelins, **suppression automatique**
 - Cache npm > 500 Mo → propose `npm cache clean --force`
 - `node_modules` non touchés depuis > 30 jours dans des projets inactifs → propose suppression
 
-!find /Users/adrienbeyondcrypto/Dev -name "node_modules" -maxdepth 3 -type d -not -path "*/\.*" | while read d; do proj=$(dirname "$d"); if [ ! -f "$proj/package.json" ]; then echo "ORPHELIN: $d"; fi; done
+!find /Users/adrienbeyondcrypto/Dev -name "node_modules" -maxdepth 3 -type d -not -path "_/\._" | while read d; do proj=$(dirname "$d"); if [ ! -f "$proj/package.json" ]; then echo "ORPHELIN: $d"; fi; done
 
 ## Passe 5 — Fichiers temporaires et logs lourds
 
-!find /tmp -maxdepth 2 -name "*.log" -size +10M 2>/dev/null | head -10
-!find ~/Library/Logs -name "*.log" -size +50M 2>/dev/null | head -10
-!find /Users/adrienbeyondcrypto/Dev -name "*.log" -size +5M -not -path "*/node_modules/*" 2>/dev/null | head -10
+!find /tmp -maxdepth 2 -name "_.log" -size +10M 2>/dev/null | head -10
+!find ~/Library/Logs -name "_.log" -size +50M 2>/dev/null | head -10
+!find /Users/adrienbeyondcrypto/Dev -name "_.log" -size +5M -not -path "_/node_modules/\*" 2>/dev/null | head -10
 
 Logs > 50 Mo dans Library → **suppression automatique**.  
 Logs dev > 5 Mo → liste pour confirmation.
@@ -67,7 +69,7 @@ Logs dev > 5 Mo → liste pour confirmation.
 
 ```
 ZOMBIES     : N tués automatiquement / M en attente confirmation
-DOUBLONS    : N tués / M protégés (whitelist)  
+DOUBLONS    : N tués / M protégés (whitelist)
 PORTS       : N libérés / M inconnus (à confirmer)
 CACHE NPM   : X Mo libérables → [oui/non]
 NODE_MODULES orphelins : X Mo supprimés
@@ -75,6 +77,7 @@ LOGS        : X Mo supprimés
 ```
 
 Pour chaque item "en attente confirmation" :
+
 ```
 [CONFIRM] PID 12345 — node /chemin/script.js (port 4200, 3h d'activité)
   Tuer ? (o/N)
@@ -87,6 +90,7 @@ Affiche le gain total en RAM et disque après nettoyage.
 Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-syscheck.html` et ouvre-le dans Chrome.
 
 Le HTML doit :
+
 - Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
 - Header avec titre "Inspection système macOS", date/heure
 - 5 tuiles en grille : Zombies / Doublons Node / Ports / Caches / Logs — chaque tuile avec compteur "tués / protégés / en attente"

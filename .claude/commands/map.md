@@ -16,6 +16,7 @@ Produit une carte statique navigable du système. Utile avant un refactor, un au
 !find app/ -name "page.tsx" | sort | sed 's|app/||;s|/page.tsx||' | head -60
 
 Produis un arbre des routes UI et API avec :
+
 - Méthode HTTP (GET/POST/PUT/DELETE/PATCH)
 - Auth requise ou non (détecte `getServerSession`, `requireAuth`, middleware)
 - Type de réponse (JSON, stream, redirect)
@@ -23,25 +24,26 @@ Produis un arbre des routes UI et API avec :
 ## Vue 2 — Stores Zustand
 
 !node scripts/list-stores.mjs 2>/dev/null
-!grep -rn "create(" app/ lib/ --include="*.ts" --include="*.tsx" | grep -i "store\|zustand" | head -30
-!grep -rn "useStore\|use[A-Z][a-zA-Z]*Store" app/ --include="*.tsx" | head -40
+!grep -rn "create(" app/ lib/ --include="_.ts" --include="_.tsx" | grep -i "store\|zustand" | head -30
+!grep -rn "useStore\|use[A-Z][a-zA-Z]_Store" app/ --include="_.tsx" | head -40
 
 Pour chaque store : nom, slices d'état, actions exposées, composants consommateurs.
 
 ## Vue 3 — Dépendances inter-modules
 
 !find app/ lib/ -name "index.ts" | sort | head -30
-!grep -rn "from '@/" app/ lib/ --include="*.ts" --include="*.tsx" | sed "s/.*from '@\/\([^'\"]*\)'.*/\1/" | sort | uniq -c | sort -rn | head -40
+!grep -rn "from '@/" app/ lib/ --include="_.ts" --include="_.tsx" | sed "s/._from '@\/\([^'\"]_\)'.\*/\1/" | sort | uniq -c | sort -rn | head -40
 
 Identifie :
+
 - Modules les plus importés (hubs critiques)
 - Imports circulaires potentiels
 - Couplage fort entre features qui devraient être isolées
 
 ## Vue 4 — Surface API publique
 
-!grep -rn "export " app/api/ lib/api/ 2>/dev/null --include="*.ts" | grep -v "//\|test\|spec" | head -50
-!grep -rn "fetch\|axios\|ky" app/ --include="*.ts" --include="*.tsx" | grep -v "node_modules\|test" | head -30
+!grep -rn "export " app/api/ lib/api/ 2>/dev/null --include="_.ts" | grep -v "//\|test\|spec" | head -50
+!grep -rn "fetch\|axios\|ky" app/ --include="_.ts" --include="\*.tsx" | grep -v "node_modules\|test" | head -30
 
 ## Rapport final
 
@@ -68,6 +70,7 @@ Termine par une section **Points chauds** : les 5 fichiers/modules les plus coup
 Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-map.html` et ouvre-le dans Chrome.
 
 Le HTML doit :
+
 - Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
 - Header avec titre "Cartographie codebase", date/heure, vue(s) générée(s)
 - 4 sections navigables via ancres : Routes, Stores, Modules, API

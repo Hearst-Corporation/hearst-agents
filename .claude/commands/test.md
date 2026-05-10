@@ -12,8 +12,8 @@ Analyse l'état des tests existants, identifie les cas non couverts, et génère
 
 ## Étape 1 — État des tests existants
 
-!find . -name "*.test.ts" -o -name "*.test.tsx" -o -name "*.spec.ts" -o -name "*.spec.tsx" | grep -v node_modules | sort
-!find e2e/ -name "*.spec.ts" 2>/dev/null | sort
+!find . -name "_.test.ts" -o -name "_.test.tsx" -o -name "_.spec.ts" -o -name "_.spec.tsx" | grep -v node_modules | sort
+!find e2e/ -name "\*.spec.ts" 2>/dev/null | sort
 !npx vitest run --reporter=verbose 2>/dev/null | tail -30
 
 Compte : N tests unitaires, M tests e2e. Taux de succès.
@@ -26,9 +26,9 @@ Identifie les fichiers < 80% de couverture ligne.
 
 ## Étape 3 — Zones sans aucun test
 
-!find app/api/ -name "route.ts" | while read f; do base="${f%route.ts}"; if ! find . -name "*.test.ts" -path "*${base}*" 2>/dev/null | grep -q .; then echo "SANS TEST: $f"; fi; done | head -30
+!find app/api/ -name "route.ts" | while read f; do base="${f%route.ts}"; if ! find . -name "*.test.ts" -path "*${base}\*" 2>/dev/null | grep -q .; then echo "SANS TEST: $f"; fi; done | head -30
 
-!find app/ lib/ -name "*.ts" -not -name "*.test.*" -not -path "*/node_modules/*" | while read f; do base=$(basename "$f" .ts); if ! grep -rq "$base" . --include="*.test.*" --include="*.spec.*" 2>/dev/null; then echo "SANS TEST: $f"; fi; done | head -30
+!find app/ lib/ -name "_.ts" -not -name "_.test._" -not -path "_/node_modules/_" | while read f; do base=$(basename "$f" .ts); if ! grep -rq "$base" . --include="_.test._" --include="_.spec.\*" 2>/dev/null; then echo "SANS TEST: $f"; fi; done | head -30
 
 ## Étape 4 — Analyse des cas manquants
 
@@ -45,6 +45,7 @@ Pour chaque fichier identifié comme critique (routes API, stores, utilitaires c
 Pour les 5 gaps les plus critiques, génère la spec complète :
 
 **Tests unitaires Vitest :**
+
 ```typescript
 // chemin/du/fichier.test.ts
 import { describe, it, expect, vi } from 'vitest'
@@ -57,6 +58,7 @@ describe('NomModule', () => {
 ```
 
 **Tests e2e Playwright :**
+
 ```typescript
 // e2e/nom-feature.spec.ts
 import { test, expect } from '@playwright/test'
@@ -72,6 +74,7 @@ Priorise : routes API sans test > stores critiques > composants avec logique mé
 Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-tests.html` et ouvre-le dans Chrome.
 
 Le HTML doit :
+
 - Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
 - Header avec titre "Couverture & gaps de tests", date/heure, scope analysé
 - Jauge globale de couverture en % avec arc de cercle SVG (rouge < 50%, orange < 80%, vert >= 80%)
