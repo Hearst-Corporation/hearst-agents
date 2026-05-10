@@ -20,9 +20,25 @@ import { useEffect, useMemo, useState } from "react";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
 import { useNavigationStore } from "@/stores/navigation";
-import { GhostIconMenu } from "./ghost-icons";
+import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
+import { useFocusMode } from "@/stores/focus-mode";
+import {
+  GhostIconMenu,
+  GhostIconCamera,
+  GhostIconTarget,
+  GhostIconWave,
+  GhostIconCard,
+} from "./ghost-icons";
 import { NotificationBell } from "./NotificationBell";
 import { SpaceSelector } from "./SpaceSelector";
+
+/** Format yearMonth précédent (UTC) pour la Hearst Card du mois passé. */
+function previousYearMonth(now: Date = new Date()): string {
+  const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1));
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+  return `${y}-${m}`;
+}
 
 interface ConnectionsMeta {
   connected: number;
@@ -262,8 +278,113 @@ export function PulseBar() {
           </a>
         )}
 
+        {/* Discoverability quick-actions — entry points visibles pour les
+           features hotkey-only (VideoQuickLaunch ⌘G, Focus ⌘⇧F, Signal Board,
+           Hearst Card). Style sourd, icône seule + tooltip natif. */}
+        <PulseBarQuickActions />
+
         <NotificationBell />
       </div>
+    </div>
+  );
+}
+
+/**
+ * PulseBarQuickActions — rangée d'icônes pour les features cachées.
+ *
+ * Pivot 2026-05-10 : Adrien a remarqué que les nouvelles features
+ * (VideoQuickLaunch, Mode Focus, Signal Board, Hearst Card) étaient
+ * invisibles dans le cockpit (toutes conditionnelles ou hotkey-only).
+ * Cette zone leur donne un entry point découvrable, cohérent avec le
+ * pattern existant des autres icônes PulseBar (cloche, hamburger).
+ *
+ * Style : icônes 14×14 SVG, text-faint → hover accent-teal, gap space-3.
+ * Pas de label texte — uniquement title pour tooltip natif. La carte
+ * Hearst déclenche un POST best-effort vers /api/v2/hearst-card/[ym] et
+ * ouvre le `publicShareUrl` retourné dans un nouvel onglet.
+ */
+function PulseBarQuickActions() {
+  const openVideoLauncher = useVideoQuickLaunchStore((s) => s.openLauncher);
+  const toggleFocus = useFocusMode((s) => s.toggle);
+  const setMode = useStageStore((s) => s.setMode);
+  const [hearstLoading, setHearstLoading] = useState(false);
+
+  const onOpenSignalBoard = () => {
+    setMode({ mode: "signal" });
+  };
+
+  const onOpenHearstCard = async () => {
+    if (hearstLoading) return;
+    setHearstLoading(true);
+    try {
+      const yearMonth = previousYearMonth();
+      const r = await fetch(`/api/v2/hearst-card/${yearMonth}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{}",
+      });
+      if (!r.ok) return;
+      const data = (await r.json()) as { publicShareUrl?: string };
+      if (data?.publicShareUrl) {
+        window.open(data.publicShareUrl, "_blank", "noopener,noreferrer");
+      }
+    } catch {
+      // Fail-soft : pas de toast bruyant, l'user retentera.
+    } finally {
+      setHearstLoading(false);
+    }
+  };
+
+  const buttonClass =
+    "hidden md:flex w-7 h-7 items-center justify-center text-text-faint hover:text-(--accent-teal) transition-colors shrink-0 disabled:opacity-40";
+
+  return (
+    <div
+      className="hidden md:flex items-center"
+      style={{ gap: "var(--space-3)" }}
+      data-testid="pulsebar-quick-actions"
+    >
+      <button
+        type="button"
+        onClick={openVideoLauncher}
+        className={buttonClass}
+        title="Générer une vidéo (⌘G)"
+        aria-label="Générer une vidéo"
+        data-testid="qa-video"
+      >
+        <GhostIconCamera className="w-3.5 h-3.5" />
+      </button>
+      <button
+        type="button"
+        onClick={toggleFocus}
+        className={buttonClass}
+        title="Mode focus (⌘⇧F)"
+        aria-label="Basculer le mode focus"
+        data-testid="qa-focus"
+      >
+        <GhostIconTarget className="w-3.5 h-3.5" />
+      </button>
+      <button
+        type="button"
+        onClick={onOpenSignalBoard}
+        className={buttonClass}
+        title="Tableau des signaux"
+        aria-label="Ouvrir le tableau des signaux"
+        data-testid="qa-signal"
+      >
+        <GhostIconWave className="w-3.5 h-3.5" />
+      </button>
+      <button
+        type="button"
+        onClick={onOpenHearstCard}
+        disabled={hearstLoading}
+        className={buttonClass}
+        title="Mon Wrapped du mois"
+        aria-label="Ouvrir mon Wrapped mensuel"
+        data-testid="qa-hearst-card"
+      >
+        <GhostIconCard className="w-3.5 h-3.5" />
+      </button>
     </div>
   );
 }

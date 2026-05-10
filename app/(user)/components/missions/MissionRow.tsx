@@ -67,6 +67,9 @@ export interface Mission {
   approvers?: string[];
   /** Q3-D — mode d'agrégation des votes. */
   approvalMode?: "all" | "any" | "majority";
+  /** S3-D — plafond mensuel USD. Présent si l'utilisateur a configuré un
+   * budget pour cette mission (sinon le bouton "+ Budget" s'affiche). */
+  budgetUsd?: number | null;
 }
 
 interface MissionRowProps {
@@ -148,6 +151,43 @@ export function MissionRow({
             </p>
           )}
         </button>
+        {/* Discoverability — boutons "+ Budget" / "+ Approbateurs" affichés
+           uniquement quand la config correspondante est absente, et révélés
+           au hover de la rangée pour ne pas saturer la liste. Cliquer ouvre
+           l'éditeur (le pre-fill du champ ciblé est laissé au parent). */}
+        <div
+          className="opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity flex items-center self-center"
+          style={{ gap: "var(--space-3)" }}
+        >
+          {(mission.budgetUsd ?? null) === null && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(mission);
+              }}
+              className="t-9 font-light text-(--text-faint) hover:text-(--accent-teal) transition-colors shrink-0"
+              title="Définir un budget mensuel"
+              data-testid="mission-add-budget"
+            >
+              + Budget
+            </button>
+          )}
+          {(mission.approvers?.length ?? 0) === 0 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(mission);
+              }}
+              className="t-9 font-light text-(--text-faint) hover:text-(--accent-teal) transition-colors shrink-0"
+              title="Ajouter des approbateurs"
+              data-testid="mission-add-approvers"
+            >
+              + Approbateurs
+            </button>
+          )}
+        </div>
       </div>
       <div className="text-right space-y-2">
         {mission.drift && (

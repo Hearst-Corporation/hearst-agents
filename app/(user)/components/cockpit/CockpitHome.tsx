@@ -5,6 +5,7 @@ import { MorningBriefing } from "./MorningBriefing";
 import { TodayAgenda } from "./TodayAgenda";
 import { AgentWorking } from "./AgentWorking";
 import { WhenYouHave5Min } from "./WhenYouHave5Min";
+import { useStageStore } from "@/stores/stage";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface CockpitHomeProps {
@@ -30,6 +31,8 @@ interface CockpitHomeProps {
  * Une seule colonne, pas de grid 2-cols : la home se lit comme un journal.
  */
 export function CockpitHome({ data, onRefresh }: CockpitHomeProps) {
+  const setMode = useStageStore((s) => s.setMode);
+
   return (
     <div
       className="flex-1 flex flex-col min-h-0 min-w-0 overflow-y-auto"
@@ -53,6 +56,24 @@ export function CockpitHome({ data, onRefresh }: CockpitHomeProps) {
         <TodayAgenda data={data} />
         <AgentWorking data={data} />
         <WhenYouHave5Min data={data} />
+      </div>
+
+      {/* Entry point discret vers le SignalBoardStage — sans ce lien le
+         Stage `signal` n'est accessible que via clic ambient whisper
+         (qui n'apparaît qu'avec des signaux actifs). Style ambient :
+         t-11 text-faint, hover accent-teal. */}
+      <div
+        className="flex items-center justify-end pt-2"
+        style={{ gap: "var(--space-2)" }}
+      >
+        <button
+          type="button"
+          onClick={() => setMode({ mode: "signal" })}
+          className="t-11 font-light text-(--text-faint) hover:text-(--accent-teal) transition-colors"
+          data-testid="cockpit-signal-link"
+        >
+          Signaux ambient →
+        </button>
       </div>
     </div>
   );

@@ -98,6 +98,45 @@ export function GhostIconInfo(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+/** Caméra — ouvre le VideoQuickLaunch (⌘G). */
+export function GhostIconCamera(props: SVGProps<SVGSVGElement>) {
+  return (
+    <SvgBox {...props}>
+      <path d="M23 7l-7 5 7 5V7zM14 5H3a2 2 0 00-2 2v10a2 2 0 002 2h11a2 2 0 002-2V7a2 2 0 00-2-2z" />
+    </SvgBox>
+  );
+}
+
+/** Cible — toggle Mode Focus (⌘⇧F). */
+export function GhostIconTarget(props: SVGProps<SVGSVGElement>) {
+  return (
+    <SvgBox {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </SvgBox>
+  );
+}
+
+/** Onde — ouvre le Signal Board. */
+export function GhostIconWave(props: SVGProps<SVGSVGElement>) {
+  return (
+    <SvgBox {...props}>
+      <path d="M2 12c2 0 2-4 4-4s2 8 4 8 2-12 4-12 2 16 4 16 2-8 4-8" />
+    </SvgBox>
+  );
+}
+
+/** Carte — ouvre la Hearst Card (Wrapped mensuel). */
+export function GhostIconCard(props: SVGProps<SVGSVGElement>) {
+  return (
+    <SvgBox {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 10h18M7 15h4" />
+    </SvgBox>
+  );
+}
+
 /** Service icon — renders official SVG logo when available, fallback to mono text ref. */
 export function ServiceIdGlyph({
   id,
