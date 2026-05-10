@@ -18,11 +18,11 @@
      renforce l'effet « well » du Stage encadré par les rails plus clairs. */
   --bg: #050709;
   --bg-elev: #131318;
-    --bg-soft: #1B1B22;
+  --bg-soft: #1b1b22;
   --background: #050709;
   --foreground: #ffffff;
   --surface: #000000;
-    --rail: #16161B;
+  --rail: #16161b;
   /* Material scale — Technological Luxury */
   --mat-100: #040404;
   --mat-200: #070707;
@@ -50,19 +50,19 @@
   --text-ghost: rgba(255, 255, 255, 0.42);
 
   /* Accent colors */
-  --cyan-accent: #4A8B86;
-  --accent-teal: #4A8B86;
-  --money: #4A8B86;
+  --cyan-accent: #4a8b86;
+  --accent-teal: #4a8b86;
+  --money: #4a8b86;
   --warn: #ffcc00;
   --danger: #ff3333;
-  --accent-llm: #A78BFA;
+  --accent-llm: #a78bfa;
   /* Branche « agent custom » pipeline admin (câbles + waterfall) — aligné cartes [data-kind="agent"]. */
   --accent-agent: #fbbf24;
   /* Editorial gold — accent éditorial pour liens de contenu, highlights, points
    * d'attention NON-système. Le accent-teal reste réservé aux états système (focus,
    * hover, run actif, voice actif, sélection). Cette séparation a été tranchée
    * dans le pivot UI 2026-05-01 (direction A — Éditoriale Tenue). */
-  --gold: #C8A961;
+  --gold: #c8a961;
   --gold-border: color-mix(in srgb, var(--gold) 28%, transparent);
   --gold-surface: color-mix(in srgb, var(--gold) 6%, transparent);
   --gold-bg-hover: color-mix(in srgb, var(--gold) 8%, transparent);
@@ -74,11 +74,11 @@
   --glow-cyan-md: 0 0 60px rgba(74, 139, 134, 0.15);
 
   /* ─── Z-index scale ─────────────────────────────────────────── */
-  --z-base:     0;
-  --z-sticky:   20;
+  --z-base: 0;
+  --z-sticky: 20;
   --z-dropdown: 50;
-  --z-overlay:  100;
-  --z-modal:    60;
+  --z-overlay: 100;
+  --z-modal: 60;
 
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
   --space-0: 0px;
@@ -126,21 +126,25 @@
   /* ─── Sizes — éléments circulaires / carrés ──────────────────
    * Tokens de taille pour avatars, badges, dots dimensionnés. Évite
    * les `w-8 h-8` répétés quand un élément a une sémantique propre. */
-  --size-avatar-sm: 32px;             /* Avatar profil — TimelineRail footer, badges initiale */
+  --size-avatar-sm: 32px; /* Avatar profil — TimelineRail footer, badges initiale */
 
   /* ─── Cockpit visualizations ──────────────────────────────────
    * Dimensions des visualisations signatures du Cockpit. Les hauteurs
    * sont fluides via clamp pour respirer en grand viewport sans
    * écraser le KPIStrip en petit écran. */
-  --height-particles-wave: clamp(240px, 32vh, 360px);   /* ParticlesWave — onde sinusoïdale centrale */
-  --height-agent-constellation: 200px;                  /* AgentsConstellation — hexagone 2D rail droit */
+  --height-particles-wave: clamp(
+    240px,
+    32vh,
+    360px
+  ); /* ParticlesWave — onde sinusoïdale centrale */
+  --height-agent-constellation: 200px; /* AgentsConstellation — hexagone 2D rail droit */
 
   /* ─── Prose — largeurs de lecture éditoriale ───────────────────────── */
   --width-prose-narrow: 560px;
   --width-working-doc: min(50%, 720px);
 
   /* ─── ChatInput ─────────────────────────────────────────────── */
-  --height-input-max: 200px;           /* textarea : hauteur max avant scroll */
+  --height-input-max: 200px; /* textarea : hauteur max avant scroll */
 
   /* ─── FocalStage / Shell ─────────────────────────────────────── */
   --height-focal-min: 320px;
@@ -148,36 +152,34 @@
   --height-stage-empty-icon: 80px;
   --height-pulsebar: 48px;
   --height-stage-footer: 28px;
-  --width-electron-titlebar: 70px;     /* Déport titlebar macOS Electron (traffic lights) */
+  --width-electron-titlebar: 70px; /* Déport titlebar macOS Electron (traffic lights) */
 
   /* ─── Tracking — valeurs intermédiaires ────────────────────── */
-  --tracking-snug: 0.10em;   /* Entre caption (0.08) et wide (0.12) — RunTimeline */
-  --tracking-body: 0.15em;   /* Entre label (0.14) et stretch (0.18) — corps de chat */
-  --tracking-label: 0.22em;  /* Tous les labels uppercase Ghost Lumineux — token unique */
+  --tracking-snug: 0.1em; /* Entre caption (0.08) et wide (0.12) — RunTimeline */
+  --tracking-body: 0.15em; /* Entre label (0.14) et stretch (0.18) — corps de chat */
+  --tracking-label: 0.22em; /* Tous les labels uppercase Ghost Lumineux — token unique */
 
   /* ─── Ghost Lumineux — 3 couches matière ──────────────────── */
-  --layer-1: rgba(255, 255, 255, 0.012);                         /* surface presque invisible */
-  --layer-2: rgba(255, 255, 255, 0.038);                         /* élément interactif levé */
-  --text-l0: rgba(255, 255, 255, 1.0);                           /* headline blanc pur */
-  --text-l1: rgba(255, 255, 255, 0.70);                          /* contenu principal */
-  --text-l2: rgba(255, 255, 255, 0.40);                          /* labels, meta */
-  --text-l3: rgba(255, 255, 255, 0.20);                          /* séparateurs texte */
-  --sep: rgba(255, 255, 255, 0.05);                              /* séparateur horizontal */
+  --layer-1: rgba(255, 255, 255, 0.012); /* surface presque invisible */
+  --layer-2: rgba(255, 255, 255, 0.038); /* élément interactif levé */
+  --text-l0: rgba(255, 255, 255, 1); /* headline blanc pur */
+  --text-l1: rgba(255, 255, 255, 0.7); /* contenu principal */
+  --text-l2: rgba(255, 255, 255, 0.4); /* labels, meta */
+  --text-l3: rgba(255, 255, 255, 0.2); /* séparateurs texte */
+  --sep: rgba(255, 255, 255, 0.05); /* séparateur horizontal */
   --input-glow: 0 0 40px rgba(74, 139, 134, 0.12), 0 0 80px rgba(74, 139, 134, 0.06);
-  --input-glow-focus: 0 0 40px rgba(74, 139, 134, 0.22), 0 0 80px rgba(74, 139, 134, 0.10);
+  --input-glow-focus: 0 0 40px rgba(74, 139, 134, 0.22), 0 0 80px rgba(74, 139, 134, 0.1);
   --neon-accent-teal: 0 0 10px rgba(74, 139, 134, 0.7), 0 0 20px rgba(74, 139, 134, 0.3);
 
   /* ─── Shadows composants ────────────────────────────────────── */
-  --shadow-neon-accent-teal: 0 0 8px rgba(74, 139, 134, 0.6);         /* TimelineRail thread actif */
-  --shadow-pulse-dot:        0 0 6px rgba(74, 139, 134, 0.32);        /* Dots pulse "En cours" PulseBar/Activity/Header */
-  --shadow-pulse-dot-sm:     0 0 5px rgba(74, 139, 134, 0.32);        /* Dots pulse mini (validation strip) */
-  --shadow-pulse-dot-md:     0 0 8px rgba(74, 139, 134, 0.32);        /* Dots pulse moyens (modules tactiles badge) */
-  --shadow-input-focus: 0 0 15px rgba(74, 139, 134, 0.15);      /* ChatInput focus halo doux */
-  --shadow-focus-ring: 0 0 0 2px var(--border-focus);           /* Focus ring a11y outline */
+  --shadow-neon-accent-teal: 0 0 8px rgba(74, 139, 134, 0.6); /* TimelineRail thread actif */
+  --shadow-pulse-dot: 0 0 6px rgba(74, 139, 134, 0.32); /* Dots pulse "En cours" PulseBar/Activity/Header */
+  --shadow-pulse-dot-sm: 0 0 5px rgba(74, 139, 134, 0.32); /* Dots pulse mini (validation strip) */
+  --shadow-pulse-dot-md: 0 0 8px rgba(74, 139, 134, 0.32); /* Dots pulse moyens (modules tactiles badge) */
+  --shadow-input-focus: 0 0 15px rgba(74, 139, 134, 0.15); /* ChatInput focus halo doux */
+  --shadow-focus-ring: 0 0 0 2px var(--border-focus); /* Focus ring a11y outline */
   /* Stage card — carte centrale flottante */
-  --shadow-stage-card:
-    0 1px 2px rgba(0, 0, 0, 0.18),
-    0 8px 28px rgba(0, 0, 0, 0.22);
+  --shadow-stage-card: 0 1px 2px rgba(0, 0, 0, 0.18), 0 8px 28px rgba(0, 0, 0, 0.22);
   --shadow-divider-bottom-subtle: inset 0 -1px 0 0 var(--line);
 
   /* ─── Hearst Connect — Input (chat) ─────────────────────────── */
@@ -190,7 +192,7 @@
   --ghost-modal-top: rgba(255, 255, 255, 0.06);
   /* Overlay scrim — fond modal/drawer derrière. Valeur identique en dark
    * et light : on assombrit toujours par rapport au contenu source. */
-  --overlay-scrim: rgba(0, 0, 0, 0.40);
+  --overlay-scrim: rgba(0, 0, 0, 0.4);
   --text-on-accent-teal: #000000;
   --card-flat-bg: rgba(255, 255, 255, 0.02);
   --card-flat-border: rgba(255, 255, 255, 0.06);
@@ -222,23 +224,23 @@
   --radius-full: 9999px;
 
   /* ─── Hearst Connect — Shadow stack (Cinematic depth) ───────── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
 
   /* High-end card depth stack (3-layer) */
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.30),
-                 0 12px 24px rgba(0, 0, 0, 0.20),
-                 0 20px 40px -10px rgba(0, 0, 0, 0.40);
-  --shadow-card-hover: 0 4px 8px rgba(0, 0, 0, 0.35),
-                      0 20px 40px rgba(74, 139, 134, 0.12),
-                      0 30px 60px -12px rgba(0, 0, 0, 0.50);
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 24px rgba(0, 0, 0, 0.2),
+    0 20px 40px -10px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover:
+    0 4px 8px rgba(0, 0, 0, 0.35), 0 20px 40px rgba(74, 139, 134, 0.12),
+    0 30px 60px -12px rgba(0, 0, 0, 0.5);
 
   /* ─── Hearst Connect — Typography weights ───────────────────── */
-  --weight-light:    300;
-  --weight-regular:  400;
-  --weight-medium:   500;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
   --weight-semibold: 600;
-  --weight-bold:     700;
+  --weight-bold: 700;
 
   /* ─── Backdrop blur scale ────────────────────────────────────── */
   --blur-sm: blur(8px);
@@ -253,10 +255,10 @@
   --tracking-wide: 0.12em;
   --tracking-label: 0.14em;
   --tracking-stretch: 0.18em;
-  --tracking-display: 0.20em;
+  --tracking-display: 0.2em;
   --tracking-section: 0.22em;
   --tracking-banner: 0.25em;
-  --tracking-marquee: 0.30em;
+  --tracking-marquee: 0.3em;
   --tracking-brand: 0.32em;
 
   /* ─── Hearst Connect — Line heights ─────────────────────────── */
@@ -281,36 +283,35 @@
   --border-subtle: rgba(255, 255, 255, 0.28);
   --border-default: rgba(255, 255, 255, 0.12);
   --border-strong: rgba(255, 255, 255, 0.14);
-  --border-focus: rgba(255, 255, 255, 0.40);
+  --border-focus: rgba(255, 255, 255, 0.4);
 
   /* ─── Hearst Connect — Status colors ────────────────────────── */
-  --color-success: #2DC558;
-  --color-success-bg: rgba(45, 197, 88, 0.10);
-  --color-success-border: rgba(45, 197, 88, 0.20);
-  --color-warning: #F59E0B;
-  --color-warning-bg: rgba(245, 158, 11, 0.10);
-  --color-warning-border: rgba(245, 158, 11, 0.20);
-  --color-error: #EF4444;
-  --color-error-bg: rgba(239, 68, 68, 0.10);
-  --color-error-border: rgba(239, 68, 68, 0.20);
-  --color-info: #3B82F6;
-  --color-info-bg: rgba(59, 130, 246, 0.10);
-  --color-info-border: rgba(59, 130, 246, 0.20);
+  --color-success: #2dc558;
+  --color-success-bg: rgba(45, 197, 88, 0.1);
+  --color-success-border: rgba(45, 197, 88, 0.2);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-warning-border: rgba(245, 158, 11, 0.2);
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-error-border: rgba(239, 68, 68, 0.2);
+  --color-info: #3b82f6;
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+  --color-info-border: rgba(59, 130, 246, 0.2);
 
   /* ─── Glow status — warn / danger / success (miroir de --glow-cyan-*) ─── */
-  --glow-warn-sm:    0 0 30px rgba(255, 204, 0, 0.10);
-  --glow-warn-md:    0 0 60px rgba(255, 204, 0, 0.15);
-  --glow-danger-sm:  0 0 30px rgba(255, 51, 51, 0.10);
-  --glow-danger-md:  0 0 60px rgba(255, 51, 51, 0.15);
-  --glow-success-sm: 0 0 30px rgba(45, 197, 88, 0.10);
+  --glow-warn-sm: 0 0 30px rgba(255, 204, 0, 0.1);
+  --glow-warn-md: 0 0 60px rgba(255, 204, 0, 0.15);
+  --glow-danger-sm: 0 0 30px rgba(255, 51, 51, 0.1);
+  --glow-danger-md: 0 0 60px rgba(255, 51, 51, 0.15);
+  --glow-success-sm: 0 0 30px rgba(45, 197, 88, 0.1);
   --glow-success-md: 0 0 60px rgba(45, 197, 88, 0.15);
 
   /* ─── Page layout — padding canoniques ─────────────────────────── */
-  --page-padding-x: var(--space-8);   /* padding horizontal standard des pages admin */
-  --page-padding-y: var(--space-8);   /* padding vertical standard des pages admin */
-  --card-padding:   var(--space-4);   /* padding interne standard des cartes */
-  --section-gap:    var(--space-8);   /* gap vertical entre sections d'une page */
-
+  --page-padding-x: var(--space-8); /* padding horizontal standard des pages admin */
+  --page-padding-y: var(--space-8); /* padding vertical standard des pages admin */
+  --card-padding: var(--space-4); /* padding interne standard des cartes */
+  --section-gap: var(--space-8); /* gap vertical entre sections d'une page */
 }
 
 /* ─── Cockpit Poster — typo éditoriale ────────────────────────────
@@ -372,7 +373,10 @@
   border-right: none;
   cursor: pointer;
 }
-.poster-brief-block .read-more:disabled { opacity: 0.5; cursor: progress; }
+.poster-brief-block .read-more:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
 
 /* ─── Modules tactiles — ContextRail GeneralDashboard "Actions rapides" ──
  * Pivot v1.4 (silent luxury OS, 2026-05-09) : grille 2x2 de modules tactiles
@@ -382,20 +386,21 @@
 .touch-module {
   background:
     radial-gradient(140% 100% at 30% 0%, rgba(255, 255, 255, 0.028) 0%, transparent 60%),
-    linear-gradient(180deg, #16161B 0%, #0F0F13 100%);
+    linear-gradient(180deg, #16161b 0%, #0f0f13 100%);
   border: none;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.025),
     inset 0 -1px 0 rgba(0, 0, 0, 0.55);
   cursor: pointer;
-  transition: transform 280ms var(--ease-out-soft, cubic-bezier(0.2, 0.8, 0.2, 1)),
-              background 280ms ease;
+  transition:
+    transform 280ms var(--ease-out-soft, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    background 280ms ease;
 }
 .touch-module:hover {
   transform: translateY(-1px);
   background:
     radial-gradient(140% 100% at 30% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
-    linear-gradient(180deg, #1A1A20 0%, #131318 100%);
+    linear-gradient(180deg, #1a1a20 0%, #131318 100%);
 }
 .touch-module-icon {
   width: 20px;
@@ -403,7 +408,10 @@
   color: var(--text-soft);
   opacity: 0.7;
 }
-.touch-module-icon svg { width: 100%; height: 100%; }
+.touch-module-icon svg {
+  width: 100%;
+  height: 100%;
+}
 .touch-module-badge {
   position: absolute;
   top: 11px;
@@ -416,8 +424,13 @@
   animation: touch-module-pulse 2.4s ease-in-out infinite;
 }
 @keyframes touch-module-pulse {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Validation strip — pop-up inline d'une proposition d'agent autonome.
@@ -427,7 +440,7 @@
   overflow: hidden;
   background:
     radial-gradient(140% 100% at 0% 0%, rgba(74, 139, 134, 0.06) 0%, transparent 55%),
-    linear-gradient(180deg, #16161B 0%, #0F0F13 100%);
+    linear-gradient(180deg, #16161b 0%, #0f0f13 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.025),
     inset 0 -1px 0 rgba(0, 0, 0, 0.55);
@@ -489,7 +502,7 @@
  * Pivot v1.4. Pill ultra-thin centrée au header, smoked glass surface,
  * pas de hover teal envahissant (juste border qui se renforce). */
 .touch-cmdk-pill {
-  background: linear-gradient(180deg, #16161B 0%, #0F0F13 100%);
+  background: linear-gradient(180deg, #16161b 0%, #0f0f13 100%);
   border: 1px solid var(--border-soft);
   cursor: text;
   transition: border-color 200ms ease;
@@ -508,7 +521,7 @@
 .touch-status-card {
   background:
     radial-gradient(140% 100% at 30% 0%, rgba(255, 255, 255, 0.022) 0%, transparent 60%),
-    linear-gradient(180deg, #16161B 0%, #0F0F13 100%);
+    linear-gradient(180deg, #16161b 0%, #0f0f13 100%);
   border: none;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.025),
@@ -519,7 +532,7 @@
   overflow: hidden;
   background:
     radial-gradient(140% 100% at 0% 0%, rgba(74, 139, 134, 0.05) 0%, transparent 55%),
-    linear-gradient(180deg, #16161B 0%, #0F0F13 100%);
+    linear-gradient(180deg, #16161b 0%, #0f0f13 100%);
   border: none;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.025),
@@ -527,7 +540,9 @@
   cursor: pointer;
   transition: transform 280ms var(--ease-out-soft, cubic-bezier(0.2, 0.8, 0.2, 1));
 }
-.touch-context-card:hover { transform: translateY(-1px); }
+.touch-context-card:hover {
+  transform: translateY(-1px);
+}
 .touch-context-card::before {
   content: "";
   position: absolute;
@@ -618,19 +633,31 @@
   letter-spacing: 0.04em;
   color: var(--text-faint);
   font-feature-settings: "tnum";
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 .poster-pulse {
   display: inline-block;
-  width: 6px; height: 6px;
+  width: 6px;
+  height: 6px;
   border-radius: 999px;
   background: var(--accent-teal);
-  box-shadow: 0 0 6px rgba(74, 139, 134, 0.55), 0 0 14px rgba(74, 139, 134, 0.25);
+  box-shadow:
+    0 0 6px rgba(74, 139, 134, 0.55),
+    0 0 14px rgba(74, 139, 134, 0.25);
   animation: poster-pulse 2.6s ease-in-out infinite;
 }
 @keyframes poster-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.55; transform: scale(1.18); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.18);
+  }
 }
 
 /* ─── Pipeline admin — surface technique sur thème courant ─────────────
@@ -788,7 +815,10 @@
 }
 .pipeline-card:focus-visible {
   border-color: var(--pipeline-accent);
-  box-shadow: inset 0 0 0 1px var(--pipeline-accent), var(--shadow-card-hover), var(--pipeline-accent-glow);
+  box-shadow:
+    inset 0 0 0 1px var(--pipeline-accent),
+    var(--shadow-card-hover),
+    var(--pipeline-accent-glow);
 }
 .pipeline-card[data-state="active"] {
   border-color: var(--pipeline-ring-active);
@@ -812,7 +842,10 @@
 }
 .pipeline-card[data-selected="true"] {
   border-color: var(--pipeline-accent);
-  box-shadow: inset 0 0 0 1px var(--pipeline-accent), var(--shadow-card-hover), var(--pipeline-accent-glow-md);
+  box-shadow:
+    inset 0 0 0 1px var(--pipeline-accent),
+    var(--shadow-card-hover),
+    var(--pipeline-accent-glow-md);
 }
 
 /* ── Pipeline port ─────────────────────────────────────────────────── */
@@ -823,19 +856,35 @@
   height: var(--space-3);
   border-radius: var(--radius-pill);
   background: var(--pipeline-accent);
-  box-shadow: 0 0 0 2px var(--pipeline-port-socket), 0 0 8px var(--pipeline-accent);
+  box-shadow:
+    0 0 0 2px var(--pipeline-port-socket),
+    0 0 8px var(--pipeline-accent);
   pointer-events: none;
   z-index: 2;
 }
-.pipeline-port[data-side="in"]  { left: 0;  transform: translate(-50%, -50%); }
-.pipeline-port[data-side="out"] { right: 0; transform: translate(50%, -50%); }
+.pipeline-port[data-side="in"] {
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.pipeline-port[data-side="out"] {
+  right: 0;
+  transform: translate(50%, -50%);
+}
 .pipeline-card[data-state="active"] .pipeline-port,
 .pipeline-card[data-state="success"] .pipeline-port {
   animation: pipeline-port-pulse var(--duration-slow) var(--ease-out-soft) infinite alternate;
 }
 @keyframes pipeline-port-pulse {
-  from { box-shadow: 0 0 0 2px var(--pipeline-port-socket), 0 0 6px var(--pipeline-accent); }
-  to   { box-shadow: 0 0 0 2px var(--pipeline-port-socket), 0 0 14px var(--pipeline-accent); }
+  from {
+    box-shadow:
+      0 0 0 2px var(--pipeline-port-socket),
+      0 0 6px var(--pipeline-accent);
+  }
+  to {
+    box-shadow:
+      0 0 0 2px var(--pipeline-port-socket),
+      0 0 14px var(--pipeline-accent);
+  }
 }
 
 /* ── Pipeline icon disc — disque plein --space-10 ──────────────────── */
@@ -859,8 +908,9 @@
   border-radius: var(--radius-pill);
   background: var(--text-ghost);
   flex-shrink: 0;
-  transition: background var(--duration-base) var(--ease-standard),
-              box-shadow var(--duration-base) var(--ease-standard);
+  transition:
+    background var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
 }
 .pipeline-card[data-state="active"] .pipeline-led {
   background: var(--pipeline-accent);
@@ -881,8 +931,13 @@
   box-shadow: var(--glow-warn-sm);
 }
 @keyframes pipeline-led-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.55; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
 }
 
 /* ── Pipeline kicker — code stage type "01 // ENTRY" ────────────────── */
@@ -972,8 +1027,12 @@
   box-shadow: var(--glow-danger-sm);
 }
 @keyframes pipeline-progress-sweep {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* ── Pipeline cable — 3 strokes empilés (halo · body · core) ────────── */
@@ -982,9 +1041,15 @@
   --cable-color-bright: color-mix(in srgb, var(--cable-color) 60%, #ffffff);
 }
 .pipeline-cable[data-branch="research"],
-.pipeline-cable[data-branch="retrieval"] { --cable-color: var(--accent-teal); }
-.pipeline-cable[data-branch="pipeline"]  { --cable-color: var(--accent-teal); }
-.pipeline-cable[data-branch="agent"]     { --cable-color: var(--accent-agent); }
+.pipeline-cable[data-branch="retrieval"] {
+  --cable-color: var(--accent-teal);
+}
+.pipeline-cable[data-branch="pipeline"] {
+  --cable-color: var(--accent-teal);
+}
+.pipeline-cable[data-branch="agent"] {
+  --cable-color: var(--accent-agent);
+}
 
 .pipeline-cable-halo {
   fill: none;
@@ -1003,10 +1068,13 @@
   stroke: var(--cable-color);
   stroke-linecap: round;
   opacity: 0.7;
-  transition: opacity var(--duration-base) var(--ease-standard),
-              stroke-width var(--duration-base) var(--ease-standard);
+  transition:
+    opacity var(--duration-base) var(--ease-standard),
+    stroke-width var(--duration-base) var(--ease-standard);
 }
-.pipeline-cable[data-active="true"] .pipeline-cable-body { opacity: 1; }
+.pipeline-cable[data-active="true"] .pipeline-cable-body {
+  opacity: 1;
+}
 .pipeline-cable-core {
   fill: none;
   stroke: var(--cable-color-bright);
@@ -1015,7 +1083,9 @@
   filter: drop-shadow(0 0 4px var(--cable-color-bright));
   transition: opacity var(--duration-base) var(--ease-standard);
 }
-.pipeline-cable[data-active="true"] .pipeline-cable-core { opacity: 1; }
+.pipeline-cable[data-active="true"] .pipeline-cable-core {
+  opacity: 1;
+}
 .pipeline-cable-traffic {
   fill: none;
   stroke: var(--cable-color-bright);
@@ -1028,13 +1098,29 @@
   --cable-color: var(--danger);
   --cable-color-bright: color-mix(in srgb, var(--danger) 60%, #ffffff);
 }
-.pipeline-cable[data-failed="true"] .pipeline-cable-body  { stroke-dasharray: 8 4; opacity: 0.9; }
-.pipeline-cable[data-failed="true"] .pipeline-cable-halo  { opacity: 0.30; }
-.pipeline-cable[data-failed="true"] .pipeline-cable-core  { opacity: 0; }
+.pipeline-cable[data-failed="true"] .pipeline-cable-body {
+  stroke-dasharray: 8 4;
+  opacity: 0.9;
+}
+.pipeline-cable[data-failed="true"] .pipeline-cable-halo {
+  opacity: 0.3;
+}
+.pipeline-cable[data-failed="true"] .pipeline-cable-core {
+  opacity: 0;
+}
 
-.pipeline-cable-port-outer { fill: var(--cable-color); opacity: 0.85; filter: drop-shadow(0 0 6px var(--cable-color)); }
-.pipeline-cable-port-inner { fill: white; opacity: 0.9; }
-.pipeline-cable[data-active="true"] .pipeline-cable-port-outer { opacity: 1; }
+.pipeline-cable-port-outer {
+  fill: var(--cable-color);
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px var(--cable-color));
+}
+.pipeline-cable-port-inner {
+  fill: white;
+  opacity: 0.9;
+}
+.pipeline-cable[data-active="true"] .pipeline-cable-port-outer {
+  opacity: 1;
+}
 
 .pipeline-cable-trail {
   fill: none;
@@ -1069,13 +1155,13 @@
   /* Hearst Connect — spacing scale (p-N, gap-N, m-N, w-N, h-N… → tokens)
    * Chaque --spacing-N mappe la classe Tailwind correspondante sur le token
    * --space-N. Zéro magic number côté TSX : px-6 = var(--space-6) = 24px. */
-  --spacing-1:  var(--space-1);
-  --spacing-2:  var(--space-2);
-  --spacing-3:  var(--space-3);
-  --spacing-4:  var(--space-4);
-  --spacing-5:  var(--space-5);
-  --spacing-6:  var(--space-6);
-  --spacing-8:  var(--space-8);
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
   --spacing-10: var(--space-10);
   --spacing-12: var(--space-12);
   --spacing-14: var(--space-14);
@@ -1088,11 +1174,11 @@
   /* Hearst Connect — leading scale (leading-tight → var(--leading-tight)…)
    * Override les valeurs Tailwind par défaut (1.25 / 1.375 / 2.0) qui
    * divergeaient du scale du DS (1.05 / 1.2 / 1.8). */
-  --leading-tight:   var(--leading-tight);
-  --leading-snug:    var(--leading-snug);
-  --leading-base:    var(--leading-base);
+  --leading-tight: var(--leading-tight);
+  --leading-snug: var(--leading-snug);
+  --leading-base: var(--leading-base);
   --leading-relaxed: var(--leading-relaxed);
-  --leading-loose:   var(--leading-loose);
+  --leading-loose: var(--leading-loose);
 
   /* Hearst Connect — tracking scale (tracking-tight, tracking-display, …) */
   --tracking-tight: var(--tracking-tight);
@@ -1117,9 +1203,9 @@
   --ease-standard: var(--ease-standard);
   --ease-out-soft: var(--ease-out-soft);
 
-  --font-satoshi: 'Satoshi Variable', 'Satoshi', sans-serif;
-  --font-sans: 'Satoshi Variable', 'Satoshi', sans-serif;
-  --font-mono: 'Satoshi Variable', 'Satoshi', sans-serif;
+  --font-satoshi: "Satoshi Variable", "Satoshi", sans-serif;
+  --font-sans: "Satoshi Variable", "Satoshi", sans-serif;
+  --font-mono: "Satoshi Variable", "Satoshi", sans-serif;
 
   /* Hearst Connect — surfaces & accent (Tailwind utilities `bg-background`,
    * `bg-surface`, `bg-rail`, `text-cyan-accent`, etc.) */
@@ -1137,7 +1223,8 @@
   font-family: var(--font-satoshi) !important;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: var(--bg);
@@ -1159,20 +1246,62 @@ body {
 /* Croissance expressive (≈+50% sur grand écran). Lin entre les bornes. */
 /* Hardcoding `text-[Npx]` reste interdit : voir scripts/lint-visual.mjs */
 
-.t-8  { font-size: clamp(8px,  0.208vw + 6.667px,  12px);   line-height: 1.2; }
-.t-9  { font-size: clamp(9px,  0.234vw + 7.5px,    13.5px); line-height: 1.2; }
-.t-10 { font-size: clamp(10px, 0.260vw + 8.333px,  15px);   line-height: 1.3; }
-.t-11 { font-size: clamp(11px, 0.286vw + 9.167px,  16.5px); line-height: 1.3; }
-.t-13 { font-size: clamp(13px, 0.339vw + 10.833px, 19.5px); line-height: 1.4; }
-.t-15 { font-size: clamp(15px, 0.391vw + 12.5px,   22.5px); line-height: 1.45; }
-.t-18 { font-size: clamp(18px, 0.469vw + 15px,     27px);   line-height: 1.4; }
-.t-24 { font-size: clamp(24px, 0.625vw + 20px,     36px);   line-height: 1.3; }
-.t-26 { font-size: clamp(26px, 0.677vw + 21.667px, 39px);   line-height: 1.2; }
-.t-28 { font-size: clamp(28px, 0.729vw + 23.333px, 42px);   line-height: 1.2; }
-.t-30 { font-size: clamp(30px, 0.781vw + 25px,     45px);   line-height: 1.15; }
-.t-34 { font-size: clamp(34px, 0.885vw + 28.333px, 51px);   line-height: 1.15; }
-.t-48 { font-size: clamp(48px, 1.250vw + 40px,     72px);   line-height: 1.05; }
-.t-60 { font-size: clamp(60px, 1.563vw + 50px,     90px);   line-height: 1; }
+.t-8 {
+  font-size: clamp(8px, 0.208vw + 6.667px, 12px);
+  line-height: 1.2;
+}
+.t-9 {
+  font-size: clamp(9px, 0.234vw + 7.5px, 13.5px);
+  line-height: 1.2;
+}
+.t-10 {
+  font-size: clamp(10px, 0.26vw + 8.333px, 15px);
+  line-height: 1.3;
+}
+.t-11 {
+  font-size: clamp(11px, 0.286vw + 9.167px, 16.5px);
+  line-height: 1.3;
+}
+.t-13 {
+  font-size: clamp(13px, 0.339vw + 10.833px, 19.5px);
+  line-height: 1.4;
+}
+.t-15 {
+  font-size: clamp(15px, 0.391vw + 12.5px, 22.5px);
+  line-height: 1.45;
+}
+.t-18 {
+  font-size: clamp(18px, 0.469vw + 15px, 27px);
+  line-height: 1.4;
+}
+.t-24 {
+  font-size: clamp(24px, 0.625vw + 20px, 36px);
+  line-height: 1.3;
+}
+.t-26 {
+  font-size: clamp(26px, 0.677vw + 21.667px, 39px);
+  line-height: 1.2;
+}
+.t-28 {
+  font-size: clamp(28px, 0.729vw + 23.333px, 42px);
+  line-height: 1.2;
+}
+.t-30 {
+  font-size: clamp(30px, 0.781vw + 25px, 45px);
+  line-height: 1.15;
+}
+.t-34 {
+  font-size: clamp(34px, 0.885vw + 28.333px, 51px);
+  line-height: 1.15;
+}
+.t-48 {
+  font-size: clamp(48px, 1.25vw + 40px, 72px);
+  line-height: 1.05;
+}
+.t-60 {
+  font-size: clamp(60px, 1.563vw + 50px, 90px);
+  line-height: 1;
+}
 
 /* ── Typography utilities ───────────────── */
 
@@ -1235,13 +1364,21 @@ body {
   cursor: pointer;
   border-bottom: 1px solid var(--sep);
   background: transparent;
-  transition: background 300ms ease, padding 300ms ease;
+  transition:
+    background 300ms ease,
+    padding 300ms ease;
   text-align: left;
   width: 100%;
 }
-.cockpit-action:last-child { border-bottom: none; }
-.cockpit-action.is-compact { padding: 10px 4px; }
-.cockpit-action.is-compact:hover { padding-left: 10px; }
+.cockpit-action:last-child {
+  border-bottom: none;
+}
+.cockpit-action.is-compact {
+  padding: 10px 4px;
+}
+.cockpit-action.is-compact:hover {
+  padding-left: 10px;
+}
 .cockpit-action:hover {
   background: var(--layer-1);
   padding-left: 12px;
@@ -1250,7 +1387,10 @@ body {
   font-size: clamp(15px, 1.1vw, 18px);
   font-weight: 300;
   color: var(--text-l1);
-  transition: color 300ms ease, text-shadow 300ms ease, letter-spacing 300ms ease;
+  transition:
+    color 300ms ease,
+    text-shadow 300ms ease,
+    letter-spacing 300ms ease;
   letter-spacing: 0;
 }
 .cockpit-action:hover .ca-label {
@@ -1267,7 +1407,10 @@ body {
   color: var(--text-l3);
   transition: color 300ms ease;
 }
-.cockpit-action:hover .ca-hotkey { color: var(--accent-teal); opacity: 0.7; }
+.cockpit-action:hover .ca-hotkey {
+  color: var(--accent-teal);
+  opacity: 0.7;
+}
 
 /* ─── Status dots — pastilles d'état (pivot 2026-05-02) ─────────
  * Initialement enfants des .context-tile (refactor remplacé par .recap-card
@@ -1300,8 +1443,15 @@ body {
   box-shadow: var(--glow-success-sm);
 }
 @keyframes pulse-status-accent-teal {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.55; transform: scale(1.25); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.25);
+  }
 }
 
 /* ─── StageFooter — dots état LLM ───────────────────────────────
@@ -1320,18 +1470,46 @@ body {
 }
 
 @keyframes sf-wave {
-  0%, 80%, 100% { opacity: 0.25; transform: scale(0.85); }
-  40%           { opacity: 1;    transform: scale(1.15); box-shadow: 0 0 6px currentColor; }
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 6px currentColor;
+  }
 }
-.sf-dot-wave-fast   { animation-name: sf-wave; animation-duration: 900ms; }
-.sf-dot-wave-medium { animation-name: sf-wave; animation-duration: 1300ms; }
-.sf-dot-wave-slow   { animation-name: sf-wave; animation-duration: 1800ms; }
+.sf-dot-wave-fast {
+  animation-name: sf-wave;
+  animation-duration: 900ms;
+}
+.sf-dot-wave-medium {
+  animation-name: sf-wave;
+  animation-duration: 1300ms;
+}
+.sf-dot-wave-slow {
+  animation-name: sf-wave;
+  animation-duration: 1800ms;
+}
 
 @keyframes sf-heartbeat {
-  0%, 100% { opacity: 0.18; transform: scale(0.9); }
-  50%      { opacity: 0.55; transform: scale(1); }
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
 }
-.sf-dot-heartbeat { animation-name: sf-heartbeat; animation-duration: 2400ms; }
+.sf-dot-heartbeat {
+  animation-name: sf-heartbeat;
+  animation-duration: 2400ms;
+}
 /* idle : seulement le dot médian respire, les latéraux restent faints */
 .sf-dot-heartbeat[data-index="0"],
 .sf-dot-heartbeat[data-index="2"] {
@@ -1340,8 +1518,16 @@ body {
 }
 
 @keyframes sf-pulse-mid {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%      { opacity: 1;   transform: scale(1.2); box-shadow: 0 0 6px currentColor; }
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 6px currentColor;
+  }
 }
 .sf-dot-pulse-mid {
   opacity: 0.5;
@@ -1372,19 +1558,22 @@ body {
   background: var(--layer-2);
   border: 1px solid var(--sep);
   color: var(--text);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset;
-  transition: border-color 500ms ease, box-shadow 500ms ease, background 500ms ease;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transition:
+    border-color 500ms ease,
+    box-shadow 500ms ease,
+    background 500ms ease;
 }
 .cockpit-input-pill:hover {
-  border-color: rgba(255,255,255,0.10);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 .cockpit-input-pill:focus-within {
-  border-color: rgba(74,139,134,0.40);
-  background: rgba(255,255,255,0.05);
+  border-color: rgba(74, 139, 134, 0.4);
+  background: rgba(255, 255, 255, 0.05);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.06) inset,
-    0 0 0 4px rgba(74,139,134,0.06),
-    0 0 32px rgba(74,139,134,0.12);
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 0 0 4px rgba(74, 139, 134, 0.06),
+    0 0 32px rgba(74, 139, 134, 0.12);
 }
 
 /* Thinking Canvas — input flat, sans halo accent-teal en focus.
@@ -1445,8 +1634,12 @@ body {
   );
   transition: background var(--duration-base) var(--ease-standard);
 }
-.cockpit-input-pill-line::before { top: 0; }
-.cockpit-input-pill-line::after { bottom: 0; }
+.cockpit-input-pill-line::before {
+  top: 0;
+}
+.cockpit-input-pill-line::after {
+  bottom: 0;
+}
 .cockpit-input-pill-line:hover::before,
 .cockpit-input-pill-line:hover::after {
   background: linear-gradient(
@@ -1558,7 +1751,7 @@ body {
   font-weight: 600;
   font-size: 22px;
   box-shadow:
-    0 0 24px rgba(74, 139, 134, 0.40),
+    0 0 24px rgba(74, 139, 134, 0.4),
     0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
@@ -1599,8 +1792,13 @@ body {
 }
 
 @keyframes ghost-skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .ghost-overlay-backdrop {
@@ -1622,8 +1820,13 @@ body {
 }
 
 @keyframes chat-caret-fade {
-  0%, 100% { opacity: 0.3; }
-  50%      { opacity: 0.85; }
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.85;
+  }
 }
 
 /* Trois points "en train d'écrire" — fade simple, pas de gradient animé */
@@ -1634,8 +1837,13 @@ body {
 }
 
 @keyframes chat-typing-fade {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.85; }
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.85;
+  }
 }
 
 /* ── Scrollbar styling ────────────────── */
@@ -1657,14 +1865,23 @@ body {
   background: rgba(74, 139, 134, 0.3);
 }
 
-.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
-.scroll-fade-bottom { position: relative; }
+.scroll-fade-bottom {
+  position: relative;
+}
 .scroll-fade-bottom::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: var(--space-12);
   background: linear-gradient(to bottom, transparent, var(--scroll-fade-color, var(--bg-elev)));
   pointer-events: none;
@@ -1687,10 +1904,11 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.03),
     0 1px 2px rgba(0, 0, 0, 0.4),
     0 8px 32px -8px rgba(0, 0, 0, 0.5);
-  transition: transform var(--duration-slow) var(--ease-out-soft),
-              box-shadow var(--duration-slow) var(--ease-out-soft),
-              border-color var(--duration-base) var(--ease-standard),
-              background-color var(--duration-base) var(--ease-standard);
+  transition:
+    transform var(--duration-slow) var(--ease-out-soft),
+    box-shadow var(--duration-slow) var(--ease-out-soft),
+    border-color var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard);
 }
 
 .card-depth:hover {
@@ -1700,7 +1918,7 @@ body {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 4px 8px rgba(0, 0, 0, 0.5),
-    0 20px 40px -12px rgba(74, 139, 134, 0.10),
+    0 20px 40px -12px rgba(74, 139, 134, 0.1),
     0 30px 60px -16px rgba(0, 0, 0, 0.6);
 }
 
@@ -1725,8 +1943,9 @@ body {
   border-radius: var(--radius-pill);
   font-weight: var(--weight-semibold);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard),
-              border-color var(--duration-fast) var(--ease-standard);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
 }
 
 .btn-ghost:hover {
@@ -1757,13 +1976,14 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--cyan-accent);
   margin-top: -5px;
   cursor: pointer;
-  transition: transform var(--duration-fast) var(--ease-standard),
-              box-shadow var(--duration-fast) var(--ease-standard);
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 4px rgba(74, 139, 134, 0.20);
+  box-shadow: 0 0 0 4px rgba(74, 139, 134, 0.2);
 }
 
 input[type="range"]::-moz-range-track {
@@ -1786,7 +2006,7 @@ input[type="range"]:focus-visible {
 }
 
 input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px rgba(74, 139, 134, 0.30);
+  box-shadow: 0 0 0 3px rgba(74, 139, 134, 0.3);
 }
 
 /* Panel enter animation (Connect cinematic entrance) */
@@ -1819,11 +2039,12 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(circle at 50% 50%,
-      rgba(74, 139, 134, 0.11) 0%,
-      rgba(74, 139, 134, 0.036) 35%,
-      transparent 70%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(74, 139, 134, 0.11) 0%,
+    rgba(74, 139, 134, 0.036) 35%,
+    transparent 70%
+  );
   pointer-events: none;
 }
 
@@ -1852,13 +2073,24 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 }
 
 @keyframes halo-core-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes halo-core-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.7; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.7;
+  }
 }
 
 /* ── ContextRail Strates 1 & 2 — services + constellation système ────
@@ -1866,7 +2098,6 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
    au profit du rendu vanilla three (cf. SystemServicesRow.tsx +
    SystemConstellation.tsx). Toute l'animation des particules vit dans le
    RAF des composants WebGL. */
-
 
 /* ── Ghost Protocol — boutons & inputs minimalistes ──────────────
    Pattern : `.ghost-btn-solid` pose la base (layout, font, transition),
@@ -2012,4 +2243,3 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   app-region: drag;
   pointer-events: none;
 }
-
