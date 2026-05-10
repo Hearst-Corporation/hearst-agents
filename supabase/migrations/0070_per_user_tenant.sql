@@ -35,11 +35,12 @@ DECLARE
   new_tenant_id uuid;
 BEGIN
   FOR u IN SELECT id, email, tenant_ids FROM public.users WHERE primary_tenant_id IS NULL LOOP
+    -- tenant_ids est uuid[] (cf. info_schema). Cast ::text pour le regex check.
     IF u.tenant_ids IS NOT NULL
        AND array_length(u.tenant_ids, 1) >= 1
-       AND u.tenant_ids[1] ~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+       AND u.tenant_ids[1]::text ~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
     THEN
-      new_tenant_id := u.tenant_ids[1]::uuid;
+      new_tenant_id := u.tenant_ids[1];
     ELSE
       new_tenant_id := gen_random_uuid();
     END IF;
@@ -51,7 +52,7 @@ BEGIN
     UPDATE public.users
        SET primary_tenant_id = new_tenant_id,
            primary_workspace_id = new_tenant_id,
-           tenant_ids = ARRAY[new_tenant_id::text]
+           tenant_ids = ARRAY[new_tenant_id]::uuid[]
      WHERE id = u.id;
   END LOOP;
 END $$;

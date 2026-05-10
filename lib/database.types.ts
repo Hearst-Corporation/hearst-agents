@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       action_executions: {
@@ -1026,6 +1051,7 @@ export type Database = {
           output_tier: string | null
           provenance: Json
           run_id: string | null
+          space_id: string
           summary: string | null
           thread_id: string
           title: string
@@ -1038,6 +1064,7 @@ export type Database = {
           output_tier?: string | null
           provenance?: Json
           run_id?: string | null
+          space_id?: string
           summary?: string | null
           thread_id: string
           title?: string
@@ -1050,6 +1077,7 @@ export type Database = {
           output_tier?: string | null
           provenance?: Json
           run_id?: string | null
+          space_id?: string
           summary?: string | null
           thread_id?: string
           title?: string
@@ -2043,6 +2071,54 @@ export type Database = {
         }
         Relationships: []
       }
+      mission_approvals: {
+        Row: {
+          approval_mode: string
+          approver_email: string
+          comment: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          mission_id: string
+          run_id: string | null
+          session_id: string
+          tenant_id: string
+          token_hash: string
+          vote: string
+          voted_at: string | null
+        }
+        Insert: {
+          approval_mode?: string
+          approver_email: string
+          comment?: string | null
+          created_at?: string
+          expires_at: string
+          id?: string
+          mission_id: string
+          run_id?: string | null
+          session_id: string
+          tenant_id: string
+          token_hash: string
+          vote?: string
+          voted_at?: string | null
+        }
+        Update: {
+          approval_mode?: string
+          approver_email?: string
+          comment?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          mission_id?: string
+          run_id?: string | null
+          session_id?: string
+          tenant_id?: string
+          token_hash?: string
+          vote?: string
+          voted_at?: string | null
+        }
+        Relationships: []
+      }
       mission_messages: {
         Row: {
           content: string
@@ -2098,6 +2174,7 @@ export type Database = {
           latency_ms: number | null
           mission_id: string
           output: Json
+          space_id: string
           started_at: string | null
           status: string
         }
@@ -2111,6 +2188,7 @@ export type Database = {
           latency_ms?: number | null
           mission_id: string
           output?: Json
+          space_id?: string
           started_at?: string | null
           status?: string
         }
@@ -2124,6 +2202,7 @@ export type Database = {
           latency_ms?: number | null
           mission_id?: string
           output?: Json
+          space_id?: string
           started_at?: string | null
           status?: string
         }
@@ -2146,6 +2225,7 @@ export type Database = {
           id: string
           result: string | null
           services: string[]
+          space_id: string
           status: Database["public"]["Enums"]["mission_status"]
           surface: string
           title: string
@@ -2160,6 +2240,7 @@ export type Database = {
           id?: string
           result?: string | null
           services?: string[]
+          space_id?: string
           status?: Database["public"]["Enums"]["mission_status"]
           surface?: string
           title: string
@@ -2174,6 +2255,7 @@ export type Database = {
           id?: string
           result?: string | null
           services?: string[]
+          space_id?: string
           status?: Database["public"]["Enums"]["mission_status"]
           surface?: string
           title?: string
@@ -2256,6 +2338,7 @@ export type Database = {
           id: string
           is_default: boolean
           name: string
+          space_id: string
           style_guide: string | null
           surface: string | null
           system_prompt_addon: string | null
@@ -2271,6 +2354,7 @@ export type Database = {
           id?: string
           is_default?: boolean
           name: string
+          space_id?: string
           style_guide?: string | null
           surface?: string | null
           system_prompt_addon?: string | null
@@ -2286,6 +2370,7 @@ export type Database = {
           id?: string
           is_default?: boolean
           name?: string
+          space_id?: string
           style_guide?: string | null
           surface?: string | null
           system_prompt_addon?: string | null
@@ -2761,6 +2846,7 @@ export type Database = {
           replay_of_run_id: string | null
           request: Json | null
           retry_count: number
+          space_id: string
           started_at: string | null
           status: Database["public"]["Enums"]["run_status"]
           tenant_id: string | null
@@ -2800,6 +2886,7 @@ export type Database = {
           replay_of_run_id?: string | null
           request?: Json | null
           retry_count?: number
+          space_id?: string
           started_at?: string | null
           status?: Database["public"]["Enums"]["run_status"]
           tenant_id?: string | null
@@ -2839,6 +2926,7 @@ export type Database = {
           replay_of_run_id?: string | null
           request?: Json | null
           retry_count?: number
+          space_id?: string
           started_at?: string | null
           status?: Database["public"]["Enums"]["run_status"]
           tenant_id?: string | null
@@ -3056,6 +3144,54 @@ export type Database = {
         }
         Relationships: []
       }
+      simulation_runs: {
+        Row: {
+          asset_id: string | null
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          parent_run_id: string | null
+          reasoning: string | null
+          scenario_input: string
+          scenarios: Json | null
+          status: string
+          tenant_id: string
+          user_id: string
+          variables: Json
+        }
+        Insert: {
+          asset_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          parent_run_id?: string | null
+          reasoning?: string | null
+          scenario_input: string
+          scenarios?: Json | null
+          status: string
+          tenant_id: string
+          user_id: string
+          variables?: Json
+        }
+        Update: {
+          asset_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          parent_run_id?: string | null
+          reasoning?: string | null
+          scenario_input?: string
+          scenarios?: Json | null
+          status?: string
+          tenant_id?: string
+          user_id?: string
+          variables?: Json
+        }
+        Relationships: []
+      }
       skill_versions: {
         Row: {
           changelog: string | null
@@ -3252,6 +3388,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      tenants: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          owner_user_id: string
+          plan: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name?: string
+          owner_user_id: string
+          plan?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          owner_user_id?: string
+          plan?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenants_owner_user_id_fkey"
+            columns: ["owner_user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tools: {
         Row: {
@@ -3692,6 +3863,8 @@ export type Database = {
           id: string
           last_login_at: string | null
           name: string | null
+          primary_tenant_id: string
+          primary_workspace_id: string
           provider: string | null
           provider_account_id: string | null
           role: string
@@ -3705,6 +3878,8 @@ export type Database = {
           id?: string
           last_login_at?: string | null
           name?: string | null
+          primary_tenant_id: string
+          primary_workspace_id: string
           provider?: string | null
           provider_account_id?: string | null
           role?: string
@@ -3718,13 +3893,23 @@ export type Database = {
           id?: string
           last_login_at?: string | null
           name?: string | null
+          primary_tenant_id?: string
+          primary_workspace_id?: string
           provider?: string | null
           provider_account_id?: string | null
           role?: string
           tenant_ids?: string[] | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "users_primary_tenant_id_fkey"
+            columns: ["primary_tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       voice_transcripts: {
         Row: {
@@ -4206,6 +4391,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       dashboard_id: ["cloud"],

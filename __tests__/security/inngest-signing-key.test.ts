@@ -12,7 +12,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 const ORIGINAL_ENV = { ...process.env };
 
 function resetEnv() {
-  delete process.env.NODE_ENV;
+  delete (process.env as Record<string, string | undefined>).NODE_ENV;
   delete process.env.VERCEL_ENV;
   delete process.env.HEARST_ENV;
   delete process.env.INNGEST_SIGNING_KEY;
@@ -36,7 +36,7 @@ describe("F-007 — assertInngestSigningKey", () => {
 
   describe("isProductionLike — OR logic sur 3 vecteurs env", () => {
     it("NODE_ENV=production sans clé → throw", async () => {
-      process.env.NODE_ENV = "production";
+      (process.env as Record<string, string>).NODE_ENV = "production";
       const fn = await freshAssert();
       expect(() => fn()).toThrow(/INNGEST_SIGNING_KEY missing in production/);
     });
@@ -69,7 +69,7 @@ describe("F-007 — assertInngestSigningKey", () => {
   describe("Dev/test mode — warn only", () => {
     it("NODE_ENV=development sans clé → no throw, warn appelé", async () => {
       const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-      process.env.NODE_ENV = "development";
+      (process.env as Record<string, string>).NODE_ENV = "development";
       const fn = await freshAssert();
       expect(() => fn()).not.toThrow();
       expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("INNGEST_SIGNING_KEY missing"));
@@ -84,7 +84,7 @@ describe("F-007 — assertInngestSigningKey", () => {
 
   describe("Clé présente — no-op", () => {
     it("NODE_ENV=production avec clé → no throw", async () => {
-      process.env.NODE_ENV = "production";
+      (process.env as Record<string, string>).NODE_ENV = "production";
       process.env.INNGEST_SIGNING_KEY = "signkey_test_abc123def456";
       const fn = await freshAssert();
       expect(() => fn()).not.toThrow();
@@ -92,7 +92,7 @@ describe("F-007 — assertInngestSigningKey", () => {
 
     it("Dev avec clé → no throw, no warn", async () => {
       const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-      process.env.NODE_ENV = "development";
+      (process.env as Record<string, string>).NODE_ENV = "development";
       process.env.INNGEST_SIGNING_KEY = "signkey_test_abc";
       const fn = await freshAssert();
       expect(() => fn()).not.toThrow();
@@ -103,7 +103,7 @@ describe("F-007 — assertInngestSigningKey", () => {
 
   describe("Idempotency — checked flag", () => {
     it("Second call ne re-throw pas (checked latch)", async () => {
-      process.env.NODE_ENV = "production";
+      (process.env as Record<string, string>).NODE_ENV = "production";
       const fn = await freshAssert();
       expect(() => fn()).toThrow();
       // Second call : flag posé, ne re-throw plus
