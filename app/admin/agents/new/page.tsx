@@ -53,44 +53,44 @@ export default function NewAgentPage() {
 
   return (
     <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
-      <h1 className="mb-8 t-24 font-semibold text-[var(--text)]">Nouvel agent</h1>
+      <h1 className="mb-(--space-8) t-24 font-light text-text">Nouvel agent</h1>
 
       {error && (
-        <div className="mb-(--space-4) admin-callout-danger t-13 text-[var(--danger)]">
+        <div className="mb-(--space-4) rounded-(--radius-md) bg-(--danger)/10 border border-(--danger)/25 p-(--space-4) t-13 text-(--danger)">
           {error}
         </div>
       )}
 
-      <form onSubmit={submit} className="max-w-xl space-y-5">
+      <form onSubmit={submit} className="max-w-xl space-y-(--space-5)">
         {/* Name */}
         <label className="block">
-          <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
+          <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
             Nom
           </span>
           <input
             required
             value={form.name}
             onChange={(e) => set("name", e.target.value)}
-            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none focus:border-[var(--accent-teal)]"
+            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none focus:border-(--accent-teal) transition-colors"
           />
         </label>
 
         {/* Description */}
         <label className="block">
-          <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
+          <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
             Description
           </span>
           <input
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
-            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none focus:border-[var(--accent-teal)]"
+            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none focus:border-(--accent-teal) transition-colors"
           />
         </label>
 
         {/* Provider + Model */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-(--space-4)">
           <label className="block">
-            <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
+            <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
               Provider
             </span>
             <select
@@ -100,7 +100,7 @@ export default function NewAgentPage() {
                 set("model_provider", prov);
                 set("model_name", defaultModels[prov]?.[0] ?? "");
               }}
-              className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none"
+              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
             >
               {providers.map((p) => (
                 <option key={p.value} value={p.value}>
@@ -111,13 +111,13 @@ export default function NewAgentPage() {
           </label>
 
           <label className="block">
-            <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
+            <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
               Modèle
             </span>
             <select
               value={form.model_name}
               onChange={(e) => set("model_name", e.target.value)}
-              className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none"
+              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
             >
               {(defaultModels[form.model_provider] ?? []).map((m) => (
                 <option key={m} value={m}>
@@ -130,23 +130,23 @@ export default function NewAgentPage() {
 
         {/* System Prompt */}
         <label className="block">
-          <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
+          <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
             System Prompt
           </span>
           <textarea
             rows={6}
             value={form.system_prompt}
             onChange={(e) => set("system_prompt", e.target.value)}
-            className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 font-mono t-13 text-[var(--text)] outline-none focus:border-[var(--accent-teal)]"
+            className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) font-mono t-13 text-text outline-none focus:border-(--accent-teal) transition-colors"
             placeholder="Tu es un assistant expert en..."
           />
         </label>
 
         {/* Temperature + Max tokens */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-(--space-4)">
           <label className="block">
-            <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
-              Temperature ({form.temperature})
+            <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              Température ({form.temperature})
             </span>
             <input
               type="range"
@@ -160,7 +160,7 @@ export default function NewAgentPage() {
           </label>
 
           <label className="block">
-            <span className="mb-1 block t-9 font-medium text-[var(--text-muted)]">
+            <span className="mb-(--space-1) block t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
               Max tokens
             </span>
             <input
@@ -169,7 +169,7 @@ export default function NewAgentPage() {
               max={128000}
               value={form.max_tokens}
               onChange={(e) => set("max_tokens", parseInt(e.target.value, 10))}
-              className="w-full rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-soft)] px-3 py-2 t-13 text-[var(--text)] outline-none"
+              className="w-full rounded-(--radius-md) border border-(--border-input) bg-(--bg-soft) px-(--space-3) py-(--space-2) t-13 text-text outline-none transition-colors"
             />
           </label>
         </div>
@@ -177,7 +177,7 @@ export default function NewAgentPage() {
         <button
           type="submit"
           disabled={saving}
-          className="ghost-btn-solid ghost-btn-accent-teal rounded-(--radius-sm) px-6 py-2.5 t-13 disabled:opacity-50"
+          className="t-12 font-medium px-(--space-6) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors disabled:opacity-50"
         >
           {saving ? "Création..." : "Créer l'agent"}
         </button>

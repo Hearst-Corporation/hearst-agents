@@ -297,6 +297,20 @@
   --color-info-bg: rgba(59, 130, 246, 0.10);
   --color-info-border: rgba(59, 130, 246, 0.20);
 
+  /* ─── Glow status — warn / danger / success (miroir de --glow-cyan-*) ─── */
+  --glow-warn-sm:    0 0 30px rgba(255, 204, 0, 0.10);
+  --glow-warn-md:    0 0 60px rgba(255, 204, 0, 0.15);
+  --glow-danger-sm:  0 0 30px rgba(255, 51, 51, 0.10);
+  --glow-danger-md:  0 0 60px rgba(255, 51, 51, 0.15);
+  --glow-success-sm: 0 0 30px rgba(45, 197, 88, 0.10);
+  --glow-success-md: 0 0 60px rgba(45, 197, 88, 0.15);
+
+  /* ─── Page layout — padding canoniques ─────────────────────────── */
+  --page-padding-x: var(--space-8);   /* padding horizontal standard des pages admin */
+  --page-padding-y: var(--space-8);   /* padding vertical standard des pages admin */
+  --card-padding:   var(--space-4);   /* padding interne standard des cartes */
+  --section-gap:    var(--space-8);   /* gap vertical entre sections d'une page */
+
 }
 
 /* ─── Cockpit Poster — typo éditoriale ────────────────────────────

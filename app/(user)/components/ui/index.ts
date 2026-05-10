@@ -6,6 +6,8 @@
  */
 
 export { Action } from "./Action";
+export { Badge } from "./Badge";
+export type { BadgeTone, BadgeSize } from "./Badge";
 export type { ActionVariant, ActionTone, ActionSize } from "./Action";
 
 export { SectionHeader } from "./SectionHeader";

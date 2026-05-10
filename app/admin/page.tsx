@@ -183,7 +183,7 @@ export default async function AdminHomePage() {
 
 function Kpi({ label, value, danger }: { label: string; value: string; danger?: boolean }) {
   return (
-    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
+    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-2)">
       <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{label}</span>
       <span className={`t-24 font-light ${danger ? "text-(--danger)" : "text-text"}`}>{value}</span>
     </div>

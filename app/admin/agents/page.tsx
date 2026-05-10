@@ -37,18 +37,11 @@ export default async function AgentsPage() {
 
   return (
     <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <p className="t-9 font-medium uppercase tracking-(--tracking-brand) text-[var(--text-muted)]">
-            Hearst
-          </p>
-          <h1 className="t-28 font-semibold tracking-(--tracking-tight) text-[var(--text)]">
-            Agents
-          </h1>
-        </div>
+      <div className="mb-(--space-8) flex items-center justify-between">
+        <h1 className="t-24 font-light text-text">Agents</h1>
         <Link
           href="/admin/agents/new"
-          className="ghost-btn-solid ghost-btn-accent-teal rounded-(--radius-sm) px-4 py-2 t-13"
+          className="t-12 font-medium px-(--space-4) py-(--space-2) rounded-(--radius-sm) border border-(--accent-teal)/50 bg-(--accent-teal)/10 text-(--accent-teal) hover:bg-(--accent-teal)/15 transition-colors"
         >
           + Nouvel agent
         </Link>
@@ -69,7 +62,7 @@ export default async function AgentsPage() {
           seedResource="agents"
         />
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-(--space-4) md:grid-cols-2 lg:grid-cols-3">
           {agents.map((a) => (
             <AgentCard key={a.id} agent={a} />
           ))}

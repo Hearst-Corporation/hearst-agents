@@ -85,10 +85,10 @@ function KpiCard({
           : "text-text";
 
   return (
-    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-2)">
-      <span className="t-10 text-text-ghost uppercase tracking-(--tracking-stretch)">{label}</span>
+    <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
+      <span className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{label}</span>
       <span className={`t-24 font-light ${accentClass}`}>{value}</span>
-      {sub && <span className="t-10 text-text-faint">{sub}</span>}
+      {sub && <span className="t-10 text-text-ghost">{sub}</span>}
     </div>
   );
 }
@@ -103,7 +103,7 @@ function CircuitBadge({ state }: { state: CircuitState }) {
 
   return (
     <span
-      className={`t-10 px-(--space-2) py-[2px] rounded-pill font-medium uppercase ${cls}`}
+      className={`t-10 px-(--space-2) rounded-pill font-medium uppercase ${cls}`}
     >
       {state}
     </span>
@@ -117,7 +117,7 @@ function WebhookStatusBadge({ status }: { status: "success" | "failed" | undefin
       ? "bg-(--accent-teal)/15 text-(--accent-teal)"
       : "bg-(--danger)/15 text-(--danger)";
   return (
-    <span className={`t-10 px-(--space-2) py-[2px] rounded-pill font-medium uppercase ${cls}`}>
+    <span className={`t-10 px-(--space-2) rounded-pill font-medium uppercase ${cls}`}>
       {status}
     </span>
   );
@@ -274,7 +274,7 @@ export default function MetricsPage() {
 
           {/* ── Section 1 : KPIs LLM ─────────────────────────── */}
           <section>
-            <h2 className="t-13 text-text-muted uppercase tracking-(--tracking-stretch) mb-(--space-4)">
+            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
               LLM — Vue globale
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4)">
@@ -310,7 +310,7 @@ export default function MetricsPage() {
 
           {/* ── Section 2 : Compteurs ────────────────────────── */}
           <section>
-            <h2 className="t-13 text-text-muted uppercase tracking-(--tracking-stretch) mb-(--space-4)">
+            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
               Compteurs
             </h2>
             <div className="grid grid-cols-3 gap-(--space-4)">
@@ -335,7 +335,7 @@ export default function MetricsPage() {
           {/* ── Section 3 : Latences par provider ───────────── */}
           {snapshot.providers.length > 0 && (
             <section>
-              <h2 className="t-13 text-text-muted uppercase tracking-(--tracking-stretch) mb-(--space-4)">
+              <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
                 Latences par provider (ms)
               </h2>
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
@@ -366,7 +366,7 @@ export default function MetricsPage() {
           {/* ── Section 4 : Coûts par provider ──────────────── */}
           {snapshot.providers.length > 0 && (
             <section>
-              <h2 className="t-13 text-text-muted uppercase tracking-(--tracking-stretch) mb-(--space-4)">
+              <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
                 Coûts par provider (USD)
               </h2>
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
@@ -396,7 +396,7 @@ export default function MetricsPage() {
 
           {/* ── Section 5 : Circuit Breaker ──────────────────── */}
           <section>
-            <h2 className="t-13 text-text-muted uppercase tracking-(--tracking-stretch) mb-(--space-4)">
+            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
               Circuit Breaker — État par provider
             </h2>
             {circuitEntries.length === 0 ? (
@@ -428,7 +428,7 @@ export default function MetricsPage() {
 
           {/* ── Section 6 : Webhooks ─────────────────────────── */}
           <section>
-            <h2 className="t-13 text-text-muted uppercase tracking-(--tracking-stretch) mb-(--space-4)">
+            <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint mb-(--space-4)">
               Webhooks custom
             </h2>
             {webhooks.length === 0 ? (
@@ -472,7 +472,7 @@ export default function MetricsPage() {
                       <button
                         onClick={() => handleTestWebhook(wh.id)}
                         disabled={testingWebhook === wh.id}
-                        className="t-10 px-(--space-3) py-[2px] rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-40"
+                        className="t-10 px-(--space-3) py-(--space-1) rounded-(--radius-sm) border border-(--border-shell) text-text-muted hover:text-text hover:border-(--accent-teal)/40 transition-colors disabled:opacity-40"
                       >
                         {testingWebhook === wh.id ? "…" : "Tester"}
                       </button>

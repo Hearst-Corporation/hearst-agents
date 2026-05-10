@@ -59,14 +59,9 @@ export default async function RunsPage() {
 
   return (
     <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
-      <div className="mb-8">
-        <p className="t-9 font-medium uppercase tracking-(--tracking-brand) text-[var(--text-muted)]">
-          Hearst
-        </p>
-        <h1 className="t-28 font-semibold tracking-(--tracking-tight) text-[var(--text)]">
-          Runs
-        </h1>
-        <p className="mt-1 t-13 text-[var(--text-muted)]">
+      <div className="mb-(--space-8)">
+        <h1 className="t-24 font-light text-text">Runs</h1>
+        <p className="mt-(--space-1) t-13 text-text-muted">
           Chaque exécution, chaque trace, chaque token.
         </p>
       </div>
@@ -80,37 +75,37 @@ export default async function RunsPage() {
       {runs.length === 0 && !error ? (
         <p className="t-13 text-[var(--text-muted)]">Aucun run enregistré. Lancez un chat ou un workflow.</p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-(--space-2)">
           {runs.map((run) => (
             <Link
               key={run.id}
               href={`/admin/runs/${run.id}`}
-              className="flex items-center justify-between rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-4 transition-colors hover:border-[var(--line-strong)]"
+              className="flex items-center justify-between rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-4) transition-colors hover:border-(--accent-teal-border-hover) hover:bg-(--surface-1)"
             >
-              <div className="flex items-center gap-4">
-                <span className="rounded-(--radius-md) border border-[var(--line-strong)] px-2 py-0.5 t-10 font-medium text-[var(--text-muted)]">
+              <div className="flex items-center gap-(--space-4)">
+                <span className="rounded-(--radius-xs) border border-(--border-shell) px-(--space-2) py-(--space-1) t-10 font-medium text-text-muted">
                   {kindLabel[run.kind] ?? run.kind}
                 </span>
-                <span className={`t-9 font-medium ${statusColor[run.status] ?? "text-[var(--text-muted)]"}`}>
+                <span className={`t-9 font-medium ${statusColor[run.status] ?? "text-text-muted"}`}>
                   {run.status}
                 </span>
                 {run.agents && (
-                  <span className="t-9 text-[var(--text-muted)]">{run.agents.name}</span>
+                  <span className="t-9 text-text-muted">{run.agents.name}</span>
                 )}
                 {run.error && (
-                  <span className="max-w-[var(--width-admin-code-clip)] truncate t-9 text-[var(--danger)]/80">
+                  <span className="max-w-[var(--width-admin-code-clip)] truncate t-9 text-(--danger)/80">
                     {run.error}
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-6 t-9 text-[var(--text-muted)]">
+              <div className="flex items-center gap-(--space-6) t-9 text-text-muted">
                 {run.tokens_in > 0 && (
                   <span>{run.tokens_in + run.tokens_out} tok</span>
                 )}
                 {run.latency_ms != null && run.latency_ms > 0 && (
                   <span>{run.latency_ms}ms</span>
                 )}
-                <span className="w-32 text-right">
+                <span className="text-right font-mono" style={{ minWidth: "var(--space-32)" }}>
                   {new Date(run.created_at).toLocaleString("fr-FR", {
                     day: "2-digit",
                     month: "short",

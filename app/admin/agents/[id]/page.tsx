@@ -85,86 +85,86 @@ export default async function AgentDetailPage({ params }: Props) {
   return (
     <div className="px-(--space-8) py-(--space-10) h-full overflow-y-auto">
       {/* Header */}
-      <div className="mb-6 flex items-start justify-between">
+      <div className="mb-(--space-6) flex items-start justify-between">
         <div>
-          <div className="mb-1 flex items-center gap-2">
-            <span className={`h-2.5 w-2.5 rounded-pill ${statusDot[agent.status] ?? "bg-[var(--text-muted)]"}`} />
-            <h1 className="t-24 font-semibold text-[var(--text)]">{agent.name}</h1>
+          <div className="mb-(--space-1) flex items-center gap-(--space-3)">
+            <span className={`size-(--space-2) rounded-pill ${statusDot[agent.status] ?? "bg-text-muted"}`} />
+            <h1 className="t-24 font-light text-text">{agent.name}</h1>
           </div>
           {agent.description && (
-            <p className="mt-1 max-w-xl t-13 text-[var(--text-muted)]">{agent.description}</p>
+            <p className="mt-(--space-1) max-w-xl t-13 text-text-muted">{agent.description}</p>
           )}
-          <div className="mt-2 flex items-center gap-3">
+          <div className="mt-(--space-2) flex items-center gap-(--space-3)">
             <ModelBadge provider={agent.model_provider} model={agent.model_name} />
-            <span className="t-10 font-mono text-[var(--text-muted)]">v{agent.version}</span>
+            <span className="t-10 font-mono text-text-muted">v{agent.version}</span>
           </div>
         </div>
       </div>
 
       {/* Agent stats */}
-      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="mb-(--space-8) grid grid-cols-2 gap-(--space-3) sm:grid-cols-5">
         {[
           { label: "Runs", value: runs.length },
           { label: "Conversations", value: totalConversations },
           { label: "Tokens", value: totalTokens > 1000 ? `${(totalTokens / 1000).toFixed(1)}k` : totalTokens },
           { label: "Coût", value: `$${totalCost.toFixed(4)}` },
-          { label: "Succès", value: `${successRate}%`, sub: `avg ${avgLatency}ms` },
+          { label: "Succès", value: `${successRate}%`, sub: `moy. ${avgLatency}ms` },
         ].map((s) => (
-          <div key={s.label} className="rounded-(--radius-lg) border border-[var(--line-strong)] bg-[var(--bg-elev)] px-4 py-3">
-            <p className="t-10 font-medium uppercase text-[var(--text-muted)]">{s.label}</p>
-            <p className="mt-0.5 t-18 font-semibold text-[var(--text)]">{s.value}</p>
-            {s.sub && <p className="t-10 text-[var(--text-muted)]">{s.sub}</p>}
+          <div key={s.label} className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) px-(--space-4) py-(--space-3)">
+            <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{s.label}</p>
+            <p className="mt-(--space-1) t-18 font-light text-text">{s.value}</p>
+            {s.sub && <p className="t-10 text-text-ghost">{s.sub}</p>}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-(--space-8) lg:grid-cols-2">
         {/* Left: Chat */}
         <div>
-          <h2 className="mb-3 t-10 font-semibold uppercase tracking-(--tracking-wide) text-[var(--text-muted)]">Chat</h2>
+          <h2 className="mb-(--space-3) t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Chat</h2>
           <ChatWindow agentId={id} />
         </div>
 
         {/* Right: Details */}
-        <div className="space-y-5">
+        <div className="space-y-(--space-5)">
           {/* System prompt */}
-          <div className="rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-5">
-            <h3 className="mb-2 t-9 font-semibold uppercase text-[var(--text-muted)]">System Prompt</h3>
-            <pre className="max-h-32 overflow-y-auto whitespace-pre-wrap font-mono t-9 leading-relaxed text-[var(--text-soft)]">
+          <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">System Prompt</h3>
+            <pre className="max-h-32 overflow-y-auto whitespace-pre-wrap font-mono t-9 leading-relaxed text-text-soft">
               {agent.system_prompt || "—"}
             </pre>
           </div>
 
           {/* Config */}
-          <div className="rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-5">
-            <h3 className="mb-2 t-9 font-semibold uppercase text-[var(--text-muted)]">Config</h3>
-            <div className="grid grid-cols-3 gap-2 t-9">
+          <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Config</h3>
+            <div className="grid grid-cols-3 gap-(--space-2) t-9">
               <div>
-                <span className="text-[var(--text-muted)]">Temperature</span>
-                <p className="text-[var(--text-soft)]">{agent.temperature}</p>
+                <span className="text-text-muted">Température</span>
+                <p className="text-text-soft">{agent.temperature}</p>
               </div>
               <div>
-                <span className="text-[var(--text-muted)]">Max tokens</span>
-                <p className="text-[var(--text-soft)]">{agent.max_tokens}</p>
+                <span className="text-text-muted">Max tokens</span>
+                <p className="text-text-soft">{agent.max_tokens}</p>
               </div>
               <div>
-                <span className="text-[var(--text-muted)]">Top P</span>
-                <p className="text-[var(--text-soft)]">{agent.top_p}</p>
+                <span className="text-text-muted">Top P</span>
+                <p className="text-text-soft">{agent.top_p}</p>
               </div>
             </div>
           </div>
 
           {/* Skills */}
-          <div className="rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-5">
-            <h3 className="mb-2 t-9 font-semibold uppercase text-[var(--text-muted)]">Skills</h3>
+          <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Skills</h3>
             {skills.length === 0 ? (
-              <p className="t-9 text-[var(--text-muted)]">Aucun skill attribué.</p>
+              <p className="t-9 text-text-ghost">Aucun skill attribué.</p>
             ) : (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-(--space-2)">
                 {skills.map((s) => {
                   const skill = s.skills as unknown as { id: string; name: string; category: string } | null;
                   return skill ? (
-                    <span key={skill.id} className="rounded-pill border border-[var(--line-strong)] px-2.5 py-0.5 t-10 font-medium text-[var(--text-muted)]">
+                    <span key={skill.id} className="rounded-pill border border-(--border-shell) px-(--space-2) py-(--space-1) t-10 font-medium text-text-muted">
                       {skill.name}
                     </span>
                   ) : null;
@@ -174,18 +174,18 @@ export default async function AgentDetailPage({ params }: Props) {
           </div>
 
           {/* Memory */}
-          <div className="rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-5">
-            <h3 className="mb-2 t-9 font-semibold uppercase text-[var(--text-muted)]">Memory</h3>
+          <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Mémoire</h3>
             {memories.length === 0 ? (
-              <p className="t-9 text-[var(--text-muted)]">Aucune mémoire.</p>
+              <p className="t-9 text-text-ghost">Aucune mémoire.</p>
             ) : (
-              <ul className="space-y-1 t-9 text-[var(--text-soft)]">
+              <ul className="space-y-(--space-1) t-9 text-text-soft">
                 {memories.map((m) => (
-                  <li key={m.id} className="flex justify-between gap-2">
+                  <li key={m.id} className="flex justify-between gap-(--space-2)">
                     <span className="truncate">
-                      <span className="text-[var(--text-muted)]">{m.key}:</span> {m.value}
+                      <span className="text-text-muted">{m.key}:</span> {m.value}
                     </span>
-                    <span className="shrink-0 text-[var(--text-muted)]">{(m.importance * 100).toFixed(0)}%</span>
+                    <span className="shrink-0 text-text-muted">{(m.importance * 100).toFixed(0)}%</span>
                   </li>
                 ))}
               </ul>
@@ -193,24 +193,24 @@ export default async function AgentDetailPage({ params }: Props) {
           </div>
 
           {/* Recent runs */}
-          <div className="rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-5">
-            <div className="mb-2 flex items-center justify-between">
-              <h3 className="t-9 font-semibold uppercase text-[var(--text-muted)]">Runs récents</h3>
-              <Link href={`/admin/runs?agent_id=${id}`} className="t-10 text-[var(--text-muted)] hover:text-[var(--text-muted)]">
+          <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
+            <div className="mb-(--space-2) flex items-center justify-between">
+              <h3 className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Runs récents</h3>
+              <Link href={`/admin/runs?agent_id=${id}`} className="t-10 text-text-muted hover:text-text transition-colors">
                 Tout voir →
               </Link>
             </div>
             {runs.length === 0 ? (
-              <p className="t-9 text-[var(--text-muted)]">Aucun run.</p>
+              <p className="t-9 text-text-ghost">Aucun run.</p>
             ) : (
-              <div className="space-y-1">
+              <div className="space-y-(--space-1)">
                 {runs.slice(0, 5).map((r) => (
-                  <Link key={r.id} href={`/admin/runs/${r.id}`} className="flex items-center justify-between rounded-(--radius-md) px-2 py-1 t-9 transition-colors hover:bg-[var(--bg-soft)]">
-                    <div className="flex items-center gap-2">
-                      <span className={`h-1.5 w-1.5 rounded-pill ${r.status === "completed" ? "bg-[var(--money)]" : r.status === "failed" ? "bg-[var(--danger)]" : "bg-[var(--text-muted)]"}`} />
-                      <span className="text-[var(--text-muted)]">{r.kind}</span>
+                  <Link key={r.id} href={`/admin/runs/${r.id}`} className="flex items-center justify-between rounded-(--radius-sm) px-(--space-2) py-(--space-1) t-9 transition-colors hover:bg-(--surface-1)">
+                    <div className="flex items-center gap-(--space-2)">
+                      <span className={`size-(--space-2) rounded-pill ${r.status === "completed" ? "bg-(--money)" : r.status === "failed" ? "bg-(--danger)" : "bg-text-muted"}`} />
+                      <span className="text-text-muted">{r.kind}</span>
                     </div>
-                    <span className="text-[var(--text-muted)]">
+                    <span className="text-text-muted font-mono">
                       {new Date(r.created_at).toLocaleString("fr-FR", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "short" })}
                     </span>
                   </Link>
@@ -220,21 +220,21 @@ export default async function AgentDetailPage({ params }: Props) {
           </div>
 
           {/* Evaluations */}
-          <div className="rounded-(--radius-sm) border border-[var(--line-strong)] bg-[var(--bg-elev)] p-5">
-            <h3 className="mb-2 t-9 font-semibold uppercase text-[var(--text-muted)]">Evaluations</h3>
+          <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Évaluations</h3>
             {evals.length === 0 ? (
-              <p className="t-9 text-[var(--text-muted)]">Aucune évaluation.</p>
+              <p className="t-9 text-text-ghost">Aucune évaluation.</p>
             ) : (
-              <ul className="space-y-1 t-9 text-[var(--text-soft)]">
+              <ul className="space-y-(--space-1) t-9 text-text-soft">
                 {evals.map((ev) => (
-                  <li key={ev.id} className="flex justify-between gap-2">
+                  <li key={ev.id} className="flex justify-between gap-(--space-2)">
                     <span>
                       {ev.eval_type}{" "}
-                      <span className={ev.passed ? "text-[var(--money)]" : "text-[var(--danger)]"}>
-                        {ev.passed ? "PASS" : "FAIL"}
+                      <span className={ev.passed ? "text-(--money)" : "text-(--danger)"}>
+                        {ev.passed ? "Réussi" : "Échoué"}
                       </span>
                     </span>
-                    <span className="text-[var(--text-muted)]">{(ev.score * 100).toFixed(0)}%</span>
+                    <span className="text-text-muted">{(ev.score * 100).toFixed(0)}%</span>
                   </li>
                 ))}
               </ul>
