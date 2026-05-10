@@ -1623,7 +1623,12 @@
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
-      "evidence": [{ "file": "(grep)", "note": "revalidateTag, unstable_cache, next:{revalidate} = 0 résultat" }],
+      "evidence": [
+        {
+          "file": "(grep)",
+          "note": "revalidateTag, unstable_cache, next:{revalidate} = 0 résultat"
+        }
+      ],
       "attack_scenario": "0 cache, 158 routes API. Chaque navigation = nouveau hit DB et LLM. 24 pages admin en force-dynamic.",
       "production_impact": "Coût DB explosif, latence pages, factures Anthropic gonflées.",
       "fix_minimal": "Tagger fetches lecture froide avec next:{tags:['cockpit:${userId}'], revalidate:60}.",
@@ -1717,7 +1722,10 @@
       "claude_refs": [],
       "codex_refs": [],
       "evidence": [
-        { "file": "(madge)", "note": "chat/Block↔BlockActions, cockpit/agenda-live↔today, composio/connections↔discovery, platform/settings↔settings/system, providers/registry↔types" }
+        {
+          "file": "(madge)",
+          "note": "chat/Block↔BlockActions, cockpit/agenda-live↔today, composio/connections↔discovery, platform/settings↔settings/system, providers/registry↔types"
+        }
       ],
       "attack_scenario": "Le #4 (settings) est dangereux : selon ordre d'init des modules, undefined runtime possible — bug intermittent.",
       "production_impact": "Crashes intermittents, comportements incohérents en prod.",
@@ -2087,7 +2095,9 @@
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
-      "evidence": [{ "file": "supabase/migrations/", "note": "table runs sans append-only constraint" }],
+      "evidence": [
+        { "file": "supabase/migrations/", "note": "table runs sans append-only constraint" }
+      ],
       "attack_scenario": "Admin compromis → DELETE FROM runs efface trace forensic. Aucun WORM, aucune signature, pas de Sentry breadcrumbs structurés.",
       "fix_minimal": "Trigger Postgres prevent DELETE/UPDATE sur runs + Sentry tag 'security_event' sur login/logout/role-change.",
       "fix_ideal": "Append-only audit log séparé + signed entries (HMAC + chain).",
@@ -2150,15 +2160,43 @@
       "codex_refs": [],
       "evidence": [
         { "file": "lib/llm/router.ts", "line": 73, "note": "jitter base*0.2" },
-        { "file": "lib/llm/anthropic.ts", "line": 262, "note": "max_tokens 4096 (Sonnet supporte 8192)" },
+        {
+          "file": "lib/llm/anthropic.ts",
+          "line": 262,
+          "note": "max_tokens 4096 (Sonnet supporte 8192)"
+        },
         { "file": "lib/llm/anthropic.ts", "line": 304, "note": "auto-cache 500 chars" },
         { "file": "lib/llm/circuit-breaker.ts", "line": 11, "note": "failureThreshold 5" },
-        { "file": "lib/llm/circuit-breaker.ts", "line": 12, "note": "resetWindowMs 60000 (1min trop court)" },
-        { "file": "lib/llm/rate-limiter.ts", "lines": "56-58", "note": "seuils 5/1000/1000ms triviaux" },
-        { "file": "lib/engine/orchestrator/ai-pipeline.ts", "line": 733, "note": "stopWhen stepCountIs(10)" },
-        { "file": "lib/engine/orchestrator/ai-pipeline.ts", "line": 738, "note": "maxOutputTokens 8000 vs MAX_STREAMING_TOKENS 10000 incohérent" },
-        { "file": "lib/engine/orchestrator/ai-pipeline.ts", "line": 759, "note": "LOOP_ABORT_THRESHOLD 3" },
-        { "file": "lib/browser/agent-loop.ts", "line": 449, "note": "max_tokens 1024 trop bas pour tool-use" }
+        {
+          "file": "lib/llm/circuit-breaker.ts",
+          "line": 12,
+          "note": "resetWindowMs 60000 (1min trop court)"
+        },
+        {
+          "file": "lib/llm/rate-limiter.ts",
+          "lines": "56-58",
+          "note": "seuils 5/1000/1000ms triviaux"
+        },
+        {
+          "file": "lib/engine/orchestrator/ai-pipeline.ts",
+          "line": 733,
+          "note": "stopWhen stepCountIs(10)"
+        },
+        {
+          "file": "lib/engine/orchestrator/ai-pipeline.ts",
+          "line": 738,
+          "note": "maxOutputTokens 8000 vs MAX_STREAMING_TOKENS 10000 incohérent"
+        },
+        {
+          "file": "lib/engine/orchestrator/ai-pipeline.ts",
+          "line": 759,
+          "note": "LOOP_ABORT_THRESHOLD 3"
+        },
+        {
+          "file": "lib/browser/agent-loop.ts",
+          "line": 449,
+          "note": "max_tokens 1024 trop bas pour tool-use"
+        }
       ],
       "fix_minimal": "Externaliser vers lib/llm/config.ts + env-overridable.",
       "estimated_effort": "2h",
@@ -2197,7 +2235,9 @@
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
-      "evidence": [{ "file": "lib/engine/orchestrator/ai-pipeline.ts", "note": "1114 lignes, 20 console.*" }],
+      "evidence": [
+        { "file": "lib/engine/orchestrator/ai-pipeline.ts", "note": "1114 lignes, 20 console.*" }
+      ],
       "fix_minimal": "Splitter en modules : tool-builder, prompt-assembler, stream-handler, telemetry. Console → logger.",
       "estimated_effort": "1-2j",
       "lifecycle": [
@@ -2216,7 +2256,9 @@
       "convergence": "exclusive_post_master",
       "claude_refs": [],
       "codex_refs": [],
-      "evidence": [{ "file": "(648 occurrences)", "note": "top : scheduler.ts:22, ai-pipeline.ts:20" }],
+      "evidence": [
+        { "file": "(648 occurrences)", "note": "top : scheduler.ts:22, ai-pipeline.ts:20" }
+      ],
       "fix_minimal": "Migration progressive console.* → logger.* (pino) sur top 10 fichiers.",
       "estimated_effort": "1 sem",
       "lifecycle": [
@@ -2256,8 +2298,14 @@
       "codex_refs": [],
       "evidence": [
         { "file": "components/spatial/", "note": "12 fichiers v1 morts (pivot spatial-v2/)" },
-        { "file": "(7 composants cockpit morts)", "note": "AgentWorking, CockpitHeader, CockpitHome, MissionBudgetBadge, MorningBriefing, TodayAgenda, WhenYouHave5Min" },
-        { "file": "lib/engine/runtime/", "note": "replay.ts, tool-executor.ts, workflow-engine.ts obsolètes" },
+        {
+          "file": "(7 composants cockpit morts)",
+          "note": "AgentWorking, CockpitHeader, CockpitHome, MissionBudgetBadge, MorningBriefing, TodayAgenda, WhenYouHave5Min"
+        },
+        {
+          "file": "lib/engine/runtime/",
+          "note": "replay.ts, tool-executor.ts, workflow-engine.ts obsolètes"
+        },
         { "file": "test_orb.js" },
         { "file": "update_css.sh" },
         { "file": "(4 PNG QA)", "note": "racine repo" },
@@ -2325,7 +2373,12 @@
       "blind_spot_note": "MAJEUR — manqué par les 3 sources précédentes. Combiné à CRIT-03 (open enrollment) = open prod tenant.",
       "lifecycle": [
         { "ts": "2026-05-10", "actor": "post-master-adv", "action": "discovered" },
-        { "ts": "2026-05-11", "actor": "orchestrator", "action": "consolidated", "note": "CRITIQUE — invalide la majorité des findings IDOR puisque le scope tenant est cosmétique" }
+        {
+          "ts": "2026-05-11",
+          "actor": "orchestrator",
+          "action": "consolidated",
+          "note": "CRITIQUE — invalide la majorité des findings IDOR puisque le scope tenant est cosmétique"
+        }
       ]
     },
     {
@@ -2421,9 +2474,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["DANG-02"],
-      "evidence": [
-        { "file": "app/api/agents/[id]/chat/route.ts", "lines": "189-192" }
-      ],
+      "evidence": [{ "file": "app/api/agents/[id]/chat/route.ts", "lines": "189-192" }],
       "attack_scenario": "streamErr.message JSON.stringify dans la trame SSE. Les erreurs SDK Anthropic/OpenAI exposent IDs de requête, noms internes de modèles, fragments du body de réponse non passés par sanitizeProviderError.",
       "fix_minimal": "sanitizeClientError(err) mappant vers strings génériques (provider_error/timeout/cost_limit).",
       "estimated_effort": "30 min",
@@ -2444,9 +2495,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["DANG-07"],
-      "evidence": [
-        { "file": "app/api/agents/[id]/memory/govern/route.ts", "lines": "9-32" }
-      ],
+      "evidence": [{ "file": "app/api/agents/[id]/memory/govern/route.ts", "lines": "9-32" }],
       "attack_scenario": "requireScope seul, pas d'ownership ; combiné à CRIT-01 (F-094) → poison la mémoire d'un agent puis trim chirurgical pour ne laisser que l'entrée poisonnée.",
       "fix_minimal": "Vérifier agent.owner_user_id === scope.userId ou role admin.",
       "estimated_effort": "30 min",
@@ -2515,9 +2564,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["DANG-12"],
-      "evidence": [
-        { "file": "lib/browser/agent-loop.ts", "lines": "289-298" }
-      ],
+      "evidence": [{ "file": "lib/browser/agent-loop.ts", "lines": "289-298" }],
       "attack_scenario": "Check ^https?:// seul → accepte 169.254.169.254. Risque réel dépend de l'egress Browserbase ; deviendrait critique en cas de migration in-VPC.",
       "fix_minimal": "Allowlist scheme/host, reject RFC1918/link-local explicitement.",
       "estimated_effort": "1h",
@@ -2586,9 +2633,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["DANG-17"],
-      "evidence": [
-        { "file": "lib/agent-lock/index.ts", "lines": "1-52" }
-      ],
+      "evidence": [{ "file": "lib/agent-lock/index.ts", "lines": "1-52" }],
       "attack_scenario": "fs.writeFileSync(process.cwd()/docs/AGENT-LOCK.json) ; FS Vercel read-only ou éphémère par lambda. Toggle ne persiste pas.",
       "production_impact": "Gouvernance ADD inopérante en prod. Le verrou ne tient pas entre invocations.",
       "fix_minimal": "State dans Supabase ou Upstash Redis avec optimistic concurrency.",
@@ -2634,9 +2679,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-02"],
-      "evidence": [
-        { "file": "lib/llm/circuit-breaker.ts", "line": 77 }
-      ],
+      "evidence": [{ "file": "lib/llm/circuit-breaker.ts", "line": 77 }],
       "attack_scenario": "5 erreurs (4 par requête via retry) trippent le breaker pour TOUS les users, 60s d'OPEN. Un user attaquant peut DoS tous les autres.",
       "fix_minimal": "Attribuer par caller (per-tenant ou per-user), exclure 4xx (faute client pas provider).",
       "estimated_effort": "2h",
@@ -2657,9 +2700,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-04"],
-      "evidence": [
-        { "file": "app/api/admin/runs/recent/route.ts" }
-      ],
+      "evidence": [{ "file": "app/api/admin/runs/recent/route.ts" }],
       "fix_minimal": "Drop param userId, défaut scope.userId.",
       "estimated_effort": "15 min",
       "lifecycle": [
@@ -2679,9 +2720,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-05"],
-      "evidence": [
-        { "file": "app/api/admin/features-manifest/route.ts" }
-      ],
+      "evidence": [{ "file": "app/api/admin/features-manifest/route.ts" }],
       "attack_scenario": "Sous requireScope (any auth) → tout user peut spam exec script Node = DoS CPU.",
       "fix_minimal": "requireAdmin + import() direct au lieu de exec.",
       "estimated_effort": "30 min",
@@ -2702,9 +2741,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-08"],
-      "evidence": [
-        { "file": "lib/memory/kg-context.ts" }
-      ],
+      "evidence": [{ "file": "lib/memory/kg-context.ts" }],
       "fix_minimal": "Per-key clear, LRU bounded.",
       "estimated_effort": "1h",
       "lifecycle": [
@@ -2724,9 +2761,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-09"],
-      "evidence": [
-        { "file": "(Hearst Card token routes)" }
-      ],
+      "evidence": [{ "file": "(Hearst Card token routes)" }],
       "fix_minimal": "Persister token + revoked_at, endpoint /revoke.",
       "estimated_effort": "3h",
       "lifecycle": [
@@ -2746,9 +2781,7 @@
       "claude_refs": ["R6 partial"],
       "codex_refs": [],
       "post_adv_refs": ["RISK-10"],
-      "evidence": [
-        { "file": "app/api/agents/[id]/chat/route.ts" }
-      ],
+      "evidence": [{ "file": "app/api/agents/[id]/chat/route.ts" }],
       "fix_minimal": "Reset setTimeout à chaque yield (15s idle).",
       "estimated_effort": "30 min",
       "lifecycle": [
@@ -2768,9 +2801,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-12"],
-      "evidence": [
-        { "file": "lib/memory/kg.ts (searchNodes)" }
-      ],
+      "evidence": [{ "file": "lib/memory/kg.ts (searchNodes)" }],
       "fix_minimal": "pg_trgm GIN index, rate-limit per-user.",
       "estimated_effort": "2h",
       "lifecycle": [
@@ -2790,9 +2821,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["RISK-13"],
-      "evidence": [
-        { "file": "(persona system prompt addon injection)" }
-      ],
+      "evidence": [{ "file": "(persona system prompt addon injection)" }],
       "attack_scenario": "User crée persona avec </persona><system>NEW INSTRUCTIONS</system> → break out de la fence persona vers system prompt.",
       "fix_minimal": "Sanitize avant injection : strip control chars, escape balises, max length enforced.",
       "estimated_effort": "1h",
@@ -2813,10 +2842,7 @@
       "claude_refs": [],
       "codex_refs": [],
       "post_adv_refs": ["SUS-02"],
-      "evidence": [
-        { "file": "scripts/claude-session-start.mjs" },
-        { "file": ".claude/agents/" }
-      ],
+      "evidence": [{ "file": "scripts/claude-session-start.mjs" }, { "file": ".claude/agents/" }],
       "attack_scenario": "Script claude-session-start.mjs ingère description des agents custom .md vers le system prompt local. Si attaquant push une PR modifiant un .md → injection prompt vers tout dev qui clone et lance Claude Code.",
       "production_impact": "Compromise développeurs : prompt injection ciblée via PR.",
       "fix_minimal": "Sanitize description avant injection + CODEOWNERS sur .claude/**.",

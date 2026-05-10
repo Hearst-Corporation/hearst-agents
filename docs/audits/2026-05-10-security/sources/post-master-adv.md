@@ -72,7 +72,7 @@ Body Zod ≤ 50 KB → `Sandbox.runCode` brut. La blacklist `extras-media.ts:71`
 
 Blast: exfil, RCE-équivalent dans le sandbox. Likelihood: haute. Fix: confirmation HMAC obligatoire avant enqueue, profil E2B no-egress, virer la blacklist (faux sens de sécurité).
 
-### CRIT-08 — Composio writes sans gating serveur (_preview est cosmétique)
+### CRIT-08 — Composio writes sans gating serveur (\_preview est cosmétique)
 
 `lib/connectors/composio/client.ts:139-205`, `lib/connectors/composio/write-guard.ts:26-32`
 
@@ -282,6 +282,7 @@ Fix: `.eq("owner_user_id", scope.userId)`.
 ## Ordre de hardening recommandé
 
 **Cette semaine** (1-line fixes ou guards) :
+
 - CRIT-04 (`requireAdmin` agent-lock)
 - DANG-04 (events-stream)
 - DANG-01 (rate-limit chat)
@@ -291,6 +292,7 @@ Fix: `.eq("owner_user_id", scope.userId)`.
 - `.gitignore .env.local`
 
 **Sprint courant** :
+
 - CRIT-10 (Sentry redact + replay mask)
 - CRIT-03 (signIn allowlist)
 - CRIT-08 (Composio confirm token)
@@ -299,6 +301,7 @@ Fix: `.eq("owner_user_id", scope.userId)`.
 - CRIT-07 (E2B confirm + no-egress)
 
 **Trimestre** :
+
 - CRIT-02 (per-user tenant resolution)
 - CRIT-01 + CRIT-12 (vraie RLS sur agent_memory/embeddings/mission_messages avec backfill)
 - CRIT-11 (fence + sanitize tout le pipeline RAG/KG, provenance tagging)

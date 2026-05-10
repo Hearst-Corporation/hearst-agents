@@ -1,0 +1,2744 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>2026-05-10-security — Battle Plan</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  header {
+    padding: 24px 32px 16px;
+    border-bottom: 1px solid #1f1f1f;
+    background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+  }
+  header h1 { margin: 0 0 6px; font-size: 22px; font-weight: 600; }
+  header .objective { color: #aaa; font-size: 13px; margin: 4px 0 8px; }
+  header .meta { color: #666; font-size: 12px; }
+  header .meta a { color: #7ab7ff; text-decoration: none; }
+
+  .progress-section {
+    padding: 16px 32px;
+    border-bottom: 1px solid #1f1f1f;
+    background: #0d0d0d;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .stat-card {
+    background: #131313;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #1f1f1f;
+  }
+  .stat-card .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat-card .value { font-size: 22px; font-weight: 600; margin-top: 4px; }
+  .stat-card .sub { font-size: 11px; color: #666; margin-top: 2px; }
+
+  .progress-bar {
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+    transition: width 0.3s;
+  }
+
+  main { padding: 24px 32px 60px; }
+
+  .phase {
+    margin-bottom: 28px;
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .phase-header {
+    padding: 16px 20px;
+    background: #131313;
+    border-bottom: 1px solid #1f1f1f;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .phase-header:hover { background: #181818; }
+  .phase-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .phase-header .objective {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+  }
+  .phase-header .effort {
+    color: #666;
+    font-size: 12px;
+    font-family: "SF Mono", Monaco, monospace;
+  }
+  .phase-content {
+    padding: 16px 20px;
+    display: block;
+  }
+  .phase-content.hidden { display: none; }
+
+  .phase-objective {
+    color: #aaa;
+    font-size: 13px;
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    background: #131313;
+    border-left: 3px solid #2a4a8c;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .batch {
+    margin-bottom: 14px;
+    background: #131313;
+    border: 1px solid #1f1f1f;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .batch-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .batch-header:hover { background: #181818; }
+  .batch-header .id {
+    font-family: "SF Mono", Monaco, monospace;
+    color: #888;
+    font-size: 12px;
+    min-width: 60px;
+  }
+  .batch-header .title {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .batch-header .effort {
+    color: #888;
+    font-size: 11px;
+    font-family: "SF Mono", Monaco, monospace;
+  }
+  .batch-content {
+    padding: 14px 18px 18px;
+    border-top: 1px solid #1f1f1f;
+    background: #0d0d0d;
+    display: none;
+  }
+  .batch-content.show { display: block; }
+
+  .batch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .batch-block h4 {
+    margin: 0 0 8px;
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .batch-block p, .batch-block ul {
+    margin: 0 0 12px;
+    color: #ccc;
+    font-size: 12px;
+  }
+  .batch-block ul { padding-left: 18px; }
+  .batch-block code {
+    background: #1a1a1a;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 11px;
+    color: #d4a574;
+  }
+
+  .findings-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .findings-list li {
+    background: #1a1a1a;
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .findings-list .fid {
+    font-family: "SF Mono", Monaco, monospace;
+    color: #888;
+    font-size: 11px;
+    min-width: 50px;
+  }
+  .findings-list .ftitle {
+    flex: 1;
+    color: #ccc;
+  }
+  .findings-list .fsev {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .findings-list a {
+    color: #7ab7ff;
+    text-decoration: none;
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  .findings-list a:hover { text-decoration: underline; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .sev-P0 { background: rgba(255, 68, 68, 0.15); color: #ff5555; border: 1px solid rgba(255, 68, 68, 0.3); }
+  .sev-P1 { background: rgba(255, 170, 0, 0.12); color: #ffaa33; border: 1px solid rgba(255, 170, 0, 0.25); }
+  .sev-P2 { background: rgba(255, 215, 0, 0.1); color: #ffdd55; border: 1px solid rgba(255, 215, 0, 0.2); }
+
+  .status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-right: 8px;
+  }
+  .status-pending { background: #2a2a2a; color: #aaa; }
+  .status-in_progress { background: rgba(42, 74, 140, 0.3); color: #7ab7ff; border: 1px solid rgba(42, 74, 140, 0.5); }
+  .status-blocked { background: rgba(140, 60, 60, 0.3); color: #ff8888; border: 1px solid rgba(140, 60, 60, 0.5); }
+  .status-deferred { background: rgba(60, 60, 60, 0.5); color: #888; }
+  .status-done { background: rgba(74, 140, 74, 0.3); color: #4ade80; border: 1px solid rgba(74, 140, 74, 0.5); }
+
+  .blast-warning {
+    background: rgba(255, 68, 68, 0.08);
+    border-left: 3px solid #ff5555;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 12px;
+    color: #ff8888;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .pre-conditions {
+    color: #fbbf24;
+    font-size: 11px;
+    font-family: "SF Mono", Monaco, monospace;
+  }
+
+  .sub-agent-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(123, 97, 255, 0.15);
+    color: #a78bff;
+    border-radius: 3px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 11px;
+    margin-right: 4px;
+  }
+
+  .phase-go-live {
+    background: linear-gradient(135deg, rgba(74, 140, 74, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+    border: 2px solid rgba(74, 140, 74, 0.3);
+  }
+  .phase-go-live .phase-header { background: rgba(74, 140, 74, 0.15); }
+
+  .phase-deferred .phase-header { opacity: 0.7; }
+
+  .toolbar {
+    padding: 12px 32px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #1a1a1a;
+    color: #aaa;
+    font-size: 12px;
+  }
+  .toolbar code {
+    background: #1a1a1a;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #7ab7ff;
+    font-family: "SF Mono", Monaco, monospace;
+  }
+
+  .principles {
+    padding: 12px 16px;
+    background: #131313;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: #aaa;
+    border-left: 3px solid #7ab7ff;
+  }
+  .principles strong { color: #e8e8e8; }
+</style>
+</head>
+<body>
+<header>
+  <h1>2026-05-10-security — 🎯 Battle Plan</h1>
+  <div class="objective">Hearst OS prêt pour go-live multi-user public</div>
+  <div class="meta">
+    Effort estimé : <strong>20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents</strong>
+    · Last updated : 2026-05-11T02:00:00+02:00
+    · Source de vérité findings : <a href="AUDIT-MASTER.html">AUDIT-MASTER.html</a>
+  </div>
+</header>
+
+<section class="progress-section">
+  <div class="stat-card">
+    <div class="label">Total batchs</div>
+    <div class="value">52</div>
+    <div class="sub">à travers 13 phases</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Done</div>
+    <div class="value" style="color:#4ade80;">0</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="stat-card">
+    <div class="label">In progress</div>
+    <div class="value" style="color:#7ab7ff;">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Pending</div>
+    <div class="value">44</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Blocked</div>
+    <div class="value" style="color:#ff8888;">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Deferred (post-go-live)</div>
+    <div class="value" style="color:#888;">8</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Findings tracked</div>
+    <div class="value">125</div>
+    <div class="sub">sur 130 totaux</div>
+  </div>
+</section>
+
+<div class="toolbar">
+  Workflow par batch : <code>1. Lire findings.json</code> → <code>2. Status implementing</code> → <code>3. Implémenter</code> → <code>4. Tests</code> → <code>5. Re-audit (modèle ≠ implémenteur)</code> → <code>6. Validator agent</code> → <code>7. Status done + npm run battle:render</code>
+</div>
+
+<main>
+
+<div class="principles">
+  <strong>Principe d'ordre</strong> : Ordre = dépendances logiques, pas sévérité brute. Foundation d&#039;abord (sinon les fixes IDOR sont cosmétiques tant que F-095/F-096 pas faits). Puis defense in depth. Puis hardening. Phase 11 = post-go-live.
+</div>
+
+
+    <div class="phase  " data-phase-id="P0">
+      <div class="phase-header" onclick="togglePhase('P0')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 0 — Pré-flight — 0/3 batchs</h2>
+          <div class="objective">Débloquer la chaîne CI + foundation env. SANS ÇA on ne peut rien shipper.</div>
+        </div>
+        <span class="effort">1 jour</span>
+      </div>
+      <div class="phase-content" id="phase-P0">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B0.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B0.1</span>
+              <span class="title">Fix CI build (visual lint + design-token test)</span>
+              <span class="effort">1-2h</span>
+            </div>
+            <div class="batch-content" id="batch-B0.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-024</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">CI build cassé (visual lint + design-token test failed) — bloque tout deploy</span>
+                          <a href="AUDIT-MASTER.html#F-024">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">validator</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>npm run validate passe</li><li>npm run build passe</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B0.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B0.2</span>
+              <span class="title">Déps urgentes (lucide-react supply chain + anthropic CVE)</span>
+              <span class="effort">1h</span>
+            </div>
+            <div class="batch-content" id="batch-B0.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-067</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">lucide-react@^1.14.0 — version suspecte, 0 import, supply chain risk</span>
+                          <a href="AUDIT-MASTER.html#F-067">→</a>
+                        </li><li>
+                          <span class="fid">F-057</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">@anthropic-ai/sdk@0.90.0 CVE GHSA-p7fg-763f-g4gf</span>
+                          <a href="AUDIT-MASTER.html#F-057">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B0.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>npm audit clean</li><li>npm run validate</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B0.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B0.3</span>
+              <span class="title">.env.local gitignore + audit secrets</span>
+              <span class="effort">30 min</span>
+            </div>
+            <div class="batch-content" id="batch-B0.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li><span class="fid">DANG-05 partial</span><span class="ftitle" style="color:#666;">(non trouvé dans findings.json)</span></li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>git check-ignore .env.local</li><li>grep -r &#039;HEARST_API_KEY&#039; --include=&#039;*.tsx&#039; = 0</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P1">
+      <div class="phase-header" onclick="togglePhase('P1')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 1 — Foundation auth/multi-tenant — 0/5 batchs</h2>
+          <div class="objective">Multi-tenant RÉEL + admin gating + auth durcissement. SHOWSTOPPER : sans P1, tous les fixes IDOR P2-P3 sont cosmétiques.</div>
+        </div>
+        <span class="effort">3-5 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P1">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B1.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B1.1</span>
+              <span class="title">🔥 SHOWSTOPPER — Tenant resolution + Google signIn allowlist</span>
+              <span class="effort">3-5j (architecture + migration backfill + tests)</span>
+            </div>
+            <div class="batch-content" id="batch-B1.1">
+              <div class="blast-warning">⚠ <strong>Si non fait :</strong> Tous les findings IDOR (F-002 F-003 F-004 F-005 F-094 F-100 etc.) deviennent inopérants. Pas de go-live possible.</div>
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-095</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Tenant unique en prod (HEARST_TENANT_ID env-only) — multi-tenancy cosmétique</span>
+                          <a href="AUDIT-MASTER.html#F-095">→</a>
+                        </li><li>
+                          <span class="fid">F-096</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Inscription Google/Azure ouverte (pas de signIn allowlist) — open enrollment dans tenant prod</span>
+                          <a href="AUDIT-MASTER.html#F-096">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B0.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan (architecture) + general-purpose (impl)</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Tests : 2 users distincts → tenant_id différent en DB</li><li>POST signIn email non whitelist → 403</li><li>Smoke test multi-user manuel sur staging</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B1.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B1.2</span>
+              <span class="title">Admin RBAC + IDOR cross-tenant (agents/conversations/jobs/browser/memory)</span>
+              <span class="effort">1-2j</span>
+            </div>
+            <div class="batch-content" id="batch-B1.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (8)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-001</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Admin RBAC missing on /admin/* pages and /api/admin/* routes</span>
+                          <a href="AUDIT-MASTER.html#F-001">→</a>
+                        </li><li>
+                          <span class="fid">F-002</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">CRUD agents IDOR — full takeover cross-tenant</span>
+                          <a href="AUDIT-MASTER.html#F-002">→</a>
+                        </li><li>
+                          <span class="fid">F-003</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Cross-user conversation/memory via conversation_id IDOR</span>
+                          <a href="AUDIT-MASTER.html#F-003">→</a>
+                        </li><li>
+                          <span class="fid">F-004</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Jobs status/progress/abort cross-user leak (IDOR)</span>
+                          <a href="AUDIT-MASTER.html#F-004">→</a>
+                        </li><li>
+                          <span class="fid">F-005</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Browserbase session takeover (IDOR)</span>
+                          <a href="AUDIT-MASTER.html#F-005">→</a>
+                        </li><li>
+                          <span class="fid">F-094</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">agent_memory sans user_id/tenant_id + RLS using(true) — jailbreak persistant cross-tenant</span>
+                          <a href="AUDIT-MASTER.html#F-094">→</a>
+                        </li><li>
+                          <span class="fid">F-100</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">memory/govern wipe sans ownership — combiné CRIT-01 = poison + trim chirurgical</span>
+                          <a href="AUDIT-MASTER.html#F-100">→</a>
+                        </li><li>
+                          <span class="fid">F-118</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">audio-gen accepte voiceId/personaId libres — impersonation cross-user</span>
+                          <a href="AUDIT-MASTER.html#F-118">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose + route-mapper (impact)</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>e2e : user A ne voit pas resource user B sur agents/conversations/jobs/browser/memory</li><li>POST /api/admin/* sans role admin → 403</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B1.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B1.3</span>
+              <span class="title">Slack OAuth state HMAC + email fallback removal</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B1.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-006</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Slack OAuth state forgeable — account takeover</span>
+                          <a href="AUDIT-MASTER.html#F-006">→</a>
+                        </li><li>
+                          <span class="fid">F-015</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">getCurrentUserId fallback à session.user.email — réintroduit anti-pattern</span>
+                          <a href="AUDIT-MASTER.html#F-015">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Tests OAuth flow Slack avec state forgé → reject</li><li>session.user.email plus jamais utilisé comme userId</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B1.4')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B1.4</span>
+              <span class="title">Proxy auth hardening (getToken JWT verify + timing-safe API key + HEARST_ENV check)</span>
+              <span class="effort">1h</span>
+            </div>
+            <div class="batch-content" id="batch-B1.4">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-026</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">proxy hasSession() lit cookie présence pas validité</span>
+                          <a href="AUDIT-MASTER.html#F-026">→</a>
+                        </li><li>
+                          <span class="fid">F-027</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">hasValidApiKey === non constant-time (timing attack)</span>
+                          <a href="AUDIT-MASTER.html#F-027">→</a>
+                        </li><li>
+                          <span class="fid">F-053</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">HEARST_ENV precedence sur NODE_ENV (devBypass guard contournable)</span>
+                          <a href="AUDIT-MASTER.html#F-053">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Cookie forgé ne passe plus le proxy</li><li>VERCEL_ENV=preview → bypass refusé</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B1.5')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B1.5</span>
+              <span class="title">Inngest signing key hard-fail prod</span>
+              <span class="effort">5 min</span>
+            </div>
+            <div class="batch-content" id="batch-B1.5">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-007</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Inngest signing key warn-only en prod — exec arbitraire</span>
+                          <a href="AUDIT-MASTER.html#F-007">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">validator</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Boot serveur sans INNGEST_SIGNING_KEY en prod → throw</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P2">
+      <div class="phase-header" onclick="togglePhase('P2')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 2 — SSRF + uploads — 0/3 batchs</h2>
+          <div class="objective">Combler les vecteurs d&#039;exfil et code execution externe.</div>
+        </div>
+        <span class="effort">2-3 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P2">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B2.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B2.1</span>
+              <span class="title">SSRF guard partagé (lib/security/ssrf-guard.ts) + appliquer partout</span>
+              <span class="effort">3-4h</span>
+            </div>
+            <div class="batch-content" id="batch-B2.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-008</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">SSRF document parsing (LlamaParse) — AWS metadata theft</span>
+                          <a href="AUDIT-MASTER.html#F-008">→</a>
+                        </li><li>
+                          <span class="fid">F-009</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">SSRF via webhook custom + httpAdapter (DNS rebinding possible)</span>
+                          <a href="AUDIT-MASTER.html#F-009">→</a>
+                        </li><li>
+                          <span class="fid">F-103</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Browser navigate/extract sans allowlist host — SSRF latente</span>
+                          <a href="AUDIT-MASTER.html#F-103">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Explore (find call sites) + general-purpose (impl)</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Tests : POST avec fileUrl=169.254.169.254 → 400</li><li>webhookUrl avec 172.16.x → reject</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B2.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B2.2</span>
+              <span class="title">File upload caps + magic bytes</span>
+              <span class="effort">1-2h</span>
+            </div>
+            <div class="batch-content" id="batch-B2.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-043</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">File upload sans cap mémoire / MIME forgeable</span>
+                          <a href="AUDIT-MASTER.html#F-043">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Upload 10GB → 413</li><li>Upload .exe renommé .pdf → 400</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B2.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B2.3</span>
+              <span class="title">E2B sandbox no-egress + confirmation HMAC</span>
+              <span class="effort">3-4h</span>
+            </div>
+            <div class="batch-content" id="batch-B2.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-023</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">run_code Python/Node blacklist contournable trivialement</span>
+                          <a href="AUDIT-MASTER.html#F-023">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Sandbox.create avec networkAccess:false confirmé</li><li>POST /api/v2/jobs/code-exec sans confirm token → 403</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P3">
+      <div class="phase-header" onclick="togglePhase('P3')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 3 — Tool execution + HITL — 0/3 batchs</h2>
+          <div class="objective">Empêcher prompt injection → tool exec destructif. Confirmation cryptographique pour write actions.</div>
+        </div>
+        <span class="effort">3-4 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P3">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B3.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B3.1</span>
+              <span class="title">Tool approval crypto + allowedTools effectif + scheduler isolation</span>
+              <span class="effort">1-2j</span>
+            </div>
+            <div class="batch-content" id="batch-B3.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (4)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-010</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Tool approval prompt-level pas enforced (write tools sans HITL crypto)</span>
+                          <a href="AUDIT-MASTER.html#F-010">→</a>
+                        </li><li>
+                          <span class="fid">F-011</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">agent.allowedTools NON appliqué au runtime (fausse promesse moindre privilège)</span>
+                          <a href="AUDIT-MASTER.html#F-011">→</a>
+                        </li><li>
+                          <span class="fid">F-012</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">create_scheduled_mission fork bomb — récursion missions infinie</span>
+                          <a href="AUDIT-MASTER.html#F-012">→</a>
+                        </li><li>
+                          <span class="fid">F-102</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">schedule_inngest_job LLM-driven enqueue arbitraire — privilege escalation cross-tenant</span>
+                          <a href="AUDIT-MASTER.html#F-102">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan + llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Email injecté avec _preview:false → ne déclenche aucun tool destructif</li><li>agent.allowedTools réellement appliqué dans aiTools intersection</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B3.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B3.2</span>
+              <span class="title">RLS user_tokens + Persona sanitize</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B3.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-014</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">user_tokens RLS missing TO service_role — tokens OAuth lisibles par tout user</span>
+                          <a href="AUDIT-MASTER.html#F-014">→</a>
+                        </li><li>
+                          <span class="fid">F-115</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Persona systemPromptAddon user-controlled (1500 chars) sans strip control chars / &lt;/persona&gt;</span>
+                          <a href="AUDIT-MASTER.html#F-115">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>user_tokens select avec ANON_KEY → 0 rows</li><li>Persona avec &lt;/persona&gt;&lt;system&gt; → escape</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B3.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B3.3</span>
+              <span class="title">XSS captionHtml + RLS escape OR user_id IS NULL</span>
+              <span class="effort">3h</span>
+            </div>
+            <div class="batch-content" id="batch-B3.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-016</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">captionHtml raw HTML render dans KpiTile — XSS</span>
+                          <a href="AUDIT-MASTER.html#F-016">→</a>
+                        </li><li>
+                          <span class="fid">F-013</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">RLS escape hatch OR user_id IS NULL sur runs/assets/actions</span>
+                          <a href="AUDIT-MASTER.html#F-013">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>captionHtml avec &lt;script&gt; → strippé</li><li>select * from runs where user_id is null → 0 rows ou refus</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P4">
+      <div class="phase-header" onclick="togglePhase('P4')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 4 — Observabilité + redaction PII — 0/2 batchs</h2>
+          <div class="objective">Plus de leak PII vers SaaS tiers + tracking coût correct.</div>
+        </div>
+        <span class="effort">1-2 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P4">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B4.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B4.1</span>
+              <span class="title">Sentry redact + replay mask + Langfuse PII redact</span>
+              <span class="effort">4-6h</span>
+            </div>
+            <div class="batch-content" id="batch-B4.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (4)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-097</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Sentry sendDefaultPii: true + includeLocalVariables + replay maskAllText:false — PII permanente vers SaaS</span>
+                          <a href="AUDIT-MASTER.html#F-097">→</a>
+                        </li><li>
+                          <span class="fid">F-061</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Fuite PII vers Langfuse — params.messages envoyé en clair</span>
+                          <a href="AUDIT-MASTER.html#F-061">→</a>
+                        </li><li>
+                          <span class="fid">F-099</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Erreurs LLM streamées verbatim au client — leak provider internals</span>
+                          <a href="AUDIT-MASTER.html#F-099">→</a>
+                        </li><li>
+                          <span class="fid">F-107</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">gemini.ts / composer.ts log raw.slice(0,500) avant sanitize — leak clé AIzaSy...</span>
+                          <a href="AUDIT-MASTER.html#F-107">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Trigger error volontaire → Sentry payload sans system prompt</li><li>Trace Langfuse sans PII brut</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B4.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B4.2</span>
+              <span class="title">assertLangfuseReady boot + cost_usd réel</span>
+              <span class="effort">2-3h</span>
+            </div>
+            <div class="batch-content" id="batch-B4.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-038</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">assertLangfuseReady non appelée dans instrumentation.ts (boot fail-fast manquant)</span>
+                          <a href="AUDIT-MASTER.html#F-038">→</a>
+                        </li><li>
+                          <span class="fid">F-040</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">cost_usd hardcodé à 0 dans incrementTenantUsage (token budget inopérant)</span>
+                          <a href="AUDIT-MASTER.html#F-040">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Boot sans LANGFUSE_KEYS prod → throw</li><li>tenant_usage_daily.cost_usd != 0</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P5">
+      <div class="phase-header" onclick="togglePhase('P5')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 5 — Rate-limit + budget + circuit breaker — 0/3 batchs</h2>
+          <div class="objective">Empêcher financial DoS. Protéger budget LLM/crédits.</div>
+        </div>
+        <span class="effort">2-3 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P5">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B5.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B5.1</span>
+              <span class="title">Rate-limit chat + orchestrate + daily-brief + kg/ingest</span>
+              <span class="effort">4-6h</span>
+            </div>
+            <div class="batch-content" id="batch-B5.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (4)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-098</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Rate limit per-user jamais appliqué sur le chat agent — financial DoS</span>
+                          <a href="AUDIT-MASTER.html#F-098">→</a>
+                        </li><li>
+                          <span class="fid">F-075</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">/api/orchestrate — pas de Zod sur le body, SSE 300s, pas de price cap LLM</span>
+                          <a href="AUDIT-MASTER.html#F-075">→</a>
+                        </li><li>
+                          <span class="fid">F-076</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">/api/v2/daily-brief/generate + simulations/start — pas de daily/budget cap</span>
+                          <a href="AUDIT-MASTER.html#F-076">→</a>
+                        </li><li>
+                          <span class="fid">F-105</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">/api/v2/kg/ingest &amp; /api/v2/kg/query sans rate limit, sans cap body</span>
+                          <a href="AUDIT-MASTER.html#F-105">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose + route-mapper</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>100 req/min sur /api/agents/[id]/chat → 429</li><li>daily-brief 5/24h cap respecté</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B5.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B5.2</span>
+              <span class="title">Race conditions DB quotas/crédits (atomic reserve)</span>
+              <span class="effort">4-6h</span>
+            </div>
+            <div class="batch-content" id="batch-B5.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-079</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Race conditions DB sur quotas/crédits — getBalance check reserveCredits non atomique</span>
+                          <a href="AUDIT-MASTER.html#F-079">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Test concurrent 100 reserveCredits → balance jamais &lt; 0</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B5.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B5.3</span>
+              <span class="title">Circuit breaker per-tenant + transient errors + retry generator</span>
+              <span class="effort">4h</span>
+            </div>
+            <div class="batch-content" id="batch-B5.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-108</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Circuit breaker poisoning — 5 erreurs trippent breaker pour TOUS les users (60s OPEN)</span>
+                          <a href="AUDIT-MASTER.html#F-108">→</a>
+                        </li><li>
+                          <span class="fid">F-041</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">isTransientError manque 500 et 504 (run échoue immédiatement sur gateway timeout)</span>
+                          <a href="AUDIT-MASTER.html#F-041">→</a>
+                        </li><li>
+                          <span class="fid">F-127</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">retryWithBackoff wraps generator construction, pas le body — retries Anthropic stream inopérants</span>
+                          <a href="AUDIT-MASTER.html#F-127">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>1 user trigger 5 errors → ne trip pas le breaker des autres</li><li>Retry sur 500/504</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P6">
+      <div class="phase-header" onclick="togglePhase('P6')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 6 — Prompt injection + RAG/KG — 0/3 batchs</h2>
+          <div class="objective">Étanchéifier mémoire et sources externes. Délimiteurs trusted/untrusted.</div>
+        </div>
+        <span class="effort">2-3 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P6">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B6.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B6.1</span>
+              <span class="title">Embeddings + KG + web_search délimiteurs &lt;untrusted_*&gt;</span>
+              <span class="effort">1j</span>
+            </div>
+            <div class="batch-content" id="batch-B6.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (4)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-045</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Embeddings poisoning silencieux (auto-ingest user content sans defiance)</span>
+                          <a href="AUDIT-MASTER.html#F-045">→</a>
+                        </li><li>
+                          <span class="fid">F-046</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">KG ingestion : labels arbitraires extraits → injection dans system prompt</span>
+                          <a href="AUDIT-MASTER.html#F-046">→</a>
+                        </li><li>
+                          <span class="fid">F-047</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">web_search snippets bruts injectés sans untrusted_web_content delimiter</span>
+                          <a href="AUDIT-MASTER.html#F-047">→</a>
+                        </li><li>
+                          <span class="fid">F-101</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">web_search cache global cross-tenant + injection brute snippets</span>
+                          <a href="AUDIT-MASTER.html#F-101">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Email injecté &#039;IGNORE PRIOR&#039; dans embeddings → ressort tagué &lt;untrusted_memory&gt;</li><li>Web snippet avec instruction → wrapped</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B6.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B6.2</span>
+              <span class="title">Conversation summary réinjecté + KG query system prompt</span>
+              <span class="effort">3-4h</span>
+            </div>
+            <div class="batch-content" id="batch-B6.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-104</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Conversation/mission summary LLM-générés réinjectés verbatim 30 jours — injection multi-jour persistante</span>
+                          <a href="AUDIT-MASTER.html#F-104">→</a>
+                        </li><li>
+                          <span class="fid">F-119</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">runKgQuery Sonnet sans guard contre leak du system prompt</span>
+                          <a href="AUDIT-MASTER.html#F-119">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B6.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Summary réinjecté avec fence + JSON schema bornée</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B6.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B6.3</span>
+              <span class="title">Gmail HTML stripping + browser agent HTML untrusted</span>
+              <span class="effort">4h</span>
+            </div>
+            <div class="batch-content" id="batch-B6.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-044</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Gmail HTML stripping insuffisant (hidden text via display:none, white-on-white)</span>
+                          <a href="AUDIT-MASTER.html#F-044">→</a>
+                        </li><li>
+                          <span class="fid">F-049</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Browser agent treats page HTML as model context sans untrusted boundary</span>
+                          <a href="AUDIT-MASTER.html#F-049">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B6.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Email avec &lt;div display:none&gt;INSTRUCTION&lt;/div&gt; → texte caché stripped</li><li>Page web hostile → wrapped &lt;untrusted_page_content&gt;</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P7">
+      <div class="phase-header" onclick="togglePhase('P7')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 7 — Reliability + jobs — 0/5 batchs</h2>
+          <div class="objective">Workers stables, idempotency, cancel propagation. Risque #1 prod = jobs orphelins Vercel.</div>
+        </div>
+        <span class="effort">3-5 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P7">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B7.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B7.1</span>
+              <span class="title">🔥 BullMQ → Inngest sur Vercel pour TOUS les jobKinds (audio/image/code/doc-parse)</span>
+              <span class="effort">1-2 sem</span>
+            </div>
+            <div class="batch-content" id="batch-B7.1">
+              <div class="blast-warning">⚠ <strong>Si non fait :</strong> Crédits réservés sans livrable. Asset_variants pending éternels. Risque #1 prod.</div>
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-017</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">BullMQ jobs orphelins sur Vercel — workers gated off mais routes enqueue</span>
+                          <a href="AUDIT-MASTER.html#F-017">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan + general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>POST /api/v2/jobs/audio-gen sur Vercel → job exécuté + asset livré</li><li>0 jobs orphelins en Redis après 24h</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B7.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B7.2</span>
+              <span class="title">QueueEvents singleton + proxy.ts edge throw graceful</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B7.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-018</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">QueueEvents Redis leak per SSE request — exhaustion Upstash</span>
+                          <a href="AUDIT-MASTER.html#F-018">→</a>
+                        </li><li>
+                          <span class="fid">F-022</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">proxy.ts edge runtime throw au boot via env.server (500 toutes requêtes)</span>
+                          <a href="AUDIT-MASTER.html#F-022">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Connexions Redis stable &lt; 50 après stress test SSE</li><li>Env var manquante → log structuré pas 500</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B7.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B7.3</span>
+              <span class="title">Idempotency BullMQ + Inngest + workers cleanup SIGTERM</span>
+              <span class="effort">1-2j</span>
+            </div>
+            <div class="batch-content" id="batch-B7.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (5)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-031</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">BullMQ enqueue sans jobId déterministe — retry double-job</span>
+                          <a href="AUDIT-MASTER.html#F-031">→</a>
+                        </li><li>
+                          <span class="fid">F-032</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Inngest send sans event.id déterministe</span>
+                          <a href="AUDIT-MASTER.html#F-032">→</a>
+                        </li><li>
+                          <span class="fid">F-033</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Workers ne classifient pas erreurs permanentes vs transient</span>
+                          <a href="AUDIT-MASTER.html#F-033">→</a>
+                        </li><li>
+                          <span class="fid">F-034</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Workers ne propagent pas abort signal (cancel client n&#039;arrête pas provider)</span>
+                          <a href="AUDIT-MASTER.html#F-034">→</a>
+                        </li><li>
+                          <span class="fid">F-035</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">worker.close() jamais appelé sur SIGTERM</span>
+                          <a href="AUDIT-MASTER.html#F-035">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B7.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Retry POST → 1 seul job (Idempotency-Key respected)</li><li>SIGTERM → workers close gracefully</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B7.4')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B7.4</span>
+              <span class="title">Asset cleanup check refs + Recall.ai window timestamp + Composio webhook clarif</span>
+              <span class="effort">4-6h</span>
+            </div>
+            <div class="batch-content" id="batch-B7.4">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-019</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Asset cleanup delete sans check références — broken signed URLs</span>
+                          <a href="AUDIT-MASTER.html#F-019">→</a>
+                        </li><li>
+                          <span class="fid">F-029</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Recall.ai webhook pas de window timestamp (replay infini)</span>
+                          <a href="AUDIT-MASTER.html#F-029">→</a>
+                        </li><li>
+                          <span class="fid">F-030</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Composio aucun endpoint receveur webhook</span>
+                          <a href="AUDIT-MASTER.html#F-030">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Cleanup ne supprime pas asset référencé par mission active</li><li>Webhook Recall replayé → reject (window &gt; 5min)</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B7.5')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B7.5</span>
+              <span class="title">agent-lock state vers Supabase/Redis (sortir du FS Vercel)</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B7.5">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-106</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">agent-lock state écrit sur FS local — inopérant sur Vercel</span>
+                          <a href="AUDIT-MASTER.html#F-106">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Toggle lock → persiste entre lambda invocations</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P8">
+      <div class="phase-header" onclick="togglePhase('P8')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 8 — Headers + CSRF + secrets rotation — 0/5 batchs</h2>
+          <div class="objective">Defense in depth. Headers HTTP + rotation des clés.</div>
+        </div>
+        <span class="effort">2-3 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P8">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B8.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B8.1</span>
+              <span class="title">CSP + HSTS + X-Frame-Options + Permissions-Policy + CSRF Origin check</span>
+              <span class="effort">4h</span>
+            </div>
+            <div class="batch-content" id="batch-B8.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-052</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">CSRF missing — pas de Origin/Referer check sur POST/PUT/DELETE/PATCH</span>
+                          <a href="AUDIT-MASTER.html#F-052">→</a>
+                        </li><li>
+                          <span class="fid">F-078</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">CSP / security headers absents (CSP, HSTS, X-Frame-Options, Permissions-Policy)</span>
+                          <a href="AUDIT-MASTER.html#F-078">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>curl -I localhost → headers présents</li><li>POST cross-origin → reject</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B8.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B8.2</span>
+              <span class="title">TOKEN_ENCRYPTION_KEY rotation (keyId envelope)</span>
+              <span class="effort">1j</span>
+            </div>
+            <div class="batch-content" id="batch-B8.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-028</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">TOKEN_ENCRYPTION_KEY pas de rotation — single key, no envelope</span>
+                          <a href="AUDIT-MASTER.html#F-028">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan + general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Rotation key → tokens existants déchiffrables ; nouveaux chiffrés avec keyId 2</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B8.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B8.3</span>
+              <span class="title">localStorage threads cleanup + embedText cache PII hash + Anthropic apiKey explicit</span>
+              <span class="effort">3h</span>
+            </div>
+            <div class="batch-content" id="batch-B8.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-077</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">useNavigationStore localStorage — threads + messages stockés en clair</span>
+                          <a href="AUDIT-MASTER.html#F-077">→</a>
+                        </li><li>
+                          <span class="fid">F-122</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">embedText cache 200 PII bruts en mémoire process</span>
+                          <a href="AUDIT-MASTER.html#F-122">→</a>
+                        </li><li>
+                          <span class="fid">F-126</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Anthropic SDK construit sans apiKey explicite dans stagehand-executor — env override risk</span>
+                          <a href="AUDIT-MASTER.html#F-126">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>localStorage hearst-navigation contient des IDs pas du contenu</li><li>embedText cache key = hash</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B8.4')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B8.4</span>
+              <span class="title">STATIC_RE restreint /public/* + CRLF Content-Disposition + mass assignment + approve-step ownership</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B8.4">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (4)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-051</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">STATIC_RE exempte glb/gltf/svg (XSS/auth bypass si user uploads)</span>
+                          <a href="AUDIT-MASTER.html#F-051">→</a>
+                        </li><li>
+                          <span class="fid">F-055</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">CRLF injection dans Content-Disposition filename</span>
+                          <a href="AUDIT-MASTER.html#F-055">→</a>
+                        </li><li>
+                          <span class="fid">F-054</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Mass assignment PUT /api/agents/[id]</span>
+                          <a href="AUDIT-MASTER.html#F-054">→</a>
+                        </li><li>
+                          <span class="fid">F-056</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Missing approve-step ownership check</span>
+                          <a href="AUDIT-MASTER.html#F-056">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>filename avec \r\n → sanitized</li><li>PUT agent avec champ inconnu → ignoré</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B8.5')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B8.5</span>
+              <span class="title">query_axiom_logs scope tenant + admin/runs?userId removal + admin/seed rate-limit</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B8.5">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (4)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-048</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">query_axiom_logs accepte APL arbitraire (exfil logs cross-tenant)</span>
+                          <a href="AUDIT-MASTER.html#F-048">→</a>
+                        </li><li>
+                          <span class="fid">F-109</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">admin/runs/recent?userId= profile any user (admin ou bypass)</span>
+                          <a href="AUDIT-MASTER.html#F-109">→</a>
+                        </li><li>
+                          <span class="fid">F-110</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">admin/features-manifest shellout exec(node script) sous requireScope — DoS CPU</span>
+                          <a href="AUDIT-MASTER.html#F-110">→</a>
+                        </li><li>
+                          <span class="fid">F-124</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">admin/seed/[resource] sans rate limit ni replay token</span>
+                          <a href="AUDIT-MASTER.html#F-124">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.1</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>query_axiom_logs sans where tenant_id → reject</li><li>/api/admin/runs sans param userId override</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P9">
+      <div class="phase-header" onclick="togglePhase('P9')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 9 — Tests + a11y — 0/2 batchs</h2>
+          <div class="objective">Garde-fous CI sur l&#039;auth + accessibilité.</div>
+        </div>
+        <span class="effort">2-3 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P9">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B9.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B9.1</span>
+              <span class="title">Désactiver e2e auth bypass + tests credits/arcjet/agents</span>
+              <span class="effort">1-2j</span>
+            </div>
+            <div class="batch-content" id="batch-B9.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-073</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">e2e/reports/api-auth.spec.ts:29 skipped en CI — vraie sécurité auth jamais testée</span>
+                          <a href="AUDIT-MASTER.html#F-073">→</a>
+                        </li><li>
+                          <span class="fid">F-074</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Zéro test sur lib/credits/* (252 lignes facturation), arcjet, agents</span>
+                          <a href="AUDIT-MASTER.html#F-074">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>B1.4</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>e2e api-auth.spec.ts run sans bypass → green</li><li>Coverage lib/credits &gt;= 80%</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B9.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B9.2</span>
+              <span class="title">jsx-a11y enable + ChatDock ARIA</span>
+              <span class="effort">2-3h</span>
+            </div>
+            <div class="batch-content" id="batch-B9.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-071</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">eslint-plugin-jsx-a11y installé mais désactivé</span>
+                          <a href="AUDIT-MASTER.html#F-071">→</a>
+                        </li><li>
+                          <span class="fid">F-072</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">ChatDock = zéro aria-* / role / onKeyDown — screen-readers aveugles</span>
+                          <a href="AUDIT-MASTER.html#F-072">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>npm run lint avec a11y rules → 0 errors sur ChatDock</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  " data-phase-id="P10">
+      <div class="phase-header" onclick="togglePhase('P10')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>PHASE 10 — Deps + cleanup + typing — 0/4 batchs</h2>
+          <div class="objective">Dette technique : circulaires, typage, dead code.</div>
+        </div>
+        <span class="effort">2-3 jours</span>
+      </div>
+      <div class="phase-content" id="phase-P10">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B10.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B10.1</span>
+              <span class="title">Casser deps circulaires (settings prio)</span>
+              <span class="effort">3-4h</span>
+            </div>
+            <div class="batch-content" id="batch-B10.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-068</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">5 dépendances circulaires (madge) — risque undefined runtime</span>
+                          <a href="AUDIT-MASTER.html#F-068">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan + general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>madge --circular → 0 cycles</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B10.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B10.2</span>
+              <span class="title">tsconfig HOM + database.types regen + as any cleanup</span>
+              <span class="effort">4-6h</span>
+            </div>
+            <div class="batch-content" id="batch-B10.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-065</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">tsconfig exclut app/api/orchestrator + app/admin/orchestrator du typecheck</span>
+                          <a href="AUDIT-MASTER.html#F-065">→</a>
+                        </li><li>
+                          <span class="fid">F-070</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">9× (db.from(&#039;personas&#039; as any) as any) — database.types.ts stale</span>
+                          <a href="AUDIT-MASTER.html#F-070">→</a>
+                        </li><li>
+                          <span class="fid">F-069</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">lib/marketplace/store.ts:147-161 — function table(): any helpers</span>
+                          <a href="AUDIT-MASTER.html#F-069">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>npm run typecheck inclut app/api/orchestrator</li><li>0 &#039;as any&#039; dans personas/marketplace</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B10.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B10.3</span>
+              <span class="title">Dead code purge (33 fichiers + 36 tokens CSS)</span>
+              <span class="effort">1j</span>
+            </div>
+            <div class="batch-content" id="batch-B10.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-093</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Dead code purge plan — 33 fichiers + 36 tokens CSS + lucide/gsap deps</span>
+                          <a href="AUDIT-MASTER.html#F-093">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>npx knip → 0 unused exports critiques</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B10.4')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">B10.4</span>
+              <span class="title">CI npm ci + audit transitives composio/inngest</span>
+              <span class="effort">2h</span>
+            </div>
+            <div class="batch-content" id="batch-B10.4">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (1)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-080</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Supply chain — pas de --frozen-lockfile en CI ? transitives non auditées</span>
+                          <a href="AUDIT-MASTER.html#F-080">→</a>
+                        </li>
+                    
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>CI utilise npm ci partout</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase  phase-deferred" data-phase-id="P11">
+      <div class="phase-header" onclick="togglePhase('P11')">
+        <span class="status-badge status-deferred">deferred</span>
+        <div style="flex:1;">
+          <h2>PHASE 11 — Post-go-live hardening — 0/8 batchs</h2>
+          <div class="objective">Améliorations qualité de vie. PEUT ATTENDRE après go-live.</div>
+        </div>
+        <span class="effort">1-2 sem</span>
+      </div>
+      <div class="phase-content" id="phase-P11">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.1')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.1</span>
+              <span class="title">Démonter layout (user) &#039;use client&#039; racine + Server Actions + cache Next.js</span>
+              <span class="effort">1-2 sem</span>
+            </div>
+            <div class="batch-content" id="batch-B11.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (5)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-062</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Layout (user) = &#039;use client&#039; racine — tout shell hydraté client-side</span>
+                          <a href="AUDIT-MASTER.html#F-062">→</a>
+                        </li><li>
+                          <span class="fid">F-063</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Zéro Server Action (&#039;use server&#039; = 0 fichier) — Next 16 sous-utilisé</span>
+                          <a href="AUDIT-MASTER.html#F-063">→</a>
+                        </li><li>
+                          <span class="fid">F-064</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">Zéro caching Next.js — chaque navigation hit DB + LLM</span>
+                          <a href="AUDIT-MASTER.html#F-064">→</a>
+                        </li><li>
+                          <span class="fid">F-066</span>
+                          <span class="badge sev-P0">P0</span>
+                          <span class="ftitle">14× new Anthropic({apiKey}) non mémoïsé — perte keep-alive HTTP</span>
+                          <a href="AUDIT-MASTER.html#F-066">→</a>
+                        </li><li>
+                          <span class="fid">F-089</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">24 pages admin en force-dynamic — cache Next.js désactivé</span>
+                          <a href="AUDIT-MASTER.html#F-089">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan + general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>LCP -300ms mesuré</li><li>Server Actions sur 10+ mutations</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.2')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.2</span>
+              <span class="title">Refactor godfiles (ai-pipeline.ts) + console.* → logger</span>
+              <span class="effort">1 sem</span>
+            </div>
+            <div class="batch-content" id="batch-B11.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-090</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">ai-pipeline.ts = 1114 lignes + 20 console.* (godfile)</span>
+                          <a href="AUDIT-MASTER.html#F-090">→</a>
+                        </li><li>
+                          <span class="fid">F-091</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">648 console.* en code prod — pas de logger structuré généralisé</span>
+                          <a href="AUDIT-MASTER.html#F-091">→</a>
+                        </li><li>
+                          <span class="fid">F-092</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">11 fichiers &gt; 600 lignes (godfiles)</span>
+                          <a href="AUDIT-MASTER.html#F-092">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>ai-pipeline.ts &lt; 400 lignes splitté</li><li>console.* &lt; 50 occurrences</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.3')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.3</span>
+              <span class="title">Perf KG (searchNodes index trigram + findPath BFS + cache LRU)</span>
+              <span class="effort">3-4j</span>
+            </div>
+            <div class="batch-content" id="batch-B11.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-114</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">searchNodes ILIKE sans index trigram + sans rate limit — enumeration coûteuse</span>
+                          <a href="AUDIT-MASTER.html#F-114">→</a>
+                        </li><li>
+                          <span class="fid">F-120</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">findPath charge tout le graphe en mémoire à chaque call</span>
+                          <a href="AUDIT-MASTER.html#F-120">→</a>
+                        </li><li>
+                          <span class="fid">F-111</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">getKgContextForUser cache global wipe à chaque ingest — amplification DoS</span>
+                          <a href="AUDIT-MASTER.html#F-111">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    
+                    <li style="color:#666;">À définir en démarrage de batch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.4')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.4</span>
+              <span class="title">Gaps post-adv non critiques (SSE auth + OAuth scope + idempotency externes)</span>
+              <span class="effort">1 sem</span>
+            </div>
+            <div class="batch-content" id="batch-B11.4">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (7)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-081</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">SSE auth long-lived — aucune re-validation périodique du token JWT</span>
+                          <a href="AUDIT-MASTER.html#F-081">→</a>
+                        </li><li>
+                          <span class="fid">F-082</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">OAuth scope creep — scopes Google jamais re-vérifiés avant gmail.send</span>
+                          <a href="AUDIT-MASTER.html#F-082">→</a>
+                        </li><li>
+                          <span class="fid">F-083</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Idempotency-Key absents sur Resend/LlamaParse/Composio/Browserbase</span>
+                          <a href="AUDIT-MASTER.html#F-083">→</a>
+                        </li><li>
+                          <span class="fid">F-084</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">SSE backpressure — req.signal pas propagé jusqu&#039;à streamText</span>
+                          <a href="AUDIT-MASTER.html#F-084">→</a>
+                        </li><li>
+                          <span class="fid">F-085</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Audit log integrity — admin compromis peut effacer runs (no WORM)</span>
+                          <a href="AUDIT-MASTER.html#F-085">→</a>
+                        </li><li>
+                          <span class="fid">F-086</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">TOCTOU OAuth refresh — saveTokens/getTokens non transactionnel</span>
+                          <a href="AUDIT-MASTER.html#F-086">→</a>
+                        </li><li>
+                          <span class="fid">F-117</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Composio disconnectAccount sans audit local d&#039;ownership (trust SDK)</span>
+                          <a href="AUDIT-MASTER.html#F-117">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    
+                    <li style="color:#666;">À définir en démarrage de batch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.5')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.5</span>
+              <span class="title">LLM hardening (wallclock agent-loop + constants externalisées)</span>
+              <span class="effort">1j</span>
+            </div>
+            <div class="batch-content" id="batch-B11.5">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-087</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Wallclock timeout absent agent-loop.ts — 15min runaway possible</span>
+                          <a href="AUDIT-MASTER.html#F-087">→</a>
+                        </li><li>
+                          <span class="fid">F-088</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">12 constants LLM en dur non configurables (max_tokens, thresholds, etc.)</span>
+                          <a href="AUDIT-MASTER.html#F-088">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">llm-auditor</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    
+                    <li style="color:#666;">À définir en démarrage de batch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.6')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.6</span>
+              <span class="title">Misc P2 (Sentry tunnel + telemetry runAiPipeline + conversationHistory cap + pdfkit Vercel + .claude supply chain)</span>
+              <span class="effort">1 sem</span>
+            </div>
+            <div class="batch-content" id="batch-B11.6">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (10)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-039</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">runAiPipeline ne crée aucune trace Langfuse (chemin chaud aveugle)</span>
+                          <a href="AUDIT-MASTER.html#F-039">→</a>
+                        </li><li>
+                          <span class="fid">F-042</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">conversationHistory client-fournie non bornée (token explosion)</span>
+                          <a href="AUDIT-MASTER.html#F-042">→</a>
+                        </li><li>
+                          <span class="fid">F-060</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">pdfkit chargé Vercel lambda → OOM 256MB</span>
+                          <a href="AUDIT-MASTER.html#F-060">→</a>
+                        </li><li>
+                          <span class="fid">F-116</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">.claude/agents/*.md description ingérée par session-start — supply-chain prompt injection</span>
+                          <a href="AUDIT-MASTER.html#F-116">→</a>
+                        </li><li>
+                          <span class="fid">F-121</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">appendToSummary parse Redis blob sans validation runtime</span>
+                          <a href="AUDIT-MASTER.html#F-121">→</a>
+                        </li><li>
+                          <span class="fid">F-123</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Sentry tunnel /monitoring public — relais HTTP vers ingest.sentry.io</span>
+                          <a href="AUDIT-MASTER.html#F-123">→</a>
+                        </li><li>
+                          <span class="fid">F-125</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">/api/v2/approvals/[token]/vote inaccessible aux non-loggés (proxy 401) — flow cassé prod ?</span>
+                          <a href="AUDIT-MASTER.html#F-125">→</a>
+                        </li><li>
+                          <span class="fid">F-128</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">lib/multi-tenant/active-space.ts cookie unsigned, isolation space_id non câblée</span>
+                          <a href="AUDIT-MASTER.html#F-128">→</a>
+                        </li><li>
+                          <span class="fid">F-129</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Dev-bypass UUID hardcodé 36914162-... — vérifier qu&#039;il n&#039;apparaît pas dans DB prod</span>
+                          <a href="AUDIT-MASTER.html#F-129">→</a>
+                        </li><li>
+                          <span class="fid">F-130</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Langfuse SaaS — confirmer DPA + résidence EU + retention</span>
+                          <a href="AUDIT-MASTER.html#F-130">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    
+                    <li style="color:#666;">À définir en démarrage de batch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.7')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.7</span>
+              <span class="title">Migration NextAuth v4 → v5 + Hearst Card revoke + slowloris</span>
+              <span class="effort">2 sem</span>
+            </div>
+            <div class="batch-content" id="batch-B11.7">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (3)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-058</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">next-auth v4 EOL — plan migration v5</span>
+                          <a href="AUDIT-MASTER.html#F-058">→</a>
+                        </li><li>
+                          <span class="fid">F-112</span>
+                          <span class="badge sev-P1">P1</span>
+                          <span class="ftitle">Public Hearst Card token sans table de revoke, TTL 7j sur mode:render exposant URL interne</span>
+                          <a href="AUDIT-MASTER.html#F-112">→</a>
+                        </li><li>
+                          <span class="fid">F-113</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Stream chat sans inactivity timeout per-chunk (slowloris)</span>
+                          <a href="AUDIT-MASTER.html#F-113">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">Plan</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    
+                    <li style="color:#666;">À définir en démarrage de batch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('B11.8')">
+              <span class="status-badge status-deferred">deferred</span>
+              <span class="id">B11.8</span>
+              <span class="title">Misc reliability (payload schema versioning + Composio webhook receiver)</span>
+              <span class="effort">3j</span>
+            </div>
+            <div class="batch-content" id="batch-B11.8">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (2)</h4>
+                  <ul class="findings-list">
+                    <li>
+                          <span class="fid">F-036</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Pas de payload schema versioning JobPayload (rolling deploy hazard)</span>
+                          <a href="AUDIT-MASTER.html#F-036">→</a>
+                        </li><li>
+                          <span class="fid">F-030</span>
+                          <span class="badge sev-P2">P2</span>
+                          <span class="ftitle">Composio aucun endpoint receveur webhook</span>
+                          <a href="AUDIT-MASTER.html#F-030">→</a>
+                        </li>
+                    
+                  </ul>
+                  <h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : <code>GO-LIVE</code></div>
+                </div>
+                <div class="batch-block">
+                  <h4>Sub-agent recommandé</h4><p><span class="sub-agent-tag">general-purpose</span></p>
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    
+                    <li style="color:#666;">À définir en démarrage de batch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+    <div class="phase phase-go-live " data-phase-id="GO-LIVE">
+      <div class="phase-header" onclick="togglePhase('GO-LIVE')">
+        <span class="status-badge status-pending">pending</span>
+        <div style="flex:1;">
+          <h2>🚀 GO-LIVE CHECKLIST — 0/6 batchs</h2>
+          <div class="objective">Validation finale avant ouverture multi-user public.</div>
+        </div>
+        <span class="effort">1 jour</span>
+      </div>
+      <div class="phase-content" id="phase-GO-LIVE">
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('GL.1')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">GL.1</span>
+              <span class="title">Tous batchs P0 → P10 closed</span>
+              <span class="effort"></span>
+            </div>
+            <div class="batch-content" id="batch-GL.1">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (0)</h4>
+                  <ul class="findings-list">
+                    
+                    <li style="color:#666;">Pas de findings (checklist meta)</li>
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>BATTLE-PLAN.json : tous batchs P0/P1/P2/P3/P4/P5/P6/P7/P8/P9/P10 status=done</li><li>findings.json : tous P0 + P1 status=closed (sauf P11 deferred)</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('GL.2')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">GL.2</span>
+              <span class="title">Validation technique complète</span>
+              <span class="effort"></span>
+            </div>
+            <div class="batch-content" id="batch-GL.2">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (0)</h4>
+                  <ul class="findings-list">
+                    
+                    <li style="color:#666;">Pas de findings (checklist meta)</li>
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>npm run validate green</li><li>npm run validate:full green (e2e inclus, sans auth bypass)</li><li>npm run audit:deps clean (no high/critical)</li><li>madge --circular = 0</li><li>knip = 0 unused exports critiques</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('GL.3')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">GL.3</span>
+              <span class="title">Tests manuels staging</span>
+              <span class="effort"></span>
+            </div>
+            <div class="batch-content" id="batch-GL.3">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (0)</h4>
+                  <ul class="findings-list">
+                    
+                    <li style="color:#666;">Pas de findings (checklist meta)</li>
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Smoke test e2e : 2 users distincts → tenant_id différents</li><li>Test budget cap : user spam orchestrate → bloqué après quota</li><li>Test prompt injection manuel : email avec instruction → agent ne déclenche aucun tool destructif</li><li>Test browser session ownership : user A devine session_id B → 403</li><li>Test Sentry PII : trigger error volontaire → payload sans secrets</li><li>Test multi-tenant : créer 2 tenants distincts → isolation totale en DB</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('GL.4')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">GL.4</span>
+              <span class="title">Audit P0 final externe (re-audit non-Claude)</span>
+              <span class="effort"></span>
+            </div>
+            <div class="batch-content" id="batch-GL.4">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (0)</h4>
+                  <ul class="findings-list">
+                    
+                    <li style="color:#666;">Pas de findings (checklist meta)</li>
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Lancer Codex sur les 25 P0 closed + Claude fresh sur 25 P0 closed</li><li>0 régression critique détectée</li><li>Si nouvelles vulns détectées → loop : ajouter F-XXX puis batch + valider</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('GL.5')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">GL.5</span>
+              <span class="title">Infrastructure + monitoring</span>
+              <span class="effort"></span>
+            </div>
+            <div class="batch-content" id="batch-GL.5">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (0)</h4>
+                  <ul class="findings-list">
+                    
+                    <li style="color:#666;">Pas de findings (checklist meta)</li>
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Sentry alertes configurées (P0/P1)</li><li>Langfuse dashboard cost monitoring</li><li>Inngest dashboard avec alerting failure rate</li><li>Plan de rollback documenté (Vercel promote previous)</li><li>Runbook incident à jour (RUNBOOK.md)</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="batch">
+            <div class="batch-header" onclick="toggleBatch('GL.6')">
+              <span class="status-badge status-pending">pending</span>
+              <span class="id">GL.6</span>
+              <span class="title">Communication go-live</span>
+              <span class="effort"></span>
+            </div>
+            <div class="batch-content" id="batch-GL.6">
+              
+              <div class="batch-grid">
+                <div class="batch-block">
+                  <h4>Findings inclus (0)</h4>
+                  <ul class="findings-list">
+                    
+                    <li style="color:#666;">Pas de findings (checklist meta)</li>
+                  </ul>
+                  
+                </div>
+                <div class="batch-block">
+                  
+                  <h4>Validation criteria</h4>
+                  <ul>
+                    <li>Doc utilisateur : limites usage, comportement attendu</li><li>Page status : statuspage.io ou équivalent</li><li>Onboarding flow vérifié (signup → first action)</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+    
+
+</main>
+
+<script>
+function togglePhase(phaseId) {
+  const el = document.getElementById('phase-' + phaseId);
+  if (el) el.classList.toggle('hidden');
+}
+function toggleBatch(batchId) {
+  const el = document.getElementById('batch-' + batchId);
+  if (el) el.classList.toggle('show');
+}
+
+// Auto-collapse deferred phases on load
+document.querySelectorAll('.phase-deferred .phase-content').forEach((el) => el.classList.add('hidden'));
+</script>
+</body>
+</html>
