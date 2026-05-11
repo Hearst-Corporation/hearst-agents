@@ -97,6 +97,18 @@ export interface AiPipelineInput {
    * la string ici. Vide / undefined = pas de mémoire mission injectée.
    */
   missionContext?: string;
+  /**
+   * F-011 — Liste effective des tool names autorisés pour ce run.
+   * Injectée par l'orchestrateur depuis capScope.allowedTools (agent scope).
+   * Si présente, le toolset est intersecté : seuls les tools listés sont
+   * exposés au modèle. Null/undefined = pas de restriction (general mode).
+   */
+  _allowedTools?: string[];
+  /**
+   * Mission ID — set quand le run est déclenché par le scheduler.
+   * Déclenche l'isolation scheduler (retire les tools récursifs).
+   */
+  missionId?: string;
 }
 
 const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY ?? "" });
@@ -525,7 +537,7 @@ export async function runAiPipeline(
     ...kgQueryTools,
     ...missionTools,
     ...meetingsTools,
-    ...toAiTools(filteredComposio, input.userId),
+    ...toAiTools(filteredComposio, { userId: input.userId, tenantId: resolvedTenantId }),
     request_connection: buildRequestConnectionTool(engine, eventBus),
     create_scheduled_mission: buildCreateScheduledMissionTool(engine, eventBus, {
       userId: input.userId,
@@ -554,6 +566,34 @@ export async function runAiPipeline(
         }
       : {}),
   };
+
+  // ── F-011 : allowedTools intersection ──────────────────────
+  // Si l'agent scope définit une liste de tools autorisés, on restreint
+  // le toolset effectif. Cela empêche un custom_agent de sortir de son
+  // périmètre, même si le LLM hallucine un nom de tool hors-scope.
+  if (input._allowedTools && input._allowedTools.length > 0) {
+    const allowedSet = new Set(input._allowedTools);
+    for (const name of Object.keys(aiTools)) {
+      if (!allowedSet.has(name)) {
+        delete (aiTools as Record<string, unknown>)[name];
+      }
+    }
+  }
+
+  // ── F-012 : Scheduler isolation ────────────────────────────
+  // Un run déclenché par une mission (missionId set) ne doit pas pouvoir
+  // créer d'autres missions ou se re-scheduler lui-même (fork bomb).
+  if (input.missionId) {
+    const SCHEDULER_RECURSIVE_TOOLS = [
+      "create_scheduled_mission",
+      "request_daily_brief",
+      "run_mission",
+      "request_connection",
+    ] as const;
+    for (const name of SCHEDULER_RECURSIVE_TOOLS) {
+      delete (aiTools as Record<string, unknown>)[name];
+    }
+  }
 
   // ── 3. Build system prompt ──────────────────────────────────
   // Surface both tool families in the OUTILS section so the model knows

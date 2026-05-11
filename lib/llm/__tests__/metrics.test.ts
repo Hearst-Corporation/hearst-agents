@@ -426,7 +426,7 @@ describe("LLMMetricsAggregator — circuitBreakers dans le snapshot", () => {
 
     // 5 échecs consécutifs → OPEN (seuil = 5)
     for (let i = 0; i < 5; i++) {
-      cb.recordFailure("openai");
+      cb.recordFailure("openai", new Error("500 error"));
     }
 
     const snap = agg.getMetrics();

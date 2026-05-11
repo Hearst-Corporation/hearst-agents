@@ -93,11 +93,16 @@ export function KpiTile({
         </span>
       )}
       {captionHtml && (
+        /* F-016 : on passe en text-only pour éliminer le vecteur XSS.
+         * captionHtml était utilisé uniquement pour injecter des <sup> de
+         * citation (fmtCitation). Ces citations sont désormais rendues via
+         * le composant SourceCitation en dehors du tile. */
         <span
           className="t-9 font-mono text-[var(--text-faint)]"
           data-testid="kpi-caption"
-          dangerouslySetInnerHTML={{ __html: captionHtml }}
-        />
+        >
+          {captionHtml.replace(/<[^>]*>/g, "")}
+        </span>
       )}
       {data.sparkline && data.sparkline.length >= 2 && (
         <div style={{ marginTop: "var(--space-2)" }}>

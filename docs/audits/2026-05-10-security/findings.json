@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T02:27:10.577Z",
+  "last_updated": "2026-05-11T02:37:40.264Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 65,
+      "pending": 57,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 65,
+      "closed": 73,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -688,7 +688,7 @@
       "title": "Tool approval prompt-level pas enforced (write tools sans HITL crypto)",
       "severity": "P0",
       "category": "tool_execution",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -749,6 +749,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.049Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -757,7 +763,7 @@
       "title": "agent.allowedTools NON appliqué au runtime (fausse promesse moindre privilège)",
       "severity": "P0",
       "category": "tool_execution",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -793,6 +799,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.079Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -801,7 +813,7 @@
       "title": "create_scheduled_mission fork bomb — récursion missions infinie",
       "severity": "P0",
       "category": "tool_execution",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -837,6 +849,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.109Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -846,7 +864,7 @@
       "severity": "P1",
       "_reclassified": "P0→P1 par post-master (l'app utilise service_role partout → RLS = défense en profondeur seulement, pas enforcement primaire)",
       "category": "rls",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -878,6 +896,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.263Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -887,7 +911,7 @@
       "severity": "P1",
       "_reclassified": "P0→P1 par post-master (RLS défense en profondeur seulement, mais à fix car principle of least privilege)",
       "category": "rls",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -919,6 +943,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.171Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -974,7 +1004,7 @@
       "severity": "P1",
       "_reclassified": "P0→P1 par post-master (risque conditionné à user-controlled string atteignant le composant)",
       "category": "xss",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "codex"
@@ -1008,6 +1038,12 @@
           "actor": "orchestrator",
           "action": "consolidated",
           "note": "blind spot Claude"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.231Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4670,7 +4706,7 @@
       "title": "schedule_inngest_job LLM-driven enqueue arbitraire — privilege escalation cross-tenant",
       "severity": "P1",
       "category": "tool_execution",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4704,6 +4740,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.141Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5216,7 +5258,7 @@
       "title": "Persona systemPromptAddon user-controlled (1500 chars) sans strip control chars / </persona>",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -5245,6 +5287,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:37:40.200Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

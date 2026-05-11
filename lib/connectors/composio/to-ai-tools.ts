@@ -1,9 +1,12 @@
 /**
  * Converts Composio DiscoveredTool[] into Vercel AI SDK v6 tool objects.
  *
- * Write actions (send, create, delete, update …) get a `_preview` gate:
- *   - `_preview: true`  (default) → returns a formatted draft, no side-effect.
- *   - `_preview: false` → executes via Composio after user confirmation.
+ * Write actions (send, create, delete, update …) get a two-step HITL gate:
+ *   1. `_preview: true`  (default) → returns a formatted draft, no side-effect.
+ *   2. `_preview: false` + valid `_confirmationToken` → executes via Composio.
+ *
+ * Le token HMAC est émis côté serveur (jamais par le LLM). Un LLM compromis
+ * par prompt injection ne peut pas se forger un token valide.
  *
  * Read-only tools bypass the gate entirely.
  */
@@ -14,6 +17,10 @@ import { executeComposioAction } from "./client";
 import type { DiscoveredTool } from "./discovery";
 import { isWriteAction, formatActionPreview } from "./write-guard";
 import { getFormatterForAction } from "./preview-formatters";
+import {
+  verifyConfirmationToken,
+  hashToolArgs,
+} from "@/lib/tools/hitl/confirmation-token";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AiToolMap = Record<string, Tool<any, any>>;
@@ -27,7 +34,10 @@ function buildSchema(tool: DiscoveredTool, isWrite: boolean): Parameters<typeof 
 
   if (!isWrite) return base as Parameters<typeof jsonSchema>[0];
 
-  // Inject _preview into write tool schemas
+  // Inject _preview + _confirmationToken into write tool schemas.
+  // Le LLM doit toujours passer _preview: true en premier (draft).
+  // Pour exécuter, le token HMAC doit être fourni par le serveur (jamais
+  // généré par le LLM lui-même).
   const baseProps = (base.properties as Record<string, unknown>) ?? {};
   return {
     ...base,
@@ -37,14 +47,29 @@ function buildSchema(tool: DiscoveredTool, isWrite: boolean): Parameters<typeof 
         type: "boolean",
         description:
           "Set to true (default) to show a draft before executing — ALWAYS do this first. " +
-          "Set to false ONLY when the user has explicitly confirmed with 'confirmer', 'oui', 'yes', 'go', or equivalent.",
+          "Set to false ONLY when the user has explicitly confirmed AND you have received a _confirmationToken from the server.",
         default: true,
+      },
+      _confirmationToken: {
+        type: "string",
+        description:
+          "HMAC confirmation token issued by the server after the user confirmed the draft. " +
+          "Required when _preview is false. Never fabricate this value.",
       },
     },
   } as Parameters<typeof jsonSchema>[0];
 }
 
-export function toAiTools(tools: DiscoveredTool[], userId: string): AiToolMap {
+export interface ToAiToolsContext {
+  userId: string;
+  tenantId: string;
+}
+
+export function toAiTools(tools: DiscoveredTool[], ctx: ToAiToolsContext | string): AiToolMap {
+  // Compat: ancien appelant passait userId (string) directement.
+  const userId = typeof ctx === "string" ? ctx : ctx.userId;
+  const tenantId = typeof ctx === "string" ? "" : ctx.tenantId;
+
   return Object.fromEntries(
     tools.map((t): [string, Tool<unknown, unknown>] => {
       const write = isWriteAction(t.name);
@@ -59,8 +84,8 @@ export function toAiTools(tools: DiscoveredTool[], userId: string): AiToolMap {
 
             if (write) {
               const isPreview = args._preview !== false;
-              // Strip internal gate param before forwarding to Composio
-              const { _preview: _p, ...composioArgs } = args;
+              // Strip internal gate params before forwarding to Composio
+              const { _preview: _p, _confirmationToken, ...composioArgs } = args;
 
               if (isPreview) {
                 // Si un formatter custom existe (top 10 actions), on
@@ -70,6 +95,40 @@ export function toAiTools(tools: DiscoveredTool[], userId: string): AiToolMap {
                   return customFormatter(composioArgs);
                 }
                 return formatActionPreview(t.name, composioArgs);
+              }
+
+              // _preview === false : exiger un token HMAC valide.
+              // Sans token → draft (pas d'erreur cryptique au LLM).
+              if (!_confirmationToken || typeof _confirmationToken !== "string") {
+                return {
+                  kind: "draft",
+                  slug: t.name,
+                  args: composioArgs,
+                  drafted_at: new Date().toISOString(),
+                  reason: "confirmation_token_required",
+                };
+              }
+
+              const argsHash = hashToolArgs(composioArgs);
+              const verify = verifyConfirmationToken(_confirmationToken, {
+                userId,
+                tenantId,
+                toolSlug: t.name,
+                argsHash,
+              });
+
+              if (!verify.ok) {
+                // Token invalide → draft protecteur, log côté serveur.
+                console.warn(
+                  `[HITL] Composio write blocked: tool=${t.name} reason=${verify.reason} userId=${userId}`,
+                );
+                return {
+                  kind: "draft",
+                  slug: t.name,
+                  args: composioArgs,
+                  drafted_at: new Date().toISOString(),
+                  reason: `token_${verify.reason}`,
+                };
               }
 
               return executeComposioAction({

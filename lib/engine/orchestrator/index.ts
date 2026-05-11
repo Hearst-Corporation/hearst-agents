@@ -180,6 +180,10 @@ async function handleAiPipeline(
     personaId: input.personaId,
     missionContext: input.missionContext,
     abortSignal,
+    // F-011 : passer les tools autorisés pour l'agent scope courant
+    _allowedTools: input._allowedTools,
+    // F-012 : passer missionId pour déclencher l'isolation scheduler
+    missionId: input.missionId,
   });
 }
 

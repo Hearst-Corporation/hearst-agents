@@ -65,11 +65,13 @@ interface SendEmailArgs {
   html?: string;
   text?: string;
   from?: string;
+  /** F-010 : gate HITL — true = draft (défaut), false = exécution. */
+  _preview?: boolean;
 }
 
 const sendEmailTool: Tool<SendEmailArgs, unknown> = {
   description:
-    "Envoie un email transactionnel via Resend. ⚠️ Action irréversible : confirme avec l'utilisateur avant l'envoi (sauf si l'utilisateur a explicitement demandé l'envoi). Use this when the user asks to 'envoie un email à X', 'rappelle Y par email', 'follow-up Z'.",
+    "Envoie un email transactionnel via Resend. ⚠️ Action irréversible. Appelle TOUJOURS en mode _preview:true d'abord pour montrer un draft à l'utilisateur. N'exécute (_preview:false) que si l'utilisateur a explicitement confirmé. Use this when the user asks to 'envoie un email à X', 'rappelle Y par email', 'follow-up Z'.",
   inputSchema: jsonSchema<SendEmailArgs>({
     type: "object",
     required: ["to", "subject"],
@@ -84,9 +86,31 @@ const sendEmailTool: Tool<SendEmailArgs, unknown> = {
       html: { type: "string", description: "Corps HTML (optionnel si text fourni)." },
       text: { type: "string", description: "Corps texte brut (optionnel si html fourni)." },
       from: { type: "string", description: "Expéditeur (default: env RESEND_FROM_EMAIL)." },
+      _preview: {
+        type: "boolean",
+        description:
+          "true (défaut) = affiche un draft sans envoyer. false = exécute l'envoi (uniquement après confirmation explicite de l'utilisateur).",
+        default: true,
+      },
     },
   }),
   execute: async (args) => {
+    // F-010 : gate HITL — draft si _preview n'est pas explicitement false.
+    const isPreview = args._preview !== false;
+    if (isPreview) {
+      const toStr = Array.isArray(args.to) ? args.to.join(", ") : args.to;
+      return {
+        kind: "draft",
+        action: "send_email",
+        to: toStr,
+        subject: args.subject,
+        body_preview: (args.text ?? args.html ?? "").slice(0, 200),
+        drafted_at: new Date().toISOString(),
+        message:
+          "Draft email — réponds 'confirmer' pour envoyer ou 'annuler' pour abandonner.",
+      };
+    }
+
     if (!isResendEnabled()) {
       return "Resend n'est pas configuré (RESEND_API_KEY manquante). Email non envoyé.";
     }
@@ -227,6 +251,17 @@ const queryAxiomLogsTool: Tool<QueryAxiomLogsArgs, unknown> = {
 
 // ── schedule_inngest_job ──────────────────────────────────────────
 
+/**
+ * F-102 — Whitelist stricte des events Inngest que le LLM peut déclencher.
+ * Reject tout event hors liste pour empêcher la privilege escalation par prompt injection.
+ * Un attaquant ne peut pas déclencher app/admin.* ou app/email.send directement.
+ */
+const INNGEST_EVENT_WHITELIST = new Set([
+  "app/daily-brief.requested",
+  "app/weekly-digest.requested",
+  "app/monthly-card.requested",
+]);
+
 interface ScheduleInngestJobArgs {
   eventName: string;
   data: Record<string, unknown>;
@@ -235,7 +270,7 @@ interface ScheduleInngestJobArgs {
 
 const scheduleInngestJobTool: Tool<ScheduleInngestJobArgs, unknown> = {
   description:
-    "Programme un event Inngest (job durable). Si `delaySeconds` est fourni, le job s'exécute après ce délai. Use this when the user asks 'programme la génération demain à 9h', 'lance ce job dans 1h', 'schedule a daily report'. Events disponibles : 'app/daily-brief.requested' (génère un brief).",
+    "Programme un event Inngest (job durable). Si `delaySeconds` est fourni, le job s'exécute après ce délai. Use this when the user asks 'programme la génération demain à 9h', 'lance ce job dans 1h', 'schedule a daily report'. Events disponibles : 'app/daily-brief.requested' (génère un brief), 'app/weekly-digest.requested', 'app/monthly-card.requested'.",
   inputSchema: jsonSchema<ScheduleInngestJobArgs>({
     type: "object",
     required: ["eventName", "data"],
@@ -243,7 +278,7 @@ const scheduleInngestJobTool: Tool<ScheduleInngestJobArgs, unknown> = {
       eventName: {
         type: "string",
         description:
-          "Nom de l'event Inngest (ex: 'app/daily-brief.requested', 'app/email.send', 'app/report.generate').",
+          "Nom de l'event Inngest — doit être l'un des events autorisés : 'app/daily-brief.requested', 'app/weekly-digest.requested', 'app/monthly-card.requested'.",
       },
       data: {
         type: "object",
@@ -256,6 +291,14 @@ const scheduleInngestJobTool: Tool<ScheduleInngestJobArgs, unknown> = {
     },
   }),
   execute: async (args) => {
+    // F-102 : whitelist — rejeter tout event hors liste autorisée.
+    if (!INNGEST_EVENT_WHITELIST.has(args.eventName)) {
+      console.warn(
+        `[schedule_inngest] Blocked unauthorized event: ${args.eventName}`,
+      );
+      return `Erreur : l'event '${args.eventName}' n'est pas autorisé. Events disponibles : ${[...INNGEST_EVENT_WHITELIST].join(", ")}.`;
+    }
+
     if (!isInngestEnabled()) {
       return "Inngest non configuré (INNGEST_EVENT_KEY manquant). Job non programmé.";
     }

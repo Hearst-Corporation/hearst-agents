@@ -7,11 +7,54 @@
  *
  * Cap strict 1500 chars pour éviter qu'une style guide longue éclate
  * le budget de cache.
+ *
+ * F-115 — sanitize systemPromptAddon avant injection pour bloquer les
+ * tentatives de prompt injection via les personas utilisateur.
  */
 
 import type { Persona } from "./types";
 
 const ADDON_MAX_CHARS = 1500;
+
+/**
+ * Patterns de prompt injection détectés dans systemPromptAddon.
+ * Si l'un matche → le champ est remplacé par une chaîne vide.
+ * Conservateur : n'affecte que les jailbreak flagrants, pas le texte légitime.
+ */
+const INJECTION_PATTERNS = [
+  /ignore\s+(all\s+)?(previous|prior|above)\s+instructions?/i,
+  /\bsystem\s*prompt\b/i,
+  /<\/?system>/i,
+  /\byou\s+are\s+now\b/i,
+  /\bforget\s+(your|all)\b/i,
+  /\bact\s+as\s+(an?\s+)?(?:unrestricted|jailbreak|DAN)\b/i,
+  // Fermeture de balise persona pour sortir du bloc XML
+  /<\/persona>/i,
+  /<\/?instruction>/i,
+];
+
+/**
+ * Nettoie un systemPromptAddon avant injection dans le system prompt.
+ * - Retire les caractères de contrôle (hors \n et \t)
+ * - Echappe les balises XML dangereuses residuelles
+ * - Rejette si un pattern injection est détecté
+ * - Cap à ADDON_MAX_CHARS (défense en profondeur, Zod le fait déjà côté API)
+ */
+function sanitizeAddon(raw: string): string {
+  // Retire les chars de contrôle (U+0000-U+001F sauf \n \t, U+007F, U+0080-U+009F)
+  const stripped = raw.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x80-\x9F]/g, "");
+
+  // Détection injection — rejeter le champ entier si match
+  for (const pattern of INJECTION_PATTERNS) {
+    if (pattern.test(stripped)) {
+      console.warn("[Persona] systemPromptAddon rejeté (injection pattern détecté):", pattern);
+      return "";
+    }
+  }
+
+  // Cap
+  return stripped.slice(0, ADDON_MAX_CHARS);
+}
 
 function joinList(values: string[] | undefined): string | null {
   if (!values || values.length === 0) return null;
@@ -39,7 +82,10 @@ export function buildPersonaAddon(persona: Persona): string {
     lines.push(`Style guide : ${persona.styleGuide.trim()}`);
   }
   if (persona.systemPromptAddon && persona.systemPromptAddon.trim()) {
-    lines.push(persona.systemPromptAddon.trim());
+    const sanitized = sanitizeAddon(persona.systemPromptAddon.trim());
+    if (sanitized) {
+      lines.push(sanitized);
+    }
   }
 
   const body = lines.join("\n").slice(0, ADDON_MAX_CHARS);
