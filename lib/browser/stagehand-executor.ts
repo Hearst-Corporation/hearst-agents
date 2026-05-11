@@ -460,7 +460,8 @@ async function extractStructured(opts: {
   instruction: string;
   schema?: Record<string, unknown>;
 }): Promise<unknown> {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
     return {
       instruction: opts.instruction,
       schema: opts.schema ?? null,
@@ -470,7 +471,8 @@ async function extractStructured(opts: {
   const html = await opts.page.content().catch(() => "");
   const cleaned = cleanHtml(html);
 
-  const client = new Anthropic();
+  // F-126: Explicitement passer apiKey au client Anthropic (pas de fallback auto)
+  const client = new Anthropic({ apiKey });
   const system = [
     "Tu es un extracteur de données structurées depuis du HTML.",
     "Réponds UNIQUEMENT en JSON valide qui matche le schéma fourni.",

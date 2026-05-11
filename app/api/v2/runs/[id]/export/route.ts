@@ -14,6 +14,11 @@ import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
 import { requireScope } from "@/lib/platform/auth/scope";
 import type { RunEvent } from "@/lib/events/types";
 
+/* F-055: Safe Content-Disposition header */
+function safeFilename(name: string): string {
+  return String(name).replace(/[\r\n"\\]/g, "_").slice(0, 200);
+}
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -88,11 +93,15 @@ export async function GET(
     };
 
     const body = JSON.stringify(payload, null, 2);
+    // F-055: Safe filename with UTF-8 RFC 6266 encoding
+    const safeName = safeFilename(`run-${id}.json`);
+    const encoded = encodeURIComponent(safeName);
+    const disposition = `attachment; filename="${safeName}"; filename*=UTF-8''${encoded}`;
     return new NextResponse(body, {
       status: 200,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Content-Disposition": `attachment; filename="run-${id}.json"`,
+        "Content-Disposition": disposition,
         "Cache-Control": "no-store",
       },
     });

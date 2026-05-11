@@ -23,13 +23,44 @@ const PUBLIC_PATHS = [
   "/api/auth",
   "/api/health",
   "/api/webhooks",
-  "/api/inngest", // Signé par INNGEST_SIGNING_KEY côté Inngest, pas d'auth user
+  "/api/inngest", // Signé par INNGEST_SIGNING_KEY côté Inngest, pas d’auth user
   "/monitoring", // Tunnel route Sentry (cf. next.config.ts withSentryConfig)
 ];
 
-/** Fichiers statiques publics (dont modèles 3D) — exemptés d’auth si le proxy est actif. */
-const STATIC_RE =
-  /^\/(?:_next|favicon\.ico|.*\.(?:svg|png|jpg|ico|webp|woff2?|css|js|glb|gltf))$/;
+/** Fichiers statiques publics — exemptés d’auth si le proxy est actif.
+ * F-051: Restreint à /_next/* et /public/* pour éviter user-upload mis en statique.
+ */
+const STATIC_RE = /^\/(?:_next|public)\/|^\/favicon\.ico$/;
+
+/* ── F-052: CSRF Origin check sur mutations (POST/PUT/DELETE/PATCH) ── */
+const STATE_CHANGING_METHODS = new Set(["POST", "PUT", "DELETE", "PATCH"]);
+
+function isCsrfSafe(req: NextRequest): boolean {
+  // Requêtes GET, HEAD, OPTIONS : toujours safe (idempotentes)
+  if (!STATE_CHANGING_METHODS.has(req.method)) return true;
+
+  // Bypass pour routes signées (webhooks externes via INNGEST_SIGNING_KEY, etc.)
+  const path = req.nextUrl.pathname;
+  if (path.startsWith("/api/webhooks/") || path.startsWith("/api/inngest")) return true;
+
+  // Vérifier Origin header (présent sur requêtes cross-origin depuis un navigateur)
+  const origin = req.headers.get("origin");
+  if (!origin) return false; // POST sans Origin → suspect (possible attaque CSRF)
+
+  // Comparer avec NEXTAUTH_URL configuré
+  const expected = process.env.NEXTAUTH_URL ?? "";
+  if (!expected) return false; // Fallback : pas de config, refuse la requête
+
+  try {
+    const originUrl = new URL(origin);
+    const expectedUrl = new URL(expected);
+    // Comparer scheme + host + port
+    return originUrl.origin === expectedUrl.origin;
+  } catch {
+    // Parse error sur Origin ou NEXTAUTH_URL → refuse
+    return false;
+  }
+}
 
 function isPublic(path: string): boolean {
   if (STATIC_RE.test(path)) return true;
@@ -140,6 +171,15 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
   }
 
   if (path.startsWith("/api/")) {
+    // 2. CSRF Origin check (F-052) — avant d'accepter la requête
+    if (!isCsrfSafe(req)) {
+      console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
+      return NextResponse.json(
+        { error: "csrf_origin_mismatch" },
+        { status: 403 },
+      );
+    }
+
     if (isDevBypass()) {
       console.log(`[Proxy] Dev bypass active — ${path}`);
       return NextResponse.next();

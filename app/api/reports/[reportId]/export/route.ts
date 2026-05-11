@@ -24,6 +24,13 @@ import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
 import { exportReportQuerySchema } from "@/lib/contracts/reports";
 
+/* F-055: Safe Content-Disposition header — prevent CRLF injection + MIME filename */
+function safeFilename(name: string): string {
+  // Supprime CR/LF/quote/backslash pour prévenir l'injection CRLF
+  const sanitized = String(name).replace(/[\r\n"\\]/g, "_").slice(0, 200);
+  return sanitized;
+}
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -187,11 +194,16 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
     );
   }
 
+  // F-055: Safe filename with CRLF injection prevention + UTF-8 RFC 6266
+  const safeName = safeFilename(result.fileName);
+  const encoded = encodeURIComponent(safeName);
+  const disposition = `attachment; filename="${safeName}"; filename*=UTF-8''${encoded}`;
+
   return new NextResponse(new Uint8Array(result.buffer), {
     status: 200,
     headers: {
       "Content-Type": result.contentType,
-      "Content-Disposition": `attachment; filename="${result.fileName}"`,
+      "Content-Disposition": disposition,
       "Content-Length": String(result.size),
       "Cache-Control": "private, no-store",
     },

@@ -3,6 +3,11 @@ import { getAssetDetail } from "@/lib/engine/runtime/assets/detail";
 import { readAssetFile } from "@/lib/engine/runtime/assets/file-storage";
 import { requireScope } from "@/lib/platform/auth/scope";
 
+/* F-055: Safe Content-Disposition header */
+function safeFilename(name: string): string {
+  return String(name).replace(/[\r\n"\\]/g, "_").slice(0, 200);
+}
+
 export const dynamic = "force-dynamic";
 
 export async function GET(
@@ -51,11 +56,16 @@ export async function GET(
       );
     }
 
+    // F-055: Safe filename with CRLF injection prevention + UTF-8 RFC 6266
+    const safeName = safeFilename(detail.file.fileName);
+    const encoded = encodeURIComponent(safeName);
+    const disposition = `attachment; filename="${safeName}"; filename*=UTF-8''${encoded}`;
+
     return new NextResponse(new Uint8Array(buffer), {
       status: 200,
       headers: {
         "Content-Type": detail.file.mimeType ?? "application/octet-stream",
-        "Content-Disposition": `attachment; filename="${detail.file.fileName}"`,
+        "Content-Disposition": disposition,
         "Content-Length": String(buffer.length),
       },
     });

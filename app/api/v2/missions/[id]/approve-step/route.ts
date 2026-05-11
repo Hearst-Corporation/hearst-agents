@@ -10,6 +10,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { approvePlan } from "@/lib/engine/planner";
+import { getPlan } from "@/lib/engine/planner/store";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
@@ -38,6 +39,28 @@ export async function POST(
     return NextResponse.json({ error: "missing_step_id" }, { status: 400 });
   }
 
+  // F-056: Ownership check — vérifier que le plan appartient à l'utilisateur actuel
+  const plan = getPlan(id);
+  if (!plan) {
+    console.warn(
+      `[ApproveStep] plan/mission ${id} introuvable (user ${scope.userId.slice(0, 8)})`,
+    );
+    return NextResponse.json(
+      { error: "plan_not_found", id },
+      { status: 404 },
+    );
+  }
+
+  if (plan.userId !== scope.userId) {
+    console.warn(
+      `[ApproveStep] IDOR attempt — user ${scope.userId.slice(0, 8)} tried to access plan of ${plan.userId.slice(0, 8)}`,
+    );
+    return NextResponse.json(
+      { error: "forbidden" },
+      { status: 403 },
+    );
+  }
+
   // POURQUOI : on essaie d'approuver le plan via le store planner. Si l'`id`
   // est un missionId, le plan associé n'est pas trouvé → 404 silencieux. Le
   // resume fin sera implémenté Phase 2 quand le planner aura un store
@@ -46,7 +69,7 @@ export async function POST(
 
   if (!approved) {
     console.warn(
-      `[ApproveStep] plan/mission ${id} introuvable ou pas en awaiting_approval (user ${scope.userId.slice(0, 8)})`,
+      `[ApproveStep] plan ${id} pas en awaiting_approval (user ${scope.userId.slice(0, 8)})`,
     );
     return NextResponse.json(
       { error: "plan_not_awaiting_approval", id },

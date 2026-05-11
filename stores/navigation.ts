@@ -198,7 +198,7 @@ export const useNavigationStore = create<NavigationState>()(
     }),
     {
       name: "hearst-navigation",
-      version: 2,
+      version: 3, // Bump version pour F-077 : no message content in localStorage
       migrate: (persisted: unknown) => {
         const s = (persisted ?? {}) as Partial<NavigationState>;
         const cleaned = (s.threads ?? []).filter(
@@ -209,15 +209,30 @@ export const useNavigationStore = create<NavigationState>()(
           threads: cleaned,
           activeThreadId:
             s.activeThreadId === "default" ? null : s.activeThreadId ?? null,
+          messages: {}, // F-077: Reset all messages—never persist content in localStorage
         } as NavigationState;
       },
-      partialize: (state) => ({
-        threads: state.threads,
-        activeThreadId: state.activeThreadId,
-        surface: state.surface,
-        messages: state.messages,
-        leftCollapsed: state.leftCollapsed,
-      }),
+      partialize: (state) => {
+        // F-077: Persist seulement les métadonnées de threads (id/name/surface),
+        // jamais le contenu des messages (PII/secrets). Les messages sont
+        // chargés depuis l'API à chaque session.
+        const cleanedThreads = state.threads.map((t) => ({
+          id: t.id,
+          name: t.name,
+          surface: t.surface,
+          lastActivity: t.lastActivity,
+          pinned: t.pinned,
+          archived: t.archived,
+        })) as NavigationState["threads"];
+
+        return {
+          threads: cleanedThreads,
+          activeThreadId: state.activeThreadId,
+          surface: state.surface,
+          messages: {}, // Never persist — PII hazard
+          leftCollapsed: state.leftCollapsed,
+        } as NavigationState;
+      },
     }
   )
 );

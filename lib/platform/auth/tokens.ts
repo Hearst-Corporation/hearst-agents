@@ -30,7 +30,7 @@ function memKey(userId: string, provider: string) {
   return `${userId}::${provider}`;
 }
 
-/* ─── Key Provider abstraction (env var now, KMS later) ─── */
+/* ─── Key Provider abstraction + F-028: Key rotation via keyId envelope ─── */
 
 export interface KeyProvider {
   getKey(): Buffer;
@@ -52,27 +52,126 @@ export function setKeyProvider(provider: KeyProvider) {
   keyProvider = provider;
 }
 
-/* ─── AES-256-GCM encryption ─── */
+/**
+ * Multi-key provider pour rotation. Nouvelles écritures utilisent ACTIVE_KEY_ID,
+ * anciennes lectures (avec d'autres keyIds) restent compatibles.
+ *
+ * Format de ciphertext après rotation : `keyId.iv.tag.ciphertext` (base64url)
+ */
+const KEY_PROVIDERS: Record<string, () => Buffer> = {
+  "1": () => {
+    const hex = process.env.TOKEN_ENCRYPTION_KEY_1 ?? process.env.TOKEN_ENCRYPTION_KEY;
+    if (!hex || hex.length !== 64) {
+      throw new Error("TOKEN_ENCRYPTION_KEY_1 (or TOKEN_ENCRYPTION_KEY) must be 64-char hex");
+    }
+    return Buffer.from(hex, "hex");
+  },
+  "2": () => {
+    const hex = process.env.TOKEN_ENCRYPTION_KEY_2;
+    if (!hex || hex.length !== 64) {
+      throw new Error("TOKEN_ENCRYPTION_KEY_2 must be 64-char hex (if key rotation active)");
+    }
+    return Buffer.from(hex, "hex");
+  },
+};
+
+// ID de la clé active pour les nouvelles écritures. Default : "1" (backward compat).
+const ACTIVE_KEY_ID = process.env.TOKEN_ENCRYPTION_KEY_ACTIVE ?? "1";
+
+/* ─── AES-256-GCM encryption with keyId rotation ─── */
 
 const ALGORITHM = "aes-256-gcm";
-const IV_LENGTH = 16;
+const IV_LENGTH = 12; // GCM standard : 12 bytes (96 bits)
 
+/**
+ * Chiffre un token avec la clé active et l'enveloppe avec son keyId.
+ * Format : `keyId.iv.tag.ciphertext` (tous en base64url pour pas de ':' collision)
+ */
 function encrypt(plaintext: string): string {
-  const key = keyProvider.getKey();
+  const keyId = ACTIVE_KEY_ID;
+  const keyFn = KEY_PROVIDERS[keyId];
+  if (!keyFn) {
+    throw new Error(`Invalid ACTIVE_KEY_ID "${keyId}" — not in KEY_PROVIDERS`);
+  }
+  const key = keyFn();
+  if (key.length !== 32) {
+    throw new Error(`Key ${keyId} has invalid length ${key.length}, expected 32 bytes`);
+  }
+
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
   const encrypted = Buffer.concat([cipher.update(plaintext, "utf8"), cipher.final()]);
   const authTag = cipher.getAuthTag();
-  return [iv.toString("hex"), authTag.toString("hex"), encrypted.toString("hex")].join(":");
+
+  // Format : keyId.iv.tag.ciphertext (base64url)
+  return [
+    keyId,
+    iv.toString("base64url"),
+    authTag.toString("base64url"),
+    encrypted.toString("base64url"),
+  ].join(".");
 }
 
+/**
+ * Déchiffre un token avec gestion backward-compatible de keyIds historiques.
+ * Parse le format enveloppe `keyId.iv.tag.ciphertext`, sélectionne la clé
+ * correspondante, puis déchiffre.
+ */
 function decrypt(ciphertext: string): string {
-  const key = keyProvider.getKey();
-  const [ivHex, authTagHex, encHex] = ciphertext.split(":");
-  if (!ivHex || !authTagHex || !encHex) throw new Error("Malformed encrypted token");
-  const decipher = crypto.createDecipheriv(ALGORITHM, key, Buffer.from(ivHex, "hex"));
-  decipher.setAuthTag(Buffer.from(authTagHex, "hex"));
-  return Buffer.concat([decipher.update(Buffer.from(encHex, "hex")), decipher.final()]).toString("utf8");
+  const parts = ciphertext.split(".");
+
+  // Backward compat : ancien format sans keyId était `iv:tag:enc` (hex)
+  if (parts.length === 3 && ciphertext.includes(":")) {
+    console.warn(
+      "[TokenStore] Décryption en format legacy (sans keyId) — migration conseillée",
+    );
+    const [ivHex, authTagHex, encHex] = ciphertext.split(":");
+    if (!ivHex || !authTagHex || !encHex) throw new Error("Malformed legacy token");
+    const key = keyProvider.getKey(); // Fallback sur ancien provider
+    const decipher = crypto.createDecipheriv(
+      ALGORITHM,
+      key,
+      Buffer.from(ivHex, "hex"),
+    );
+    decipher.setAuthTag(Buffer.from(authTagHex, "hex"));
+    return Buffer.concat([decipher.update(Buffer.from(encHex, "hex")), decipher.final()]).toString(
+      "utf8",
+    );
+  }
+
+  // Nouveau format : `keyId.iv.tag.ciphertext` (base64url)
+  if (parts.length !== 4) throw new Error("Malformed encrypted token (expected 4 parts)");
+
+  const [keyId, ivB64, tagB64, ctB64] = parts;
+  if (!keyId || !ivB64 || !tagB64 || !ctB64) {
+    throw new Error("Malformed token — missing parts");
+  }
+
+  const keyFn = KEY_PROVIDERS[keyId];
+  if (!keyFn) {
+    throw new Error(
+      `Unknown key ID "${keyId}" — rotation déjà complétée? Vérifiez TOKEN_ENCRYPTION_KEY_*`,
+    );
+  }
+
+  const key = keyFn();
+  if (key.length !== 32) {
+    throw new Error(`Key ${keyId} has invalid length ${key.length}, expected 32 bytes`);
+  }
+
+  try {
+    const iv = Buffer.from(ivB64, "base64url");
+    const tag = Buffer.from(tagB64, "base64url");
+    const ct = Buffer.from(ctB64, "base64url");
+
+    const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
+    decipher.setAuthTag(tag);
+    return Buffer.concat([decipher.update(ct), decipher.final()]).toString("utf8");
+  } catch (err) {
+    throw new Error(
+      `Decryption failed for key ${keyId}: ${err instanceof Error ? err.message : String(err)}`,
+    );
+  }
 }
 
 /* ─── Constants ─── */

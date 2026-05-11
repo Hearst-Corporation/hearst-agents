@@ -1,6 +1,37 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
+/* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ── */
+const securityHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.sentry.io https://cloud.langfuse.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https: blob:",
+      "font-src 'self' data:",
+      "connect-src 'self' https://*.supabase.co https://*.sentry.io https://cloud.langfuse.com wss://*.supabase.co https://*.upstash.io",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; "),
+  },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains",
+    // Note: preload déploié uniquement après validation manuelle du domaine sur
+    // https://hstspreload.org/. C'est irréversible pour 6 mois minimum.
+  },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(self), geolocation=(), interest-cohort=()",
+  },
+];
+
 const nextConfig: NextConfig = {
   // standalone requis pour Vercel — copie tous les fichiers runtime Next.js
   // (dont node-environment.js) dans le bundle. La taille était le problème
@@ -10,6 +41,14 @@ const nextConfig: NextConfig = {
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {
     root: import.meta.dirname,
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders,
+      },
+    ];
   },
 };
 

@@ -15,6 +15,7 @@
  */
 
 import OpenAI from "openai";
+import crypto from "crypto";
 
 const EMBEDDING_MODEL = "text-embedding-3-small";
 export const EMBEDDING_DIM = 1536;
@@ -23,7 +24,16 @@ export const EMBEDDING_DIM = 1536;
 const MAX_INPUT_CHARS = 32_000;
 
 const CACHE_MAX = 200;
+// F-122: Cache keyed by SHA256 hash (not plaintext) to avoid PII exposure
 const cache = new Map<string, number[]>();
+
+/**
+ * Hash une chaîne de texte via SHA256 pour usage comme clé de cache.
+ * Évite de conserver le texte brut en mémoire (PII risk).
+ */
+function hashText(text: string): string {
+  return crypto.createHash("sha256").update(text, "utf8").digest("hex");
+}
 
 let _client: OpenAI | null = null;
 let _booted = false;
@@ -64,10 +74,10 @@ function truncate(text: string): string {
   return text.slice(0, MAX_INPUT_CHARS);
 }
 
-function touchCache(key: string, vec: number[]): void {
+function touchCache(hashKey: string, vec: number[]): void {
   // LRU : remove + re-set pour mettre la clé en queue.
-  cache.delete(key);
-  cache.set(key, vec);
+  cache.delete(hashKey);
+  cache.set(hashKey, vec);
   if (cache.size > CACHE_MAX) {
     const oldest = cache.keys().next().value;
     if (oldest !== undefined) cache.delete(oldest);
@@ -75,7 +85,7 @@ function touchCache(key: string, vec: number[]): void {
 }
 
 /**
- * Embed un texte → vecteur 1536-dim. Cache LRU local.
+ * Embed un texte → vecteur 1536-dim. Cache LRU local, indexed par hash (F-122).
  * Throw `EmbeddingsUnavailableError` si pas de clé OpenAI.
  */
 export async function embedText(text: string): Promise<number[]> {
@@ -85,10 +95,11 @@ export async function embedText(text: string): Promise<number[]> {
   }
 
   const input = truncate(trimmed);
-  const cached = cache.get(input);
+  const hashKey = hashText(input); // F-122: Use hash as cache key, not plaintext
+  const cached = cache.get(hashKey);
   if (cached) {
     // Re-touch pour conserver la fraîcheur LRU.
-    touchCache(input, cached);
+    touchCache(hashKey, cached);
     return cached;
   }
 
@@ -105,7 +116,8 @@ export async function embedText(text: string): Promise<number[]> {
     );
   }
 
-  touchCache(input, vec);
+  // F-122: Store in cache keyed by hash, never by plaintext
+  touchCache(hashKey, vec);
   return vec;
 }
 

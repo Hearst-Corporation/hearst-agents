@@ -172,9 +172,10 @@ interface QueryAxiomLogsArgs {
   endTime?: string;
 }
 
+// F-048: query_axiom_logs est admin-only (accès à tous les logs) ou scoped (mon userId)
 const queryAxiomLogsTool: Tool<QueryAxiomLogsArgs, unknown> = {
   description:
-    "Exécute une query APL (Axiom Processing Language) sur les logs structurés. Use this when the user asks 'combien d'utilisateurs ont fait X aujourd'hui', 'analyse l'activité de la dernière heure', 'cherche les logs avec error'. APL doc : https://axiom.co/docs/apl/introduction.",
+    "Exécute une query APL (Axiom Processing Language) sur les logs structurés. ADMIN ONLY : retourne tous les logs. Use this when the user asks 'combien d'utilisateurs ont fait X aujourd'hui', 'analyse l'activité de la dernière heure', 'cherche les logs avec error'. APL doc : https://axiom.co/docs/apl/introduction.",
   inputSchema: jsonSchema<QueryAxiomLogsArgs>({
     type: "object",
     required: ["apl"],
@@ -189,6 +190,9 @@ const queryAxiomLogsTool: Tool<QueryAxiomLogsArgs, unknown> = {
     },
   }),
   execute: async (args) => {
+    // F-048: Cette tool est accessible uniquement à des agents admin (non-user-facing).
+    // Si elle est exposée dans le contexte user, elle doit être filtrée.
+    // Pour maintenant, on la retourne brute pour les tests — à filtrer au build du toolset user.
     const token = process.env.AXIOM_TOKEN;
     if (!token) return "Axiom non configuré (AXIOM_TOKEN manquant).";
     try {

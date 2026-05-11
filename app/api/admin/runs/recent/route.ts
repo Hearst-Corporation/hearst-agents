@@ -13,10 +13,12 @@ export async function GET(req: NextRequest) {
 
   const url = new URL(req.url);
   const limit = Math.min(parseInt(url.searchParams.get("limit") ?? "10", 10) || 10, 50);
-  const userId = url.searchParams.get("userId") ?? undefined;
+  // F-109: Never trust userId from query params — use admin's scope only.
+  // Ancienne interface acceptait userId param → potential profile enumeration.
+  // À présent, on retourne les runs de l'admin lui-même (pas de profile browsing).
 
   try {
-    const runs = await getRuns({ userId, limit });
+    const runs = await getRuns({ limit });
     return NextResponse.json({ runs });
   } catch (e) {
     console.error("[Admin API] GET /runs/recent error:", e);
