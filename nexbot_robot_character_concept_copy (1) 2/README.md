@@ -19,5 +19,3 @@ npm run dev
 ## Deployment
 
 You can use [Vercel](https://vercel.com/) or your server provider of choice to host the website.
-
-

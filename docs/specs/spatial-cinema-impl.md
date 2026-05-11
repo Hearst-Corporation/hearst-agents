@@ -11,6 +11,7 @@ Le robot Spline réagit en temps réel au runtime LLM + voice + tool calls.
 ### État actuel `/spatial`
 
 **Vivant** :
+
 - `app/spatial/page.tsx` — RSC qui compose layout client + scène + overlay
 - `components/spatial/core/SpatialLogoCore.tsx` — Spline dynamic-loaded (`ssr:false`), URL `https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecode`
 - `components/spatial/core/SpatialLogoInteraction.tsx` — wrapper client qui toggle Look At ON/OFF au clic
@@ -32,14 +33,14 @@ Le robot Spline réagit en temps réel au runtime LLM + voice + tool calls.
 
 ### Stores existants à consommer (NE PAS dupliquer)
 
-| Store | Path | Ce qu'on lit |
-|---|---|---|
-| `useRuntimeStore` | `stores/runtime.ts` | `coreState`, `currentRunId`, `currentPlan`, `events`, `addEvent`, `startRun`, `failRun`, `stopRun`, `setAbortController` |
-| `useVoiceStore` | `stores/voice.ts` | `phase`, `audioLevel`, `voiceActive`, `setVoiceActive`, `transcript` |
-| `useFocalStore` | `stores/focal.ts` | `focal`, `secondary`, `setFocal`, `pinnedFocalKey` |
-| `useNavigationStore` | `stores/navigation.ts` | `activeThreadId`, `messages`, `addThread`, `setActiveThread`, `addMessageToThread`, `updateMessageInThread` |
-| `useStageStore` | `stores/stage.ts` | `setMode` (pour navigation cross-stage) |
-| `useNotificationsStore` | `stores/notifications.ts` | `notifications`, `unreadCount` |
+| Store                   | Path                      | Ce qu'on lit                                                                                                             |
+| ----------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useRuntimeStore`       | `stores/runtime.ts`       | `coreState`, `currentRunId`, `currentPlan`, `events`, `addEvent`, `startRun`, `failRun`, `stopRun`, `setAbortController` |
+| `useVoiceStore`         | `stores/voice.ts`         | `phase`, `audioLevel`, `voiceActive`, `setVoiceActive`, `transcript`                                                     |
+| `useFocalStore`         | `stores/focal.ts`         | `focal`, `secondary`, `setFocal`, `pinnedFocalKey`                                                                       |
+| `useNavigationStore`    | `stores/navigation.ts`    | `activeThreadId`, `messages`, `addThread`, `setActiveThread`, `addMessageToThread`, `updateMessageInThread`              |
+| `useStageStore`         | `stores/stage.ts`         | `setMode` (pour navigation cross-stage)                                                                                  |
+| `useNotificationsStore` | `stores/notifications.ts` | `notifications`, `unreadCount`                                                                                           |
 
 ### Endpoints API existants à appeler (NE PAS recréer)
 
@@ -51,6 +52,7 @@ Le robot Spline réagit en temps réel au runtime LLM + voice + tool calls.
 ### Pattern canonique à reproduire
 
 Le code de `app/(user)/components/ChatDock.tsx` (lignes 156-297) montre **exactement comment consommer `/api/orchestrate` SSE** :
+
 - POST avec messages + history
 - `Body.getReader()` + decode chunks
 - Parse `event:` + `data:` SSE lines
@@ -65,6 +67,7 @@ Le code de `app/(user)/components/ChatDock.tsx` (lignes 156-297) montre **exacte
 ## Objectif final
 
 Sur `/spatial`, l'utilisateur :
+
 1. Voit le robot 3D centré-droit, yeux allumés
 2. Tape un prompt dans la CommandBar style bento
 3. Le robot **commence à bouger** (anim "thinking" / "processing")
@@ -84,13 +87,13 @@ Sur `/spatial`, l'utilisateur :
 **Fichier nouveau** : `hooks/spatial/useSplineApp.ts`
 
 ```ts
-'use client';
+"use client";
 
-import { useCallback, useRef } from 'react';
-import type { Application, SPEObject } from '@splinetool/runtime';
+import { useCallback, useRef } from "react";
+import type { Application, SPEObject } from "@splinetool/runtime";
 
-const TARGET_OBJECTS = ['Robot', 'Orb', 'Halo', 'Eyes'] as const;
-type TargetName = typeof TARGET_OBJECTS[number];
+const TARGET_OBJECTS = ["Robot", "Orb", "Halo", "Eyes"] as const;
+type TargetName = (typeof TARGET_OBJECTS)[number];
 
 export function useSplineApp() {
   const appRef = useRef<Application | null>(null);
@@ -106,9 +109,12 @@ export function useSplineApp() {
     readyRef.current = true;
   }, []);
 
-  const emit = useCallback((event: 'mouseDown' | 'mouseUp' | 'keyDown' | 'keyUp' | 'start', target: string) => {
-    appRef.current?.emitEvent(event, target);
-  }, []);
+  const emit = useCallback(
+    (event: "mouseDown" | "mouseUp" | "keyDown" | "keyUp" | "start", target: string) => {
+      appRef.current?.emitEvent(event, target);
+    },
+    [],
+  );
 
   const setVar = useCallback((name: string, value: number | string | boolean) => {
     appRef.current?.setVariable(name, value);
@@ -127,11 +133,11 @@ Refactor `SpatialLogoCore.tsx` pour appeler `onLoad={onLoad}` sur `<Spline />`. 
 **Fichier nouveau** : `hooks/spatial/useSplineVoiceBridge.ts`
 
 ```ts
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useVoiceStore } from '@/stores/voice';
-import { useSplineApp } from './useSplineApp';
+import { useEffect } from "react";
+import { useVoiceStore } from "@/stores/voice";
+import { useSplineApp } from "./useSplineApp";
 
 export function useSplineVoiceBridge(spline: ReturnType<typeof useSplineApp>) {
   // Pulse continu : RAF lit audioLevel et l'envoie à Spline 60fps sans re-render
@@ -140,9 +146,9 @@ export function useSplineVoiceBridge(spline: ReturnType<typeof useSplineApp>) {
     const tick = () => {
       const level = useVoiceStore.getState().audioLevel; // ref read, no subscribe
       if (spline.ready.current) {
-        spline.setVar('pulse', level);
+        spline.setVar("pulse", level);
         // Fallback si la scène n'expose pas la variable : muter scale Orb directement
-        const orb = spline.obj('Orb');
+        const orb = spline.obj("Orb");
         if (orb) {
           const s = 1 + level * 0.18;
           orb.scale.x = orb.scale.y = orb.scale.z = s;
@@ -161,28 +167,28 @@ export function useSplineVoiceBridge(spline: ReturnType<typeof useSplineApp>) {
 **Fichier nouveau** : `hooks/spatial/useSplineStateBridge.ts`
 
 ```ts
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useVoiceStore } from '@/stores/voice';
-import { useRuntimeStore } from '@/stores/runtime';
-import { useSplineApp } from './useSplineApp';
+import { useEffect } from "react";
+import { useVoiceStore } from "@/stores/voice";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useSplineApp } from "./useSplineApp";
 
 const PHASE_TO_SPLINE_KEY: Record<string, string> = {
-  idle: 'A',         // mappé dans Spline éditeur sur State Idle
-  listening: 'B',    // → State Listening
-  speaking: 'C',     // → State Speaking
-  processing: 'D',   // → State Processing
-  error: 'E',        // → State Error
+  idle: "A", // mappé dans Spline éditeur sur State Idle
+  listening: "B", // → State Listening
+  speaking: "C", // → State Speaking
+  processing: "D", // → State Processing
+  error: "E", // → State Error
 };
 
 const CORE_TO_SPLINE_KEY: Record<string, string> = {
-  idle: 'A',
-  streaming: 'D',
-  processing: 'D',
-  error: 'E',
-  awaiting_approval: 'F',
-  awaiting_clarification: 'F',
+  idle: "A",
+  streaming: "D",
+  processing: "D",
+  error: "E",
+  awaiting_approval: "F",
+  awaiting_clarification: "F",
 };
 
 export function useSplineStateBridge(spline: ReturnType<typeof useSplineApp>) {
@@ -193,12 +199,10 @@ export function useSplineStateBridge(spline: ReturnType<typeof useSplineApp>) {
     if (!spline.ready.current) return;
     // Voice prend la priorité si voice active
     const voiceActive = useVoiceStore.getState().voiceActive;
-    const key = voiceActive
-      ? PHASE_TO_SPLINE_KEY[voicePhase]
-      : CORE_TO_SPLINE_KEY[coreState];
+    const key = voiceActive ? PHASE_TO_SPLINE_KEY[voicePhase] : CORE_TO_SPLINE_KEY[coreState];
     if (!key) return;
-    spline.emit('keyDown', 'Robot');
-    spline.setVar('mood', voiceActive ? voicePhase : coreState);
+    spline.emit("keyDown", "Robot");
+    spline.setVar("mood", voiceActive ? voicePhase : coreState);
   }, [voicePhase, coreState, spline]);
 }
 ```
@@ -220,20 +224,26 @@ async function handleSubmit(text: string) {
   // 1. Crée ou récupère un thread
   let threadId = navigation.activeThreadId;
   if (!threadId) {
-    threadId = navigation.addThread(text.slice(0, 60), 'home');
+    threadId = navigation.addThread(text.slice(0, 60), "home");
     navigation.setActiveThread(threadId);
   }
 
   // 2. Push message user
   const userMessageId = crypto.randomUUID();
   navigation.addMessageToThread(threadId, {
-    id: userMessageId, role: 'user', content: text, createdAt: Date.now()
+    id: userMessageId,
+    role: "user",
+    content: text,
+    createdAt: Date.now(),
   });
 
   // 3. Push placeholder assistant (sera updated par text_delta)
   const assistantMessageId = crypto.randomUUID();
   navigation.addMessageToThread(threadId, {
-    id: assistantMessageId, role: 'assistant', content: '', createdAt: Date.now()
+    id: assistantMessageId,
+    role: "assistant",
+    content: "",
+    createdAt: Date.now(),
   });
 
   // 4. Start run + setup abort
@@ -241,15 +251,17 @@ async function handleSubmit(text: string) {
   runtime.setAbortController(abortController);
 
   try {
-    const res = await fetch('/api/orchestrate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/orchestrate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message: text,
         threadId,
-        conversationHistory: navigation.messages[threadId]?.slice(-10).map(m => ({
-          role: m.role, content: m.content
-        })) ?? [],
+        conversationHistory:
+          navigation.messages[threadId]?.slice(-10).map((m) => ({
+            role: m.role,
+            content: m.content,
+          })) ?? [],
       }),
       signal: abortController.signal,
     });
@@ -257,21 +269,21 @@ async function handleSubmit(text: string) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const reader = res.body!.getReader();
     const decoder = new TextDecoder();
-    let buffer = '';
-    let assistantBuffer = '';
+    let buffer = "";
+    let assistantBuffer = "";
 
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
 
-      const lines = buffer.split('\n');
-      buffer = lines.pop() ?? '';
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
 
       for (let i = 0; i < lines.length; i += 2) {
         const eventLine = lines[i];
         const dataLine = lines[i + 1];
-        if (!eventLine?.startsWith('event:') || !dataLine?.startsWith('data:')) continue;
+        if (!eventLine?.startsWith("event:") || !dataLine?.startsWith("data:")) continue;
 
         const eventType = eventLine.slice(6).trim();
         const data = JSON.parse(dataLine.slice(5).trim());
@@ -280,8 +292,8 @@ async function handleSubmit(text: string) {
         runtime.addEvent({ type: eventType, ...data });
 
         // Special: text_delta → update assistant message
-        if (eventType === 'text_delta') {
-          assistantBuffer += data.delta ?? '';
+        if (eventType === "text_delta") {
+          assistantBuffer += data.delta ?? "";
           navigation.updateMessageInThread(threadId, assistantMessageId, {
             content: assistantBuffer,
           });
@@ -289,7 +301,7 @@ async function handleSubmit(text: string) {
       }
     }
   } catch (err) {
-    runtime.failRun(err instanceof Error ? err.message : 'unknown');
+    runtime.failRun(err instanceof Error ? err.message : "unknown");
   } finally {
     runtime.setAbortController(null);
   }
@@ -304,7 +316,7 @@ Refactor `components/spatial/panels/BriefPanel.tsx` :
 
 ```ts
 const focal = useFocalStore((s) => s.focal);
-const isBrief = focal?.type === 'brief';
+const isBrief = focal?.type === "brief";
 
 // Si focal brief existe : afficher focal.title + focal.summary
 // Sinon : fallback sur greeting éditorial (CockpitHeader-style)
@@ -320,15 +332,16 @@ Refactor `components/spatial/panels/MissionPanel.tsx` :
 const currentPlan = useRuntimeStore((s) => s.currentPlan);
 const coreState = useRuntimeStore((s) => s.coreState);
 
-const runningSteps = currentPlan?.steps.filter(s => s.status === 'running').length ?? 0;
+const runningSteps = currentPlan?.steps.filter((s) => s.status === "running").length ?? 0;
 const totalSteps = currentPlan?.steps.length ?? 0;
-const currentStepLabel = currentPlan?.steps.find(s => s.status === 'running')?.label;
+const currentStepLabel = currentPlan?.steps.find((s) => s.status === "running")?.label;
 
 // MiniChart : remplacer random heights par latencyMs des steps complétés
-const chartHeights = currentPlan?.steps
-  .filter(s => s.latencyMs)
-  .slice(-12)
-  .map(s => Math.min(100, (s.latencyMs! / 5000) * 100)) ?? [];
+const chartHeights =
+  currentPlan?.steps
+    .filter((s) => s.latencyMs)
+    .slice(-12)
+    .map((s) => Math.min(100, (s.latencyMs! / 5000) * 100)) ?? [];
 ```
 
 Refactor `MiniChart` pour accepter `heights?: number[]` en prop (fallback random si absent).
@@ -340,15 +353,19 @@ Refactor `components/spatial/panels/AssetsPanel.tsx` :
 ```ts
 const secondary = useFocalStore((s) => s.secondary);
 const activeThreadId = useNavigationStore((s) => s.activeThreadId);
-const messages = useNavigationStore((s) => activeThreadId ? s.messages[activeThreadId] : []);
+const messages = useNavigationStore((s) => (activeThreadId ? s.messages[activeThreadId] : []));
 
 const assetRefs = (messages ?? [])
-  .filter(m => m.assetRef)
+  .filter((m) => m.assetRef)
   .slice(-5)
-  .map(m => ({ label: m.assetRef!.label ?? 'Asset', time: relativeTime(m.createdAt), id: m.assetRef!.id }));
+  .map((m) => ({
+    label: m.assetRef!.label ?? "Asset",
+    time: relativeTime(m.createdAt),
+    id: m.assetRef!.id,
+  }));
 
 const allAssets = [
-  ...secondary.map(o => ({ label: o.title, time: relativeTime(o.updatedAt), id: o.id })),
+  ...secondary.map((o) => ({ label: o.title, time: relativeTime(o.updatedAt), id: o.id })),
   ...assetRefs,
 ];
 ```
@@ -382,6 +399,7 @@ Layout : 1 colonne × 1 rangée chacun, glissés en bas de la grille bento. Anim
 Écouter `useFocalStore.focal` qui passe à `status: 'delivered'` pour un type `report`/`doc`/`brief`. Monter `AssetCard` (déjà existant, à recâbler) en center stage avec backdrop dim.
 
 Refactor `components/spatial/panels/AssetCard.tsx` pour consommer le focal réel :
+
 - `focal.title`, `focal.summary`, `focal.body`
 - Bouton "Ouvrir" → `useStageStore.setMode({ mode: 'asset', assetId: focal.sourceAssetId })` + redirect `/`
 - Bouton "Fermer" → `useFocalStore.hide()`
@@ -389,6 +407,7 @@ Refactor `components/spatial/panels/AssetCard.tsx` pour consommer le focal réel
 ### P1-3 — HITL `awaiting_approval` → halo cyan + bento alert
 
 Quand `coreState === 'awaiting_approval'` :
+
 - Halo cyan sur le robot (variable Spline `mood='approval'` ou fallback : ring overlay HTML pulsant cyan autour du conteneur Spline)
 - Card bento alert top-right "Validation requise" + preview du `currentPlan.steps[].approvalPreview`
 - Bouton "Approuver" → `useRuntimeStore.approveStep(planId, stepId)`
@@ -405,8 +424,8 @@ const stage = useStageStore.getState();
 
 function handleClick() {
   if (currentPlan) {
-    stage.setMode({ mode: 'mission', missionId: currentPlan.id });
-    router.push('/');
+    stage.setMode({ mode: "mission", missionId: currentPlan.id });
+    router.push("/");
   }
 }
 ```
@@ -422,14 +441,14 @@ Hotkey `Cmd+K` global sur `/spatial` :
 ```ts
 useEffect(() => {
   function onKey(e: KeyboardEvent) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
       e.preventDefault();
-      useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: '' });
-      router.push('/'); // Commandeur vit dans le layout (user)
+      useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: "" });
+      router.push("/"); // Commandeur vit dans le layout (user)
     }
   }
-  window.addEventListener('keydown', onKey);
-  return () => window.removeEventListener('keydown', onKey);
+  window.addEventListener("keydown", onKey);
+  return () => window.removeEventListener("keydown", onKey);
 }, []);
 ```
 
@@ -441,17 +460,17 @@ Note : Commandeur n'existe pas dans `/spatial`. Soit on bascule sur `/`, soit on
 
 ```ts
 const PROVIDER_TO_SPLINE_KEY: Record<string, string> = {
-  gmail: 'G',     // → State "Sending mail" anim (enveloppe orbite)
-  slack: 'H',     // → State "Slack message"
-  fal_ai: 'I',    // → State "Generating image"
-  composio: 'J',  // → State "Tool call generic"
+  gmail: "G", // → State "Sending mail" anim (enveloppe orbite)
+  slack: "H", // → State "Slack message"
+  fal_ai: "I", // → State "Generating image"
+  composio: "J", // → State "Tool call generic"
 };
 
 useEffect(() => {
   const lastEvent = events[events.length - 1];
-  if (lastEvent?.type === 'tool_call_started') {
-    const key = PROVIDER_TO_SPLINE_KEY[lastEvent.providerId] ?? 'J';
-    spline.emit('keyDown', 'Robot');
+  if (lastEvent?.type === "tool_call_started") {
+    const key = PROVIDER_TO_SPLINE_KEY[lastEvent.providerId] ?? "J";
+    spline.emit("keyDown", "Robot");
   }
 }, [events.length]);
 ```
@@ -485,17 +504,18 @@ const setVoiceActive = useVoiceStore((s) => s.setVoiceActive);
 // Cmd+7
 useEffect(() => {
   function onKey(e: KeyboardEvent) {
-    if ((e.metaKey || e.ctrlKey) && e.key === '7') {
+    if ((e.metaKey || e.ctrlKey) && e.key === "7") {
       e.preventDefault();
       setVoiceActive(!voiceActive);
     }
   }
-  window.addEventListener('keydown', onKey);
-  return () => window.removeEventListener('keydown', onKey);
+  window.addEventListener("keydown", onKey);
+  return () => window.removeEventListener("keydown", onKey);
 }, [voiceActive, setVoiceActive]);
 ```
 
 ⚠ `VoicePulse` (le pipeline WebRTC) vit dans `app/(user)/layout.tsx` — il n'est pas monté sur `/spatial`. Deux options :
+
 - **A** : Mount `<VoicePulse />` dans `app/spatial/page.tsx` aussi (duplication contrôlée)
 - **B** : Faire que `voiceActive=true` redirige vers `/` qui a déjà VoicePulse
 
@@ -522,30 +542,31 @@ Pour que les bridges P0/P1 marchent, le `.splinecode` exporté DOIT exposer :
 
 ### Variables (à créer dans Variables panel Spline)
 
-| Nom | Type | Range | Bind suggéré |
-|---|---|---|---|
-| `pulse` | Number | 0..1 | Scale orbe central, intensité emissive yeux |
-| `mood` | String | "idle"\|"listening"\|"speaking"\|"processing"\|"error"\|"approval" | Couleur halo, anim posture |
-| `idle_intensity` | Number | 0..1 | Force de l'anim ambient idle |
+| Nom              | Type   | Range                                                              | Bind suggéré                                |
+| ---------------- | ------ | ------------------------------------------------------------------ | ------------------------------------------- |
+| `pulse`          | Number | 0..1                                                               | Scale orbe central, intensité emissive yeux |
+| `mood`           | String | "idle"\|"listening"\|"speaking"\|"processing"\|"error"\|"approval" | Couleur halo, anim posture                  |
+| `idle_intensity` | Number | 0..1                                                               | Force de l'anim ambient idle                |
 
 ### States (à créer sur l'objet `Robot`)
 
-| State name | Trigger event Spline | Quand on l'active |
-|---|---|---|
-| `Idle` | `keyDown` key='A' | `coreState='idle'` & `voicePhase='idle'` |
-| `Listening` | `keyDown` key='B' | `voicePhase='listening'` |
-| `Speaking` | `keyDown` key='C' | `voicePhase='speaking'` |
-| `Processing` | `keyDown` key='D' | `coreState='streaming'\|'processing'` ou `voicePhase='processing'` |
-| `Error` | `keyDown` key='E' | `coreState='error'\|voicePhase='error'` |
-| `Approval` | `keyDown` key='F' | `coreState='awaiting_approval'` |
-| `SendingMail` | `keyDown` key='G' | tool gmail |
-| `SlackMessage` | `keyDown` key='H' | tool slack |
-| `GeneratingImage` | `keyDown` key='I' | tool fal_ai |
-| `GenericTool` | `keyDown` key='J' | tool composio générique |
+| State name        | Trigger event Spline | Quand on l'active                                                  |
+| ----------------- | -------------------- | ------------------------------------------------------------------ |
+| `Idle`            | `keyDown` key='A'    | `coreState='idle'` & `voicePhase='idle'`                           |
+| `Listening`       | `keyDown` key='B'    | `voicePhase='listening'`                                           |
+| `Speaking`        | `keyDown` key='C'    | `voicePhase='speaking'`                                            |
+| `Processing`      | `keyDown` key='D'    | `coreState='streaming'\|'processing'` ou `voicePhase='processing'` |
+| `Error`           | `keyDown` key='E'    | `coreState='error'\|voicePhase='error'`                            |
+| `Approval`        | `keyDown` key='F'    | `coreState='awaiting_approval'`                                    |
+| `SendingMail`     | `keyDown` key='G'    | tool gmail                                                         |
+| `SlackMessage`    | `keyDown` key='H'    | tool slack                                                         |
+| `GeneratingImage` | `keyDown` key='I'    | tool fal_ai                                                        |
+| `GenericTool`     | `keyDown` key='J'    | tool composio générique                                            |
 
 ### Objets nommés (pour fallback mutation directe)
 
 Si le designer ne crée pas les variables, le code fallback sur :
+
 - `Robot` — l'objet conteneur principal
 - `Orb` — orbe central (scale + intensity pulse)
 - `Halo` — anneau qui change couleur selon mood
@@ -556,6 +577,7 @@ Si le designer ne crée pas les variables, le code fallback sur :
 ### Si la scène n'expose RIEN de tout ça
 
 Le code DOIT **tomber gracieusement** :
+
 - `setVariable` no-op si la variable n'existe pas (Spline API ne throw pas)
 - `emitEvent` no-op si l'event n'est pas mappé
 - Le RAF P0-2 mute `Orb.scale` direct si trouvé, sinon ne fait rien
@@ -666,12 +688,12 @@ stores/focal.ts                     [INCHANGÉ - on lit seulement]
 
 ## Estimation finale
 
-| Phase | Effort Opus | Réalisme |
-|---|---|---|
-| P0 (bindings runtime + bridge Spline) | 1.5j | Critique : sans P0, `/spatial` reste déco |
-| P1 (UX flow agent + intercos stages) | 1.5j | Important : sans P1, le mode cinéma manque de nerf |
-| P2 (polish + satellites) | 1j | Confort : sans P2, c'est juste pas raffiné |
-| **Total** | **4j Opus** | Soit ~1 journée user en compressant |
+| Phase                                 | Effort Opus | Réalisme                                           |
+| ------------------------------------- | ----------- | -------------------------------------------------- |
+| P0 (bindings runtime + bridge Spline) | 1.5j        | Critique : sans P0, `/spatial` reste déco          |
+| P1 (UX flow agent + intercos stages)  | 1.5j        | Important : sans P1, le mode cinéma manque de nerf |
+| P2 (polish + satellites)              | 1j          | Confort : sans P2, c'est juste pas raffiné         |
+| **Total**                             | **4j Opus** | Soit ~1 journée user en compressant                |
 
 ---
 
@@ -707,6 +729,7 @@ Ne push pas. Termine en disant ce qui reste à valider visuellement.
 #### Bridges runtime ↔ Spline (P0)
 
 **Fichiers créés** :
+
 - `hooks/spatial/useSplineApp.ts` — capture l'`Application` Spline au load, expose `emit`/`setVar`/`obj` no-op-safe
 - `hooks/spatial/useSplineVoiceBridge.ts` — RAF 60 fps qui pousse `voiceStore.audioLevel` (0..1) vers `pulse` Spline + fallback `Orb.scale` (1 → 1.18)
 - `hooks/spatial/useSplineStateBridge.ts` — voice phase + core state → `keyDown('Robot')` + variable `mood`
@@ -752,16 +775,17 @@ Ne push pas. Termine en disant ce qui reste à valider visuellement.
 
 La scène actuelle (`https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecode`) n'a **pas été inspectée par cet agent** (pas d'accès Spline éditeur). Le code est codé pour **degrader gracieusement** :
 
-| Asset attendu | Si présent | Si absent (état actuel probable) |
-|---|---|---|
-| Variable `pulse` (Number 0..1) | Spline anime tout objet bindé sur `pulse` | No-op silencieux + fallback : mute `Orb.scale` (1 → 1.18) si l'objet `Orb` existe |
-| Variable `mood` (String) | Shaders / posture peuvent lire l'état courant | No-op silencieux |
-| Variable `tool_key` (String G..J) | Sub-anims tool-spécifiques | No-op silencieux |
-| Variable `idle_intensity` (Number 0..1) | Anim ambient quand idle > 30s | No-op silencieux |
-| State `Idle/Listening/Speaking/Processing/Error/Approval` (keys A..F) sur `Robot` | Trigger anims via `keyDown('Robot')` | No-op (Spline ne throw pas, juste rien ne se passe) |
-| Objets nommés : `Robot`, `Orb`, `Halo`, `Eyes` | Mutation directe scale/intensity possible | Au load : `console.warn` une fois "aucun des objets Spline attendus introuvable" + fallback no-op |
+| Asset attendu                                                                     | Si présent                                    | Si absent (état actuel probable)                                                                  |
+| --------------------------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Variable `pulse` (Number 0..1)                                                    | Spline anime tout objet bindé sur `pulse`     | No-op silencieux + fallback : mute `Orb.scale` (1 → 1.18) si l'objet `Orb` existe                 |
+| Variable `mood` (String)                                                          | Shaders / posture peuvent lire l'état courant | No-op silencieux                                                                                  |
+| Variable `tool_key` (String G..J)                                                 | Sub-anims tool-spécifiques                    | No-op silencieux                                                                                  |
+| Variable `idle_intensity` (Number 0..1)                                           | Anim ambient quand idle > 30s                 | No-op silencieux                                                                                  |
+| State `Idle/Listening/Speaking/Processing/Error/Approval` (keys A..F) sur `Robot` | Trigger anims via `keyDown('Robot')`          | No-op (Spline ne throw pas, juste rien ne se passe)                                               |
+| Objets nommés : `Robot`, `Orb`, `Halo`, `Eyes`                                    | Mutation directe scale/intensity possible     | Au load : `console.warn` une fois "aucun des objets Spline attendus introuvable" + fallback no-op |
 
 **Action désigner Spline** :
+
 1. Créer les variables ci-dessus dans Variables panel (Spline éditeur → Settings → Variables)
 2. Sur l'objet `Robot`, créer 6 States `A..F` (Idle/Listening/Speaking/Processing/Error/Approval) bindés sur `keyDown` avec ces keys
 3. Optionnel : 4 States supplémentaires `G..J` (SendingMail/SlackMessage/GeneratingImage/GenericTool) — sinon `mood: 'tool:<provider>'` reste lisible
@@ -771,11 +795,11 @@ La scène actuelle (`https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecod
 
 ### Hotkeys actifs sur /spatial
 
-| Combo | Action |
-|---|---|
-| `Cmd/Ctrl + K` | Ouvre le Commandeur (sur la home `/`, qui héberge le composant — `setCommandeurOpen(true)` + `router.push('/')`) |
-| `Cmd/Ctrl + 7` | Toggle `voiceStore.voiceActive` (active/désactive le pipeline WebRTC) |
-| `Enter` (focus CommandBar) | Soumet le prompt → `/api/orchestrate` SSE |
+| Combo                      | Action                                                                                                           |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `Cmd/Ctrl + K`             | Ouvre le Commandeur (sur la home `/`, qui héberge le composant — `setCommandeurOpen(true)` + `router.push('/')`) |
+| `Cmd/Ctrl + 7`             | Toggle `voiceStore.voiceActive` (active/désactive le pipeline WebRTC)                                            |
+| `Enter` (focus CommandBar) | Soumet le prompt → `/api/orchestrate` SSE                                                                        |
 
 Le mapping global `STAGE_HOTKEYS` (Cmd+1..0) n'est pas réinstallé sur `/spatial` — `setMode` requiert d'être sur `/`. Si l'user veut switcher de stage depuis `/spatial`, il passe par Cmd+K (Commandeur) ou clique un bento (Mission/Asset).
 
@@ -802,5 +826,3 @@ Le mapping global `STAGE_HOTKEYS` (Cmd+1..0) n'est pas réinstallé sur `/spatia
 6. **CommandBar abort manquant** : pas de bouton stop visible. Pour annuler un run, il faut soit attendre la fin, soit appeler `useRuntimeStore.getState().stopRun()` depuis la console.
 7. **Pas de tests Playwright spatial** : module proto luxe, pas couvert.
 8. **`KPIBento` placement** : posé en overlay au top-center séparé de la grille bento gauche pour préserver le layout 4×3 existant. Pas un vrai bento de la grille — si Adrien veut le réintégrer dans la grille, il faut bumper la grille à 4 colonnes × 4 rangées et insérer le KPIBento en row 1.
-
-
