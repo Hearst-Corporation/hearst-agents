@@ -65,8 +65,12 @@ async function loadCardForToken(token: string) {
   }
   const { uid, ym } = verify.payload;
 
-  const tenantId = process.env.HEARST_TENANT_ID ?? "dev-tenant";
-  const workspaceId = process.env.HEARST_WORKSPACE_ID ?? "dev-workspace";
+  const tenantId = process.env.HEARST_TENANT_ID;
+  const workspaceId = process.env.HEARST_WORKSPACE_ID;
+  if (!tenantId || !workspaceId) {
+    console.error("[public/hearst-card] HEARST_TENANT_ID ou HEARST_WORKSPACE_ID absent — configuration serveur incomplète");
+    return { ok: false as const, reason: "server_misconfigured" };
+  }
 
   try {
     const data = await buildMonthlyCardData(

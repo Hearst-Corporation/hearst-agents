@@ -88,8 +88,8 @@ export function buildMeetingsTools(opts: BuildMeetingsToolsOpts): AiToolMap {
       }
 
       const all = await loadAssetsForScope({
-        tenantId: scope.tenantId ?? "dev-tenant",
-        workspaceId: scope.workspaceId ?? "dev-workspace",
+        tenantId: scope.tenantId,
+        workspaceId: scope.workspaceId,
         userId: scope.userId,
         limit: 100,
       });

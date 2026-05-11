@@ -194,8 +194,8 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
       const userId = scope.userId;
       void scheduleDailyBriefing({
         userId,
-        tenantId: scope.tenantId ?? "dev-tenant",
-        workspaceId: scope.workspaceId ?? "dev-workspace",
+        tenantId: scope.tenantId,
+        workspaceId: scope.workspaceId,
       }).catch((err) => {
         console.warn("[request_daily_brief] scheduleDailyBriefing failed:", err);
       });
@@ -239,8 +239,8 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
     execute: async (input) => {
       const limit = Math.min(Math.max(input.limit ?? 5, 1), 20);
       const all = await loadAssetsForScope({
-        tenantId: scope.tenantId ?? "dev-tenant",
-        workspaceId: scope.workspaceId ?? "dev-workspace",
+        tenantId: scope.tenantId,
+        workspaceId: scope.workspaceId,
         userId: scope.userId,
         limit: 100,
       });
@@ -314,8 +314,8 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
     | { ok: false; reason: "no_assets" | "no_match" | "ambiguous"; matches?: Asset[]; available?: Asset[] }
   > {
     const all = await loadAssetsForScope({
-      tenantId: scope.tenantId ?? "dev-tenant",
-      workspaceId: scope.workspaceId ?? "dev-workspace",
+      tenantId: scope.tenantId,
+      workspaceId: scope.workspaceId,
       userId: scope.userId,
       limit: 100,
     });
@@ -421,7 +421,7 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
         });
       }
 
-      const tenantId = found.asset.provenance.tenantId ?? scope.tenantId ?? "dev-tenant";
+      const tenantId = found.asset.provenance.tenantId ?? scope.tenantId;
       const row = await createShareRow({
         shareId,
         assetId: found.asset.id,

@@ -55,9 +55,14 @@ export async function GET(request: NextRequest) {
 
   const { v: codeVerifier, u: userId, t: stateTenantId, w: stateWorkspaceId } = state;
 
-  // Resolve scope from state or env (state carries scope for session-independent OAuth)
-  const tenantId = stateTenantId ?? process.env.HEARST_TENANT_ID ?? "dev-tenant";
-  const workspaceId = stateWorkspaceId ?? process.env.HEARST_WORKSPACE_ID ?? "dev-workspace";
+  // Resolve scope from state (state carries scope encoded at OAuth init by the user session).
+  // Fail-closed : si le state ne porte pas de tenantId, le token est mal formé.
+  const tenantId = stateTenantId ?? "";
+  const workspaceId = stateWorkspaceId ?? "";
+  if (!tenantId || !workspaceId) {
+    log.error({ stateTenantId, stateWorkspaceId }, "missing_tenant_in_state");
+    return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
+  }
 
   try {
     const body: Record<string, string> = {

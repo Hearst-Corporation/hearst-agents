@@ -33,13 +33,13 @@ function validateEnv(): void {
     );
   }
 
-  // Safety net 7j — HEARST_TENANT_ID/HEARST_WORKSPACE_ID conservés le temps
-  // que tous les fallbacks ?? "dev-tenant" soient supprimés en PR 3.
-  // Ces checks seront retirés en PR 4 (après 7 jours sans incident).
+  // Safety net 7j — HEARST_TENANT_ID/HEARST_WORKSPACE_ID encore utilisés
+  // pour les pages publiques (hearst-card screenshotter) sans session.
+  // Ces vars seront retirées en PR 4 (après 7 jours sans incident Sentry).
   if (isProd && !process.env.HEARST_TENANT_ID) {
     console.warn(
-      "[ENV] HEARST_TENANT_ID not set — scope.ts lit désormais session.tenantId (DB). " +
-        "Ce check sera supprimé en PR 4 après confirmation que les 28 fallbacks ?? 'dev-tenant' sont clean."
+      "[ENV] HEARST_TENANT_ID not set — utilisé uniquement pour hearst-card screenshotter. " +
+        "Ce check sera supprimé en PR 4."
     );
   }
   if (isProd && !process.env.HEARST_WORKSPACE_ID) {

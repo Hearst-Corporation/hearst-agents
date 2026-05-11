@@ -403,6 +403,18 @@ export async function runAiPipeline(
   eventBus: RunEventBus,
   input: AiPipelineInput,
 ): Promise<void> {
+  // Scope guard — tenantId et workspaceId doivent être fournis par le caller
+  // (orchestrateur via buildTenantScope). En prod, l'absence est une erreur fatale.
+  if (!input.tenantId || !input.workspaceId) {
+    const msg = `[AiPipeline] tenantId ou workspaceId absent (tenantId=${input.tenantId}, workspaceId=${input.workspaceId}, userId=${input.userId.slice(0, 8)})`;
+    console.error(msg);
+    await engine.fail(msg);
+    return;
+  }
+  // tenantId et workspaceId sont garantis non-vides à partir d'ici.
+  const resolvedTenantId: string = input.tenantId;
+  const resolvedWorkspaceId: string = input.workspaceId;
+
   // ── 1. Discover the two tool surfaces in parallel ──────────
   // - Native Google tools (Gmail / Calendar / Drive) backed by NextAuth
   //   tokens — the user gets these the moment they sign in via the Google
@@ -427,7 +439,7 @@ export async function runAiPipeline(
     // Knowledge Graph context : fail-soft. Si Supabase tombe ou pas
     // d'entités, on continue sans (le user n'a peut-être encore rien
     // ingéré).
-    getKgContextForUser(input.userId, input.tenantId ?? "dev-tenant").catch((err) => {
+    getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
       console.warn("[AiPipeline] KG context fetch failed:", err);
       return null;
     }),
@@ -436,7 +448,7 @@ export async function runAiPipeline(
     // upgradé, on continue avec une chaîne vide.
     getRetrievedMemoryForUser({
       userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
+      tenantId: resolvedTenantId,
       currentMessage: input.message,
     }).catch((err) => {
       console.warn("[AiPipeline] retrieved memory fetch failed:", err);
@@ -461,12 +473,14 @@ export async function runAiPipeline(
   // Native Google tools live alongside Composio tools — the model picks
   // whichever fits the user's request. Meta tools (request_connection,
   // create_scheduled_mission) are appended last.
+  const pipelineScope = {
+    userId: input.userId,
+    tenantId: resolvedTenantId,
+    workspaceId: resolvedWorkspaceId,
+  };
+
   const hearstActionTools = buildHearstActionTools({
-    scope: {
-      userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
-    },
+    scope: pipelineScope,
     eventBus,
     runId: engine.id,
   });
@@ -478,45 +492,25 @@ export async function runAiPipeline(
   const researchTools = buildResearchTools({
     engine,
     eventBus,
-    scope: {
-      userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
-    },
+    scope: pipelineScope,
     threadId: input.threadId,
   });
   const extrasMediaTools = buildExtrasMediaTools({
-    scope: {
-      userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
-    },
+    scope: pipelineScope,
     eventBus,
     runId: engine.id,
     threadId: input.threadId,
   });
   const kgQueryTools = buildKgQueryTools({
-    scope: {
-      userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
-    },
+    scope: pipelineScope,
   });
   const missionTools = buildMissionTools({
     engine,
     eventBus,
-    scope: {
-      userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
-    },
+    scope: pipelineScope,
   });
   const meetingsTools = buildMeetingsTools({
-    scope: {
-      userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
-    },
+    scope: pipelineScope,
   });
 
   const aiTools = {
@@ -535,8 +529,8 @@ export async function runAiPipeline(
     request_connection: buildRequestConnectionTool(engine, eventBus),
     create_scheduled_mission: buildCreateScheduledMissionTool(engine, eventBus, {
       userId: input.userId,
-      tenantId: input.tenantId ?? "dev-tenant",
-      workspaceId: input.workspaceId ?? "dev-workspace",
+      tenantId: resolvedTenantId,
+      workspaceId: resolvedWorkspaceId,
     }),
     // create_artifact requires a threadId to scope the saved asset. Without
     // it (e.g. surface that doesn't pass thread_id), we omit the tool from
@@ -546,16 +540,16 @@ export async function runAiPipeline(
           create_artifact: buildCreateArtifactTool(engine, eventBus, {
             threadId: input.threadId,
             userId: input.userId,
-            tenantId: input.tenantId ?? "dev-tenant",
-            workspaceId: input.workspaceId ?? "dev-workspace",
+            tenantId: resolvedTenantId,
+            workspaceId: resolvedWorkspaceId,
           }),
           // propose_report_spec — compose un report cross-app (Stripe + HubSpot
           // + Gmail + …) à la volée. Asset persisté → apparaît dans focal.
           propose_report_spec: buildProposeReportSpecTool(engine, eventBus, {
             threadId: input.threadId,
             userId: input.userId,
-            tenantId: input.tenantId ?? "dev-tenant",
-            workspaceId: input.workspaceId ?? "dev-workspace",
+            tenantId: resolvedTenantId,
+            workspaceId: resolvedWorkspaceId,
           }),
         }
       : {}),
@@ -603,7 +597,7 @@ export async function runAiPipeline(
   let persona: Awaited<ReturnType<typeof getPersonaById>> = null;
   const personaScope = {
     userId: input.userId,
-    tenantId: input.tenantId ?? "dev-tenant",
+    tenantId: resolvedTenantId,
   };
   try {
     if (input.personaId) {
@@ -1047,8 +1041,8 @@ export async function runAiPipeline(
       try {
         const responseMessages = (await result.response).messages;
         const scope: TenantScope = {
-          tenantId: input.tenantId ?? "dev-tenant",
-          workspaceId: input.workspaceId ?? "dev-workspace",
+          tenantId: resolvedTenantId,
+          workspaceId: resolvedWorkspaceId,
           userId: input.userId,
         };
         appendModelMessages(
@@ -1067,7 +1061,7 @@ export async function runAiPipeline(
     if (assistantTextBuffer.trim().length > 0) {
       fireAndForgetIngestTurn({
         userId: input.userId,
-        tenantId: input.tenantId ?? "dev-tenant",
+        tenantId: resolvedTenantId,
         userMessage: input.message,
         assistantReply: assistantTextBuffer,
       });
@@ -1077,7 +1071,7 @@ export async function runAiPipeline(
     // Fire-and-forget : aucune erreur ne casse le run. Si OPENAI_API_KEY
     // absent, upsertEmbedding renvoie false silencieusement.
     {
-      const tenantId = input.tenantId ?? "dev-tenant";
+      const tenantId = resolvedTenantId;
       const turnId = input.conversationId ?? engine.id;
       if (input.message.trim().length > 0) {
         void upsertEmbedding({

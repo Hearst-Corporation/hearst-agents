@@ -270,6 +270,7 @@ export function getAllBundles(): ServiceBundle[] {
 export async function enrichWithConnectionStatus(
   services: ServiceDefinition[],
   _userId: string,
+  scope?: { tenantId: string; workspaceId: string },
 ): Promise<ServiceWithConnectionStatus[]> {
   // Client-side: fetch from API
   if (typeof window !== "undefined") {
@@ -288,9 +289,13 @@ export async function enrichWithConnectionStatus(
   }
 
   // Server-side: use unified reconciler directly.
-  // Resolve scope from env (consistent with lib/scope.ts)
-  const tenantId = process.env.HEARST_TENANT_ID ?? "dev-tenant";
-  const workspaceId = process.env.HEARST_WORKSPACE_ID ?? "dev-workspace";
+  // tenantId/workspaceId doivent être passés par le caller via requireScope().
+  const tenantId = scope?.tenantId ?? process.env.HEARST_TENANT_ID ?? "";
+  const workspaceId = scope?.workspaceId ?? process.env.HEARST_WORKSPACE_ID ?? "";
+  if (!tenantId || !workspaceId) {
+    console.error("[Catalog] enrichWithConnectionStatus appelé sans scope — connections indisponibles");
+    return services.map((s) => ({ ...s, connectionStatus: "disconnected" as const }));
+  }
   const connectors = await getUnifiedConnectors({
     tenantId,
     workspaceId,

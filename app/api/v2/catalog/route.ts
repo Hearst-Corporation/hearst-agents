@@ -6,7 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 import {
   getAllServices,
   getServicesByCategory,
@@ -49,10 +49,11 @@ const CATEGORY_ORDER = [
  */
 export async function GET(req: NextRequest) {
   try {
-    const userId = await getUserId();
-    if (!userId) {
-      return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
+    const { scope, error } = await requireScope({ context: "GET /api/v2/catalog" });
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: error.status });
     }
+    const { userId } = scope;
 
     const { searchParams } = new URL(req.url);
 
@@ -86,7 +87,7 @@ export async function GET(req: NextRequest) {
     // Tier 3 long-tail services are served by Composio's per-user discovery layer.
 
     // Enrich with connection status (placeholder — will use control-plane)
-    const servicesWithStatus = await enrichWithConnectionStatus(services, userId);
+    const servicesWithStatus = await enrichWithConnectionStatus(services, userId, scope);
 
     // Filter connected only if requested
     const filtered = connectedOnly

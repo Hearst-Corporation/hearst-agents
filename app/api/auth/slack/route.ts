@@ -1,15 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { aj } from "@/lib/security/arcjet";
-
-// Helper to resolve dev scope (same logic as lib/scope.ts, but sync)
-function resolveDevScope(): { tenantId: string; workspaceId: string } {
-  return {
-    tenantId: process.env.HEARST_TENANT_ID ?? "dev-tenant",
-    workspaceId: process.env.HEARST_WORKSPACE_ID ?? "dev-workspace",
-  };
-}
 
 function generateCodeVerifier(): string {
   return crypto.randomBytes(32).toString("base64url");
@@ -26,10 +19,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "rate_limited" }, { status: 429 });
     }
   }
-  const userId = await getUserId();
-  if (!userId) {
-    return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
+  const { scope, error } = await requireScope({ context: "GET /api/auth/slack" });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: error.status });
   }
+  const { userId, tenantId, workspaceId } = scope;
 
   const clientId = process.env.SLACK_CLIENT_ID;
   if (!clientId) {
@@ -64,7 +58,6 @@ export async function GET(req: NextRequest) {
   // Encode verifier + userId + scope into the OAuth `state` param so the callback
   // can read them from the URL — cookies don't survive cross-domain redirects
   // (localhost → ngrok). Scope is required for multi-tenant isolation.
-  const { tenantId, workspaceId } = resolveDevScope();
   const statePayload = Buffer.from(
     JSON.stringify({ v: codeVerifier, u: userId, t: tenantId, w: workspaceId }),
   ).toString("base64url");

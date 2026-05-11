@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "next-auth/react";
 import { useNotificationsStore } from "@/stores/notifications";
 import type { AppNotification } from "@/stores/notifications";
 
@@ -77,6 +78,7 @@ function kindLabel(kind: AppNotification["kind"]): string {
 export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
 
   const notifications = useNotificationsStore((s) => s.notifications);
   const unreadCount = useNotificationsStore((s) => s.unreadCount);
@@ -87,16 +89,16 @@ export function NotificationBell() {
   const stopPolling = useNotificationsStore((s) => s.stopPolling);
 
   // Realtime Supabase — fallback polling 60s si le channel échoue.
-  // NEXT_PUBLIC_HEARST_TENANT_ID doit matcher HEARST_TENANT_ID en prod.
+  // tenantId lu depuis la session JWT (source de vérité).
   useEffect(() => {
-    const tenantId = process.env.NEXT_PUBLIC_HEARST_TENANT_ID;
+    const tenantId = (session?.user as { tenantId?: string } | undefined)?.tenantId;
     if (!tenantId) {
-      console.warn("[NotificationBell] NEXT_PUBLIC_HEARST_TENANT_ID absent — realtime notifications désactivé");
+      console.warn("[NotificationBell] session.user.tenantId absent — realtime notifications désactivé");
       return;
     }
     startRealtime(tenantId);
     return () => stopPolling();
-  }, [startRealtime, stopPolling]);
+  }, [session, startRealtime, stopPolling]);
 
   // Ferme le dropdown si clic extérieur
   useEffect(() => {

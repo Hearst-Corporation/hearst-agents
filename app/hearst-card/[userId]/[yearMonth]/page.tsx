@@ -20,6 +20,7 @@ import { buildMonthlyCardData } from "@/lib/cockpit/monthly-card";
 import { MonthlyCardView } from "@/lib/cockpit/monthly-card-view";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
 import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -91,10 +92,26 @@ export default async function HearstCardPage({ params, searchParams }: PageProps
     return notFound();
   }
 
-  // Récupère le scope tenant via env (on est en mode rendu — la card est
-  // user-scoped, le tenantId vient des env Hearst).
-  const tenantId = process.env.HEARST_TENANT_ID ?? "dev-tenant";
-  const workspaceId = process.env.HEARST_WORKSPACE_ID ?? "dev-workspace";
+  // Récupère le scope tenant depuis la session (source de vérité JWT).
+  // Pour le mode token HMAC (screenshotter), on utilise la var env car
+  // il n'y a pas de session utilisateur dans ce mode.
+  let tenantId: string;
+  let workspaceId: string;
+  if (token) {
+    // Mode render/public : pas de session, on lit l'env
+    tenantId = process.env.HEARST_TENANT_ID ?? "";
+    workspaceId = process.env.HEARST_WORKSPACE_ID ?? "";
+    if (!tenantId || !workspaceId) {
+      console.error("[hearst-card] HEARST_TENANT_ID ou HEARST_WORKSPACE_ID absent");
+      return notFound();
+    }
+  } else {
+    // Mode session loggée : scope depuis JWT
+    const { scope, error } = await requireScope({ context: "hearst-card render" });
+    if (error) return notFound();
+    tenantId = scope.tenantId;
+    workspaceId = scope.workspaceId;
+  }
 
   const data = await buildMonthlyCardData(
     { userId: pathUserId, tenantId, workspaceId },

@@ -196,8 +196,8 @@ function toAsset(row: any): Asset {
     type: mapKindToType(row.kind as string, provenance.type as string | undefined),
     name: row.title ?? "Untitled",
     run_id: row.run_id ?? "",
-    tenantId: (provenance.tenantId as string) ?? "dev-tenant",
-    workspaceId: (provenance.workspaceId as string) ?? "dev-workspace",
+    tenantId: (provenance.tenantId as string) ?? "",
+    workspaceId: (provenance.workspaceId as string) ?? "",
     created_at: new Date(row.created_at).getTime(),
     url: row.content_ref,
     metadata: {
