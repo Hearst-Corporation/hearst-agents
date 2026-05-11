@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { getUserId } from "@/lib/platform/auth/get-user-id";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { signOAuthState } from "@/lib/platform/auth/signed-state";
 import { aj } from "@/lib/security/arcjet";
 
 function generateCodeVerifier(): string {
@@ -55,12 +56,11 @@ export async function GET(req: NextRequest) {
   url.searchParams.set("code_challenge", codeChallenge);
   url.searchParams.set("code_challenge_method", "S256");
 
-  // Encode verifier + userId + scope into the OAuth `state` param so the callback
-  // can read them from the URL — cookies don't survive cross-domain redirects
-  // (localhost → ngrok). Scope is required for multi-tenant isolation.
-  const statePayload = Buffer.from(
-    JSON.stringify({ v: codeVerifier, u: userId, t: tenantId, w: workspaceId }),
-  ).toString("base64url");
+  // Encode verifier + userId + scope dans le `state` OAuth signé HMAC-SHA256.
+  // La signature lie le payload au NEXTAUTH_SECRET serveur : un attaquant ne peut
+  // pas forger un state valide (F-006). Cookies non utilisés car ils ne survivent
+  // pas aux redirects cross-domain (localhost → ngrok).
+  const statePayload = signOAuthState({ v: codeVerifier, u: userId, t: tenantId, w: workspaceId });
 
   url.searchParams.set("state", statePayload);
 

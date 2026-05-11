@@ -3,7 +3,7 @@
   "audit_id": "2026-05-10-security",
   "objective": "Hearst OS prêt pour go-live multi-user public",
   "created_at": "2026-05-11",
-  "last_updated": "2026-05-11T00:25:00.593Z",
+  "last_updated": "2026-05-11T00:38:26.907Z",
   "orchestrator": "claude-opus-4.7",
   "estimated_total_effort": "20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents",
   "principle": "Ordre = dépendances logiques, pas sévérité brute. Foundation d'abord (sinon les fixes IDOR sont cosmétiques tant que F-095/F-096 pas faits). Puis defense in depth. Puis hardening. Phase 11 = post-go-live.",
@@ -211,7 +211,23 @@
             "Tests OAuth flow Slack avec state forgé → reject",
             "session.user.email plus jamais utilisé comme userId"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T00:26:56.035Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T00:26:56.036Z",
+              "actor": "battle-orchestrator-opus",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T00:38:26.907Z",
+              "actor": "battle-orchestrator-opus",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T00:38:26.907Z"
         },
         {
           "id": "B1.4",

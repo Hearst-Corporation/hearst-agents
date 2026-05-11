@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-11T00:25:12.277Z",
+  "generatedAt": "2026-05-11T00:38:55.077Z",
   "total": 41,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 410,
-    "testsExistants": 1704,
+    "testsExistants": 1720,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 268,
-    "cases": 2430,
+    "files": 270,
+    "cases": 2446,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -142,9 +142,9 @@
         "I-9. Variables d'env critiques",
         "I-10. `registerProviderUsage()` au signIn"
       ],
-      "testsExistantsCount": 59,
-      "testsOnDisk": 59,
-      "testFilesOnDisk": 9,
+      "testsExistantsCount": 75,
+      "testsOnDisk": 75,
+      "testFilesOnDisk": 11,
       "testsDocExistants": 3,
       "testsManquantsCount": 16,
       "testGap": "moyen",

@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/platform/auth/options";
+import { verifyOAuthState } from "@/lib/platform/auth/signed-state";
 import { saveTokens } from "@/lib/platform/auth/tokens";
 import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
 import { aj } from "@/lib/security/arcjet";
@@ -11,15 +14,6 @@ interface StatePayload {
   u: string; // userId
   t?: string; // tenantId (optional, for multi-tenant)
   w?: string; // workspaceId (optional)
-}
-
-function parseState(raw: string | null): StatePayload | null {
-  if (!raw) return null;
-  try {
-    return JSON.parse(Buffer.from(raw, "base64url").toString("utf-8"));
-  } catch {
-    return null;
-  }
 }
 
 export async function GET(request: NextRequest) {
@@ -47,13 +41,33 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
   }
 
-  const state = parseState(request.nextUrl.searchParams.get("state"));
+  // Vérification HMAC du state (F-006) : rejette tout state non signé ou falsifié.
+  const rawState = request.nextUrl.searchParams.get("state");
+  const state = verifyOAuthState<StatePayload>(rawState);
   if (!state) {
-    log.error({}, "missing_or_invalid_state");
-    return NextResponse.redirect(new URL("/apps?slack=error", appUrl));
+    log.error({ hasRawState: rawState !== null }, "missing_or_invalid_state_hmac");
+    return NextResponse.redirect(new URL("/apps?slack_error=state_invalid", appUrl));
   }
 
   const { v: codeVerifier, u: userId, t: stateTenantId, w: stateWorkspaceId } = state;
+
+  // Cross-check : le userId dans le state signé DOIT matcher la session actuelle.
+  // Empêche un attaquant de capturer le state d'une victime et de le rejouer sur sa propre session.
+  const currentSession = await getServerSession(authOptions);
+  const sessionUserId =
+    (currentSession?.user as { id?: string } | undefined)?.id ??
+    (currentSession as unknown as Record<string, unknown> | null)?.userId as string | undefined ??
+    undefined;
+  if (!sessionUserId || sessionUserId !== userId) {
+    log.warn(
+      {
+        stateUserId: userId.slice(0, 8),
+        sessionUserId: sessionUserId?.slice(0, 8) ?? "none",
+      },
+      "slack_callback_user_mismatch",
+    );
+    return NextResponse.redirect(new URL("/apps?slack_error=user_mismatch", appUrl));
+  }
 
   // Resolve scope from state (state carries scope encoded at OAuth init by the user session).
   // Fail-closed : si le state ne porte pas de tenantId, le token est mal formé.

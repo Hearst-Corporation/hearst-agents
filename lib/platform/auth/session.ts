@@ -42,7 +42,13 @@ export async function getCurrentUserId(): Promise<string | null> {
   }
 
   const session = await getHearstSession();
-  return (session as unknown as Record<string, unknown>)?.userId as string | null ?? session?.user?.email ?? null;
+  // Priorité 1 : session.userId (legacy top-level posé par jwt callback).
+  const sessionUserId = (session as unknown as Record<string, unknown>)?.userId as string | null;
+  // Priorité 2 : session.user.id (UUID exposé par le callback session()).
+  const userIdFromUser = (session?.user as { id?: string } | undefined)?.id ?? null;
+  // Pas de fallback email (F-015) : retourner null force un 401 côté caller.
+  // Un fallback email créerait des orphan rows avec user_id=email qui échappent RLS uuid.
+  return sessionUserId ?? userIdFromUser ?? null;
 }
 
 /**

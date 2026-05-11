@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T00:25:00.657Z",
+  "last_updated": "2026-05-11T00:38:26.973Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 120,
+      "pending": 118,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 10,
+      "closed": 12,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -413,7 +413,7 @@
       "title": "Slack OAuth state forgeable — account takeover",
       "severity": "P0",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -457,6 +457,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T00:38:26.936Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -879,7 +885,7 @@
       "title": "getCurrentUserId fallback à session.user.email — réintroduit anti-pattern",
       "severity": "P0",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -911,6 +917,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T00:38:26.972Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
