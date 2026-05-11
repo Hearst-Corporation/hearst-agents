@@ -30,10 +30,7 @@
         {
           "id": "B0.1",
           "title": "Fix CI build (visual lint + design-token test) + ESLint refs spatial-v2",
-          "findings": [
-            "F-024",
-            "F-131"
-          ],
+          "findings": ["F-024", "F-131"],
           "sub_agent_recommended": "validator + cleanup-fixer (pour F-131 spatial-v2)",
           "pre_conditions": [],
           "estimated_effort": "2-3h",
@@ -64,19 +61,11 @@
         {
           "id": "B0.2",
           "title": "Déps urgentes (lucide-react supply chain + anthropic CVE)",
-          "findings": [
-            "F-067",
-            "F-057"
-          ],
+          "findings": ["F-067", "F-057"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B0.1"
-          ],
+          "pre_conditions": ["B0.1"],
           "estimated_effort": "1h",
-          "validation": [
-            "npm audit clean",
-            "npm run validate"
-          ],
+          "validation": ["npm audit clean", "npm run validate"],
           "status": "done",
           "started_at": "2026-05-10T22:24:11.625Z",
           "lifecycle": [
@@ -98,9 +87,7 @@
         {
           "id": "B0.3",
           "title": ".env.local gitignore + audit secrets",
-          "findings": [
-            "DANG-05 partial"
-          ],
+          "findings": ["DANG-05 partial"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "30 min",
@@ -138,14 +125,9 @@
         {
           "id": "B1.1",
           "title": "🔥 SHOWSTOPPER — Tenant resolution + Google signIn allowlist",
-          "findings": [
-            "F-095",
-            "F-096"
-          ],
+          "findings": ["F-095", "F-096"],
           "sub_agent_recommended": "Plan (architecture) + general-purpose (impl)",
-          "pre_conditions": [
-            "B0.1"
-          ],
+          "pre_conditions": ["B0.1"],
           "estimated_effort": "3-5j (architecture + migration backfill + tests)",
           "validation": [
             "Tests : 2 users distincts → tenant_id différent en DB",
@@ -167,20 +149,9 @@
         {
           "id": "B1.2",
           "title": "Admin RBAC + IDOR cross-tenant (agents/conversations/jobs/browser/memory)",
-          "findings": [
-            "F-001",
-            "F-002",
-            "F-003",
-            "F-004",
-            "F-005",
-            "F-094",
-            "F-100",
-            "F-118"
-          ],
+          "findings": ["F-001", "F-002", "F-003", "F-004", "F-005", "F-094", "F-100", "F-118"],
           "sub_agent_recommended": "general-purpose + route-mapper (impact)",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "1-2j",
           "validation": [
             "e2e : user A ne voit pas resource user B sur agents/conversations/jobs/browser/memory",
@@ -191,14 +162,9 @@
         {
           "id": "B1.3",
           "title": "Slack OAuth state HMAC + email fallback removal",
-          "findings": [
-            "F-006",
-            "F-015"
-          ],
+          "findings": ["F-006", "F-015"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
           "validation": [
             "Tests OAuth flow Slack avec state forgé → reject",
@@ -209,11 +175,7 @@
         {
           "id": "B1.4",
           "title": "Proxy auth hardening (getToken JWT verify + timing-safe API key + HEARST_ENV check)",
-          "findings": [
-            "F-026",
-            "F-027",
-            "F-053"
-          ],
+          "findings": ["F-026", "F-027", "F-053"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1h",
@@ -242,15 +204,11 @@
         {
           "id": "B1.5",
           "title": "Inngest signing key hard-fail prod",
-          "findings": [
-            "F-007"
-          ],
+          "findings": ["F-007"],
           "sub_agent_recommended": "validator",
           "pre_conditions": [],
           "estimated_effort": "5 min",
-          "validation": [
-            "Boot serveur sans INNGEST_SIGNING_KEY en prod → throw"
-          ],
+          "validation": ["Boot serveur sans INNGEST_SIGNING_KEY en prod → throw"],
           "status": "done",
           "started_at": "2026-05-10T23:09:23.709Z",
           "lifecycle": [
@@ -281,11 +239,7 @@
         {
           "id": "B2.1",
           "title": "SSRF guard partagé (lib/security/ssrf-guard.ts) + appliquer partout",
-          "findings": [
-            "F-008",
-            "F-009",
-            "F-103"
-          ],
+          "findings": ["F-008", "F-009", "F-103"],
           "sub_agent_recommended": "Explore (find call sites) + general-purpose (impl)",
           "pre_conditions": [],
           "estimated_effort": "3-4h",
@@ -298,28 +252,19 @@
         {
           "id": "B2.2",
           "title": "File upload caps + magic bytes",
-          "findings": [
-            "F-043"
-          ],
+          "findings": ["F-043"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1-2h",
-          "validation": [
-            "Upload 10GB → 413",
-            "Upload .exe renommé .pdf → 400"
-          ],
+          "validation": ["Upload 10GB → 413", "Upload .exe renommé .pdf → 400"],
           "status": "pending"
         },
         {
           "id": "B2.3",
           "title": "E2B sandbox no-egress + confirmation HMAC",
-          "findings": [
-            "F-023"
-          ],
+          "findings": ["F-023"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "3-4h",
           "validation": [
             "Sandbox.create avec networkAccess:false confirmé",
@@ -339,16 +284,9 @@
         {
           "id": "B3.1",
           "title": "Tool approval crypto + allowedTools effectif + scheduler isolation",
-          "findings": [
-            "F-010",
-            "F-011",
-            "F-012",
-            "F-102"
-          ],
+          "findings": ["F-010", "F-011", "F-012", "F-102"],
           "sub_agent_recommended": "Plan + llm-auditor",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "1-2j",
           "validation": [
             "Email injecté avec _preview:false → ne déclenche aucun tool destructif",
@@ -359,14 +297,9 @@
         {
           "id": "B3.2",
           "title": "RLS user_tokens + Persona sanitize",
-          "findings": [
-            "F-014",
-            "F-115"
-          ],
+          "findings": ["F-014", "F-115"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
           "validation": [
             "user_tokens select avec ANON_KEY → 0 rows",
@@ -377,14 +310,9 @@
         {
           "id": "B3.3",
           "title": "XSS captionHtml + RLS escape OR user_id IS NULL",
-          "findings": [
-            "F-016",
-            "F-013"
-          ],
+          "findings": ["F-016", "F-013"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "3h",
           "validation": [
             "captionHtml avec <script> → strippé",
@@ -404,12 +332,7 @@
         {
           "id": "B4.1",
           "title": "Sentry redact + replay mask + Langfuse PII redact",
-          "findings": [
-            "F-097",
-            "F-061",
-            "F-099",
-            "F-107"
-          ],
+          "findings": ["F-097", "F-061", "F-099", "F-107"],
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
@@ -422,10 +345,7 @@
         {
           "id": "B4.2",
           "title": "assertLangfuseReady boot + cost_usd réel",
-          "findings": [
-            "F-038",
-            "F-040"
-          ],
+          "findings": ["F-038", "F-040"],
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": [],
           "estimated_effort": "2-3h",
@@ -447,16 +367,9 @@
         {
           "id": "B5.1",
           "title": "Rate-limit chat + orchestrate + daily-brief + kg/ingest",
-          "findings": [
-            "F-098",
-            "F-075",
-            "F-076",
-            "F-105"
-          ],
+          "findings": ["F-098", "F-075", "F-076", "F-105"],
           "sub_agent_recommended": "general-purpose + route-mapper",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "4-6h",
           "validation": [
             "100 req/min sur /api/agents/[id]/chat → 429",
@@ -467,25 +380,17 @@
         {
           "id": "B5.2",
           "title": "Race conditions DB quotas/crédits (atomic reserve)",
-          "findings": [
-            "F-079"
-          ],
+          "findings": ["F-079"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
-          "validation": [
-            "Test concurrent 100 reserveCredits → balance jamais < 0"
-          ],
+          "validation": ["Test concurrent 100 reserveCredits → balance jamais < 0"],
           "status": "pending"
         },
         {
           "id": "B5.3",
           "title": "Circuit breaker per-tenant + transient errors + retry generator",
-          "findings": [
-            "F-108",
-            "F-041",
-            "F-127"
-          ],
+          "findings": ["F-108", "F-041", "F-127"],
           "sub_agent_recommended": "llm-auditor",
           "pre_conditions": [],
           "estimated_effort": "4h",
@@ -507,16 +412,9 @@
         {
           "id": "B6.1",
           "title": "Embeddings + KG + web_search délimiteurs <untrusted_*>",
-          "findings": [
-            "F-045",
-            "F-046",
-            "F-047",
-            "F-101"
-          ],
+          "findings": ["F-045", "F-046", "F-047", "F-101"],
           "sub_agent_recommended": "llm-auditor",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "1j",
           "validation": [
             "Email injecté 'IGNORE PRIOR' dans embeddings → ressort tagué <untrusted_memory>",
@@ -527,31 +425,19 @@
         {
           "id": "B6.2",
           "title": "Conversation summary réinjecté + KG query system prompt",
-          "findings": [
-            "F-104",
-            "F-119"
-          ],
+          "findings": ["F-104", "F-119"],
           "sub_agent_recommended": "llm-auditor",
-          "pre_conditions": [
-            "B6.1"
-          ],
+          "pre_conditions": ["B6.1"],
           "estimated_effort": "3-4h",
-          "validation": [
-            "Summary réinjecté avec fence + JSON schema bornée"
-          ],
+          "validation": ["Summary réinjecté avec fence + JSON schema bornée"],
           "status": "pending"
         },
         {
           "id": "B6.3",
           "title": "Gmail HTML stripping + browser agent HTML untrusted",
-          "findings": [
-            "F-044",
-            "F-049"
-          ],
+          "findings": ["F-044", "F-049"],
           "sub_agent_recommended": "llm-auditor",
-          "pre_conditions": [
-            "B6.1"
-          ],
+          "pre_conditions": ["B6.1"],
           "estimated_effort": "4h",
           "validation": [
             "Email avec <div display:none>INSTRUCTION</div> → texte caché stripped",
@@ -571,9 +457,7 @@
         {
           "id": "B7.1",
           "title": "🔥 BullMQ → Inngest sur Vercel pour TOUS les jobKinds (audio/image/code/doc-parse)",
-          "findings": [
-            "F-017"
-          ],
+          "findings": ["F-017"],
           "sub_agent_recommended": "Plan + general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1-2 sem",
@@ -587,10 +471,7 @@
         {
           "id": "B7.2",
           "title": "QueueEvents singleton + proxy.ts edge throw graceful",
-          "findings": [
-            "F-018",
-            "F-022"
-          ],
+          "findings": ["F-018", "F-022"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "2h",
@@ -603,17 +484,9 @@
         {
           "id": "B7.3",
           "title": "Idempotency BullMQ + Inngest + workers cleanup SIGTERM",
-          "findings": [
-            "F-031",
-            "F-032",
-            "F-033",
-            "F-034",
-            "F-035"
-          ],
+          "findings": ["F-031", "F-032", "F-033", "F-034", "F-035"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B7.1"
-          ],
+          "pre_conditions": ["B7.1"],
           "estimated_effort": "1-2j",
           "validation": [
             "Retry POST → 1 seul job (Idempotency-Key respected)",
@@ -624,11 +497,7 @@
         {
           "id": "B7.4",
           "title": "Asset cleanup check refs + Recall.ai window timestamp + Composio webhook clarif",
-          "findings": [
-            "F-019",
-            "F-029",
-            "F-030"
-          ],
+          "findings": ["F-019", "F-029", "F-030"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
@@ -641,15 +510,11 @@
         {
           "id": "B7.5",
           "title": "agent-lock state vers Supabase/Redis (sortir du FS Vercel)",
-          "findings": [
-            "F-106"
-          ],
+          "findings": ["F-106"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "2h",
-          "validation": [
-            "Toggle lock → persiste entre lambda invocations"
-          ],
+          "validation": ["Toggle lock → persiste entre lambda invocations"],
           "status": "pending"
         }
       ]
@@ -664,25 +529,17 @@
         {
           "id": "B8.1",
           "title": "CSP + HSTS + X-Frame-Options + Permissions-Policy + CSRF Origin check",
-          "findings": [
-            "F-052",
-            "F-078"
-          ],
+          "findings": ["F-052", "F-078"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "4h",
-          "validation": [
-            "curl -I localhost → headers présents",
-            "POST cross-origin → reject"
-          ],
+          "validation": ["curl -I localhost → headers présents", "POST cross-origin → reject"],
           "status": "pending"
         },
         {
           "id": "B8.2",
           "title": "TOKEN_ENCRYPTION_KEY rotation (keyId envelope)",
-          "findings": [
-            "F-028"
-          ],
+          "findings": ["F-028"],
           "sub_agent_recommended": "Plan + general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1j",
@@ -694,11 +551,7 @@
         {
           "id": "B8.3",
           "title": "localStorage threads cleanup + embedText cache PII hash + Anthropic apiKey explicit",
-          "findings": [
-            "F-077",
-            "F-122",
-            "F-126"
-          ],
+          "findings": ["F-077", "F-122", "F-126"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "3h",
@@ -711,16 +564,9 @@
         {
           "id": "B8.4",
           "title": "STATIC_RE restreint /public/* + CRLF Content-Disposition + mass assignment + approve-step ownership",
-          "findings": [
-            "F-051",
-            "F-055",
-            "F-054",
-            "F-056"
-          ],
+          "findings": ["F-051", "F-055", "F-054", "F-056"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
           "validation": [
             "filename avec \\r\\n → sanitized",
@@ -731,16 +577,9 @@
         {
           "id": "B8.5",
           "title": "query_axiom_logs scope tenant + admin/runs?userId removal + admin/seed rate-limit",
-          "findings": [
-            "F-048",
-            "F-109",
-            "F-110",
-            "F-124"
-          ],
+          "findings": ["F-048", "F-109", "F-110", "F-124"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.1"
-          ],
+          "pre_conditions": ["B1.1"],
           "estimated_effort": "2h",
           "validation": [
             "query_axiom_logs sans where tenant_id → reject",
@@ -760,14 +599,9 @@
         {
           "id": "B9.1",
           "title": "Désactiver e2e auth bypass + tests credits/arcjet/agents",
-          "findings": [
-            "F-073",
-            "F-074"
-          ],
+          "findings": ["F-073", "F-074"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "B1.4"
-          ],
+          "pre_conditions": ["B1.4"],
           "estimated_effort": "1-2j",
           "validation": [
             "e2e api-auth.spec.ts run sans bypass → green",
@@ -778,16 +612,11 @@
         {
           "id": "B9.2",
           "title": "jsx-a11y enable + ChatDock ARIA",
-          "findings": [
-            "F-071",
-            "F-072"
-          ],
+          "findings": ["F-071", "F-072"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "2-3h",
-          "validation": [
-            "npm run lint avec a11y rules → 0 errors sur ChatDock"
-          ],
+          "validation": ["npm run lint avec a11y rules → 0 errors sur ChatDock"],
           "status": "pending"
         }
       ]
@@ -802,25 +631,17 @@
         {
           "id": "B10.1",
           "title": "Casser deps circulaires (settings prio)",
-          "findings": [
-            "F-068"
-          ],
+          "findings": ["F-068"],
           "sub_agent_recommended": "Plan + general-purpose",
           "pre_conditions": [],
           "estimated_effort": "3-4h",
-          "validation": [
-            "madge --circular → 0 cycles"
-          ],
+          "validation": ["madge --circular → 0 cycles"],
           "status": "pending"
         },
         {
           "id": "B10.2",
           "title": "tsconfig HOM + database.types regen + as any cleanup",
-          "findings": [
-            "F-065",
-            "F-070",
-            "F-069"
-          ],
+          "findings": ["F-065", "F-070", "F-069"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "4-6h",
@@ -833,29 +654,21 @@
         {
           "id": "B10.3",
           "title": "Dead code purge (33 fichiers + 36 tokens CSS)",
-          "findings": [
-            "F-093"
-          ],
+          "findings": ["F-093"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "1j",
-          "validation": [
-            "npx knip → 0 unused exports critiques"
-          ],
+          "validation": ["npx knip → 0 unused exports critiques"],
           "status": "pending"
         },
         {
           "id": "B10.4",
           "title": "CI npm ci + audit transitives composio/inngest",
-          "findings": [
-            "F-080"
-          ],
+          "findings": ["F-080"],
           "sub_agent_recommended": "general-purpose",
           "pre_conditions": [],
           "estimated_effort": "2h",
-          "validation": [
-            "CI utilise npm ci partout"
-          ],
+          "validation": ["CI utilise npm ci partout"],
           "status": "pending"
         }
       ]
@@ -870,88 +683,47 @@
         {
           "id": "B11.1",
           "title": "Démonter layout (user) 'use client' racine + Server Actions + cache Next.js",
-          "findings": [
-            "F-062",
-            "F-063",
-            "F-064",
-            "F-066",
-            "F-089"
-          ],
+          "findings": ["F-062", "F-063", "F-064", "F-066", "F-089"],
           "sub_agent_recommended": "Plan + general-purpose",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "1-2 sem",
-          "validation": [
-            "LCP -300ms mesuré",
-            "Server Actions sur 10+ mutations"
-          ],
+          "validation": ["LCP -300ms mesuré", "Server Actions sur 10+ mutations"],
           "status": "deferred"
         },
         {
           "id": "B11.2",
           "title": "Refactor godfiles (ai-pipeline.ts) + console.* → logger",
-          "findings": [
-            "F-090",
-            "F-091",
-            "F-092"
-          ],
+          "findings": ["F-090", "F-091", "F-092"],
           "sub_agent_recommended": "Plan",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "1 sem",
-          "validation": [
-            "ai-pipeline.ts < 400 lignes splitté",
-            "console.* < 50 occurrences"
-          ],
+          "validation": ["ai-pipeline.ts < 400 lignes splitté", "console.* < 50 occurrences"],
           "status": "deferred"
         },
         {
           "id": "B11.3",
           "title": "Perf KG (searchNodes index trigram + findPath BFS + cache LRU)",
-          "findings": [
-            "F-114",
-            "F-120",
-            "F-111"
-          ],
+          "findings": ["F-114", "F-120", "F-111"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "3-4j",
           "status": "deferred"
         },
         {
           "id": "B11.4",
           "title": "Gaps post-adv non critiques (SSE auth + OAuth scope + idempotency externes)",
-          "findings": [
-            "F-081",
-            "F-082",
-            "F-083",
-            "F-084",
-            "F-085",
-            "F-086",
-            "F-117"
-          ],
+          "findings": ["F-081", "F-082", "F-083", "F-084", "F-085", "F-086", "F-117"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "1 sem",
           "status": "deferred"
         },
         {
           "id": "B11.5",
           "title": "LLM hardening (wallclock agent-loop + constants externalisées)",
-          "findings": [
-            "F-087",
-            "F-088"
-          ],
+          "findings": ["F-087", "F-088"],
           "sub_agent_recommended": "llm-auditor",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "1j",
           "status": "deferred"
         },
@@ -971,38 +743,25 @@
             "F-130"
           ],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "1 sem",
           "status": "deferred"
         },
         {
           "id": "B11.7",
           "title": "Migration NextAuth v4 → v5 + Hearst Card revoke + slowloris",
-          "findings": [
-            "F-058",
-            "F-112",
-            "F-113"
-          ],
+          "findings": ["F-058", "F-112", "F-113"],
           "sub_agent_recommended": "Plan",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "2 sem",
           "status": "deferred"
         },
         {
           "id": "B11.8",
           "title": "Misc reliability (payload schema versioning + Composio webhook receiver)",
-          "findings": [
-            "F-036",
-            "F-030"
-          ],
+          "findings": ["F-036", "F-030"],
           "sub_agent_recommended": "general-purpose",
-          "pre_conditions": [
-            "GO-LIVE"
-          ],
+          "pre_conditions": ["GO-LIVE"],
           "estimated_effort": "3j",
           "status": "deferred"
         }
