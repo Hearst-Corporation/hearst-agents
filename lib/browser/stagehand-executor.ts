@@ -177,6 +177,7 @@ function emitFailed(
 // event navigate déterministe pour ne pas casser l'UI.
 
 import { runAgentLoop, type AgentStep } from "./agent-loop";
+import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 
 const URL_RE = /https?:\/\/[^\s<>'"]+/i;
 
@@ -293,33 +294,47 @@ class DefaultBrowserExecutor implements BrowserExecutor {
           // au lieu de partir de about:blank (ça économe 1-2 steps).
           if (urlMatch) {
             const navStart = Date.now();
+            // SSRF guard : DNS lookup complet avant goto (rebinding protection).
+            // fallbackTarget peut venir du texte de task LLM — on valide systématiquement.
+            let ssrfBlocked = false;
             try {
-              await bridge.page.goto(fallbackTarget, {
-                waitUntil: "domcontentloaded",
-                timeout: 30_000,
-              });
-              await bridge.page
-                .waitForLoadState("networkidle", { timeout: 15_000 })
-                .catch(() => {});
+              await assertSafeUrl(fallbackTarget, { allowedSchemes: ["https:", "http:"] });
             } catch (err) {
+              ssrfBlocked = true;
+              const reason = err instanceof SsrfBlockedError ? err.reason : String(err);
               console.warn(
-                "[stagehand-executor] page.goto preload error :",
-                err instanceof Error ? err.message : err,
+                `[stagehand-executor] goto preload bloqué par SSRF guard (${reason}): ${fallbackTarget}`,
               );
             }
-            let screenshotUrl: string | undefined;
-            try {
-              const buf = await bridge.page.screenshot({ type: "png" });
-              if (buf.length < 1_000_000) {
-                screenshotUrl = `data:image/png;base64,${buf.toString("base64")}`;
+            if (!ssrfBlocked) {
+              try {
+                await bridge.page.goto(fallbackTarget, {
+                  waitUntil: "domcontentloaded",
+                  timeout: 30_000,
+                });
+                await bridge.page
+                  .waitForLoadState("networkidle", { timeout: 15_000 })
+                  .catch(() => {});
+              } catch (err) {
+                console.warn(
+                  "[stagehand-executor] page.goto preload error :",
+                  err instanceof Error ? err.message : err,
+                );
               }
-            } catch {
-              /* ignore */
+              let screenshotUrl: string | undefined;
+              try {
+                const buf = await bridge.page.screenshot({ type: "png" });
+                if (buf.length < 1_000_000) {
+                  screenshotUrl = `data:image/png;base64,${buf.toString("base64")}`;
+                }
+              } catch {
+                /* ignore */
+              }
+              safeEmit("navigate", bridge.page.url(), {
+                durationMs: Date.now() - navStart,
+                screenshotUrl,
+              });
             }
-            safeEmit("navigate", bridge.page.url(), {
-              durationMs: Date.now() - navStart,
-              screenshotUrl,
-            });
           }
 
           // ── Agent loop LLM-driven ──────────────────────────────

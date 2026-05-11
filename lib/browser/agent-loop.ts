@@ -31,7 +31,7 @@ import type {
   Tool as AnthropicTool,
 } from "@anthropic-ai/sdk/resources/messages";
 import type { PlaywrightPage } from "./playwright-bridge";
-import { isUrlShapeAllowed } from "@/lib/security/ssrf-guard";
+import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 import { fenceUntrusted, getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 
 // ── Tool definitions (Anthropic schema) ──────────────────────
@@ -305,10 +305,12 @@ async function executeTool(opts: ExecuteToolOpts): Promise<ExecuteToolResult> {
         if (!/^https?:\/\//i.test(url)) {
           return { ok: false, error: `invalid url: ${url}` };
         }
-        // SSRF guard : rejette les IP privées / link-local / hostnames internes
-        // (pas de DNS async ici — sync shape check suffit pour le browser loop)
-        if (!isUrlShapeAllowed(url, { allowedSchemes: ["https:", "http:"] })) {
-          return { ok: false, error: `navigate bloqué (hôte privé ou non autorisé): ${url}` };
+        // SSRF guard : DNS lookup complet (rebinding protection) + RFC1918 + IPv6 check
+        try {
+          await assertSafeUrl(url, { allowedSchemes: ["https:", "http:"] });
+        } catch (err) {
+          const reason = err instanceof SsrfBlockedError ? err.reason : String(err);
+          return { ok: false, error: `navigate bloqué (SSRF guard): ${reason} — ${url}` };
         }
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
         await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});

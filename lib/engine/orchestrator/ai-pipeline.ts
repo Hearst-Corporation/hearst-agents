@@ -500,7 +500,7 @@ export async function runAiPipeline(
   const enrichTools = buildEnrichTools();
   const webSearchTools = buildWebSearchTools();
   const marketDataTools = buildMarketDataTools();
-  const extrasServicesTools = buildExtrasServicesTools();
+  const extrasServicesTools = buildExtrasServicesTools(pipelineScope);
   const researchTools = buildResearchTools({
     engine,
     eventBus,

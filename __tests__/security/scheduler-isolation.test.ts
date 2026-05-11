@@ -92,15 +92,15 @@ describe("F-010 — sendEmailTool _preview gate", () => {
     expect(result).toMatchObject({ kind: "draft" });
   });
 
-  it("tente l'envoi quand _preview est false (échoue car RESEND_API_KEY vide)", async () => {
+  it("refuse l'envoi quand _preview est false sans token HMAC (fail-closed F-010)", async () => {
     const { buildExtrasServicesTools } = await import(
       "@/lib/tools/native/extras-services"
     );
     const tools = buildExtrasServicesTools();
     const sendEmail = tools["send_email"];
 
-    // Avec RESEND_API_KEY vide, on s'attend à un message d'erreur de config
-    // pas à un draft — ce qui confirme que la gate est bien franchie
+    // Post-fix F-010 : _preview:false seul ne suffit plus. Un token HMAC est requis.
+    // Comportement attendu : la gate rejette et retourne un draft (pas d'envoi réseau).
     const result = await sendEmail.execute?.(
       {
         to: "carol@example.com",
@@ -111,8 +111,7 @@ describe("F-010 — sendEmailTool _preview gate", () => {
       { messages: [], toolCallId: "test-call" },
     );
 
-    // Le résultat doit être une string d'erreur resend (pas un draft objet)
-    expect(typeof result).toBe("string");
-    expect(result).toContain("Resend");
+    // Sans token cryptographique, l'envoi est refusé → retour draft, pas un send résolu
+    expect(result).toMatchObject({ kind: "draft" });
   });
 });

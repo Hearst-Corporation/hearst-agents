@@ -3,7 +3,7 @@
   "audit_id": "2026-05-10-security",
   "objective": "Hearst OS prêt pour go-live multi-user public",
   "created_at": "2026-05-11",
-  "last_updated": "2026-05-11T19:12:42.990Z",
+  "last_updated": "2026-05-11T21:40:33.576Z",
   "orchestrator": "claude-opus-4.7",
   "estimated_total_effort": "20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents",
   "principle": "Ordre = dépendances logiques, pas sévérité brute. Foundation d'abord (sinon les fixes IDOR sont cosmétiques tant que F-095/F-096 pas faits). Puis defense in depth. Puis hardening. Phase 11 = post-go-live.",
@@ -1532,7 +1532,7 @@
       "title": "🚀 GO-LIVE CHECKLIST",
       "objective": "Validation finale avant ouverture multi-user public.",
       "estimated_effort": "1 jour",
-      "status": "pending",
+      "status": "done",
       "batches": [
         {
           "id": "GL.1",
@@ -1608,7 +1608,16 @@
             "0 régression critique détectée",
             "Si nouvelles vulns détectées → loop : ajouter F-XXX puis batch + valider"
           ],
-          "status": "pending"
+          "status": "done",
+          "closed_at": "2026-05-11T21:40:33.575Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T21:40:33.576Z",
+              "actor": "battle-mark-cli",
+              "from": "pending",
+              "to": "done"
+            }
+          ]
         },
         {
           "id": "GL.5",

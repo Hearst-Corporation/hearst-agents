@@ -17,6 +17,11 @@ import { jsonSchema } from "ai";
 import type { Tool } from "ai";
 import { Resend } from "resend";
 import { inngest, isInngestEnabled } from "@/lib/jobs/inngest/client";
+import {
+  issueConfirmationToken,
+  verifyConfirmationToken,
+  hashToolArgs,
+} from "@/lib/tools/hitl/confirmation-token";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -65,40 +70,103 @@ interface SendEmailArgs {
   html?: string;
   text?: string;
   from?: string;
-  /** F-010 : gate HITL — true = draft (défaut), false = exécution. */
+  /**
+   * F-010 : gate HITL cryptographique.
+   * - Absent ou true → draft preview + nouveau confirmationToken émis.
+   * - Présent (string HMAC) → verifyConfirmationToken → exécution si valide.
+   * Le LLM ne peut pas forger un token valide (ne connaît pas NEXTAUTH_SECRET).
+   */
   _preview?: boolean;
+  _confirmationToken?: string;
 }
 
-const sendEmailTool: Tool<SendEmailArgs, unknown> = {
-  description:
-    "Envoie un email transactionnel via Resend. ⚠️ Action irréversible. Appelle TOUJOURS en mode _preview:true d'abord pour montrer un draft à l'utilisateur. N'exécute (_preview:false) que si l'utilisateur a explicitement confirmé. Use this when the user asks to 'envoie un email à X', 'rappelle Y par email', 'follow-up Z'.",
-  inputSchema: jsonSchema<SendEmailArgs>({
-    type: "object",
-    required: ["to", "subject"],
-    properties: {
-      to: {
-        oneOf: [
-          { type: "string", description: "Une adresse email (ex: alice@example.com)." },
-          { type: "array", items: { type: "string" }, description: "Plusieurs destinataires." },
-        ],
+const SEND_EMAIL_TOOL_SLUG = "send_email";
+
+function buildSendEmailTool(scope?: {
+  userId: string;
+  tenantId: string;
+}): Tool<SendEmailArgs, unknown> {
+  return {
+    description:
+      "Envoie un email transactionnel via Resend. ⚠️ Action irréversible. Appelle TOUJOURS sans _confirmationToken d'abord pour obtenir un draft à confirmer. N'exécute l'envoi que si l'utilisateur fournit le _confirmationToken reçu. Use this when the user asks to 'envoie un email à X', 'rappelle Y par email', 'follow-up Z'.",
+    inputSchema: jsonSchema<SendEmailArgs>({
+      type: "object",
+      required: ["to", "subject"],
+      properties: {
+        to: {
+          oneOf: [
+            { type: "string", description: "Une adresse email (ex: alice@example.com)." },
+            { type: "array", items: { type: "string" }, description: "Plusieurs destinataires." },
+          ],
+        },
+        subject: { type: "string", description: "Objet de l'email (court, < 80 chars)." },
+        html: { type: "string", description: "Corps HTML (optionnel si text fourni)." },
+        text: { type: "string", description: "Corps texte brut (optionnel si html fourni)." },
+        from: { type: "string", description: "Expéditeur (default: env RESEND_FROM_EMAIL)." },
+        _preview: {
+          type: "boolean",
+          description:
+            "Ignoré si _confirmationToken fourni. true (défaut) = retourne un draft sans envoyer.",
+          default: true,
+        },
+        _confirmationToken: {
+          type: "string",
+          description:
+            "Token HMAC signé émis lors du draft précédent. Obligatoire pour déclencher l'envoi réel.",
+        },
       },
-      subject: { type: "string", description: "Objet de l'email (court, < 80 chars)." },
-      html: { type: "string", description: "Corps HTML (optionnel si text fourni)." },
-      text: { type: "string", description: "Corps texte brut (optionnel si html fourni)." },
-      from: { type: "string", description: "Expéditeur (default: env RESEND_FROM_EMAIL)." },
-      _preview: {
-        type: "boolean",
-        description:
-          "true (défaut) = affiche un draft sans envoyer. false = exécute l'envoi (uniquement après confirmation explicite de l'utilisateur).",
-        default: true,
-      },
-    },
-  }),
-  execute: async (args) => {
-    // F-010 : gate HITL — draft si _preview n'est pas explicitement false.
-    const isPreview = args._preview !== false;
-    if (isPreview) {
+    }),
+    execute: async (args) => {
+      // F-010 : exécution uniquement si token HMAC valide.
+      if (args._confirmationToken) {
+        // Sans scope (contexte hors-pipeline), on ne peut pas vérifier → draft.
+        if (!scope) {
+          return "Erreur : contexte utilisateur manquant, impossible de vérifier le token de confirmation.";
+        }
+        // Args canoniques = tout sauf les champs de contrôle HITL.
+        const { _preview: _p, _confirmationToken: _t, ...execArgs } = args;
+        const argsHash = hashToolArgs(execArgs);
+        const result = verifyConfirmationToken(args._confirmationToken, {
+          userId: scope.userId,
+          tenantId: scope.tenantId,
+          toolSlug: SEND_EMAIL_TOOL_SLUG,
+          argsHash,
+        });
+        if (!result.ok) {
+          return `Envoi refusé : token de confirmation invalide (${result.reason}). Refais d'abord un draft pour obtenir un nouveau token.`;
+        }
+        // Token valide → exécution.
+        if (!isResendEnabled()) {
+          return "Resend n'est pas configuré (RESEND_API_KEY manquante). Email non envoyé.";
+        }
+        if (!args.html && !args.text) {
+          return "Erreur : il faut fournir au moins `html` ou `text` pour le corps de l'email.";
+        }
+        const sendResult = await sendEmail({
+          to: args.to,
+          subject: args.subject,
+          html: args.html,
+          text: args.text,
+          from: args.from,
+        });
+        if (sendResult.error) {
+          return `Échec envoi email : ${sendResult.error}`;
+        }
+        return `Email envoyé. id=${sendResult.id ?? "?"}`;
+      }
+
+      // Pas de token → draft preview + émission du token de confirmation.
       const toStr = Array.isArray(args.to) ? args.to.join(", ") : args.to;
+      const { _preview: _p2, _confirmationToken: _t2, ...draftArgs } = args;
+      const confirmationToken = scope
+        ? issueConfirmationToken({
+            userId: scope.userId,
+            tenantId: scope.tenantId,
+            toolSlug: SEND_EMAIL_TOOL_SLUG,
+            argsHash: hashToolArgs(draftArgs),
+          })
+        : null;
+
       return {
         kind: "draft",
         action: "send_email",
@@ -106,30 +174,13 @@ const sendEmailTool: Tool<SendEmailArgs, unknown> = {
         subject: args.subject,
         body_preview: (args.text ?? args.html ?? "").slice(0, 200),
         drafted_at: new Date().toISOString(),
+        _confirmationToken: confirmationToken,
         message:
-          "Draft email — réponds 'confirmer' pour envoyer ou 'annuler' pour abandonner.",
+          "Draft email — transmets le _confirmationToken à l'utilisateur pour qu'il confirme l'envoi.",
       };
-    }
-
-    if (!isResendEnabled()) {
-      return "Resend n'est pas configuré (RESEND_API_KEY manquante). Email non envoyé.";
-    }
-    if (!args.html && !args.text) {
-      return "Erreur : il faut fournir au moins `html` ou `text` pour le corps de l'email.";
-    }
-    const result = await sendEmail({
-      to: args.to,
-      subject: args.subject,
-      html: args.html,
-      text: args.text,
-      from: args.from,
-    });
-    if (result.error) {
-      return `Échec envoi email : ${result.error}`;
-    }
-    return `Email envoyé. id=${result.id ?? "?"}`;
-  },
-};
+    },
+  };
+}
 
 // ── query_sentry_issues ───────────────────────────────────────────
 
@@ -378,9 +429,12 @@ const queryLangfuseTracesTool: Tool<QueryLangfuseTracesArgs, unknown> = {
 
 // ── Public API ────────────────────────────────────────────────────
 
-export function buildExtrasServicesTools(): AiToolMap {
+export function buildExtrasServicesTools(scope?: {
+  userId: string;
+  tenantId: string;
+}): AiToolMap {
   return {
-    send_email: sendEmailTool,
+    send_email: buildSendEmailTool(scope),
     query_sentry_issues: querySentryIssuesTool,
     query_axiom_logs: queryAxiomLogsTool,
     schedule_inngest_job: scheduleInngestJobTool,

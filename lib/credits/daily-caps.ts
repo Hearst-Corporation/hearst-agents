@@ -11,6 +11,8 @@ export interface DailyCap {
   allowed: boolean;
   current: number;
   max: number;
+  /** Présent uniquement si allowed === false pour cause infra (pas quota). */
+  reason?: string;
 }
 
 /**
@@ -24,13 +26,14 @@ export async function checkDailyCap(
 ): Promise<DailyCap> {
   const redis = getRedis();
   if (!redis) {
-    // Si Redis n'est pas disponible, fallback : permettre (dev mode)
-    console.warn("[daily-caps] Redis unavailable, cap bypass");
-    return {
-      allowed: true,
-      current: 1,
-      max,
-    };
+    if (process.env.NODE_ENV === "production") {
+      // F-079 : fail-closed en prod — Redis indisponible = quota refusé.
+      console.error("[daily-caps] Redis unavailable in production, cap denied");
+      return { allowed: false, reason: "rate_limiter_unavailable", current: 0, max };
+    }
+    // Dev/test : bypass gracieux pour ne pas bloquer le développement local.
+    console.warn("[daily-caps] Redis unavailable, cap bypass (dev/test only)");
+    return { allowed: true, current: 1, max };
   }
 
   // YYYY-MM-DD en UTC

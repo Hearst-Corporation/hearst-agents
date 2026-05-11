@@ -203,8 +203,9 @@ export async function GET(
       }
 
       // Ownership check — retourne not_found (pas 403) pour éviter l'info disclosure (F-004)
+      // F-004 PARTIAL fix : !jobUserId bloque les payloads sans userId (pas de bypass silencieux).
       const jobUserId = (initial.data as { userId?: string } | undefined)?.userId;
-      if (jobUserId && jobUserId !== scope.userId) {
+      if (!jobUserId || jobUserId !== scope.userId) {
         sendEvent("not_found", { jobId, kind });
         closeAll();
         return;
