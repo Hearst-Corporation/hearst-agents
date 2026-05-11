@@ -1,0 +1,132 @@
+/* Spatial Mode Styles - Isolated Sandbox */
+
+:root {
+  --spatial-bg: #000000;
+  --spatial-fg: #ffffff;
+  --spatial-glass-bg: rgba(255, 255, 255, 0.03);
+  --spatial-glass-border: rgba(255, 255, 255, 0.08);
+  --spatial-glass-blur: 20px;
+  --spatial-glass-blur-strong: 36px;
+  --spatial-accent: #ffffff;
+  --spatial-font: var(--font-satoshi), system-ui, sans-serif;
+}
+
+.spatial-root {
+  position: fixed;
+  inset: 0;
+  background: var(--spatial-bg);
+  color: var(--spatial-fg);
+  font-family: var(--spatial-font);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.spatial-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.spatial-overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 32px;
+}
+
+.glass-panel-strong {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(36px) saturate(125%);
+  -webkit-backdrop-filter: blur(36px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+}
+
+.spatial-immaterial-panel {
+  background: transparent;
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.spatial-immaterial-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.spatial-text-pure {
+  color: var(--spatial-fg);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.spatial-text-muted {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+/* Spatial Typography Scale - Improved for legibility but keeping micro-luxe feel */
+.text-spatial-xs {
+  font-size: 10px;
+}
+.text-spatial-sm {
+  font-size: 11px;
+}
+.text-spatial-md {
+  font-size: 12px;
+}
+.text-spatial-base {
+  font-size: 13px;
+}
+.text-spatial-lg {
+  font-size: 14px;
+}
+.text-spatial-xl {
+  font-size: 15px;
+}
+.text-spatial-2xl {
+  font-size: 16px;
+}
+.text-spatial-3xl {
+  font-size: 20px;
+}
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes spatial-mission-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+.spatial-stats {
+  top: auto !important;
+  bottom: 12px !important;
+  left: 12px !important;
+}

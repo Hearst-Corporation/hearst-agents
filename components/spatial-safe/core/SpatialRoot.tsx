@@ -1,0 +1,90 @@
+'use client';
+
+/**
+ * SpatialRoot — composant racine client qui :
+ *  1. Instancie le hook `useSplineApp` (capture l'Application Spline au load)
+ *  2. Branche les bridges runtime (voice level, state, tool calls, idle ambient)
+ *  3. Rend la scène + l'overlay manager + les satellites (KPI, notif, voice, breadcrumb)
+ *  4. Monte VoicePulse (singleton via guards module-level dans VoicePulse.tsx)
+ *
+ * Vit sous SpatialLayout (providers) et au-dessus de la scène + overlays.
+ */
+
+import dynamic from 'next/dynamic';
+import { useSplineApp } from '@/hooks/spatial-safe/useSplineApp';
+import { useSplineVoiceBridge } from '@/hooks/spatial-safe/useSplineVoiceBridge';
+import { useSplineStateBridge } from '@/hooks/spatial-safe/useSplineStateBridge';
+import { useSplineToolBridge } from '@/hooks/spatial-safe/useSplineToolBridge';
+import { useSplineIdleAmbient } from '@/hooks/spatial-safe/useSplineIdleAmbient';
+import { SpatialScene } from './SpatialScene';
+import { SpatialLogoCore } from './SpatialLogoCore';
+import { SpatialOverlayManager } from '../overlays/SpatialOverlayManager';
+import { NotificationBellSpatial } from '../overlays/NotificationBellSpatial';
+import { VoicePill } from '../overlays/VoicePill';
+import { StageBreadcrumb } from '../overlays/StageBreadcrumb';
+import { KPIBento } from '../panels/KPIBento';
+import { SPATIAL_Z_LAYERS } from '@/lib/spatial-safe/constants';
+import type { CockpitTodayPayload } from '@/lib/cockpit/today';
+
+// VoicePulse vit dans app/(user) — on l'importe en dynamic ssr:false pour
+// éviter de rendre un composant dépendant de WebRTC pendant SSR.
+const VoicePulse = dynamic(
+  () => import('@/app/(user)/components/voice/VoicePulse').then((m) => m.VoicePulse),
+  { ssr: false },
+);
+
+export interface SpatialRootProps {
+  /** Payload Cockpit pre-fetché côté serveur (pour le KPI bento P2-1).
+   *  Optionnel : fallback à un état vide silencieux si null. */
+  initialCockpitData?: CockpitTodayPayload | null;
+}
+
+export function SpatialRoot({ initialCockpitData }: SpatialRootProps) {
+  const spline = useSplineApp();
+
+  // Bridges runtime — chacun est un useEffect interne, ne provoque pas de
+  // re-render de SpatialRoot quand un event arrive.
+  useSplineVoiceBridge(spline);
+  useSplineStateBridge(spline);
+  useSplineToolBridge(spline);
+  useSplineIdleAmbient(spline);
+
+  return (
+    <>
+      <SpatialScene>
+        <SpatialLogoCore onLoad={spline.onLoad} />
+      </SpatialScene>
+
+      {/* P2-1 : KPI hero bento — placé en haut center via overlay dédié pour
+          ne pas perturber la grille bento gauche (qui est déjà 4×3 saturée). */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-6 md:top-10 flex justify-center"
+        style={{ zIndex: SPATIAL_Z_LAYERS.surface }}
+      >
+        <div className="pointer-events-auto w-[min(720px,52vw)]">
+          <div
+            className="grid"
+            style={{
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gridTemplateRows: '1fr',
+              perspective: '1200px',
+            }}
+          >
+            <KPIBento data={initialCockpitData ?? null} />
+          </div>
+        </div>
+      </div>
+
+      <SpatialOverlayManager initialCockpitData={initialCockpitData ?? null} />
+
+      {/* Satellites P2 */}
+      <NotificationBellSpatial />
+      <VoicePill />
+      <StageBreadcrumb />
+
+      {/* P2-3 : pipeline WebRTC. Singleton via guards module-level dans
+          VoicePulse.tsx — safe à monter ici en parallèle de la home `/`. */}
+      <VoicePulse />
+    </>
+  );
+}

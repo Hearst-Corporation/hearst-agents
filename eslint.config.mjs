@@ -32,6 +32,14 @@ const eslintConfig = defineConfig([
     "test-results/**",
     // Snapshots Playwright (binaires)
     "**/__screenshots__/**",
+    // Sauvegardes figées Spatial — lecture seule absolue (cf. CLAUDE.md)
+    "docs/spatial/_BACKUP_*/**",
+    "app/spatial-safe/**",
+    "components/spatial-safe/**",
+    "hooks/spatial-safe/**",
+    "lib/spatial-safe/**",
+    "providers/spatial-safe/**",
+    "styles/spatial-safe/**",
   ]),
 ]);
 
