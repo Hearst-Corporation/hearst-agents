@@ -30,25 +30,25 @@ Au premier login :
 
 ### Rate-limits (par minute / par user)
 
-| Route | Limit |
-|---|---|
-| `/api/orchestrate` (chat principal) | 10 req/min (Arcjet) |
-| `/api/v2/jobs/code-exec` | 20 req/min (Arcjet ajLlmJobs) |
-| `/api/v2/jobs/image-gen` | 20 req/min |
-| `/api/v2/jobs/audio-gen` | 20 req/min |
-| `/api/v2/jobs/document-parse` | 20 req/min |
-| `/api/agents/[id]/chat` | Variable selon `defaultRateLimiter` |
-| Autres APIs | 100 req/min |
+| Route                               | Limit                               |
+| ----------------------------------- | ----------------------------------- |
+| `/api/orchestrate` (chat principal) | 10 req/min (Arcjet)                 |
+| `/api/v2/jobs/code-exec`            | 20 req/min (Arcjet ajLlmJobs)       |
+| `/api/v2/jobs/image-gen`            | 20 req/min                          |
+| `/api/v2/jobs/audio-gen`            | 20 req/min                          |
+| `/api/v2/jobs/document-parse`       | 20 req/min                          |
+| `/api/agents/[id]/chat`             | Variable selon `defaultRateLimiter` |
+| Autres APIs                         | 100 req/min                         |
 
 Dépassement → réponse `429 rate_limited` + header `Retry-After`.
 
 ### Quotas quotidiens
 
-| Action | Cap quotidien |
-|---|---|
-| Daily brief generate | 5 / 24h |
-| Simulations start | 3 / 24h |
-| KG ingest | 10 / minute |
+| Action               | Cap quotidien |
+| -------------------- | ------------- |
+| Daily brief generate | 5 / 24h       |
+| Simulations start    | 3 / 24h       |
+| KG ingest            | 10 / minute   |
 
 ### Budgets LLM (per run)
 
@@ -117,7 +117,7 @@ Normal. Toutes les actions "write" (send_email, gmail_send, slack_post, etc.) de
 
 ### "L'agent dit `_preview: false` mais l'email n'est pas parti"
 
-C'est voulu. Le `_preview: false` sans token cryptographique signé serveur est rejeté pour empêcher le **prompt injection** (un email malveillant qui contient "_preview: false" ne déclenche aucune action).
+C'est voulu. Le `_preview: false` sans token cryptographique signé serveur est rejeté pour empêcher le **prompt injection** (un email malveillant qui contient "\_preview: false" ne déclenche aucune action).
 
 ### "Mon job audio/image/code-exec est stuck"
 
@@ -174,6 +174,7 @@ Pendant la beta :
 - [x] Limites connues post-launch listées
 
 ⚠ **Actions manuelles user requises** :
+
 1. Communiquer cette doc aux beta-testeurs (Notion / email / Slack)
 2. Mettre en place status page externe (statuspage.io ou équivalent)
 3. Définir SLA support (temps de réponse aux bugs critiques)

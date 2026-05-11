@@ -119,13 +119,14 @@ function encrypt(plaintext: string): string {
  */
 function decrypt(ciphertext: string): string {
   const parts = ciphertext.split(".");
+  const legacyParts = ciphertext.split(":");
 
   // Backward compat : ancien format sans keyId était `iv:tag:enc` (hex)
-  if (parts.length === 3 && ciphertext.includes(":")) {
+  if (legacyParts.length === 3 && !ciphertext.includes(".")) {
     console.warn(
       "[TokenStore] Décryption en format legacy (sans keyId) — migration conseillée",
     );
-    const [ivHex, authTagHex, encHex] = ciphertext.split(":");
+    const [ivHex, authTagHex, encHex] = legacyParts;
     if (!ivHex || !authTagHex || !encHex) throw new Error("Malformed legacy token");
     const key = keyProvider.getKey(); // Fallback sur ancien provider
     const decipher = crypto.createDecipheriv(

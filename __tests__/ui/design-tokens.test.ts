@@ -21,9 +21,9 @@ describe("design tokens (app/globals.css)", () => {
     expect(globalsCss).toContain("--color-cyan-accent:");
   });
 
-  it("supporte le design Vision OS avec des backgrounds transparents", () => {
-    // Le design Vision OS (pivot 2026-05-10) utilise des fonds transparents
-    // pour laisser passer le vision-ambient-bg
+  it("expose des fonds transparents pour la composition shell", () => {
+    // Le shell cockpit empile bg → cartes shell-card → rails shell-rail.
+    // Les couches intermédiaires restent transparentes pour laisser le bg.
     expect(globalsCss).toContain("--background: transparent;");
     expect(globalsCss).toContain("--rail: transparent;");
   });

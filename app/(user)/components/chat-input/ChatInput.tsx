@@ -156,9 +156,8 @@ export function ChatInput({
           <ContextChips />
         </div>
 
-        {/* Input "two-lines" — remplacé par vision-input (Apple Vision). */}
         <div
-          className="vision-input peer group px-6 py-3 relative"
+          className="shell-input-pill peer group px-6 py-3 relative"
           onDragOver={handleAssetDragOver}
           onDragLeave={handleAssetDragLeave}
           onDrop={handleAssetDrop}

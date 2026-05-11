@@ -11,67 +11,69 @@ Toutes ces vars doivent être set dans **Vercel → Project Settings → Environ
 
 ### Auth (critiques)
 
-| Var | Rôle | Source |
-|---|---|---|
-| `NEXTAUTH_URL` | URL canonique prod (https://hearst-agents.vercel.app) | Vercel auto ou manual |
-| `NEXTAUTH_SECRET` | Signing JWT + OAuth state HMAC | `openssl rand -base64 32` |
-| `HEARST_ALLOWED_EMAIL_DOMAINS` | **OBLIGATOIRE** CSV des domaines email autorisés à signup | `hearstcorporation.io,partner.com` |
-| `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` | NextAuth Google provider | Google Cloud Console |
-| `SLACK_CLIENT_ID` + `SLACK_CLIENT_SECRET` | OAuth Slack | Slack App |
-| `HEARST_API_KEY` | Server-to-server API key | `openssl rand -base64 32` |
-| `TOKEN_ENCRYPTION_KEY_1` | AES-256 hex 64 chars pour user_tokens encrypt | `openssl rand -hex 32` |
-| `TOKEN_ENCRYPTION_KEY_ACTIVE` | "1" (current), bump à "2" lors de rotation | string |
+| Var                                         | Rôle                                                      | Source                             |
+| ------------------------------------------- | --------------------------------------------------------- | ---------------------------------- |
+| `NEXTAUTH_URL`                              | URL canonique prod (https://hearst-agents.vercel.app)     | Vercel auto ou manual              |
+| `NEXTAUTH_SECRET`                           | Signing JWT + OAuth state HMAC                            | `openssl rand -base64 32`          |
+| `HEARST_ALLOWED_EMAIL_DOMAINS`              | **OBLIGATOIRE** CSV des domaines email autorisés à signup | `hearstcorporation.io,partner.com` |
+| `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` | NextAuth Google provider                                  | Google Cloud Console               |
+| `SLACK_CLIENT_ID` + `SLACK_CLIENT_SECRET`   | OAuth Slack                                               | Slack App                          |
+| `HEARST_API_KEY`                            | Server-to-server API key                                  | `openssl rand -base64 32`          |
+| `TOKEN_ENCRYPTION_KEY_1`                    | AES-256 hex 64 chars pour user_tokens encrypt             | `openssl rand -hex 32`             |
+| `TOKEN_ENCRYPTION_KEY_ACTIVE`               | "1" (current), bump à "2" lors de rotation                | string                             |
 
 ### DB + Storage
 
-| Var | Rôle |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | URL projet Supabase prod (hearst-ai) |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Anon key (safe client) |
-| `SUPABASE_SERVICE_ROLE_KEY` | **Server-only**, jamais bundlé |
-| `SUPABASE_ACCESS_TOKEN` | CLI access (optionnel prod) |
+| Var                             | Rôle                                 |
+| ------------------------------- | ------------------------------------ |
+| `NEXT_PUBLIC_SUPABASE_URL`      | URL projet Supabase prod (hearst-ai) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Anon key (safe client)               |
+| `SUPABASE_SERVICE_ROLE_KEY`     | **Server-only**, jamais bundlé       |
+| `SUPABASE_ACCESS_TOKEN`         | CLI access (optionnel prod)          |
 
 ### LLM Providers
 
-| Var | Provider |
-|---|---|
-| `ANTHROPIC_API_KEY` | Anthropic |
-| `OPENAI_API_KEY` | OpenAI |
-| `GEMINI_API_KEY` | Google AI |
+| Var                                                             | Provider        |
+| --------------------------------------------------------------- | --------------- |
+| `ANTHROPIC_API_KEY`                                             | Anthropic       |
+| `OPENAI_API_KEY`                                                | OpenAI          |
+| `GEMINI_API_KEY`                                                | Google AI       |
 | `LANGFUSE_PUBLIC_KEY` + `LANGFUSE_SECRET_KEY` + `LANGFUSE_HOST` | Langfuse traces |
 
 ### Jobs + Cache
 
-| Var | Rôle |
-|---|---|
-| `INNGEST_SIGNING_KEY` | **OBLIGATOIRE PROD** — hard throw si absent (F-007) |
-| `INNGEST_EVENT_KEY` | Inngest event send |
-| `REDIS_URL` ou `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` | Rate-limit + agent-lock state + cache web_search |
+| Var                                                                  | Rôle                                                |
+| -------------------------------------------------------------------- | --------------------------------------------------- |
+| `INNGEST_SIGNING_KEY`                                                | **OBLIGATOIRE PROD** — hard throw si absent (F-007) |
+| `INNGEST_EVENT_KEY`                                                  | Inngest event send                                  |
+| `REDIS_URL` ou `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` | Rate-limit + agent-lock state + cache web_search    |
 
 ### Observabilité
 
-| Var | Rôle |
-|---|---|
-| `SENTRY_DSN` | Errors capture |
+| Var                                                   | Rôle                           |
+| ----------------------------------------------------- | ------------------------------ |
+| `SENTRY_DSN`                                          | Errors capture                 |
 | `SENTRY_AUTH_TOKEN` + `SENTRY_ORG` + `SENTRY_PROJECT` | Sourcemaps upload (build-time) |
-| `NEXT_PUBLIC_SENTRY_DSN` | Client Sentry |
-| `AXIOM_DATASET` + `AXIOM_TOKEN` | Logs structurés (optionnel) |
+| `NEXT_PUBLIC_SENTRY_DSN`                              | Client Sentry                  |
+| `AXIOM_DATASET` + `AXIOM_TOKEN`                       | Logs structurés (optionnel)    |
 
 ### Sécurité externe
 
-| Var | Rôle |
-|---|---|
-| `ARCJET_KEY` | Rate-limit + bot detection edge |
-| `RECALL_AI_API_KEY` | Meeting bots (optionnel) |
+| Var                 | Rôle                            |
+| ------------------- | ------------------------------- |
+| `ARCJET_KEY`        | Rate-limit + bot detection edge |
+| `RECALL_AI_API_KEY` | Meeting bots (optionnel)        |
 
 ### Garde-fous obligatoires en prod
 
 ⚠ Le boot Vercel **THROW** si une de ces vars manque en `NODE_ENV=production` :
+
 - `NEXTAUTH_SECRET` (sinon JWT signing impossible)
 - `HEARST_ALLOWED_EMAIL_DOMAINS` (sinon open enrollment — F-096)
 - `INNGEST_SIGNING_KEY` (sinon `/api/inngest` accepte tout — F-007)
 
 ⚠ Ces vars **NE DOIVENT JAMAIS** être en prod :
+
 - `HEARST_DEV_AUTH_BYPASS=1` → bypass auth (`isProductionEnv()` throw au boot — F-053)
 
 ---
@@ -119,6 +121,7 @@ Toutes ces vars doivent être set dans **Vercel → Project Settings → Environ
 ### Sourcemaps upload (build)
 
 Verifier que `SENTRY_AUTH_TOKEN` + `SENTRY_ORG` + `SENTRY_PROJECT` sont set en build env :
+
 ```bash
 # next.config.ts withSentryConfig active automatiquement si les 3 vars présentes
 ```
@@ -360,6 +363,7 @@ Composants à monitorer :
 - [x] Status page recommandé
 
 ⚠ **Actions manuelles user requises** (hors automatisable) :
+
 1. Set toutes les env vars critiques en Vercel
 2. Créer les alertes Sentry dans le dashboard
 3. Créer les dashboards Langfuse

@@ -97,7 +97,7 @@ export const useNavigationStore = create<NavigationState>()(
 
       // Threads
       addThread: (name, surface) => {
-        const id = `thread-${Date.now()}`;
+        const id = crypto.randomUUID();
         set((state) => ({
           threads: [
             { id, name, surface, lastActivity: Date.now() },
@@ -198,17 +198,23 @@ export const useNavigationStore = create<NavigationState>()(
     }),
     {
       name: "hearst-navigation",
-      version: 3, // Bump version pour F-077 : no message content in localStorage
+      version: 4, // v4 : thread ids passent en UUID v4 (compat /api/orchestrate)
       migrate: (persisted: unknown) => {
         const s = (persisted ?? {}) as Partial<NavigationState>;
+        const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         const cleaned = (s.threads ?? []).filter(
-          (t) => !(t.id === "default" && t.name === "Accueil"),
+          (t) =>
+            !(t.id === "default" && t.name === "Accueil") &&
+            uuidRe.test(t.id),
         );
+        const activeOk =
+          s.activeThreadId && s.activeThreadId !== "default" && uuidRe.test(s.activeThreadId)
+            ? s.activeThreadId
+            : null;
         return {
           ...s,
           threads: cleaned,
-          activeThreadId:
-            s.activeThreadId === "default" ? null : s.activeThreadId ?? null,
+          activeThreadId: activeOk,
           messages: {}, // F-077: Reset all messages—never persist content in localStorage
         } as NavigationState;
       },

@@ -93,8 +93,8 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
       <NotificationsHydrate />
       <ToastProvider>
         <div
-          className="vision-ambient-bg h-screen w-full flex flex-col overflow-hidden"
-          style={{ background: "var(--bg)", color: "var(--text)" }}
+          className="shell-bg h-screen w-full flex flex-col overflow-hidden"
+          style={{ color: "var(--text)" }}
         >
           {/* Electron titlebar drag region — zone 32px fixe en haut qui reste
               toujours draggable. pointer-events:none laisse les clics passer
@@ -105,7 +105,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
              Focus Mode (S4-B) : rétracté hors écran via translateY(-100%) pour
              laisser le Stage prendre 100vh (animation slow + ease-standard). */}
           <div
-            className="vision-glass mx-4 mt-4 mb-4"
+            className="shell-card mx-4 mt-4 mb-4"
             style={{
               transform: focusMode ? "translateY(-100%)" : "translateY(0)",
               maxHeight: focusMode ? "0" : "var(--height-pulsebar)",
@@ -130,7 +130,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
           >
             <div
               aria-hidden={focusMode}
-              className="vision-nav ml-4 mb-4"
+              className="shell-rail ml-4 mb-4"
               style={{
                 width: focusMode ? "0" : "auto",
                 overflow: "hidden",
@@ -143,7 +143,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div
-              className="vision-glass flex-1 flex flex-col min-w-0 min-h-0 relative overflow-hidden mx-4 mb-4"
+              className="shell-card flex-1 flex flex-col min-w-0 min-h-0 relative overflow-hidden mx-4 mb-4"
               style={{
                 color: "var(--text)",
                 transition: "box-shadow var(--duration-slow) var(--ease-standard)",
@@ -164,7 +164,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
 
             <div
               aria-hidden={focusMode}
-              className="vision-nav mr-4 mb-4"
+              className="shell-rail mr-4 mb-4"
               style={{
                 width: focusMode ? "0" : "auto",
                 overflow: "hidden",
@@ -182,7 +182,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
              paper (qui ressortaient en clair sur le fond noir du footer).
              Devient une "ligne système" continue, pendant bas de la PulseBar.
              Conservé en Focus Mode pour la continuité du flowLabel. */}
-          <div className="vision-glass mx-4 mb-4" style={{ borderRadius: "16px", overflow: "hidden" }}>
+          <div className="shell-card mx-4 mb-4" style={{ overflow: "hidden" }}>
             <StageFooter />
           </div>
 

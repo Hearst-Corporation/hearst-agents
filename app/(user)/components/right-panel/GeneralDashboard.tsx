@@ -1,5 +1,4 @@
 "use client";
-// lint-visual-disable-file
 
 /**
  * GeneralDashboard — rail droit Cockpit (mode cockpit/chat).
@@ -25,8 +24,6 @@ import { useVoiceStore } from "@/stores/voice";
 import { useNotificationsStore } from "@/stores/notifications";
 import { Action, RailSection } from "../ui";
 import { useDashboardCounts } from "./use-dashboard-counts";
-
-// ── Helpers ────────────────────────────────────────────────────
 
 const TIME_FMT = new Intl.DateTimeFormat("fr-FR", {
   hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris",
@@ -55,40 +52,47 @@ const MISSION_STATUS_LABEL: Record<string, string> = {
   running: "En cours",
   active: "Actif",
   scheduled: "Planifié",
+  queued: "En file",
   paused: "En pause",
   failed: "Échec",
+  error: "Erreur",
   completed: "Terminé",
+  success: "Terminé",
+  done: "Terminé",
 };
 
 function missionStatusColor(status: string): string {
   if (status === "running") return "var(--accent-teal)";
-  if (status === "failed") return "var(--danger)";
+  if (status === "failed" || status === "error") return "var(--danger)";
   if (status === "paused") return "var(--text-faint)";
+  if (status === "completed" || status === "success" || status === "done") return "var(--accent-teal)";
   return "var(--text-muted)";
 }
 
-// ── Slots centrés pour RailSection flex ────────────────────────
-
-function CenteredCTA({ children }: { children: ReactNode }) {
+function FileGlyph({ size }: { size: number }) {
   return (
-    <div className="flex-1 flex items-center justify-center">
-      {children}
-    </div>
-  );
-}
-
-function CenteredNote({ children }: { children: ReactNode }) {
-  return (
-    <div className="flex-1 flex items-center justify-center">
-      <span className="t-11 font-light text-text-faint">
-        {children}
-      </span>
-    </div>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+      <polyline points="10 9 9 9 8 9" />
+    </svg>
   );
 }
 
 // ══════════════════════════════════════════════════════════════
-// 1 — MOTEUR (shrink-0, ~80px)
+// 1 — MOTEUR (shrink-0)
 // ══════════════════════════════════════════════════════════════
 
 function MoteurZone() {
@@ -106,7 +110,12 @@ function MoteurZone() {
 
   const isIdle = coreState === "idle";
   const stateLabel = voiceActive ? "Session vocale" : (STATE_LABEL[coreState] ?? "En ligne");
-  const stateColor = coreState === "error" ? "var(--danger)" : "var(--accent-teal)";
+  const dotColor = coreState === "error" ? "var(--danger)" : "var(--accent-teal)";
+  // Silent luxury : label moteur reste neutre, seul le dot porte la couleur
+  // au repos. Le label ne s'illumine que quand un état appelle l'attention
+  // (erreur, attente d'approbation).
+  const needsAttention = coreState === "error" || coreState === "awaiting_approval";
+  const labelColor = needsAttention ? dotColor : "var(--text-soft)";
 
   const alertCount = notifications.filter(
     (n) => (n.severity === "critical" || n.severity === "warning") && n.read_at === null,
@@ -123,17 +132,15 @@ function MoteurZone() {
     >
       <span
         aria-hidden
-        className="shrink-0 rounded-full"
+        className="shrink-0 rounded-full w-2 h-2"
         style={{
-          width: 8,
-          height: 8,
-          background: stateColor,
+          background: dotColor,
           boxShadow: isIdle ? "none" : "var(--shadow-pulse-dot)",
           animation: isIdle ? "none" : "pulse-status-accent-teal 2s ease-in-out infinite",
         }}
       />
       <div className="flex-1 min-w-0 flex flex-col" style={{ gap: "var(--space-0-5)" }}>
-        <span className="t-13 font-medium" style={{ color: stateColor }}>
+        <span className="t-11 font-medium" style={{ color: labelColor }}>
           {stateLabel}
         </span>
         <span className="t-11 font-light text-text-faint">
@@ -155,34 +162,36 @@ function ValiderZone() {
   // TODO: câbler à un store de propositions d'agents autonomes
   const pending: { agent: string; title: string } | null = null as { agent: string; title: string } | null;
 
+  // Empty → section compacte (pas de flex), pour libérer la hauteur au profit
+  // des Missions / Activité. Présence → flex 1.
+  if (!pending) {
+    return (
+      <RailSection label="À valider">
+        <span className="t-11 font-light text-text-faint">Rien en attente</span>
+      </RailSection>
+    );
+  }
+
   return (
-    <RailSection
-      label="À valider"
-      count={pending ? 1 : undefined}
-      flex="1 1 0"
-    >
-      {pending ? (
-        <div className="flex-1 flex flex-col justify-between" style={{ gap: "var(--space-3)" }}>
-          <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-            <span className="t-11 font-light italic text-(--accent-teal)">
-              {pending.agent} propose
-            </span>
-            <span className="t-13 font-light text-text-soft">
-              {pending.title}
-            </span>
-          </div>
-          <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-            <Action variant="secondary" tone="neutral" size="sm" className="flex-1">
-              Refuser
-            </Action>
-            <Action variant="secondary" tone="brand" size="sm" className="flex-1">
-              Valider
-            </Action>
-          </div>
+    <RailSection label="À valider" count={1} flex="1 1 0">
+      <div className="flex-1 flex flex-col justify-between" style={{ gap: "var(--space-3)" }}>
+        <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
+          <span className="t-11 font-light italic text-(--accent-teal)">
+            {pending.agent} propose
+          </span>
+          <span className="t-13 font-light text-text-soft">
+            {pending.title}
+          </span>
         </div>
-      ) : (
-        <CenteredNote>Rien en attente</CenteredNote>
-      )}
+        <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+          <Action variant="secondary" tone="neutral" size="sm" className="flex-1">
+            Refuser
+          </Action>
+          <Action variant="secondary" tone="brand" size="sm" className="flex-1">
+            Valider
+          </Action>
+        </div>
+      </div>
     </RailSection>
   );
 }
@@ -201,71 +210,81 @@ function MissionsZone() {
       label="Missions en vie"
       count={counts.missionsTotal ?? undefined}
       action={missions.length > 0 && (
-        <Action variant="link" tone="brand" href="/missions">
+        <Action variant="ghost" tone="neutral" size="sm" href="/missions">
           Toutes
         </Action>
       )}
-      flex="3 1 0"
       className="border-t border-(--border-subtle)"
     >
       {missions.length === 0 ? (
-        <CenteredCTA>
-          <Action variant="link" tone="brand" href="/missions/builder">
-            Créer une première mission →
-          </Action>
-        </CenteredCTA>
+        <Action variant="ghost" tone="brand" size="sm" href="/missions/builder">
+          Créer une première mission →
+        </Action>
       ) : (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "8px", padding: "8px 0" }}>
+        <ul
+          className="flex flex-col"
+          style={{ gap: "var(--space-2)" }}
+        >
           {missions.map((m, index) => {
             const color = missionStatusColor(m.status);
+            const statusLabel = MISSION_STATUS_LABEL[m.status] ?? m.status;
             const isRunning = m.status === "running";
-            const fakeProgress = isRunning ? Math.max(20, 100 - (index + 1) * 20) : m.status === "completed" ? 100 : 0;
+            const isCompleted = m.status === "completed" || m.status === "success" || m.status === "done";
+            const fakeProgress = isRunning
+              ? Math.max(20, 100 - (index + 1) * 20)
+              : isCompleted ? 100 : 0;
+            const showBar = isRunning;
             return (
               <li key={m.id}>
                 <button
                   type="button"
                   onClick={() => setMode({ mode: "mission", missionId: m.id })}
-                  className="w-full flex flex-col text-left transition-all duration-300"
+                  aria-label={`${m.name} — ${statusLabel}`}
+                  className="dashboard-row w-full flex flex-col text-left"
                   style={{
-                    padding: "12px",
-                    background: "rgba(255, 255, 255, 0.02)",
-                    borderRadius: "12px",
-                    border: "1px solid rgba(255, 255, 255, 0.04)",
-                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.05)"
+                    padding: "var(--space-3)",
+                    borderRadius: "var(--radius-md)",
+                    border: "1px solid var(--border-soft)",
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.04)"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)"}
                 >
-                  <div className="flex items-center w-full" style={{ gap: "12px" }}>
+                  <div className="flex items-center w-full" style={{ gap: "var(--space-3)" }}>
                     <span
                       aria-hidden
-                      className="shrink-0 flex items-center justify-center"
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        borderRadius: "6px",
-                      }}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </span>
-                    <span className="flex-1 min-w-0 font-light truncate" style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.9)", letterSpacing: "0.02em" }}>
+                      className="shrink-0 rounded-full w-2 h-2"
+                      style={{ background: color }}
+                    />
+                    <span className="t-13 font-light flex-1 min-w-0 truncate text-text-soft">
                       {m.name}
                     </span>
-                    <span className="font-light shrink-0" style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.5)" }}>
-                      {fakeProgress}%
+                    <span
+                      className="t-11 font-light tabular-nums shrink-0"
+                      style={{ color: showBar ? "var(--text-faint)" : color }}
+                    >
+                      {showBar ? `${fakeProgress}%` : statusLabel}
                     </span>
                   </div>
-                  <div style={{ width: "100%", height: "2px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "1px", overflow: "hidden", marginTop: "12px" }}>
-                    <div style={{ 
-                      width: `${fakeProgress}%`, 
-                      height: "100%", 
-                      background: "#a78bfa", 
-                      boxShadow: "0 0 8px rgba(167, 139, 250, 0.6)",
-                      borderRadius: "1px",
-                      transition: "width 1s ease"
-                    }} />
-                  </div>
+                  {showBar && (
+                    <div
+                      className="w-full overflow-hidden"
+                      style={{
+                        height: "2px",
+                        background: "var(--progress-track)",
+                        borderRadius: "1px",
+                        marginTop: "var(--space-3)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${fakeProgress}%`,
+                          height: "100%",
+                          background: color,
+                          boxShadow: isRunning ? "var(--shadow-pulse-dot)" : "none",
+                          borderRadius: "1px",
+                          transition: "width var(--duration-emphasis) var(--ease-out-soft)",
+                        }}
+                      />
+                    </div>
+                  )}
                 </button>
               </li>
             );
@@ -301,58 +320,66 @@ const EVENT_COLOR: Record<string, string> = {
 function ActiviteZone() {
   const events = useRuntimeStore((s) => s.events).slice(0, 5);
 
+  if (events.length === 0) {
+    return (
+      <RailSection
+        label="Activité en temps réel"
+        className="border-t border-(--border-subtle)"
+      >
+        <span className="t-11 font-light text-text-faint">Aucune activité récente</span>
+      </RailSection>
+    );
+  }
+
   return (
     <RailSection
       label="Activité en temps réel"
-      flex="2 1 0"
       className="border-t border-(--border-subtle)"
     >
-      {events.length === 0 ? (
-        <CenteredNote>Aucune activité récente</CenteredNote>
-      ) : (
-        <ul className="flex-1 flex flex-col min-h-0 overflow-hidden" style={{ gap: "4px", padding: "8px 0" }}>
+      <ul
+        className="flex flex-col"
+        style={{ gap: "var(--space-1)" }}
+      >
           {events.map((ev, i) => {
             const label = (ev as Record<string, unknown>).name as string
               ?? (ev as Record<string, unknown>).message as string
               ?? ev.type;
             const ts = (ev as Record<string, unknown>).ts as number | undefined ?? 0;
+            const glyph = EVENT_GLYPH[ev.type] ?? "·";
+            const tone = EVENT_COLOR[ev.type] ?? "var(--text-muted)";
             return (
               <li
                 key={i}
-                className="flex items-center transition-all duration-300"
-                style={{ 
-                  padding: "8px 12px", 
-                  gap: "16px",
-                  background: "transparent",
-                  borderRadius: "12px",
+                className="dashboard-row flex items-center"
+                style={{
+                  padding: "var(--space-2) var(--space-3)",
+                  gap: "var(--space-4)",
+                  borderRadius: "var(--radius-md)",
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
               >
                 <span
-                  className="flex items-center justify-center shrink-0"
-                  style={{ 
-                    width: "28px", 
-                    height: "28px", 
-                    background: "rgba(255, 255, 255, 0.05)", 
-                    borderRadius: "8px", 
-                    color: "rgba(255, 255, 255, 0.8)",
+                  className="flex items-center justify-center shrink-0 t-13"
+                  style={{
+                    width: "var(--space-6)",
+                    height: "var(--space-6)",
+                    background: "var(--surface-icon-tile)",
+                    borderRadius: "var(--radius-sm)",
+                    color: tone,
                   }}
                   aria-hidden
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                  {glyph}
                 </span>
-                <span className="flex-1 min-w-0 font-light truncate" style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.9)", letterSpacing: "0.02em" }}>
+                <span className="t-13 font-light flex-1 min-w-0 truncate text-text-soft">
                   {label}
                 </span>
-                <span className="font-light tabular-nums shrink-0" style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.35)" }}>
+                <span className="t-11 font-light tabular-nums shrink-0 text-text-faint">
                   {relativeTime(ts)}
                 </span>
               </li>
             );
           })}
-        </ul>
-      )}
+      </ul>
     </RailSection>
   );
 }

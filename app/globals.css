@@ -21,7 +21,7 @@
   --bg-soft: rgba(255, 255, 255, 0.02);
   --background: transparent;
   --foreground: #ffffff;
-  --surface: var(--vision-glass-bg, rgba(255, 255, 255, 0.02));
+  --surface: rgba(255, 255, 255, 0.02);
   --rail: transparent;
   /* Material scale — Technological Luxury */
   --mat-100: #040404;
@@ -257,6 +257,11 @@
   --card-flat-border: rgba(255, 255, 255, 0.06);
 
   --surface-card: rgba(255, 255, 255, 0.035);
+  --surface-row-rest: rgba(255, 255, 255, 0.02);
+  --surface-row-hover: rgba(255, 255, 255, 0.04);
+  --surface-icon-tile: rgba(255, 255, 255, 0.05);
+  --progress-track: rgba(255, 255, 255, 0.05);
+  --shadow-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --accent-teal-bg-active: rgba(74, 139, 134, 0.08);
   --accent-teal-bg-hover: rgba(74, 139, 134, 0.05);
   --accent-teal-border-hover: rgba(74, 139, 134, 0.22);
@@ -2023,6 +2028,25 @@ body {
     0 30px 60px -16px rgba(0, 0, 0, 0.6);
 }
 
+/* Dashboard row — ligne tactile mission/event du ContextRail.
+ * Surface ultra-faible au repos, hover teal (accent sourd) — pas de
+ * translation, pas de halo. focus-visible respecté pour clavier. */
+.dashboard-row {
+  background: var(--surface-row-rest);
+  transition:
+    background-color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+
+.dashboard-row:hover {
+  background: var(--surface-row-hover);
+}
+
+.dashboard-row:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-ring);
+}
+
 /* Signature input focus — offset cyan shadow (non-blurred) */
 .input-focus-signature:focus,
 .input-focus-signature:focus-visible {
@@ -2345,148 +2369,59 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   pointer-events: none;
 }
 
-/* ─── VISION OS / WATER THEME OVERRIDE (2026-05-10) ─────────────── */
+/* ─── COCKPIT SHELL — DS tokens (post-Vision purge 2026-05-11) ─── */
 
-:root {
-  --fluid-1: rgba(10, 25, 47, 0.4);
-  --fluid-2: rgba(0, 40, 60, 0.3);
-  --vision-glass-bg: rgba(255, 255, 255, 0.02);
-  --vision-glass-border: rgba(255, 255, 255, 0.08);
-  --vision-glass-border-hi: rgba(255, 255, 255, 0.2);
+.shell-bg {
+  background: var(--bg);
 }
 
-@keyframes ambientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.shell-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-shell);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
-.vision-ambient-bg {
-  background-color: #000000;
-  background-image:
-    radial-gradient(circle at 15% 50%, var(--fluid-1), transparent 50%),
-    radial-gradient(circle at 85% 30%, var(--fluid-2), transparent 50%);
-  background-attachment: fixed;
-  animation: ambientShift 30s ease-in-out infinite;
+.shell-rail {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
 }
 
-.vision-ambient-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 30% 70%, rgba(20, 50, 80, 0.2), transparent 60%),
-    radial-gradient(circle at 70% 20%, rgba(5, 20, 40, 0.3), transparent 60%);
-  animation: ambientShift 25s ease-in-out infinite reverse;
-  filter: blur(60px);
+.shell-msg-user {
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
 }
 
-.vision-glass {
-  background: var(--vision-glass-bg);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid var(--vision-glass-border);
-  border-radius: 24px;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.vision-nav {
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 12px;
-}
-
-.vision-nav-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: none;
+.shell-msg-ai {
   background: transparent;
+  border-left: 2px solid var(--border-default);
 }
 
-.vision-nav-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.vision-nav-item.active {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-}
-
-.vision-input {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.4s ease;
-}
-
-.vision-input:focus-within {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.vision-msg-user {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-}
-
-.vision-msg-ai {
-  background: transparent;
-  border-left: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Hover subtil glass sur les items de liste cockpit */
-.vision-list-item {
-  transition: background 0.2s ease;
-  border-radius: 8px;
-}
-
-.vision-list-item:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-/* Scrollbar masquée — cockpit Vision */
-.vision-scrollbar-none {
+.shell-scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.vision-scrollbar-none::-webkit-scrollbar {
+.shell-scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+.shell-input-pill {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-pill);
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.shell-input-pill:focus-within {
+  background: var(--bg-elev);
+  border-color: var(--accent-teal-border);
+  box-shadow: var(--shadow-input-focus);
 }
 
 /* ─── ORBITAL COCKPIT ─────────────────────────────────── */
