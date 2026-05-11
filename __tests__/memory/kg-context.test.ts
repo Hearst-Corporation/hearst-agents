@@ -54,10 +54,17 @@ describe("getKgContextForUser", () => {
     });
     const ctx = await getKgContextForUser("u1", "t1", { bypassCache: true });
     expect(ctx).not.toBeNull();
-    expect(ctx).toContain("Personnes : Adrien (founder)");
-    expect(ctx).toContain("Entreprises : ACME Corp");
-    expect(ctx).toContain("Projets : Hearst OS");
-    expect(ctx).toContain("Décisions : Migrer v2");
+    // P6 : chaque node est wrappé dans <untrusted_kg> pour prompt injection guard.
+    expect(ctx).toMatch(/Personnes :/);
+    expect(ctx).toContain("Adrien (founder)");
+    expect(ctx).toMatch(/<untrusted_kg [^>]*type="person"[^>]*>/);
+    expect(ctx).toMatch(/Entreprises :/);
+    expect(ctx).toContain("ACME Corp");
+    expect(ctx).toMatch(/<untrusted_kg [^>]*type="company"[^>]*>/);
+    expect(ctx).toMatch(/Projets :/);
+    expect(ctx).toContain("Hearst OS");
+    expect(ctx).toMatch(/Décisions :/);
+    expect(ctx).toContain("Migrer v2");
   });
 
   it("cap strict 1500 chars", async () => {

@@ -18,9 +18,16 @@ vi.mock("@/lib/connectors/composio/client", () => ({
   executeComposioAction,
 }));
 
+// NEXTAUTH_SECRET requis pour issueConfirmationToken (P3 HITL crypto guard).
+process.env.NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET ?? "test-secret-for-hitl-tokens";
+
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
 import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
 import type { ToolExecutionOptions } from "ai";
+import {
+  issueConfirmationToken,
+  hashToolArgs,
+} from "@/lib/tools/hitl/confirmation-token";
 
 const EXEC_OPTS = { toolCallId: "tc-1", messages: [] } as unknown as ToolExecutionOptions;
 
@@ -87,12 +94,22 @@ describe("toAiTools — write-guard integration", () => {
   });
 
   describe("write tool — confirmed execution", () => {
-    it("calls executeComposioAction with stripped params when _preview: false", async () => {
-      const tools = toAiTools([writeTool], "user-marie");
+    it("calls executeComposioAction with stripped params when _preview: false + valid token", async () => {
+      const ctx = { userId: "user-marie", tenantId: "tenant-marie" };
+      const tools = toAiTools([writeTool], ctx);
+      const params = { channel: "#dev", text: "hello" };
+      const argsHash = hashToolArgs(params);
+      const token = issueConfirmationToken({
+        userId: ctx.userId,
+        tenantId: ctx.tenantId,
+        toolSlug: "SLACK_SEND_MESSAGE",
+        argsHash,
+      });
+
       await callExecute(tools.SLACK_SEND_MESSAGE, {
-        channel: "#dev",
-        text: "hello",
+        ...params,
         _preview: false,
+        _confirmationToken: token,
       });
 
       expect(executeComposioAction).toHaveBeenCalledTimes(1);
@@ -101,6 +118,7 @@ describe("toAiTools — write-guard integration", () => {
       expect(call.entityId).toBe("user-marie");
       expect(call.params).toEqual({ channel: "#dev", text: "hello" });
       expect(call.params).not.toHaveProperty("_preview");
+      expect(call.params).not.toHaveProperty("_confirmationToken");
     });
   });
 

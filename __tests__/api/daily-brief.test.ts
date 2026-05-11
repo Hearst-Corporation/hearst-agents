@@ -9,6 +9,7 @@ const mocks = vi.hoisted(() => ({
   requireScope: vi.fn(),
   enqueueJob: vi.fn(),
   loadDailyBriefForDate: vi.fn(),
+  checkDailyCap: vi.fn(),
 }));
 
 vi.mock("@/lib/platform/auth/scope", () => ({
@@ -21,6 +22,10 @@ vi.mock("@/lib/jobs/queue", () => ({
 
 vi.mock("@/lib/daily-brief/store", () => ({
   loadDailyBriefForDate: mocks.loadDailyBriefForDate,
+}));
+
+vi.mock("@/lib/credits/daily-caps", () => ({
+  checkDailyCap: mocks.checkDailyCap,
 }));
 
 const SCOPE = {
@@ -44,6 +49,7 @@ describe("POST /api/v2/daily-brief/generate", () => {
     mocks.requireScope.mockResolvedValue({ scope: SCOPE, error: null });
     mocks.loadDailyBriefForDate.mockResolvedValue(null);
     mocks.enqueueJob.mockResolvedValue({ jobId: "job-1", jobKind: "daily-brief" });
+    mocks.checkDailyCap.mockResolvedValue({ allowed: true, current: 0, max: 5 });
   });
 
   it("401 si pas authentifié", async () => {
@@ -115,6 +121,7 @@ describe("GET /api/v2/daily-brief/today", () => {
   beforeEach(() => {
     Object.values(mocks).forEach((m) => m.mockReset());
     mocks.requireScope.mockResolvedValue({ scope: SCOPE, error: null });
+    mocks.checkDailyCap.mockResolvedValue({ allowed: true, current: 0, max: 5 });
   });
 
   it("401 si pas authentifié", async () => {

@@ -53,6 +53,11 @@ describe("POST /api/v2/daily-brief/generate — idempotence", () => {
       enqueueJob: enqueueJobMock,
     }));
 
+    // Mock checkDailyCap (P5 daily cap, doit allow pour atteindre le path idempotence)
+    vi.doMock("@/lib/credits/daily-caps", () => ({
+      checkDailyCap: vi.fn().mockResolvedValue({ allowed: true, current: 0, max: 5 }),
+    }));
+
     const { NextRequest } = await import("next/server");
     const { POST } = await import("@/app/api/v2/daily-brief/generate/route");
 

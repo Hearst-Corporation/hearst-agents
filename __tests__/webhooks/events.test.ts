@@ -120,7 +120,10 @@ describe("dispatchWebhookEventAsync — filtrage event", () => {
 
     const wh1 = makeWebhook(["mission.completed"], "wh1");
     const wh2 = makeWebhook(["mission.completed"], "wh2");
-    wh2.url = "https://other.example.com/hook";
+    // P2 : assertSafeUrl fait un DNS lookup avant fetch — on garde un host
+    // qui résout (example.com IANA reserved). "other.example.com" ne résout
+    // pas et serait bloqué par le SSRF guard avant même que fetcher tourne.
+    wh2.url = "https://www.example.com/hook";
 
     const result = await dispatchWebhookEventAsync(
       "mission.completed",

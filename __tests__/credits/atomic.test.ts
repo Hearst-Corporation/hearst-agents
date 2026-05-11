@@ -1,4 +1,15 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
+
+const { mockRpc } = vi.hoisted(() => ({
+  mockRpc: vi.fn(),
+}));
+
+vi.mock("@/lib/platform/db/supabase", () => ({
+  getServerSupabase: () => ({
+    rpc: mockRpc,
+  }),
+}));
+
 import { reserveCreditsAtomic } from "@/lib/credits/client";
 
 describe("Atomic reserveCredits", () => {
@@ -6,16 +17,8 @@ describe("Atomic reserveCredits", () => {
   const tenantId = "test-tenant";
   const amount = 10.5;
 
-  // Mock pour vérifier le RPC call
-  let mockRpc: ReturnType<typeof vi.fn>;
-
   beforeEach(() => {
-    mockRpc = vi.fn();
-    vi.mock("@/lib/platform/db/supabase", () => ({
-      getServerSupabase: () => ({
-        rpc: mockRpc,
-      }),
-    }));
+    mockRpc.mockReset();
   });
 
   it("retourne success si RPC retourne un ID valide", async () => {
@@ -34,6 +37,13 @@ describe("Atomic reserveCredits", () => {
     expect(result.success).toBe(true);
     expect(result.reservationId).toBe("res-123");
     expect(result.isRetry).toBe(false);
+    // Verify RPC signature exposée par P5
+    expect(mockRpc).toHaveBeenCalledWith("reserve_credits_atomic", {
+      p_user_id: userId,
+      p_tenant_id: tenantId,
+      p_amount: amount,
+      p_idempotency_key: "idempotency-key-1",
+    });
   });
 
   it("retourne error insufficient_credits si balance insuffisant", async () => {

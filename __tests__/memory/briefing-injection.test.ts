@@ -103,6 +103,8 @@ describe("runAiPipeline — briefing injection", () => {
 
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "salut",
     });
 
@@ -118,6 +120,8 @@ describe("runAiPipeline — briefing injection", () => {
 
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "salut",
     });
 
@@ -133,6 +137,8 @@ describe("runAiPipeline — briefing injection", () => {
     const engine = makeEngine();
     await runAiPipeline(engine, makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "salut",
     });
 

@@ -45,8 +45,11 @@ describe("formatRetrievedItems", () => {
       item({ sourceKind: "message", textExcerpt: "Adrien parlait pricing" }),
       item({ sourceKind: "asset", textExcerpt: "Plan Q2 — sections" }),
     ]);
-    expect(out).toContain("[message] Adrien parlait pricing");
-    expect(out).toContain("[asset] Plan Q2 — sections");
+    // P6 : chaque item est wrappé dans <untrusted_memory source="..."> pour prompt injection guard.
+    expect(out).toMatch(/<untrusted_memory [^>]*source="message"[^>]*>/);
+    expect(out).toContain("Adrien parlait pricing");
+    expect(out).toMatch(/<untrusted_memory [^>]*source="asset"[^>]*>/);
+    expect(out).toContain("Plan Q2 — sections");
     expect(out).toMatch(/Souvenirs pertinents/);
   });
 

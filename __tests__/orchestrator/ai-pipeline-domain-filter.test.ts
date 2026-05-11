@@ -98,6 +98,8 @@ describe("runAiPipeline — domain filter", () => {
   it("domain=communication → toAiTools receives only gmail + slack", async () => {
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "envoyer un email",
       domain: "communication",
     });
@@ -111,6 +113,8 @@ describe("runAiPipeline — domain filter", () => {
   it("domain=developer → toAiTools receives only github", async () => {
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "create issue",
       domain: "developer",
     });
@@ -122,6 +126,8 @@ describe("runAiPipeline — domain filter", () => {
   it("domain=general → toAiTools receives all tools", async () => {
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "general question",
       domain: "general",
     });
@@ -132,6 +138,8 @@ describe("runAiPipeline — domain filter", () => {
   it("domain undefined → treated as general → all tools", async () => {
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "general question",
       // no domain
     });
@@ -142,6 +150,8 @@ describe("runAiPipeline — domain filter", () => {
   it("buildAgentSystemPrompt receives the FILTERED tools (not the raw set)", async () => {
     await runAiPipeline(makeEngine(), makeBus(), {
       userId: "u1",
+      tenantId: "t1",
+      workspaceId: "ws1",
       message: "send slack",
       domain: "communication",
     });
