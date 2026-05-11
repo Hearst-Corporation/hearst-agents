@@ -6,3 +6,6 @@ export { MissionStatus } from "./MissionStatus";
 export { OrbAffordance } from "./OrbAffordance";
 export { ApprovalAlert } from "./ApprovalAlert";
 export { SpatialHotkeys } from "./SpatialHotkeys";
+export { NotificationBellSpatial } from "./NotificationBellSpatial";
+export { VoicePill } from "./VoicePill";
+export { StageBreadcrumb } from "./StageBreadcrumb";

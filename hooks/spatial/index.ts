@@ -4,3 +4,4 @@ export { useSplineApp, type UseSplineApp, type SplineTargetName } from "./useSpl
 export { useSplineVoiceBridge } from "./useSplineVoiceBridge";
 export { useSplineStateBridge } from "./useSplineStateBridge";
 export { useSplineToolBridge } from "./useSplineToolBridge";
+export { useSplineIdleAmbient } from "./useSplineIdleAmbient";
