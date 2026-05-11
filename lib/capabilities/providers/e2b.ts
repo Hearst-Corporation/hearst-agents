@@ -20,7 +20,15 @@ export async function executeCode(params: {
 
   let sandbox: Sandbox | undefined;
   try {
-    sandbox = await Sandbox.create({ apiKey });
+    // DEFENSE EN PROFONDEUR :
+    // - allowInternetAccess: false → aucun accès réseau depuis le sandbox (primary defense)
+    // - envs: {} → aucune variable d'environnement héritée (no token leakage)
+    // La blacklist regex dans extras-media.ts est une protection secondaire uniquement.
+    sandbox = await Sandbox.create({
+      apiKey,
+      allowInternetAccess: false,
+      envs: {},
+    });
 
     const execution = await sandbox.runCode(params.code, { language, timeoutMs });
 

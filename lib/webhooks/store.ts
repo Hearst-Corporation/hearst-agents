@@ -11,6 +11,7 @@ import { z } from "zod";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { WEBHOOK_EVENTS, type CustomWebhook, type WebhookEvent } from "./types";
+import { isUrlShapeAllowed } from "@/lib/security/ssrf-guard";
 
 // ── Schémas Zod ─────────────────────────────────────────────
 
@@ -18,10 +19,13 @@ const isTest = process.env.NODE_ENV === "test";
 
 const webhookUrlSchema = isTest
   ? z.string().url()
-  : z.string().url().refine(
-      (u) => u.startsWith("https://"),
-      "L'URL du webhook doit utiliser HTTPS",
-    );
+  : z
+      .string()
+      .url()
+      .refine(
+        (u) => isUrlShapeAllowed(u, { allowedSchemes: ["https:"] }),
+        "L'URL du webhook doit utiliser HTTPS et pointer vers un hôte public",
+      );
 
 export const createWebhookSchema = z.object({
   tenantId: z.string().uuid(),

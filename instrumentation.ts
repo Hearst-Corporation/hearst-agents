@@ -28,6 +28,9 @@ export async function register() {
     }
   }
   if (process.env.NEXT_RUNTIME === "nodejs") {
+    // Hard-fail si Langfuse mal configuré en prod (fail fast au boot plutôt qu'au 1er call)
+    const { assertLangfuseReady } = await import("@/lib/observability/langfuse");
+    assertLangfuseReady();
     // 1. Storage — doit être initialisé avant les workers et le cleanup.
     // Priorité : Supabase Storage (serverless-friendly, pas d'AWS SDK).
     // Fallback historique : R2 (S3-compatible) si configuré.

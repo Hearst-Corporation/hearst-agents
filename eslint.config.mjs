@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
         varsIgnorePattern: "^_",
         caughtErrorsIgnorePattern: "^_",
       }],
+      // jsx-a11y rules (plugin déjà chargé via eslint-config-next)
+      "jsx-a11y/no-noninteractive-element-interactions": "warn",
     },
   },
   // Override default ignores of eslint-config-next.

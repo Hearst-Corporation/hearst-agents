@@ -146,5 +146,9 @@ export interface UsageMetrics {
   latency_ms: number;
   cache_creation_input_tokens?: number;
   cache_read_input_tokens?: number;
+  /** Provider LLM (anthropic, openai, gemini…) — utilisé pour le cost tracking */
+  provider?: string;
+  /** Identifiant du modèle LLM — utilisé pour le cost tracking */
+  model?: string;
 }
 

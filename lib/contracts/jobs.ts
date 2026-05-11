@@ -11,6 +11,7 @@
  */
 
 import { z } from "zod";
+import { isUrlShapeAllowed } from "@/lib/security/ssrf-guard";
 
 // ── image-gen (FAL flux-pro) ─────────────────────────────
 
@@ -68,7 +69,13 @@ export type CodeExecPayload = z.infer<typeof codeExecSchema>;
 // ── document-parse (LlamaCloud) ──────────────────────────
 
 export const documentParseSchema = z.object({
-  fileUrl: z.string().url(),
+  fileUrl: z
+    .string()
+    .url()
+    .refine(
+      (u) => isUrlShapeAllowed(u, { allowedSchemes: ["https:"] }),
+      "URL non autorisée (doit être https et pointer vers un hôte public)",
+    ),
   mimeType: z.string().optional(),
   fileName: z.string().optional(),
   threadId: z.string().optional(),

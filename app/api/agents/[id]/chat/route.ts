@@ -13,6 +13,34 @@ import type { ModelGoal } from "@/lib/decisions/model-selector";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
+/**
+ * Traduit une erreur interne en code générique sûr pour le client.
+ * Évite de fuiter des messages de provider (quota, clé invalide, body LLM, etc.)
+ */
+function sanitizeClientError(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  const lower = msg.toLowerCase();
+  if (lower.includes("timeout") || lower.includes("aborted") || lower.includes("abort")) {
+    return "timeout";
+  }
+  if (lower.includes("cost") || lower.includes("budget") || lower.includes("quota")) {
+    return "cost_limit";
+  }
+  if (lower.includes("rate limit") || lower.includes("ratelimit") || lower.includes("429")) {
+    return "provider_error";
+  }
+  if (
+    lower.includes("api key") ||
+    lower.includes("unauthorized") ||
+    lower.includes("forbidden") ||
+    lower.includes("401") ||
+    lower.includes("403")
+  ) {
+    return "provider_error";
+  }
+  return "server_error";
+}
+
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -188,12 +216,13 @@ export async function POST(
           }
         }
       } catch (streamErr) {
-        const msg = streamErr instanceof Error ? streamErr.message : "stream_failed";
-        console.error(`chat stream error agent=${id} run=${runId}:`, msg);
+        const rawMsg = streamErr instanceof Error ? streamErr.message : "stream_failed";
+        const clientError = sanitizeClientError(streamErr);
+        console.error(`chat stream error agent=${id} run=${runId}:`, rawMsg);
         controller.enqueue(
-          encoder.encode(`data: ${JSON.stringify({ error: msg, done: true, run_id: runId })}\n\n`),
+          encoder.encode(`data: ${JSON.stringify({ error: clientError, done: true, run_id: runId })}\n\n`),
         );
-        await tracer.endRun("failed", {}, msg);
+        await tracer.endRun("failed", {}, rawMsg);
         controller.close();
         return;
       }

@@ -1,6 +1,7 @@
 import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk } from "./types";
 import { sanitizeProviderError } from "./errors";
 import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
+import { redactString } from "@/lib/observability/langfuse-redact";
 
 /**
  * Google Gemini (Gemini API) — REST `generateContent` / `streamGenerateContent`.
@@ -84,7 +85,7 @@ export class GeminiProvider implements LLMProvider {
 
     const raw = await res.text();
     if (!res.ok) {
-      console.error("gemini.chat http_error", { status: res.status, bodyPreview: raw.slice(0, 500) });
+      console.error("gemini.chat http_error", { status: res.status, bodyPreview: redactString(raw.slice(0, 500)) });
       throw new Error(sanitizeProviderError(res.status, raw));
     }
 
@@ -142,7 +143,7 @@ export class GeminiProvider implements LLMProvider {
 
     if (!res.ok || !res.body) {
       const t = await res.text().catch(() => "");
-      console.error("gemini.streamChat http_error", { status: res.status, bodyPreview: t.slice(0, 500) });
+      console.error("gemini.streamChat http_error", { status: res.status, bodyPreview: redactString(t.slice(0, 500)) });
       throw new Error(sanitizeProviderError(res.status, t));
     }
 

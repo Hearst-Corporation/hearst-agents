@@ -46,6 +46,10 @@ export function ChatDock() {
   const updateMessageInThread = useNavigationStore((s) => s.updateMessageInThread);
   const updateThreadName = useNavigationStore((s) => s.updateThreadName);
 
+  // Refs pour l'accessibilité
+  const messageListRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
   const addEvent = useRuntimeStore((s) => s.addEvent);
   const startRun = useRuntimeStore((s) => s.startRun);
   const setAbortController = useRuntimeStore((s) => s.setAbortController);
@@ -311,9 +315,33 @@ export function ChatDock() {
   );
 
   return (
-    <ChatInput
-      onSubmit={handleSubmit}
-      connectedServices={connectedServices}
-    />
+    <section
+      role="region"
+      aria-label="Conversation avec l'assistant"
+      className="h-full flex flex-col"
+    >
+      <div
+        ref={messageListRef}
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+        aria-label="Messages de la conversation"
+        className="flex-1 overflow-y-auto"
+      >
+        {messages.map((m) => (
+          <article
+            key={m.id}
+            aria-label={`Message de ${m.role === "user" ? "l'utilisateur" : "l'assistant"}`}
+          >
+            {m.content}
+          </article>
+        ))}
+      </div>
+
+      <ChatInput
+        onSubmit={handleSubmit}
+        connectedServices={connectedServices}
+      />
+    </section>
   );
 }

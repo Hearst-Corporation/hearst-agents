@@ -91,20 +91,32 @@ export class CostTracker {
     // Import dynamique pour éviter de pré-charger le client admin Supabase
     // dans des contextes qui n'en ont pas besoin (tests, edge runtime).
     const tenantId = this._tenantIdCache;
-    void import("../../../llm/usage-tracker")
-      .then(({ incrementTenantUsage }) =>
-        incrementTenantUsage({
+    void Promise.all([
+      import("../../../llm/usage-tracker"),
+      import("../../../llm/pricing"),
+    ])
+      .then(([{ incrementTenantUsage }, { computeCostUsd }]) => {
+        const cost_usd = computeCostUsd(
+          usage.provider ?? "unknown",
+          usage.model ?? "unknown",
+          {
+            input_tokens: usage.input_tokens ?? 0,
+            output_tokens: usage.output_tokens ?? 0,
+            cache_read_input_tokens: usage.cache_read_input_tokens ?? 0,
+          },
+        );
+        return incrementTenantUsage({
           tenant_id: tenantId,
-          provider: "unknown",
-          model: "unknown",
+          provider: usage.provider ?? "unknown",
+          model: usage.model ?? "unknown",
           tokens_in: usage.input_tokens ?? 0,
           tokens_out: usage.output_tokens ?? 0,
           tokens_cached_read: usage.cache_read_input_tokens ?? 0,
           tokens_cached_create: usage.cache_creation_input_tokens ?? 0,
-          cost_usd: 0,
+          cost_usd,
           failed: false,
-        }),
-      )
+        });
+      })
       .catch(() => {});
   }
 }

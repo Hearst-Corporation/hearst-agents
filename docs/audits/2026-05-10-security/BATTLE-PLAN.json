@@ -3,7 +3,7 @@
   "audit_id": "2026-05-10-security",
   "objective": "Hearst OS prêt pour go-live multi-user public",
   "created_at": "2026-05-11",
-  "last_updated": "2026-05-11T01:01:14.673Z",
+  "last_updated": "2026-05-11T02:06:04.052Z",
   "orchestrator": "claude-opus-4.7",
   "estimated_total_effort": "20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents",
   "principle": "Ordre = dépendances logiques, pas sévérité brute. Foundation d'abord (sinon les fixes IDOR sont cosmétiques tant que F-095/F-096 pas faits). Puis defense in depth. Puis hardening. Phase 11 = post-go-live.",
@@ -315,7 +315,7 @@
       "title": "PHASE 2 — SSRF + uploads",
       "objective": "Combler les vecteurs d'exfil et code execution externe.",
       "estimated_effort": "2-3 jours",
-      "status": "pending",
+      "status": "done",
       "batches": [
         {
           "id": "B2.1",
@@ -332,7 +332,23 @@
             "Tests : POST avec fileUrl=169.254.169.254 → 400",
             "webhookUrl avec 172.16.x → reject"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:56.883Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:56.884Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:03.859Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:03.858Z"
         },
         {
           "id": "B2.2",
@@ -347,7 +363,23 @@
             "Upload 10GB → 413",
             "Upload .exe renommé .pdf → 400"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:56.909Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:56.910Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:03.891Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:03.890Z"
         },
         {
           "id": "B2.3",
@@ -364,7 +396,23 @@
             "Sandbox.create avec networkAccess:false confirmé",
             "POST /api/v2/jobs/code-exec sans confirm token → 403"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:56.936Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:56.936Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:03.924Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:03.923Z"
         }
       ]
     },
@@ -438,7 +486,7 @@
       "title": "PHASE 4 — Observabilité + redaction PII",
       "objective": "Plus de leak PII vers SaaS tiers + tracking coût correct.",
       "estimated_effort": "1-2 jours",
-      "status": "pending",
+      "status": "done",
       "batches": [
         {
           "id": "B4.1",
@@ -456,7 +504,23 @@
             "Trigger error volontaire → Sentry payload sans system prompt",
             "Trace Langfuse sans PII brut"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:56.964Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:56.964Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:03.955Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:03.955Z"
         },
         {
           "id": "B4.2",
@@ -472,7 +536,23 @@
             "Boot sans LANGFUSE_KEYS prod → throw",
             "tenant_usage_daily.cost_usd != 0"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:56.991Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:56.992Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:03.987Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:03.986Z"
         }
       ]
     },
@@ -794,7 +874,7 @@
       "title": "PHASE 9 — Tests + a11y",
       "objective": "Garde-fous CI sur l'auth + accessibilité.",
       "estimated_effort": "2-3 jours",
-      "status": "pending",
+      "status": "done",
       "batches": [
         {
           "id": "B9.1",
@@ -812,7 +892,23 @@
             "e2e api-auth.spec.ts run sans bypass → green",
             "Coverage lib/credits >= 80%"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:57.019Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:57.019Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:04.020Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:04.019Z"
         },
         {
           "id": "B9.2",
@@ -827,7 +923,23 @@
           "validation": [
             "npm run lint avec a11y rules → 0 errors sur ChatDock"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T01:57:57.046Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T01:57:57.046Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:06:04.052Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:06:04.051Z"
         }
       ]
     },

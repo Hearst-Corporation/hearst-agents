@@ -31,6 +31,7 @@ import type {
   Tool as AnthropicTool,
 } from "@anthropic-ai/sdk/resources/messages";
 import type { PlaywrightPage } from "./playwright-bridge";
+import { isUrlShapeAllowed } from "@/lib/security/ssrf-guard";
 
 // ── Tool definitions (Anthropic schema) ──────────────────────
 
@@ -291,6 +292,11 @@ async function executeTool(opts: ExecuteToolOpts): Promise<ExecuteToolResult> {
         const url = String(input.url ?? "");
         if (!/^https?:\/\//i.test(url)) {
           return { ok: false, error: `invalid url: ${url}` };
+        }
+        // SSRF guard : rejette les IP privées / link-local / hostnames internes
+        // (pas de DNS async ici — sync shape check suffit pour le browser loop)
+        if (!isUrlShapeAllowed(url, { allowedSchemes: ["https:", "http:"] })) {
+          return { ok: false, error: `navigate bloqué (hôte privé ou non autorisé): ${url}` };
         }
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
         await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});

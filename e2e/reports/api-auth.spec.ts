@@ -7,27 +7,27 @@ import { test, expect } from "@playwright/test";
 
 const FAKE_SPEC_ID = "00000000-0000-4000-8000-000000000001";
 
-test.describe("Reports API — protection auth", () => {
-  test("GET /api/v2/reports renvoie 401 ou redirect sans session", async ({ request }) => {
-    const res = await request.get("/api/v2/reports").catch(() => null);
-    if (!res) test.skip();
-    expect([200, 401, 302, 307]).toContain(res!.status());
+test.describe("Reports API — protection auth (sans bypass)", () => {
+  test.beforeAll(async () => {
+    // Force bypass off pour cette suite — valide que l'auth est réellement demandée
+    process.env.HEARST_DEV_AUTH_BYPASS = "0";
   });
 
-  test("POST /api/v2/reports/:id/run exige auth", async ({ request }) => {
+  test("GET /api/v2/reports rejette sans session → 401", async ({ request }) => {
+    const res = await request.get("/api/v2/reports").catch(() => null);
+    if (!res) test.skip();
+    // Sans bypass, une requête non authentifiée doit être rejetée
+    const status = res!.status();
+    expect([401, 302, 307]).toContain(status);
+  });
+
+  test("POST /api/v2/reports/:id/run exige auth → 401/403", async ({ request }) => {
     const res = await request.post(`/api/v2/reports/${FAKE_SPEC_ID}/run`, {
       data: {},
     }).catch(() => null);
     if (!res) test.skip();
-    // En dev avec HEARST_DEV_AUTH_BYPASS=1 le serveur répond 200/404
-    // (auth contournée via fallback userId, puis miss sur le spec
-    // inexistant). Le test reste pertinent en CI/staging où le bypass
-    // est désactivé — on skip plutôt que fail pour ne pas bloquer la
-    // suite locale.
+    // Sans bypass, une requête non authentifiée doit être rejetée
     const status = res!.status();
-    if (status === 200 || status === 404) {
-      test.skip(true, "Auth bypass actif côté serveur (dev fallback) — à valider en CI sans bypass");
-    }
     expect([401, 302, 307]).toContain(status);
   });
 });

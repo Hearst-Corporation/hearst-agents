@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T01:01:14.933Z",
+  "last_updated": "2026-05-11T02:06:04.540Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 110,
+      "pending": 95,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 20,
+      "closed": 35,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -563,7 +563,7 @@
       "title": "SSRF document parsing (LlamaParse) — AWS metadata theft",
       "severity": "P0",
       "category": "ssrf",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -611,6 +611,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.083Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -619,7 +625,7 @@
       "title": "SSRF via webhook custom + httpAdapter (DNS rebinding possible)",
       "severity": "P0",
       "category": "ssrf",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus",
@@ -668,6 +674,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.115Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1296,7 +1308,7 @@
       "severity": "P1",
       "_reclassified": "P0→P1 par post-master (conditionnel : reste P0 si E2B sandbox config network=on)",
       "category": "code_execution",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1330,6 +1342,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.213Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1912,7 +1930,7 @@
       "severity": "P0",
       "_reclassified": "P1→P0 par post-master (confirmé llm-auditor)",
       "category": "observability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1943,6 +1961,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.378Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1989,7 +2013,7 @@
       "severity": "P0",
       "_reclassified": "P1→P0 par post-master (business critical, overdraft invisible)",
       "category": "observability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2018,6 +2042,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.411Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2105,7 +2135,7 @@
       "title": "File upload sans cap mémoire / MIME forgeable",
       "severity": "P1",
       "category": "rate_limit",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2135,6 +2165,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.180Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2796,7 +2832,7 @@
       "title": "Fuite PII vers Langfuse — params.messages envoyé en clair",
       "severity": "P0",
       "category": "observability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -2829,6 +2865,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.277Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3196,7 +3238,7 @@
       "title": "eslint-plugin-jsx-a11y installé mais désactivé",
       "severity": "P0",
       "category": "a11y",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3223,6 +3265,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.508Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3231,7 +3279,7 @@
       "title": "ChatDock = zéro aria-* / role / onKeyDown — screen-readers aveugles",
       "severity": "P0",
       "category": "a11y",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3258,6 +3306,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.540Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3266,7 +3320,7 @@
       "title": "e2e/reports/api-auth.spec.ts:29 skipped en CI — vraie sécurité auth jamais testée",
       "severity": "P0",
       "category": "tests",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3294,6 +3348,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.445Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3302,7 +3362,7 @@
       "title": "Zéro test sur lib/credits/* (252 lignes facturation), arcjet, agents",
       "severity": "P0",
       "category": "tests",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3338,6 +3398,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.476Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4252,7 +4318,7 @@
       "title": "Sentry sendDefaultPii: true + includeLocalVariables + replay maskAllText:false — PII permanente vers SaaS",
       "severity": "P0",
       "category": "observability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "post-master-adv"
@@ -4293,6 +4359,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.246Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4348,7 +4420,7 @@
       "title": "Erreurs LLM streamées verbatim au client — leak provider internals",
       "severity": "P1",
       "category": "secrets",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4378,6 +4450,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.311Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4514,7 +4592,7 @@
       "title": "Browser navigate/extract sans allowlist host — SSRF latente",
       "severity": "P1",
       "category": "ssrf",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -4544,6 +4622,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.148Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4677,7 +4761,7 @@
       "title": "gemini.ts / composer.ts log raw.slice(0,500) avant sanitize — leak clé AIzaSy...",
       "severity": "P1",
       "category": "secrets",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4711,6 +4795,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:06:04.344Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

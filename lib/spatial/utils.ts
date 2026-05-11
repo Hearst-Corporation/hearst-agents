@@ -40,15 +40,11 @@ export function clamp(value: number, min: number, max: number): number {
 export function normalizeMousePosition(
   clientX: number,
   clientY: number,
-  width = window.innerWidth,
-  height = window.innerHeight
+  width = typeof window !== 'undefined' ? window.innerWidth : 1920,
+  height = typeof window !== 'undefined' ? window.innerHeight : 1080
 ): { x: number; y: number } {
   return {
     x: (clientX / width) * 2 - 1,
     y: (clientY / height) * 2 - 1,
   };
-}
-
-export function buildDepthGradient(opacity = 0.8): string {
-  return `radial-gradient(circle at center, transparent 0%, rgba(0,0,0,${opacity}) 100%)`;
 }

@@ -7,12 +7,19 @@ if (dsn) {
     dsn,
     environment: process.env.NEXT_PUBLIC_VERCEL_ENV ?? "development",
     tracesSampleRate: 0.1,
-    sendDefaultPii: true,
+    sendDefaultPii: false,
     enableLogs: true,
     // Session Replay : 0% sessions normales, 100% sessions avec erreur
-    replaysSessionSampleRate: 0.0,
+    replaysSessionSampleRate: 0,
     replaysOnErrorSampleRate: 1.0,
-    integrations: [Sentry.replayIntegration({ maskAllText: false, blockAllMedia: false })],
+    integrations: [
+      Sentry.replayIntegration({
+        maskAllText: true,
+        maskAllInputs: true,
+        blockAllMedia: true,
+        networkDetailAllowUrls: [], // Pas d'URLs détaillées — évite la capture de payloads
+      }),
+    ],
   });
 }
 

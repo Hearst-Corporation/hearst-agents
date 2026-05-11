@@ -1,6 +1,9 @@
+import { assertSafeUrl } from "@/lib/security/ssrf-guard";
+
 const API_BASE = "https://api.cloud.llamaindex.ai/api/parsing";
 const POLL_INTERVAL_MS = 3_000;
 const MAX_ATTEMPTS = 40;
+const FILE_FETCH_TIMEOUT_MS = 15_000;
 
 export async function parseDocument(params: {
   fileUrl: string;
@@ -14,8 +17,17 @@ export async function parseDocument(params: {
   const mimeType = params.mimeType ?? "application/pdf";
   const authHeaders = { Authorization: `Bearer ${apiKey}` };
 
-  // 1. Fetch file content
-  const fileRes = await fetch(params.fileUrl);
+  // 1. SSRF guard : DNS lookup avant fetch (rebinding protection)
+  const safeUrl = await assertSafeUrl(params.fileUrl, { allowedSchemes: ["https:"] });
+
+  // 1b. Fetch file content — redirect:manual empêche 302 vers IP privée
+  const fileRes = await fetch(safeUrl.toString(), {
+    redirect: "manual",
+    signal: AbortSignal.timeout(FILE_FETCH_TIMEOUT_MS),
+  });
+  if (fileRes.status >= 300 && fileRes.status < 400) {
+    throw new Error(`[LlamaParse] Redirect non autorisé (${fileRes.status}) depuis ${safeUrl.hostname}`);
+  }
   if (!fileRes.ok) {
     throw new Error(`[LlamaParse] Fetch fichier échoué: ${fileRes.status}`);
   }

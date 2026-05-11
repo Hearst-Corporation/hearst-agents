@@ -129,7 +129,15 @@ export function ChatInput({
   }
 
   return (
-    <div className="px-4 py-2">
+    <form
+      role="form"
+      aria-label="Envoyer un message"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+      className="px-4 py-2"
+    >
       <div
         className="mx-auto relative"
         style={{ maxWidth: "var(--input-max-width)" }}
@@ -202,6 +210,9 @@ export function ChatInput({
                 setHideTypeahead(true);
               }
             }}
+            aria-label="Tapez votre message"
+            aria-multiline="true"
+            aria-required="true"
             placeholder={resolvePlaceholder(surface, placeholder)}
             rows={1}
             className="block w-full bg-transparent t-18 font-light text-text placeholder:text-text-muted border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed py-1"
@@ -248,6 +259,6 @@ export function ChatInput({
           />
         </Suspense>
       )}
-    </div>
+    </form>
   );
 }

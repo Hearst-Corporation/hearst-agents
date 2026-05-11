@@ -67,7 +67,16 @@ interface RunCodeArgs {
 }
 
 // Blacklist de patterns dangereux pour run_code (Python).
-// Le sandbox E2B est la barrière réelle — c'est défense-en-profondeur.
+//
+// ATTENTION : Cette blacklist est une DEFENSE SECONDAIRE uniquement.
+// La DEFENSE PRIMAIRE est E2B Sandbox.create({ networkAccess: false, env: {} })
+// dans lib/capabilities/providers/e2b.ts.
+//
+// Cette blacklist ne doit PAS être considérée sûre seule :
+// - Elle est contournable (base64, imports dynamiques, etc.)
+// - Elle ne couvre pas Node.js (syntaxe parse uniquement pour JS)
+//
+// Ne jamais exposer ce tool agent directement en prod sans le sandbox E2B.
 const PYTHON_DANGER_PATTERNS = [
   /\bsubprocess\b/,
   /\bos\.system\b/,

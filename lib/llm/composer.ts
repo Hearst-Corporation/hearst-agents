@@ -1,6 +1,7 @@
 import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk, ChatMessage } from "./types";
 import { sanitizeProviderError } from "./errors";
 import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
+import { redactString } from "@/lib/observability/langfuse-redact";
 
 /**
  * Cursor Composer 2 — OpenAI-compatible `POST /v1/chat/completions`.
@@ -78,7 +79,7 @@ export class ComposerProvider implements LLMProvider {
 
     const raw = await res.text();
     if (!res.ok) {
-      console.error("composer.chat http_error", { status: res.status, bodyPreview: raw.slice(0, 500) });
+      console.error("composer.chat http_error", { status: res.status, bodyPreview: redactString(raw.slice(0, 500)) });
       throw new Error(sanitizeProviderError(res.status, raw));
     }
 
@@ -137,7 +138,7 @@ export class ComposerProvider implements LLMProvider {
 
     if (!res.ok || !res.body) {
       const t = await res.text().catch(() => "");
-      console.error("composer.streamChat http_error", { status: res.status, bodyPreview: t.slice(0, 500) });
+      console.error("composer.streamChat http_error", { status: res.status, bodyPreview: redactString(t.slice(0, 500)) });
       throw new Error(sanitizeProviderError(res.status, t));
     }
 

@@ -12,6 +12,7 @@
 import { createHmac } from "crypto";
 import { getActiveWebhooksForEvent, updateWebhookStatus } from "./store";
 import type { WebhookEvent, WebhookPayload, CustomWebhook } from "./types";
+import { assertSafeUrl } from "@/lib/security/ssrf-guard";
 
 /** Timeout HTTP strict (identique à lib/notifications/channels.ts). */
 const HTTP_TIMEOUT_MS = 5_000;
@@ -46,16 +47,32 @@ async function postWithRetry(
   headers: Record<string, string>,
   fetcher: typeof fetch = fetch,
 ): Promise<PostResult> {
+  // SSRF guard : DNS lookup avant toute tentative (rebinding protection)
+  let safeUrl: URL;
+  try {
+    safeUrl = await assertSafeUrl(url, { allowedSchemes: ["https:"] });
+  } catch (err) {
+    return {
+      ok: false,
+      error: err instanceof Error ? err.message : `SSRF guard blocked: ${url}`,
+    };
+  }
+
   const attempt = async (): Promise<PostResult> => {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), HTTP_TIMEOUT_MS);
     try {
-      const res = await fetcher(url, {
+      const res = await fetcher(safeUrl.toString(), {
         method: "POST",
         headers: { "content-type": "application/json", ...headers },
         body,
         signal: ctrl.signal,
+        redirect: "manual",
       });
+      // Bloque les redirects (302 vers IP privée)
+      if (res.status >= 300 && res.status < 400) {
+        return { ok: false, status: res.status, error: "redirect_not_allowed" };
+      }
       return { ok: res.ok, status: res.status };
     } catch (err) {
       return {

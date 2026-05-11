@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { LLMProvider, ChatRequest, ChatMessage, ChatResponse, StreamChunk } from "./types";
 import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { startTrace } from "@/lib/observability/langfuse";
+import { redactForLangfuse } from "@/lib/observability/langfuse-redact";
 import { defaultRateLimiter } from "./rate-limiter";
 
 /**
@@ -106,7 +107,7 @@ export class AnthropicProvider implements LLMProvider {
         temperature: params.temperature ?? null,
         top_p: params.top_p ?? null,
       },
-      input: { system: params.system, messages: params.messages },
+      input: redactForLangfuse({ system: params.system, messages: params.messages }),
     });
 
     const timeoutMs = req.timeoutMs ?? CHAT_TIMEOUT_MS;
@@ -205,7 +206,7 @@ export class AnthropicProvider implements LLMProvider {
         temperature: params.temperature ?? null,
         top_p: params.top_p ?? null,
       },
-      input: { system: params.system, messages: params.messages },
+      input: redactForLangfuse({ system: params.system, messages: params.messages }),
     });
 
     const timeoutMs = req.timeoutMs ?? STREAM_TIMEOUT_MS;
