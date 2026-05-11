@@ -1,112 +1,109 @@
-/**
- * Spatial Mode — Tokens CSS isolés
- * Ces variables sont scopées à .spatial-root et n'affectent pas le DS global.
- * Hors design system Hearst OS — voir CLAUDE.md section "Modules hors DS".
- */
+/* Spatial Mode Styles - Isolated Sandbox */
+
+:root {
+  --spatial-bg: #000000;
+  --spatial-fg: #ffffff;
+  --spatial-glass-bg: rgba(255, 255, 255, 0.03);
+  --spatial-glass-border: rgba(255, 255, 255, 0.08);
+  --spatial-glass-blur: 20px;
+  --spatial-glass-blur-strong: 36px;
+  --spatial-accent: #ffffff;
+  --spatial-font: var(--font-satoshi), system-ui, sans-serif;
+}
 
 .spatial-root {
-  /* Background */
-  --sp-bg: #000000;
-  --sp-bg-scene: #020202;
-
-  /* Surfaces (glass) */
-  --sp-surface: rgba(255, 255, 255, 0.12);
-  --sp-surface-high: rgba(255, 255, 255, 0.18);
-  --sp-surface-blur: rgba(0, 0, 0, 0.6);
-
-  /* Text */
-  --sp-text: rgba(255, 255, 255, 1);
-  --sp-text-secondary: rgba(255, 255, 255, 0.85);
-  --sp-text-muted: rgba(255, 255, 255, 0.6);
-  --sp-text-ghost: rgba(255, 255, 255, 0.35);
-
-  /* Accent (white-only spatial palette) */
-  --sp-accent: #ffffff;
-  --sp-accent-glow: rgba(255, 255, 255, 0.8);
-  --sp-accent-soft: rgba(255, 255, 255, 0.35);
-
-  /* Borders */
-  --sp-border: rgba(255, 255, 255, 0.25);
-  --sp-border-high: rgba(255, 255, 255, 0.4);
-
-  /* Shadows */
-  --sp-shadow-panel: 0 0 80px rgba(0, 0, 0, 0.8);
-  --sp-shadow-glow: 0 0 40px rgba(255, 255, 255, 0.15);
-  --sp-shadow-orb: 0 0 120px rgba(255, 255, 255, 0.08);
-
-  /* Motion */
-  --sp-duration-fast: 0.4s;
-  --sp-duration-base: 0.8s;
-  --sp-duration-slow: 1.2s;
-  --sp-duration-drift: 2s;
-  --sp-ease-emerge: cubic-bezier(0.16, 1, 0.3, 1);
-  --sp-ease-dissolve: cubic-bezier(0.22, 1, 0.36, 1);
-  --sp-ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* Depth (z-index namespaced) */
-  --sp-z-bg: 0;
-  --sp-z-scene: 10;
-  --sp-z-ground: 20;
-  --sp-z-surface: 30;
-  --sp-z-overlay: 40;
-  --sp-z-hud: 50;
-  --sp-z-critical: 60;
-
-  /* Typography */
-  --sp-tracking-label: 0.2em;
-  --sp-tracking-display: 0.4em;
-  --sp-font-size-label: 10px;
-  --sp-font-size-body: 14px;
-  --sp-font-size-title: 18px;
+  position: fixed;
+  inset: 0;
+  background: var(--spatial-bg);
+  color: var(--spatial-fg);
+  font-family: var(--spatial-font);
+  overflow: hidden;
+  z-index: 1000;
 }
 
-/* Utilitaires glass */
-.sp-glass {
-  background: var(--sp-surface);
-  border: 1px solid var(--sp-border);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+.spatial-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
-.sp-glass-high {
-  background: var(--sp-surface-high);
-  border: 1px solid var(--sp-border-high);
-  backdrop-filter: blur(48px);
-  -webkit-backdrop-filter: blur(48px);
+.spatial-overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Utilitaires typographiques spatiaux */
-.sp-label {
-  font-size: var(--sp-font-size-label);
-  letter-spacing: var(--sp-tracking-label);
-  text-transform: uppercase;
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 32px;
+}
+
+.glass-panel-strong {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(36px) saturate(125%);
+  -webkit-backdrop-filter: blur(36px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 32px;
+}
+
+.spatial-immaterial-panel {
+  background: transparent;
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.spatial-immaterial-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.spatial-text-pure {
+  color: var(--spatial-fg);
   font-weight: 300;
-  color: var(--sp-text-muted);
+  letter-spacing: -0.02em;
 }
 
-.sp-body {
-  font-size: var(--sp-font-size-body);
+.spatial-text-muted {
+  color: rgba(255, 255, 255, 0.5);
   font-weight: 300;
-  line-height: 1.7;
-  color: var(--sp-text-secondary);
 }
 
-/* Glow ring utility */
-.sp-glow-ring {
-  box-shadow:
-    0 0 0 1px var(--sp-border),
-    var(--sp-shadow-glow);
+/* Spatial Typography Scale - Improved for legibility but keeping micro-luxe feel */
+.text-spatial-xs   { font-size: 10px; }
+.text-spatial-sm   { font-size: 11px; }
+.text-spatial-md   { font-size: 12px; }
+.text-spatial-base { font-size: 13px; }
+.text-spatial-lg   { font-size: 14px; }
+.text-spatial-xl   { font-size: 15px; }
+.text-spatial-2xl  { font-size: 16px; }
+.text-spatial-3xl  { font-size: 20px; }
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Mission status pulse — utilisé par MissionPanel en stage=running */
 @keyframes spatial-mission-pulse {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0.55;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.25);
+    transform: scale(1.4);
   }
 }

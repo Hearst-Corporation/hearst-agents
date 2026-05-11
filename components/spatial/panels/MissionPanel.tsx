@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { FloatingPanel } from "./FloatingPanel";
+import { BentoCard } from './BentoCard';
+import { MiniChart } from './MiniChart';
 
-type MissionState = "idle" | "running";
+type MissionState = 'idle' | 'running';
 
 interface MissionPanelProps {
   show: boolean;
@@ -10,35 +11,42 @@ interface MissionPanelProps {
 }
 
 /**
- * Mission — panel droit.
- * Reflète l'état réel : aucune mission, ou analyse en cours.
+ * Mission — bento tall (col 1 × row 2).
+ * État réel : idle ou analyse en cours, avec mini-chart d'activité.
  */
-export function MissionPanel({ show, state = "idle" }: MissionPanelProps) {
-  const running = state === "running";
+export function MissionPanel({ show, state = 'idle' }: MissionPanelProps) {
+  const running = state === 'running';
+
   return (
-    <FloatingPanel show={show} anchor="right" delay={0.18} width={240}>
-      <div className="px-6 py-6">
-        <div className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light mb-4">
-          Mission
+    <BentoCard show={show} colSpan={1} rowSpan={2} delay={0.18}>
+      <div className="flex h-full flex-col justify-between">
+        <div>
+          <div className="mb-2 text-spatial-xs font-semibold uppercase tracking-[0.2em] text-white/45">
+            Mission
+          </div>
+          <div className="text-spatial-2xl font-extralight tracking-tight text-white/95">
+            {running ? 'Analyse en cours' : 'Aucune mission'}
+          </div>
         </div>
-        <p className="text-white/70 text-[12px] font-light leading-[1.6]">
-          {running ? "Analyse en cours" : "Aucune mission active"}
-        </p>
-        <div className="mt-5 flex items-center gap-3">
+
+        <MiniChart bars={12} intervalMs={running ? 1500 : 4000} />
+
+        <div className="flex items-center gap-3">
           <div
-            className="w-1 h-1 rounded-full bg-white/40"
+            className="h-1.5 w-1.5 rounded-full"
             style={{
+              background: running ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)',
               boxShadow: running
-                ? "0 0 6px rgba(255,255,255,0.4)"
-                : "0 0 4px rgba(255,255,255,0.2)",
-              animation: running ? "spatial-mission-pulse 2.4s ease-in-out infinite" : undefined,
+                ? '0 0 10px rgba(255,255,255,0.6)'
+                : '0 0 4px rgba(255,255,255,0.25)',
+              animation: running ? 'spatial-mission-pulse 2.4s ease-in-out infinite' : undefined,
             }}
           />
-          <div className="text-white/40 text-[10px] tracking-wide font-light">
-            {running ? "Agents mobilisés" : "En attente"}
+          <div className="text-spatial-sm font-light tracking-wide text-white/55">
+            {running ? 'Agents mobilisés' : 'En attente'}
           </div>
         </div>
       </div>
-    </FloatingPanel>
+    </BentoCard>
   );
 }

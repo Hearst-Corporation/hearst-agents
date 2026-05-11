@@ -27,14 +27,14 @@ export function AssetCard({ show, onClose }: AssetCardProps) {
           </svg>
         </button>
 
-        <div className="text-white/45 text-[10px] tracking-[0.34em] uppercase font-light mb-4">
+        <div className="text-white/45 text-spatial-sm tracking-[0.34em] uppercase font-light mb-4">
           Asset généré
         </div>
-        <h3 className="text-white/95 text-[18px] font-light tracking-wide leading-snug">
+        <h3 className="text-white/95 text-spatial-3xl font-light tracking-wide leading-snug">
           Analyse stratégique — Q2
         </h3>
         <div className="mt-5 h-px w-10 bg-white/15" />
-        <p className="mt-5 text-white/70 text-[13px] font-light leading-[1.7]">
+        <p className="mt-5 text-white/70 text-spatial-lg font-light leading-[1.7]">
           Synthèse des trois sujets prioritaires consolidée. Décision en attente
           sur le segment B2B.
         </p>
@@ -43,13 +43,13 @@ export function AssetCard({ show, onClose }: AssetCardProps) {
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2 rounded-full text-[11px] tracking-[0.18em] uppercase font-light text-white/60 hover:text-white/90 transition-colors duration-300"
+            className="px-5 py-2 rounded-full text-spatial-md tracking-[0.18em] uppercase font-light text-white/60 hover:text-white/90 transition-colors duration-300"
           >
             Fermer
           </button>
           <button
             type="button"
-            className="px-6 py-2 rounded-full text-[11px] tracking-[0.18em] uppercase font-light"
+            className="px-6 py-2 rounded-full text-spatial-md tracking-[0.18em] uppercase font-light"
             style={{
               backgroundColor: "rgba(255,255,255,0.92)",
               color: "#0a0a0c",

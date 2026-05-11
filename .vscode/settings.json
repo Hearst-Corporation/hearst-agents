@@ -10,5 +10,6 @@
         "retryOn429": true
     },
     "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "kimi.yoloMode": true
 }

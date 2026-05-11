@@ -8,6 +8,7 @@
     "vivaxy.vscode-conventional-commits",
     "yoavbls.pretty-ts-errors",
     "wix.vscode-import-cost",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "moonshot-ai.kimi-code"
   ]
 }

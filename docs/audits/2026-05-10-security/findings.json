@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T02:50:08.781Z",
+  "last_updated": "2026-05-11T03:01:16.601Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 45,
+      "pending": 39,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 85,
+      "closed": 91,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -3170,7 +3170,7 @@
       "title": "tsconfig exclut app/api/orchestrator + app/admin/orchestrator du typecheck",
       "severity": "P0",
       "category": "dx",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3199,6 +3199,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T03:01:16.485Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3305,7 +3311,7 @@
       "title": "5 dépendances circulaires (madge) — risque undefined runtime",
       "severity": "P0",
       "category": "archi",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3334,6 +3340,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T03:01:16.455Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3342,7 +3354,7 @@
       "title": "lib/marketplace/store.ts:147-161 — function table(): any helpers",
       "severity": "P0",
       "category": "dx",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3370,6 +3382,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T03:01:16.543Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3378,7 +3396,7 @@
       "title": "9× (db.from('personas' as any) as any) — database.types.ts stale",
       "severity": "P0",
       "category": "dx",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3410,6 +3428,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T03:01:16.513Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3807,7 +3831,7 @@
       "title": "Supply chain — pas de --frozen-lockfile en CI ? transitives non auditées",
       "severity": "P1",
       "category": "deps",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master"
@@ -3834,6 +3858,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T03:01:16.600Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4306,7 +4336,7 @@
       "title": "Dead code purge plan — 33 fichiers + 36 tokens CSS + lucide/gsap deps",
       "severity": "P2",
       "category": "dead_code",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -4361,6 +4391,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T03:01:16.571Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

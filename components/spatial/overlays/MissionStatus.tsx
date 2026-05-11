@@ -19,7 +19,7 @@ export function MissionStatus({
 }: MissionStatusProps) {
   return (
     <div
-      className="absolute inset-x-0 top-[28%] flex items-center justify-center pointer-events-none"
+      className="absolute inset-x-0 top-[22%] flex items-center justify-center pointer-events-none"
       style={{ zIndex: SPATIAL_Z_LAYERS.surface }}
     >
       <AnimatePresence>
@@ -42,7 +42,7 @@ export function MissionStatus({
               className="w-1 h-1 rounded-full bg-white/85"
               style={{ boxShadow: "0 0 8px rgba(255,255,255,0.55)" }}
             />
-            <div className="text-white/60 text-[10px] tracking-[0.3em] uppercase font-light">
+            <div className="text-white/60 text-spatial-sm tracking-[0.3em] uppercase font-light">
               {label}
             </div>
           </motion.div>

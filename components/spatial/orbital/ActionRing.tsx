@@ -8,9 +8,9 @@ export type SpatialActionId = "brief" | "mission" | "assets";
 interface ActionDef {
   id: SpatialActionId;
   label: string;
-  /** Position relative au centre, en px */
-  x: number;
-  y: number;
+  /** Position relative au centre, en clamp(vw/vh) */
+  x: string;
+  y: string;
   /** Côté du label par rapport au point (par défaut: dérivé de la position) */
   labelSide?: "left" | "right" | "top" | "bottom";
 }
@@ -21,9 +21,9 @@ interface ActionRingProps {
 }
 
 const ACTIONS: ActionDef[] = [
-  { id: "brief",   label: "Brief",       x: -320, y:    0, labelSide: "left"  },
-  { id: "mission", label: "Mission",     x:    0, y: -260, labelSide: "top"   },
-  { id: "assets",  label: "Assets",      x:  320, y:    0, labelSide: "right" },
+  { id: "brief",   label: "Brief",       x: "clamp(-180px, -22vw, -320px)", y: "0px", labelSide: "left"  },
+  { id: "mission", label: "Mission",     x: "0px", y: "clamp(-140px, -18vh, -260px)", labelSide: "top"   },
+  { id: "assets",  label: "Assets",      x: "clamp(180px, 22vw, 320px)", y: "0px", labelSide: "right" },
 ];
 
 /**
@@ -76,7 +76,7 @@ function ActionNode({
     <motion.button
       type="button"
       onClick={onClick}
-      initial={{ opacity: 0, scale: 0.6, x: action.x * 0.4, y: action.y * 0.4 }}
+      initial={{ opacity: 0, scale: 0.6, x: 0, y: 0 }}
       animate={{
         opacity: 1,
         scale: 1,
@@ -87,8 +87,8 @@ function ActionNode({
       exit={{
         opacity: 0,
         scale: 0.6,
-        x: action.x * 0.4,
-        y: action.y * 0.4,
+        x: 0,
+        y: 0,
         transition: { duration: 0.55, ease: [0.4, 0, 1, 1] },
       }}
       whileHover={{ scale: 1.06 }}
@@ -120,7 +120,7 @@ function ActionNode({
 
         {/* Label */}
         <div className={`absolute whitespace-nowrap pointer-events-none ${labelClass}`}>
-          <span className="text-white/40 group-hover:text-white/80 text-[10px] tracking-[0.25em] uppercase font-light transition-colors duration-300">
+          <span className="text-white/40 group-hover:text-white/80 text-spatial-sm tracking-[0.25em] uppercase font-light transition-colors duration-300">
             {action.label}
           </span>
         </div>

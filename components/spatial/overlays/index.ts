@@ -1,4 +1,4 @@
-export { SpatialOverlayManager, useSpatialOverlay } from "./SpatialOverlayManager";
+export { SpatialOverlayManager } from "./SpatialOverlayManager";
 export { SpatialHUD } from "./SpatialHUD";
 export { CommandBar } from "./CommandBar";
 export { ExpertModeAffordance } from "./ExpertModeAffordance";

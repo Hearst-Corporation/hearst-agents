@@ -10,6 +10,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import type { Database } from "@/lib/database.types";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 import { saveTemplate as saveReportTemplate } from "@/lib/reports/templates/store";
@@ -38,25 +39,7 @@ import {
 
 // ── Row Supabase (snake_case, untyped — table absente de Database). ─
 
-interface TemplateRow {
-  id: string;
-  kind: string;
-  title: string;
-  description: string | null;
-  payload: unknown;
-  author_user_id: string;
-  author_tenant_id: string;
-  author_display_name: string | null;
-  tags: string[] | null;
-  rating_avg: number | string;
-  rating_count: number;
-  clone_count: number;
-  is_featured: boolean;
-  is_archived: boolean;
-  created_at: string;
-  updatedAt?: string;
-  updated_at: string;
-}
+type TemplateRow = Database["public"]["Tables"]["marketplace_templates"]["Row"];
 
 // ── Builtins helpers (creative packs livrés en code-as-data) ─
 
@@ -143,22 +126,16 @@ function rowToTemplate(row: TemplateRow): MarketplaceTemplate | null {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function table(client: SupabaseClient): any {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (client.from as any)("marketplace_templates");
+function table(client: SupabaseClient) {
+  return client.from("marketplace_templates");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ratingsTable(client: SupabaseClient): any {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (client.from as any)("marketplace_ratings");
+function ratingsTable(client: SupabaseClient) {
+  return client.from("marketplace_ratings");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function reportsTable(client: SupabaseClient): any {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (client.from as any)("marketplace_reports");
+function reportsTable(client: SupabaseClient) {
+  return client.from("marketplace_reports");
 }
 
 // ── publishTemplate ─────────────────────────────────────────
@@ -253,7 +230,7 @@ export async function listTemplates(
     console.error("[marketplace/store] list error:", error.message);
     return builtins;
   }
-  const dbRows = (data ?? []).map((row: TemplateRow) => rowToSummary(row));
+  const dbRows = (data ?? []).map((row) => rowToSummary(row as TemplateRow));
   // Builtins en tête — featured d'abord, ensuite les rows DB.
   return [...builtins, ...dbRows];
 }

@@ -1,87 +1,52 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ORBITAL_NODE } from "@/components/spatial/motion/variants";
-import type { SpatialNode } from "@/lib/spatial/types";
-import { ORBITAL_DEFAULTS } from "@/lib/spatial/constants";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useSpatialMouseContext } from '@/providers/spatial/SpatialMouseProvider';
 
 interface OrbitalItemProps {
-  node: SpatialNode;
-  index: number;
-  onHover?: (id: string | null) => void;
-  onClick?: (id: string) => void;
-  renderLabel?: (node: SpatialNode) => React.ReactNode;
-  position: "left" | "right" | "top" | "bottom";
+  label: string;
+  value: string;
+  delay?: number;
+  x: number;
+  y: number;
+  active?: boolean;
 }
 
-/**
- * Item orbital HTML positionné par Framer Motion.
- * Indépendant de R3F — utilisable dans la couche HTML overlay.
- */
-export function OrbitalItem({
-  node,
-  index,
-  onHover,
-  onClick,
-  renderLabel,
-  position,
-}: OrbitalItemProps) {
-  const labelClass = {
-    left: "right-full mr-5",
-    right: "left-full ml-5",
-    top: "bottom-full mb-5",
-    bottom: "top-full mt-5",
-  }[position];
-
-  const tensionClass = {
-    left: "right-full w-4 h-px bg-gradient-to-l from-white/40 to-transparent mr-1",
-    right: "left-full w-4 h-px bg-gradient-to-r from-white/40 to-transparent ml-1",
-    top: "bottom-full h-4 w-px bg-gradient-to-t from-white/40 to-transparent mb-1",
-    bottom: "top-full h-4 w-px bg-gradient-to-b from-white/40 to-transparent mt-1",
-  }[position];
+export function OrbitalItem({ label, value, delay = 0, x, y, active = false }: OrbitalItemProps) {
+  const { smoothX, smoothY } = useSpatialMouseContext();
 
   return (
     <motion.div
-      custom={index * 0.1}
-      variants={ORBITAL_NODE}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      className="absolute flex items-center justify-center pointer-events-auto cursor-pointer group"
-      style={{ x: node.position.x, y: node.position.y }}
-      onMouseEnter={() => onHover?.(node.id)}
-      onMouseLeave={() => onHover?.(null)}
-      onClick={() => onClick?.(node.id)}
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+      }}
+      transition={{
+        opacity: { delay, duration: 1.5 },
+      }}
+      style={{
+        left: `${x}%`,
+        top: `${y}%`,
+      }}
+      className="absolute pointer-events-auto group"
     >
       <motion.div
-        animate={{ y: [0, -ORBITAL_DEFAULTS.floatAmplitude, 0] }}
-        transition={{
-          duration: ORBITAL_DEFAULTS.floatDuration,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: index * 0.3,
+        style={{
+          x: smoothX,
+          y: smoothY,
         }}
-        className="flex items-center justify-center"
+        className="flex items-center gap-3"
       >
-        {/* Point lumineux */}
-        <div className="relative flex items-center justify-center">
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60 group-hover:bg-white transition-colors duration-500 shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
-          <div className="absolute w-10 h-10 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors duration-500 blur-md" />
-        </div>
+        {/* Connection Line to Center (abstract) */}
+        <div className="absolute -left-4 top-1/2 w-4 h-px bg-linear-to-r from-transparent to-white/10" />
 
-        {/* Label */}
-        <div className={`absolute whitespace-nowrap flex items-center justify-center ${labelClass}`}>
-          {renderLabel ? (
-            renderLabel(node)
-          ) : (
-            <span className="text-white/60 group-hover:text-white text-xs tracking-[0.2em] uppercase font-light transition-colors duration-500">
-              {node.label}
-            </span>
-          )}
-        </div>
+        <div className={`w-1 h-1 rounded-full ${active ? 'bg-cyan-400 shadow-[0_0_8px_rgba(0,229,255,0.6)]' : 'bg-white/20'} group-hover:bg-white transition-all duration-500`} />
 
-        {/* Ligne de tension HUD */}
-        <div className={`absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${tensionClass}`} />
+        <div className="flex flex-col">
+          <span className="spatial-text-muted text-spatial-xs uppercase tracking-[0.15em] font-light group-hover:text-white/60 transition-colors">{label}</span>
+          <span className="spatial-text-pure text-spatial-md font-light group-hover:translate-x-0.5 transition-transform duration-500">{value}</span>
+        </div>
       </motion.div>
     </motion.div>
   );

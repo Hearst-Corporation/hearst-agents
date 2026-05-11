@@ -1,69 +1,20 @@
-// lint-visual-disable-file
-"use client";
+'use client';
 
-import { Suspense, type ReactNode } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Environment, PerspectiveCamera, Lightformer } from "@react-three/drei";
-import { SCENE_CONFIG } from "@/lib/spatial/constants";
+import type { ReactNode } from 'react';
 
 interface SpatialSceneProps {
-  children: ReactNode;
-  className?: string;
+  children?: ReactNode;
 }
 
 /**
- * Conteneur WebGL de base — canvas R3F + éclairage studio.
- * Aucune logique métier. Reçoit les enfants 3D via props.
+ * Couche 3D de la page spatiale. Conteneur fixed plein écran.
+ * Reçoit la scène (Spline / R3F) en children pour permettre du SSR
+ * sur les noyaux qui le supportent.
  */
-export function SpatialScene({ children, className }: SpatialSceneProps) {
-  const { camera, environment } = SCENE_CONFIG;
-
+export function SpatialScene({ children }: SpatialSceneProps) {
   return (
-    <div className={`absolute inset-0 bg-black ${className ?? ""}`}>
-      <Canvas>
-        <PerspectiveCamera
-          makeDefault
-          position={camera.position}
-          fov={camera.fov}
-        />
-
-        <color attach="background" args={["#000000"]} />
-
-        <Suspense fallback={null}>
-          <Environment resolution={environment.resolution}>
-            <Lightformer
-              form="rect"
-              intensity={0.38}
-              color="#ffffff"
-              position={[0, 6.4, 2.2]}
-              scale={[7.8, 0.52, 1]}
-            />
-            <Lightformer
-              form="rect"
-              intensity={0.82}
-              color="#ffffff"
-              position={[-7.2, 0, 1.8]}
-              scale={[0.05, 6.2, 1]}
-            />
-            <Lightformer
-              form="rect"
-              intensity={0.82}
-              color="#ffffff"
-              position={[7.2, 0, 1.8]}
-              scale={[0.05, 6.2, 1]}
-            />
-            <Lightformer
-              form="rect"
-              intensity={0.92}
-              color="#ffffff"
-              position={[0, -3.2, 2.6]}
-              scale={[4.2, 0.06, 1]}
-            />
-          </Environment>
-
-          {children}
-        </Suspense>
-      </Canvas>
+    <div className="spatial-canvas-container fixed inset-0 z-1">
+      {children}
     </div>
   );
 }

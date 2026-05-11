@@ -7,7 +7,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { SettingValue } from "./types";
-import { getSettingValue, setSettingValue } from "./index";
+import { getSettingValue, setSettingValue } from "./cache";
 import { getDefaultDefinition, DEFAULT_SETTINGS } from "./defaults";
 
 export async function getFeatureFlag(

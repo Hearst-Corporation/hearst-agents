@@ -48,8 +48,8 @@ export function CommandBar({ show, autoFocus = true, onSubmit }: CommandBarProps
 
   return (
     <div
-      className="absolute inset-x-0 bottom-6 flex items-center justify-center pointer-events-none"
-      style={{ perspective: 1400, zIndex: SPATIAL_Z_LAYERS.surface }}
+      className="absolute inset-x-0 bottom-8 flex items-center justify-center pointer-events-none md:[perspective:1400px]"
+      style={{ zIndex: SPATIAL_Z_LAYERS.surface }}
     >
       <AnimatePresence>
         {show && (
@@ -68,18 +68,17 @@ export function CommandBar({ show, autoFocus = true, onSubmit }: CommandBarProps
           >
             <form onSubmit={handleSubmit} className="relative">
               <div
-                className="relative flex items-center rounded-full overflow-hidden transition-colors"
+                className="relative flex items-center overflow-hidden rounded-[32px] transition-colors"
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.045)",
+                  background: "rgba(255,255,255,0.05)",
+                  backdropFilter: "blur(22px) saturate(130%)",
+                  WebkitBackdropFilter: "blur(22px) saturate(130%)",
                   border: "1px solid rgba(255,255,255,0.10)",
-                  backdropFilter: "blur(36px) saturate(125%)",
-                  WebkitBackdropFilter: "blur(36px) saturate(125%)",
-                  boxShadow:
-                    "0 28px 80px -20px rgba(0,0,0,0.85), 0 4px 12px -2px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 32px -16px rgba(0,0,0,0.5)",
                 }}
               >
                 {/* Glyphe gauche */}
-                <div className="pl-6 pr-3 text-white/40 text-[14px] leading-none select-none">
+                <div className="pl-7 pr-3 text-white/40 text-spatial-xl leading-none select-none">
                   ✦
                 </div>
 
@@ -90,24 +89,24 @@ export function CommandBar({ show, autoFocus = true, onSubmit }: CommandBarProps
                   onChange={(e) => setValue(e.target.value)}
                   placeholder="Demandez à Hearst…"
                   aria-label="Demande à Hearst"
-                  className="flex-1 bg-transparent border-none outline-none text-white/95 placeholder:text-white/35 py-4 text-[14px] font-light tracking-wide focus:ring-0"
+                  className="flex-1 bg-transparent border-none outline-none text-white/95 placeholder:text-white/35 py-5 text-spatial-xl font-light tracking-wide focus:ring-0"
                 />
 
                 <button
                   type="submit"
                   disabled={!canSubmit}
                   aria-label="Envoyer"
-                  className="mr-2 my-1 px-5 py-2 rounded-full text-[12px] tracking-[0.18em] uppercase font-light transition-all duration-300 disabled:cursor-not-allowed"
+                  className="mr-3 my-2 rounded-[20px] px-5 py-2 text-spatial-base font-light uppercase tracking-[0.18em] transition-all duration-300 disabled:cursor-not-allowed"
                   style={
                     canSubmit
                       ? {
-                          backgroundColor: "rgba(255,255,255,0.92)",
-                          color: "#0a0a0c",
-                          boxShadow: "0 6px 18px -6px rgba(255,255,255,0.35)",
+                          background: "rgba(255,255,255,0.12)",
+                          color: "rgba(255,255,255,0.9)",
+                          border: "1px solid rgba(255,255,255,0.16)",
                         }
                       : {
-                          backgroundColor: "rgba(255,255,255,0.06)",
-                          color: "rgba(255,255,255,0.35)",
+                          background: "rgba(255,255,255,0.04)",
+                          color: "rgba(255,255,255,0.4)",
                           border: "1px solid rgba(255,255,255,0.08)",
                         }
                   }
@@ -117,7 +116,7 @@ export function CommandBar({ show, autoFocus = true, onSubmit }: CommandBarProps
               </div>
 
               {/* Hint Enter */}
-              <div className="mt-3 flex items-center justify-center gap-2 text-white/30 text-[10px] tracking-[0.32em] uppercase font-light">
+              <div className="mt-3 flex items-center justify-center gap-2 text-white/30 text-spatial-sm tracking-[0.32em] uppercase font-light">
                 <span>Entrée</span>
                 <span className="opacity-60">pour orchestrer</span>
               </div>

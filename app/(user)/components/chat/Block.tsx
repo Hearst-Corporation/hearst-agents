@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, type ReactNode } from "react";
+import type { BlockType, BlockActionId, BlockProps } from "./BlockTypes";
 import { BlockActions } from "./BlockActions";
 import { BlockEditor } from "./BlockEditor";
 
@@ -15,27 +16,7 @@ import { BlockEditor } from "./BlockEditor";
  * Design tokens uniquement (cf CLAUDE.md) — pas de magic px / hex / rgba.
  */
 
-export type BlockType =
-  | "section_heading"
-  | "subsection_heading"
-  | "list"
-  | "action_items"
-  | "insight"
-  | "paragraph";
-
-export interface BlockProps {
-  content: string;
-  editable?: boolean;
-  onSave?: (newContent: string) => void;
-  onAction?: (action: BlockActionId) => void;
-}
-
-export type BlockActionId =
-  | "expand"
-  | "mission"
-  | "asset"
-  | "edit"
-  | "refine";
+export type { BlockType, BlockActionId, BlockProps };
 
 /**
  * Détecte le type primaire du block à partir du content brut.

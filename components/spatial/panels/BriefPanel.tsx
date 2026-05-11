@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
-import { FloatingPanel } from "./FloatingPanel";
+import { useMemo } from 'react';
+import { BentoCard } from './BentoCard';
 
 interface BriefPanelProps {
   show: boolean;
@@ -9,24 +10,44 @@ interface BriefPanelProps {
 }
 
 /**
- * Brief — panel gauche.
- * Information utile : nombre de sujets demandant attention.
+ * Brief — bento large (col 2 × row 2).
+ * Information principale du dashboard spatial.
  */
 export function BriefPanel({ show, count = 3 }: BriefPanelProps) {
+  const timeString = useMemo(() => {
+    const t = new Date();
+    t.setHours(t.getHours() + 1);
+    t.setMinutes(0);
+    return t.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  }, []);
+
   return (
-    <FloatingPanel show={show} anchor="left" delay={0.05} width={240}>
-      <div className="px-6 py-6">
-        <div className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-light mb-4">
-          Brief
+    <BentoCard show={show} colSpan={2} rowSpan={2} delay={0.05}>
+      <div className="flex h-full flex-col justify-between">
+        <div>
+          <div className="mb-2 text-spatial-xs font-semibold uppercase tracking-[0.2em] text-white/45">
+            Brief
+          </div>
+          <div className="mb-3 text-spatial-3xl font-extralight tracking-tight text-white/95">
+            Bonjour
+          </div>
+          <p className="text-spatial-base font-light leading-[1.65] text-white/70">
+            Aujourd&apos;hui, vous avez un meeting à {timeString}. {count} sujets demandent
+            votre attention.
+          </p>
         </div>
-        <p className="text-white/70 text-[12px] font-light leading-[1.6]">
-          {count} sujets demandent votre attention.
-        </p>
-        <div className="mt-5 h-px w-6 bg-white/10" />
-        <div className="mt-4 text-white/40 text-[10px] font-light leading-[1.6]">
-          Marché. Équipe. Décision.
+        <div className="text-spatial-3xl font-light tracking-[-0.04em] text-white/95">
+          {count.toString().padStart(2, '0')}
+          <span className="ml-2 text-spatial-base font-light text-white/45">sujets</span>
         </div>
       </div>
-    </FloatingPanel>
+      <div
+        className="absolute right-7 top-7 h-2 w-2 rounded-full"
+        style={{
+          background: 'rgba(255,255,255,0.85)',
+          boxShadow: '0 0 12px rgba(255,255,255,0.6)',
+        }}
+      />
+    </BentoCard>
   );
 }

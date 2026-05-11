@@ -1,7 +1,7 @@
 // lint-visual-disable-file
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Sphere } from "@react-three/drei";
@@ -35,7 +35,19 @@ const DEFAULT_PARTICLES: OrbitalParticleConfig[] = [
   { radiusX: 3.6, radiusZ: 4.0, speed: 0.42, phase: Math.PI * 1.33,     size: 0.054, opacity: 0.90, verticalAmplitude: 0.30 },
 ];
 
-function OrbitalParticle({ config }: { config: OrbitalParticleConfig }) {
+interface OrbitalParticleMaterial extends THREE.MeshStandardMaterial {
+  userData: {
+    baseOpacity?: number;
+  };
+}
+
+function OrbitalParticle({
+  config,
+  onMaterialMount,
+}: {
+  config: OrbitalParticleConfig;
+  onMaterialMount: (mat: THREE.MeshStandardMaterial) => void;
+}) {
   const ref = useOrbitalPosition(
     config.radiusX,
     config.radiusZ,
@@ -47,6 +59,9 @@ function OrbitalParticle({ config }: { config: OrbitalParticleConfig }) {
   return (
     <Sphere ref={ref} args={[config.size, 32, 32]}>
       <meshStandardMaterial
+        ref={(mat) => {
+          if (mat) onMaterialMount(mat);
+        }}
         color="#ffffff"
         roughness={0.1}
         metalness={0.8}
@@ -64,6 +79,16 @@ export function OrbitalRing({
 }: OrbitalRingProps) {
   const groupRef = useRef<THREE.Group>(null);
   const liveOpacity = useRef(0);
+  const materialRefs = useRef<OrbitalParticleMaterial[]>([]);
+
+  // Initialize baseOpacity once on mount
+  useEffect(() => {
+    materialRefs.current.forEach((mat) => {
+      if (mat && "opacity" in mat && mat.userData.baseOpacity === undefined) {
+        mat.userData.baseOpacity = mat.opacity ?? 1;
+      }
+    });
+  }, []);
 
   useFrame((state) => {
     if (!groupRef.current) return;
@@ -72,26 +97,33 @@ export function OrbitalRing({
     groupRef.current.rotation.x = tilt + Math.sin(t * 0.1) * 0.04;
 
     liveOpacity.current = THREE.MathUtils.lerp(liveOpacity.current, opacity, 0.04);
-    groupRef.current.traverse((obj) => {
-      if (obj instanceof THREE.Mesh && obj.material) {
-        const mat = obj.material as THREE.Material & { opacity?: number; transparent?: boolean };
-        if (mat.transparent !== undefined) {
-          mat.transparent = true;
-          if ("opacity" in mat) {
-            mat.opacity = (mat.userData.baseOpacity ?? mat.opacity ?? 1) * liveOpacity.current;
-            if (mat.userData.baseOpacity === undefined) {
-              mat.userData.baseOpacity = mat.opacity;
-            }
-          }
-        }
+
+    // O(1) update — no traverse
+    materialRefs.current.forEach((mat) => {
+      if (mat && "opacity" in mat) {
+        mat.opacity = (mat.userData.baseOpacity ?? 1) * liveOpacity.current;
       }
     });
   });
 
+  const handleMaterialMount = (mat: THREE.MeshStandardMaterial) => {
+    if (!materialRefs.current.includes(mat as OrbitalParticleMaterial)) {
+      materialRefs.current.push(mat as OrbitalParticleMaterial);
+      // Set base opacity immediately on first mount
+      if ("opacity" in mat && mat.userData.baseOpacity === undefined) {
+        (mat as OrbitalParticleMaterial).userData.baseOpacity = mat.opacity ?? 1;
+      }
+    }
+  };
+
   return (
     <group ref={groupRef}>
       {particles.map((config, i) => (
-        <OrbitalParticle key={i} config={config} />
+        <OrbitalParticle
+          key={i}
+          config={config}
+          onMaterialMount={handleMaterialMount}
+        />
       ))}
     </group>
   );

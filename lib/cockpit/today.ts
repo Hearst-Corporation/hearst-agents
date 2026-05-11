@@ -26,6 +26,7 @@ import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/se
 import { loadLatestInboxBrief } from "@/lib/inbox/store";
 import { getTokens } from "@/lib/platform/auth/tokens";
 import type { InboxBrief } from "@/lib/inbox/inbox-brief";
+import type { CockpitAgendaItem } from "./types";
 import { getLiveAgenda } from "./agenda-live";
 
 interface CockpitScope {
@@ -62,12 +63,6 @@ interface CockpitFavoriteReport {
   domain: string;
 }
 
-export interface CockpitAgendaItem {
-  id: string;
-  title: string;
-  startsAt: number;
-  source: "mock" | "live";
-}
 
 interface CockpitInboxSection {
   brief: InboxBrief | null;

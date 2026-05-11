@@ -19,38 +19,11 @@
 
 import { getComposio } from "./client";
 import { listConnections } from "./connections";
+import type { DiscoveredTool } from "./types";
+import { resetDiscoveryCache, invalidateUserDiscovery, getCacheEntry, setCacheEntry, DISCOVERY_CACHE_TTL_MS } from "./cache";
 
-export interface DiscoveredTool {
-  /** Composio tool slug, e.g. "GMAIL_SEND_EMAIL". Stable identifier. */
-  name: string;
-  description: string;
-  parameters: Record<string, unknown>;
-  /** Toolkit slug this tool belongs to. */
-  app: string;
-}
-
-interface CacheEntry {
-  tools: DiscoveredTool[];
-  expiresAt: number;
-}
-
-const TTL_MS = 60_000;
-const cache = new Map<string, CacheEntry>();
-
-export function resetDiscoveryCache(userId?: string): void {
-  if (!userId) {
-    cache.clear();
-    return;
-  }
-  const prefix = `${userId}::`;
-  for (const key of cache.keys()) {
-    if (key.startsWith(prefix)) cache.delete(key);
-  }
-}
-
-export function invalidateUserDiscovery(userId: string): void {
-  resetDiscoveryCache(userId);
-}
+export type { DiscoveredTool };
+export { resetDiscoveryCache, invalidateUserDiscovery };
 
 interface RawTool {
   type?: "function";
@@ -81,10 +54,9 @@ export async function getToolsForUser(
   if (!userId) return [];
 
   const cacheKey = `${userId}::${(opts.apps ?? []).sort().join(",")}`;
-  const now = Date.now();
   if (!opts.force) {
-    const hit = cache.get(cacheKey);
-    if (hit && hit.expiresAt > now) return hit.tools;
+    const hit = getCacheEntry(cacheKey);
+    if (hit) return hit as DiscoveredTool[];
   }
 
   const composio = await getComposio();
@@ -168,7 +140,7 @@ export async function getToolsForUser(
     // Only cache when we actually got tools — avoid pinning an empty
     // response right after OAuth completion.
     if (tools.length > 0) {
-      cache.set(cacheKey, { tools, expiresAt: now + TTL_MS });
+      setCacheEntry(cacheKey, tools);
     }
     return tools;
   } catch (err) {
@@ -193,7 +165,12 @@ export async function getToolsForUser(
  * Cache séparé du cache principal (clé préfixée `app::`) pour éviter de
  * pourrir les lookups runtime quand on browse le catalogue.
  */
-const appCache = new Map<string, CacheEntry>();
+interface AppCacheEntry {
+  tools: DiscoveredTool[];
+  expiresAt: number;
+}
+
+const appCache = new Map<string, AppCacheEntry>();
 const APP_TTL_MS = 5 * 60_000;
 
 export async function getToolsForApp(

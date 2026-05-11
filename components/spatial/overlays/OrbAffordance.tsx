@@ -20,7 +20,7 @@ export function OrbAffordance({
 }: OrbAffordanceProps) {
   return (
     <div
-      className="absolute inset-x-0 top-1/2 mt-[250px] flex items-center justify-center pointer-events-none"
+      className="absolute inset-x-0 top-[60%] flex items-center justify-center pointer-events-none"
       style={{ zIndex: SPATIAL_Z_LAYERS.ground }}
     >
       <AnimatePresence>
@@ -33,7 +33,7 @@ export function OrbAffordance({
               transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
             }}
             exit={{ opacity: 0, y: 4, transition: { duration: 0.4 } }}
-            className="text-white text-[9px] tracking-[0.3em] uppercase font-light select-none"
+            className="text-white text-spatial-xs tracking-[0.3em] uppercase font-light select-none"
           >
             {label}
           </motion.div>

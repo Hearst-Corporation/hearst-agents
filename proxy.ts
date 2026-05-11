@@ -167,7 +167,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     _envChecked = true;
     try {
       // Dynamic import pour éviter le throw au module-load time sur Vercel Edge.
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+       
       await import("../lib/env.server" as string);
     } catch (e) {
       console.error("[proxy] env.server validation failed:", (e as Error).message);

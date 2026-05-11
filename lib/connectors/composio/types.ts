@@ -33,3 +33,39 @@ export interface ComposioResult {
   error?: string;
   errorCode?: ComposioErrorCode;
 }
+
+/**
+ * Types partagés entre connections et discovery pour casser le cycle.
+ */
+
+export interface ConnectedAccount {
+  id: string;
+  appName: string;
+  status: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface InitiateConnectionResult {
+  ok: boolean;
+  redirectUrl?: string | null;
+  connectionId?: string;
+  error?: string;
+  errorCode?:
+    | "NOT_CONFIGURED"
+    | "NO_INTEGRATION"
+    | "AUTH_CONFIG_REQUIRED"
+    | "INVALID_INPUT"
+    | "UPSTREAM_ERROR"
+    | "UNKNOWN";
+  details?: unknown;
+}
+
+export interface DiscoveredTool {
+  /** Composio tool slug, e.g. "GMAIL_SEND_EMAIL". Stable identifier. */
+  name: string;
+  description: string;
+  parameters: Record<string, unknown>;
+  /** Toolkit slug this tool belongs to. */
+  app: string;
+}

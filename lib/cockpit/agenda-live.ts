@@ -10,7 +10,7 @@
 
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
-import type { CockpitAgendaItem } from "./today";
+import type { CockpitAgendaItem } from "./types";
 
 interface CacheEntry {
   items: CockpitAgendaItem[];

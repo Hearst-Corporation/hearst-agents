@@ -12,30 +12,10 @@
  */
 
 import { getComposio, isComposioConfigured } from "./client";
-import { invalidateUserDiscovery } from "./discovery";
+import { invalidateUserDiscovery } from "./cache";
+import type { ConnectedAccount, InitiateConnectionResult } from "./types";
 
-export interface ConnectedAccount {
-  id: string;
-  appName: string;
-  status: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface InitiateConnectionResult {
-  ok: boolean;
-  redirectUrl?: string | null;
-  connectionId?: string;
-  error?: string;
-  errorCode?:
-    | "NOT_CONFIGURED"
-    | "NO_INTEGRATION"
-    | "AUTH_CONFIG_REQUIRED"
-    | "INVALID_INPUT"
-    | "UPSTREAM_ERROR"
-    | "UNKNOWN";
-  details?: unknown;
-}
+export type { ConnectedAccount, InitiateConnectionResult };
 
 interface RawConnectedAccount {
   id?: string;

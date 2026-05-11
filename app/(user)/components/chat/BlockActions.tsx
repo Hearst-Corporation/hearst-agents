@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, type ReactNode } from "react";
-import type { BlockActionId } from "./Block";
+import type { BlockActionId } from "./BlockTypes";
 
 /**
  * BlockActions — barre d'actions inline visible UNIQUEMENT au hover du

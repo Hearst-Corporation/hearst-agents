@@ -1,140 +1,82 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence, useTransform } from "framer-motion";
-import type { ReactNode } from "react";
-import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
-import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
-
-type Anchor =
-  | "left"
-  | "right"
-  | "top-left"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-right"
-  | "bottom-center"
-  | "center";
+import React, { ReactNode } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useSpatialMouseContext } from '@/providers/spatial/SpatialMouseProvider';
 
 interface FloatingPanelProps {
-  show: boolean;
+  title?: string;
   children: ReactNode;
-  anchor?: Anchor;
+  anchor?: 'left' | 'right' | 'center' | 'bottom-center';
   delay?: number;
-  width?: number | string;
-  noParallax?: boolean;
-  rotationAmplitude?: number;
-  className?: string;
+  show?: boolean;
+  width?: number;
 }
 
-const ANCHOR_CLASSES: Record<Anchor, string> = {
-  "left":          "left-8 top-1/2 -translate-y-1/2",
-  "right":         "right-8 top-1/2 -translate-y-1/2",
-  "top-left":      "left-8 top-12",
-  "top-right":     "right-8 top-12",
-  "bottom-left":   "left-8 bottom-16",
-  "bottom-right":  "right-8 bottom-16",
-  "bottom-center": "left-1/2 -translate-x-1/2 bottom-16",
-  "center":        "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
-};
-
-/**
- * Origine d'émergence — chaque panel part visuellement de l'orbe (centre écran)
- * et glisse vers son ancrage. Sensation magnétique : attiré par le noyau.
- */
-const ANCHOR_EMERGENCE: Record<Anchor, { x: number; y: number }> = {
-  "left":          { x: 180, y: 0 },
-  "right":         { x: -180, y: 0 },
-  "top-left":      { x: 120, y: 80 },
-  "top-right":     { x: -120, y: 80 },
-  "bottom-left":   { x: 120, y: -80 },
-  "bottom-right":  { x: -120, y: -80 },
-  "bottom-center": { x: 0, y: -120 },
-  "center":        { x: 0, y: 0 },
-};
-
 export function FloatingPanel({
-  show,
+  title,
   children,
-  anchor = "center",
+  anchor = 'center',
   delay = 0,
-  width,
-  noParallax = false,
-  rotationAmplitude = 1.4,
-  className,
+  show = true,
+  width = 320
 }: FloatingPanelProps) {
   const { smoothX, smoothY } = useSpatialMouseContext();
-  const rotateX = useTransform(smoothY, [-1, 1], [rotationAmplitude, -rotationAmplitude]);
-  const rotateY = useTransform(smoothX, [-1, 1], [-rotationAmplitude, rotationAmplitude]);
 
-  const emergence = ANCHOR_EMERGENCE[anchor];
+  const anchorClasses = {
+    left: 'left-4 md:left-12 top-1/2 -translate-y-1/2',
+    right: 'right-4 md:right-12 top-1/2 -translate-y-1/2',
+    center: 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+    'bottom-center': 'left-1/2 bottom-4 md:bottom-12 -translate-x-1/2',
+  };
 
   return (
     <AnimatePresence>
       {show && (
-        <div
-          className={`absolute pointer-events-none ${ANCHOR_CLASSES[anchor]}`}
-          style={{ perspective: 1400, zIndex: SPATIAL_Z_LAYERS.surface }}
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.95,
+            x: anchor === 'left' ? -10 : anchor === 'right' ? 10 : 0,
+            y: anchor === 'bottom-center' ? 10 : 0
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            x: 0,
+            y: 0
+          }}
+          exit={{
+            opacity: 0,
+            scale: 0.95,
+            transition: { duration: 0.3 }
+          }}
+          transition={{ delay, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className={`absolute ${anchorClasses[anchor]} pointer-events-auto max-w-[85vw]`}
+          style={{
+            width: `min(${width}px, 85vw)`,
+            translateX: anchor === 'center' ? '-50%' : 0,
+            translateY: (anchor === 'center' || anchor === 'left' || anchor === 'right') ? '-50%' : 0,
+          }}
         >
           <motion.div
-            initial={{
-              opacity: 0,
-              scale: 0.88,
-              x: emergence.x,
-              y: emergence.y,
-              filter: "blur(18px)",
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              x: 0,
-              y: 0,
-              filter: "blur(0px)",
-              transition: {
-                duration: 1.6,
-                ease: [0.16, 1, 0.3, 1],
-                delay,
-              },
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.92,
-              x: emergence.x * 0.4,
-              y: emergence.y * 0.4,
-              filter: "blur(12px)",
-              transition: { duration: 0.7, ease: [0.4, 0, 1, 1] },
-            }}
             style={{
-              width: width ?? undefined,
-              rotateX: noParallax ? 0 : rotateX,
-              rotateY: noParallax ? 0 : rotateY,
+              x: smoothX,
+              y: smoothY,
             }}
-            className={`pointer-events-auto relative rounded-[18px] overflow-hidden ${className ?? ""}`}
+            className="spatial-immaterial-panel"
           >
-            {/* Frozen glass — opacité réduite pour plus de légèreté */}
-            <div
-              className="absolute inset-0 rounded-[18px]"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                backdropFilter: "blur(24px) saturate(110%)",
-                WebkitBackdropFilter: "blur(24px) saturate(110%)",
-                boxShadow:
-                  "0 36px 100px -24px rgba(0,0,0,0.6), 0 6px 18px -4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
-              }}
-            />
-
-            {/* Reflet diagonal subtil — ton froid, pas de glow coloré */}
-            <div
-              className="absolute inset-0 rounded-[18px] pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(140deg, rgba(220,228,238,0.06) 0%, transparent 38%, transparent 100%)",
-              }}
-            />
-
-            <div className="relative">{children}</div>
+            {title && (
+              <div className="flex justify-between items-center mb-4 px-4 md:px-6 pt-4 md:pt-6">
+                <h3 className="spatial-text-muted text-spatial-sm uppercase tracking-[0.2em] font-light">{title}</h3>
+                <div className="w-1 h-1 rounded-full bg-white/10" />
+              </div>
+            )}
+            <div className={title ? "px-4 md:px-6 pb-4 md:pb-6" : ""}>
+              {children}
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

@@ -14,23 +14,10 @@ import type {
   PersonaTone,
   PersonaVocabulary,
 } from "./types";
+import type { Database } from "@/lib/database.types";
 import { BUILTIN_PERSONAS } from "./defaults";
 
-interface PersonaRow {
-  id: string;
-  user_id: string;
-  tenant_id: string;
-  name: string;
-  description: string | null;
-  tone: string | null;
-  vocabulary: unknown;
-  style_guide: string | null;
-  system_prompt_addon: string | null;
-  surface: string | null;
-  is_default: boolean;
-  created_at: string;
-  updated_at: string;
-}
+type PersonaRow = Database["public"]["Tables"]["personas"]["Row"];
 
 function rowToPersona(row: PersonaRow): Persona {
   return {
@@ -63,8 +50,7 @@ export async function listPersonasForUser(
     }));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (db.from("personas" as any) as any)
+  const { data, error } = await db.from("personas")
     .select("*")
     .eq("user_id", userId)
     .eq("tenant_id", tenantId)
@@ -91,8 +77,7 @@ export async function getPersonaById(
   const db = getServerSupabase();
   if (!db) return null;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (db.from("personas" as any) as any)
+  const { data, error } = await db.from("personas")
     .select("*")
     .eq("id", id)
     .eq("user_id", scope.userId)
@@ -114,8 +99,7 @@ export async function getDefaultPersona(
       : null;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (db.from("personas" as any) as any)
+  const { data, error } = await db.from("personas")
     .select("*")
     .eq("user_id", scope.userId)
     .eq("tenant_id", scope.tenantId)
@@ -170,8 +154,7 @@ export async function getPersonaForSurface(
     return await getVerticalFallbackPersona(scope);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (db.from("personas" as any) as any)
+  const { data, error } = await db.from("personas")
     .select("*")
     .eq("user_id", scope.userId)
     .eq("tenant_id", scope.tenantId)
@@ -204,15 +187,14 @@ export async function createPersona(input: PersonaInsert): Promise<Persona> {
       .eq("tenant_id", input.tenantId);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (db.from("personas" as any) as any)
+  const { data, error } = await db.from("personas")
     .insert({
       user_id: input.userId,
       tenant_id: input.tenantId,
       name: input.name,
       description: input.description ?? null,
       tone: input.tone ?? null,
-      vocabulary: input.vocabulary ?? null,
+      vocabulary: (input.vocabulary ?? null) as Database["public"]["Tables"]["personas"]["Insert"]["vocabulary"],
       style_guide: input.styleGuide ?? null,
       system_prompt_addon: input.systemPromptAddon ?? null,
       surface: input.surface ?? null,
@@ -243,21 +225,21 @@ export async function updatePersona(
       .eq("tenant_id", scope.tenantId);
   }
 
-  const updateRow: Record<string, unknown> = {
+  type PersonaUpdate = Database["public"]["Tables"]["personas"]["Update"];
+  const updateRow: PersonaUpdate = {
     updated_at: new Date().toISOString(),
   };
   if (patch.name !== undefined) updateRow.name = patch.name;
   if (patch.description !== undefined) updateRow.description = patch.description;
   if (patch.tone !== undefined) updateRow.tone = patch.tone;
-  if (patch.vocabulary !== undefined) updateRow.vocabulary = patch.vocabulary;
+  if (patch.vocabulary !== undefined) updateRow.vocabulary = patch.vocabulary as Database["public"]["Tables"]["personas"]["Update"]["vocabulary"];
   if (patch.styleGuide !== undefined) updateRow.style_guide = patch.styleGuide;
   if (patch.systemPromptAddon !== undefined)
     updateRow.system_prompt_addon = patch.systemPromptAddon;
   if (patch.surface !== undefined) updateRow.surface = patch.surface;
   if (patch.isDefault !== undefined) updateRow.is_default = patch.isDefault;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (db.from("personas" as any) as any)
+  const { data, error } = await db.from("personas")
     .update(updateRow)
     .eq("id", id)
     .eq("user_id", scope.userId)

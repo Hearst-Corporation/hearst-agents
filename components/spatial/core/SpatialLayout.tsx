@@ -30,8 +30,8 @@ export function SpatialLayout({
         <SpatialMouseProvider>
           <SpatialStageProvider initialStage={initialStage}>
             <main
-              className={`spatial-root fixed inset-0 w-screen h-screen overflow-hidden font-sans selection:bg-white/20 ${className ?? ""}`}
-              style={{ background: "var(--sp-bg, #000000)", zIndex: 50 }}
+              className={`spatial-root fixed inset-0 w-[100dvw] h-[100dvh] overflow-hidden font-sans selection:bg-white/20 ${className ?? ""}`}
+              style={{ background: "var(--sp-bg, #000000)" }}
             >
               {children}
             </main>

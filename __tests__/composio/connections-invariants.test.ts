@@ -33,6 +33,15 @@ vi.mock("@/lib/connectors/composio/client", () => ({
   isComposioConfigured: m.isComposioConfigured,
 }));
 
+// Mock cache (utilisé par discovery et connections)
+vi.mock("@/lib/connectors/composio/cache", () => ({
+  invalidateUserDiscovery: m.invalidateUserDiscovery,
+  resetDiscoveryCache: vi.fn(),
+  getCacheEntry: vi.fn(),
+  setCacheEntry: vi.fn(),
+  DISCOVERY_CACHE_TTL_MS: 60000,
+}));
+
 // Mock uniquement invalidateUserDiscovery dans discovery (test 6 utilise le vrai module,
 // test 7 a besoin que connections.ts appelle notre mock)
 vi.mock("@/lib/connectors/composio/discovery", () => ({

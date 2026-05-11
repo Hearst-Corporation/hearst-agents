@@ -1,48 +1,28 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useState, type ReactNode } from "react";
-import type { SpatialTheme } from "@/lib/spatial/types";
-import { SPATIAL_THEME_DARK } from "@/lib/spatial/constants";
+import React, { createContext, useContext, ReactNode } from 'react';
+import { SPATIAL_THEME_DARK } from '@/lib/spatial/constants';
 
-interface SpatialThemeContextValue {
-  theme: SpatialTheme;
-  setTheme: (theme: Partial<SpatialTheme>) => void;
+interface SpatialThemeContextType {
+  isDark: boolean;
+  accentColor: string;
+  theme: typeof SPATIAL_THEME_DARK;
 }
 
-const SpatialThemeContext = createContext<SpatialThemeContextValue | null>(null);
+const SpatialThemeContext = createContext<SpatialThemeContextType>({
+  isDark: true,
+  accentColor: '#ffffff',
+  theme: SPATIAL_THEME_DARK,
+});
+
+export const useSpatialTheme = () => useContext(SpatialThemeContext);
 
 export function SpatialThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<SpatialTheme>(SPATIAL_THEME_DARK);
-
-  function setTheme(overrides: Partial<SpatialTheme>) {
-    setThemeState((prev) => ({ ...prev, ...overrides }));
-  }
-
   return (
-    <SpatialThemeContext.Provider value={{ theme, setTheme }}>
-      <div
-        style={
-          {
-            "--sp-bg": theme.background,
-            "--sp-surface": theme.surface,
-            "--sp-surface-high": theme.surfaceHigh,
-            "--sp-text": theme.text,
-            "--sp-text-muted": theme.textMuted,
-            "--sp-accent": theme.accent,
-            "--sp-accent-glow": theme.accentGlow,
-            "--sp-border": theme.border,
-            "--sp-border-high": theme.borderHigh,
-          } as React.CSSProperties
-        }
-      >
-        {children}
-      </div>
+    <SpatialThemeContext.Provider
+      value={{ isDark: true, accentColor: '#ffffff', theme: SPATIAL_THEME_DARK }}
+    >
+      {children}
     </SpatialThemeContext.Provider>
   );
-}
-
-export function useSpatialTheme() {
-  const ctx = useContext(SpatialThemeContext);
-  if (!ctx) throw new Error("useSpatialTheme must be used within SpatialThemeProvider");
-  return ctx;
 }

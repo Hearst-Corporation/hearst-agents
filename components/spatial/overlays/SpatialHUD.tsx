@@ -20,7 +20,7 @@ export function SpatialHUD({ topLeft, topRight, bottomCenter }: SpatialHUDProps)
       style={{ zIndex: SPATIAL_Z_LAYERS.hud }}
     >
       {/* Top bar */}
-      <div className="absolute top-0 left-0 w-full p-10 flex justify-between items-center">
+      <div className="absolute top-0 left-0 w-full p-4 md:p-10 flex justify-between items-center">
         {topLeft && <div className="pointer-events-auto">{topLeft}</div>}
         {topRight && <div className="pointer-events-auto">{topRight}</div>}
       </div>

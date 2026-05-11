@@ -7,6 +7,10 @@ interface GlassMaterialProps {
   distortion?: number;
   chromaticAberration?: number;
   ior?: number;
+  color?: string;
+  attenuationColor?: string;
+  roughness?: number;
+  thickness?: number;
 }
 
 /**
@@ -17,11 +21,15 @@ export function GlassMaterial({
   distortion = 0.04,
   chromaticAberration = 0.02,
   ior = 1.25,
+  color = "#ffffff",
+  attenuationColor = "#ffffff",
+  roughness = 0,
+  thickness = 0.25,
 }: GlassMaterialProps) {
   return (
     <MeshTransmissionMaterial
       samples={16}
-      thickness={0.25}
+      thickness={thickness}
       chromaticAberration={chromaticAberration}
       anisotropy={0.05}
       distortion={distortion}
@@ -31,8 +39,9 @@ export function GlassMaterial({
       clearcoat={1}
       clearcoatRoughness={0}
       attenuationDistance={2}
-      attenuationColor="#ffffff"
-      color="#ffffff"
+      attenuationColor={attenuationColor}
+      color={color}
+      roughness={roughness}
     />
   );
 }

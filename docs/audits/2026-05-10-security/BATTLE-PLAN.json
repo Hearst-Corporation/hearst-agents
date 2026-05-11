@@ -3,7 +3,7 @@
   "audit_id": "2026-05-10-security",
   "objective": "Hearst OS prêt pour go-live multi-user public",
   "created_at": "2026-05-11",
-  "last_updated": "2026-05-11T02:50:08.283Z",
+  "last_updated": "2026-05-11T03:01:16.428Z",
   "orchestrator": "claude-opus-4.7",
   "estimated_total_effort": "20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents",
   "principle": "Ordre = dépendances logiques, pas sévérité brute. Foundation d'abord (sinon les fixes IDOR sont cosmétiques tant que F-095/F-096 pas faits). Puis defense in depth. Puis hardening. Phase 11 = post-go-live.",
@@ -1252,7 +1252,7 @@
       "title": "PHASE 10 — Deps + cleanup + typing",
       "objective": "Dette technique : circulaires, typage, dead code.",
       "estimated_effort": "2-3 jours",
-      "status": "pending",
+      "status": "done",
       "batches": [
         {
           "id": "B10.1",
@@ -1266,7 +1266,23 @@
           "validation": [
             "madge --circular → 0 cycles"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:50:22.161Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:50:22.162Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T03:01:16.342Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T03:01:16.342Z"
         },
         {
           "id": "B10.2",
@@ -1283,7 +1299,23 @@
             "npm run typecheck inclut app/api/orchestrator",
             "0 'as any' dans personas/marketplace"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:50:22.198Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:50:22.199Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T03:01:16.368Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T03:01:16.367Z"
         },
         {
           "id": "B10.3",
@@ -1297,7 +1329,23 @@
           "validation": [
             "npx knip → 0 unused exports critiques"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:50:22.234Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:50:22.234Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T03:01:16.399Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T03:01:16.398Z"
         },
         {
           "id": "B10.4",
@@ -1311,7 +1359,23 @@
           "validation": [
             "CI utilise npm ci partout"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:50:22.268Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:50:22.268Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T03:01:16.428Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T03:01:16.427Z"
         }
       ]
     },

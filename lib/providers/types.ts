@@ -1,17 +1,20 @@
 /**
  * Provider Registry — Canonical types.
  *
- * ProviderId is derived from PROVIDER_IDS in registry.ts.
- * Adding a new provider = adding it to PROVIDER_IDS + one entry in PROVIDERS.
+ * ProviderId is defined here as a literal union to avoid circular dependency with registry.ts.
+ * When adding a new provider, update BOTH this union AND PROVIDER_IDS in registry.ts.
  */
 
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
-import type { PROVIDER_IDS } from "./registry";
 
 /**
- * Derived union — automatically stays in sync with the registry array.
+ * Provider ID union — must match PROVIDER_IDS in registry.ts.
+ * NOTE: Keep in sync manually with PROVIDER_IDS constant in registry.ts.
  */
-export type ProviderId = (typeof PROVIDER_IDS)[number];
+export type ProviderId =
+  | "google" | "slack" | "whatsapp" | "web" | "anthropic_managed" | "notion"
+  | "github" | "stripe" | "jira" | "hubspot" | "airtable"
+  | "figma" | "zapier" | "system";
 
 export interface ProviderDefinition {
   id: ProviderId;
