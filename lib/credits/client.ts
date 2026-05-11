@@ -79,6 +79,49 @@ async function reserveCredits(args: ReserveCreditsArgs): Promise<boolean> {
   return data === true;
 }
 
+/**
+ * Réserve des crédits via la fonction atomique avec idempotency key.
+ * Garantit que même avec des appels concurrents identiques, une seule
+ * réservation est effectuée.
+ */
+export async function reserveCreditsAtomic(
+  userId: string,
+  tenantId: string,
+  amountUsd: number,
+  idempotencyKey: string,
+): Promise<{ success: boolean; reservationId?: string; isRetry?: boolean; error?: string }> {
+  const sb = getServerSupabase();
+  if (!sb) {
+    console.warn("[Credits] No DB — reserve_atomic bypassed (dev mode)");
+    return { success: true };
+  }
+
+  const { data, error } = await rawDb(sb)!.rpc("reserve_credits_atomic", {
+    p_user_id: userId,
+    p_tenant_id: tenantId,
+    p_amount: amountUsd,
+    p_idempotency_key: idempotencyKey,
+  });
+
+  if (error) {
+    const message = error.message.toLowerCase();
+    if (message.includes("insufficient_credits")) {
+      return { success: false, error: "insufficient_credits" };
+    }
+    if (message.includes("user_not_found")) {
+      return { success: false, error: "user_not_found" };
+    }
+    console.error("[Credits] reserve_credits_atomic RPC failed:", error.message);
+    return { success: false, error: "reservation_failed" };
+  }
+
+  return {
+    success: true,
+    reservationId: data?.id,
+    isRetry: data?.is_retry ?? false,
+  };
+}
+
 export async function settleCredits(args: SettleCreditsArgs): Promise<void> {
   const sb = getServerSupabase();
   if (!sb) return;

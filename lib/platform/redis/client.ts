@@ -26,6 +26,7 @@ interface RedisClient {
   setex(key: string, ttlSeconds: number, value: string): Promise<unknown>;
   del(key: string): Promise<number>;
   lpush(key: string, value: string): Promise<number>;
+  incr(key: string): Promise<number>;
   expire(key: string, seconds: number): Promise<number>;
 }
 
@@ -59,6 +60,11 @@ class UpstashAdapter implements RedisClient {
 
   async lpush(key: string, value: string): Promise<number> {
     return await this.client.lpush(key, value);
+  }
+
+  async incr(key: string): Promise<number> {
+    const result = await this.client.incr(key);
+    return typeof result === "number" ? result : Number(result);
   }
 
   async expire(key: string, seconds: number): Promise<number> {

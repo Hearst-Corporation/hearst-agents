@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T02:06:04.540Z",
+  "last_updated": "2026-05-11T02:18:02.565Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 95,
+      "pending": 73,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 35,
+      "closed": 57,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -1548,7 +1548,7 @@
       "title": "TOKEN_ENCRYPTION_KEY pas de rotation — single key, no envelope",
       "severity": "P1",
       "category": "secrets",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1579,6 +1579,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.245Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2056,7 +2062,7 @@
       "title": "isTransientError manque 500 et 504 (run échoue immédiatement sur gateway timeout)",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2084,6 +2090,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.130Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2334,7 +2346,7 @@
       "severity": "P0",
       "_reclassified": "P1→P0 par post-master (exfil cross-tenant via prompt injection direct)",
       "category": "tool_execution",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2363,6 +2375,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.476Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2447,7 +2465,7 @@
       "title": "STATIC_RE exempte glb/gltf/svg (XSS/auth bypass si user uploads)",
       "severity": "P2",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "claude-opus"
@@ -2475,6 +2493,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.360Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2484,7 +2508,7 @@
       "severity": "P1",
       "_reclassified": "P2→P1 par post-master (chaîne avec F-001 = admin POST trivialement déclenchable)",
       "category": "csrf",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "claude-opus"
@@ -2512,6 +2536,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.188Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2563,7 +2593,7 @@
       "severity": "P1",
       "_reclassified": "P2→P1 par post-master (combiné F-002 = cross-tenant via champs non whitelistés)",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2591,6 +2621,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.418Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2599,7 +2635,7 @@
       "title": "CRLF injection dans Content-Disposition filename",
       "severity": "P2",
       "category": "xss",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2635,6 +2671,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.390Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2644,7 +2686,7 @@
       "severity": "P1",
       "_reclassified": "P2→P1 par post-master (tout user peut approve les plans d'autres)",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2672,6 +2714,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.448Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3412,7 +3460,7 @@
       "title": "/api/orchestrate — pas de Zod sur le body, SSE 300s, pas de price cap LLM",
       "severity": "P0",
       "category": "rate_limit",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3439,6 +3487,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:01.987Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3447,7 +3501,7 @@
       "title": "/api/v2/daily-brief/generate + simulations/start — pas de daily/budget cap",
       "severity": "P0",
       "category": "rate_limit",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3477,6 +3531,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.016Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3485,7 +3545,7 @@
       "title": "useNavigationStore localStorage — threads + messages stockés en clair",
       "severity": "P0",
       "category": "secrets",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master"
@@ -3514,6 +3574,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.275Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3522,7 +3588,7 @@
       "title": "CSP / security headers absents (CSP, HSTS, X-Frame-Options, Permissions-Policy)",
       "severity": "P1",
       "category": "xss",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3552,6 +3618,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.217Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -3560,7 +3632,7 @@
       "title": "Race conditions DB sur quotas/crédits — getBalance check reserveCredits non atomique",
       "severity": "P0",
       "category": "billing",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master"
@@ -3589,6 +3661,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.072Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4373,7 +4451,7 @@
       "title": "Rate limit per-user jamais appliqué sur le chat agent — financial DoS",
       "severity": "P0",
       "category": "rate_limit",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4412,6 +4490,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:01.956Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4678,7 +4762,7 @@
       "title": "/api/v2/kg/ingest & /api/v2/kg/query sans rate limit, sans cap body",
       "severity": "P1",
       "category": "rate_limit",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4714,6 +4798,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.044Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4809,7 +4899,7 @@
       "title": "Circuit breaker poisoning — 5 erreurs trippent breaker pour TOUS les users (60s OPEN)",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4839,6 +4929,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.102Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4847,7 +4943,7 @@
       "title": "admin/runs/recent?userId= profile any user (admin ou bypass)",
       "severity": "P1",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4875,6 +4971,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.506Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4883,7 +4985,7 @@
       "title": "admin/features-manifest shellout exec(node script) sous requireScope — DoS CPU",
       "severity": "P1",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4912,6 +5014,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.535Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5331,7 +5439,7 @@
       "title": "embedText cache 200 PII bruts en mémoire process",
       "severity": "P2",
       "category": "secrets",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -5359,6 +5467,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.303Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5405,7 +5519,7 @@
       "title": "admin/seed/[resource] sans rate limit ni replay token",
       "severity": "P2",
       "category": "rate_limit",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -5433,6 +5547,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.565Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5478,7 +5598,7 @@
       "title": "Anthropic SDK construit sans apiKey explicite dans stagehand-executor — env override risk",
       "severity": "P2",
       "category": "secrets",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -5506,6 +5626,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.332Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5514,7 +5640,7 @@
       "title": "retryWithBackoff wraps generator construction, pas le body — retries Anthropic stream inopérants",
       "severity": "P2",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -5543,6 +5669,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:18:02.159Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

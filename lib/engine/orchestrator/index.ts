@@ -73,6 +73,8 @@ interface OrchestrateInput {
   missionContext?: string;
   tenantId?: string;
   workspaceId?: string;
+  /** Price cap (USD) pour ce run — rejette si dépassé */
+  max_cost_usd?: number;
   /** Injected by runPipeline — resolved capability domain */
   _capabilityDomain?: string;
   /** Injected by runPipeline — tools allowed for the current capability scope */

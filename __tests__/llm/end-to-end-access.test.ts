@@ -184,12 +184,12 @@ describe("LLM Layer — End-to-End Access", () => {
 
       // CLOSED: 4 failures, still open
       for (let i = 0; i < 4; i++) {
-        breaker.recordFailure(provider);
+        breaker.recordFailure(provider, new Error("500 error"));
         expect(breaker.isOpen(provider)).toBe(false);
       }
 
       // 5th failure → OPEN
-      breaker.recordFailure(provider);
+      breaker.recordFailure(provider, new Error("500 error"));
       expect(breaker.isOpen(provider)).toBe(true);
     });
 

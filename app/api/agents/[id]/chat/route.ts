@@ -185,6 +185,8 @@ export async function POST(
             max_tokens: agent.max_tokens,
             top_p: agent.top_p,
             tracer,
+            userId: scope.userId,
+            tenantId: scope.tenantId,
           });
 
           for await (const chunk of smartStream) {

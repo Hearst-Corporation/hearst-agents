@@ -9,6 +9,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { extractEntities, upsertNode, upsertEdge } from "@/lib/memory/kg";
+import { checkDailyCap } from "@/lib/credits/daily-caps";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -35,6 +36,33 @@ export async function POST(req: NextRequest) {
   const text = body.text?.trim() ?? "";
   if (!text) {
     return NextResponse.json({ error: "text_required" }, { status: 400 });
+  }
+
+  // Text length cap: 50KB
+  const MAX_TEXT_LENGTH = 50_000;
+  if (text.length > MAX_TEXT_LENGTH) {
+    return NextResponse.json(
+      {
+        error: "text_too_long",
+        max: MAX_TEXT_LENGTH,
+        current: text.length,
+      },
+      { status: 400 },
+    );
+  }
+
+  // Daily cap: 10 ingest operations/jour
+  const cap = await checkDailyCap(scope.userId, "kg-ingest", 10);
+  if (!cap.allowed) {
+    return NextResponse.json(
+      {
+        error: "daily_cap_exceeded",
+        current: cap.current,
+        max: cap.max,
+        message: "Vous avez atteint votre limite quotidienne d'ingest KG (10/jour)",
+      },
+      { status: 429 },
+    );
   }
 
   try {

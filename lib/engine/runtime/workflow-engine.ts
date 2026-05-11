@@ -40,6 +40,8 @@ export interface WorkflowExecOptions {
   smart_tool_selection?: boolean;
   smart_model_routing?: boolean;
   model_goal?: ModelGoal;
+  userId?: string;
+  tenantId?: string;
 }
 
 export async function executeWorkflow(
@@ -120,10 +122,12 @@ export async function executeWorkflow(
   const smartSelection = opts?.smart_tool_selection ?? false;
   const smartModel = opts?.smart_model_routing ?? false;
   const modelGoal = opts?.model_goal ?? "balanced";
+  const userId = opts?.userId;
+  const tenantId = opts?.tenantId;
 
   try {
     for (const step of steps as unknown as StepRow[]) {
-      const stepResult = await executeStep(sb, step, ctx, tracer, smartSelection, smartModel, modelGoal);
+      const stepResult = await executeStep(sb, step, ctx, tracer, smartSelection, smartModel, modelGoal, userId, tenantId);
       ctx.steps[`step_${step.step_order}`] = stepResult;
       ctx.current = stepResult;
     }
@@ -146,11 +150,13 @@ async function executeStep(
   smartSelection = false,
   smartModel = false,
   modelGoal: ModelGoal = "balanced",
+  userId?: string,
+  tenantId?: string,
 ): Promise<unknown> {
   switch (step.action_type) {
     case "chat":
       return smartModel
-        ? executeSmartChat(sb, step, ctx, tracer, modelGoal)
+        ? executeSmartChat(sb, step, ctx, tracer, modelGoal, userId, tenantId)
         : executeChat(step, ctx, tracer);
 
     case "tool_call":
@@ -217,6 +223,8 @@ async function executeSmartChat(
   ctx: WorkflowContext,
   tracer: RunTracer,
   goal: ModelGoal,
+  userId?: string,
+  tenantId?: string,
 ): Promise<string> {
   if (!step.agents) throw new Error(`Step ${step.step_order}: no agent assigned`);
   const agent = step.agents;
@@ -235,6 +243,8 @@ async function executeSmartChat(
     max_tokens: agent.max_tokens,
     top_p: agent.top_p,
     tracer,
+    userId,
+    tenantId,
   });
 
   await tracer.trace({

@@ -11,11 +11,17 @@ export class LLMCircuitBreaker {
   private readonly failureThreshold = 5;
   private readonly resetWindowMs = 60000;
 
-  isOpen(provider: string): boolean {
-    let circuit = this.providers.get(provider);
+  /** Génère une clé unique par provider + tenant optionnel. */
+  private key(provider: string, tenantId?: string): string {
+    return tenantId ? `${provider}:${tenantId}` : provider;
+  }
+
+  isOpen(provider: string, tenantId?: string): boolean {
+    const k = this.key(provider, tenantId);
+    let circuit = this.providers.get(k);
     if (!circuit) {
       circuit = { state: "CLOSED", failureCount: 0, openedAt: null };
-      this.providers.set(provider, circuit);
+      this.providers.set(k, circuit);
       return false;
     }
 
@@ -33,11 +39,12 @@ export class LLMCircuitBreaker {
     return false;
   }
 
-  recordSuccess(provider: string): void {
-    let circuit = this.providers.get(provider);
+  recordSuccess(provider: string, tenantId?: string): void {
+    const k = this.key(provider, tenantId);
+    let circuit = this.providers.get(k);
     if (!circuit) {
       circuit = { state: "CLOSED", failureCount: 0, openedAt: null };
-      this.providers.set(provider, circuit);
+      this.providers.set(k, circuit);
     }
 
     // Sync state with timeout window before processing
@@ -57,11 +64,17 @@ export class LLMCircuitBreaker {
     }
   }
 
-  recordFailure(provider: string): void {
-    let circuit = this.providers.get(provider);
+  recordFailure(provider: string, error: Error, tenantId?: string): void {
+    // Skip 4xx client errors (do not trip the breaker)
+    if (/\b4\d{2}\b/.test(error.message)) {
+      return;
+    }
+
+    const k = this.key(provider, tenantId);
+    let circuit = this.providers.get(k);
     if (!circuit) {
       circuit = { state: "CLOSED", failureCount: 0, openedAt: null };
-      this.providers.set(provider, circuit);
+      this.providers.set(k, circuit);
     }
 
     // Sync state with timeout window before processing
@@ -83,8 +96,9 @@ export class LLMCircuitBreaker {
     }
   }
 
-  getState(provider: string): CircuitState {
-    const circuit = this.providers.get(provider);
+  getState(provider: string, tenantId?: string): CircuitState {
+    const k = this.key(provider, tenantId);
+    const circuit = this.providers.get(k);
     if (!circuit) return "CLOSED";
     if (circuit.state === "OPEN" && circuit.openedAt) {
       const now = Date.now();
@@ -96,14 +110,15 @@ export class LLMCircuitBreaker {
   }
 
   /** Snapshot minimal pour l'observabilité (metrics endpoint). */
-  getProviderSnapshot(provider: string): {
+  getProviderSnapshot(provider: string, tenantId?: string): {
     state: CircuitState;
     failures: number;
     openedAt: number | null;
     resetWindowMs: number;
   } {
-    const circuit = this.providers.get(provider);
-    const state = this.getState(provider);
+    const k = this.key(provider, tenantId);
+    const circuit = this.providers.get(k);
+    const state = this.getState(provider, tenantId);
     return {
       state,
       failures: circuit?.failureCount ?? 0,

@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { z } from "zod";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { orchestrate } from "@/lib/engine/orchestrator";
 import { ensureSchedulerStarted } from "@/lib/engine/runtime/missions/scheduler-init";
@@ -6,10 +7,9 @@ import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-// 300s = couvre les runs longs (research reports, browser tasks, video gen).
-// Heartbeat 20s injecté dans le stream (voir withHeartbeat) pour tenir la
-// connexion ouverte côté proxies et empêcher les timeouts intermédiaires.
-export const maxDuration = 300;
+// 120s = réduit depuis 300s pour éviter abus. Les runs longs vont via les
+// workers (jobs queue). Heartbeat 20s injecté pour hold la connexion.
+export const maxDuration = 120;
 
 const HEARTBEAT_INTERVAL_MS = 20_000;
 
@@ -69,6 +69,34 @@ function withHeartbeat(stream: ReadableStream<Uint8Array>): ReadableStream<Uint8
 // Primary boot is instrumentation.ts; this is a secondary guard.
 void ensureSchedulerStarted();
 
+const orchestrateBodySchema = z.object({
+  message: z.string().min(1).max(20_000),
+  conversation_id: z.string().uuid().optional(),
+  surface: z.string().optional(),
+  thread_id: z.string().uuid().optional(),
+  focal_context: z
+    .object({
+      id: z.string(),
+      objectType: z.string(),
+      title: z.string(),
+      status: z.string(),
+    })
+    .optional(),
+  history: z
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant"]),
+        content: z.string().max(4_000),
+      }),
+    )
+    .max(20)
+    .optional(),
+  attached_asset_ids: z.array(z.string().uuid()).max(5).optional(),
+  persona_id: z.string().optional(),
+});
+
+const PRICE_CAP_USD = 0.50; // par run orchestrate
+
 export async function POST(req: NextRequest) {
   // Resolve full scope (userId + tenantId + workspaceId) via canonical scope resolver
   const { scope, error } = await requireScope({ context: "POST /api/orchestrate" });
@@ -79,19 +107,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: {
-    message: string;
-    conversation_id?: string;
-    surface?: string;
-    thread_id?: string;
-    focal_context?: { id: string; objectType: string; title: string; status: string };
-    history?: Array<{ role: "user" | "assistant"; content: string }>;
-    /** B4 — assets droppés dans ChatInput. Le pipeline IA les injecte dans le contexte. */
-    attached_asset_ids?: string[];
-    /** C4 — persona explicite à appliquer à ce run. */
-    persona_id?: string;
-    // Note: mission_id est intentionnellement absent — les runs mission passent par POST /api/v2/missions/[id]/run
-  };
+  let body: unknown;
 
   try {
     body = await req.json();
@@ -102,41 +118,36 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!body.message || typeof body.message !== "string") {
+  const parsed = orchestrateBodySchema.safeParse(body);
+  if (!parsed.success) {
     return new Response(
-      JSON.stringify({ ok: false, error: "message_required" }),
+      JSON.stringify({
+        ok: false,
+        error: "invalid_body",
+        details: parsed.error.flatten(),
+      }),
       { status: 400, headers: { "Content-Type": "application/json" } },
     );
   }
 
-  const MAX_MESSAGE_LENGTH = 50_000;
-  if (body.message.length > MAX_MESSAGE_LENGTH) {
-    return new Response(
-      JSON.stringify({ ok: false, error: "message_too_long", max: MAX_MESSAGE_LENGTH }),
-      { status: 400, headers: { "Content-Type": "application/json" } },
-    );
-  }
-
-  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  const validatedAssetIds = Array.isArray(body.attached_asset_ids)
-    ? body.attached_asset_ids.filter((id): id is string => typeof id === "string" && UUID_RE.test(id)).slice(0, 5)
-    : undefined;
+  const validatedAssetIds = parsed.data.attached_asset_ids;
 
   const db = requireServerSupabase();
 
   const stream = orchestrate(db, {
     userId: scope.userId,
-    message: body.message,
-    conversationId: body.conversation_id,
-    surface: body.surface,
-    threadId: body.thread_id,
-    focalContext: body.focal_context,
-    conversationHistory: body.history,
+    message: parsed.data.message,
+    conversationId: parsed.data.conversation_id,
+    surface: parsed.data.surface,
+    threadId: parsed.data.thread_id,
+    focalContext: parsed.data.focal_context,
+    conversationHistory: parsed.data.history,
     attachedAssetIds: validatedAssetIds,
-    personaId: typeof body.persona_id === "string" && body.persona_id.length > 0 ? body.persona_id : undefined,
+    personaId: parsed.data.persona_id,
     // missionId n'est pas accepté depuis le chat public — ownership validé via /api/v2/missions/[id]/run
     tenantId: scope.tenantId,
     workspaceId: scope.workspaceId,
+    max_cost_usd: PRICE_CAP_USD,
   });
 
   return new Response(withHeartbeat(stream), {

@@ -55,7 +55,7 @@ function computeCost(
 
 function isTransientError(err: unknown): boolean {
   if (!(err instanceof Error)) return false;
-  return /\b(429|502|503)\b/.test(err.message);
+  return /\b(429|500|502|503|504)\b/.test(err.message);
 }
 
 async function retryWithBackoff<T>(
@@ -116,6 +116,7 @@ export async function chatWithProfile(
   messages: ChatRequest["messages"],
   overrides?: Partial<Pick<ChatRequest, "temperature" | "max_tokens" | "top_p" | "timeoutMs">>,
   userId?: string,
+  tenantId?: string,
 ): Promise<ChatResponse & { profile_used: string }> {
   const chain = await loadFallbackChain(sb, profileId);
 
@@ -174,7 +175,7 @@ export async function chatWithProfile(
       if (userId) {
         defaultRateLimiter.recordCall(userId, response.tokens_in + response.tokens_out);
       }
-      defaultCircuitBreaker.recordSuccess(profile.provider);
+      defaultCircuitBreaker.recordSuccess(profile.provider, tenantId);
       defaultMetrics.recordCall({
         provider: profile.provider,
         model: profile.model,
@@ -189,9 +190,9 @@ export async function chatWithProfile(
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (!(e instanceof CostLimitExceededError)) {
-        const wasClosedBefore = defaultCircuitBreaker.getState(profile.provider) === "CLOSED";
-        defaultCircuitBreaker.recordFailure(profile.provider);
-        if (wasClosedBefore && defaultCircuitBreaker.getState(profile.provider) === "OPEN") {
+        const wasClosedBefore = defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
+        defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
+        if (wasClosedBefore && defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN") {
           defaultMetrics.incrementCounter("circuit_breaker_trip");
         }
       }
@@ -213,6 +214,7 @@ export async function* streamChatWithProfile(
   messages: ChatRequest["messages"],
   overrides?: Partial<Pick<ChatRequest, "temperature" | "max_tokens" | "top_p" | "timeoutMs">>,
   userId?: string,
+  tenantId?: string,
 ): AsyncGenerator<StreamChunk & { profile_used?: string }> {
   const chain = await loadFallbackChain(sb, profileId);
 
@@ -234,7 +236,7 @@ export async function* streamChatWithProfile(
   let lastError: Error | null = null;
 
   for (const profile of chain) {
-    if (defaultCircuitBreaker.isOpen(profile.provider)) {
+    if (defaultCircuitBreaker.isOpen(profile.provider, tenantId)) {
       console.warn(`Circuit open for ${profile.provider}, skipping`);
       continue;
     }
@@ -265,13 +267,13 @@ export async function* streamChatWithProfile(
         }
       }
 
-      defaultCircuitBreaker.recordSuccess(profile.provider);
+      defaultCircuitBreaker.recordSuccess(profile.provider, tenantId);
       return;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      const wasClosedBefore = defaultCircuitBreaker.getState(profile.provider) === "CLOSED";
-      defaultCircuitBreaker.recordFailure(profile.provider);
-      if (wasClosedBefore && defaultCircuitBreaker.getState(profile.provider) === "OPEN") {
+      const wasClosedBefore = defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
+      defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
+      if (wasClosedBefore && defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN") {
         defaultMetrics.incrementCounter("circuit_breaker_trip");
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
@@ -316,6 +318,7 @@ export interface SmartChatOptions {
   tracer?: RunTracer;
   days?: number;
   userId?: string;
+  tenantId?: string;
   max_cost_per_run?: number;
   timeoutMs?: number;
 }
@@ -351,7 +354,7 @@ export async function smartChat(
   let attemptIndex = 0;
 
   for (const attempt of chain) {
-    if (defaultCircuitBreaker.isOpen(attempt.provider)) {
+    if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
       console.warn(`Circuit open for ${attempt.provider}, skipping`);
       attemptIndex++;
       continue;
@@ -382,7 +385,7 @@ export async function smartChat(
       if (opts.userId) {
         defaultRateLimiter.recordCall(opts.userId, response.tokens_in + response.tokens_out);
       }
-      defaultCircuitBreaker.recordSuccess(attempt.provider);
+      defaultCircuitBreaker.recordSuccess(attempt.provider, opts.tenantId);
       defaultMetrics.recordCall({
         provider: attempt.provider,
         model: attempt.model,
@@ -402,9 +405,9 @@ export async function smartChat(
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (!(e instanceof CostLimitExceededError)) {
-        const wasClosedBefore = defaultCircuitBreaker.getState(attempt.provider) === "CLOSED";
-        defaultCircuitBreaker.recordFailure(attempt.provider);
-        if (wasClosedBefore && defaultCircuitBreaker.getState(attempt.provider) === "OPEN") {
+        const wasClosedBefore = defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
+        defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
+        if (wasClosedBefore && defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN") {
           defaultMetrics.incrementCounter("circuit_breaker_trip");
         }
       }
@@ -452,7 +455,7 @@ export async function* smartStreamChat(
   let attemptIndex = 0;
 
   for (const attempt of chain) {
-    if (defaultCircuitBreaker.isOpen(attempt.provider)) {
+    if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
       console.warn(`Circuit open for ${attempt.provider}, skipping`);
       attemptIndex++;
       continue;
@@ -488,13 +491,13 @@ export async function* smartStreamChat(
         }
       }
 
-      defaultCircuitBreaker.recordSuccess(attempt.provider);
+      defaultCircuitBreaker.recordSuccess(attempt.provider, opts.tenantId);
       return;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      const wasClosedBefore = defaultCircuitBreaker.getState(attempt.provider) === "CLOSED";
-      defaultCircuitBreaker.recordFailure(attempt.provider);
-      if (wasClosedBefore && defaultCircuitBreaker.getState(attempt.provider) === "OPEN") {
+      const wasClosedBefore = defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
+      defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
+      if (wasClosedBefore && defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN") {
         defaultMetrics.incrementCounter("circuit_breaker_trip");
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";

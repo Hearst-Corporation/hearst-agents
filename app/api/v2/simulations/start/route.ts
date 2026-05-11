@@ -14,6 +14,7 @@ import { randomUUID } from "crypto";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { deepseekChat } from "@/lib/capabilities/providers/deepseek";
 import { storeAsset } from "@/lib/assets/types";
+import { checkDailyCap } from "@/lib/credits/daily-caps";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -53,6 +54,20 @@ export async function POST(req: NextRequest) {
   const scenario = body.scenario?.trim() ?? "";
   if (!scenario) {
     return NextResponse.json({ error: "scenario_required" }, { status: 400 });
+  }
+
+  // Daily cap: 3 simulations/jour
+  const cap = await checkDailyCap(scope.userId, "simulations", 3);
+  if (!cap.allowed) {
+    return NextResponse.json(
+      {
+        error: "daily_cap_exceeded",
+        current: cap.current,
+        max: cap.max,
+        message: "Vous avez atteint votre limite quotidienne de simulations (3/jour)",
+      },
+      { status: 429 },
+    );
   }
 
   const variables = Array.isArray(body.variables) ? body.variables : [];

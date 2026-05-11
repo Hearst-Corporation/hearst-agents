@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { enqueueJob } from "@/lib/jobs/queue";
 import { loadDailyBriefForDate } from "@/lib/daily-brief/store";
+import { checkDailyCap } from "@/lib/credits/daily-caps";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -46,6 +47,20 @@ export async function POST(req: NextRequest) {
     typeof body.targetDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(body.targetDate)
       ? body.targetDate
       : todayIso();
+
+  // Daily cap: 5 briefs/jour
+  const cap = await checkDailyCap(scope.userId, "daily-brief", 5);
+  if (!cap.allowed) {
+    return NextResponse.json(
+      {
+        error: "daily_cap_exceeded",
+        current: cap.current,
+        max: cap.max,
+        message: "Vous avez atteint votre limite quotidienne de briefs (5/jour)",
+      },
+      { status: 429 },
+    );
+  }
 
   // Idempotence : si un brief existe déjà pour cette date, on le retourne
   // plutôt que de re-générer (évite de bombarder Sonnet + R2).
