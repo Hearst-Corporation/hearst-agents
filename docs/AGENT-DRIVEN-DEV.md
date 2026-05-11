@@ -39,12 +39,14 @@ Voir aussi : `CLAUDE.md` → section "INTERDICTION ABSOLUE — /spatial-safe", `
 Adrien peut **verrouiller tous les agents** en un clic depuis `/admin/agent-driven-dev`. Cela écrit `locked: true` dans `docs/AGENT-LOCK.json` (fichier tracké dans le repo, donc visible par toutes les sessions).
 
 **Quand le verrou est actif** :
+
 - Aucun agent ne doit modifier de fichier
 - Aucun agent ne doit exécuter d'action destructive (`rm`, `git commit`, `git push`, `mv`, drop DB, etc.)
 - Lecture, recherche, analyse → autorisées
 - L'agent doit informer l'utilisateur et l'inviter à déverrouiller
 
 **Mécanisme d'application** :
+
 - **Honor system** (toujours actif) : l'agent lit le fichier en début de tâche et respecte
 - **Hook Claude Code** (optionnel, à activer dans `.claude/settings.json`) : bloque mécaniquement Edit/Write/NotebookEdit. Script disponible à [scripts/check-agent-lock.mjs](../scripts/check-agent-lock.mjs).
 
@@ -88,42 +90,43 @@ Phase 2 complète : 32/32 features verrouillées, 358 invariants documentés. Ma
 
 ## Tableau de bord features
 
-| # | id | Statut | Spec | Niveau | Tests existants | Gap tests |
-|---|----|----|----|----|----|----|
-| F-01 | **auth** | **verrouillé v1.0** | [auth.md](features/auth.md) | P0 | 3 fichiers | élevé (e2e login + crypto roundtrip + auto-revoke + multi-tenant) |
-| F-02 | **cockpit** | **verrouillé v1.0** | [cockpit.md](features/cockpit.md) | P1 | 3 fichiers | élevé (e2e + UI components + lifecycle) |
-| F-03 | **chat** | **verrouillé v1.0** | [chat.md](features/chat.md) | P0 | bon (orchestrator + chat reducer + stores) | moyen (safety gate, ChatDock SSE buffer, approval E2E) |
-| F-04 | **missions** | **verrouillé v1.0** | [missions.md](features/missions.md) | P1 | bon (lease + scheduler + export) | moyen (cron edge cases, ownership cross-user, mission context partial) |
-| F-05 | **runs** | **verrouillé v1.0** | [runs.md](features/runs.md) | P1 | partiel | moyen (LRU eviction, timeline determinisme, delete stub) |
-| F-06 | **reports** | **verrouillé v1.0** | [reports.md](features/reports.md) | P1 | bon (engine, catalog, export) | faible (sharing HMAC roundtrip, SSRF exhaustif, budget override) |
-| F-07 | **assets** | **verrouillé v1.0** | [assets.md](features/assets.md) | P1 | partiel (lineage + detail + diff) | moyen (storage providers, hybrid LRU/TTL, cleanup, variant lifecycle) |
-| F-08 | **memory-kg** | **verrouillé v1.0** | [memory-kg.md](features/memory-kg.md) | P1 | bon (ingest, embeddings, context) | moyen (backfill safety, scope isolation E2E, Redis resilience) |
-| F-09 | **daily-brief** | **verrouillé v1.0** | [daily-brief.md](features/daily-brief.md) | P2 | bon | moyen (Inngest schema, idempotence date, sources fail-soft) |
-| F-10 | **personas** | **verrouillé v1.0** | [personas.md](features/personas.md) | P2 | bon | faible (surface auto-apply, hospitality fallback) |
-| F-11 | **connections** | **verrouillé v1.0** | [connections.md](features/connections.md) | P1 | bon (write-guard, discovery, client, formatters) | moyen (write-guard bypass detection, OAuth popup E2E, native collision) |
-| F-12 | **voice** | **verrouillé v1.0** | [voice.md](features/voice.md) | P2 | partiel | moyen |
-| F-13 | **browser** | **verrouillé v1.0** | [browser.md](features/browser.md) | P2 | partiel | moyen |
-| F-14 | **meetings** | **verrouillé v1.0** | [meetings.md](features/meetings.md) | P2 | bon | moyen |
-| F-15 | **marketplace** | **verrouillé v1.0** | [marketplace.md](features/marketplace.md) | P2 | partiel | moyen |
-| F-16 | **commandeur** | **verrouillé v1.0** | [commandeur.md](features/commandeur.md) | P1 | manquant | élevé (hybrid dedup, abort, LRU, prefilled query) |
-| F-17 | **timeline-rail** | **verrouillé v1.0** | [timeline-rail.md](features/timeline-rail.md) | P2 | manquant | élevé |
-| F-18 | **context-rail** | **verrouillé v1.0** | [context-rail.md](features/context-rail.md) | P2 | partiel | élevé |
-| F-19 | **stage** | **verrouillé v1.0** | [stage.md](features/stage.md) | P0 | partiel (stage store + focal store présent) | élevé (Stage routing, focal pin lock, mappers, sous-Stages, hotkeys) |
-| F-20 | **admin** | **verrouillé v1.0** | [admin.md](features/admin.md) | P2 | partiel | moyen |
-| F-21 | **notifications** | **verrouillé v1.0** | [notifications.md](features/notifications.md) | P2 | bon | faible (Realtime fallback, HMAC absent) |
-| F-22 | **webhooks** | **verrouillé v1.0** | [webhooks.md](features/webhooks.md) | P2 | bon | faible (retry 5xx, HMAC, timeout) |
-| F-23 | **workflows** | **verrouillé v1.0** | [workflows.md](features/workflows.md) | P2 | partiel | moyen |
-| F-24 | **datasets** | **verrouillé v1.0** | [datasets.md](features/datasets.md) | P3 | manquant | élevé |
-| F-25 | **simulation** | **verrouillé v1.0** | [simulation.md](features/simulation.md) | P3 | manquant | élevé |
-| F-26 | **artifact** | **verrouillé v1.0** | [artifact.md](features/artifact.md) | P2 | partiel | moyen |
-| F-27 | **onboarding** | **verrouillé v1.0** | [onboarding.md](features/onboarding.md) | P3 | présent | faible |
-| F-28 | **settings** | **verrouillé v1.0** | [settings.md](features/settings.md) | P2 | manquant | moyen |
-| F-29 | **hospitality** | **verrouillé v1.0** | [hospitality.md](features/hospitality.md) | P3 | manquant | élevé |
-| F-30 | **pulsebar** | **verrouillé v1.0** | [pulsebar.md](features/pulsebar.md) | P2 | manquant | moyen |
-| F-31 | **planner** | **verrouillé v1.0** | [planner.md](features/planner.md) | P3 | manquant | élevé |
-| F-32 | **electron** | **verrouillé v1.0** | [electron.md](features/electron.md) | P3 | manquant | élevé |
+| #    | id                | Statut              | Spec                                          | Niveau | Tests existants                                  | Gap tests                                                               |
+| ---- | ----------------- | ------------------- | --------------------------------------------- | ------ | ------------------------------------------------ | ----------------------------------------------------------------------- |
+| F-01 | **auth**          | **verrouillé v1.0** | [auth.md](features/auth.md)                   | P0     | 3 fichiers                                       | élevé (e2e login + crypto roundtrip + auto-revoke + multi-tenant)       |
+| F-02 | **cockpit**       | **verrouillé v1.0** | [cockpit.md](features/cockpit.md)             | P1     | 3 fichiers                                       | élevé (e2e + UI components + lifecycle)                                 |
+| F-03 | **chat**          | **verrouillé v1.0** | [chat.md](features/chat.md)                   | P0     | bon (orchestrator + chat reducer + stores)       | moyen (safety gate, ChatDock SSE buffer, approval E2E)                  |
+| F-04 | **missions**      | **verrouillé v1.0** | [missions.md](features/missions.md)           | P1     | bon (lease + scheduler + export)                 | moyen (cron edge cases, ownership cross-user, mission context partial)  |
+| F-05 | **runs**          | **verrouillé v1.0** | [runs.md](features/runs.md)                   | P1     | partiel                                          | moyen (LRU eviction, timeline determinisme, delete stub)                |
+| F-06 | **reports**       | **verrouillé v1.0** | [reports.md](features/reports.md)             | P1     | bon (engine, catalog, export)                    | faible (sharing HMAC roundtrip, SSRF exhaustif, budget override)        |
+| F-07 | **assets**        | **verrouillé v1.0** | [assets.md](features/assets.md)               | P1     | partiel (lineage + detail + diff)                | moyen (storage providers, hybrid LRU/TTL, cleanup, variant lifecycle)   |
+| F-08 | **memory-kg**     | **verrouillé v1.0** | [memory-kg.md](features/memory-kg.md)         | P1     | bon (ingest, embeddings, context)                | moyen (backfill safety, scope isolation E2E, Redis resilience)          |
+| F-09 | **daily-brief**   | **verrouillé v1.0** | [daily-brief.md](features/daily-brief.md)     | P2     | bon                                              | moyen (Inngest schema, idempotence date, sources fail-soft)             |
+| F-10 | **personas**      | **verrouillé v1.0** | [personas.md](features/personas.md)           | P2     | bon                                              | faible (surface auto-apply, hospitality fallback)                       |
+| F-11 | **connections**   | **verrouillé v1.0** | [connections.md](features/connections.md)     | P1     | bon (write-guard, discovery, client, formatters) | moyen (write-guard bypass detection, OAuth popup E2E, native collision) |
+| F-12 | **voice**         | **verrouillé v1.0** | [voice.md](features/voice.md)                 | P2     | partiel                                          | moyen                                                                   |
+| F-13 | **browser**       | **verrouillé v1.0** | [browser.md](features/browser.md)             | P2     | partiel                                          | moyen                                                                   |
+| F-14 | **meetings**      | **verrouillé v1.0** | [meetings.md](features/meetings.md)           | P2     | bon                                              | moyen                                                                   |
+| F-15 | **marketplace**   | **verrouillé v1.0** | [marketplace.md](features/marketplace.md)     | P2     | partiel                                          | moyen                                                                   |
+| F-16 | **commandeur**    | **verrouillé v1.0** | [commandeur.md](features/commandeur.md)       | P1     | manquant                                         | élevé (hybrid dedup, abort, LRU, prefilled query)                       |
+| F-17 | **timeline-rail** | **verrouillé v1.0** | [timeline-rail.md](features/timeline-rail.md) | P2     | manquant                                         | élevé                                                                   |
+| F-18 | **context-rail**  | **verrouillé v1.0** | [context-rail.md](features/context-rail.md)   | P2     | partiel                                          | élevé                                                                   |
+| F-19 | **stage**         | **verrouillé v1.0** | [stage.md](features/stage.md)                 | P0     | partiel (stage store + focal store présent)      | élevé (Stage routing, focal pin lock, mappers, sous-Stages, hotkeys)    |
+| F-20 | **admin**         | **verrouillé v1.0** | [admin.md](features/admin.md)                 | P2     | partiel                                          | moyen                                                                   |
+| F-21 | **notifications** | **verrouillé v1.0** | [notifications.md](features/notifications.md) | P2     | bon                                              | faible (Realtime fallback, HMAC absent)                                 |
+| F-22 | **webhooks**      | **verrouillé v1.0** | [webhooks.md](features/webhooks.md)           | P2     | bon                                              | faible (retry 5xx, HMAC, timeout)                                       |
+| F-23 | **workflows**     | **verrouillé v1.0** | [workflows.md](features/workflows.md)         | P2     | partiel                                          | moyen                                                                   |
+| F-24 | **datasets**      | **verrouillé v1.0** | [datasets.md](features/datasets.md)           | P3     | manquant                                         | élevé                                                                   |
+| F-25 | **simulation**    | **verrouillé v1.0** | [simulation.md](features/simulation.md)       | P3     | manquant                                         | élevé                                                                   |
+| F-26 | **artifact**      | **verrouillé v1.0** | [artifact.md](features/artifact.md)           | P2     | partiel                                          | moyen                                                                   |
+| F-27 | **onboarding**    | **verrouillé v1.0** | [onboarding.md](features/onboarding.md)       | P3     | présent                                          | faible                                                                  |
+| F-28 | **settings**      | **verrouillé v1.0** | [settings.md](features/settings.md)           | P2     | manquant                                         | moyen                                                                   |
+| F-29 | **hospitality**   | **verrouillé v1.0** | [hospitality.md](features/hospitality.md)     | P3     | manquant                                         | élevé                                                                   |
+| F-30 | **pulsebar**      | **verrouillé v1.0** | [pulsebar.md](features/pulsebar.md)           | P2     | manquant                                         | moyen                                                                   |
+| F-31 | **planner**       | **verrouillé v1.0** | [planner.md](features/planner.md)             | P3     | manquant                                         | élevé                                                                   |
+| F-32 | **electron**      | **verrouillé v1.0** | [electron.md](features/electron.md)           | P3     | manquant                                         | élevé                                                                   |
 
 **Statuts possibles** :
+
 - `non verrouillé` — autonomie standard, pas de spec figée
 - `verrouillé v<n>` — spec figée, invariants à respecter
 - `in_progress` — feature en construction active, pas verrouillable encore
@@ -182,7 +185,7 @@ M  app/(user)/layout.tsx
 M  app/globals.css
 ```
 
-⚠ La spec `cockpit` a été écrite **après** ces modifications locales — donc le verrouillage capture l'état *avec* ces changements. Si Adrien revert ces modifs, la spec doit être relue.
+⚠ La spec `cockpit` a été écrite **après** ces modifications locales — donc le verrouillage capture l'état _avec_ ces changements. Si Adrien revert ces modifs, la spec doit être relue.
 
 ## Bugs runtime observés (orthogonaux au verrouillage, à traiter en feature séparée)
 
@@ -201,18 +204,18 @@ M  app/globals.css
 
 ## Historique
 
-| Date | Événement |
-|------|-----------|
-| 2026-05-03 | Phase 1 — Inventaire 32 features |
-| 2026-05-03 | Phase 2 — Pilote `cockpit` verrouillé v1.0 |
-| 2026-05-03 | `auth` verrouillé v1.0 (P0, première après pilote) |
-| 2026-05-04 | `stage` verrouillé v1.0 (P0, routing UI central, 15 invariants) |
-| 2026-05-04 | `chat` verrouillé v1.0 (P0, cœur produit, 18 invariants) — tous les P0 sont fait |
-| 2026-05-04 | `missions` verrouillé v1.0 (P1, scheduler distribué + lease + memory, 18 invariants) |
-| 2026-05-04 | `assets` verrouillé v1.0 (P1, storage hybride R2/Supabase + variants + cleanup, 18 invariants) |
-| 2026-05-04 | `connections` verrouillé v1.0 (P1, write-guard Composio two-step + control-plane, 18 invariants) |
-| 2026-05-04 | `reports` verrouillé v1.0 (P1, sharing HMAC-SHA256 + engine pipeline 10 étapes, 18 invariants) |
-| 2026-05-04 | `memory-kg` verrouillé v1.0 (P1, KG + embeddings pgvector 1536-dim + retrieval, 18 invariants) |
-| 2026-05-04 | **Phase 2 complète — tous les P0 + P1 prioritaires verrouillés (9/32 features, 141 invariants)** |
+| Date       | Événement                                                                                                |
+| ---------- | -------------------------------------------------------------------------------------------------------- |
+| 2026-05-03 | Phase 1 — Inventaire 32 features                                                                         |
+| 2026-05-03 | Phase 2 — Pilote `cockpit` verrouillé v1.0                                                               |
+| 2026-05-03 | `auth` verrouillé v1.0 (P0, première après pilote)                                                       |
+| 2026-05-04 | `stage` verrouillé v1.0 (P0, routing UI central, 15 invariants)                                          |
+| 2026-05-04 | `chat` verrouillé v1.0 (P0, cœur produit, 18 invariants) — tous les P0 sont fait                         |
+| 2026-05-04 | `missions` verrouillé v1.0 (P1, scheduler distribué + lease + memory, 18 invariants)                     |
+| 2026-05-04 | `assets` verrouillé v1.0 (P1, storage hybride R2/Supabase + variants + cleanup, 18 invariants)           |
+| 2026-05-04 | `connections` verrouillé v1.0 (P1, write-guard Composio two-step + control-plane, 18 invariants)         |
+| 2026-05-04 | `reports` verrouillé v1.0 (P1, sharing HMAC-SHA256 + engine pipeline 10 étapes, 18 invariants)           |
+| 2026-05-04 | `memory-kg` verrouillé v1.0 (P1, KG + embeddings pgvector 1536-dim + retrieval, 18 invariants)           |
+| 2026-05-04 | **Phase 2 complète — tous les P0 + P1 prioritaires verrouillés (9/32 features, 141 invariants)**         |
 | 2026-05-08 | Batch P2 : notifications, daily-brief, runs, commandeur, personas, webhooks verrouillés (15/32 features) |
-| 2026-05-08 | **🎉 COMPLET — 32/32 features verrouillées en 5 agents parallèles. 358 invariants. ADD opérationnel.** |
+| 2026-05-08 | **🎉 COMPLET — 32/32 features verrouillées en 5 agents parallèles. 358 invariants. ADD opérationnel.**   |
