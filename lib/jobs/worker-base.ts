@@ -13,10 +13,11 @@
  *  - Error logging consistant
  */
 
-import { Worker, type Job, type Processor } from "bullmq";
+import { Worker, UnrecoverableError, type Job, type Processor } from "bullmq";
 import { getBullConnection } from "./connection";
 import { JOB_QUEUE_CONFIGS } from "./configs";
 import { settleCredits } from "@/lib/credits/client";
+import { isPermanentError } from "./permanent-error";
 import type { JobKind, JobPayload, JobResult } from "./types";
 
 export interface WorkerContext<P extends JobPayload = JobPayload> {
@@ -61,7 +62,17 @@ export function startWorker<P extends JobPayload>(handler: WorkerHandler<P>): Wo
       },
     };
 
-    const result = await handler.process(ctx);
+    let result: JobResult;
+    try {
+      result = await handler.process(ctx);
+    } catch (err) {
+      // PermanentJobError (4xx provider, input invalide) → BullMQ UnrecoverableError
+      // pour ne pas retry (évite de double-facturer ElevenLabs / fal / e2b).
+      if (isPermanentError(err)) {
+        throw new UnrecoverableError((err as Error).message);
+      }
+      throw err;
+    }
 
     // Settle credits avec coût réel post-job. Le caller a déjà reservé
     // `payload.estimatedCostUsd` côté requireCredits ; ici on ajuste.

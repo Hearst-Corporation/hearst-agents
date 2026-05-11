@@ -3,7 +3,7 @@
   "audit_id": "2026-05-10-security",
   "objective": "Hearst OS prêt pour go-live multi-user public",
   "created_at": "2026-05-11",
-  "last_updated": "2026-05-11T02:37:40.014Z",
+  "last_updated": "2026-05-11T02:50:08.283Z",
   "orchestrator": "claude-opus-4.7",
   "estimated_total_effort": "20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents",
   "principle": "Ordre = dépendances logiques, pas sévérité brute. Foundation d'abord (sinon les fixes IDOR sont cosmétiques tant que F-095/F-096 pas faits). Puis defense in depth. Puis hardening. Phase 11 = post-go-live.",
@@ -829,7 +829,7 @@
       "title": "PHASE 7 — Reliability + jobs",
       "objective": "Workers stables, idempotency, cancel propagation. Risque #1 prod = jobs orphelins Vercel.",
       "estimated_effort": "3-5 jours",
-      "status": "pending",
+      "status": "done",
       "batches": [
         {
           "id": "B7.1",
@@ -845,7 +845,23 @@
             "0 jobs orphelins en Redis après 24h"
           ],
           "blast_if_skipped": "Crédits réservés sans livrable. Asset_variants pending éternels. Risque #1 prod.",
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:38:01.984Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:38:01.985Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:50:08.139Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:50:08.138Z"
         },
         {
           "id": "B7.2",
@@ -861,7 +877,23 @@
             "Connexions Redis stable < 50 après stress test SSE",
             "Env var manquante → log structuré pas 500"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:38:02.011Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:38:02.012Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:50:08.172Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:50:08.171Z"
         },
         {
           "id": "B7.3",
@@ -882,7 +914,23 @@
             "Retry POST → 1 seul job (Idempotency-Key respected)",
             "SIGTERM → workers close gracefully"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:38:02.042Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:38:02.043Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:50:08.210Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:50:08.209Z"
         },
         {
           "id": "B7.4",
@@ -899,7 +947,23 @@
             "Cleanup ne supprime pas asset référencé par mission active",
             "Webhook Recall replayé → reject (window > 5min)"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:38:02.070Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:38:02.070Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:50:08.246Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:50:08.245Z"
         },
         {
           "id": "B7.5",
@@ -913,7 +977,23 @@
           "validation": [
             "Toggle lock → persiste entre lambda invocations"
           ],
-          "status": "pending"
+          "status": "done",
+          "started_at": "2026-05-11T02:38:02.097Z",
+          "lifecycle": [
+            {
+              "ts": "2026-05-11T02:38:02.098Z",
+              "actor": "battle-orchestrator",
+              "from": "pending",
+              "to": "in_progress"
+            },
+            {
+              "ts": "2026-05-11T02:50:08.283Z",
+              "actor": "battle-orchestrator",
+              "from": "in_progress",
+              "to": "done"
+            }
+          ],
+          "closed_at": "2026-05-11T02:50:08.282Z"
         }
       ]
     },

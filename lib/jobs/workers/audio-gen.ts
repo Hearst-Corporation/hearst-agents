@@ -17,6 +17,7 @@ import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { synthesizeSpeech } from "@/lib/capabilities/providers/elevenlabs";
 import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { AudioGenInput, JobResult } from "@/lib/jobs/types";
 
 const handler: WorkerHandler<AudioGenInput> = {
@@ -38,12 +39,24 @@ const handler: WorkerHandler<AudioGenInput> = {
     await reportProgress(5, "Synthèse en cours");
 
     // 1. ElevenLabs TTS — tone résolu en voiceId + voice_settings via mapping
-    const result = await synthesizeSpeech({
-      text: payload.text,
-      voiceId: payload.voiceId,
-      modelId: payload.modelId,
-      personaTone: payload.tone,
-    });
+    let result: Awaited<ReturnType<typeof synthesizeSpeech>>;
+    try {
+      result = await synthesizeSpeech({
+        text: payload.text,
+        voiceId: payload.voiceId,
+        modelId: payload.modelId,
+        personaTone: payload.tone,
+      });
+    } catch (err) {
+      const status = (err as { status?: number }).status;
+      if (status === 401 || status === 403) {
+        throw new PermanentJobError("ElevenLabs auth failed", err);
+      }
+      if (status === 400) {
+        throw new PermanentJobError("Invalid ElevenLabs request", err);
+      }
+      throw err; // transient → retry BullMQ
+    }
 
     await reportProgress(60, "Audio généré, upload en cours");
 

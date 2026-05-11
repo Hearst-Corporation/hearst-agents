@@ -122,7 +122,17 @@ export async function runAssetCleanup(
 }
 
 /**
- * Find assets that have exceeded their TTL
+ * Find assets that have exceeded their TTL.
+ *
+ * F-019 — check de références avant suppression :
+ * Les assets référencés dans `mission_artifacts` (artifact actif d'une mission)
+ * ou marqués `pinned = true` sont EXCLUS du nettoyage, quelle que soit leur
+ * ancienneté. On s'appuie aussi sur `last_accessed_at` pour préserver les
+ * assets récemment consultés même si créés avant la fenêtre TTL.
+ *
+ * Colonnes requises (migration 0078_assets_cleanup_refs.sql) :
+ *   ALTER TABLE assets ADD COLUMN IF NOT EXISTS last_accessed_at TIMESTAMPTZ;
+ *   ALTER TABLE assets ADD COLUMN IF NOT EXISTS pinned BOOLEAN NOT NULL DEFAULT FALSE;
  */
 async function findExpiredAssets(
   db: SupabaseClient,
@@ -138,11 +148,30 @@ async function findExpiredAssets(
 > {
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - config.defaultTtlDays);
+  const cutoffIso = cutoffDate.toISOString();
+
+  // Sous-requête : IDs des assets référencés par des mission_artifacts actifs.
+  // On charge les IDs pour les exclure côté JS (Supabase JS v2 ne supporte pas
+  // NOT IN avec sous-requête directe de manière type-safe).
+  const { data: referencedData } = await db
+    .from("mission_artifacts")
+    .select("asset_id")
+    .not("asset_id", "is", null);
+
+  const referencedIds = new Set(
+    (referencedData ?? [])
+      .map((r: { asset_id: string | null }) => r.asset_id)
+      .filter(Boolean) as string[]
+  );
 
   const { data, error } = await db
     .from("assets")
-    .select("id, content_ref, created_at, thread_id")
-    .lt("created_at", cutoffDate.toISOString())
+    .select("id, content_ref, created_at, thread_id, last_accessed_at, pinned")
+    .lt("created_at", cutoffIso)
+    // Exclure les assets accédés récemment (last_accessed_at >= cutoff)
+    .or(`last_accessed_at.is.null,last_accessed_at.lt.${cutoffIso}`)
+    // Exclure les assets épinglés
+    .eq("pinned", false)
     .order("created_at", { ascending: true })
     .limit(config.batchSize);
 
@@ -151,24 +180,34 @@ async function findExpiredAssets(
     return [];
   }
 
-  return (data || []).map((row) => {
-    const createdAt = new Date(row.created_at);
-    const ageDays = Math.floor(
-      (Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
-    );
+  return (data || [])
+    // Exclure côté JS les assets référencés par mission_artifacts
+    .filter((row: { id: string }) => !referencedIds.has(row.id))
+    .map((row: {
+      id: string;
+      content_ref: string;
+      created_at: string;
+      thread_id: string | null;
+      last_accessed_at: string | null;
+      pinned: boolean;
+    }) => {
+      const createdAt = new Date(row.created_at);
+      const ageDays = Math.floor(
+        (Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
+      );
 
-    // Check tenant-specific archive window
-    const tenantOverride = config.tenantOverrides?.[row.thread_id || "global"];
-    const effectiveArchive = tenantOverride?.archiveAfterDays || config.archiveAfterDays;
+      // Check tenant-specific archive window
+      const tenantOverride = config.tenantOverrides?.[row.thread_id || "global"];
+      const effectiveArchive = tenantOverride?.archiveAfterDays || config.archiveAfterDays;
 
-    return {
-      id: row.id,
-      storageKey: row.content_ref,
-      tenantId: row.thread_id, // Using thread_id as tenant proxy
-      ageDays,
-      shouldArchive: effectiveArchive > 0 && ageDays >= effectiveArchive,
-    };
-  });
+      return {
+        id: row.id,
+        storageKey: row.content_ref,
+        tenantId: row.thread_id ?? undefined,
+        ageDays,
+        shouldArchive: effectiveArchive > 0 && ageDays >= effectiveArchive,
+      };
+    });
 }
 
 /**

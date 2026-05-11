@@ -307,7 +307,7 @@
   <div class="objective">Hearst OS prêt pour go-live multi-user public</div>
   <div class="meta">
     Effort estimé : <strong>20-30 jours dev (1 dev solo) — possible en 8-12 jours avec parallélisation sub-agents</strong>
-    · Last updated : 2026-05-11T02:37:40.014Z
+    · Last updated : 2026-05-11T02:50:08.283Z
     · Source de vérité findings : <a href="AUDIT-MASTER.html">AUDIT-MASTER.html</a>
   </div>
 </header>
@@ -320,8 +320,8 @@
   </div>
   <div class="stat-card">
     <div class="label">Done</div>
-    <div class="value" style="color:#4ade80;">29</div>
-    <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
+    <div class="value" style="color:#4ade80;">34</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
   </div>
   <div class="stat-card">
     <div class="label">In progress</div>
@@ -329,7 +329,7 @@
   </div>
   <div class="stat-card">
     <div class="label">Pending</div>
-    <div class="value">15</div>
+    <div class="value">10</div>
   </div>
   <div class="stat-card">
     <div class="label">Blocked</div>
@@ -1392,9 +1392,9 @@
     
     <div class="phase  " data-phase-id="P7">
       <div class="phase-header" onclick="togglePhase('P7')">
-        <span class="status-badge status-pending">pending</span>
+        <span class="status-badge status-done">done</span>
         <div style="flex:1;">
-          <h2>PHASE 7 — Reliability + jobs — 0/5 batchs</h2>
+          <h2>PHASE 7 — Reliability + jobs — 5/5 batchs</h2>
           <div class="objective">Workers stables, idempotency, cancel propagation. Risque #1 prod = jobs orphelins Vercel.</div>
         </div>
         <span class="effort">3-5 jours</span>
@@ -1403,7 +1403,7 @@
         
           <div class="batch">
             <div class="batch-header" onclick="toggleBatch('B7.1')">
-              <span class="status-badge status-pending">pending</span>
+              <span class="status-badge status-done">done</span>
               <span class="id">B7.1</span>
               <span class="title">🔥 BullMQ → Inngest sur Vercel pour TOUS les jobKinds (audio/image/code/doc-parse)</span>
               <span class="effort">1-2 sem</span>
@@ -1438,7 +1438,7 @@
         
           <div class="batch">
             <div class="batch-header" onclick="toggleBatch('B7.2')">
-              <span class="status-badge status-pending">pending</span>
+              <span class="status-badge status-done">done</span>
               <span class="id">B7.2</span>
               <span class="title">QueueEvents singleton + proxy.ts edge throw graceful</span>
               <span class="effort">2h</span>
@@ -1478,7 +1478,7 @@
         
           <div class="batch">
             <div class="batch-header" onclick="toggleBatch('B7.3')">
-              <span class="status-badge status-pending">pending</span>
+              <span class="status-badge status-done">done</span>
               <span class="id">B7.3</span>
               <span class="title">Idempotency BullMQ + Inngest + workers cleanup SIGTERM</span>
               <span class="effort">1-2j</span>
@@ -1533,7 +1533,7 @@
         
           <div class="batch">
             <div class="batch-header" onclick="toggleBatch('B7.4')">
-              <span class="status-badge status-pending">pending</span>
+              <span class="status-badge status-done">done</span>
               <span class="id">B7.4</span>
               <span class="title">Asset cleanup check refs + Recall.ai window timestamp + Composio webhook clarif</span>
               <span class="effort">4-6h</span>
@@ -1578,7 +1578,7 @@
         
           <div class="batch">
             <div class="batch-header" onclick="toggleBatch('B7.5')">
-              <span class="status-badge status-pending">pending</span>
+              <span class="status-badge status-done">done</span>
               <span class="id">B7.5</span>
               <span class="title">agent-lock state vers Supabase/Redis (sortir du FS Vercel)</span>
               <span class="effort">2h</span>

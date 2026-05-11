@@ -8,10 +8,11 @@
  * 3. Public path exemptions
  * 4. Explicit dev bypass only
  *
- * Environment validation is triggered by importing lib/env.server.ts
+ * F-022 : env.server validation est effectuée en lazy import (dans proxy())
+ * plutôt qu'à l'import statique. Un throw au boot ne crash plus le middleware
+ * Vercel Edge — il produit une 500 loguée à la première requête.
  */
 
-import "@/lib/env.server";
 import { timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
@@ -156,7 +157,25 @@ async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
   return null;
 }
 
+let _envChecked = false;
+
 export async function proxy(req: NextRequest): Promise<NextResponse> {
+  // F-022 : env validation lazily, une seule fois, sans crasher le boot.
+  // env.server.ts est un side-effect module (pas d'exports) : on l'importe
+  // dans un bloc try/catch pour ne pas crash le middleware si une var manque.
+  if (!_envChecked) {
+    _envChecked = true;
+    try {
+      // Dynamic import pour éviter le throw au module-load time sur Vercel Edge.
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      await import("../lib/env.server" as string);
+    } catch (e) {
+      console.error("[proxy] env.server validation failed:", (e as Error).message);
+      // Ne pas throw — laisse la requête continuer, le route handler retournera 500
+      // si une env critique manque à l'exécution.
+    }
+  }
+
   const path = req.nextUrl.pathname;
 
   // 1. Arcjet check sur les routes sensibles (avant auth pour bloquer

@@ -31,9 +31,9 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { QueueEvents } from "bullmq";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getBullConnection } from "@/lib/jobs/connection";
+import { getQueueEvents } from "@/lib/jobs/queue-events-singleton";
 import { getJobState } from "@/lib/jobs/queue";
 import { JOB_QUEUE_CONFIGS } from "@/lib/jobs/configs";
 import type { JobKind } from "@/lib/jobs/types";
@@ -105,7 +105,7 @@ export async function GET(
       let stopped = false;
       let pollTimer: ReturnType<typeof setInterval> | null = null;
       let pingTimer: ReturnType<typeof setInterval> | null = null;
-      let queueEvents: QueueEvents | null = null;
+      // Singleton QueueEvents — pas de close() ici (géré par queue-events-singleton)
       let lastProgress = -1;
 
       const closeAll = () => {
@@ -113,9 +113,7 @@ export async function GET(
         stopped = true;
         if (pollTimer) clearInterval(pollTimer);
         if (pingTimer) clearInterval(pingTimer);
-        if (queueEvents) {
-          void queueEvents.close().catch(() => {});
-        }
+        // QueueEvents singleton — ne pas close() ici, il est partagé entre connexions SSE
         try {
           controller.close();
         } catch {
@@ -145,47 +143,50 @@ export async function GET(
         sendEvent("progress", { progress: value, label: label ?? null });
       };
 
-      // 1. Subscribe BullMQ QueueEvents — broadcast pub/sub Redis.
+      // 1. Subscribe BullMQ QueueEvents — singleton partagé, pas de leak Redis.
+      // Le singleton est créé une seule fois par queueName (Pattern C).
       try {
-        queueEvents = new QueueEvents(queueName, { connection: connection.duplicate() });
-        await queueEvents.waitUntilReady();
+        const qe = getQueueEvents(queueName);
+        if (qe) {
+          await qe.waitUntilReady();
 
-        queueEvents.on("progress", ({ jobId: evJobId, data }) => {
-          if (evJobId !== jobId) return;
-          // BullMQ `data` peut être un nombre (progress %) ou un objet libre.
-          // Notre worker-base appelle `job.updateProgress(value)` puis
-          // `job.log(message)` séparément, donc ici on n'a que le %.
-          // Le label vient du poll fallback via `state` qui lit le job log
-          // si dispo, mais BullMQ ne l'expose pas trivialement — on se
-          // rabat sur des labels canoniques côté client en fonction du %.
-          if (typeof data === "number") {
-            sendProgress(data);
-          } else if (data && typeof data === "object" && "progress" in data) {
-            const obj = data as { progress?: number; label?: string };
-            if (typeof obj.progress === "number") sendProgress(obj.progress, obj.label);
-          }
-        });
-
-        queueEvents.on("completed", ({ jobId: evJobId, returnvalue }) => {
-          if (evJobId !== jobId) return;
-          sendProgress(100);
-          let parsed: unknown = returnvalue;
-          if (typeof returnvalue === "string") {
-            try {
-              parsed = JSON.parse(returnvalue);
-            } catch {
-              parsed = returnvalue;
+          qe.on("progress", ({ jobId: evJobId, data }) => {
+            if (evJobId !== jobId) return;
+            // BullMQ `data` peut être un nombre (progress %) ou un objet libre.
+            // Notre worker-base appelle `job.updateProgress(value)` puis
+            // `job.log(message)` séparément, donc ici on n'a que le %.
+            // Le label vient du poll fallback via `state` qui lit le job log
+            // si dispo, mais BullMQ ne l'expose pas trivialement — on se
+            // rabat sur des labels canoniques côté client en fonction du %.
+            if (typeof data === "number") {
+              sendProgress(data);
+            } else if (data && typeof data === "object" && "progress" in data) {
+              const obj = data as { progress?: number; label?: string };
+              if (typeof obj.progress === "number") sendProgress(obj.progress, obj.label);
             }
-          }
-          sendEvent("completed", { returnvalue: parsed });
-          closeAll();
-        });
+          });
 
-        queueEvents.on("failed", ({ jobId: evJobId, failedReason }) => {
-          if (evJobId !== jobId) return;
-          sendEvent("failed", { reason: failedReason ?? "unknown_error" });
-          closeAll();
-        });
+          qe.on("completed", ({ jobId: evJobId, returnvalue }) => {
+            if (evJobId !== jobId) return;
+            sendProgress(100);
+            let parsed: unknown = returnvalue;
+            if (typeof returnvalue === "string") {
+              try {
+                parsed = JSON.parse(returnvalue);
+              } catch {
+                parsed = returnvalue;
+              }
+            }
+            sendEvent("completed", { returnvalue: parsed });
+            closeAll();
+          });
+
+          qe.on("failed", ({ jobId: evJobId, failedReason }) => {
+            if (evJobId !== jobId) return;
+            sendEvent("failed", { reason: failedReason ?? "unknown_error" });
+            closeAll();
+          });
+        }
       } catch (err) {
         console.error(`[GET /api/v2/jobs/${jobId}/progress] QueueEvents subscribe failed:`, err);
         // On continue avec le poll fallback uniquement.

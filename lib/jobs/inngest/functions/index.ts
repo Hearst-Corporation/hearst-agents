@@ -17,6 +17,10 @@ import {
   monthlyCardCronFunction,
   monthlyCardPerUserFunction,
 } from "./monthly-card";
+import { audioGenFunction } from "./audio-gen";
+import { imageGenFunction } from "./image-gen";
+import { codeExecFunction } from "./code-exec";
+import { documentParseFunction } from "./document-parse";
 
 export const inngestFunctions = [
   dailyBriefFunction,
@@ -25,4 +29,9 @@ export const inngestFunctions = [
   preMeetingIntelFunction,
   monthlyCardCronFunction,
   monthlyCardPerUserFunction,
+  // Phase B jobs — migrated from BullMQ workers (Vercel serverless compatible)
+  audioGenFunction,
+  imageGenFunction,
+  codeExecFunction,
+  documentParseFunction,
 ];

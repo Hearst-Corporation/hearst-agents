@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T02:37:40.264Z",
+  "last_updated": "2026-05-11T02:50:08.781Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 57,
+      "pending": 45,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 73,
+      "closed": 85,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -1052,7 +1052,7 @@
       "title": "BullMQ jobs orphelins sur Vercel — workers gated off mais routes enqueue",
       "severity": "P0",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -1108,6 +1108,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.320Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1116,7 +1122,7 @@
       "title": "QueueEvents Redis leak per SSE request — exhaustion Upstash",
       "severity": "P0",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1148,6 +1154,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.360Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1157,7 +1169,7 @@
       "severity": "P1",
       "_reclassified": "P0→P1 par post-master (reliability, pas vuln directe)",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1189,6 +1201,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.662Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1299,7 +1317,7 @@
       "severity": "P1",
       "_reclassified": "P0→P1 par post-master (reliability, pas vuln)",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1335,6 +1353,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.402Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1629,7 +1653,7 @@
       "title": "Recall.ai webhook pas de window timestamp (replay infini)",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1659,6 +1683,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.701Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1668,7 +1698,7 @@
       "severity": "P2",
       "_reclassified": "P1→P2 par post-master (faux positif si triggers Composio non configurés)",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "claude-opus"
@@ -1698,6 +1728,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.741Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1706,7 +1742,7 @@
       "title": "BullMQ enqueue sans jobId déterministe — retry double-job",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1739,6 +1775,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.448Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1747,7 +1789,7 @@
       "title": "Inngest send sans event.id déterministe",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1777,6 +1819,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.491Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1785,7 +1833,7 @@
       "title": "Workers ne classifient pas erreurs permanentes vs transient",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1814,6 +1862,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.534Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1822,7 +1876,7 @@
       "title": "Workers ne propagent pas abort signal (cancel client n'arrête pas provider)",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1851,6 +1905,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.578Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -1859,7 +1919,7 @@
       "title": "worker.close() jamais appelé sur SIGTERM",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -1888,6 +1948,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.622Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4896,7 +4962,7 @@
       "title": "agent-lock state écrit sur FS local — inopérant sur Vercel",
       "severity": "P1",
       "category": "reliability",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4927,6 +4993,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:50:08.780Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

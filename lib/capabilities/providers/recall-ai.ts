@@ -215,11 +215,20 @@ export type WebhookVerifyReason =
   | "signature_missing"
   | "length_mismatch"
   | "signature_mismatch"
-  | "compare_failed";
+  | "compare_failed"
+  | "timestamp_too_old";
+
+/** Fenêtre anti-replay : on rejette les webhooks datant de plus de 5 minutes. */
+const REPLAY_WINDOW_MS = 5 * 60 * 1000;
 
 /**
  * Vérifie une signature de webhook Recall.ai (header `x-recall-signature`).
  * Recall signe `timestamp.body` avec `RECALL_WEBHOOK_SECRET`.
+ *
+ * F-029 — Replay protection :
+ * Si `timestamp` est fourni (Unix seconds), on vérifie qu'il date de moins de
+ * REPLAY_WINDOW_MS. Un webhook rejoué après cette fenêtre est rejeté avec
+ * reason `"timestamp_too_old"` avant même de valider la signature HMAC.
  *
  * Retourne `{ valid: false, reason: "no_secret" }` si le secret manque —
  * la route appelle ce comportement et tranche selon NODE_ENV (accepte
@@ -236,6 +245,17 @@ export function verifyWebhookSignature(params: {
   }
   if (!params.signature) {
     return { valid: false, reason: "signature_missing" };
+  }
+
+  // F-029 — Replay window check (timestamp en secondes Unix)
+  if (params.timestamp) {
+    const tsSeconds = Number(params.timestamp);
+    if (!Number.isNaN(tsSeconds)) {
+      const ageMs = Math.abs(Date.now() - tsSeconds * 1000);
+      if (ageMs > REPLAY_WINDOW_MS) {
+        return { valid: false, reason: "timestamp_too_old" };
+      }
+    }
   }
 
   const payload = params.timestamp

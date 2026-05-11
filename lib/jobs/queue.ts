@@ -1,18 +1,36 @@
 /**
- * Queue factory — un singleton Queue BullMQ par JobKind.
+ * Queue factory — routing BullMQ vs Inngest + idempotency garantie.
  *
- * Usage côté API route / chat tool :
- *   await enqueueJob({ jobKind: "audio-gen", text: "…", userId, … })
+ * Sur Vercel (VERCEL=1) : TOUS les jobs passent par Inngest (serverless,
+ * workers longue durée impossibles). Sur Railway / self-hosted : les kinds
+ * non Inngest passent par BullMQ avec jobId déterministe pour idempotency.
  *
- * Sans REDIS_URL : enqueueJob() throw — le caller doit dégrader (par
- * exemple répondre directement sans variant ou utiliser un worker
- * inline pour les jobs courts). En production, REDIS_URL est requis.
+ * Idempotency-Key :
+ *  - Inngest : `event.id` = deterministicHash(payload) ou opts.idempotencyKey
+ *  - BullMQ  : `job.id`  = même hash
+ * → double-enqueue du même payload = 1 seul job exécuté.
  */
 
-import { Queue, type JobsOptions } from "bullmq";
+import { createHash } from "node:crypto";
+import { Queue } from "bullmq";
 import { getBullConnection } from "./connection";
 import { JOB_QUEUE_CONFIGS } from "./configs";
 import type { JobKind, JobPayload } from "./types";
+
+// ── Kinds routés vers Inngest ──────────────────────────────────
+// Sur Vercel : TOUS (liste complète). Sur Railway : uniquement ceux listés.
+// Pour ajouter un kind : créer la fonction Inngest dans
+// lib/jobs/inngest/functions/ et la registrer dans functions/index.ts.
+const INNGEST_JOB_KINDS = new Set<JobKind>([
+  "daily-brief",
+  "audio-gen",
+  "image-gen",
+  "code-exec",
+  "document-parse",
+  "weekly-digest" as JobKind,
+  "monthly-card" as JobKind,
+  "pre-meeting-intel" as JobKind,
+]);
 
 const queues = new Map<JobKind, Queue>();
 
@@ -24,6 +42,8 @@ function getQueue(kind: JobKind): Queue | null {
   if (!connection) return null;
 
   const config = JOB_QUEUE_CONFIGS[kind];
+  if (!config) return null;
+
   const queue = new Queue(config.queueName, {
     connection,
     defaultJobOptions: {
@@ -44,30 +64,49 @@ export interface EnqueueResult {
 }
 
 /**
- * Enqueue a job for async processing. Returns the BullMQ job ID
- * immediately ; le worker pickup et streame le progress.
+ * Hash déterministe du payload pour idempotency-key.
+ * Trie les clés pour garantir la stabilité quelle que soit l'ordre d'insertion.
+ */
+function deterministicHash(payload: object): string {
+  const keys = Object.keys(payload).sort();
+  return createHash("sha256")
+    .update(JSON.stringify(payload, keys))
+    .digest("hex")
+    .slice(0, 16);
+}
+
+/**
+ * Enqueue a job for async processing.
  *
- * Si INNGEST_EVENT_KEY est configuré, certains jobKind sont routés vers
- * Inngest (durable, serverless-compatible) plutôt que BullMQ. Migration
- * progressive : `daily-brief` est le premier ; les autres suivront.
+ * - Vercel (VERCEL=1) OU kind Inngest → Inngest (durable, serverless-safe)
+ * - Autres → BullMQ avec jobId déterministe (Railway / self-hosted)
  *
- * **Important** : le caller doit avoir déjà appelé `requireCredits()`
- * et obtenu un go avant d'enqueue, sinon on facturera potentiellement
- * un job pour un user sans crédits suffisants.
+ * L'option `idempotencyKey` permet au caller de forcer une clé spécifique
+ * (ex : variantId, missionId) pour éviter les double-soumissions UI.
  */
 export async function enqueueJob(
   payload: JobPayload,
-  opts?: JobsOptions,
+  opts?: { idempotencyKey?: string },
 ): Promise<EnqueueResult> {
-  if (payload.jobKind === "daily-brief" && process.env.INNGEST_EVENT_KEY) {
+  const isVercel = process.env.VERCEL === "1";
+  const eventId = opts?.idempotencyKey ?? deterministicHash(payload);
+
+  if (isVercel || INNGEST_JOB_KINDS.has(payload.jobKind)) {
+    if (!process.env.INNGEST_EVENT_KEY) {
+      throw new Error(
+        `[Jobs] INNGEST_EVENT_KEY manquant — impossible de router ${payload.jobKind} vers Inngest`,
+      );
+    }
     const { inngest } = await import("./inngest/client");
     const result = await inngest.send({
-      name: "app/daily-brief.requested",
+      name: `app/${payload.jobKind}.requested`,
+      id: eventId,
       data: payload,
     });
-    return { jobId: result.ids[0] ?? "unknown", jobKind: payload.jobKind };
+    return { jobId: result.ids[0] ?? eventId, jobKind: payload.jobKind };
   }
 
+  // BullMQ path (Railway / self-hosted)
   const queue = getQueue(payload.jobKind);
   if (!queue) {
     throw new Error(
@@ -75,8 +114,14 @@ export async function enqueueJob(
     );
   }
 
-  const job = await queue.add(payload.jobKind, payload, opts);
-  return { jobId: job.id ?? "unknown", jobKind: payload.jobKind };
+  const job = await queue.add(payload.jobKind, payload, {
+    jobId: eventId,
+    attempts: 3,
+    backoff: { type: "exponential", delay: 5000 },
+    removeOnComplete: { age: 86400 },
+    removeOnFail: { age: 604800 },
+  });
+  return { jobId: job.id ?? eventId, jobKind: payload.jobKind };
 }
 
 /**
@@ -110,4 +155,3 @@ export async function getJobState(
     data: job.data,
   };
 }
-

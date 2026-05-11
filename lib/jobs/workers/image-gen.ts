@@ -22,6 +22,7 @@ import {
 } from "@/lib/capabilities/providers/fal-prompt-enricher";
 import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { ImageGenInput, JobResult } from "@/lib/jobs/types";
 
 const handler: WorkerHandler<ImageGenInput> = {
@@ -56,14 +57,26 @@ const handler: WorkerHandler<ImageGenInput> = {
     await reportProgress(15, "Génération en cours");
 
     // 3. fal.ai generation
-    const images = await falGenerate({
-      prompt: enriched.prompt,
-      model,
-      negativePrompt: enriched.negative_prompt,
-      numInferenceSteps: enriched.params.num_inference_steps,
-      guidanceScale: enriched.params.guidance_scale,
-      imageSize: enriched.params.image_size,
-    });
+    let images: Awaited<ReturnType<typeof falGenerate>>;
+    try {
+      images = await falGenerate({
+        prompt: enriched.prompt,
+        model,
+        negativePrompt: enriched.negative_prompt,
+        numInferenceSteps: enriched.params.num_inference_steps,
+        guidanceScale: enriched.params.guidance_scale,
+        imageSize: enriched.params.image_size,
+      });
+    } catch (err) {
+      const status = (err as { status?: number }).status;
+      if (status === 401 || status === 403) {
+        throw new PermanentJobError("fal.ai auth failed", err);
+      }
+      if (status === 400) {
+        throw new PermanentJobError("Invalid fal.ai request", err);
+      }
+      throw err; // transient → retry BullMQ
+    }
 
     if (images.length === 0) {
       console.error("[image-gen] fal.ai returned no images for job", ctx.job.id);
