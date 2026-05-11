@@ -16,6 +16,7 @@
  */
 
 import { getGraph, type KgNode } from "./kg";
+import { fenceUntrusted } from "./untrusted-fence";
 
 const CACHE_TTL_MS = 60_000;
 const MAX_TOTAL_CHARS = 1500;
@@ -54,10 +55,14 @@ function formatNode(node: KgNode): string {
     props && typeof props === "object"
       ? (props.role as string | undefined) ?? (props.title as string | undefined)
       : undefined;
-  if (role && typeof role === "string" && role.trim()) {
-    return `${node.label} (${role.trim().slice(0, 40)})`;
-  }
-  return node.label;
+  const label = role && typeof role === "string" && role.trim()
+    ? `${node.label} (${role.trim().slice(0, 40)})`
+    : node.label;
+  return fenceUntrusted("kg", label, {
+    id: node.id,
+    type: node.type,
+    provenance: "kg_node",
+  });
 }
 
 function buildSummaryText(nodes: KgNode[]): string | null {

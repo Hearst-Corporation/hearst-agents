@@ -56,8 +56,9 @@ function isFactualQuery(query: string): boolean {
   );
 }
 
-function hashQuery(query: string): string {
-  return createHash("sha256").update(query.toLowerCase().trim()).digest("hex").slice(0, 16);
+function hashQuery(query: string, tenantId?: string): string {
+  const normalized = (tenantId ? `${tenantId}:` : "") + query.toLowerCase().trim();
+  return createHash("sha256").update(normalized).digest("hex").slice(0, 16);
 }
 
 async function runExa(query: string): Promise<WebSearchResult["results"]> {
@@ -84,8 +85,8 @@ async function runPerplexity(query: string): Promise<{ results: WebSearchResult[
   return { results, answer };
 }
 
-export async function searchWeb(query: string): Promise<WebSearchResult> {
-  const cacheKey = `search:${hashQuery(query)}`;
+export async function searchWeb(query: string, opts?: { tenantId?: string }): Promise<WebSearchResult> {
+  const cacheKey = `search:${hashQuery(query, opts?.tenantId)}`;
 
   // Cache check
   const redis = getRedis();

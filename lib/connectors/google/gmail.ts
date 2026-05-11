@@ -115,20 +115,48 @@ interface GmailPart {
   parts?: GmailPart[];
 }
 
+/**
+ * Nettoie un HTML d'email avant de l'injecter dans le contexte LLM.
+ * Supprime : scripts, styles, éléments cachés (display:none / visibility:hidden /
+ * couleur blanche = technique d'injection invisible).
+ * Cap 50 000 chars pour éviter les DoS tokeniser.
+ */
+function stripEmailHtml(html: string): string {
+  return html
+    // Supprimer blocs <style>
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+    // Supprimer blocs <script>
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+    // Supprimer éléments avec inline style display:none, visibility:hidden
+    // ou couleur blanche (technique injection invisible)
+    .replace(
+      /<[^>]+style\s*=\s*["'][^"']*(?:display\s*:\s*none|visibility\s*:\s*hidden|color\s*:\s*white|color\s*:\s*#fff|color\s*:\s*#ffffff)[^"']*["'][^>]*>[\s\S]*?<\/[a-zA-Z]+>/gi,
+      "",
+    )
+    // Strip balises HTML restantes
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 50_000);
+}
+
 function extractBody(payload: GmailPart | null | undefined): string {
   if (!payload) return "";
   if (payload.body?.data) {
-    return Buffer.from(payload.body.data, "base64url").toString("utf-8");
+    const raw = Buffer.from(payload.body.data, "base64url").toString("utf-8");
+    return stripEmailHtml(raw);
   }
   if (payload.parts) {
     const textPart = payload.parts.find((p) => p.mimeType === "text/plain" && p.body?.data);
     if (textPart) {
-      return Buffer.from(textPart.body!.data!, "base64url").toString("utf-8");
+      const raw = Buffer.from(textPart.body!.data!, "base64url").toString("utf-8");
+      // Texte brut : strip uniquement les control chars et cap
+      return raw.replace(/[\x00-\x08\x0B-\x1F\x7F]/g, "").slice(0, 50_000);
     }
     const htmlPart = payload.parts.find((p) => p.mimeType === "text/html" && p.body?.data);
     if (htmlPart && htmlPart.body?.data) {
       const html = Buffer.from(htmlPart.body.data, "base64url").toString("utf-8");
-      return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+      return stripEmailHtml(html);
     }
   }
   return "";

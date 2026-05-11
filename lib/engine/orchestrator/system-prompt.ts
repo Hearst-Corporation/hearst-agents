@@ -14,6 +14,7 @@ import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import { buildSlugStrictnessRule } from "@/lib/agents/connected-apps-context";
 import { buildDualAppGuidance } from "@/lib/agents/dual-apps";
 import { EDITORIAL_CHARTER_BLOCK } from "@/lib/editorial/charter";
+import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
 
 export const ORCHESTRATOR_MODEL = "claude-sonnet-4-6";
 
@@ -391,7 +392,9 @@ Déduis les paramètres directement depuis le message :
 `
     : "";
 
-  return `${scheduleHeader}Tu es Hearst, un assistant exécutif intelligent pour les professionnels des médias.
+  return `${getSpotlightHeader()}
+
+${scheduleHeader}Tu es Hearst, un assistant exécutif intelligent pour les professionnels des médias.
 Aujourd'hui : ${today}${surfaceNote}${briefingSection}${kgContextSection}${missionContextSection}${personaSection}${applicableReportsSection}
 
 CHARTE ÉDITORIALE HEARST (s'applique à toutes tes réponses et drafts) :

@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T02:18:02.565Z",
+  "last_updated": "2026-05-11T02:27:10.577Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 73,
+      "pending": 65,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 57,
+      "closed": 65,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -2191,7 +2191,7 @@
       "title": "Gmail HTML stripping insuffisant (hidden text via display:none, white-on-white)",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2220,6 +2220,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.546Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2228,7 +2234,7 @@
       "title": "Embeddings poisoning silencieux (auto-ingest user content sans defiance)",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2263,6 +2269,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.324Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2271,7 +2283,7 @@
       "title": "KG ingestion : labels arbitraires extraits → injection dans system prompt",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "claude-opus"
@@ -2300,6 +2312,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.396Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2308,7 +2326,7 @@
       "title": "web_search snippets bruts injectés sans untrusted_web_content delimiter",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "claude-opus"
@@ -2337,6 +2355,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.426Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -2390,7 +2414,7 @@
       "severity": "P0",
       "_reclassified": "P1→P0 par post-master (prompt injection → take-over OAuth user)",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "codex"
@@ -2420,6 +2444,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.577Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4592,7 +4622,7 @@
       "title": "web_search cache global cross-tenant + injection brute snippets",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4626,6 +4656,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.457Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4720,7 +4756,7 @@
       "title": "Conversation/mission summary LLM-générés réinjectés verbatim 30 jours — injection multi-jour persistante",
       "severity": "P1",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4754,6 +4790,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.487Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5331,7 +5373,7 @@
       "title": "runKgQuery Sonnet sans guard contre leak du system prompt",
       "severity": "P2",
       "category": "prompt_injection",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -5359,6 +5401,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T02:27:10.516Z",
+          "actor": "battle-orchestrator",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

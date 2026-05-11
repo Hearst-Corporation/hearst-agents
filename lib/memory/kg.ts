@@ -191,6 +191,33 @@ export async function extractEntities(text: string): Promise<ExtractionResult> {
   return { entities, relations };
 }
 
+// ── Label sanitization (défense injection à l'ingest) ───────
+
+const FORBIDDEN_LABEL_PATTERNS: ReadonlyArray<RegExp> = [
+  /\bIGNORE\b/i,
+  /\bFORGET\b/i,
+  /\bOVERRIDE\b/i,
+  /\bDISREGARD\b/i,
+  /\bSYSTEM\s*:/i,
+  /\bINSTRUCTION\b/i,
+  /<\|/,
+  /<untrusted_/i,
+];
+
+/**
+ * Assainit un label KG avant persistance.
+ * Cap 100 chars, strip control chars, neutralise les patterns d'injection.
+ */
+export function sanitizeKgLabel(label: string): string {
+  let safe = label
+    .slice(0, 100)
+    .replace(/[\x00-\x1F\x7F]/g, "");
+  for (const re of FORBIDDEN_LABEL_PATTERNS) {
+    safe = safe.replace(re, "[stripped]");
+  }
+  return safe;
+}
+
 export async function upsertNode(
   scope: KgScope,
   node: { type: string; label: string; properties?: Record<string, unknown> },
@@ -211,7 +238,7 @@ export async function upsertNode(
         user_id: scope.userId,
         tenant_id: scope.tenantId,
         type: node.type,
-        label: node.label,
+        label: sanitizeKgLabel(node.label),
         properties: properties as Json,
         updated_at: new Date().toISOString(),
       },

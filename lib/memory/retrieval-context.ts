@@ -16,6 +16,7 @@
 
 import { searchEmbeddings, type RetrievedEmbedding } from "@/lib/embeddings/store";
 import { getRedis } from "@/lib/platform/redis/client";
+import { fenceUntrusted } from "./untrusted-fence";
 
 const MAX_TOTAL_CHARS = 1500;
 const PER_ITEM_MAX = 220;
@@ -65,20 +66,28 @@ export function formatRetrievedItems(items: RetrievedEmbedding[]): string {
 
   const sorted = [...items].sort((a, b) => b.similarity - a.similarity);
 
-  const header = "Souvenirs pertinents (proches de la requête, ordonnés par similarité) :";
-  const lines: string[] = [header];
-  let total = header.length + 1;
+  const fencedItems: string[] = [];
+  let total = 0;
 
   for (const item of sorted) {
     const excerpt = clampLine(item.textExcerpt, PER_ITEM_MAX);
-    const line = `- [${labelFor(item.sourceKind)}] ${excerpt}`;
-    if (total + line.length + 1 > MAX_TOTAL_CHARS) break;
-    lines.push(line);
-    total += line.length + 1;
+    const meta: Record<string, string> = {
+      source: item.sourceKind,
+      id: item.sourceId,
+    };
+    const role = (item.metadata as Record<string, unknown>)?.role;
+    if (typeof role === "string") meta.role = role;
+    const fenced = fenceUntrusted("memory", excerpt, meta);
+    if (total + fenced.length + 1 > MAX_TOTAL_CHARS) break;
+    fencedItems.push(fenced);
+    total += fenced.length + 1;
   }
 
-  if (lines.length <= 1) return "";
-  return lines.join("\n");
+  if (fencedItems.length === 0) return "";
+  return [
+    "Souvenirs pertinents (proches de la requête, ordonnés par similarité) :",
+    ...fencedItems,
+  ].join("\n");
 }
 
 async function cacheGet(key: string): Promise<string | null> {

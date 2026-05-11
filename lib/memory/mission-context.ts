@@ -30,6 +30,7 @@ import { getKgContextForUser } from "./kg-context";
 import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
 import { MISSION_CONTEXT_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { sanitizeForFence } from "./untrusted-fence";
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -324,8 +325,9 @@ export function formatMissionContextBlock(ctx: MissionContext): string {
           : m.role === "assistant"
             ? "Assistant"
             : "Système";
-      // Cap chaque message à 240 chars pour éviter de saturer le prompt
-      const text = m.content.length > 240 ? `${m.content.slice(0, 239)}…` : m.content;
+      // Cap chaque message à 240 chars + sanitize pour éviter injection
+      const rawText = m.content.length > 240 ? `${m.content.slice(0, 239)}…` : m.content;
+      const text = sanitizeForFence(rawText);
       return `- ${who}: ${text}`;
     });
     sections.push(`[Notes récentes (chronologique)]\n${lines.join("\n")}`);

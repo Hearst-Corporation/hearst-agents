@@ -10,6 +10,7 @@
 import { jsonSchema } from "ai";
 import type { Tool } from "ai";
 import { searchWeb } from "@/lib/tools/handlers/web-search";
+import { fenceUntrusted } from "@/lib/memory/untrusted-fence";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -22,16 +23,26 @@ function formatResult(query: string, summary: string, results: Array<{ title: st
   const lines: string[] = [];
   lines.push(`Recherche : ${query}`);
   lines.push("");
+
   if (summary && summary !== "search_unavailable") {
-    lines.push(summary.slice(0, 1500));
+    const fencedSummary = fenceUntrusted("search", summary.slice(0, 1500), {
+      source: "web_summary",
+      query,
+    });
+    lines.push(fencedSummary);
     lines.push("");
   }
+
   if (results.length > 0) {
     lines.push("Sources :");
     results.slice(0, 5).forEach((r, i) => {
-      lines.push(`${i + 1}. ${r.title}`);
-      lines.push(`   ${r.url}`);
-      if (r.snippet) lines.push(`   ${r.snippet.slice(0, 200)}`);
+      const snippet = r.snippet ? r.snippet.slice(0, 200) : "";
+      const content = `${r.title}\n${snippet}`.trim();
+      const fenced = fenceUntrusted("search", content, {
+        url: r.url,
+        index: String(i + 1),
+      });
+      lines.push(fenced);
     });
   }
   return lines.join("\n");
