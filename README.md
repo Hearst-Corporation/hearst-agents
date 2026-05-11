@@ -236,6 +236,7 @@ flowchart TD
 - fichiers de preview non branchés
 - captures, prototypes, snippets jetables
 - code runtime/orchestrator si la demande est purement visuelle
+- **`/spatial-safe` et tous ses fichiers associés** (`app/spatial-safe/`, `components/spatial-safe/`, `hooks/spatial-safe/`, `lib/spatial-safe/`, `styles/spatial-safe/`, `providers/spatial-safe/`, `docs/spatial/_BACKUP_SPATIAL_WORKING_*/`) — **lecture seule absolue**. C'est la sauvegarde de référence de la scène Spatial fonctionnelle. Détails dans `CLAUDE.md` et `docs/AGENT-DRIVEN-DEV.md`.
 
 ### Why Agents Get Confused
 

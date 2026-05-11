@@ -36,15 +36,15 @@
 
 ### Thème 3 — IDOR cross-tenant : PASS ✅
 
-| Finding | File:line | Verdict |
-|---|---|---|
-| F-002 agents | `agents/route.ts:21`, `[id]/route.ts:25,54,90,116` | ✅ tenant_id partout |
-| F-003 conversations | `lib/memory/store.ts:158,226,334,375` | ✅ user_id + tenant_id |
-| F-004 jobs | `v2/jobs/[jobId]/status:79`, `progress:207` | ✅ ownership |
-| F-005 browser | `v2/browser/[id]/*` | ✅ browser_sessions table |
-| F-094 agent_memory | Migration 0072 + `agents/[id]/memory:62,73` | ✅ NOT NULL + RLS |
-| F-100 memory/govern | `agents/[id]/memory/govern:30` | ✅ ownership |
-| F-118 audio-gen | `v2/jobs/audio-gen:79-92` | ✅ persona ownership |
+| Finding             | File:line                                          | Verdict                   |
+| ------------------- | -------------------------------------------------- | ------------------------- |
+| F-002 agents        | `agents/route.ts:21`, `[id]/route.ts:25,54,90,116` | ✅ tenant_id partout      |
+| F-003 conversations | `lib/memory/store.ts:158,226,334,375`              | ✅ user_id + tenant_id    |
+| F-004 jobs          | `v2/jobs/[jobId]/status:79`, `progress:207`        | ✅ ownership              |
+| F-005 browser       | `v2/browser/[id]/*`                                | ✅ browser_sessions table |
+| F-094 agent_memory  | Migration 0072 + `agents/[id]/memory:62,73`        | ✅ NOT NULL + RLS         |
+| F-100 memory/govern | `agents/[id]/memory/govern:30`                     | ✅ ownership              |
+| F-118 audio-gen     | `v2/jobs/audio-gen:79-92`                          | ✅ persona ownership      |
 
 ⚠ Pattern défensif à durcir : `if (jobUserId && jobUserId !== scope.userId)` — si payload sans userId, bypass. En pratique systématique côté enqueue.
 
@@ -56,6 +56,7 @@
 - E2B sandbox : `allowInternetAccess: false`
 
 ⚠ **PARTIAL** :
+
 - `browser/agent-loop.ts:310 navigate` utilise `isUrlShapeAllowed` (sync, pas de DNS lookup) → DNS rebinding théorique
 - `browser/stagehand-executor.ts:297 bridge.page.goto(fallbackTarget)` AUCUN guard SSRF
 
@@ -70,6 +71,7 @@
 - `extras-services.ts:259-263` INNGEST_EVENT_WHITELIST = 3 events
 
 ⚠ **PARTIAL** :
+
 - `extras-services.ts:99 sendEmailTool` gate `args._preview !== false` boolean seul, pas HMAC
 - À contraster avec Composio qui exige token cryptographique
 
@@ -94,6 +96,7 @@
 - `isTransientError` regex correct
 
 ⚠ **PARTIAL** :
+
 - `daily-caps.ts:26-34` Redis indisponible → `allowed: true` (bypass)
 - Acceptable en dev, **risqué en prod si Redis down**
 - Devrait **fail-closed** (false) si NODE_ENV=production
@@ -120,6 +123,7 @@
 ### Thème 10 — Headers + CSRF + secrets : PASS ✅
 
 Smoke test prod confirmé :
+
 - CSP active + frame-ancestors 'none'
 - HSTS max-age 2 ans
 - X-Frame-Options DENY
@@ -127,7 +131,7 @@ Smoke test prod confirmé :
 - Referrer-Policy strict-origin
 - nosniff
 
-- `proxy.ts:34` STATIC_RE restreint /_next + /public
+- `proxy.ts:34` STATIC_RE restreint /\_next + /public
 - `proxy.ts:39-64` isCsrfSafe Origin check
 - `tokens.ts:59,87-99` keyId envelope format
 - `navigation.ts:218` no content persist
@@ -141,24 +145,24 @@ Smoke test prod confirmé :
 
 ## Smoke tests
 
-| Test | Résultat |
-|---|---|
-| `npm run typecheck` | ✅ PASS clean |
-| `npm run lint` | ❌ 5 errors dans `components/spatial/*` (hors-DS prototype luxe, pas sécu) |
-| `npm test` | ✅ 2913 passed, 4 skipped (298 files) |
-| `curl prod headers` | ✅ Tous présents |
+| Test                | Résultat                                                                   |
+| ------------------- | -------------------------------------------------------------------------- |
+| `npm run typecheck` | ✅ PASS clean                                                              |
+| `npm run lint`      | ❌ 5 errors dans `components/spatial/*` (hors-DS prototype luxe, pas sécu) |
+| `npm test`          | ✅ 2913 passed, 4 skipped (298 files)                                      |
+| `curl prod headers` | ✅ Tous présents                                                           |
 
 ---
 
 ## 5 PARTIAL — Backlog P1 non bloquants
 
-| # | Finding | File | Risk | Mitigation actuelle |
-|---|---|---|---|---|
-| 1 | F-103 browser navigate | `agent-loop.ts:310` | DNS rebinding théorique | Browserbase hors-réseau |
-| 2 | F-103 stagehand goto fallback | `stagehand-executor.ts:297` | Pas de guard SSRF | Browserbase hors-réseau |
-| 3 | F-010 send_email _preview gate | `extras-services.ts:99` | Boolean, pas HMAC | Compromise nécessite LLM injection |
-| 4 | F-079 daily-caps Redis-down | `daily-caps.ts:26-34` | Bypass si Redis HS | Redis Upstash haute dispo |
-| 5 | F-004 jobs/status sans userId | `[jobId]/status:79` | Bypass payload sans userId | Enqueue passe userId systématique |
+| #   | Finding                         | File                        | Risk                       | Mitigation actuelle                |
+| --- | ------------------------------- | --------------------------- | -------------------------- | ---------------------------------- |
+| 1   | F-103 browser navigate          | `agent-loop.ts:310`         | DNS rebinding théorique    | Browserbase hors-réseau            |
+| 2   | F-103 stagehand goto fallback   | `stagehand-executor.ts:297` | Pas de guard SSRF          | Browserbase hors-réseau            |
+| 3   | F-010 send_email \_preview gate | `extras-services.ts:99`     | Boolean, pas HMAC          | Compromise nécessite LLM injection |
+| 4   | F-079 daily-caps Redis-down     | `daily-caps.ts:26-34`       | Bypass si Redis HS         | Redis Upstash haute dispo          |
+| 5   | F-004 jobs/status sans userId   | `[jobId]/status:79`         | Bypass payload sans userId | Enqueue passe userId systématique  |
 
 ---
 
@@ -175,6 +179,7 @@ Smoke test prod confirmé :
 ## Conclusion
 
 **Les 89 closed tiennent.** 38 batchs livrent réellement les neutralisations annoncées :
+
 - Multi-tenant fonctionnel
 - RBAC partout
 - IDOR scellé

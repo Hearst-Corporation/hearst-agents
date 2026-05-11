@@ -21,7 +21,7 @@ const mockSend = vi.fn().mockResolvedValue({ data: { id: "mock-email-id" }, erro
 vi.mock("resend", () => {
   class Resend {
     emails = { send: mockSend };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     constructor(_key: string) {}
   }
   return { Resend };

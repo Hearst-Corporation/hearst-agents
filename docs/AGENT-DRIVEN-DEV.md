@@ -16,6 +16,24 @@ Si tu es un agent (Claude, ChatGPT, Cursor, Copilot, etc.) et tu vas modifier ce
 4. **Si la feature n'est pas encore verrouillée** : tu suis le mode autonomie défini dans [CLAUDE.md](../CLAUDE.md).
 5. **Quand tu finis du travail sur une feature spec'd** : mets à jour la section "dernière revue" dans `docs/features/<id>.md` et incrémente `version spec` si tu as touché aux invariants (avec validation préalable).
 
+## 🔒 Zone interdite : `/spatial-safe`
+
+La route **`/spatial-safe`** et tous ses composants associés sont une **sauvegarde figée** de la scène Spatial fonctionnelle (Spline + panels HTML), créée le 2026-05-12 pour servir de filet de sécurité pendant les chantiers R&D Spatial.
+
+**Aucun agent ne doit modifier les fichiers suivants** sans autorisation explicite écrite d'Adrien :
+
+- `app/spatial-safe/**`
+- `components/spatial-safe/**`
+- `hooks/spatial-safe/**`
+- `lib/spatial-safe/**`
+- `styles/spatial-safe/**`
+- `providers/spatial-safe/**`
+- `docs/spatial/_BACKUP_SPATIAL_WORKING_2026-05-12/**`
+
+Ces zones sont **read-only pour tous les agents**. Aucun Edit, Write, mv, rm, refactor automatique, codemod global. Si un refactor transversal touche `components/**` ou similaire, **exclure explicitement** les sous-dossiers `*-safe/`.
+
+Voir aussi : `CLAUDE.md` → section "INTERDICTION ABSOLUE — /spatial-safe", `AGENTS.md` → règle agentique #6.
+
 ## Verrou agent (kill-switch global)
 
 Adrien peut **verrouiller tous les agents** en un clic depuis `/admin/agent-driven-dev`. Cela écrit `locked: true` dans `docs/AGENT-LOCK.json` (fichier tracké dans le repo, donc visible par toutes les sessions).

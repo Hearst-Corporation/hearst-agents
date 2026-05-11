@@ -111,21 +111,21 @@ graph TB
 
 ### 🛠️ Stack Technique
 
-| Couche | Technologie | Rôle | Justification |
-|--------|-------------|------|---------------|
-| **Frontend** | Next.js 15 + React 19 + Tailwind 4 + shadcn/ui | UI moderne, SSR, RSC | Performance, SEO, design system |
-| **State** | Zustand + Immer | Global state minimal | TypeScript-first, middlewares |
-| **Desktop** | Electron + Vite | App native macOS/Windows | Codebase partagée |
-| **Auth** | Supabase Auth | JWT, OAuth2, MFA, RLS | SOC2, intégration PG |
-| **API** | Next.js API Routes + Edge | Gateway unifiée | Serverless, auto-scale |
-| **AI SDK** | Vercel AI SDK | Abstraction multi-LLM | Streaming, tool calling, type-safe |
-| **Vector DB** | Pinecone Serverless | Embeddings + recherche | <50ms latence, hybrid search |
-| **Cache/Queue** | Redis (Upstash) | Sessions, jobs, pub/sub | Serverless, structures riches |
-| **Object Storage** | AWS S3 / R2 | Fichiers, assets | 11 9s durabilité, CDN |
-| **Queue Engine** | BullMQ | Workers async | Retry, scheduling, DLQ |
-| **Observability** | Langfuse + Prometheus + Grafana + Sentry | LLM tracing + metrics + logs + errors | Standard industrie |
-| **CI/CD** | GitHub Actions + Vercel | Build, test, deploy | Matrix builds, edge deploy |
-| **Infra** | Terraform + Docker | IaC, local dev | Reproductible, testable |
+| Couche             | Technologie                                    | Rôle                                  | Justification                      |
+| ------------------ | ---------------------------------------------- | ------------------------------------- | ---------------------------------- |
+| **Frontend**       | Next.js 15 + React 19 + Tailwind 4 + shadcn/ui | UI moderne, SSR, RSC                  | Performance, SEO, design system    |
+| **State**          | Zustand + Immer                                | Global state minimal                  | TypeScript-first, middlewares      |
+| **Desktop**        | Electron + Vite                                | App native macOS/Windows              | Codebase partagée                  |
+| **Auth**           | Supabase Auth                                  | JWT, OAuth2, MFA, RLS                 | SOC2, intégration PG               |
+| **API**            | Next.js API Routes + Edge                      | Gateway unifiée                       | Serverless, auto-scale             |
+| **AI SDK**         | Vercel AI SDK                                  | Abstraction multi-LLM                 | Streaming, tool calling, type-safe |
+| **Vector DB**      | Pinecone Serverless                            | Embeddings + recherche                | <50ms latence, hybrid search       |
+| **Cache/Queue**    | Redis (Upstash)                                | Sessions, jobs, pub/sub               | Serverless, structures riches      |
+| **Object Storage** | AWS S3 / R2                                    | Fichiers, assets                      | 11 9s durabilité, CDN              |
+| **Queue Engine**   | BullMQ                                         | Workers async                         | Retry, scheduling, DLQ             |
+| **Observability**  | Langfuse + Prometheus + Grafana + Sentry       | LLM tracing + metrics + logs + errors | Standard industrie                 |
+| **CI/CD**          | GitHub Actions + Vercel                        | Build, test, deploy                   | Matrix builds, edge deploy         |
+| **Infra**          | Terraform + Docker                             | IaC, local dev                        | Reproductible, testable            |
 
 ---
 
@@ -168,24 +168,24 @@ graph LR
 
 ### 📈 Cas d'Usage & Valeur Métier
 
-| Cas d'usage | Agents | Gain |
-|-------------|--------|------|
-| Analyse financière | Analyste + Data + Notification | **-80%** temps analyse |
-| Génération de contenu | Rédacteur + Relecteur + SEO | **×5** productivité |
-| Recherche intelligente | Retrieval + Synthèse + Citation | **95%+** précision |
-| Ordonnancement | Planning + Calendar + Notification | **Zero** oubli |
-| Support technique | Support + Tech + Escalation | **-60%** tickets |
-| Veille stratégique | Veille + Analyste + Briefing | **Temps réel** |
+| Cas d'usage            | Agents                             | Gain                   |
+| ---------------------- | ---------------------------------- | ---------------------- |
+| Analyse financière     | Analyste + Data + Notification     | **-80%** temps analyse |
+| Génération de contenu  | Rédacteur + Relecteur + SEO        | **×5** productivité    |
+| Recherche intelligente | Retrieval + Synthèse + Citation    | **95%+** précision     |
+| Ordonnancement         | Planning + Calendar + Notification | **Zero** oubli         |
+| Support technique      | Support + Tech + Escalation        | **-60%** tickets       |
+| Veille stratégique     | Veille + Analyste + Briefing       | **Temps réel**         |
 
 ---
 
 ### 💰 Coûts & Scaling (10K MAU)
 
-| Poste | Mensuel |
-|-------|---------|
+| Poste                                             | Mensuel     |
+| ------------------------------------------------- | ----------- |
 | Infra (Vercel + Supabase + Pinecone + Redis + S3) | **~$1,436** |
-| LLM (OpenAI + Anthropic) | **~$1,200** |
-| **TOTAL** | **~$2,636** |
+| LLM (OpenAI + Anthropic)                          | **~$1,200** |
+| **TOTAL**                                         | **~$2,636** |
 
 ```mermaid
 graph LR
@@ -208,7 +208,7 @@ graph LR
 graph TB
     subgraph "Multi-Agent System"
         ORCH["🎯 Orchestrateur<br/>Commandeur"]
-        
+
         subgraph "Agent Pool"
             A1["📊 Analyste"]
             A2["✍️ Rédacteur"]
@@ -217,14 +217,14 @@ graph TB
             A5["💻 Codeur"]
             A6["✅ Vérificateur"]
         end
-        
+
         subgraph "Shared Memory"
             M1["🧠 Short-Term<br/>Redis"]
             M2["🧠 Long-Term<br/>PostgreSQL"]
             M3["🧠 Vector<br/>Pinecone"]
             M4["🧠 Semantic<br/>Knowledge Graph"]
         end
-        
+
         subgraph "Tools"
             T1["🔧 APIs externes"]
             T2["🔧 Functions"]
@@ -255,7 +255,7 @@ graph TB
     E7 -->|Oui| E8["🛡️ Validate<br/>Quality Gate"]
     E8 -->|Fail| E3
     E8 -->|Pass| E9["💾 Save Memory"] --> E10["📤 Stream Response"] --> E11["🏁 END"]
-    
+
     style E1 fill:#e1f5fe
     style E11 fill:#e8f5e9
     style E5 fill:#fff3e0
@@ -277,12 +277,12 @@ graph TB
     Q3 -->|Non| Q4{"Multimodal?"}
     Q4 -->|Oui| P3["🥇 Gemini 1.5 Pro<br/>1M context<br/>$3.5/M input"]
     Q4 -->|Non| S2["🥈 GPT-4o-mini<br/>Standard<br/>$0.15/M input"]
-    
+
     P1 -.->|Timeout| S1
     P2 -.->|Timeout| S1
     S1 -.->|Error| F1["🥉 Gemini Flash<br/>Fallback<br/>$0.35/M input"]
     S2 -.->|Error| F1
-    
+
     style P1 fill:#e8f5e9
     style P2 fill:#e8f5e9
     style S1 fill:#fff3e0
@@ -299,16 +299,16 @@ graph LR
     subgraph "Ingestion"
         I1["📄 Upload"] --> I2["🔍 OCR/Parse"] --> I3["✂️ Chunk<br/>512-1024t"]
     end
-    
+
     subgraph "Index"
         I4["🔢 Embed<br/>3072d"] --> I5["📦 Upsert<br/>Pinecone"]
     end
-    
+
     subgraph "Query"
         Q1["❓ Question"] --> Q2["🔢 Embed"] --> Q3["🔍 Vector Search<br/>Top 10"]
         Q3 --> Q4["🎯 Rerank<br/>Cross-Encoder"] --> Q5["📋 Top 5"]
     end
-    
+
     subgraph "Generate"
         G1["💉 Context Injection<br/>+ Citations"] --> G2["🤖 LLM Generate<br/>RAG-enhanced"]
     end
@@ -331,22 +331,22 @@ graph LR
     S5 --> S6["🤖 AI Guardrails<br/>Prompt injection + Jailbreak + PII"]
     S6 --> S7["🔒 Data<br/>AES-256 + Field encryption"]
     S7 --> S8["📋 Audit<br/>Immutable logs"]
-    
+
     style S1 fill:#ffebee
     style S6 fill:#ffebee
     style S7 fill:#ffebee
 ```
 
-| Couche | Mécanisme | Priorité |
-|--------|-----------|----------|
-| Edge | Cloudflare WAF, Arcjet rate limit | 🔴 Critique |
-| Auth | Supabase Auth, JWT RS256, MFA | 🔴 Critique |
-| AuthZ | RBAC middleware, PostgreSQL RLS | 🟠 Haute |
-| Input | Zod schemas, regex sanitization | 🟠 Haute |
+| Couche    | Mécanisme                                                   | Priorité    |
+| --------- | ----------------------------------------------------------- | ----------- |
+| Edge      | Cloudflare WAF, Arcjet rate limit                           | 🔴 Critique |
+| Auth      | Supabase Auth, JWT RS256, MFA                               | 🔴 Critique |
+| AuthZ     | RBAC middleware, PostgreSQL RLS                             | 🟠 Haute    |
+| Input     | Zod schemas, regex sanitization                             | 🟠 Haute    |
 | AI Safety | Prompt injection detection, output filtering, PII redaction | 🔴 Critique |
-| Data | AES-256 at rest, field-level encryption | 🟠 Haute |
-| Secrets | HashiCorp Vault, rotation automatique | 🟠 Haute |
-| Audit | Append-only signed logs, GDPR compliant | 🟡 Moyenne |
+| Data      | AES-256 at rest, field-level encryption                     | 🟠 Haute    |
+| Secrets   | HashiCorp Vault, rotation automatique                       | 🟠 Haute    |
+| Audit     | Append-only signed logs, GDPR compliant                     | 🟡 Moyenne  |
 
 ---
 
@@ -357,26 +357,26 @@ graph TB
     subgraph "Edge"
         E1["Vercel Edge<br/>Global CDN"]
     end
-    
+
     subgraph "Compute"
         C1["Next.js Serverless<br/>Frontend + API"]
         C2["ECS Fargate<br/>Workers"]
         C3["Lambda<br/>Webhooks"]
     end
-    
+
     subgraph "Data"
         D1["PostgreSQL<br/>Primary + Replica"]
         D2["Pinecone<br/>Serverless"]
         D3["Redis<br/>Upstash"]
         D4["S3<br/>Object Store"]
     end
-    
+
     subgraph "Observability"
         O1["Langfuse<br/>LLM Traces"]
         O2["Grafana<br/>Dashboards"]
         O3["Sentry<br/>Errors"]
     end
-    
+
     E1 --> C1
     C1 --> D1 & D2 & D3
     C2 --> D1 & D3 & D4
@@ -387,22 +387,22 @@ graph TB
 
 ### 📊 Monitoring & Alerting
 
-| Dashboard | Métriques clés | Audience |
-|-----------|----------------|----------|
-| **LLM Performance** | Latence P99, coût/requête, token usage, quality score | AI Engineers |
-| **System Health** | CPU, memory, DB connections, queue depth | DevOps |
-| **Business** | DAU, MRR, churn, feature usage | Product / Exec |
-| **Agent Performance** | Success rate, execution time, tool usage | AI Engineers |
-| **Security** | Auth failures, rate limit hits, anomalies | Security |
-| **RAG Quality** | Precision@K, hallucination rate, MRR | AI Engineers |
+| Dashboard             | Métriques clés                                        | Audience       |
+| --------------------- | ----------------------------------------------------- | -------------- |
+| **LLM Performance**   | Latence P99, coût/requête, token usage, quality score | AI Engineers   |
+| **System Health**     | CPU, memory, DB connections, queue depth              | DevOps         |
+| **Business**          | DAU, MRR, churn, feature usage                        | Product / Exec |
+| **Agent Performance** | Success rate, execution time, tool usage              | AI Engineers   |
+| **Security**          | Auth failures, rate limit hits, anomalies             | Security       |
+| **RAG Quality**       | Precision@K, hallucination rate, MRR                  | AI Engineers   |
 
-| Alerte | Seuil | Canal | Escalade |
-|--------|-------|-------|----------|
-| API Error Rate | > 1% | PagerDuty | 5 min |
-| LLM Latency P99 | > 10s | Slack | 10 min |
-| Queue Depth | > 1000 | Slack | 15 min |
-| Auth Failures | > 10/min | Security Slack | Immédiat |
-| Hallucination Rate | > 5% | AI Team | 30 min |
+| Alerte             | Seuil    | Canal          | Escalade |
+| ------------------ | -------- | -------------- | -------- |
+| API Error Rate     | > 1%     | PagerDuty      | 5 min    |
+| LLM Latency P99    | > 10s    | Slack          | 10 min   |
+| Queue Depth        | > 1000   | Slack          | 15 min   |
+| Auth Failures      | > 10/min | Security Slack | Immédiat |
+| Hallucination Rate | > 5%     | AI Team        | 30 min   |
 
 ---
 
@@ -416,18 +416,18 @@ gantt
     Chat multi-agents         :done, 2024-01, 2024-06
     Mémoire sémantique        :done, 2024-03, 2024-08
     Workflows basiques        :done, 2024-06, 2024-10
-    
+
     section 2025 — Scale
     Multi-agent avancé        :active, 2025-01, 2025-06
     Autonomie partielle       :2025-04, 2025-09
     Fine-tuning propriétaire  :2025-06, 2025-12
     Voice interface           :2025-08, 2025-12
-    
+
     section 2026 — Intelligence
     Multimodal natif          :2026-01, 2026-06
     Realtime AI <500ms        :2026-03, 2026-09
     Edge AI local             :2026-06, 2026-12
-    
+
     section 2027 — Autonomie
     Agents autonomes          :2027-01, 2027-06
     Auto-improvement          :2027-04, 2027-09
@@ -438,14 +438,14 @@ gantt
 
 ### 🎯 KPIs Architecture
 
-| Pilier | Score | Preuve |
-|--------|-------|--------|
-| **Modularité** | ⭐⭐⭐⭐⭐ | 18 microservices découplés, chaque composant remplaçable |
+| Pilier            | Score      | Preuve                                                        |
+| ----------------- | ---------- | ------------------------------------------------------------- |
+| **Modularité**    | ⭐⭐⭐⭐⭐ | 18 microservices découplés, chaque composant remplaçable      |
 | **Observabilité** | ⭐⭐⭐⭐⭐ | Tracing complet, coûts trackés, qualité mesurée en temps réel |
-| **Sécurité** | ⭐⭐⭐⭐⭐ | 8 couches defense-in-depth, guardrails IA, audit immuable |
-| **Scalabilité** | ⭐⭐⭐⭐⭐ | Horizontal scaling, serverless, 10K → 10M MAU |
-| **Résilience** | ⭐⭐⭐⭐ | Circuit breakers, fallbacks multi-LLM, graceful degradation |
-| **Optimisation** | ⭐⭐⭐⭐⭐ | Routing intelligent, caching 90%, batching -40% coûts |
+| **Sécurité**      | ⭐⭐⭐⭐⭐ | 8 couches defense-in-depth, guardrails IA, audit immuable     |
+| **Scalabilité**   | ⭐⭐⭐⭐⭐ | Horizontal scaling, serverless, 10K → 10M MAU                 |
+| **Résilience**    | ⭐⭐⭐⭐   | Circuit breakers, fallbacks multi-LLM, graceful degradation   |
+| **Optimisation**  | ⭐⭐⭐⭐⭐ | Routing intelligent, caching 90%, batching -40% coûts         |
 
 ---
 
@@ -453,5 +453,5 @@ gantt
 
 ---
 
-*Document généré le 2026-05-11 — Version 2.0*  
-*Hearst OS Engineering Team*
+_Document généré le 2026-05-11 — Version 2.0_  
+_Hearst OS Engineering Team_

@@ -7,6 +7,7 @@ Ce dossier contient les outils de qualité pour le module Spatial.
 Scanne les fichiers du module Spatial pour vérifier le respect des conventions R3F et TypeScript.
 
 ### Règles vérifiées :
+
 - **Nomenclature** : Tout `<mesh>`, `<group>`, `<points>`, `<instancedMesh>` doit avoir un attribut `name`.
 - **Lumières** : L'intensité des lumières doit être comprise entre 0.05 et 5 (warning) ou 0 et 10 (erreur).
 - **Particules** : Le `count` des systèmes de particules est limité à 200 (warning) ou 500 (erreur).
@@ -21,12 +22,14 @@ Scanne les fichiers du module Spatial pour vérifier le respect des conventions 
 Automatise la capture de screenshots et la comparaison pixel-à-pixel pour détecter les régressions visuelles.
 
 ### Workflow recommandé :
+
 1. **Avant modif** : Lancer l'audit pour s'assurer que la référence est à jour et que tout est au vert.
 2. **Après modif** : Relancer l'audit.
 3. **Si régression** : Vérifier `docs/spatial/snapshots/diff.png`.
 4. **Si modif intentionnelle** : Mettre à jour la référence avec `npm run spatial:audit -- --update-reference`.
 
 ### Options :
+
 - `--url <url>` : Tester une autre route (par défaut `/spatial-rnd`).
 - `--threshold <pct>` : Changer le seuil de tolérance (par défaut 2%).
 - `--update-reference` : Forcer la mise à jour de l'image de référence.

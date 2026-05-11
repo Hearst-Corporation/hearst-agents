@@ -48,3 +48,9 @@ spawned via Agent tool, slash commands locales, et hooks.
 3. Après tout commit touchant `docs/features/*.md` : `npm run features:manifest`
 4. Avant push : `npm run validate` (typecheck + lint + test)
 5. Pour gros refactors : spawn subagent `Plan` au lieu de coder direct
+6. **`/spatial-safe` et ses fichiers associés sont en LECTURE SEULE ABSOLUE** —
+   aucun agent ne modifie `app/spatial-safe/`, `components/spatial-safe/`,
+   `hooks/spatial-safe/`, `lib/spatial-safe/`, `styles/spatial-safe/`,
+   `providers/spatial-safe/`, ni `docs/spatial/_BACKUP_SPATIAL_WORKING_*/`.
+   C'est la sauvegarde de référence Spatial. Voir CLAUDE.md → section
+   "INTERDICTION ABSOLUE — /spatial-safe".
