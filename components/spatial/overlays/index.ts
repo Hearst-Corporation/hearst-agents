@@ -4,3 +4,5 @@ export { CommandBar } from "./CommandBar";
 export { ExpertModeAffordance } from "./ExpertModeAffordance";
 export { MissionStatus } from "./MissionStatus";
 export { OrbAffordance } from "./OrbAffordance";
+export { ApprovalAlert } from "./ApprovalAlert";
+export { SpatialHotkeys } from "./SpatialHotkeys";
