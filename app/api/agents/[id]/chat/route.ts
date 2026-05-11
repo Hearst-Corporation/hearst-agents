@@ -41,13 +41,15 @@ export async function POST(
   const userMessage = parsed.data.message;
   let conversationId = parsed.data.conversation_id ?? null;
 
+  // Filtre tenant_id — empêche le chat cross-tenant IDOR (F-002)
   const { data: agent, error: agentErr } = await sb
     .from("agents")
     .select("*")
     .eq("id", id)
+    .eq("tenant_id", scope.tenantId)
     .single();
 
-  if (agentErr || !agent) return err("agent_not_found", 404);
+  if (agentErr || !agent) return err("not_found", 404);
 
   if (!conversationId) {
     const { data: convo } = await sb

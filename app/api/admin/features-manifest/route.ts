@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import path from "node:path";
@@ -12,10 +12,9 @@ const execAsync = promisify(exec);
 const log = withRoute("POST /api/admin/features-manifest");
 
 export async function POST(_request: Request) {
-  const { scope, error } = await requireScope({ context: "admin/features-manifest" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
+  const guard = await requireAdmin("admin/features-manifest", { resource: "settings", action: "admin" });
+  if (isError(guard)) return guard;
+  const { scope } = guard;
 
   try {
     const cwd = process.cwd();

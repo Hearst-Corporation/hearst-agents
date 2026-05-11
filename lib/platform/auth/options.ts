@@ -119,8 +119,8 @@ export const authOptions: AuthOptions = {
             .eq("id", user.id)
             .single();
           if (data) {
-            token.tenantId = data.primary_tenant_id;
-            token.workspaceId = data.primary_workspace_id;
+            token.tenantId = data.primary_tenant_id ?? undefined;
+            token.workspaceId = data.primary_workspace_id ?? undefined;
           }
         }
         return token;
@@ -162,8 +162,8 @@ export const authOptions: AuthOptions = {
               .eq("id", uuid)
               .single();
             if (!error && data) {
-              primaryTenantId = data.primary_tenant_id;
-              primaryWorkspaceId = data.primary_workspace_id;
+              primaryTenantId = data.primary_tenant_id ?? undefined;
+              primaryWorkspaceId = data.primary_workspace_id ?? undefined;
             } else if (error) {
               console.error(`[Auth] Failed to load tenant for user ${uuid.slice(0, 8)}: ${error.message}`);
             }

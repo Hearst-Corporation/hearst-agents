@@ -136,6 +136,7 @@ async function walMessage(
 export async function getRecentMessages(
   conversationId: string,
   limit = 10,
+  scope?: TenantScope,
 ): Promise<ChatMessageMemory[]> {
   const sb = db();
   if (sb) {
@@ -144,13 +145,20 @@ export async function getRecentMessages(
       // belong to the AI pipeline path and are returned by
       // `getRecentModelMessages` instead — querying both paths would
       // duplicate the user/assistant text in the conversation context.
-      const { data, error } = await sb
+      let query = sb
         .from("chat_messages")
         .select("role, content, created_at")
         .eq("conversation_id", conversationId)
         .is("payload", null)
         .order("created_at", { ascending: true })
         .limit(MAX_MESSAGES_PER_CONVERSATION);
+
+      // Filtre ownership si un scope est fourni — empêche la lecture cross-user (F-003)
+      if (scope?.userId) {
+        query = query.eq("user_id", scope.userId);
+      }
+
+      const { data, error } = await query;
 
       if (!error && data && data.length > 0) {
         const rows = data as Array<{ role: string; content: string; created_at: string }>;
@@ -165,7 +173,16 @@ export async function getRecentMessages(
     }
   }
 
-  // In-memory fallback
+  // In-memory fallback — isolation par tenantId::conversationId (F-003)
+  if (scope) {
+    const key = bufferKey(conversationId, scope.tenantId);
+    const conv = buffer.get(key);
+    if (conv && conv.userId === scope.userId) {
+      return conv.messages.slice(-limit);
+    }
+    return [];
+  }
+
   for (const conv of buffer.values()) {
     if (conv.conversationId === conversationId) {
       return conv.messages.slice(-limit);
@@ -340,17 +357,25 @@ async function persistModelMessages(
 export async function getRecentModelMessages(
   conversationId: string,
   limit = 20,
+  scope?: TenantScope,
 ): Promise<ModelMessage[]> {
   const sb = db();
   if (sb) {
     try {
-      const { data, error } = await sb
+      let query = sb
         .from("chat_messages")
         .select("role, content, payload, created_at")
         .eq("conversation_id", conversationId)
         .not("payload", "is", null)
         .order("created_at", { ascending: true })
         .limit(MAX_MESSAGES_PER_CONVERSATION);
+
+      // Filtre ownership si scope fourni — empêche la lecture cross-user (F-003)
+      if (scope?.userId) {
+        query = query.eq("user_id", scope.userId);
+      }
+
+      const { data, error } = await query;
 
       if (!error && data && data.length > 0) {
         const rows = data as Array<{
@@ -369,7 +394,12 @@ export async function getRecentModelMessages(
     }
   }
 
-  // In-process fallback
+  // In-process fallback — isolation par tenantId::conversationId (F-003)
+  if (scope) {
+    const key = structuredKey(conversationId, scope.tenantId);
+    return (structuredBuffer.get(key) ?? []).slice(-limit);
+  }
+
   for (const [key, msgs] of structuredBuffer.entries()) {
     if (key.includes(`::${conversationId}::struct`)) {
       return msgs.slice(-limit);

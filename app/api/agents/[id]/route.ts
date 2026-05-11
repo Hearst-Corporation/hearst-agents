@@ -12,13 +12,19 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { error: scopeError } = await requireScope({ context: "GET /api/agents/[id]" });
+  const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents/[id]" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const sb = requireServerSupabase();
-    const { data, error } = await sb.from("agents").select("*").eq("id", id).single();
-    if (error) return dbErr(`GET /api/agents/${id}`, error);
+    // Filtre tenant_id — protège contre IDOR cross-tenant (F-002)
+    const { data, error } = await sb
+      .from("agents")
+      .select("*")
+      .eq("id", id)
+      .eq("tenant_id", scope.tenantId)
+      .single();
+    if (error || !data) return err("not_found", 404);
     return ok({ agent: data });
   } catch (e) {
     console.error(`GET /api/agents/${id}: uncaught`, e);
@@ -30,7 +36,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { error: scopeError } = await requireScope({ context: "PUT /api/agents/[id]" });
+  const { scope, error: scopeError } = await requireScope({ context: "PUT /api/agents/[id]" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
@@ -40,9 +46,14 @@ export async function PUT(
 
     const sb = requireServerSupabase();
 
-    // Load current state before update for snapshotting
-    const { data: current } = await sb.from("agents").select("*").eq("id", id).single();
-    if (!current) return err("agent_not_found", 404);
+    // Load current state before update — filtre tenant_id pour IDOR (F-002)
+    const { data: current } = await sb
+      .from("agents")
+      .select("*")
+      .eq("id", id)
+      .eq("tenant_id", scope.tenantId)
+      .single();
+    if (!current) return err("not_found", 404);
 
     // Auto-snapshot: create version from current state
     const configSnapshot = {
@@ -76,6 +87,7 @@ export async function PUT(
       .from("agents")
       .update(updateData)
       .eq("id", id)
+      .eq("tenant_id", scope.tenantId)
       .select()
       .single();
 
@@ -91,12 +103,17 @@ export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { error: scopeError } = await requireScope({ context: "DELETE /api/agents/[id]" });
+  const { scope, error: scopeError } = await requireScope({ context: "DELETE /api/agents/[id]" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const sb = requireServerSupabase();
-    const { error } = await sb.from("agents").delete().eq("id", id);
+    // Filtre tenant_id — un user ne peut supprimer que ses propres agents (F-002)
+    const { error } = await sb
+      .from("agents")
+      .delete()
+      .eq("id", id)
+      .eq("tenant_id", scope.tenantId);
     if (error) return dbErr(`DELETE /api/agents/${id}`, error);
     return ok({ deleted: true });
   } catch (e) {

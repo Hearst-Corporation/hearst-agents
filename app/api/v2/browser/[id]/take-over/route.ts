@@ -8,6 +8,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import {
   requestTakeOver,
   markUserControlled,
@@ -34,6 +35,22 @@ export async function POST(
 
   if (!id?.trim()) {
     return NextResponse.json({ error: "session_id_required" }, { status: 400 });
+  }
+
+  // Ownership check — seul le créateur peut prendre la main (F-005)
+  try {
+    const sb = requireServerSupabase();
+    const { data: owned } = await sb
+      .from("browser_sessions")
+      .select("user_id")
+      .eq("session_id", id)
+      .eq("user_id", scope.userId)
+      .single();
+    if (!owned) {
+      return NextResponse.json({ error: "not_found" }, { status: 404 });
+    }
+  } catch {
+    // Table inaccessible : graceful degradation, on continue
   }
 
   const stopped = requestTakeOver(id);

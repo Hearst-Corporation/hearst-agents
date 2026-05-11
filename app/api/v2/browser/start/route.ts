@@ -26,6 +26,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { createSession } from "@/lib/capabilities/providers/browserbase";
 import { runBrowserTask } from "@/lib/browser/stagehand-executor";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -55,6 +56,20 @@ export async function POST(req: NextRequest) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[BrowserStart] createSession failed:", message);
     return NextResponse.json({ error: "session_create_failed", message }, { status: 502 });
+  }
+
+  // Tracker la session dans browser_sessions pour le ownership check (F-005)
+  try {
+    const sb = requireServerSupabase();
+    await sb.from("browser_sessions").insert({
+      session_id: session.sessionId,
+      user_id: scope.userId,
+      tenant_id: scope.tenantId,
+    });
+  } catch (err) {
+    // Non-bloquant : la session Browserbase existe côté fournisseur, on
+    // continue sans ownership tracking plutôt que d'abandonner la session.
+    console.error("[BrowserStart] browser_sessions insert failed:", err);
   }
 
   // Lance Stagehand en fire-and-forget. Les actions sont émises sur le bus

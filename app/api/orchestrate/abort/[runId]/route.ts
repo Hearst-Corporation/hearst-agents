@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { abortRun } from "@/lib/engine/orchestrator/abort-registry";
+import { getRunById } from "@/lib/engine/runtime/runs/store";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -34,6 +35,15 @@ export async function POST(
   const { runId } = await context.params;
   if (!runId || typeof runId !== "string") {
     return NextResponse.json({ ok: false, error: "runId_required" }, { status: 400 });
+  }
+
+  // Ownership check : un user ne peut abort que ses propres runs (F-004)
+  // Si le run est inconnu du store in-memory (cross-instance) on laisse passer —
+  // l'idempotence est maintenue, worst case le run est déjà terminé.
+  const run = getRunById(runId);
+  if (run && run.userId !== scope.userId) {
+    // 200 + aborted:false — idempotent, pas d'info disclosure sur l'existence du run
+    return NextResponse.json({ ok: true, aborted: false });
   }
 
   const aborted = abortRun(runId);

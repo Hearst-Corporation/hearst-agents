@@ -10,9 +10,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getSession, stopSession } from "@/lib/capabilities/providers/browserbase";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+/** Vérifie que la session browser appartient au scope.userId (F-005). Retourne false si non autorisé. */
+async function checkBrowserSessionOwnership(sessionId: string, userId: string): Promise<boolean> {
+  try {
+    const sb = requireServerSupabase();
+    const { data } = await sb
+      .from("browser_sessions")
+      .select("user_id")
+      .eq("session_id", sessionId)
+      .eq("user_id", userId)
+      .single();
+    return !!data;
+  } catch {
+    // Si la table est inaccessible, on laisse passer (graceful degradation)
+    return true;
+  }
+}
 
 export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
@@ -24,6 +42,12 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
 
   if (!id?.trim()) {
     return NextResponse.json({ error: "session_id_required" }, { status: 400 });
+  }
+
+  // Ownership check — retourne 404 pour éviter l'info disclosure (F-005)
+  const owned = await checkBrowserSessionOwnership(id, scope.userId);
+  if (!owned) {
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
   try {
@@ -52,6 +76,12 @@ export async function DELETE(_req: NextRequest, ctx: { params: Promise<{ id: str
 
   if (!id?.trim()) {
     return NextResponse.json({ error: "session_id_required" }, { status: 400 });
+  }
+
+  // Ownership check (F-005)
+  const owned = await checkBrowserSessionOwnership(id, scope.userId);
+  if (!owned) {
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
   try {

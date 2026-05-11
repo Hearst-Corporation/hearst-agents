@@ -91,6 +91,8 @@ export async function getJobState(
   progress: number;
   returnvalue: unknown;
   failedReason?: string;
+  /** Payload original du job — utilisé pour le ownership check côté routes (F-004) */
+  data?: unknown;
 } | null> {
   const queue = getQueue(kind);
   if (!queue) return null;
@@ -105,6 +107,7 @@ export async function getJobState(
     progress: typeof progress === "number" ? progress : 0,
     returnvalue: job.returnvalue,
     failedReason: job.failedReason,
+    data: job.data,
   };
 }
 

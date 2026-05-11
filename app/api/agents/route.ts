@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { getHearstSession } from "@/lib/platform/auth/session";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { createAgentSchema, ok, err, parseBody, dbErr, slugify } from "@/lib/domain";
 import type { Database } from "@/lib/database.types";
 
@@ -9,14 +9,16 @@ type AgentInsert = Database["public"]["Tables"]["agents"]["Insert"];
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const session = await getHearstSession();
-  if (!session) return err("unauthorized", 401);
+  const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents" });
+  if (scopeError) return err(scopeError.message, scopeError.status);
 
   try {
     const sb = requireServerSupabase();
+    // Filtre par tenant_id — évite la fuite cross-tenant (F-002)
     const { data, error } = await sb
       .from("agents")
       .select("id, name, slug, description, model_provider, model_name, status, version, created_at, updated_at")
+      .eq("tenant_id", scope.tenantId)
       .order("created_at", { ascending: false })
       .limit(50);
 
@@ -29,8 +31,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getHearstSession();
-  if (!session) return err("unauthorized", 401);
+  const { scope, error: scopeError } = await requireScope({ context: "POST /api/agents" });
+  if (scopeError) return err(scopeError.message, scopeError.status);
 
   try {
     const body = await req.json();
@@ -55,6 +57,9 @@ export async function POST(req: NextRequest) {
       metadata: input.metadata as AgentInsert["metadata"],
       model_profile_id: input.model_profile_id ?? null,
       memory_policy_id: input.memory_policy_id ?? null,
+      // Ancre au tenant du scope — clé pour l'isolation multi-tenant (F-002)
+      tenant_id: scope.tenantId,
+      owner_user_id: scope.userId,
     };
 
     const { data, error } = await sb

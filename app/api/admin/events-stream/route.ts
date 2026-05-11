@@ -1,14 +1,13 @@
 import { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { globalRunBus } from "@/lib/events/global-bus";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET(req: NextRequest) {
-  const { error } = await requireScope({ context: "GET /api/admin/events-stream" });
-  if (error) return NextResponse.json({ error: error.message }, { status: error.status });
+  const guard = await requireAdmin("GET /api/admin/events-stream", { resource: "runs", action: "read" });
+  if (isError(guard)) return guard;
 
   const encoder = new TextEncoder();
 

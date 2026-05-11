@@ -3,7 +3,7 @@
   "scope": "security",
   "version": "1.0.0",
   "started_at": "2026-05-10",
-  "last_updated": "2026-05-11T00:38:26.973Z",
+  "last_updated": "2026-05-11T01:01:14.933Z",
   "orchestrator": "claude-opus-4.7",
   "sources": [
     {
@@ -50,13 +50,13 @@
       "wont_fix": 1
     },
     "by_status": {
-      "pending": 118,
+      "pending": 110,
       "triaged": 0,
       "implementing": 0,
       "tested": 0,
       "reaudited": 0,
       "validated": 0,
-      "closed": 12,
+      "closed": 20,
       "wont_fix": 1
     },
     "by_convergence": {
@@ -125,7 +125,7 @@
       "title": "Admin RBAC missing on /admin/* pages and /api/admin/* routes",
       "severity": "P0",
       "category": "auth",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -189,6 +189,12 @@
           "actor": "orchestrator",
           "action": "consolidated",
           "note": "convergent — max confidence"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.703Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -197,7 +203,7 @@
       "title": "CRUD agents IDOR — full takeover cross-tenant",
       "severity": "P0",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -245,6 +251,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.736Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -253,7 +265,7 @@
       "title": "Cross-user conversation/memory via conversation_id IDOR",
       "severity": "P0",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "codex"
@@ -295,6 +307,12 @@
           "actor": "orchestrator",
           "action": "consolidated",
           "note": "blind spot Claude — important"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.768Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -303,7 +321,7 @@
       "title": "Jobs status/progress/abort cross-user leak (IDOR)",
       "severity": "P0",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "claude-opus",
@@ -355,6 +373,12 @@
           "ts": "2026-05-10",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.805Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -363,7 +387,7 @@
       "title": "Browserbase session takeover (IDOR)",
       "severity": "P0",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "codex"
@@ -405,6 +429,12 @@
           "actor": "orchestrator",
           "action": "consolidated",
           "note": "blind spot Claude — module browser non audité"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.835Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4063,7 +4093,7 @@
       "title": "agent_memory sans user_id/tenant_id + RLS using(true) — jailbreak persistant cross-tenant",
       "severity": "P0",
       "category": "rls",
-      "status": "pending",
+      "status": "closed",
       "confidence": "max",
       "sources": [
         "post-master-adv"
@@ -4104,6 +4134,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.868Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -4350,7 +4386,7 @@
       "title": "memory/govern wipe sans ownership — combiné CRIT-01 = poison + trim chirurgical",
       "severity": "P1",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "high",
       "sources": [
         "post-master-adv"
@@ -4380,6 +4416,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.899Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },
@@ -5049,7 +5091,7 @@
       "title": "audio-gen accepte voiceId/personaId libres — impersonation cross-user",
       "severity": "P1",
       "category": "idor",
-      "status": "pending",
+      "status": "closed",
       "confidence": "medium",
       "sources": [
         "post-master-adv"
@@ -5077,6 +5119,12 @@
           "ts": "2026-05-11",
           "actor": "orchestrator",
           "action": "consolidated"
+        },
+        {
+          "ts": "2026-05-11T01:01:14.932Z",
+          "actor": "battle-orchestrator-opus",
+          "from": "pending",
+          "to": "closed"
         }
       ]
     },

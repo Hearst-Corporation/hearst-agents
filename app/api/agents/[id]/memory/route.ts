@@ -9,15 +9,26 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { error: scopeError } = await requireScope({ context: "GET /api/agents/[id]/memory" });
+  const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents/[id]/memory" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const sb = requireServerSupabase();
+
+    // Vérifier ownership agent avant de lire la mémoire (F-094)
+    const { data: agent } = await sb
+      .from("agents")
+      .select("id")
+      .eq("id", id)
+      .eq("tenant_id", scope.tenantId)
+      .single();
+    if (!agent) return err("not_found", 404);
+
     const { data, error } = await sb
       .from("agent_memory")
       .select("*")
       .eq("agent_id", id)
+      .eq("user_id", scope.userId)
       .order("importance", { ascending: false })
       .limit(50);
 
@@ -33,7 +44,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const { error: scopeError } = await requireScope({ context: "POST /api/agents/[id]/memory" });
+  const { scope, error: scopeError } = await requireScope({ context: "POST /api/agents/[id]/memory" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
@@ -42,12 +53,25 @@ export async function POST(
     if (!parsed.success) return parsed.response;
 
     const sb = requireServerSupabase();
+
+    // Vérifier ownership agent avant d'écrire (F-094)
+    const { data: agent } = await sb
+      .from("agents")
+      .select("id")
+      .eq("id", id)
+      .eq("tenant_id", scope.tenantId)
+      .single();
+    if (!agent) return err("not_found", 404);
+
     const input = parsed.data;
 
+    // Persister user_id + tenant_id pour l'isolation RLS (F-094)
     const { data, error } = await sb
       .from("agent_memory")
       .insert({
         agent_id: id,
+        user_id: scope.userId,
+        tenant_id: scope.tenantId,
         memory_type: input.memory_type,
         key: input.key,
         value: input.value,

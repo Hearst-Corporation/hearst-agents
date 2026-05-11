@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ runId: string }> }) {
-  const { error } = await requireScope({ context: "GET /api/admin/runs/[runId]/events" });
-  if (error) return NextResponse.json({ error: error.message }, { status: error.status });
+  const guard = await requireAdmin("GET /api/admin/runs/[runId]/events", { resource: "runs", action: "read" });
+  if (isError(guard)) return guard;
 
   const { runId } = await params;
   if (!runId) return NextResponse.json({ error: "runId required" }, { status: 400 });

@@ -200,6 +200,15 @@ export async function GET(
         closeAll();
         return;
       }
+
+      // Ownership check — retourne not_found (pas 403) pour éviter l'info disclosure (F-004)
+      const jobUserId = (initial.data as { userId?: string } | undefined)?.userId;
+      if (jobUserId && jobUserId !== scope.userId) {
+        sendEvent("not_found", { jobId, kind });
+        closeAll();
+        return;
+      }
+
       sendProgress(initial.progress);
       if (initial.state === "completed") {
         sendEvent("completed", { returnvalue: initial.returnvalue ?? null });

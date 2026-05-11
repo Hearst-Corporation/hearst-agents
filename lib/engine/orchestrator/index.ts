@@ -214,7 +214,8 @@ async function runPipeline(
     void appendToSummary({ userId: input.userId, role: "user", content: input.message });
 
     if (!input.conversationHistory || input.conversationHistory.length === 0) {
-      const recentMemory = await getRecentMessages(input.conversationId, 10);
+      // Passe le scope pour filtrer par user_id — empêche la lecture cross-user (F-003)
+      const recentMemory = await getRecentMessages(input.conversationId, 10, scope);
       // Exclude the message we just appended (last one)
       const prior = recentMemory.slice(0, -1);
       if (prior.length > 0) {

@@ -73,6 +73,16 @@ export async function GET(
     );
   }
 
+  // Ownership check : un user ne peut pas lire les jobs d'un autre (F-004)
+  // On retourne 404 (pas 403) pour éviter l'info disclosure sur l'existence du job.
+  const jobUserId = (state.data as { userId?: string } | undefined)?.userId;
+  if (jobUserId && jobUserId !== scope.userId) {
+    return NextResponse.json(
+      { error: "job_not_found", jobId, kind: parsed.data.kind },
+      { status: 404 },
+    );
+  }
+
   return NextResponse.json({
     jobId,
     kind: parsed.data.kind,

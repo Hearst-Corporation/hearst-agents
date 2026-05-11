@@ -405,6 +405,8 @@ export type Database = {
           key: string
           last_accessed_at: string
           memory_type: string
+          tenant_id: string
+          user_id: string
           value: string
         }
         Insert: {
@@ -416,6 +418,8 @@ export type Database = {
           key: string
           last_accessed_at?: string
           memory_type?: string
+          tenant_id: string
+          user_id: string
           value: string
         }
         Update: {
@@ -427,6 +431,8 @@ export type Database = {
           key?: string
           last_accessed_at?: string
           memory_type?: string
+          tenant_id?: string
+          user_id?: string
           value?: string
         }
         Relationships: [
@@ -435,6 +441,20 @@ export type Database = {
             columns: ["agent_id"]
             isOneToOne: false
             referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agent_memory_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agent_memory_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
@@ -742,10 +762,12 @@ export type Database = {
           model_profile_id: string | null
           model_provider: string
           name: string
+          owner_user_id: string | null
           slug: string
           status: string
           system_prompt: string
           temperature: number
+          tenant_id: string | null
           top_p: number
           updated_at: string
           version: number
@@ -765,10 +787,12 @@ export type Database = {
           model_profile_id?: string | null
           model_provider?: string
           name: string
+          owner_user_id?: string | null
           slug: string
           status?: string
           system_prompt?: string
           temperature?: number
+          tenant_id?: string | null
           top_p?: number
           updated_at?: string
           version?: number
@@ -788,10 +812,12 @@ export type Database = {
           model_profile_id?: string | null
           model_provider?: string
           name?: string
+          owner_user_id?: string | null
           slug?: string
           status?: string
           system_prompt?: string
           temperature?: number
+          tenant_id?: string | null
           top_p?: number
           updated_at?: string
           version?: number
@@ -816,6 +842,20 @@ export type Database = {
             columns: ["model_profile_id"]
             isOneToOne: false
             referencedRelation: "model_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agents_owner_user_id_fkey"
+            columns: ["owner_user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -1131,6 +1171,45 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      browser_sessions: {
+        Row: {
+          created_at: string
+          last_seen_at: string
+          session_id: string
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          last_seen_at?: string
+          session_id: string
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          last_seen_at?: string
+          session_id?: string
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "browser_sessions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "browser_sessions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       chat_messages: {
         Row: {
@@ -3863,8 +3942,8 @@ export type Database = {
           id: string
           last_login_at: string | null
           name: string | null
-          primary_tenant_id: string
-          primary_workspace_id: string
+          primary_tenant_id: string | null
+          primary_workspace_id: string | null
           provider: string | null
           provider_account_id: string | null
           role: string
@@ -3878,8 +3957,8 @@ export type Database = {
           id?: string
           last_login_at?: string | null
           name?: string | null
-          primary_tenant_id: string
-          primary_workspace_id: string
+          primary_tenant_id?: string | null
+          primary_workspace_id?: string | null
           provider?: string | null
           provider_account_id?: string | null
           role?: string
@@ -3893,8 +3972,8 @@ export type Database = {
           id?: string
           last_login_at?: string | null
           name?: string | null
-          primary_tenant_id?: string
-          primary_workspace_id?: string
+          primary_tenant_id?: string | null
+          primary_workspace_id?: string | null
           provider?: string | null
           provider_account_id?: string | null
           role?: string
@@ -4188,6 +4267,7 @@ export type Database = {
     }
     Functions: {
       _jwt_tenant_id: { Args: never; Returns: string }
+      create_user_with_tenant: { Args: { p_email: string }; Returns: string }
       exec: { Args: { sql: string }; Returns: undefined }
       grant_trial_credits: {
         Args: { p_amount_usd?: number; p_tenant_id: string; p_user_id: string }

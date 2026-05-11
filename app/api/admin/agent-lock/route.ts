@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import {
   getAgentLockState,
   setAgentLockState,
@@ -23,10 +23,9 @@ interface ToggleBody {
 }
 
 export async function POST(request: NextRequest) {
-  const { scope, error } = await requireScope({ context: "admin/agent-lock" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: error.status });
-  }
+  const guard = await requireAdmin("admin/agent-lock", { resource: "settings", action: "admin" });
+  if (isError(guard)) return guard;
+  const { scope } = guard;
 
   let body: ToggleBody = {};
   try {

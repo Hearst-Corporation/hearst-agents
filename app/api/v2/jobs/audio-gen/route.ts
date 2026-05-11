@@ -14,6 +14,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant, updateVariant } from "@/lib/assets/variants";
 import { enqueueJob } from "@/lib/jobs/queue";
@@ -73,6 +74,25 @@ export async function POST(req: NextRequest) {
   }
 
   const { text, voiceId, modelId, threadId, tone, personaId } = parsed.data;
+
+  // Vérifier que la persona appartient au scope.userId — empêche l'impersonation (F-118)
+  if (personaId) {
+    try {
+      const sb = requireServerSupabase();
+      const { data: persona } = await sb
+        .from("personas")
+        .select("id")
+        .eq("id", personaId)
+        .eq("user_id", scope.userId)
+        .single();
+      if (!persona) {
+        return NextResponse.json({ error: "persona_not_found" }, { status: 404 });
+      }
+    } catch {
+      return NextResponse.json({ error: "persona_check_failed" }, { status: 500 });
+    }
+  }
+
   const estimatedCostUsd = Math.max(estimateSpeechCost(text, modelId), 0.001);
   const placeholderJobId = `pending-audio-${Date.now()}-${randomUUID().slice(0, 8)}`;
 
