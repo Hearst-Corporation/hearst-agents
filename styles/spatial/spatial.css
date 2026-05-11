@@ -124,3 +124,9 @@
     transform: scale(1.4);
   }
 }
+
+.spatial-stats {
+  top: auto !important;
+  bottom: 12px !important;
+  left: 12px !important;
+}
