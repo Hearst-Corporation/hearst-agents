@@ -22,6 +22,7 @@ import { useStageStore } from "@/stores/stage";
 import { useNavigationStore } from "@/stores/navigation";
 import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import { useFocusMode } from "@/stores/focus-mode";
+import { useServicesStore } from "@/stores/services";
 import {
   GhostIconMenu,
   GhostIconCamera,
@@ -80,30 +81,44 @@ export function PulseBar() {
     coreState === "awaiting_clarification";
 
   // ── Connections meter — feedback ambient sur l'état des apps ──
-  // Source : /api/v2/user/connections (canonical, retourne meta { connected, total }).
-  // Refresh 60s pour capter les nouvelles connexions OAuth sans saturer.
-  const [connections, setConnections] = useState<ConnectionsMeta | null>(null);
+  // Source : useServicesStore (hydraté par HomePageClient au mount, puis
+  // refreshé ici toutes les 60s). On dérive `connected/total` depuis les
+  // services au lieu de requérir un second fetch parallèle de
+  // /api/v2/user/connections — économise ~1s au mount et un fetch toutes
+  // les 60s.
+  const services = useServicesStore((s) => s.services);
+  const servicesLoaded = useServicesStore((s) => s.loaded);
+  const setStoreServices = useServicesStore((s) => s.setServices);
+  const setStoreLoaded = useServicesStore((s) => s.setLoaded);
+  const connections = useMemo<ConnectionsMeta | null>(() => {
+    if (!servicesLoaded) return null;
+    const connected = services.filter((s) => s.connectionStatus === "connected").length;
+    return { connected, total: services.length };
+  }, [services, servicesLoaded]);
   useEffect(() => {
     let cancelled = false;
     async function refreshConnections() {
       try {
-        const r = await fetch("/api/v2/user/connections", { cache: "no-store" });
+        const r = await fetch("/api/v2/user/connections", { cache: "no-store", credentials: "include" });
         if (!r.ok) return;
-        const data = (await r.json()) as { meta?: ConnectionsMeta };
-        if (!cancelled && data?.meta) {
-          setConnections({ connected: data.meta.connected, total: data.meta.total });
+        const data = (await r.json()) as { services?: unknown };
+        if (!cancelled && Array.isArray(data?.services)) {
+          setStoreServices(data.services as Parameters<typeof setStoreServices>[0]);
+          setStoreLoaded(true);
         }
       } catch {
-        // Fail-soft : on garde l'ancienne valeur, jamais de crash.
+        // Fail-soft : on garde l'ancienne valeur du store, jamais de crash.
       }
     }
-    refreshConnections();
+    // Pas de premier fetch ici : HomePageClient hydrate déjà le store au
+    // mount. On se contente du refresh périodique pour capter les nouvelles
+    // connexions OAuth sans saturer le serveur.
     const interval = setInterval(refreshConnections, 60_000);
     return () => {
       cancelled = true;
       clearInterval(interval);
     };
-  }, []);
+  }, [setStoreServices, setStoreLoaded]);
 
   // ── Anomaly Whisper — signaux ambient OS humain ──
   // Source : /api/v2/cockpit/signals. Refresh 60s. Filtrage côté client : on

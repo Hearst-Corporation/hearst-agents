@@ -6,13 +6,17 @@
  *
  * Sources :
  *   - /api/v2/cockpit/today : missions count + missions actives + reports count
- *   - /api/v2/user/connections : services connectés / total
+ *   - useServicesStore (hydraté par HomePageClient + refresh PulseBar) :
+ *     services connectés / total. Pas de fetch dédié ici — on lit le store
+ *     pour éviter le refetch storm sur /api/v2/user/connections (jusqu'à 4×
+ *     au mount avant la dedupe).
  *
- * Refresh : 60 s pour les deux (aligné PulseBar). Fail-soft : si fetch fail,
- * on garde la dernière valeur connue, jamais de crash.
+ * Refresh : 60 s pour cockpit/today. Fail-soft : si fetch fail, on garde la
+ * dernière valeur connue, jamais de crash.
  */
 
 import { useEffect, useState } from "react";
+import { useServicesStore } from "@/stores/services";
 
 export interface MissionSummary {
   id: string;
@@ -52,24 +56,28 @@ export function useDashboardCounts(): DashboardCounts {
     initialLoading: true,
   });
 
+  // Connections : dérivées du store partagé. HomePageClient hydrate, PulseBar
+  // rafraîchit toutes les 60 s. On évite ainsi un fetch /api/v2/user/connections
+  // dédié pour ce hook.
+  const services = useServicesStore((s) => s.services);
+  const servicesLoaded = useServicesStore((s) => s.loaded);
+
   useEffect(() => {
     let cancelled = false;
 
     async function refresh() {
-      const [todayRes, connRes] = await Promise.allSettled([
-        fetch("/api/v2/cockpit/today", { cache: "no-store", credentials: "include" }).then((r) =>
-          r.ok ? r.json() : null,
-        ),
-        fetch("/api/v2/user/connections", { cache: "no-store", credentials: "include" }).then((r) =>
-          r.ok ? r.json() : null,
-        ),
-      ]);
+      const todayRes = await fetch("/api/v2/cockpit/today", {
+        cache: "no-store",
+        credentials: "include",
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
 
       if (cancelled) return;
 
       const next: Partial<DashboardCounts> = {};
-      if (todayRes.status === "fulfilled" && todayRes.value) {
-        const data = todayRes.value as {
+      if (todayRes) {
+        const data = todayRes as {
           counts?: { missions?: number; reports?: number; assets?: number };
           missionsRunning?: Array<{ id: string; name?: string; status: string; schedule?: string | null }>;
         };
@@ -85,13 +93,6 @@ export function useDashboardCounts(): DashboardCounts {
           schedule: m.schedule ?? null,
         }));
       }
-      if (connRes.status === "fulfilled" && connRes.value) {
-        const data = connRes.value as { meta?: { connected: number; total: number } };
-        if (data.meta) {
-          next.connectionsConnected = data.meta.connected;
-          next.connectionsTotal = data.meta.total;
-        }
-      }
 
       setState((prev) => ({ ...prev, ...next, initialLoading: false }));
     }
@@ -104,5 +105,16 @@ export function useDashboardCounts(): DashboardCounts {
     };
   }, []);
 
-  return state;
+  // Compteurs services dérivés à la volée du store partagé — pas de setState
+  // en effect (évite la boucle + warning react-hooks/set-state-in-effect).
+  const connectionsConnected = servicesLoaded
+    ? services.filter((s) => s.connectionStatus === "connected").length
+    : null;
+  const connectionsTotal = servicesLoaded ? services.length : null;
+
+  return {
+    ...state,
+    connectionsConnected,
+    connectionsTotal,
+  };
 }

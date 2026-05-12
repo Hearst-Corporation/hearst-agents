@@ -105,6 +105,14 @@ const DOMAIN_APP_ALLOWLIST: Record<string, string[]> = {
  * Filter discovered tools to only those relevant for the given domain.
  * Returns all tools unchanged for "general" and "research" (no restriction).
  * Always caps at 40 tools to prevent token explosion.
+ *
+ * Pour le domaine "general", on fait du round-robin par app : on garantit
+ * qu'au moins 1 tool de chaque app connectée passe la limite avant qu'une
+ * app n'en place 2. Sans ce ré-équilibrage, les apps avec beaucoup d'actions
+ * (gmail, slack) saturaient les 40 premiers slots et masquaient l'existence
+ * des apps minoritaires (notion, github, hubspot, figma) au LLM — qui
+ * répondait alors "tu n'as que Gmail, Slack et Stripe" alors que 12 apps
+ * étaient connectées.
  */
 export function filterToolsByDomain(
   tools: import("./discovery").DiscoveredTool[],
@@ -113,11 +121,35 @@ export function filterToolsByDomain(
   const MAX_TOOLS = 40;
 
   const allowlist = DOMAIN_APP_ALLOWLIST[domain];
-  if (!allowlist) {
-    // general / research — no domain filter, but cap at MAX_TOOLS
-    return tools.slice(0, MAX_TOOLS);
+  const candidates = allowlist
+    ? tools.filter((t) => allowlist.includes(t.app.toLowerCase()))
+    : tools;
+
+  // Round-robin par app : on lit en couches successives. Au tour N, on
+  // ajoute le N-ième tool de chaque app (s'il existe). Chaque app reçoit
+  // ainsi sa part avant qu'une seule app ne consomme tout le quota.
+  const byApp = new Map<string, import("./discovery").DiscoveredTool[]>();
+  for (const t of candidates) {
+    const app = t.app.toLowerCase();
+    const list = byApp.get(app);
+    if (list) list.push(t);
+    else byApp.set(app, [t]);
   }
 
-  const filtered = tools.filter((t) => allowlist.includes(t.app.toLowerCase()));
-  return filtered.slice(0, MAX_TOOLS);
+  const result: import("./discovery").DiscoveredTool[] = [];
+  let layer = 0;
+  while (result.length < MAX_TOOLS) {
+    let pickedThisLayer = false;
+    for (const list of byApp.values()) {
+      if (result.length >= MAX_TOOLS) break;
+      const tool = list[layer];
+      if (tool) {
+        result.push(tool);
+        pickedThisLayer = true;
+      }
+    }
+    if (!pickedThisLayer) break;
+    layer++;
+  }
+  return result;
 }
