@@ -20,14 +20,14 @@
 import { Suspense } from "react";
 import { usePathname } from "next/navigation";
 import { useStageStore } from "@/stores/stage";
-import { ContextRailForMission } from "../ContextRailForMission";
-import { ContextRailForPreMeeting } from "../ContextRailForPreMeeting";
+import { ContextRailForMission } from "./ContextRailForMission";
+import { ContextRailForPreMeeting } from "./ContextRailForPreMeeting";
 import {
   ContextRailForRuns,
   ContextRailForMissionsAdmin,
   ContextRailForApps,
   ContextRailForReports,
-} from "../ContextRailForAdmin";
+} from "./ContextRailForAdmin";
 import { ContextRailShell } from "./ContextRailShell";
 import {
   ContextRailForCockpit,

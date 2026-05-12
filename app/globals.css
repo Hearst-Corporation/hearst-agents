@@ -87,12 +87,34 @@
   --z-overlay: 100;
 
   /* Nouveaux tokens de gradient immersifs */
-  --bg-gradient-radial-subtle: radial-gradient(circle at center, color-mix(in srgb, var(--accent-teal) 2%, transparent) 0%, transparent 70%),
-                              radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--gold) 1%, transparent) 0%, transparent 60%);
-  --bg-gradient-linear-bottom-glow: linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 5%, transparent) 0%, transparent 80%);
-  --bg-panel-gradient: radial-gradient(circle at 10% 90%, color-mix(in srgb, var(--accent-llm) 2%, transparent) 0%, transparent 50%),
-                      radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--gold) 2%, transparent) 0%, transparent 60%),
-                      linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --bg-gradient-radial-subtle:
+    radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--accent-teal) 2%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      color-mix(in srgb, var(--gold) 1%, transparent) 0%,
+      transparent 60%
+    );
+  --bg-gradient-linear-bottom-glow: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--accent-teal) 5%, transparent) 0%,
+    transparent 80%
+  );
+  --bg-panel-gradient:
+    radial-gradient(
+      circle at 10% 90%,
+      color-mix(in srgb, var(--accent-llm) 2%, transparent) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      color-mix(in srgb, var(--gold) 2%, transparent) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.02) 100%);
 
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
   --space-0: 0px;
@@ -249,8 +271,10 @@
   --shadow-stage-card: 0 1px 2px rgba(0, 0, 0, 0.18), 0 8px 28px rgba(0, 0, 0, 0.22);
   --shadow-divider-bottom-subtle: inset 0 -1px 0 0 var(--line);
 
-/* Ombres & Lueurs raffinées */
-  --shadow-card-deep: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 24px rgba(0, 0, 0, 0.3), 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  /* Ombres & Lueurs raffinées */
+  --shadow-card-deep:
+    0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 24px rgba(0, 0, 0, 0.3),
+    0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   --glow-subtle-accent: drop-shadow(0 0 24px rgba(74, 139, 134, 0.1));
   --shadow-panel-lift: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(74, 139, 134, 0.15);
 
@@ -306,14 +330,11 @@
 
   /* High-end card depth stack (3-layer) */
   --shadow-card:
-    0 4px 8px rgba(0, 0, 0, 0.5),
-    0 20px 40px -12px rgba(0, 0, 0, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.5), 0 20px 40px -12px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --shadow-card-hover:
-    0 8px 16px rgba(0, 0, 0, 0.6),
-    0 30px 60px rgba(74, 139, 134, 0.2),
-    0 40px 80px -20px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 8px 16px rgba(0, 0, 0, 0.6), 0 30px 60px rgba(74, 139, 134, 0.2),
+    0 40px 80px -20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   /* ─── Hearst Connect — Typography weights ───────────────────── */
   --weight-light: 300;
@@ -1481,11 +1502,19 @@ body {
 
 /* Nouvelles classes de gradient d'accent */
 .bg-radial-accent-soft {
-  background: radial-gradient(circle at center, color-mix(in srgb, var(--accent-teal) 8%, transparent) 0%, transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--accent-teal) 8%, transparent) 0%,
+    transparent 70%
+  );
 }
 
 .bg-linear-accent-soft-bottom {
-  background: linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 6%, transparent) 0%, transparent 80%);
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--accent-teal) 6%, transparent) 0%,
+    transparent 80%
+  );
 }
 
 /* ── Ghost Lumineux — Cockpit classes ─────────────────────── */
@@ -1955,7 +1984,6 @@ body {
   box-shadow: 0 0 8px var(--accent-teal);
 }
 
-
 /* Trois points "en train d'écrire" — fade simple, pas de gradient animé */
 .chat-typing-dots {
   display: inline-block;
@@ -1963,7 +1991,6 @@ body {
   animation: pulse-subtle-opacity 1.6s ease-in-out infinite;
   opacity: 0.7;
 }
-
 
 /* ── Scrollbar styling ────────────────── */
 ::-webkit-scrollbar {
@@ -2507,8 +2534,16 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   height: 200px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--accent-teal) 20%, transparent) 0%, transparent 42%),
-    radial-gradient(circle at 70% 75%, color-mix(in srgb, var(--gold) 14%, transparent) 0%, transparent 38%),
+    radial-gradient(
+      circle at 34% 30%,
+      color-mix(in srgb, var(--accent-teal) 20%, transparent) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 70% 75%,
+      color-mix(in srgb, var(--gold) 14%, transparent) 0%,
+      transparent 38%
+    ),
     radial-gradient(circle at 38% 36%, var(--mat-400) 0%, var(--mat-300) 55%, var(--mat-200) 100%);
   box-shadow:
     var(--shadow-card-deep),
@@ -2555,7 +2590,9 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   height: 4px;
   border-radius: 50%;
   background: color-mix(in srgb, var(--accent-teal) 80%, white);
-  box-shadow: 0 0 10px var(--accent-teal), 0 0 20px var(--accent-teal);
+  box-shadow:
+    0 0 10px var(--accent-teal),
+    0 0 20px var(--accent-teal);
   animation: orbe-particle-drift 10s ease-in-out infinite alternate;
 }
 
@@ -2621,7 +2658,8 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 }
 
 @keyframes orbe-particle-drift {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) scale(0.8);
     opacity: 0.6;
   }
@@ -2641,42 +2679,86 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 
 /* Keyframes pour animations d'orbe/icônes */
 @keyframes pulse-subtle-opacity {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 0.95; }
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.95;
+  }
 }
 
 @keyframes spin-slow-clockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Keyframes d'animation discrètes */
 @keyframes fade-in-slide-up-subtle {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulse-breath {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.015); opacity: 1; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.015);
+    opacity: 1;
+  }
 }
 
 @keyframes rotate-slow-clockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes panel-slide-in-right {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes panel-slide-in-bottom {
-  from { opacity: 0; transform: translateY(100%); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes panel-slide-in-left {
-  from { opacity: 0; transform: translateX(-100%); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

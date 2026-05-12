@@ -17,9 +17,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useStageStore } from "@/stores/stage";
-import { RailSection } from "./ui/RailSection";
-import { EmptyState } from "./ui/EmptyState";
-import { Action } from "./ui/Action";
+import { RailSection } from "../ui/RailSection";
+import { EmptyState } from "../ui/EmptyState";
+import { Action } from "../ui/Action";
 
 // ── Types — alignés sur PreMeetingIntel côté serveur ─────────────
 

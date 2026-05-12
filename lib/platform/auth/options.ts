@@ -121,6 +121,11 @@ export const authOptions: AuthOptions = {
           if (data) {
             token.tenantId = data.primary_tenant_id ?? undefined;
             token.workspaceId = data.primary_workspace_id ?? undefined;
+            console.log(
+              `[Auth] Dev-bypass JWT created — user: ${user.id.slice(0, 8)}, tenant: ${data.primary_tenant_id?.slice(0, 8) ?? "null"}`,
+            );
+          } else {
+            console.warn(`[Auth] Dev-bypass JWT — no tenant found for user ${user.id.slice(0, 8)}`);
           }
         }
         return token;

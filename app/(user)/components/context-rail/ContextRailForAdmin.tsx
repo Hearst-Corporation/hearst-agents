@@ -19,10 +19,10 @@
 
 import { useState, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { RailSection, Action } from "./ui";
+import { RailSection, Action } from "../ui";
 import { useBuilderStore } from "@/stores/builder";
-import { NodePalette } from "./missions/builder/NodePalette";
-import { NodeConfigPanel } from "./missions/builder/NodeConfigPanel";
+import { NodePalette } from "../missions/builder/NodePalette";
+import { NodeConfigPanel } from "../missions/builder/NodeConfigPanel";
 
 // ── Icons (stroke 1.5, 14×14, cohérent avec TimelineRail) ──────
 

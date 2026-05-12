@@ -15,7 +15,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import { ContextRailForMission } from "@/app/(user)/components/ContextRailForMission";
+import { ContextRailForMission } from "@/app/(user)/components/context-rail/ContextRailForMission";
 import { useStageStore } from "@/stores/stage";
 
 const FAKE_MISSION = {

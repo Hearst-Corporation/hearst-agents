@@ -10,7 +10,7 @@
  */
 
 import { useNotificationsStore } from "@/stores/notifications";
-import type { PreMeetingNotificationMeta } from "../../ContextRailForPreMeeting";
+import type { PreMeetingNotificationMeta } from "../ContextRailForPreMeeting";
 
 export function usePreMeetingActive(): {
   eventTitle: string;
