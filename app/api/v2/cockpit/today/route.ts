@@ -31,6 +31,14 @@ export async function GET() {
       workspaceId: scope.workspaceId,
     });
 
+    // DIAG TEMPORAIRE — bug "missions vides chez Adrien". Log le scope vu
+    // par cette requête + le nombre de missions retournées. Permet de comparer
+    // ce que reçoit Chrome user vs Playwright et identifier la divergence.
+    // À retirer après résolution.
+    console.log(
+      `[diag/cockpit-today] scope=user:${scope.userId.slice(0, 8)} tenant:${scope.tenantId} workspace:${scope.workspaceId} → missionsRunning=${payload.missionsRunning?.length ?? 0}`,
+    );
+
     return NextResponse.json({
       ...payload,
     });

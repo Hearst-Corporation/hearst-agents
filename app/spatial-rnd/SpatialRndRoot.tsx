@@ -15,14 +15,45 @@
 
 import { useSplineApp } from "@/hooks/spatial/useSplineApp";
 import { useSplineIdleAmbient } from "@/hooks/spatial/useSplineIdleAmbient";
+import { useSpatialPanelsAgentSync } from "@/hooks/spatial/useSpatialPanelsAgentSync";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useSpatialPanelsStore } from "@/stores/spatial-panels";
 import { SpatialScene } from "@/components/spatial/core/SpatialScene";
 import { SpatialLogoCore } from "@/components/spatial/core/SpatialLogoCore";
 import { CommandBar } from "@/components/spatial/overlays/CommandBar";
 import { CockpitPanelsLayer } from "@/components/spatial/rnd/CockpitPanelsLayer";
+import { SpatialPanelDock } from "@/components/spatial/rnd/SpatialPanelDock";
+import { SpatialRobotPresence } from "@/components/spatial/rnd/SpatialRobotPresence";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
-export function SpatialRndRoot() {
+import { SPATIAL_RND_MESSAGES, SPATIAL_RND_STATES } from "@/lib/i18n/fr";
+
+interface SpatialRndRootProps {
+  initialCockpitData?: CockpitTodayPayload | null;
+}
+
+export function SpatialRndRoot({ initialCockpitData = null }: SpatialRndRootProps) {
   const spline = useSplineApp();
+  const coreState = useRuntimeStore((s) => s.coreState);
+  const surfaceOpen = useSpatialPanelsStore((s) =>
+    s.panels.some((panel) =>
+      ["brief", "mission", "assets", "chat-response", "asset-preview"].includes(panel.type),
+    ),
+  );
+  const isAgentActive =
+    coreState === SPATIAL_RND_STATES.STREAMING ||
+    coreState === SPATIAL_RND_STATES.PROCESSING;
+  const presenceMode =
+    coreState === SPATIAL_RND_STATES.AWAITING_APPROVAL
+      ? "approval"
+      : isAgentActive
+        ? "active"
+        : surfaceOpen
+          ? "surface"
+        : "idle";
   useSplineIdleAmbient(spline);
+  // Branche les stores existants (runtime / focal / navigation) au store de panels.
+  useSpatialPanelsAgentSync();
 
   return (
     <>
@@ -31,26 +62,52 @@ export function SpatialRndRoot() {
         <SpatialLogoCore onLoad={spline.onLoad} />
       </SpatialScene>
 
-      {/* Couche cockpit : 4 panels HTML en profondeur Z */}
-      <CockpitPanelsLayer />
+      <SpatialRobotPresence mode={presenceMode} surfaceOpen={surfaceOpen} />
+
+      {/* Couche cockpit : panels contextuels en profondeur Z */}
+      <CockpitPanelsLayer
+        initialCockpitData={initialCockpitData}
+      />
 
       {/* Chat bar en bas */}
       <CommandBar show={true} />
 
-      {/* Pill HUD top-center pour signaler qu'on est en R&D */}
+      {/* Navigation manuelle minimale */}
+      <SpatialPanelDock />
+
+      {/* État vivant minimal du robot */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-6 flex justify-center"
+        className="pointer-events-none absolute inset-x-0 top-7 flex justify-center"
         style={{ zIndex: 50 }}
       >
         <div
-          className="pointer-events-auto rounded-full px-4 py-1.5 text-spatial-xs uppercase tracking-[0.2em] text-white/45"
+          className="pointer-events-auto flex items-center gap-2 rounded-full px-3.5 py-1.5 text-spatial-sm font-light tracking-wide text-white/52"
           style={{
             background: "rgba(255,255,255,0.04)",
             backdropFilter: "blur(20px) saturate(130%)",
             border: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          Spatial · R&D · cockpit 3D
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{
+              background:
+                coreState === SPATIAL_RND_STATES.STREAMING || coreState === SPATIAL_RND_STATES.PROCESSING
+                  ? "rgba(0,229,204,0.9)"
+                  : coreState === SPATIAL_RND_STATES.AWAITING_APPROVAL
+                    ? "rgba(232,176,120,0.95)"
+                    : "rgba(255,255,255,0.55)",
+              boxShadow:
+                coreState === SPATIAL_RND_STATES.IDLE
+                  ? "0 0 8px rgba(255,255,255,0.22)"
+                  : "0 0 14px currentColor",
+            }}
+          />
+          {coreState === SPATIAL_RND_STATES.STREAMING || coreState === SPATIAL_RND_STATES.PROCESSING
+            ? SPATIAL_RND_MESSAGES.HEARST_THINKING
+            : coreState === SPATIAL_RND_STATES.AWAITING_APPROVAL
+              ? SPATIAL_RND_MESSAGES.APPROVAL_PENDING
+              : SPATIAL_RND_MESSAGES.HEARST_READY}
         </div>
       </div>
     </>

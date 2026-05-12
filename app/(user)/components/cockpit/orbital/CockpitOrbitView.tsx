@@ -1,13 +1,10 @@
-// lint-visual-disable-file — prototype luxe orbital, palette ad-hoc hors DS
 "use client";
 
-import { useRef, useState, useEffect } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-import { OrbeCentral } from "./OrbeCentral";
 import { OrbitalGreeting } from "./OrbitalGreeting";
-import { OrbitalNodes, NODE_OFFSETS } from "./OrbitalNodes";
-import { OrbitalConnections } from "./OrbitalConnections";
+import { OrbitalNodes } from "./OrbitalNodes";
 import { OrbitalQuickActions } from "./OrbitalQuickActions";
+import { OrbeCentral } from "./OrbeCentral";
 
 interface CockpitOrbitViewProps {
   data: CockpitTodayPayload;
@@ -15,92 +12,161 @@ interface CockpitOrbitViewProps {
 }
 
 export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [dims, setDims] = useState({ w: 0, h: 0 });
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(([entry]) => {
-      setDims({
-        w: entry.contentRect.width,
-        h: entry.contentRect.height,
-      });
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  const centerX = dims.w / 2;
-  const centerY = dims.h / 2;
-
-  const nodeAbsolutePositions = NODE_OFFSETS.map((o) => ({
-    x: centerX + o.x,
-    y: centerY + o.y,
-  }));
-
   return (
     <div
       className="flex-1 flex flex-col min-h-0 overflow-hidden"
-      style={{ background: "#000", position: "relative" }}
+      style={{ background: "var(--bg)" }}
     >
-      {/* Halo radial de fond — centré sur l'écran */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 600,
-          height: 400,
-          background: "radial-gradient(ellipse at center, rgba(74,139,134,0.06) 0%, rgba(30,50,80,0.04) 40%, transparent 70%)",
-          filter: "blur(40px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-
       {/* Greeting */}
       <OrbitalGreeting />
 
-      {/* Zone orbital */}
+      {/* Centre : layout flexbox pur avec lignes de connexion */}
       <div
-        ref={containerRef}
-        className="flex-1 relative"
-        style={{ minHeight: 0, zIndex: 1 }}
+        className="flex-1 flex flex-col items-center justify-center"
+        style={{ padding: "var(--space-6) var(--space-8)", gap: 40 }}
       >
-        {dims.w > 0 && (
-          <>
-            {/* Connexions SVG */}
-            <OrbitalConnections
-              center={{ x: centerX, y: centerY }}
-              nodePositions={nodeAbsolutePositions}
-              width={dims.w}
-              height={dims.h}
-              orbeRadius={104}
-            />
-
-            {/* Orbe — centré absolument */}
-            <div style={{
+        {/* Haut : Gmail + ligne vers cœur */}
+        <div style={{ position: "relative" }}>
+          <OrbitalNodes data={data} row="top" />
+          {/* Ligne verticale vers le bas */}
+          <div
+            style={{
               position: "absolute",
-              left: centerX,
-              top: centerY,
-              transform: "translate(-50%, -50%)",
-              zIndex: 2,
-            }}>
-              <OrbeCentral />
-            </div>
+              top: "100%",
+              left: "50%",
+              width: "1px",
+              height: 80,
+              background:
+                "linear-gradient(to bottom, var(--mono-line) 0%, transparent 100%)",
+              transform: "translateX(-50%)",
+              pointerEvents: "none",
+            }}
+          />
+        </div>
 
-            {/* Nodes services */}
-            <div style={{ position: "absolute", inset: 0, zIndex: 3 }}>
-              <OrbitalNodes data={data} centerX={centerX} centerY={centerY} />
-            </div>
-          </>
-        )}
+        {/* Milieu : Notion + cœur + Agent Research */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 60,
+            position: "relative",
+          }}
+        >
+          {/* Notion + ligne horizontale */}
+          <div style={{ position: "relative" }}>
+            <OrbitalNodes data={data} row="mid-left" />
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "100%",
+                width: 60,
+                height: "1px",
+                background:
+                  "linear-gradient(to right, var(--mono-line) 0%, transparent 100%)",
+                transform: "translateY(-50%)",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+
+          {/* Cœur */}
+          <div style={{ position: "relative", width: 180, height: 180 }}>
+            {/* Halo de fond */}
+            <div
+              style={{
+                position: "absolute",
+                inset: -50,
+                background:
+                  "radial-gradient(circle at center, var(--mono-surface) 0%, transparent 55%)",
+                pointerEvents: "none",
+              }}
+            />
+            <OrbeCentral />
+          </div>
+
+          {/* Agent Research + ligne horizontale */}
+          <div style={{ position: "relative" }}>
+            <OrbitalNodes data={data} row="mid-right" />
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "100%",
+                width: 60,
+                height: "1px",
+                background:
+                  "linear-gradient(to left, var(--mono-line) 0%, transparent 100%)",
+                transform: "translateY(-50%)",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Bas : cœur + nodes + lignes diagonales dans un conteneur commun */}
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 0,
+          }}
+        >
+          {/* Lignes diagonales depuis le cœur vers les nodes du bas */}
+          {/* La ligne part du haut de cette zone (bas du cœur) et va vers les nodes */}
+          <div
+            style={{
+              position: "absolute",
+              top: -40,
+              left: "50%",
+              width: 1,
+              height: 40,
+              background:
+                "linear-gradient(to bottom, var(--mono-line) 0%, transparent 100%)",
+              transform: "translateX(-50%)",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Ligne diagonale vers Drive (gauche) */}
+          <div
+            style={{
+              position: "absolute",
+              top: -30,
+              left: "30%",
+              width: 80,
+              height: 1,
+              background:
+                "linear-gradient(to bottom left, var(--mono-line-dim) 0%, transparent 100%)",
+              transform: "rotate(50deg)",
+              transformOrigin: "top left",
+              pointerEvents: "none",
+            }}
+          />
+          {/* Ligne diagonale vers Calendar (droite) */}
+          <div
+            style={{
+              position: "absolute",
+              top: -30,
+              right: "30%",
+              width: 80,
+              height: 1,
+              background:
+                "linear-gradient(to bottom right, var(--mono-line-dim) 0%, transparent 100%)",
+              transform: "rotate(-50deg)",
+              transformOrigin: "top right",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div style={{ display: "flex", gap: 40 }}>
+            <OrbitalNodes data={data} row="bottom" />
+          </div>
+        </div>
       </div>
 
-      {/* Quick actions */}
       <OrbitalQuickActions />
     </div>
   );

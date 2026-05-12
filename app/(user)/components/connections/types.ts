@@ -39,7 +39,7 @@ export interface DrawerState {
   connectedAccount?: ConnectedAccount;
 }
 
-export const CATEGORY_LABEL: Record<string, string> = {
+const CATEGORY_LABEL: Record<string, string> = {
   communication: "Communication",
   productivity: "Productivité",
   crm: "CRM & Ventes",

@@ -86,6 +86,14 @@
   --z-toast: 70;
   --z-overlay: 100;
 
+  /* Nouveaux tokens de gradient immersifs */
+  --bg-gradient-radial-subtle: radial-gradient(circle at center, color-mix(in srgb, var(--accent-teal) 2%, transparent) 0%, transparent 70%),
+                              radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--gold) 1%, transparent) 0%, transparent 60%);
+  --bg-gradient-linear-bottom-glow: linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 5%, transparent) 0%, transparent 80%);
+  --bg-panel-gradient: radial-gradient(circle at 10% 90%, color-mix(in srgb, var(--accent-llm) 2%, transparent) 0%, transparent 50%),
+                      radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--gold) 2%, transparent) 0%, transparent 60%),
+                      linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.02) 100%);
+
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
   --space-0: 0px;
   --space-1: 4px;
@@ -241,6 +249,11 @@
   --shadow-stage-card: 0 1px 2px rgba(0, 0, 0, 0.18), 0 8px 28px rgba(0, 0, 0, 0.22);
   --shadow-divider-bottom-subtle: inset 0 -1px 0 0 var(--line);
 
+/* Ombres & Lueurs raffinées */
+  --shadow-card-deep: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 24px rgba(0, 0, 0, 0.3), 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --glow-subtle-accent: drop-shadow(0 0 24px rgba(74, 139, 134, 0.1));
+  --shadow-panel-lift: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(74, 139, 134, 0.15);
+
   /* ─── Hearst Connect — Input (chat) ─────────────────────────── */
   --input-max-width: 960px;
 
@@ -293,11 +306,14 @@
 
   /* High-end card depth stack (3-layer) */
   --shadow-card:
-    0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 24px rgba(0, 0, 0, 0.2),
-    0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 20px 40px -12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --shadow-card-hover:
-    0 4px 8px rgba(0, 0, 0, 0.35), 0 20px 40px rgba(74, 139, 134, 0.12),
-    0 30px 60px -12px rgba(0, 0, 0, 0.5);
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    0 30px 60px rgba(74, 139, 134, 0.2),
+    0 40px 80px -20px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   /* ─── Hearst Connect — Typography weights ───────────────────── */
   --weight-light: 300;
@@ -307,6 +323,7 @@
   --weight-bold: 700;
 
   /* ─── Backdrop blur scale ────────────────────────────────────── */
+  --blur-xs: blur(4px);
   --blur-sm: blur(8px);
   --blur-md: blur(20px);
   --blur-lg: blur(40px);
@@ -1240,6 +1257,7 @@
   --spacing-24: var(--space-24);
   --spacing-32: var(--space-32);
   --spacing-50: 200px;
+  --max-w-input: var(--input-max-width);
 
   /* Hearst Connect — leading scale (leading-tight → var(--leading-tight)…)
    * Override les valeurs Tailwind par défaut (1.25 / 1.375 / 2.0) qui
@@ -1249,6 +1267,8 @@
   --leading-base: var(--leading-base);
   --leading-relaxed: var(--leading-relaxed);
   --leading-loose: var(--leading-loose);
+  --h-input-max: var(--height-input-max);
+  --min-h-input: var(--space-8);
 
   /* Hearst Connect — tracking scale (tracking-tight, tracking-display, …) */
   --tracking-tight: var(--tracking-tight);
@@ -1457,6 +1477,15 @@ body {
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.005) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
+}
+
+/* Nouvelles classes de gradient d'accent */
+.bg-radial-accent-soft {
+  background: radial-gradient(circle at center, color-mix(in srgb, var(--accent-teal) 8%, transparent) 0%, transparent 70%);
+}
+
+.bg-linear-accent-soft-bottom {
+  background: linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 6%, transparent) 0%, transparent 80%);
 }
 
 /* ── Ghost Lumineux — Cockpit classes ─────────────────────── */
@@ -1918,39 +1947,23 @@ body {
 
 /* Caret discret — fin trait, pas de halo, pulsation douce */
 .chat-caret {
-  width: 1px;
-  height: 14px;
-  background: var(--text-faint);
+  width: 2px;
+  height: 18px;
+  background: var(--accent-teal);
   margin-left: 3px;
-  animation: chat-caret-fade 1.2s ease-in-out infinite;
+  animation: pulse-subtle-opacity 1.2s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--accent-teal);
 }
 
-@keyframes chat-caret-fade {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.85;
-  }
-}
 
 /* Trois points "en train d'écrire" — fade simple, pas de gradient animé */
 .chat-typing-dots {
   display: inline-block;
   letter-spacing: 0.25em;
-  animation: chat-typing-fade 1.6s ease-in-out infinite;
+  animation: pulse-subtle-opacity 1.6s ease-in-out infinite;
+  opacity: 0.7;
 }
 
-@keyframes chat-typing-fade {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 0.85;
-  }
-}
 
 /* ── Scrollbar styling ────────────────── */
 ::-webkit-scrollbar {
@@ -2411,7 +2424,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 .shell-input-pill {
   background: var(--bg-soft);
   border: 1px solid var(--border-input);
-  border-radius: var(--radius-pill);
+  border-radius: 0;
   transition:
     background var(--duration-fast) var(--ease-standard),
     border-color var(--duration-fast) var(--ease-standard),
@@ -2424,6 +2437,69 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   box-shadow: var(--shadow-input-focus);
 }
 
+.shell-input-pill-new {
+  position: relative;
+  z-index: 1;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text);
+  transition:
+    border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+  padding: 0; /* Supprimer le padding par défaut */
+}
+
+.shell-input-pill-new::before,
+.shell-input-pill-new::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-default) 18%,
+    var(--border-default) 82%,
+    transparent 100%
+  );
+  transition: background var(--duration-base) var(--ease-standard);
+}
+
+.shell-input-pill-new::before {
+  top: 0;
+}
+
+.shell-input-pill-new::after {
+  bottom: 0;
+}
+
+.shell-input-pill-new:hover::before,
+.shell-input-pill-new:hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-strong) 18%,
+    var(--border-strong) 82%,
+    transparent 100%
+  );
+}
+
+.shell-input-pill-new:focus-within::before,
+.shell-input-pill-new:focus-within::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent-teal) 12%,
+    var(--accent-teal) 88%,
+    transparent 100%
+  );
+  box-shadow: 0 0 8px var(--accent-teal); /* Lueur au focus */
+}
+
 /* ─── ORBITAL COCKPIT ─────────────────────────────────── */
 
 .orbe-body {
@@ -2431,19 +2507,17 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   height: 200px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 42%),
-    radial-gradient(circle at 70% 75%, rgba(74, 139, 134, 0.14) 0%, transparent 38%),
-    radial-gradient(circle at 38% 36%, #232330 0%, #0d0d16 55%, #05050a 100%);
+    radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--accent-teal) 20%, transparent) 0%, transparent 42%),
+    radial-gradient(circle at 70% 75%, color-mix(in srgb, var(--gold) 14%, transparent) 0%, transparent 38%),
+    radial-gradient(circle at 38% 36%, var(--mat-400) 0%, var(--mat-300) 55%, var(--mat-200) 100%);
   box-shadow:
-    0 40px 80px rgba(0, 0, 0, 0.92),
-    0 0 70px rgba(74, 139, 134, 0.14),
-    0 0 140px rgba(74, 139, 134, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -3px 10px rgba(0, 0, 0, 0.65);
+    var(--shadow-card-deep),
+    0 0 70px rgba(74, 139, 134, 0.25),
+    0 0 140px rgba(74, 139, 134, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: orbe-breathe 4.5s ease-in-out infinite;
+  animation: pulse-breath 4.5s ease-in-out infinite;
   position: relative;
 }
 
@@ -2477,12 +2551,12 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 }
 
 .orbe-particle {
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: rgba(74, 139, 134, 0.8);
-  box-shadow: 0 0 6px rgba(74, 139, 134, 1);
-  animation: orbe-particle-drift 7s ease-in-out infinite;
+  background: color-mix(in srgb, var(--accent-teal) 80%, white);
+  box-shadow: 0 0 10px var(--accent-teal), 0 0 20px var(--accent-teal);
+  animation: orbe-particle-drift 10s ease-in-out infinite alternate;
 }
 
 .orbital-chip {
@@ -2547,17 +2621,62 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
 }
 
 @keyframes orbe-particle-drift {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.7;
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0.6;
   }
-  33% {
-    transform: translateY(-10px) translateX(5px);
+  25% {
+    transform: translate3d(15px, -10px, 5px) scale(1.1);
     opacity: 1;
   }
-  66% {
-    transform: translateY(5px) translateX(-4px);
-    opacity: 0.35;
+  50% {
+    transform: translate3d(-10px, 20px, -5px) scale(0.9);
+    opacity: 0.7;
   }
+  75% {
+    transform: translate3d(-20px, -15px, 10px) scale(1.2);
+    opacity: 0.9;
+  }
+}
+
+/* Keyframes pour animations d'orbe/icônes */
+@keyframes pulse-subtle-opacity {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes spin-slow-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Keyframes d'animation discrètes */
+@keyframes fade-in-slide-up-subtle {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-breath {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.015); opacity: 1; }
+}
+
+@keyframes rotate-slow-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes panel-slide-in-right {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes panel-slide-in-bottom {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panel-slide-in-left {
+  from { opacity: 0; transform: translateX(-100%); }
+  to { opacity: 1; transform: translateX(0); }
 }

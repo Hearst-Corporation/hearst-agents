@@ -1,4 +1,3 @@
-// lint-visual-disable-file — prototype luxe orbital, palette ad-hoc hors DS
 "use client";
 
 import { useState } from "react";
@@ -13,10 +12,9 @@ export interface ServiceNode {
 
 interface OrbitalNodeProps {
   node: ServiceNode;
-  style?: React.CSSProperties;
 }
 
-export function OrbitalNode({ node, style }: OrbitalNodeProps) {
+export function OrbitalNode({ node }: OrbitalNodeProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -25,48 +23,42 @@ export function OrbitalNode({ node, style }: OrbitalNodeProps) {
       tabIndex={0}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{
-        ...style,
-        width: 108,
-        height: 80,
-        borderRadius: 16,
-        background: hovered ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.035)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: `1px solid ${hovered ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.09)"}`,
-        boxShadow: hovered
-          ? "0 12px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.16), 0 0 24px rgba(74,139,134,0.12)"
-          : "0 8px 28px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 5,
-        cursor: "default",
-        transition: "all 0.25s ease",
-        transform: hovered ? "translateY(-3px)" : "translateY(0)",
-        userSelect: "none",
-      }}
+      className={`relative flex flex-col items-center justify-center gap-1 p-2 rounded-lg cursor-pointer select-none transition-all duration-300 ease-in-out
+        ${hovered ? "bg-surface-2 border-border-strong scale-[1.03] shadow-card-deep glow-subtle-accent" : "bg-surface-1 border-border-soft"}
+        ${node.connected ? "animate-[pulse-breath_2s_ease-in-out_infinite]" : ""}
+      `}
+      style={{ width: 110, height: 80 }}
     >
       {/* Dot de connexion */}
-      <div style={{ position: "absolute", top: 8, right: 8, width: 5, height: 5 }}>
-        <div style={{
-          width: 5,
-          height: 5,
-          borderRadius: "50%",
-          background: node.connected ? "rgba(74,139,134,0.9)" : "rgba(255,255,255,0.2)",
-          boxShadow: node.connected ? "0 0 6px rgba(74,139,134,0.8)" : "none",
-        }} />
-      </div>
+      <div
+        className={`absolute top-2 right-2 w-1.5 h-1.5 rounded-full transition-all duration-300 ease-in-out
+          ${node.connected ? "bg-accent-teal shadow-pulse-dot-md" : "bg-text-l3"}
+        `}
+      />
 
-      <div style={{ width: 22, height: 22, color: "rgba(255,255,255,0.75)", flexShrink: 0 }}>
+      {/* Icône */}
+      <div
+        className={`w-4 h-4 shrink-0 transition-all duration-300 ease-in-out
+          ${hovered ? "text-text-l0 scale-110" : "text-text-l2"}
+        `}
+      >
         {node.icon}
       </div>
-      <span style={{ fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.85)", letterSpacing: "0.01em", textAlign: "center", lineHeight: 1.2 }}>
+
+      {/* Label */}
+      <span
+        className={`t-11 font-light text-center leading-tight transition-colors duration-300 ease-in-out
+          ${hovered ? "text-text-l0" : "text-text-l2"}
+        `}
+      >
         {node.label}
       </span>
+
+      {/* SubInfo */}
       {node.subInfo && (
-        <span style={{ fontSize: 10, fontWeight: 300, color: "rgba(255,255,255,0.38)", textAlign: "center" }}>
+        <span
+          className="font-mono t-9 font-light text-center tracking-subtle text-text-l3"
+        >
           {node.subInfo}
         </span>
       )}

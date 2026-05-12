@@ -2,33 +2,21 @@
 
 import { useServicesStore } from "@/stores/services";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-import { OrbitalNode, type ServiceNode } from "./OrbitalNode";
+import { OrbitalNode } from "./OrbitalNode";
 
-// Offsets relatifs au centre de l'orbe (px)
-// 3 à gauche (top→bottom) + 3 à droite (top→bottom)
-export const NODE_OFFSETS = [
-  { x: -248, y: -130 },  // Gmail         — haut gauche
-  { x: -268, y:    8 },  // Notion        — milieu gauche
-  { x: -248, y:  148 },  // Drive         — bas gauche
-  { x:  248, y: -130 },  // Agent Research — haut droite
-  { x:  268, y:    8 },  // Agent Writer   — milieu droite
-  { x:  248, y:  148 },  // Calendar      — bas droite
-];
-
-// Icônes SVG inline
 function GmailIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="m2 7 10 6 10-6" />
+      <path d="M22 6 12 13 2 6" />
+      <path d="M2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6" />
     </svg>
   );
 }
 function NotionIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="18" height="18" rx="3" />
-      <path d="M8 8h5M8 12h8M8 16h5" />
+      <path d="M3 3h18v18H3z" />
+      <path d="M7 7h3v10H7zM14 7h3v10h-3z" />
     </svg>
   );
 }
@@ -36,7 +24,7 @@ function DriveIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 3 2 19h20L12 3Z" />
-      <path d="m7 15 5-8 5 8" />
+      <path d="M9 15h6" />
     </svg>
   );
 }
@@ -45,7 +33,6 @@ function AgentResearchIcon() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.35-4.35" />
-      <path d="M11 8v6M8 11h6" />
     </svg>
   );
 }
@@ -66,87 +53,108 @@ function CalendarIcon() {
   );
 }
 
-function buildNodes(data: CockpitTodayPayload, connectedIds: Set<string>): ServiceNode[] {
-  const inboxCount = data.inbox.brief?.items.length ?? 0;
-  const nextEvent = data.agenda[0];
-  const running = data.missionsRunning.filter((m) => m.status === "running").length;
-  const ready = data.missionsRunning.filter((m) => m.status === "success").length;
-
-  return [
-    {
-      id: "gmail",
-      icon: <GmailIcon />,
-      label: "Gmail",
-      subInfo: inboxCount > 0 ? `${inboxCount} nouveau${inboxCount > 1 ? "x" : ""}` : null,
-      connected: connectedIds.has("gmail"),
-    },
-    {
-      id: "notion",
-      icon: <NotionIcon />,
-      label: "Notion",
-      subInfo: null,
-      connected: connectedIds.has("notion"),
-    },
-    {
-      id: "drive",
-      icon: <DriveIcon />,
-      label: "Drive",
-      subInfo: null,
-      connected: connectedIds.has("drive"),
-    },
-    {
-      id: "agent-research",
-      icon: <AgentResearchIcon />,
-      label: "Agent Research",
-      subInfo: running > 0 ? "En cours" : "En veille",
-      connected: true,
-    },
-    {
-      id: "agent-writer",
-      icon: <AgentWriterIcon />,
-      label: "Agent Writer",
-      subInfo: ready > 0 ? `${ready} prêt${ready > 1 ? "s" : ""}` : "Disponible",
-      connected: true,
-    },
-    {
-      id: "calendar",
-      icon: <CalendarIcon />,
-      label: "Calendar",
-      subInfo: nextEvent
-        ? `${nextEvent.title.length > 14 ? nextEvent.title.slice(0, 13) + "…" : nextEvent.title}`
-        : `${data.agenda.length} événement${data.agenda.length !== 1 ? "s" : ""}`,
-      connected: data.calendarConnected,
-    },
-  ];
+interface NodeDef {
+  id: string;
+  icon: React.ReactNode;
+  label: string;
+  getSubInfo: (data: CockpitTodayPayload) => string | null;
+  getConnected: (data: CockpitTodayPayload, connectedIds: Set<string>) => boolean;
 }
+
+const NODE_DEFS: NodeDef[] = [
+  {
+    id: "gmail",
+    icon: <GmailIcon />,
+    label: "Gmail",
+    getSubInfo: (data) => {
+      const count = data.inbox.brief?.items.length ?? 0;
+      return count > 0 ? `${count} nouveau${count > 1 ? "x" : ""}` : null;
+    },
+    getConnected: (_, ids) => ids.has("gmail"),
+  },
+  {
+    id: "notion",
+    icon: <NotionIcon />,
+    label: "Notion",
+    getSubInfo: () => null,
+    getConnected: (_, ids) => ids.has("notion"),
+  },
+  {
+    id: "drive",
+    icon: <DriveIcon />,
+    label: "Drive",
+    getSubInfo: () => null,
+    getConnected: (_, ids) => ids.has("drive"),
+  },
+  {
+    id: "agent-research",
+    icon: <AgentResearchIcon />,
+    label: "Agent Research",
+    getSubInfo: (data) => {
+      const running = data.missionsRunning.filter((m) => m.status === "running").length;
+      return running > 0 ? "En cours" : "En veille";
+    },
+    getConnected: () => true,
+  },
+  {
+    id: "agent-writer",
+    icon: <AgentWriterIcon />,
+    label: "Agent Writer",
+    getSubInfo: (data) => {
+      const ready = data.missionsRunning.filter((m) => m.status === "success").length;
+      return ready > 0 ? `${ready} prêt${ready > 1 ? "s" : ""}` : "Disponible";
+    },
+    getConnected: () => true,
+  },
+  {
+    id: "calendar",
+    icon: <CalendarIcon />,
+    label: "Calendar",
+    getSubInfo: (data) => {
+      const next = data.agenda[0];
+      if (next) {
+        return next.title.length > 14 ? next.title.slice(0, 13) + "…" : next.title;
+      }
+      return `${data.agenda.length} événement${data.agenda.length !== 1 ? "s" : ""}`;
+    },
+    getConnected: (data) => data.calendarConnected,
+  },
+];
+
+const ROW_MAP: Record<string, number[]> = {
+  top: [0],
+  "mid-left": [1],
+  "mid-right": [3],
+  bottom: [2, 4, 5],
+};
 
 interface OrbitalNodesProps {
   data: CockpitTodayPayload;
-  centerX: number;
-  centerY: number;
+  row: "top" | "mid-left" | "mid-right" | "bottom";
 }
 
-export function OrbitalNodes({ data, centerX, centerY }: OrbitalNodesProps) {
+export function OrbitalNodes({ data, row }: OrbitalNodesProps) {
   const services = useServicesStore((s) => s.services);
   const connectedIds = new Set(
     services.filter((s) => s.connectionStatus === "connected").map((s) => s.id)
   );
 
-  const nodes = buildNodes(data, connectedIds);
+  const indices = ROW_MAP[row] ?? [];
 
   return (
     <>
-      {nodes.map((node, i) => {
-        const offset = NODE_OFFSETS[i];
+      {indices.map((i) => {
+        const def = NODE_DEFS[i];
+        if (!def) return null;
         return (
           <OrbitalNode
-            key={node.id}
-            node={node}
-            style={{
-              position: "absolute",
-              left: centerX + offset.x,
-              top: centerY + offset.y,
-              transform: "translate(-50%, -50%)",
+            key={def.id}
+            node={{
+              id: def.id,
+              icon: def.icon,
+              label: def.label,
+              subInfo: def.getSubInfo(data),
+              connected: def.getConnected(data, connectedIds),
             }}
           />
         );

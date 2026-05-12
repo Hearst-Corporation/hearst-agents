@@ -17,15 +17,25 @@ export function CockpitCardShell({ children, className }: CockpitCardShellProps)
     <div
       className={`relative h-full w-full overflow-hidden rounded-[32px] p-7 ${className ?? ""}`}
       style={{
-        background: "rgba(255,255,255,0.05)",
-        backdropFilter: "blur(22px) saturate(130%)",
-        WebkitBackdropFilter: "blur(22px) saturate(130%)",
-        border: "1px solid rgba(255,255,255,0.10)",
+        background:
+          "linear-gradient(145deg, rgba(255,255,255,0.066), rgba(255,255,255,0.026))",
+        backdropFilter: "blur(26px) saturate(120%)",
+        WebkitBackdropFilter: "blur(26px) saturate(120%)",
+        border: "1px solid rgba(255,255,255,0.095)",
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 32px -16px rgba(0,0,0,0.5)",
+          "inset 0 1px 0 rgba(255,255,255,0.065), 0 24px 54px -36px rgba(0,0,0,0.9)",
       }}
     >
-      {children}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 68% 42%, rgba(255,255,255,0.075), transparent 30%)",
+          opacity: 0.45,
+        }}
+      />
+      <div className="relative h-full w-full">{children}</div>
     </div>
   );
 }

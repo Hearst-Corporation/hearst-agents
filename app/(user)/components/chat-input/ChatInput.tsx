@@ -136,11 +136,16 @@ export function ChatInput({
         e.preventDefault();
         handleSubmit();
       }}
-      className="px-4 py-2"
+      className="relative z-20 w-full animate-[panel-slide-in-bottom_0.6s_ease-out] px-4 py-2"
+      style={{
+        background: "var(--bg-gradient-linear-bottom-glow)",
+        backdropFilter: "blur(var(--blur-md))",
+        WebkitBackdropFilter: "blur(var(--blur-md))",
+        boxShadow: "var(--shadow-panel-lift)",
+      }}
     >
       <div
-        className="mx-auto relative"
-        style={{ maxWidth: "var(--input-max-width)" }}
+        className="mx-auto relative max-w-input shell-input-pill-new"
       >
         {showTypeahead && (
           <MentionTypeahead
@@ -157,7 +162,7 @@ export function ChatInput({
         </div>
 
         <div
-          className="shell-input-pill peer group px-6 py-3 relative"
+          className="peer group relative px-6 py-3"
           onDragOver={handleAssetDragOver}
           onDragLeave={handleAssetDragLeave}
           onDrop={handleAssetDrop}
@@ -214,11 +219,7 @@ export function ChatInput({
             aria-required="true"
             placeholder={resolvePlaceholder(surface, placeholder)}
             rows={1}
-            className="block w-full bg-transparent t-18 font-light text-text placeholder:text-text-muted border-0 focus:ring-0 focus:outline-none resize-none leading-relaxed py-1"
-            style={{
-              minHeight: "var(--space-8)",
-              maxHeight: "var(--height-input-max)",
-            }}
+            className="block w-full bg-transparent t-18 font-light text-text placeholder:text-text-muted resize-none leading-relaxed min-h-input h-input-max px-4 py-3 focus:outline-none"
           />
 
           <div className={isExpanded ? "" : "hidden"}>
