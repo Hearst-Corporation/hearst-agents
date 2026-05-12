@@ -35,7 +35,7 @@ export function BuilderToolbar({
   onSave,
   onPublish,
   isBusy,
-  saveLabel = "Sauvegarder",
+  saveLabel = "Enregistrer",
   validationCount,
   previewSummary,
 }: BuilderToolbarProps) {

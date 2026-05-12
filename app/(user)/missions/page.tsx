@@ -27,12 +27,29 @@ function MissionsPageContent() {
   const [runningMissionId, setRunningMissionId] = useState<string | null>(null);
   const [formDirty, setFormDirty] = useState(false);
   const [confirmAbandon, setConfirmAbandon] = useState(false);
+  const focusId = searchParams.get("focus");
 
   useEffect(() => {
     if (searchParams.get("new") === "1") {
       router.replace("/missions");
     }
   }, [searchParams, router]);
+
+  // Deep-link focus (marketplace clone, etc.) : scroll vers la mission ciblée
+  // une fois la liste chargée, puis nettoie l'URL pour éviter de re-déclencher
+  // au prochain render. Highlight visuel via classe ring temporaire.
+  useEffect(() => {
+    if (!focusId || loading || missions.length === 0) return;
+    const node = document.querySelector<HTMLElement>(`[data-mission-id="${focusId}"]`);
+    if (!node) return;
+    node.scrollIntoView({ behavior: "smooth", block: "center" });
+    node.classList.add("ring-1", "ring-[var(--accent-teal)]");
+    const t = window.setTimeout(() => {
+      node.classList.remove("ring-1", "ring-[var(--accent-teal)]");
+      router.replace("/missions");
+    }, 2400);
+    return () => window.clearTimeout(t);
+  }, [focusId, loading, missions.length, router]);
 
   const handleRowOpen = (mission: Mission) => {
     // Stage polymorphe : ouvrir le MissionStage dédié (rendu par
@@ -229,16 +246,30 @@ function MissionsPageContent() {
         body: JSON.stringify({ id: mission.id, enabled: !mission.enabled }),
       });
       if (res.ok) {
+        const willEnable = !mission.enabled;
         setMissions((prev) =>
           prev.map((m) =>
             m.id === mission.id
-              ? { ...m, enabled: !m.enabled, status: !m.enabled ? "active" : "paused" }
+              ? { ...m, enabled: willEnable, status: willEnable ? "active" : "paused" }
               : m
           )
         );
+        toast.success(
+          willEnable ? "Mission activée" : "Mission mise en pause",
+          `« ${mission.name} »`,
+        );
+      } else {
+        const data = await res.json().catch(() => ({}));
+        toast.error(
+          "Bascule impossible",
+          (data as { error?: string }).error ?? `Erreur serveur (${res.status})`,
+        );
       }
     } catch (error) {
-      console.error("Failed to toggle mission:", error);
+      toast.error(
+        "Erreur réseau",
+        error instanceof Error ? error.message : "Une erreur est survenue",
+      );
     } finally {
       setTogglingMissionId(null);
     }
@@ -319,14 +350,14 @@ function MissionsPageContent() {
     <>
       <ScreenShell
         title="Missions"
-        subtitle="Automatisations planifiées"
+        subtitle="Modèles récurrents · pour l'historique des exécutions → /runs"
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Missions" }]}
         actions={
           <>
-            <Action variant="link" tone="neutral" onClick={() => router.push("/missions/builder")}>
+            <Action variant="secondary" tone="neutral" size="sm" onClick={() => router.push("/missions/builder")}>
               Builder visuel
             </Action>
-            <Action variant="link" tone="brand" onClick={openNewMission}>
+            <Action variant="primary" tone="brand" size="sm" onClick={openNewMission}>
               Nouvelle mission
             </Action>
           </>
@@ -352,18 +383,19 @@ function MissionsPageContent() {
             <span className="text-right">Actions</span>
           </div>
           {missions.map((mission) => (
-            <MissionRow
-              key={mission.id}
-              mission={mission}
-              currentTime={currentTime}
-              onToggle={handleToggle}
-              onOpen={handleRowOpen}
-              onEdit={openEditMission}
-              onRunNow={handleRunNow}
-              onDelete={setConfirmDelete}
-              isToggling={togglingMissionId === mission.id}
-              isRunning={runningMissionId === mission.id}
-            />
+            <div key={mission.id} data-mission-id={mission.id} className="transition-shadow rounded-sm">
+              <MissionRow
+                mission={mission}
+                currentTime={currentTime}
+                onToggle={handleToggle}
+                onOpen={handleRowOpen}
+                onEdit={openEditMission}
+                onRunNow={handleRunNow}
+                onDelete={setConfirmDelete}
+                isToggling={togglingMissionId === mission.id}
+                isRunning={runningMissionId === mission.id}
+              />
+            </div>
           ))}
         </div>
       </ScreenShell>

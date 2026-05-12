@@ -23,12 +23,13 @@
  *   I-10. Logo via HearstLogo en expanded, "H" teal sourd en collapsed.
  */
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useNavigationStore, type Thread } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
 import { useOAuthExpiry } from "@/app/hooks/use-oauth-expiry";
+import { toast } from "@/app/hooks/use-toast";
 import { ConfirmModal } from "../ConfirmModal";
 import { RailHeader } from "./RailHeader";
 import { RailFooter } from "./RailFooter";
@@ -78,6 +79,20 @@ export function TimelineRail() {
     id: string;
     name: string;
   } | null>(null);
+
+  // Archive : toggle réversible. On annonce explicitement l'action via toast
+  // pour éviter la confusion « supprimé / archivé », et on indique où retrouver
+  // l'item (/archive). Undo dispo via re-toggle dans /archive.
+  const handleArchive = useCallback((id: string) => {
+    const thread = threads.find((t) => t.id === id);
+    const wasArchived = thread?.archived === true;
+    toggleArchived(id);
+    if (!wasArchived) {
+      toast.info("Conversation archivée", "Retrouve-la dans Archive (⌘K → « Voir l'archive »)");
+    } else {
+      toast.info("Conversation restaurée", "Elle réapparaît dans Investigations.");
+    }
+  }, [threads, toggleArchived]);
 
   const handleThreadSelect = (threadId: string) => {
     setActiveThread(threadId);
@@ -140,7 +155,7 @@ export function TimelineRail() {
             onHome={handleHome}
             onNewThread={handleNewThread}
             onSelectThread={handleThreadSelect}
-            onArchiveThread={toggleArchived}
+            onArchiveThread={handleArchive}
             onRequestDelete={requestThreadDelete}
           />
         )}

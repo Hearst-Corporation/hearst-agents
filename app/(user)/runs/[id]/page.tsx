@@ -123,7 +123,20 @@ export default function RunDetailPage() {
       <PageHeader
         title={`Run ${run.id.slice(0, 8)}…`}
         subtitle={run.input}
-        back={{ label: "Retour aux runs", href: "/runs" }}
+        back={{
+          label: "Runs",
+          onClick: () => {
+            // back() si on a un référent interne, sinon push /runs.
+            // window.history.length > 1 ne distingue pas interne/externe,
+            // mais pour un user qui arrive sur /runs/[id] depuis un email
+            // c'est rare — l'expérience back() reste meilleure.
+            if (typeof window !== "undefined" && window.history.length > 1) {
+              router.back();
+            } else {
+              router.push("/runs");
+            }
+          },
+        }}
         actions={
           <>
             <span className={`t-13 font-medium ${statusColors[run.status] || "text-text-muted"}`}>

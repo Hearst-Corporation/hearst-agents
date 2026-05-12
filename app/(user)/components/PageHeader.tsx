@@ -17,7 +17,10 @@ import { Breadcrumb, type Crumb } from "./Breadcrumb";
 
 interface BackLink {
   label: string;
-  href: string;
+  /** Lien direct vers la page parente. Mutuellement exclusif avec onClick. */
+  href?: string;
+  /** Handler custom (ex: router.back()). Si fourni, l'élément rendu est un <button>. */
+  onClick?: () => void;
 }
 
 interface PageHeaderProps {
@@ -62,13 +65,24 @@ export function PageHeader({
          le contexte global, donc on retire la border-b qui doublait la frontière
          visuelle juste sous PulseBar 48px. */}
       {back ? (
-        <Link
-          href={back.href}
-          className="inline-flex items-center gap-2 t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit"
-        >
-          <ChevronLeftIcon />
-          <span>{back.label}</span>
-        </Link>
+        back.onClick ? (
+          <button
+            type="button"
+            onClick={back.onClick}
+            className="inline-flex items-center gap-2 t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit bg-transparent border-0 p-0 cursor-pointer"
+          >
+            <ChevronLeftIcon />
+            <span>{back.label}</span>
+          </button>
+        ) : back.href ? (
+          <Link
+            href={back.href}
+            className="inline-flex items-center gap-2 t-11 font-light text-text-faint hover:text-(--accent-teal) transition-colors w-fit"
+          >
+            <ChevronLeftIcon />
+            <span>{back.label}</span>
+          </Link>
+        ) : null
       ) : breadcrumb && breadcrumb.length > 0 ? (
         <Breadcrumb trail={breadcrumb} />
       ) : null}

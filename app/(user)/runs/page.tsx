@@ -8,6 +8,7 @@ import { RelativeTime } from "../components/RelativeTime";
 import { RowActions, type RowAction } from "../components/RowActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { Action, ScreenShell } from "../components/ui";
+import { toast } from "@/app/hooks/use-toast";
 
 interface RunListItem {
   id: string;
@@ -161,12 +162,17 @@ export default function RunsPage() {
       if (res.ok) {
         setRuns((prev) => prev.filter((r) => r.id !== runId));
         setConfirmDeleteId(null);
+        toast.success("Run supprimé", "L'exécution a été retirée de l'historique");
       } else {
         const data = await res.json().catch(() => ({}));
-        setActionError((data as { error?: string }).error ?? `Suppression échouée (${res.status})`);
+        const msg = (data as { error?: string }).error ?? `Suppression échouée (${res.status})`;
+        setActionError(msg);
+        toast.error("Suppression impossible", msg);
       }
     } catch (err) {
-      setActionError(err instanceof Error ? err.message : "Erreur réseau");
+      const msg = err instanceof Error ? err.message : "Erreur réseau";
+      setActionError(msg);
+      toast.error("Erreur réseau", msg);
     } finally {
       setPendingAction(null);
     }
@@ -193,7 +199,7 @@ export default function RunsPage() {
     <>
       <ScreenShell
         title="Runs"
-        subtitle={loading ? "Chargement…" : `${runs.length} ${runs.length === 1 ? "exécution récente" : "exécutions récentes"}`}
+        subtitle={loading ? "Chargement…" : `Historique d'exécutions · ${runs.length} ${runs.length === 1 ? "récente" : "récentes"}`}
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Runs" }]}
         actions={
           <Action variant="link" tone="brand" onClick={handleNewReport}>

@@ -13,7 +13,7 @@
  * V2 : assets, missions, KG entries unifiés dans une vue temporelle.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useNavigationStore } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
@@ -48,6 +48,21 @@ export default function ArchivePage() {
     setStageMode({ mode: "chat", threadId });
     router.push("/");
   };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" && (target as HTMLInputElement).value.length > 0) {
+        return;
+      }
+      e.preventDefault();
+      router.push("/");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [router]);
 
   return (
     <ScreenShell

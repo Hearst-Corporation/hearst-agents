@@ -55,7 +55,7 @@ export default function MissionDeepLinkPage() {
               onClick={() => router.push("/missions")}
               className="t-13 font-light text-text-faint hover:text-(--accent-teal) transition-colors"
             >
-              ← Retour aux missions
+              ← Missions
             </button>
           </>
         ) : (

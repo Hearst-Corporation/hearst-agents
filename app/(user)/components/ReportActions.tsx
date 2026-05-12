@@ -11,7 +11,7 @@
  * logique métier vit côté API. Composant client-only (browser fetch).
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Action } from "./ui";
 
 interface ReportActionsProps {
@@ -461,9 +461,43 @@ function PopoverShell({
   title: string;
   onClose: () => void;
 }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  // ESC ferme le popover. Click-outside ferme aussi (mais préserve le focus
+  // sur le trigger natif via le pattern relative + absolute du parent).
+  // On évite useModalA11y ici car le popover est positionné absolument et
+  // n'a pas vocation à bloquer le scroll du body — c'est un menu, pas une modale.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+      }
+    };
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    // setTimeout pour ne pas capter le click qui vient d'ouvrir le popover.
+    const t = window.setTimeout(() => {
+      window.addEventListener("mousedown", onClick);
+    }, 0);
+    closeBtnRef.current?.focus();
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("mousedown", onClick);
+      window.clearTimeout(t);
+    };
+  }, [onClose]);
+
   return (
     <div
+      ref={ref}
       role="dialog"
+      aria-modal="true"
       aria-label={title}
       className="absolute right-0 z-20"
       style={{
@@ -491,6 +525,7 @@ function PopoverShell({
           {title}
         </h3>
         <button
+          ref={closeBtnRef}
           type="button"
           onClick={onClose}
           aria-label="Fermer"

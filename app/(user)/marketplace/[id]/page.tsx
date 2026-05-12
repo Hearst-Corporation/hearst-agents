@@ -105,15 +105,17 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         setFlash(`Clone échoué : ${msg}`);
         return;
       }
-      toast.success("Template cloné", "La copie est dans ton espace.");
-      setFlash("Template cloné dans ton espace.");
-      // Redirige vers la ressource créée selon le kind.
+      toast.success("Template cloné", "La copie est ouverte dans ton espace.");
+      // Redirige vers la ressource créée avec deep-link `?focus={resourceId}`
+      // pour que la page destination puisse scroller/surligner l'item cloné.
+      // Fallback liste générique si l'API ne renvoie pas de resourceId.
+      const focus = body.resourceId ? `?focus=${encodeURIComponent(body.resourceId)}` : "";
       if (data?.template.kind === "workflow") {
-        router.push(`/missions`);
+        router.push(`/missions${focus}`);
       } else if (data?.template.kind === "report_spec") {
-        router.push(`/reports`);
+        router.push(body.resourceId ? `/reports/studio?edit=${encodeURIComponent(body.resourceId)}` : "/reports");
       } else if (data?.template.kind === "persona") {
-        router.push(`/personas`);
+        router.push(`/personas${focus}`);
       }
       // creative_prompt : pas de redirect — l'action "Utiliser" est gérée
       // par useCreativePromptPack ci-dessous (clipboard ou hook launcher).
@@ -211,7 +213,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
         <PageHeader
           title="Marketplace"
-          back={{ label: "Retour", href: "/marketplace" }}
+          back={{ label: "Marketplace", href: "/marketplace" }}
         />
         <p className="px-12 py-8 t-13 text-(--danger)">{error}</p>
       </div>
@@ -223,7 +225,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
         <PageHeader
           title="Marketplace"
-          back={{ label: "Retour", href: "/marketplace" }}
+          back={{ label: "Marketplace", href: "/marketplace" }}
         />
         <p className="px-12 py-8 t-11 font-light text-text-faint">
           Chargement…

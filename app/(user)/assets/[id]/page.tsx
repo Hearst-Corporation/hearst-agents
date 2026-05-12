@@ -84,7 +84,16 @@ export default function AssetDetailPage() {
       <PageHeader
         title={asset.title || "Asset"}
         subtitle={asset.kind ? asset.kind.toUpperCase() : undefined}
-        back={{ label: "Retour aux assets", href: "/assets" }}
+        back={{
+          label: "Assets",
+          onClick: () => {
+            if (typeof window !== "undefined" && window.history.length > 1) {
+              router.back();
+            } else {
+              router.push("/assets");
+            }
+          },
+        }}
       />
 
       {/* Content */}

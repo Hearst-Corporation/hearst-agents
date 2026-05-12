@@ -14,6 +14,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigationStore } from "@/stores/navigation";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { TimelineRail } from "./TimelineRail";
 
 export function LeftPanelShell() {
@@ -36,6 +37,24 @@ export function LeftPanelShell() {
     }
   }, [isMobile, leftDrawerOpen, closeLeftDrawer]);
 
+  return <MobileAwareTimeline isMobile={isMobile} leftDrawerOpen={leftDrawerOpen} closeLeftDrawer={closeLeftDrawer} />;
+}
+
+function MobileAwareTimeline({
+  isMobile,
+  leftDrawerOpen,
+  closeLeftDrawer,
+}: {
+  isMobile: boolean;
+  leftDrawerOpen: boolean;
+  closeLeftDrawer: () => void;
+}) {
+  // Focus trap + scroll lock + Escape (mobile drawer only).
+  // Sur desktop, le hook reçoit `open=false` et n'a aucun effet.
+  const drawerRef = useModalA11y<HTMLDivElement>(isMobile && leftDrawerOpen, {
+    onClose: closeLeftDrawer,
+  });
+
   if (!isMobile) {
     return <TimelineRail />;
   }
@@ -54,6 +73,11 @@ export function LeftPanelShell() {
         />
       )}
       <div
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Conversations"
+        aria-hidden={!leftDrawerOpen}
         className={`fixed top-0 left-0 h-full transform transition-transform duration-slow ease-out-soft ${
           leftDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}

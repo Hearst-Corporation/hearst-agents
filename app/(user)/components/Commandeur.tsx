@@ -76,8 +76,8 @@ export function Commandeur() {
     {
       id: "nav-missions",
       kind: "action",
-      label: "Voir les missions",
-      hint: "Plans long-running",
+      label: "Mes missions",
+      hint: "Modèles récurrents — créer, modifier, lancer",
       perform: () => {
         router.push("/missions");
         setOpen(false);
@@ -86,8 +86,8 @@ export function Commandeur() {
     {
       id: "nav-runs",
       kind: "action",
-      label: "Voir les runs",
-      hint: "Historique exécutions",
+      label: "Mes exécutions",
+      hint: "Historique des runs lancés",
       perform: () => {
         router.push("/runs");
         setOpen(false);
@@ -120,6 +120,16 @@ export function Commandeur() {
       hint: "Templates communautaires partagés",
       perform: () => {
         router.push("/marketplace");
+        setOpen(false);
+      },
+    },
+    {
+      id: "nav-settings",
+      kind: "action",
+      label: "Réglages",
+      hint: "Préférences · alerting · profil",
+      perform: () => {
+        router.push("/settings");
         setOpen(false);
       },
     },
@@ -167,7 +177,7 @@ export function Commandeur() {
       id: "action-new-mission",
       kind: "action",
       label: "Nouvelle mission",
-      hint: "Crée une mission",
+      hint: "Crée un nouveau modèle (drawer rapide)",
       perform: () => {
         router.push("/missions?new=1");
         setOpen(false);

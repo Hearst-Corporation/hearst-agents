@@ -173,6 +173,7 @@ export function NotificationBell() {
       {open && (
         <div
           role="dialog"
+          aria-modal="true"
           aria-label="Notifications"
           style={{
             position: "absolute",

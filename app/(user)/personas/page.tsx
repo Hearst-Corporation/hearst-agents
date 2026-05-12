@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PersonaABTestPanel } from "../components/PersonaABTestPanel";
 import { PublishTemplateModal } from "../components/marketplace/PublishTemplateModal";
 import { Action, EmptyState, CardSkeleton, ScreenShell } from "../components/ui";
@@ -18,6 +19,9 @@ import { PERSONA_TONES } from "@/lib/personas/types";
 const SURFACES = ["chat", "inbox", "simulation", "voice", "cockpit"] as const;
 
 export default function PersonasPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const focusId = searchParams.get("focus");
   const [personas, setPersonas] = useState<Persona[] | null>(null);
   const [editing, setEditing] = useState<Persona | null>(null);
   const [creating, setCreating] = useState(false);
@@ -26,6 +30,20 @@ export default function PersonasPage() {
   const [publishing, setPublishing] = useState<Persona | null>(null);
   const [confirmDeletePersona, setConfirmDeletePersona] = useState<Persona | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Deep-link focus (cf. marketplace clone) : scroll + highlight + cleanup URL.
+  useEffect(() => {
+    if (!focusId || !personas || personas.length === 0) return;
+    const node = document.querySelector<HTMLElement>(`[data-persona-id="${focusId}"]`);
+    if (!node) return;
+    node.scrollIntoView({ behavior: "smooth", block: "center" });
+    node.classList.add("ring-1", "ring-[var(--accent-teal)]");
+    const t = window.setTimeout(() => {
+      node.classList.remove("ring-1", "ring-[var(--accent-teal)]");
+      router.replace("/personas");
+    }, 2400);
+    return () => window.clearTimeout(t);
+  }, [focusId, personas, router]);
 
   async function reload() {
     const res = await fetch("/api/v2/personas", { credentials: "include" });
@@ -162,17 +180,18 @@ export default function PersonasPage() {
               style={{ gap: "var(--space-3)" }}
             >
               {personas.map((p) => (
-                <PersonaCard
-                  key={p.id}
-                  persona={p}
-                  busy={busy}
-                  onEdit={(persona) => {
-                    setCreating(false);
-                    setEditing(persona);
-                  }}
-                  onRemove={remove}
-                  onPublish={setPublishing}
-                />
+                <li key={p.id} data-persona-id={p.id} className="transition-shadow rounded-md list-none">
+                  <PersonaCard
+                    persona={p}
+                    busy={busy}
+                    onEdit={(persona) => {
+                      setCreating(false);
+                      setEditing(persona);
+                    }}
+                    onRemove={remove}
+                    onPublish={setPublishing}
+                  />
+                </li>
               ))}
             </ul>
           )}

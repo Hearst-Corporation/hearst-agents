@@ -194,11 +194,15 @@ export default function NotificationsPage() {
         {!loading && filtered.length === 0 && (
           <EmptyState
             icon={<BellIcon />}
-            title="Aucune notification"
+            title={
+              severityFilter !== "all" || kindFilter !== "all"
+                ? "Aucune notification"
+                : "Tout est calme."
+            }
             description={
               severityFilter !== "all" || kindFilter !== "all"
                 ? "Modifie les filtres pour élargir la sélection."
-                : undefined
+                : "Zéro alerte, zéro signal critique. Les notifications apparaîtront ici quand un événement le justifiera."
             }
           />
         )}

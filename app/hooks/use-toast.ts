@@ -20,6 +20,8 @@ interface ToastItem {
 type ToastListener = (toasts: ToastItem[]) => void;
 
 // Singleton toast manager (module-level)
+const MAX_TOASTS = 5;
+
 class ToastManager {
   private toasts: ToastItem[] = [];
   private listeners: Set<ToastListener> = new Set();
@@ -38,6 +40,11 @@ class ToastManager {
   add(type: ToastType, title: string, message?: string): string {
     const id = `toast-${++this.idCounter}-${Date.now()}`;
     this.toasts.push({ id, type, title, message });
+    // Cap FIFO : si on dépasse MAX_TOASTS, on drop le plus ancien pour éviter
+    // un stack qui sort de l'écran (cf. /flow audit Interaction).
+    if (this.toasts.length > MAX_TOASTS) {
+      this.toasts = this.toasts.slice(-MAX_TOASTS);
+    }
     this.notify();
     return id;
   }

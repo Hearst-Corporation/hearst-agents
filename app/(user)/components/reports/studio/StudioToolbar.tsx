@@ -155,7 +155,7 @@ export function StudioToolbar({
           disabled={isSampling || spec.blocks.length === 0}
         />
         <ToolbarButton
-          label={isSaving ? "Sauvegarde…" : savedSpecId ? "Mettre à jour" : "Sauvegarder"}
+          label={isSaving ? "Enregistrement…" : savedSpecId ? "Mettre à jour" : "Enregistrer"}
           testid="toolbar-save"
           variant="primary"
           onClick={() => setSaveOpen((v) => !v)}
@@ -209,7 +209,7 @@ export function StudioToolbar({
               color: "var(--text-muted)",
                           }}
           >
-            {savedSpecId ? "Mise à jour" : "Sauvegarder"}
+            {savedSpecId ? "Mise à jour" : "Enregistrer"}
           </span>
           <input
             type="text"

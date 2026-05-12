@@ -139,7 +139,7 @@ export default function ReportEditorDemoPage() {
       <PageHeader
         title="Report Spec Editor"
         subtitle="Aperçu visuel d'un ReportSpec — toggler la visibilité des blocks puis Apply pour figer la sélection finale."
-        back={{ label: "Bibliothèque", href: "/reports" }}
+        back={{ label: "Rapports", href: "/reports" }}
       />
       <div
         className="flex flex-col"

@@ -54,6 +54,7 @@ export function AppDrawer({
       />
       <aside
         role="dialog"
+        aria-modal="true"
         aria-label={app.name}
         className="fixed right-0 top-0 bottom-0 w-full max-w-md z-50 flex flex-col border-l panel-enter"
         style={{ background: "var(--bg-elev)", borderColor: "var(--border-shell)" }}

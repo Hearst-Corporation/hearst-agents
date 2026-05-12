@@ -8,7 +8,7 @@
  * unmount.
  */
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PageHeader } from "../../components/PageHeader";
 import type { PaletteEntry } from "../../components/missions/builder/NodePalette";
@@ -35,9 +35,54 @@ export default function WorkflowBuilderPage() {
   const clearHandlers = useBuilderStore((s) => s.clearHandlers);
   const setBuilderSelectedNode = useBuilderStore((s) => s.setSelectedNode);
 
-  const [graph, setGraph] = useState<WorkflowGraph>(() => createEmptyGraph());
+  // Hydratation depuis localStorage : si l'utilisateur a quitté la page avec
+  // un graphe dirty au cours des dernières 24h, on le récupère via lazy
+  // initializer (pas un effect → conforme à react-hooks/set-state-in-effect).
+  const DRAFT_KEY = "hearst:builder:draft";
+  const DRAFT_TTL_MS = 24 * 60 * 60 * 1000;
+
+  const initialDraft = useState(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = window.localStorage.getItem(DRAFT_KEY);
+      if (!raw) return null;
+      const d = JSON.parse(raw) as { ts: number; graph: WorkflowGraph; missionName: string };
+      if (Date.now() - d.ts > DRAFT_TTL_MS) {
+        window.localStorage.removeItem(DRAFT_KEY);
+        return null;
+      }
+      if (!d.graph?.nodes?.length) return null;
+      return d;
+    } catch {
+      return null;
+    }
+  })[0];
+
+  const [graph, setGraph] = useState<WorkflowGraph>(() =>
+    initialDraft ? initialDraft.graph : createEmptyGraph(),
+  );
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
-  const [missionName, setMissionName] = useState("Workflow personnalisé");
+  const [missionName, setMissionName] = useState(
+    () => initialDraft?.missionName ?? "Workflow personnalisé",
+  );
+  const [draftFlushed, setDraftFlushed] = useState(false);
+
+  // Annonce du restore après mount (toast ne peut pas être dispatché en
+  // initializer). Garde de double-toast via ref.
+  const restoreToastShownRef = useRef(false);
+  useEffect(() => {
+    if (initialDraft && !restoreToastShownRef.current) {
+      restoreToastShownRef.current = true;
+      toast.info(
+        "Brouillon restauré",
+        `${initialDraft.graph.nodes.length} nodes récupérés depuis ta dernière session.`,
+      );
+    }
+  }, [initialDraft]);
+  // Dirty dérivé : un graphe avec ≥1 node ou edge est considéré « en cours ».
+  // Forcé à false après save (avant router.push) pour éviter un re-trigger
+  // de beforeunload pendant la navigation.
+  const isDirty = !draftFlushed && (graph.nodes.length > 0 || graph.edges.length > 0);
   const [showTemplates, setShowTemplates] = useState(false);
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -57,6 +102,37 @@ export default function WorkflowBuilderPage() {
   useEffect(() => {
     setBuilderSelectedNode(selectedNode);
   }, [selectedNode, setBuilderSelectedNode]);
+
+  // Autosave : toutes les 5s on persiste si dirty. Fréquence volontairement
+  // basse pour éviter spam + suffisante pour ne pas perdre plus de quelques
+  // edits si crash/F5.
+  useEffect(() => {
+    if (!isDirty) return;
+    const tid = window.setInterval(() => {
+      try {
+        window.localStorage.setItem(
+          DRAFT_KEY,
+          JSON.stringify({ ts: Date.now(), graph, missionName }),
+        );
+      } catch {
+        // Quota dépassé ou localStorage indisponible : on tente plus tard.
+      }
+    }, 5000);
+    return () => window.clearInterval(tid);
+  }, [isDirty, graph, missionName]);
+
+  // beforeunload : warning natif si dirty. Le navigateur affiche son propre
+  // message (custom string ignoré post-2017), suffisant pour éviter une perte
+  // accidentelle (Cmd+W, F5, fermeture onglet).
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
 
   const handleAddNode = useCallback((entry: PaletteEntry) => {
     setGraph((prev) => {
@@ -231,16 +307,23 @@ export default function WorkflowBuilderPage() {
       const data = await res.json();
       if (!res.ok) {
         toast.error(
-          "Sauvegarde impossible",
+          "Enregistrement impossible",
           (data?.error as string) ?? `HTTP ${res.status}`,
         );
         return;
       }
-      toast.success("Workflow sauvegardé", missionName);
+      toast.success("Workflow enregistré", missionName);
+      // Clean draft une fois persisté côté API. Le flag draftFlushedRef force
+      // isDirty à false jusqu'au unmount (router.push), évitant un re-trigger
+      // de beforeunload pendant la navigation.
+      try {
+        window.localStorage.removeItem(DRAFT_KEY);
+      } catch { /* localStorage indispo : peu importe */ }
+      setDraftFlushed(true);
       router.push("/missions");
     } catch (err) {
       toast.error(
-        "Erreur sauvegarde",
+        "Erreur d'enregistrement",
         err instanceof Error ? err.message : String(err),
       );
     } finally {
@@ -303,7 +386,7 @@ export default function WorkflowBuilderPage() {
           setPublishOpen(true);
         }}
         isBusy={isPreviewing || isSaving}
-        saveLabel={isSaving ? "Sauvegarde…" : "Sauvegarder"}
+        saveLabel={isSaving ? "Enregistrement…" : "Enregistrer"}
         validationCount={validationCount}
         previewSummary={previewSummary}
       />
