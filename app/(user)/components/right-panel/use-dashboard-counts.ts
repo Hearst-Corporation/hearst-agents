@@ -29,6 +29,13 @@ export interface DashboardCounts {
   assetsCount: number | null;
   connectionsConnected: number | null;
   connectionsTotal: number | null;
+  /**
+   * `true` tant que le premier fetch n'a pas répondu. Permet aux zones
+   * d'afficher un skeleton plutôt que le flash empty state ("Créer une
+   * première mission") qui se montre quelques centaines de ms avant que
+   * `/api/v2/cockpit/today` revienne.
+   */
+  initialLoading: boolean;
 }
 
 const REFRESH_MS = 60_000;
@@ -42,6 +49,7 @@ export function useDashboardCounts(): DashboardCounts {
     assetsCount: null,
     connectionsConnected: null,
     connectionsTotal: null,
+    initialLoading: true,
   });
 
   useEffect(() => {
@@ -85,7 +93,7 @@ export function useDashboardCounts(): DashboardCounts {
         }
       }
 
-      setState((prev) => ({ ...prev, ...next }));
+      setState((prev) => ({ ...prev, ...next, initialLoading: false }));
     }
 
     refresh();

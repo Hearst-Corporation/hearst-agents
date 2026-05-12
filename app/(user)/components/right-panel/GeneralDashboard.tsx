@@ -216,7 +216,12 @@ function MissionsZone() {
       )}
       className="border-t border-(--border-subtle)"
     >
-      {missions.length === 0 ? (
+      {counts.initialLoading ? (
+        // Skeleton anti-flash : tant que le premier fetch n'a pas répondu,
+        // on évite de montrer "Créer une première mission" puis de switcher
+        // brutalement vers la liste 200ms plus tard.
+        <span className="t-11 font-light text-text-faint">Chargement…</span>
+      ) : missions.length === 0 ? (
         <Action variant="ghost" tone="brand" size="sm" href="/missions/builder">
           Créer une première mission →
         </Action>
@@ -317,10 +322,57 @@ const EVENT_COLOR: Record<string, string> = {
   connection_error: "var(--warn)",
 };
 
-function ActiviteZone() {
-  const events = useRuntimeStore((s) => s.events).slice(0, 5);
+interface ActivityItem {
+  key: string;
+  type: string;
+  label: string;
+  ts: number;
+}
 
-  if (events.length === 0) {
+function ActiviteZone() {
+  // Source 1 : events SSE du run courant (chat actif). Live, éphémère.
+  const liveEvents = useRuntimeStore((s) => s.events);
+
+  // Source 2 : runs récents persistés en DB. Survivent au reload, montrent
+  // l'historique d'activité réelle de l'utilisateur. Sans cette source, la
+  // zone reste vide tant qu'aucun chat n'est en cours.
+  const [recentRuns, setRecentRuns] = useState<Array<{ id: string; input: string; status: string; createdAt: number; completedAt?: number }>>([]);
+  useEffect(() => {
+    let cancelled = false;
+    async function refresh() {
+      const res = await fetch("/api/v2/right-panel", { cache: "no-store", credentials: "include" })
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
+      if (cancelled || !res?.recentRuns) return;
+      setRecentRuns(res.recentRuns.slice(0, 8));
+    }
+    refresh();
+    const id = window.setInterval(refresh, 30_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, []);
+
+  // Fusion → 5 items les plus récents par timestamp.
+  const items: ActivityItem[] = [];
+  for (const ev of liveEvents) {
+    const ts = (ev as Record<string, unknown>).ts as number | undefined ?? (ev as Record<string, unknown>).timestamp as number | undefined ?? 0;
+    const label =
+      ((ev as Record<string, unknown>).name as string) ??
+      ((ev as Record<string, unknown>).message as string) ??
+      ev.type;
+    items.push({ key: `live-${ts}-${ev.type}`, type: ev.type, label, ts });
+  }
+  for (const run of recentRuns) {
+    const ts = run.completedAt ?? run.createdAt;
+    const type = run.status === "failed" ? "run_failed" : "run_completed";
+    const label = run.input.length > 60 ? `${run.input.slice(0, 60)}…` : run.input;
+    items.push({ key: `run-${run.id}`, type, label, ts });
+  }
+  const sorted = items.sort((a, b) => b.ts - a.ts).slice(0, 5);
+
+  if (sorted.length === 0) {
     return (
       <RailSection
         label="Activité en temps réel"
@@ -340,16 +392,14 @@ function ActiviteZone() {
         className="flex flex-col"
         style={{ gap: "var(--space-1)" }}
       >
-          {events.map((ev, i) => {
-            const label = (ev as Record<string, unknown>).name as string
-              ?? (ev as Record<string, unknown>).message as string
-              ?? ev.type;
-            const ts = (ev as Record<string, unknown>).ts as number | undefined ?? 0;
+          {sorted.map((ev) => {
+            const label = ev.label;
+            const ts = ev.ts;
             const glyph = EVENT_GLYPH[ev.type] ?? "·";
             const tone = EVENT_COLOR[ev.type] ?? "var(--text-muted)";
             return (
               <li
-                key={i}
+                key={ev.key}
                 className="dashboard-row flex items-center"
                 style={{
                   padding: "var(--space-2) var(--space-3)",
