@@ -80,7 +80,15 @@ function LoginContent() {
   const [loadingProvider, setLoadingProvider] = useState<ProviderId | null>(null);
 
   const error = searchParams.get("error");
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
+  // Sécurité : on n'accepte que des callbackUrl relatifs same-origin.
+  // Un absolu (`https://evil.com`) ou un schéma exotique (`javascript:`,
+  // `//evil.com`) tomberait en open-redirect post-login. On fallback "/"
+  // si la valeur n'est pas un chemin interne strict.
+  const rawCallback = searchParams.get("callbackUrl");
+  const callbackUrl =
+    rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
+      ? rawCallback
+      : "/";
 
   useEffect(() => {
     if (status === "authenticated") {

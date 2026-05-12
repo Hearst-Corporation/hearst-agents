@@ -93,11 +93,11 @@
     "framer-motion": "^12.38.0",
     "googleapis": "^171.4.0",
     "gsap": "^3.15.0",
-    "inngest": "^4.2.6",
+    "inngest": "^4.4.0",
     "ioredis": "^5.10.1",
     "langfuse": "^3.38.20",
     "leva": "^0.10.1",
-    "next": "16.2.4",
+    "next": "^16.2.6",
     "next-auth": "^4.24.14",
     "openai": "^6.34.0",
     "pdfkit": "^0.18.0",
@@ -110,6 +110,12 @@
     "three": "^0.184.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.12"
+  },
+  "overrides": {
+    "@opentelemetry/auto-instrumentations-node": ">=0.75.0",
+    "@opentelemetry/exporter-prometheus": ">=0.217.0",
+    "@opentelemetry/sdk-node": ">=0.217.0",
+    "postcss": ">=8.5.10"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",

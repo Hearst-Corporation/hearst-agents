@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { createToolSchema, ok, err, parseBody, dbErr, slugify } from "@/lib/domain";
 import type { Database } from "@/lib/database.types";
 
@@ -30,8 +31,11 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const auth = await requireScope({ context: "POST /api/tools" });
-    if (auth.error) return err(auth.error.message, auth.error.status);
+    // `tools` est un catalogue système global (pas de tenant_id). L'écriture
+    // doit donc rester réservée aux rôles admin pour éviter qu'un utilisateur
+    // standard injecte une tool visible par tous les tenants.
+    const guard = await requireAdmin("POST /api/tools", { resource: "tools", action: "create" });
+    if (isError(guard)) return guard;
 
     const body = await req.json();
     const parsed = parseBody(createToolSchema, body);
