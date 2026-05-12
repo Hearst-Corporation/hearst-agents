@@ -446,7 +446,7 @@ function SignalCard({ signal, nowMs, highlighted, onInvestigate }: SignalCardPro
               className="flex items-center"
               style={{ gap: "var(--space-2)" }}
             >
-              <span className="t-9 font-mono uppercase text-text-faint">
+              <span className="t-9 font-mono text-text-faint">
                 {KIND_LABEL[signal.kind]}
               </span>
               <span

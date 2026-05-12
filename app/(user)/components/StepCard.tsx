@@ -173,7 +173,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
               style={{ marginLeft: "var(--space-3)" }}
               data-testid="step-retry"
             >
-              <span className="tracking-wide uppercase">Réessayer</span>
+              <span>Réessayer</span>
             </button>
           )}
         </div>

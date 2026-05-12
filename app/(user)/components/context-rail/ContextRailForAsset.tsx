@@ -104,7 +104,7 @@ export function ContextRailForAsset() {
                 <span className="t-11 font-light text-text-faint">
                   Provider
                 </span>
-                <span className="t-11 font-mono text-text-muted uppercase">
+                <span className="t-11 font-mono text-text-muted">
                   {imageVariant.provider}
                 </span>
               </li>

@@ -192,7 +192,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Déclencheurs */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-text-faint uppercase tracking-wider">
+        <span className="t-9 font-medium text-text-faint">
           Déclencheurs
         </span>
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
@@ -236,7 +236,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Actions — apps */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-text-faint uppercase tracking-wider">
+        <span className="t-9 font-medium text-text-faint">
           Actions
         </span>
         <div
@@ -278,7 +278,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Logique + Validation + Sortie */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-text-faint uppercase tracking-wider">
+        <span className="t-9 font-medium text-text-faint">
           Logique & sorties
         </span>
         <div className="grid gap-1" style={{ gridTemplateColumns: "1fr 1fr" }}>

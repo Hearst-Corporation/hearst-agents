@@ -389,7 +389,7 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
         <dl className="flex flex-col gap-2 border-t border-[var(--surface-2)] pt-3">
           {metricsEntries.map(([label, value]) => (
             <div key={label} className="flex items-baseline justify-between gap-3 min-w-0">
-              <dt className="t-9 font-mono uppercase text-text-faint truncate flex-1 min-w-0">
+              <dt className="t-9 font-mono text-text-faint truncate flex-1 min-w-0">
                 {label.replace(/_/g, " ")}
               </dt>
               <dd className="t-13 text-text shrink-0 font-mono">{String(value)}</dd>

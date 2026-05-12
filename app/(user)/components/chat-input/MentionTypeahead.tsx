@@ -53,7 +53,7 @@ export function MentionTypeahead({
                 <p className="t-13 font-medium tracking-wide text-text-soft group-hover:text-text transition-colors">
                   @{service.id}
                 </p>
-                <p className="t-10 tracking-snug uppercase text-text-ghost mt-0.5">
+                <p className="t-10 text-text-ghost mt-0.5">
                   {service.name}
                 </p>
               </div>

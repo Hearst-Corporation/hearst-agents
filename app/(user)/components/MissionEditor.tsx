@@ -182,7 +182,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
             placeholder="0 9 * * 1"
             className="ghost-input-line w-full font-mono t-9"
           />
-          <p className="t-10 font-mono text-text-faint mt-2 uppercase tracking-caption">min heure jour mois jour-semaine</p>
+          <p className="t-10 font-mono text-text-faint mt-2">min heure jour mois jour-semaine</p>
         </div>
       )}
 
@@ -229,7 +229,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
       <div className="flex items-center justify-between py-4 border-y border-(--line)">
         <div>
           <p className="t-9 font-medium text-text-soft">Mission activée</p>
-          <p className="t-10 font-mono text-text-faint mt-1 uppercase tracking-wide">Exécution selon fréquence</p>
+          <p className="t-10 font-mono text-text-faint mt-1">Exécution selon fréquence</p>
         </div>
         <button
           type="button"

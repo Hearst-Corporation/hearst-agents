@@ -116,7 +116,7 @@ export function ApprovalInline({
             className="ghost-btn-solid ghost-btn-ghost t-9"
             data-testid="approval-edit"
           >
-            <span className="tracking-wide uppercase">Modifier</span>
+            <span>Modifier</span>
           </button>
         )}
         <button
@@ -126,9 +126,7 @@ export function ApprovalInline({
           className="ghost-btn-solid ghost-btn-ghost t-9"
           data-testid="approval-skip"
         >
-          <span className="tracking-wide uppercase">
-            {pending === "skip" ? "…" : "Sauter"}
-          </span>
+          <span>{pending === "skip" ? "…" : "Sauter"}</span>
         </button>
       </div>
     </div>

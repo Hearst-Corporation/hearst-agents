@@ -66,20 +66,19 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
     <div className="border-t border-[var(--ghost-modal-top)] bg-bg overflow-hidden">
       <div className="p-6 border-b border-(--line) flex flex-wrap items-start gap-6">
         <span
-          className="font-mono t-9 uppercase text-text-muted border-b border-(--accent-teal) pb-1"
-          style={{ letterSpacing: "var(--tracking-banner)" }}
+          className="font-mono t-9 text-text-muted border-b border-(--accent-teal) pb-1"
         >
           {kindRef}
         </span>
         <div className="flex-1 min-w-0">
-          <h3 className="t-15 font-black uppercase tracking-tighter text-text truncate">
+          <h3 className="t-15 font-semibold text-text truncate">
             {asset.title}
           </h3>
           <p className="t-11 font-light text-text-muted mt-2">
             {mimeLabel}
             {pdfFile?.sizeBytes != null && (
               <span className="ml-3 font-mono t-10">
-                SIZE_{(pdfFile.sizeBytes / 1024).toFixed(1)}KB
+                {(pdfFile.sizeBytes / 1024).toFixed(1)} Ko
               </span>
             )}
           </p>

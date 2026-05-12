@@ -190,7 +190,7 @@ function CockpitErrorState({ message }: { message: string }) {
       className="flex-1 flex flex-col items-start justify-center"
       style={{ padding: "48px 56px", gap: "12px" }}
     >
-      <span className="font-light" style={{ fontSize: "11px", letterSpacing: "0.08em", color: "rgba(255, 255, 255, 0.3)", textTransform: "uppercase" }}>Cockpit · erreur</span>
+      <span className="t-11 font-light text-text-ghost">Cockpit · erreur</span>
       <p className="font-light" style={{ fontSize: "18px", color: "rgba(255, 255, 255, 0.88)", maxWidth: "420px", lineHeight: "1.4" }}>
         Impossible de charger ton cockpit pour le moment.
       </p>
