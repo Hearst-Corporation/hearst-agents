@@ -66,33 +66,65 @@ export function useDashboardCounts(): DashboardCounts {
     let cancelled = false;
 
     async function refresh() {
-      const todayRes = await fetch("/api/v2/cockpit/today", {
-        cache: "no-store",
-        credentials: "include",
-      })
-        .then((r) => (r.ok ? r.json() : null))
-        .catch(() => null);
+      // Double source : on hit cockpit/today (rapide, agrégé) ET on garde
+      // /api/v2/missions en fallback si la première source renvoie vide.
+      // Sans ce filet, un état transitoire de getCockpitToday (cache cold,
+      // race scheduler, première hydratation) rend "Créer une première
+      // mission" alors que les missions existent et sont visibles via
+      // /api/v2/missions.
+      const [todayRes, missionsRes] = await Promise.all([
+        fetch("/api/v2/cockpit/today", { cache: "no-store", credentials: "include" })
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null),
+        fetch("/api/v2/missions", { cache: "no-store", credentials: "include" })
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null),
+      ]);
 
       if (cancelled) return;
 
       const next: Partial<DashboardCounts> = {};
+      let liveMissions: Array<{ id: string; name?: string; status: string; schedule?: string | null; lastRunAt?: number; lastRunStatus?: string }> = [];
+
       if (todayRes) {
         const data = todayRes as {
           counts?: { missions?: number; reports?: number; assets?: number };
-          missionsRunning?: Array<{ id: string; name?: string; status: string; schedule?: string | null }>;
+          missionsRunning?: typeof liveMissions;
         };
         next.missionsTotal = data.counts?.missions ?? null;
         next.reportsCount = data.counts?.reports ?? null;
         next.assetsCount = data.counts?.assets ?? null;
-        const live = (data.missionsRunning ?? []).slice(0, 5);
-        next.missionsActive = live.filter((m) => m.status === "running").length;
-        next.missionsLive = live.map((m) => ({
-          id: m.id,
-          name: m.name ?? m.id,
-          status: m.status,
-          schedule: m.schedule ?? null,
-        }));
+        liveMissions = data.missionsRunning ?? [];
       }
+
+      // Fallback : si cockpit/today n'a rien remonté mais que l'endpoint
+      // /api/v2/missions liste des missions, on les utilise. Source canonique
+      // de vérité pour la zone droite.
+      if (liveMissions.length === 0 && missionsRes) {
+        const missionsList = (missionsRes as { missions?: Array<{ id: string; name?: string; lastRunStatus?: string; schedule?: string; enabled?: boolean; lastRunAt?: number }> }).missions ?? [];
+        liveMissions = missionsList
+          .filter((m) => m.enabled !== false)
+          .slice(0, 5)
+          .map((m) => ({
+            id: m.id,
+            name: m.name,
+            status: m.lastRunStatus ?? "idle",
+            schedule: m.schedule ?? null,
+            lastRunAt: m.lastRunAt,
+          }));
+        if (next.missionsTotal == null) {
+          next.missionsTotal = missionsList.length;
+        }
+      }
+
+      const live = liveMissions.slice(0, 5);
+      next.missionsActive = live.filter((m) => m.status === "running").length;
+      next.missionsLive = live.map((m) => ({
+        id: m.id,
+        name: m.name ?? m.id,
+        status: m.status,
+        schedule: m.schedule ?? null,
+      }));
 
       setState((prev) => ({ ...prev, ...next, initialLoading: false }));
     }
