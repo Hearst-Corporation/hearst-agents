@@ -78,7 +78,7 @@ function kindLabel(kind: AppNotification["kind"]): string {
 export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { data: session } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
 
   const notifications = useNotificationsStore((s) => s.notifications);
   const unreadCount = useNotificationsStore((s) => s.unreadCount);
@@ -91,6 +91,11 @@ export function NotificationBell() {
   // Realtime Supabase — fallback polling 60s si le channel échoue.
   // tenantId lu depuis la session JWT (source de vérité).
   useEffect(() => {
+    // Ignore l'état "loading" : la session se résout en async, c'est normal
+    // que tenantId soit transitoirement undefined. Le warning ne doit se
+    // déclencher que sur un user authentifié dont la session est vraiment
+    // dépourvue de tenantId (signal d'une régression callback jwt).
+    if (sessionStatus !== "authenticated") return;
     const tenantId = (session?.user as { tenantId?: string } | undefined)?.tenantId;
     if (!tenantId) {
       console.warn("[NotificationBell] session.user.tenantId absent — realtime notifications désactivé");
@@ -98,7 +103,7 @@ export function NotificationBell() {
     }
     startRealtime(tenantId);
     return () => stopPolling();
-  }, [session, startRealtime, stopPolling]);
+  }, [session, sessionStatus, startRealtime, stopPolling]);
 
   // Ferme le dropdown si clic extérieur
   useEffect(() => {

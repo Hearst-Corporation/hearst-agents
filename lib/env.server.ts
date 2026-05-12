@@ -76,3 +76,8 @@ function validateEnv(): void {
 
 // Execute validation immediately on module load
 validateEnv();
+
+// Marker export — TS exigerait "isolatedModules: true" sur un fichier sans
+// exports, et l'import dynamique `await import("@/lib/env.server")` réclame
+// que le fichier soit reconnu comme module. Un boolean trivial fait l'affaire.
+export const ENV_VALIDATED = true;

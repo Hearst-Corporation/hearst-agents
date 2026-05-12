@@ -26,6 +26,13 @@
 /audit-*.png
 /qa-*.png
 /gcp-*.png
+/spatial-*.png
+/dashboard*.png
+/screenshot.js
+
+# Documents générés à la racine (audits, exports, captures)
+/ARCHITECTURE-COMPLETE.pdf
+/docs/architecture/*.pdf
 
 # next.js
 /.next/

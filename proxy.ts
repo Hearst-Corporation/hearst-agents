@@ -167,8 +167,10 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     _envChecked = true;
     try {
       // Dynamic import pour éviter le throw au module-load time sur Vercel Edge.
-       
-      await import("../lib/env.server" as string);
+      // Path absolu via alias `@/` : proxy.ts est à la racine du repo, donc
+      // un chemin relatif "../lib/env.server" sortait du projet et Turbopack
+      // signalait un Module not found en boucle à chaque requête.
+      await import("@/lib/env.server");
     } catch (e) {
       console.error("[proxy] env.server validation failed:", (e as Error).message);
       // Ne pas throw — laisse la requête continuer, le route handler retournera 500
