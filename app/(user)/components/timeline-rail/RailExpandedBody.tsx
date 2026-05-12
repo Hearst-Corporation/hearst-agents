@@ -61,7 +61,6 @@ export function RailExpandedBody({
         <div className="flex flex-col">
           <TopMenuItem
             label="Home"
-            hotkey="⌘1"
             icon={<HomeIcon />}
             isActive={isHomeActive}
             onClick={onHome}
@@ -75,17 +74,9 @@ export function RailExpandedBody({
             onClick={() => router.push("/apps")}
           />
         </div>
-        <div
-          className="flex flex-col"
-          style={{
-            marginTop: "var(--space-4)",
-            paddingTop: "var(--space-4)",
-            borderTop: "1px solid var(--border-default)",
-          }}
-        >
+        <div className="flex flex-col" style={{ marginTop: "var(--space-2)" }}>
           <TopMenuItem
             label="Chat"
-            hotkey="⌘N"
             icon={<ChatIcon />}
             onClick={onNewThread}
           />
@@ -101,14 +92,10 @@ export function RailExpandedBody({
           className="w-full flex items-center justify-between first:mt-0 mt-12 mb-6 px-3 group"
         >
           <span
-            className="t-9 font-medium transition-colors group-hover:text-text-soft"
-            style={{
-              color: "var(--text-faint)",
-              letterSpacing: "var(--tracking-wide)",
-              textTransform: "uppercase",
-            }}
+            className="t-11 font-medium transition-colors group-hover:text-text-soft"
+            style={{ color: "var(--text-faint)" }}
           >
-            Investigations
+            Conversations
           </span>
           <span
             className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-text-faint group-hover:text-text-soft"

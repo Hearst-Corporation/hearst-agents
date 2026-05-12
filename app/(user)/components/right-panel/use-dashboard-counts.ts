@@ -117,7 +117,10 @@ export function useDashboardCounts(): DashboardCounts {
         }
       }
 
-      const live = liveMissions.slice(0, 5);
+      const DONE_STATUSES = new Set(["completed", "success", "done", "succeeded", "terminé"]);
+      const live = liveMissions
+        .filter((m) => !DONE_STATUSES.has(m.status))
+        .slice(0, 5);
       next.missionsActive = live.filter((m) => m.status === "running").length;
       next.missionsLive = live.map((m) => ({
         id: m.id,

@@ -9,7 +9,6 @@
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { AdminIcon, ChevronLeftIcon, ChevronRightIcon, LogoutIcon } from "./icons";
-import { GhostFooterLink } from "./GhostFooterLink";
 
 export interface RailFooterProps {
   collapsed: boolean;
@@ -110,25 +109,34 @@ export function RailFooter({
             </div>
           </div>
           {/* Actions footer */}
-          <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-            <GhostFooterLink href="/admin" title="Admin console">
-              Admin
-            </GhostFooterLink>
-            <GhostFooterLink
-              onClick={() => signOut({ callbackUrl: "/login" })}
-              title="Déconnexion"
+          <div className="flex items-center justify-between w-full" style={{ gap: "var(--space-2)" }}>
+            <div className="flex items-center" style={{ gap: "var(--space-1)" }}>
+              <Link
+                href="/admin"
+                title="Admin console"
+                className="w-7 h-7 flex items-center justify-center rounded-md text-text-ghost hover:text-(--accent-teal) hover:bg-[var(--surface-1)] transition-colors"
+              >
+                <AdminIcon />
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut({ callbackUrl: "/login" })}
+                title="Déconnexion"
+                aria-label="Déconnexion"
+                className="w-7 h-7 flex items-center justify-center rounded-md text-text-ghost hover:text-(--danger) hover:bg-[var(--surface-1)] transition-colors"
+              >
+                <LogoutIcon />
+              </button>
+            </div>
+            <button
+              onClick={onToggleCollapsed}
+              title="Replier"
+              aria-label="Replier le rail"
+              className="w-7 h-7 flex items-center justify-center rounded-md text-text-ghost hover:text-(--accent-teal) hover:bg-[var(--surface-1)] transition-colors"
             >
-              Exit
-            </GhostFooterLink>
+              <ChevronLeftIcon />
+            </button>
           </div>
-          <button
-            onClick={onToggleCollapsed}
-            title="Replier"
-            aria-label="Replier le rail"
-            className="w-5 h-5 flex items-center justify-center text-text-ghost hover:text-(--accent-teal) transition-colors mt-2"
-          >
-            <ChevronLeftIcon />
-          </button>
         </>
       )}
     </div>
