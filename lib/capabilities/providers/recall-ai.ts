@@ -37,7 +37,7 @@ export interface CreateMeetingBotParams {
   botName?: string;
   recordingMode?: "speaker_view" | "gallery_view";
   language?: string;
-  /** Provider de transcription côté Recall (defaults to Deepgram nova-2). */
+  /** Provider de transcription côté Recall (defaults to Deepgram nova-3). */
   transcriptionProvider?: "deepgram" | "assembly_ai" | "rev";
 }
 
@@ -50,6 +50,11 @@ export interface CreateMeetingBotResult {
 export async function createMeetingBot(
   params: CreateMeetingBotParams,
 ): Promise<CreateMeetingBotResult> {
+  const transcriptionProvider = params.transcriptionProvider ?? "deepgram";
+  const providerConfig: Record<string, unknown> = {
+    language: params.language ?? "fr",
+    ...(transcriptionProvider === "deepgram" ? { model: "nova-3" } : {}),
+  };
   const body = {
     meeting_url: params.meetingUrl,
     bot_name: params.botName ?? "Hearst Assistant",
@@ -57,9 +62,7 @@ export async function createMeetingBot(
       video_mixed_layout: params.recordingMode ?? "speaker_view",
       transcript: {
         provider: {
-          [params.transcriptionProvider ?? "deepgram"]: {
-            language: params.language ?? "fr",
-          },
+          [transcriptionProvider]: providerConfig,
         },
       },
     },

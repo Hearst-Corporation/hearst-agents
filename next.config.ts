@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
   // (dont node-environment.js) dans le bundle. La taille était le problème
   // (590 MB → Electron) — désormais strippé via installCommand dans vercel.json.
   output: "standalone" as const,
+  // React Compiler 19 — mémoïsation automatique (+25% perf, -40% useMemo/useCallback manuels).
+  // Requiert babel-plugin-react-compiler en devDep. Composants violant les Rules of React
+  // peuvent être exclus via reactCompiler: { compilationMode: 'annotation' } + directive "use memo".
+  reactCompiler: true,
   // Pin la racine workspace pour que Turbopack n'aille pas la déduire
   // depuis un package.json plus haut dans l'arbo (ex. ~/package.json).
   turbopack: {
