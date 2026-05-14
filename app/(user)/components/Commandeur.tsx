@@ -23,28 +23,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useStageStore, type StagePayload } from "@/stores/stage";
 import { useFocalStore } from "@/stores/focal";
-import { useVoiceStore } from "@/stores/voice";
 import { useNavigationStore } from "@/stores/navigation";
-import { CommandeurResultRow, type CommandeurResultKind } from "./CommandeurResultRow";
+import { CommandeurResultRow } from "./CommandeurResultRow";
 import { useCommandeurData } from "./use-commandeur-data";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { AssetCompareModal } from "./AssetCompareModal";
-
-interface CommandRow {
-  id: string;
-  kind: CommandeurResultKind;
-  label: string;
-  hint?: string;
-  hotkey?: string;
-  disabled?: boolean;
-  perform: () => void;
-}
-
-interface CommandSection {
-  key: string;
-  title: string;
-  rows: CommandRow[];
-}
+import { useCommandeurActions, type CommandRow } from "./use-commandeur-actions";
+import { useCommandeurSections } from "./use-commandeur-sections";
 
 export function Commandeur() {
   const router = useRouter();
@@ -61,253 +46,14 @@ export function Commandeur() {
 
   const { results, loading } = useCommandeurData(query, isOpen);
 
-  // ── Actions hardcoded (toujours présentes, filtrables localement) ──
-  const allActions = useMemo<CommandRow[]>(() => [
-    {
-      id: "nav-reports",
-      kind: "action",
-      label: "Voir les rapports",
-      hint: "Bibliothèque rapports",
-      perform: () => {
-        router.push("/reports");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-missions",
-      kind: "action",
-      label: "Mes missions",
-      hint: "Modèles récurrents — créer, modifier, lancer",
-      perform: () => {
-        router.push("/missions");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-runs",
-      kind: "action",
-      label: "Mes exécutions",
-      hint: "Historique des runs lancés",
-      perform: () => {
-        router.push("/runs");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-notifications",
-      kind: "action",
-      label: "Voir les notifications",
-      hint: "Centre signaux et alertes",
-      perform: () => {
-        router.push("/notifications");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-apps",
-      kind: "action",
-      label: "Voir les apps connectées",
-      hint: "Connecteurs OAuth",
-      perform: () => {
-        router.push("/apps");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-marketplace",
-      kind: "action",
-      label: "Marketplace",
-      hint: "Templates communautaires partagés",
-      perform: () => {
-        router.push("/marketplace");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-settings",
-      kind: "action",
-      label: "Réglages",
-      hint: "Préférences · alerting · profil",
-      perform: () => {
-        router.push("/settings");
-        setOpen(false);
-      },
-    },
-    {
-      id: "nav-settings-alerting",
-      kind: "action",
-      label: "Paramètres alerting",
-      hint: "Seuils · canaux · règles",
-      perform: () => {
-        router.push("/settings/alerting");
-        setOpen(false);
-      },
-    },
-    {
-      id: "open-archive",
-      kind: "action",
-      label: "Voir l'archive",
-      hint: "Threads + assets > 7 jours",
-      perform: () => {
-        router.push("/archive");
-        setOpen(false);
-      },
-    },
-    {
-      id: "open-hospitality",
-      kind: "action",
-      label: "Hospitality Mode",
-      hint: "Cockpit vertical hôtellerie",
-      perform: () => {
-        router.push("/hospitality");
-        setOpen(false);
-      },
-    },
-    {
-      id: "open-admin",
-      kind: "action",
-      label: "Console admin",
-      hint: "Pipeline · agents · profiles",
-      perform: () => {
-        router.push("/admin");
-        setOpen(false);
-      },
-    },
-    {
-      id: "action-new-mission",
-      kind: "action",
-      label: "Nouvelle mission",
-      hint: "Crée un nouveau modèle (drawer rapide)",
-      perform: () => {
-        router.push("/missions?new=1");
-        setOpen(false);
-      },
-    },
-    {
-      id: "action-launch-report",
-      kind: "action",
-      label: "Lancer un rapport",
-      hint: "Studio création rapport",
-      perform: () => {
-        router.push("/reports/studio");
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-cockpit",
-      kind: "action",
-      label: "Ouvrir le Cockpit",
-      hint: "Briefing du jour",
-      hotkey: "⌘1",
-      perform: () => {
-        setStageMode({ mode: "cockpit" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-chat",
-      kind: "action",
-      label: "Aller au Chat",
-      hint: "Conversation active",
-      hotkey: "⌘2",
-      perform: () => {
-        setStageMode({ mode: "chat" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-asset",
-      kind: "action",
-      label: "Ouvrir le dernier asset",
-      hint: lastAssetId
-        ? "Ré-ouvre l'asset le plus récent"
-        : "Aucun asset ouvert récemment",
-      hotkey: "⌘3",
-      disabled: !lastAssetId,
-      perform: () => {
-        if (!lastAssetId) return;
-        setStageMode({ mode: "asset", assetId: lastAssetId } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-browser",
-      kind: "action",
-      label: "Browser Stage",
-      hint: "Co-pilote navigation web",
-      hotkey: "⌘4",
-      perform: () => {
-        setStageMode({ mode: "browser", sessionId: "" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-meeting",
-      kind: "action",
-      label: "Meeting Stage",
-      hint: "Bot meeting + action items",
-      hotkey: "⌘5",
-      perform: () => {
-        setStageMode({ mode: "meeting", meetingId: "" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-kg",
-      kind: "action",
-      label: "Knowledge Graph",
-      hint: "Mémoire personnelle",
-      hotkey: "⌘6",
-      perform: () => {
-        setStageMode({ mode: "kg" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-voice",
-      kind: "action",
-      label: "Mode voix ambient",
-      hint: "Conversation full-duplex",
-      hotkey: "⌘7",
-      perform: () => {
-        useVoiceStore.getState().setVoiceActive(true);
-        setStageMode({ mode: "voice" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-simulation",
-      kind: "action",
-      label: "Chambre de Simulation",
-      hint: "DeepSeek scenarios chiffrés",
-      hotkey: "⌘8",
-      perform: () => {
-        setStageMode({ mode: "simulation" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "go-artifact",
-      kind: "action",
-      label: "Artifact (code + E2B)",
-      hint: "Éditeur Python/Node, run sandbox",
-      hotkey: "⌘0",
-      perform: () => {
-        setStageMode({ mode: "artifact" } as StagePayload);
-        setOpen(false);
-      },
-    },
-    {
-      id: "action-compare-assets",
-      kind: "action",
-      label: "Comparer 2 assets",
-      hint: "Split view + diff sémantique",
-      perform: () => {
-        setCompareOpen(true);
-        setOpen(false);
-      },
-    },
-  ], [setStageMode, setOpen, router, lastAssetId]);
+  // ── Actions hardcoded ──────────────────────────────────────────
+  const allActions = useCommandeurActions({
+    router,
+    setOpen,
+    setStageMode,
+    lastAssetId,
+    onCompareOpen: () => setCompareOpen(true),
+  });
 
   // ── Recent threads (depuis store nav, max 5) ───────────────────
   const recentRows = useMemo<CommandRow[]>(() => {
@@ -331,112 +77,17 @@ export function Commandeur() {
       }));
   }, [threads, setActiveThread, setStageMode, setOpen]);
 
-  // ── Sections rendues ───────────────────────────────────────────
-  const sections = useMemo<CommandSection[]>(() => {
-    const trimmed = query.trim().toLowerCase();
-    const filteredActions = !trimmed
-      ? allActions
-      : allActions.filter(
-          (a) =>
-            a.label.toLowerCase().includes(trimmed) ||
-            (a.hint ?? "").toLowerCase().includes(trimmed),
-        );
-
-    const out: CommandSection[] = [];
-    if (filteredActions.length > 0) {
-      out.push({ key: "actions", title: "Actions", rows: filteredActions });
-    }
-
-    if (!trimmed && recentRows.length > 0) {
-      out.push({ key: "recent", title: "Récents", rows: recentRows });
-    }
-
-    if (trimmed) {
-      if (results.assets.length > 0) {
-        out.push({
-          key: "assets",
-          title: "Assets",
-          rows: results.assets.map((a) => ({
-            id: `asset-${a.id}`,
-            kind: "asset",
-            label: a.title,
-            hint: a.kind,
-            perform: () => {
-              setStageMode({ mode: "asset", assetId: a.id } as StagePayload);
-              setOpen(false);
-            },
-          })),
-        });
-      }
-      if (results.missions.length > 0) {
-        out.push({
-          key: "missions",
-          title: "Missions",
-          rows: results.missions.map((m) => ({
-            id: `mission-${m.id}`,
-            kind: "mission",
-            label: m.title,
-            hint: m.status,
-            perform: () => {
-              setStageMode({ mode: "mission", missionId: m.id } as StagePayload);
-              setOpen(false);
-            },
-          })),
-        });
-      }
-      if (results.threads.length > 0) {
-        out.push({
-          key: "threads",
-          title: "Conversations",
-          rows: results.threads.map((t) => ({
-            id: `thread-${t.id}`,
-            kind: "thread",
-            label: t.title,
-            hint: t.preview.slice(0, 60),
-            perform: () => {
-              setActiveThread(t.id);
-              setStageMode({ mode: "chat", threadId: t.id } as StagePayload);
-              setOpen(false);
-            },
-          })),
-        });
-      }
-      if (results.kgNodes.length > 0) {
-        out.push({
-          key: "kg",
-          title: "Knowledge",
-          rows: results.kgNodes.map((n) => ({
-            id: `kg-${n.id}`,
-            kind: "kg",
-            label: n.label,
-            hint: n.type,
-            perform: () => {
-              setStageMode({ mode: "kg", entityId: n.id } as StagePayload);
-              setOpen(false);
-            },
-          })),
-        });
-      }
-      if (results.runs.length > 0) {
-        out.push({
-          key: "runs",
-          title: "Runs",
-          rows: results.runs.map((r) => ({
-            id: `run-${r.id}`,
-            kind: "run",
-            label: r.label,
-            hint: r.createdAt ? new Date(r.createdAt).toLocaleDateString("fr-FR") : "",
-            perform: () => {
-              router.push(`/runs/${r.id}`);
-              setOpen(false);
-            },
-          })),
-        });
-      }
-    }
-
-    return out;
-  }, [allActions, recentRows, query, results, setStageMode, setActiveThread, setOpen, router]);
+  // ── Sections rendues (logique extraite dans hook) ──────────────
+  const sections = useCommandeurSections({
+    query,
+    allActions,
+    recentRows,
+    results,
+    setStageMode,
+    setActiveThread,
+    setOpen,
+    router,
+  });
 
   // Flatten pour la nav clavier.
   const flatRows = useMemo<CommandRow[]>(
@@ -446,18 +97,16 @@ export function Commandeur() {
 
   useEffect(() => {
     if (!isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset à la fermeture (pas de render-time pattern)
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset à la fermeture
       setQuery("");
       setActiveIndex(0);
       return;
     }
-    // À l'ouverture, consomme la query préremplie explicite si présente.
     const prefill = consumePrefill();
     if (prefill) {
       setQuery(prefill);
       return;
     }
-    // Sinon, génère un prefill contextuel selon le Stage actif + focal courant.
     const stageMode = useStageStore.getState().current.mode;
     const focal = useFocalStore.getState().focal;
     if (focal?.title) {
@@ -470,28 +119,16 @@ export function Commandeur() {
   }, [isOpen, consumePrefill]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset clavier index quand la query change
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset index quand query change
     setActiveIndex(0);
   }, [query]);
 
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        setOpen(false);
-        return;
-      }
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setActiveIndex((i) => Math.min(i + 1, flatRows.length - 1));
-        return;
-      }
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setActiveIndex((i) => Math.max(i - 1, 0));
-        return;
-      }
+      if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
+      if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex((i) => Math.min(i + 1, flatRows.length - 1)); return; }
+      if (e.key === "ArrowUp") { e.preventDefault(); setActiveIndex((i) => Math.max(i - 1, 0)); return; }
       if (e.key === "Enter") {
         e.preventDefault();
         const row = flatRows[activeIndex];
@@ -502,29 +139,20 @@ export function Commandeur() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, flatRows, activeIndex, setOpen]);
 
-  // Hook a11y : focus trap + scroll lock body + restore focus à la
-  // fermeture. Escape est géré localement (handler ci-dessus + nav clavier
-  // ↑↓/Enter), donc on désactive `closeOnEscape` pour éviter le double-call.
-  // autoFocus=false : <input autoFocus> du palette pose déjà le focus.
+  // Hook a11y : focus trap + scroll lock body + restore focus.
   const dialogRef = useModalA11y<HTMLDivElement>(isOpen, {
     onClose: () => setOpen(false),
     closeOnEscape: false,
     autoFocus: false,
   });
 
-  // ── Modale "Comparer 2 assets" — rendue indépendamment de l'ouverture du
-  // palette. Le clic sur "Comparer 2 assets" ferme le palette et ouvre
-  // cette modale, donc elle doit pouvoir s'afficher quand isOpen=false.
   const compareModal = (
     <AssetCompareModal
       open={compareOpen}
       onCancel={() => setCompareOpen(false)}
       onCompare={(idA, idB) => {
         setCompareOpen(false);
-        setStageMode({
-          mode: "asset_compare",
-          assetIds: [idA, idB],
-        } as StagePayload);
+        setStageMode({ mode: "asset_compare", assetIds: [idA, idB] } as StagePayload);
       }}
     />
   );
@@ -580,10 +208,7 @@ export function Commandeur() {
                 <section key={section.key} className="flex flex-col gap-1">
                   <h2
                     className="t-11 font-light"
-                    style={{
-                      color: "var(--text-ghost)",
-                      marginBottom: "var(--space-2)",
-                    }}
+                    style={{ color: "var(--text-ghost)", marginBottom: "var(--space-2)" }}
                   >
                     {section.title}
                   </h2>
@@ -598,12 +223,8 @@ export function Commandeur() {
                         hotkey={row.hotkey}
                         active={myIndex === activeIndex}
                         disabled={row.disabled}
-                        onSelect={() => {
-                          if (!row.disabled) row.perform();
-                        }}
-                        onHover={() => {
-                          if (!row.disabled) setActiveIndex(myIndex);
-                        }}
+                        onSelect={() => { if (!row.disabled) row.perform(); }}
+                        onHover={() => { if (!row.disabled) setActiveIndex(myIndex); }}
                       />
                     );
                   })}
