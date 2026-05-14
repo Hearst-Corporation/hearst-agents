@@ -30,12 +30,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import { useStageStore } from "@/stores/stage";
-import { Action } from "../ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
-import { VideoSimpleForm } from "./VideoSimpleForm";
-import { VideoBatchForm } from "./VideoBatchForm";
 import { useVideoSSE } from "./hooks/useVideoSSE";
 import { useVideoBatchSSE } from "./hooks/useVideoBatchSSE";
+import { useSingleSubmit } from "./hooks/useSingleSubmit";
+import { useBatchSubmit } from "./hooks/useBatchSubmit";
 import {
   MAX_BATCH_VARIANTS,
   makeBatchForm,
@@ -45,6 +44,10 @@ import {
   type Provider,
   type RatioOption,
 } from "./types";
+import { PanelHeader } from "./_parts/PanelHeader";
+import { ModeToggle } from "./_parts/ModeToggle";
+import { PanelBody } from "./_parts/PanelBody";
+import { FooterActions } from "./_parts/FooterActions";
 
 export function VideoQuickLaunchPanel() {
   const open = useVideoQuickLaunchStore((s) => s.open);
@@ -83,18 +86,12 @@ export function VideoQuickLaunchPanel() {
     setRatio("1280:720");
     setCreatedAssetId(null);
     single.reset();
-
-    // Reset batch.
     setBatchMode(false);
     setBatchForms([makeBatchForm(), makeBatchForm()]);
     batch.reset();
   }, [single, batch]);
 
   // ── ESC handler + focus trap + restore focus (hook a11y) ───────
-  // Side panel : pas de scroll lock body (panel non-bloquant côté UX —
-  // l'utilisateur peut toujours scroller le shell derrière). autoFocus
-  // désactivé : on focalise manuellement le textarea (premier champ
-  // d'intérêt) avec un léger délai (animation slide-in).
   const panelRef = useModalA11y<HTMLElement>(open, {
     onClose: close,
     autoFocus: false,
@@ -113,79 +110,15 @@ export function VideoQuickLaunchPanel() {
     return () => clearTimeout(t);
   }, [open, resetAll]);
 
-  // ── SINGLE MODE : submit ───────────────────────────────────────
-  const submit = useCallback(async () => {
-    if (
-      !prompt.trim() ||
-      single.phase === "creating" ||
-      single.phase === "queued" ||
-      single.phase === "running"
-    )
-      return;
-    single.setErrorMsg(null);
-    single.setProgress(0);
-    single.setPhase("creating");
-
-    try {
-      const shellName = prompt.trim().slice(0, 80) || "Vidéo générée";
-      const assetRes = await fetch("/api/v2/assets", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "text",
-          name: shellName,
-          metadata: {
-            origin: "video-quick-launch",
-            content: prompt.trim(),
-          },
-        }),
-      });
-      const assetBody = await assetRes.json();
-      if (!assetRes.ok || !assetBody?.asset?.id) {
-        throw new Error(assetBody?.error ?? "Création de l'asset échouée");
-      }
-      const assetId: string = assetBody.asset.id;
-      setCreatedAssetId(assetId);
-
-      single.setPhase("queued");
-      const variantRes = await fetch(
-        `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            kind: "video",
-            provider,
-            prompt: prompt.trim(),
-            scriptText: prompt.trim(),
-            durationSeconds: duration,
-            ratio: provider === "runway" ? ratio : undefined,
-          }),
-        },
-      );
-      const variantBody = await variantRes.json();
-      if (!variantRes.ok) {
-        throw new Error(
-          variantBody?.message ??
-            variantBody?.error ??
-            "Enqueue du job échoué",
-        );
-      }
-      const jobId: string | undefined = variantBody.jobId;
-      if (!jobId) {
-        throw new Error("Job ID manquant dans la réponse variants.");
-      }
-
-      single.subscribe(jobId, provider);
-    } catch (err) {
-      single.setErrorMsg(
-        err instanceof Error ? err.message : "Erreur inattendue",
-      );
-      single.setPhase("error");
-    }
-  }, [prompt, provider, duration, ratio, single]);
+  // ── SINGLE MODE : submit (logique extraite dans hook) ─────────
+  const submit = useSingleSubmit({
+    prompt,
+    provider,
+    duration,
+    ratio,
+    single,
+    onAssetCreated: setCreatedAssetId,
+  });
 
   const openAsset = useCallback(() => {
     if (!createdAssetId) return;
@@ -210,8 +143,6 @@ export function VideoQuickLaunchPanel() {
   const addBatchForm = useCallback(() => {
     setBatchForms((prev) => {
       if (prev.length >= MAX_BATCH_VARIANTS) return prev;
-      // Seed le nouveau form depuis le précédent (provider/duration/ratio communs)
-      // — l'user veut souvent tester le même prompt avec une variation mineure.
       const last = prev[prev.length - 1];
       return [
         ...prev,
@@ -231,86 +162,16 @@ export function VideoQuickLaunchPanel() {
     });
   }, []);
 
-  // ── BATCH MODE : submit ────────────────────────────────────────
-  const submitBatch = useCallback(async () => {
-    const validForms = batchForms.filter((f) => f.prompt.trim().length > 0);
-    if (
-      validForms.length === 0 ||
-      batch.phase === "creating" ||
-      batch.phase === "running"
-    )
-      return;
-
-    batch.setErrorMsg(null);
-    batch.setPhase("creating");
-    batch.setRuns([]);
-    batch.setAssetId(null);
-
-    try {
-      const res = await fetch("/api/v2/assets/batch", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          variants: validForms.map((f) => ({
-            prompt: f.prompt.trim(),
-            provider: f.provider,
-            durationSeconds: f.duration,
-            ratio: f.provider === "runway" ? f.ratio : undefined,
-          })),
-        }),
-      });
-
-      const body = await res.json();
-      if (!res.ok || !body?.assetId) {
-        throw new Error(
-          body?.message ?? body?.error ?? "Échec de la création du batch",
-        );
-      }
-
-      const assetId: string = body.assetId;
-      const jobs: Array<{
-        kind: string;
-        jobId: string;
-        variantId: string;
-        index: number;
-      }> = body.jobs ?? [];
-
-      batch.setAssetId(assetId);
-      batch.initRuns(validForms, jobs);
-      batch.setPhase("running");
-
-      // Open EventSource en parallèle pour chaque job qui a bien été enqueué.
-      jobs.forEach((job) => {
-        batch.subscribe(job.jobId, job.index);
-      });
-
-      // Si TOUS les jobs ont échoué dès l'enqueue, on bascule en error.
-      if (jobs.length === 0) {
-        batch.setPhase("error");
-        batch.setErrorMsg("Aucun variant n'a pu être enqueué");
-      }
-    } catch (err) {
-      batch.setErrorMsg(
-        err instanceof Error ? err.message : "Erreur inattendue",
-      );
-      batch.setPhase("error");
-    }
-  }, [batchForms, batch]);
+  // ── BATCH MODE : submit (logique extraite dans hook) ──────────
+  const submitBatch = useBatchSubmit({ batchForms, batch });
 
   // ── BATCH MODE : ouvrir AssetCompareStage ──────────────────────
   const openCompare = useCallback(() => {
     if (!batch.assetId) return;
-    // Pour Q3-A on a un seul asset shell parent + N variants. Le compare
-    // attend N assetIds distincts ; en attendant la version variants-aware
-    // d'AssetCompareStage, on duplique l'assetId N fois pour montrer N panes
-    // qui pointent vers le même asset (workaround). Une variante future :
-    // étendre AssetCompareStage pour accepter `variantIds[]`.
     const ids = batch.runs
       .filter((r) => r.phase === "done")
       .map(() => batch.assetId as string);
     if (ids.length < 2) {
-      // Pas assez de variants ready — fallback : ouvrir l'asset shell.
       setStageMode({
         mode: "asset",
         assetId: batch.assetId,
@@ -343,6 +204,18 @@ export function VideoQuickLaunchPanel() {
     (f) => f.prompt.trim().length > 0,
   ).length;
 
+  const resetSingle = useCallback(() => {
+    single.setPhase("idle");
+    single.setProgress(0);
+    single.setErrorMsg(null);
+  }, [single]);
+
+  const resetBatch = useCallback(() => {
+    batch.setPhase("idle");
+    batch.setRuns([]);
+    batch.setErrorMsg(null);
+  }, [batch]);
+
   return (
     <aside
       ref={panelRef}
@@ -364,115 +237,44 @@ export function VideoQuickLaunchPanel() {
         visibility: open ? "visible" : "hidden",
       }}
     >
-      {/* Header */}
-      <header
-        className="flex items-center justify-between"
-        style={{
-          padding: "var(--space-6)",
-          borderBottom: "1px solid var(--border-shell)",
-        }}
-      >
-        <div className="flex flex-col gap-1">
-          <span className="t-15 font-medium text-text">
-            {batchMode ? "Vidéo · batch" : "Vidéo rapide"}
-          </span>
-          <span className="t-11 font-light text-text-muted">
-            {batchMode
-              ? `Jusqu'à ${MAX_BATCH_VARIANTS} variants en parallèle`
-              : "⌘G — prompt + provider + go"}
-          </span>
-        </div>
-        <button
-          type="button"
-          onClick={close}
-          aria-label="Fermer"
-          className="t-13 font-light text-text-muted hover:text-text transition-colors duration-base"
-          style={{ padding: "var(--space-1) var(--space-2)" }}
-        >
-          ESC
-        </button>
-      </header>
+      <PanelHeader batchMode={batchMode} onClose={close} />
 
-      {/* Mode toggle */}
-      <div
-        className="flex"
-        style={{
-          padding: "var(--space-3) var(--space-6)",
-          borderBottom: "1px solid var(--border-shell)",
-          gap: "var(--space-2)",
-        }}
-      >
-        <button
-          type="button"
-          onClick={() => setBatchMode(false)}
-          disabled={isBatchBusy || batch.phase === "done"}
-          className={`t-11 font-light transition-colors duration-base disabled:opacity-50 ${
-            !batchMode
-              ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
-              : "border border-(--border-shell) text-text-muted hover:text-text"
-          }`}
-          style={{
-            flex: 1,
-            padding: "var(--space-2) var(--space-3)",
-            borderRadius: "var(--radius-sm)",
-          }}
-        >
-          1 variant
-        </button>
-        <button
-          type="button"
-          onClick={() => setBatchMode(true)}
-          disabled={isSingleBusy || single.phase === "done"}
-          className={`t-11 font-light transition-colors duration-base disabled:opacity-50 ${
-            batchMode
-              ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
-              : "border border-(--border-shell) text-text-muted hover:text-text"
-          }`}
-          style={{
-            flex: 1,
-            padding: "var(--space-2) var(--space-3)",
-            borderRadius: "var(--radius-sm)",
-          }}
-        >
-          Mode batch
-        </button>
-      </div>
+      <ModeToggle
+        batchMode={batchMode}
+        isBatchBusy={isBatchBusy}
+        batchDone={batch.phase === "done"}
+        isSingleBusy={isSingleBusy}
+        singleDone={single.phase === "done"}
+        onSetSingle={() => setBatchMode(false)}
+        onSetBatch={() => setBatchMode(true)}
+      />
 
-      {/* Body */}
-      <div
-        className="flex-1 flex flex-col overflow-y-auto"
-        style={{ padding: "var(--space-6)", gap: "var(--space-5)" }}
-      >
-        {!batchMode ? (
-          <VideoSimpleForm
-            prompt={prompt}
-            setPrompt={setPrompt}
-            provider={provider}
-            setProvider={setProvider}
-            duration={duration}
-            setDuration={setDuration}
-            ratio={ratio}
-            setRatio={setRatio}
-            phase={single.phase}
-            progress={single.progress}
-            phaseLabel={phaseLabel}
-            errorMsg={single.errorMsg}
-            isBusy={isSingleBusy}
-            textareaRef={textareaRef}
-          />
-        ) : (
-          <VideoBatchForm
-            forms={batchForms}
-            updateForm={updateBatchForm}
-            addForm={addBatchForm}
-            removeForm={removeBatchForm}
-            isBusy={isBatchBusy || batch.phase === "done"}
-            runs={batch.runs}
-            batchPhase={batch.phase}
-            batchError={batch.errorMsg}
-          />
-        )}
-      </div>
+      <PanelBody
+        batchMode={batchMode}
+        prompt={prompt}
+        setPrompt={setPrompt}
+        provider={provider}
+        setProvider={setProvider}
+        duration={duration}
+        setDuration={setDuration}
+        ratio={ratio}
+        setRatio={setRatio}
+        singlePhase={single.phase}
+        singleProgress={single.progress}
+        phaseLabel={phaseLabel}
+        singleErrorMsg={single.errorMsg}
+        isSingleBusy={isSingleBusy}
+        textareaRef={textareaRef}
+        batchForms={batchForms}
+        updateBatchForm={updateBatchForm}
+        addBatchForm={addBatchForm}
+        removeBatchForm={removeBatchForm}
+        isBatchBusy={isBatchBusy}
+        batchDone={batch.phase === "done"}
+        batchRuns={batch.runs}
+        batchPhase={batch.phase}
+        batchError={batch.errorMsg}
+      />
 
       {/* Footer actions */}
       <footer
@@ -483,81 +285,23 @@ export function VideoQuickLaunchPanel() {
           gap: "var(--space-3)",
         }}
       >
-        {!batchMode ? (
-          single.phase === "done" && createdAssetId ? (
-            <>
-              <Action variant="ghost" tone="neutral" onClick={close}>
-                Fermer
-              </Action>
-              <Action variant="primary" tone="brand" onClick={openAsset}>
-                Ouvrir
-              </Action>
-            </>
-          ) : single.phase === "error" ? (
-            <>
-              <Action variant="ghost" tone="neutral" onClick={close}>
-                Fermer
-              </Action>
-              <Action
-                variant="primary"
-                tone="brand"
-                onClick={() => {
-                  single.setPhase("idle");
-                  single.setProgress(0);
-                  single.setErrorMsg(null);
-                }}
-              >
-                Réessayer
-              </Action>
-            </>
-          ) : (
-            <Action
-              variant="primary"
-              tone="brand"
-              onClick={() => void submit()}
-              loading={isSingleBusy}
-              disabled={!prompt.trim()}
-            >
-              Générer la vidéo
-            </Action>
-          )
-        ) : batch.phase === "done" ? (
-          <>
-            <Action variant="ghost" tone="neutral" onClick={close}>
-              Fermer
-            </Action>
-            <Action variant="primary" tone="brand" onClick={openCompare}>
-              Comparer les résultats
-            </Action>
-          </>
-        ) : batch.phase === "error" ? (
-          <>
-            <Action variant="ghost" tone="neutral" onClick={close}>
-              Fermer
-            </Action>
-            <Action
-              variant="primary"
-              tone="brand"
-              onClick={() => {
-                batch.setPhase("idle");
-                batch.setRuns([]);
-                batch.setErrorMsg(null);
-              }}
-            >
-              Réessayer
-            </Action>
-          </>
-        ) : (
-          <Action
-            variant="primary"
-            tone="brand"
-            onClick={() => void submitBatch()}
-            loading={isBatchBusy}
-            disabled={validBatchCount === 0}
-          >
-            {`Lancer le batch (${validBatchCount})`}
-          </Action>
-        )}
+        <FooterActions
+          batchMode={batchMode}
+          singlePhase={single.phase}
+          createdAssetId={createdAssetId}
+          isSingleBusy={isSingleBusy}
+          promptEmpty={!prompt.trim()}
+          onSubmitSingle={() => void submit()}
+          onOpenAsset={openAsset}
+          onResetSingle={resetSingle}
+          batchPhase={batch.phase}
+          validBatchCount={validBatchCount}
+          isBatchBusy={isBatchBusy}
+          onSubmitBatch={() => void submitBatch()}
+          onOpenCompare={openCompare}
+          onResetBatch={resetBatch}
+          onClose={close}
+        />
       </footer>
     </aside>
   );
