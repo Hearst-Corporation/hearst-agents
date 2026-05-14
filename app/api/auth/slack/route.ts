@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
     "mpim:history",
   ].join(",");
 
-  const baseUrl = process.env.NEXTAUTH_URL ?? "http://localhost:9000";
+  const baseUrl = process.env.NEXTAUTH_URL ?? "http://localhost:4102";
   const redirectUri = process.env.SLACK_REDIRECT_URI ?? `${baseUrl}/api/auth/callback/slack`;
 
   const codeVerifier = generateCodeVerifier();

@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
   }
   const code = request.nextUrl.searchParams.get("code");
   const error = request.nextUrl.searchParams.get("error");
-  const appUrl = process.env.NEXTAUTH_URL ?? "http://localhost:9000";
+  const appUrl = process.env.NEXTAUTH_URL ?? "http://localhost:4102";
 
   if (error || !code) {
     log.error({ slackError: error, hasCode: Boolean(code) }, "callback_error_or_missing_code");

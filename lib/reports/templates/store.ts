@@ -104,7 +104,7 @@ export async function saveTemplate(
       name,
       description: description ?? null,
       domain: spec.meta.domain,
-      spec: spec as unknown as Record<string, unknown>,
+      spec: spec as unknown as import("@/lib/database.types").Json,
       is_public: isPublic,
     })
     .select()
@@ -233,7 +233,8 @@ export async function updateTemplate(
 
   const { templateId, tenantId, userId, patch } = validated.data;
 
-  const updatePayload: Record<string, unknown> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const updatePayload: Record<string, any> = {
     updated_at: new Date().toISOString(),
   };
   if (patch.name !== undefined) updatePayload.name = patch.name;
