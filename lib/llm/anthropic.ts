@@ -4,6 +4,7 @@ import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { startTrace } from "@/lib/observability/langfuse";
 import { redactForLangfuse } from "@/lib/observability/langfuse-redact";
 import { defaultRateLimiter } from "./rate-limiter";
+import { computeCostUsd } from "./pricing";
 
 /**
  * Headers rate-limit exposés par Anthropic sur chaque réponse HTTP.
@@ -178,7 +179,11 @@ export class AnthropicProvider implements LLMProvider {
       provider: this.name,
       tokens_in: result.tokensIn,
       tokens_out: result.tokensOut,
-      cost_usd: 0,
+      cost_usd: computeCostUsd("anthropic", req.model, {
+        input_tokens: result.tokensIn,
+        output_tokens: result.tokensOut,
+        cache_read_input_tokens: result.cacheReadTokens ?? 0,
+      }),
       latency_ms: Date.now() - start,
       ...cacheInfo,
     };
