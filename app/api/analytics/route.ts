@@ -9,12 +9,20 @@
  * pour détecter les call sites pollués.
  */
 
+import { z } from "zod";
 import { NextResponse } from "next/server";
-import { logAnalyticsEvent, type AnalyticsEventType } from "@/lib/analytics/events";
+import { logAnalyticsEvent } from "@/lib/analytics/events";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { withRoute, redactedError } from "@/lib/observability/logger";
 
 const log = withRoute("POST /api/analytics");
+
+const analyticsBodySchema = z.object({
+  type: z.enum(["login_success", "first_message_sent", "run_completed", "run_failed"]),
+  // userId ignoré volontairement — résolu depuis scope.userId côté serveur
+  userId: z.unknown().optional(),
+  properties: z.record(z.string(), z.unknown()).optional(),
+}).strict();
 
 export async function POST(req: Request) {
   const { scope, error: scopeError } = await requireScope({ context: "POST /api/analytics" });
@@ -23,24 +31,21 @@ export async function POST(req: Request) {
   }
 
   try {
-    const body = await req.json();
-    const { type, userId: bodyUserId, properties } = body as {
-      type: AnalyticsEventType;
-      userId?: unknown;
-      properties?: Record<string, unknown>;
-    };
+    const raw = await req.json().catch(() => null);
+    const parsed = analyticsBodySchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "invalid_body", details: parsed.error.flatten() },
+        { status: 400 },
+      );
+    }
+
+    const { type, userId: bodyUserId, properties } = parsed.data;
 
     if (typeof bodyUserId !== "undefined") {
       log.warn(
         { bodyUserIdType: typeof bodyUserId },
         "body_userid_ignored",
-      );
-    }
-
-    if (!type) {
-      return NextResponse.json(
-        { error: "Missing required field: type" },
-        { status: 400 }
       );
     }
 

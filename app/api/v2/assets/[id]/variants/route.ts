@@ -17,6 +17,7 @@
  * le statut (Phase B.1+ : SSE progress endpoint).
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { loadAssetById } from "@/lib/assets/types";
@@ -26,6 +27,21 @@ import { requireCreditsForJob, formatInsufficientCreditsMessage } from "@/lib/cr
 import { settleCredits } from "@/lib/credits/client";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { AudioGenInput, VideoGenInput, JobKind } from "@/lib/jobs/types";
+
+const variantsBodySchema = z.object({
+  kind: z.enum(["audio", "video", "slides", "site", "image"]),
+  text: z.string().max(10_000).optional(),
+  voiceId: z.string().max(200).optional(),
+  modelId: z.string().max(200).optional(),
+  provider: z.enum(["runway", "heygen"]).optional(),
+  prompt: z.string().max(10_000).optional(),
+  scriptText: z.string().max(10_000).optional(),
+  avatarId: z.string().max(200).optional(),
+  ratio: z.enum(["1280:720", "720:1280"]).optional(),
+  derivedFrom: z.array(z.string().max(200)).max(20).optional(),
+  duration: z.number().int().min(1).max(600).optional(),
+  durationSeconds: z.union([z.literal(5), z.literal(10)]).optional(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -38,29 +54,16 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
     return NextResponse.json({ error: scopeError?.message ?? "not_authenticated" }, { status: scopeError?.status ?? 401 });
   }
 
-  let body: {
-    kind: "audio" | "video" | "slides" | "site" | "image";
-    text?: string;
-    voiceId?: string;
-    modelId?: string;
-    provider?: "runway" | "heygen";
-    prompt?: string;
-    scriptText?: string;
-    avatarId?: string;
-    /** [S2-F] Ratio Runway 16:9 ou 9:16. */
-    ratio?: "1280:720" | "720:1280";
-    /** [S2-C] Variant fork : ID(s) du/des variant(s) parent(s) dont on dérive. */
-    derivedFrom?: string[];
-    /** [S2-C] Durée vidéo souhaitée en secondes (Runway). */
-    duration?: number;
-    /** [S2-A] Durée VideoQuickLaunch (5 ou 10s). */
-    durationSeconds?: 5 | 10;
-  };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = variantsBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
+
+  const body = parsed.data;
 
   if (body.kind !== "audio" && body.kind !== "video") {
     // V1 Phase B.1 : audio + video. Les autres kinds (slides, site, image)

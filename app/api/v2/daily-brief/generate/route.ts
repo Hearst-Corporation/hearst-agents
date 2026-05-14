@@ -11,11 +11,16 @@
  * targetDate, on retourne 200 + l'asset existant plutôt que de relancer.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { enqueueJob } from "@/lib/jobs/queue";
 import { loadDailyBriefForDate } from "@/lib/daily-brief/store";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
+
+const dailyBriefBodySchema = z.object({
+  targetDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+}).optional();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -36,16 +41,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { targetDate?: unknown } = {};
-  try {
-    body = (await req.json()) as { targetDate?: unknown };
-  } catch {
-    // Body optionnel — pas une erreur s'il est vide.
+  // Body entièrement optionnel — erreur seulement si du JSON invalide est envoyé
+  const rawBody = await req.json().catch(() => null);
+  const parsedBody = rawBody !== null ? dailyBriefBodySchema?.safeParse(rawBody) : undefined;
+  if (parsedBody && !parsedBody.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsedBody.error.flatten() },
+      { status: 400 },
+    );
   }
 
   const targetDate =
-    typeof body.targetDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(body.targetDate)
-      ? body.targetDate
+    typeof parsedBody?.data?.targetDate === "string"
+      ? parsedBody.data.targetDate
       : todayIso();
 
   // Daily cap: 5 briefs/jour

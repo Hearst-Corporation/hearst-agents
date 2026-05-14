@@ -8,10 +8,16 @@
  * Body : { stepId: string, skip?: boolean }
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { approvePlan } from "@/lib/engine/planner";
 import { getPlan } from "@/lib/engine/planner/store";
 import { requireScope } from "@/lib/platform/auth/scope";
+
+const approveStepBodySchema = z.object({
+  stepId: z.string().min(1).max(200),
+  skip: z.boolean().optional(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 
@@ -28,16 +34,16 @@ export async function POST(
 
   const { id } = await params;
 
-  let body: { stepId?: string; skip?: boolean };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = approveStepBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  if (!body.stepId) {
-    return NextResponse.json({ error: "missing_step_id" }, { status: 400 });
-  }
+  const body = parsed.data;
 
   // F-056: Ownership check — vérifier que le plan appartient à l'utilisateur actuel
   const plan = getPlan(id);

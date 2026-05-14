@@ -6,10 +6,16 @@
  * + pgvector pour mémoire long terme et raisonnement.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { extractEntities, upsertNode, upsertEdge } from "@/lib/memory/kg";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
+
+const kgIngestBodySchema = z.object({
+  text: z.string().min(1).max(50_000),
+  sourceLabel: z.string().max(200).optional(),
+}).strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -26,30 +32,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { text?: string; sourceLabel?: string };
-  try {
-    body = (await req.json()) as { text?: string; sourceLabel?: string };
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  const text = body.text?.trim() ?? "";
-  if (!text) {
-    return NextResponse.json({ error: "text_required" }, { status: 400 });
-  }
-
-  // Text length cap: 50KB
-  const MAX_TEXT_LENGTH = 50_000;
-  if (text.length > MAX_TEXT_LENGTH) {
+  const raw = await req.json().catch(() => null);
+  const parsed = kgIngestBodySchema.safeParse(raw);
+  if (!parsed.success) {
     return NextResponse.json(
-      {
-        error: "text_too_long",
-        max: MAX_TEXT_LENGTH,
-        current: text.length,
-      },
+      { error: "invalid_body", details: parsed.error.flatten() },
       { status: 400 },
     );
   }
+
+  const text = parsed.data.text.trim();
 
   // Daily cap: 10 ingest operations/jour
   const cap = await checkDailyCap(scope.userId, "kg-ingest", 10);

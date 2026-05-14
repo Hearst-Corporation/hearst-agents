@@ -4,10 +4,15 @@
  * Body : { id: string }
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { markRead } from "@/lib/notifications/in-app";
+
+const notificationReadSchema = z.object({
+  id: z.string().uuid(),
+}).strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,17 +28,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "db_unavailable" }, { status: 503 });
   }
 
-  let body: { id?: string };
-  try {
-    body = (await req.json()) as { id?: string };
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = notificationReadSchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  if (!body.id || typeof body.id !== "string") {
-    return NextResponse.json({ error: "id_required" }, { status: 400 });
-  }
-
-  await markRead(db, { notificationId: body.id, tenantId: scope.tenantId });
+  await markRead(db, { notificationId: parsed.data.id, tenantId: scope.tenantId });
   return NextResponse.json({ ok: true });
 }

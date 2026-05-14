@@ -23,18 +23,17 @@
  *   une reprise transparente — TODO traqué dans /lib/workflows/executor.ts.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
-type Decision = "approve" | "skip" | "edit";
-
-interface ApproveNodeBody {
-  nodeId?: string;
-  decision?: Decision;
-  editPayload?: unknown;
-}
+const approveNodeBodySchema = z.object({
+  nodeId: z.string().min(1).max(200),
+  decision: z.enum(["approve", "skip", "edit"]),
+  editPayload: z.unknown().optional(),
+}).strict();
 
 export async function POST(
   req: NextRequest,
@@ -49,23 +48,16 @@ export async function POST(
 
   const { runId } = await params;
 
-  let body: ApproveNodeBody;
-  try {
-    body = (await req.json()) as ApproveNodeBody;
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
-  }
-
-  if (!body.nodeId || !body.decision) {
+  const raw = await req.json().catch(() => null);
+  const parsed = approveNodeBodySchema.safeParse(raw);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "missing_fields", required: ["nodeId", "decision"] },
+      { error: "invalid_body", details: parsed.error.flatten() },
       { status: 400 },
     );
   }
 
-  if (body.decision !== "approve" && body.decision !== "skip" && body.decision !== "edit") {
-    return NextResponse.json({ error: "invalid_decision" }, { status: 400 });
-  }
+  const body = parsed.data;
 
   // MVP : log audit-only. Aucun resume automatique tant que la persistance
   // du workflow state n'est pas livrée. Voir docstring du fichier.

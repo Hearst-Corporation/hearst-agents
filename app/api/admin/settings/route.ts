@@ -3,6 +3,7 @@
  * POST /api/admin/settings — upsert setting (RBAC: update settings)
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin, isError } from "../_helpers";
 import {
@@ -11,6 +12,15 @@ import {
   type SettingCategory,
 } from "@/lib/admin/settings";
 import { redactedError, withRoute } from "@/lib/observability/logger";
+
+const adminSettingsBodySchema = z.object({
+  key: z.string().min(1).max(200),
+  value: z.unknown(),
+  category: z.enum(["feature_flags", "thresholds", "limits", "integrations", "ui", "analytics"]),
+  description: z.string().max(1000).optional(),
+  isEncrypted: z.boolean().optional(),
+  tenantId: z.string().uuid().nullable().optional(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 
@@ -46,12 +56,16 @@ export async function POST(req: NextRequest) {
   const { scope, db } = guard;
 
   try {
-    const body = await req.json();
-    const { key, value, category, description, isEncrypted, tenantId } = body;
-
-    if (!key || !category) {
-      return NextResponse.json({ error: "key and category are required" }, { status: 400 });
+    const raw = await req.json().catch(() => null);
+    const parsed = adminSettingsBodySchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "invalid_body", details: parsed.error.flatten() },
+        { status: 400 },
+      );
     }
+
+    const { key, value, category, description, isEncrypted, tenantId } = parsed.data;
 
     const setting = await upsertSystemSetting(db, {
       key,

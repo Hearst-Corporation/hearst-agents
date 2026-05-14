@@ -6,11 +6,17 @@
  * comme asset JSON (kind="extract") et retourne `{ assetId, data }`.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { runBrowserTask } from "@/lib/browser/stagehand-executor";
 import { persistExtraction } from "@/lib/browser/screenshot";
+
+const browserExtractBodySchema = z.object({
+  instruction: z.string().min(1).max(10_000),
+  schema: z.record(z.string(), z.unknown()).optional(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -58,17 +64,17 @@ export async function POST(
     );
   }
 
-  let body: { instruction?: string; schema?: Record<string, unknown> };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = browserExtractBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const instruction = (body.instruction ?? "").trim();
-  if (!instruction) {
-    return NextResponse.json({ error: "instruction_required" }, { status: 400 });
-  }
+  const body = parsed.data;
+  const instruction = body.instruction.trim();
 
   try {
     const result = await runBrowserTask({

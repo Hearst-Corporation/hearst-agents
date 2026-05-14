@@ -3,6 +3,7 @@
  * POST /api/v2/settings/flags — toggle a feature flag (admin only)
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
@@ -11,6 +12,11 @@ import {
   setFeatureFlag,
   getCategorySettings,
 } from "@/lib/platform/settings";
+
+const flagsBodySchema = z.object({
+  key: z.string().min(1).max(200),
+  enabled: z.boolean(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 
@@ -35,15 +41,16 @@ export async function POST(req: NextRequest) {
   const db = requireServerSupabase();
 
   try {
-    const { key, enabled } = await req.json();
-
-    if (!key || typeof enabled !== "boolean") {
+    const raw = await req.json().catch(() => null);
+    const parsed = flagsBodySchema.safeParse(raw);
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: "key (string) and enabled (boolean) are required" },
-        { status: 400 }
+        { error: "invalid_body", details: parsed.error.flatten() },
+        { status: 400 },
       );
     }
 
+    const { key, enabled } = parsed.data;
     await setFeatureFlag(db, key, enabled, scope.userId);
     const current = await getFeatureFlag(db, key, scope.tenantId);
     return NextResponse.json({ key, enabled: current });

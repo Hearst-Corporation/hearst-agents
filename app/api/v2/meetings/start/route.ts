@@ -9,6 +9,7 @@
  * un CTA "Configure Recall.ai dans .env".
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import {
@@ -25,13 +26,15 @@ import type { MeetingBotInput } from "@/lib/jobs/types";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-interface StartBody {
-  meetingUrl?: string;
-  joinUrl?: string;
-  threadId?: string;
-  language?: string;
-  botName?: string;
-}
+const meetingsStartBodySchema = z.object({
+  meetingUrl: z.string().max(2048).optional(),
+  joinUrl: z.string().max(2048).optional(),
+  threadId: z.string().max(200).optional(),
+  language: z.string().max(10).optional(),
+  botName: z.string().max(200).optional(),
+}).strict();
+
+type StartBody = z.infer<typeof meetingsStartBodySchema>;
 
 export async function POST(req: NextRequest) {
   const { scope, error: scopeError } = await requireScope({
@@ -54,12 +57,15 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: StartBody;
-  try {
-    body = (await req.json()) as StartBody;
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsedMeeting = meetingsStartBodySchema.safeParse(raw);
+  if (!parsedMeeting.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsedMeeting.error.flatten() },
+      { status: 400 },
+    );
   }
+  const body: StartBody = parsedMeeting.data;
 
   const meetingUrl = (body.meetingUrl ?? body.joinUrl ?? "").trim();
   const validation = validateMeetingUrl(meetingUrl);

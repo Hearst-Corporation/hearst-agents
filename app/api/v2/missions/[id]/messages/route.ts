@@ -13,6 +13,7 @@
  * au caller, 403 explicite si on a une trace de mismatch user.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getMission } from "@/lib/engine/runtime/missions/store";
@@ -21,6 +22,11 @@ import {
   appendMissionMessage,
   listMissionMessages,
 } from "@/lib/memory/mission-context";
+
+const missionMessageBodySchema = z.object({
+  content: z.string().min(1).max(10_000),
+  role: z.enum(["user", "system"]).optional().default("user"),
+}).strict();
 
 export const dynamic = "force-dynamic";
 
@@ -88,23 +94,16 @@ export async function POST(
     return NextResponse.json({ error: "mission_not_found" }, { status: ownership.status });
   }
 
-  let body: { content?: unknown; role?: unknown };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = missionMessageBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const content =
-    typeof body.content === "string" ? body.content.trim() : "";
-  if (!content) {
-    return NextResponse.json({ error: "content_required" }, { status: 400 });
-  }
-
-  // Le caller ne peut poser que des messages "user" ou "system" — les
-  // assistant sont posés exclusivement par le runtime (post-run).
-  const role: "user" | "system" =
-    body.role === "system" ? "system" : "user";
+  const { content, role } = parsed.data;
 
   const message = await appendMissionMessage({
     missionId: id,

@@ -9,9 +9,14 @@
  * RLS migration 0045 — l'user n'accède qu'à ses propres rows.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getTranscript, linkTranscriptToThread } from "@/lib/voice/transcript-store";
+
+const transcriptPatchBodySchema = z.object({
+  threadId: z.string().min(1).max(200),
+}).strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -58,16 +63,15 @@ export async function PATCH(
     );
   }
 
-  let body: { threadId?: unknown };
-  try {
-    body = (await req.json()) as { threadId?: unknown };
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsedPatch = transcriptPatchBodySchema.safeParse(raw);
+  if (!parsedPatch.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsedPatch.error.flatten() },
+      { status: 400 },
+    );
   }
-  const threadId = typeof body.threadId === "string" ? body.threadId : "";
-  if (!threadId) {
-    return NextResponse.json({ error: "missing_threadId" }, { status: 400 });
-  }
+  const { threadId } = parsedPatch.data;
 
   // Vérifie ownership avant link (la migration RLS le fait aussi, mais on
   // évite un round-trip update qui ne change rien).

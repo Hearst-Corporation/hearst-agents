@@ -19,9 +19,14 @@
  * GET sert de raccourci pour récupérer l'URL existante sans régénération.
  */
 
+import { z } from "zod";
 import { NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+
+const hearstCardBodySchema = z.object({
+  force: z.boolean().optional(),
+}).optional();
 import {
   buildMonthlyCardData,
   type MonthlyCardData,
@@ -271,9 +276,17 @@ export async function POST(req: Request, context: RouteContext) {
   }
 
   const { yearMonth } = await context.params;
-  const body = (await req.json().catch(() => ({}))) as { force?: boolean };
+  const rawBody = await req.json().catch(() => null);
+  const parsedBody = rawBody !== null ? hearstCardBodySchema?.safeParse(rawBody) : undefined;
+  if (parsedBody && !parsedBody.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsedBody.error.flatten() },
+      { status: 400 },
+    );
+  }
+  const force = parsedBody?.data?.force ?? false;
 
-  const result = await generateCard(scope, yearMonth, { force: !!body.force });
+  const result = await generateCard(scope, yearMonth, { force });
   if ("error" in result) {
     return NextResponse.json({ error: result.error }, { status: result.status });
   }

@@ -1,7 +1,14 @@
+import { z } from "zod";
 import { NextResponse } from "next/server";
 import { loadQuarantine, restoreAgent } from "@/lib/hom/quarantine";
 import { ALL_AGENTS, type AgentId } from "@/lib/hom/types";
 import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+
+const quarantineBodySchema = z.object({
+  action: z.literal("restore"),
+  agent: z.enum(ALL_AGENTS as [AgentId, ...AgentId[]]),
+  reason: z.string().max(500).optional(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 
@@ -15,14 +22,16 @@ export async function GET() {
 export async function POST(req: Request) {
   const guard = await requireAdmin("POST /api/orchestrator/quarantine", { resource: "settings", action: "update" });
   if (isError(guard)) return guard;
-  const body = (await req.json()) as { agent?: string; action?: string; reason?: string };
-  if (body.action !== "restore") {
-    return NextResponse.json({ error: "unsupported action" }, { status: 400 });
+
+  const raw = await (req as Request & { json(): Promise<unknown> }).json().catch(() => null);
+  const parsed = quarantineBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
-  const agent = body.agent;
-  if (!agent || !ALL_AGENTS.includes(agent as AgentId)) {
-    return NextResponse.json({ error: "invalid agent" }, { status: 400 });
-  }
-  await restoreAgent(agent as AgentId, body.reason ?? "manual restore");
+
+  await restoreAgent(parsed.data.agent, parsed.data.reason ?? "manual restore");
   return NextResponse.json({ ok: true });
 }

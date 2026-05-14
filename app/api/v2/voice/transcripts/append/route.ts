@@ -12,12 +12,33 @@
  * }
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import {
   appendTranscriptEntry,
   type VoiceTranscriptEntry,
 } from "@/lib/voice/transcript-store";
+
+const transcriptEntrySchema = z.object({
+  id: z.string().min(1).max(200),
+  role: z.enum(["user", "assistant", "tool_call", "tool_result"]),
+  text: z.string().max(10_000),
+  timestamp: z.number().int().optional(),
+  toolName: z.string().max(200).optional(),
+  callId: z.string().max(200).optional(),
+  args: z.record(z.string(), z.unknown()).optional(),
+  output: z.string().max(10_000).optional(),
+  status: z.enum(["pending", "success", "error"]).optional(),
+  providerId: z.string().max(200).optional(),
+  stageRequest: z.unknown().optional(),
+});
+
+const transcriptsAppendBodySchema = z.object({
+  sessionId: z.string().min(1).max(200),
+  threadId: z.string().max(200).optional(),
+  entry: transcriptEntrySchema,
+}).strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -33,35 +54,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { sessionId?: unknown; threadId?: unknown; entry?: unknown };
-  try {
-    body = (await req.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = transcriptsAppendBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const sessionId = typeof body.sessionId === "string" ? body.sessionId : "";
-  const threadId = typeof body.threadId === "string" ? body.threadId : undefined;
-  if (!sessionId) {
-    return NextResponse.json({ error: "missing_sessionId" }, { status: 400 });
-  }
-
-  const entry = body.entry as VoiceTranscriptEntry | undefined;
-  if (
-    !entry ||
-    typeof entry.id !== "string" ||
-    typeof entry.text !== "string" ||
-    typeof entry.role !== "string"
-  ) {
-    return NextResponse.json({ error: "invalid_entry" }, { status: 400 });
-  }
+  const { sessionId, threadId, entry } = parsed.data;
 
   const ok = await appendTranscriptEntry({
     sessionId,
     userId: scope.userId,
     tenantId: scope.tenantId,
     threadId: threadId ?? null,
-    entry,
+    entry: entry as VoiceTranscriptEntry,
   });
 
   return NextResponse.json({ ok });

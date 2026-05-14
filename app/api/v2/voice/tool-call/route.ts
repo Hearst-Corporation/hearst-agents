@@ -27,11 +27,20 @@
  * RLS migration 0045.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { executeVoiceTool } from "@/lib/voice/tools";
 import { appendTranscriptEntry } from "@/lib/voice/transcript-store";
+
+const voiceToolCallBodySchema = z.object({
+  name: z.string().min(1).max(200),
+  args: z.record(z.string(), z.unknown()).optional().default({}),
+  callId: z.string().max(200).optional(),
+  sessionId: z.string().max(200).optional(),
+  threadId: z.string().max(200).optional(),
+}).strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -47,31 +56,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: {
-    name?: unknown;
-    args?: unknown;
-    callId?: unknown;
-    sessionId?: unknown;
-    threadId?: unknown;
-  };
-  try {
-    body = (await req.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = voiceToolCallBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const name = typeof body.name === "string" ? body.name : "";
-  const args =
-    body.args && typeof body.args === "object" && !Array.isArray(body.args)
-      ? (body.args as Record<string, unknown>)
-      : {};
-  const callId = typeof body.callId === "string" ? body.callId : undefined;
-  const sessionId = typeof body.sessionId === "string" ? body.sessionId : undefined;
-  const threadId = typeof body.threadId === "string" ? body.threadId : undefined;
-
-  if (!name) {
-    return NextResponse.json({ error: "missing_name" }, { status: 400 });
-  }
+  const { name, args, callId, sessionId, threadId } = parsed.data;
 
   // 1. Persiste la tool_call entry (pending) AVANT l'exec — l'UI peut
   //    déjà afficher le receipt en pending pendant qu'on appelle Composio.

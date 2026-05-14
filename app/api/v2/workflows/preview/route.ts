@@ -9,6 +9,7 @@
  * route preview est volontairement synchrone pour rester simple.
  */
 
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { executeWorkflow } from "@/lib/workflows/executor";
@@ -18,6 +19,31 @@ import type {
   WorkflowExecutorEvent,
   WorkflowGraph,
 } from "@/lib/workflows/types";
+
+const workflowNodeSchema = z.object({
+  id: z.string().max(200),
+  kind: z.enum(["trigger", "tool_call", "condition", "approval", "output", "transform"]),
+  label: z.string().max(500),
+  config: z.record(z.string(), z.unknown()),
+  position: z.object({ x: z.number(), y: z.number() }).optional(),
+  onError: z.enum(["abort", "skip", "retry"]).optional(),
+});
+
+const workflowEdgeSchema = z.object({
+  id: z.string().max(200),
+  source: z.string().max(200),
+  target: z.string().max(200),
+  condition: z.string().max(500).optional(),
+});
+
+const workflowPreviewBodySchema = z.object({
+  graph: z.object({
+    nodes: z.array(workflowNodeSchema).max(50),
+    edges: z.array(workflowEdgeSchema).max(200),
+    startNodeId: z.string().max(200),
+    version: z.number().int().optional(),
+  }),
+});
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -30,17 +56,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  let body: { graph?: WorkflowGraph };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = workflowPreviewBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  if (!body.graph) {
-    return NextResponse.json({ error: "graph_required" }, { status: 400 });
-  }
-
+  const body: { graph: WorkflowGraph } = parsed.data;
   const validation = validateGraph(body.graph);
   if (!validation.valid) {
     return NextResponse.json(

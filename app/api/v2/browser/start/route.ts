@@ -21,12 +21,19 @@
  * tout le flow est atomique côté serveur.
  */
 
+import { z } from "zod";
 import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { createSession } from "@/lib/capabilities/providers/browserbase";
 import { runBrowserTask } from "@/lib/browser/stagehand-executor";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
+
+const browserStartBodySchema = z.object({
+  task: z.string().min(1).max(10_000),
+  startUrl: z.string().url().max(2048).optional(),
+  maxActions: z.number().int().min(1).max(100).optional(),
+}).strict();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -37,17 +44,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error?.message ?? "not_authenticated" }, { status: error?.status ?? 401 });
   }
 
-  let body: { task?: string; startUrl?: string; maxActions?: number };
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json({ error: "invalid_json" }, { status: 400 });
+  const raw = await req.json().catch(() => null);
+  const parsed = browserStartBodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "invalid_body", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const task = (body.task ?? "").trim();
-  if (!task) {
-    return NextResponse.json({ error: "task_required" }, { status: 400 });
-  }
+  const body = parsed.data;
+  const task = body.task.trim();
 
   let session: Awaited<ReturnType<typeof createSession>>;
   try {
