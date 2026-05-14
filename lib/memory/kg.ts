@@ -485,7 +485,31 @@ export async function getEntityTimeline(
   return events;
 }
 
+// LRU cache simpleé pour getGraph, evite les refetches en cascade
+// sur findPath calls répétitifs
+interface CacheEntry {
+  graph: KgGraph;
+  timestamp: number;
+}
+
+const KG_CACHE = new Map<string, CacheEntry>();
+const KG_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+function getCacheKey(scope: KgScope): string {
+  return `${scope.userId}:${scope.tenantId}`;
+}
+
+export function _resetKgCacheForTests(): void {
+  KG_CACHE.clear();
+}
+
 export async function getGraph(scope: KgScope): Promise<KgGraph> {
+  const cacheKey = getCacheKey(scope);
+  const cached = KG_CACHE.get(cacheKey);
+  if (cached && Date.now() - cached.timestamp < KG_CACHE_TTL) {
+    return cached.graph;
+  }
+
   const sb = requireServerSupabase();
 
   const [{ data: nodes, error: nodesError }, { data: edges, error: edgesError }] = await Promise.all([
@@ -504,8 +528,11 @@ export async function getGraph(scope: KgScope): Promise<KgGraph> {
   if (nodesError) throw new Error(`[kg] getGraph nodes failed: ${nodesError.message}`);
   if (edgesError) throw new Error(`[kg] getGraph edges failed: ${edgesError.message}`);
 
-  return {
+  const graph: KgGraph = {
     nodes: (nodes ?? []) as KgNode[],
     edges: (edges ?? []) as KgEdge[],
   };
+
+  KG_CACHE.set(cacheKey, { graph, timestamp: Date.now() });
+  return graph;
 }
