@@ -19,6 +19,17 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Cache TypeScript incremental build info
+        uses: actions/cache@v4
+        with:
+          path: |
+            .tsbuildinfo
+            **/*.tsbuildinfo
+          key: tsc-${{ runner.os }}-${{ hashFiles('tsconfig.json', 'package-lock.json') }}-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            tsc-${{ runner.os }}-${{ hashFiles('tsconfig.json', 'package-lock.json') }}-
+            tsc-${{ runner.os }}-
+
       - name: Install dependencies
         run: npm ci
 
