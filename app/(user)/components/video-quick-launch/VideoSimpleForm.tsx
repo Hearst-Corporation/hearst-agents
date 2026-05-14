@@ -72,53 +72,61 @@ export function VideoSimpleForm({
       </label>
 
       {/* Durée */}
-      <SegmentedRow<DurationOption>
-        label="Durée"
-        options={[5, 10]}
-        getLabel={(d) => DURATION_LABELS[d]}
-        value={duration}
-        onChange={setDuration}
-        disabled={isBusy || isDone}
-      />
+      <div role="group" aria-label="Durée">
+        <SegmentedRow<DurationOption>
+          label="Durée"
+          options={[5, 10]}
+          getLabel={(d) => DURATION_LABELS[d]}
+          value={duration}
+          onChange={setDuration}
+          disabled={isBusy || isDone}
+        />
+      </div>
 
       {/* Provider */}
-      <SegmentedRow<Provider>
-        label="Provider"
-        options={["runway", "heygen"]}
-        getLabel={(p) => (p === "runway" ? "Runway" : "HeyGen")}
-        value={provider}
-        onChange={setProvider}
-        disabled={isBusy || isDone}
-      />
+      <div role="group" aria-label="Provider">
+        <SegmentedRow<Provider>
+          label="Provider"
+          options={["runway", "heygen"]}
+          getLabel={(p) => (p === "runway" ? "Runway" : "HeyGen")}
+          value={provider}
+          onChange={setProvider}
+          disabled={isBusy || isDone}
+        />
+      </div>
 
       {/* Ratio (Runway uniquement) */}
       {provider === "runway" && (
-        <SegmentedRow<RatioOption>
-          label="Format"
-          options={["1280:720", "720:1280"]}
-          getLabel={(r) => RATIO_LABELS[r]}
-          value={ratio}
-          onChange={setRatio}
-          disabled={isBusy || isDone}
-        />
+        <div role="group" aria-label="Format">
+          <SegmentedRow<RatioOption>
+            label="Format"
+            options={["1280:720", "720:1280"]}
+            getLabel={(r) => RATIO_LABELS[r]}
+            value={ratio}
+            onChange={setRatio}
+            disabled={isBusy || isDone}
+          />
+        </div>
       )}
 
       {/* Progress bar */}
       {phase !== "idle" && (
-        <ProgressBlock
-          phase={
-            phase === "done"
-              ? "done"
-              : phase === "error"
-                ? "error"
-                : phase === "running"
-                  ? "running"
-                  : "queued"
-          }
-          progress={progress}
-          label={phaseLabel}
-          errorMsg={errorMsg}
-        />
+        <div aria-live="polite" aria-atomic="false">
+          <ProgressBlock
+            phase={
+              phase === "done"
+                ? "done"
+                : phase === "error"
+                  ? "error"
+                  : phase === "running"
+                    ? "running"
+                    : "queued"
+            }
+            progress={progress}
+            label={phaseLabel}
+            errorMsg={errorMsg}
+          />
+        </div>
       )}
     </>
   );

@@ -29,7 +29,7 @@ export function PanelHeader({ batchMode, onClose }: PanelHeaderProps) {
       <button
         type="button"
         onClick={onClose}
-        aria-label="Fermer"
+        aria-label="Fermer le panel (Échap)"
         className="t-13 font-light text-text-muted hover:text-text transition-colors duration-base"
         style={{ padding: "var(--space-1) var(--space-2)" }}
       >

@@ -21,6 +21,8 @@ export function ModeToggle({
 }: ModeToggleProps) {
   return (
     <div
+      role="group"
+      aria-label="Mode de génération"
       className="flex"
       style={{
         padding: "var(--space-3) var(--space-6)",
@@ -32,6 +34,7 @@ export function ModeToggle({
         type="button"
         onClick={onSetSingle}
         disabled={isBatchBusy || batchDone}
+        aria-pressed={!batchMode}
         className={`t-11 font-light transition-colors duration-base disabled:opacity-50 ${
           !batchMode
             ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"
@@ -49,6 +52,7 @@ export function ModeToggle({
         type="button"
         onClick={onSetBatch}
         disabled={isSingleBusy || singleDone}
+        aria-pressed={batchMode}
         className={`t-11 font-light transition-colors duration-base disabled:opacity-50 ${
           batchMode
             ? "border border-(--accent-teal) text-(--accent-teal) bg-[var(--accent-teal-surface)]"

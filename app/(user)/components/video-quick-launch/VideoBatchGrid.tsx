@@ -78,6 +78,7 @@ function BatchRunCard({
 
   const isError = run.phase === "error";
   const isDone = run.phase === "done";
+  const isPending = run.phase === "queued" || run.phase === "running";
   const displayProgress = isError
     ? 0
     : isDone
@@ -105,21 +106,56 @@ function BatchRunCard({
         <span className="t-11 font-medium text-(--accent-teal)">
           Variant {run.index + 1}
         </span>
-        <span className="t-11 font-mono tabular-nums text-text-muted">
-          {isError ? "—" : `${Math.round(run.progress)}%`}
+        <span
+          className={`t-11 font-mono tabular-nums ${isError ? "text-(--danger)" : isDone ? "text-(--money)" : "text-text-muted"}`}
+        >
+          {isError ? "Échec" : isDone ? "Prêt" : `${Math.round(run.progress)}%`}
         </span>
       </div>
 
-      {/* Thumbnail placeholder */}
+      {/* Thumbnail placeholder — différencié par phase */}
       <div
         aria-hidden
+        className={isPending ? "animate-pulse" : undefined}
         style={{
           aspectRatio: run.form.ratio === "720:1280" ? "9/16" : "16/9",
-          background: "var(--bg-elev)",
-          border: "1px solid var(--surface-2)",
+          background: isDone
+            ? "var(--accent-teal-surface)"
+            : isError
+              ? "var(--card-flat-bg)"
+              : "var(--bg-elev)",
+          border: `1px solid ${
+            isDone
+              ? "var(--accent-teal)"
+              : isError
+                ? "var(--danger)"
+                : "var(--surface-2)"
+          }`,
           borderRadius: "var(--radius-xs)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      />
+      >
+        {isDone && (
+          <span
+            aria-hidden
+            className="text-(--accent-teal) font-light leading-none"
+            style={{ fontSize: "2rem" }}
+          >
+            ✓
+          </span>
+        )}
+        {isError && (
+          <span
+            aria-hidden
+            className="text-(--danger) font-light leading-none"
+            style={{ fontSize: "2rem" }}
+          >
+            ×
+          </span>
+        )}
+      </div>
 
       <p
         className="t-11 font-light text-text-muted leading-relaxed"
@@ -149,7 +185,11 @@ function BatchRunCard({
           style={{
             height: "100%",
             width: `${displayProgress}%`,
-            background: isError ? "var(--danger)" : "var(--accent-teal)",
+            background: isError
+              ? "var(--danger)"
+              : isDone
+                ? "var(--money)"
+                : "var(--accent-teal)",
             transition: "width var(--duration-emphasis) var(--ease-out-soft)",
           }}
         />
