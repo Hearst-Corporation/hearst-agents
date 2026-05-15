@@ -109,6 +109,7 @@
     "react-cytoscapejs": "^2.0.0",
     "react-dom": "19.2.4",
     "resend": "^6.12.2",
+    "stripe": "^22.1.1",
     "three": "^0.184.0",
     "zod": "^4.3.6",
     "zustand": "^5.0.12"

@@ -215,13 +215,13 @@ export function CockpitScene() {
             </motion.section>
           </main>
 
-          {/* Fade noir en bas — dissout le scroll avant la pill footer */}
+          {/* Fade noir en bas — marche de respiration entre scroll et pill footer */}
           <div
             aria-hidden
-            className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-40"
+            className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-60"
             style={{
               background:
-                "linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.6) 40%, #050505 80%)",
+                "linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.45) 25%, rgba(5,5,5,0.92) 60%, #050505 85%)",
             }}
           />
 

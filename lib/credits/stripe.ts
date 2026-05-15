@@ -1,22 +1,16 @@
 /**
- * Stripe credits top-up — scaffold prêt à activer.
+ * Stripe credits top-up — activé.
  *
- * P1-2 : permet aux users de recharger leurs crédits Hearst OS via Stripe
- * Checkout (self-serve, plus de top-up manuel par l'admin).
- *
- * ⚠️ NON ACTIVÉ — l'activation nécessite des décisions business hors-scope agent :
- *   1. Créer les Products + Prices Stripe Dashboard (montants $5/$20/$50, …)
- *   2. Renseigner les env vars (STRIPE_SECRET_KEY, STRIPE_PRICE_ID_*, STRIPE_WEBHOOK_SECRET)
- *   3. Installer le SDK : `npm install stripe`
- *   4. Remplacer le `throw new Error("stripe_not_activated")` ci-dessous par
- *      l'instanciation réelle du client
- *   5. Configurer le webhook côté Stripe Dashboard (URL : /api/webhooks/stripe)
- *
- * Une fois activé, le flow est :
+ * Flow :
  *   1. UI ChatDock affiche TopUpModal quand solde < $1
  *   2. POST /api/v2/credits/top-up { amountUsd } → renvoie url Checkout
  *   3. User paye sur Stripe
  *   4. Stripe webhook → /api/webhooks/stripe → grantCredits(userId, amountUsd)
+ *
+ * Configuration requise :
+ *   - STRIPE_SECRET_KEY
+ *   - STRIPE_PRICE_ID_5, STRIPE_PRICE_ID_20, STRIPE_PRICE_ID_50
+ *   - STRIPE_WEBHOOK_SECRET
  */
 
 export interface StripeTopUpPrice {
@@ -65,7 +59,7 @@ export function isStripeConfigured(): boolean {
  * return session.url;
  * ```
  */
-export async function createCheckoutSession(_args: {
+export async function createCheckoutSession(args: {
   userId: string;
   tenantId: string;
   priceId: string;
@@ -79,22 +73,29 @@ export async function createCheckoutSession(_args: {
       errorCode: "STRIPE_NOT_CONFIGURED",
     };
   }
-  // TODO P1-2 phase 2 : installer `stripe` + remplacer ce stub.
-  // Code attendu (après install) :
-  //   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  //   const session = await stripe.checkout.sessions.create({
-  //     mode: "payment",
-  //     line_items: [{ price: args.priceId, quantity: 1 }],
-  //     success_url: args.successUrl,
-  //     cancel_url: args.cancelUrl,
-  //     client_reference_id: args.userId,
-  //     metadata: { tenantId: args.tenantId, amountUsd: String(args.amountUsd) },
-  //   });
-  //   return { url: session.url! };
-  return {
-    error: "Stripe SDK not installed. Run `npm install stripe` + activate stripe.ts.",
-    errorCode: "STRIPE_SDK_MISSING",
-  };
+
+  const Stripe = (await import("stripe")) as unknown as new (
+    key: string,
+    opts: { apiVersion: string },
+  ) => import("stripe").Stripe;
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2025-02-24.acacia",
+  });
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    line_items: [{ price: args.priceId, quantity: 1 }],
+    success_url: args.successUrl,
+    cancel_url: args.cancelUrl,
+    client_reference_id: args.userId,
+    metadata: { tenantId: args.tenantId, amountUsd: String(args.amountUsd) },
+  });
+
+  if (!session.url) {
+    return { error: "Stripe session sans URL", errorCode: "STRIPE_SESSION_ERROR" };
+  }
+
+  return { url: session.url };
 }
 
 /**
@@ -113,12 +114,29 @@ export async function createCheckoutSession(_args: {
  * ```
  */
 export async function verifyStripeWebhook(
-  _body: string,
-  _signature: string,
+  body: string,
+  signature: string,
 ): Promise<{ ok: true; event: unknown } | { ok: false; error: string }> {
   if (!process.env.STRIPE_WEBHOOK_SECRET) {
     return { ok: false, error: "STRIPE_WEBHOOK_SECRET absent" };
   }
-  // TODO P1-2 phase 2 : valider via stripe.webhooks.constructEvent(...)
-  return { ok: false, error: "Stripe SDK not installed" };
+
+  try {
+    const Stripe = (await import("stripe")) as unknown as new (
+      key: string,
+      opts: { apiVersion: string },
+    ) => import("stripe").Stripe;
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: "2025-02-24.acacia",
+    });
+    const event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET,
+    );
+    return { ok: true, event };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { ok: false, error: `Webhook verification failed: ${msg}` };
+  }
 }

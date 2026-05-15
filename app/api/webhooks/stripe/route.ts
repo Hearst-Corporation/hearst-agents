@@ -34,27 +34,22 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: verified.error }, { status: 400 });
   }
 
-  // TODO P1-2 phase 2 : traiter l'event selon son type.
-  //
-  // Exemple attendu (après install du SDK) :
-  //   const event = verified.event as Stripe.Event;
-  //   if (event.type === "checkout.session.completed") {
-  //     const session = event.data.object as Stripe.Checkout.Session;
-  //     if (session.payment_status === "paid") {
-  //       const userId = session.client_reference_id;
-  //       const amountUsd = Number(session.metadata?.amountUsd);
-  //       if (userId && amountUsd > 0) {
-  //         await grantCredits(userId, amountUsd, {
-  //           source: "stripe_topup",
-  //           sessionId: session.id,
-  //         });
-  //       }
-  //     }
-  //   }
-  //   // Idempotence : INSERT INTO stripe_events (id, processed_at) ON CONFLICT DO NOTHING
+  const event = verified.event as import("stripe").Stripe.Event;
 
-  return NextResponse.json(
-    { received: true, processed: false, reason: "stripe_sdk_not_installed" },
-    { status: 501 },
-  );
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object as import("stripe").Stripe.Checkout.Session;
+    if (session.payment_status === "paid") {
+      const userId = session.client_reference_id;
+      const amountUsd = Number(session.metadata?.amountUsd);
+      if (userId && amountUsd > 0) {
+        const { grantCredits } = await import("@/lib/credits/grant");
+        await grantCredits(userId, amountUsd, {
+          source: "stripe_topup",
+          sessionId: session.id,
+        });
+      }
+    }
+  }
+
+  return NextResponse.json({ received: true, processed: true });
 }
