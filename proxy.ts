@@ -17,13 +17,7 @@ import { timingSafeEqual } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
-import {
-  aj,
-  ajLlmJobs,
-  ajOrchestrate,
-  extractUserIdFromRequest,
-  isArcjetEnabled,
-} from "@/lib/security/arcjet";
+import { aj, ajLlmJobs, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -74,12 +68,18 @@ function isPublic(path: string): boolean {
   return PUBLIC_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
-// F-026 : valide la signature JWT du cookie, ne se contente pas de sa présence
-async function hasSession(req: NextRequest): Promise<boolean> {
+/**
+ * Décode le JWT NextAuth une seule fois par requête.
+ * Retourne null si secret absent, JWT invalide, ou réseau error.
+ *
+ * Fix 2 : toutes les opérations du proxy (Arcjet userId, session check,
+ * refreshToken check) réutilisent ce résultat pour éviter les N appels
+ * getToken() par requête orchestrate (était 2-3 décodages → maintenant 1).
+ */
+async function resolveToken(req: NextRequest) {
   const secret = process.env.NEXTAUTH_SECRET;
-  if (!secret) return false;
-  const token = await getToken({ req, secret });
-  return token != null && typeof token === "object";
+  if (!secret) return null;
+  return getToken({ req, secret }).catch(() => null);
 }
 
 function hasValidApiKey(req: NextRequest): boolean {
@@ -112,13 +112,15 @@ const ARCJET_PROTECTED_PATHS = [
 ];
 
 // Routes qui déclenchent 1 appel provider IA externe payant par requête.
-// Quota strict via ajLlmJobs (20 req/min/IP). Les routes de polling
-// (ex: /api/v2/jobs/[jobId]/status) restent sur `aj` (100 req/min).
-const ARCJET_LLM_JOB_PATHS = [
+// Quota strict via ajLlmJobs (20 req/min/user+IP). Les routes de polling
+// (ex: /api/v2/jobs/[jobId]/status) restent sur `aj` (100 req/min/IP).
+// Fix 1 : video-gen (~$0.50/run via Runway/HeyGen) ajouté au même quota.
+export const ARCJET_LLM_JOB_PATHS = [
   "/api/v2/jobs/code-exec",
   "/api/v2/jobs/image-gen",
   "/api/v2/jobs/audio-gen",
   "/api/v2/jobs/document-parse",
+  "/api/v2/jobs/video-gen",
   "/api/v2/assets/diff",
   "/api/v2/personas/ab-test",
 ];
@@ -142,20 +144,33 @@ function arcjetDeniedResponse(decision: {
   return NextResponse.json({ error: "denied" }, { status: 403 });
 }
 
-async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
+/**
+ * Extrait l'userId depuis un token JWT déjà décodé (non-async, réutilisable).
+ * Évite un appel getToken() supplémentaire dans applyArcjet quand le token
+ * a déjà été résolu par resolveToken() au début de proxy().
+ */
+function extractUserIdFromToken(
+  token: Awaited<ReturnType<typeof resolveToken>>,
+): string | undefined {
+  const sub = token?.sub ?? (token?.userId as string | undefined);
+  return typeof sub === "string" && sub.length > 0 ? sub : undefined;
+}
+
+async function applyArcjet(
+  req: NextRequest,
+  userId: string | undefined,
+): Promise<NextResponse | null> {
   if (!isArcjetEnabled()) return null;
   const path = req.nextUrl.pathname;
 
-  // P0-7 : pour les routes coûteuses (orchestrate + llm jobs), on extrait
-  // userId depuis le JWT pour créer un bucket distinct par user.
-  // Cela isole les users derrière un corp NAT/VPN (même IP, users différents).
+  // P0-7 : userId passé en paramètre (extrait du JWT déjà décodé par proxy())
+  // → aucun getToken() supplémentaire ici. Isole les users derrière corp NAT/VPN.
   // Le `aj` général (auth, missions) reste IP-only (moins critique).
   //
   // On appelle directement chaque instance (pas de variable partagée) pour
   // préserver le typage TypeScript des CharacteristicProps génériques Arcjet.
   if (path.startsWith("/api/orchestrate")) {
     if (!ajOrchestrate) return null;
-    const userId = await extractUserIdFromRequest(req);
     // CharacteristicProps<["ip.src","userId"]> rend userId obligatoire dans le type.
     // En pratique Arcjet accepte un userId absent → bascule sur ip.src.
     // Le cast évite l'erreur TS sans changer le comportement runtime.
@@ -168,7 +183,6 @@ async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
 
   if (isLlmJobPath(path)) {
     if (!ajLlmJobs) return null;
-    const userId = await extractUserIdFromRequest(req);
     const props = { requested: 1, ...(userId && { userId }) } as Parameters<
       typeof ajLlmJobs.protect
     >[1];
@@ -205,10 +219,17 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
 
   const path = req.nextUrl.pathname;
 
+  // Fix 2 : décodage JWT une seule fois par requête pour toutes les opérations
+  // (Arcjet userId, session check, refreshToken check). Évite 2-3 appels
+  // getToken() redondants sur les routes /api/orchestrate.
+  // Skip pour les chemins statiques évidents et dev bypass (pas besoin).
+  const jwtToken = !STATIC_RE.test(path) && !isDevBypass() ? await resolveToken(req) : null;
+  const userId = extractUserIdFromToken(jwtToken);
+
   // 1. Arcjet check sur les routes sensibles (avant auth pour bloquer
   // les attaques sans consommer de ressources auth).
   if (isArcjetProtected(path)) {
-    const denied = await applyArcjet(req);
+    const denied = await applyArcjet(req, userId);
     if (denied) return denied;
   }
 
@@ -232,7 +253,8 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
       return NextResponse.next();
     }
 
-    if (await hasSession(req)) {
+    // Réutilise jwtToken déjà décodé (was: hasSession(req) → getToken() again).
+    if (jwtToken != null) {
       return NextResponse.next();
     }
 
@@ -240,7 +262,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  if (!(await hasSession(req))) {
+  if (jwtToken == null) {
     if (isDevBypass()) return NextResponse.next();
     const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("callbackUrl", path);
@@ -250,9 +272,9 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
 
   // Session présente mais refreshToken Google absent → token pas en base,
   // impossible d'appeler Gmail/Calendar/Drive. Forcer reconnexion Google.
+  // Réutilise jwtToken (was: 3ème getToken() ici via getToken({ req, secret })).
   if (!isDevBypass()) {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    if (!token?.refreshToken) {
+    if (!jwtToken.refreshToken) {
       const signinUrl = new URL("/api/auth/signin", req.url);
       signinUrl.searchParams.set("callbackUrl", path);
       signinUrl.searchParams.set("reason", "token_missing");
