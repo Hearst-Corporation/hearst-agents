@@ -129,6 +129,11 @@ export class AnthropicProvider implements LLMProvider {
         input: res.usage.input_tokens,
         output: res.usage.output_tokens,
         unit: "TOKENS",
+        totalCost: computeCostUsd("anthropic", req.model, {
+          input_tokens: res.usage.input_tokens,
+          output_tokens: res.usage.output_tokens,
+          cache_read_input_tokens: res.usage.cache_read_input_tokens ?? 0,
+        }),
       },
     });
 
@@ -232,6 +237,11 @@ export class AnthropicProvider implements LLMProvider {
             input: final.usage.input_tokens,
             output: final.usage.output_tokens,
             unit: "TOKENS",
+            totalCost: computeCostUsd("anthropic", req.model, {
+              input_tokens: final.usage.input_tokens,
+              output_tokens: final.usage.output_tokens,
+              cache_read_input_tokens: final.usage.cache_read_input_tokens ?? 0,
+            }),
           },
         });
       } catch {

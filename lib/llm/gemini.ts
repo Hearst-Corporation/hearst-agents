@@ -1,5 +1,6 @@
 import { redactString } from "@/lib/observability/langfuse-redact";
 import { sanitizeProviderError } from "./errors";
+import { computeCostUsd } from "./pricing";
 import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
 import type { ChatRequest, ChatResponse, LLMProvider, StreamChunk } from "./types";
 
@@ -116,7 +117,10 @@ export class GeminiProvider implements LLMProvider {
       provider: this.name,
       tokens_in: tokensIn,
       tokens_out: tokensOut,
-      cost_usd: 0,
+      cost_usd: computeCostUsd("gemini", req.model, {
+        input_tokens: tokensIn,
+        output_tokens: tokensOut,
+      }),
       latency_ms: Date.now() - start,
     };
   }
