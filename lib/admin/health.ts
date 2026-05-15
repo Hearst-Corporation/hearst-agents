@@ -14,7 +14,7 @@
  *
  * Note : la logique de ping reproduit volontairement scripts/health-check.ts
  * (qui reste la "vérité" CLI) sans le casser, en l'adaptant au format dashboard.
- * TODO : Hume et PDL ne sont pas inclus tant que Stream D n'a pas décidé.
+ * Stream D : PDL inclus (decision = gardé, 1 call site actif). Hume reste TODO.
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -664,6 +664,20 @@ async function checkApollo(): Promise<ServiceCheck> {
   return fromHttp("Apollo", "lead", res);
 }
 
+async function checkPdl(): Promise<ServiceCheck> {
+  // PDL facture chaque appel (pas d'endpoint /me ou /usage gratuit). On se
+  // contente du presence check — Stream D a confirmé 1 call site actif
+  // (lib/tools/native/enrich.ts via enrichCompany).
+  const key = process.env.PDL_API_KEY;
+  if (!key) return notConfigured("PDL", "lead");
+  return {
+    name: "PDL",
+    category: "lead",
+    status: "ok",
+    message: "clé présente (ping skip — endpoints PDL payants)",
+  };
+}
+
 async function checkResend(): Promise<ServiceCheck> {
   const key = process.env.RESEND_API_KEY;
   if (!key) return notConfigured("Resend", "email");
@@ -742,7 +756,7 @@ async function checkComposio(): Promise<ServiceCheck> {
   return fromHttp("Composio", "connectors", res);
 }
 
-// TODO Stream D : ajouter Hume + PDL une fois la décision suppression prise.
+// Stream D : PDL gardé (1 call site actif via enrichCompany). Hume reste TODO.
 
 /**
  * Liste ordonnée des checks. L'ordre dicte l'affichage du dashboard quand
@@ -778,6 +792,7 @@ const SERVICE_CHECKS: Array<() => Promise<ServiceCheck>> = [
   checkBrowserbase,
   // Lead
   checkApollo,
+  checkPdl,
   // Email
   checkResend,
   // Observability
