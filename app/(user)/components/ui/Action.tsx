@@ -70,25 +70,19 @@ const SIZE_CLASSES: Record<ActionSize, string> = {
 };
 
 const PRIMARY_TONE: Record<ActionTone, string> = {
-  brand:
-    "bg-(--accent-teal) text-[var(--text-on-accent-teal)] hover:opacity-90 active:opacity-80",
-  gold:
-    "bg-[var(--gold)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
-  neutral:
-    "bg-[var(--text)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
-  danger:
-    "bg-(--danger) text-[var(--bg)] hover:opacity-90 active:opacity-80",
+  brand: "bg-(--accent-teal) text-[var(--text-on-accent-teal)] hover:opacity-90 active:opacity-80",
+  gold: "bg-[var(--gold)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
+  neutral: "bg-[var(--text)] text-[var(--bg)] hover:opacity-90 active:opacity-80",
+  danger: "bg-(--danger) text-[var(--bg)] hover:opacity-90 active:opacity-80",
 };
 
 const SECONDARY_TONE: Record<ActionTone, string> = {
   brand:
     "border border-[var(--accent-teal-border)] text-(--accent-teal) bg-[var(--accent-teal-surface)] hover:border-[var(--accent-teal-border-hover)] hover:bg-[var(--accent-teal-bg-hover)]",
-  gold:
-    "border border-[var(--gold-border)] text-(--gold) bg-[var(--gold-surface)] hover:bg-[var(--gold-bg-hover)]",
+  gold: "border border-[var(--gold-border)] text-(--gold) bg-[var(--gold-surface)] hover:bg-[var(--gold-bg-hover)]",
   neutral:
     "border border-(--border-shell) text-text-soft hover:border-(--border-default) hover:text-text",
-  danger:
-    "border border-(--danger) text-(--danger) hover:bg-(--danger)/5",
+  danger: "border border-(--danger) text-(--danger) hover:bg-(--danger)/5",
 };
 
 const GHOST_TONE: Record<ActionTone, string> = {
@@ -99,14 +93,10 @@ const GHOST_TONE: Record<ActionTone, string> = {
 };
 
 const LINK_TONE: Record<ActionTone, string> = {
-  brand:
-    "text-(--accent-teal) border-b border-(--accent-teal) hover:opacity-80 px-0",
-  gold:
-    "text-(--gold) border-b border-[var(--gold-border)] hover:opacity-80 px-0",
-  neutral:
-    "text-text-soft border-b border-(--border-default) hover:text-text px-0",
-  danger:
-    "text-(--danger) border-b border-(--danger) hover:opacity-80 px-0",
+  brand: "text-(--accent-teal) border-b border-(--accent-teal) hover:opacity-80 px-0",
+  gold: "text-(--gold) border-b border-[var(--gold-border)] hover:opacity-80 px-0",
+  neutral: "text-text-soft border-b border-(--border-default) hover:text-text px-0",
+  danger: "text-(--danger) border-b border-(--danger) hover:opacity-80 px-0",
 };
 
 const FONT_WEIGHT: Record<ActionVariant, string> = {
@@ -163,14 +153,10 @@ export function Action(props: ActionProps) {
   const content = (
     <>
       {iconLeft && <span className="shrink-0 inline-flex">{iconLeft}</span>}
-      <span className="truncate">
-        {loading ? "…" : children}
-      </span>
+      <span className="truncate">{loading ? "…" : children}</span>
       {iconRight && <span className="shrink-0 inline-flex">{iconRight}</span>}
       {hotkey && (
-        <span className="shrink-0 t-9 font-mono tabular-nums opacity-60 ml-1">
-          {hotkey}
-        </span>
+        <span className="shrink-0 t-9 font-mono tabular-nums opacity-60 ml-1">{hotkey}</span>
       )}
     </>
   );

@@ -7,8 +7,8 @@
  *   - Le store front-end (`stores/notifications.ts`) via API routes
  */
 
-import { z } from "zod";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { z } from "zod";
 
 // ── Schémas Zod ────────────────────────────────────────────────────────────
 
@@ -73,10 +73,7 @@ export async function createNotification(
 ): Promise<Notification | null> {
   const parsed = CreateNotificationInputSchema.safeParse(input);
   if (!parsed.success) {
-    console.warn(
-      "[in-app] createNotification — input invalide :",
-      parsed.error.issues[0]?.message,
-    );
+    console.warn("[in-app] createNotification — input invalide :", parsed.error.issues[0]?.message);
     return null;
   }
 

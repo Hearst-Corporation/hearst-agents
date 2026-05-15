@@ -19,11 +19,11 @@
  * Studio peut envoyer un scope démo) — strictement comme POST /specs.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { sampleReportSpecSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { runReport } from "@/lib/reports/engine/run-report";
 import { createSourceLoader } from "@/lib/reports/sources";
-import { sampleReportSpecSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -81,9 +81,6 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error("[ReportsAPI] sample run failed:", msg);
-    return NextResponse.json(
-      { error: "run_failed", detail: msg },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "run_failed", detail: msg }, { status: 500 });
   }
 }

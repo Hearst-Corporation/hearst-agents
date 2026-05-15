@@ -47,7 +47,9 @@ export default async function RunsPage() {
     try {
       const res = await sb
         .from("runs")
-        .select("id, kind, status, agent_id, tokens_in, tokens_out, cost_usd, latency_ms, created_at, error, agents(name)")
+        .select(
+          "id, kind, status, agent_id, tokens_in, tokens_out, cost_usd, latency_ms, created_at, error, agents(name)",
+        )
         .order("created_at", { ascending: false })
         .limit(50);
       if (res.error) throw new Error(res.error.message);
@@ -67,9 +69,7 @@ export default async function RunsPage() {
       </div>
 
       {error && (
-        <div className="mb-(--space-6) admin-callout-danger t-13 text-(--danger)">
-          {error}
-        </div>
+        <div className="mb-(--space-6) admin-callout-danger t-13 text-(--danger)">{error}</div>
       )}
 
       {runs.length === 0 && !error ? (
@@ -89,9 +89,7 @@ export default async function RunsPage() {
                 <span className={`t-9 font-medium ${statusColor[run.status] ?? "text-text-muted"}`}>
                   {run.status}
                 </span>
-                {run.agents && (
-                  <span className="t-9 text-text-muted">{run.agents.name}</span>
-                )}
+                {run.agents && <span className="t-9 text-text-muted">{run.agents.name}</span>}
                 {run.error && (
                   <span className="max-w-[var(--width-admin-code-clip)] truncate t-9 text-(--danger)/80">
                     {run.error}
@@ -99,12 +97,8 @@ export default async function RunsPage() {
                 )}
               </div>
               <div className="flex items-center gap-(--space-6) t-9 text-text-muted">
-                {run.tokens_in > 0 && (
-                  <span>{run.tokens_in + run.tokens_out} tok</span>
-                )}
-                {run.latency_ms != null && run.latency_ms > 0 && (
-                  <span>{run.latency_ms}ms</span>
-                )}
+                {run.tokens_in > 0 && <span>{run.tokens_in + run.tokens_out} tok</span>}
+                {run.latency_ms != null && run.latency_ms > 0 && <span>{run.latency_ms}ms</span>}
                 <span className="text-right font-mono" style={{ minWidth: "var(--space-32)" }}>
                   {new Date(run.created_at).toLocaleString("fr-FR", {
                     day: "2-digit",

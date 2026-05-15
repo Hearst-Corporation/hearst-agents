@@ -1,14 +1,15 @@
 #!/usr/bin/env node
+
 /**
  * Setup Personal Scope — Configure tenant/workspace for dev user
- * 
+ *
  * Crée un tenant et workspace personnels pour l'utilisateur de dev,
  * met à jour public.users.primary_tenant_id/primary_workspace_id,
  * et génère les env vars à ajouter dans .env.local.
  */
 
+import { randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
-import { randomBytes } from "crypto";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -46,7 +47,7 @@ async function main() {
     console.log(`✅ Already configured:`);
     console.log(`   Tenant: ${user.primary_tenant_id}`);
     console.log(`   Workspace: ${user.primary_workspace_id}\n`);
-    
+
     console.log(`Add to .env.local:\n`);
     console.log(`HEARST_TENANT_ID=${user.primary_tenant_id}`);
     console.log(`HEARST_WORKSPACE_ID=${user.primary_workspace_id}\n`);
@@ -59,14 +60,12 @@ async function main() {
 
   console.log(`🏗️  Creating personal tenant: ${tenantId}...`);
 
-  const { error: tenantError } = await supabase
-    .from("tenants")
-    .insert({
-      id: tenantId,
-      name: `${tenantName}'s Workspace`,
-      slug: tenantName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
-      owner_id: user.id,
-    });
+  const { error: tenantError } = await supabase.from("tenants").insert({
+    id: tenantId,
+    name: `${tenantName}'s Workspace`,
+    slug: tenantName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
+    owner_id: user.id,
+  });
 
   if (tenantError) {
     console.error("❌ Failed to create tenant:", tenantError.message);
@@ -78,15 +77,13 @@ async function main() {
 
   console.log(`🏗️  Creating personal workspace: ${workspaceId}...`);
 
-  const { error: workspaceError } = await supabase
-    .from("workspaces")
-    .insert({
-      id: workspaceId,
-      name: "Personal Workspace",
-      slug: "personal",
-      tenant_id: tenantId,
-      owner_id: user.id,
-    });
+  const { error: workspaceError } = await supabase.from("workspaces").insert({
+    id: workspaceId,
+    name: "Personal Workspace",
+    slug: "personal",
+    tenant_id: tenantId,
+    owner_id: user.id,
+  });
 
   if (workspaceError) {
     console.error("❌ Failed to create workspace:", workspaceError.message);

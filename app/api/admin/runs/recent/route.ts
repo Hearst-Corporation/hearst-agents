@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import { type NextRequest, NextResponse } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { getRuns } from "@/lib/engine/runtime/state/adapter";
 
 export const dynamic = "force-dynamic";

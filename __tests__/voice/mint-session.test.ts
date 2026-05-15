@@ -3,7 +3,7 @@
  * OpenAI Realtime au mint, et que le format matche l'API expected.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mintRealtimeSession } from "@/lib/capabilities/providers/openai-realtime";
 import { voiceToolDefs } from "@/lib/voice/tool-defs";
 

@@ -92,9 +92,7 @@ async function loadUserTenantMap(): Promise<Map<string, string>> {
   const map = new Map<string, string>();
   const db = getServerSupabase();
   if (!db) return map;
-  const { data, error } = await db
-    .from("users")
-    .select("id, tenant_ids");
+  const { data, error } = await db.from("users").select("id, tenant_ids");
   if (error || !data) return map;
   for (const row of data as UserTenantRow[]) {
     const t = row.tenant_ids?.[0];

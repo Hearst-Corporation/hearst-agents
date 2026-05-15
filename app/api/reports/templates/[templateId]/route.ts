@@ -6,14 +6,10 @@
  * Auth : session NextAuth requise. Scope tenant résolu via requireScope.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import {
-  loadTemplate,
-  deleteTemplate,
-  updateTemplate,
-} from "@/lib/reports/templates/store";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateReportTemplateSchema } from "@/lib/contracts/reports";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { deleteTemplate, loadTemplate, updateTemplate } from "@/lib/reports/templates/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -81,10 +77,7 @@ export async function PUT(
   });
 
   if (!updated) {
-    return NextResponse.json(
-      { error: "update_failed_or_forbidden" },
-      { status: 404 },
-    );
+    return NextResponse.json({ error: "update_failed_or_forbidden" }, { status: 404 });
   }
 
   return NextResponse.json({ template: updated });

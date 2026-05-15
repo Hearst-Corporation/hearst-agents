@@ -18,9 +18,7 @@ export function getAgentById(id: string): AgentDefinition | undefined {
 }
 
 export function getAgentsByContext(context: string): AgentDefinition[] {
-  return Array.from(agents.values()).filter(
-    (a) => a.defaultContext === context,
-  );
+  return Array.from(agents.values()).filter((a) => a.defaultContext === context);
 }
 
 // ── Seed agents ──────────────────────────────────────────────

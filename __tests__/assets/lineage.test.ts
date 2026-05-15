@@ -6,7 +6,7 @@
  * typés en optional et n'invalident pas un asset historique sans eux.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import type { Asset, AssetProvenance } from "@/lib/assets/types";
 
 describe("AssetProvenance B4 lineage", () => {
@@ -34,9 +34,7 @@ describe("AssetProvenance B4 lineage", () => {
       costUsd: 0.042,
       latencyMs: 4200,
       derivedFrom: ["parent-1", "parent-2"],
-      sourceUrls: [
-        { url: "https://example.com", label: "Example", fetchedAt: 1700000000000 },
-      ],
+      sourceUrls: [{ url: "https://example.com", label: "Example", fetchedAt: 1700000000000 }],
     };
     expect(prov.runId).toBe("run-123");
     expect(prov.derivedFrom).toHaveLength(2);

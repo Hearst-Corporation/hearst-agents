@@ -6,7 +6,7 @@
  * { ok: false, error: "URL refusée (SSRF guard): ..." }.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { fetchHttp } from "@/lib/reports/sources/http";
 
 describe("fetchHttp — SSRF guard", () => {

@@ -1,12 +1,12 @@
 /**
  * Tests PDL provider — error handling + cache.
  */
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  _resetPdlCache,
   enrichCompany,
   isPdlConfigured,
   PdlUnavailableError,
-  _resetPdlCache,
 } from "@/lib/capabilities/providers/pdl";
 
 const ORIGINAL_KEY = process.env.PDL_API_KEY;
@@ -29,9 +29,7 @@ describe("PDL provider", () => {
 
   it("throw PdlUnavailableError sans clé", async () => {
     delete process.env.PDL_API_KEY;
-    await expect(enrichCompany({ domain: "x.com" })).rejects.toBeInstanceOf(
-      PdlUnavailableError,
-    );
+    await expect(enrichCompany({ domain: "x.com" })).rejects.toBeInstanceOf(PdlUnavailableError);
   });
 
   it("retourne PdlCompany normalisée", async () => {

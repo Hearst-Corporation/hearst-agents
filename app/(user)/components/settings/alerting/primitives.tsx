@@ -87,7 +87,13 @@ export function Toggle({
       aria-checked={checked}
       onClick={() => onChange(!checked)}
       className="flex items-center gap-2 t-13"
-      style={{ color: "var(--text-soft)", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+      style={{
+        color: "var(--text-soft)",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        padding: 0,
+      }}
     >
       <span
         style={{
@@ -132,8 +138,16 @@ export function Btn({
 }) {
   const colors = {
     default: { bg: "var(--surface-2)", color: "var(--text-soft)", border: "var(--border-default)" },
-    danger: { bg: "var(--color-error-bg)", color: "var(--color-error)", border: "var(--color-error-border)" },
-    primary: { bg: "var(--accent-teal)", color: "var(--text-on-accent-teal)", border: "transparent" },
+    danger: {
+      bg: "var(--color-error-bg)",
+      color: "var(--color-error)",
+      border: "var(--color-error-border)",
+    },
+    primary: {
+      bg: "var(--accent-teal)",
+      color: "var(--text-on-accent-teal)",
+      border: "transparent",
+    },
     ghost: { bg: "transparent", color: "var(--text-muted)", border: "transparent" },
   };
   const c = colors[variant];
@@ -164,7 +178,10 @@ export function Btn({
 export function TestBadge({ state, message }: { state?: TestState; message?: string }) {
   if (!state || state === "testing") {
     return state === "testing" ? (
-      <span className="t-9" style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-caption)" }}>
+      <span
+        className="t-9"
+        style={{ color: "var(--text-faint)", letterSpacing: "var(--tracking-caption)" }}
+      >
         Test en cours…
       </span>
     ) : null;
@@ -203,9 +220,21 @@ export function SignalBadge({ type }: { type: keyof typeof SIGNAL_SEVERITY | "*"
   }
   const sev = SIGNAL_SEVERITY[type as keyof typeof SIGNAL_SEVERITY];
   const colors = {
-    critical: { bg: "var(--color-error-bg)", color: "var(--color-error)", border: "var(--color-error-border)" },
-    warning: { bg: "var(--color-warning-bg)", color: "var(--color-warning)", border: "var(--color-warning-border)" },
-    info: { bg: "var(--color-info-bg)", color: "var(--color-info)", border: "var(--color-info-border)" },
+    critical: {
+      bg: "var(--color-error-bg)",
+      color: "var(--color-error)",
+      border: "var(--color-error-border)",
+    },
+    warning: {
+      bg: "var(--color-warning-bg)",
+      color: "var(--color-warning)",
+      border: "var(--color-warning-border)",
+    },
+    info: {
+      bg: "var(--color-info-bg)",
+      color: "var(--color-info)",
+      border: "var(--color-info-border)",
+    },
   };
   const c = colors[sev ?? "info"];
   return (

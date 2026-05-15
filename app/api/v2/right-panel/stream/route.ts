@@ -5,9 +5,9 @@
  * Client: EventSource with event name "panel".
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { buildRightPanelData } from "@/lib/ui/right-panel/aggregate";
+import { type NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { buildRightPanelData } from "@/lib/ui/right-panel/aggregate";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

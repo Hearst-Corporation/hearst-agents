@@ -8,7 +8,7 @@
  *  - Reset cache via __clearPreMeetingIntelCache
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   executeComposioAction: vi.fn(),
@@ -38,10 +38,7 @@ vi.mock("@anthropic-ai/sdk", () => {
   };
 });
 
-import {
-  getPreMeetingIntel,
-  __clearPreMeetingIntelCache,
-} from "@/lib/cockpit/pre-meeting-intel";
+import { __clearPreMeetingIntelCache, getPreMeetingIntel } from "@/lib/cockpit/pre-meeting-intel";
 
 const SCOPE = { userId: "user-1", tenantId: "tenant-1" };
 const FUTURE_TS = Date.now() + 30 * 60_000; // dans 30min
@@ -114,12 +111,12 @@ describe("getPreMeetingIntel", () => {
     const intel = await getPreMeetingIntel(SCOPE, "evt-1");
 
     expect(intel).not.toBeNull();
-    expect(intel!.eventId).toBe("evt-1");
-    expect(intel!.eventTitle).toBe("Roadmap Q3");
-    expect(intel!.participants).toHaveLength(2);
-    expect(intel!.participants[0].email).toBe("alice@acme.com");
-    expect(intel!.participants[0].name).toBe("Alice");
-    expect(intel!.suggestedAgenda).toContain("Valider roadmap");
+    expect(intel?.eventId).toBe("evt-1");
+    expect(intel?.eventTitle).toBe("Roadmap Q3");
+    expect(intel?.participants).toHaveLength(2);
+    expect(intel?.participants[0].email).toBe("alice@acme.com");
+    expect(intel?.participants[0].name).toBe("Alice");
+    expect(intel?.suggestedAgenda).toContain("Valider roadmap");
   });
 
   it("KG empty pour un participant → kgSummary null, pas de crash", async () => {
@@ -153,9 +150,9 @@ describe("getPreMeetingIntel", () => {
     const intel = await getPreMeetingIntel(SCOPE, "evt-2");
 
     expect(intel).not.toBeNull();
-    expect(intel!.participants).toHaveLength(1);
-    expect(intel!.participants[0].kgSummary).toBeNull();
-    expect(intel!.participants[0].lastInteraction).toBeNull();
+    expect(intel?.participants).toHaveLength(1);
+    expect(intel?.participants[0].kgSummary).toBeNull();
+    expect(intel?.participants[0].lastInteraction).toBeNull();
   });
 
   it("retourne null si aucun event ne matche l'eventId", async () => {
@@ -183,9 +180,7 @@ describe("getPreMeetingIntel", () => {
         ],
       },
     });
-    mocks.requireServerSupabase.mockReturnValue(
-      buildFakeSupabase({ tables: {} }),
-    );
+    mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
       content: [{ type: "text", text: "" }],
     });
@@ -210,9 +205,7 @@ describe("getPreMeetingIntel", () => {
         ],
       },
     });
-    mocks.requireServerSupabase.mockReturnValue(
-      buildFakeSupabase({ tables: {} }),
-    );
+    mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
       content: [{ type: "text", text: "" }],
     });
@@ -239,9 +232,7 @@ describe("getPreMeetingIntel", () => {
         isAllDay: false,
       },
     ]);
-    mocks.requireServerSupabase.mockReturnValue(
-      buildFakeSupabase({ tables: {} }),
-    );
+    mocks.requireServerSupabase.mockReturnValue(buildFakeSupabase({ tables: {} }));
     mocks.anthropicCreate.mockResolvedValue({
       content: [{ type: "text", text: "Sync rapide" }],
     });
@@ -249,7 +240,7 @@ describe("getPreMeetingIntel", () => {
     const intel = await getPreMeetingIntel(SCOPE, "evt-native");
 
     expect(intel).not.toBeNull();
-    expect(intel!.eventTitle).toBe("Native event");
-    expect(intel!.participants[0].email).toBe("alice@acme.com");
+    expect(intel?.eventTitle).toBe("Native event");
+    expect(intel?.participants[0].email).toBe("alice@acme.com");
   });
 });

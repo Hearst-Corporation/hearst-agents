@@ -19,22 +19,22 @@
  * GET sert de raccourci pour récupérer l'URL existante sans régénération.
  */
 
-import { z } from "zod";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
-const hearstCardBodySchema = z.object({
-  force: z.boolean().optional(),
-}).optional();
+const hearstCardBodySchema = z
+  .object({
+    force: z.boolean().optional(),
+  })
+  .optional();
+
+import { buildMonthlyCardData, type MonthlyCardData } from "@/lib/cockpit/monthly-card";
 import {
-  buildMonthlyCardData,
-  type MonthlyCardData,
-} from "@/lib/cockpit/monthly-card";
-import {
-  signCardToken,
   buildPublicCardUrl,
   buildRenderCardUrl,
+  signCardToken,
 } from "@/lib/cockpit/monthly-card-token";
 
 export const runtime = "nodejs";
@@ -93,12 +93,10 @@ async function uploadPngBuffer(
   const sb = getServerSupabase();
   if (!sb) return null;
   const path = buildStoragePath(userId, yearMonth);
-  const { error } = await sb.storage
-    .from(STORAGE_BUCKET)
-    .upload(path, buffer, {
-      contentType: "image/png",
-      upsert: true,
-    });
+  const { error } = await sb.storage.from(STORAGE_BUCKET).upload(path, buffer, {
+    contentType: "image/png",
+    upsert: true,
+  });
   if (error) {
     console.error("[hearst-card] upload error:", error.message);
     return null;
@@ -112,16 +110,15 @@ async function uploadPngBuffer(
  * interne. Retourne null si Playwright n'est pas dispo (ce qui est OK :
  * la page HTML reste partageable telle quelle).
  */
-async function renderPngViaPlaywright(
-  renderUrl: string,
-): Promise<Buffer | null> {
+async function renderPngViaPlaywright(renderUrl: string): Promise<Buffer | null> {
   // Import dynamique pour rester compatible Vercel / serverless. Si
   // playwright n'est pas chargeable (pas de chromium binaries), on log
   // et on retombe gracieusement sur null.
   let chromium: unknown;
   try {
     // Tente d'abord playwright-core (pas de download bundle), puis playwright.
-    const mod = (await import("playwright-core").catch(() => null)) ??
+    const mod =
+      (await import("playwright-core").catch(() => null)) ??
       (await import("playwright").catch(() => null));
     if (!mod) {
       console.warn("[hearst-card] playwright non installé — skip PNG render");
@@ -212,11 +209,7 @@ async function generateCard(
   }
 
   const publicShareUrl = buildPublicCardUrl(publicSigned.token);
-  const renderUrl = buildRenderCardUrl(
-    scope.userId,
-    yearMonth,
-    renderSigned.token,
-  );
+  const renderUrl = buildRenderCardUrl(scope.userId, yearMonth, renderSigned.token);
 
   // 3. Réutilise un PNG existant si suffisamment frais.
   if (!options.force) {

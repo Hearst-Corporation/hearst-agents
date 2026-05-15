@@ -2,9 +2,9 @@
  * Workflow validation tests.
  */
 
-import { describe, it, expect } from "vitest";
-import { validateGraph } from "@/lib/workflows/validate";
+import { describe, expect, it } from "vitest";
 import type { WorkflowGraph } from "@/lib/workflows/types";
+import { validateGraph } from "@/lib/workflows/validate";
 
 function makeGraph(partial: Partial<WorkflowGraph>): WorkflowGraph {
   return {

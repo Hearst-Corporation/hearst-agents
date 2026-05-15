@@ -2,8 +2,8 @@
  * Types partagés des modules export (PDF / XLSX).
  */
 
-import type { ReportMeta } from "@/lib/reports/spec/schema";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import type { ReportMeta } from "@/lib/reports/spec/schema";
 
 export interface ExportInput {
   /** RenderPayload produit par runReport. */

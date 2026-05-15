@@ -4,10 +4,10 @@
  * Le state n'est jamais append-only : c'est un instantané.
  * L'historique vit dans /orchestrator/runs/<id>/.
  */
+
+import { nowIso, readJson, writeJson } from "./fs-utils";
 import { HOM } from "./paths";
-import { readJson, writeJson, nowIso } from "./fs-utils";
 import { loadQuarantine } from "./quarantine";
-import { ALL_AGENTS } from "./types";
 import type {
   AgentId,
   AgentStatus,
@@ -16,6 +16,7 @@ import type {
   Severity,
   TrustScores,
 } from "./types";
+import { ALL_AGENTS } from "./types";
 
 const EMPTY_SEVERITY: Record<Severity, number> = {
   critical: 0,
@@ -55,9 +56,7 @@ function defaultCC(): CommandCenterState {
   };
 }
 
-export async function patchCC(
-  patch: Partial<CommandCenterState>,
-): Promise<CommandCenterState> {
+export async function patchCC(patch: Partial<CommandCenterState>): Promise<CommandCenterState> {
   const current = await loadCC();
   const next = { ...current, ...patch, ts: nowIso(), master_heartbeat: nowIso() };
   await writeJson(HOM.ccState, next);
@@ -75,9 +74,7 @@ export async function setAgentStatus(
 ): Promise<void> {
   const current = await loadCC();
   const agents = current.agents.map((a) =>
-    a.id === agentId
-      ? { ...a, status, current_task: task, heartbeat: nowIso() }
-      : a,
+    a.id === agentId ? { ...a, status, current_task: task, heartbeat: nowIso() } : a,
   );
   await writeJson(HOM.ccState, { ...current, agents, ts: nowIso() });
 }

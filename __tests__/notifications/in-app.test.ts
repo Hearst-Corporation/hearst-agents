@@ -8,16 +8,16 @@
  *  - formatSignalTitle : formatage correct par sévérité
  */
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { describe, expect, it, vi } from "vitest";
 import {
   createNotification,
-  listNotifications,
-  markRead,
-  markAllRead,
   formatSignalTitle,
+  listNotifications,
+  markAllRead,
+  markRead,
   type Notification,
 } from "@/lib/notifications/in-app";
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 // ── Constantes ─────────────────────────────────────────────────────────────
 
@@ -49,8 +49,7 @@ function makeSupabaseProxy(finalResponse: { data: unknown; error: { message: str
     get(_target, prop) {
       if (prop === "then") {
         // Supabase client retourne un "PromiseLike" — on simule ça
-        return (resolve: (v: unknown) => unknown) =>
-          Promise.resolve(finalResponse).then(resolve);
+        return (resolve: (v: unknown) => unknown) => Promise.resolve(finalResponse).then(resolve);
       }
       // Toutes les autres méthodes (eq, or, is, order, limit, select, insert,
       // update, single, ...) retournent un nouveau proxy avec la même résolution
@@ -219,16 +218,12 @@ describe("markRead", () => {
 describe("markAllRead", () => {
   it("ne throw pas avec userId", async () => {
     const db = buildDb({ data: null, error: null });
-    await expect(
-      markAllRead(db, { tenantId: TENANT_A, userId: USER_A }),
-    ).resolves.toBeUndefined();
+    await expect(markAllRead(db, { tenantId: TENANT_A, userId: USER_A })).resolves.toBeUndefined();
   });
 
   it("ne throw pas sans userId (broadcast)", async () => {
     const db = buildDb({ data: null, error: null });
-    await expect(
-      markAllRead(db, { tenantId: TENANT_A }),
-    ).resolves.toBeUndefined();
+    await expect(markAllRead(db, { tenantId: TENANT_A })).resolves.toBeUndefined();
   });
 
   it("logue l'erreur DB sans throw", async () => {

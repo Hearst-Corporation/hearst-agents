@@ -18,23 +18,22 @@
  * - Asset(brief)                                             → BriefObject
  */
 
-import type { ExecutionPlan } from "@/lib/engine/planner/types";
-import type { MissionDefinition } from "@/lib/engine/planner/types";
 import type { Asset } from "@/lib/assets/types";
+import type { ExecutionPlan, MissionDefinition } from "@/lib/engine/planner/types";
 import type { FormattedOutput } from "@/lib/engine/runtime/formatting/pipeline";
 import type {
+  BriefObject,
+  DocObject,
   FocalObject,
+  FocalObjectStatus,
   MessageDraftObject,
   MessageReceiptObject,
-  BriefObject,
+  MissionActiveObject,
+  MissionDraftObject,
   OutlineObject,
   ReportObject,
-  DocObject,
-  WatcherDraftObject,
   WatcherActiveObject,
-  MissionDraftObject,
-  MissionActiveObject,
-  FocalObjectStatus,
+  WatcherDraftObject,
 } from "./objects";
 
 // ── Plan → Focal Object ────────────────────────────────────
@@ -78,9 +77,8 @@ function manifestOneShotPlan(plan: ExecutionPlan, now: number): FocalObject | nu
       tone: "direct",
       providerId: deliverStep.providerId,
       channelRef: undefined,
-      primaryAction: status === "awaiting_approval"
-        ? { kind: "approve", label: "Envoyer" }
-        : undefined,
+      primaryAction:
+        status === "awaiting_approval" ? { kind: "approve", label: "Envoyer" } : undefined,
     };
     return draft;
   }
@@ -163,9 +161,8 @@ function manifestMissionPlan(plan: ExecutionPlan, _now: number): MissionDraftObj
     morphTarget: "mission_active",
     intent: plan.intent,
     schedule: extractSchedule(plan.intent),
-    primaryAction: status === "awaiting_approval"
-      ? { kind: "approve", label: "Activer" }
-      : undefined,
+    primaryAction:
+      status === "awaiting_approval" ? { kind: "approve", label: "Activer" } : undefined,
   };
 }
 
@@ -182,15 +179,16 @@ function manifestMonitoringPlan(plan: ExecutionPlan, _now: number): WatcherDraft
     morphTarget: "watcher_active",
     condition: plan.intent,
     description: "",
-    primaryAction: plan.status === "awaiting_approval"
-      ? { kind: "approve", label: "Activer" }
-      : undefined,
+    primaryAction:
+      plan.status === "awaiting_approval" ? { kind: "approve", label: "Activer" } : undefined,
   };
 }
 
 // ── Mission → Focal Object ─────────────────────────────────
 
-export function manifestMission(mission: MissionDefinition): MissionActiveObject | WatcherActiveObject {
+export function manifestMission(
+  mission: MissionDefinition,
+): MissionActiveObject | WatcherActiveObject {
   if (mission.mode === "monitoring") {
     return {
       objectType: "watcher_active",
@@ -207,9 +205,10 @@ export function manifestMission(mission: MissionDefinition): MissionActiveObject
       description: "",
       lastCheckedAt: mission.lastRunAt,
       triggerCount: 0,
-      primaryAction: mission.status === "active"
-        ? { kind: "pause", label: "Pause" }
-        : { kind: "resume", label: "Reprendre" },
+      primaryAction:
+        mission.status === "active"
+          ? { kind: "pause", label: "Pause" }
+          : { kind: "resume", label: "Reprendre" },
     };
   }
 
@@ -229,9 +228,10 @@ export function manifestMission(mission: MissionDefinition): MissionActiveObject
     lastRunAt: mission.lastRunAt,
     nextRunAt: mission.nextRunAt,
     runCount: 0,
-    primaryAction: mission.status === "active"
-      ? { kind: "pause", label: "Pause" }
-      : { kind: "resume", label: "Reprendre" },
+    primaryAction:
+      mission.status === "active"
+        ? { kind: "pause", label: "Pause" }
+        : { kind: "resume", label: "Reprendre" },
   };
 }
 
@@ -282,7 +282,7 @@ export function manifestAsset(asset: Asset, formatted?: FormattedOutput): FocalO
         objectType: "report",
         id: `fo_asset_${asset.id}`,
         threadId: asset.threadId,
-        title: (formatted?.title || asset.title) || "Rapport",
+        title: formatted?.title || asset.title || "Rapport",
         status,
         createdAt: asset.createdAt,
         updatedAt: asset.createdAt,
@@ -304,7 +304,7 @@ export function manifestAsset(asset: Asset, formatted?: FormattedOutput): FocalO
         objectType: "brief",
         id: `fo_asset_${asset.id}`,
         threadId: asset.threadId,
-        title: (formatted?.title || asset.title) || "Synthèse",
+        title: formatted?.title || asset.title || "Synthèse",
         status,
         createdAt: asset.createdAt,
         updatedAt: asset.createdAt,
@@ -325,7 +325,7 @@ export function manifestAsset(asset: Asset, formatted?: FormattedOutput): FocalO
         objectType: "doc",
         id: `fo_asset_${asset.id}`,
         threadId: asset.threadId,
-        title: (formatted?.title || asset.title) || "Document",
+        title: formatted?.title || asset.title || "Document",
         status,
         createdAt: asset.createdAt,
         updatedAt: asset.createdAt,
@@ -424,26 +424,40 @@ export function resolveFocalObject(
 
 function mapPlanStatus(planStatus: string): FocalObjectStatus {
   switch (planStatus) {
-    case "draft": return "composing";
-    case "ready": return "ready";
-    case "awaiting_approval": return "awaiting_approval";
-    case "executing": return "delivering";
-    case "completed": return "delivered";
-    case "failed": return "failed";
-    case "degraded": return "failed";
-    default: return "composing";
+    case "draft":
+      return "composing";
+    case "ready":
+      return "ready";
+    case "awaiting_approval":
+      return "awaiting_approval";
+    case "executing":
+      return "delivering";
+    case "completed":
+      return "delivered";
+    case "failed":
+      return "failed";
+    case "degraded":
+      return "failed";
+    default:
+      return "composing";
   }
 }
 
 function extractTitle(intent: string, kind: string): string {
-  const short = intent.length > 60 ? intent.slice(0, 57) + "…" : intent;
+  const short = intent.length > 60 ? `${intent.slice(0, 57)}…` : intent;
   switch (kind) {
-    case "message": return short;
-    case "report": return `Rapport : ${short}`;
-    case "brief": return `Synthèse : ${short}`;
-    case "mission": return short;
-    case "watcher": return `Surveillance : ${short}`;
-    default: return short;
+    case "message":
+      return short;
+    case "report":
+      return `Rapport : ${short}`;
+    case "brief":
+      return `Synthèse : ${short}`;
+    case "mission":
+      return short;
+    case "watcher":
+      return `Surveillance : ${short}`;
+    default:
+      return short;
   }
 }
 

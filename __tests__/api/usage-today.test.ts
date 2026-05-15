@@ -5,7 +5,7 @@
  * unit-test pur (pas de réseau, pas de Supabase live).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock auth — toujours autoriser un user de test
 vi.mock("@/lib/platform/auth/scope", () => ({
@@ -55,12 +55,7 @@ describe("GET /api/v2/usage/today", () => {
 
   it("agrège cost_usd des runs", async () => {
     mockRunsResult = {
-      data: [
-        { cost_usd: 0.12 },
-        { cost_usd: 0.34 },
-        { cost_usd: null },
-        { cost_usd: 1.5 },
-      ],
+      data: [{ cost_usd: 0.12 }, { cost_usd: 0.34 }, { cost_usd: null }, { cost_usd: 1.5 }],
       error: null,
     };
     const { GET } = await import("@/app/api/v2/usage/today/route");

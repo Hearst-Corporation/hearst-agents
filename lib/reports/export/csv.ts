@@ -11,9 +11,9 @@
  * RFC 4180 (virgule, guillemet, retour ligne) sont quotés.
  */
 
-import type { RenderPayload, RenderedBlock } from "@/lib/reports/engine/render-blocks";
-import type { ExportInput, ExportResult } from "./types";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
 import { safeFileName } from "@/lib/utils/safe-file-name";
+import type { ExportInput, ExportResult } from "./types";
 
 const CSV_CONTENT_TYPE = "text/csv; charset=utf-8";
 const BOM = "﻿";
@@ -63,11 +63,7 @@ function blockToCsvSection(block: RenderedBlock): string {
   }
 
   // fallback : on dump props comme JSON dans une seule cellule
-  return [
-    header,
-    "props",
-    escapeCell(JSON.stringify(block.props ?? {})),
-  ].join("\n");
+  return [header, "props", escapeCell(JSON.stringify(block.props ?? {}))].join("\n");
 }
 
 export async function exportCsv(input: ExportInput): Promise<ExportResult> {
@@ -92,7 +88,7 @@ export async function exportCsv(input: ExportInput): Promise<ExportResult> {
     sections.push(blockToCsvSection(block));
   }
 
-  const buffer = Buffer.from(BOM + sections.join("\n\n") + "\n", "utf8");
+  const buffer = Buffer.from(`${BOM + sections.join("\n\n")}\n`, "utf8");
   const safeBase = safeFileName(fileName ?? meta.title);
 
   return {

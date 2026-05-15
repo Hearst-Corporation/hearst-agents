@@ -12,11 +12,11 @@
  *                | "paused" | "stuck" | "unknown"
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { getJobState } from "@/lib/jobs/queue";
 import type { JobKind } from "@/lib/jobs/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -37,10 +37,7 @@ const querySchema = z.object({
   kind: z.enum(KNOWN_KINDS),
 });
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ jobId: string }> },
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = await params;
 
   const { scope, error: scopeError } = await requireScope({

@@ -17,16 +17,18 @@
  * 100 % primitives DS : <RailSection flex>, <Action>.
  */
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { useNotificationsStore } from "@/stores/notifications";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
-import { useNotificationsStore } from "@/stores/notifications";
 import { Action, RailSection } from "../ui";
 import { useDashboardCounts } from "./use-dashboard-counts";
 
 const TIME_FMT = new Intl.DateTimeFormat("fr-FR", {
-  hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris",
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "Europe/Paris",
 });
 
 function relativeTime(ts: number): string {
@@ -65,11 +67,12 @@ function missionStatusColor(status: string): string {
   if (status === "running") return "var(--accent-teal)";
   if (status === "failed" || status === "error") return "var(--danger)";
   if (status === "paused") return "var(--text-faint)";
-  if (status === "completed" || status === "success" || status === "done") return "var(--accent-teal)";
+  if (status === "completed" || status === "success" || status === "done")
+    return "var(--accent-teal)";
   return "var(--text-muted)";
 }
 
-function FileGlyph({ size }: { size: number }) {
+function _FileGlyph({ size }: { size: number }) {
   return (
     <svg
       width={size}
@@ -160,7 +163,10 @@ function MoteurZone() {
 
 function ValiderZone() {
   // Phase future : câbler au store de propositions d'agents autonomes (useAgentProposals)
-  const pending: { agent: string; title: string } | null = null as { agent: string; title: string } | null;
+  const pending: { agent: string; title: string } | null = null as {
+    agent: string;
+    title: string;
+  } | null;
 
   // Empty → section compacte (pas de flex), pour libérer la hauteur au profit
   // des Missions / Activité. Présence → flex 1.
@@ -179,9 +185,7 @@ function ValiderZone() {
           <span className="t-11 font-light italic text-(--accent-teal)">
             {pending.agent} propose
           </span>
-          <span className="t-13 font-light text-text-soft">
-            {pending.title}
-          </span>
+          <span className="t-13 font-light text-text-soft">{pending.title}</span>
         </div>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
           <Action variant="secondary" tone="neutral" size="sm" className="flex-1">
@@ -209,11 +213,13 @@ function MissionsZone() {
     <RailSection
       label="Missions"
       count={counts.missionsTotal ?? undefined}
-      action={missions.length > 0 && (
-        <Action variant="ghost" tone="neutral" size="sm" href="/missions">
-          Toutes
-        </Action>
-      )}
+      action={
+        missions.length > 0 && (
+          <Action variant="ghost" tone="neutral" size="sm" href="/missions">
+            Toutes
+          </Action>
+        )
+      }
       className="border-t border-(--border-subtle)"
     >
       {counts.initialLoading ? (
@@ -226,18 +232,18 @@ function MissionsZone() {
           Créer une première mission →
         </Action>
       ) : (
-        <ul
-          className="flex flex-col"
-          style={{ gap: "var(--space-2)" }}
-        >
+        <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
           {missions.map((m, index) => {
             const color = missionStatusColor(m.status);
             const statusLabel = MISSION_STATUS_LABEL[m.status] ?? m.status;
             const isRunning = m.status === "running";
-            const isCompleted = m.status === "completed" || m.status === "success" || m.status === "done";
+            const isCompleted =
+              m.status === "completed" || m.status === "success" || m.status === "done";
             const fakeProgress = isRunning
               ? Math.max(20, 100 - (index + 1) * 20)
-              : isCompleted ? 100 : 0;
+              : isCompleted
+                ? 100
+                : 0;
             const showBar = isRunning;
             return (
               <li key={m.id}>
@@ -336,7 +342,9 @@ function ActiviteZone() {
   // Source 2 : runs récents persistés en DB. Survivent au reload, montrent
   // l'historique d'activité réelle de l'utilisateur. Sans cette source, la
   // zone reste vide tant qu'aucun chat n'est en cours.
-  const [recentRuns, setRecentRuns] = useState<Array<{ id: string; input: string; status: string; createdAt: number; completedAt?: number }>>([]);
+  const [recentRuns, setRecentRuns] = useState<
+    Array<{ id: string; input: string; status: string; createdAt: number; completedAt?: number }>
+  >([]);
   useEffect(() => {
     let cancelled = false;
     async function refresh() {
@@ -357,7 +365,10 @@ function ActiviteZone() {
   // Fusion → 5 items les plus récents par timestamp.
   const items: ActivityItem[] = [];
   for (const ev of liveEvents) {
-    const ts = (ev as Record<string, unknown>).ts as number | undefined ?? (ev as Record<string, unknown>).timestamp as number | undefined ?? 0;
+    const ts =
+      ((ev as Record<string, unknown>).ts as number | undefined) ??
+      ((ev as Record<string, unknown>).timestamp as number | undefined) ??
+      0;
     const label =
       ((ev as Record<string, unknown>).name as string) ??
       ((ev as Record<string, unknown>).message as string) ??
@@ -374,61 +385,52 @@ function ActiviteZone() {
 
   if (sorted.length === 0) {
     return (
-      <RailSection
-        label="Activité en temps réel"
-        className="border-t border-(--border-subtle)"
-      >
+      <RailSection label="Activité en temps réel" className="border-t border-(--border-subtle)">
         <span className="t-11 font-light text-text-faint">Aucune activité récente</span>
       </RailSection>
     );
   }
 
   return (
-    <RailSection
-      label="Activité en temps réel"
-      className="border-t border-(--border-subtle)"
-    >
-      <ul
-        className="flex flex-col"
-        style={{ gap: "var(--space-1)" }}
-      >
-          {sorted.map((ev) => {
-            const label = ev.label;
-            const ts = ev.ts;
-            const glyph = EVENT_GLYPH[ev.type] ?? "·";
-            const tone = EVENT_COLOR[ev.type] ?? "var(--text-muted)";
-            return (
-              <li
-                key={ev.key}
-                className="dashboard-row flex items-center"
+    <RailSection label="Activité en temps réel" className="border-t border-(--border-subtle)">
+      <ul className="flex flex-col" style={{ gap: "var(--space-1)" }}>
+        {sorted.map((ev) => {
+          const label = ev.label;
+          const ts = ev.ts;
+          const glyph = EVENT_GLYPH[ev.type] ?? "·";
+          const tone = EVENT_COLOR[ev.type] ?? "var(--text-muted)";
+          return (
+            <li
+              key={ev.key}
+              className="dashboard-row flex items-center"
+              style={{
+                padding: "var(--space-2) var(--space-3)",
+                gap: "var(--space-4)",
+                borderRadius: "var(--radius-md)",
+              }}
+            >
+              <span
+                className="flex items-center justify-center shrink-0 t-13"
                 style={{
-                  padding: "var(--space-2) var(--space-3)",
-                  gap: "var(--space-4)",
-                  borderRadius: "var(--radius-md)",
+                  width: "var(--space-6)",
+                  height: "var(--space-6)",
+                  background: "var(--surface-icon-tile)",
+                  borderRadius: "var(--radius-sm)",
+                  color: tone,
                 }}
+                aria-hidden
               >
-                <span
-                  className="flex items-center justify-center shrink-0 t-13"
-                  style={{
-                    width: "var(--space-6)",
-                    height: "var(--space-6)",
-                    background: "var(--surface-icon-tile)",
-                    borderRadius: "var(--radius-sm)",
-                    color: tone,
-                  }}
-                  aria-hidden
-                >
-                  {glyph}
-                </span>
-                <span className="t-13 font-light flex-1 min-w-0 truncate text-text-soft">
-                  {label}
-                </span>
-                <span className="t-11 font-light tabular-nums shrink-0 text-text-faint">
-                  {relativeTime(ts)}
-                </span>
-              </li>
-            );
-          })}
+                {glyph}
+              </span>
+              <span className="t-13 font-light flex-1 min-w-0 truncate text-text-soft">
+                {label}
+              </span>
+              <span className="t-11 font-light tabular-nums shrink-0 text-text-faint">
+                {relativeTime(ts)}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </RailSection>
   );

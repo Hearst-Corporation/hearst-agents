@@ -20,10 +20,7 @@ export function ContextChips() {
   if (chips.length === 0) return null;
 
   return (
-    <div
-      data-testid="context-chips"
-      className="flex flex-row flex-wrap gap-2 mb-3"
-    >
+    <div data-testid="context-chips" className="flex flex-row flex-wrap gap-2 mb-3">
       {chips.map((chip) => (
         <span
           key={chip.id}

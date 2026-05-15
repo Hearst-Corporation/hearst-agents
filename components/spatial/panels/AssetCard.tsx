@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useFocalStore } from '@/stores/focal';
-import { useStageStore } from '@/stores/stage';
-import { FloatingPanel } from './FloatingPanel';
+import { useRouter } from "next/navigation";
+import { useFocalStore } from "@/stores/focal";
+import { useStageStore } from "@/stores/stage";
+import { FloatingPanel } from "./FloatingPanel";
 
-const ASSET_TYPES = new Set(['report', 'doc', 'brief', 'outline']);
+const ASSET_TYPES = new Set(["report", "doc", "brief", "outline"]);
 
 /**
  * Asset card centrale — slide-in quand un focal est livré (status=delivered)
@@ -20,15 +20,15 @@ export function AssetCard() {
   const isVisible = useFocalStore((s) => s.isVisible);
   const hide = useFocalStore((s) => s.hide);
 
-  const isAsset = !!focal && ASSET_TYPES.has(focal.type) && focal.status === 'delivered';
+  const isAsset = !!focal && ASSET_TYPES.has(focal.type) && focal.status === "delivered";
   const show = isAsset && isVisible;
 
   function handleOpen() {
     if (!focal) return;
     const assetId = focal.sourceAssetId ?? focal.id;
-    useStageStore.getState().setMode({ mode: 'asset', assetId });
+    useStageStore.getState().setMode({ mode: "asset", assetId });
     hide();
-    router.push('/');
+    router.push("/");
   }
 
   if (!show) return null;
@@ -85,9 +85,9 @@ export function AssetCard() {
             onClick={handleOpen}
             className="px-6 py-2 rounded-full text-spatial-md tracking-[0.18em] uppercase font-light"
             style={{
-              backgroundColor: 'rgba(255,255,255,0.92)',
-              color: '#0a0a0c',
-              boxShadow: '0 6px 18px -6px rgba(255,255,255,0.35)',
+              backgroundColor: "rgba(255,255,255,0.92)",
+              color: "#0a0a0c",
+              boxShadow: "0 6px 18px -6px rgba(255,255,255,0.35)",
             }}
           >
             Ouvrir

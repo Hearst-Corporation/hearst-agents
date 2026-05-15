@@ -2,14 +2,14 @@
  * Storage Provider — Tests (Local)
  */
 
-import { describe, expect, it, beforeAll, afterAll } from "vitest";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { LocalStorageProvider } from "@/lib/engine/runtime/assets/storage/local";
-import fs from "fs/promises";
-import path from "path";
-import os from "os";
 
 describe("LocalStorageProvider", () => {
-  const testDir = path.join(os.tmpdir(), "hearst-storage-test-" + Date.now());
+  const testDir = path.join(os.tmpdir(), `hearst-storage-test-${Date.now()}`);
   let storage: LocalStorageProvider;
 
   beforeAll(async () => {
@@ -25,11 +25,10 @@ describe("LocalStorageProvider", () => {
   });
 
   it("uploads a file", async () => {
-    const result = await storage.upload(
-      "test/hello.txt",
-      Buffer.from("Hello World"),
-      { contentType: "text/plain", tenantId: "tenant-1" }
-    );
+    const result = await storage.upload("test/hello.txt", Buffer.from("Hello World"), {
+      contentType: "text/plain",
+      tenantId: "tenant-1",
+    });
 
     expect(result.key).toBe("test/hello.txt");
     expect(result.size).toBe(11);

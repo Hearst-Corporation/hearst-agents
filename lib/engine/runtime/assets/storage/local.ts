@@ -5,15 +5,15 @@
  * Chemin: .runtime-assets/{tenantId?}/{key}
  */
 
-import fs from "fs/promises";
-import path from "path";
-import crypto from "crypto";
+import crypto from "node:crypto";
+import fs from "node:fs/promises";
+import path from "node:path";
 import type {
-  StorageProvider,
-  StorageObject,
-  UploadResult,
   DownloadResult,
   SignedUrlOptions,
+  StorageObject,
+  StorageProvider,
+  UploadResult,
 } from "./types";
 import { normalizeStorageKey } from "./types";
 
@@ -39,7 +39,7 @@ export class LocalStorageProvider implements StorageProvider {
       contentType: string;
       metadata?: Record<string, string>;
       tenantId?: string;
-    }
+    },
   ): Promise<UploadResult> {
     key = normalizeStorageKey(key);
 
@@ -77,7 +77,7 @@ export class LocalStorageProvider implements StorageProvider {
           contentType: options.contentType,
           ...options.metadata,
           uploadedAt: new Date().toISOString(),
-        })
+        }),
       );
     }
 
@@ -137,7 +137,7 @@ export class LocalStorageProvider implements StorageProvider {
     key: string,
     operation: "read" | "write",
     options?: SignedUrlOptions,
-    tenantId?: string
+    tenantId?: string,
   ): Promise<string> {
     key = normalizeStorageKey(key);
 

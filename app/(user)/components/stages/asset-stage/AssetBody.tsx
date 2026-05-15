@@ -20,9 +20,7 @@ interface AssetBodyProps {
 export function AssetBody({ contentRef, title }: AssetBodyProps) {
   if (!contentRef) {
     return (
-      <p className="t-13 font-light text-text-muted">
-        Aucun contenu disponible pour cet asset.
-      </p>
+      <p className="t-13 font-light text-text-muted">Aucun contenu disponible pour cet asset.</p>
     );
   }
 

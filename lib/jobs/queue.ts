@@ -13,8 +13,8 @@
 
 import { createHash } from "node:crypto";
 import { Queue } from "bullmq";
-import { getBullConnection } from "./connection";
 import { JOB_QUEUE_CONFIGS } from "./configs";
+import { getBullConnection } from "./connection";
 import type { JobKind, JobPayload } from "./types";
 
 // ── Kinds routés vers Inngest ──────────────────────────────────
@@ -69,10 +69,7 @@ export interface EnqueueResult {
  */
 function deterministicHash(payload: object): string {
   const keys = Object.keys(payload).sort();
-  return createHash("sha256")
-    .update(JSON.stringify(payload, keys))
-    .digest("hex")
-    .slice(0, 16);
+  return createHash("sha256").update(JSON.stringify(payload, keys)).digest("hex").slice(0, 16);
 }
 
 /**

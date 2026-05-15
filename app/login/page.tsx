@@ -1,9 +1,8 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, useCallback, Suspense } from "react";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, signIn, useSession } from "next-auth/react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 
 // Analytics tracking (client-side call to server)
 function trackLogin(provider: string) {
@@ -86,9 +85,7 @@ function LoginContent() {
   // si la valeur n'est pas un chemin interne strict.
   const rawCallback = searchParams.get("callbackUrl");
   const callbackUrl =
-    rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
-      ? rawCallback
-      : "/";
+    rawCallback?.startsWith("/") && !rawCallback.startsWith("//") ? rawCallback : "/";
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -127,9 +124,7 @@ function LoginContent() {
         <div className="rounded-2xl border border-(--border-shell) bg-(--surface-1) px-6 py-8 sm:px-7 sm:py-9 md:px-8 md:py-10">
           {/* Brand */}
           <div className="flex flex-col items-center">
-            <span className="t-13 font-medium text-(--text-soft)">
-              Hearst OS
-            </span>
+            <span className="t-13 font-medium text-(--text-soft)">Hearst OS</span>
 
             {/* Secure access label */}
             <span className="mt-3 t-11 font-medium uppercase tracking-body text-(--text-ghost)">

@@ -7,15 +7,22 @@
 import { describe, expect, it, vi } from "vitest";
 import {
   createVersion,
-  listVersions,
-  getVersion,
   getLatestVersion,
+  getVersion,
+  listVersions,
 } from "@/lib/reports/versions/store";
 
 // ── Helper spec/payload ───────────────────────────────────────
 
 const SPEC: Record<string, unknown> = { id: "00000000-0000-4000-8000-000000000001", version: 1 };
-const PAYLOAD: Record<string, unknown> = { __reportPayload: true, specId: "s1", version: 1, generatedAt: 0, blocks: [], scalars: {} };
+const PAYLOAD: Record<string, unknown> = {
+  __reportPayload: true,
+  specId: "s1",
+  version: 1,
+  generatedAt: 0,
+  blocks: [],
+  scalars: {},
+};
 
 // ── Tests createVersion ───────────────────────────────────────
 
@@ -38,9 +45,7 @@ describe("createVersion", () => {
       from: vi.fn(() => {
         call++;
         const obj = buildChainableFor(
-          call === 1
-            ? { data: maxRow, error: null }
-            : { data: insertResult, error: null },
+          call === 1 ? { data: maxRow, error: null } : { data: insertResult, error: null },
         );
         return obj;
       }),
@@ -71,9 +76,7 @@ describe("createVersion", () => {
       from: vi.fn(() => {
         call++;
         return buildChainableFor(
-          call === 1
-            ? { data: null, error: null }
-            : { data: insertResult, error: null },
+          call === 1 ? { data: null, error: null } : { data: insertResult, error: null },
         );
       }),
     };
@@ -97,7 +100,13 @@ describe("createVersion", () => {
 
   it("valide triggeredBy avec Zod", async () => {
     await expect(
-      createVersion({ assetId: "X", tenantId: "T", spec: SPEC, renderPayload: PAYLOAD, triggeredBy: "invalid" as never }),
+      createVersion({
+        assetId: "X",
+        tenantId: "T",
+        spec: SPEC,
+        renderPayload: PAYLOAD,
+        triggeredBy: "invalid" as never,
+      }),
     ).rejects.toThrow();
   });
 });
@@ -107,8 +116,24 @@ describe("createVersion", () => {
 describe("listVersions", () => {
   it("retourne les summaries triés", async () => {
     const rows = [
-      { id: "v2", asset_id: "A", tenant_id: "T", version_number: 2, signals_snapshot: [], triggered_by: "scheduled", created_at: "2026-04-30T01:00:00Z" },
-      { id: "v1", asset_id: "A", tenant_id: "T", version_number: 1, signals_snapshot: null, triggered_by: "manual", created_at: "2026-04-29T00:00:00Z" },
+      {
+        id: "v2",
+        asset_id: "A",
+        tenant_id: "T",
+        version_number: 2,
+        signals_snapshot: [],
+        triggered_by: "scheduled",
+        created_at: "2026-04-30T01:00:00Z",
+      },
+      {
+        id: "v1",
+        asset_id: "A",
+        tenant_id: "T",
+        version_number: 1,
+        signals_snapshot: null,
+        triggered_by: "manual",
+        created_at: "2026-04-29T00:00:00Z",
+      },
     ];
     const sb = { from: vi.fn(() => buildChainableFor({ data: rows, error: null })) };
 
@@ -158,7 +183,10 @@ describe("getVersion", () => {
 
   it("retourne null si version inexistante", async () => {
     const sb = { from: vi.fn(() => buildChainableFor({ data: null, error: null })) };
-    const result = await getVersion({ assetId: "A", versionNumber: 99, tenantId: "T" }, sb as never);
+    const result = await getVersion(
+      { assetId: "A", versionNumber: 99, tenantId: "T" },
+      sb as never,
+    );
     expect(result).toBeNull();
   });
 

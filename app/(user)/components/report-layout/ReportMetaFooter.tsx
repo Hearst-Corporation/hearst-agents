@@ -8,11 +8,7 @@ import type { JSX } from "react";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 import { fmtTimestamp } from "./utils";
 
-export function ReportMetaFooter({
-  payload,
-}: {
-  payload: RenderPayload;
-}): JSX.Element {
+export function ReportMetaFooter({ payload }: { payload: RenderPayload }): JSX.Element {
   return (
     <div
       className="flex items-center"
@@ -23,9 +19,7 @@ export function ReportMetaFooter({
         borderTop: "1px solid var(--surface-2)",
       }}
     >
-      <span className="t-11 font-light text-text-faint">
-        Version {payload.version}
-      </span>
+      <span className="t-11 font-light text-text-faint">Version {payload.version}</span>
       <span className="t-11 font-light text-text-faint">
         Généré · {fmtTimestamp(payload.generatedAt)}
       </span>

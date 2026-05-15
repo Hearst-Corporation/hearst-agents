@@ -7,14 +7,9 @@
  *  - 202 quand l'enqueue échoue (Redis down) — fail-soft
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const {
-  requireScope,
-  createMeetingBot,
-  storeAsset,
-  enqueueJob,
-} = vi.hoisted(() => ({
+const { requireScope, createMeetingBot, storeAsset, enqueueJob } = vi.hoisted(() => ({
   requireScope: vi.fn(),
   createMeetingBot: vi.fn(),
   storeAsset: vi.fn(),
@@ -107,9 +102,7 @@ describe("POST /api/v2/meetings/start", () => {
   });
 
   it("400 si URL non supportée (provider unknown)", async () => {
-    const res = await POST(
-      makeReq({ meetingUrl: "https://example.com/foo" }) as never,
-    );
+    const res = await POST(makeReq({ meetingUrl: "https://example.com/foo" }) as never);
     expect(res.status).toBe(400);
     const body = await res.json();
     expect(body.reason).toBe("unsupported_provider");
@@ -144,9 +137,7 @@ describe("POST /api/v2/meetings/start", () => {
 
   it("202 fail-soft quand enqueueJob throw (Redis down)", async () => {
     enqueueJob.mockRejectedValue(new Error("redis down"));
-    const res = await POST(
-      makeReq({ meetingUrl: "https://zoom.us/j/9999" }) as never,
-    );
+    const res = await POST(makeReq({ meetingUrl: "https://zoom.us/j/9999" }) as never);
     expect(res.status).toBe(202);
     const body = await res.json();
     expect(body.meetingId).toBe("bot-abc");

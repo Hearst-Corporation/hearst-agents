@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
-import { interceptLLMCalls, ASSET_ID } from "./fixtures";
+import { expect, test } from "@playwright/test";
+import { ASSET_ID, interceptLLMCalls } from "./fixtures";
 import { ReportPage } from "./ReportPage";
 
 /**
@@ -152,7 +152,7 @@ test.describe("Share — popover et options TTL", () => {
     await createBtn.click();
 
     // Le champ input avec le lien doit apparaître
-    const urlInput = dialog.locator('input[readonly]');
+    const urlInput = dialog.locator("input[readonly]");
     await expect(urlInput).toBeVisible({ timeout: 5000 });
 
     const shareUrl = await urlInput.inputValue();
@@ -183,7 +183,7 @@ test.describe("Share — popover et options TTL", () => {
     const createBtn = dialog.getByRole("button", { name: /créer un lien/i });
     await createBtn.click();
 
-    const urlInput = dialog.locator('input[readonly]');
+    const urlInput = dialog.locator("input[readonly]");
     await expect(urlInput).toBeVisible({ timeout: 5000 });
 
     const shareUrl = await urlInput.inputValue();
@@ -243,7 +243,7 @@ test.describe("Share — popover et options TTL", () => {
     await createBtn.click();
 
     // Attend que l'input soit visible (lien généré)
-    const urlInput = dialog.locator('input[readonly]');
+    const urlInput = dialog.locator("input[readonly]");
     await expect(urlInput).toBeVisible({ timeout: 5000 });
 
     // Vérifie que la requête contenait ttlHours=168 (7 * 24)
@@ -273,7 +273,7 @@ test.describe("Share — popover et options TTL", () => {
     const createBtn = dialog.getByRole("button", { name: /créer un lien/i });
     await createBtn.click();
 
-    const urlInput = dialog.locator('input[readonly]');
+    const urlInput = dialog.locator("input[readonly]");
     await expect(urlInput).toBeVisible({ timeout: 5000 });
 
     // Bouton Copier doit apparaître
@@ -325,7 +325,7 @@ test.describe("Share — API POST /api/reports/share", () => {
 
     if (!res) test.skip(true, "Serveur non disponible");
 
-    const status = res!.status();
+    const status = res?.status();
     // Sans auth : 401/302/307 ; avec bypass dev : 404/503 (supabase absent)
     expect([200, 401, 302, 307, 404, 503]).toContain(status);
   });
@@ -341,7 +341,7 @@ test.describe("Share — API POST /api/reports/share", () => {
 
     if (!res) test.skip(true, "Serveur non disponible");
 
-    const status = res!.status();
+    const status = res?.status();
     // 400 si auth bypass actif + validation zod ; 401 sinon
     if (status === 401 || status === 302 || status === 307) {
       test.skip(true, "Auth requise — valid en CI");

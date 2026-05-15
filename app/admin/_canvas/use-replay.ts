@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { RunEvent } from "@/lib/events/types";
 import { useCanvasStore } from "./store";
 import type { NodeId } from "./topology";
@@ -29,7 +29,10 @@ const BASE_DELAY_MS = 500;
  * Reproduction minimale de applyEventToStore sans dépendance circulaire.
  * Mirror du mapping dans use-event-stream.ts — à synchroniser si le mapping évolue.
  */
-function applyReplayEvent(ev: PersistedEvent, store: ReturnType<typeof useCanvasStore.getState>): void {
+function applyReplayEvent(
+  ev: PersistedEvent,
+  store: ReturnType<typeof useCanvasStore.getState>,
+): void {
   const setN = (id: NodeId, s: "idle" | "active" | "success" | "failed" | "blocked" | "disabled") =>
     store.setNodeState(id, s);
 
@@ -135,7 +138,7 @@ export function useReplay(events: PersistedEvent[]): ReplayController {
       }
       applyReplayEvent(evs[pos], useCanvasStore.getState());
       posRef.current = pos + 1;
-      const p = evs.length <= 1 ? 1 : (pos) / (evs.length - 1);
+      const p = evs.length <= 1 ? 1 : pos / (evs.length - 1);
       setProgress(p);
     }, delay);
   }, [stopInterval]);
@@ -158,13 +161,16 @@ export function useReplay(events: PersistedEvent[]): ReplayController {
     }
   }, [stopInterval, startInterval]);
 
-  const setSpeed = useCallback((s: number) => {
-    speedRef.current = s;
-    setSpeedState(s);
-    if (isPlayingRef.current) {
-      startInterval(); // relance avec le nouveau délai
-    }
-  }, [startInterval]);
+  const setSpeed = useCallback(
+    (s: number) => {
+      speedRef.current = s;
+      setSpeedState(s);
+      if (isPlayingRef.current) {
+        startInterval(); // relance avec le nouveau délai
+      }
+    },
+    [startInterval],
+  );
 
   const reset = useCallback(() => {
     stopInterval();
@@ -175,15 +181,23 @@ export function useReplay(events: PersistedEvent[]): ReplayController {
     useCanvasStore.getState().resetNodes();
   }, [stopInterval]);
 
-  const seek = useCallback((p: number) => {
-    const evs = eventsRef.current;
-    if (!evs.length) return;
-    const idx = Math.round(p * (evs.length - 1));
-    applyUpToIndex(idx);
-  }, [applyUpToIndex]);
+  const seek = useCallback(
+    (p: number) => {
+      const evs = eventsRef.current;
+      if (!evs.length) return;
+      const idx = Math.round(p * (evs.length - 1));
+      applyUpToIndex(idx);
+    },
+    [applyUpToIndex],
+  );
 
   // Nettoyage à l'unmount
-  useEffect(() => () => { stopInterval(); }, [stopInterval]);
+  useEffect(
+    () => () => {
+      stopInterval();
+    },
+    [stopInterval],
+  );
 
   // Reset si la liste d'events change (nouveau run sélectionné)
   useEffect(() => {
@@ -193,7 +207,7 @@ export function useReplay(events: PersistedEvent[]): ReplayController {
     setIsPlaying(false);
     posRef.current = 0;
     setProgress(0);
-  }, [events, stopInterval]);
+  }, [stopInterval]);
 
   return { isPlaying, progress, speed, playToggle, setSpeed, reset, seek };
 }

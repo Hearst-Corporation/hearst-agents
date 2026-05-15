@@ -3,7 +3,7 @@
  * et la persistance fire-and-forget (tool_call pending + tool_result final).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { executeVoiceToolMock, appendTranscriptMock } = vi.hoisted(() => ({
   executeVoiceToolMock: vi.fn(),

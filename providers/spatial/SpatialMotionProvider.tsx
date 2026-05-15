@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, ReactNode } from 'react';
-import { motion, MotionConfig } from 'framer-motion';
+import { MotionConfig } from "framer-motion";
+import { createContext, type ReactNode, useContext } from "react";
 
 interface SpatialMotionContextType {
   reducedMotion: boolean;
@@ -18,7 +18,7 @@ export function SpatialMotionProvider({ children }: { children: ReactNode }) {
     <SpatialMotionContext.Provider value={{ reducedMotion: false }}>
       <MotionConfig
         transition={{
-          type: 'spring',
+          type: "spring",
           stiffness: 100,
           damping: 20,
           mass: 1,

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useNotificationsStore } from '@/stores/notifications';
-import { SPATIAL_Z_LAYERS } from '@/lib/spatial/constants';
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
+import { useNotificationsStore } from "@/stores/notifications";
 
 /**
  * Notif bell — version glass spatial.
@@ -29,7 +29,7 @@ export function NotificationBellSpatial() {
 
   function handleClick() {
     // Délègue au shell classique
-    if (typeof window !== 'undefined') window.location.href = '/notifications';
+    if (typeof window !== "undefined") window.location.href = "/notifications";
   }
 
   const hasUnread = unreadCount > 0;
@@ -44,15 +44,15 @@ export function NotificationBellSpatial() {
         onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        aria-label={`Notifications${hasUnread ? ` (${unreadCount} non lues)` : ''}`}
+        aria-label={`Notifications${hasUnread ? ` (${unreadCount} non lues)` : ""}`}
         className="pointer-events-auto relative flex items-center justify-center rounded-full transition-colors duration-300"
         style={{
           width: 44,
           height: 44,
-          background: hovered ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.03)',
-          backdropFilter: 'blur(18px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(18px) saturate(140%)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: hovered ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
+          backdropFilter: "blur(18px) saturate(140%)",
+          WebkitBackdropFilter: "blur(18px) saturate(140%)",
+          border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
         <svg
@@ -60,7 +60,7 @@ export function NotificationBellSpatial() {
           height="16"
           viewBox="0 0 24 24"
           fill="none"
-          stroke={hasUnread ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)'}
+          stroke={hasUnread ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)"}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -78,8 +78,8 @@ export function NotificationBellSpatial() {
               width: 10,
               height: 10,
               borderRadius: 999,
-              background: 'rgba(120,220,220,0.95)',
-              boxShadow: '0 0 8px rgba(120,220,220,0.7)',
+              background: "rgba(120,220,220,0.95)",
+              boxShadow: "0 0 8px rgba(120,220,220,0.7)",
             }}
           />
         )}

@@ -23,16 +23,13 @@
  * Chaque source est fail-soft : une qui throw n'invalide pas le reste.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { isEmbeddingsAvailable } from "@/lib/embeddings/embed";
+import { type RetrievedEmbedding, searchEmbeddings } from "@/lib/embeddings/store";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import type { SupabaseClient } from "@supabase/supabase-js";
-import { isEmbeddingsAvailable } from "@/lib/embeddings/embed";
-import {
-  searchEmbeddings,
-  type RetrievedEmbedding,
-} from "@/lib/embeddings/store";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -81,8 +78,7 @@ function escapeIlike(q: string): string {
  *  - sinon, sourceId au format `${conversationId}:${ts}:role`
  */
 function extractConversationId(item: RetrievedEmbedding): string | null {
-  const fromMeta = (item.metadata as { conversationId?: unknown } | undefined)
-    ?.conversationId;
+  const fromMeta = (item.metadata as { conversationId?: unknown } | undefined)?.conversationId;
   if (typeof fromMeta === "string" && fromMeta.length > 0) return fromMeta;
   const sid = item.sourceId ?? "";
   const colonIdx = sid.indexOf(":");
@@ -102,10 +98,7 @@ async function fetchAssetMetadata(
 ): Promise<Map<string, { title: string; kind: string }>> {
   if (ids.length === 0) return new Map();
   try {
-    const { data, error } = await db
-      .from("assets")
-      .select("id, title, kind")
-      .in("id", ids);
+    const { data, error } = await db.from("assets").select("id, title, kind").in("id", ids);
     if (error || !data) return new Map();
     const out = new Map<string, { title: string; kind: string }>();
     for (const row of data as Array<Record<string, unknown>>) {
@@ -302,8 +295,14 @@ export async function GET(req: NextRequest) {
       })
     : Promise.resolve([] as RetrievedEmbedding[]);
 
-  const [assetsLex, threadsLex, missions, runs, kgNodes, semantic] =
-    await Promise.all([assetsP, threadsP, missionsP, runsP, kgP, semanticP]);
+  const [assetsLex, threadsLex, missions, runs, kgNodes, semantic] = await Promise.all([
+    assetsP,
+    threadsP,
+    missionsP,
+    runsP,
+    kgP,
+    semanticP,
+  ]);
 
   // Fusion lexicale + sémantique pour assets/threads.
   // Stratégie : on commence par les hits sémantiques (score décroissant),
@@ -353,11 +352,8 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return NextResponse.json(
-    { assets, threads, missions, runs, kgNodes } satisfies SearchResult,
-    {
-      status: 200,
-      headers: { "X-Search-Mode": mode },
-    },
-  );
+  return NextResponse.json({ assets, threads, missions, runs, kgNodes } satisfies SearchResult, {
+    status: 200,
+    headers: { "X-Search-Mode": mode },
+  });
 }

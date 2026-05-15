@@ -12,8 +12,8 @@
  * extraire dans lib/capabilities/providers/.
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
+import { jsonSchema } from "ai";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -56,8 +56,10 @@ function formatCryptoPrices(data: CoinGeckoResponse, vs: string): string {
     const price = payload[vs];
     const change = payload[`${vs}_24h_change`];
     if (typeof price !== "number") continue;
-    const priceStr = price >= 1 ? price.toLocaleString("en-US", { maximumFractionDigits: 2 }) : price.toFixed(6);
-    const changeStr = typeof change === "number" ? ` (${change >= 0 ? "+" : ""}${change.toFixed(2)}% sur 24h)` : "";
+    const priceStr =
+      price >= 1 ? price.toLocaleString("en-US", { maximumFractionDigits: 2 }) : price.toFixed(6);
+    const changeStr =
+      typeof change === "number" ? ` (${change >= 0 ? "+" : ""}${change.toFixed(2)}% sur 24h)` : "";
     lines.push(`- ${coin} : ${priceStr} ${vs.toUpperCase()}${changeStr}`);
   }
   return lines.join("\n");
@@ -115,7 +117,9 @@ async function fetchYahooQuote(symbol: string): Promise<QuoteSnapshot | null> {
   };
 }
 
-function formatStockQuotes(quotes: Array<QuoteSnapshot | { symbol: string; error: string }>): string {
+function formatStockQuotes(
+  quotes: Array<QuoteSnapshot | { symbol: string; error: string }>,
+): string {
   const lines: string[] = [];
   lines.push("Cotations marchés traditionnels :");
   for (const q of quotes) {
@@ -144,7 +148,8 @@ export function buildMarketDataTools(): AiToolMap {
         coins: {
           type: "array",
           items: { type: "string" },
-          description: "IDs CoinGecko en minuscules (ex: 'bitcoin', 'ethereum', 'solana', 'ripple', 'cardano'). Défaut : bitcoin + ethereum + solana.",
+          description:
+            "IDs CoinGecko en minuscules (ex: 'bitcoin', 'ethereum', 'solana', 'ripple', 'cardano'). Défaut : bitcoin + ethereum + solana.",
         },
         vs_currency: {
           type: "string",
@@ -183,7 +188,8 @@ export function buildMarketDataTools(): AiToolMap {
         symbols: {
           type: "array",
           items: { type: "string" },
-          description: "Tickers Yahoo Finance (ex: 'AAPL', 'MSFT', '^GSPC', '^FCHI', 'EURUSD=X', 'GC=F'). Au moins 1 requis.",
+          description:
+            "Tickers Yahoo Finance (ex: 'AAPL', 'MSFT', '^GSPC', '^FCHI', 'EURUSD=X', 'GC=F'). Au moins 1 requis.",
         },
       },
     }),

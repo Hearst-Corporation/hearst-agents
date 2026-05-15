@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { toolsGet, toolsExecute, connectedAccountsList } = vi.hoisted(() => ({
   toolsGet: vi.fn(),
@@ -12,7 +12,6 @@ vi.mock("@composio/core", () => {
     toolkits = { list: vi.fn(), get: vi.fn(), authorize: vi.fn() };
     connectedAccounts = { list: connectedAccountsList, delete: vi.fn() };
     create = vi.fn();
-    constructor(_opts: { apiKey?: string }) {}
   }
   return { Composio };
 });
@@ -32,11 +31,11 @@ function stubActiveAccounts(slugs: string[]): void {
 
 import {
   getToolsForUser,
-  resetDiscoveryCache,
   invalidateUserDiscovery,
+  resetComposioClient,
+  resetDiscoveryCache,
   toAnthropicTools,
   toOpenAITools,
-  resetComposioClient,
 } from "@/lib/connectors/composio";
 
 // SDK v0.6 returns OpenAI-style tool descriptors:

@@ -17,9 +17,9 @@
  * données est préférable à un digest qui plante.
  */
 
-import { getRuns } from "@/lib/engine/runtime/state/adapter";
-import { loadAssetsForScope } from "@/lib/assets/types";
 import type { Asset } from "@/lib/assets/types";
+import { loadAssetsForScope } from "@/lib/assets/types";
+import { getRuns } from "@/lib/engine/runtime/state/adapter";
 import type { PersistedRunRecord } from "@/lib/engine/runtime/state/types";
 
 interface WeeklyDigestScope {
@@ -90,10 +90,7 @@ async function safe<T>(label: string, fn: () => Promise<T> | T, fallback: T): Pr
   try {
     return await fn();
   } catch (err) {
-    console.warn(
-      `[cockpit/weekly-digest] source "${label}" en erreur, fallback appliqué:`,
-      err,
-    );
+    console.warn(`[cockpit/weekly-digest] source "${label}" en erreur, fallback appliqué:`, err);
     return fallback;
   }
 }
@@ -168,9 +165,7 @@ function aggregateMissions(
 
     const meta = (run.metadata ?? {}) as Record<string, unknown>;
     const fallbackName =
-      (meta.missionName as string | undefined) ??
-      run.input?.slice(0, 60) ??
-      missionId;
+      (meta.missionName as string | undefined) ?? run.input?.slice(0, 60) ?? missionId;
 
     const entry = byMission.get(missionId) ?? {
       name: fallbackName,
@@ -215,9 +210,7 @@ function extractAnomalies(
 
     const meta = (run.metadata ?? {}) as Record<string, unknown>;
     const errMsg =
-      (meta.error as string | undefined) ??
-      (meta.lastError as string | undefined) ??
-      "Run failed";
+      (meta.error as string | undefined) ?? (meta.lastError as string | undefined) ?? "Run failed";
 
     anomalies.push({
       runId: run.id,
@@ -232,10 +225,7 @@ function extractAnomalies(
   return anomalies.slice(0, MAX_ANOMALIES);
 }
 
-function pickTopAssets(
-  assets: Asset[],
-  window: WeeklyDigestWindow,
-): WeeklyDigestAssetRow[] {
+function pickTopAssets(assets: Asset[], window: WeeklyDigestWindow): WeeklyDigestAssetRow[] {
   const inWindow = assets.filter((a) => isInWindow(a.createdAt, window));
   inWindow.sort((a, b) => b.createdAt - a.createdAt);
   return inWindow.slice(0, MAX_TOP_ASSETS).map((a) => ({
@@ -282,15 +272,11 @@ export async function buildWeeklyDigest(
   const anomalies = extractAnomalies(runs, missionsAll, window);
   const topAssets = pickTopAssets(assets, window);
 
-  const totalRuns = runs.filter((r) =>
-    isInWindow(r.completedAt ?? r.createdAt, window),
-  ).length;
+  const totalRuns = runs.filter((r) => isInWindow(r.completedAt ?? r.createdAt, window)).length;
 
   // Best mission = celle avec le plus de successes (tiebreak runs desc).
   const bestMission =
-    [...missionsAll].sort(
-      (a, b) => b.successes - a.successes || b.runs - a.runs,
-    )[0] ?? null;
+    [...missionsAll].sort((a, b) => b.successes - a.successes || b.runs - a.runs)[0] ?? null;
 
   return {
     scope,

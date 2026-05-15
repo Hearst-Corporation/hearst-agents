@@ -5,12 +5,9 @@
  * Consumers (SSEAdapter, LogPersister, analytics) subscribe to these.
  */
 
-import type {
-  StepActor,
-  RunCost,
-} from "../engine/runtime/engine/types";
 import type { ArtifactType } from "../artifacts/types";
 import type { AssetType } from "../engine/runtime/assets/types";
+import type { RunCost, StepActor } from "../engine/runtime/engine/types";
 import type { ToolCapability } from "../tools/types";
 
 // ── Event union ──────────────────────────────────────────

@@ -62,10 +62,13 @@ export function sanitizeProviderError(status: number, body: string): string {
     `"$1": "[REDACTED]"`,
   );
 
-  sanitized = sanitized.replace(/(ANTHROPIC_API_KEY|OPENAI_API_KEY|GEMINI_API_KEY|COMPOSER_API_KEY)=[^\s&]+/g, "$1=[REDACTED]");
+  sanitized = sanitized.replace(
+    /(ANTHROPIC_API_KEY|OPENAI_API_KEY|GEMINI_API_KEY|COMPOSER_API_KEY)=[^\s&]+/g,
+    "$1=[REDACTED]",
+  );
 
   if (sanitized.length > 200) {
-    sanitized = sanitized.substring(0, 200) + "...";
+    sanitized = `${sanitized.substring(0, 200)}...`;
   }
 
   return `Provider error ${status}: ${sanitized}`;

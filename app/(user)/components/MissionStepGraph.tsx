@@ -10,8 +10,8 @@
  * Tokens design system uniquement (cf. CLAUDE.md règles UI).
  */
 
+import { type PlanState, useRuntimeStore } from "@/stores/runtime";
 import { StepCard } from "./StepCard";
-import { useRuntimeStore, type PlanState } from "@/stores/runtime";
 
 export interface MissionStepGraphProps {
   plan: PlanState;
@@ -37,7 +37,6 @@ function statusColor(status: PlanState["status"]): string {
       return "var(--accent-teal)";
     case "failed":
       return "var(--danger)";
-    case "preview":
     default:
       return "var(--text-faint)";
   }
@@ -118,19 +117,14 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
           </p>
         </div>
         <div className="flex flex-col items-end" style={{ gap: "var(--space-1)" }}>
-          <span
-            className="t-11 font-medium"
-            style={{ color }}
-          >
+          <span className="t-11 font-medium" style={{ color }}>
             {STATUS_LABEL[plan.status]}
           </span>
           <span className="t-11 font-mono tabular-nums text-text-faint">
             {formatCost(plan.totalCostUsd)} / ~{formatCost(plan.estimatedCostUsd)}
           </span>
           {eta !== null && plan.status === "running" && (
-            <span className="t-11 font-mono tabular-nums text-text-faint">
-              {eta} s restant
-            </span>
+            <span className="t-11 font-mono tabular-nums text-text-faint">{eta} s restant</span>
           )}
         </div>
       </header>
@@ -141,9 +135,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
           className="flex items-center"
           style={{ gap: "var(--space-2)", marginBottom: "var(--space-4)" }}
         >
-          <span className="t-11 font-medium text-(--text-l1)">
-            Apps requises
-          </span>
+          <span className="t-11 font-medium text-(--text-l1)">Apps requises</span>
           {plan.requiredApps.map((app) => (
             <span
               key={app}
@@ -177,9 +169,7 @@ export function MissionStepGraph({ plan, onApprove, onSkip }: MissionStepGraphPr
       </ol>
 
       {plan.steps.length === 0 && (
-        <p className="t-11 font-light text-text-faint">
-          Pas encore de step planifié.
-        </p>
+        <p className="t-11 font-light text-text-faint">Pas encore de step planifié.</p>
       )}
     </section>
   );

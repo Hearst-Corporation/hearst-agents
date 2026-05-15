@@ -1,9 +1,9 @@
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
-import { executeCode } from "@/lib/capabilities/providers/e2b";
 import { updateVariant } from "@/lib/assets/variants";
+import { executeCode } from "@/lib/capabilities/providers/e2b";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { CodeExecInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 
 const handler: WorkerHandler<CodeExecInput> = {
   kind: "code-exec",
@@ -19,9 +19,10 @@ const handler: WorkerHandler<CodeExecInput> = {
 
   async process(ctx): Promise<JobResult> {
     const { payload, reportProgress } = ctx;
-    const variantId = (payload as CodeExecInput & { variantId?: string }).variantId
-      ?? (typeof payload === "object" && payload !== null && "metadata" in payload
-        ? ((payload as { metadata?: { variantId?: string } }).metadata?.variantId)
+    const variantId =
+      (payload as CodeExecInput & { variantId?: string }).variantId ??
+      (typeof payload === "object" && payload !== null && "metadata" in payload
+        ? (payload as { metadata?: { variantId?: string } }).metadata?.variantId
         : undefined);
 
     await reportProgress(5, "Démarrage du sandbox");

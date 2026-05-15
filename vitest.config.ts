@@ -1,13 +1,9 @@
+import path from "node:path";
 import { defineConfig } from "vitest/config";
-import path from "path";
 
 export default defineConfig({
   test: {
-    include: [
-      "__tests__/**/*.test.ts",
-      "__tests__/**/*.test.tsx",
-      "lib/**/__tests__/**/*.test.ts",
-    ],
+    include: ["__tests__/**/*.test.ts", "__tests__/**/*.test.tsx", "lib/**/__tests__/**/*.test.ts"],
     globals: true,
     restoreMocks: true,
   },

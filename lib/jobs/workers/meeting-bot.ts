@@ -17,16 +17,16 @@
  * provider managed), extractActionItems retourne [] en silence.
  */
 
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { type Asset, loadAssetById, storeAsset } from "@/lib/assets/types";
+import { extractActionItems } from "@/lib/capabilities/providers/deepgram";
 import {
+  deleteBot,
   getBotStatus,
   getTranscript,
-  deleteBot,
   RecallAiUnavailableError,
 } from "@/lib/capabilities/providers/recall-ai";
-import { extractActionItems } from "@/lib/capabilities/providers/deepgram";
-import { storeAsset, loadAssetById, type Asset } from "@/lib/assets/types";
-import type { MeetingBotInput, JobResult } from "@/lib/jobs/types";
+import type { JobResult, MeetingBotInput } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { generateMeetingDebrief } from "@/lib/meetings/debrief";
 
 const POLL_INTERVAL_MS = 30_000;
@@ -37,13 +37,7 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const TERMINAL_STATUSES = new Set([
-  "done",
-  "call_ended",
-  "fatal",
-  "ended_early",
-  "failed",
-]);
+const TERMINAL_STATUSES = new Set(["done", "call_ended", "fatal", "ended_early", "failed"]);
 
 const handler: WorkerHandler<MeetingBotInput> = {
   kind: "meeting-bot",

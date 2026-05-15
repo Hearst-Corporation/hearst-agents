@@ -13,7 +13,7 @@
  * du produit en 30s, pas de tout expliquer. Tokens design system uniquement.
  */
 
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const STORAGE_KEY = "hearst.onboarded";
 
@@ -131,11 +131,11 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
           padding: "var(--space-12)",
         }}
       >
-        <div className="flex items-baseline justify-between" style={{ marginBottom: "var(--space-8)" }}>
-          <span
-            className="t-9 font-medium"
-            style={{ color: "var(--gold)" }}
-          >
+        <div
+          className="flex items-baseline justify-between"
+          style={{ marginBottom: "var(--space-8)" }}
+        >
+          <span className="t-9 font-medium" style={{ color: "var(--gold)" }}>
             {slide.eyebrow}
           </span>
           <button
@@ -181,8 +181,7 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
                   width: i === step ? "var(--space-6)" : "var(--space-2)",
                   height: "var(--space-2)",
                   borderRadius: "var(--radius-pill)",
-                  background:
-                    i === step ? "var(--accent-teal)" : "var(--border-default)",
+                  background: i === step ? "var(--accent-teal)" : "var(--border-default)",
                   transition: "width 200ms ease",
                 }}
               />
@@ -208,4 +207,3 @@ export function OnboardingTour({ forceOpen, onClose }: OnboardingTourProps = {})
     </div>
   );
 }
-

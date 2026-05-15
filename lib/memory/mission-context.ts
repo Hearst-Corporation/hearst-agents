@@ -23,13 +23,13 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { searchEmbeddings } from "@/lib/embeddings/store";
-import { formatRetrievedItems } from "./retrieval-context";
-import { getKgContextForUser } from "./kg-context";
-import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
-import { MISSION_CONTEXT_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { searchEmbeddings } from "@/lib/embeddings/store";
+import { updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { formatFewShotBlock, MISSION_CONTEXT_FEWSHOT_FR } from "@/lib/prompts/examples";
+import { getKgContextForUser } from "./kg-context";
+import { formatRetrievedItems } from "./retrieval-context";
 import { sanitizeForFence } from "./untrusted-fence";
 
 // ── Types ────────────────────────────────────────────────────
@@ -69,22 +69,24 @@ export interface MissionContext {
  * que Claude ré-écrive plutôt que d'append (évite le creep). Le ton et
  * les bannis sont chargés via la charte éditoriale unifiée.
  */
-export const MISSION_CONTEXT_SYSTEM_PROMPT = composeEditorialPrompt([
-  "Tu es l'archiviste d'une mission longue durée. Tu maintiens un résumé éditorial actualisé qui sera relu au prochain run.",
-  "",
-  "FORMAT STRICT (4 sections, dans cet ordre, en markdown) :",
-  "1. **Objectif.** Une phrase qui rappelle pourquoi cette mission existe.",
-  "2. **État actuel.** 1-2 phrases qui décrivent où on en est après le dernier run.",
-  "3. **Décisions actées.** Bullet ou phrase qui consigne les décisions stables (ne pas re-débattre).",
-  "4. **Prochaine étape.** Une recommandation concrète, datée si possible.",
-  "",
-  "CONTRAINTES SPÉCIFIQUES :",
-  "- Max 250 mots au total.",
-  "- Tu RÉ-ÉCRIS le résumé entier, tu n'appendes pas. Le previousSummary est ta base, pas un préfixe à conserver.",
-  "",
-  "EXEMPLES :",
-  formatFewShotBlock(MISSION_CONTEXT_FEWSHOT_FR),
-].join("\n"));
+export const MISSION_CONTEXT_SYSTEM_PROMPT = composeEditorialPrompt(
+  [
+    "Tu es l'archiviste d'une mission longue durée. Tu maintiens un résumé éditorial actualisé qui sera relu au prochain run.",
+    "",
+    "FORMAT STRICT (4 sections, dans cet ordre, en markdown) :",
+    "1. **Objectif.** Une phrase qui rappelle pourquoi cette mission existe.",
+    "2. **État actuel.** 1-2 phrases qui décrivent où on en est après le dernier run.",
+    "3. **Décisions actées.** Bullet ou phrase qui consigne les décisions stables (ne pas re-débattre).",
+    "4. **Prochaine étape.** Une recommandation concrète, datée si possible.",
+    "",
+    "CONTRAINTES SPÉCIFIQUES :",
+    "- Max 250 mots au total.",
+    "- Tu RÉ-ÉCRIS le résumé entier, tu n'appendes pas. Le previousSummary est ta base, pas un préfixe à conserver.",
+    "",
+    "EXEMPLES :",
+    formatFewShotBlock(MISSION_CONTEXT_FEWSHOT_FR),
+  ].join("\n"),
+);
 
 // ── Supabase queries ─────────────────────────────────────────
 
@@ -102,9 +104,7 @@ interface MissionMessageRow {
 
 function rowToMessage(row: MissionMessageRow): MissionMessage {
   const role: MissionMessage["role"] =
-    row.role === "user" || row.role === "assistant" || row.role === "system"
-      ? row.role
-      : "user";
+    row.role === "user" || row.role === "assistant" || row.role === "system" ? row.role : "user";
   return {
     id: row.id,
     missionId: row.mission_id,
@@ -134,22 +134,36 @@ export async function listMissionMessages(opts: {
 
   const limit = Math.max(1, Math.min(opts.limit ?? 20, 200));
   try {
-    const query = (sb as unknown as {
-      from: (t: string) => {
-        select: (cols: string) => {
-          eq: (c: string, v: string) => {
-            eq: (c: string, v: string) => {
-              order: (c: string, opts: { ascending: boolean }) => {
-                limit: (n: number) => Promise<{ data: unknown; error: unknown }>;
-                lt: (c: string, v: string) => {
+    const query = (
+      sb as unknown as {
+        from: (t: string) => {
+          select: (cols: string) => {
+            eq: (
+              c: string,
+              v: string,
+            ) => {
+              eq: (
+                c: string,
+                v: string,
+              ) => {
+                order: (
+                  c: string,
+                  opts: { ascending: boolean },
+                ) => {
                   limit: (n: number) => Promise<{ data: unknown; error: unknown }>;
+                  lt: (
+                    c: string,
+                    v: string,
+                  ) => {
+                    limit: (n: number) => Promise<{ data: unknown; error: unknown }>;
+                  };
                 };
               };
             };
           };
         };
-      };
-    })
+      }
+    )
       .from("mission_messages")
       .select("id, mission_id, user_id, tenant_id, role, content, run_id, created_at, metadata")
       .eq("mission_id", opts.missionId)
@@ -201,15 +215,17 @@ export async function appendMissionMessage(opts: {
   if (!trimmed) return null;
 
   try {
-    const { data, error } = await (sb as unknown as {
-      from: (t: string) => {
-        insert: (row: Record<string, unknown>) => {
-          select: () => {
-            single: () => Promise<{ data: unknown; error: unknown }>;
+    const { data, error } = await (
+      sb as unknown as {
+        from: (t: string) => {
+          insert: (row: Record<string, unknown>) => {
+            select: () => {
+              single: () => Promise<{ data: unknown; error: unknown }>;
+            };
           };
         };
-      };
-    })
+      }
+    )
       .from("mission_messages")
       .insert({
         mission_id: opts.missionId,
@@ -320,11 +336,7 @@ export function formatMissionContextBlock(ctx: MissionContext): string {
   if (ctx.recentMessages.length > 0) {
     const lines = ctx.recentMessages.map((m) => {
       const who =
-        m.role === "user"
-          ? "Utilisateur"
-          : m.role === "assistant"
-            ? "Assistant"
-            : "Système";
+        m.role === "user" ? "Utilisateur" : m.role === "assistant" ? "Assistant" : "Système";
       // Cap chaque message à 240 chars + sanitize pour éviter injection
       const rawText = m.content.length > 240 ? `${m.content.slice(0, 239)}…` : m.content;
       const text = sanitizeForFence(rawText);

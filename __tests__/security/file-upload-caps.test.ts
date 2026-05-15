@@ -5,7 +5,7 @@
  * Tests la route POST /api/v2/documents/upload
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks ────────────────────────────────────────────────────────────────────
 

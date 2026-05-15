@@ -105,8 +105,7 @@ export const useActiveSpace = create<ActiveSpaceState>()(
           if (state.spaces.length <= 1) return state;
           const newSpaces = state.spaces.filter((s) => s.id !== id);
           // Si on supprime le space actif, on bascule sur le premier restant.
-          const newActiveId =
-            state.activeSpaceId === id ? newSpaces[0].id : state.activeSpaceId;
+          const newActiveId = state.activeSpaceId === id ? newSpaces[0].id : state.activeSpaceId;
           return { spaces: newSpaces, activeSpaceId: newActiveId };
         }),
     }),

@@ -1,9 +1,9 @@
 "use client";
 
 import type { Asset } from "@/lib/assets/types";
-import { AssetLineage } from "../../AssetLineage";
 import { useSelectionStore } from "@/stores/selection";
 import { useStageStore } from "@/stores/stage";
+import { AssetLineage } from "../../AssetLineage";
 import { ASSET_DATE_FORMATTER } from "./shared";
 
 interface AssetMetaProps {

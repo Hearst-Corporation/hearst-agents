@@ -2,7 +2,7 @@
  * Linear preview formatters.
  */
 
-import { footer, header, line, preview, asArray } from "./shared";
+import { asArray, footer, header, line, preview } from "./shared";
 
 const PRIORITY_LABELS: Record<string, string> = {
   "0": "Aucune",
@@ -21,7 +21,7 @@ export function formatLinearCreateIssue(args: Record<string, unknown>): string {
   const priorityRaw = args.priority;
   const priorityLabel =
     priorityRaw !== undefined && priorityRaw !== null
-      ? PRIORITY_LABELS[String(priorityRaw)] ?? String(priorityRaw)
+      ? (PRIORITY_LABELS[String(priorityRaw)] ?? String(priorityRaw))
       : null;
 
   const lines = [

@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useStageStore } from '@/stores/stage';
-import { useRuntimeStore } from '@/stores/runtime';
-import { SPATIAL_Z_LAYERS } from '@/lib/spatial/constants';
+import { useRouter } from "next/navigation";
+import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useStageStore } from "@/stores/stage";
 
 const MODE_LABEL: Record<string, string> = {
-  cockpit: 'Cockpit',
-  chat: 'Conversation',
-  asset: 'Asset',
-  asset_compare: 'Comparaison assets',
-  mission: 'Mission',
-  browser: 'Browser',
-  meeting: 'Meeting',
-  kg: 'Knowledge Graph',
-  voice: 'Voix',
-  simulation: 'Simulation',
-  artifact: 'Artifact',
-  signal: 'Signal',
+  cockpit: "Cockpit",
+  chat: "Conversation",
+  asset: "Asset",
+  asset_compare: "Comparaison assets",
+  mission: "Mission",
+  browser: "Browser",
+  meeting: "Meeting",
+  kg: "Knowledge Graph",
+  voice: "Voix",
+  simulation: "Simulation",
+  artifact: "Artifact",
+  signal: "Signal",
 };
 
 /**
@@ -30,13 +30,13 @@ export function StageBreadcrumb() {
   const current = useStageStore((s) => s.current);
   const currentPlan = useRuntimeStore((s) => s.currentPlan);
 
-  if (current.mode === 'cockpit') return null;
+  if (current.mode === "cockpit") return null;
 
   const label = MODE_LABEL[current.mode] ?? current.mode;
   const subtitle =
-    current.mode === 'mission' && currentPlan?.intent
+    current.mode === "mission" && currentPlan?.intent
       ? currentPlan.intent.slice(0, 48)
-      : current.mode === 'asset' && 'assetId' in current
+      : current.mode === "asset" && "assetId" in current
         ? current.assetId
         : null;
 
@@ -47,26 +47,26 @@ export function StageBreadcrumb() {
     >
       <button
         type="button"
-        onClick={() => router.push('/')}
+        onClick={() => router.push("/")}
         className="pointer-events-auto inline-flex items-center gap-3 rounded-full transition-colors duration-300 hover:bg-white/10"
         style={{
-          padding: '8px 14px',
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.10)',
-          backdropFilter: 'blur(18px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(18px) saturate(140%)',
+          padding: "8px 14px",
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.10)",
+          backdropFilter: "blur(18px) saturate(140%)",
+          WebkitBackdropFilter: "blur(18px) saturate(140%)",
         }}
         title="Retour à la shell classique"
       >
         <span
           className="text-spatial-xs uppercase tracking-[0.22em] font-light"
-          style={{ color: 'rgba(255,255,255,0.55)' }}
+          style={{ color: "rgba(255,255,255,0.55)" }}
         >
           Mode actif
         </span>
         <span
           className="text-spatial-sm font-light tracking-wide"
-          style={{ color: 'rgba(255,255,255,0.92)' }}
+          style={{ color: "rgba(255,255,255,0.92)" }}
         >
           {label}
           {subtitle && <span className="text-white/45"> · {subtitle}</span>}

@@ -29,14 +29,14 @@
  *   data: {"reason": "…"}
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { getBullConnection } from "@/lib/jobs/connection";
-import { getQueueEvents } from "@/lib/jobs/queue-events-singleton";
-import { getJobState } from "@/lib/jobs/queue";
 import { JOB_QUEUE_CONFIGS } from "@/lib/jobs/configs";
+import { getBullConnection } from "@/lib/jobs/connection";
+import { getJobState } from "@/lib/jobs/queue";
+import { getQueueEvents } from "@/lib/jobs/queue-events-singleton";
 import type { JobKind } from "@/lib/jobs/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -60,10 +60,7 @@ const querySchema = z.object({
 const POLL_FALLBACK_MS = 1_500;
 const PING_INTERVAL_MS = 25_000;
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ jobId: string }> },
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = await params;
 
   const { scope, error: scopeError } = await requireScope({

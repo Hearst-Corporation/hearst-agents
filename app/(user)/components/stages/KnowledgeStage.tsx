@@ -1,16 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { useStageStore } from "@/stores/stage";
-import { useNavigationStore } from "@/stores/navigation";
-import { useStageData } from "@/stores/stage-data";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
-import { StageActionBar, type StageAction } from "./StageActionBar";
-import { KgQueryBar } from "../kg/KgQueryBar";
-import { KgNodeDetail } from "../kg/KgNodeDetail";
-import { Action } from "../ui";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
+import { useNavigationStore } from "@/stores/navigation";
+import { useStageStore } from "@/stores/stage";
+import { useStageData } from "@/stores/stage-data";
+import { KgNodeDetail } from "../kg/KgNodeDetail";
+import { KgQueryBar } from "../kg/KgQueryBar";
+import { Action } from "../ui";
+import { type StageAction, StageActionBar } from "./StageActionBar";
 
 interface KnowledgeStageProps {
   entityId?: string;
@@ -33,7 +33,11 @@ interface CytoscapeStyleEntry {
 }
 
 interface CytoscapeCoreLike {
-  on: (event: string, selector: string, handler: (evt: { target: { id: () => string } }) => void) => void;
+  on: (
+    event: string,
+    selector: string,
+    handler: (evt: { target: { id: () => string } }) => void,
+  ) => void;
 }
 
 type Phase = "loading" | "empty" | "ready";
@@ -53,7 +57,10 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
   const messagesByThread = useNavigationStore((s) => s.messages);
 
   const [phase, setPhase] = useState<Phase>("loading");
-  const [graph, setGraph] = useState<{ nodes: KgNode[]; edges: KgEdge[] }>({ nodes: [], edges: [] });
+  const [graph, setGraph] = useState<{ nodes: KgNode[]; edges: KgEdge[] }>({
+    nodes: [],
+    edges: [],
+  });
   const [ingesting, setIngesting] = useState(false);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(entityId ?? null);
 
@@ -73,7 +80,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
   const setKgSlice = useStageData((s) => s.setKg);
   useEffect(() => {
     const selected = selectedNodeId
-      ? graph.nodes.find((n) => n.id === selectedNodeId) ?? null
+      ? (graph.nodes.find((n) => n.id === selectedNodeId) ?? null)
       : null;
     setKgSlice({ graph, selectedNode: selected });
   }, [graph, selectedNodeId, setKgSlice]);
@@ -233,7 +240,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
     const nodeEls: CytoscapeElement[] = graph.nodes.map((n) => {
       const classes: string[] = ["kg-node", `kg-node-${n.type}`];
       if (searchHits && !searchHits.has(n.id)) classes.push("kg-node-dim");
-      if (searchHits && searchHits.has(n.id)) classes.push("kg-node-hit");
+      if (searchHits?.has(n.id)) classes.push("kg-node-hit");
       if (pathNodes.has(n.id)) classes.push("kg-node-path");
       return {
         data: { id: n.id, label: n.label, type: n.type },
@@ -257,15 +264,15 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
         selector: "node",
         style: {
           "background-color": "var(--text-faint)",
-          "label": "data(label)",
-          "color": "var(--text)",
+          label: "data(label)",
+          color: "var(--text)",
           "font-size": 11,
           "font-family": "var(--font-satoshi), sans-serif",
           "text-valign": "bottom",
           "text-halign": "center",
           "text-margin-y": 6,
-          "width": 28,
-          "height": 28,
+          width: 28,
+          height: 28,
           "border-width": 1,
           "border-color": "var(--surface-2)",
         },
@@ -303,7 +310,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
       {
         selector: "edge",
         style: {
-          "width": 1,
+          width: 1,
           "line-color": "var(--surface-2)",
           "target-arrow-color": "var(--surface-2)",
           "target-arrow-shape": "triangle",
@@ -313,7 +320,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
       {
         selector: "edge.kg-edge-path",
         style: {
-          "width": 2.5,
+          width: 2.5,
           "line-color": "var(--warn)",
           "target-arrow-color": "var(--warn)",
         },
@@ -324,46 +331,36 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
 
   const layout = useMemo(() => ({ name: "cose", animate: false, idealEdgeLength: 100 }), []);
 
-  const onCyInit = useCallback(
-    (cy: unknown) => {
-      const core = cy as CytoscapeCoreLike;
-      core.on("tap", "node", (evt) => {
-        setSelectedNodeId(evt.target.id());
-      });
-      core.on("tap", "core", () => {
-        setSelectedNodeId(null);
-      });
-    },
-    [],
-  );
+  const onCyInit = useCallback((cy: unknown) => {
+    const core = cy as CytoscapeCoreLike;
+    core.on("tap", "node", (evt) => {
+      setSelectedNodeId(evt.target.id());
+    });
+    core.on("tap", "core", () => {
+      setSelectedNodeId(null);
+    });
+  }, []);
 
   const selectedNode = selectedNodeId
-    ? graph.nodes.find((n) => n.id === selectedNodeId) ?? null
+    ? (graph.nodes.find((n) => n.id === selectedNodeId) ?? null)
     : null;
 
   const fromLabel = pathFrom ? graph.nodes.find((n) => n.id === pathFrom)?.label : null;
   const toLabel = pathTo ? graph.nodes.find((n) => n.id === pathTo)?.label : null;
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
-            <span className="t-11 font-medium text-(--accent-teal)">
-              KNOWLEDGE
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">KNOWLEDGE</span>
             {entityId && (
               <>
                 <span
                   className="rounded-pill bg-[var(--text-ghost)]"
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                 />
-                <span className="t-11 font-light text-text-muted">
-                  {entityId.slice(0, 16)}
-                </span>
+                <span className="t-11 font-light text-text-muted">{entityId.slice(0, 16)}</span>
               </>
             )}
             {query && (
@@ -414,9 +411,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-light text-text-muted">
-              Chargement du graphe…
-            </span>
+            <span className="t-11 font-light text-text-muted">Chargement du graphe…</span>
           </div>
         </div>
       )}
@@ -437,12 +432,9 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
             >
               Aucune entité extraite
             </p>
-            <p
-              className="t-13 text-text-muted"
-              style={{ lineHeight: "var(--leading-base)" }}
-            >
-              Ingest le thread actif pour démarrer ton graphe. L{"'"}agent extrait
-              personnes, entreprises, projets, décisions et engagements.
+            <p className="t-13 text-text-muted" style={{ lineHeight: "var(--leading-base)" }}>
+              Ingest le thread actif pour démarrer ton graphe. L{"'"}agent extrait personnes,
+              entreprises, projets, décisions et engagements.
             </p>
             <Action
               variant="primary"
@@ -454,9 +446,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
               Ingest le thread actif
             </Action>
             {!activeThreadId && (
-              <p className="t-11 font-light text-text-faint">
-                Sélectionne un thread d{"'"}abord
-              </p>
+              <p className="t-11 font-light text-text-faint">Sélectionne un thread d{"'"}abord</p>
             )}
           </div>
         </div>
@@ -474,9 +464,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
               loading={searchLoading}
             />
             <div className="flex flex-wrap items-center gap-3">
-              <span className="t-11 font-light text-text-faint">
-                Chemin :
-              </span>
+              <span className="t-11 font-light text-text-faint">Chemin :</span>
               <span
                 className="t-11 font-light text-text-soft truncate"
                 style={{ maxWidth: "var(--space-32)" }}
@@ -495,7 +483,10 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                 onClick={() => void handleFindPath()}
                 disabled={!pathFrom || !pathTo || pathLoading}
                 className="t-11 font-medium text-(--accent-teal) disabled:opacity-50"
-                style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)" }}
+                style={{
+                  transitionProperty: "letter-spacing",
+                  transitionDuration: "var(--duration-slow)",
+                }}
               >
                 {pathLoading ? "…" : "Trouver chemin"}
               </button>
@@ -508,11 +499,7 @@ export function KnowledgeStage({ entityId, query }: KnowledgeStageProps) {
                   Reset
                 </button>
               )}
-              {pathMessage && (
-                <span className="t-11 font-medium text-(--warn)">
-                  {pathMessage}
-                </span>
-              )}
+              {pathMessage && <span className="t-11 font-medium text-(--warn)">{pathMessage}</span>}
             </div>
           </div>
 

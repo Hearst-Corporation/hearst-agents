@@ -42,8 +42,7 @@ export function buildSupportHealth(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "Support Health",
-      summary:
-        "CSAT, SLA, volume tickets et top issues sur les 7 derniers jours.",
+      summary: "CSAT, SLA, volume tickets et top issues sur les 7 derniers jours.",
       domain: "support",
       persona: "csm",
       cadence: "daily",
@@ -147,9 +146,7 @@ export function buildSupportHealth(scope: ReportSpec["scope"]): ReportSpec {
         inputs: ["ratings_30d_window"],
         params: {
           by: [],
-          measures: [
-            { name: "baseline", fn: "avg", field: "rating" },
-          ],
+          measures: [{ name: "baseline", fn: "avg", field: "rating" }],
         },
       },
       {
@@ -180,9 +177,7 @@ export function buildSupportHealth(scope: ReportSpec["scope"]): ReportSpec {
         inputs: ["conv_window"],
         params: {
           by: [],
-          measures: [
-            { name: "frt_minutes", fn: "avg", field: "first_response_time" },
-          ],
+          measures: [{ name: "frt_minutes", fn: "avg", field: "first_response_time" }],
         },
       },
 
@@ -199,9 +194,7 @@ export function buildSupportHealth(scope: ReportSpec["scope"]): ReportSpec {
         inputs: ["conv_resolved"],
         params: {
           by: [],
-          measures: [
-            { name: "mttr_minutes", fn: "avg", field: "resolution_time" },
-          ],
+          measures: [{ name: "mttr_minutes", fn: "avg", field: "resolution_time" }],
         },
       },
 
@@ -378,6 +371,4 @@ export function buildSupportHealth(scope: ReportSpec["scope"]): ReportSpec {
   };
 }
 
-export const SUPPORT_HEALTH_REQUIRED_APPS = [
-  "intercom",
-] as const;
+export const SUPPORT_HEALTH_REQUIRED_APPS = ["intercom"] as const;

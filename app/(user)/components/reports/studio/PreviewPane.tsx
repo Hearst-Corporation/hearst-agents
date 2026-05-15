@@ -14,9 +14,9 @@
  */
 
 import { useMemo } from "react";
-import type { ReportSpec, BlockSpec } from "@/lib/reports/spec/schema";
-import type { RenderPayload, RenderedBlock } from "@/lib/reports/engine/render-blocks";
 import { ReportLayout } from "@/app/(user)/components/ReportLayout";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
+import type { BlockSpec, ReportSpec } from "@/lib/reports/spec/schema";
 
 export interface PreviewPaneProps {
   spec: ReportSpec;
@@ -28,16 +28,8 @@ export interface PreviewPaneProps {
   sampleError?: string | null;
 }
 
-export function PreviewPane({
-  spec,
-  samplePayload,
-  isSampling,
-  sampleError,
-}: PreviewPaneProps) {
-  const localPayload = useMemo<RenderPayload>(
-    () => buildLocalPreviewPayload(spec),
-    [spec],
-  );
+export function PreviewPane({ spec, samplePayload, isSampling, sampleError }: PreviewPaneProps) {
+  const localPayload = useMemo<RenderPayload>(() => buildLocalPreviewPayload(spec), [spec]);
 
   const payloadToRender: RenderPayload = samplePayload ?? localPayload;
   const visibleBlocks = payloadToRender.blocks;
@@ -53,10 +45,7 @@ export function PreviewPane({
         background: "var(--bg-soft)",
       }}
     >
-      <header
-        className="flex items-center justify-between"
-        style={{ gap: "var(--space-3)" }}
-      >
+      <header className="flex items-center justify-between" style={{ gap: "var(--space-3)" }}>
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
           <h1 className="t-15" style={{ color: "var(--text)" }}>
             {spec.meta.title || "Nouveau rapport"}
@@ -72,7 +61,7 @@ export function PreviewPane({
             className="t-9 font-mono uppercase"
             style={{
               color: "var(--text-muted)",
-                          }}
+            }}
           >
             {samplePayload ? "Sample" : "Preview"}
           </span>

@@ -19,8 +19,8 @@
  * direct via `./tool-defs.ts`.
  */
 
-import { voiceToolDefs, type VoiceToolDef } from "./tool-defs";
 import { getVoiceComposioTools } from "./composio-bridge";
+import { type VoiceToolDef, voiceToolDefs } from "./tool-defs";
 
 interface CacheEntry {
   tools: VoiceToolDef[];

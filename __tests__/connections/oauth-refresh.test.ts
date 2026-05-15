@@ -10,7 +10,7 @@
  *  - scheduleTokenRefresh : délègue à checkExpiringTokens
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks ────────────────────────────────────────────────────
 
@@ -24,7 +24,6 @@ vi.mock("@composio/core", () => {
     toolkits = { list: vi.fn(), get: vi.fn(), authorize: vi.fn() };
     connectedAccounts = { list: accountsList, delete: vi.fn() };
     create = vi.fn();
-    constructor(_opts: { apiKey?: string }) {}
   }
   return { Composio };
 });
@@ -32,11 +31,11 @@ vi.mock("@composio/core", () => {
 // ── Import après mocks ────────────────────────────────────────
 
 import {
+  AUTH_CRITICAL_DAYS_THRESHOLD,
+  AUTH_EXPIRING_DAYS_THRESHOLD,
   checkExpiringTokens,
   refreshOAuthToken,
   scheduleTokenRefresh,
-  AUTH_EXPIRING_DAYS_THRESHOLD,
-  AUTH_CRITICAL_DAYS_THRESHOLD,
 } from "@/lib/connections/oauth-refresh";
 import { resetComposioClient } from "@/lib/connectors/composio";
 
@@ -52,12 +51,7 @@ function daysAgo(n: number): string {
 }
 
 /** Fabrique un ConnectedAccount Composio brut. */
-function makeRawAccount(
-  id: string,
-  appName: string,
-  status: string,
-  updatedAt: string,
-) {
+function makeRawAccount(id: string, appName: string, status: string, updatedAt: string) {
   return {
     id,
     toolkit: { slug: appName },
@@ -103,9 +97,9 @@ describe("checkExpiringTokens", () => {
     });
     const result = await checkExpiringTokens({ userId: USER_ID, tenantId: TENANT_ID });
     expect(result).toHaveLength(1);
-    expect(result[0]!.appName).toBe("github");
-    expect(result[0]!.status).toBe("expired");
-    expect(result[0]!.daysUntilExpiry).toBe(0);
+    expect(result[0]?.appName).toBe("github");
+    expect(result[0]?.status).toBe("expired");
+    expect(result[0]?.daysUntilExpiry).toBe(0);
   });
 
   it("détecte une connexion ACTIVE expirant dans < 7j", async () => {
@@ -115,9 +109,9 @@ describe("checkExpiringTokens", () => {
     });
     const result = await checkExpiringTokens({ userId: USER_ID, tenantId: TENANT_ID });
     expect(result).toHaveLength(1);
-    expect(result[0]!.status).toBe("expiring_soon");
-    expect(result[0]!.daysUntilExpiry).toBeGreaterThan(0);
-    expect(result[0]!.daysUntilExpiry).toBeLessThanOrEqual(AUTH_EXPIRING_DAYS_THRESHOLD);
+    expect(result[0]?.status).toBe("expiring_soon");
+    expect(result[0]?.daysUntilExpiry).toBeGreaterThan(0);
+    expect(result[0]?.daysUntilExpiry).toBeLessThanOrEqual(AUTH_EXPIRING_DAYS_THRESHOLD);
   });
 
   it("ne retourne pas une connexion ACTIVE loin de l'expiry (>7j)", async () => {

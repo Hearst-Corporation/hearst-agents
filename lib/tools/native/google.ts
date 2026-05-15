@@ -11,16 +11,16 @@
  * Composio pour rester cohérents avec les boutons Confirmer/Annuler.
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
-import { getTokens } from "@/lib/platform/auth/tokens";
-import { getRecentEmails, sendEmail } from "@/lib/connectors/google/gmail";
+import { jsonSchema } from "ai";
 import {
+  createCalendarEvent,
   getTodayEvents,
   getUpcomingEvents,
-  createCalendarEvent,
 } from "@/lib/connectors/google/calendar";
 import { getRecentFiles } from "@/lib/connectors/google/drive";
+import { getRecentEmails, sendEmail } from "@/lib/connectors/google/gmail";
+import { getTokens } from "@/lib/platform/auth/tokens";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -31,7 +31,13 @@ const SEND_PREVIEW_FOOTER =
 const EVENT_PREVIEW_FOOTER =
   "\n\n↩ Réponds **confirmer** pour créer l'événement, ou **annuler** pour abandonner.";
 
-function fmtSendDraft(args: { to: string; subject: string; body: string; cc?: string; bcc?: string }): string {
+function fmtSendDraft(args: {
+  to: string;
+  subject: string;
+  body: string;
+  cc?: string;
+  bcc?: string;
+}): string {
   const lines = [
     `📧 Draft · GMAIL · Envoyer`,
     ``,
@@ -170,7 +176,10 @@ export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap>
       type: "object",
       properties: {
         scope: { type: "string", enum: ["today", "upcoming"], default: "upcoming" },
-        days: { type: "number", description: "Window in days when scope is 'upcoming' (default 7)." },
+        days: {
+          type: "number",
+          description: "Window in days when scope is 'upcoming' (default 7).",
+        },
         limit: { type: "number", description: "Max events (default 20, capped at 50)." },
       },
     }),
@@ -241,9 +250,24 @@ export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap>
  * `buildAgentSystemPrompt` to list them in the OUTILS section.
  */
 export const NATIVE_GOOGLE_TOOL_DESCRIPTORS = [
-  { name: "GMAIL_FETCH_EMAILS", description: "Lis les emails récents de la boîte de réception Google connectée." },
-  { name: "GMAIL_SEND_EMAIL", description: "Envoie un email via le compte Google connecté (preview/confirm)." },
-  { name: "GOOGLECALENDAR_LIST_EVENTS", description: "Liste les événements du Google Calendar connecté." },
-  { name: "GOOGLECALENDAR_CREATE_EVENT", description: "Crée un événement sur le Google Calendar connecté (preview/confirm)." },
-  { name: "GOOGLEDRIVE_LIST_FILES", description: "Liste les fichiers récents du Google Drive connecté." },
+  {
+    name: "GMAIL_FETCH_EMAILS",
+    description: "Lis les emails récents de la boîte de réception Google connectée.",
+  },
+  {
+    name: "GMAIL_SEND_EMAIL",
+    description: "Envoie un email via le compte Google connecté (preview/confirm).",
+  },
+  {
+    name: "GOOGLECALENDAR_LIST_EVENTS",
+    description: "Liste les événements du Google Calendar connecté.",
+  },
+  {
+    name: "GOOGLECALENDAR_CREATE_EVENT",
+    description: "Crée un événement sur le Google Calendar connecté (preview/confirm).",
+  },
+  {
+    name: "GOOGLEDRIVE_LIST_FILES",
+    description: "Liste les fichiers récents du Google Drive connecté.",
+  },
 ] as const;

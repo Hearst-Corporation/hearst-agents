@@ -11,9 +11,9 @@
  * CHANNEL_ERROR (réseau coupé, quota dépassé, etc.).
  */
 
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 export interface AppNotification {
   id: string;
@@ -184,9 +184,7 @@ export const useNotificationsStore = create<NotificationsState>()(
         )
         .subscribe((status) => {
           if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
-            console.warn(
-              `[notifications] Realtime ${status} — fallback polling 60s`,
-            );
+            console.warn(`[notifications] Realtime ${status} — fallback polling 60s`);
             _startFallbackPolling(set, get);
           }
           if (status === "SUBSCRIBED") {

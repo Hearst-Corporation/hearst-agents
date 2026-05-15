@@ -3,14 +3,14 @@
  * PUT  /api/settings/alerting — sauvegarde (validation Zod).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { type NextRequest, NextResponse } from "next/server";
 import {
   loadAlertingPreferences,
   saveAlertingPreferences,
 } from "@/lib/notifications/alert-dispatcher";
 import { alertingPreferencesSchema } from "@/lib/notifications/schema";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

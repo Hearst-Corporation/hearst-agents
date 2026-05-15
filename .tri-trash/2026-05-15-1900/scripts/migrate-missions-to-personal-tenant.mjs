@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Migrate Missions to Personal Tenant
- * 
+ *
  * Migre toutes les missions de l'utilisateur dev depuis "dev-tenant"
  * vers son tenant personnel en mettant à jour le champ actions.tenantId
  * dans la DB.
@@ -70,7 +70,7 @@ async function main() {
 
   for (const mission of toMigrate) {
     const actions = mission.actions || {};
-    
+
     // Update tenantId and workspaceId in actions JSONB
     const updatedActions = {
       ...actions,

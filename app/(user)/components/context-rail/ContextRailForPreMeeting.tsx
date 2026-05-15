@@ -17,9 +17,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useStageStore } from "@/stores/stage";
-import { RailSection } from "../ui/RailSection";
-import { EmptyState } from "../ui/EmptyState";
 import { Action } from "../ui/Action";
+import { EmptyState } from "../ui/EmptyState";
+import { RailSection } from "../ui/RailSection";
 
 // ── Types — alignés sur PreMeetingIntel côté serveur ─────────────
 
@@ -83,10 +83,7 @@ function splitAgendaBullets(agenda: string): string[] {
 
 // ── Composant ────────────────────────────────────────────────────
 
-export function ContextRailForPreMeeting({
-  eventTitle,
-  meta,
-}: ContextRailForPreMeetingProps) {
+export function ContextRailForPreMeeting({ eventTitle, meta }: ContextRailForPreMeetingProps) {
   const setMode = useStageStore((s) => s.setMode);
   const now = useNowTick();
 
@@ -94,10 +91,7 @@ export function ContextRailForPreMeeting({
     if (now === 0) return "Pre-meeting"; // SSR/init state
     return formatMinutesUntil(meta.startsAt, now);
   }, [meta.startsAt, now]);
-  const visibleParticipants = useMemo(
-    () => meta.participants.slice(0, 3),
-    [meta.participants],
-  );
+  const visibleParticipants = useMemo(() => meta.participants.slice(0, 3), [meta.participants]);
   const agendaBullets = useMemo(
     () => splitAgendaBullets(meta.suggestedAgenda),
     [meta.suggestedAgenda],
@@ -112,10 +106,7 @@ export function ContextRailForPreMeeting({
       {/* Header — eyebrow + titre */}
       <RailSection label="Pre-meeting">
         <p className="t-9 font-medium text-(--accent-teal) mb-2">{eyebrow}</p>
-        <p
-          className="t-15 font-light text-text-soft"
-          style={{ lineHeight: "var(--leading-snug)" }}
-        >
+        <p className="t-15 font-light text-text-soft" style={{ lineHeight: "var(--leading-snug)" }}>
           {eventTitle}
         </p>
       </RailSection>
@@ -129,23 +120,11 @@ export function ContextRailForPreMeeting({
             description="L'événement n'a pas d'invités identifiés."
           />
         ) : (
-          <ul
-            className="flex flex-col"
-            style={{ gap: "var(--space-4)" }}
-          >
+          <ul className="flex flex-col" style={{ gap: "var(--space-4)" }}>
             {visibleParticipants.map((p) => (
-              <li
-                key={p.email}
-                className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
-              >
-                <p className="t-13 font-light text-text-soft truncate">
-                  {p.name ?? p.email}
-                </p>
-                {p.name && (
-                  <p className="t-9 font-light text-text-faint truncate">
-                    {p.email}
-                  </p>
-                )}
+              <li key={p.email} className="border-l border-[var(--accent-teal-border)] pl-4 py-1">
+                <p className="t-13 font-light text-text-soft truncate">{p.name ?? p.email}</p>
+                {p.name && <p className="t-9 font-light text-text-faint truncate">{p.email}</p>}
                 {p.kgSummary && (
                   <p
                     className="t-11 font-light text-text-muted mt-2"
@@ -172,15 +151,9 @@ export function ContextRailForPreMeeting({
             Pas de suggestion — vérifie tes notes ou demande à l&apos;agent.
           </p>
         ) : (
-          <ul
-            className="flex flex-col"
-            style={{ gap: "var(--space-2)" }}
-          >
+          <ul className="flex flex-col" style={{ gap: "var(--space-2)" }}>
             {agendaBullets.map((bullet, i) => (
-              <li
-                key={i}
-                className="flex items-baseline gap-3"
-              >
+              <li key={i} className="flex items-baseline gap-3">
                 <span className="t-9 font-mono text-(--accent-teal) shrink-0">
                   {String(i + 1).padStart(2, "0")}
                 </span>

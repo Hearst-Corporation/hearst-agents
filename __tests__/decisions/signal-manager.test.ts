@@ -1,7 +1,12 @@
-import { describe, it, expect } from "vitest";
-import { persistSignals, listSignals, resolveSignal, acknowledgeSignal } from "@/lib/decisions/signal-manager";
-import { createMockSupabase } from "../runtime/mock-supabase";
+import { describe, expect, it } from "vitest";
 import type { FeedbackSignal } from "@/lib/analytics/feedback";
+import {
+  acknowledgeSignal,
+  listSignals,
+  persistSignals,
+  resolveSignal,
+} from "@/lib/decisions/signal-manager";
+import { createMockSupabase } from "../runtime/mock-supabase";
 
 function makeSb() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

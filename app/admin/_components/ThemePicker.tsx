@@ -10,13 +10,8 @@
 
 import Image from "next/image";
 import { useState, useSyncExternalStore, useTransition } from "react";
+import { applyTheme, DEFAULT_THEME, getCurrentTheme, subscribeThemeChange } from "@/lib/themes";
 import type { Theme } from "@/lib/themes/types";
-import {
-  applyTheme,
-  DEFAULT_THEME,
-  getCurrentTheme,
-  subscribeThemeChange,
-} from "@/lib/themes";
 
 interface Props {
   themes: Theme[];
@@ -57,7 +52,8 @@ export function ThemePicker({ themes }: Props) {
     <div className="space-y-(--space-6)">
       <div className="flex items-center justify-between">
         <p className="text-(--text-muted) text-sm">
-          {themes.length} thème{themes.length > 1 ? "s" : ""} disponible{themes.length > 1 ? "s" : ""}
+          {themes.length} thème{themes.length > 1 ? "s" : ""} disponible
+          {themes.length > 1 ? "s" : ""}
         </p>
         <span className="text-xs text-(--text-muted)" aria-live="polite">
           {saveState === "saving" && "Sauvegarde…"}
@@ -95,9 +91,7 @@ export function ThemePicker({ themes }: Props) {
                 <div className="flex items-baseline justify-between gap-(--space-2)">
                   <strong className="text-(--text) t-15 font-medium">{t.name}</strong>
                   {t.capturedAt && (
-                    <span className="t-11 text-(--text-muted) font-mono">
-                      {t.capturedAt}
-                    </span>
+                    <span className="t-11 text-(--text-muted) font-mono">{t.capturedAt}</span>
                   )}
                 </div>
                 {t.description && (

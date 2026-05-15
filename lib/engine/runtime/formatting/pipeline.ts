@@ -113,16 +113,18 @@ function extractSections(content: string, tier: OutputTier): FormattedSection[] 
     return paragraphs.map((p) => ({ body: p.trim() }));
   }
 
-  return parts.map((part, i) => {
-    const lines = part.trim().split("\n");
-    if (i === 0 && !content.startsWith("#")) {
-      return { body: part.trim() };
-    }
-    return {
-      heading: lines[0]?.trim(),
-      body: lines.slice(1).join("\n").trim(),
-    };
-  }).filter((s) => s.body.length > 0);
+  return parts
+    .map((part, i) => {
+      const lines = part.trim().split("\n");
+      if (i === 0 && !content.startsWith("#")) {
+        return { body: part.trim() };
+      }
+      return {
+        heading: lines[0]?.trim(),
+        body: lines.slice(1).join("\n").trim(),
+      };
+    })
+    .filter((s) => s.body.length > 0);
 }
 
 function deriveTitle(content: string, tier: OutputTier): string {
@@ -144,4 +146,3 @@ function deriveSummary(content: string, tier: OutputTier): string {
 }
 
 // ── Tone prompt fragments (for orchestrator injection) ──────
-

@@ -9,8 +9,8 @@
  *   node scripts/battle-status.mjs --json        → output JSON brut
  */
 
-import { readFileSync, existsSync } from "node:fs";
-import { resolve, join, dirname } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -46,15 +46,17 @@ function findBatch(plan, batchId) {
 }
 
 function statusEmoji(s) {
-  return {
-    pending: "⏳",
-    in_progress: "🔵",
-    blocked: "🔴",
-    deferred: "💤",
-    done: "✅",
-    closed: "✅",
-    wont_fix: "⏭",
-  }[s] ?? "❓";
+  return (
+    {
+      pending: "⏳",
+      in_progress: "🔵",
+      blocked: "🔴",
+      deferred: "💤",
+      done: "✅",
+      closed: "✅",
+      wont_fix: "⏭",
+    }[s] ?? "❓"
+  );
 }
 
 function severityEmoji(s) {
@@ -79,7 +81,9 @@ function main() {
       return;
     }
     console.log(`${severityEmoji(f.severity)} ${f.id} — ${f.title}`);
-    console.log(`  Severity: ${f.severity} | Status: ${statusEmoji(f.status)} ${f.status} | Confidence: ${f.confidence}`);
+    console.log(
+      `  Severity: ${f.severity} | Status: ${statusEmoji(f.status)} ${f.status} | Confidence: ${f.confidence}`,
+    );
     console.log(`  Sources: ${(f.sources || []).join(", ")} | Convergence: ${f.convergence}`);
     console.log(`  Category: ${f.category}`);
     console.log(`  Effort: ${f.estimated_effort ?? "—"}`);
@@ -124,7 +128,9 @@ function main() {
       for (const fid of batch.findings) {
         const f = findingsById[fid];
         if (f) {
-          console.log(`    ${statusEmoji(f.status)} ${severityEmoji(f.severity)} ${f.id} — ${f.title.slice(0, 80)}`);
+          console.log(
+            `    ${statusEmoji(f.status)} ${severityEmoji(f.severity)} ${f.id} — ${f.title.slice(0, 80)}`,
+          );
         } else {
           console.log(`    ❓ ${fid} (not found)`);
         }
@@ -144,26 +150,29 @@ function main() {
   const allBatches = (plan.phases || []).flatMap((p) =>
     (p.batches || []).map((b) => ({ ...b, phase_id: p.id, phase_title: p.title })),
   );
-  const counts = allBatches.reduce(
-    (acc, b) => {
-      acc[b.status] = (acc[b.status] || 0) + 1;
-      return acc;
-    },
-    {},
-  );
+  const counts = allBatches.reduce((acc, b) => {
+    acc[b.status] = (acc[b.status] || 0) + 1;
+    return acc;
+  }, {});
 
   if (args.json) {
-    console.log(JSON.stringify({
-      total: allBatches.length,
-      counts,
-      phases: (plan.phases || []).map((p) => ({
-        id: p.id,
-        title: p.title,
-        status: p.status,
-        batches: p.batches.map((b) => ({ id: b.id, title: b.title, status: b.status })),
-      })),
-      findings_summary: findings.summary,
-    }, null, 2));
+    console.log(
+      JSON.stringify(
+        {
+          total: allBatches.length,
+          counts,
+          phases: (plan.phases || []).map((p) => ({
+            id: p.id,
+            title: p.title,
+            status: p.status,
+            batches: p.batches.map((b) => ({ id: b.id, title: b.title, status: b.status })),
+          })),
+          findings_summary: findings.summary,
+        },
+        null,
+        2,
+      ),
+    );
     return;
   }
 
@@ -183,10 +192,14 @@ function main() {
     const phaseTotal = phase.batches.length;
     const pct = phaseTotal > 0 ? Math.round((phaseDone / phaseTotal) * 100) : 0;
     const bar = "█".repeat(Math.floor(pct / 10)) + "░".repeat(10 - Math.floor(pct / 10));
-    console.log(`  ${statusEmoji(phase.status)} ${phase.id.padEnd(8)} [${bar}] ${pct}% ${phaseDone}/${phaseTotal} — ${phase.title.replace(/^PHASE \d+ — /, "")}`);
+    console.log(
+      `  ${statusEmoji(phase.status)} ${phase.id.padEnd(8)} [${bar}] ${pct}% ${phaseDone}/${phaseTotal} — ${phase.title.replace(/^PHASE \d+ — /, "")}`,
+    );
   }
 
-  console.log(`\nFindings : ${findings.summary?.total_consolidated || 0} totaux (${findings.summary?.by_severity?.P0 || 0} P0 / ${findings.summary?.by_severity?.P1 || 0} P1 / ${findings.summary?.by_severity?.P2 || 0} P2)`);
+  console.log(
+    `\nFindings : ${findings.summary?.total_consolidated || 0} totaux (${findings.summary?.by_severity?.P0 || 0} P0 / ${findings.summary?.by_severity?.P1 || 0} P1 / ${findings.summary?.by_severity?.P2 || 0} P2)`,
+  );
   console.log(`HTML : open docs/audits/2026-05-10-security/BATTLE-PLAN.html`);
   console.log(`Next batch : node scripts/battle-next.mjs`);
 }

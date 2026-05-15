@@ -7,10 +7,7 @@
  * Sources : pages pricing officielles (mai 2026).
  */
 
-export const MODEL_PRICING: Record<
-  string,
-  { input: number; output: number; cacheRead: number }
-> = {
+export const MODEL_PRICING: Record<string, { input: number; output: number; cacheRead: number }> = {
   // Anthropic Claude
   "claude-opus-4-7": { input: 15.0, output: 75.0, cacheRead: 1.5 },
   "claude-opus-4": { input: 15.0, output: 75.0, cacheRead: 1.5 },

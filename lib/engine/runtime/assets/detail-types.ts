@@ -5,12 +5,7 @@
  * File-backed assets expose download metadata without leaking internal paths.
  */
 
-export type AssetPreviewType =
-  | "text"
-  | "json"
-  | "document"
-  | "report"
-  | "unknown";
+export type AssetPreviewType = "text" | "json" | "document" | "report" | "unknown";
 
 export interface AssetFileDetail {
   hasFile: boolean;

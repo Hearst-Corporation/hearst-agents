@@ -7,21 +7,14 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import {
-  getSetting,
-  setSetting,
-  getAllSettings,
-} from "@/lib/platform/settings/store";
+import { getAllSettings, getSetting, setSetting } from "@/lib/platform/settings/store";
 
 export type {
   SettingCategory,
   SystemSetting,
 } from "@/lib/platform/settings/types";
 
-import type {
-  SettingCategory,
-  SystemSetting,
-} from "@/lib/platform/settings/types";
+import type { SettingCategory, SystemSetting } from "@/lib/platform/settings/types";
 
 interface CreateSettingInput {
   key: string;
@@ -42,7 +35,7 @@ export async function getSystemSettings(
     category?: SettingCategory;
     tenantId?: string | null;
     includeGlobal?: boolean;
-  }
+  },
 ): Promise<SystemSetting[]> {
   const results = await getAllSettings(db, filters?.category, filters?.tenantId);
 
@@ -66,7 +59,7 @@ async function getEffectiveSetting<T = unknown>(
   db: SupabaseClient,
   key: string,
   tenantId?: string | null,
-  defaultValue?: T
+  defaultValue?: T,
 ): Promise<T> {
   if (tenantId) {
     const tenantSetting = await getSetting(db, key, tenantId);
@@ -84,13 +77,20 @@ async function getEffectiveSetting<T = unknown>(
  */
 export async function upsertSystemSetting(
   db: SupabaseClient,
-  input: CreateSettingInput
+  input: CreateSettingInput,
 ): Promise<SystemSetting> {
-  return setSetting(db, input.key, input.value as string | number | boolean | object, input.category, input.tenantId ?? null, {
-    description: input.description,
-    isEncrypted: input.isEncrypted,
-    updatedBy: input.updatedBy,
-  });
+  return setSetting(
+    db,
+    input.key,
+    input.value as string | number | boolean | object,
+    input.category,
+    input.tenantId ?? null,
+    {
+      description: input.description,
+      isEncrypted: input.isEncrypted,
+      updatedBy: input.updatedBy,
+    },
+  );
 }
 
 /**
@@ -98,7 +98,7 @@ export async function upsertSystemSetting(
  */
 export async function getFeatureFlags(
   db: SupabaseClient,
-  tenantId?: string | null
+  tenantId?: string | null,
 ): Promise<Record<string, boolean>> {
   const settings = await getSystemSettings(db, {
     category: "feature_flags",
@@ -120,7 +120,7 @@ export async function isFeatureEnabled(
   db: SupabaseClient,
   featureKey: string,
   tenantId?: string | null,
-  defaultValue = false
+  defaultValue = false,
 ): Promise<boolean> {
   const value = await getEffectiveSetting<unknown>(db, featureKey, tenantId, defaultValue);
   return value === true || (typeof value === "string" && value.toLowerCase() === "true");

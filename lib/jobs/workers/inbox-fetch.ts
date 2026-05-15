@@ -11,10 +11,10 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { storeAsset } from "@/lib/assets/types";
 import { generateInboxBrief } from "@/lib/inbox/inbox-brief";
 import type { InboxFetchInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 
 const handler: WorkerHandler<InboxFetchInput> = {
   kind: "inbox-fetch",

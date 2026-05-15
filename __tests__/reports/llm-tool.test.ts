@@ -3,7 +3,7 @@
  * (acceptation drafts valides, rejet structures malformées).
  */
 
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 
 // Mock executeComposioAction pour ne pas appeler la vraie API
@@ -13,14 +13,12 @@ vi.mock("@/lib/connectors/composio/client", () => ({
 
 // Mock storeAsset (pas de DB en tests unit)
 vi.mock("@/lib/assets/types", async () => {
-  const actual = await vi.importActual<typeof import("@/lib/assets/types")>(
-    "@/lib/assets/types",
-  );
+  const actual = await vi.importActual<typeof import("@/lib/assets/types")>("@/lib/assets/types");
   return { ...actual, storeAsset: vi.fn() };
 });
 
-import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
 import { storeAsset } from "@/lib/assets/types";
+import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
 
 const mockEngine = {
   id: "run-test-1",
@@ -64,12 +62,8 @@ describe("propose_report_spec — validation input", () => {
           cadence: "ad-hoc",
           confidentiality: "internal",
         },
-        sources: [
-          { id: "x", kind: "magic", spec: {} },
-        ],
-        blocks: [
-          { id: "b", type: "kpi", dataRef: "x", layout: { col: 1, row: 0 }, props: {} },
-        ],
+        sources: [{ id: "x", kind: "magic", spec: {} }],
+        blocks: [{ id: "b", type: "kpi", dataRef: "x", layout: { col: 1, row: 0 }, props: {} }],
       },
       {},
     );

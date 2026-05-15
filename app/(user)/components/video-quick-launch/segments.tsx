@@ -142,17 +142,13 @@ export function ProgressBlock({
           style={{
             height: "100%",
             width: `${phase === "error" ? 0 : Math.max(progress, phase === "running" ? 4 : 0)}%`,
-            background:
-              phase === "error" ? "var(--danger)" : "var(--accent-teal)",
+            background: phase === "error" ? "var(--danger)" : "var(--accent-teal)",
             transition: "width var(--duration-emphasis) var(--ease-out-soft)",
           }}
         />
       </div>
       {errorMsg && phase === "error" && (
-        <p
-          className="t-11 font-light text-(--danger)"
-          style={{ marginTop: "var(--space-1)" }}
-        >
+        <p className="t-11 font-light text-(--danger)" style={{ marginTop: "var(--space-1)" }}>
           {errorMsg}
         </p>
       )}

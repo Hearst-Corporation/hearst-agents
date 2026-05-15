@@ -1,12 +1,12 @@
 "use client";
 
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import "@/styles/spatial/spatial.css";
-import { SpatialThemeProvider } from "@/providers/spatial/SpatialThemeProvider";
-import { SpatialMotionProvider } from "@/providers/spatial/SpatialMotionProvider";
-import { SpatialStageProvider } from "@/providers/spatial/SpatialStageProvider";
-import { SpatialMouseProvider } from "@/providers/spatial/SpatialMouseProvider";
 import type { SpatialStage } from "@/lib/spatial/types";
+import { SpatialMotionProvider } from "@/providers/spatial/SpatialMotionProvider";
+import { SpatialMouseProvider } from "@/providers/spatial/SpatialMouseProvider";
+import { SpatialStageProvider } from "@/providers/spatial/SpatialStageProvider";
+import { SpatialThemeProvider } from "@/providers/spatial/SpatialThemeProvider";
 
 interface SpatialLayoutProps {
   children: ReactNode;
@@ -19,11 +19,7 @@ interface SpatialLayoutProps {
  * Pose les 3 providers (theme, motion, stage) et le conteneur isolé.
  * Doit wrapper toute page spatiale.
  */
-export function SpatialLayout({
-  children,
-  initialStage = "idle",
-  className,
-}: SpatialLayoutProps) {
+export function SpatialLayout({ children, initialStage = "idle", className }: SpatialLayoutProps) {
   return (
     <SpatialThemeProvider>
       <SpatialMotionProvider>

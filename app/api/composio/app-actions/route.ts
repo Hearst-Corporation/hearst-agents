@@ -10,14 +10,14 @@
  * complet, prêt à montrer à l'utilisateur en mode discovery.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { type NextRequest, NextResponse } from "next/server";
 import {
-  getToolsForApp,
-  isComposioConfigured,
   getComposio,
   getComposioInitError,
+  getToolsForApp,
+  isComposioConfigured,
 } from "@/lib/connectors/composio";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
 
 export async function GET(req: NextRequest) {
   const userId = await getUserId();

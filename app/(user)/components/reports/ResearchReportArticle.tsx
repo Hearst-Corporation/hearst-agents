@@ -75,7 +75,10 @@ function parse(content: string): Block[] {
       const body = line.slice(2).trim();
       const match = body.match(ISO_DATE_RE);
       if (match) {
-        const text = body.slice(0, match.index).replace(/[:\s]+$/, "").trim();
+        const text = body
+          .slice(0, match.index)
+          .replace(/[:\s]+$/, "")
+          .trim();
         blocks.push({ kind: "bullet", text, meta: formatDate(match[1]) });
       } else {
         blocks.push({ kind: "bullet", text: body });
@@ -90,7 +93,7 @@ function parse(content: string): Block[] {
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return iso;
+  if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
 }
 
@@ -123,7 +126,10 @@ export function ResearchReportArticle({ content }: { content: string }) {
           case "bullet":
             return (
               <div key={idx} className="flex items-baseline gap-3">
-                <span className="t-9 font-mono text-(--accent-teal) mt-1 shrink-0" aria-hidden="true">
+                <span
+                  className="t-9 font-mono text-(--accent-teal) mt-1 shrink-0"
+                  aria-hidden="true"
+                >
                   ─
                 </span>
                 <div className="flex-1 flex flex-col gap-1">
@@ -131,14 +137,11 @@ export function ResearchReportArticle({ content }: { content: string }) {
                     {block.text}
                   </p>
                   {block.meta && (
-                    <span className="t-11 font-light text-text-faint">
-                      {block.meta}
-                    </span>
+                    <span className="t-11 font-light text-text-faint">{block.meta}</span>
                   )}
                 </div>
               </div>
             );
-          case "p":
           default:
             return (
               <p key={idx} className="t-15 leading-(--leading-body) font-light text-text-muted">

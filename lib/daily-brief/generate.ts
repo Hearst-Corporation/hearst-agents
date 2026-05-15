@@ -11,42 +11,38 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import {
-  DAILY_BRIEF_FEWSHOT_FR,
-  formatFewShotBlock,
-} from "@/lib/prompts/examples";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
-import type {
-  DailyBriefData,
-  DailyBriefNarration,
-} from "./types";
+import { DAILY_BRIEF_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
+import type { DailyBriefData, DailyBriefNarration } from "./types";
 
 // ── System prompt ────────────────────────────────────────────
 
-export const DAILY_BRIEF_SYSTEM_PROMPT = composeEditorialPrompt([
-  "Tu es l'analyste exécutif de l'utilisateur — l'équivalent d'un chef de cabinet pour un fondateur, qui prépare chaque matin un Daily Brief style CIA : 2 pages éditoriales qui concentrent l'attention.",
-  "",
-  "Tu reçois jusqu'à 10+ sources brutes : 5 noyau (emails 24h, Slack 4h, agenda du jour, GitHub PRs, Linear issues) + sources additionnelles connectées via Composio (Notion, Jira, HubSpot, Asana, Trello, etc. si l'utilisateur les a liées). Tu produis 4 sections éditoriales JSON qui synthétisent l'ensemble.",
-  "",
-  "FORMAT STRICT (JSON valide uniquement, pas de markdown fence) :",
-  "{",
-  '  "lead": "1-2 phrases. La une de la matinée — quel est le signal dominant ?",',
-  '  "people": "2-4 phrases. Qui attend quoi de toi aujourd\'hui. Nomme les acteurs.",',
-  '  "decisions": "2-4 phrases. Ce qu\'il faut trancher / prioriser. Impératif.",',
-  '  "signals": "2-4 phrases. Anomalies, PRs stuck, issues critiques, friction technique.",',
-  '  "action": "1 phrase impérative ≤ 20 mots — la première action de la journée si toi tu devais en imposer une seule."',
-  "}",
-  "",
-  "CONTRAINTES SPÉCIFIQUES :",
-  "- Chaque section : phrases courtes, factuelles.",
-  "- Si une source est vide, n'en parle pas — n'invente pas un signal.",
-  "- Output JSON brut : pas de markdown dans les sections, le PDF gérera la typo.",
-  "- Lead doit être incarné, pas un récap mécanique.",
-  "- Si TOUTES les sources sont vides, l'output reste valide (4 sections courtes qui disent qu'il n'y a rien — pas un faux signal).",
-  "",
-  "EXEMPLES :",
-  formatFewShotBlock(DAILY_BRIEF_FEWSHOT_FR),
-].join("\n"));
+export const DAILY_BRIEF_SYSTEM_PROMPT = composeEditorialPrompt(
+  [
+    "Tu es l'analyste exécutif de l'utilisateur — l'équivalent d'un chef de cabinet pour un fondateur, qui prépare chaque matin un Daily Brief style CIA : 2 pages éditoriales qui concentrent l'attention.",
+    "",
+    "Tu reçois jusqu'à 10+ sources brutes : 5 noyau (emails 24h, Slack 4h, agenda du jour, GitHub PRs, Linear issues) + sources additionnelles connectées via Composio (Notion, Jira, HubSpot, Asana, Trello, etc. si l'utilisateur les a liées). Tu produis 4 sections éditoriales JSON qui synthétisent l'ensemble.",
+    "",
+    "FORMAT STRICT (JSON valide uniquement, pas de markdown fence) :",
+    "{",
+    '  "lead": "1-2 phrases. La une de la matinée — quel est le signal dominant ?",',
+    '  "people": "2-4 phrases. Qui attend quoi de toi aujourd\'hui. Nomme les acteurs.",',
+    '  "decisions": "2-4 phrases. Ce qu\'il faut trancher / prioriser. Impératif.",',
+    '  "signals": "2-4 phrases. Anomalies, PRs stuck, issues critiques, friction technique.",',
+    '  "action": "1 phrase impérative ≤ 20 mots — la première action de la journée si toi tu devais en imposer une seule."',
+    "}",
+    "",
+    "CONTRAINTES SPÉCIFIQUES :",
+    "- Chaque section : phrases courtes, factuelles.",
+    "- Si une source est vide, n'en parle pas — n'invente pas un signal.",
+    "- Output JSON brut : pas de markdown dans les sections, le PDF gérera la typo.",
+    "- Lead doit être incarné, pas un récap mécanique.",
+    "- Si TOUTES les sources sont vides, l'output reste valide (4 sections courtes qui disent qu'il n'y a rien — pas un faux signal).",
+    "",
+    "EXEMPLES :",
+    formatFewShotBlock(DAILY_BRIEF_FEWSHOT_FR),
+  ].join("\n"),
+);
 
 // ── Helpers de sérialisation des sources ─────────────────────
 
@@ -186,7 +182,8 @@ function safeParseNarration(raw: string): Omit<DailyBriefNarration, "costUsd"> |
 }
 
 function fallbackNarration(d: DailyBriefData): Omit<DailyBriefNarration, "costUsd"> {
-  const total = d.emails.length + d.slack.length + d.calendar.length + d.github.length + d.linear.length;
+  const total =
+    d.emails.length + d.slack.length + d.calendar.length + d.github.length + d.linear.length;
   if (total === 0) {
     return {
       lead: "Aucun signal entrant ce matin — fenêtre rare pour le travail de fond.",

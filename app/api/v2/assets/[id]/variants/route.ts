@@ -17,31 +17,33 @@
  * le statut (Phase B.1+ : SSE progress endpoint).
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { loadAssetById } from "@/lib/assets/types";
 import { createVariant, getVariantsForAsset, updateVariant } from "@/lib/assets/variants";
 import { estimateSpeechCost } from "@/lib/capabilities/providers/elevenlabs";
-import { requireCreditsForJob, formatInsufficientCreditsMessage } from "@/lib/credits/middleware";
 import { settleCredits } from "@/lib/credits/client";
+import { formatInsufficientCreditsMessage, requireCreditsForJob } from "@/lib/credits/middleware";
 import { enqueueJob } from "@/lib/jobs/queue";
-import type { AudioGenInput, VideoGenInput, JobKind } from "@/lib/jobs/types";
+import type { AudioGenInput, JobKind, VideoGenInput } from "@/lib/jobs/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
-const variantsBodySchema = z.object({
-  kind: z.enum(["audio", "video", "slides", "site", "image"]),
-  text: z.string().max(10_000).optional(),
-  voiceId: z.string().max(200).optional(),
-  modelId: z.string().max(200).optional(),
-  provider: z.enum(["runway", "heygen"]).optional(),
-  prompt: z.string().max(10_000).optional(),
-  scriptText: z.string().max(10_000).optional(),
-  avatarId: z.string().max(200).optional(),
-  ratio: z.enum(["1280:720", "720:1280"]).optional(),
-  derivedFrom: z.array(z.string().max(200)).max(20).optional(),
-  duration: z.number().int().min(1).max(600).optional(),
-  durationSeconds: z.union([z.literal(5), z.literal(10)]).optional(),
-}).strict();
+const variantsBodySchema = z
+  .object({
+    kind: z.enum(["audio", "video", "slides", "site", "image"]),
+    text: z.string().max(10_000).optional(),
+    voiceId: z.string().max(200).optional(),
+    modelId: z.string().max(200).optional(),
+    provider: z.enum(["runway", "heygen"]).optional(),
+    prompt: z.string().max(10_000).optional(),
+    scriptText: z.string().max(10_000).optional(),
+    avatarId: z.string().max(200).optional(),
+    ratio: z.enum(["1280:720", "720:1280"]).optional(),
+    derivedFrom: z.array(z.string().max(200)).max(20).optional(),
+    duration: z.number().int().min(1).max(600).optional(),
+    durationSeconds: z.union([z.literal(5), z.literal(10)]).optional(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -49,9 +51,14 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id: assetId } = await ctx.params;
 
-  const { scope, error: scopeError } = await requireScope({ context: "POST /api/v2/assets/[id]/variants" });
+  const { scope, error: scopeError } = await requireScope({
+    context: "POST /api/v2/assets/[id]/variants",
+  });
   if (scopeError || !scope) {
-    return NextResponse.json({ error: scopeError?.message ?? "not_authenticated" }, { status: scopeError?.status ?? 401 });
+    return NextResponse.json(
+      { error: scopeError?.message ?? "not_authenticated" },
+      { status: scopeError?.status ?? 401 },
+    );
   }
 
   const raw = await req.json().catch(() => null);
@@ -72,7 +79,10 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
   }
 
   // Load asset and check ownership (RLS bypassed côté server, on filtre manuellement).
-  const asset = await loadAssetById(assetId, { tenantId: scope.tenantId, workspaceId: scope.workspaceId });
+  const asset = await loadAssetById(assetId, {
+    tenantId: scope.tenantId,
+    workspaceId: scope.workspaceId,
+  });
   if (!asset) {
     return NextResponse.json({ error: "asset_not_found" }, { status: 404 });
   }
@@ -104,7 +114,11 @@ async function handleAudioVariant({
 
   // Idempotence légère : si un variant audio est déjà ready ou en cours, retour direct.
   const existing = await getVariantsForAsset(assetId);
-  const audioActive = existing.find((v) => v.kind === "audio" && (v.status === "ready" || v.status === "generating" || v.status === "pending"));
+  const audioActive = existing.find(
+    (v) =>
+      v.kind === "audio" &&
+      (v.status === "ready" || v.status === "generating" || v.status === "pending"),
+  );
   if (audioActive) {
     return NextResponse.json({
       variantId: audioActive.id,
@@ -217,7 +231,9 @@ async function handleVideoVariant({
   const existing = await getVariantsForAsset(assetId);
   if (!isFork) {
     const videoActive = existing.find(
-      (v) => v.kind === "video" && (v.status === "ready" || v.status === "generating" || v.status === "pending"),
+      (v) =>
+        v.kind === "video" &&
+        (v.status === "ready" || v.status === "generating" || v.status === "pending"),
     );
     if (videoActive) {
       return NextResponse.json({
@@ -375,10 +391,7 @@ async function cleanupAfterEnqueueFailure({
     console.error("[Variants] updateVariant failed→failed status update failed:", updateErr);
   });
 
-  return NextResponse.json(
-    { error: "enqueue_failed", message: errorMessage },
-    { status: 503 },
-  );
+  return NextResponse.json({ error: "enqueue_failed", message: errorMessage }, { status: 503 });
 }
 
 /**
@@ -388,12 +401,20 @@ async function cleanupAfterEnqueueFailure({
 export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id: assetId } = await ctx.params;
 
-  const { scope, error: scopeError } = await requireScope({ context: "GET /api/v2/assets/[id]/variants" });
+  const { scope, error: scopeError } = await requireScope({
+    context: "GET /api/v2/assets/[id]/variants",
+  });
   if (scopeError || !scope) {
-    return NextResponse.json({ error: scopeError?.message ?? "not_authenticated" }, { status: scopeError?.status ?? 401 });
+    return NextResponse.json(
+      { error: scopeError?.message ?? "not_authenticated" },
+      { status: scopeError?.status ?? 401 },
+    );
   }
 
-  const asset = await loadAssetById(assetId, { tenantId: scope.tenantId, workspaceId: scope.workspaceId });
+  const asset = await loadAssetById(assetId, {
+    tenantId: scope.tenantId,
+    workspaceId: scope.workspaceId,
+  });
   if (!asset) {
     return NextResponse.json({ error: "asset_not_found" }, { status: 404 });
   }

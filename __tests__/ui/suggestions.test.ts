@@ -7,7 +7,7 @@
  * Logic mirrored from app/(user)/page.tsx so we can unit-test without DOM.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 
 const SUGGESTION_TEMPLATES: Array<{
@@ -16,9 +16,17 @@ const SUGGESTION_TEMPLATES: Array<{
   subtitle: string;
 }> = [
   { serviceId: "gmail", title: "Résumer mes emails non lus", subtitle: "Synthèse 24h · Gmail" },
-  { serviceId: "calendar", title: "Mon agenda d'aujourd'hui", subtitle: "Événements & créneaux · Calendar" },
+  {
+    serviceId: "calendar",
+    title: "Mon agenda d'aujourd'hui",
+    subtitle: "Événements & créneaux · Calendar",
+  },
   { serviceId: "drive", title: "Mes derniers documents", subtitle: "Fichiers récents · Drive" },
-  { serviceId: "slack", title: "Mes messages Slack non lus", subtitle: "Synthèse channels · Slack" },
+  {
+    serviceId: "slack",
+    title: "Mes messages Slack non lus",
+    subtitle: "Synthèse channels · Slack",
+  },
   { serviceId: "notion", title: "Mes pages récentes", subtitle: "Workspace · Notion" },
   { serviceId: "github", title: "Mes PRs à reviewer", subtitle: "Code review · GitHub" },
   { serviceId: "linear", title: "Mes issues assignées", subtitle: "Backlog · Linear" },
@@ -113,12 +121,7 @@ describe("buildSuggestions — multi-service", () => {
   });
 
   it("Slack + GitHub + Notion + Linear → 4 prompts (cap)", () => {
-    const out = buildSuggestions([
-      svc("slack"),
-      svc("github"),
-      svc("notion"),
-      svc("linear"),
-    ]);
+    const out = buildSuggestions([svc("slack"), svc("github"), svc("notion"), svc("linear")]);
     expect(out).toHaveLength(4);
   });
 
@@ -150,12 +153,7 @@ describe("buildSuggestions — multi-service", () => {
   });
 
   it("ids are zero-padded sequentially (01..04)", () => {
-    const out = buildSuggestions([
-      svc("gmail"),
-      svc("calendar"),
-      svc("drive"),
-      svc("slack"),
-    ]);
+    const out = buildSuggestions([svc("gmail"), svc("calendar"), svc("drive"), svc("slack")]);
     expect(out.map((s) => s.id)).toEqual(["01", "02", "03", "04"]);
   });
 

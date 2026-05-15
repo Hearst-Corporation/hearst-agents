@@ -8,7 +8,7 @@
  * test cares only about which tools survive the domain filter.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
 
 const allTools: DiscoveredTool[] = [

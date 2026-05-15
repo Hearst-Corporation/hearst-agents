@@ -2,11 +2,11 @@
  * Capability Router Tests
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   resolveCapabilityScope,
-  validateAgentForScope,
   scopeRequiresProviders,
+  validateAgentForScope,
 } from "@/lib/capabilities/router";
 
 describe("resolveCapabilityScope", () => {
@@ -102,4 +102,3 @@ describe("scopeRequiresProviders", () => {
     expect(scopeRequiresProviders(scope)).toBe(false);
   });
 });
-

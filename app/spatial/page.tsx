@@ -9,16 +9,16 @@
  * Hors-DS, hors-ADD : tout vit sous `components/spatial/*`.
  */
 
-import { SpatialLayout } from '@/components/spatial/core/SpatialLayout';
-import { SpatialRoot } from '@/components/spatial/core/SpatialRoot';
-import { requireScope } from '@/lib/platform/auth/scope';
-import { getCockpitToday, type CockpitTodayPayload } from '@/lib/cockpit/today';
-import '@/styles/spatial/spatial.css';
+import { SpatialLayout } from "@/components/spatial/core/SpatialLayout";
+import { SpatialRoot } from "@/components/spatial/core/SpatialRoot";
+import { type CockpitTodayPayload, getCockpitToday } from "@/lib/cockpit/today";
+import { requireScope } from "@/lib/platform/auth/scope";
+import "@/styles/spatial/spatial.css";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 async function loadInitialCockpitData(): Promise<CockpitTodayPayload | null> {
-  const { scope, error } = await requireScope({ context: 'RSC app/spatial/page.tsx' });
+  const { scope, error } = await requireScope({ context: "RSC app/spatial/page.tsx" });
   if (error || !scope) return null;
   try {
     return await getCockpitToday({
@@ -27,7 +27,7 @@ async function loadInitialCockpitData(): Promise<CockpitTodayPayload | null> {
       workspaceId: scope.workspaceId,
     });
   } catch (err) {
-    console.error('[RSC SpatialPage] getCockpitToday failed:', err);
+    console.error("[RSC SpatialPage] getCockpitToday failed:", err);
     return null;
   }
 }

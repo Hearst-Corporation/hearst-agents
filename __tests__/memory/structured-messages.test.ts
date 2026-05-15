@@ -6,8 +6,8 @@
  * confirmations work reliably even after a cold start.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
 import type { ModelMessage } from "ai";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 
 // ── Mocked Supabase ───────────────────────────────────────────
@@ -218,7 +218,14 @@ describe("getRecentModelMessages — Supabase reads", () => {
     const { getRecentModelMessages } = await freshStore();
     const dbPayload: ModelMessage = { role: "user", content: "from db" };
     state.selectResult = {
-      data: [{ role: "user", content: "from db", payload: dbPayload, created_at: new Date(1).toISOString() }],
+      data: [
+        {
+          role: "user",
+          content: "from db",
+          payload: dbPayload,
+          created_at: new Date(1).toISOString(),
+        },
+      ],
       error: null,
     };
     const out = await getRecentModelMessages("c-db", 10);

@@ -3,8 +3,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { EXPORT_STORAGE_PREFIX, type ExportResult } from "./types";
 
 export interface PersistExportInput {
@@ -75,7 +75,7 @@ export async function persistExport(
   };
 }
 
-const SIGNED_URL_DEFAULT_SECONDS = Number(process.env.SIGNED_URL_TTL_DEFAULT ?? "3600");
+const _SIGNED_URL_DEFAULT_SECONDS = Number(process.env.SIGNED_URL_TTL_DEFAULT ?? "3600");
 const SIGNED_URL_EXPORT_SECONDS = Number(process.env.SIGNED_URL_TTL_EXPORT ?? "14400");
 
 export async function getExportSignedUrl(

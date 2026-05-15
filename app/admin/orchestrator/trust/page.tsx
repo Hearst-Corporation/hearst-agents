@@ -1,5 +1,5 @@
-import { HomShell, PageHeader, Card, MetricCell } from "../_components/Shell";
 import { latestScores, loadHistory, trustGate } from "@/lib/hom/trust";
+import { Card, HomShell, MetricCell, PageHeader } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 
@@ -17,14 +17,7 @@ export default async function TrustPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-(--space-3) mb-(--space-6)">
         {(Object.entries(scores) as Array<[keyof typeof scores, number]>).map(([key, value]) => {
           const tone = value >= 90 ? "ok" : value >= 75 ? "warn" : "bad";
-          return (
-            <MetricCell
-              key={key}
-              label={key.replace("_", " ")}
-              value={value}
-              tone={tone}
-            />
-          );
+          return <MetricCell key={key} label={key.replace("_", " ")} value={value} tone={tone} />;
         })}
       </div>
 
@@ -70,31 +63,39 @@ export default async function TrustPage() {
             <p className="t-13 text-text-muted">Aucune donnée trust.</p>
           </div>
         ) : (
-          [...history].reverse().slice(0, 30).map((h) => (
-            <div
-              key={h.run_id + h.ts}
-              className="grid grid-cols-12 items-center px-(--space-4) py-(--space-2) border-b border-(--line) last:border-0"
-            >
-              <span className="col-span-2 t-11 font-mono text-text-muted">{h.run_id}</span>
-              <span className="col-span-2 t-11 font-mono text-text-faint">
-                {new Date(h.ts).toLocaleString("fr-FR", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
+          [...history]
+            .reverse()
+            .slice(0, 30)
+            .map((h) => (
+              <div
+                key={h.run_id + h.ts}
+                className="grid grid-cols-12 items-center px-(--space-4) py-(--space-2) border-b border-(--line) last:border-0"
+              >
+                <span className="col-span-2 t-11 font-mono text-text-muted">{h.run_id}</span>
+                <span className="col-span-2 t-11 font-mono text-text-faint">
+                  {new Date(h.ts).toLocaleString("fr-FR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+                {(Object.keys(scores) as Array<keyof typeof scores>).map((k) => {
+                  const v = h.scores[k];
+                  const tone =
+                    v >= 90
+                      ? "text-(--accent-teal)"
+                      : v >= 75
+                        ? "text-(--warn)"
+                        : "text-(--danger)";
+                  return (
+                    <span key={k} className={`col-span-1 t-11 font-mono ${tone}`}>
+                      {v}
+                    </span>
+                  );
                 })}
-              </span>
-              {(Object.keys(scores) as Array<keyof typeof scores>).map((k) => {
-                const v = h.scores[k];
-                const tone = v >= 90 ? "text-(--accent-teal)" : v >= 75 ? "text-(--warn)" : "text-(--danger)";
-                return (
-                  <span key={k} className={`col-span-1 t-11 font-mono ${tone}`}>
-                    {v}
-                  </span>
-                );
-              })}
-            </div>
-          ))
+              </div>
+            ))
         )}
       </Card>
     </HomShell>

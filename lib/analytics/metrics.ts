@@ -8,7 +8,11 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "../database.types";
-import { classifyTraceFailure, aggregateFailures, type FailureClassification } from "./failure-classifier";
+import {
+  aggregateFailures,
+  classifyTraceFailure,
+  type FailureClassification,
+} from "./failure-classifier";
 
 type DB = SupabaseClient<Database>;
 
@@ -78,9 +82,10 @@ export async function computeToolMetrics(
       .filter((l) => l > 0)
       .sort((a, b) => a - b);
 
-    const avgLatency = latencies.length > 0
-      ? Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length)
-      : 0;
+    const avgLatency =
+      latencies.length > 0
+        ? Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length)
+        : 0;
 
     const p95Index = Math.min(Math.floor(latencies.length * 0.95), latencies.length - 1);
     const p95Latency = latencies.length > 0 ? latencies[p95Index] : 0;

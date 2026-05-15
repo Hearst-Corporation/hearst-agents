@@ -42,10 +42,7 @@ export class RunEventBus {
       try {
         handler(full);
       } catch (e) {
-        console.error(
-          "[RunEventBus] handler error:",
-          e instanceof Error ? e.message : e,
-        );
+        console.error("[RunEventBus] handler error:", e instanceof Error ? e.message : e);
       }
     }
   }

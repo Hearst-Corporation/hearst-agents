@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   title: string;
@@ -100,9 +100,7 @@ export default function EmptyState({
           {seeding ? "Seed en cours…" : "Charger les données dev"}
         </button>
       </div>
-      {error && (
-        <p className="t-11 text-(--danger) max-w-md">{error}</p>
-      )}
+      {error && <p className="t-11 text-(--danger) max-w-md">{error}</p>}
     </div>
   );
 }

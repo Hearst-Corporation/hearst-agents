@@ -49,8 +49,7 @@ export default function RunWaterfall({
   disabled,
 }: Props) {
   const total = events.length;
-  const durationMs =
-    total >= 2 ? events[total - 1].ts - events[0].ts : 0;
+  const durationMs = total >= 2 ? events[total - 1].ts - events[0].ts : 0;
 
   const handleScrubberClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (disabled) return;
@@ -113,7 +112,16 @@ export default function RunWaterfall({
             title="Rembobiner"
             className="flex items-center justify-center size-(--space-7) rounded-(--radius-xs) text-text-muted hover:text-text hover:bg-bg disabled:opacity-40 disabled:pointer-events-none transition-colors duration-(--duration-base)"
           >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M1 4v6h6" />
               <path d="M3.51 15a9 9 0 1 0 .49-3.49" />
             </svg>

@@ -5,9 +5,9 @@
  * Supabase first, falling back to the buffer when DB is unavailable.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import type { TenantScope } from "@/lib/multi-tenant/types";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChatMessageMemory } from "@/lib/memory/types";
+import type { TenantScope } from "@/lib/multi-tenant/types";
 
 // ── Mocked Supabase client ────────────────────────────────────
 type MockBuilder = {
@@ -211,7 +211,7 @@ describe("memory store — persistence + buffer", () => {
     const conv = getConversationMemory("shared-conv");
     expect(conv).not.toBeNull();
     // Each tenant's buffer entry has only its own message (1 each, not 2).
-    expect(conv!.messages).toHaveLength(1);
+    expect(conv?.messages).toHaveLength(1);
   });
 
   it("clearConversation empties the buffer and triggers a Supabase delete", async () => {
@@ -219,12 +219,12 @@ describe("memory store — persistence + buffer", () => {
     state.selectResult = { data: null, error: { message: "force-fallback" } };
 
     appendMessage("conv-clear", msg("user", "to-be-cleared"), scope);
-    expect((await getRecentMessages("conv-clear", 10))).toHaveLength(1);
+    expect(await getRecentMessages("conv-clear", 10)).toHaveLength(1);
 
     clearConversation("conv-clear");
 
     // Buffer cleared
-    expect((await getRecentMessages("conv-clear", 10))).toHaveLength(0);
+    expect(await getRecentMessages("conv-clear", 10)).toHaveLength(0);
     // Supabase delete chain invoked
     expect(state.builder.delete).toHaveBeenCalled();
     expect(state.builder.eq).toHaveBeenCalledWith("conversation_id", "conv-clear");

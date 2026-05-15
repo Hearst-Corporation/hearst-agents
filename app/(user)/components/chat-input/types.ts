@@ -1,10 +1,7 @@
 import type { ServiceDefinition } from "@/lib/integrations/types";
 
 export interface ChatInputProps {
-  onSubmit: (
-    message: string,
-    opts?: { attachedAssetIds?: string[] },
-  ) => void;
+  onSubmit: (message: string, opts?: { attachedAssetIds?: string[] }) => void;
   placeholder?: string;
   connectedServices?: ServiceDefinition[];
   onProviderMention?: (providerId: string) => void;

@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
-  registerRun,
-  unregisterRun,
   abortRun,
   isRunRegistered,
+  registerRun,
+  unregisterRun,
 } from "@/lib/engine/orchestrator/abort-registry";
 
 describe("abort-registry", () => {

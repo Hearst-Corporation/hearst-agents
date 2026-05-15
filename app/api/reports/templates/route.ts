@@ -5,13 +5,13 @@
  * Auth : session NextAuth requise. Scope tenant résolu via requireScope.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { listTemplates, saveTemplate } from "@/lib/reports/templates/store";
+import { type NextRequest, NextResponse } from "next/server";
 import {
   createReportTemplateSchema,
   listReportTemplatesQuerySchema,
 } from "@/lib/contracts/reports";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { listTemplates, saveTemplate } from "@/lib/reports/templates/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

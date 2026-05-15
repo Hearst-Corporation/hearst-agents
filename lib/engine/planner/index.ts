@@ -13,6 +13,8 @@
  * - Whether this is a one-shot, mission, or monitoring flow
  */
 
+import { logPlanEvent } from "./debug";
+import { getPlan, savePlan } from "./store";
 import type {
   ExecutionPlan,
   ExecutionPlanStep,
@@ -22,15 +24,17 @@ import type {
   StepRisk,
 } from "./types";
 import { getReadySteps } from "./types";
-import { savePlan, getPlan } from "./store";
-import { logPlanEvent } from "./debug";
 
 // ── Intent classification ───────────────────────────────────
 
-const MISSION_PATTERNS = /\b(chaque|every|tous les|weekly|daily|hourly|récurrent|recurring|schedule|planifie|automatise)\b/i;
-const MONITORING_PATTERNS = /\b(surveille|monitor|watch|alert|préviens|notifie|quand|when|if.*then|dès que)\b/i;
-const HIGH_RISK_PATTERNS = /\b(supprime|delete|remove|envoie|send|publie|publish|paie|pay|transfer)\b/i;
-const APPROVAL_PATTERNS = /\b(vérifie avant|check before|confirm|confirme|valide|approve|review)\b/i;
+const MISSION_PATTERNS =
+  /\b(chaque|every|tous les|weekly|daily|hourly|récurrent|recurring|schedule|planifie|automatise)\b/i;
+const MONITORING_PATTERNS =
+  /\b(surveille|monitor|watch|alert|préviens|notifie|quand|when|if.*then|dès que)\b/i;
+const HIGH_RISK_PATTERNS =
+  /\b(supprime|delete|remove|envoie|send|publie|publish|paie|pay|transfer)\b/i;
+const APPROVAL_PATTERNS =
+  /\b(vérifie avant|check before|confirm|confirme|valide|approve|review)\b/i;
 
 function classifyPlanType(intent: string): ExecutionPlanType {
   if (MISSION_PATTERNS.test(intent)) return "mission";
@@ -66,16 +70,36 @@ function inferSteps(intent: string, type: ExecutionPlanType): InferredStep[] {
 
   // Read phase — gather data
   if (/\b(résume|summarize|messages?|emails?|inbox|boîte)\b/.test(lower)) {
-    steps.push({ kind: "read", title: "Lecture des messages", capability: "messaging", expectedOutput: "raw_messages" });
+    steps.push({
+      kind: "read",
+      title: "Lecture des messages",
+      capability: "messaging",
+      expectedOutput: "raw_messages",
+    });
   }
   if (/\b(agenda|calendar|réunion|meeting|événement|event)\b/.test(lower)) {
-    steps.push({ kind: "read", title: "Lecture de l'agenda", capability: "calendar", expectedOutput: "calendar_events" });
+    steps.push({
+      kind: "read",
+      title: "Lecture de l'agenda",
+      capability: "calendar",
+      expectedOutput: "calendar_events",
+    });
   }
   if (/\b(fichier|file|document|drive)\b/.test(lower)) {
-    steps.push({ kind: "read", title: "Lecture des fichiers", capability: "files", expectedOutput: "file_list" });
+    steps.push({
+      kind: "read",
+      title: "Lecture des fichiers",
+      capability: "files",
+      expectedOutput: "file_list",
+    });
   }
   if (/\b(recherche|search|web|find|trouve)\b/.test(lower)) {
-    steps.push({ kind: "read", title: "Recherche", capability: "research", expectedOutput: "search_results" });
+    steps.push({
+      kind: "read",
+      title: "Recherche",
+      capability: "research",
+      expectedOutput: "search_results",
+    });
   }
 
   // Analyze phase
@@ -90,22 +114,40 @@ function inferSteps(intent: string, type: ExecutionPlanType): InferredStep[] {
 
   // Generate asset phase
   if (/\b(rapport|report|pdf|excel|xlsx|document)\b/.test(lower)) {
-    steps.push({ kind: "generate_asset", title: "Génération du livrable", expectedOutput: "asset" });
+    steps.push({
+      kind: "generate_asset",
+      title: "Génération du livrable",
+      expectedOutput: "asset",
+    });
   }
 
   // Deliver phase
   if (/\b(envoie|send|reply|répond|forward|transmet)\b/.test(lower)) {
-    steps.push({ kind: "deliver", title: "Envoi", capability: "messaging_send", tool: "send_message", expectedOutput: "delivery_confirmation" });
+    steps.push({
+      kind: "deliver",
+      title: "Envoi",
+      capability: "messaging_send",
+      tool: "send_message",
+      expectedOutput: "delivery_confirmation",
+    });
   }
 
   // Schedule phase (for missions)
   if (type === "mission") {
-    steps.push({ kind: "schedule", title: "Planification récurrente", expectedOutput: "mission_scheduled" });
+    steps.push({
+      kind: "schedule",
+      title: "Planification récurrente",
+      expectedOutput: "mission_scheduled",
+    });
   }
 
   // Monitor phase (for monitoring)
   if (type === "monitoring") {
-    steps.push({ kind: "monitor", title: "Surveillance active", expectedOutput: "monitoring_active" });
+    steps.push({
+      kind: "monitor",
+      title: "Surveillance active",
+      expectedOutput: "monitoring_active",
+    });
   }
 
   // Fallback: if no steps inferred, create a basic analyze + synthesize

@@ -41,17 +41,28 @@ interface ComposioClient {
   toolkits: {
     list(query?: Record<string, unknown>): Promise<unknown>;
     get(slug: string): Promise<unknown>;
-    authorize(userId: string, toolkitSlug: string, authConfigId?: string): Promise<{
+    authorize(
+      userId: string,
+      toolkitSlug: string,
+      authConfigId?: string,
+    ): Promise<{
       id: string;
       redirectUrl?: string | null;
     }>;
   };
   connectedAccounts: {
-    list(query?: { userIds?: string[]; toolkitSlugs?: string[]; statuses?: string[] }): Promise<unknown>;
+    list(query?: {
+      userIds?: string[];
+      toolkitSlugs?: string[];
+      statuses?: string[];
+    }): Promise<unknown>;
     delete(nanoid: string): Promise<unknown>;
   };
   /** Create a per-user Tool Router (MCP) session. */
-  create(userId: string, config?: Record<string, unknown>): Promise<{
+  create(
+    userId: string,
+    config?: Record<string, unknown>,
+  ): Promise<{
     sessionId: string;
     url?: string;
     mcp?: { type: string; url: string; headers?: Record<string, string> };
@@ -60,9 +71,7 @@ interface ComposioClient {
 }
 
 let cachedClient: ComposioClient | null = null;
-let initFailed:
-  | { code: "NOT_CONFIGURED" | "SDK_NOT_INSTALLED"; message: string }
-  | null = null;
+let initFailed: { code: "NOT_CONFIGURED" | "SDK_NOT_INSTALLED"; message: string } | null = null;
 
 export function resetComposioClient(): void {
   cachedClient = null;
@@ -88,7 +97,7 @@ async function getClient(): Promise<ComposioClient | null> {
 
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore — peer dep, may not be installed
+    // @ts-expect-error — peer dep, may not be installed
     const mod: unknown = await import("@composio/core");
     const m = mod as {
       Composio?: new (config?: { apiKey?: string }) => ComposioClient;
@@ -154,9 +163,7 @@ const SLUG_ALIASES: Record<string, string> = {
   HUBSPOT_LIST_DEALS: "HUBSPOT_GET_ALL_DEALS",
 };
 
-export async function executeComposioAction(
-  call: ComposioCallParams,
-): Promise<ComposioResult> {
+export async function executeComposioAction(call: ComposioCallParams): Promise<ComposioResult> {
   const client = await getClient();
   if (!client) {
     return {
@@ -192,14 +199,20 @@ export async function executeComposioAction(
       /(connected.*account|not.*authoriz|missing.*connection|unauthorized|no.*active.*connection)/i.test(
         msg,
       );
-    const looksLikeUnknownSlug = /unable to retrieve tool|unknown.*slug|slug.*not.*found/i.test(msg);
+    const looksLikeUnknownSlug = /unable to retrieve tool|unknown.*slug|slug.*not.*found/i.test(
+      msg,
+    );
     const userFacingError = looksLikeUnknownSlug
       ? `L'action "${resolvedAction}" n'est pas disponible pour ce service. Essaie une formulation différente ou consulte la liste des actions disponibles via /apps.`
       : msg;
     return {
       ok: false,
       error: userFacingError,
-      errorCode: looksLikeAuth ? "AUTH_REQUIRED" : looksLikeUnknownSlug ? "UNKNOWN_SLUG" : "ACTION_FAILED",
+      errorCode: looksLikeAuth
+        ? "AUTH_REQUIRED"
+        : looksLikeUnknownSlug
+          ? "UNKNOWN_SLUG"
+          : "ACTION_FAILED",
     };
   }
 }

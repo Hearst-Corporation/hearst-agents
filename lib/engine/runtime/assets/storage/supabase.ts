@@ -8,14 +8,14 @@
  * Bucket cible : `assets`. Migration SQL : supabase/migrations/0058_storage_bucket.sql
  */
 
+import type { Readable } from "node:stream";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { Readable } from "node:stream";
 import type {
-  StorageProvider,
-  StorageObject,
-  UploadResult,
   DownloadResult,
   SignedUrlOptions,
+  StorageObject,
+  StorageProvider,
+  UploadResult,
 } from "./types";
 
 export interface SupabaseStorageOptions {
@@ -81,7 +81,9 @@ export class SupabaseStorageProvider implements StorageProvider {
     const { data, error } = await this.client.storage.from(this.bucket).download(fullKey);
 
     if (error || !data) {
-      throw new Error(`[Storage/Supabase] download failed (${fullKey}): ${error?.message ?? "no data"}`);
+      throw new Error(
+        `[Storage/Supabase] download failed (${fullKey}): ${error?.message ?? "no data"}`,
+      );
     }
 
     const contentType = data.type || "application/octet-stream";
@@ -121,7 +123,9 @@ export class SupabaseStorageProvider implements StorageProvider {
       .from(this.bucket)
       .createSignedUploadUrl(fullKey);
     if (error || !data) {
-      throw new Error(`[Storage/Supabase] signed upload URL failed (${fullKey}): ${error?.message}`);
+      throw new Error(
+        `[Storage/Supabase] signed upload URL failed (${fullKey}): ${error?.message}`,
+      );
     }
     return data.signedUrl;
   }
@@ -156,7 +160,9 @@ export class SupabaseStorageProvider implements StorageProvider {
     return data
       .filter((f) => !!f.name)
       .map((f) => ({
-        key: tenantId ? `${prefix}${prefix.endsWith("/") ? "" : "/"}${f.name}` : `${prefix}${prefix.endsWith("/") ? "" : "/"}${f.name}`,
+        key: tenantId
+          ? `${prefix}${prefix.endsWith("/") ? "" : "/"}${f.name}`
+          : `${prefix}${prefix.endsWith("/") ? "" : "/"}${f.name}`,
         size: (f.metadata as { size?: number } | null)?.size ?? 0,
         contentType:
           (f.metadata as { mimetype?: string } | null)?.mimetype ?? "application/octet-stream",

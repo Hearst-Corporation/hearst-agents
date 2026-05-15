@@ -89,7 +89,7 @@ export const useNavigationStore = create<NavigationState>()(
         if (activeThreadId) {
           set((state) => ({
             threads: state.threads.map((t) =>
-              t.id === activeThreadId ? { ...t, surface, lastActivity: Date.now() } : t
+              t.id === activeThreadId ? { ...t, surface, lastActivity: Date.now() } : t,
             ),
           }));
         }
@@ -99,10 +99,7 @@ export const useNavigationStore = create<NavigationState>()(
       addThread: (name, surface) => {
         const id = crypto.randomUUID();
         set((state) => ({
-          threads: [
-            { id, name, surface, lastActivity: Date.now() },
-            ...state.threads,
-          ],
+          threads: [{ id, name, surface, lastActivity: Date.now() }, ...state.threads],
           activeThreadId: id,
         }));
         return id;
@@ -122,36 +119,33 @@ export const useNavigationStore = create<NavigationState>()(
       updateThreadName: (id, name) =>
         set((state) => ({
           threads: state.threads.map((t) =>
-            t.id === id ? { ...t, name, lastActivity: Date.now() } : t
+            t.id === id ? { ...t, name, lastActivity: Date.now() } : t,
           ),
         })),
 
       removeThread: (id) =>
         set((state) => {
           const newThreads = state.threads.filter((t) => t.id !== id);
-          const newActiveId = state.activeThreadId === id
-            ? newThreads[0]?.id || null
-            : state.activeThreadId;
+          const newActiveId =
+            state.activeThreadId === id ? newThreads[0]?.id || null : state.activeThreadId;
           // Also clean up messages for removed thread
           const { [id]: _, ...remainingMessages } = state.messages;
           return {
             threads: newThreads,
             activeThreadId: newActiveId,
-            messages: remainingMessages
+            messages: remainingMessages,
           };
         }),
 
       togglePinned: (id) =>
         set((state) => ({
-          threads: state.threads.map((t) =>
-            t.id === id ? { ...t, pinned: !t.pinned } : t
-          ),
+          threads: state.threads.map((t) => (t.id === id ? { ...t, pinned: !t.pinned } : t)),
         })),
 
       toggleArchived: (id) =>
         set((state) => {
           const newThreads = state.threads.map((t) =>
-            t.id === id ? { ...t, archived: !t.archived } : t
+            t.id === id ? { ...t, archived: !t.archived } : t,
           );
           const target = newThreads.find((t) => t.id === id);
           const becameArchived = target?.archived === true;
@@ -174,7 +168,7 @@ export const useNavigationStore = create<NavigationState>()(
           messages: {
             ...state.messages,
             [threadId]: (state.messages[threadId] || []).map((m) =>
-              m.id === messageId ? { ...m, content } : m
+              m.id === messageId ? { ...m, content } : m,
             ),
           },
         })),
@@ -194,7 +188,6 @@ export const useNavigationStore = create<NavigationState>()(
           next[lastAssistantIdx] = { ...next[lastAssistantIdx], assetRef };
           return { messages: { ...state.messages, [threadId]: next } };
         }),
-
     }),
     {
       name: "hearst-navigation",
@@ -203,9 +196,7 @@ export const useNavigationStore = create<NavigationState>()(
         const s = (persisted ?? {}) as Partial<NavigationState>;
         const uuidRe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         const cleaned = (s.threads ?? []).filter(
-          (t) =>
-            !(t.id === "default" && t.name === "Accueil") &&
-            uuidRe.test(t.id),
+          (t) => !(t.id === "default" && t.name === "Accueil") && uuidRe.test(t.id),
         );
         const activeOk =
           s.activeThreadId && s.activeThreadId !== "default" && uuidRe.test(s.activeThreadId)
@@ -239,6 +230,6 @@ export const useNavigationStore = create<NavigationState>()(
           leftCollapsed: state.leftCollapsed,
         } as NavigationState;
       },
-    }
-  )
+    },
+  ),
 );

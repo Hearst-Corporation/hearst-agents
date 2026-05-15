@@ -1,11 +1,11 @@
-export { SpatialOverlayManager } from "./SpatialOverlayManager";
-export { SpatialHUD } from "./SpatialHUD";
+export { ApprovalAlert } from "./ApprovalAlert";
 export { CommandBar } from "./CommandBar";
 export { ExpertModeAffordance } from "./ExpertModeAffordance";
 export { MissionStatus } from "./MissionStatus";
-export { OrbAffordance } from "./OrbAffordance";
-export { ApprovalAlert } from "./ApprovalAlert";
-export { SpatialHotkeys } from "./SpatialHotkeys";
 export { NotificationBellSpatial } from "./NotificationBellSpatial";
-export { VoicePill } from "./VoicePill";
+export { OrbAffordance } from "./OrbAffordance";
+export { SpatialHotkeys } from "./SpatialHotkeys";
+export { SpatialHUD } from "./SpatialHUD";
+export { SpatialOverlayManager } from "./SpatialOverlayManager";
 export { StageBreadcrumb } from "./StageBreadcrumb";
+export { VoicePill } from "./VoicePill";

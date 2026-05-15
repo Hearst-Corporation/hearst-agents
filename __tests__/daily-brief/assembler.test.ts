@@ -2,7 +2,7 @@
  * Daily Brief assembler — tests fail-soft + normalisation par source.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   getRecentEmails: vi.fn(),

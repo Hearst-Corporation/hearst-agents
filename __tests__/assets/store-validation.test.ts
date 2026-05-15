@@ -7,7 +7,7 @@
  * eliminates the ghost rows that were polluting the right panel.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mock for storeAsset (orchestrator path) ───────────────────
 const upsertMock = vi.fn().mockReturnValue({ then: () => undefined });
@@ -27,9 +27,9 @@ vi.mock("@supabase/supabase-js", () => ({
   })),
 }));
 
+import type { Asset as OrchestratorAsset } from "@/lib/assets/types";
 // ── Imports after mocks ───────────────────────────────────────
 import { storeAsset } from "@/lib/assets/types";
-import type { Asset as OrchestratorAsset } from "@/lib/assets/types";
 import { saveAsset } from "@/lib/engine/runtime/assets/adapter";
 import type { Asset as RuntimeAsset } from "@/lib/engine/runtime/assets/types";
 

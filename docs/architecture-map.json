@@ -122,7 +122,14 @@
       "group": "general",
       "context": "general",
       "backends": ["hearst_runtime"],
-      "tools": ["get_messages", "get_calendar_events", "get_files", "search_web", "generate_report", "schedule_task"],
+      "tools": [
+        "get_messages",
+        "get_calendar_events",
+        "get_files",
+        "search_web",
+        "generate_report",
+        "schedule_task"
+      ],
       "status": "active",
       "connects_to": ["execution_mode_selector", "run_engine"]
     },
@@ -146,7 +153,13 @@
       "role": "Canonical execution pipeline — routes intent to agents via execution modes",
       "status": "active",
       "critical": true,
-      "connects_to": ["execution_mode_selector", "run_engine", "event_bus", "memory_store", "connector_control_plane"]
+      "connects_to": [
+        "execution_mode_selector",
+        "run_engine",
+        "event_bus",
+        "memory_store",
+        "connector_control_plane"
+      ]
     },
     {
       "id": "execution_mode_selector",
@@ -302,18 +315,90 @@
   ],
 
   "connectors": [
-    { "id": "google", "label": "Google", "role": "Messaging / Calendar / Files", "status": "active", "connects_to": ["connector_control_plane"] },
-    { "id": "slack", "label": "Slack", "role": "Messaging", "status": "active", "connects_to": ["connector_control_plane"] },
-    { "id": "web", "label": "Web Search", "role": "Research", "status": "active", "connects_to": ["connector_control_plane"] },
-    { "id": "anthropic_managed", "label": "Anthropic Managed", "role": "Research / Automation (external agent)", "status": "active", "connects_to": ["connector_control_plane", "agent_backend_selector"] },
-    { "id": "notion", "label": "Notion", "role": "Documents", "status": "beta", "connects_to": ["connector_control_plane"] },
-    { "id": "github", "label": "GitHub", "role": "Developer Tools", "status": "beta", "connects_to": ["connector_control_plane"] },
-    { "id": "stripe", "label": "Stripe", "role": "Finance / Commerce", "status": "planned", "connects_to": ["connector_control_plane"] },
-    { "id": "jira", "label": "Jira", "role": "Developer Tools", "status": "planned", "connects_to": ["connector_control_plane"] },
-    { "id": "hubspot", "label": "HubSpot", "role": "CRM", "status": "planned", "connects_to": ["connector_control_plane"] },
-    { "id": "airtable", "label": "Airtable", "role": "Documents / Automation", "status": "planned", "connects_to": ["connector_control_plane"] },
-    { "id": "figma", "label": "Figma", "role": "Design", "status": "planned", "connects_to": ["connector_control_plane"] },
-    { "id": "zapier", "label": "Zapier", "role": "Automation", "status": "planned", "connects_to": ["connector_control_plane"] }
+    {
+      "id": "google",
+      "label": "Google",
+      "role": "Messaging / Calendar / Files",
+      "status": "active",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "slack",
+      "label": "Slack",
+      "role": "Messaging",
+      "status": "active",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "web",
+      "label": "Web Search",
+      "role": "Research",
+      "status": "active",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "anthropic_managed",
+      "label": "Anthropic Managed",
+      "role": "Research / Automation (external agent)",
+      "status": "active",
+      "connects_to": ["connector_control_plane", "agent_backend_selector"]
+    },
+    {
+      "id": "notion",
+      "label": "Notion",
+      "role": "Documents",
+      "status": "beta",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "github",
+      "label": "GitHub",
+      "role": "Developer Tools",
+      "status": "beta",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "stripe",
+      "label": "Stripe",
+      "role": "Finance / Commerce",
+      "status": "planned",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "jira",
+      "label": "Jira",
+      "role": "Developer Tools",
+      "status": "planned",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "hubspot",
+      "label": "HubSpot",
+      "role": "CRM",
+      "status": "planned",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "airtable",
+      "label": "Airtable",
+      "role": "Documents / Automation",
+      "status": "planned",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "figma",
+      "label": "Figma",
+      "role": "Design",
+      "status": "planned",
+      "connects_to": ["connector_control_plane"]
+    },
+    {
+      "id": "zapier",
+      "label": "Zapier",
+      "role": "Automation",
+      "status": "planned",
+      "connects_to": ["connector_control_plane"]
+    }
   ],
 
   "flows": [
@@ -321,19 +406,44 @@
       "id": "user_request_flow",
       "label": "User Request Flow",
       "description": "End-to-end path from user message to streamed response",
-      "steps": ["chat_core", "orchestrator_v2", "execution_mode_selector", "agent_backend_selector", "planner", "run_engine", "executor", "event_bus", "sse_adapter", "right_panel"]
+      "steps": [
+        "chat_core",
+        "orchestrator_v2",
+        "execution_mode_selector",
+        "agent_backend_selector",
+        "planner",
+        "run_engine",
+        "executor",
+        "event_bus",
+        "sse_adapter",
+        "right_panel"
+      ]
     },
     {
       "id": "scheduled_mission_flow",
       "label": "Scheduled Mission Flow",
       "description": "Cron-triggered mission execution",
-      "steps": ["mission_scheduler", "orchestrator_v2", "run_engine", "executor", "event_bus", "supabase_runtime_state"]
+      "steps": [
+        "mission_scheduler",
+        "orchestrator_v2",
+        "run_engine",
+        "executor",
+        "event_bus",
+        "supabase_runtime_state"
+      ]
     },
     {
       "id": "managed_agent_flow",
       "label": "Managed Agent Flow",
       "description": "Delegation to Anthropic managed agent with fallback",
-      "steps": ["orchestrator_v2", "agent_backend_selector", "anthropic_managed", "event_bus", "asset_system", "run_engine"]
+      "steps": [
+        "orchestrator_v2",
+        "agent_backend_selector",
+        "anthropic_managed",
+        "event_bus",
+        "asset_system",
+        "run_engine"
+      ]
     },
     {
       "id": "right_panel_live_flow",

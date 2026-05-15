@@ -4,8 +4,8 @@
  * useOfflineStatus — listen online/offline events.
  */
 
-import { describe, it, expect } from "vitest";
-import { renderHook, act } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { useOfflineStatus } from "@/app/(user)/components/use-offline-status";
 
 describe("useOfflineStatus", () => {

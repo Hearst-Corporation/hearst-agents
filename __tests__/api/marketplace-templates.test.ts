@@ -9,8 +9,8 @@
  *   - POST report : 400 si reason vide, 200 OK
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { NextRequest } from "next/server";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({
@@ -177,9 +177,7 @@ describe("POST /api/v2/marketplace/templates/[id]/clone", () => {
       ok: false,
       error: "template_not_found",
     });
-    const { POST } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/clone/route"
-    );
+    const { POST } = await import("@/app/api/v2/marketplace/templates/[id]/clone/route");
     const res = await POST(
       new Request("http://t/x", { method: "POST" }) as unknown as NextRequest,
       { params: Promise.resolve({ id: "missing" }) },
@@ -192,9 +190,7 @@ describe("POST /api/v2/marketplace/templates/[id]/clone", () => {
       ok: true,
       resourceId: "new-mission-id",
     });
-    const { POST } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/clone/route"
-    );
+    const { POST } = await import("@/app/api/v2/marketplace/templates/[id]/clone/route");
     const res = await POST(
       new Request("http://t/x", { method: "POST" }) as unknown as NextRequest,
       { params: Promise.resolve({ id: "tpl-1" }) },
@@ -210,9 +206,7 @@ describe("POST /api/v2/marketplace/templates/[id]/rate", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("400 si rating hors plage", async () => {
-    const { POST } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/rate/route"
-    );
+    const { POST } = await import("@/app/api/v2/marketplace/templates/[id]/rate/route");
     const req = new Request("http://t/x", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -226,9 +220,7 @@ describe("POST /api/v2/marketplace/templates/[id]/rate", () => {
 
   it("200 OK quand rate réussit", async () => {
     storeMock.rateTemplate.mockResolvedValueOnce(true);
-    const { POST } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/rate/route"
-    );
+    const { POST } = await import("@/app/api/v2/marketplace/templates/[id]/rate/route");
     const req = new Request("http://t/x", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -245,9 +237,7 @@ describe("POST /api/v2/marketplace/templates/[id]/report", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("400 si raison trop courte", async () => {
-    const { POST } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/report/route"
-    );
+    const { POST } = await import("@/app/api/v2/marketplace/templates/[id]/report/route");
     const req = new Request("http://t/x", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -261,9 +251,7 @@ describe("POST /api/v2/marketplace/templates/[id]/report", () => {
 
   it("200 OK quand report réussit", async () => {
     storeMock.reportTemplate.mockResolvedValueOnce(true);
-    const { POST } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/report/route"
-    );
+    const { POST } = await import("@/app/api/v2/marketplace/templates/[id]/report/route");
     const req = new Request("http://t/x", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -281,13 +269,10 @@ describe("GET /api/v2/marketplace/templates/[id]", () => {
 
   it("404 quand template introuvable", async () => {
     storeMock.getTemplate.mockResolvedValueOnce(null);
-    const { GET } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/route"
-    );
-    const res = await GET(
-      new Request("http://t/x") as unknown as NextRequest,
-      { params: Promise.resolve({ id: "missing" }) },
-    );
+    const { GET } = await import("@/app/api/v2/marketplace/templates/[id]/route");
+    const res = await GET(new Request("http://t/x") as unknown as NextRequest, {
+      params: Promise.resolve({ id: "missing" }),
+    });
     expect(res.status).toBe(404);
   });
 
@@ -318,13 +303,10 @@ describe("GET /api/v2/marketplace/templates/[id]", () => {
         createdAt: "",
       },
     ]);
-    const { GET } = await import(
-      "@/app/api/v2/marketplace/templates/[id]/route"
-    );
-    const res = await GET(
-      new Request("http://t/x") as unknown as NextRequest,
-      { params: Promise.resolve({ id: "tpl-1" }) },
-    );
+    const { GET } = await import("@/app/api/v2/marketplace/templates/[id]/route");
+    const res = await GET(new Request("http://t/x") as unknown as NextRequest, {
+      params: Promise.resolve({ id: "tpl-1" }),
+    });
     expect(res.status).toBe(200);
     const body = (await res.json()) as {
       template: { title: string };

@@ -7,8 +7,8 @@
  * Les tests couvrent : render, ajout webhook, suppression, test signal, save.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AlertingSettings } from "@/app/(user)/components/settings/AlertingSettings";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 

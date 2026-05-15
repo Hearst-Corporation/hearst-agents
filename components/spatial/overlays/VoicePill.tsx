@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useVoiceStore, type VoicePhase } from '@/stores/voice';
-import { SPATIAL_Z_LAYERS } from '@/lib/spatial/constants';
+import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
+import { useVoiceStore, type VoicePhase } from "@/stores/voice";
 
 const PHASE_LABEL: Record<VoicePhase, string> = {
-  idle: 'En attente',
-  connecting: 'Connexion…',
-  listening: 'À l’écoute',
-  processing: 'Traitement',
-  speaking: 'Parle',
-  error: 'Erreur',
+  idle: "En attente",
+  connecting: "Connexion…",
+  listening: "À l’écoute",
+  processing: "Traitement",
+  speaking: "Parle",
+  error: "Erreur",
 };
 
 /**
@@ -30,19 +30,19 @@ export function VoicePill() {
         type="button"
         onClick={() => setVoiceActive(!voiceActive)}
         aria-pressed={voiceActive}
-        aria-label={voiceActive ? 'Désactiver la voix' : 'Activer la voix'}
+        aria-label={voiceActive ? "Désactiver la voix" : "Activer la voix"}
         className="pointer-events-auto inline-flex items-center gap-3 rounded-full transition-all duration-300"
         style={{
-          padding: '10px 18px',
-          background: voiceActive ? 'rgba(120,220,220,0.18)' : 'rgba(255,255,255,0.04)',
+          padding: "10px 18px",
+          background: voiceActive ? "rgba(120,220,220,0.18)" : "rgba(255,255,255,0.04)",
           border: voiceActive
-            ? '1px solid rgba(120,220,220,0.5)'
-            : '1px solid rgba(255,255,255,0.10)',
-          backdropFilter: 'blur(20px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(20px) saturate(140%)',
+            ? "1px solid rgba(120,220,220,0.5)"
+            : "1px solid rgba(255,255,255,0.10)",
+          backdropFilter: "blur(20px) saturate(140%)",
+          WebkitBackdropFilter: "blur(20px) saturate(140%)",
           boxShadow: voiceActive
-            ? '0 0 24px -6px rgba(120,220,220,0.45)'
-            : '0 8px 24px -12px rgba(0,0,0,0.5)',
+            ? "0 0 24px -6px rgba(120,220,220,0.45)"
+            : "0 8px 24px -12px rgba(0,0,0,0.5)",
         }}
       >
         {/* Mic icon */}
@@ -51,7 +51,7 @@ export function VoicePill() {
           height="14"
           viewBox="0 0 24 24"
           fill="none"
-          stroke={voiceActive ? 'rgba(120,220,220,0.95)' : 'rgba(255,255,255,0.6)'}
+          stroke={voiceActive ? "rgba(120,220,220,0.95)" : "rgba(255,255,255,0.6)"}
           strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -65,15 +65,15 @@ export function VoicePill() {
         <span
           className="text-spatial-sm tracking-[0.18em] uppercase font-light"
           style={{
-            color: voiceActive ? 'rgba(120,220,220,0.95)' : 'rgba(255,255,255,0.6)',
+            color: voiceActive ? "rgba(120,220,220,0.95)" : "rgba(255,255,255,0.6)",
           }}
         >
-          {voiceActive ? PHASE_LABEL[phase] : 'Voix'}
+          {voiceActive ? PHASE_LABEL[phase] : "Voix"}
         </span>
 
         <span
           className="text-spatial-xs tracking-[0.32em] uppercase font-light"
-          style={{ color: 'rgba(255,255,255,0.35)' }}
+          style={{ color: "rgba(255,255,255,0.35)" }}
         >
           ⌘7
         </span>

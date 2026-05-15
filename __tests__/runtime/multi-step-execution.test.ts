@@ -7,7 +7,7 @@
  * - Plan failed : status reflète l'erreur
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { useRuntimeStore } from "@/stores/runtime";
 
 describe("Runtime store — Mission Control plan slice", () => {
@@ -31,10 +31,10 @@ describe("Runtime store — Mission Control plan slice", () => {
 
     const plan = useRuntimeStore.getState().currentPlan;
     expect(plan).not.toBeNull();
-    expect(plan!.id).toBe("plan_1");
-    expect(plan!.steps).toHaveLength(2);
-    expect(plan!.steps[0].status).toBe("idle");
-    expect(plan!.requiredApps).toEqual(["calendar"]);
+    expect(plan?.id).toBe("plan_1");
+    expect(plan?.steps).toHaveLength(2);
+    expect(plan?.steps[0].status).toBe("idle");
+    expect(plan?.requiredApps).toEqual(["calendar"]);
   });
 
   it("plan_step_started → step status === running", () => {
@@ -59,8 +59,8 @@ describe("Runtime store — Mission Control plan slice", () => {
     });
 
     const plan = useRuntimeStore.getState().currentPlan;
-    expect(plan!.status).toBe("running");
-    expect(plan!.steps[0].status).toBe("running");
+    expect(plan?.status).toBe("running");
+    expect(plan?.steps[0].status).toBe("running");
   });
 
   it("plan_step_completed propage costUSD et output", () => {
@@ -86,10 +86,10 @@ describe("Runtime store — Mission Control plan slice", () => {
     });
 
     const plan = useRuntimeStore.getState().currentPlan;
-    expect(plan!.steps[0].status).toBe("done");
-    expect(plan!.steps[0].costUSD).toBe(0.012);
-    expect(plan!.steps[0].output).toBe("résultat partiel");
-    expect(plan!.totalCostUsd).toBeCloseTo(0.012, 3);
+    expect(plan?.steps[0].status).toBe("done");
+    expect(plan?.steps[0].costUSD).toBe(0.012);
+    expect(plan?.steps[0].output).toBe("résultat partiel");
+    expect(plan?.totalCostUsd).toBeCloseTo(0.012, 3);
   });
 
   it("plan_step_awaiting_approval transitionne le coreState", () => {
@@ -115,9 +115,9 @@ describe("Runtime store — Mission Control plan slice", () => {
 
     const state = useRuntimeStore.getState();
     expect(state.coreState).toBe("awaiting_approval");
-    expect(state.currentPlan!.status).toBe("awaiting_approval");
-    expect(state.currentPlan!.steps[0].status).toBe("awaiting_approval");
-    expect(state.currentPlan!.steps[0].approvalPreview).toContain("client@example.com");
+    expect(state.currentPlan?.status).toBe("awaiting_approval");
+    expect(state.currentPlan?.steps[0].status).toBe("awaiting_approval");
+    expect(state.currentPlan?.steps[0].approvalPreview).toContain("client@example.com");
   });
 
   it("plan_step_failed marque le plan failed", () => {
@@ -140,9 +140,9 @@ describe("Runtime store — Mission Control plan slice", () => {
     });
 
     const plan = useRuntimeStore.getState().currentPlan;
-    expect(plan!.status).toBe("failed");
-    expect(plan!.steps[0].status).toBe("error");
-    expect(plan!.steps[0].error).toBe("tool unavailable");
+    expect(plan?.status).toBe("failed");
+    expect(plan?.steps[0].status).toBe("error");
+    expect(plan?.steps[0].error).toBe("tool unavailable");
   });
 
   it("plan_run_complete totalise le cost", () => {
@@ -165,7 +165,7 @@ describe("Runtime store — Mission Control plan slice", () => {
     });
 
     const plan = useRuntimeStore.getState().currentPlan;
-    expect(plan!.status).toBe("completed");
-    expect(plan!.totalCostUsd).toBe(0.045);
+    expect(plan?.status).toBe("completed");
+    expect(plan?.totalCostUsd).toBe(0.045);
   });
 });

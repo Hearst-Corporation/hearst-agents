@@ -19,9 +19,7 @@ export function AutoPill() {
         padding: "var(--space-1) var(--space-3)",
         borderRadius: "var(--radius-pill)",
         border: `1px solid ${voiceActive ? "var(--accent-teal-border)" : "var(--border-soft)"}`,
-        background: voiceActive
-          ? "var(--accent-teal-bg-active)"
-          : "transparent",
+        background: voiceActive ? "var(--accent-teal-bg-active)" : "transparent",
         color: voiceActive ? "var(--accent-teal)" : "var(--text-l2)",
       }}
     >

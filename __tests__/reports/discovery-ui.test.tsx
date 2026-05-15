@@ -10,9 +10,9 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  type ApplicableReport,
   getApplicableReports,
   getApplicableReportsWithTemplates,
-  type ApplicableReport,
 } from "@/lib/reports/catalog";
 import type { TemplateSummary } from "@/lib/reports/templates/schema";
 
@@ -56,7 +56,15 @@ describe("discovery — applicabilité des rapports", () => {
   });
 
   it("tous les rapports ready ont missingApps vide", () => {
-    const reports = getApplicableReports([...ALL_APPS_FOUNDER, ...ALL_APPS_ENG, "intercom", "mixpanel", "amplitude", "bamboohr", "workday"]);
+    const reports = getApplicableReports([
+      ...ALL_APPS_FOUNDER,
+      ...ALL_APPS_ENG,
+      "intercom",
+      "mixpanel",
+      "amplitude",
+      "bamboohr",
+      "workday",
+    ]);
     const readyReports = reports.filter((r) => r.status === "ready");
     for (const r of readyReports) {
       expect(r.missingApps).toHaveLength(0);
@@ -91,9 +99,7 @@ describe("discovery — filtrage par domaine", () => {
   });
 
   it("filtre combiné domain + status", () => {
-    const financeReady = reports.filter(
-      (r) => r.domain === "finance" && r.status === "ready",
-    );
+    const financeReady = reports.filter((r) => r.domain === "finance" && r.status === "ready");
     for (const r of financeReady) {
       expect(r.domain).toBe("finance");
       expect(r.status).toBe("ready");
@@ -241,9 +247,7 @@ describe("discovery — logique de toggle états", () => {
   });
 
   it("empty state filtré : combinaison sans résultats", () => {
-    const filtered = reports.filter(
-      (r) => r.domain === "finance" && r.status === "partial",
-    );
+    const filtered = reports.filter((r) => r.domain === "finance" && r.status === "partial");
     expect(filtered).toHaveLength(0);
   });
 });

@@ -94,10 +94,7 @@ export async function incrementShareViewCount(
     .eq("id", shareId);
 }
 
-export async function revokeShare(
-  shareId: string,
-  client?: SupabaseClient,
-): Promise<boolean> {
+export async function revokeShare(shareId: string, client?: SupabaseClient): Promise<boolean> {
   const sb = client ?? getServerSupabase();
   if (!sb) return false;
 

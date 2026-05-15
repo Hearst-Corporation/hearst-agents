@@ -3,11 +3,12 @@
  * Pas de exécution `npm test` (sortie du périmètre runtime du run HOM),
  * mais audit statique : présence tests, états error/loading/empty.
  */
-import path from "node:path";
+
 import fs from "node:fs/promises";
-import { walkFiles, fileExists } from "../fs-utils";
+import path from "node:path";
+import { fileExists, walkFiles } from "../fs-utils";
 import type { Finding } from "../types";
-import { runAgent, makeFindingId, type AgentExecCtx, type ScanResult } from "./base";
+import { type AgentExecCtx, makeFindingId, runAgent, type ScanResult } from "./base";
 
 const ROOT = process.cwd();
 
@@ -15,10 +16,7 @@ export async function scanQa(_ctx: AgentExecCtx): Promise<ScanResult> {
   const findings: Finding[] = [];
 
   // 1. Pages admin/cockpit sans état error.tsx ou loading.tsx
-  const pages = await walkFiles(
-    path.join(ROOT, "app"),
-    (f) => f.endsWith("/page.tsx"),
-  );
+  const pages = await walkFiles(path.join(ROOT, "app"), (f) => f.endsWith("/page.tsx"));
   let scanned = 0;
 
   for (const page of pages) {
@@ -87,9 +85,7 @@ export async function scanQa(_ctx: AgentExecCtx): Promise<ScanResult> {
   // Index des imports : on lit chaque fichier, repère les imports de
   // type `from '@/...' ou './foo'` et on fait le diff.
   const allTsx = [...components, ...pages];
-  const allContents = await Promise.all(
-    allTsx.map((f) => fs.readFile(f, "utf8")),
-  );
+  const allContents = await Promise.all(allTsx.map((f) => fs.readFile(f, "utf8")));
   const concat = allContents.join("\n");
 
   for (const comp of components) {

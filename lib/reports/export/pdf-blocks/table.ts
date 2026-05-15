@@ -5,8 +5,8 @@
  * Plus de pipe ASCII — chaque cellule est positionnée à un x calculé.
  */
 
-import { COLORS, FONT_SIZES, SPACE, PAGE, RULES } from "../pdf-tokens";
 import { setFont } from "../pdf-fonts";
+import { COLORS, FONT_SIZES, PAGE, RULES, SPACE } from "../pdf-tokens";
 
 const MAX_ROWS = 30;
 const MAX_COLS = 6;
@@ -83,9 +83,7 @@ export function renderTable(doc: PDFKit.PDFDocument, input: TableInput): void {
     // Fond alterné très subtil
     if (rowIdx % 2 === 1) {
       doc.save();
-      doc
-        .rect(x - 4, rowY - 2, totalWidth + 8, ROW_HEIGHT)
-        .fill("#FAF8F4");
+      doc.rect(x - 4, rowY - 2, totalWidth + 8, ROW_HEIGHT).fill("#FAF8F4");
       doc.restore();
     }
 
@@ -125,5 +123,5 @@ function formatCell(v: unknown): string {
   }
   if (typeof v === "boolean") return v ? "✓" : "—";
   const s = String(v);
-  return s.length > 40 ? s.slice(0, 38) + "…" : s;
+  return s.length > 40 ? `${s.slice(0, 38)}…` : s;
 }

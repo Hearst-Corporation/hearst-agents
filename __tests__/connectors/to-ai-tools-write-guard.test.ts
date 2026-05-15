@@ -8,7 +8,7 @@
  *   - the injected JSON schema includes / excludes _preview correctly
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { executeComposioAction } = vi.hoisted(() => ({
   executeComposioAction: vi.fn(),
@@ -21,13 +21,10 @@ vi.mock("@/lib/connectors/composio/client", () => ({
 // NEXTAUTH_SECRET requis pour issueConfirmationToken (P3 HITL crypto guard).
 process.env.NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET ?? "test-secret-for-hitl-tokens";
 
-import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
-import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
 import type { ToolExecutionOptions } from "ai";
-import {
-  issueConfirmationToken,
-  hashToolArgs,
-} from "@/lib/tools/hitl/confirmation-token";
+import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
+import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
+import { hashToolArgs, issueConfirmationToken } from "@/lib/tools/hitl/confirmation-token";
 
 const EXEC_OPTS = { toolCallId: "tc-1", messages: [] } as unknown as ToolExecutionOptions;
 

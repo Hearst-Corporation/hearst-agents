@@ -11,12 +11,12 @@
  * "vert" qui n'a rien fait.
  */
 
-import type { WorkflowHandler, WorkflowHandlerContext, WorkflowHandlerResult } from "./types";
+import { aiClassifyPriority } from "./ai-classify-priority";
+import { aiDraftWelcomeNotes } from "./ai-draft-welcome-notes";
 import { pmsListArrivalsToday } from "./pms-list-arrivals-today";
 import { pmsUpdateRequestStatus } from "./pms-update-request-status";
-import { aiDraftWelcomeNotes } from "./ai-draft-welcome-notes";
-import { aiClassifyPriority } from "./ai-classify-priority";
 import { slackSendMessage } from "./slack-send-message";
+import type { WorkflowHandler, WorkflowHandlerContext, WorkflowHandlerResult } from "./types";
 
 export const WORKFLOW_HANDLERS: Record<string, WorkflowHandler> = {
   pms_list_arrivals_today: pmsListArrivalsToday,

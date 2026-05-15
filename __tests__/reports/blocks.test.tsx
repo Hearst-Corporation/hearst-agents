@@ -6,36 +6,30 @@
  * sur DOM structure pour rester robuste aux refactors visuels.
  */
 
-import { describe, expect, it } from "vitest";
 import { render, screen, within } from "@testing-library/react";
-import { KpiTile } from "@/lib/reports/blocks/KpiTile";
-import { Sparkline } from "@/lib/reports/blocks/Sparkline";
+import { describe, expect, it } from "vitest";
 import { Bar } from "@/lib/reports/blocks/Bar";
-import { Table } from "@/lib/reports/blocks/Table";
-import { Funnel } from "@/lib/reports/blocks/Funnel";
-import { Waterfall } from "@/lib/reports/blocks/Waterfall";
-import { CohortTriangle } from "@/lib/reports/blocks/CohortTriangle";
-import { Heatmap } from "@/lib/reports/blocks/Heatmap";
-import { Sankey } from "@/lib/reports/blocks/Sankey";
 import { Bullet } from "@/lib/reports/blocks/Bullet";
-import { Radar } from "@/lib/reports/blocks/Radar";
+import { CohortTriangle } from "@/lib/reports/blocks/CohortTriangle";
+import { Funnel } from "@/lib/reports/blocks/Funnel";
 import { Gantt } from "@/lib/reports/blocks/Gantt";
+import { Heatmap } from "@/lib/reports/blocks/Heatmap";
+import { KpiTile } from "@/lib/reports/blocks/KpiTile";
+import { Radar } from "@/lib/reports/blocks/Radar";
+import { Sankey } from "@/lib/reports/blocks/Sankey";
+import { Sparkline } from "@/lib/reports/blocks/Sparkline";
+import { Table } from "@/lib/reports/blocks/Table";
+import { Waterfall } from "@/lib/reports/blocks/Waterfall";
 import {
-  sankeyPropsSchema,
   bulletPropsSchema,
-  radarPropsSchema,
   ganttPropsSchema,
+  radarPropsSchema,
+  sankeyPropsSchema,
 } from "@/lib/reports/spec/schema";
 
 describe("KpiTile", () => {
   it("affiche label, valeur et delta", () => {
-    render(
-      <KpiTile
-        data={{ value: 12345, delta: 0.123 }}
-        label="MRR"
-        format="currency"
-      />,
-    );
+    render(<KpiTile data={{ value: 12345, delta: 0.123 }} label="MRR" format="currency" />);
     expect(screen.getByText(/MRR/i)).toBeTruthy();
     // valeur formatée FR
     expect(screen.getByText(/12\s345/)).toBeTruthy();
@@ -55,10 +49,7 @@ describe("KpiTile", () => {
 
   it("rend une sparkline si data.sparkline présent", () => {
     const { container } = render(
-      <KpiTile
-        data={{ value: 100, sparkline: [10, 20, 15, 30, 25] }}
-        label="Trend"
-      />,
+      <KpiTile data={{ value: 100, sparkline: [10, 20, 15, 30, 25] }} label="Trend" />,
     );
     expect(container.querySelector("svg")).toBeTruthy();
   });
@@ -78,9 +69,7 @@ describe("Sparkline", () => {
   });
 
   it("respecte aria-label custom", () => {
-    const { container } = render(
-      <Sparkline values={[1, 2, 3]} label="Tendance MRR" />,
-    );
+    const { container } = render(<Sparkline values={[1, 2, 3]} label="Tendance MRR" />);
     const svg = container.querySelector("svg");
     expect(svg?.getAttribute("aria-label")).toBe("Tendance MRR");
   });
@@ -172,9 +161,7 @@ describe("Waterfall", () => {
       { label: "Opex", value: -28_000, type: "delta" as const },
       { label: "Net", value: 40_000, type: "total" as const },
     ];
-    const { container } = render(
-      <Waterfall data={data} format="currency" currency="EUR" />,
-    );
+    const { container } = render(<Waterfall data={data} format="currency" currency="EUR" />);
     // 4 rectangles → 4 étapes
     expect(container.querySelectorAll("rect").length).toBe(4);
     // labels visibles
@@ -272,9 +259,7 @@ describe("Heatmap", () => {
       [1, 7, 15, 9],
       [0, 3, 10, 6],
     ];
-    render(
-      <Heatmap xLabels={xLabels} yLabels={yLabels} values={values} showValues />,
-    );
+    render(<Heatmap xLabels={xLabels} yLabels={yLabels} values={values} showValues />);
     // En-têtes
     expect(screen.getByText("00h")).toBeTruthy();
     expect(screen.getByText("18h")).toBeTruthy();
@@ -299,9 +284,7 @@ describe("Heatmap", () => {
     const yLabels = ["R1"];
     // Row partielle + NaN
     const values = [[Number.NaN]];
-    const { container } = render(
-      <Heatmap xLabels={xLabels} yLabels={yLabels} values={values} />,
-    );
+    const { container } = render(<Heatmap xLabels={xLabels} yLabels={yLabels} values={values} />);
     // 2 cellules rendues (une par x)
     expect(container.querySelectorAll('[role="cell"]').length).toBe(2);
   });
@@ -354,9 +337,7 @@ describe("Sankey", () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(
-        result.error.issues.some((i) => /missing_node/.test(i.message)),
-      ).toBe(true);
+      expect(result.error.issues.some((i) => /missing_node/.test(i.message))).toBe(true);
     }
   });
 
@@ -445,9 +426,7 @@ describe("Bullet", () => {
 
   it("Zod : refuse un item sans ranges", () => {
     const result = bulletPropsSchema.safeParse({
-      items: [
-        { label: "Test", actual: 50, target: 75 },
-      ],
+      items: [{ label: "Test", actual: 50, target: 75 }],
     });
     expect(result.success).toBe(false);
   });
@@ -456,9 +435,7 @@ describe("Bullet", () => {
 describe("Radar", () => {
   it("rend axes et un polygone par série", () => {
     const axes = ["Vélocité", "Qualité", "DX", "Sécurité", "Coût"];
-    const series = [
-      { label: "Q1", values: [0.8, 0.7, 0.6, 0.5, 0.9] },
-    ];
+    const series = [{ label: "Q1", values: [0.8, 0.7, 0.6, 0.5, 0.9] }];
     const { container } = render(<Radar axes={axes} series={series} />);
     // 1 polygone (path avec 'M ... Z')
     const paths = container.querySelectorAll("path");
@@ -497,9 +474,7 @@ describe("Radar", () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(
-        result.error.issues.some((i) => /axes\.length/.test(i.message)),
-      ).toBe(true);
+      expect(result.error.issues.some((i) => /axes\.length/.test(i.message))).toBe(true);
     }
   });
 
@@ -555,21 +530,13 @@ describe("Gantt", () => {
   });
 
   it("affiche fallback si range non défini", () => {
-    render(
-      <Gantt
-        range={{ start: "", end: "" }}
-        tasks={[]}
-      />,
-    );
+    render(<Gantt range={{ start: "", end: "" }} tasks={[]} />);
     expect(screen.getByText(/Aucune période/i)).toBeTruthy();
   });
 
   it("affiche un message vide pour la zone tâches quand tasks=[]", () => {
     const { container } = render(
-      <Gantt
-        range={{ start: "2026-05-01", end: "2026-05-31" }}
-        tasks={[]}
-      />,
+      <Gantt range={{ start: "2026-05-01", end: "2026-05-31" }} tasks={[]} />,
     );
     // Le SVG est rendu avec axe + message vide, pas de rect tâche.
     expect(container.querySelector("svg")).toBeTruthy();
@@ -607,9 +574,7 @@ describe("Gantt", () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(
-        result.error.issues.some((i) => /hors range/.test(i.message)),
-      ).toBe(true);
+      expect(result.error.issues.some((i) => /hors range/.test(i.message))).toBe(true);
     }
   });
 
@@ -629,9 +594,7 @@ describe("Gantt", () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(
-        result.error.issues.some((i) => /unknown_task/.test(i.message)),
-      ).toBe(true);
+      expect(result.error.issues.some((i) => /unknown_task/.test(i.message))).toBe(true);
     }
   });
 

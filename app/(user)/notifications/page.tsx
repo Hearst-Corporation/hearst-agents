@@ -12,8 +12,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { useNotificationsStore } from "@/stores/notifications";
 import type { AppNotification } from "@/stores/notifications";
+import { useNotificationsStore } from "@/stores/notifications";
 import { EmptyState, RowSkeleton, ScreenShell } from "../components/ui";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -98,9 +98,10 @@ export default function NotificationsPage() {
     return true;
   });
 
-  const subtitle = unreadCount > 0
-    ? `${unreadCount} non lue${unreadCount > 1 ? "s" : ""}`
-    : "Aucune notification non lue";
+  const subtitle =
+    unreadCount > 0
+      ? `${unreadCount} non lue${unreadCount > 1 ? "s" : ""}`
+      : "Aucune notification non lue";
 
   return (
     <ScreenShell
@@ -123,10 +124,7 @@ export default function NotificationsPage() {
         ) : null
       }
     >
-      <div
-        className="flex flex-col"
-        style={{ gap: "var(--space-4)" }}
-      >
+      <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
         {/* Filtres */}
         <div className="flex flex-wrap items-center" style={{ gap: "var(--space-2)" }}>
           {/* Sévérité */}
@@ -141,9 +139,14 @@ export default function NotificationsPage() {
                 style={{
                   borderColor: isActive ? "var(--border-strong)" : "var(--border-subtle)",
                   background: isActive ? "var(--surface-2)" : "transparent",
-                  color: s === "all"
-                    ? (isActive ? "var(--text-soft)" : "var(--text-faint)")
-                    : (isActive ? SEVERITY_COLORS[s] : "var(--text-faint)"),
+                  color:
+                    s === "all"
+                      ? isActive
+                        ? "var(--text-soft)"
+                        : "var(--text-faint)"
+                      : isActive
+                        ? SEVERITY_COLORS[s]
+                        : "var(--text-faint)",
                   letterSpacing: "var(--tracking-hairline)",
                   transitionDuration: "var(--duration-fast)",
                   transitionTimingFunction: "var(--ease-standard)",
@@ -154,10 +157,7 @@ export default function NotificationsPage() {
             );
           })}
 
-          <span
-            aria-hidden
-            className="self-center text-[var(--border-default)]"
-          >
+          <span aria-hidden className="self-center text-[var(--border-default)]">
             |
           </span>
 
@@ -186,9 +186,7 @@ export default function NotificationsPage() {
         </div>
 
         {/* État chargement */}
-        {loading && filtered.length === 0 && (
-          <RowSkeleton count={4} height="var(--space-20)" />
-        )}
+        {loading && filtered.length === 0 && <RowSkeleton count={4} height="var(--space-20)" />}
 
         {/* État vide */}
         {!loading && filtered.length === 0 && (
@@ -220,11 +218,7 @@ export default function NotificationsPage() {
             style={{ gap: "1px" }}
           >
             {filtered.map((notif) => (
-              <NotifCard
-                key={notif.id}
-                notif={notif}
-                onRead={() => void markRead(notif.id)}
-              />
+              <NotifCard key={notif.id} notif={notif} onRead={() => void markRead(notif.id)} />
             ))}
           </div>
         )}
@@ -235,13 +229,7 @@ export default function NotificationsPage() {
 
 // ── Carte notification ─────────────────────────────────────────────────────
 
-function NotifCard({
-  notif,
-  onRead,
-}: {
-  notif: AppNotification;
-  onRead: () => void;
-}) {
+function NotifCard({ notif, onRead }: { notif: AppNotification; onRead: () => void }) {
   const isUnread = notif.read_at === null;
 
   return (
@@ -267,7 +255,10 @@ function NotifCard({
 
       {/* Contenu */}
       <div className="flex-1 min-w-0 flex flex-col" style={{ gap: "var(--space-1)" }}>
-        <div className="flex flex-wrap items-baseline justify-between" style={{ gap: "var(--space-2)" }}>
+        <div
+          className="flex flex-wrap items-baseline justify-between"
+          style={{ gap: "var(--space-2)" }}
+        >
           <span
             className={`t-13 ${isUnread ? "text-text-soft font-semibold" : "text-text-muted font-normal"}`}
           >
@@ -278,11 +269,7 @@ function NotifCard({
           </span>
         </div>
 
-        {notif.body && (
-          <p className="t-11 text-text-faint m-0">
-            {notif.body}
-          </p>
-        )}
+        {notif.body && <p className="t-11 text-text-faint m-0">{notif.body}</p>}
 
         <div
           className="flex flex-wrap items-center"
@@ -304,9 +291,7 @@ function NotifCard({
           >
             {SEVERITY_LABELS[notif.severity]}
           </span>
-          <span className="t-9 font-light text-text-ghost">
-            {KIND_LABELS[notif.kind]}
-          </span>
+          <span className="t-9 font-light text-text-ghost">{KIND_LABELS[notif.kind]}</span>
         </div>
       </div>
 

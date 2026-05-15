@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { useMotionValue } from "framer-motion";
+import { useEffect } from "react";
 import { normalizeMousePosition } from "@/lib/spatial/utils";
 
 /**

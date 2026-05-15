@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { findOrphanedFiles } from "@/lib/engine/runtime/assets/cleanup/worker";
-import type { StorageProvider, StorageObject } from "@/lib/engine/runtime/assets/storage/types";
+import type { StorageObject, StorageProvider } from "@/lib/engine/runtime/assets/storage/types";
 
 // Minimal StorageProvider mock — only list() is needed for orphan detection.
 function makeStorage(objects: Partial<StorageObject>[]): StorageProvider {
@@ -13,7 +13,7 @@ function makeStorage(objects: Partial<StorageObject>[]): StorageProvider {
         contentType: "application/octet-stream",
         lastModified: o.lastModified ?? new Date(),
         metadata: {},
-      }))
+      })),
     ),
     upload: vi.fn(),
     download: vi.fn(),
@@ -54,10 +54,7 @@ describe("findOrphanedFiles", () => {
     // DB connaît seulement les deux premiers fichiers
     const db = makeDb(["runs/a/file-a.pdf", "runs/b/file-b.pdf"]);
 
-    const orphans = await findOrphanedFiles(
-      db as ReturnType<typeof makeDb> as never,
-      storage
-    );
+    const orphans = await findOrphanedFiles(db as ReturnType<typeof makeDb> as never, storage);
 
     expect(orphans).toHaveLength(1);
     expect(orphans[0].key).toBe("runs/c/orphan.pdf");

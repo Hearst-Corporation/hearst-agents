@@ -67,8 +67,7 @@ export function useSpatialEntityState(id: SpatialEntityId): {
   const isFocal = isSelected || isPinned;
 
   const someoneElseIsFocal =
-    (selectedId !== null && selectedId !== id) ||
-    pinnedIds.some((p) => p !== id);
+    (selectedId !== null && selectedId !== id) || pinnedIds.some((p) => p !== id);
   const isDefocused = !isFocal && someoneElseIsFocal;
 
   return { isHovered, isSelected, isPinned, isFocal, isDefocused };

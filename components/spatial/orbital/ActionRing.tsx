@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
 
 export type SpatialActionId = "brief" | "mission" | "assets";
@@ -21,9 +21,15 @@ interface ActionRingProps {
 }
 
 const ACTIONS: ActionDef[] = [
-  { id: "brief",   label: "Brief",       x: "clamp(-180px, -22vw, -320px)", y: "0px", labelSide: "left"  },
-  { id: "mission", label: "Mission",     x: "0px", y: "clamp(-140px, -18vh, -260px)", labelSide: "top"   },
-  { id: "assets",  label: "Assets",      x: "clamp(180px, 22vw, 320px)", y: "0px", labelSide: "right" },
+  { id: "brief", label: "Brief", x: "clamp(-180px, -22vw, -320px)", y: "0px", labelSide: "left" },
+  {
+    id: "mission",
+    label: "Mission",
+    x: "0px",
+    y: "clamp(-140px, -18vh, -260px)",
+    labelSide: "top",
+  },
+  { id: "assets", label: "Assets", x: "clamp(180px, 22vw, 320px)", y: "0px", labelSide: "right" },
 ];
 
 /**
@@ -67,10 +73,13 @@ function ActionNode({
 }) {
   const labelSide = action.labelSide ?? "right";
   const labelClass =
-    labelSide === "left"   ? "right-full mr-5 text-right" :
-    labelSide === "right"  ? "left-full ml-5 text-left" :
-    labelSide === "top"    ? "bottom-full mb-5 left-1/2 -translate-x-1/2 text-center" :
-                              "top-full mt-5 left-1/2 -translate-x-1/2 text-center";
+    labelSide === "left"
+      ? "right-full mr-5 text-right"
+      : labelSide === "right"
+        ? "left-full ml-5 text-left"
+        : labelSide === "top"
+          ? "bottom-full mb-5 left-1/2 -translate-x-1/2 text-center"
+          : "top-full mt-5 left-1/2 -translate-x-1/2 text-center";
 
   return (
     <motion.button
@@ -128,10 +137,13 @@ function ActionNode({
         {/* Ligne de tension HUD au hover */}
         <div
           className={`absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${
-            labelSide === "left"   ? "right-full w-3 h-px bg-linear-to-l from-white/55 to-transparent mr-1" :
-            labelSide === "right"  ? "left-full w-3 h-px bg-linear-to-r from-white/55 to-transparent ml-1" :
-            labelSide === "top"    ? "bottom-full h-3 w-px bg-linear-to-t from-white/55 to-transparent mb-1 left-1/2 -translate-x-1/2" :
-                                      "top-full h-3 w-px bg-linear-to-b from-white/55 to-transparent mt-1 left-1/2 -translate-x-1/2"
+            labelSide === "left"
+              ? "right-full w-3 h-px bg-linear-to-l from-white/55 to-transparent mr-1"
+              : labelSide === "right"
+                ? "left-full w-3 h-px bg-linear-to-r from-white/55 to-transparent ml-1"
+                : labelSide === "top"
+                  ? "bottom-full h-3 w-px bg-linear-to-t from-white/55 to-transparent mb-1 left-1/2 -translate-x-1/2"
+                  : "top-full h-3 w-px bg-linear-to-b from-white/55 to-transparent mt-1 left-1/2 -translate-x-1/2"
           }`}
         />
       </motion.div>

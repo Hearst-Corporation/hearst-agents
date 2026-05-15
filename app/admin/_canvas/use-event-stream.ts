@@ -14,8 +14,8 @@
 "use client";
 
 import { useEffect } from "react";
-import type { RunEvent } from "@/lib/events/types";
 import type { StepActor } from "@/lib/engine/runtime/engine/types";
+import type { RunEvent } from "@/lib/events/types";
 import { useCanvasStore } from "./store";
 import type { NodeId } from "./topology";
 
@@ -42,7 +42,10 @@ const NODE_BY_ACTOR: Record<StepActor, NodeId | null> = {
 };
 
 interface CanvasStoreApi {
-  setNodeState: (id: NodeId, state: "idle" | "active" | "success" | "failed" | "blocked" | "disabled") => void;
+  setNodeState: (
+    id: NodeId,
+    state: "idle" | "active" | "success" | "failed" | "blocked" | "disabled",
+  ) => void;
   resetNodes: () => void;
   emitPacket: (edgeId: string) => void;
   setLastEventAt: (ts: number) => void;

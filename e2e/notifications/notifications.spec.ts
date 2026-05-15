@@ -11,16 +11,16 @@
  * Les tests sont skippés si le serveur ne répond pas.
  */
 
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
-import { NotificationsPage } from "./NotificationsPage";
+import { expect, test } from "@playwright/test";
 import {
-  mountSession,
-  interceptNotificationAPI,
   interceptMarkReadAPI,
+  interceptNotificationAPI,
   mockEmptyNotifications,
   mockNotificationsWithUnread,
+  mountSession,
 } from "./fixtures";
+import { NotificationsPage } from "./NotificationsPage";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -37,7 +37,11 @@ async function mountBaseSession(page: Parameters<typeof mountSession>[0]) {
   await mountSession(page);
   // Routes de fond (threads, right-panel) pour ne pas bloquer le rendu
   await page.route("**/api/v2/threads*", (route) =>
-    route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ threads: [] }) }),
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ threads: [] }),
+    }),
   );
   await page.route("**/api/v2/right-panel*", (route) =>
     route.fulfill({

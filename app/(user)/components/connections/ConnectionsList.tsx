@@ -9,12 +9,12 @@
  * contracts publics ou les invariants OAuth / write-guard.
  */
 
+export { CategoriesBar, Wallpaper } from "./_parts/CatalogSection";
 // ─── Re-exports _parts ─────────────────────────────────────────
 export { Stage } from "./_parts/ConnectedStage";
 export { OnboardingStage } from "./_parts/OnboardingSection";
-export { SuggestionsGrid } from "./_parts/SuggestionsSection";
-export { CategoriesBar, Wallpaper } from "./_parts/CatalogSection";
 export { SearchResultsSection } from "./_parts/SearchResults";
+export { SuggestionsGrid } from "./_parts/SuggestionsSection";
 
 // ─── Composants courts (ici directement) ──────────────────────
 
@@ -87,12 +87,8 @@ export function Header({
             style={{
               color: attentionFilter ? "var(--bg)" : "var(--text-soft)",
               background: attentionFilter ? "var(--color-error)" : "transparent",
-              borderColor: attentionFilter
-                ? "var(--color-error)"
-                : "var(--border-soft)",
-              fontWeight: attentionFilter
-                ? "var(--weight-semibold)"
-                : "var(--weight-regular)",
+              borderColor: attentionFilter ? "var(--color-error)" : "var(--border-soft)",
+              fontWeight: attentionFilter ? "var(--weight-semibold)" : "var(--weight-regular)",
             }}
           >
             <span

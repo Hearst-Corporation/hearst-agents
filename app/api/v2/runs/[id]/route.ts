@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
+import { type NextRequest, NextResponse } from "next/server";
 import { getRunById } from "@/lib/engine/runtime/runs/store";
+import { getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
 import { normalizeRunEventsToTimeline } from "@/lib/engine/runtime/timeline/normalize";
 import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
 import { requireScope } from "@/lib/platform/auth/scope";
@@ -43,10 +43,7 @@ function serializeRun(
   };
 }
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   // Resolve scope with dev fallback allowed
   const { scope, error } = await requireScope({ context: "GET /api/v2/runs/[id]" });
   if (error) {
@@ -89,12 +86,13 @@ export async function GET(
     }
 
     const persistedEvents = await getPersistedRunEvents({ runId: id });
-    const timeline = persistedEvents.length > 0
-      ? normalizeRunEventsToTimeline({
-          runId: id,
-          events: persistedEvents.map((e) => e.payload),
-        })
-      : [];
+    const timeline =
+      persistedEvents.length > 0
+        ? normalizeRunEventsToTimeline({
+            runId: id,
+            events: persistedEvents.map((e) => e.payload),
+          })
+        : [];
 
     const events = persistedEvents.map((e) => e.payload as RunEvent);
 
@@ -117,10 +115,7 @@ export async function GET(
  *
  * On vérifie l'ownership pour rejeter les requêtes hors scope.
  */
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({ context: "DELETE /api/v2/runs/[id]" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });

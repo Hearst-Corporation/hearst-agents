@@ -14,8 +14,8 @@
  */
 
 import { useEffect } from "react";
-import { Action } from "./ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { Action } from "./ui";
 
 export interface ConfirmModalProps {
   open: boolean;

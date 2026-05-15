@@ -12,7 +12,7 @@
  * le Tour). En CI sans auth, on valide juste la redirection.
  */
 
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Onboarding — public surface (no auth)", () => {
   test("la racine redirige vers login si pas authentifié", async ({ page }) => {
@@ -40,9 +40,7 @@ test.describe("@skip-ci Onboarding — full flow (auth required)", () => {
     });
   });
 
-  test("première visite : l'overlay s'affiche et navigue 3 slides", async ({
-    page,
-  }) => {
+  test("première visite : l'overlay s'affiche et navigue 3 slides", async ({ page }) => {
     await page.goto("/");
 
     // Overlay visible avec slide 1

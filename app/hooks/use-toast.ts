@@ -7,7 +7,7 @@
  * Uses a module-level singleton for toast queue.
  */
 
-import { useState, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { ToastType } from "@/app/components/Toast";
 
 interface ToastItem {

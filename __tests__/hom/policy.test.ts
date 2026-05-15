@@ -5,11 +5,10 @@
  * NB : on importe le module dans un environnement Node (node:fs/promises est OK).
  * Vitest tourne en Node par défaut.
  */
-import { describe, it, expect, beforeAll } from "vitest";
-
 // Forcer __dirname Node, pas server-only.
 // On invalide le check `import "server-only"` en mockant le module avant import.
-import { vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
+
 vi.mock("server-only", () => ({}));
 
 const { evaluate, clearPolicyCache } = await import("@/lib/hom/policy");

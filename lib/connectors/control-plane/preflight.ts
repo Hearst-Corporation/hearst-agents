@@ -6,9 +6,9 @@
  */
 
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import type { ConnectorPreflightResult } from "./types";
 import { isProviderConnected } from "../unified/reconcile";
 import { getConnectionByProvider } from "./store";
+import type { ConnectorPreflightResult } from "./types";
 
 export async function preflightConnector(input: {
   provider: string;

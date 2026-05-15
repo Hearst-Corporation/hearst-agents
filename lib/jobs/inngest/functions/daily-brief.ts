@@ -14,14 +14,14 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { inngest } from "@/lib/jobs/inngest/client";
 import { storeAsset } from "@/lib/assets/types";
-import { persistExport, getExportSignedUrl } from "@/lib/reports/export/store";
 import { assembleDailyBriefData } from "@/lib/daily-brief/assembler";
 import { generateDailyBriefNarration } from "@/lib/daily-brief/generate";
 import { renderDailyBriefPdf } from "@/lib/daily-brief/pdf";
 import type { DailyBriefAssetMeta } from "@/lib/daily-brief/types";
+import { inngest } from "@/lib/jobs/inngest/client";
 import type { DailyBriefInput } from "@/lib/jobs/types";
+import { getExportSignedUrl, persistExport } from "@/lib/reports/export/store";
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
@@ -55,9 +55,7 @@ export const dailyBriefFunction = inngest.createFunction(
       }),
     );
 
-    const narration = await step.run("generate-narration", () =>
-      generateDailyBriefNarration(data),
-    );
+    const narration = await step.run("generate-narration", () => generateDailyBriefNarration(data));
 
     const assetId = randomUUID();
 

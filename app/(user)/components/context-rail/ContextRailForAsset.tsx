@@ -7,11 +7,12 @@
  */
 
 import { useStageData } from "@/stores/stage-data";
-import { Section, EmptyHint } from "./Section";
+import { EmptyHint, Section } from "./Section";
 
 export function ContextRailForAsset() {
-  const { variants, assetTitle, assetSummary, assetCreatedAt, assetKind } =
-    useStageData((s) => s.asset);
+  const { variants, assetTitle, assetSummary, assetCreatedAt, assetKind } = useStageData(
+    (s) => s.asset,
+  );
   const readyVariants = variants.filter((v) => v.status === "ready");
   const imageVariant = readyVariants.find((v) => v.kind === "image");
   const isImageOnly = !!imageVariant;
@@ -41,10 +42,7 @@ export function ContextRailForAsset() {
   return (
     <div className="h-full overflow-y-auto">
       <Section label="Title">
-        <p
-          className="t-13 font-light text-text"
-          style={{ lineHeight: "var(--leading-snug)" }}
-        >
+        <p className="t-13 font-light text-text" style={{ lineHeight: "var(--leading-snug)" }}>
           {assetTitle || "—"}
         </p>
       </Section>
@@ -62,17 +60,13 @@ export function ContextRailForAsset() {
 
       {assetCreatedAt && (
         <Section label="Created">
-          <p className="t-11 font-mono text-text-faint">
-            {fmtDate(assetCreatedAt)}
-          </p>
+          <p className="t-11 font-mono text-text-faint">{fmtDate(assetCreatedAt)}</p>
         </Section>
       )}
 
       {assetKind && (
         <Section label="Type">
-          <p className="t-11 font-medium text-(--accent-teal)">
-            {assetKind}
-          </p>
+          <p className="t-11 font-medium text-(--accent-teal)">{assetKind}</p>
         </Section>
       )}
 
@@ -81,9 +75,7 @@ export function ContextRailForAsset() {
           <ul className="flex flex-col gap-2">
             {variantMeta.width && variantMeta.height && (
               <li className="flex items-baseline gap-3">
-                <span className="t-11 font-light text-text-faint">
-                  Dimensions
-                </span>
+                <span className="t-11 font-light text-text-faint">Dimensions</span>
                 <span className="t-11 font-mono text-text-muted">
                   {variantMeta.width}×{variantMeta.height}
                 </span>
@@ -91,22 +83,14 @@ export function ContextRailForAsset() {
             )}
             {variantMeta.model && (
               <li className="flex items-baseline gap-3">
-                <span className="t-11 font-light text-text-faint">
-                  Model
-                </span>
-                <span className="t-11 font-mono text-text-muted truncate">
-                  {variantMeta.model}
-                </span>
+                <span className="t-11 font-light text-text-faint">Model</span>
+                <span className="t-11 font-mono text-text-muted truncate">{variantMeta.model}</span>
               </li>
             )}
             {imageVariant.provider && (
               <li className="flex items-baseline gap-3">
-                <span className="t-11 font-light text-text-faint">
-                  Provider
-                </span>
-                <span className="t-11 font-mono text-text-muted">
-                  {imageVariant.provider}
-                </span>
+                <span className="t-11 font-light text-text-faint">Provider</span>
+                <span className="t-11 font-mono text-text-muted">{imageVariant.provider}</span>
               </li>
             )}
           </ul>
@@ -116,9 +100,7 @@ export function ContextRailForAsset() {
       {!isImageOnly && (
         <Section label="Variants" count={readyVariants.length}>
           {readyVariants.length === 0 ? (
-            <EmptyHint>
-              Text only — generate audio/video/code via the tabs
-            </EmptyHint>
+            <EmptyHint>Text only — generate audio/video/code via the tabs</EmptyHint>
           ) : (
             <ul className="flex flex-col gap-2">
               {readyVariants.map((v) => (
@@ -126,9 +108,7 @@ export function ContextRailForAsset() {
                   <span className="t-9 font-medium text-(--accent-teal)">
                     {v.kind.toUpperCase()}
                   </span>
-                  <span className="t-11 text-text-faint tracking-wide">
-                    {v.provider ?? ""}
-                  </span>
+                  <span className="t-11 text-text-faint tracking-wide">{v.provider ?? ""}</span>
                 </li>
               ))}
             </ul>

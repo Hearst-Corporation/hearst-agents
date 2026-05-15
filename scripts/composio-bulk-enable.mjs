@@ -46,7 +46,7 @@ async function main() {
   // réponse complète avec next_cursor.
   console.log("→ Fetching toolkits catalog (raw paginated client)…");
   const allToolkits = [];
-  let cursor = undefined;
+  let cursor;
   let page = 0;
   const rawClient = composio.client?.toolkits;
   if (!rawClient || typeof rawClient.list !== "function") {
@@ -65,7 +65,9 @@ async function main() {
     process.stdout.write(`  page ${page} (${items.length} items, total ${allToolkits.length})\r`);
     if (!items.length) break;
   } while (cursor);
-  console.log(`\n✓ Got ${allToolkits.length} toolkits${CATEGORY ? ` in category=${CATEGORY}` : ""}.`);
+  console.log(
+    `\n✓ Got ${allToolkits.length} toolkits${CATEGORY ? ` in category=${CATEGORY}` : ""}.`,
+  );
   console.log(`${DRY_RUN ? "(dry-run mode — nothing will be written)" : ""}\n`);
 
   // Étape 2 — pour chaque toolkit, vérifier puis créer la managed auth-config.
@@ -108,7 +110,7 @@ async function main() {
       activated++;
       console.log(`✓ ${slug.padEnd(32)} activated`);
     } catch (err) {
-      const msg = (err && err.message) ? err.message : String(err);
+      const msg = err?.message ? err.message : String(err);
       failed.push({ slug, msg });
       // Première ligne du message pour rester lisible — Composio renvoie
       // parfois des stacktraces verbeuses.
@@ -132,7 +134,10 @@ async function main() {
     for (const f of failed) {
       // On groupe par le 1er bout du message — assez pour distinguer
       // "Custom OAuth" de "Toolkit not found" de "rate limited".
-      const key = f.msg.split(/[:.\n]/)[0].slice(0, 70).trim();
+      const key = f.msg
+        .split(/[:.\n]/)[0]
+        .slice(0, 70)
+        .trim();
       byReason.set(key, (byReason.get(key) ?? 0) + 1);
     }
     console.log("\nTop failure reasons:");

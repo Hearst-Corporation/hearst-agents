@@ -32,19 +32,11 @@ interface KpiProps {
 
 function Kpi({ label, value, tone = "default", title }: KpiProps) {
   const valueColor =
-    tone === "warn"
-      ? "text-(--warn)"
-      : tone === "ok"
-        ? "text-(--accent-teal)"
-        : "text-text";
+    tone === "warn" ? "text-(--warn)" : tone === "ok" ? "text-(--accent-teal)" : "text-text";
   return (
     <div className="flex items-baseline gap-(--space-2)" title={title}>
-      <span className="t-10 text-text-faint">
-        {label}
-      </span>
-      <span className={`t-12 font-mono font-medium tabular-nums ${valueColor}`}>
-        {value}
-      </span>
+      <span className="t-10 text-text-faint">{label}</span>
+      <span className={`t-12 font-mono font-medium tabular-nums ${valueColor}`}>{value}</span>
     </div>
   );
 }
@@ -87,13 +79,10 @@ export default function AdminTopbarKpis() {
     );
   }
 
-  const errorTone =
-    metrics.errorRate > 0.05 ? "warn" : metrics.errorRate > 0 ? "default" : "ok";
+  const errorTone = metrics.errorRate > 0.05 ? "warn" : metrics.errorRate > 0 ? "default" : "ok";
 
   return (
-    <div
-      className={`hidden md:flex items-center gap-(--space-5) ${stale ? "opacity-50" : ""}`}
-    >
+    <div className={`hidden md:flex items-center gap-(--space-5) ${stale ? "opacity-50" : ""}`}>
       <Kpi
         label="Runs/min"
         value={String(metrics.runsPerMin)}

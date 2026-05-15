@@ -9,12 +9,12 @@
  * Fail-soft : si Anthropic n'est pas configuré, on renvoie 503.
  */
 
-import { NextResponse, type NextRequest } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import Anthropic from "@anthropic-ai/sdk";
+import { type NextRequest, NextResponse } from "next/server";
+import { abTestPersonaSchema } from "@/lib/contracts/personas";
 import { getPersonaById } from "@/lib/personas/store";
 import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
-import { abTestPersonaSchema } from "@/lib/contracts/personas";
-import Anthropic from "@anthropic-ai/sdk";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
@@ -98,8 +98,7 @@ export async function POST(req: NextRequest) {
   }
 
   const baseSystem =
-    "Tu es Hearst, assistant exécutif. Réponds en français, format scannable. " +
-    "Pas d'emoji.";
+    "Tu es Hearst, assistant exécutif. Réponds en français, format scannable. " + "Pas d'emoji.";
   const addonA = buildPersonaAddonOrNull(pA);
   const addonB = buildPersonaAddonOrNull(pB);
   const sysA = addonA ? `${baseSystem}\n\n${addonA}` : baseSystem;

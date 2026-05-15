@@ -91,7 +91,12 @@ export function classifyTraceFailure(trace: TraceData): FailureClassification | 
     };
   }
 
-  if (errorLower.includes("401") || errorLower.includes("403") || errorLower.includes("unauthorized") || errorLower.includes("forbidden")) {
+  if (
+    errorLower.includes("401") ||
+    errorLower.includes("403") ||
+    errorLower.includes("unauthorized") ||
+    errorLower.includes("forbidden")
+  ) {
     return {
       category: "auth_error",
       severity: "high",
@@ -101,7 +106,12 @@ export function classifyTraceFailure(trace: TraceData): FailureClassification | 
     };
   }
 
-  if (errorLower.includes("econnrefused") || errorLower.includes("enotfound") || errorLower.includes("fetch failed") || errorLower.includes("network")) {
+  if (
+    errorLower.includes("econnrefused") ||
+    errorLower.includes("enotfound") ||
+    errorLower.includes("fetch failed") ||
+    errorLower.includes("network")
+  ) {
     return {
       category: "network_error",
       severity: "medium",
@@ -198,7 +208,9 @@ export function classifyRunFailure(run: RunData): FailureClassification | null {
   };
 }
 
-export function aggregateFailures(classifications: FailureClassification[]): Record<FailureCategory, number> {
+export function aggregateFailures(
+  classifications: FailureClassification[],
+): Record<FailureCategory, number> {
   const counts: Record<FailureCategory, number> = {
     tool_failure: 0,
     timeout: 0,

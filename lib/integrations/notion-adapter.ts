@@ -7,9 +7,9 @@
  */
 
 import type {
-  IntegrationAdapter,
   AdapterAction,
   AdapterResult,
+  IntegrationAdapter,
   IntegrationCredentials,
 } from "./adapter";
 
@@ -47,17 +47,35 @@ export class NotionAdapter implements IntegrationAdapter {
     credentials: IntegrationCredentials,
   ): Promise<AdapterResult> {
     if (action !== "notion.read_page") {
-      return { success: false, data: null, status: 0, latency_ms: 0, error: `Unknown action: ${action}` };
+      return {
+        success: false,
+        data: null,
+        status: 0,
+        latency_ms: 0,
+        error: `Unknown action: ${action}`,
+      };
     }
 
     const pageId = input.page_id as string | undefined;
     if (!pageId) {
-      return { success: false, data: null, status: 0, latency_ms: 0, error: "Missing required field: page_id" };
+      return {
+        success: false,
+        data: null,
+        status: 0,
+        latency_ms: 0,
+        error: "Missing required field: page_id",
+      };
     }
 
     const token = credentials.bearer_token ?? credentials.api_key;
     if (!token) {
-      return { success: false, data: null, status: 0, latency_ms: 0, error: "Missing Notion API token" };
+      return {
+        success: false,
+        data: null,
+        status: 0,
+        latency_ms: 0,
+        error: "Missing Notion API token",
+      };
     }
 
     const includeBlocks = input.include_blocks !== false;
@@ -86,11 +104,14 @@ export class NotionAdapter implements IntegrationAdapter {
       let blocks: unknown = null;
 
       if (includeBlocks) {
-        const blocksRes = await fetch(`${NOTION_BASE_URL}/blocks/${pageId}/children?page_size=100`, {
-          method: "GET",
-          headers,
-          signal: AbortSignal.timeout(15_000),
-        });
+        const blocksRes = await fetch(
+          `${NOTION_BASE_URL}/blocks/${pageId}/children?page_size=100`,
+          {
+            method: "GET",
+            headers,
+            signal: AbortSignal.timeout(15_000),
+          },
+        );
 
         if (blocksRes.ok) {
           blocks = await blocksRes.json();
@@ -148,7 +169,7 @@ export class NotionAdapter implements IntegrationAdapter {
 
   private buildHeaders(token: string): Record<string, string> {
     return {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       "Notion-Version": NOTION_API_VERSION,
       "Content-Type": "application/json",
     };

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { PageHeader } from "../components/PageHeader";
 import { PdfViewer } from "../components/PdfViewer";
-import { toast } from "@/app/hooks/use-toast";
 
 interface BriefingData {
   text: string | null;
@@ -29,9 +29,10 @@ export default function BriefingPage() {
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [history, setHistory] = useState<BriefHistoryItem[] | null>(null);
-  const audioPollRef = useRef<{ attempts: number; timerId: ReturnType<typeof setTimeout> | null }>(
-    { attempts: 0, timerId: null },
-  );
+  const audioPollRef = useRef<{ attempts: number; timerId: ReturnType<typeof setTimeout> | null }>({
+    attempts: 0,
+    timerId: null,
+  });
 
   const load = async () => {
     try {
@@ -66,7 +67,7 @@ export default function BriefingPage() {
       void load();
       void loadHistory();
     });
-  }, []);
+  }, [load, loadHistory]);
 
   // Auto-poll audio quand status === "generating"
   useEffect(() => {
@@ -88,7 +89,10 @@ export default function BriefingPage() {
     const tick = async () => {
       poll.attempts += 1;
       if (poll.attempts > AUDIO_POLL_MAX_ATTEMPTS) {
-        toast.info("Audio en attente", "La génération audio prend plus de 5 min. Recharge la page si besoin.");
+        toast.info(
+          "Audio en attente",
+          "La génération audio prend plus de 5 min. Recharge la page si besoin.",
+        );
         return;
       }
       await load();
@@ -103,7 +107,7 @@ export default function BriefingPage() {
         poll.timerId = null;
       }
     };
-  }, [data?.audio?.status]);
+  }, [data?.audio?.status, load]);
 
   const handleGenerate = async () => {
     if (generating) return;
@@ -122,7 +126,10 @@ export default function BriefingPage() {
   };
 
   const paragraphs = data?.text
-    ? data.text.trim().split(/\n{2,}/).filter((p) => p.trim().length > 0)
+    ? data.text
+        .trim()
+        .split(/\n{2,}/)
+        .filter((p) => p.trim().length > 0)
     : [];
 
   return (
@@ -277,7 +284,11 @@ export default function BriefingPage() {
               <div
                 key={i}
                 className="skeleton-line"
-                style={{ width: "100%", height: "var(--space-8)", borderRadius: "var(--radius-xs)" }}
+                style={{
+                  width: "100%",
+                  height: "var(--space-8)",
+                  borderRadius: "var(--radius-xs)",
+                }}
               />
             ))}
           </div>

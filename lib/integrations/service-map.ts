@@ -7,8 +7,8 @@
  * - Capability resolves to: "messaging", "calendar", "files"
  */
 
-import type { ServiceId } from "./types";
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
+import type { ServiceId } from "./types";
 
 interface ServiceMapping {
   providerId: string;

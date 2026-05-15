@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { type Asset, type AssetKind, loadAssetsForScope, storeAsset } from "@/lib/assets/types";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { storeAsset, loadAssetsForScope, type Asset, type AssetKind } from "@/lib/assets/types";
 
 export const dynamic = "force-dynamic";
 
@@ -65,9 +65,7 @@ export async function GET(req: NextRequest) {
     }
 
     if (searchQuery) {
-      filtered = filtered.filter((a) =>
-        a.title.toLowerCase().includes(searchQuery),
-      );
+      filtered = filtered.filter((a) => a.title.toLowerCase().includes(searchQuery));
     }
 
     const total = filtered.length;

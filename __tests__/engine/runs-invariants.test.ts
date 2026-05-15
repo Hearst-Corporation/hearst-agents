@@ -7,10 +7,10 @@
  *  3. DELETE stub : retourne { ok: true } sans DELETE Supabase (stub idempotent)
  */
 
-import { describe, it, expect, vi, afterEach } from "vitest";
-import { addRun, getRunById, clearAllRuns } from "@/lib/engine/runtime/runs/store";
-import { normalizeRunEventsToTimeline } from "@/lib/engine/runtime/timeline/normalize";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { addRun, clearAllRuns, getRunById } from "@/lib/engine/runtime/runs/store";
 import type { RunRecord } from "@/lib/engine/runtime/runs/types";
+import { normalizeRunEventsToTimeline } from "@/lib/engine/runtime/timeline/normalize";
 
 // ── Mocks top-level (requis pour le test DELETE) ──────────────
 
@@ -87,7 +87,12 @@ describe("normalizeRunEventsToTimeline — déterminisme", () => {
   it("même input → même titre/type/severity (déterministe en dehors des ids)", () => {
     const events = [
       { type: "run_started", timestamp: "2026-05-01T08:00:00.000Z" },
-      { type: "agent_selected", agent_id: "a1", agent_name: "Reporter", timestamp: "2026-05-01T08:00:01.000Z" },
+      {
+        type: "agent_selected",
+        agent_id: "a1",
+        agent_name: "Reporter",
+        timestamp: "2026-05-01T08:00:01.000Z",
+      },
       { type: "step_completed", agent: "a1", timestamp: "2026-05-01T08:00:05.000Z" },
       { type: "run_completed", timestamp: "2026-05-01T08:00:10.000Z" },
     ];
@@ -144,7 +149,7 @@ describe("DELETE /api/v2/runs/[id] — stub idempotent", () => {
     });
 
     const res = await DELETE(req, { params: Promise.resolve({ id: "nonexistent-id" }) });
-    const body = await res.json() as { ok: boolean; deleted?: boolean };
+    const body = (await res.json()) as { ok: boolean; deleted?: boolean };
 
     expect(body.ok).toBe(true);
     expect(res.status).toBe(200);
@@ -173,7 +178,7 @@ describe("DELETE /api/v2/runs/[id] — stub idempotent", () => {
     });
 
     const res = await DELETE(req, { params: Promise.resolve({ id: "run-stub-test" }) });
-    const body = await res.json() as { ok: boolean; deleted?: boolean; runId?: string };
+    const body = (await res.json()) as { ok: boolean; deleted?: boolean; runId?: string };
 
     // Stub : ok=true, deleted=true, mais PAS de delete Supabase
     expect(body.ok).toBe(true);

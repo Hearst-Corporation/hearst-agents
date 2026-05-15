@@ -12,9 +12,20 @@ import type { ConnectorCapability } from "@/lib/connectors/platform/types";
  * NOTE: Keep in sync manually with PROVIDER_IDS constant in registry.ts.
  */
 export type ProviderId =
-  | "google" | "slack" | "whatsapp" | "web" | "anthropic_managed" | "notion"
-  | "github" | "stripe" | "jira" | "hubspot" | "airtable"
-  | "figma" | "zapier" | "system";
+  | "google"
+  | "slack"
+  | "whatsapp"
+  | "web"
+  | "anthropic_managed"
+  | "notion"
+  | "github"
+  | "stripe"
+  | "jira"
+  | "hubspot"
+  | "airtable"
+  | "figma"
+  | "zapier"
+  | "system";
 
 export interface ProviderDefinition {
   id: ProviderId;
@@ -57,7 +68,18 @@ export function isProviderId(value: string): value is ProviderId {
 // We can't import PROVIDER_IDS at value level here due to circular ref,
 // so we maintain a mirror set. The type derivation above ensures compile-time safety.
 const PROVIDER_ID_SET = new Set<string>([
-  "google", "slack", "whatsapp", "web", "anthropic_managed", "notion",
-  "github", "stripe", "jira", "hubspot", "airtable",
-  "figma", "zapier", "system",
+  "google",
+  "slack",
+  "whatsapp",
+  "web",
+  "anthropic_managed",
+  "notion",
+  "github",
+  "stripe",
+  "jira",
+  "hubspot",
+  "airtable",
+  "figma",
+  "zapier",
+  "system",
 ]);

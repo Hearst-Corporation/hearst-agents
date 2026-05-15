@@ -1,23 +1,23 @@
+import * as Sentry from "@sentry/nextjs";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database, Json } from "../../database.types";
-import type { RunKind, TraceKind } from "../../domain/types";
-import {
-  type RunStatus,
-  type TraceStatus,
-  type RunTrigger,
-  type RunEvent,
-  type RunEventKind,
-  assertRunTransition,
-  RuntimeError,
-  withTimeout,
-  DEFAULT_TIMEOUTS,
-} from "./lifecycle";
-import { enforceCostBudget, type CostBudget, DEFAULT_COST_BUDGET } from "./cost-sentinel";
-import { validateOutput, type OutputValidationResult } from "./output-validator";
-import type { AgentGuardPolicy } from "./prompt-guard";
 import { getLangfuseClient } from "@/lib/observability/langfuse";
 import { logger } from "@/lib/observability/logger";
-import * as Sentry from "@sentry/nextjs";
+import type { Database, Json } from "../../database.types";
+import type { RunKind, TraceKind } from "../../domain/types";
+import { type CostBudget, DEFAULT_COST_BUDGET, enforceCostBudget } from "./cost-sentinel";
+import {
+  assertRunTransition,
+  DEFAULT_TIMEOUTS,
+  type RunEvent,
+  type RunEventKind,
+  type RunStatus,
+  type RunTrigger,
+  RuntimeError,
+  type TraceStatus,
+  withTimeout,
+} from "./lifecycle";
+import { type OutputValidationResult, validateOutput } from "./output-validator";
+import type { AgentGuardPolicy } from "./prompt-guard";
 
 type DB = SupabaseClient<Database>;
 type JsonRecord = Record<string, Json | undefined>;
@@ -125,7 +125,8 @@ export class RunTracer {
 
   async trace(opts: TraceOptions): Promise<TraceResult> {
     if (!this.runId) throw new RuntimeError("RUN_NOT_STARTED", "Run not started");
-    if (this.isTerminal()) throw new RuntimeError("RUN_ALREADY_FINISHED", `Run is ${this.runStatus}`);
+    if (this.isTerminal())
+      throw new RuntimeError("RUN_ALREADY_FINISHED", `Run is ${this.runStatus}`);
 
     const traceStart = Date.now();
     const timeout = opts.timeout_ms ?? DEFAULT_TIMEOUTS.step_timeout_ms;
@@ -212,13 +213,16 @@ export class RunTracer {
         policy: this.guardPolicy,
       });
 
-      await this.sb
-        .from("traces")
-        .update({ output_trust: validation.trust })
-        .eq("id", traceId);
+      await this.sb.from("traces").update({ output_trust: validation.trust }).eq("id", traceId);
     }
 
-    return { output: result.output, trace_id: traceId, status: traceStatus, latency_ms: latency, validation };
+    return {
+      output: result.output,
+      trace_id: traceId,
+      status: traceStatus,
+      latency_ms: latency,
+      validation,
+    };
   }
 
   async endRun(
@@ -245,10 +249,13 @@ export class RunTracer {
       .eq("id", this.runId);
 
     const eventKind: RunEventKind =
-      status === "completed" ? "run:completed" :
-      status === "failed" ? "run:failed" :
-      status === "timeout" ? "run:timeout" :
-      "run:cancelled";
+      status === "completed"
+        ? "run:completed"
+        : status === "failed"
+          ? "run:failed"
+          : status === "timeout"
+            ? "run:timeout"
+            : "run:cancelled";
 
     this.emitEvent(eventKind, { output, error });
 

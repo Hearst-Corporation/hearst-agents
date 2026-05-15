@@ -4,15 +4,11 @@
  * DELETE /api/v2/personas/[id]   — suppression
  */
 
-import { NextResponse, type NextRequest } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import {
-  getPersonaById,
-  updatePersona,
-  deletePersona,
-} from "@/lib/personas/store";
-import type { PersonaUpdate } from "@/lib/personas/types";
+import { type NextRequest, NextResponse } from "next/server";
 import { updatePersonaSchema } from "@/lib/contracts/personas";
+import { deletePersona, getPersonaById, updatePersona } from "@/lib/personas/store";
+import type { PersonaUpdate } from "@/lib/personas/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
@@ -73,10 +69,7 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   // payload (sémantique PATCH stricte : absente = pas de patch). zod ne
   // distingue pas optional-absent/optional-undefined dans `data`, donc on
   // re-checke la présence sur le payload brut.
-  const rawObj = (raw && typeof raw === "object" ? raw : {}) as Record<
-    string,
-    unknown
-  >;
+  const rawObj = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
   const data = parsed.data;
   const patch: PersonaUpdate = {};
   if ("name" in rawObj && data.name !== undefined) patch.name = data.name;

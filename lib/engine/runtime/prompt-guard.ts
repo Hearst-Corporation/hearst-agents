@@ -66,10 +66,7 @@ export async function validatePromptArtifact(
   };
 }
 
-export async function loadPromptContent(
-  sb: DB,
-  artifactId: string,
-): Promise<string> {
+export async function loadPromptContent(sb: DB, artifactId: string): Promise<string> {
   const validation = await validatePromptArtifact(sb, artifactId);
   if (!validation.valid) {
     throw new RuntimeError("INVALID_INPUT", validation.error!);
@@ -172,10 +169,7 @@ export function checkOutputRegex(
 
 // ── Blacklist Guard ───────────────────────────────────────
 
-export function checkOutputBlacklist(
-  output: string,
-  blacklist: string[],
-): GuardCheckResult {
+export function checkOutputBlacklist(output: string, blacklist: string[]): GuardCheckResult {
   const lower = output.toLowerCase();
   for (const term of blacklist) {
     if (lower.includes(term.toLowerCase())) {
@@ -201,10 +195,7 @@ export interface PolicyCheckResult {
   checks: { guard: string; passed: boolean; reason?: string }[];
 }
 
-export function applyAgentGuardPolicy(
-  output: string,
-  policy: AgentGuardPolicy,
-): PolicyCheckResult {
+export function applyAgentGuardPolicy(output: string, policy: AgentGuardPolicy): PolicyCheckResult {
   const checks: { guard: string; passed: boolean; reason?: string }[] = [];
   let allPassed = true;
 

@@ -10,7 +10,7 @@
  */
 
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import type { Tabular, Row } from "@/lib/reports/engine/tabular";
+import type { Row, Tabular } from "@/lib/reports/engine/tabular";
 
 export interface FetchAssetInput {
   assetId: string;
@@ -100,7 +100,10 @@ function normalizeRow(item: unknown): Row {
  * un champ pour rester simple — assez pour des exports d'apps standard.
  */
 function parseCsv(raw: string): Tabular {
-  const lines = raw.replace(/\r\n/g, "\n").split("\n").filter((l) => l.length > 0);
+  const lines = raw
+    .replace(/\r\n/g, "\n")
+    .split("\n")
+    .filter((l) => l.length > 0);
   if (lines.length === 0) return [];
   const headers = parseCsvLine(lines[0]);
   const rows: Row[] = [];

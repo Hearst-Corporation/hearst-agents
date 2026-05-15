@@ -31,10 +31,10 @@ export function VariantTab({
     effectiveStatus === "ready"
       ? "bg-(--accent-teal)"
       : effectiveStatus === "pending" || effectiveStatus === "generating"
-      ? "bg-(--warn) animate-pulse"
-      : effectiveStatus === "failed"
-      ? "bg-(--danger)"
-      : "bg-[var(--text-ghost)]";
+        ? "bg-(--warn) animate-pulse"
+        : effectiveStatus === "failed"
+          ? "bg-(--danger)"
+          : "bg-[var(--text-ghost)]";
 
   return (
     <button

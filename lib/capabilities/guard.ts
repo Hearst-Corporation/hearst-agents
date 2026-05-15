@@ -6,12 +6,7 @@
  * This is a deterministic runtime gate, not a prompt-level guard.
  */
 
-import {
-  resolveDomain,
-  isAgentValidForDomain,
-  DOMAIN_TAXONOMY,
-  type Domain,
-} from "./taxonomy";
+import { DOMAIN_TAXONOMY, type Domain, isAgentValidForDomain, resolveDomain } from "./taxonomy";
 
 export interface CapabilityGuardInput {
   agent: string;

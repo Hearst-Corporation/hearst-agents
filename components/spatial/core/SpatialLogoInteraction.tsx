@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 interface SpatialLogoInteractionProps {
   children: ReactNode;
@@ -24,12 +24,12 @@ export function SpatialLogoInteraction({ children }: SpatialLogoInteractionProps
       if (!isActive) e.stopPropagation();
     }
 
-    wrapper.addEventListener('pointermove', block, true);
-    wrapper.addEventListener('mousemove', block, true);
+    wrapper.addEventListener("pointermove", block, true);
+    wrapper.addEventListener("mousemove", block, true);
 
     return () => {
-      wrapper.removeEventListener('pointermove', block, true);
-      wrapper.removeEventListener('mousemove', block, true);
+      wrapper.removeEventListener("pointermove", block, true);
+      wrapper.removeEventListener("mousemove", block, true);
     };
   }, [isActive]);
 
@@ -38,7 +38,7 @@ export function SpatialLogoInteraction({ children }: SpatialLogoInteractionProps
       ref={wrapperRef}
       onClick={() => setIsActive((v) => !v)}
       className="absolute inset-0 w-full h-full cursor-pointer"
-      title={isActive ? 'Cliquez pour figer le robot' : 'Cliquez pour activer le robot'}
+      title={isActive ? "Cliquez pour figer le robot" : "Cliquez pour activer le robot"}
     >
       {children}
     </div>

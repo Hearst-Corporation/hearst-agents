@@ -1,12 +1,18 @@
 "use client";
 
-import { useRuntimeStore, type CoreState } from "@/stores/runtime";
 import { useNavigationStore } from "@/stores/navigation";
+import { type CoreState, useRuntimeStore } from "@/stores/runtime";
 
 // États où l'action principale est "Annuler" (suspension en attente d'input)
 const CANCEL_STATES: CoreState[] = ["awaiting_approval", "awaiting_clarification"];
 // États actifs (pas idle, pas error)
-const ACTIVE_STATES: CoreState[] = ["connecting", "streaming", "processing", "awaiting_approval", "awaiting_clarification"];
+const ACTIVE_STATES: CoreState[] = [
+  "connecting",
+  "streaming",
+  "processing",
+  "awaiting_approval",
+  "awaiting_clarification",
+];
 
 interface StateConfig {
   label: string;
@@ -20,7 +26,11 @@ const STATE_MAP: Record<CoreState, StateConfig> = {
   streaming: { label: "Running", tone: "accent-teal", pattern: "wave-fast" },
   processing: { label: "Processing", tone: "accent-teal", pattern: "wave-slow" },
   awaiting_approval: { label: "Approval required", tone: "gold", pattern: "static" },
-  awaiting_clarification: { label: "Clarification required", tone: "accent-teal", pattern: "pulse-mid" },
+  awaiting_clarification: {
+    label: "Clarification required",
+    tone: "accent-teal",
+    pattern: "pulse-mid",
+  },
   error: { label: "Error", tone: "danger", pattern: "static" },
 };
 
@@ -40,9 +50,7 @@ export function StageFooter() {
   const color = TONE_VAR[config.tone];
   const leftCollapsed = useNavigationStore((s) => s.leftCollapsed);
 
-  const leftSpacer = leftCollapsed
-    ? "var(--width-threads-collapsed)"
-    : "var(--width-threads)";
+  const leftSpacer = leftCollapsed ? "var(--width-threads-collapsed)" : "var(--width-threads)";
   const rightSpacer = "var(--width-context)";
   const labelText = flowLabel && coreState !== "idle" ? flowLabel : config.label;
 
@@ -73,7 +81,11 @@ export function StageFooter() {
         </span>
         {(isActive || isError) && (
           <>
-            <span className="t-11 font-light" style={{ color: "var(--text-faint)", opacity: 0.5 }} aria-hidden>
+            <span
+              className="t-11 font-light"
+              style={{ color: "var(--text-faint)", opacity: 0.5 }}
+              aria-hidden
+            >
               ·
             </span>
             <button
@@ -81,8 +93,12 @@ export function StageFooter() {
               onClick={handleAction}
               className="t-11 font-light transition-colors duration-[var(--duration-fast)]"
               style={{ color: "var(--text-muted)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--danger)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)"; }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = "var(--danger)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = "var(--text-muted)";
+              }}
               aria-label={actionLabel}
             >
               {actionLabel}
@@ -95,13 +111,7 @@ export function StageFooter() {
   );
 }
 
-function DotsCluster({
-  pattern,
-  color,
-}: {
-  pattern: StateConfig["pattern"];
-  color: string;
-}) {
+function DotsCluster({ pattern, color }: { pattern: StateConfig["pattern"]; color: string }) {
   const delays = [0, 150, 300];
   return (
     <span className="inline-flex items-center" style={{ gap: "var(--space-1)" }} aria-hidden>

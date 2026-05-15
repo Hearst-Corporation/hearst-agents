@@ -12,18 +12,15 @@
  * abort un run déjà fini ne reçoit pas d'erreur trompeuse.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import { abortRun } from "@/lib/engine/orchestrator/abort-registry";
 import { getRunById } from "@/lib/engine/runtime/runs/store";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function POST(
-  _req: NextRequest,
-  context: { params: Promise<{ runId: string }> },
-) {
+export async function POST(_req: NextRequest, context: { params: Promise<{ runId: string }> }) {
   const { scope, error } = await requireScope({ context: "POST /api/orchestrate/abort" });
   if (error || !scope) {
     return NextResponse.json(

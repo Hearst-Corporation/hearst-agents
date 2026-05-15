@@ -47,9 +47,20 @@ const EXFIL_PATTERNS = [
 
 // Mass-action soft / hard caps — the second number wins.
 const MASS_PATTERNS: Array<{ pattern: RegExp; recipients: number }> = [
-  { pattern: /\b(\d{2,})\s*(contacts?|destinataires?|clients?|leads?|recipients?|personnes?|utilisateurs?|users?|emails?\s+\w+)\b/i, recipients: 0 },
-  { pattern: /\btous\s+(mes|tes|nos)\s+(contacts?|clients?|leads?|emails?|abonn[ée]s?|users?|utilisateurs?)\b/i, recipients: 9999 },
-  { pattern: /\ball\s+(my|the|our)\s+(contacts?|clients?|leads?|users?|customers?)\b/i, recipients: 9999 },
+  {
+    pattern:
+      /\b(\d{2,})\s*(contacts?|destinataires?|clients?|leads?|recipients?|personnes?|utilisateurs?|users?|emails?\s+\w+)\b/i,
+    recipients: 0,
+  },
+  {
+    pattern:
+      /\btous\s+(mes|tes|nos)\s+(contacts?|clients?|leads?|emails?|abonn[ée]s?|users?|utilisateurs?)\b/i,
+    recipients: 9999,
+  },
+  {
+    pattern: /\ball\s+(my|the|our)\s+(contacts?|clients?|leads?|users?|customers?)\b/i,
+    recipients: 9999,
+  },
 ];
 
 const SOFT_CAP = 10;

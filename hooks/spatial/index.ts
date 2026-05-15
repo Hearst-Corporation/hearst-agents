@@ -1,7 +1,7 @@
 export { useSpatialMouse } from "./useSpatialMouse";
 export { useLerpedScale, useOrbitalPosition, useSlowRotation } from "./useSpatialR3F";
-export { useSplineApp, type UseSplineApp, type SplineTargetName } from "./useSplineApp";
-export { useSplineVoiceBridge } from "./useSplineVoiceBridge";
+export { type SplineTargetName, type UseSplineApp, useSplineApp } from "./useSplineApp";
+export { useSplineIdleAmbient } from "./useSplineIdleAmbient";
 export { useSplineStateBridge } from "./useSplineStateBridge";
 export { useSplineToolBridge } from "./useSplineToolBridge";
-export { useSplineIdleAmbient } from "./useSplineIdleAmbient";
+export { useSplineVoiceBridge } from "./useSplineVoiceBridge";

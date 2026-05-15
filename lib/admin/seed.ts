@@ -17,13 +17,7 @@ import type { Database } from "@/lib/database.types";
 
 type DB = SupabaseClient<Database>;
 
-export type SeedResource =
-  | "agents"
-  | "tools"
-  | "datasets"
-  | "workflows"
-  | "skills"
-  | "all";
+export type SeedResource = "agents" | "tools" | "datasets" | "workflows" | "skills" | "all";
 
 export interface SeedReport {
   resource: SeedResource;
@@ -220,31 +214,78 @@ const DATASETS = [
     name: "eval-email-tone",
     description: "Évalue la cohérence du ton sur les drafts d'emails.",
     entries: [
-      { input: "Réponds à Marc qui annule son meeting", expected_output: "Pas de souci Marc, on reprogramme la semaine prochaine. — Adrien" },
-      { input: "Annonce le délai au client", expected_output: "On va devoir décaler la livraison de 5 jours. Je t'envoie un planning révisé d'ici demain." },
-      { input: "Refuse une nouvelle demande de meeting", expected_output: "Je ne peux pas cette semaine — peux-tu m'envoyer la question par écrit ? Je reviens vers toi avant vendredi." },
-      { input: "Confirme une réservation", expected_output: "Confirmé pour le 12 à 14h. Je t'envoie l'adresse 1h avant." },
-      { input: "Relance après silence", expected_output: "Hey, je reviens vers toi sur le sujet X — tu as 5 min cette semaine ?" },
+      {
+        input: "Réponds à Marc qui annule son meeting",
+        expected_output: "Pas de souci Marc, on reprogramme la semaine prochaine. — Adrien",
+      },
+      {
+        input: "Annonce le délai au client",
+        expected_output:
+          "On va devoir décaler la livraison de 5 jours. Je t'envoie un planning révisé d'ici demain.",
+      },
+      {
+        input: "Refuse une nouvelle demande de meeting",
+        expected_output:
+          "Je ne peux pas cette semaine — peux-tu m'envoyer la question par écrit ? Je reviens vers toi avant vendredi.",
+      },
+      {
+        input: "Confirme une réservation",
+        expected_output: "Confirmé pour le 12 à 14h. Je t'envoie l'adresse 1h avant.",
+      },
+      {
+        input: "Relance après silence",
+        expected_output: "Hey, je reviens vers toi sur le sujet X — tu as 5 min cette semaine ?",
+      },
     ],
   },
   {
     name: "eval-research-quality",
     description: "Mesure la qualité des rapports produits par la branche research.",
     entries: [
-      { input: "Marché de l'IA conversationnelle B2B en 2026", expected_output: "Rapport de 1500+ mots, 5+ sources, structure : marché / acteurs / signaux faibles / recommandation." },
-      { input: "Brief sur la régulation EU AI Act", expected_output: "Brief 300 mots, 3 sources officielles minimum, focus implications pour les startups SaaS." },
-      { input: "Tendances design system 2026", expected_output: "Rapport 800 mots, exemples de Linear / Vercel / Stripe, 3 takeaways concrets." },
-      { input: "Comparaison Composio vs Pipedream", expected_output: "Tableau comparatif, 4 dimensions (price, integrations, DX, observability), verdict argumenté." },
-      { input: "État de Next.js 16", expected_output: "Brief 500 mots : changelog clé, breaking changes, migration tips depuis Next 15." },
+      {
+        input: "Marché de l'IA conversationnelle B2B en 2026",
+        expected_output:
+          "Rapport de 1500+ mots, 5+ sources, structure : marché / acteurs / signaux faibles / recommandation.",
+      },
+      {
+        input: "Brief sur la régulation EU AI Act",
+        expected_output:
+          "Brief 300 mots, 3 sources officielles minimum, focus implications pour les startups SaaS.",
+      },
+      {
+        input: "Tendances design system 2026",
+        expected_output:
+          "Rapport 800 mots, exemples de Linear / Vercel / Stripe, 3 takeaways concrets.",
+      },
+      {
+        input: "Comparaison Composio vs Pipedream",
+        expected_output:
+          "Tableau comparatif, 4 dimensions (price, integrations, DX, observability), verdict argumenté.",
+      },
+      {
+        input: "État de Next.js 16",
+        expected_output:
+          "Brief 500 mots : changelog clé, breaking changes, migration tips depuis Next 15.",
+      },
     ],
   },
   {
     name: "eval-calendar-conflicts",
     description: "Détecte les conflits de calendrier et propose des alternatives.",
     entries: [
-      { input: "Meeting client mardi 10h vs review interne mardi 10h", expected_output: "Conflit détecté. Proposer : déplacer la review à mercredi 10h ou jeudi 16h." },
-      { input: "Focus 9h-12h vs urgence dev qui tombe à 10h", expected_output: "Préserver le focus jusqu'à 12h. Proposer un slot 14h-15h pour l'urgence." },
-      { input: "Vendredi PM = no-meeting policy + demande externe", expected_output: "Refuser poliment et proposer 3 slots lundi/mardi matin." },
+      {
+        input: "Meeting client mardi 10h vs review interne mardi 10h",
+        expected_output:
+          "Conflit détecté. Proposer : déplacer la review à mercredi 10h ou jeudi 16h.",
+      },
+      {
+        input: "Focus 9h-12h vs urgence dev qui tombe à 10h",
+        expected_output: "Préserver le focus jusqu'à 12h. Proposer un slot 14h-15h pour l'urgence.",
+      },
+      {
+        input: "Vendredi PM = no-meeting policy + demande externe",
+        expected_output: "Refuser poliment et proposer 3 slots lundi/mardi matin.",
+      },
     ],
   },
 ] as const;
@@ -256,9 +297,24 @@ const WORKFLOWS = [
     trigger_type: "schedule" as const,
     status: "active" as const,
     steps: [
-      { step_order: 0, action_type: "tool_call" as const, agentSlug: "email-assistant", config: { tool: "gmail_fetch_emails", filter: "is:unread newer_than:1d" } },
-      { step_order: 1, action_type: "tool_call" as const, agentSlug: "calendar-keeper", config: { tool: "googlecalendar_events_list", range: "today" } },
-      { step_order: 2, action_type: "chat" as const, agentSlug: "email-assistant", config: { prompt: "Synthétise le briefing en 5 puces." } },
+      {
+        step_order: 0,
+        action_type: "tool_call" as const,
+        agentSlug: "email-assistant",
+        config: { tool: "gmail_fetch_emails", filter: "is:unread newer_than:1d" },
+      },
+      {
+        step_order: 1,
+        action_type: "tool_call" as const,
+        agentSlug: "calendar-keeper",
+        config: { tool: "googlecalendar_events_list", range: "today" },
+      },
+      {
+        step_order: 2,
+        action_type: "chat" as const,
+        agentSlug: "email-assistant",
+        config: { prompt: "Synthétise le briefing en 5 puces." },
+      },
     ],
   },
   {
@@ -267,10 +323,30 @@ const WORKFLOWS = [
     trigger_type: "schedule" as const,
     status: "active" as const,
     steps: [
-      { step_order: 0, action_type: "tool_call" as const, agentSlug: "research-analyst", config: { tool: "runs_aggregate", range: "7d" } },
-      { step_order: 1, action_type: "tool_call" as const, agentSlug: "research-analyst", config: { tool: "audit_log_diff", range: "7d" } },
-      { step_order: 2, action_type: "chat" as const, agentSlug: "research-analyst", config: { prompt: "Produis le recap en format brief." } },
-      { step_order: 3, action_type: "tool_call" as const, agentSlug: "slack-replier", config: { tool: "slack_send_message", channel: "#weekly" } },
+      {
+        step_order: 0,
+        action_type: "tool_call" as const,
+        agentSlug: "research-analyst",
+        config: { tool: "runs_aggregate", range: "7d" },
+      },
+      {
+        step_order: 1,
+        action_type: "tool_call" as const,
+        agentSlug: "research-analyst",
+        config: { tool: "audit_log_diff", range: "7d" },
+      },
+      {
+        step_order: 2,
+        action_type: "chat" as const,
+        agentSlug: "research-analyst",
+        config: { prompt: "Produis le recap en format brief." },
+      },
+      {
+        step_order: 3,
+        action_type: "tool_call" as const,
+        agentSlug: "slack-replier",
+        config: { tool: "slack_send_message", channel: "#weekly" },
+      },
     ],
   },
 ] as const;
@@ -282,7 +358,11 @@ async function seedAgents(db: DB): Promise<SeedReport> {
   let inserted = 0;
   let skipped = 0;
   for (const agent of AGENTS) {
-    const { data: existing } = await db.from("agents").select("id").eq("slug", agent.slug).maybeSingle();
+    const { data: existing } = await db
+      .from("agents")
+      .select("id")
+      .eq("slug", agent.slug)
+      .maybeSingle();
     if (existing) {
       skipped += 1;
       continue;
@@ -302,7 +382,11 @@ async function seedTools(db: DB): Promise<SeedReport> {
   let inserted = 0;
   let skipped = 0;
   for (const tool of TOOLS) {
-    const { data: existing } = await db.from("tools").select("id").eq("slug", tool.slug).maybeSingle();
+    const { data: existing } = await db
+      .from("tools")
+      .select("id")
+      .eq("slug", tool.slug)
+      .maybeSingle();
     if (existing) {
       skipped += 1;
       continue;
@@ -322,7 +406,11 @@ async function seedSkills(db: DB): Promise<SeedReport> {
   let inserted = 0;
   let skipped = 0;
   for (const skill of SKILLS) {
-    const { data: existing } = await db.from("skills").select("id").eq("slug", skill.slug).maybeSingle();
+    const { data: existing } = await db
+      .from("skills")
+      .select("id")
+      .eq("slug", skill.slug)
+      .maybeSingle();
     if (existing) {
       skipped += 1;
       continue;

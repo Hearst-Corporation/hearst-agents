@@ -13,13 +13,7 @@
 import { create } from "zustand";
 import type { PopupHandle } from "@/lib/oauth/popup";
 
-export type OAuthStatus =
-  | "idle"
-  | "opening"
-  | "active"
-  | "success"
-  | "error"
-  | "cancelled";
+export type OAuthStatus = "idle" | "opening" | "active" | "success" | "error" | "cancelled";
 
 interface OAuthState {
   slug: string | null;

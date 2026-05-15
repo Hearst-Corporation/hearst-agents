@@ -13,7 +13,7 @@
  * sur la signature webhook + l'unguessable bot ID.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/capabilities/providers/recall-ai";
 import { recordWebhookEvent } from "@/lib/meetings/webhook-cache";
 
@@ -33,10 +33,8 @@ interface RecallWebhookPayload {
 
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
-  const signature =
-    req.headers.get("x-recall-signature") ?? req.headers.get("recall-signature");
-  const timestamp =
-    req.headers.get("x-recall-timestamp") ?? req.headers.get("recall-timestamp");
+  const signature = req.headers.get("x-recall-signature") ?? req.headers.get("recall-signature");
+  const timestamp = req.headers.get("x-recall-timestamp") ?? req.headers.get("recall-timestamp");
 
   const verdict = verifyWebhookSignature({ rawBody, signature, timestamp });
 
@@ -46,10 +44,7 @@ export async function POST(req: NextRequest) {
       console.error(
         "[meetings/webhook] RECALL_WEBHOOK_SECRET absent en production — webhook désactivé",
       );
-      return NextResponse.json(
-        { error: "webhook_secret_not_configured" },
-        { status: 503 },
-      );
+      return NextResponse.json({ error: "webhook_secret_not_configured" }, { status: 503 });
     }
     console.warn(
       "[meetings/webhook] RECALL_WEBHOOK_SECRET absent (dev) — payload accepté sans vérif",

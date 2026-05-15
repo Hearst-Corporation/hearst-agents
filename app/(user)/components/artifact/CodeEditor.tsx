@@ -62,7 +62,7 @@ export function CodeEditor({
         const ta = e.currentTarget;
         const start = ta.selectionStart;
         const end = ta.selectionEnd;
-        const next = value.slice(0, start) + "  " + value.slice(end);
+        const next = `${value.slice(0, start)}  ${value.slice(end)}`;
         onChange(next);
         // Restore caret après React update — defer 1 tick
         requestAnimationFrame(() => {
@@ -78,7 +78,7 @@ export function CodeEditor({
 
   useEffect(() => {
     handleScroll();
-  }, [value, handleScroll]);
+  }, [handleScroll]);
 
   return (
     <div

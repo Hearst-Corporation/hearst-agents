@@ -15,8 +15,8 @@
  * RLS migration 0045 — server uses service_role bypass via getServerSupabase.
  */
 
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 type VoiceEntryRole = "user" | "assistant" | "tool_call" | "tool_result";
 
@@ -140,9 +140,7 @@ export async function getTranscript(sessionId: string): Promise<VoiceTranscriptR
     tenantId: row.tenant_id as string,
     threadId: (row.thread_id as string | null) ?? null,
     sessionId: row.session_id as string,
-    startedAt: row.started_at
-      ? new Date(row.started_at as string).getTime()
-      : Date.now(),
+    startedAt: row.started_at ? new Date(row.started_at as string).getTime() : Date.now(),
     endedAt: row.ended_at ? new Date(row.ended_at as string).getTime() : null,
     entries: Array.isArray(row.entries) ? (row.entries as VoiceTranscriptEntry[]) : [],
   };
@@ -168,4 +166,3 @@ export async function linkTranscriptToThread(
   }
   return true;
 }
-

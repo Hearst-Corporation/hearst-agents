@@ -95,8 +95,13 @@ export function RunTimeline({ timeline, isLive }: RunTimelineProps) {
           : null;
 
         return (
-          <div key={item.id} className={`flex items-start gap-4 py-3 px-2 ${isLast && isLive ? "bg-[var(--bg-soft)]" : ""}`}>
-            <span className={`t-9 font-medium shrink-0 pt-0.5 border-b pb-0.5 ${severityClass} border-current`}>
+          <div
+            key={item.id}
+            className={`flex items-start gap-4 py-3 px-2 ${isLast && isLive ? "bg-[var(--bg-soft)]" : ""}`}
+          >
+            <span
+              className={`t-9 font-medium shrink-0 pt-0.5 border-b pb-0.5 ${severityClass} border-current`}
+            >
               {sevBadge}
             </span>
             <div className="flex-1 min-w-0">
@@ -108,14 +113,14 @@ export function RunTimeline({ timeline, isLive }: RunTimelineProps) {
               {item.backend && (
                 <p className="t-10 font-mono text-text-faint mt-1">{item.backend}</p>
               )}
-              {providerLabel && (
-                <p className="t-10 text-text-faint">via {providerLabel}</p>
-              )}
+              {providerLabel && <p className="t-10 text-text-faint">via {providerLabel}</p>}
               {item.assetName && (
                 <p className="t-10 font-medium text-(--money) mt-1">{item.assetName}</p>
               )}
             </div>
-            {isLast && isLive && <span className="w-1.5 h-1.5 shrink-0 mt-1 bg-(--accent-teal) animate-pulse" />}
+            {isLast && isLive && (
+              <span className="w-1.5 h-1.5 shrink-0 mt-1 bg-(--accent-teal) animate-pulse" />
+            )}
           </div>
         );
       })}

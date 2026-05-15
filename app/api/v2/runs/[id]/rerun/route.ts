@@ -6,7 +6,7 @@
  * endpoint stable et un retour testable.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 
@@ -15,10 +15,7 @@ export const dynamic = "force-dynamic";
 
 const ParamsSchema = z.object({ id: z.string().min(1, "id_required") });
 
-export async function POST(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({ context: "POST /api/v2/runs/[id]/rerun" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });

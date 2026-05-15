@@ -23,18 +23,18 @@
  *   I-10. Logo via HearstLogo en expanded, "H" teal sourd en collapsed.
  */
 
-import { useCallback, useMemo, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useNavigationStore, type Thread } from "@/stores/navigation";
-import { useStageStore } from "@/stores/stage";
+import { useCallback, useMemo, useState } from "react";
 import { useOAuthExpiry } from "@/app/hooks/use-oauth-expiry";
 import { toast } from "@/app/hooks/use-toast";
+import { type Thread, useNavigationStore } from "@/stores/navigation";
+import { useStageStore } from "@/stores/stage";
 import { ConfirmModal } from "../ConfirmModal";
-import { RailHeader } from "./RailHeader";
-import { RailFooter } from "./RailFooter";
 import { RailCollapsedBody } from "./RailCollapsedBody";
 import { RailExpandedBody } from "./RailExpandedBody";
+import { RailFooter } from "./RailFooter";
+import { RailHeader } from "./RailHeader";
 import { groupThreadsByDate } from "./shared";
 
 export function TimelineRail() {
@@ -67,9 +67,7 @@ export function TimelineRail() {
         ? `1 connexion expirée — reconnecter`
         : `${expired} connexions expirées — reconnecter`;
     }
-    return count === 1
-      ? `1 connexion expire bientôt`
-      : `${count} connexions expirent bientôt`;
+    return count === 1 ? `1 connexion expire bientôt` : `${count} connexions expirent bientôt`;
   })();
 
   const sectionPadX = leftCollapsed ? "pl-6 pr-2" : "px-8";
@@ -83,16 +81,19 @@ export function TimelineRail() {
   // Archive : toggle réversible. On annonce explicitement l'action via toast
   // pour éviter la confusion « supprimé / archivé », et on indique où retrouver
   // l'item (/archive). Undo dispo via re-toggle dans /archive.
-  const handleArchive = useCallback((id: string) => {
-    const thread = threads.find((t) => t.id === id);
-    const wasArchived = thread?.archived === true;
-    toggleArchived(id);
-    if (!wasArchived) {
-      toast.info("Conversation archivée", "Retrouve-la dans Archive (⌘K → « Voir l'archive »)");
-    } else {
-      toast.info("Conversation restaurée", "Elle réapparaît dans Investigations.");
-    }
-  }, [threads, toggleArchived]);
+  const handleArchive = useCallback(
+    (id: string) => {
+      const thread = threads.find((t) => t.id === id);
+      const wasArchived = thread?.archived === true;
+      toggleArchived(id);
+      if (!wasArchived) {
+        toast.info("Conversation archivée", "Retrouve-la dans Archive (⌘K → « Voir l'archive »)");
+      } else {
+        toast.info("Conversation restaurée", "Elle réapparaît dans Investigations.");
+      }
+    },
+    [threads, toggleArchived],
+  );
 
   const handleThreadSelect = (threadId: string) => {
     setActiveThread(threadId);

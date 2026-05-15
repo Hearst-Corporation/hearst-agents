@@ -4,10 +4,10 @@
  * Hook : encapsule fetch initial, sauvegarde et test de canal pour AlertingSettings.
  */
 
-import { useCallback, useEffect, useReducer } from "react";
 import type { Dispatch } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
-import { INITIAL_STATE, reducer, type Action, type State } from "./types";
+import { type Action, INITIAL_STATE, reducer, type State } from "./types";
 
 interface UseAlertingPrefs {
   state: State;
@@ -42,14 +42,21 @@ export function useAlertingPrefs(): UseAlertingPrefs {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(prefs),
       });
-      const data = (await res.json()) as { ok?: boolean; prefs?: AlertingPreferences; error?: string };
+      const data = (await res.json()) as {
+        ok?: boolean;
+        prefs?: AlertingPreferences;
+        error?: string;
+      };
       if (!res.ok || !data.ok) {
         dispatch({ type: "SAVE_ERROR", message: data.error ?? `HTTP ${res.status}` });
       } else {
         dispatch({ type: "SAVE_OK", prefs: data.prefs ?? prefs });
       }
     } catch (err) {
-      dispatch({ type: "SAVE_ERROR", message: err instanceof Error ? err.message : "Erreur réseau" });
+      dispatch({
+        type: "SAVE_ERROR",
+        message: err instanceof Error ? err.message : "Erreur réseau",
+      });
     }
   }, []);
 

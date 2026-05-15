@@ -17,29 +17,25 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { getTenantSetting } from "@/lib/platform/settings";
 import type { BusinessSignal } from "@/lib/reports/signals/extract";
 import type { Severity } from "@/lib/reports/signals/types";
-import { getTenantSetting } from "@/lib/platform/settings";
 import {
-  ALERTING_PREFERENCES_SETTING_KEY,
-  DEFAULT_ALERTING_PREFERENCES,
-  parseAlertingPreferences,
-  type AlertingPreferences,
-} from "./schema";
-import {
+  type AlertContext,
+  type ChannelResult,
   dispatchEmail,
   dispatchSlack,
   dispatchWebhook,
-  type AlertContext,
-  type ChannelResult,
   type EmailSender,
 } from "./channels";
-import {
-  inMemoryStore,
-  shouldThrottle,
-  type ThrottleStore,
-} from "./throttle";
 import { createNotification, formatSignalTitle } from "./in-app";
+import {
+  ALERTING_PREFERENCES_SETTING_KEY,
+  type AlertingPreferences,
+  DEFAULT_ALERTING_PREFERENCES,
+  parseAlertingPreferences,
+} from "./schema";
+import { inMemoryStore, shouldThrottle, type ThrottleStore } from "./throttle";
 
 const SEVERITY_RANK: Record<Severity, number> = {
   info: 0,
@@ -123,18 +119,14 @@ export async function saveAlertingPreferences(
   );
 }
 
-export async function dispatchAlerts(
-  input: DispatchAlertsInput,
-): Promise<DispatchAlertsResult> {
+export async function dispatchAlerts(input: DispatchAlertsInput): Promise<DispatchAlertsResult> {
   const now = input.now ?? Date.now();
   const floor = input.severityFloor ?? "critical";
   const floorRank = SEVERITY_RANK[floor];
   const store = input.throttleStore ?? inMemoryStore;
 
   // ── 1. Sévérité filter ─────────────────────────────────
-  const candidates = input.signals.filter(
-    (s) => SEVERITY_RANK[s.severity] >= floorRank,
-  );
+  const candidates = input.signals.filter((s) => SEVERITY_RANK[s.severity] >= floorRank);
 
   if (candidates.length === 0) {
     return {
@@ -176,9 +168,7 @@ export async function dispatchAlerts(
   let prefs = input.preferences;
   if (!prefs) {
     if (!input.db) {
-      console.warn(
-        "[alerting] dispatchAlerts appelé sans preferences ni db — skip",
-      );
+      console.warn("[alerting] dispatchAlerts appelé sans preferences ni db — skip");
       // On marque les signaux dispatchedSignals comme émis pour ne pas
       // re-spammer si l'appel est rejoué dans la fenêtre de throttle.
       for (const sig of dispatchedSignals) {
@@ -235,10 +225,7 @@ export async function dispatchAlerts(
     store.markEmitted(`${input.tenantId}:${sig.type}`, now);
 
     // ── Notification in-app (critical + warning) ───────────────
-    if (
-      input.db &&
-      (sig.severity === "critical" || sig.severity === "warning")
-    ) {
+    if (input.db && (sig.severity === "critical" || sig.severity === "warning")) {
       void createNotification(input.db, {
         tenantId: input.tenantId,
         kind: "signal",

@@ -3,15 +3,10 @@
  * Whitelist par défaut : une action sans rule explicite = deny.
  * L'évaluation se fait avant chaque action sensible (write, delete, spawn).
  */
-import { HOM } from "./paths";
+
 import { readJson } from "./fs-utils";
-import type {
-  FleetPolicy,
-  PolicyDecision,
-  PolicyRule,
-  ReleasePolicy,
-  AgentId,
-} from "./types";
+import { HOM } from "./paths";
+import type { AgentId, FleetPolicy, PolicyDecision, PolicyRule, ReleasePolicy } from "./types";
 
 export interface PolicyContext {
   agent_id: AgentId | "master";
@@ -59,9 +54,7 @@ function matchesScope(rule: PolicyRule, scope: string | undefined): boolean {
   }
   if (rule.scope.endsWith("/*")) {
     const prefix = rule.scope.slice(0, -2);
-    return (
-      scope.startsWith(prefix) && !scope.slice(prefix.length).includes("/")
-    );
+    return scope.startsWith(prefix) && !scope.slice(prefix.length).includes("/");
   }
   return false;
 }
@@ -100,9 +93,7 @@ export interface ReleaseGateResult {
   reason: string;
 }
 
-export async function evaluateReleaseGates(
-  ctx: ReleaseGateContext,
-): Promise<ReleaseGateResult[]> {
+export async function evaluateReleaseGates(ctx: ReleaseGateContext): Promise<ReleaseGateResult[]> {
   const policy = await loadReleasePolicy();
   return policy.gates.map((g) => {
     const passed = checkGate(g.rule, ctx);

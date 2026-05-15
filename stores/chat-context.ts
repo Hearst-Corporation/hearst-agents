@@ -37,8 +37,7 @@ export const useChatContext = create<ChatContextState>()(
           if (state.chips.some((c) => c.id === chip.id)) return state;
           return { chips: [...state.chips, chip] };
         }),
-      removeChip: (id) =>
-        set((state) => ({ chips: state.chips.filter((c) => c.id !== id) })),
+      removeChip: (id) => set((state) => ({ chips: state.chips.filter((c) => c.id !== id) })),
       clearChips: () => set({ chips: [] }),
     }),
     {

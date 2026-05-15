@@ -5,7 +5,7 @@
  * past position 15. Otherwise hard-cut at 40 chars.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 function truncateThreadName(message: string): string {
   const raw = message.slice(0, 50);
@@ -51,7 +51,7 @@ describe("truncateThreadName", () => {
 
   it("60-char message with a space at position 30 cuts at that space", () => {
     // 30 'a's, one space, 29 'b's = 60 chars total
-    const m = "a".repeat(30) + " " + "b".repeat(29);
+    const m = `${"a".repeat(30)} ${"b".repeat(29)}`;
     expect(m.length).toBe(60);
     const out = truncateThreadName(m);
     expect(out).toBe("a".repeat(30));
@@ -59,13 +59,13 @@ describe("truncateThreadName", () => {
 
   it("60-char message with first space at position 5 (< 15) hard-cuts at 40", () => {
     // "abcde " + 54 'x's
-    const m = "abcde " + "x".repeat(54);
+    const m = `abcde ${"x".repeat(54)}`;
     expect(m.length).toBe(60);
     const out = truncateThreadName(m);
     // The 50-char window is "abcde " + "x".repeat(44). lastIndexOf(" ") = 5,
     // not > 15 → hard-cut at 40.
     expect(out).toHaveLength(40);
-    expect(out).toBe("abcde " + "x".repeat(34));
+    expect(out).toBe(`abcde ${"x".repeat(34)}`);
   });
 
   it("empty string returns empty string", () => {

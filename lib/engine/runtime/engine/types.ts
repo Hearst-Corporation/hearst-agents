@@ -38,12 +38,7 @@ export interface CreateRunInput {
 
 // ── RunStep ──────────────────────────────────────────────
 
-export type StepType =
-  | "orchestrator"
-  | "delegate"
-  | "tool_call"
-  | "approval"
-  | "artifact_build";
+export type StepType = "orchestrator" | "delegate" | "tool_call" | "approval" | "artifact_build";
 
 export type StepActor =
   | "orchestrator"
@@ -151,4 +146,3 @@ export interface UsageMetrics {
   /** Identifiant du modèle LLM — utilisé pour le cost tracking */
   model?: string;
 }
-

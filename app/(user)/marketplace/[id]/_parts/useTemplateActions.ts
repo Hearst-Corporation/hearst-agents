@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
 import type {
-  MarketplaceTemplate,
-  MarketplaceRating,
   CreativePromptPayload,
+  MarketplaceRating,
+  MarketplaceTemplate,
 } from "@/lib/marketplace/types";
 
 export interface DetailResponse {
@@ -47,7 +47,11 @@ export function useTemplateActions(
       if (data?.template.kind === "workflow") {
         router.push(`/missions${focus}`);
       } else if (data?.template.kind === "report_spec") {
-        router.push(body.resourceId ? `/reports/studio?edit=${encodeURIComponent(body.resourceId)}` : "/reports");
+        router.push(
+          body.resourceId
+            ? `/reports/studio?edit=${encodeURIComponent(body.resourceId)}`
+            : "/reports",
+        );
       } else if (data?.template.kind === "persona") {
         router.push(`/personas${focus}`);
       }
@@ -98,7 +102,9 @@ export function useTemplateActions(
     try {
       if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(payload.prompt);
-        setFlash("Prompt copié dans le presse-papiers — colle-le dans VideoQuickLaunch ou AssetVariantTabs.");
+        setFlash(
+          "Prompt copié dans le presse-papiers — colle-le dans VideoQuickLaunch ou AssetVariantTabs.",
+        );
       } else {
         setFlash("Prompt prêt — copie manuelle requise (clipboard indisponible).");
       }

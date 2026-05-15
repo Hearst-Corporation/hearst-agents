@@ -5,8 +5,8 @@
  * Returns typed data or throws with clear error.
  */
 
-import { readFileSync } from "fs";
-import { join } from "path";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { ArchitectureMap } from "./types";
 
 let cached: ArchitectureMap | null = null;

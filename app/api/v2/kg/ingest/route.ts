@@ -6,16 +6,18 @@
  * + pgvector pour mémoire long terme et raisonnement.
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { extractEntities, upsertNode, upsertEdge } from "@/lib/memory/kg";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
+import { extractEntities, upsertEdge, upsertNode } from "@/lib/memory/kg";
+import { requireScope } from "@/lib/platform/auth/scope";
 
-const kgIngestBodySchema = z.object({
-  text: z.string().min(1).max(50_000),
-  sourceLabel: z.string().max(200).optional(),
-}).strict();
+const kgIngestBodySchema = z
+  .object({
+    text: z.string().min(1).max(50_000),
+    sourceLabel: z.string().max(200).optional(),
+  })
+  .strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

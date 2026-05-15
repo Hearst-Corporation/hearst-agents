@@ -8,11 +8,7 @@
 export type Severity = "critical" | "high" | "medium" | "low" | "info";
 export type AgentId = "architecture" | "design-system" | "qa";
 export type AgentStatus = "green" | "amber" | "red" | "stale" | "quarantined";
-export type RunDecision =
-  | "release_candidate"
-  | "release_blocked"
-  | "needs_review"
-  | "aborted";
+export type RunDecision = "release_candidate" | "release_blocked" | "needs_review" | "aborted";
 
 export type RunPhase =
   | "intake"

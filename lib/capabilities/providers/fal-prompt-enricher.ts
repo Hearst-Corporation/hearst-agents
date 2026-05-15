@@ -16,12 +16,7 @@
  * pas dupliquer ("8k cinematic" → ne réinjecte pas "8k" ni "cinematic").
  */
 
-export type EnrichMode =
-  | "editorial"
-  | "cinematic"
-  | "flat-illustration"
-  | "portrait"
-  | "product";
+export type EnrichMode = "editorial" | "cinematic" | "flat-illustration" | "portrait" | "product";
 
 export interface EnrichedPrompt {
   prompt: string;
@@ -51,22 +46,14 @@ const MODES: Record<EnrichMode, ModeConfig> = {
   editorial: {
     suffix:
       "editorial photography, hasselblad, sharp focus, 8k, golden hour, fine grain, magazine cover quality",
-    keywords: [
-      "editorial",
-      "hasselblad",
-      "8k",
-      "magazine",
-      "golden hour",
-      "fine grain",
-    ],
+    keywords: ["editorial", "hasselblad", "8k", "magazine", "golden hour", "fine grain"],
     negative: BASE_NEGATIVE,
     num_inference_steps: 32,
     guidance_scale: 4.5,
     image_size: "square_hd",
   },
   cinematic: {
-    suffix:
-      "cinematic lighting, anamorphic lens, film grain, dramatic shadows, 35mm",
+    suffix: "cinematic lighting, anamorphic lens, film grain, dramatic shadows, 35mm",
     keywords: ["cinematic", "anamorphic", "film grain", "35mm", "dramatic"],
     negative: BASE_NEGATIVE,
     num_inference_steps: 36,
@@ -96,13 +83,7 @@ const MODES: Record<EnrichMode, ModeConfig> = {
   product: {
     suffix:
       "product photography, white background, soft shadows, studio lighting, hero shot, ultra detailed, 8k",
-    keywords: [
-      "product",
-      "white background",
-      "studio lighting",
-      "hero shot",
-      "8k",
-    ],
+    keywords: ["product", "white background", "studio lighting", "hero shot", "8k"],
     negative: BASE_NEGATIVE,
     num_inference_steps: 36,
     guidance_scale: 5.5,
@@ -133,10 +114,7 @@ function dedupeSuffix(userPrompt: string, suffix: string, keywords: string[]): s
   return filtered.join(", ");
 }
 
-export function enrichPrompt(
-  userPrompt: string,
-  mode: EnrichMode = DEFAULT_MODE,
-): EnrichedPrompt {
+export function enrichPrompt(userPrompt: string, mode: EnrichMode = DEFAULT_MODE): EnrichedPrompt {
   const trimmed = userPrompt.trim();
   if (!trimmed) {
     throw new Error("[fal-prompt-enricher] userPrompt is empty");

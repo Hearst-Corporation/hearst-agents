@@ -7,15 +7,15 @@
  */
 
 import { describe, expect, it, vi } from "vitest";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
+import type { SaveTemplateInput } from "@/lib/reports/templates/schema";
 import {
-  saveTemplate,
-  loadTemplate,
-  listTemplates,
   deleteTemplate,
+  listTemplates,
+  loadTemplate,
+  saveTemplate,
   updateTemplate,
 } from "@/lib/reports/templates/store";
-import type { SaveTemplateInput } from "@/lib/reports/templates/schema";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 // ── Spec minimal valide ─────────────────────────────────────
 
@@ -177,7 +177,9 @@ describe("saveTemplate", () => {
   });
 
   it("retourne null si Supabase retourne une erreur", async () => {
-    const sb = makeSbInsert(makeRow(), { message: "db error" }) as unknown as Parameters<typeof saveTemplate>[1];
+    const sb = makeSbInsert(makeRow(), { message: "db error" }) as unknown as Parameters<
+      typeof saveTemplate
+    >[1];
     const result = await saveTemplate(
       {
         tenantId: "tenant-abc",

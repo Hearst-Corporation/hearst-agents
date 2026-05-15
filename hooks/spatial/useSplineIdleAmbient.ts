@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * useSplineIdleAmbient — pousse une variable `idle_intensity` (0..1) dans
@@ -12,10 +12,10 @@
  * halo doux) sans intervention.
  */
 
-import { useEffect, useRef } from 'react';
-import { useRuntimeStore } from '@/stores/runtime';
-import { useVoiceStore } from '@/stores/voice';
-import type { UseSplineApp } from './useSplineApp';
+import { useEffect, useRef } from "react";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useVoiceStore } from "@/stores/voice";
+import type { UseSplineApp } from "./useSplineApp";
 
 const IDLE_DELAY_MS = 30_000;
 const TARGET_INTENSITY = 0.3;
@@ -28,13 +28,13 @@ export function useSplineIdleAmbient(spline: UseSplineApp) {
   const rampStartRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const isIdle = coreState === 'idle' && voicePhase === 'idle';
+    const isIdle = coreState === "idle" && voicePhase === "idle";
 
     if (!isIdle) {
       // Reset immédiat
       if (intensityRef.current !== 0) {
         intensityRef.current = 0;
-        spline.setVar('idle_intensity', 0);
+        spline.setVar("idle_intensity", 0);
       }
       rampStartRef.current = null;
       return;
@@ -52,7 +52,7 @@ export function useSplineIdleAmbient(spline: UseSplineApp) {
       const value = TARGET_INTENSITY * progress;
       if (Math.abs(value - intensityRef.current) > 0.005) {
         intensityRef.current = value;
-        spline.setVar('idle_intensity', value);
+        spline.setVar("idle_intensity", value);
       }
     };
     raf = requestAnimationFrame(tick);

@@ -58,9 +58,7 @@ export function ComposerActions({
         onClick={onAudioGen}
         disabled={!input.trim() || audioGenStatus === "pending" || isRunning}
         title={
-          audioGenStatus === "pending"
-            ? "Synthèse en cours…"
-            : "Synthétiser le texte en audio"
+          audioGenStatus === "pending" ? "Synthèse en cours…" : "Synthétiser le texte en audio"
         }
         aria-label="Synthétiser en audio"
         className={`transition-colors duration-base ${
@@ -92,9 +90,7 @@ export function ComposerActions({
         onClick={onCodeExec}
         disabled={!input.trim() || codeExecStatus === "pending" || isRunning}
         title={
-          codeExecStatus === "pending"
-            ? "Exécution en cours…"
-            : "Exécuter du code dans la sandbox"
+          codeExecStatus === "pending" ? "Exécution en cours…" : "Exécuter du code dans la sandbox"
         }
         aria-label="Exécuter le code"
         className={`transition-colors duration-base ${

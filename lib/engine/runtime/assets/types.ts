@@ -5,14 +5,7 @@
  * Assets represent downloadable file-like outputs: PDFs, spreadsheets, etc.
  */
 
-export type AssetType =
-  | "pdf"
-  | "excel"
-  | "doc"
-  | "json"
-  | "csv"
-  | "report"
-  | "text";
+export type AssetType = "pdf" | "excel" | "doc" | "json" | "csv" | "report" | "text";
 
 export type AssetStorageKind = "inline" | "file";
 

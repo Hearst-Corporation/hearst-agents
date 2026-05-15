@@ -6,11 +6,11 @@
  * (et fallback applicatif si trigger absent).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { rateTemplate } from "@/lib/marketplace/store";
 import { checkRateLimit } from "@/lib/marketplace/rate-limit";
+import { rateTemplate } from "@/lib/marketplace/store";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -52,12 +52,7 @@ export async function POST(req: NextRequest, ctx: RouteContext) {
     );
   }
 
-  const ok = await rateTemplate(
-    id,
-    scope.userId,
-    parsed.data.rating,
-    parsed.data.comment,
-  );
+  const ok = await rateTemplate(id, scope.userId, parsed.data.rating, parsed.data.comment);
 
   if (!ok) {
     return NextResponse.json({ error: "rate_failed" }, { status: 500 });

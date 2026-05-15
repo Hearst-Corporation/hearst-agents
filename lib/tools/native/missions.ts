@@ -11,21 +11,21 @@
  */
 
 import crypto from "node:crypto";
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
+import { jsonSchema } from "ai";
+import { type Asset, loadAssetsForScope } from "@/lib/assets/types";
+import { scheduleDailyBriefing } from "@/lib/engine/runtime/briefing-scheduler";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
+import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import type { RunEventBus } from "@/lib/events/bus";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
-import { scheduleDailyBriefing } from "@/lib/engine/runtime/briefing-scheduler";
-import { loadAssetsForScope, type Asset } from "@/lib/assets/types";
 import {
-  signToken,
   buildShareUrl,
   checkShareRateLimit,
+  signToken,
   TTL_DEFAULT_HOURS,
-  TTL_MIN_HOURS,
   TTL_MAX_HOURS,
+  TTL_MIN_HOURS,
 } from "@/lib/reports/sharing/signed-url";
 import { createShareRow } from "@/lib/reports/sharing/store";
 
@@ -46,11 +46,7 @@ export interface MissionMatch {
 
 /** Normalise un nom pour le matching : lowercase + retire accents + trim. */
 export function normalize(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .trim();
+  return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
 }
 
 /**
@@ -68,11 +64,29 @@ export function matchMissions(
   for (const m of missions) {
     const n = normalize(m.name);
     if (n === q) {
-      matches.push({ id: m.id, name: m.name, schedule: m.schedule, scheduleLabel: m.label, kind: "exact" });
+      matches.push({
+        id: m.id,
+        name: m.name,
+        schedule: m.schedule,
+        scheduleLabel: m.label,
+        kind: "exact",
+      });
     } else if (n.startsWith(q)) {
-      matches.push({ id: m.id, name: m.name, schedule: m.schedule, scheduleLabel: m.label, kind: "prefix" });
+      matches.push({
+        id: m.id,
+        name: m.name,
+        schedule: m.schedule,
+        scheduleLabel: m.label,
+        kind: "prefix",
+      });
     } else if (n.includes(q) || q.includes(n)) {
-      matches.push({ id: m.id, name: m.name, schedule: m.schedule, scheduleLabel: m.label, kind: "substring" });
+      matches.push({
+        id: m.id,
+        name: m.name,
+        schedule: m.schedule,
+        scheduleLabel: m.label,
+        kind: "substring",
+      });
     }
   }
 
@@ -226,9 +240,19 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
         },
         kind: {
           type: "string",
-          enum: ["report", "brief", "document", "page", "code", "snippet", "message", "spreadsheet", "task", "event"],
-          description:
-            "Filtre optionnel par type d'asset. Si omis, cherche dans tous les types.",
+          enum: [
+            "report",
+            "brief",
+            "document",
+            "page",
+            "code",
+            "snippet",
+            "message",
+            "spreadsheet",
+            "task",
+            "event",
+          ],
+          description: "Filtre optionnel par type d'asset. Si omis, cherche dans tous les types.",
         },
         limit: {
           type: "number",
@@ -307,11 +331,14 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
 
   // ── Helper privé : fuzzy match d'un report asset par titre ────────────
   // Réutilisé par share_asset + export_asset_pdf pour rester DRY.
-  async function findReportAsset(
-    query: string,
-  ): Promise<
+  async function findReportAsset(query: string): Promise<
     | { ok: true; asset: Asset }
-    | { ok: false; reason: "no_assets" | "no_match" | "ambiguous"; matches?: Asset[]; available?: Asset[] }
+    | {
+        ok: false;
+        reason: "no_assets" | "no_match" | "ambiguous";
+        matches?: Asset[];
+        available?: Asset[];
+      }
   > {
     const all = await loadAssetsForScope({
       tenantId: scope.tenantId,
@@ -446,8 +473,7 @@ export function buildMissionTools(opts: BuildMissionToolsOpts): AiToolMap {
         shareUrl,
         expiresAt: new Date(signed.expiresAt).toISOString(),
         ttlHours: ttl,
-        message:
-          "Lien créé. Présenter à l'utilisateur sous forme de lien clickable inline.",
+        message: "Lien créé. Présenter à l'utilisateur sous forme de lien clickable inline.",
       });
     },
   };

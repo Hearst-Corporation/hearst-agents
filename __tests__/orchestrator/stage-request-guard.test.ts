@@ -13,9 +13,9 @@
  *      ce qui confirme que ChatDock doit utiliser `setModeFromTool`.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { useStageStore } from "@/stores/stage";
+import { beforeEach, describe, expect, it } from "vitest";
 import type { StagePayload } from "@/stores/stage";
+import { useStageStore } from "@/stores/stage";
 
 const TOOL_OVERRIDE_GUARD_MS = 10_000;
 

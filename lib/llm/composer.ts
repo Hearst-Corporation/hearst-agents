@@ -1,7 +1,7 @@
-import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk, ChatMessage } from "./types";
-import { sanitizeProviderError } from "./errors";
-import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { redactString } from "@/lib/observability/langfuse-redact";
+import { sanitizeProviderError } from "./errors";
+import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
+import type { ChatMessage, ChatRequest, ChatResponse, LLMProvider, StreamChunk } from "./types";
 
 /**
  * Cursor Composer 2 — OpenAI-compatible `POST /v1/chat/completions`.
@@ -17,7 +17,9 @@ import { redactString } from "@/lib/observability/langfuse-redact";
  * No extra npm dependency: uses `fetch` (Node 18+ / Next runtime).
  */
 
-function mapMessages(messages: ChatMessage[]): Array<{ role: "system" | "user" | "assistant"; content: string }> {
+function mapMessages(
+  messages: ChatMessage[],
+): Array<{ role: "system" | "user" | "assistant"; content: string }> {
   return messages.map((m) => {
     if (m.role === "tool") {
       return { role: "user", content: `[tool]\n${m.content}` };
@@ -42,9 +44,7 @@ export class ComposerProvider implements LLMProvider {
     if (mode === "basic") {
       const pair = `${apiKey}:`;
       const token =
-        typeof Buffer !== "undefined"
-          ? Buffer.from(pair, "utf8").toString("base64")
-          : btoa(pair);
+        typeof Buffer !== "undefined" ? Buffer.from(pair, "utf8").toString("base64") : btoa(pair);
       return `Basic ${token}`;
     }
     return `Bearer ${apiKey}`;
@@ -79,7 +79,10 @@ export class ComposerProvider implements LLMProvider {
 
     const raw = await res.text();
     if (!res.ok) {
-      console.error("composer.chat http_error", { status: res.status, bodyPreview: redactString(raw.slice(0, 500)) });
+      console.error("composer.chat http_error", {
+        status: res.status,
+        bodyPreview: redactString(raw.slice(0, 500)),
+      });
       throw new Error(sanitizeProviderError(res.status, raw));
     }
 
@@ -91,7 +94,9 @@ export class ComposerProvider implements LLMProvider {
     try {
       json = JSON.parse(raw) as typeof json;
     } catch (e) {
-      console.error("composer.chat json_parse", { message: e instanceof Error ? e.message : String(e) });
+      console.error("composer.chat json_parse", {
+        message: e instanceof Error ? e.message : String(e),
+      });
       throw new Error("Composer API returned non-JSON body");
     }
 
@@ -138,7 +143,10 @@ export class ComposerProvider implements LLMProvider {
 
     if (!res.ok || !res.body) {
       const t = await res.text().catch(() => "");
-      console.error("composer.streamChat http_error", { status: res.status, bodyPreview: redactString(t.slice(0, 500)) });
+      console.error("composer.streamChat http_error", {
+        status: res.status,
+        bodyPreview: redactString(t.slice(0, 500)),
+      });
       throw new Error(sanitizeProviderError(res.status, t));
     }
 

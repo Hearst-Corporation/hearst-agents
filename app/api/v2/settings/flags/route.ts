@@ -3,20 +3,18 @@
  * POST /api/v2/settings/flags — toggle a feature flag (admin only)
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import {
-  getFeatureFlag,
-  setFeatureFlag,
-  getCategorySettings,
-} from "@/lib/platform/settings";
+import { getCategorySettings, getFeatureFlag, setFeatureFlag } from "@/lib/platform/settings";
 
-const flagsBodySchema = z.object({
-  key: z.string().min(1).max(200),
-  enabled: z.boolean(),
-}).strict();
+const flagsBodySchema = z
+  .object({
+    key: z.string().min(1).max(200),
+    enabled: z.boolean(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 

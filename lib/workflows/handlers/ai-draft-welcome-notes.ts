@@ -16,8 +16,8 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import type { WorkflowHandler } from "./types";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import type { WorkflowHandler } from "./types";
 
 interface ArrivalLite {
   guestName: string;
@@ -31,19 +31,21 @@ interface ArrivalLite {
  * vocab sobre, pas de superlatifs creux), avec une dérogation explicite
  * sur le tutoiement → vouvoiement requis pour le contexte concierge VIP.
  */
-const SYSTEM_PROMPT = composeEditorialPrompt([
-  "Tu es un concierge premium qui rédige des welcome notes courtes et personnalisées pour des guests VIP.",
-  "",
-  "FORMAT STRICT — JSON ARRAY uniquement, sans markdown fence, sans préambule :",
-  '[{ "guestName": string, "room": string, "note": string }]',
-  "",
-  "RÈGLES SPÉCIFIQUES :",
-  "- Chaque note ≤ 80 mots (cap dur).",
-  "- Ton chaleureux, jamais obséquieux. Pas de superlatifs creux.",
-  "- Si specialRequest est présent, le mentionner discrètement (« nous avons préparé… »).",
-  "- DÉROGATION CHARTE : vouvoiement obligatoire ici (contexte hospitality VIP). Le tutoiement par défaut de Hearst ne s'applique pas.",
-  "- Pas de phrase générique copiée-collée d'un guest à l'autre.",
-].join("\n"));
+const SYSTEM_PROMPT = composeEditorialPrompt(
+  [
+    "Tu es un concierge premium qui rédige des welcome notes courtes et personnalisées pour des guests VIP.",
+    "",
+    "FORMAT STRICT — JSON ARRAY uniquement, sans markdown fence, sans préambule :",
+    '[{ "guestName": string, "room": string, "note": string }]',
+    "",
+    "RÈGLES SPÉCIFIQUES :",
+    "- Chaque note ≤ 80 mots (cap dur).",
+    "- Ton chaleureux, jamais obséquieux. Pas de superlatifs creux.",
+    "- Si specialRequest est présent, le mentionner discrètement (« nous avons préparé… »).",
+    "- DÉROGATION CHARTE : vouvoiement obligatoire ici (contexte hospitality VIP). Le tutoiement par défaut de Hearst ne s'applique pas.",
+    "- Pas de phrase générique copiée-collée d'un guest à l'autre.",
+  ].join("\n"),
+);
 
 function fallbackNote(a: ArrivalLite): string {
   return `Bienvenue ${a.guestName}. Votre chambre ${a.room ?? ""} est prête. La conciergerie reste à votre disposition.`.trim();

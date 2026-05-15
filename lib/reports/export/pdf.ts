@@ -26,30 +26,19 @@
 
 import PDFDocument from "pdfkit";
 import type { RenderedBlock } from "@/lib/reports/engine/render-blocks";
-import type { ExportInput, ExportResult } from "./types";
-import { PDF_CONTENT_TYPE } from "./types";
 import { safeFileName } from "@/lib/utils/safe-file-name";
-import {
-  COLORS,
-  FONT_SIZES,
-  PAGE,
-  SPACE,
-  BRAND,
-} from "./pdf-tokens";
-import { registerFonts, setFont } from "./pdf-fonts";
-import { renderCover } from "./pdf-cover";
-import { renderPageChrome, renderSectionHeader } from "./pdf-section";
+import { renderBarChart, renderBullet, renderSparkline, renderWaterfall } from "./pdf-blocks/chart";
+import { renderCohort } from "./pdf-blocks/cohort";
 import { renderKpi } from "./pdf-blocks/kpi";
 import { renderProse } from "./pdf-blocks/prose";
-import { renderTable } from "./pdf-blocks/table";
-import {
-  renderBarChart,
-  renderWaterfall,
-  renderBullet,
-  renderSparkline,
-} from "./pdf-blocks/chart";
 import { renderQuote } from "./pdf-blocks/quote";
-import { renderCohort } from "./pdf-blocks/cohort";
+import { renderTable } from "./pdf-blocks/table";
+import { renderCover } from "./pdf-cover";
+import { registerFonts, setFont } from "./pdf-fonts";
+import { renderPageChrome, renderSectionHeader } from "./pdf-section";
+import { BRAND, COLORS, FONT_SIZES, PAGE, SPACE } from "./pdf-tokens";
+import type { ExportInput, ExportResult } from "./types";
+import { PDF_CONTENT_TYPE } from "./types";
 
 function bufferFromDoc(doc: PDFKit.PDFDocument): Promise<Buffer> {
   return new Promise((resolve, reject) => {
@@ -59,7 +48,6 @@ function bufferFromDoc(doc: PDFKit.PDFDocument): Promise<Buffer> {
     doc.on("error", reject);
   });
 }
-
 
 /** Helpers pagination — track la section + numéro de page courants. */
 interface ChromeState {
@@ -184,11 +172,7 @@ function buildCoverDescription(
   return parts.join(" ");
 }
 
-function addContentPage(
-  doc: PDFKit.PDFDocument,
-  chrome: ChromeState,
-  embedded: boolean,
-): void {
+function addContentPage(doc: PDFKit.PDFDocument, chrome: ChromeState, embedded: boolean): void {
   doc.addPage({
     size: PAGE.size,
     margins: {
@@ -280,11 +264,7 @@ function prettyType(type: string): string {
 
 // ── Rendu d'un block individuel ─────────────────────────
 
-function renderKpiRow(
-  doc: PDFKit.PDFDocument,
-  blocks: RenderedBlock[],
-  embedded: boolean,
-): void {
+function renderKpiRow(doc: PDFKit.PDFDocument, blocks: RenderedBlock[], embedded: boolean): void {
   const totalWidth = PAGE.width - PAGE.marginX * 2;
   const gap = SPACE.s6;
   const colCount = blocks.length;
@@ -310,11 +290,7 @@ function renderKpiRow(
   doc.y = startY + maxConsumed + SPACE.s8;
 }
 
-function renderSingleBlock(
-  doc: PDFKit.PDFDocument,
-  block: RenderedBlock,
-  embedded: boolean,
-): void {
+function renderSingleBlock(doc: PDFKit.PDFDocument, block: RenderedBlock, embedded: boolean): void {
   switch (block.type) {
     case "kpi": {
       const data = block.data as { value: unknown; delta?: unknown; sparkline?: number[] | null };
@@ -396,10 +372,8 @@ function renderSingleBlock(
       const valueField =
         typeof props.valueField === "string"
           ? props.valueField
-          : Object.keys(data[0] ?? {})[0] ?? "value";
-      const values = data
-        .map((r) => Number(r[valueField] ?? 0))
-        .filter((v) => Number.isFinite(v));
+          : (Object.keys(data[0] ?? {})[0] ?? "value");
+      const values = data.map((r) => Number(r[valueField] ?? 0)).filter((v) => Number.isFinite(v));
       if (values.length > 1) {
         renderSparkline(doc, values, {
           x: PAGE.marginX,

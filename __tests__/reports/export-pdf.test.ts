@@ -2,9 +2,9 @@
  * Tests export PDF — génération basique + fallback bloc graphique.
  */
 
-import { describe, it, expect } from "vitest";
-import { exportPdf } from "@/lib/reports/export/pdf";
+import { describe, expect, it } from "vitest";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { exportPdf } from "@/lib/reports/export/pdf";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
 
 const META: ReportMeta = {

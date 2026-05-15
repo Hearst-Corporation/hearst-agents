@@ -25,10 +25,10 @@
  */
 
 import type { ReactNode } from "react";
-import { PageHeader } from "../PageHeader";
 import type { Crumb } from "../Breadcrumb";
+import { PageHeader } from "../PageHeader";
 import { EmptyState } from "./EmptyState";
-import { RowSkeleton, CardSkeleton } from "./Skeleton";
+import { CardSkeleton, RowSkeleton } from "./Skeleton";
 
 interface ScreenShellEmpty {
   title: string;
@@ -84,10 +84,13 @@ export function ScreenShell({
   testId,
 }: ScreenShellProps) {
   const bg =
-    background === "surface" ? "var(--surface)" :
-    background === "elevated" ? "var(--bg-elev)" :
-    background === "base" ? "var(--bg)" :
-    "transparent";
+    background === "surface"
+      ? "var(--surface)"
+      : background === "elevated"
+        ? "var(--bg-elev)"
+        : background === "base"
+          ? "var(--bg)"
+          : "transparent";
 
   return (
     <div

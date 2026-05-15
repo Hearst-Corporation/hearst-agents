@@ -4,12 +4,12 @@
  * Validation du module settings dynamiques avec tenant override.
  */
 
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  getSetting,
-  setSetting,
   getAllSettings,
+  getSetting,
   invalidateSettingsCache,
+  setSetting,
 } from "@/lib/platform/settings";
 
 // Mock Supabase
@@ -83,8 +83,7 @@ describe("Platform Settings", () => {
       };
 
       // First call (tenant-specific) returns the setting
-      mockMaybeSingle
-        .mockResolvedValueOnce({ data: mockTenantSetting, error: null });
+      mockMaybeSingle.mockResolvedValueOnce({ data: mockTenantSetting, error: null });
 
       const result = await getSetting(mockDb, "analytics.enabled", tenantId);
 
@@ -137,7 +136,7 @@ describe("Platform Settings", () => {
       expect(result).toBeNull();
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "[Settings] Error fetching global setting analytics.enabled:",
-        "Connection timeout"
+        "Connection timeout",
       );
     });
   });
@@ -147,7 +146,7 @@ describe("Platform Settings", () => {
       const mockCreated = {
         id: "new-1",
         key: "new.feature",
-        value: "\"enabled\"",
+        value: '"enabled"',
         category: "feature_flags",
         is_encrypted: false,
         tenant_id: null,
@@ -156,14 +155,9 @@ describe("Platform Settings", () => {
 
       mockSingle.mockResolvedValueOnce({ data: mockCreated, error: null });
 
-      const result = await setSetting(
-        mockDb,
-        "new.feature",
-        "enabled",
-        "feature_flags",
-        null,
-        { description: "Test feature" }
-      );
+      const result = await setSetting(mockDb, "new.feature", "enabled", "feature_flags", null, {
+        description: "Test feature",
+      });
 
       expect(result).not.toBeNull();
       expect(result.key).toBe("new.feature");
@@ -184,14 +178,9 @@ describe("Platform Settings", () => {
 
       mockSingle.mockResolvedValueOnce({ data: mockTenantSetting, error: null });
 
-      const result = await setSetting(
-        mockDb,
-        "custom.threshold",
-        100,
-        "thresholds",
-        tenantId,
-        { description: "Custom threshold for tenant" }
-      );
+      const result = await setSetting(mockDb, "custom.threshold", 100, "thresholds", tenantId, {
+        description: "Custom threshold for tenant",
+      });
 
       expect(result.tenantId).toBe(tenantId);
       expect(result.value).toBe(100);
@@ -203,9 +192,9 @@ describe("Platform Settings", () => {
         error: { message: "Unique constraint violation" },
       });
 
-      await expect(
-        setSetting(mockDb, "duplicate.key", "value", "ui", null)
-      ).rejects.toThrow("[Settings] Failed to set duplicate.key: Unique constraint violation");
+      await expect(setSetting(mockDb, "duplicate.key", "value", "ui", null)).rejects.toThrow(
+        "[Settings] Failed to set duplicate.key: Unique constraint violation",
+      );
     });
   });
 
@@ -248,7 +237,7 @@ describe("Platform Settings", () => {
         {
           id: "1",
           key: "custom.setting",
-          value: "\"tenant-value\"",
+          value: '"tenant-value"',
           category: "ui",
           is_encrypted: false,
           tenant_id: tenantId,
@@ -276,7 +265,7 @@ describe("Platform Settings", () => {
       expect(result).toEqual([]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "[Settings] Error fetching settings:",
-        "DB error"
+        "DB error",
       );
     });
   });

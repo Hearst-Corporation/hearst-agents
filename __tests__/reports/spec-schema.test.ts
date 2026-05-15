@@ -8,9 +8,9 @@
 import { describe, expect, it } from "vitest";
 import {
   parseReportSpec,
-  safeParseReportSpec,
-  reportSpecSchema,
   type ReportSpec,
+  reportSpecSchema,
+  safeParseReportSpec,
 } from "@/lib/reports/spec/schema";
 
 const SPEC_ID = "00000000-0000-4000-8000-000000000001";
@@ -93,9 +93,7 @@ describe("reportSpecSchema — DAG cohérent", () => {
     const result = safeParseReportSpec(spec);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues.some((i) => i.message.includes("dataset inconnu"))).toBe(
-        true,
-      );
+      expect(result.error.issues.some((i) => i.message.includes("dataset inconnu"))).toBe(true);
     }
   });
 

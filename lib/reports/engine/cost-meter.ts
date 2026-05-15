@@ -45,7 +45,10 @@ export interface TokenUsage {
  * Si cacheReadTokens est fourni, les inputTokens représentent les tokens
  * NON cachés (Anthropic les sépare). Sinon on assume tout en input non-cached.
  */
-export function computeCostUsd(usage: TokenUsage, pricing: ModelPricing = SONNET_4_6_PRICING): number {
+export function computeCostUsd(
+  usage: TokenUsage,
+  pricing: ModelPricing = SONNET_4_6_PRICING,
+): number {
   const usd =
     (usage.inputTokens * pricing.input +
       usage.outputTokens * pricing.output +

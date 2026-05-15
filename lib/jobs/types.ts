@@ -208,4 +208,3 @@ export interface JobResult {
   /** Métadonnées libres. */
   metadata?: Record<string, unknown>;
 }
-

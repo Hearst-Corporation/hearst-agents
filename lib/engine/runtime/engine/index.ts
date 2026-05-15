@@ -6,17 +6,13 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type {
-  EngineRunStatus,
-  CreateRunInput,
-  RunCost,
-} from "./types";
 import type { ArtifactRef } from "../../../artifacts/types";
-import { StepManager } from "./step-manager";
+import type { RunEventBus } from "../../../events/bus";
 import { ApprovalManager } from "./approval-manager";
 import { ArtifactManager } from "./artifact-manager";
 import { CostTracker } from "./cost-tracker";
-import { RunEventBus } from "../../../events/bus";
+import { StepManager } from "./step-manager";
+import type { CreateRunInput, EngineRunStatus, RunCost } from "./types";
 
 const EMPTY_COST: RunCost = {
   llm_input_tokens: 0,
@@ -26,13 +22,7 @@ const EMPTY_COST: RunCost = {
 
 const ALLOWED_TRANSITIONS: Record<EngineRunStatus, EngineRunStatus[]> = {
   created: ["running", "cancelled"],
-  running: [
-    "completed",
-    "failed",
-    "cancelled",
-    "awaiting_approval",
-    "awaiting_clarification",
-  ],
+  running: ["completed", "failed", "cancelled", "awaiting_approval", "awaiting_clarification"],
   awaiting_approval: ["running", "cancelled", "failed"],
   awaiting_clarification: ["running", "cancelled", "failed"],
   completed: [],
@@ -52,12 +42,7 @@ export class RunEngine {
   private _status: EngineRunStatus;
   private _userId: string;
 
-  private constructor(
-    db: SupabaseClient,
-    runId: string,
-    userId: string,
-    eventBus: RunEventBus,
-  ) {
+  private constructor(db: SupabaseClient, runId: string, userId: string, eventBus: RunEventBus) {
     this._db = db;
     this._runId = runId;
     this._userId = userId;
@@ -101,19 +86,15 @@ export class RunEngine {
       throw new Error(`Failed to create run: ${error.message}`);
     }
 
-    const engine = new RunEngine(db, data!.id, input.user_id, eventBus);
-    eventBus.emit({ type: "run_created", run_id: data!.id });
+    const engine = new RunEngine(db, data?.id, input.user_id, eventBus);
+    eventBus.emit({ type: "run_created", run_id: data?.id });
     return engine;
   }
 
   /**
    * Load an existing Run (for resume scenarios).
    */
-  static async load(
-    db: SupabaseClient,
-    runId: string,
-    eventBus: RunEventBus,
-  ): Promise<RunEngine> {
+  static async load(db: SupabaseClient, runId: string, eventBus: RunEventBus): Promise<RunEngine> {
     const { data, error } = await db
       .from("runs")
       .select("id, user_id, status")
@@ -130,8 +111,7 @@ export class RunEngine {
       (data as Record<string, unknown>).user_id as string,
       eventBus,
     );
-    engine._status =
-      (data.status as EngineRunStatus) ?? "created";
+    engine._status = (data.status as EngineRunStatus) ?? "created";
     return engine;
   }
 
@@ -183,9 +163,7 @@ export class RunEngine {
     });
   }
 
-  async suspend(
-    reason: "awaiting_approval" | "awaiting_clarification",
-  ): Promise<void> {
+  async suspend(reason: "awaiting_approval" | "awaiting_clarification"): Promise<void> {
     await this.transition(reason);
     this.events.emit({
       type: "run_suspended",
@@ -256,27 +234,18 @@ export class RunEngine {
   private async transition(target: EngineRunStatus): Promise<void> {
     const allowed = ALLOWED_TRANSITIONS[this._status];
     if (!allowed?.includes(target)) {
-      throw new Error(
-        `Invalid run transition: ${this._status} → ${target}`,
-      );
+      throw new Error(`Invalid run transition: ${this._status} → ${target}`);
     }
 
     const update: Record<string, unknown> = {
       status: target,
       updated_at: new Date().toISOString(),
     };
-    if (
-      target === "completed" ||
-      target === "failed" ||
-      target === "cancelled"
-    ) {
+    if (target === "completed" || target === "failed" || target === "cancelled") {
       update.finished_at = new Date().toISOString();
     }
 
-    const { error } = await this._db
-      .from("runs")
-      .update(update)
-      .eq("id", this._runId);
+    const { error } = await this._db.from("runs").update(update).eq("id", this._runId);
 
     if (error) {
       throw new Error(

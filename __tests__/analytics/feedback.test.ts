@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import type { FeedbackSignal, FeedbackKind, FeedbackPriority } from "@/lib/analytics/feedback";
+import { describe, expect, it } from "vitest";
+import type { FeedbackKind, FeedbackPriority, FeedbackSignal } from "@/lib/analytics/feedback";
 
 describe("FeedbackSignal type", () => {
   it("satisfies the expected shape", () => {

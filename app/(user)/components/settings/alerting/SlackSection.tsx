@@ -47,10 +47,7 @@ export function SlackSection({ prefs, state, dispatch, onTest }: Props) {
           {prefs.slack && (
             <>
               <div>
-                <label
-                  className="t-9 block mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <label className="t-9 block mb-2" style={{ color: "var(--text-muted)" }}>
                   URL du webhook Slack
                 </label>
                 <Input
@@ -64,23 +61,18 @@ export function SlackSection({ prefs, state, dispatch, onTest }: Props) {
                   placeholder="https://hooks.slack.com/services/T.../B.../..."
                   type="url"
                 />
-                <p
-                  className="t-9 mt-2"
-                  style={{ color: "var(--text-faint)" }}
-                >
-                  Pour obtenir une URL webhook : ouvrez Slack → Apps → Incoming Webhooks → Ajouter à Slack.
+                <p className="t-9 mt-2" style={{ color: "var(--text-faint)" }}>
+                  Pour obtenir une URL webhook : ouvrez Slack → Apps → Incoming Webhooks → Ajouter à
+                  Slack.
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <TestBadge
-                  state={state.testStates["slack"]}
-                  message={state.testMessages["slack"]}
-                />
+                <TestBadge state={state.testStates.slack} message={state.testMessages.slack} />
                 <Btn
                   onClick={() => onTest("slack")}
                   disabled={
-                    state.testStates["slack"] === "testing" ||
+                    state.testStates.slack === "testing" ||
                     !prefs.slack.webhookUrl.startsWith("https://")
                   }
                 >

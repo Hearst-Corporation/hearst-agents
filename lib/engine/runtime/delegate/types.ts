@@ -15,13 +15,7 @@ export type CapabilityAgent =
   | "DesignAgent"
   | "DeveloperAgent";
 
-export type ExpectedOutput =
-  | "summary"
-  | "draft"
-  | "report"
-  | "data"
-  | "plan"
-  | "execution_result";
+export type ExpectedOutput = "summary" | "draft" | "report" | "data" | "plan" | "execution_result";
 
 export interface DelegateInput {
   run_id: string;

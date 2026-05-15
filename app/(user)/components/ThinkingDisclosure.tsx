@@ -19,16 +19,17 @@ export function ThinkingDisclosure({ thinking }: ThinkingDisclosureProps) {
       <summary
         className="flex items-center cursor-pointer list-none select-none"
         style={{ gap: "var(--space-2)" }}
-        onClick={(e) => { e.preventDefault(); setOpen((v) => !v); }}
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((v) => !v);
+        }}
       >
         <span
           className={`rounded-pill ${open ? "bg-(--warn) animate-pulse" : "bg-(--accent-teal)"}`}
           style={{ width: "var(--space-2)", height: "var(--space-2)", flexShrink: 0 }}
           aria-hidden
         />
-        <span className="t-11 font-medium text-(--warn)">
-          RAISONNEMENT · {lines} lignes
-        </span>
+        <span className="t-11 font-medium text-(--warn)">RAISONNEMENT · {lines} lignes</span>
       </summary>
       <pre
         className="t-11 font-mono text-text-faint whitespace-pre-wrap overflow-x-auto"

@@ -60,11 +60,7 @@ const TEST_GAP_STYLES: Record<string, string> = {
   aucun: "text-text-ghost",
 };
 
-export default async function FeatureDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function FeatureDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   // Lire le manifest
@@ -94,9 +90,7 @@ export default async function FeatureDetailPage({
   const niveauCls = feature?.niveau
     ? (NIVEAU_STYLES[feature.niveau] ?? "text-text-muted")
     : "text-text-ghost";
-  const gapCls = feature
-    ? (TEST_GAP_STYLES[feature.testGap] ?? "text-text-faint")
-    : "";
+  const gapCls = feature ? (TEST_GAP_STYLES[feature.testGap] ?? "text-text-faint") : "";
 
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
@@ -105,7 +99,14 @@ export default async function FeatureDetailPage({
         href="/admin/agent-driven-dev"
         className="inline-flex items-center gap-(--space-2) t-12 text-text-muted hover:text-text transition-colors"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <path d="M15 18l-6-6 6-6" />
         </svg>
         Retour Agent Driven Dev
@@ -156,22 +157,16 @@ export default async function FeatureDetailPage({
       {feature && (
         <div className="grid gap-(--space-4) sm:grid-cols-3">
           <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-            <span className="t-11 font-medium text-text-faint">
-              Invariants
-            </span>
+            <span className="t-11 font-medium text-text-faint">Invariants</span>
             <span className="t-24 font-light text-text">{feature.invariantsCount}</span>
             <span className="t-10 text-text-ghost">règles figées</span>
           </div>
           <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-            <span className="t-11 font-medium text-text-faint">
-              Tests existants
-            </span>
+            <span className="t-11 font-medium text-text-faint">Tests existants</span>
             <span className="t-24 font-light text-money">{feature.testsExistantsCount}</span>
           </div>
           <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-            <span className="t-11 font-medium text-text-faint">
-              Tests manquants
-            </span>
+            <span className="t-11 font-medium text-text-faint">Tests manquants</span>
             <span className={`t-24 font-light ${gapCls}`}>{feature.testsManquantsCount}</span>
             <span className="t-10 text-text-ghost">gap : {feature.testGap}</span>
           </div>

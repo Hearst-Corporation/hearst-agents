@@ -2,10 +2,11 @@
  * Charge et valide les capability contracts des agents.
  * Source de vérité : hom/agents/<id>/contracts.json
  */
-import { HOM } from "./paths";
+
 import { readJson } from "./fs-utils";
-import { ALL_AGENTS } from "./types";
+import { HOM } from "./paths";
 import type { AgentContract, AgentId } from "./types";
+import { ALL_AGENTS } from "./types";
 
 const cache = new Map<AgentId, AgentContract>();
 
@@ -30,5 +31,3 @@ export async function loadAllContracts(): Promise<AgentContract[]> {
   }
   return out;
 }
-
-

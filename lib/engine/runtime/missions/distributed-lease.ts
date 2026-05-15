@@ -53,14 +53,12 @@ export async function tryAcquireMissionLease(input: {
 
   try {
     // Try insert first — fastest path if no row exists
-    const { error: insertErr } = await sb
-      .from("scheduler_leases")
-      .insert({
-        key,
-        instance_id: id,
-        acquired_at: now,
-        expires_at: expiresAt,
-      });
+    const { error: insertErr } = await sb.from("scheduler_leases").insert({
+      key,
+      instance_id: id,
+      acquired_at: now,
+      expires_at: expiresAt,
+    });
 
     if (!insertErr) return true;
 
@@ -100,11 +98,7 @@ export async function releaseMissionLease(input: {
   const key = leaseKey(input.missionId, input.runWindowKey);
 
   try {
-    await sb
-      .from("scheduler_leases")
-      .delete()
-      .eq("key", key)
-      .eq("instance_id", id);
+    await sb.from("scheduler_leases").delete().eq("key", key).eq("instance_id", id);
   } catch (err) {
     console.error("[DistributedLease] Release error:", err);
   }

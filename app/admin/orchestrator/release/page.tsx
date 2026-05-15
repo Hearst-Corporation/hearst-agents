@@ -1,20 +1,16 @@
-import { HomShell, PageHeader, Card, MetricCell } from "../_components/Shell";
-import { latestScores, trustGate } from "@/lib/hom/trust";
-import { evaluateReleaseGates } from "@/lib/hom/policy";
 import { loadDriftLog } from "@/lib/hom/drift";
-import { listRuns } from "@/lib/hom/registry";
 import { readJson } from "@/lib/hom/fs-utils";
 import { HOM } from "@/lib/hom/paths";
+import { evaluateReleaseGates } from "@/lib/hom/policy";
+import { listRuns } from "@/lib/hom/registry";
+import { latestScores, trustGate } from "@/lib/hom/trust";
 import type { RunDecisionFile } from "@/lib/hom/types";
+import { Card, HomShell, MetricCell, PageHeader } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 
 export default async function ReleasePage() {
-  const [scores, drift, runs] = await Promise.all([
-    latestScores(),
-    loadDriftLog(),
-    listRuns(),
-  ]);
+  const [scores, drift, runs] = await Promise.all([latestScores(), loadDriftLog(), listRuns()]);
   const lastRun = runs[0];
   const lastDecision = lastRun
     ? await readJson<RunDecisionFile>(HOM.runDecision(lastRun.run_id))
@@ -102,8 +98,8 @@ export default async function ReleasePage() {
           Signature humaine
         </h3>
         <p className="t-12 text-text-muted mb-(--space-2)">
-          Adrien doit signer manuellement après validation de toutes les gates blocking.
-          La signature humaine est requise par la policy <code className="t-11">G-06</code>.
+          Adrien doit signer manuellement après validation de toutes les gates blocking. La
+          signature humaine est requise par la policy <code className="t-11">G-06</code>.
         </p>
         <p className="t-11 font-mono text-text-faint">
           Status : <span className="text-(--warn)">non signé</span>

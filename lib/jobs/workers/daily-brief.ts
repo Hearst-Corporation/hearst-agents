@@ -15,14 +15,14 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { storeAsset } from "@/lib/assets/types";
-import { persistExport, getExportSignedUrl } from "@/lib/reports/export/store";
 import { assembleDailyBriefData } from "@/lib/daily-brief/assembler";
 import { generateDailyBriefNarration } from "@/lib/daily-brief/generate";
 import { renderDailyBriefPdf } from "@/lib/daily-brief/pdf";
 import type { DailyBriefAssetMeta } from "@/lib/daily-brief/types";
 import type { DailyBriefInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { getExportSignedUrl, persistExport } from "@/lib/reports/export/store";
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
@@ -116,10 +116,10 @@ const handler: WorkerHandler<DailyBriefInput> = {
       threadId,
       kind: "daily_brief",
       title: `Daily Brief · ${titleDate}`,
-      summary: data.sources.filter((s) => !s.endsWith(":error") && !s.endsWith(":empty"))
-        .length > 0
-        ? `${totalItems} signaux · ${data.sources.filter((s) => !s.endsWith(":error") && !s.endsWith(":empty")).join(", ")}`
-        : "Aucune source connectée — connecte Gmail/Slack/GitHub/Linear pour activer.",
+      summary:
+        data.sources.filter((s) => !s.endsWith(":error") && !s.endsWith(":empty")).length > 0
+          ? `${totalItems} signaux · ${data.sources.filter((s) => !s.endsWith(":error") && !s.endsWith(":empty")).join(", ")}`
+          : "Aucune source connectée — connecte Gmail/Slack/GitHub/Linear pour activer.",
       contentRef: JSON.stringify({
         narration,
         meta,

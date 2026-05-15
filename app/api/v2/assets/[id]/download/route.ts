@@ -1,25 +1,27 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getAssetDetail } from "@/lib/engine/runtime/assets/detail";
 import { readAssetFile } from "@/lib/engine/runtime/assets/file-storage";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 /* F-055: Safe Content-Disposition header */
 function safeFilename(name: string): string {
-  return String(name).replace(/[\r\n"\\]/g, "_").slice(0, 200);
+  return String(name)
+    .replace(/[\r\n"\\]/g, "_")
+    .slice(0, 200);
 }
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   try {
     const { scope, error } = await requireScope({ context: `GET /api/v2/assets/${id}/download` });
     if (error || !scope) {
-      return NextResponse.json({ error: error?.message ?? "not_authenticated" }, { status: error?.status ?? 401 });
+      return NextResponse.json(
+        { error: error?.message ?? "not_authenticated" },
+        { status: error?.status ?? 401 },
+      );
     }
 
     const detail = await getAssetDetail({
@@ -40,7 +42,9 @@ export async function GET(
       );
     }
 
-    const filePath = (detail.metadata as Record<string, unknown> | undefined)?._filePath as string | undefined;
+    const filePath = (detail.metadata as Record<string, unknown> | undefined)?._filePath as
+      | string
+      | undefined;
     if (!filePath) {
       return NextResponse.json(
         { error: "file_path_missing", message: "File path not available" },

@@ -6,25 +6,24 @@
  * comme asset JSON (kind="extract") et retourne `{ assetId, data }`.
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
+import { persistExtraction } from "@/lib/browser/screenshot";
+import { runBrowserTask } from "@/lib/browser/stagehand-executor";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { runBrowserTask } from "@/lib/browser/stagehand-executor";
-import { persistExtraction } from "@/lib/browser/screenshot";
 
-const browserExtractBodySchema = z.object({
-  instruction: z.string().min(1).max(10_000),
-  schema: z.record(z.string(), z.unknown()).optional(),
-}).strict();
+const browserExtractBodySchema = z
+  .object({
+    instruction: z.string().min(1).max(10_000),
+    schema: z.record(z.string(), z.unknown()).optional(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function POST(
-  req: NextRequest,
-  ctx: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
 
   const { scope, error } = await requireScope({
@@ -58,10 +57,7 @@ export async function POST(
   }
 
   if (!process.env.BROWSERBASE_API_KEY) {
-    return NextResponse.json(
-      { error: "browserbase_unavailable" },
-      { status: 503 },
-    );
+    return NextResponse.json({ error: "browserbase_unavailable" }, { status: 503 });
   }
 
   const raw = await req.json().catch(() => null);
@@ -98,9 +94,6 @@ export async function POST(
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[BrowserExtract] failed:", message);
-    return NextResponse.json(
-      { error: "extract_failed", message },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: "extract_failed", message }, { status: 502 });
   }
 }

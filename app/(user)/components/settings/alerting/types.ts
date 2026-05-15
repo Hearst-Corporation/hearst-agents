@@ -2,8 +2,8 @@
  * Types locaux + reducer pour `AlertingSettings`.
  */
 
-import type { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
+import type { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 
 export type SignalType = (typeof BUSINESS_SIGNAL_TYPES)[number] | "*";
 

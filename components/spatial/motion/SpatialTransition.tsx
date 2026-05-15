@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 import { EMERGE } from "./variants";
 

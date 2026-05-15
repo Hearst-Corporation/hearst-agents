@@ -82,7 +82,7 @@ describe("matchMissions", () => {
     expect(m.length).toBeGreaterThan(0);
     const standup = m.find((x) => x.id === "m4");
     expect(standup).toBeDefined();
-    expect(standup!.kind).toBe("substring");
+    expect(standup?.kind).toBe("substring");
   });
 
   it("ignore les missions sans nom propre", () => {
@@ -92,9 +92,7 @@ describe("matchMissions", () => {
   });
 
   it("propage label / schedule dans les matches", () => {
-    const fixtures = [
-      { id: "x", name: "Test", schedule: "0 9 * * 1", label: "Chaque lundi à 9h" },
-    ];
+    const fixtures = [{ id: "x", name: "Test", schedule: "0 9 * * 1", label: "Chaque lundi à 9h" }];
     const m = matchMissions("test", fixtures);
     expect(m[0].schedule).toBe("0 9 * * 1");
     expect(m[0].scheduleLabel).toBe("Chaque lundi à 9h");

@@ -89,9 +89,7 @@ export async function analyzeVoiceEmotion(
 
   if (!startRes.ok) {
     const body = await startRes.text().catch(() => "");
-    throw new Error(
-      `[Hume] start job status=${startRes.status} message=${body.slice(0, 200)}`,
-    );
+    throw new Error(`[Hume] start job status=${startRes.status} message=${body.slice(0, 200)}`);
   }
 
   const startData = (await startRes.json()) as { job_id?: string };
@@ -122,9 +120,7 @@ export async function analyzeVoiceEmotion(
   });
   if (!predRes.ok) {
     const body = await predRes.text().catch(() => "");
-    throw new Error(
-      `[Hume] predictions status=${predRes.status} message=${body.slice(0, 200)}`,
-    );
+    throw new Error(`[Hume] predictions status=${predRes.status} message=${body.slice(0, 200)}`);
   }
 
   const predData = (await predRes.json()) as Array<{
@@ -146,8 +142,7 @@ export async function analyzeVoiceEmotion(
   const emotionAccum: Record<string, number> = {};
   let count = 0;
   for (const file of predData) {
-    const groups =
-      file.results?.predictions?.[0]?.models?.prosody?.grouped_predictions ?? [];
+    const groups = file.results?.predictions?.[0]?.models?.prosody?.grouped_predictions ?? [];
     for (const grp of groups) {
       for (const p of grp.predictions ?? []) {
         for (const e of p.emotions ?? []) {
@@ -165,8 +160,7 @@ export async function analyzeVoiceEmotion(
     emotions[k] = total > 0 ? v / total : v;
   }
 
-  const dominant =
-    Object.entries(emotions).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
+  const dominant = Object.entries(emotions).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
 
   void maxDuration; // documenté, mais non utilisé pour l'instant
 

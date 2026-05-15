@@ -16,18 +16,18 @@
  *  - Suggestions : applicable reports + signaux contextuels.
  */
 
-import { CATALOG, getApplicableReports } from "@/lib/reports/catalog";
-import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
-import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
-import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
-import { getMonthlyMissionCost } from "@/lib/engine/runtime/missions/budget";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
-import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
-import { loadLatestInboxBrief } from "@/lib/inbox/store";
-import { getTokens } from "@/lib/platform/auth/tokens";
+import { getMonthlyMissionCost } from "@/lib/engine/runtime/missions/budget";
+import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
+import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
+import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import type { InboxBrief } from "@/lib/inbox/inbox-brief";
-import type { CockpitAgendaItem } from "./types";
+import { loadLatestInboxBrief } from "@/lib/inbox/store";
+import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
+import { getTokens } from "@/lib/platform/auth/tokens";
+import { CATALOG, getApplicableReports } from "@/lib/reports/catalog";
 import { getLiveAgenda } from "./agenda-live";
+import type { CockpitAgendaItem } from "./types";
 
 interface CockpitScope {
   userId: string;
@@ -62,7 +62,6 @@ interface CockpitFavoriteReport {
   title: string;
   domain: string;
 }
-
 
 interface CockpitInboxSection {
   brief: InboxBrief | null;
@@ -169,9 +168,7 @@ async function buildMissionsRunning(scope: CockpitScope): Promise<CockpitMission
       // Pour les surfaces cockpit qui n'ont pas encore intégré l'état, on
       // mappe en "blocked" (sémantiquement proche : la mission est gated).
       status:
-        op.status === "awaiting_approval"
-          ? "blocked"
-          : (op.status as CockpitMission["status"]),
+        op.status === "awaiting_approval" ? "blocked" : (op.status as CockpitMission["status"]),
       runningSince: op.runningSince ?? null,
       lastRunAt: op.lastRunAt ?? null,
       lastError: op.lastError ?? null,
@@ -203,9 +200,7 @@ async function buildSuggestions(scope: CockpitScope): Promise<CockpitSuggestion[
     [] as Awaited<ReturnType<typeof getConnectionsByScope>>,
   );
 
-  const connectedProviders = conns
-    .filter((c) => c.status === "connected")
-    .map((c) => c.provider);
+  const connectedProviders = conns.filter((c) => c.status === "connected").map((c) => c.provider);
 
   if (connectedProviders.length === 0) return [];
 
@@ -215,10 +210,7 @@ async function buildSuggestions(scope: CockpitScope): Promise<CockpitSuggestion[
     return pid !== undefined && providerSet.has(pid);
   });
 
-  const applicable = getApplicableReports([
-    ...connectedProviders,
-    ...connectedServiceIds,
-  ]);
+  const applicable = getApplicableReports([...connectedProviders, ...connectedServiceIds]);
 
   return applicable
     .filter(
@@ -311,11 +303,11 @@ export async function getCockpitToday(scope: CockpitScope): Promise<CockpitToday
   const [missionsRunning, suggestions, inbox, calendarConnected, agenda] = await Promise.all([
     safe("missionsRunning", () => buildMissionsRunning(scope), [] as CockpitMission[]),
     safe("suggestions", () => buildSuggestions(scope), [] as CockpitSuggestion[]),
-    safe(
-      "inbox",
-      () => buildInbox(scope),
-      { brief: null, stale: true, needsConnection: false } satisfies CockpitInboxSection,
-    ),
+    safe("inbox", () => buildInbox(scope), {
+      brief: null,
+      stale: true,
+      needsConnection: false,
+    } satisfies CockpitInboxSection),
     safe("calendarConnected", () => isCalendarConnected(scope), false),
     safe(
       "agenda.live",

@@ -5,12 +5,12 @@
  * a canonical connection record exists for the current tenant.
  */
 
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
+import { getConnector } from "@/lib/connectors/platform/registry";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import type { ConnectorConnection } from "./types";
 import { getProviderCapabilities } from "./provider-capabilities";
 import { upsertConnection } from "./store";
-import { getConnector } from "@/lib/connectors/platform/registry";
+import type { ConnectorConnection } from "./types";
 
 export async function registerProviderUsage(input: {
   provider: string;
@@ -35,4 +35,3 @@ export async function registerProviderUsage(input: {
 
   await upsertConnection(connection);
 }
-

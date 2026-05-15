@@ -8,8 +8,8 @@
  */
 
 import { create } from "zustand";
-import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 import { getAllServices } from "@/lib/integrations/catalog";
+import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 
 const initialServices: ServiceWithConnectionStatus[] = getAllServices().map((s) => ({
   ...s,

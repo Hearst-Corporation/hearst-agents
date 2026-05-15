@@ -55,10 +55,7 @@ export function CohortTriangle({
   }
 
   // Période la plus longue → nombre de colonnes.
-  const periodCount = cohorts.reduce(
-    (m, c) => Math.max(m, c.values.length),
-    0,
-  );
+  const periodCount = cohorts.reduce((m, c) => Math.max(m, c.values.length), 0);
   if (periodCount === 0) {
     return (
       <div
@@ -91,10 +88,7 @@ export function CohortTriangle({
       aria-label="Triangle de rétention par cohorte"
       className="w-full overflow-auto"
     >
-      <table
-        className="w-full"
-        style={{ borderCollapse: "separate", borderSpacing: 0 }}
-      >
+      <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
         <thead>
           <tr>
             <th
@@ -159,7 +153,6 @@ export function CohortTriangle({
                 return (
                   <td
                     key={`cell-${cohort.label}-${ci}`}
-                    role="cell"
                     aria-label={`${cohort.label} ${periodPrefix}${ci}: ${display}`}
                     className="t-9 font-mono tabular-nums"
                     style={{

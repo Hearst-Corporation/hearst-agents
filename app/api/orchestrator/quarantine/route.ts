@@ -1,26 +1,34 @@
-import { z } from "zod";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { loadQuarantine, restoreAgent } from "@/lib/hom/quarantine";
-import { ALL_AGENTS, type AgentId } from "@/lib/hom/types";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import { type AgentId, ALL_AGENTS } from "@/lib/hom/types";
 
-const quarantineBodySchema = z.object({
-  action: z.literal("restore"),
-  agent: z.enum(ALL_AGENTS as [AgentId, ...AgentId[]]),
-  reason: z.string().max(500).optional(),
-}).strict();
+const quarantineBodySchema = z
+  .object({
+    action: z.literal("restore"),
+    agent: z.enum(ALL_AGENTS as [AgentId, ...AgentId[]]),
+    reason: z.string().max(500).optional(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const guard = await requireAdmin("GET /api/orchestrator/quarantine", { resource: "settings", action: "read" });
+  const guard = await requireAdmin("GET /api/orchestrator/quarantine", {
+    resource: "settings",
+    action: "read",
+  });
   if (isError(guard)) return guard;
   const state = await loadQuarantine();
   return NextResponse.json(state);
 }
 
 export async function POST(req: Request) {
-  const guard = await requireAdmin("POST /api/orchestrator/quarantine", { resource: "settings", action: "update" });
+  const guard = await requireAdmin("POST /api/orchestrator/quarantine", {
+    resource: "settings",
+    action: "update",
+  });
   if (isError(guard)) return guard;
 
   const raw = await (req as Request & { json(): Promise<unknown> }).json().catch(() => null);

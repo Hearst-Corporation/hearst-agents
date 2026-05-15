@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+import { getAdapter, listAdapters } from "@/lib/integrations/executor";
 import { HttpAdapter } from "@/lib/integrations/http-adapter";
 import { NotionAdapter } from "@/lib/integrations/notion-adapter";
-import { getAdapter, listAdapters } from "@/lib/integrations/executor";
 
 describe("Adapter registry", () => {
   it("returns http adapter", () => {

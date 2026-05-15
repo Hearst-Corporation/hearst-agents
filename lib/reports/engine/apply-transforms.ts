@@ -9,19 +9,19 @@
  */
 
 import type { TransformOp } from "@/lib/reports/spec/schema";
-import {
-  filter,
-  join,
-  groupBy,
-  windowOp,
-  diff,
-  rank,
-  derive,
-  pivot,
-  unionAll,
-  type Tabular,
-} from "./tabular";
 import { getTransformCache, hashKey, setTransformCache } from "./cache";
+import {
+  derive,
+  diff,
+  filter,
+  groupBy,
+  join,
+  pivot,
+  rank,
+  type Tabular,
+  unionAll,
+  windowOp,
+} from "./tabular";
 
 export interface ApplyTransformsContext {
   /** TTL en secondes pour le cache L2 (transform). */
@@ -58,9 +58,7 @@ export async function applyTransforms(
     // Vérifie que tous les inputs sont calculés
     for (const inp of op.inputs) {
       if (!datasets.has(inp)) {
-        throw new Error(
-          `transform '${op.id}' attend un dataset '${inp}' qui n'existe pas`,
-        );
+        throw new Error(`transform '${op.id}' attend un dataset '${inp}' qui n'existe pas`);
       }
     }
 
@@ -139,11 +137,7 @@ function runOp(
     case "filter":
       return filter(get(datasets, op.inputs[0]), op.params);
     case "join":
-      return join(
-        get(datasets, op.inputs[0]),
-        get(datasets, op.inputs[1]),
-        op.params,
-      );
+      return join(get(datasets, op.inputs[0]), get(datasets, op.inputs[1]), op.params);
     case "groupBy":
       return groupBy(get(datasets, op.inputs[0]), op.params);
     case "window":

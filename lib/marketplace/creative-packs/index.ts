@@ -14,10 +14,7 @@
  * directement dans leur état local pour pré-remplir le launcher.
  */
 
-import type {
-  CreativePromptPayload,
-  MarketplaceTemplate,
-} from "@/lib/marketplace/types";
+import type { CreativePromptPayload, MarketplaceTemplate } from "@/lib/marketplace/types";
 
 export const BUILTIN_CREATIVE_PACK_ID_PREFIX = "builtin:creative-pack:";
 
@@ -195,25 +192,23 @@ const SEEDS: PackSeed[] = [
  * Stables : ID = `builtin:creative-pack:<slug>` ; auteurs synthétiques
  * (`builtin` tenant/user) pour distinguer des publications utilisateur.
  */
-export const CREATIVE_PACKS_BUILTINS: MarketplaceTemplate[] = SEEDS.map(
-  (seed) => ({
-    id: `${BUILTIN_CREATIVE_PACK_ID_PREFIX}${seed.slug}`,
-    kind: "creative_prompt",
-    title: seed.title,
-    description: seed.description,
-    authorDisplayName: AUTHOR_NAME,
-    authorTenantId: AUTHOR_TENANT,
-    authorUserId: AUTHOR_USER,
-    tags: seed.payload.tags.slice(0, 5),
-    ratingAvg: 0,
-    ratingCount: 0,
-    cloneCount: 0,
-    isFeatured: seed.isFeatured ?? false,
-    createdAt: NOW,
-    updatedAt: NOW,
-    payload: seed.payload,
-  }),
-);
+export const CREATIVE_PACKS_BUILTINS: MarketplaceTemplate[] = SEEDS.map((seed) => ({
+  id: `${BUILTIN_CREATIVE_PACK_ID_PREFIX}${seed.slug}`,
+  kind: "creative_prompt",
+  title: seed.title,
+  description: seed.description,
+  authorDisplayName: AUTHOR_NAME,
+  authorTenantId: AUTHOR_TENANT,
+  authorUserId: AUTHOR_USER,
+  tags: seed.payload.tags.slice(0, 5),
+  ratingAvg: 0,
+  ratingCount: 0,
+  cloneCount: 0,
+  isFeatured: seed.isFeatured ?? false,
+  createdAt: NOW,
+  updatedAt: NOW,
+  payload: seed.payload,
+}));
 
 /**
  * True si l'ID désigne un pack créatif builtin (préfixe stable).
@@ -226,8 +221,6 @@ export function isBuiltinCreativePackId(id: string): boolean {
 /**
  * Lookup builtin par ID (None si pas trouvé).
  */
-export function getBuiltinCreativePack(
-  id: string,
-): MarketplaceTemplate | null {
+export function getBuiltinCreativePack(id: string): MarketplaceTemplate | null {
   return CREATIVE_PACKS_BUILTINS.find((p) => p.id === id) ?? null;
 }

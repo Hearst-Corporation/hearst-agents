@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { PlanStore } from "@/lib/engine/runtime/plans/store";
 import { RunEngine } from "@/lib/engine/runtime/engine";
+import { PlanStore } from "@/lib/engine/runtime/plans/store";
 
 describe("runtime fixes", () => {
   it("resolves planner dependency indices to persisted step UUIDs", async () => {
@@ -102,9 +102,7 @@ describe("runtime fixes", () => {
       },
     ]);
 
-    expect(planStepUpdates).toEqual([
-      { id: "step-b", depends_on: ["step-a"] },
-    ]);
+    expect(planStepUpdates).toEqual([{ id: "step-b", depends_on: ["step-a"] }]);
   });
 
   it("still emits run_completed when artifact lookup fails", async () => {
@@ -120,7 +118,9 @@ describe("runtime fixes", () => {
       runId: "run-123",
     };
 
-    await (RunEngine.prototype.complete as unknown as (this: unknown) => Promise<void>).call(fakeEngine);
+    await (RunEngine.prototype.complete as unknown as (this: unknown) => Promise<void>).call(
+      fakeEngine,
+    );
 
     expect(transition).toHaveBeenCalledWith("completed");
     expect(emit).toHaveBeenCalledWith({

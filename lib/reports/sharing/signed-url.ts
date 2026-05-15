@@ -93,11 +93,7 @@ export function getSharingSecret(): string | null {
 
 function base64url(buf: Buffer | string): string {
   const b = Buffer.isBuffer(buf) ? buf : Buffer.from(buf, "utf8");
-  return b
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
+  return b.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 function fromBase64url(s: string): Buffer {
@@ -129,10 +125,7 @@ export function signToken(input: SignTokenInput): SignTokenResult | null {
   };
 
   const payloadB64 = base64url(JSON.stringify(payload));
-  const sig = crypto
-    .createHmac(HMAC_ALG, secret)
-    .update(payloadB64)
-    .digest();
+  const sig = crypto.createHmac(HMAC_ALG, secret).update(payloadB64).digest();
   const sigB64 = base64url(sig);
   const token = `${payloadB64}${TOKEN_SEPARATOR}${sigB64}`;
 
@@ -159,10 +152,7 @@ export function verifyToken(
   if (!payloadB64 || !sigB64) return { ok: false, reason: "malformed" };
 
   // Recalcule la signature attendue
-  const expectedSig = crypto
-    .createHmac(HMAC_ALG, secret)
-    .update(payloadB64)
-    .digest();
+  const expectedSig = crypto.createHmac(HMAC_ALG, secret).update(payloadB64).digest();
   let providedSig: Buffer;
   try {
     providedSig = fromBase64url(sigB64);
@@ -215,9 +205,10 @@ interface RateState {
 const rateStates = new Map<string, RateState>();
 const ONE_HOUR_MS = 3_600_000;
 
-export function checkShareRateLimit(userId: string, now: number = Date.now()):
-  | { ok: true }
-  | { ok: false; retryAfterMs: number } {
+export function checkShareRateLimit(
+  userId: string,
+  now: number = Date.now(),
+): { ok: true } | { ok: false; retryAfterMs: number } {
   const state = rateStates.get(userId);
   if (!state || now - state.windowStart > ONE_HOUR_MS) {
     rateStates.set(userId, { windowStart: now, count: 1 });
@@ -238,11 +229,7 @@ export function _resetShareRateLimit(): void {
 // ── URL builder ──────────────────────────────────────────────
 
 export function buildShareUrl(token: string, baseUrl?: string): string {
-  const base =
-    baseUrl ??
-    process.env.NEXT_PUBLIC_APP_URL ??
-    process.env.NEXTAUTH_URL ??
-    "";
+  const base = baseUrl ?? process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "";
   const trimmed = base.replace(/\/+$/, "");
   return `${trimmed}/public/reports/${encodeURIComponent(token)}`;
 }

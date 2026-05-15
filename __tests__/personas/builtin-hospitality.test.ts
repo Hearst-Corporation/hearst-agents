@@ -4,9 +4,9 @@
  * métier hospitality (guest, RevPAR, ADR…).
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { getPersonaById } from "@/lib/personas/store";
+import { describe, expect, it, vi } from "vitest";
 import { BUILTIN_PERSONAS } from "@/lib/personas/defaults";
+import { getPersonaById } from "@/lib/personas/store";
 
 vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: () => null,

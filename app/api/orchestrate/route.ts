@@ -1,9 +1,9 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { z } from "zod";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { orchestrate } from "@/lib/engine/orchestrator";
 import { ensureSchedulerStarted } from "@/lib/engine/runtime/missions/scheduler-init";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -95,7 +95,7 @@ const orchestrateBodySchema = z.object({
   persona_id: z.string().optional(),
 });
 
-const PRICE_CAP_USD = 0.50; // par run orchestrate
+const PRICE_CAP_USD = 0.5; // par run orchestrate
 
 export async function POST(req: NextRequest) {
   // Resolve full scope (userId + tenantId + workspaceId) via canonical scope resolver
@@ -112,10 +112,10 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return new Response(
-      JSON.stringify({ ok: false, error: "invalid_json" }),
-      { status: 400, headers: { "Content-Type": "application/json" } },
-    );
+    return new Response(JSON.stringify({ ok: false, error: "invalid_json" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const parsed = orchestrateBodySchema.safeParse(body);

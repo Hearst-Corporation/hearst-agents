@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
+import { startRunSchema } from "@/lib/contracts/orchestrator";
 import { startRun } from "@/lib/hom/master";
 import { ALL_AGENTS } from "@/lib/hom/types";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
-import { startRunSchema } from "@/lib/contracts/orchestrator";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  const guard = await requireAdmin("POST /api/orchestrator/runs/start", { resource: "settings", action: "update" });
+  const guard = await requireAdmin("POST /api/orchestrator/runs/start", {
+    resource: "settings",
+    action: "update",
+  });
   if (isError(guard)) return guard;
 
   let raw: unknown = {};

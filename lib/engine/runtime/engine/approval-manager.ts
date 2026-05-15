@@ -3,8 +3,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { RunApproval, CreateApprovalInput } from "./types";
 import type { RunEventBus } from "../../../events/bus";
+import type { CreateApprovalInput, RunApproval } from "./types";
 
 const DEFAULT_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
 
@@ -40,7 +40,7 @@ export class ApprovalManager {
       type: "approval_requested",
       run_id: this.runId,
       step_id: input.step_id,
-      approval_id: data!.id,
+      approval_id: data?.id,
     });
 
     return data as RunApproval;

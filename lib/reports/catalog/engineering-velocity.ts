@@ -430,7 +430,4 @@ export function buildEngineeringVelocity(scope: ReportSpec["scope"]): ReportSpec
   };
 }
 
-export const ENGINEERING_VELOCITY_REQUIRED_APPS = [
-  "github",
-  "linear",
-] as const;
+export const ENGINEERING_VELOCITY_REQUIRED_APPS = ["github", "linear"] as const;

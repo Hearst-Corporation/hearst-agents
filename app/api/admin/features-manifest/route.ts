@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 import { exec } from "node:child_process";
-import { promisify } from "node:util";
 import path from "node:path";
+import { promisify } from "node:util";
+import { NextResponse } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 
 export const runtime = "nodejs";
@@ -12,7 +12,10 @@ const execAsync = promisify(exec);
 const log = withRoute("POST /api/admin/features-manifest");
 
 export async function POST(_request: Request) {
-  const guard = await requireAdmin("admin/features-manifest", { resource: "settings", action: "admin" });
+  const guard = await requireAdmin("admin/features-manifest", {
+    resource: "settings",
+    action: "admin",
+  });
   if (isError(guard)) return guard;
   const { scope } = guard;
 

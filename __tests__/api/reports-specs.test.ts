@@ -11,7 +11,7 @@
  * updateTemplate / deleteTemplate (store).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({
@@ -166,20 +166,18 @@ describe("/api/v2/reports/specs/[specId]", () => {
   it("GET 404 si spec inconnu", async () => {
     storeMock.loadTemplate.mockResolvedValueOnce(null);
     const { GET } = await import("@/app/api/v2/reports/specs/[specId]/route");
-    const res = await GET(
-      new Request("http://localhost/x") as never,
-      { params: Promise.resolve({ specId: "missing" }) },
-    );
+    const res = await GET(new Request("http://localhost/x") as never, {
+      params: Promise.resolve({ specId: "missing" }),
+    });
     expect(res.status).toBe(404);
   });
 
   it("GET retourne le spec", async () => {
     storeMock.loadTemplate.mockResolvedValueOnce(makeValidSpec());
     const { GET } = await import("@/app/api/v2/reports/specs/[specId]/route");
-    const res = await GET(
-      new Request("http://localhost/x") as never,
-      { params: Promise.resolve({ specId: "t1" }) },
-    );
+    const res = await GET(new Request("http://localhost/x") as never, {
+      params: Promise.resolve({ specId: "t1" }),
+    });
     const body = await res.json();
     expect(res.status).toBe(200);
     expect(body.spec.meta.title).toBe("Test custom");
@@ -203,10 +201,7 @@ describe("/api/v2/reports/specs/[specId]", () => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ name: "Renamed" }),
     });
-    const res = await PATCH(
-      req as never,
-      { params: Promise.resolve({ specId: "t1" }) },
-    );
+    const res = await PATCH(req as never, { params: Promise.resolve({ specId: "t1" }) });
     const body = await res.json();
     expect(res.status).toBe(200);
     expect(body.template.name).toBe("Renamed");
@@ -215,10 +210,9 @@ describe("/api/v2/reports/specs/[specId]", () => {
   it("DELETE répond ok", async () => {
     storeMock.deleteTemplate.mockResolvedValueOnce(undefined);
     const { DELETE } = await import("@/app/api/v2/reports/specs/[specId]/route");
-    const res = await DELETE(
-      new Request("http://localhost/x") as never,
-      { params: Promise.resolve({ specId: "t1" }) },
-    );
+    const res = await DELETE(new Request("http://localhost/x") as never, {
+      params: Promise.resolve({ specId: "t1" }),
+    });
     const body = await res.json();
     expect(res.status).toBe(200);
     expect(body.deleted).toBe(true);

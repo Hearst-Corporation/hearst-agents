@@ -46,7 +46,10 @@ export default function SettingsPage() {
                 className="block px-6 py-4 border border-(--border-soft) rounded-md hover:border-[var(--accent-teal)] transition-colors"
               >
                 <div className="t-15 font-medium text-text">{entry.title}</div>
-                <div className="t-13 font-light text-text-muted" style={{ marginTop: "var(--space-1)" }}>
+                <div
+                  className="t-13 font-light text-text-muted"
+                  style={{ marginTop: "var(--space-1)" }}
+                >
                   {entry.description}
                 </div>
               </Link>

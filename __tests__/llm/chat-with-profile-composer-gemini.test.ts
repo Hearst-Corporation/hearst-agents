@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Database } from "../../lib/database.types";
-import type { ModelProfileConfig } from "../../lib/llm/types";
 import { chatWithProfile, resetLlmProviderCache } from "../../lib/llm/router";
+import type { ModelProfileConfig } from "../../lib/llm/types";
 
 describe("chatWithProfile — composer → gemini chain", () => {
   const composerId = "a1e2f3a4-b5c6-4789-a012-000000000001";
@@ -68,7 +68,8 @@ describe("chatWithProfile — composer → gemini chain", () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async (input: RequestInfo | URL) => {
-        const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
+        const url =
+          typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
         if (url.includes("composer-chain.test") && url.includes("chat/completions")) {
           return new Response(JSON.stringify({ error: "unavailable" }), { status: 503 });
         }
@@ -103,7 +104,8 @@ describe("chatWithProfile — composer → gemini chain", () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async (input: RequestInfo | URL) => {
-        const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
+        const url =
+          typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
         if (url.includes("composer-chain.test") && url.includes("chat/completions")) {
           return Response.json({
             choices: [{ message: { content: "primary" } }],

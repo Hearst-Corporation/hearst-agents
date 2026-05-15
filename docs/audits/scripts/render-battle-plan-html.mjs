@@ -9,8 +9,8 @@
  *   node docs/audits/scripts/render-battle-plan-html.mjs docs/audits/2026-05-10-security
  */
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { resolve, join, dirname, basename } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -389,7 +389,7 @@ function renderBattlePlan(auditDir) {
   <div class="stat-card">
     <div class="label">Done</div>
     <div class="value" style="color:#4ade80;">${doneBatches}</div>
-    <div class="progress-bar"><div class="progress-fill" style="width:${(doneBatches / totalBatches * 100).toFixed(0)}%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${((doneBatches / totalBatches) * 100).toFixed(0)}%"></div></div>
   </div>
   <div class="stat-card">
     <div class="label">In progress</div>
@@ -430,7 +430,8 @@ ${(plan.phases || [])
     const isDeferred = phase.status === "deferred";
     const phaseDoneCount = (phase.batches || []).filter((b) => b.status === "done").length;
     const phaseTotalCount = (phase.batches || []).length;
-    const phaseProgress = phaseTotalCount > 0 ? (phaseDoneCount / phaseTotalCount * 100).toFixed(0) : 0;
+    const _phaseProgress =
+      phaseTotalCount > 0 ? ((phaseDoneCount / phaseTotalCount) * 100).toFixed(0) : 0;
 
     return `
     <div class="phase ${isGoLive ? "phase-go-live" : ""} ${isDeferred ? "phase-deferred" : ""}" data-phase-id="${escapeHtml(phase.id)}">
@@ -443,10 +444,9 @@ ${(plan.phases || [])
         <span class="effort">${escapeHtml(phase.estimated_effort || "")}</span>
       </div>
       <div class="phase-content" id="phase-${escapeHtml(phase.id)}">
-        ${
-          phase.batches
-            .map(
-              (batch) => `
+        ${phase.batches
+          .map(
+            (batch) => `
           <div class="batch">
             <div class="batch-header" onclick="toggleBatch('${escapeHtml(batch.id)}')">
               <span class="status-badge status-${batch.status}">${escapeHtml(batch.status)}</span>
@@ -479,7 +479,14 @@ ${(plan.phases || [])
                   ${batch.pre_conditions && batch.pre_conditions.length > 0 ? `<h4>Pre-conditions</h4><div class="pre-conditions">Doit avoir : ${batch.pre_conditions.map((p) => `<code>${escapeHtml(p)}</code>`).join(", ")}</div>` : ""}
                 </div>
                 <div class="batch-block">
-                  ${batch.sub_agent_recommended ? `<h4>Sub-agent recommandé</h4><p>${batch.sub_agent_recommended.split(/\\s*\\+\\s*|\\s*,\\s*/).map((a) => `<span class="sub-agent-tag">${escapeHtml(a.trim())}</span>`).join("")}</p>` : ""}
+                  ${
+                    batch.sub_agent_recommended
+                      ? `<h4>Sub-agent recommandé</h4><p>${batch.sub_agent_recommended
+                          .split(/\\s*\\+\\s*|\\s*,\\s*/)
+                          .map((a) => `<span class="sub-agent-tag">${escapeHtml(a.trim())}</span>`)
+                          .join("")}</p>`
+                      : ""
+                  }
                   <h4>Validation criteria</h4>
                   <ul>
                     ${(batch.validation || []).map((v) => `<li>${escapeHtml(v)}</li>`).join("")}
@@ -490,9 +497,8 @@ ${(plan.phases || [])
             </div>
           </div>
         `,
-            )
-            .join("")
-        }
+          )
+          .join("")}
       </div>
     </div>
     `;
@@ -523,7 +529,9 @@ document.querySelectorAll('.phase-deferred .phase-content').forEach((el) => el.c
   console.log(
     `✓ ${outPath.replace(AUDITS_ROOT, "docs/audits")} — ${totalBatches} batchs / ${allFindingIds.size} findings`,
   );
-  console.log(`   ${doneBatches}/${totalBatches} done · ${pendingBatches} pending · ${deferredBatches} deferred`);
+  console.log(
+    `   ${doneBatches}/${totalBatches} done · ${pendingBatches} pending · ${deferredBatches} deferred`,
+  );
   return true;
 }
 

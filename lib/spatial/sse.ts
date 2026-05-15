@@ -18,18 +18,18 @@ export interface SSEEvent {
  * Retourne le buffer résiduel (incomplete) à concaténer avec le prochain chunk.
  */
 export function parseSSEChunk(buffer: string): { events: SSEEvent[]; rest: string } {
-  const lines = buffer.split('\n');
-  const rest = lines.pop() ?? '';
+  const lines = buffer.split("\n");
+  const rest = lines.pop() ?? "";
   const events: SSEEvent[] = [];
 
   let pendingEventType: string | null = null;
 
   for (const line of lines) {
-    if (line.startsWith('event:')) {
+    if (line.startsWith("event:")) {
       pendingEventType = line.slice(6).trim();
       continue;
     }
-    if (line.startsWith('data:')) {
+    if (line.startsWith("data:")) {
       try {
         const data = JSON.parse(line.slice(5).trim());
         if (pendingEventType && !data.type) {

@@ -6,8 +6,8 @@
  * F-053 : isProductionEnv() OR logic sur NODE_ENV / VERCEL_ENV / HEARST_ENV
  */
 
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // ---------------------------------------------------------------------------
 // F-026 + F-027 — proxy indirect via mock de getToken
@@ -45,7 +45,7 @@ function makeNextRequest(opts: {
   const mergedHeaders: Record<string, string> = { ...(opts.headers ?? {}) };
   if (opts.cookies) {
     // NextRequest expose cookies en lecture — on les injecte via le header Cookie
-    mergedHeaders["cookie"] = Object.entries(opts.cookies)
+    mergedHeaders.cookie = Object.entries(opts.cookies)
       .map(([k, v]) => `${k}=${v}`)
       .join("; ");
   }

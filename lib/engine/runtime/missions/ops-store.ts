@@ -6,7 +6,7 @@
  * Does not replace persistence — this is ephemeral per-process state.
  */
 
-import type { MissionExecutionStatus, MissionDriftState } from "./ops-types";
+import type { MissionDriftState, MissionExecutionStatus } from "./ops-types";
 
 interface OpsEntry {
   status: MissionExecutionStatus;
@@ -73,7 +73,7 @@ export function setMissionDrift(missionId: string, drift: MissionDriftState): vo
 /** Efface le drift lorsque la mission a bougé. Idempotent. */
 export function clearMissionDrift(missionId: string): void {
   const existing = store.get(missionId);
-  if (!existing || !existing.drift) return;
+  if (!existing?.drift) return;
   const next: OpsEntry = { ...existing };
   delete next.drift;
   store.set(missionId, next);

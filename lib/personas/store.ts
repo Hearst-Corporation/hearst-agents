@@ -6,16 +6,16 @@
  * pour ne jamais bloquer l'UI ni l'orchestrateur.
  */
 
+import type { Database } from "@/lib/database.types";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { BUILTIN_PERSONAS } from "./defaults";
 import type {
   Persona,
   PersonaInsert,
-  PersonaUpdate,
   PersonaTone,
+  PersonaUpdate,
   PersonaVocabulary,
 } from "./types";
-import type { Database } from "@/lib/database.types";
-import { BUILTIN_PERSONAS } from "./defaults";
 
 type PersonaRow = Database["public"]["Tables"]["personas"]["Row"];
 
@@ -37,10 +37,7 @@ function rowToPersona(row: PersonaRow): Persona {
   };
 }
 
-export async function listPersonasForUser(
-  userId: string,
-  tenantId: string,
-): Promise<Persona[]> {
+export async function listPersonasForUser(userId: string, tenantId: string): Promise<Persona[]> {
   const db = getServerSupabase();
   if (!db) {
     return BUILTIN_PERSONAS.map((p) => ({
@@ -50,7 +47,8 @@ export async function listPersonasForUser(
     }));
   }
 
-  const { data, error } = await db.from("personas")
+  const { data, error } = await db
+    .from("personas")
     .select("*")
     .eq("user_id", userId)
     .eq("tenant_id", tenantId)
@@ -77,7 +75,8 @@ export async function getPersonaById(
   const db = getServerSupabase();
   if (!db) return null;
 
-  const { data, error } = await db.from("personas")
+  const { data, error } = await db
+    .from("personas")
     .select("*")
     .eq("id", id)
     .eq("user_id", scope.userId)
@@ -88,18 +87,18 @@ export async function getPersonaById(
   return rowToPersona(data as PersonaRow);
 }
 
-export async function getDefaultPersona(
-  scope: { userId: string; tenantId: string },
-): Promise<Persona | null> {
+export async function getDefaultPersona(scope: {
+  userId: string;
+  tenantId: string;
+}): Promise<Persona | null> {
   const db = getServerSupabase();
   if (!db) {
     const builtin = BUILTIN_PERSONAS.find((p) => p.isDefault) ?? null;
-    return builtin
-      ? { ...builtin, userId: scope.userId, tenantId: scope.tenantId }
-      : null;
+    return builtin ? { ...builtin, userId: scope.userId, tenantId: scope.tenantId } : null;
   }
 
-  const { data, error } = await db.from("personas")
+  const { data, error } = await db
+    .from("personas")
     .select("*")
     .eq("user_id", scope.userId)
     .eq("tenant_id", scope.tenantId)
@@ -109,9 +108,7 @@ export async function getDefaultPersona(
 
   if (error || !data) {
     const builtin = BUILTIN_PERSONAS.find((p) => p.isDefault) ?? null;
-    return builtin
-      ? { ...builtin, userId: scope.userId, tenantId: scope.tenantId }
-      : null;
+    return builtin ? { ...builtin, userId: scope.userId, tenantId: scope.tenantId } : null;
   }
   return rowToPersona(data as PersonaRow);
 }
@@ -123,9 +120,10 @@ export async function getDefaultPersona(
  *
  * Custom user persona prévaut toujours (jamais override).
  */
-async function getVerticalFallbackPersona(
-  scope: { userId: string; tenantId: string },
-): Promise<Persona | null> {
+async function getVerticalFallbackPersona(scope: {
+  userId: string;
+  tenantId: string;
+}): Promise<Persona | null> {
   try {
     // Lazy import pour éviter cycle (verticals/hospitality importe peut-être
     // d'autres modules personas dans une future itération).
@@ -154,7 +152,8 @@ export async function getPersonaForSurface(
     return await getVerticalFallbackPersona(scope);
   }
 
-  const { data, error } = await db.from("personas")
+  const { data, error } = await db
+    .from("personas")
     .select("*")
     .eq("user_id", scope.userId)
     .eq("tenant_id", scope.tenantId)
@@ -187,14 +186,16 @@ export async function createPersona(input: PersonaInsert): Promise<Persona> {
       .eq("tenant_id", input.tenantId);
   }
 
-  const { data, error } = await db.from("personas")
+  const { data, error } = await db
+    .from("personas")
     .insert({
       user_id: input.userId,
       tenant_id: input.tenantId,
       name: input.name,
       description: input.description ?? null,
       tone: input.tone ?? null,
-      vocabulary: (input.vocabulary ?? null) as Database["public"]["Tables"]["personas"]["Insert"]["vocabulary"],
+      vocabulary: (input.vocabulary ??
+        null) as Database["public"]["Tables"]["personas"]["Insert"]["vocabulary"],
       style_guide: input.styleGuide ?? null,
       system_prompt_addon: input.systemPromptAddon ?? null,
       surface: input.surface ?? null,
@@ -232,14 +233,17 @@ export async function updatePersona(
   if (patch.name !== undefined) updateRow.name = patch.name;
   if (patch.description !== undefined) updateRow.description = patch.description;
   if (patch.tone !== undefined) updateRow.tone = patch.tone;
-  if (patch.vocabulary !== undefined) updateRow.vocabulary = patch.vocabulary as Database["public"]["Tables"]["personas"]["Update"]["vocabulary"];
+  if (patch.vocabulary !== undefined)
+    updateRow.vocabulary =
+      patch.vocabulary as Database["public"]["Tables"]["personas"]["Update"]["vocabulary"];
   if (patch.styleGuide !== undefined) updateRow.style_guide = patch.styleGuide;
   if (patch.systemPromptAddon !== undefined)
     updateRow.system_prompt_addon = patch.systemPromptAddon;
   if (patch.surface !== undefined) updateRow.surface = patch.surface;
   if (patch.isDefault !== undefined) updateRow.is_default = patch.isDefault;
 
-  const { data, error } = await db.from("personas")
+  const { data, error } = await db
+    .from("personas")
     .update(updateRow)
     .eq("id", id)
     .eq("user_id", scope.userId)

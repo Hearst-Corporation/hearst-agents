@@ -19,7 +19,7 @@ export async function deepseekChat(params: {
     const res = await fetch(DEEPSEEK_ENDPOINT, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -36,7 +36,7 @@ export async function deepseekChat(params: {
       throw new Error(`[DeepSeek] ${res.status}: ${errBody.slice(0, 200)}`);
     }
 
-    const data = await res.json() as {
+    const data = (await res.json()) as {
       choices: Array<{
         message: {
           content: string;

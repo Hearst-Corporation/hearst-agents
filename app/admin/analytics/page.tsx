@@ -12,16 +12,16 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnalyticsKpiCard } from "../_components/AnalyticsKpiCard";
-import { UsageTimeSeriesChart } from "../_components/UsageTimeSeriesChart";
-import { TenantsTable } from "../_components/TenantsTable";
 import type {
+  DateRange,
+  Granularity,
   TenantUsage,
   TimeSeriesPoint,
   UsageOverview,
-  Granularity,
-  DateRange,
 } from "@/lib/admin/usage/aggregate";
+import { AnalyticsKpiCard } from "../_components/AnalyticsKpiCard";
+import { TenantsTable } from "../_components/TenantsTable";
+import { UsageTimeSeriesChart } from "../_components/UsageTimeSeriesChart";
 
 type RangePreset = "7d" | "30d" | "90d";
 
@@ -128,10 +128,9 @@ export default function AdminAnalyticsPage() {
       });
       if (kind) params.set("kind", kind);
       try {
-        const res = await fetch(
-          `/api/admin/analytics/tenants?${params.toString()}`,
-          { credentials: "include" },
-        );
+        const res = await fetch(`/api/admin/analytics/tenants?${params.toString()}`, {
+          credentials: "include",
+        });
         if (!res.ok) throw new Error(`detail_${res.status}`);
         const data = (await res.json()) as TenantDetailResponse;
         setTenantDetail(data);
@@ -164,11 +163,7 @@ export default function AdminAnalyticsPage() {
           loading={loading}
         />
 
-        {error && (
-          <p className="t-11 font-mono uppercase text-(--danger)">
-            {error}
-          </p>
-        )}
+        {error && <p className="t-11 font-mono uppercase text-(--danger)">{error}</p>}
 
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-(--space-4)">
           <AnalyticsKpiCard
@@ -197,7 +192,9 @@ export default function AdminAnalyticsPage() {
         <UsageTimeSeriesChart points={usage?.timeSeries ?? []} />
 
         <section className="flex flex-col gap-(--space-3)">
-          <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Top tenants</h2>
+          <h2 className="t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Top tenants
+          </h2>
           {tenants ? (
             <TenantsTable
               tenants={tenants}
@@ -205,9 +202,7 @@ export default function AdminAnalyticsPage() {
               onSelect={loadTenantDetail}
             />
           ) : (
-            <p className="t-11 font-mono uppercase text-text-faint">
-              Chargement…
-            </p>
+            <p className="t-11 font-mono uppercase text-text-faint">Chargement…</p>
           )}
         </section>
 
@@ -243,10 +238,7 @@ function Filters({
   loading: boolean;
 }) {
   return (
-    <div
-      className="flex flex-wrap items-center"
-      style={{ gap: "var(--space-3)" }}
-    >
+    <div className="flex flex-wrap items-center" style={{ gap: "var(--space-3)" }}>
       <SegmentedControl
         label="Range"
         value={preset}
@@ -268,9 +260,7 @@ function Filters({
         ]}
       />
       <label className="flex items-center gap-(--space-2)">
-        <span className="t-9 font-mono uppercase text-text-faint">
-          Type
-        </span>
+        <span className="t-9 font-mono uppercase text-text-faint">Type</span>
         <select
           value={kind}
           onChange={(e) => onKind(e.target.value)}
@@ -283,11 +273,7 @@ function Filters({
           ))}
         </select>
       </label>
-      {loading && (
-        <span className="t-9 font-mono uppercase text-(--accent-teal)">
-          chargement…
-        </span>
-      )}
+      {loading && <span className="t-9 font-mono uppercase text-(--accent-teal)">chargement…</span>}
     </div>
   );
 }
@@ -305,9 +291,7 @@ function SegmentedControl({
 }) {
   return (
     <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-      <span className="t-9 font-mono uppercase text-text-faint">
-        {label}
-      </span>
+      <span className="t-9 font-mono uppercase text-text-faint">{label}</span>
       <div
         className="flex"
         style={{
@@ -363,13 +347,8 @@ function TenantDrillDown({
         background: "var(--bg-elev)",
       }}
     >
-      <header
-        className="flex items-baseline justify-between"
-        style={{ gap: "var(--space-3)" }}
-      >
-        <h2 className="t-15 font-medium text-text">
-          Drill-down : {t.tenantId}
-        </h2>
+      <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
+        <h2 className="t-15 font-medium text-text">Drill-down : {t.tenantId}</h2>
         <button
           type="button"
           onClick={onClose}
@@ -379,10 +358,7 @@ function TenantDrillDown({
           Fermer
         </button>
       </header>
-      <div
-        className="grid grid-cols-2 md:grid-cols-4"
-        style={{ gap: "var(--space-3)" }}
-      >
+      <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "var(--space-3)" }}>
         <Mini label="Runs" value={t.totalRuns.toString()} />
         <Mini label="Cost USD" value={`$${t.totalCostUsd.toFixed(4)}`} />
         <Mini label="Missions" value={t.totalMissions.toString()} />
@@ -390,9 +366,7 @@ function TenantDrillDown({
       </div>
       <h3 className="t-13 font-medium text-text">Top users</h3>
       {t.users.length === 0 ? (
-        <p className="t-11 text-text-muted">
-          Aucun user actif sur cette fenêtre.
-        </p>
+        <p className="t-11 text-text-muted">Aucun user actif sur cette fenêtre.</p>
       ) : (
         <ul className="flex flex-col" style={{ gap: "var(--space-1)" }}>
           {t.users.slice(0, 20).map((u) => (
@@ -405,9 +379,7 @@ function TenantDrillDown({
                 gap: "var(--space-3)",
               }}
             >
-              <span className="col-span-7 t-11 font-mono text-text-soft truncate">
-                {u.userId}
-              </span>
+              <span className="col-span-7 t-11 font-mono text-text-soft truncate">{u.userId}</span>
               <span className="col-span-2 text-right t-11 font-mono text-text-muted">
                 {u.runs} runs
               </span>
@@ -434,9 +406,7 @@ function Mini({ label, value }: { label: string; value: string }) {
         background: "var(--surface-1)",
       }}
     >
-      <span className="t-9 font-mono uppercase text-text-faint">
-        {label}
-      </span>
+      <span className="t-9 font-mono uppercase text-text-faint">{label}</span>
       <span className="t-15 font-medium text-text">{value}</span>
     </div>
   );

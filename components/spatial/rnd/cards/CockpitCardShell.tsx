@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface CockpitCardShellProps {
   children: ReactNode;
@@ -17,13 +17,11 @@ export function CockpitCardShell({ children, className }: CockpitCardShellProps)
     <div
       className={`relative h-full w-full overflow-hidden rounded-[32px] p-7 ${className ?? ""}`}
       style={{
-        background:
-          "linear-gradient(145deg, rgba(255,255,255,0.066), rgba(255,255,255,0.026))",
+        background: "linear-gradient(145deg, rgba(255,255,255,0.066), rgba(255,255,255,0.026))",
         backdropFilter: "blur(26px) saturate(120%)",
         WebkitBackdropFilter: "blur(26px) saturate(120%)",
         border: "1px solid rgba(255,255,255,0.095)",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.065), 0 24px 54px -36px rgba(0,0,0,0.9)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.065), 0 24px 54px -36px rgba(0,0,0,0.9)",
       }}
     >
       <div

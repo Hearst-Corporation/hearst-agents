@@ -5,7 +5,7 @@
  * en NODE_ENV=production, et allowed:true en dev/test (comportement existant).
  */
 
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 // On mock le module Redis pour simuler l'indisponibilité.
 vi.mock("@/lib/platform/redis/client", () => ({

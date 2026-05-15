@@ -13,18 +13,18 @@
  * un array vide, ce qu'on évite ici en bouchant en amont).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant, updateVariant } from "@/lib/assets/variants";
-import { enqueueJob } from "@/lib/jobs/queue";
-import { requireCreditsForJob, formatInsufficientCreditsMessage } from "@/lib/credits/middleware";
-import { settleCredits } from "@/lib/credits/client";
-import { protectLlmJob } from "@/lib/security/arcjet";
 import { imageGenSchema } from "@/lib/contracts/jobs";
+import { settleCredits } from "@/lib/credits/client";
+import { formatInsufficientCreditsMessage, requireCreditsForJob } from "@/lib/credits/middleware";
+import { enqueueJob } from "@/lib/jobs/queue";
 import type { ImageGenInput } from "@/lib/jobs/types";
-import { withRoute, redactedError } from "@/lib/observability/logger";
+import { redactedError, withRoute } from "@/lib/observability/logger";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { protectLlmJob } from "@/lib/security/arcjet";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -176,9 +176,6 @@ export async function POST(req: NextRequest) {
       }).catch(() => {});
     }
 
-    return NextResponse.json(
-      { error: "enqueue_failed", message },
-      { status: 503 },
-    );
+    return NextResponse.json({ error: "enqueue_failed", message }, { status: 503 });
   }
 }

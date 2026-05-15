@@ -25,7 +25,7 @@
  *   1 = drift détecté (tools fantômes / charte non-uniforme / events orphelins)
  */
 
-import { readFileSync, readdirSync, statSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.cwd();
@@ -117,7 +117,9 @@ function inspectTools(): ToolSurface {
   }
 
   // Tools natifs Google + meta (création artifact, scheduled mission, etc.)
-  for (const m of ap.matchAll(/(create_artifact|create_scheduled_mission|propose_report_spec|request_connection):\s+build/g)) {
+  for (const m of ap.matchAll(
+    /(create_artifact|create_scheduled_mission|propose_report_spec|request_connection):\s+build/g,
+  )) {
     wired.add(m[1]);
   }
   // Tools natifs Google annoncés statiquement par buildNativeGoogleTools
@@ -161,9 +163,7 @@ function inspectTools(): ToolSurface {
     "start_browser",
     "start_meeting_bot",
   ]);
-  const invisible = wiredArr.filter(
-    (t) => !announcedSet.has(t) && !ANNOUNCED_ELSEWHERE.has(t),
-  );
+  const invisible = wiredArr.filter((t) => !announcedSet.has(t) && !ANNOUNCED_ELSEWHERE.has(t));
 
   return { announced: announcedArr, wired: wiredArr, ghosts, invisible };
 }
@@ -176,9 +176,7 @@ interface PromptSurvey {
 }
 
 function inspectPrompts(): PromptSurvey {
-  const allTs = [
-    ...walk("lib"),
-  ].filter((f) => !f.includes("__tests__") && !f.includes("/test/"));
+  const allTs = [...walk("lib")].filter((f) => !f.includes("__tests__") && !f.includes("/test/"));
 
   const migrated: string[] = [];
   const candidates: string[] = [];
@@ -194,7 +192,8 @@ function inspectPrompts(): PromptSurvey {
 
   for (const f of allTs) {
     const src = readFileSync(f, "utf-8");
-    const usesCharter = src.includes("composeEditorialPrompt") || src.includes("EDITORIAL_CHARTER_BLOCK");
+    const usesCharter =
+      src.includes("composeEditorialPrompt") || src.includes("EDITORIAL_CHARTER_BLOCK");
     const looksLikePrompt =
       /export const [A-Z_]*SYSTEM_PROMPT/.test(src) ||
       /system: \[[^\]]*"Tu es/.test(src) ||
@@ -292,9 +291,7 @@ function inspectEvents(): EventSurvey {
     "action_plan_proposed",
   ]);
 
-  const orphans = emittedArr.filter(
-    (t) => !consumedSet.has(t) && !internalOK.has(t),
-  );
+  const orphans = emittedArr.filter((t) => !consumedSet.has(t) && !internalOK.has(t));
 
   return { emittedTypes: emittedArr, consumedTypes: consumedArr, orphans };
 }
@@ -354,7 +351,9 @@ function warn(s: string): string {
 }
 
 (async () => {
-  console.log(`\n${COLORS.bold}${COLORS.cyan}🔍 Hearst OS — Audit Pipeline (statique)${COLORS.reset}`);
+  console.log(
+    `\n${COLORS.bold}${COLORS.cyan}🔍 Hearst OS — Audit Pipeline (statique)${COLORS.reset}`,
+  );
   console.log(`${COLORS.dim}Inspecte le code pour détecter les drifts internes.${COLORS.reset}`);
 
   const tools = inspectTools();
@@ -380,7 +379,9 @@ function warn(s: string): string {
     console.log(ok("Aucun tool invisible."));
   } else {
     console.log(
-      warn(`${tools.invisible.length} tool(s) wiré(s) mais pas annoncé(s) au LLM (sous-utilisation possible) :`),
+      warn(
+        `${tools.invisible.length} tool(s) wiré(s) mais pas annoncé(s) au LLM (sous-utilisation possible) :`,
+      ),
     );
     for (const i of tools.invisible.slice(0, 20)) console.log(`    - ${i}`);
     if (tools.invisible.length > 20) console.log(`    (+${tools.invisible.length - 20} autres)`);
@@ -388,14 +389,18 @@ function warn(s: string): string {
 
   // 2. Prompts
   section("2. PROMPTS — charte éditoriale unifiée");
-  console.log(`${COLORS.dim}Migrés vers composeEditorialPrompt : ${prompts.migrated.length}${COLORS.reset}`);
+  console.log(
+    `${COLORS.dim}Migrés vers composeEditorialPrompt : ${prompts.migrated.length}${COLORS.reset}`,
+  );
   for (const p of prompts.migrated) console.log(`    ${ok(p)}`);
 
   if (prompts.candidates.length === 0) {
     console.log(ok("Aucun prompt non-migré détecté."));
   } else {
     console.log(
-      warn(`${prompts.candidates.length} candidat(s) potentiel(s) (SYSTEM_PROMPT défini sans charter) :`),
+      warn(
+        `${prompts.candidates.length} candidat(s) potentiel(s) (SYSTEM_PROMPT défini sans charter) :`,
+      ),
     );
     for (const c of prompts.candidates) console.log(`    - ${c}`);
   }
@@ -403,7 +408,9 @@ function warn(s: string): string {
   // 3. Events
   section("3. EVENTS SSE — émis vs consommés");
   console.log(`${COLORS.dim}Émis : ${events.emittedTypes.length} types${COLORS.reset}`);
-  console.log(`${COLORS.dim}Consommés (sse-adapter) : ${events.consumedTypes.length} types${COLORS.reset}`);
+  console.log(
+    `${COLORS.dim}Consommés (sse-adapter) : ${events.consumedTypes.length} types${COLORS.reset}`,
+  );
 
   if (events.orphans.length === 0) {
     console.log(ok("Aucun event UI-visible orphelin."));
@@ -426,12 +433,15 @@ function warn(s: string): string {
 
   // ── Récap ────────────────────────────────────────────────────────
   section("RÉCAP");
-  const drifts =
-    tools.ghosts.length + (events.orphans.length > 0 ? 1 : 0) + todos.critical.length;
+  const drifts = tools.ghosts.length + (events.orphans.length > 0 ? 1 : 0) + todos.critical.length;
   if (drifts === 0) {
-    console.log(`${COLORS.green}${COLORS.bold}✓ Pipeline cohérent — aucun drift critique détecté.${COLORS.reset}`);
+    console.log(
+      `${COLORS.green}${COLORS.bold}✓ Pipeline cohérent — aucun drift critique détecté.${COLORS.reset}`,
+    );
   } else {
-    console.log(`${COLORS.red}${COLORS.bold}✗ ${drifts} signal(aux) de drift à investiguer.${COLORS.reset}`);
+    console.log(
+      `${COLORS.red}${COLORS.bold}✗ ${drifts} signal(aux) de drift à investiguer.${COLORS.reset}`,
+    );
   }
 
   // ── Write report ──────────────────────────────────────────────────

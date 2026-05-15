@@ -18,9 +18,9 @@
  * on borne à `now`.
  */
 
-import { getRuns } from "@/lib/engine/runtime/state/adapter";
-import { loadAssetsForScope } from "@/lib/assets/types";
 import type { Asset } from "@/lib/assets/types";
+import { loadAssetsForScope } from "@/lib/assets/types";
+import { getRuns } from "@/lib/engine/runtime/state/adapter";
 import type { PersistedRunRecord } from "@/lib/engine/runtime/state/types";
 
 // ── Constantes ───────────────────────────────────────────────
@@ -125,10 +125,7 @@ async function safe<T>(label: string, fn: () => Promise<T> | T, fallback: T): Pr
   try {
     return await fn();
   } catch (err) {
-    console.warn(
-      `[cockpit/monthly-card] source "${label}" en erreur, fallback appliqué:`,
-      err,
-    );
+    console.warn(`[cockpit/monthly-card] source "${label}" en erreur, fallback appliqué:`, err);
     return fallback;
   }
 }
@@ -137,10 +134,7 @@ async function safe<T>(label: string, fn: () => Promise<T> | T, fallback: T): Pr
  * Parse un yearMonth `YYYY-MM` et calcule la fenêtre. Throw si format invalide.
  * Pour le mois en cours, `toMs` est borné à `now`.
  */
-export function buildMonthlyWindow(
-  yearMonth: string,
-  now: Date = new Date(),
-): MonthlyCardWindow {
+export function buildMonthlyWindow(yearMonth: string, now: Date = new Date()): MonthlyCardWindow {
   const match = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(yearMonth);
   if (!match) {
     throw new Error(`Invalid yearMonth format: ${yearMonth} (expected YYYY-MM)`);
@@ -151,12 +145,9 @@ export function buildMonthlyWindow(
   const start = new Date(year, monthIdx, 1, 0, 0, 0, 0);
   const nextMonth = new Date(year, monthIdx + 1, 1, 0, 0, 0, 0);
 
-  const isCurrentMonth =
-    now.getFullYear() === year && now.getMonth() === monthIdx;
+  const isCurrentMonth = now.getFullYear() === year && now.getMonth() === monthIdx;
   const inProgress = isCurrentMonth;
-  const toMs = inProgress
-    ? Math.min(now.getTime(), nextMonth.getTime())
-    : nextMonth.getTime();
+  const toMs = inProgress ? Math.min(now.getTime(), nextMonth.getTime()) : nextMonth.getTime();
 
   const fmt = new Intl.DateTimeFormat("fr-FR", {
     month: "long",
@@ -218,9 +209,7 @@ function aggregateMissions(
 
     const meta = (run.metadata ?? {}) as Record<string, unknown>;
     const fallbackName =
-      (meta.missionName as string | undefined) ??
-      run.input?.slice(0, 60) ??
-      missionId;
+      (meta.missionName as string | undefined) ?? run.input?.slice(0, 60) ?? missionId;
 
     const entry = missions.get(missionId) ?? {
       name: fallbackName,
@@ -235,24 +224,17 @@ function aggregateMissions(
   return { missions, totalCost, failed };
 }
 
-function pickTopMissions(
-  missions: Map<string, MissionAggregate>,
-): MonthlyCardMissionRow[] {
-  const rows: MonthlyCardMissionRow[] = Array.from(missions.entries()).map(
-    ([missionId, agg]) => ({
-      missionId,
-      name: agg.name,
-      runs: agg.runs,
-      successes: agg.successes,
-      successRate: agg.runs === 0 ? 0 : Math.round((agg.successes / agg.runs) * 100),
-    }),
-  );
+function pickTopMissions(missions: Map<string, MissionAggregate>): MonthlyCardMissionRow[] {
+  const rows: MonthlyCardMissionRow[] = Array.from(missions.entries()).map(([missionId, agg]) => ({
+    missionId,
+    name: agg.name,
+    runs: agg.runs,
+    successes: agg.successes,
+    successRate: agg.runs === 0 ? 0 : Math.round((agg.successes / agg.runs) * 100),
+  }));
   // Tri : successes desc, puis successRate desc, puis runs desc.
   rows.sort(
-    (a, b) =>
-      b.successes - a.successes ||
-      b.successRate - a.successRate ||
-      b.runs - a.runs,
+    (a, b) => b.successes - a.successes || b.successRate - a.successRate || b.runs - a.runs,
   );
   return rows.slice(0, MAX_TOP_MISSIONS);
 }
@@ -261,9 +243,7 @@ function pickTopReports(
   assets: Asset[],
   window: MonthlyCardWindow,
 ): { count: number; rows: MonthlyCardReportRow[] } {
-  const reportsInWindow = assets.filter(
-    (a) => isInWindow(a.createdAt, window) && isReportAsset(a),
-  );
+  const reportsInWindow = assets.filter((a) => isInWindow(a.createdAt, window) && isReportAsset(a));
   reportsInWindow.sort((a, b) => b.createdAt - a.createdAt);
   const rows = reportsInWindow.slice(0, MAX_TOP_REPORTS).map((a) => ({
     id: a.id,
@@ -280,12 +260,9 @@ function buildKpis(
   totalRuns: number,
   successes: number,
 ): MonthlyCardKpi[] {
-  const successRate =
-    totalRuns === 0 ? 0 : Math.round((successes / totalRuns) * 100);
+  const successRate = totalRuns === 0 ? 0 : Math.round((successes / totalRuns) * 100);
   const costFormatted =
-    totalCostUsd >= 100
-      ? `$${Math.round(totalCostUsd)}`
-      : `$${totalCostUsd.toFixed(2)}`;
+    totalCostUsd >= 100 ? `$${Math.round(totalCostUsd)}` : `$${totalCostUsd.toFixed(2)}`;
 
   const kpis: MonthlyCardKpi[] = [
     { label: "Assets créés", value: String(totalAssets) },
@@ -304,15 +281,11 @@ function buildBestMoment(
   const bestMission = topMissions[0];
   if (bestMission && bestMission.successes > 0) {
     const reason =
-      bestMission.successes === 1
-        ? "1 run réussi"
-        : `${bestMission.successes} runs réussis`;
+      bestMission.successes === 1 ? "1 run réussi" : `${bestMission.successes} runs réussis`;
     return {
       kind: "mission",
       title: bestMission.name,
-      reason: `${reason}${
-        bestMission.successRate >= 90 ? " · sans accroc" : ""
-      }`,
+      reason: `${reason}${bestMission.successRate >= 90 ? " · sans accroc" : ""}`,
     };
   }
   const bestReport = topReports[0];
@@ -370,14 +343,9 @@ export async function buildMonthlyCardData(
 
   const { missions, totalCost, failed } = aggregateMissions(runs, window);
   const topMissions = pickTopMissions(missions);
-  const { count: reportsGenerated, rows: topReports } = pickTopReports(
-    assets,
-    window,
-  );
+  const { count: reportsGenerated, rows: topReports } = pickTopReports(assets, window);
 
-  const totalRuns = runs.filter((r) =>
-    isInWindow(r.completedAt ?? r.createdAt, window),
-  ).length;
+  const totalRuns = runs.filter((r) => isInWindow(r.completedAt ?? r.createdAt, window)).length;
   const totalSuccesses = totalRuns - failed;
   const totalAssets = assets.filter((a) => isInWindow(a.createdAt, window)).length;
 

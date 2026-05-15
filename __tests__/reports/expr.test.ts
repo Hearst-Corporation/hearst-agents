@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { compileExpr, evaluate, ExprError } from "@/lib/reports/engine/expr";
+import { compileExpr, ExprError, evaluate } from "@/lib/reports/engine/expr";
 
 describe("evaluate — littéraux et identifiers", () => {
   it("évalue les nombres", () => {

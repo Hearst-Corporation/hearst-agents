@@ -5,13 +5,12 @@
  * edit content.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it } from "vitest";
 import { WorkingDocument } from "@/app/(user)/components/chat/WorkingDocument";
 import { useWorkingDocumentStore } from "@/stores/working-document";
 
-const reset = () =>
-  useWorkingDocumentStore.setState({ current: null, isOpen: false });
+const reset = () => useWorkingDocumentStore.setState({ current: null, isOpen: false });
 
 describe("WorkingDocument", () => {
   beforeEach(() => {

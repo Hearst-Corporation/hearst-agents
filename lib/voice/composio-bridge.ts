@@ -18,7 +18,7 @@
  * qui dispatch vers `executeComposioAction` pour tout name non-Hearst.
  */
 
-import { getToolsForUser, type DiscoveredTool } from "@/lib/connectors/composio/discovery";
+import { type DiscoveredTool, getToolsForUser } from "@/lib/connectors/composio/discovery";
 import type { VoiceToolDef } from "./tool-defs";
 
 const MAX_TOOLS_TOTAL = 20;

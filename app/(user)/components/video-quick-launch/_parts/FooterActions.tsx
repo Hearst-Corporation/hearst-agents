@@ -1,7 +1,7 @@
 "use client";
 
 import { Action } from "../../ui";
-import type { SinglePhase, BatchPhase } from "../types";
+import type { BatchPhase, SinglePhase } from "../types";
 
 interface FooterActionsProps {
   batchMode: boolean;

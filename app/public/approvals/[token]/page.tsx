@@ -13,16 +13,16 @@
  * avant ; l'utilisateur doit toujours cliquer pour valider (CSRF-safe).
  */
 
+import { createClient } from "@supabase/supabase-js";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { headers } from "next/headers";
 import {
-  verifyApprovalToken,
   getApprovalByTokenHash,
   getApprovalState,
+  verifyApprovalToken,
 } from "@/lib/missions/approvals";
-import { createClient } from "@supabase/supabase-js";
 import { ApprovalVoteForm } from "./vote-form";
 
 export const dynamic = "force-dynamic";
@@ -57,9 +57,7 @@ interface ApprovalError {
   code: string;
 }
 
-async function loadApproval(
-  token: string,
-): Promise<ApprovalContext | ApprovalError> {
+async function loadApproval(token: string): Promise<ApprovalContext | ApprovalError> {
   const v = verifyApprovalToken(token);
   if (!v.ok) {
     return { status: "error", code: v.reason };
@@ -134,10 +132,7 @@ const MODE_LABELS: Record<"all" | "any" | "majority", string> = {
   majority: "Majorité requise",
 };
 
-export default async function PublicApprovalPage({
-  params,
-  searchParams,
-}: PageProps) {
+export default async function PublicApprovalPage({ params, searchParams }: PageProps) {
   await headers();
   const { token } = await params;
   const { action } = await searchParams;
@@ -151,8 +146,7 @@ export default async function PublicApprovalPage({
       no_secret: "Service d'approbation indisponible.",
       not_found: "Cette demande d'approbation n'existe plus.",
     };
-    const message =
-      errorMessages[result.code] ?? "Cette demande d'approbation n'est plus valide.";
+    const message = errorMessages[result.code] ?? "Cette demande d'approbation n'est plus valide.";
     return (
       <>
         <BrandedHeader />
@@ -171,10 +165,7 @@ export default async function PublicApprovalPage({
           >
             Approbation indisponible
           </h1>
-          <p
-            className="t-13"
-            style={{ color: "var(--text-soft)", marginTop: "var(--space-3)" }}
-          >
+          <p className="t-13" style={{ color: "var(--text-soft)", marginTop: "var(--space-3)" }}>
             {message}
           </p>
         </main>
@@ -306,10 +297,7 @@ export default async function PublicApprovalPage({
           >
             <p className="t-15" style={{ color: "var(--text)", margin: 0 }}>
               Vous avez déjà voté{" "}
-              <strong>
-                {result.vote === "approved" ? "Approuver" : "Rejeter"}
-              </strong>
-              .
+              <strong>{result.vote === "approved" ? "Approuver" : "Rejeter"}</strong>.
             </p>
             <p
               className="t-11"
@@ -393,10 +381,7 @@ function BrandedHeader() {
           priority
         />
       </Link>
-      <span
-        className="t-11"
-        style={{ color: "var(--text-faint)", fontWeight: 300 }}
-      >
+      <span className="t-11" style={{ color: "var(--text-faint)", fontWeight: 300 }}>
         Approbation collaborative
       </span>
     </header>

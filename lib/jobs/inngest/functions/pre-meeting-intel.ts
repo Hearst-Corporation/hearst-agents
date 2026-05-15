@@ -18,15 +18,15 @@
  * le tick global.
  */
 
-import { inngest } from "@/lib/jobs/inngest/client";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   getPreMeetingIntel,
   listUpcomingEventsWithAttendees,
   type PreMeetingIntel,
 } from "@/lib/cockpit/pre-meeting-intel";
+import { inngest } from "@/lib/jobs/inngest/client";
 import { createNotification } from "@/lib/notifications/in-app";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 // ── Constantes ────────────────────────────────────────────────────
 
@@ -202,16 +202,11 @@ export const preMeetingIntelFunction = inngest.createFunction(
           }
         }
       } catch (err) {
-        console.warn(
-          `[pre-meeting-intel] échec user=${user.userId.slice(0, 8)} :`,
-          err,
-        );
+        console.warn(`[pre-meeting-intel] échec user=${user.userId.slice(0, 8)} :`, err);
       }
     }
 
-    console.log(
-      `[pre-meeting-intel] tick processed=${users.length} notified=${notified}`,
-    );
+    console.log(`[pre-meeting-intel] tick processed=${users.length} notified=${notified}`);
 
     return { processed: users.length, notified };
   },

@@ -5,12 +5,12 @@
  * Returns a canonical AssetDetail for UI inspection.
  */
 
-import type { AssetDetail, AssetPreviewType, AssetFileDetail } from "./detail-types";
-import type { Asset } from "./types";
-import { getAssetDownloadInfo } from "./file-storage";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getAllRuns } from "../runs/store";
 import { getRuns as getPersistedRuns } from "../state/adapter";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
+import type { AssetDetail, AssetFileDetail, AssetPreviewType } from "./detail-types";
+import { getAssetDownloadInfo } from "./file-storage";
+import type { Asset } from "./types";
 
 function inferPreviewType(assetType: string): AssetPreviewType {
   switch (assetType) {
@@ -37,7 +37,7 @@ function buildFileDetail(fullAsset?: Asset): AssetFileDetail | undefined {
     fileName: file.fileName,
     mimeType: file.mimeType,
     sizeBytes: info.sizeBytes ?? file.sizeBytes,
-    downloadUrl: `/api/v2/assets/${fullAsset!.id}/download`,
+    downloadUrl: `/api/v2/assets/${fullAsset?.id}/download`,
   };
 }
 
@@ -53,7 +53,9 @@ function assetToDetail(
   if (fullAsset?.type === "json" && content) {
     try {
       json = JSON.parse(content);
-    } catch { /* not valid JSON */ }
+    } catch {
+      /* not valid JSON */
+    }
   }
 
   return {
@@ -213,7 +215,7 @@ export async function getAssetDetail(input: {
       // string telle quelle.
       const rawRef = (data.content_ref as string | null) ?? undefined;
       let displayContent = rawRef;
-      if (rawRef && rawRef.trimStart().startsWith("{")) {
+      if (rawRef?.trimStart().startsWith("{")) {
         try {
           const parsed = JSON.parse(rawRef) as { narration?: string };
           if (typeof parsed.narration === "string" && parsed.narration.length > 0) {

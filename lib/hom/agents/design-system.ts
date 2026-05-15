@@ -2,9 +2,9 @@
  * A2 Design System Agent — scan tokens, voix éditoriale, magic values.
  * Délègue les détections fines à `lib/hom/drift.ts` puis convertit en findings.
  */
-import { scanDrift, appendDriftLog } from "../drift";
+import { appendDriftLog, scanDrift } from "../drift";
 import type { Finding, Severity } from "../types";
-import { runAgent, makeFindingId, type AgentExecCtx, type ScanResult } from "./base";
+import { type AgentExecCtx, makeFindingId, runAgent, type ScanResult } from "./base";
 
 const SEVERITY_MAP: Record<string, Severity> = {
   hardcoded_color: "high",

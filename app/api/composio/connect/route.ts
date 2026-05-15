@@ -8,10 +8,10 @@
  * The frontend reads `redirectUrl` and sends the user there to complete auth.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
 import { initiateConnection, isComposioConfigured } from "@/lib/connectors/composio";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
 
 const bodySchema = z.object({
   appName: z.string().min(1).max(64),

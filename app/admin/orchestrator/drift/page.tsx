@@ -1,5 +1,5 @@
-import { HomShell, PageHeader, Card, MetricCell } from "../_components/Shell";
 import { loadDriftLog } from "@/lib/hom/drift";
+import { Card, HomShell, MetricCell, PageHeader } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 

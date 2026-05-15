@@ -8,8 +8,8 @@
  */
 
 import { useCallback } from "react";
-import type { UseVideoBatchSSEResult } from "./useVideoBatchSSE";
 import type { BatchVariantForm } from "../types";
+import type { UseVideoBatchSSEResult } from "./useVideoBatchSSE";
 
 interface BatchSubmitParams {
   batchForms: BatchVariantForm[];
@@ -19,12 +19,7 @@ interface BatchSubmitParams {
 export function useBatchSubmit({ batchForms, batch }: BatchSubmitParams) {
   return useCallback(async () => {
     const validForms = batchForms.filter((f) => f.prompt.trim().length > 0);
-    if (
-      validForms.length === 0 ||
-      batch.phase === "creating" ||
-      batch.phase === "running"
-    )
-      return;
+    if (validForms.length === 0 || batch.phase === "creating" || batch.phase === "running") return;
 
     batch.setErrorMsg(null);
     batch.setPhase("creating");
@@ -48,9 +43,7 @@ export function useBatchSubmit({ batchForms, batch }: BatchSubmitParams) {
 
       const body = await res.json();
       if (!res.ok || !body?.assetId) {
-        throw new Error(
-          body?.message ?? body?.error ?? "Échec de la création du batch",
-        );
+        throw new Error(body?.message ?? body?.error ?? "Échec de la création du batch");
       }
 
       const assetId: string = body.assetId;
@@ -76,9 +69,7 @@ export function useBatchSubmit({ batchForms, batch }: BatchSubmitParams) {
         batch.setErrorMsg("Aucun variant n'a pu être enqueué");
       }
     } catch (err) {
-      batch.setErrorMsg(
-        err instanceof Error ? err.message : "Erreur inattendue",
-      );
+      batch.setErrorMsg(err instanceof Error ? err.message : "Erreur inattendue");
       batch.setPhase("error");
     }
   }, [batchForms, batch]);

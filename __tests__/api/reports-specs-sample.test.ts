@@ -8,7 +8,7 @@
  *   - Le scope du caller écrase le scope démo du spec
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({
@@ -138,10 +138,9 @@ describe("POST /api/v2/reports/specs/sample", () => {
       body: JSON.stringify({ spec: makeValidSpec() }),
     });
     await POST(req as never);
-    const calls = runReportMock.mock.calls as unknown as Array<[
-      { scope: { tenantId: string; workspaceId: string } },
-      { noCache?: boolean },
-    ]>;
+    const calls = runReportMock.mock.calls as unknown as Array<
+      [{ scope: { tenantId: string; workspaceId: string } }, { noCache?: boolean }]
+    >;
     expect(calls[0][0].scope.tenantId).toBe("tenant-caller");
     expect(calls[0][0].scope.workspaceId).toBe("ws-caller");
   });
@@ -154,10 +153,7 @@ describe("POST /api/v2/reports/specs/sample", () => {
       body: JSON.stringify({ spec: makeValidSpec() }),
     });
     await POST(req as never);
-    const calls = runReportMock.mock.calls as unknown as Array<[
-      unknown,
-      { noCache?: boolean },
-    ]>;
+    const calls = runReportMock.mock.calls as unknown as Array<[unknown, { noCache?: boolean }]>;
     expect(calls[0][1].noCache).toBe(true);
   });
 });

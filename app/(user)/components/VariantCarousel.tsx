@@ -14,8 +14,8 @@
  *  - aucun variant pour ce kind → empty card avec CTA Générer
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
 import { Action } from "./ui";
 
@@ -37,33 +37,21 @@ const KIND_LABEL: Record<AssetVariantKind, string> = {
   code: "Code",
 };
 
-const SUPPORTED_KINDS: ReadonlyArray<AssetVariantKind> = [
-  "audio",
-  "video",
-  "image",
-  "code",
-];
+const SUPPORTED_KINDS: ReadonlyArray<AssetVariantKind> = ["audio", "video", "image", "code"];
 
 const POLL_INTERVAL_MS = 4_000;
 
-export function VariantCarousel({
-  assetId,
-  sourceText,
-  defaultKind,
-}: VariantCarouselProps) {
+export function VariantCarousel({ assetId, sourceText, defaultKind }: VariantCarouselProps) {
   const [variants, setVariants] = useState<AssetVariant[]>([]);
-  const [activeKind, setActiveKind] = useState<AssetVariantKind>(
-    defaultKind ?? "audio",
-  );
+  const [activeKind, setActiveKind] = useState<AssetVariantKind>(defaultKind ?? "audio");
   const [generating, setGenerating] = useState<AssetVariantKind | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchVariants = useCallback(async () => {
     try {
-      const res = await fetch(
-        `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-        { credentials: "include" },
-      );
+      const res = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
+        credentials: "include",
+      });
       if (!res.ok) return;
       const data = await res.json();
       if (Array.isArray(data.variants)) {
@@ -80,9 +68,7 @@ export function VariantCarousel({
   }, [fetchVariants]);
 
   useEffect(() => {
-    const inProgress = variants.some(
-      (v) => v.status === "pending" || v.status === "generating",
-    );
+    const inProgress = variants.some((v) => v.status === "pending" || v.status === "generating");
     if (!inProgress) return;
     const timer = setInterval(() => {
       void fetchVariants();
@@ -114,15 +100,12 @@ export function VariantCarousel({
         } else {
           requestBody.text = sourceText;
         }
-        const res = await fetch(
-          `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(requestBody),
-          },
-        );
+        const res = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody),
+        });
         const data = await res.json();
         if (!res.ok) {
           setError(data.message || data.error || "Échec génération");
@@ -151,14 +134,8 @@ export function VariantCarousel({
         className="flex items-center justify-between"
         style={{ marginBottom: "var(--space-4)" }}
       >
-        <span className="t-11 font-light text-text-faint">
-          VARIANTS · {variants.length}
-        </span>
-        {error && (
-          <span className="t-11 font-medium text-(--danger)">
-            {error}
-          </span>
-        )}
+        <span className="t-11 font-light text-text-faint">VARIANTS · {variants.length}</span>
+        {error && <span className="t-11 font-medium text-(--danger)">{error}</span>}
       </header>
 
       <div
@@ -235,13 +212,7 @@ function StatusDot({ status }: { status?: string }) {
   );
 }
 
-function VariantThumbnail({
-  variant,
-  kind,
-}: {
-  variant?: AssetVariant;
-  kind: AssetVariantKind;
-}) {
+function VariantThumbnail({ variant, kind }: { variant?: AssetVariant; kind: AssetVariantKind }) {
   const baseStyle: React.CSSProperties = {
     aspectRatio: "16 / 9",
     background: "var(--bg-elev)",
@@ -307,9 +278,7 @@ function VariantThumbnail({
 
   return (
     <div style={baseStyle}>
-      <span className="t-11 font-light text-text-faint">
-        {KIND_LABEL[kind]}
-      </span>
+      <span className="t-11 font-light text-text-faint">{KIND_LABEL[kind]}</span>
     </div>
   );
 }
@@ -362,8 +331,7 @@ function ActiveVariantPanel({
         }}
       >
         <p className="t-13 font-light text-text-muted">
-          Pas encore de variant {KIND_LABEL[kind]}. Génère-en un à partir
-          du contenu source.
+          Pas encore de variant {KIND_LABEL[kind]}. Génère-en un à partir du contenu source.
         </p>
         <Action
           variant="primary"

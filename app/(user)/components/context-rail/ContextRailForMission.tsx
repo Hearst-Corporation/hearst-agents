@@ -14,9 +14,9 @@
  *  - Threads liés (déduits des runs)
  */
 
-import { useEffect, useState, useCallback } from "react";
-import { useStageStore } from "@/stores/stage";
+import { useCallback, useEffect, useState } from "react";
 import type { MissionLike } from "@/lib/ui/focal-mappers";
+import { useStageStore } from "@/stores/stage";
 
 interface RunSummary {
   id: string;
@@ -163,20 +163,13 @@ export function ContextRailForMission() {
           </span>
         </header>
         {missionLoading ? (
-          <p className="t-9 font-light text-text-ghost font-light">
-            Chargement…
-          </p>
+          <p className="t-9 font-light text-text-ghost font-light">Chargement…</p>
         ) : missionError ? (
-          <p
-            className="t-9 font-light font-light"
-            style={{ color: "var(--danger)" }}
-          >
+          <p className="t-9 font-light font-light" style={{ color: "var(--danger)" }}>
             {missionError}
           </p>
         ) : (
-          <p className="t-13 font-light text-text-soft truncate">
-            {mission?.name ?? "—"}
-          </p>
+          <p className="t-13 font-light text-text-soft truncate">{mission?.name ?? "—"}</p>
         )}
       </section>
 
@@ -214,26 +207,17 @@ export function ContextRailForMission() {
           </span>
         </header>
         {runsLoading ? (
-          <p className="t-9 font-light text-text-ghost font-light">
-            Chargement…
-          </p>
+          <p className="t-9 font-light text-text-ghost font-light">Chargement…</p>
         ) : runs.length === 0 ? (
-          <p className="t-9 font-light text-text-ghost font-light">
-            Aucun run pour cette mission
-          </p>
+          <p className="t-9 font-light text-text-ghost font-light">Aucun run pour cette mission</p>
         ) : (
           <ul className="flex flex-col" style={{ gap: "var(--space-3)" }}>
             {runs.map((r) => (
-              <li
-                key={r.id}
-                className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
-              >
+              <li key={r.id} className="border-l border-[var(--accent-teal-border)] pl-4 py-1">
                 <p className="t-11 font-light text-text-soft truncate">
                   {TIME_FORMATTER.format(new Date(r.createdAt))}
                 </p>
-                <p className="t-9 font-medium text-text-ghost">
-                  {runStatusLabel(r.status)}
-                </p>
+                <p className="t-9 font-medium text-text-ghost">{runStatusLabel(r.status)}</p>
               </li>
             ))}
           </ul>
@@ -303,10 +287,7 @@ function MissionMemorySection({ missionId }: { missionId: string }) {
         <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
           {sections.map((s, i) => (
             <div key={i} className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-              <span
-                className="t-9 font-medium"
-                style={{ color: "var(--text-l2)" }}
-              >
+              <span className="t-9 font-medium" style={{ color: "var(--text-l2)" }}>
                 {s.title}
               </span>
               <p
@@ -331,10 +312,7 @@ function MissionMemorySection({ missionId }: { missionId: string }) {
   );
 }
 
-function extractSummaryHeads(
-  summary: string,
-  max: number,
-): Array<{ title: string; body: string }> {
+function extractSummaryHeads(summary: string, max: number): Array<{ title: string; body: string }> {
   const blocks = summary
     .split(/\n{2,}/)
     .map((b) => b.trim())

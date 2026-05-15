@@ -1,13 +1,13 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
+  assertRunTransition,
   canTransitionRun,
   canTransitionTrace,
-  assertRunTransition,
-  RuntimeError,
-  withTimeout,
-  withRetry,
-  DEFAULT_TIMEOUTS,
   DEFAULT_RETRY,
+  DEFAULT_TIMEOUTS,
+  RuntimeError,
+  withRetry,
+  withTimeout,
 } from "@/lib/engine/runtime/lifecycle";
 
 describe("Run status transitions", () => {
@@ -112,11 +112,7 @@ describe("RuntimeError", () => {
 
 describe("withTimeout", () => {
   it("resolves before timeout", async () => {
-    const result = await withTimeout(
-      Promise.resolve(42),
-      1000,
-      "test",
-    );
+    const result = await withTimeout(Promise.resolve(42), 1000, "test");
     expect(result).toBe(42);
   });
 
@@ -141,7 +137,10 @@ describe("withRetry", () => {
   it("succeeds on first attempt without retry", async () => {
     let calls = 0;
     const result = await withRetry(
-      async () => { calls++; return "ok"; },
+      async () => {
+        calls++;
+        return "ok";
+      },
       DEFAULT_RETRY,
       "test",
     );
@@ -167,7 +166,9 @@ describe("withRetry", () => {
   it("throws MAX_RETRIES_EXCEEDED when exhausted", async () => {
     try {
       await withRetry(
-        async () => { throw new RuntimeError("STEP_FAILED", "always fail", true); },
+        async () => {
+          throw new RuntimeError("STEP_FAILED", "always fail", true);
+        },
         { max_retries: 2, backoff_ms: 10, backoff_multiplier: 1 },
         "test",
       );
@@ -182,7 +183,10 @@ describe("withRetry", () => {
     let calls = 0;
     await expect(
       withRetry(
-        async () => { calls++; throw new RuntimeError("TOOL_KILL_SWITCH", "blocked"); },
+        async () => {
+          calls++;
+          throw new RuntimeError("TOOL_KILL_SWITCH", "blocked");
+        },
         { max_retries: 3, backoff_ms: 10, backoff_multiplier: 1 },
         "test",
       ),

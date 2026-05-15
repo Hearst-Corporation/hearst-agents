@@ -15,12 +15,7 @@ const DEFAULT_SCHEMA = `{
   "price": "number"
 }`;
 
-export function ExtractSchemaModal({
-  open,
-  onClose,
-  onSubmit,
-  loading,
-}: ExtractSchemaModalProps) {
+export function ExtractSchemaModal({ open, onClose, onSubmit, loading }: ExtractSchemaModalProps) {
   const [instruction, setInstruction] = useState("");
   const [schemaText, setSchemaText] = useState(DEFAULT_SCHEMA);
   const [parseError, setParseError] = useState<string | null>(null);
@@ -43,11 +38,7 @@ export function ExtractSchemaModal({
     if (schemaText.trim()) {
       try {
         const parsed = JSON.parse(schemaText) as unknown;
-        if (
-          typeof parsed !== "object" ||
-          parsed === null ||
-          Array.isArray(parsed)
-        ) {
+        if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
           throw new Error("Le schema doit être un objet JSON.");
         }
         schema = parsed as Record<string, unknown>;
@@ -79,9 +70,7 @@ export function ExtractSchemaModal({
         style={{ background: "var(--bg-elev)" }}
       >
         <div className="flex items-center justify-between">
-          <span className="t-11 font-light text-text-faint">
-            EXTRACT
-          </span>
+          <span className="t-11 font-light text-text-faint">EXTRACT</span>
           <button
             type="button"
             onClick={onClose}
@@ -92,17 +81,12 @@ export function ExtractSchemaModal({
           </button>
         </div>
 
-        <p
-          className="t-15 text-text"
-          style={{ lineHeight: "var(--leading-snug)" }}
-        >
+        <p className="t-15 text-text" style={{ lineHeight: "var(--leading-snug)" }}>
           Décris ce que l{"'"}agent doit extraire de la page courante.
         </p>
 
         <label className="flex flex-col gap-2">
-          <span className="t-11 font-light text-text-faint">
-            INSTRUCTION
-          </span>
+          <span className="t-11 font-light text-text-faint">INSTRUCTION</span>
           <textarea
             value={instruction}
             onChange={(e) => setInstruction(e.target.value)}
@@ -115,9 +99,7 @@ export function ExtractSchemaModal({
         </label>
 
         <label className="flex flex-col gap-2">
-          <span className="t-11 font-light text-text-faint">
-            SCHEMA (JSON)
-          </span>
+          <span className="t-11 font-light text-text-faint">SCHEMA (JSON)</span>
           <textarea
             value={schemaText}
             onChange={(e) => setSchemaText(e.target.value)}
@@ -129,29 +111,13 @@ export function ExtractSchemaModal({
           />
         </label>
 
-        {parseError && (
-          <p className="t-11 font-medium text-(--danger)">
-            {parseError}
-          </p>
-        )}
+        {parseError && <p className="t-11 font-medium text-(--danger)">{parseError}</p>}
 
         <div className="flex justify-end" style={{ gap: "var(--space-2)" }}>
-          <Action
-            variant="ghost"
-            tone="neutral"
-            size="sm"
-            onClick={onClose}
-            disabled={loading}
-          >
+          <Action variant="ghost" tone="neutral" size="sm" onClick={onClose} disabled={loading}>
             Annuler
           </Action>
-          <Action
-            variant="primary"
-            tone="brand"
-            size="sm"
-            onClick={submit}
-            loading={loading}
-          >
+          <Action variant="primary" tone="brand" size="sm" onClick={submit} loading={loading}>
             Extraire
           </Action>
         </div>

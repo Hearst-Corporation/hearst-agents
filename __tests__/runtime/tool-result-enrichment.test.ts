@@ -4,7 +4,7 @@
  * n'attache rien (ou seulement le générique "composio").
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { deriveProvider } from "@/lib/events/consumers/sse-adapter";
 
 describe("deriveProvider", () => {

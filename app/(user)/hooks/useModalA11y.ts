@@ -66,12 +66,7 @@ export function useModalA11y<T extends HTMLElement = HTMLDivElement>(
   isOpen: boolean,
   options: UseModalA11yOptions = {},
 ) {
-  const {
-    onClose,
-    closeOnEscape = true,
-    autoFocus = true,
-    lockBodyScroll = true,
-  } = options;
+  const { onClose, closeOnEscape = true, autoFocus = true, lockBodyScroll = true } = options;
   const containerRef = useRef<T | null>(null);
 
   // ── Restore focus + scroll lock + Escape + focus trap ─────────────
@@ -85,9 +80,7 @@ export function useModalA11y<T extends HTMLElement = HTMLDivElement>(
         : null;
 
     // 5. Body scroll lock.
-    const originalOverflow = lockBodyScroll
-      ? document.body.style.overflow
-      : null;
+    const originalOverflow = lockBodyScroll ? document.body.style.overflow : null;
     if (lockBodyScroll) {
       document.body.style.overflow = "hidden";
     }
@@ -97,9 +90,7 @@ export function useModalA11y<T extends HTMLElement = HTMLDivElement>(
     const getFocusables = (): HTMLElement[] => {
       const root = containerRef.current;
       if (!root) return [];
-      return Array.from(
-        root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-      ).filter(
+      return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
         (el) =>
           !el.hasAttribute("disabled") &&
           el.getAttribute("aria-hidden") !== "true" &&
@@ -112,8 +103,7 @@ export function useModalA11y<T extends HTMLElement = HTMLDivElement>(
     // un élément focalisé à l'intérieur du conteneur.
     if (autoFocus && containerRef.current) {
       const root = containerRef.current;
-      const alreadyInside =
-        document.activeElement && root.contains(document.activeElement);
+      const alreadyInside = document.activeElement && root.contains(document.activeElement);
       if (!alreadyInside) {
         const focusables = getFocusables();
         if (focusables.length > 0) {

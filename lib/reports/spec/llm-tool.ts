@@ -10,26 +10,24 @@
  * dans des enums fermés.
  */
 
-import { jsonSchema } from "ai";
+import { randomUUID } from "node:crypto";
 import type { Tool } from "ai";
-import { randomUUID } from "crypto";
+import { jsonSchema } from "ai";
 import { z } from "zod";
-
+import { type Asset, storeAsset } from "@/lib/assets/types";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
-import { storeAsset, type Asset } from "@/lib/assets/types";
-
+import { runReport } from "@/lib/reports/engine/run-report";
+import { createSourceLoader } from "@/lib/reports/sources";
 import {
-  reportSpecSchema,
-  reportMetaSchema,
-  sourceRefSchema,
-  transformOpSchema,
   blockSpecSchema,
   narrationSpecSchema,
   type ReportSpec,
+  reportMetaSchema,
+  reportSpecSchema,
+  sourceRefSchema,
+  transformOpSchema,
 } from "./schema";
-import { runReport } from "@/lib/reports/engine/run-report";
-import { createSourceLoader } from "@/lib/reports/sources";
 
 /**
  * Input du tool — un sous-ensemble du ReportSpec : pas d'id, pas de scope,
@@ -81,7 +79,10 @@ export function buildProposeReportSpecTool(
           required: ["title", "domain", "persona", "cadence"],
           properties: {
             title: { type: "string", description: "Titre court (≤ 80 chars), FR." },
-            summary: { type: "string", description: "1 phrase qui résume l'objectif (≤ 280 chars)." },
+            summary: {
+              type: "string",
+              description: "1 phrase qui résume l'objectif (≤ 280 chars).",
+            },
             domain: {
               type: "string",
               enum: ["finance", "crm", "ops", "growth", "founder", "ops-eng", "support", "mixed"],

@@ -10,20 +10,14 @@
  * (volontairement light pour ne pas casser les flows existants).
  */
 
-import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { PageHeader } from "../../components/PageHeader";
 import { Action } from "../../components/ui";
-import { toast } from "@/app/hooks/use-toast";
 
-type Industry =
-  | "general"
-  | "hospitality"
-  | "saas"
-  | "ecommerce"
-  | "finance"
-  | "healthcare";
+type Industry = "general" | "hospitality" | "saas" | "ecommerce" | "finance" | "healthcare";
 
 interface IndustryCard {
   id: Industry;
@@ -120,14 +114,11 @@ export default function OnboardingVerticalPage() {
           marginBottom: "var(--space-8)",
         }}
       >
-        Cockpit, persona, vocabulaire et workflows s&apos;adaptent à ton secteur.
-        Tu pourras changer ce choix plus tard depuis Admin → Tenant.
+        Cockpit, persona, vocabulaire et workflows s&apos;adaptent à ton secteur. Tu pourras changer
+        ce choix plus tard depuis Admin → Tenant.
       </p>
 
-      <div
-        className="grid grid-cols-1 md:grid-cols-2"
-        style={{ gap: "var(--space-3)" }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--space-3)" }}>
         {INDUSTRIES.map((ind) => {
           const isSelected = selected === ind.id;
           return (
@@ -180,11 +171,7 @@ export default function OnboardingVerticalPage() {
         className="flex items-center justify-end"
         style={{ marginTop: "var(--space-8)", gap: "var(--space-4)" }}
       >
-        <Action
-          variant="link"
-          tone="neutral"
-          onClick={() => router.push("/")}
-        >
+        <Action variant="link" tone="neutral" onClick={() => router.push("/")}>
           Décider plus tard
         </Action>
         <button

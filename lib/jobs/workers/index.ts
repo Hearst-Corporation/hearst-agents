@@ -12,17 +12,17 @@
  */
 
 import type { Worker } from "bullmq";
+import { startInboxCron } from "../scheduled/inbox-cron";
 import { startAudioGenWorker } from "./audio-gen";
-import { startImageGenWorker } from "./image-gen";
-import { startDocumentParseWorker } from "./document-parse";
-import { startCodeExecWorker } from "./code-exec";
-import { startVideoGenWorker } from "./video-gen";
 import { startBrowserTaskWorker } from "./browser-task";
+import { startCodeExecWorker } from "./code-exec";
+import { startDailyBriefWorker } from "./daily-brief";
+import { startDocumentParseWorker } from "./document-parse";
+import { startImageGenWorker } from "./image-gen";
 import { startInboxFetchWorker } from "./inbox-fetch";
 import { startMeetingBotWorker } from "./meeting-bot";
-import { startDailyBriefWorker } from "./daily-brief";
 import { startSimulationWorker } from "./simulation";
-import { startInboxCron } from "../scheduled/inbox-cron";
+import { startVideoGenWorker } from "./video-gen";
 
 let _started = false;
 const _startedWorkers: Worker[] = [];
@@ -68,6 +68,8 @@ export function startAllWorkers(): void {
 
   if (_startedWorkers.length > 0) {
     registerShutdownHandlers();
-    console.log(`[workers] ${_startedWorkers.length} worker(s) started, SIGTERM handler registered`);
+    console.log(
+      `[workers] ${_startedWorkers.length} worker(s) started, SIGTERM handler registered`,
+    );
   }
 }

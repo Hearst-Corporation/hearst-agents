@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   requireScope,
@@ -79,9 +79,7 @@ describe("POST /api/v2/jobs/document-parse", () => {
 
   it("503 quand LLAMA_CLOUD_API_KEY manquant", async () => {
     delete process.env.LLAMA_CLOUD_API_KEY;
-    const res = await POST(
-      makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never,
-    );
+    const res = await POST(makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never);
     expect(res.status).toBe(503);
     const body = await res.json();
     expect(body.error).toBe("llamaparse_unavailable");
@@ -92,9 +90,7 @@ describe("POST /api/v2/jobs/document-parse", () => {
       scope: null,
       error: { message: "not_authenticated", status: 401 },
     });
-    const res = await POST(
-      makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never,
-    );
+    const res = await POST(makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never);
     expect(res.status).toBe(401);
   });
 
@@ -114,9 +110,7 @@ describe("POST /api/v2/jobs/document-parse", () => {
       availableUsd: 0,
       estimatedCostUsd: 0.005,
     });
-    const res = await POST(
-      makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never,
-    );
+    const res = await POST(makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never);
     expect(res.status).toBe(402);
   });
 
@@ -138,9 +132,7 @@ describe("POST /api/v2/jobs/document-parse", () => {
 
   it("503 + refund quand enqueue throw", async () => {
     enqueueJob.mockRejectedValue(new Error("redis down"));
-    const res = await POST(
-      makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never,
-    );
+    const res = await POST(makeReq({ fileUrl: "https://example.com/doc.pdf" }) as never);
     expect(res.status).toBe(503);
     expect(settleCredits).toHaveBeenCalledTimes(1);
   });

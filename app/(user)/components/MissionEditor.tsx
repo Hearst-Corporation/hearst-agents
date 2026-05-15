@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Action } from "./ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { Action } from "./ui";
 
 interface MissionFormData {
   name: string;
@@ -55,7 +55,13 @@ function parseApproversInput(raw: string): string[] {
     .filter((s) => s.length > 0);
 }
 
-export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirtyChange }: MissionEditorProps) {
+export function MissionEditor({
+  initialData,
+  onSave,
+  onCancel,
+  isLoading,
+  onDirtyChange,
+}: MissionEditorProps) {
   const [formData, setFormData] = useState<MissionFormData>({
     name: initialData?.name || "",
     description: initialData?.description || "",
@@ -83,7 +89,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
     if (hasNotifiedDirty.current) return;
     hasNotifiedDirty.current = true;
     onDirtyChange?.(true);
-  }, [formData, approversRaw, onDirtyChange]);
+  }, [onDirtyChange]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,10 +167,14 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
                 type="button"
                 onClick={() => setFormData({ ...formData, frequency: option.value })}
                 className={`text-left p-4 transition-colors ${
-                  selected ? "bg-[var(--bg-soft)] text-(--accent-teal)" : "bg-bg text-text-muted hover:bg-bg-elev"
+                  selected
+                    ? "bg-[var(--bg-soft)] text-(--accent-teal)"
+                    : "bg-bg text-text-muted hover:bg-bg-elev"
                 }`}
               >
-                <p className={`t-13 font-medium ${selected ? "" : "text-text-soft"}`}>{option.label}</p>
+                <p className={`t-13 font-medium ${selected ? "" : "text-text-soft"}`}>
+                  {option.label}
+                </p>
                 <p className="t-11 font-light text-text-faint mt-1">{option.description}</p>
               </button>
             );
@@ -196,7 +206,8 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
           className="ghost-input-line w-full"
         />
         <p className="t-10 font-mono text-text-faint mt-2">
-          Avant chaque exécution, un email d&apos;approbation est envoyé à chaque adresse. Séparées par virgule.
+          Avant chaque exécution, un email d&apos;approbation est envoyé à chaque adresse. Séparées
+          par virgule.
         </p>
       </div>
 
@@ -212,7 +223,9 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
                   type="button"
                   onClick={() => setFormData({ ...formData, approvalMode: option.value })}
                   className={`text-left p-4 transition-colors ${
-                    selected ? "bg-[var(--bg-soft)] text-(--accent-teal)" : "bg-bg text-text-muted hover:bg-bg-elev"
+                    selected
+                      ? "bg-[var(--bg-soft)] text-(--accent-teal)"
+                      : "bg-bg text-text-muted hover:bg-bg-elev"
                   }`}
                 >
                   <p className={`t-13 font-medium ${selected ? "" : "text-text-soft"}`}>
@@ -235,7 +248,9 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
           type="button"
           onClick={() => setFormData({ ...formData, enabled: !formData.enabled })}
           className={`w-12 h-6 rounded-sm transition-colors relative border ${
-            formData.enabled ? "border-(--accent-teal) bg-[var(--bg-soft)]" : "border-(--line-strong) bg-bg"
+            formData.enabled
+              ? "border-(--accent-teal) bg-[var(--bg-soft)]"
+              : "border-(--line-strong) bg-bg"
           }`}
           aria-pressed={formData.enabled}
         >
@@ -248,12 +263,7 @@ export function MissionEditor({ initialData, onSave, onCancel, isLoading, onDirt
       </div>
 
       <div className="flex gap-3 pt-2">
-        <Action
-          variant="secondary"
-          tone="neutral"
-          onClick={onCancel}
-          className="flex-1"
-        >
+        <Action variant="secondary" tone="neutral" onClick={onCancel} className="flex-1">
           Annuler
         </Action>
         <Action

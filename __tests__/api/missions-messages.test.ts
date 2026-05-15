@@ -6,8 +6,8 @@
  *  - GET     /api/v2/missions/[id]/context
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   requireScope: vi.fn(),
@@ -65,10 +65,9 @@ describe("/api/v2/missions/[id]/messages", () => {
       error: { message: "not_authenticated", status: 401 },
     });
     const { GET } = await import("@/app/api/v2/missions/[id]/messages/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/messages"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/messages"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(401);
   });
 
@@ -76,10 +75,9 @@ describe("/api/v2/missions/[id]/messages", () => {
     mocks.getMission.mockReturnValue(undefined);
     mocks.getScheduledMissions.mockResolvedValue([]);
     const { GET } = await import("@/app/api/v2/missions/[id]/messages/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/messages"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/messages"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(404);
   });
 
@@ -93,10 +91,9 @@ describe("/api/v2/missions/[id]/messages", () => {
       enabled: true,
     });
     const { GET } = await import("@/app/api/v2/missions/[id]/messages/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/messages"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/messages"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(404);
   });
 
@@ -122,10 +119,9 @@ describe("/api/v2/missions/[id]/messages", () => {
       },
     ]);
     const { GET } = await import("@/app/api/v2/missions/[id]/messages/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/messages?limit=10"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/messages?limit=10"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.messages).toHaveLength(1);
@@ -166,14 +162,11 @@ describe("/api/v2/missions/[id]/messages", () => {
     });
     const { POST } = await import("@/app/api/v2/missions/[id]/messages/route");
     // Forge un NextRequest avec body non-JSON
-    const req = new NextRequest(
-      new URL("http://localhost/api/v2/missions/x/messages"),
-      {
-        method: "POST",
-        body: "{not json",
-        headers: { "content-type": "application/json" },
-      },
-    );
+    const req = new NextRequest(new URL("http://localhost/api/v2/missions/x/messages"), {
+      method: "POST",
+      body: "{not json",
+      headers: { "content-type": "application/json" },
+    });
     const res = await POST(req, {
       params: Promise.resolve({ id: MISSION_ID }),
     });
@@ -265,10 +258,9 @@ describe("/api/v2/missions/[id]/context", () => {
       error: { message: "not_authenticated", status: 401 },
     });
     const { GET } = await import("@/app/api/v2/missions/[id]/context/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/context"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/context"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(401);
   });
 
@@ -276,10 +268,9 @@ describe("/api/v2/missions/[id]/context", () => {
     mocks.getMission.mockReturnValue(undefined);
     mocks.getScheduledMissions.mockResolvedValue([]);
     const { GET } = await import("@/app/api/v2/missions/[id]/context/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/context"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/context"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(404);
   });
 
@@ -310,10 +301,9 @@ describe("/api/v2/missions/[id]/context", () => {
     });
 
     const { GET } = await import("@/app/api/v2/missions/[id]/context/route");
-    const res = await GET(
-      makeReq("http://localhost/api/v2/missions/x/context"),
-      { params: Promise.resolve({ id: MISSION_ID }) },
-    );
+    const res = await GET(makeReq("http://localhost/api/v2/missions/x/context"), {
+      params: Promise.resolve({ id: MISSION_ID }),
+    });
     expect(res.status).toBe(200);
     expect(mocks.getMissionContext).toHaveBeenCalledWith(
       expect.objectContaining({

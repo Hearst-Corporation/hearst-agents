@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * useSplineStateBridge — push l'état runtime + voice dans la scène Spline.
@@ -16,28 +16,28 @@
  * variable correspondante (cf. useSplineApp).
  */
 
-import { useEffect } from 'react';
-import { useVoiceStore, type VoicePhase } from '@/stores/voice';
-import { useRuntimeStore, type CoreState } from '@/stores/runtime';
-import type { UseSplineApp } from './useSplineApp';
+import { useEffect } from "react";
+import { type CoreState, useRuntimeStore } from "@/stores/runtime";
+import { useVoiceStore, type VoicePhase } from "@/stores/voice";
+import type { UseSplineApp } from "./useSplineApp";
 
 const PHASE_TO_SPLINE_KEY: Record<VoicePhase, string> = {
-  idle: 'A',
-  connecting: 'D',
-  listening: 'B',
-  speaking: 'C',
-  processing: 'D',
-  error: 'E',
+  idle: "A",
+  connecting: "D",
+  listening: "B",
+  speaking: "C",
+  processing: "D",
+  error: "E",
 };
 
 const CORE_TO_SPLINE_KEY: Record<CoreState, string> = {
-  idle: 'A',
-  connecting: 'D',
-  streaming: 'D',
-  processing: 'D',
-  error: 'E',
-  awaiting_approval: 'F',
-  awaiting_clarification: 'F',
+  idle: "A",
+  connecting: "D",
+  streaming: "D",
+  processing: "D",
+  error: "E",
+  awaiting_approval: "F",
+  awaiting_clarification: "F",
 };
 
 export function useSplineStateBridge(spline: UseSplineApp) {
@@ -50,18 +50,16 @@ export function useSplineStateBridge(spline: UseSplineApp) {
 
     // Voice prend la priorité quand le pipeline WebRTC est actif
     const useVoice = voiceActive;
-    const key = useVoice
-      ? PHASE_TO_SPLINE_KEY[voicePhase]
-      : CORE_TO_SPLINE_KEY[coreState];
+    const key = useVoice ? PHASE_TO_SPLINE_KEY[voicePhase] : CORE_TO_SPLINE_KEY[coreState];
     const moodLabel = useVoice ? voicePhase : coreState;
 
     if (!key) return;
 
     // 1) Trigger d'event sur l'objet "Robot" (l'éditeur Spline doit avoir
     //    branché les States A..F sur cet objet via keyDown 'A','B',...)
-    spline.emit('keyDown', 'Robot');
+    spline.emit("keyDown", "Robot");
 
     // 2) Push variable `mood` — la scène peut la lire pour drive shader/anim
-    spline.setVar('mood', moodLabel);
+    spline.setVar("mood", moodLabel);
   }, [voicePhase, coreState, voiceActive, spline]);
 }

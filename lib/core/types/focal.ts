@@ -8,7 +8,7 @@
  * RightPanel, FocalStage, HomePage rehydration, and other consumers.
  */
 
-import type { FocalObject, FocalType, FocalStatus } from "@/stores/focal";
+import type { FocalObject, FocalStatus, FocalType } from "@/stores/focal";
 
 const VALID_FOCAL_TYPES: FocalType[] = [
   "message_draft",
@@ -44,10 +44,7 @@ export interface FocalMappingOptions {
  * Maps an unknown API response object to a typed FocalObject.
  * Used by RightPanel, FocalStage, thread rehydration, and other consumers.
  */
-export function mapFocalObject(
-  obj: unknown,
-  fallbackThreadId: string
-): FocalObject | null {
+export function mapFocalObject(obj: unknown, fallbackThreadId: string): FocalObject | null {
   if (!obj || typeof obj !== "object") return null;
 
   const o = obj as Record<string, unknown>;
@@ -76,10 +73,8 @@ export function mapFocalObject(
     }
   }
 
-  const createdAt =
-    typeof o.createdAt === "number" ? o.createdAt : Date.now();
-  const updatedAt =
-    typeof o.updatedAt === "number" ? o.updatedAt : Date.now();
+  const createdAt = typeof o.createdAt === "number" ? o.createdAt : Date.now();
+  const updatedAt = typeof o.updatedAt === "number" ? o.updatedAt : Date.now();
 
   return {
     id: (o.id as string) || `focal-${Date.now()}`,
@@ -99,10 +94,7 @@ export function mapFocalObject(
     sourcePlanId: (o.sourcePlanId as string) || undefined,
     sourceAssetId: (o.sourceAssetId as string) || undefined,
     missionId: (o.missionId as string) || undefined,
-    morphTarget:
-      o.morphTarget === null
-        ? null
-        : (o.morphTarget as string) || undefined,
+    morphTarget: o.morphTarget === null ? null : (o.morphTarget as string) || undefined,
     primaryAction,
   };
 }
@@ -110,10 +102,7 @@ export function mapFocalObject(
 /**
  * Maps an array of unknown objects to FocalObjects, filtering out nulls.
  */
-export function mapFocalObjects(
-  objs: unknown[],
-  fallbackThreadId: string
-): FocalObject[] {
+export function mapFocalObjects(objs: unknown[], fallbackThreadId: string): FocalObject[] {
   return objs
     .map((obj) => mapFocalObject(obj, fallbackThreadId))
     .filter((f): f is FocalObject => f !== null);

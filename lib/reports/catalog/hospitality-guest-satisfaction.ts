@@ -8,12 +8,9 @@
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 import { getMockSatisfaction } from "@/lib/verticals/hospitality/mock-data";
 
-export const HOSPITALITY_GUEST_SATISFACTION_ID =
-  "00000000-0000-4000-8000-700000000003";
+export const HOSPITALITY_GUEST_SATISFACTION_ID = "00000000-0000-4000-8000-700000000003";
 
-export function buildHospitalityGuestSatisfaction(
-  scope: ReportSpec["scope"],
-): ReportSpec {
+export function buildHospitalityGuestSatisfaction(scope: ReportSpec["scope"]): ReportSpec {
   const now = Date.now();
 
   return {
@@ -21,8 +18,7 @@ export function buildHospitalityGuestSatisfaction(
     version: 1,
     meta: {
       title: "Guest Satisfaction — NPS & Reviews",
-      summary:
-        "NPS par canal, reviews aggregées, complaints, taux de recovery.",
+      summary: "NPS par canal, reviews aggregées, complaints, taux de recovery.",
       domain: "support",
       persona: "csm",
       cadence: "weekly",

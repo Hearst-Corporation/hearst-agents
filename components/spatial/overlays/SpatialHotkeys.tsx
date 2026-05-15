@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useStageStore } from '@/stores/stage';
-import { useVoiceStore } from '@/stores/voice';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useStageStore } from "@/stores/stage";
+import { useVoiceStore } from "@/stores/voice";
 
 /**
  * Hotkeys actifs sur /spatial :
@@ -21,14 +21,14 @@ export function SpatialHotkeys() {
       const meta = e.metaKey || e.ctrlKey;
       if (!meta) return;
 
-      if (e.key === 'k' || e.key === 'K') {
+      if (e.key === "k" || e.key === "K") {
         e.preventDefault();
-        useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: '' });
-        router.push('/');
+        useStageStore.getState().setCommandeurOpen(true, { prefilledQuery: "" });
+        router.push("/");
         return;
       }
 
-      if (e.key === '7') {
+      if (e.key === "7") {
         e.preventDefault();
         const cur = useVoiceStore.getState().voiceActive;
         useVoiceStore.getState().setVoiceActive(!cur);
@@ -36,8 +36,8 @@ export function SpatialHotkeys() {
       }
     }
 
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [router]);
 
   return null;

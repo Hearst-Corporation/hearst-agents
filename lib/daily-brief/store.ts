@@ -10,10 +10,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getExportSignedUrl } from "@/lib/reports/export/store";
-import type {
-  DailyBriefAssetMeta,
-  DailyBriefNarration,
-} from "./types";
+import type { DailyBriefAssetMeta, DailyBriefNarration } from "./types";
 
 export interface PersistedDailyBrief {
   assetId: string;
@@ -68,8 +65,8 @@ export async function loadDailyBriefForDate(opts: {
 
   const targetDate = opts.targetDate ?? todayIso();
 
-  const { data, error } = await rawDb(sb)!
-    .from("assets")
+  const { data, error } = await rawDb(sb)
+    ?.from("assets")
     .select("id, thread_id, kind, title, summary, content_ref, provenance, created_at")
     .eq("kind", "daily_brief")
     .order("created_at", { ascending: false })
@@ -116,10 +113,7 @@ export async function loadDailyBriefForDate(opts: {
         pdfUrl,
       };
     } catch (err) {
-      console.warn(
-        `[daily-brief/store] failed to parse content_ref for asset ${row.id}:`,
-        err,
-      );
+      console.warn(`[daily-brief/store] failed to parse content_ref for asset ${row.id}:`, err);
     }
   }
 

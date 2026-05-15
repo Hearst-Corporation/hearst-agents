@@ -86,7 +86,9 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
         className="block w-full"
         style={{ height }}
       >
-        <title>Radar — {series.length} séries × {axes.length} axes</title>
+        <title>
+          Radar — {series.length} séries × {axes.length} axes
+        </title>
 
         {/* Cercles concentriques (échelle de fond) */}
         {ringRadii.map((r, i) => (
@@ -124,9 +126,9 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
             const ratio = Number.isFinite(v) ? v / safeMax : 0;
             return pointFor(ai, ratio);
           });
-          const path = points
+          const path = `${points
             .map((p, idx) => `${idx === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`)
-            .join(" ") + " Z";
+            .join(" ")} Z`;
           // Plusieurs séries → on dégrade l'opacité du fill pour distinguer.
           const fillOpacity = series.length === 1 ? 40 : Math.max(20, 50 - si * 12);
           return (
@@ -181,10 +183,7 @@ export function Radar({ axes, series, height = 320, rings = 4 }: RadarProps) {
 
       {/* Légende des séries */}
       {series.length > 1 && (
-        <div
-          className="flex flex-wrap"
-          style={{ gap: "var(--space-3)" }}
-        >
+        <div className="flex flex-wrap" style={{ gap: "var(--space-3)" }}>
           {series.map((s, si) => (
             <div
               key={`legend-${s.label}-${si}`}

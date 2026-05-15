@@ -11,12 +11,10 @@
  * le rendu ne plante pas, et que les KPIs s'affichent.
  */
 
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Watchlist Anomaly — Cockpit availability", () => {
-  test("API /api/v2/cockpit/today refuse l'accès sans session", async ({
-    request,
-  }) => {
+  test("API /api/v2/cockpit/today refuse l'accès sans session", async ({ request }) => {
     const res = await request.get("/api/v2/cockpit/today");
     // Accepte 200 (dev bypass) ou 401/403/302/307. Pas de 5xx.
     expect(res.status()).toBeLessThan(500);

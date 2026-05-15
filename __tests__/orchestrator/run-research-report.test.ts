@@ -11,7 +11,7 @@
  *     text_delta → asset_generated → focal_object_ready).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks hoistés (partagés entre vi.mock factories et les tests) ─────
 
@@ -47,8 +47,8 @@ vi.mock("@anthropic-ai/sdk", () => {
 
 // ── Imports après mocks ─────────────────────────────────────
 import { runResearchReport } from "@/lib/engine/orchestrator/run-research-report";
-import type { RunEventBus } from "@/lib/events/bus";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
+import type { RunEventBus } from "@/lib/events/bus";
 
 interface CapturedEvent {
   type: string;
@@ -97,9 +97,7 @@ beforeEach(() => {
 describe("runResearchReport — shape de l'asset persisté", () => {
   it("persiste un Asset V2 avec kind=report et provenance research", async () => {
     mocks.searchWebMock.mockResolvedValue({
-      results: [
-        { title: "Source 1", url: "https://example.com/1", snippet: "..." },
-      ],
+      results: [{ title: "Source 1", url: "https://example.com/1", snippet: "..." }],
       summary: "Petit résumé < 200 chars",
     });
     mocks.generatePdfMock.mockResolvedValue({
@@ -169,7 +167,11 @@ describe("runResearchReport — shape de l'asset persisté", () => {
     const parsed = JSON.parse(asset.contentRef!) as {
       payload: { blocks: unknown[]; generatedAt: number };
       narration: string;
-      research: { query: string; sourcesCount: number; sources: Array<{ title: string; url: string }> };
+      research: {
+        query: string;
+        sourcesCount: number;
+        sources: Array<{ title: string; url: string }>;
+      };
     };
     expect(parsed.payload.blocks).toEqual([]);
     expect(parsed.narration).toContain("Synthèse");

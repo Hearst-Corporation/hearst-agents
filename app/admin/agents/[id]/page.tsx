@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import ModelBadge from "../../_components/ModelBadge";
 import ChatWindow from "../../_components/ChatWindow";
+import ModelBadge from "../../_components/ModelBadge";
 
 export const dynamic = "force-dynamic";
 
@@ -27,11 +27,7 @@ export default async function AgentDetailPage({ params }: Props) {
 
   if (!sb) notFound();
 
-  const { data: agent, error } = await sb
-    .from("agents")
-    .select("*")
-    .eq("id", id)
-    .single();
+  const { data: agent, error } = await sb.from("agents").select("*").eq("id", id).single();
 
   if (error || !agent) notFound();
 
@@ -55,10 +51,7 @@ export default async function AgentDetailPage({ params }: Props) {
       .eq("agent_id", id)
       .order("created_at", { ascending: false })
       .limit(20),
-    sb
-      .from("conversations")
-      .select("id", { count: "exact", head: true })
-      .eq("agent_id", id),
+    sb.from("conversations").select("id", { count: "exact", head: true }).eq("agent_id", id),
   ]);
 
   const skills = skillsRes.data ?? [];
@@ -69,12 +62,17 @@ export default async function AgentDetailPage({ params }: Props) {
 
   const totalTokens = runs.reduce((s, r) => s + r.tokens_in + r.tokens_out, 0);
   const totalCost = runs.reduce((s, r) => s + (r.cost_usd ?? 0), 0);
-  const avgLatency = runs.filter((r) => r.latency_ms).length > 0
-    ? Math.round(runs.filter((r) => r.latency_ms).reduce((s, r) => s + r.latency_ms!, 0) / runs.filter((r) => r.latency_ms).length)
-    : 0;
-  const successRate = runs.length > 0
-    ? Math.round((runs.filter((r) => r.status === "completed").length / runs.length) * 100)
-    : 0;
+  const avgLatency =
+    runs.filter((r) => r.latency_ms).length > 0
+      ? Math.round(
+          runs.filter((r) => r.latency_ms).reduce((s, r) => s + r.latency_ms!, 0) /
+            runs.filter((r) => r.latency_ms).length,
+        )
+      : 0;
+  const successRate =
+    runs.length > 0
+      ? Math.round((runs.filter((r) => r.status === "completed").length / runs.length) * 100)
+      : 0;
 
   const statusDot: Record<string, string> = {
     active: "bg-(--money)",
@@ -88,7 +86,9 @@ export default async function AgentDetailPage({ params }: Props) {
       <div className="mb-(--space-6) flex items-start justify-between">
         <div>
           <div className="mb-(--space-1) flex items-center gap-(--space-3)">
-            <span className={`size-(--space-2) rounded-pill ${statusDot[agent.status] ?? "bg-text-muted"}`} />
+            <span
+              className={`size-(--space-2) rounded-pill ${statusDot[agent.status] ?? "bg-text-muted"}`}
+            />
             <h1 className="t-24 font-light text-text">{agent.name}</h1>
           </div>
           {agent.description && (
@@ -106,12 +106,20 @@ export default async function AgentDetailPage({ params }: Props) {
         {[
           { label: "Runs", value: runs.length },
           { label: "Conversations", value: totalConversations },
-          { label: "Tokens", value: totalTokens > 1000 ? `${(totalTokens / 1000).toFixed(1)}k` : totalTokens },
+          {
+            label: "Tokens",
+            value: totalTokens > 1000 ? `${(totalTokens / 1000).toFixed(1)}k` : totalTokens,
+          },
           { label: "Coût", value: `$${totalCost.toFixed(4)}` },
           { label: "Succès", value: `${successRate}%`, sub: `moy. ${avgLatency}ms` },
         ].map((s) => (
-          <div key={s.label} className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) px-(--space-4) py-(--space-3)">
-            <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{s.label}</p>
+          <div
+            key={s.label}
+            className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) px-(--space-4) py-(--space-3)"
+          >
+            <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              {s.label}
+            </p>
             <p className="mt-(--space-1) t-18 font-light text-text">{s.value}</p>
             {s.sub && <p className="t-10 text-text-ghost">{s.sub}</p>}
           </div>
@@ -121,7 +129,9 @@ export default async function AgentDetailPage({ params }: Props) {
       <div className="grid grid-cols-1 gap-(--space-8) lg:grid-cols-2">
         {/* Left: Chat */}
         <div>
-          <h2 className="mb-(--space-3) t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Chat</h2>
+          <h2 className="mb-(--space-3) t-10 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Chat
+          </h2>
           <ChatWindow agentId={id} />
         </div>
 
@@ -129,7 +139,9 @@ export default async function AgentDetailPage({ params }: Props) {
         <div className="space-y-(--space-5)">
           {/* System prompt */}
           <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">System Prompt</h3>
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              System Prompt
+            </h3>
             <pre className="max-h-32 overflow-y-auto whitespace-pre-wrap font-mono t-9 leading-relaxed text-text-soft">
               {agent.system_prompt || "—"}
             </pre>
@@ -137,7 +149,9 @@ export default async function AgentDetailPage({ params }: Props) {
 
           {/* Config */}
           <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Config</h3>
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              Config
+            </h3>
             <div className="grid grid-cols-3 gap-(--space-2) t-9">
               <div>
                 <span className="text-text-muted">Température</span>
@@ -156,15 +170,24 @@ export default async function AgentDetailPage({ params }: Props) {
 
           {/* Skills */}
           <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Skills</h3>
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              Skills
+            </h3>
             {skills.length === 0 ? (
               <p className="t-9 text-text-ghost">Aucun skill attribué.</p>
             ) : (
               <div className="flex flex-wrap gap-(--space-2)">
                 {skills.map((s) => {
-                  const skill = s.skills as unknown as { id: string; name: string; category: string } | null;
+                  const skill = s.skills as unknown as {
+                    id: string;
+                    name: string;
+                    category: string;
+                  } | null;
                   return skill ? (
-                    <span key={skill.id} className="rounded-pill border border-(--border-shell) px-(--space-2) py-(--space-1) t-10 font-medium text-text-muted">
+                    <span
+                      key={skill.id}
+                      className="rounded-pill border border-(--border-shell) px-(--space-2) py-(--space-1) t-10 font-medium text-text-muted"
+                    >
                       {skill.name}
                     </span>
                   ) : null;
@@ -175,7 +198,9 @@ export default async function AgentDetailPage({ params }: Props) {
 
           {/* Memory */}
           <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Mémoire</h3>
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              Mémoire
+            </h3>
             {memories.length === 0 ? (
               <p className="t-9 text-text-ghost">Aucune mémoire.</p>
             ) : (
@@ -185,7 +210,9 @@ export default async function AgentDetailPage({ params }: Props) {
                     <span className="truncate">
                       <span className="text-text-muted">{m.key}:</span> {m.value}
                     </span>
-                    <span className="shrink-0 text-text-muted">{(m.importance * 100).toFixed(0)}%</span>
+                    <span className="shrink-0 text-text-muted">
+                      {(m.importance * 100).toFixed(0)}%
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -195,8 +222,13 @@ export default async function AgentDetailPage({ params }: Props) {
           {/* Recent runs */}
           <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
             <div className="mb-(--space-2) flex items-center justify-between">
-              <h3 className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Runs récents</h3>
-              <Link href={`/admin/runs?agent_id=${id}`} className="t-10 text-text-muted hover:text-text transition-colors">
+              <h3 className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+                Runs récents
+              </h3>
+              <Link
+                href={`/admin/runs?agent_id=${id}`}
+                className="t-10 text-text-muted hover:text-text transition-colors"
+              >
                 Tout voir →
               </Link>
             </div>
@@ -205,13 +237,24 @@ export default async function AgentDetailPage({ params }: Props) {
             ) : (
               <div className="space-y-(--space-1)">
                 {runs.slice(0, 5).map((r) => (
-                  <Link key={r.id} href={`/admin/runs/${r.id}`} className="flex items-center justify-between rounded-(--radius-sm) px-(--space-2) py-(--space-1) t-9 transition-colors hover:bg-(--surface-1)">
+                  <Link
+                    key={r.id}
+                    href={`/admin/runs/${r.id}`}
+                    className="flex items-center justify-between rounded-(--radius-sm) px-(--space-2) py-(--space-1) t-9 transition-colors hover:bg-(--surface-1)"
+                  >
                     <div className="flex items-center gap-(--space-2)">
-                      <span className={`size-(--space-2) rounded-pill ${r.status === "completed" ? "bg-(--money)" : r.status === "failed" ? "bg-(--danger)" : "bg-text-muted"}`} />
+                      <span
+                        className={`size-(--space-2) rounded-pill ${r.status === "completed" ? "bg-(--money)" : r.status === "failed" ? "bg-(--danger)" : "bg-text-muted"}`}
+                      />
                       <span className="text-text-muted">{r.kind}</span>
                     </div>
                     <span className="text-text-muted font-mono">
-                      {new Date(r.created_at).toLocaleString("fr-FR", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "short" })}
+                      {new Date(r.created_at).toLocaleString("fr-FR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        day: "2-digit",
+                        month: "short",
+                      })}
                     </span>
                   </Link>
                 ))}
@@ -221,7 +264,9 @@ export default async function AgentDetailPage({ params }: Props) {
 
           {/* Evaluations */}
           <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Évaluations</h3>
+            <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              Évaluations
+            </h3>
             {evals.length === 0 ? (
               <p className="t-9 text-text-ghost">Aucune évaluation.</p>
             ) : (

@@ -6,21 +6,15 @@
  * banner "Tu pilotes maintenant" sur l'iframe debug viewer.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { markUserControlled, requestTakeOver } from "@/lib/browser/stagehand-executor";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import {
-  requestTakeOver,
-  markUserControlled,
-} from "@/lib/browser/stagehand-executor";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function POST(
-  _req: NextRequest,
-  ctx: { params: Promise<{ id: string }> },
-) {
+export async function POST(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
 
   const { scope, error } = await requireScope({

@@ -8,9 +8,9 @@
  * par le runtime Electron et non par node_modules.
  */
 
+import { mkdirSync } from "node:fs";
+import { join } from "node:path";
 import { build } from "esbuild";
-import { mkdirSync } from "fs";
-import { join } from "path";
 
 const outDir = "dist/electron";
 mkdirSync(outDir, { recursive: true });

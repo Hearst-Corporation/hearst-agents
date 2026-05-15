@@ -11,7 +11,7 @@
  * (string/number) sont enveloppés en `{ value: x }`.
  */
 
-import type { Tabular, Row } from "@/lib/reports/engine/tabular";
+import type { Row, Tabular } from "@/lib/reports/engine/tabular";
 
 const COMMON_ARRAY_KEYS = [
   "items",
@@ -102,7 +102,7 @@ export function applyMapping(
   return rows.map((row) => {
     const out: Row = { ...row };
     for (const { from, to } of mapping) {
-      if (Object.prototype.hasOwnProperty.call(row, from)) {
+      if (Object.hasOwn(row, from)) {
         out[to] = row[from];
       }
     }

@@ -10,7 +10,7 @@
  *  5. DELETE /api/v2/assets/[id] → evictAssetById appelé
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mocks hoistés — UN seul bloc par module mocké dans le fichier
@@ -94,11 +94,11 @@ vi.mock("@/lib/engine/runtime/assets/adapter", () => ({
 // Imports après mocks
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { normalizeStorageKey } from "@/lib/engine/runtime/assets/storage/types";
-import { upsertEmbedding } from "@/lib/embeddings/store";
 import { NextRequest } from "next/server";
-import { POST } from "@/app/api/v2/assets/[id]/variants/route";
 import { DELETE } from "@/app/api/v2/assets/[id]/route";
+import { POST } from "@/app/api/v2/assets/[id]/variants/route";
+import { upsertEmbedding } from "@/lib/embeddings/store";
+import { normalizeStorageKey } from "@/lib/engine/runtime/assets/storage/types";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tests 1-2 : normalizeStorageKey
@@ -198,14 +198,11 @@ describe("variants route — cleanup après échec enqueueJob", () => {
   });
 
   it("enqueueJob throw → updateVariant appelé avec status 'failed' (cleanup)", async () => {
-    const req = new NextRequest(
-      new URL("http://localhost/api/v2/assets/asset-1/variants"),
-      {
-        method: "POST",
-        body: JSON.stringify({ kind: "audio", text: "Test synthesis" }),
-        headers: { "content-type": "application/json" },
-      },
-    );
+    const req = new NextRequest(new URL("http://localhost/api/v2/assets/asset-1/variants"), {
+      method: "POST",
+      body: JSON.stringify({ kind: "audio", text: "Test synthesis" }),
+      headers: { "content-type": "application/json" },
+    });
 
     const res = await POST(req, {
       params: Promise.resolve({ id: "asset-1" }),
@@ -240,10 +237,9 @@ describe("DELETE /api/v2/assets/[id]", () => {
   });
 
   it("DELETE réussi → evictAssetById appelé avec l'id de l'asset", async () => {
-    const req = new NextRequest(
-      new URL("http://localhost/api/v2/assets/asset-42"),
-      { method: "DELETE" },
-    );
+    const req = new NextRequest(new URL("http://localhost/api/v2/assets/asset-42"), {
+      method: "DELETE",
+    });
 
     const res = await DELETE(req, {
       params: Promise.resolve({ id: "asset-42" }),

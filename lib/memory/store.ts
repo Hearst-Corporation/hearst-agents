@@ -42,7 +42,9 @@ function touchBuffer(key: string, conv: ConversationMemory): void {
     const oldestKey = buffer.keys().next().value;
     if (oldestKey) {
       buffer.delete(oldestKey);
-      console.warn(`[Memory] LRU evicted conversation ${oldestKey} (max ${MAX_BUFFERED_CONVERSATIONS})`);
+      console.warn(
+        `[Memory] LRU evicted conversation ${oldestKey} (max ${MAX_BUFFERED_CONVERSATIONS})`,
+      );
     }
   }
 }
@@ -69,9 +71,7 @@ function bufferKey(conversationId: string, tenantId: string): string {
 
 // ── Public API ───────────────────────────────────────────────
 
-export function getConversationMemory(
-  conversationId: string,
-): ConversationMemory | null {
+export function getConversationMemory(conversationId: string): ConversationMemory | null {
   for (const conv of buffer.values()) {
     if (conv.conversationId === conversationId) return conv;
   }
@@ -266,8 +266,9 @@ function extractText(content: ModelMessage["content"]): string {
   if (typeof content === "string") return content;
   if (!Array.isArray(content)) return "";
   return content
-    .filter((p): p is { type: "text"; text: string } =>
-      typeof p === "object" && p !== null && (p as { type?: string }).type === "text",
+    .filter(
+      (p): p is { type: "text"; text: string } =>
+        typeof p === "object" && p !== null && (p as { type?: string }).type === "text",
     )
     .map((p) => p.text)
     .join("\n");

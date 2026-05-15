@@ -7,25 +7,21 @@
 
 import ExcelJS from "exceljs";
 import type { RenderedBlock } from "@/lib/reports/engine/render-blocks";
+import { safeFileName } from "@/lib/utils/safe-file-name";
 import type { ExportInput, ExportResult } from "./types";
 import { XLSX_CONTENT_TYPE } from "./types";
-import { safeFileName } from "@/lib/utils/safe-file-name";
 
 const META_SHEET = "Meta";
 const CHARTS_SHEET = "Charts";
 
-const TABULAR_TYPES = new Set([
-  "table",
-  "kpi",
-  "bar",
-  "funnel",
-  "pareto",
-  "cohort_triangle",
-]);
+const TABULAR_TYPES = new Set(["table", "kpi", "bar", "funnel", "pareto", "cohort_triangle"]);
 
 function safeSheetName(input: string, used: Set<string>): string {
   // Excel : max 31 chars, pas de [ ] : * ? / \
-  let cleaned = input.replace(/[\[\]:*?/\\]/g, "_").slice(0, 31).trim();
+  let cleaned = input
+    .replace(/[[\]:*?/\\]/g, "_")
+    .slice(0, 31)
+    .trim();
   if (!cleaned) cleaned = "Sheet";
   let candidate = cleaned;
   let i = 2;
@@ -67,9 +63,7 @@ export async function exportXlsx(input: ExportInput): Promise<ExportResult> {
   metaSheet.getRow(1).font = { bold: true };
 
   // ── Charts sheet (placeholders, on ajoute des entrées si non-tabulaires) ─
-  const chartsSheet = workbook.addWorksheet(
-    safeSheetName(CHARTS_SHEET, usedNames),
-  );
+  const chartsSheet = workbook.addWorksheet(safeSheetName(CHARTS_SHEET, usedNames));
   chartsSheet.columns = [
     { header: "Bloc ID", key: "id", width: 24 },
     { header: "Type", key: "type", width: 18 },
@@ -161,9 +155,7 @@ function writeTabularBlock(
   }
 
   // table / bar / funnel / pareto
-  const rows = Array.isArray(block.data)
-    ? (block.data as Array<Record<string, unknown>>)
-    : [];
+  const rows = Array.isArray(block.data) ? (block.data as Array<Record<string, unknown>>) : [];
   if (rows.length === 0) {
     sheet.addRow(["(aucune ligne)"]);
     return;

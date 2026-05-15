@@ -7,8 +7,8 @@
  */
 
 import { create } from "zustand";
-import type { WorkflowNode } from "@/lib/workflows/types";
 import type { PaletteEntry } from "@/app/(user)/components/missions/builder/NodePalette";
+import type { WorkflowNode } from "@/lib/workflows/types";
 
 interface BuilderHandlers {
   onAdd: (entry: PaletteEntry) => void;

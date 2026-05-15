@@ -5,14 +5,17 @@
  * Canonical: uses runtime missions store with scope/auth.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { getMission as getRuntimeMission, disableMission } from "@/lib/engine/runtime/missions/store";
-import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { type NextRequest, NextResponse } from "next/server";
+import { pauseMissionSchema } from "@/lib/contracts/missions";
 import { pauseMission as pausePlannerMission } from "@/lib/engine/planner/mission-engine";
 import { getMission as getPlannerMission } from "@/lib/engine/planner/store";
+import {
+  disableMission,
+  getMission as getRuntimeMission,
+} from "@/lib/engine/runtime/missions/store";
+import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { manifestMission } from "@/lib/ui/right-panel/manifestation";
-import { pauseMissionSchema } from "@/lib/contracts/missions";
 
 export async function POST(
   req: NextRequest,
@@ -69,7 +72,9 @@ export async function POST(
       disableMission(missionId);
       await updateScheduledMission(missionId, { enabled: false });
 
-      console.log(`[MissionsAPI] Runtime mission paused: ${missionId} (user: ${scope.userId.slice(0, 8)})`);
+      console.log(
+        `[MissionsAPI] Runtime mission paused: ${missionId} (user: ${scope.userId.slice(0, 8)})`,
+      );
 
       return NextResponse.json({
         success: true,
@@ -97,7 +102,9 @@ export async function POST(
       }
 
       await updateScheduledMission(missionId, { enabled: false });
-      console.log(`[MissionsAPI] Persisted mission paused: ${missionId} (user: ${scope.userId.slice(0, 8)})`);
+      console.log(
+        `[MissionsAPI] Persisted mission paused: ${missionId} (user: ${scope.userId.slice(0, 8)})`,
+      );
 
       return NextResponse.json({
         success: true,
@@ -143,11 +150,13 @@ export async function POST(
     // ── 4. Not found ───────────────────────────────────────────
     console.warn(`[MissionsAPI] Mission not found: ${missionId}`);
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
-
   } catch (err) {
     console.error(`[MissionsAPI] Error pausing mission ${missionId}:`, err);
     return NextResponse.json(
-      { error: "Failed to pause mission", message: err instanceof Error ? err.message : "Unknown error" },
+      {
+        error: "Failed to pause mission",
+        message: err instanceof Error ? err.message : "Unknown error",
+      },
       { status: 500 },
     );
   }

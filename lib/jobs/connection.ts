@@ -20,7 +20,9 @@ export function getBullConnection(): Redis | null {
 
   const url = process.env.REDIS_URL;
   if (!url) {
-    console.warn("[Jobs] REDIS_URL not set — BullMQ disabled (jobs will execute inline as fallback)");
+    console.warn(
+      "[Jobs] REDIS_URL not set — BullMQ disabled (jobs will execute inline as fallback)",
+    );
     return null;
   }
 

@@ -2,10 +2,11 @@
  * Helpers fs pour HOM. Side-effects file system uniquement côté Node
  * (server components, API routes, scripts CLI). Jamais bundlé client.
  */
-import fs from "node:fs/promises";
-import { existsSync, mkdirSync } from "node:fs";
-import path from "node:path";
+
 import crypto from "node:crypto";
+import { existsSync, mkdirSync } from "node:fs";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 export function ensureDirSync(dir: string) {
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
@@ -27,12 +28,12 @@ export async function readJson<T>(file: string): Promise<T | null> {
 
 export async function writeJson(file: string, data: unknown): Promise<void> {
   await fs.mkdir(path.dirname(file), { recursive: true });
-  await fs.writeFile(file, JSON.stringify(data, null, 2) + "\n", "utf8");
+  await fs.writeFile(file, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
 export async function appendJsonl(file: string, data: unknown): Promise<void> {
   await fs.mkdir(path.dirname(file), { recursive: true });
-  await fs.appendFile(file, JSON.stringify(data) + "\n", "utf8");
+  await fs.appendFile(file, `${JSON.stringify(data)}\n`, "utf8");
 }
 
 export async function readTextSafe(file: string): Promise<string | null> {
@@ -83,9 +84,15 @@ export async function walkFiles(
     throw err;
   }
   for (const entry of entries) {
-    if (entry.name === "node_modules" || entry.name === ".next" ||
-        entry.name === ".git" || entry.name === "dist" ||
-        entry.name === "build" || entry.name === "test-results") continue;
+    if (
+      entry.name === "node_modules" ||
+      entry.name === ".next" ||
+      entry.name === ".git" ||
+      entry.name === "dist" ||
+      entry.name === "build" ||
+      entry.name === "test-results"
+    )
+      continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       await walkFiles(full, predicate, acc);

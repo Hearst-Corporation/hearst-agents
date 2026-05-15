@@ -23,10 +23,7 @@ export function EditorToolbar({
   onOpenLoadList,
 }: EditorToolbarProps) {
   return (
-    <div
-      className="flex items-center flex-wrap"
-      style={{ gap: "var(--space-2)" }}
-    >
+    <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
       <button
         type="button"
         onClick={onReset}
@@ -114,9 +111,7 @@ export function EditorToolbar({
         </button>
       )}
       {(loadStatus === "loading_list" || loadStatus === "loading_spec") && (
-        <span className="t-9 font-mono uppercase text-text-faint">
-          Chargement…
-        </span>
+        <span className="t-9 font-mono uppercase text-text-faint">Chargement…</span>
       )}
       {loadStatus === "error" && (
         <span

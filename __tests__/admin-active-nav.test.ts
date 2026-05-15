@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { activeItem, NAV_SECTIONS } from "../app/admin/_shell/nav";
 
 describe("activeItem (admin nav)", () => {

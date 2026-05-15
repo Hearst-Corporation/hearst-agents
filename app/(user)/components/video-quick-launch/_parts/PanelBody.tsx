@@ -1,17 +1,17 @@
 "use client";
 
-import { type RefObject } from "react";
-import { VideoSimpleForm } from "../VideoSimpleForm";
-import { VideoBatchForm } from "../VideoBatchForm";
+import type { RefObject } from "react";
 import type {
+  BatchPhase,
   BatchVariantForm,
   BatchVariantRun,
-  BatchPhase,
   DurationOption,
   Provider,
   RatioOption,
   SinglePhase,
 } from "../types";
+import { VideoBatchForm } from "../VideoBatchForm";
+import { VideoSimpleForm } from "../VideoSimpleForm";
 
 interface PanelBodyProps {
   batchMode: boolean;

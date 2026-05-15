@@ -1,12 +1,12 @@
 /**
  * Tests Hume provider — error handling + cache.
  */
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  analyzeVoiceEmotion,
-  isHumeConfigured,
-  HumeUnavailableError,
   _resetHumeCache,
+  analyzeVoiceEmotion,
+  HumeUnavailableError,
+  isHumeConfigured,
 } from "@/lib/capabilities/providers/hume";
 
 const ORIGINAL_KEY = process.env.HUME_API_KEY;

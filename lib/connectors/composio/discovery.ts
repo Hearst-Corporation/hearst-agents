@@ -17,13 +17,18 @@
  * Invalidated explicitly on connect / disconnect / OAuth return.
  */
 
+import {
+  getCacheEntry,
+  invalidateUserDiscovery,
+  resetDiscoveryCache,
+  setCacheEntry,
+} from "./cache";
 import { getComposio } from "./client";
 import { listConnections } from "./connections";
 import type { DiscoveredTool } from "./types";
-import { resetDiscoveryCache, invalidateUserDiscovery, getCacheEntry, setCacheEntry, DISCOVERY_CACHE_TTL_MS } from "./cache";
 
 export type { DiscoveredTool };
-export { resetDiscoveryCache, invalidateUserDiscovery };
+export { invalidateUserDiscovery, resetDiscoveryCache };
 
 interface RawTool {
   type?: "function";
@@ -118,9 +123,7 @@ export async function getToolsForUser(
       }),
     );
     const items = perToolkitResults.flat();
-    const tools = items
-      .map(toDiscoveredTool)
-      .filter((t): t is DiscoveredTool => t !== null);
+    const tools = items.map(toDiscoveredTool).filter((t): t is DiscoveredTool => t !== null);
 
     // 3. Detect Composio propagation lag: toolkit ACTIVE but no tools listed.
     const slugsInTools = new Set(tools.map((t) => t.app));
@@ -173,10 +176,7 @@ interface AppCacheEntry {
 const appCache = new Map<string, AppCacheEntry>();
 const APP_TTL_MS = 5 * 60_000;
 
-export async function getToolsForApp(
-  userId: string,
-  app: string,
-): Promise<DiscoveredTool[]> {
+export async function getToolsForApp(userId: string, app: string): Promise<DiscoveredTool[]> {
   if (!userId || !app) return [];
 
   const slug = app.toLowerCase();
@@ -194,9 +194,7 @@ export async function getToolsForApp(
       limit: 100,
     })) as { items?: RawTool[] } | RawTool[];
     const items = Array.isArray(raw) ? raw : (raw.items ?? []);
-    const tools = items
-      .map(toDiscoveredTool)
-      .filter((t): t is DiscoveredTool => t !== null);
+    const tools = items.map(toDiscoveredTool).filter((t): t is DiscoveredTool => t !== null);
 
     if (tools.length > 0) {
       appCache.set(cacheKey, { tools, expiresAt: now + APP_TTL_MS });

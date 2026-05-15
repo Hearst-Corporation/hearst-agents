@@ -5,9 +5,9 @@
  */
 
 import type { Dispatch } from "react";
-import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
-import { Btn, Card, SectionTitle, SignalBadge, Input, TestBadge } from "./primitives";
+import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
+import { Btn, Card, Input, SectionTitle, SignalBadge, TestBadge } from "./primitives";
 import type { Action, SignalType, State } from "./types";
 
 const MAX_WEBHOOKS = 10;
@@ -25,10 +25,7 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
       <SectionTitle>Webhooks</SectionTitle>
 
       {prefs.webhooks.length === 0 && !state.showNewWebhookForm && (
-        <p
-          className="t-13"
-          style={{ color: "var(--text-faint)", marginBottom: "var(--space-3)" }}
-        >
+        <p className="t-13" style={{ color: "var(--text-faint)", marginBottom: "var(--space-3)" }}>
           Aucun webhook configuré.
         </p>
       )}
@@ -85,9 +82,7 @@ export function WebhooksSection({ prefs, state, dispatch, onTest }: Props) {
             </label>
             <Input
               value={state.newWebhook.url}
-              onChange={(v) =>
-                dispatch({ type: "NEW_WEBHOOK_CHANGE", draft: { url: v } })
-              }
+              onChange={(v) => dispatch({ type: "NEW_WEBHOOK_CHANGE", draft: { url: v } })}
               placeholder="https://hook.example.com/abc"
               type="url"
             />

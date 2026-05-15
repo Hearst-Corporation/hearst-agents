@@ -3,8 +3,8 @@
  * Utilisé pour mettre en exergue une narration courte ou une citation.
  */
 
-import { COLORS, FONT_SIZES, SPACE, RULES, PAGE } from "../pdf-tokens";
 import { setFont } from "../pdf-fonts";
+import { COLORS, FONT_SIZES, PAGE, RULES, SPACE } from "../pdf-tokens";
 
 export interface QuoteInput {
   text: string;
@@ -34,14 +34,11 @@ export function renderQuote(doc: PDFKit.PDFDocument, input: QuoteInput): void {
 
   // Quote
   setFont(doc, "serifItalic", input.embedded);
-  doc
-    .fontSize(FONT_SIZES.lead)
-    .fillColor(COLORS.ink)
-    .text(`« ${input.text} »`, innerX, doc.y, {
-      width: innerWidth,
-      align: "center",
-      lineGap: 4,
-    });
+  doc.fontSize(FONT_SIZES.lead).fillColor(COLORS.ink).text(`« ${input.text} »`, innerX, doc.y, {
+    width: innerWidth,
+    align: "center",
+    lineGap: 4,
+  });
 
   doc.y += SPACE.s2;
 

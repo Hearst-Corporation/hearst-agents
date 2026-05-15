@@ -2,9 +2,9 @@
  * Canonical UI data source — Right Panel.
  * All new UI components must use this endpoint for runs, assets, and missions.
  */
-import { NextRequest, NextResponse } from "next/server";
-import { buildRightPanelData } from "@/lib/ui/right-panel/aggregate";
+import { type NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { buildRightPanelData } from "@/lib/ui/right-panel/aggregate";
 
 export const dynamic = "force-dynamic";
 

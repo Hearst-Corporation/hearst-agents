@@ -18,14 +18,7 @@ import type { StreamEvent } from "@/stores/runtime";
 
 // ── Rôles ────────────────────────────────────────────────────
 
-export const AGENT_ROLES = [
-  "pilot",
-  "scribe",
-  "delve",
-  "cortex",
-  "pulse",
-  "warden",
-] as const;
+export const AGENT_ROLES = ["pilot", "scribe", "delve", "cortex", "pulse", "warden"] as const;
 
 export type AgentRoleId = (typeof AGENT_ROLES)[number];
 
@@ -36,9 +29,7 @@ export interface AgentMeta {
    * Action "Ouvrir →" depuis la fiche Strate 5 quand un rôle est sélectionné.
    * `kind: "route"` → router.push, `kind: "stage"` → useStageStore.setMode.
    */
-  openTarget:
-    | { kind: "route"; path: string }
-    | { kind: "stage"; mode: "kg" | "voice" };
+  openTarget: { kind: "route"; path: string } | { kind: "stage"; mode: "kg" | "voice" };
 }
 
 export const AGENT_METADATA: Record<AgentRoleId, AgentMeta> = {
@@ -193,7 +184,8 @@ export function mapEventToRole(event: StreamEvent): AgentRoleId | null {
   if (type === "plan_step_started" || type === "plan_step_completed") {
     const stepKind = (event as Record<string, unknown>).kind as string | undefined;
     if (!stepKind) return null;
-    if (stepKind === "research" || stepKind === "draft" || stepKind === "summarize") return "scribe";
+    if (stepKind === "research" || stepKind === "draft" || stepKind === "summarize")
+      return "scribe";
     if (stepKind === "kg_query" || stepKind === "kg_ingest") return "cortex";
     if (stepKind === "notify" || stepKind === "watch") return "pulse";
     if (stepKind === "tool_call") {
@@ -270,9 +262,7 @@ export function deriveActiveRolesFromEvents(
  *   - même `runId` (non-null)
  *   - leurs timestamps sont à ≤ `CO_ACTIVE_WINDOW_MS` l'un de l'autre
  */
-export function deriveCoActivePairs(
-  activeRoles: ActiveRole[],
-): Array<[AgentRoleId, AgentRoleId]> {
+export function deriveCoActivePairs(activeRoles: ActiveRole[]): Array<[AgentRoleId, AgentRoleId]> {
   const pairs: Array<[AgentRoleId, AgentRoleId]> = [];
   for (let i = 0; i < activeRoles.length; i++) {
     for (let j = i + 1; j < activeRoles.length; j++) {

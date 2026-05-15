@@ -8,20 +8,18 @@
  * 4. ReportLayout / isReportPayload — détection __reportPayload robuste + fallback block inconnu
  */
 
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { detectReportIntent } from "@/lib/reports/spec/intent";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  getApplicableReports,
   CATALOG,
-  FOUNDER_COCKPIT_ID,
   ENGINEERING_VELOCITY_ID,
+  FOUNDER_COCKPIT_ID,
+  getApplicableReports,
 } from "@/lib/reports/catalog";
+import { detectReportIntent } from "@/lib/reports/spec/intent";
 
 // ── Mock storeAsset (pas de DB en tests) ────────────────────────
 vi.mock("@/lib/assets/types", async () => {
-  const actual = await vi.importActual<typeof import("@/lib/assets/types")>(
-    "@/lib/assets/types",
-  );
+  const actual = await vi.importActual<typeof import("@/lib/assets/types")>("@/lib/assets/types");
   return { ...actual, storeAsset: vi.fn() };
 });
 
@@ -29,9 +27,9 @@ vi.mock("@/lib/connectors/composio/client", () => ({
   executeComposioAction: vi.fn(async () => ({ ok: true, data: { items: [] } })),
 }));
 
-import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
-import { storeAsset } from "@/lib/assets/types";
 import { isReportPayload } from "@/app/(user)/components/ReportLayout";
+import { storeAsset } from "@/lib/assets/types";
+import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockEngine = { id: "run-integration-1" } as any;
@@ -104,25 +102,25 @@ describe("getApplicableReports — routing par statut", () => {
     const reports = getApplicableReports(["stripe"]);
     const cockpit = reports.find((r) => r.id === FOUNDER_COCKPIT_ID);
     expect(cockpit).toBeDefined();
-    expect(cockpit!.status).toMatch(/ready|partial/);
+    expect(cockpit?.status).toMatch(/ready|partial/);
   });
 
   it("toutes les apps du Founder Cockpit → status=ready", () => {
     const entry = CATALOG.find((c) => c.id === FOUNDER_COCKPIT_ID);
     expect(entry).toBeDefined();
-    const allApps = [...entry!.requiredApps];
+    const allApps = [...entry?.requiredApps];
     const reports = getApplicableReports(allApps);
     const cockpit = reports.find((r) => r.id === FOUNDER_COCKPIT_ID);
     expect(cockpit).toBeDefined();
-    expect(cockpit!.status).toBe("ready");
-    expect(cockpit!.missingApps).toHaveLength(0);
+    expect(cockpit?.status).toBe("ready");
+    expect(cockpit?.missingApps).toHaveLength(0);
   });
 
   it("apps partiellement connectées → status=partial + missingApps non vide", () => {
     const entry = CATALOG.find((c) => c.id === ENGINEERING_VELOCITY_ID);
     expect(entry).toBeDefined();
     // On connecte seulement la première app
-    const partialApps = entry!.requiredApps.length > 1 ? [entry!.requiredApps[0]] : [];
+    const partialApps = entry?.requiredApps.length > 1 ? [entry?.requiredApps[0]] : [];
     if (partialApps.length === 0) return; // entry a 0 ou 1 app requise — skip
     const reports = getApplicableReports(partialApps);
     const eng = reports.find((r) => r.id === ENGINEERING_VELOCITY_ID);

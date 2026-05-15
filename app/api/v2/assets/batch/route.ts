@@ -24,16 +24,16 @@
  * Limit : MAX_BATCH_VARIANTS = 4 (cost cap + UI grid 2×2 max).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { storeAsset, type Asset } from "@/lib/assets/types";
+import { type Asset, storeAsset } from "@/lib/assets/types";
 import { createVariant, updateVariant } from "@/lib/assets/variants";
-import { requireCreditsForJob, formatInsufficientCreditsMessage } from "@/lib/credits/middleware";
 import { settleCredits } from "@/lib/credits/client";
+import { formatInsufficientCreditsMessage, requireCreditsForJob } from "@/lib/credits/middleware";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { VideoGenInput } from "@/lib/jobs/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -183,101 +183,118 @@ export async function POST(req: NextRequest) {
   // 3. Enqueue chaque variant. On collecte les succès et erreurs en
   //    parallèle (Promise.allSettled) pour ne pas bloquer sur un échec.
   const enqueueResults = await Promise.all(
-    variants.map(async (v, i): Promise<{ ok: true; job: JobDescriptor } | { ok: false; index: number; message: string; reservation: typeof reservations[number] }> => {
-      const reservation = reservations[i];
-      const variantId = await createVariant({
-        assetId: asset.id,
-        kind: "video",
-        status: "pending",
-        provider: v.provider,
-      });
-      if (!variantId) {
-        return {
-          ok: false,
-          index: i,
-          message: "variant_create_failed",
-          reservation,
-        };
-      }
-
-      const ratio = v.provider === "runway" ? (v.ratio ?? "1280:720") : undefined;
-
-      // Persiste prompt + ratio + duration dans metadata pour qu'AssetCompareStage
-      // puisse les afficher en header de pane même avant que le worker termine.
-      await updateVariant(variantId, {
-        metadata: {
-          prompt: v.prompt,
-          duration: v.durationSeconds,
-          ...(ratio ? { ratio } : {}),
-          batchIndex: i,
-        },
-      }).catch((err) => console.warn("[Batch] persist metadata failed:", err));
-
-      const payload: VideoGenInput & {
-        variantId: string;
-        ratio?: string;
-      } = {
-        jobKind: "video-gen",
-        userId: scope.userId,
-        tenantId: scope.tenantId,
-        workspaceId: scope.workspaceId,
-        assetId: asset.id,
-        estimatedCostUsd: reservation.estimatedCostUsd,
-        prompt: v.prompt,
-        scriptText: v.prompt,
-        provider: v.provider,
-        avatarId: v.avatarId,
-        durationSeconds: v.durationSeconds,
-        variantKind: "video",
-        variantId,
-        ...(ratio ? { ratio } : {}),
-      };
-
-      try {
-        const result = await enqueueJob(payload);
-        return {
-          ok: true,
-          job: {
-            kind: "video-gen",
-            variantId,
-            jobId: result.jobId,
+    variants.map(
+      async (
+        v,
+        i,
+      ): Promise<
+        | { ok: true; job: JobDescriptor }
+        | { ok: false; index: number; message: string; reservation: (typeof reservations)[number] }
+      > => {
+        const reservation = reservations[i];
+        const variantId = await createVariant({
+          assetId: asset.id,
+          kind: "video",
+          status: "pending",
+          provider: v.provider,
+        });
+        if (!variantId) {
+          return {
+            ok: false,
             index: i,
+            message: "variant_create_failed",
+            reservation,
+          };
+        }
+
+        const ratio = v.provider === "runway" ? (v.ratio ?? "1280:720") : undefined;
+
+        // Persiste prompt + ratio + duration dans metadata pour qu'AssetCompareStage
+        // puisse les afficher en header de pane même avant que le worker termine.
+        await updateVariant(variantId, {
+          metadata: {
+            prompt: v.prompt,
+            duration: v.durationSeconds,
+            ...(ratio ? { ratio } : {}),
+            batchIndex: i,
           },
-        };
-      } catch (err) {
-        // Enqueue échoué : refund + mark variant failed.
-        const message = err instanceof Error ? err.message : String(err);
-        await settleCredits({
+        }).catch((err) => console.warn("[Batch] persist metadata failed:", err));
+
+        const payload: VideoGenInput & {
+          variantId: string;
+          ratio?: string;
+        } = {
+          jobKind: "video-gen",
           userId: scope.userId,
           tenantId: scope.tenantId,
-          reservedUsd: reservation.estimatedCostUsd,
-          actualUsd: 0,
-          jobId: reservation.placeholderJobId,
-          jobKind: "video-gen",
-          description: `enqueue_failed: ${message.slice(0, 200)}`,
-        }).catch((settleErr) => console.error("[Batch] refund failed:", settleErr));
-
-        await updateVariant(variantId, {
-          status: "failed",
-          error: `enqueue_failed: ${message.slice(0, 500)}`,
-          metadata: { reason: "enqueue_failed", message },
-        }).catch((updateErr) =>
-          console.error("[Batch] mark variant failed:", updateErr),
-        );
-
-        return {
-          ok: false,
-          index: i,
-          message,
-          reservation,
+          workspaceId: scope.workspaceId,
+          assetId: asset.id,
+          estimatedCostUsd: reservation.estimatedCostUsd,
+          prompt: v.prompt,
+          scriptText: v.prompt,
+          provider: v.provider,
+          avatarId: v.avatarId,
+          durationSeconds: v.durationSeconds,
+          variantKind: "video",
+          variantId,
+          ...(ratio ? { ratio } : {}),
         };
-      }
-    }),
+
+        try {
+          const result = await enqueueJob(payload);
+          return {
+            ok: true,
+            job: {
+              kind: "video-gen",
+              variantId,
+              jobId: result.jobId,
+              index: i,
+            },
+          };
+        } catch (err) {
+          // Enqueue échoué : refund + mark variant failed.
+          const message = err instanceof Error ? err.message : String(err);
+          await settleCredits({
+            userId: scope.userId,
+            tenantId: scope.tenantId,
+            reservedUsd: reservation.estimatedCostUsd,
+            actualUsd: 0,
+            jobId: reservation.placeholderJobId,
+            jobKind: "video-gen",
+            description: `enqueue_failed: ${message.slice(0, 200)}`,
+          }).catch((settleErr) => console.error("[Batch] refund failed:", settleErr));
+
+          await updateVariant(variantId, {
+            status: "failed",
+            error: `enqueue_failed: ${message.slice(0, 500)}`,
+            metadata: { reason: "enqueue_failed", message },
+          }).catch((updateErr) => console.error("[Batch] mark variant failed:", updateErr));
+
+          return {
+            ok: false,
+            index: i,
+            message,
+            reservation,
+          };
+        }
+      },
+    ),
   );
 
-  const jobs = enqueueResults.filter((r): r is { ok: true; job: JobDescriptor } => r.ok).map((r) => r.job);
+  const jobs = enqueueResults
+    .filter((r): r is { ok: true; job: JobDescriptor } => r.ok)
+    .map((r) => r.job);
   const errors = enqueueResults
-    .filter((r): r is { ok: false; index: number; message: string; reservation: typeof reservations[number] } => !r.ok)
+    .filter(
+      (
+        r,
+      ): r is {
+        ok: false;
+        index: number;
+        message: string;
+        reservation: (typeof reservations)[number];
+      } => !r.ok,
+    )
     .map((r) => ({ index: r.index, message: r.message }));
 
   return NextResponse.json(

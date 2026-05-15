@@ -23,8 +23,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
-import { defaultCircuitBreaker, type CircuitState } from "@/lib/llm/circuit-breaker";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
+import { type CircuitState, defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics } from "@/lib/llm/metrics";
 import { defaultRateLimiter } from "@/lib/llm/rate-limiter";
 import { getLangfuseClient } from "@/lib/observability/langfuse";
@@ -116,9 +116,7 @@ function buildHeadroom(provider: string): ProviderHeadroom {
   const requestsRemaining = Number.isFinite(limit.requestsRemaining)
     ? limit.requestsRemaining
     : null;
-  const tokensRemaining = Number.isFinite(limit.tokensRemaining)
-    ? limit.tokensRemaining
-    : null;
+  const tokensRemaining = Number.isFinite(limit.tokensRemaining) ? limit.tokensRemaining : null;
 
   // On expose le reset le plus proche (requests OU tokens). 0 = non setté.
   const resets = [limit.requestsResetAt, limit.tokensResetAt].filter((t) => t > 0);
@@ -148,7 +146,7 @@ function buildProviderHealth(provider: TrackedProvider): ProviderHealth {
   // cache_hit_ratio_24h : strictement Anthropic. Pour les autres providers,
   // null (sémantique correcte : non applicable).
   const cacheHitRatio =
-    provider === "anthropic" ? providerMetrics?.tokens.cacheHitRate ?? null : null;
+    provider === "anthropic" ? (providerMetrics?.tokens.cacheHitRate ?? null) : null;
 
   return {
     status: deriveStatus(breakerSnap.state, errorRate, latencyP95, hasSamples),

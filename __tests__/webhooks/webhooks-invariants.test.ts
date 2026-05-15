@@ -13,8 +13,8 @@
  *  5. AbortController : on vérifie qu'un fetcher lent est interrompu par l'abort signal
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { dispatchWebhookEventAsync, __testInternals } from "@/lib/webhooks/dispatcher";
+import { describe, expect, it, vi } from "vitest";
+import { __testInternals, dispatchWebhookEventAsync } from "@/lib/webhooks/dispatcher";
 import type { CustomWebhook } from "@/lib/webhooks/types";
 
 // ── Mock store (updateWebhookStatus) ─────────────────────────
@@ -77,13 +77,9 @@ describe("HMAC signature — header X-Hearst-Signature", () => {
     };
 
     const webhook = makeWebhook({ secret: undefined });
-    await dispatchWebhookEventAsync(
-      "report.generated",
-      TENANT,
-      {},
-      fetcher as typeof fetch,
-      [webhook],
-    );
+    await dispatchWebhookEventAsync("report.generated", TENANT, {}, fetcher as typeof fetch, [
+      webhook,
+    ]);
 
     expect(capturedHeaders["x-hearst-signature"]).toBeUndefined();
   });

@@ -5,13 +5,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type {
-  RunStep,
-  CreateStepInput,
-  StepStatus,
-  StepError,
-} from "./types";
 import type { RunEventBus } from "../../../events/bus";
+import type { CreateStepInput, RunStep, StepError, StepStatus } from "./types";
 
 export class StepManager {
   constructor(
@@ -51,17 +46,10 @@ export class StepManager {
     if (status === "running") {
       update.started_at = new Date().toISOString();
     }
-    if (
-      status === "completed" ||
-      status === "failed" ||
-      status === "skipped"
-    ) {
+    if (status === "completed" || status === "failed" || status === "skipped") {
       update.completed_at = new Date().toISOString();
     }
-    const { error } = await this.db
-      .from("run_steps")
-      .update(update)
-      .eq("id", stepId);
+    const { error } = await this.db.from("run_steps").update(update).eq("id", stepId);
 
     if (error) {
       throw new Error(`[StepManager] transition to ${status} failed: ${error.message}`);
@@ -119,11 +107,7 @@ export class StepManager {
   }
 
   async get(stepId: string): Promise<RunStep> {
-    const { data, error } = await this.db
-      .from("run_steps")
-      .select()
-      .eq("id", stepId)
-      .single();
+    const { data, error } = await this.db.from("run_steps").select().eq("id", stepId).single();
 
     if (error || !data) {
       throw new Error(`Step not found: ${stepId}`);

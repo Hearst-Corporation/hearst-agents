@@ -3,13 +3,13 @@
  * preview formatter, and domain → app filter.
  */
 
-import { describe, it, expect } from "vitest";
-import {
-  isWriteAction,
-  formatActionPreview,
-  filterToolsByDomain,
-} from "@/lib/connectors/composio/write-guard";
+import { describe, expect, it } from "vitest";
 import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
+import {
+  filterToolsByDomain,
+  formatActionPreview,
+  isWriteAction,
+} from "@/lib/connectors/composio/write-guard";
 
 function tool(name: string, app: string): DiscoveredTool {
   return { name, app, description: name, parameters: { type: "object", properties: {} } };
@@ -145,9 +145,7 @@ describe("filterToolsByDomain", () => {
   });
 
   it("caps general domain at 40 tools", () => {
-    const fifty = Array.from({ length: 50 }, (_, i) =>
-      tool(`GENERIC_TOOL_${i}`, "gmail"),
-    );
+    const fifty = Array.from({ length: 50 }, (_, i) => tool(`GENERIC_TOOL_${i}`, "gmail"));
     const out = filterToolsByDomain(fifty, "general");
     expect(out).toHaveLength(40);
   });

@@ -8,26 +8,19 @@
  * unmount.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "../../components/PageHeader";
-import type { PaletteEntry } from "../../components/missions/builder/NodePalette";
-import { WorkflowCanvas } from "../../components/missions/builder/WorkflowCanvas";
-import { BuilderToolbar } from "../../components/missions/builder/BuilderToolbar";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
+import { getTemplateById, WORKFLOW_TEMPLATES } from "@/lib/workflows/templates";
+import type { WorkflowExecutorEvent, WorkflowGraph, WorkflowNode } from "@/lib/workflows/types";
+import { createEmptyGraph } from "@/lib/workflows/types";
+import { validateGraph } from "@/lib/workflows/validate";
 import { useBuilderStore } from "@/stores/builder";
 import { PublishTemplateModal } from "../../components/marketplace/PublishTemplateModal";
-import {
-  WORKFLOW_TEMPLATES,
-  getTemplateById,
-} from "@/lib/workflows/templates";
-import { validateGraph } from "@/lib/workflows/validate";
-import { createEmptyGraph } from "@/lib/workflows/types";
-import type {
-  WorkflowExecutorEvent,
-  WorkflowGraph,
-  WorkflowNode,
-} from "@/lib/workflows/types";
-import { toast } from "@/app/hooks/use-toast";
+import { BuilderToolbar } from "../../components/missions/builder/BuilderToolbar";
+import type { PaletteEntry } from "../../components/missions/builder/NodePalette";
+import { WorkflowCanvas } from "../../components/missions/builder/WorkflowCanvas";
+import { PageHeader } from "../../components/PageHeader";
 
 export default function WorkflowBuilderPage() {
   const router = useRouter();
@@ -87,16 +80,11 @@ export default function WorkflowBuilderPage() {
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [previewSummary, setPreviewSummary] = useState<string | null>(null);
-  const [validationCount, setValidationCount] = useState<number | undefined>(
-    undefined,
-  );
+  const [validationCount, setValidationCount] = useState<number | undefined>(undefined);
   const [publishOpen, setPublishOpen] = useState(false);
-  const [runStatus, setRunStatus] = useState<Map<string, NodeStatus>>(
-    new Map(),
-  );
+  const [runStatus, setRunStatus] = useState<Map<string, NodeStatus>>(new Map());
 
-  const selectedNode =
-    graph.nodes.find((n) => n.id === selectedNodeId) ?? null;
+  const selectedNode = graph.nodes.find((n) => n.id === selectedNodeId) ?? null;
 
   // Sync selected node into the builder store so the ContextRail can display it.
   useEffect(() => {
@@ -154,9 +142,7 @@ export default function WorkflowBuilderPage() {
   const handleConnect = useCallback((source: string, target: string) => {
     setGraph((prev) => {
       const id = `e_${source}_${target}_${Date.now()}`;
-      const exists = prev.edges.some(
-        (e) => e.source === source && e.target === target,
-      );
+      const exists = prev.edges.some((e) => e.source === source && e.target === target);
       if (exists) return prev;
       return {
         ...prev,
@@ -170,9 +156,7 @@ export default function WorkflowBuilderPage() {
       if (!selectedNodeId) return;
       setGraph((prev) => ({
         ...prev,
-        nodes: prev.nodes.map((n) =>
-          n.id === selectedNodeId ? { ...n, ...patch } : n,
-        ),
+        nodes: prev.nodes.map((n) => (n.id === selectedNodeId ? { ...n, ...patch } : n)),
       }));
     },
     [selectedNodeId],
@@ -187,9 +171,7 @@ export default function WorkflowBuilderPage() {
         (e) => e.source !== selectedNodeId && e.target !== selectedNodeId,
       );
       const newStart =
-        isStart && remainingNodes.length > 0
-          ? remainingNodes[0].id
-          : prev.startNodeId;
+        isStart && remainingNodes.length > 0 ? remainingNodes[0].id : prev.startNodeId;
       return {
         ...prev,
         nodes: remainingNodes,
@@ -210,26 +192,18 @@ export default function WorkflowBuilderPage() {
     return () => clearHandlers();
   }, [registerHandlers, clearHandlers, handleAddNode, handleNodePatch, handleDeleteNode]);
 
-  const handlePositionChange = useCallback(
-    (id: string, position: { x: number; y: number }) => {
-      setGraph((prev) => ({
-        ...prev,
-        nodes: prev.nodes.map((n) =>
-          n.id === id ? { ...n, position } : n,
-        ),
-      }));
-    },
-    [],
-  );
+  const handlePositionChange = useCallback((id: string, position: { x: number; y: number }) => {
+    setGraph((prev) => ({
+      ...prev,
+      nodes: prev.nodes.map((n) => (n.id === id ? { ...n, position } : n)),
+    }));
+  }, []);
 
   const handleValidate = useCallback(() => {
     const validation = validateGraph(graph);
     setValidationCount(validation.errors.length);
     if (!validation.valid) {
-      toast.error(
-        "Graphe invalide",
-        validation.errors.map((e) => e.message).join(" · "),
-      );
+      toast.error("Graphe invalide", validation.errors.map((e) => e.message).join(" · "));
       return;
     }
     toast.success("Graphe valide", `${graph.nodes.length} nodes`);
@@ -256,26 +230,18 @@ export default function WorkflowBuilderPage() {
       const events = (data.events as WorkflowExecutorEvent[]) ?? [];
       const status = new Map<string, NodeStatus>();
       for (const ev of events) {
-        if (ev.type === "step_started")
-          status.set(ev.nodeId, "running");
-        else if (ev.type === "step_completed")
-          status.set(ev.nodeId, "completed");
+        if (ev.type === "step_started") status.set(ev.nodeId, "running");
+        else if (ev.type === "step_completed") status.set(ev.nodeId, "completed");
         else if (ev.type === "step_failed") status.set(ev.nodeId, "failed");
-        else if (ev.type === "awaiting_approval")
-          status.set(ev.nodeId, "awaiting_approval");
+        else if (ev.type === "awaiting_approval") status.set(ev.nodeId, "awaiting_approval");
         else if (ev.type === "step_skipped") status.set(ev.nodeId, "skipped");
       }
       setRunStatus(status);
       setPreviewSummary(
-        `Preview : ${data.result?.status ?? "?"} · ${
-          data.result?.visitedCount ?? 0
-        } nodes`,
+        `Preview : ${data.result?.status ?? "?"} · ${data.result?.visitedCount ?? 0} nodes`,
       );
     } catch (err) {
-      toast.error(
-        "Erreur preview",
-        err instanceof Error ? err.message : String(err),
-      );
+      toast.error("Erreur preview", err instanceof Error ? err.message : String(err));
     } finally {
       setIsPreviewing(false);
     }
@@ -287,10 +253,7 @@ export default function WorkflowBuilderPage() {
       const validation = validateGraph(graph);
       setValidationCount(validation.errors.length);
       if (!validation.valid) {
-        toast.error(
-          "Graphe invalide",
-          validation.errors.map((e) => e.message).join(" · "),
-        );
+        toast.error("Graphe invalide", validation.errors.map((e) => e.message).join(" · "));
         return;
       }
 
@@ -306,10 +269,7 @@ export default function WorkflowBuilderPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        toast.error(
-          "Enregistrement impossible",
-          (data?.error as string) ?? `HTTP ${res.status}`,
-        );
+        toast.error("Enregistrement impossible", (data?.error as string) ?? `HTTP ${res.status}`);
         return;
       }
       toast.success("Workflow enregistré", missionName);
@@ -318,14 +278,13 @@ export default function WorkflowBuilderPage() {
       // de beforeunload pendant la navigation.
       try {
         window.localStorage.removeItem(DRAFT_KEY);
-      } catch { /* localStorage indispo : peu importe */ }
+      } catch {
+        /* localStorage indispo : peu importe */
+      }
       setDraftFlushed(true);
       router.push("/missions");
     } catch (err) {
-      toast.error(
-        "Erreur d'enregistrement",
-        err instanceof Error ? err.message : String(err),
-      );
+      toast.error("Erreur d'enregistrement", err instanceof Error ? err.message : String(err));
     } finally {
       setIsSaving(false);
     }
@@ -345,9 +304,7 @@ export default function WorkflowBuilderPage() {
   }, []);
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 bg-surface"
-    >
+    <div className="flex-1 flex flex-col min-h-0 bg-surface">
       <PageHeader
         title="Workflow Builder"
         subtitle="Composer une mission multi-step visuellement"
@@ -423,9 +380,7 @@ export default function WorkflowBuilderPage() {
               }}
             >
               <span className="t-13 text-text">{tpl.name}</span>
-              <span className="t-9 text-text-muted">
-                {tpl.description}
-              </span>
+              <span className="t-9 text-text-muted">{tpl.description}</span>
             </button>
           ))}
         </div>
@@ -433,9 +388,7 @@ export default function WorkflowBuilderPage() {
 
       {/* Workflow Builder = canvas Cytoscape, pas adaptable mobile.
           On affiche un message dédié < lg pour économiser le travail visuel. */}
-      <div
-        className="flex-1 lg:hidden flex items-center justify-center p-8"
-      >
+      <div className="flex-1 lg:hidden flex items-center justify-center p-8">
         <div
           className="flex flex-col items-center text-center gap-3 p-8 bg-surface-1"
           style={{
@@ -444,15 +397,11 @@ export default function WorkflowBuilderPage() {
             borderRadius: "var(--radius-md)",
           }}
         >
-          <span className="t-11 font-medium text-(--accent-teal)">
-            Vue desktop
-          </span>
-          <h2 className="t-15 text-text">
-            Builder de workflow optimisé pour ordinateur
-          </h2>
+          <span className="t-11 font-medium text-(--accent-teal)">Vue desktop</span>
+          <h2 className="t-15 text-text">Builder de workflow optimisé pour ordinateur</h2>
           <p className="t-13 text-text-muted">
-            Cette vue utilise un canvas graphique pour composer les missions
-            multi-step. Ouvre-la sur ordinateur pour la meilleure expérience.
+            Cette vue utilise un canvas graphique pour composer les missions multi-step. Ouvre-la
+            sur ordinateur pour la meilleure expérience.
           </p>
         </div>
       </div>
@@ -471,9 +420,4 @@ export default function WorkflowBuilderPage() {
   );
 }
 
-type NodeStatus =
-  | "running"
-  | "completed"
-  | "failed"
-  | "awaiting_approval"
-  | "skipped";
+type NodeStatus = "running" | "completed" | "failed" | "awaiting_approval" | "skipped";

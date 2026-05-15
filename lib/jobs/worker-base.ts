@@ -13,10 +13,10 @@
  *  - Error logging consistant
  */
 
-import { Worker, UnrecoverableError, type Job, type Processor } from "bullmq";
-import { getBullConnection } from "./connection";
-import { JOB_QUEUE_CONFIGS } from "./configs";
+import { type Job, type Processor, UnrecoverableError, Worker } from "bullmq";
 import { settleCredits } from "@/lib/credits/client";
+import { JOB_QUEUE_CONFIGS } from "./configs";
+import { getBullConnection } from "./connection";
 import { isPermanentError } from "./permanent-error";
 import type { JobKind, JobPayload, JobResult } from "./types";
 
@@ -38,7 +38,9 @@ export interface WorkerHandler<P extends JobPayload = JobPayload> {
  * Start a worker for the given JobKind. Returns the BullMQ Worker
  * instance — caller can `worker.close()` for graceful shutdown.
  */
-export function startWorker<P extends JobPayload>(handler: WorkerHandler<P>): Worker<P, JobResult> | null {
+export function startWorker<P extends JobPayload>(
+  handler: WorkerHandler<P>,
+): Worker<P, JobResult> | null {
   const connection = getBullConnection();
   if (!connection) {
     console.warn(`[Jobs] Worker ${handler.kind} skipped — REDIS_URL not set`);

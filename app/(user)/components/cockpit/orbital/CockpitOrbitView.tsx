@@ -1,10 +1,10 @@
 "use client";
 
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { OrbeCentral } from "./OrbeCentral";
 import { OrbitalGreeting } from "./OrbitalGreeting";
 import { OrbitalNodes } from "./OrbitalNodes";
 import { OrbitalQuickActions } from "./OrbitalQuickActions";
-import { OrbeCentral } from "./OrbeCentral";
 
 interface CockpitOrbitViewProps {
   data: CockpitTodayPayload;
@@ -23,7 +23,7 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
       {/* Centre : layout flexbox pur avec lignes de connexion */}
       <div
         className="flex-1 flex flex-col items-center justify-center"
-        style={{ padding: "var(--space-6) var(--space-8)", gap: 40 }}
+        style={{ padding: "var(--space-6) var(--space-8)", gap: "var(--space-10)" }}
       >
         {/* Haut : Gmail + ligne vers cœur */}
         <div style={{ position: "relative" }}>
@@ -35,9 +35,8 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
               top: "100%",
               left: "50%",
               width: "1px",
-              height: 80,
-              background:
-                "linear-gradient(to bottom, var(--mono-line) 0%, transparent 100%)",
+              height: "var(--space-20)",
+              background: "linear-gradient(to bottom, var(--mono-line) 0%, transparent 100%)",
               transform: "translateX(-50%)",
               pointerEvents: "none",
             }}
@@ -63,8 +62,7 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
                 left: "100%",
                 width: 60,
                 height: "1px",
-                background:
-                  "linear-gradient(to right, var(--mono-line) 0%, transparent 100%)",
+                background: "linear-gradient(to right, var(--mono-line) 0%, transparent 100%)",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
               }}
@@ -96,8 +94,7 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
                 right: "100%",
                 width: 60,
                 height: "1px",
-                background:
-                  "linear-gradient(to left, var(--mono-line) 0%, transparent 100%)",
+                background: "linear-gradient(to left, var(--mono-line) 0%, transparent 100%)",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
               }}
@@ -123,9 +120,8 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
               top: -40,
               left: "50%",
               width: 1,
-              height: 40,
-              background:
-                "linear-gradient(to bottom, var(--mono-line) 0%, transparent 100%)",
+              height: "var(--space-10)",
+              background: "linear-gradient(to bottom, var(--mono-line) 0%, transparent 100%)",
               transform: "translateX(-50%)",
               pointerEvents: "none",
             }}
@@ -136,7 +132,7 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
               position: "absolute",
               top: -30,
               left: "30%",
-              width: 80,
+              width: "var(--space-20)",
               height: 1,
               background:
                 "linear-gradient(to bottom left, var(--mono-line-dim) 0%, transparent 100%)",
@@ -151,7 +147,7 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
               position: "absolute",
               top: -30,
               right: "30%",
-              width: 80,
+              width: "var(--space-20)",
               height: 1,
               background:
                 "linear-gradient(to bottom right, var(--mono-line-dim) 0%, transparent 100%)",
@@ -161,7 +157,7 @@ export function CockpitOrbitView({ data }: CockpitOrbitViewProps) {
             }}
           />
 
-          <div style={{ display: "flex", gap: 40 }}>
+          <div style={{ display: "flex", gap: "var(--space-10)" }}>
             <OrbitalNodes data={data} row="bottom" />
           </div>
         </div>

@@ -3,7 +3,7 @@
  *
  * On vérifie surtout la validation et l'auth — pas l'appel LLM réel.
  */
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({

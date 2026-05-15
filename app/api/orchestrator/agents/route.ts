@@ -1,19 +1,18 @@
 import { NextResponse } from "next/server";
-import { loadAllContracts } from "@/lib/hom/contracts";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { loadCC } from "@/lib/hom/cc-state";
+import { loadAllContracts } from "@/lib/hom/contracts";
 import { loadQuarantine } from "@/lib/hom/quarantine";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const guard = await requireAdmin("GET /api/orchestrator/agents", { resource: "settings", action: "read" });
+  const guard = await requireAdmin("GET /api/orchestrator/agents", {
+    resource: "settings",
+    action: "read",
+  });
   if (isError(guard)) return guard;
-  const [contracts, cc, q] = await Promise.all([
-    loadAllContracts(),
-    loadCC(),
-    loadQuarantine(),
-  ]);
+  const [contracts, cc, q] = await Promise.all([loadAllContracts(), loadCC(), loadQuarantine()]);
   const agents = contracts.map((c) => {
     const live = cc.agents.find((a) => a.id === c.agent_id);
     const quarantine = q.agents[c.agent_id];

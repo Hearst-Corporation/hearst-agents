@@ -12,11 +12,11 @@
  */
 
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import Script from "next/script";
-import { headers } from "next/headers";
-import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
 import { buildMonthlyCardData } from "@/lib/cockpit/monthly-card";
+import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
 import { MonthlyCardView } from "@/lib/cockpit/monthly-card-view";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
@@ -47,10 +47,7 @@ const COPY_LINK_SCRIPT = `
   })();
 `;
 
-async function lookupPngUrl(
-  userId: string,
-  yearMonth: string,
-): Promise<string | null> {
+async function lookupPngUrl(userId: string, yearMonth: string): Promise<string | null> {
   const sb = getServerSupabase();
   if (!sb) return null;
   const path = `hearst-cards/${userId}/${yearMonth}.png`;
@@ -68,15 +65,14 @@ async function loadCardForToken(token: string) {
   const tenantId = process.env.HEARST_TENANT_ID;
   const workspaceId = process.env.HEARST_WORKSPACE_ID;
   if (!tenantId || !workspaceId) {
-    console.error("[public/hearst-card] HEARST_TENANT_ID ou HEARST_WORKSPACE_ID absent — configuration serveur incomplète");
+    console.error(
+      "[public/hearst-card] HEARST_TENANT_ID ou HEARST_WORKSPACE_ID absent — configuration serveur incomplète",
+    );
     return { ok: false as const, reason: "server_misconfigured" };
   }
 
   try {
-    const data = await buildMonthlyCardData(
-      { userId: uid, tenantId, workspaceId },
-      ym,
-    );
+    const data = await buildMonthlyCardData({ userId: uid, tenantId, workspaceId }, ym);
     const pngUrl = await lookupPngUrl(uid, ym);
     return { ok: true as const, data, pngUrl };
   } catch (err) {
@@ -150,16 +146,10 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           justifyContent: "center",
         }}
       >
-        <h1
-          className="t-28"
-          style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}
-        >
+        <h1 className="t-28" style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}>
           Carte indisponible
         </h1>
-        <p
-          className="t-13"
-          style={{ color: "var(--text-soft)", marginTop: "var(--space-4)" }}
-        >
+        <p className="t-13" style={{ color: "var(--text-soft)", marginTop: "var(--space-4)" }}>
           {msg}
         </p>
         <Link

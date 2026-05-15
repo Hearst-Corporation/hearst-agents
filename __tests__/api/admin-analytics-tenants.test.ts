@@ -5,7 +5,7 @@
  * (401 / 403 / 200) et les deux modes de réponse (top tenants vs drill-down
  * `?tenantId=`).
  */
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Empêche le module aggregate.ts de toucher Supabase réel — on contrôle les
 // fixtures via des mocks sur ses fonctions exportées plus bas.
@@ -82,7 +82,9 @@ describe("GET /api/admin/analytics/tenants", () => {
 
   it("renvoie 401 quand requireAdmin renvoie unauthorized", async () => {
     const helpers = await import("@/app/api/admin/_helpers");
-    (helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(denyGuard401);
+    (
+      helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }
+    ).mockResolvedValue(denyGuard401);
 
     const { GET } = await import("@/app/api/admin/analytics/tenants/route");
     const req = new Request("http://t/api/admin/analytics/tenants");
@@ -92,7 +94,9 @@ describe("GET /api/admin/analytics/tenants", () => {
 
   it("renvoie 403 quand requireAdmin refuse (user non-admin)", async () => {
     const helpers = await import("@/app/api/admin/_helpers");
-    (helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(denyGuard403);
+    (
+      helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }
+    ).mockResolvedValue(denyGuard403);
 
     const { GET } = await import("@/app/api/admin/analytics/tenants/route");
     const req = new Request("http://t/api/admin/analytics/tenants");
@@ -102,7 +106,9 @@ describe("GET /api/admin/analytics/tenants", () => {
 
   it("renvoie 200 + top tenants triés quand l'admin est autorisé", async () => {
     const helpers = await import("@/app/api/admin/_helpers");
-    (helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(allowGuard);
+    (
+      helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }
+    ).mockResolvedValue(allowGuard);
 
     const { GET } = await import("@/app/api/admin/analytics/tenants/route");
     const req = new Request(
@@ -121,12 +127,12 @@ describe("GET /api/admin/analytics/tenants", () => {
 
   it("renvoie 200 + drill-down user-by-user avec ?tenantId=", async () => {
     const helpers = await import("@/app/api/admin/_helpers");
-    (helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(allowGuard);
+    (
+      helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }
+    ).mockResolvedValue(allowGuard);
 
     const { GET } = await import("@/app/api/admin/analytics/tenants/route");
-    const req = new Request(
-      "http://t/api/admin/analytics/tenants?tenantId=tenant-A",
-    );
+    const req = new Request("http://t/api/admin/analytics/tenants?tenantId=tenant-A");
     const res = await GET(req as unknown as import("next/server").NextRequest);
     expect(res.status).toBe(200);
     const body = (await res.json()) as {

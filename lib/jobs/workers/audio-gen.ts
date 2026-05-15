@@ -13,12 +13,12 @@
  * payload.metadata.variantId.
  */
 
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
-import { synthesizeSpeech } from "@/lib/capabilities/providers/elevenlabs";
 import { updateVariant } from "@/lib/assets/variants";
+import { synthesizeSpeech } from "@/lib/capabilities/providers/elevenlabs";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { AudioGenInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 
 const handler: WorkerHandler<AudioGenInput> = {
   kind: "audio-gen",
@@ -31,9 +31,10 @@ const handler: WorkerHandler<AudioGenInput> = {
 
   async process(ctx): Promise<JobResult> {
     const { payload, reportProgress } = ctx;
-    const variantId = (payload as AudioGenInput & { variantId?: string }).variantId
-      ?? (typeof payload === "object" && payload !== null && "metadata" in payload
-        ? ((payload as { metadata?: { variantId?: string } }).metadata?.variantId)
+    const variantId =
+      (payload as AudioGenInput & { variantId?: string }).variantId ??
+      (typeof payload === "object" && payload !== null && "metadata" in payload
+        ? (payload as { metadata?: { variantId?: string } }).metadata?.variantId
         : undefined);
 
     await reportProgress(5, "Synthèse en cours");

@@ -44,7 +44,10 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
       });
       const data = (await res.json()) as AbTestResponse | { error?: string; message?: string };
       if (!res.ok || "error" in data) {
-        const msg = ("message" in data && data.message) || ("error" in data && data.error) || "ab_test_failed";
+        const msg =
+          ("message" in data && data.message) ||
+          ("error" in data && data.error) ||
+          "ab_test_failed";
         throw new Error(msg);
       }
       setResult(data as AbTestResponse);
@@ -68,9 +71,7 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
     >
       <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
         <h2 className="t-15 font-medium text-text">A/B test inline</h2>
-        <p className="t-11 font-light text-text-faint">
-          2 personas · 1 message · 2 réponses
-        </p>
+        <p className="t-11 font-light text-text-faint">2 personas · 1 message · 2 réponses</p>
       </header>
 
       <textarea
@@ -87,10 +88,7 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
         }}
       />
 
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2"
-        style={{ gap: "var(--space-3)" }}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "var(--space-3)" }}>
         <PersonaSelect label="Persona A" value={a} onChange={setA} personas={personas} />
         <PersonaSelect label="Persona B" value={b} onChange={setB} personas={personas} />
       </div>
@@ -111,17 +109,10 @@ export function PersonaABTestPanel({ personas }: PersonaABTestPanelProps) {
         </Action>
       </div>
 
-      {error && (
-        <p className="t-11 font-medium text-(--danger)">
-          {error}
-        </p>
-      )}
+      {error && <p className="t-11 font-medium text-(--danger)">{error}</p>}
 
       {result && (
-        <div
-          className="grid grid-cols-1 lg:grid-cols-2"
-          style={{ gap: "var(--space-3)" }}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: "var(--space-3)" }}>
           <ResponseColumn
             label="A"
             persona={result.a.persona}
@@ -157,9 +148,7 @@ function PersonaSelect({
 }) {
   return (
     <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <span className="t-11 font-light text-text-faint">
-        {label}
-      </span>
+      <span className="t-11 font-light text-text-faint">{label}</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -171,9 +160,7 @@ function PersonaSelect({
           background: "var(--surface-1)",
         }}
       >
-        {personas.length === 0 ? (
-          <option value="">— aucune persona —</option>
-        ) : null}
+        {personas.length === 0 ? <option value="">— aucune persona —</option> : null}
         {personas.map((p) => (
           <option key={p.id} value={p.id}>
             {p.name}
@@ -212,14 +199,10 @@ function ResponseColumn({
     >
       <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
         <div className="flex items-baseline" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-medium text-(--accent-teal)">
-            {label}
-          </span>
+          <span className="t-11 font-medium text-(--accent-teal)">{label}</span>
           <span className="t-13 font-medium text-text">{persona.name}</span>
         </div>
-        <span className="t-11 font-light text-text-faint">
-          {latencyMs}ms
-        </span>
+        <span className="t-11 font-light text-text-faint">{latencyMs}ms</span>
       </header>
       <pre
         className="whitespace-pre-wrap t-13 font-light text-text-soft"

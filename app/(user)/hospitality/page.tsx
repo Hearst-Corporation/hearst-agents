@@ -29,8 +29,7 @@ const HOSPITALITY_REPORTS = [
   {
     id: "00000000-0000-4000-8000-700000000003",
     title: "Guest Satisfaction — Hospitality",
-    description:
-      "NPS par canal, reviews aggregées, complaints et taux de recovery sur 7 jours.",
+    description: "NPS par canal, reviews aggregées, complaints et taux de recovery sur 7 jours.",
   },
 ];
 
@@ -52,9 +51,7 @@ const HOSPITALITY_WORKFLOWS = [
 
 export default function HospitalityPage() {
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 bg-bg-elev"
-    >
+    <div className="flex-1 flex flex-col min-h-0 bg-bg-elev">
       <PageHeader
         title="Hospitality"
         subtitle="Cockpit IA pour l'hôtellerie haut de gamme — pilotage occupancy, RevPAR, guests et service."
@@ -77,18 +74,14 @@ export default function HospitalityPage() {
             borderRadius: "var(--radius-xs)",
           }}
         >
-          <strong className="text-text">Mode démo</strong> — les
-          données PMS (Mews, Cloudbeds, Opera) sont mockées. Connecte ton PMS
-          via{" "}
+          <strong className="text-text">Mode démo</strong> — les données PMS (Mews, Cloudbeds,
+          Opera) sont mockées. Connecte ton PMS via{" "}
           <Link href="/apps" className="text-(--accent-teal)">
             /apps
           </Link>{" "}
           quand l&apos;intégration sera disponible (intégrations PMS planifiées Q3 2026).
         </div>
-        <Section
-          label="Reports recommandés"
-          meta="3 specs"
-        >
+        <Section label="Reports recommandés" meta="3 specs">
           <div className="flex flex-col gap-3">
             {HOSPITALITY_REPORTS.map((r) => (
               <Link
@@ -97,10 +90,7 @@ export default function HospitalityPage() {
                 className="card-depth flex flex-col p-5 gap-2 no-underline"
               >
                 <div className="flex items-center gap-(--space-3)">
-                  <span
-                    className="t-15 font-medium flex-1"
-                    style={{ color: "var(--text-l0)" }}
-                  >
+                  <span className="t-15 font-medium flex-1" style={{ color: "var(--text-l0)" }}>
                     {r.title}
                   </span>
                   <span
@@ -115,9 +105,7 @@ export default function HospitalityPage() {
                     Démo
                   </span>
                 </div>
-                <span className="t-13 text-(--text-l2)">
-                  {r.description}
-                </span>
+                <span className="t-13 text-(--text-l2)">{r.description}</span>
               </Link>
             ))}
           </div>
@@ -131,15 +119,10 @@ export default function HospitalityPage() {
                 href={`/missions?template=${w.id}`}
                 className="card-depth flex flex-col p-5 gap-2 no-underline"
               >
-                <span
-                  className="t-15 font-medium"
-                  style={{ color: "var(--text-l0)" }}
-                >
+                <span className="t-15 font-medium" style={{ color: "var(--text-l0)" }}>
                   {w.name}
                 </span>
-                <span className="t-13 text-(--text-l2)">
-                  {w.description}
-                </span>
+                <span className="t-13 text-(--text-l2)">{w.description}</span>
               </Link>
             ))}
           </div>
@@ -150,30 +133,23 @@ export default function HospitalityPage() {
             href="/personas?builtin=hospitality-concierge"
             className="card-depth flex flex-col p-5 gap-2 no-underline"
           >
-            <span
-              className="t-15 font-medium"
-              style={{ color: "var(--text-l0)" }}
-            >
+            <span className="t-15 font-medium" style={{ color: "var(--text-l0)" }}>
               Hospitality Concierge
             </span>
             <span className="t-13 text-(--text-l2)">
-              Voix éditoriale calibrée hôtelier — chaleureuse, discrète, vocabulaire
-              métier (guest, room, VIP, ADR, RevPAR), anticipe les besoins.
+              Voix éditoriale calibrée hôtelier — chaleureuse, discrète, vocabulaire métier (guest,
+              room, VIP, ADR, RevPAR), anticipe les besoins.
             </span>
           </Link>
         </Section>
 
         <Section label="État des connecteurs">
-          <div
-            className="card-depth flex flex-col p-5 gap-3"
-          >
-            <span className="t-9 font-light text-text-faint">
-              PMS · POS · Guest messaging
-            </span>
+          <div className="card-depth flex flex-col p-5 gap-3">
+            <span className="t-9 font-light text-text-faint">PMS · POS · Guest messaging</span>
             <p className="t-13 text-(--text-l2)">
-              Aucun connecteur hospitality natif pour MVP. Les KPIs et tables
-              affichés ailleurs sont des données démo. Contacte ton commercial
-              pour brancher Mews, Cloudbeds, Opera ou Hotelogix.
+              Aucun connecteur hospitality natif pour MVP. Les KPIs et tables affichés ailleurs sont
+              des données démo. Contacte ton commercial pour brancher Mews, Cloudbeds, Opera ou
+              Hotelogix.
             </p>
           </div>
         </Section>
@@ -194,14 +170,8 @@ function Section({
   return (
     <section className="flex flex-col gap-5">
       <header className="flex items-baseline justify-between">
-        <span className="t-13 font-medium text-(--text-l1)">
-          {label}
-        </span>
-        {meta && (
-          <span className="t-11 font-light text-text-faint">
-            {meta}
-          </span>
-        )}
+        <span className="t-13 font-medium text-(--text-l1)">{label}</span>
+        {meta && <span className="t-11 font-light text-text-faint">{meta}</span>}
       </header>
       {children}
     </section>

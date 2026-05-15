@@ -6,9 +6,9 @@
  * une éventuelle suite Playwright avec PDF visual diff serait l'option.
  */
 
-import { describe, it, expect } from "vitest";
-import { exportPdf } from "@/lib/reports/export/pdf";
+import { describe, expect, it } from "vitest";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { exportPdf } from "@/lib/reports/export/pdf";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
 
 const meta: ReportMeta = {

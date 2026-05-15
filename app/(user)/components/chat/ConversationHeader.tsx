@@ -111,10 +111,7 @@ export function ConversationHeader() {
           </>
         ) : (
           <>
-            <span
-              className="t-15 font-medium truncate min-w-0"
-              style={{ color: "var(--text)" }}
-            >
+            <span className="t-15 font-medium truncate min-w-0" style={{ color: "var(--text)" }}>
               {activeThread.name || "Sans titre"}
             </span>
             <button
@@ -128,10 +125,7 @@ export function ConversationHeader() {
             </button>
           </>
         )}
-        <span
-          className="t-11 font-light shrink-0"
-          style={{ color: "var(--text-faint)" }}
-        >
+        <span className="t-11 font-light shrink-0" style={{ color: "var(--text-faint)" }}>
           {dateLabel}
         </span>
       </div>
@@ -141,10 +135,7 @@ export function ConversationHeader() {
           style={{ gap: "var(--space-2)" }}
           title={`${assetCount} asset${assetCount > 1 ? "s" : ""} généré${assetCount > 1 ? "s" : ""} dans ce fil`}
         >
-          <span
-            className="t-11 font-mono tabular-nums"
-            style={{ color: "var(--accent-teal)" }}
-          >
+          <span className="t-11 font-mono tabular-nums" style={{ color: "var(--accent-teal)" }}>
             {assetCount.toString().padStart(2, "0")}
           </span>
           <span className="t-11 font-light" style={{ color: "var(--text-faint)" }}>
@@ -158,7 +149,17 @@ export function ConversationHeader() {
 
 function PencilIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <path d="M12 20h9" />
       <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z" />
     </svg>
@@ -167,7 +168,17 @@ function PencilIcon() {
 
 function CheckIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <polyline points="20 6 9 17 4 12" />
     </svg>
   );
@@ -175,7 +186,17 @@ function CheckIcon() {
 
 function XIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <path d="M18 6L6 18M6 6l12 12" />
     </svg>
   );

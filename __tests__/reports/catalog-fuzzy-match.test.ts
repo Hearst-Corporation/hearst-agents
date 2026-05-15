@@ -4,15 +4,15 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { findCatalogByFuzzyName, CATALOG } from "@/lib/reports/catalog";
+import { CATALOG, findCatalogByFuzzyName } from "@/lib/reports/catalog";
 
 describe("findCatalogByFuzzyName", () => {
   it("match exact insensible à la casse + accents", () => {
     const m = findCatalogByFuzzyName("Founder Cockpit");
     expect(m).not.toBeNull();
-    expect(m!.entry.title).toBe("Founder Cockpit");
-    expect(m!.kind).toBe("exact");
-    expect(m!.distance).toBe(0);
+    expect(m?.entry.title).toBe("Founder Cockpit");
+    expect(m?.kind).toBe("exact");
+    expect(m?.distance).toBe(0);
   });
 
   it("match malgré une typo proche (Customer 3600 → Customer 360)", () => {
@@ -20,23 +20,23 @@ describe("findCatalogByFuzzyName", () => {
     // ce qui est plus fort qu'un match Levenshtein — le résultat est correct.
     const m = findCatalogByFuzzyName("Customer 3600");
     expect(m).not.toBeNull();
-    expect(m!.entry.title).toBe("Customer 360");
-    expect(["prefix", "levenshtein"]).toContain(m!.kind);
-    expect(m!.distance).toBeLessThanOrEqual(3);
+    expect(m?.entry.title).toBe("Customer 360");
+    expect(["prefix", "levenshtein"]).toContain(m?.kind);
+    expect(m?.distance).toBeLessThanOrEqual(3);
   });
 
   it("match prefix (préfixe partiel)", () => {
     const m = findCatalogByFuzzyName("Founder");
     expect(m).not.toBeNull();
-    expect(m!.entry.title).toBe("Founder Cockpit");
-    expect(m!.kind).toBe("prefix");
+    expect(m?.entry.title).toBe("Founder Cockpit");
+    expect(m?.kind).toBe("prefix");
   });
 
   it("match substring (terme contenu dans le titre)", () => {
     const m = findCatalogByFuzzyName("velocity");
     expect(m).not.toBeNull();
-    expect(m!.entry.title).toBe("Engineering Velocity");
-    expect(m!.kind).toBe("substring");
+    expect(m?.entry.title).toBe("Engineering Velocity");
+    expect(m?.kind).toBe("substring");
   });
 
   it("retourne null si aucune entrée raisonnablement proche", () => {
@@ -48,7 +48,7 @@ describe("findCatalogByFuzzyName", () => {
     // « Cockpitt » a distance 1 vs « Cockpit » → dans le seuil 3 par défaut
     const lax = findCatalogByFuzzyName("Founder Cockpitt");
     expect(lax).not.toBeNull();
-    expect(lax!.entry.title).toBe("Founder Cockpit");
+    expect(lax?.entry.title).toBe("Founder Cockpit");
 
     // Une query sans relation de préfixe/substring avec aucune entry,
     // avec un cap dur à 0 → retourne null (rien à distance 0).
@@ -60,7 +60,7 @@ describe("findCatalogByFuzzyName", () => {
   it("traite les tirets cadratins comme espaces (— vs  )", () => {
     const m = findCatalogByFuzzyName("Daily Briefing Hospitality");
     expect(m).not.toBeNull();
-    expect(m!.entry.title).toContain("Daily Briefing");
+    expect(m?.entry.title).toContain("Daily Briefing");
   });
 
   it("traverse tout le catalog sans erreur", () => {
@@ -68,7 +68,7 @@ describe("findCatalogByFuzzyName", () => {
     for (const entry of CATALOG) {
       const m = findCatalogByFuzzyName(entry.title);
       expect(m).not.toBeNull();
-      expect(m!.entry.id).toBe(entry.id);
+      expect(m?.entry.id).toBe(entry.id);
     }
   });
 });

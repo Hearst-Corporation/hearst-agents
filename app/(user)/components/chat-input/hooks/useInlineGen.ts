@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { extractCodeBlock } from "../utils/extractCodeBlock";
 import type { InlineGenStatus } from "../types";
+import { extractCodeBlock } from "../utils/extractCodeBlock";
 
 const SUCCESS_RESET_MS = 4000;
 const ERROR_RESET_MS = 5000;
@@ -21,16 +21,13 @@ interface UseInlineGenParams {
  * éphémère. Pas d'altération des invariants chat (pas d'orchestrate).
  */
 export function useInlineGen({ input, setInput }: UseInlineGenParams) {
-  const [imageGenStatus, setImageGenStatus] =
-    useState<InlineGenStatus>("idle");
+  const [imageGenStatus, setImageGenStatus] = useState<InlineGenStatus>("idle");
   const [imageGenMessage, setImageGenMessage] = useState<string | null>(null);
 
-  const [audioGenStatus, setAudioGenStatus] =
-    useState<InlineGenStatus>("idle");
+  const [audioGenStatus, setAudioGenStatus] = useState<InlineGenStatus>("idle");
   const [audioGenMessage, setAudioGenMessage] = useState<string | null>(null);
 
-  const [codeExecStatus, setCodeExecStatus] =
-    useState<InlineGenStatus>("idle");
+  const [codeExecStatus, setCodeExecStatus] = useState<InlineGenStatus>("idle");
   const [codeExecMessage, setCodeExecMessage] = useState<string | null>(null);
 
   const handleImageGen = useCallback(async () => {
@@ -59,8 +56,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
       setInput("");
       setTimeout(() => setImageGenMessage(null), SUCCESS_RESET_MS);
     } catch (err) {
-      const reason =
-        err instanceof Error ? err.message : "Image generation error";
+      const reason = err instanceof Error ? err.message : "Image generation error";
       setImageGenStatus("error");
       setImageGenMessage(reason);
       setTimeout(() => {
@@ -96,8 +92,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
       setInput("");
       setTimeout(() => setAudioGenMessage(null), SUCCESS_RESET_MS);
     } catch (err) {
-      const reason =
-        err instanceof Error ? err.message : "Audio synthesis error";
+      const reason = err instanceof Error ? err.message : "Audio synthesis error";
       setAudioGenStatus("error");
       setAudioGenMessage(reason);
       setTimeout(() => {
@@ -110,7 +105,7 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
   const handleCodeExec = useCallback(async () => {
     if (codeExecStatus === "pending") return;
     const extracted = extractCodeBlock(input);
-    if (!extracted || !extracted.code) return;
+    if (!extracted?.code) return;
     setCodeExecStatus("pending");
     setCodeExecMessage("Running sandbox…");
     try {
@@ -133,14 +128,11 @@ export function useInlineGen({ input, setInput }: UseInlineGenParams) {
         throw new Error(reason);
       }
       setCodeExecStatus("idle");
-      setCodeExecMessage(
-        "Execution started — result will appear in your assets.",
-      );
+      setCodeExecMessage("Execution started — result will appear in your assets.");
       setInput("");
       setTimeout(() => setCodeExecMessage(null), SUCCESS_RESET_MS);
     } catch (err) {
-      const reason =
-        err instanceof Error ? err.message : "Code execution error";
+      const reason = err instanceof Error ? err.message : "Code execution error";
       setCodeExecStatus("error");
       setCodeExecMessage(reason);
       setTimeout(() => {

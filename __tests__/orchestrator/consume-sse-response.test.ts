@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { consumeOrchestrateSseResponse } from "@/lib/engine/orchestrator/consume-sse-response";
 
 describe("consumeOrchestrateSseResponse", () => {
@@ -12,7 +12,9 @@ describe("consumeOrchestrateSseResponse", () => {
   it("returns ok false when stream contains run_failed", async () => {
     const body = new ReadableStream({
       start(controller) {
-        controller.enqueue(new TextEncoder().encode('data: {"type":"run_failed","error":"boom"}\n\n'));
+        controller.enqueue(
+          new TextEncoder().encode('data: {"type":"run_failed","error":"boom"}\n\n'),
+        );
         controller.close();
       },
     });

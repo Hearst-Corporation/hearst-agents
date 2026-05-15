@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
+import { assetToFocal } from "@/lib/ui/focal-mappers";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
-import { assetToFocal } from "@/lib/ui/focal-mappers";
-import { toast } from "@/app/hooks/use-toast";
 
 export interface UseRunReportSuggestion {
   runningSpecs: Set<string>;
@@ -25,9 +25,7 @@ export interface UseRunReportSuggestion {
  *   mode `cockpit`, on bascule vers `chat` avec ce thread pour afficher le
  *   rapport sans changer le comportement quand on est déjà en conversation.
  */
-export function useRunReportSuggestion(
-  activeThreadId: string | null,
-): UseRunReportSuggestion {
+export function useRunReportSuggestion(activeThreadId: string | null): UseRunReportSuggestion {
   const [runningSpecs, setRunningSpecs] = useState<Set<string>>(new Set());
 
   const runSuggestion = useCallback(
@@ -43,54 +41,45 @@ export function useRunReportSuggestion(
       }
 
       try {
-        const res = await fetch(
-          `/api/v2/reports/${encodeURIComponent(specId)}/run`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ threadId }),
-            credentials: "include",
-          },
-        );
+        const res = await fetch(`/api/v2/reports/${encodeURIComponent(specId)}/run`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ threadId }),
+          credentials: "include",
+        });
         if (!res.ok) {
           const detail = await res
             .json()
             .then((j) => (typeof j?.error === "string" ? j.error : ""))
             .catch(() => "");
-          throw new Error(
-            detail ? `HTTP ${res.status} — ${detail}` : `HTTP ${res.status}`,
-          );
+          throw new Error(detail ? `HTTP ${res.status} — ${detail}` : `HTTP ${res.status}`);
         }
         const data = (await res.json()) as {
           assetId: string | null;
           title: string;
         };
         if (data.assetId) {
-          useFocalStore.getState().setFocal(
-            assetToFocal(
-              { id: data.assetId, name: data.title ?? title, type: "report" },
-              threadId,
-            ),
-          );
+          useFocalStore
+            .getState()
+            .setFocal(
+              assetToFocal(
+                { id: data.assetId, name: data.title ?? title, type: "report" },
+                threadId,
+              ),
+            );
           if (useStageStore.getState().current.mode === "cockpit") {
             useStageStore.getState().setMode({ mode: "chat", threadId });
           }
           toast.success("Report généré", data.title ?? title);
         } else {
-          console.warn(
-            "[useRunReportSuggestion] run OK but assetId null",
-            specId,
-          );
+          console.warn("[useRunReportSuggestion] run OK but assetId null", specId);
           toast.success("Rapport calculé", "Aucun asset enregistré (vérifie la persistance).");
         }
       } catch (err) {
         if (createdThreadForThisRun) {
           nav.removeThread(threadId);
         }
-        toast.error(
-          "Échec génération",
-          err instanceof Error ? err.message : "Erreur inconnue",
-        );
+        toast.error("Échec génération", err instanceof Error ? err.message : "Erreur inconnue");
       } finally {
         setRunningSpecs((prev) => {
           const next = new Set(prev);

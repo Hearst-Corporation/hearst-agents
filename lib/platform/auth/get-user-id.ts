@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "./options";
 import { isDevBypassEnabled } from "./dev-bypass";
+import { authOptions } from "./options";
 
 // UUID Adrien dans public.users — utilisé en mode dev bypass (HEARST_DEV_AUTH_BYPASS=1)
 // pour avoir un identifiant cohérent avec les rows post-migration UUID.

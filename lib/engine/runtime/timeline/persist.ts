@@ -81,7 +81,9 @@ export async function persistRunEvent(input: {
 
   try {
     const { type, run_id, timestamp, ...rest } = input.payload;
-    void type; void run_id; void timestamp;
+    void type;
+    void run_id;
+    void timestamp;
 
     await sb.from("run_logs").insert({
       run_id: input.runId,
@@ -125,7 +127,9 @@ export async function getPersistedRunEvents(input: {
       let parsed: Record<string, unknown> = {};
       try {
         parsed = JSON.parse(row.message ?? "{}");
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
 
       return {
         type: row.actor ?? "unknown",

@@ -17,9 +17,9 @@
  */
 
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
-import type { ProviderId, ProviderDefinition } from "./types";
-import { getProvidersByCapability, getProviderById } from "./registry";
+import { getProviderById, getProvidersByCapability } from "./registry";
 import { getUsageState, recordProviderUsed } from "./state";
+import type { ProviderDefinition, ProviderId } from "./types";
 
 // ── Configuration ───────────────────────────────────────────
 
@@ -130,13 +130,14 @@ function scoreProvider(
   const coldStart = isColdStart(usage.usageCount, usage.successCount, usage.failureCount);
 
   const priorityScore = provider.priority * WEIGHT_PRIORITY;
-  const usageScore = Math.min(usage.usageCount, 100) / 100 * WEIGHT_USAGE;
+  const usageScore = (Math.min(usage.usageCount, 100) / 100) * WEIGHT_USAGE;
   const recencyScore = computeRecencyDecay(usage.lastUsedAt) * WEIGHT_RECENCY;
   const successScore = usage.successRate * WEIGHT_SUCCESS;
   const stickyBonus = computeStickinessBonus(provider, capability, userId, tenantId);
   const failurePenalty = computeFailurePenalty(usage.lastFailedAt);
 
-  let score = priorityScore + usageScore + recencyScore + successScore + stickyBonus - failurePenalty;
+  let score =
+    priorityScore + usageScore + recencyScore + successScore + stickyBonus - failurePenalty;
 
   if (coldStart) {
     score += (Math.random() - 0.5) * COLD_START_JITTER;
@@ -156,8 +157,9 @@ export function resolveProvider(ctx: ResolverContext): ResolverResultWithFallbac
     if (forced) {
       recordProviderUsed(forced.id, ctx.userId, ctx.tenantId, ctx.capability);
 
-      const remaining = getProvidersByCapability(ctx.capability)
-        .filter((p) => p.id !== forced.id && ctx.connectedProviders.includes(p.id));
+      const remaining = getProvidersByCapability(ctx.capability).filter(
+        (p) => p.id !== forced.id && ctx.connectedProviders.includes(p.id),
+      );
 
       return {
         provider: forced,
@@ -169,8 +171,9 @@ export function resolveProvider(ctx: ResolverContext): ResolverResultWithFallbac
   }
 
   // ── Capability-based resolution (indexed lookup) ────────
-  const candidates = getProvidersByCapability(ctx.capability)
-    .filter((p) => ctx.connectedProviders.includes(p.id));
+  const candidates = getProvidersByCapability(ctx.capability).filter((p) =>
+    ctx.connectedProviders.includes(p.id),
+  );
 
   if (candidates.length === 0) return null;
 
@@ -221,11 +224,9 @@ export function resolveFallback(
     return null;
   }
 
-  const candidates = getProvidersByCapability(ctx.capability)
-    .filter((p) =>
-      ctx.connectedProviders.includes(p.id)
-      && !failedProviderIds.includes(p.id),
-    );
+  const candidates = getProvidersByCapability(ctx.capability).filter(
+    (p) => ctx.connectedProviders.includes(p.id) && !failedProviderIds.includes(p.id),
+  );
 
   if (candidates.length === 0) return null;
 
@@ -247,4 +248,3 @@ export function resolveFallback(
     degraded: depth + 1 >= MAX_FALLBACK_DEPTH,
   };
 }
-

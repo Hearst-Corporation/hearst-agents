@@ -110,7 +110,10 @@ export class LLMCircuitBreaker {
   }
 
   /** Snapshot minimal pour l'observabilité (metrics endpoint). */
-  getProviderSnapshot(provider: string, tenantId?: string): {
+  getProviderSnapshot(
+    provider: string,
+    tenantId?: string,
+  ): {
     state: CircuitState;
     failures: number;
     openedAt: number | null;

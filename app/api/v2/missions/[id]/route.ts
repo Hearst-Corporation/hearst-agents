@@ -2,26 +2,27 @@
  * Mission Detail API — Get, update, and delete specific missions.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { getMission, disableMission, evictMission } from "@/lib/engine/runtime/missions/store";
-import { updateScheduledMission, deleteScheduledMission, getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateMissionSchema } from "@/lib/contracts/missions";
+import { disableMission, evictMission, getMission } from "@/lib/engine/runtime/missions/store";
+import {
+  deleteScheduledMission,
+  getScheduledMissions,
+  updateScheduledMission,
+} from "@/lib/engine/runtime/state/adapter";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
 async function verifyMissionOwnership(id: string, userId: string): Promise<boolean> {
   const memMission = getMission(id);
-  if (memMission && memMission.userId && memMission.userId !== userId) {
+  if (memMission?.userId && memMission.userId !== userId) {
     return false;
   }
   return true;
 }
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({ context: "GET /api/v2/missions/[id]" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });
@@ -52,10 +53,7 @@ export async function GET(
   return NextResponse.json({ mission });
 }
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   // Resolve scope with dev fallback allowed
   const { scope, error } = await requireScope({ context: "PATCH /api/v2/missions/[id]" });
   if (error) {
@@ -65,7 +63,7 @@ export async function PATCH(
   const { id } = await params;
 
   // Verify ownership
-  if (!await verifyMissionOwnership(id, scope.userId)) {
+  if (!(await verifyMissionOwnership(id, scope.userId))) {
     console.warn(`[MissionsAPI] Access denied — user mismatch for mission ${id}`);
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
@@ -96,9 +94,7 @@ export async function PATCH(
     }
     if (body.approvers !== undefined) {
       memMission.approvers =
-        body.approvers === null || body.approvers.length === 0
-          ? undefined
-          : body.approvers;
+        body.approvers === null || body.approvers.length === 0 ? undefined : body.approvers;
     }
     if (body.approvalMode !== undefined) {
       memMission.approvalMode = body.approvalMode;
@@ -134,9 +130,7 @@ export async function PATCH(
   }
   if (body.approvers !== undefined) {
     updates.approvers =
-      body.approvers === null || body.approvers.length === 0
-        ? []
-        : body.approvers;
+      body.approvers === null || body.approvers.length === 0 ? [] : body.approvers;
   }
   if (body.approvalMode !== undefined) {
     updates.approvalMode = body.approvalMode;
@@ -155,10 +149,7 @@ export async function PATCH(
   });
 }
 
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   // Resolve scope with dev fallback allowed
   const { scope, error } = await requireScope({ context: "DELETE /api/v2/missions/[id]" });
   if (error) {
@@ -168,7 +159,7 @@ export async function DELETE(
   const { id } = await params;
 
   // Verify ownership
-  if (!await verifyMissionOwnership(id, scope.userId)) {
+  if (!(await verifyMissionOwnership(id, scope.userId))) {
     console.warn(`[MissionsAPI] Access denied — user mismatch for mission ${id}`);
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
@@ -180,10 +171,7 @@ export async function DELETE(
   evictMission(id);
 
   if (!dbResult.ok) {
-    return NextResponse.json(
-      { error: dbResult.error ?? "delete_failed" },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: dbResult.error ?? "delete_failed" }, { status: 502 });
   }
 
   console.log(

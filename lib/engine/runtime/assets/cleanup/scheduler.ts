@@ -7,9 +7,9 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { StorageProvider } from "../storage/types";
-import { runAssetCleanup, type CleanupConfig, type CleanupResult } from "./worker";
 import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
+import type { StorageProvider } from "../storage/types";
+import { type CleanupConfig, type CleanupResult, runAssetCleanup } from "./worker";
 
 export interface SchedulerConfig {
   cronExpression: string; // e.g., "0 2 * * *" (daily at 2am)
@@ -49,19 +49,19 @@ export class CleanupScheduler {
     const DAILY_MS = 24 * 60 * 60 * 1000;
 
     console.log(
-      `[CleanupScheduler] Scheduled daily at ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")} — first run in ${Math.round(msUntilFirst / 60_000)}min`
+      `[CleanupScheduler] Scheduled daily at ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")} — first run in ${Math.round(msUntilFirst / 60_000)}min`,
     );
 
     this.initialTimeout = setTimeout(() => {
       void this.tick();
       this.timer = setInterval(() => void this.tick(), DAILY_MS);
-      
+
       // Register HMR cleanup for recurring timer
       registerHMRCleanup(() => {
         if (this.timer) clearInterval(this.timer);
       });
     }, msUntilFirst);
-    
+
     // Register HMR cleanup for initial timeout
     registerHMRCleanup(() => {
       if (this.initialTimeout) clearTimeout(this.initialTimeout);
@@ -124,7 +124,7 @@ export class CleanupScheduler {
       this.lastRun = new Date();
       this.lastResult = result;
       console.log(
-        `[CleanupScheduler] Run complete — ${result.assetsDeleted} deleted, ${result.filesDeleted} orphans, ${result.errors} errors (${result.durationMs}ms)`
+        `[CleanupScheduler] Run complete — ${result.assetsDeleted} deleted, ${result.filesDeleted} orphans, ${result.errors} errors (${result.durationMs}ms)`,
       );
       return result;
     } catch (err) {
@@ -145,7 +145,14 @@ function parseCronHourMinute(cron: string): { hour: number; minute: number } {
   if (parts.length >= 2) {
     const minute = parseInt(parts[0], 10);
     const hour = parseInt(parts[1], 10);
-    if (!isNaN(minute) && !isNaN(hour) && hour >= 0 && hour < 24 && minute >= 0 && minute < 60) {
+    if (
+      !Number.isNaN(minute) &&
+      !Number.isNaN(hour) &&
+      hour >= 0 &&
+      hour < 24 &&
+      minute >= 0 &&
+      minute < 60
+    ) {
       return { hour, minute };
     }
   }

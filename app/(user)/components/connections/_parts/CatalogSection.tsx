@@ -1,7 +1,7 @@
 "use client";
 
 import { AppLogo } from "../AppLogo";
-import { CATEGORIES_VISIBLE, stageVariant, type ComposioApp } from "../types";
+import { CATEGORIES_VISIBLE, type ComposioApp, stageVariant } from "../types";
 
 // ─── Categories bar — chips scrollables, filtre le wallpaper ──
 
@@ -158,8 +158,10 @@ function WallpaperTile({
   const isConnectable = app.connectable !== false;
   const variant = connected ? stageVariant(status ?? "active") : "active";
   const dotColor =
-    variant === "warn" ? "var(--color-warning)"
-      : variant === "error" ? "var(--color-error)"
+    variant === "warn"
+      ? "var(--color-warning)"
+      : variant === "error"
+        ? "var(--color-error)"
         : "var(--accent-teal)";
 
   const filter = connected
@@ -206,7 +208,14 @@ function LockBadge() {
       className="absolute top-1 right-1 inline-flex items-center justify-center"
       style={{ color: "var(--text-faint)" }}
     >
-      <svg width="9" height="11" viewBox="0 0 16 20" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg
+        width="9"
+        height="11"
+        viewBox="0 0 16 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
         <rect x="2" y="9" width="12" height="9" rx="1.5" />
         <path d="M5 9V6a3 3 0 0 1 6 0v3" strokeLinecap="round" />
       </svg>

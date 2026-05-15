@@ -2,7 +2,7 @@
  * Google Calendar preview formatters.
  */
 
-import { footer, header, line, preview, asArray, formatDateFR } from "./shared";
+import { asArray, footer, formatDateFR, header, line, preview } from "./shared";
 
 function extractDateTime(value: unknown): string {
   if (!value) return "—";
@@ -41,9 +41,7 @@ export function formatCalendarCreateEvent(args: Record<string, unknown>): string
     line("Début", start),
     line("Fin", end),
     location ? line("Lieu", location) : null,
-    attendeesList.length > 0
-      ? line("Participants", attendeesList.slice(0, 8).join(", "))
-      : null,
+    attendeesList.length > 0 ? line("Participants", attendeesList.slice(0, 8).join(", ")) : null,
     description ? line("Description", description) : null,
   ].filter(Boolean) as string[];
 

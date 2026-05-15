@@ -5,7 +5,12 @@
  * These mirror RunRecord / ScheduledMission but are DB-oriented.
  */
 
-export type PersistedRunStatus = "running" | "completed" | "failed" | "awaiting_approval" | "awaiting_clarification";
+export type PersistedRunStatus =
+  | "running"
+  | "completed"
+  | "failed"
+  | "awaiting_approval"
+  | "awaiting_clarification";
 
 export interface PersistedRunRecord {
   id: string;
@@ -33,11 +38,7 @@ export interface PersistedRunRecord {
   metadata?: Record<string, unknown>;
 }
 
-export type PersistedMissionRunStatus =
-  | "success"
-  | "failed"
-  | "blocked"
-  | "awaiting_approval";
+export type PersistedMissionRunStatus = "success" | "failed" | "blocked" | "awaiting_approval";
 
 export interface PersistedScheduledMission {
   id: string;

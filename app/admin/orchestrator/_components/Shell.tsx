@@ -13,13 +13,7 @@ const TABS = [
   { href: "/admin/orchestrator/release", label: "Release" },
 ];
 
-export function HomShell({
-  current,
-  children,
-}: {
-  current: string;
-  children: React.ReactNode;
-}) {
+export function HomShell({ current, children }: { current: string; children: React.ReactNode }) {
   return (
     <div className="h-full min-h-0 overflow-y-auto bg-bg text-text">
       <div className="px-(--space-8) pt-(--space-8) pb-(--space-4) border-b border-(--line)">
@@ -53,19 +47,11 @@ export function HomShell({
   );
 }
 
-export function PageHeader({
-  title,
-  subtitle,
-}: {
-  title: string;
-  subtitle?: string;
-}) {
+export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <div className="mb-(--space-6)">
       <h2 className="t-15 font-light text-text">{title}</h2>
-      {subtitle ? (
-        <p className="t-12 text-text-muted mt-(--space-1)">{subtitle}</p>
-      ) : null}
+      {subtitle ? <p className="t-12 text-text-muted mt-(--space-1)">{subtitle}</p> : null}
     </div>
   );
 }

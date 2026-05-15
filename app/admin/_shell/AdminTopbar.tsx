@@ -35,9 +35,7 @@ export default function AdminTopbar({ onMenuClick, env }: Props) {
       </button>
 
       <nav aria-label="Fil d'Ariane" className="flex items-center gap-(--space-2) min-w-0">
-        <span className="t-12 text-text-faint">
-          Admin
-        </span>
+        <span className="t-12 text-text-faint">Admin</span>
         {current && (
           <>
             <span className="t-12 text-text-faint">/</span>

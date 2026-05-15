@@ -20,10 +20,12 @@
  * manuellement avec `npx playwright test e2e/auth/uuid-cleanup.spec.ts`.
  */
 
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("@skip-ci UUID cleanup post-migration", () => {
-  test("legacy asset reste visible après login (RLS user-scoped + backfill 0026)", async ({ page }) => {
+  test("legacy asset reste visible après login (RLS user-scoped + backfill 0026)", async ({
+    page,
+  }) => {
     test.skip(!process.env.HEARST_E2E_RUN_AUTH, "Set HEARST_E2E_RUN_AUTH=1 to run");
 
     // 1. Login (utilise dev bypass si configuré)
@@ -42,7 +44,9 @@ test.describe("@skip-ci UUID cleanup post-migration", () => {
 
     expect(Array.isArray(data.assets)).toBe(true);
     if (data.assets.length === 0) {
-      console.warn("[E2E uuid-cleanup] 0 assets visible — soit migration 0026 incomplète, soit user n'a pas d'assets legacy");
+      console.warn(
+        "[E2E uuid-cleanup] 0 assets visible — soit migration 0026 incomplète, soit user n'a pas d'assets legacy",
+      );
       // On ne fail pas le test sur 0 assets : le user peut être nouveau.
       return;
     }

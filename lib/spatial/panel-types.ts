@@ -43,12 +43,7 @@ export type SpatialPanelPriority = 1 | 3 | 5 | 8 | 10;
  * - ephemeral : auto-fade après TTL ou interaction
  * - info : ouvert temporairement, fermable
  */
-export type SpatialPanelCategory =
-  | "sticky"
-  | "active"
-  | "interruptive"
-  | "ephemeral"
-  | "info";
+export type SpatialPanelCategory = "sticky" | "active" | "interruptive" | "ephemeral" | "info";
 
 /**
  * Configuration statique par type. Source de vérité pour priorité, catégorie,
@@ -67,26 +62,86 @@ export interface SpatialPanelConfig {
 
 export const SPATIAL_PANEL_CONFIG: Record<SpatialPanelType, SpatialPanelConfig> = {
   // Critiques
-  approval: { type: "approval", priority: 10, category: "interruptive", ttlMs: null, preferredOrbit: 0 },
-  clarification: { type: "clarification", priority: 10, category: "interruptive", ttlMs: null, preferredOrbit: 0 },
-  "connection-alert": { type: "connection-alert", priority: 10, category: "interruptive", ttlMs: null, preferredOrbit: 0 },
+  approval: {
+    type: "approval",
+    priority: 10,
+    category: "interruptive",
+    ttlMs: null,
+    preferredOrbit: 0,
+  },
+  clarification: {
+    type: "clarification",
+    priority: 10,
+    category: "interruptive",
+    ttlMs: null,
+    preferredOrbit: 0,
+  },
+  "connection-alert": {
+    type: "connection-alert",
+    priority: 10,
+    category: "interruptive",
+    ttlMs: null,
+    preferredOrbit: 0,
+  },
 
   // Actives
   mission: { type: "mission", priority: 8, category: "active", ttlMs: null, preferredOrbit: 1 },
-  "plan-step": { type: "plan-step", priority: 8, category: "active", ttlMs: null, preferredOrbit: 2 },
-  "asset-preview": { type: "asset-preview", priority: 8, category: "ephemeral", ttlMs: 30_000, preferredOrbit: 1 },
-  "chat-response": { type: "chat-response", priority: 8, category: "ephemeral", ttlMs: 15_000, preferredOrbit: 0 },
+  "plan-step": {
+    type: "plan-step",
+    priority: 8,
+    category: "active",
+    ttlMs: null,
+    preferredOrbit: 2,
+  },
+  "asset-preview": {
+    type: "asset-preview",
+    priority: 8,
+    category: "ephemeral",
+    ttlMs: 30_000,
+    preferredOrbit: 1,
+  },
+  "chat-response": {
+    type: "chat-response",
+    priority: 8,
+    category: "ephemeral",
+    ttlMs: 15_000,
+    preferredOrbit: 0,
+  },
 
   // Sticky
   brief: { type: "brief", priority: 5, category: "sticky", ttlMs: null, preferredOrbit: 0 },
   kpi: { type: "kpi", priority: 5, category: "sticky", ttlMs: null, preferredOrbit: 2 },
-  "meeting-intel": { type: "meeting-intel", priority: 5, category: "sticky", ttlMs: null, preferredOrbit: 3 },
+  "meeting-intel": {
+    type: "meeting-intel",
+    priority: 5,
+    category: "sticky",
+    ttlMs: null,
+    preferredOrbit: 3,
+  },
 
   // Info
   assets: { type: "assets", priority: 3, category: "info", ttlMs: null, preferredOrbit: 3 },
-  "kpi-pulse": { type: "kpi-pulse", priority: 3, category: "ephemeral", ttlMs: 6_000, preferredOrbit: 4 },
-  "memory-recall": { type: "memory-recall", priority: 3, category: "ephemeral", ttlMs: 10_000, preferredOrbit: 4 },
-  notification: { type: "notification", priority: 1, category: "ephemeral", ttlMs: 8_000, preferredOrbit: 5 },
+  "kpi-pulse": {
+    type: "kpi-pulse",
+    priority: 3,
+    category: "ephemeral",
+    ttlMs: 6_000,
+    preferredOrbit: 4,
+  },
+  "memory-recall": {
+    type: "memory-recall",
+    priority: 3,
+    category: "ephemeral",
+    ttlMs: 10_000,
+    preferredOrbit: 4,
+  },
+  notification: {
+    type: "notification",
+    priority: 1,
+    category: "ephemeral",
+    ttlMs: 8_000,
+    preferredOrbit: 5,
+  },
 };
 
 /**

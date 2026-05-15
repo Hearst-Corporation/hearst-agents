@@ -12,22 +12,24 @@
  * one-shot, le binaire ne survit pas à la requête.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { exportReportQuerySchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { exportPdf } from "@/lib/reports/export/pdf";
-import { exportXlsx } from "@/lib/reports/export/xlsx";
-import { exportCsv } from "@/lib/reports/export/csv";
-import type { ExportInput } from "@/lib/reports/export/types";
 import { getCatalogEntry } from "@/lib/reports/catalog";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { exportCsv } from "@/lib/reports/export/csv";
+import { exportPdf } from "@/lib/reports/export/pdf";
+import type { ExportInput } from "@/lib/reports/export/types";
+import { exportXlsx } from "@/lib/reports/export/xlsx";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
-import { exportReportQuerySchema } from "@/lib/contracts/reports";
 
 /* F-055: Safe Content-Disposition header — prevent CRLF injection + MIME filename */
 function safeFilename(name: string): string {
   // Supprime CR/LF/quote/backslash pour prévenir l'injection CRLF
-  const sanitized = String(name).replace(/[\r\n"\\]/g, "_").slice(0, 200);
+  const sanitized = String(name)
+    .replace(/[\r\n"\\]/g, "_")
+    .slice(0, 200);
   return sanitized;
 }
 
@@ -44,9 +46,7 @@ interface AssetPayloadEnvelope {
   narration?: string | null;
 }
 
-function unwrapPayload(
-  raw: string,
-): { payload: RenderPayload; narration: string | null } | null {
+function unwrapPayload(raw: string): { payload: RenderPayload; narration: string | null } | null {
   let parsed: unknown;
   try {
     parsed = JSON.parse(raw);
@@ -136,10 +136,7 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   }
 
   const provenance = (asset.provenance ?? {}) as Record<string, unknown>;
-  if (
-    provenance.userId !== undefined &&
-    provenance.userId !== scope.userId
-  ) {
+  if (provenance.userId !== undefined && provenance.userId !== scope.userId) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
 
@@ -164,7 +161,11 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
         workspaceId: (provenance.workspaceId as string | undefined) ?? scope.workspaceId,
         userId: scope.userId,
       });
-      meta = { ...tmpSpec.meta, title: asset.title ?? tmpSpec.meta.title, summary: asset.summary ?? tmpSpec.meta.summary };
+      meta = {
+        ...tmpSpec.meta,
+        title: asset.title ?? tmpSpec.meta.title,
+        summary: asset.summary ?? tmpSpec.meta.summary,
+      };
     } catch {
       meta = fallbackMeta(asset.title ?? "Rapport");
     }
@@ -183,15 +184,14 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   let result;
   try {
     result =
-      format === "pdf" ? await exportPdf(exportInput)
-      : format === "xlsx" ? await exportXlsx(exportInput)
-      : await exportCsv(exportInput);
+      format === "pdf"
+        ? await exportPdf(exportInput)
+        : format === "xlsx"
+          ? await exportXlsx(exportInput)
+          : await exportCsv(exportInput);
   } catch (err) {
     console.error(`[reports/export] generation failed (${format}):`, err);
-    return NextResponse.json(
-      { error: "generation_failed" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "generation_failed" }, { status: 500 });
   }
 
   // F-055: Safe filename with CRLF injection prevention + UTF-8 RFC 6266

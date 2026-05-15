@@ -45,23 +45,15 @@ export function BlockEditorRow({
       />
       <div className="flex flex-col flex-1 min-w-0" style={{ gap: "var(--space-1)" }}>
         <span
-          className={`t-11 truncate ${
-            isVisible ? "text-text-soft" : "text-text-faint"
-          }`}
+          className={`t-11 truncate ${isVisible ? "text-text-soft" : "text-text-faint"}`}
           title={titleText}
         >
           {titleText}
         </span>
         <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-          <span className="t-9 font-mono uppercase text-(--accent-teal)">
-            {block.type}
-          </span>
-          <span className="t-9 font-mono uppercase text-text-faint">
-            #{block.id}
-          </span>
-          <span className="t-9 font-mono uppercase text-text-faint">
-            col_{block.layout.col}
-          </span>
+          <span className="t-9 font-mono uppercase text-(--accent-teal)">{block.type}</span>
+          <span className="t-9 font-mono uppercase text-text-faint">#{block.id}</span>
+          <span className="t-9 font-mono uppercase text-text-faint">col_{block.layout.col}</span>
         </div>
       </div>
       <div className="flex items-center" style={{ gap: "var(--space-1)" }}>

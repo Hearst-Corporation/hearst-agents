@@ -4,20 +4,20 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { reportSpecSchema } from "@/lib/reports/spec/schema";
 import {
-  CATALOG,
-  getApplicableReports,
-  buildFounderCockpit,
   buildCustomer360,
   buildDealToCash,
+  buildEngineeringVelocity,
   buildFinancialPnL,
+  buildFounderCockpit,
+  buildHrPeople,
+  buildMarketingAarrr,
   buildProductAnalytics,
   buildSupportHealth,
-  buildEngineeringVelocity,
-  buildMarketingAarrr,
-  buildHrPeople,
+  CATALOG,
+  getApplicableReports,
 } from "@/lib/reports/catalog";
+import { reportSpecSchema } from "@/lib/reports/spec/schema";
 
 const SCOPE = {
   tenantId: "dev-tenant",
@@ -80,13 +80,7 @@ describe("catalogue — Zod validation", () => {
 
 describe("getApplicableReports — matrice connexions", () => {
   it("retourne ready quand toutes les apps sont connectées (Founder)", () => {
-    const out = getApplicableReports([
-      "stripe",
-      "hubspot",
-      "gmail",
-      "calendar",
-      "github",
-    ]);
+    const out = getApplicableReports(["stripe", "hubspot", "gmail", "calendar", "github"]);
     const founder = out.find((r) => r.title === "Founder Cockpit");
     expect(founder?.status).toBe("ready");
     expect(founder?.missingApps).toHaveLength(0);
@@ -163,11 +157,7 @@ describe("getApplicableReports — matrice connexions", () => {
     const ma = partial.find((r) => r.title === "Marketing AARRR");
     expect(ma?.status).toBe("partial");
 
-    const ready = getApplicableReports([
-      "googleanalytics",
-      "stripe",
-      "hubspot",
-    ]);
+    const ready = getApplicableReports(["googleanalytics", "stripe", "hubspot"]);
     const ma2 = ready.find((r) => r.title === "Marketing AARRR");
     expect(ma2?.status).toBe("ready");
     expect(ma2?.missingApps).toHaveLength(0);

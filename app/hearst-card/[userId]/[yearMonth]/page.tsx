@@ -14,11 +14,11 @@
  */
 
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import { buildMonthlyCardData } from "@/lib/cockpit/monthly-card";
-import { MonthlyCardView } from "@/lib/cockpit/monthly-card-view";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
+import { MonthlyCardView } from "@/lib/cockpit/monthly-card-view";
 import { getUserId } from "@/lib/platform/auth/get-user-id";
 import { requireScope } from "@/lib/platform/auth/scope";
 
@@ -113,10 +113,7 @@ export default async function HearstCardPage({ params, searchParams }: PageProps
     workspaceId = scope.workspaceId;
   }
 
-  const data = await buildMonthlyCardData(
-    { userId: pathUserId, tenantId, workspaceId },
-    yearMonth,
-  );
+  const data = await buildMonthlyCardData({ userId: pathUserId, tenantId, workspaceId }, yearMonth);
 
   const isScreenshot = screenshot === "1" || screenshot === "true";
 

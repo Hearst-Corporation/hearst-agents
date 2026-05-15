@@ -1,10 +1,7 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { useFocalStore, type FocalObject } from "@/stores/focal";
+import { beforeEach, describe, expect, it } from "vitest";
+import { type FocalObject, useFocalStore } from "@/stores/focal";
 
-const baseFocal = (
-  id: string,
-  overrides: Partial<FocalObject> = {}
-): FocalObject => ({
+const baseFocal = (id: string, overrides: Partial<FocalObject> = {}): FocalObject => ({
   id,
   type: "report",
   status: "ready",
@@ -33,10 +30,9 @@ describe("useFocalStore — focal-extended (invariants P0)", () => {
     useFocalStore.getState().setFocal(baseFocal("asset-1-focal", { sourceAssetId: "asset-1" }));
     expect(useFocalStore.getState().pinnedFocalKey).toBe("asset-1");
 
-    useFocalStore.getState().hydrateThreadState(
-      baseFocal("asset-2-focal", { sourceAssetId: "asset-2" }),
-      []
-    );
+    useFocalStore
+      .getState()
+      .hydrateThreadState(baseFocal("asset-2-focal", { sourceAssetId: "asset-2" }), []);
 
     expect(useFocalStore.getState().focal?.sourceAssetId).toBe("asset-1");
     expect(useFocalStore.getState().focal?.id).toBe("asset-1-focal");
@@ -59,15 +55,17 @@ describe("useFocalStore — focal-extended (invariants P0)", () => {
   // ── Pin match update ───────────────────────────────────────
 
   it("pin match update : hydrateThreadState met à jour le contenu quand même sourceAssetId", () => {
-    useFocalStore.getState().setFocal(
-      baseFocal("asset-1-focal", { sourceAssetId: "asset-1", title: "v1" })
-    );
+    useFocalStore
+      .getState()
+      .setFocal(baseFocal("asset-1-focal", { sourceAssetId: "asset-1", title: "v1" }));
     expect(useFocalStore.getState().pinnedFocalKey).toBe("asset-1");
 
-    useFocalStore.getState().hydrateThreadState(
-      baseFocal("asset-1-focal", { sourceAssetId: "asset-1", title: "v2" }),
-      []
-    );
+    useFocalStore
+      .getState()
+      .hydrateThreadState(
+        baseFocal("asset-1-focal", { sourceAssetId: "asset-1", title: "v2" }),
+        [],
+      );
 
     expect(useFocalStore.getState().focal?.title).toBe("v2");
     expect(useFocalStore.getState().pinnedFocalKey).toBe("asset-1");
@@ -76,17 +74,15 @@ describe("useFocalStore — focal-extended (invariants P0)", () => {
   // ── isValidContent — rejets ────────────────────────────────
 
   it("isValidContent rejette un focal avec 'Aucun email trouvé' dans le title", () => {
-    useFocalStore.getState().setFocal(
-      baseFocal("bad-1", { title: "Aucun email trouvé", body: "Aucun email trouvé" })
-    );
+    useFocalStore
+      .getState()
+      .setFocal(baseFocal("bad-1", { title: "Aucun email trouvé", body: "Aucun email trouvé" }));
     // focal doit rester null (contenu invalide)
     expect(useFocalStore.getState().focal).toBeNull();
   });
 
   it("isValidContent rejette un focal avec 'Accès non autorisé' dans le body", () => {
-    useFocalStore.getState().setFocal(
-      baseFocal("bad-2", { body: "Accès non autorisé" })
-    );
+    useFocalStore.getState().setFocal(baseFocal("bad-2", { body: "Accès non autorisé" }));
     expect(useFocalStore.getState().focal).toBeNull();
   });
 

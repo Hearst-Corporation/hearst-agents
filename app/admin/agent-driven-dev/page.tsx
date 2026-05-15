@@ -88,7 +88,7 @@ function StatutBadge({ statut, raw }: { statut: string; raw: string }) {
 
 function FeatureRow({ feature }: { feature: FeatureEntry }) {
   const niveauClass = feature.niveau
-    ? NIVEAU_STYLES[feature.niveau] ?? "text-text-muted"
+    ? (NIVEAU_STYLES[feature.niveau] ?? "text-text-muted")
     : "text-text-ghost";
   const gapClass = TEST_GAP_STYLES[feature.testGap] ?? "text-text-faint";
 
@@ -98,7 +98,14 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
         <div className="grid grid-cols-12 items-center gap-(--space-3) t-13">
           <div className="col-span-3 flex items-center gap-(--space-2) min-w-0">
             <span className="text-text-faint group-open:rotate-90 transition-transform shrink-0">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </span>
@@ -116,9 +123,7 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
           <div className="col-span-2 t-12 text-text-muted truncate">
             {feature.derniereRevue ?? "—"}
           </div>
-          <div className="col-span-1 t-12 text-text-soft text-right">
-            {feature.invariantsCount}
-          </div>
+          <div className="col-span-1 t-12 text-text-soft text-right">{feature.invariantsCount}</div>
           <div className={`col-span-2 t-12 text-right ${gapClass}`}>
             {feature.testsManquantsCount} manquant{feature.testsManquantsCount > 1 ? "s" : ""}
             <span className="t-9 text-text-ghost ml-(--space-2)">({feature.testGap})</span>
@@ -159,9 +164,7 @@ function FeatureRow({ feature }: { feature: FeatureEntry }) {
         </div>
 
         <div className="flex items-center gap-(--space-3) pt-(--space-2) border-t border-line">
-          <span className="t-11 font-medium text-text-faint">
-            Spec
-          </span>
+          <span className="t-11 font-medium text-text-faint">Spec</span>
           <code className="t-11 font-mono px-(--space-1) py-(--space-1) bg-(--surface-2) rounded-(--radius-xs) text-text-muted">
             {feature.href}
           </code>
@@ -196,9 +199,7 @@ function Kpi({
   };
   return (
     <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-1)">
-      <span className="t-11 font-medium text-text-faint">
-        {label}
-      </span>
+      <span className="t-11 font-medium text-text-faint">{label}</span>
       <span className={`t-24 font-light ${toneCls[tone]}`}>{value}</span>
       {sub && <span className="t-10 text-text-ghost">{sub}</span>}
     </div>
@@ -206,10 +207,7 @@ function Kpi({
 }
 
 export default async function AgentDrivenDevPage() {
-  const [{ manifest, error }, lockState] = await Promise.all([
-    loadManifest(),
-    getAgentLockState(),
-  ]);
+  const [{ manifest, error }, lockState] = await Promise.all([loadManifest(), getAgentLockState()]);
 
   return (
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
@@ -245,7 +243,7 @@ export default async function AgentDrivenDevPage() {
           <div className="grid gap-(--space-4) md:grid-cols-2 lg:grid-cols-4">
             <Kpi
               label="Verrouillées"
-              value={`${manifest.counts["verrouillé"] ?? 0} / ${manifest.total}`}
+              value={`${manifest.counts.verrouillé ?? 0} / ${manifest.total}`}
               sub="features avec spec figée"
               tone="money"
             />
@@ -255,11 +253,7 @@ export default async function AgentDrivenDevPage() {
               sub="non encore verrouillées"
               tone="warn"
             />
-            <Kpi
-              label="Invariants"
-              value={manifest.totals.invariants}
-              sub="règles à respecter"
-            />
+            <Kpi label="Invariants" value={manifest.totals.invariants} sub="règles à respecter" />
             <Kpi
               label="Tests manquants"
               value={manifest.totals.testsManquants}

@@ -3,8 +3,8 @@
 import { useMemo } from "react";
 import { useRuntimeStore } from "@/stores/runtime";
 import { reduceToolEvents } from "./chat-tool-stream-reducer";
-import { getToolCatalogEntry } from "./tool-catalog";
 import { ProviderChip } from "./ProviderChip";
+import { getToolCatalogEntry } from "./tool-catalog";
 
 export function ChatToolStream() {
   const events = useRuntimeStore((s) => s.events);
@@ -46,9 +46,7 @@ export function ChatToolStream() {
               <ProviderChip
                 providerId={entry.providerId}
                 label={entry.providerLabel}
-                status={
-                  isDone ? "success" : "pending"
-                }
+                status={isDone ? "success" : "pending"}
                 latencyMs={entry.latencyMs}
                 costUSD={entry.costUSD}
               />
@@ -58,9 +56,7 @@ export function ChatToolStream() {
               {isDone ? `${catalog.completedVerb}${isWrite ? " ✓" : ""}` : catalog.runningVerb}
             </span>
             {!isDone && (
-              <span
-                className={`ml-1 inline-block w-1 h-1 rounded-pill ${dot} animate-pulse`}
-              />
+              <span className={`ml-1 inline-block w-1 h-1 rounded-pill ${dot} animate-pulse`} />
             )}
           </li>
         );

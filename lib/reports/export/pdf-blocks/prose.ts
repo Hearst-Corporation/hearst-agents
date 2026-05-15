@@ -5,8 +5,8 @@
  * le reste en body sans-serif justifié. Convention magazine éditorial.
  */
 
-import { COLORS, FONT_SIZES, SPACE, PAGE } from "../pdf-tokens";
 import { setFont } from "../pdf-fonts";
+import { COLORS, FONT_SIZES, PAGE, SPACE } from "../pdf-tokens";
 
 export interface ProseInput {
   text: string;
@@ -29,14 +29,11 @@ export function renderProse(doc: PDFKit.PDFDocument, input: ProseInput): void {
   if (input.withLead && paragraphs.length > 0) {
     // Lead = premier paragraphe.
     setFont(doc, "serifItalic", input.embedded);
-    doc
-      .fontSize(FONT_SIZES.lead)
-      .fillColor(COLORS.accent)
-      .text(paragraphs[0], x, doc.y, {
-        width,
-        lineGap: 4,
-        align: "left",
-      });
+    doc.fontSize(FONT_SIZES.lead).fillColor(COLORS.accent).text(paragraphs[0], x, doc.y, {
+      width,
+      lineGap: 4,
+      align: "left",
+    });
     doc.y += SPACE.s4;
     bodyParas = paragraphs.slice(1);
   }

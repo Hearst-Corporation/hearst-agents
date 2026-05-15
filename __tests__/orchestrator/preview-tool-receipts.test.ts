@@ -9,7 +9,7 @@
  * Mirror the gate logic here for unit-level coverage.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { isWriteAction } from "@/lib/connectors/composio/write-guard";
 
 const META_TOOLS = new Set(["request_connection", "create_scheduled_mission"]);
@@ -54,7 +54,9 @@ describe("shouldSkipChip — write tools in preview mode", () => {
 
 describe("shouldSkipChip — write tools in execute mode", () => {
   it("does NOT skip when _preview: false", () => {
-    expect(shouldSkipChip("SLACK_SEND_MESSAGE", { channel: "#dev", text: "x", _preview: false })).toBe(false);
+    expect(
+      shouldSkipChip("SLACK_SEND_MESSAGE", { channel: "#dev", text: "x", _preview: false }),
+    ).toBe(false);
   });
 
   it("does NOT skip GMAIL_SEND_EMAIL with _preview: false", () => {

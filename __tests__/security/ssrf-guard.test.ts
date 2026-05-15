@@ -4,7 +4,7 @@
  * F-008, F-009, F-103 : validation assertSafeUrl + isUrlShapeAllowed
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { assertSafeUrl, isUrlShapeAllowed, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 
 // ── Mock DNS lookup ──────────────────────────────────────────────────────────
@@ -82,7 +82,9 @@ describe("assertSafeUrl", () => {
   });
 
   it("bloque les hostnames .internal", async () => {
-    await expect(assertSafeUrl("http://db.internal/admin")).rejects.toBeInstanceOf(SsrfBlockedError);
+    await expect(assertSafeUrl("http://db.internal/admin")).rejects.toBeInstanceOf(
+      SsrfBlockedError,
+    );
   });
 
   it("bloque DNS rebinding (hostname public mais résolution IP privée)", async () => {
@@ -137,8 +139,8 @@ describe("assertSafeUrl", () => {
       if (e instanceof SsrfBlockedError) err = e;
     }
     expect(err).not.toBeNull();
-    expect(err!.reason).toContain("file");
-    expect(err!.url).toBe("file:///etc/passwd");
+    expect(err?.reason).toContain("file");
+    expect(err?.url).toBe("file:///etc/passwd");
   });
 });
 

@@ -5,14 +5,14 @@
  * results compatible with the existing dispersed heuristics.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
+  DOMAIN_TAXONOMY,
+  getProvidersForDomain,
+  isAgentValidForDomain,
+  resolveDataIntent,
   resolveDomain,
   resolveRetrievalMode,
-  resolveDataIntent,
-  isAgentValidForDomain,
-  getProvidersForDomain,
-  DOMAIN_TAXONOMY,
 } from "@/lib/capabilities/taxonomy";
 
 // ── resolveDomain ───────────────────────────────────────────
@@ -113,7 +113,9 @@ describe("resolveRetrievalMode — backward compat with detectRetrievalMode", ()
   });
 
   it("calendar → structured_data", () => {
-    expect(resolveRetrievalMode("Quels sont mes rendez-vous aujourd'hui ?")).toBe("structured_data");
+    expect(resolveRetrievalMode("Quels sont mes rendez-vous aujourd'hui ?")).toBe(
+      "structured_data",
+    );
   });
 
   it("generic → null", () => {
@@ -185,7 +187,10 @@ describe("taxonomy integrity", () => {
       }
     }
     for (const [kw, domains] of keywordDomains) {
-      expect(domains.length, `keyword "${kw}" in too many domains: ${domains.join(", ")}`).toBeLessThanOrEqual(2);
+      expect(
+        domains.length,
+        `keyword "${kw}" in too many domains: ${domains.join(", ")}`,
+      ).toBeLessThanOrEqual(2);
     }
   });
 
@@ -204,29 +209,50 @@ describe("taxonomy integrity", () => {
     // CRM/Sales/Support
     expect(getProvidersForDomain("crm")).toEqual(
       expect.arrayContaining([
-        "salesforce", "pipedrive", "zoho", "close", "copper",
-        "zendesk", "intercom", "freshdesk", "helpscout",
+        "salesforce",
+        "pipedrive",
+        "zoho",
+        "close",
+        "copper",
+        "zendesk",
+        "intercom",
+        "freshdesk",
+        "helpscout",
       ]),
     );
     // Project mgmt
     expect(getProvidersForDomain("productivity")).toEqual(
       expect.arrayContaining([
-        "linear", "asana", "monday", "trello", "jira",
-        "clickup", "airtable",
+        "linear",
+        "asana",
+        "monday",
+        "trello",
+        "jira",
+        "clickup",
+        "airtable",
       ]),
     );
     // Communication
     expect(getProvidersForDomain("communication")).toEqual(
       expect.arrayContaining([
-        "whatsapp", "twilio", "vonage", "discord",
-        "microsoftteams", "sendgrid", "mailchimp",
+        "whatsapp",
+        "twilio",
+        "vonage",
+        "discord",
+        "microsoftteams",
+        "sendgrid",
+        "mailchimp",
       ]),
     );
     // Finance / e-commerce / accounting
     expect(getProvidersForDomain("finance")).toEqual(
       expect.arrayContaining([
-        "stripe", "quickbooks", "xero",
-        "shopify", "woocommerce", "bigcommerce",
+        "stripe",
+        "quickbooks",
+        "xero",
+        "shopify",
+        "woocommerce",
+        "bigcommerce",
       ]),
     );
     // Dev
@@ -234,9 +260,7 @@ describe("taxonomy integrity", () => {
       expect.arrayContaining(["github", "gitlab", "bitbucket", "jira"]),
     );
     // Design
-    expect(getProvidersForDomain("design")).toEqual(
-      expect.arrayContaining(["figma", "canva"]),
-    );
+    expect(getProvidersForDomain("design")).toEqual(expect.arrayContaining(["figma", "canva"]));
     // Analytics
     expect(getProvidersForDomain("analysis")).toEqual(
       expect.arrayContaining(["amplitude", "mixpanel", "segment"]),

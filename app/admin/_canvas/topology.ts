@@ -83,12 +83,33 @@ export const NODES: CanvasNode[] = [
   { id: "router", label: "Router", x: COL_ROUTER, y: ROW_TOP, width: NODE_W, height: NODE_H },
   { id: "safety", label: "Safety", x: COL_SAFETY, y: ROW_TOP, width: NODE_W, height: NODE_H },
   { id: "intent", label: "Intent", x: COL_INTENT, y: ROW_TOP, width: NODE_W, height: NODE_H },
-  { id: "preflight", label: "Preflight", x: COL_PREFLIGHT, y: ROW_TOP, width: NODE_W, height: NODE_H },
+  {
+    id: "preflight",
+    label: "Preflight",
+    x: COL_PREFLIGHT,
+    y: ROW_TOP,
+    width: NODE_W,
+    height: NODE_H,
+  },
   { id: "tools", label: "Outils", x: COL_TOOLS, y: ROW_TOP, width: NODE_W, height: NODE_H },
   { id: "complete", label: "Complete", x: COL_COMPLETE, y: ROW_TOP, width: NODE_W, height: NODE_H },
   { id: "agent", label: "Agent", x: COL_PREFLIGHT, y: ROW_BOTTOM, width: NODE_W, height: NODE_H },
-  { id: "research", label: "Recherche", x: COL_TOOLS, y: ROW_BOTTOM, width: NODE_W, height: NODE_H },
-  { id: "pipeline", label: "Pipeline", x: COL_COMPLETE, y: ROW_BOTTOM, width: NODE_W, height: NODE_H },
+  {
+    id: "research",
+    label: "Recherche",
+    x: COL_TOOLS,
+    y: ROW_BOTTOM,
+    width: NODE_W,
+    height: NODE_H,
+  },
+  {
+    id: "pipeline",
+    label: "Pipeline",
+    x: COL_COMPLETE,
+    y: ROW_BOTTOM,
+    width: NODE_W,
+    height: NODE_H,
+  },
 ];
 
 export const EDGES: CanvasEdge[] = [

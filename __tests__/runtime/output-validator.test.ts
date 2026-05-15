@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { validateOutput } from "@/lib/engine/runtime/output-validator";
 
 describe("validateOutput", () => {
@@ -60,7 +60,7 @@ describe("validateOutput", () => {
   it("includes policy_result when policy provided", () => {
     const r = validateOutput("hello", { policy: {} });
     expect(r.policy_result).toBeDefined();
-    expect(r.policy_result!.checks.length).toBeGreaterThanOrEqual(1);
+    expect(r.policy_result?.checks.length).toBeGreaterThanOrEqual(1);
   });
 
   it("reports failed_guards correctly", () => {

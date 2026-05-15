@@ -69,7 +69,7 @@ export interface StorageProvider {
       contentType: string;
       metadata?: Record<string, string>;
       tenantId?: string;
-    }
+    },
   ): Promise<UploadResult>;
 
   /**
@@ -83,7 +83,7 @@ export interface StorageProvider {
   getSignedUrl(
     key: string,
     operation: "read" | "write",
-    options?: SignedUrlOptions
+    options?: SignedUrlOptions,
   ): Promise<string>;
 
   /**

@@ -7,8 +7,8 @@
  * confonde pas une démo avec un vrai dataset PMS.
  */
 
-import type { WorkflowHandler } from "./types";
 import { getMockArrivals } from "@/lib/verticals/hospitality/mock-data";
+import type { WorkflowHandler } from "./types";
 
 export const pmsListArrivalsToday: WorkflowHandler = async (args) => {
   const date =

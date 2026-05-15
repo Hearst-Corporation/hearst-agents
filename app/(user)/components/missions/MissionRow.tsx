@@ -116,16 +116,18 @@ export function MissionRow({
   const ops: MissionOpsStatus = mission.opsStatus ?? "idle";
 
   return (
-    <div
-      className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 items-start py-6 border-b border-(--border-soft) px-2 group transition-colors"
-    >
+    <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-x-6 items-start py-6 border-b border-(--border-soft) px-2 group transition-colors">
       <div className="min-w-0 flex gap-4">
         <button
           type="button"
           onClick={() => !isToggling && onToggle(mission)}
           disabled={isToggling}
           className={`w-2 h-2 rounded-pill mt-1 shrink-0 transition-colors ${
-            isToggling ? "animate-pulse bg-[var(--text-ghost)]" : mission.enabled ? "bg-[var(--money)]" : "bg-[var(--text-faint)]"
+            isToggling
+              ? "animate-pulse bg-[var(--text-ghost)]"
+              : mission.enabled
+                ? "bg-[var(--money)]"
+                : "bg-[var(--text-faint)]"
           }`}
           title={isToggling ? "En cours…" : mission.enabled ? "Désactiver" : "Activer"}
           aria-label={isToggling ? "En cours…" : mission.enabled ? "Désactiver" : "Activer"}
@@ -136,9 +138,7 @@ export function MissionRow({
           className="min-w-0 text-left group/open cursor-pointer"
           title={`Open ${mission.name}`}
         >
-          <p className="t-9 font-light text-text-faint mb-1">
-            Réf {mission.id.slice(0, 8)}
-          </p>
+          <p className="t-9 font-light text-text-faint mb-1">Réf {mission.id.slice(0, 8)}</p>
           <h3 className="t-13 font-medium text-text tracking-tight group-hover/open:text-(--accent-teal) transition-colors">
             {mission.name}
           </h3>
@@ -212,7 +212,8 @@ export function MissionRow({
             className="block ml-auto t-9 font-medium border-b border-(--gold) text-(--gold) pb-0.5 cursor-pointer hover:opacity-80 transition-opacity"
             title={`Mode ${mission.approval.mode} · ${mission.approval.approved} approuvé(s) · ${mission.approval.pending} en attente${mission.approval.rejected > 0 ? ` · ${mission.approval.rejected} rejeté(s)` : ""}`}
           >
-            En attente d&apos;approbation · {mission.approval.approved}/{mission.approval.total} votes
+            En attente d&apos;approbation · {mission.approval.approved}/{mission.approval.total}{" "}
+            votes
           </button>
         )}
         <span className={`inline-block t-9 font-medium border-b pb-0.5 ${STATUS_LINE[ops]}`}>
@@ -227,9 +228,7 @@ export function MissionRow({
               {Math.floor((currentTime - mission.runningSince) / 1000)} s
             </div>
           )}
-          {mission.nextRun && (
-            <div>Prochain {new Date(mission.nextRun).toLocaleDateString()}</div>
-          )}
+          {mission.nextRun && <div>Prochain {new Date(mission.nextRun).toLocaleDateString()}</div>}
         </div>
       </div>
       <div className="flex items-start justify-end gap-1 pt-0.5">

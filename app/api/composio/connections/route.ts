@@ -6,13 +6,13 @@
  */
 
 import { NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
 import {
-  listConnections,
-  isComposioConfigured,
   getComposio,
   getComposioInitError,
+  isComposioConfigured,
+  listConnections,
 } from "@/lib/connectors/composio";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
 
 export async function GET() {
   const userId = await getUserId();
@@ -30,7 +30,11 @@ export async function GET() {
   if (!client) {
     const err = getComposioInitError();
     return NextResponse.json(
-      { ok: false, error: err?.code ?? "composio_unavailable", message: err?.message ?? "Composio SDK could not be loaded" },
+      {
+        ok: false,
+        error: err?.code ?? "composio_unavailable",
+        message: err?.message ?? "Composio SDK could not be loaded",
+      },
       { status: 503 },
     );
   }

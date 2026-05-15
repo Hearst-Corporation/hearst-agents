@@ -8,8 +8,8 @@
 
 import { useRouter } from "next/navigation";
 import type { Thread } from "@/stores/navigation";
-import { AppIcon, PlusIcon } from "./icons";
 import { CollapsedTile } from "./CollapsedTile";
+import { AppIcon, PlusIcon } from "./icons";
 import type { BadgeSeverity } from "./TopMenuItem";
 
 export interface RailCollapsedBodyProps {
@@ -66,8 +66,7 @@ export function RailCollapsedBody({
               right: "-2px",
               width: "var(--space-2)",
               height: "var(--space-2)",
-              background:
-                oauthSeverity === "error" ? "var(--color-error)" : "var(--warn)",
+              background: oauthSeverity === "error" ? "var(--color-error)" : "var(--warn)",
               boxShadow: `0 0 0 1.5px var(--rail)`,
             }}
           />

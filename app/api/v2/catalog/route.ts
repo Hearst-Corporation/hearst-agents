@@ -5,18 +5,18 @@
  * Returns services with real connection status, filtered and paginated.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import {
+  enrichWithConnectionStatus,
+  filterServices,
+  getAllBundles,
   getAllServices,
+  getRecommendedServices,
   getServicesByCategory,
   getServicesByTier,
-  getRecommendedServices,
-  getAllBundles,
-  filterServices,
-  enrichWithConnectionStatus,
 } from "@/lib/integrations/catalog";
 import type { CatalogFilters, ServiceDefinition } from "@/lib/integrations/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 

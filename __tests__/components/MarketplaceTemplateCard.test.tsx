@@ -4,14 +4,12 @@
  * MarketplaceTemplateCard — render, kind, rating, clones, featured.
  */
 
-import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { MarketplaceTemplateCard } from "@/app/(user)/components/marketplace/MarketplaceTemplateCard";
 import type { MarketplaceTemplateSummary } from "@/lib/marketplace/types";
 
-function fixture(
-  overrides: Partial<MarketplaceTemplateSummary> = {},
-): MarketplaceTemplateSummary {
+function fixture(overrides: Partial<MarketplaceTemplateSummary> = {}): MarketplaceTemplateSummary {
   return {
     id: "tpl-1",
     kind: "workflow",
@@ -52,20 +50,12 @@ describe("MarketplaceTemplateCard", () => {
   });
 
   it("affiche tiret quand pas de rating", () => {
-    render(
-      <MarketplaceTemplateCard
-        template={fixture({ ratingAvg: 0, ratingCount: 0 })}
-      />,
-    );
+    render(<MarketplaceTemplateCard template={fixture({ ratingAvg: 0, ratingCount: 0 })} />);
     expect(screen.getByText("—")).toBeTruthy();
   });
 
   it("expose Anonyme quand authorDisplayName null", () => {
-    render(
-      <MarketplaceTemplateCard
-        template={fixture({ authorDisplayName: null })}
-      />,
-    );
+    render(<MarketplaceTemplateCard template={fixture({ authorDisplayName: null })} />);
     expect(screen.getByText("Anonyme")).toBeTruthy();
   });
 
@@ -75,9 +65,7 @@ describe("MarketplaceTemplateCard", () => {
   });
 
   it("link href pointe vers le détail", () => {
-    const { container } = render(
-      <MarketplaceTemplateCard template={fixture()} />,
-    );
+    const { container } = render(<MarketplaceTemplateCard template={fixture()} />);
     const link = container.querySelector("a");
     expect(link?.getAttribute("href")).toBe("/marketplace/tpl-1");
   });

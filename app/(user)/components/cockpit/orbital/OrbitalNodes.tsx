@@ -1,12 +1,19 @@
 "use client";
 
-import { useServicesStore } from "@/stores/services";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { useServicesStore } from "@/stores/services";
 import { OrbitalNode } from "./OrbitalNode";
 
 function GmailIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M22 6 12 13 2 6" />
       <path d="M2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6" />
     </svg>
@@ -14,7 +21,14 @@ function GmailIcon() {
 }
 function NotionIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M3 3h18v18H3z" />
       <path d="M7 7h3v10H7zM14 7h3v10h-3z" />
     </svg>
@@ -22,7 +36,14 @@ function NotionIcon() {
 }
 function DriveIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 3 2 19h20L12 3Z" />
       <path d="M9 15h6" />
     </svg>
@@ -30,7 +51,14 @@ function DriveIcon() {
 }
 function AgentResearchIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.35-4.35" />
     </svg>
@@ -38,7 +66,14 @@ function AgentResearchIcon() {
 }
 function AgentWriterIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 20h9" />
       <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
     </svg>
@@ -46,7 +81,14 @@ function AgentWriterIcon() {
 }
 function CalendarIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="4" width="18" height="18" rx="2" />
       <path d="M16 2v4M8 2v4M3 10h18" />
     </svg>
@@ -113,7 +155,7 @@ const NODE_DEFS: NodeDef[] = [
     getSubInfo: (data) => {
       const next = data.agenda[0];
       if (next) {
-        return next.title.length > 14 ? next.title.slice(0, 13) + "…" : next.title;
+        return next.title.length > 14 ? `${next.title.slice(0, 13)}…` : next.title;
       }
       return `${data.agenda.length} événement${data.agenda.length !== 1 ? "s" : ""}`;
     },
@@ -136,7 +178,7 @@ interface OrbitalNodesProps {
 export function OrbitalNodes({ data, row }: OrbitalNodesProps) {
   const services = useServicesStore((s) => s.services);
   const connectedIds = new Set(
-    services.filter((s) => s.connectionStatus === "connected").map((s) => s.id)
+    services.filter((s) => s.connectionStatus === "connected").map((s) => s.id),
   );
 
   const indices = ROW_MAP[row] ?? [];

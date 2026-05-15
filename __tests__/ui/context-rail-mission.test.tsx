@@ -13,8 +13,8 @@
  *  - rendu des derniers runs
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ContextRailForMission } from "@/app/(user)/components/context-rail/ContextRailForMission";
 import { useStageStore } from "@/stores/stage";
 
@@ -43,7 +43,9 @@ function mockFetch() {
     if (url.includes("/api/v2/missions") && url.includes("/context") && method === "GET") {
       return {
         ok: true,
-        json: async () => ({ context: { summary: null, summaryUpdatedAt: null, recentMessages: [] } }),
+        json: async () => ({
+          context: { summary: null, summaryUpdatedAt: null, recentMessages: [] },
+        }),
         text: async () => "",
       } as Response;
     }

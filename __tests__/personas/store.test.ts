@@ -4,19 +4,19 @@
  * En l'absence de Supabase configuré (env de test), `getServerSupabase()`
  * renvoie null → on vérifie le comportement fallback (builtins).
  */
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: vi.fn(() => null),
 }));
 
-import {
-  listPersonasForUser,
-  getPersonaById,
-  getDefaultPersona,
-  getPersonaForSurface,
-} from "@/lib/personas/store";
 import { BUILTIN_PERSONAS } from "@/lib/personas/defaults";
+import {
+  getDefaultPersona,
+  getPersonaById,
+  getPersonaForSurface,
+  listPersonasForUser,
+} from "@/lib/personas/store";
 
 describe("personas store — fallback builtins (Supabase absent)", () => {
   beforeEach(() => {

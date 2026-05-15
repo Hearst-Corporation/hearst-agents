@@ -1,7 +1,8 @@
 "use client";
 
-import { useStageStore } from "@/stores/stage";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useStageStore } from "@/stores/stage";
 
 const ACTIONS = [
   { id: "brief", label: "Obtenir mon brief", mode: "chat" as const, href: null },
@@ -10,6 +11,36 @@ const ACTIONS = [
   { id: "mission", label: "Lancer une mission", mode: null, href: "/missions/builder" },
   { id: "track", label: "Suivre mes missions", mode: null, href: "/missions" },
 ];
+
+function QuickActionButton({ label, onClick }: { label: string; onClick: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: "6px 14px",
+        borderRadius: "var(--radius-pill)",
+        fontWeight: 400,
+        color: hovered ? "var(--mono-text-70)" : "var(--mono-text-35)",
+        background: hovered ? "var(--mono-surface)" : "transparent",
+        border: `0.5px solid ${hovered ? "var(--mono-border-hover)" : "var(--mono-border)"}`,
+        cursor: "pointer",
+        transition: [
+          "color var(--duration-base) var(--ease-standard)",
+          "border-color var(--duration-base) var(--ease-standard)",
+          "background-color var(--duration-base) var(--ease-standard)",
+        ].join(", "),
+        letterSpacing: "var(--tracking-hairline)",
+        fontSize: "inherit",
+      }}
+    >
+      {label}
+    </button>
+  );
+}
 
 export function OrbitalQuickActions() {
   const setMode = useStageStore((s) => s.setMode);
@@ -32,35 +63,11 @@ export function OrbitalQuickActions() {
       }}
     >
       {ACTIONS.map((action) => (
-        <button
+        <QuickActionButton
           key={action.id}
-          type="button"
+          label={action.label}
           onClick={() => handleClick(action)}
-          style={{
-            padding: "6px 14px",
-            borderRadius: 100,
-            fontSize: 12,
-            fontWeight: 400,
-            color: "var(--mono-text-35)",
-            background: "transparent",
-            border: "0.5px solid var(--mono-border)",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-            letterSpacing: "0.01em",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = "var(--mono-text-70)";
-            e.currentTarget.style.borderColor = "var(--mono-border-hover)";
-            e.currentTarget.style.background = "var(--mono-surface)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "var(--mono-text-35)";
-            e.currentTarget.style.borderColor = "var(--mono-border)";
-            e.currentTarget.style.background = "transparent";
-          }}
-        >
-          {action.label}
-        </button>
+        />
       ))}
     </div>
   );

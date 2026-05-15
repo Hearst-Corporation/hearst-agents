@@ -20,15 +20,13 @@ export function SignalTypesSection() {
     <section>
       <SectionTitle>Types de signaux</SectionTitle>
       <p className="t-13 mb-4" style={{ color: "var(--text-muted)" }}>
-        Référence de tous les signaux business et leur sévérité. Utilisez les filtres par canal ci-dessus.
+        Référence de tous les signaux business et leur sévérité. Utilisez les filtres par canal
+        ci-dessus.
       </p>
       <div className="flex flex-col gap-1">
         {SEVERITY_ORDER.map((sev) => (
           <div key={sev}>
-            <p
-              className="t-9 mb-2 mt-3"
-              style={{ color: "var(--text-faint)" }}
-            >
+            <p className="t-9 mb-2 mt-3" style={{ color: "var(--text-faint)" }}>
               {SEVERITY_LABEL[sev]}
             </p>
             <div className="flex flex-wrap gap-2">

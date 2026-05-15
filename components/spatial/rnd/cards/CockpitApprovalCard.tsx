@@ -1,8 +1,8 @@
 "use client";
 
+import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
 import { useRuntimeStore } from "@/stores/runtime";
 import { CockpitCardShell } from "./CockpitCardShell";
-import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
 
 /**
  * Card Approval — HITL bloquant.
@@ -12,9 +12,7 @@ import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
  */
 export function CockpitApprovalCard(_props: SpatialPanelCardProps) {
   const currentPlan = useRuntimeStore((s) => s.currentPlan);
-  const awaitingStep = currentPlan?.steps.find(
-    (s) => s.status === "awaiting_approval",
-  );
+  const awaitingStep = currentPlan?.steps.find((s) => s.status === "awaiting_approval");
 
   return (
     <CockpitCardShell>

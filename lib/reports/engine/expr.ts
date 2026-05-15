@@ -26,15 +26,7 @@
 
 // ── Tokenizer ──────────────────────────────────────────────
 
-type TokenKind =
-  | "NUMBER"
-  | "STRING"
-  | "IDENT"
-  | "OP"
-  | "LPAREN"
-  | "RPAREN"
-  | "COMMA"
-  | "EOF";
+type TokenKind = "NUMBER" | "STRING" | "IDENT" | "OP" | "LPAREN" | "RPAREN" | "COMMA" | "EOF";
 
 interface Token {
   kind: TokenKind;
@@ -100,15 +92,28 @@ function tokenize(src: string): Token[] {
           (src[i] >= "0" && src[i] <= "9") ||
           src[i] === "_" ||
           src[i] === ".")
-      ) i++;
+      )
+        i++;
       tokens.push({ kind: "IDENT", value: src.slice(start, i), pos: start });
       continue;
     }
 
     // parens / virgule
-    if (c === "(") { tokens.push({ kind: "LPAREN", value: "(", pos: i }); i++; continue; }
-    if (c === ")") { tokens.push({ kind: "RPAREN", value: ")", pos: i }); i++; continue; }
-    if (c === ",") { tokens.push({ kind: "COMMA", value: ",", pos: i }); i++; continue; }
+    if (c === "(") {
+      tokens.push({ kind: "LPAREN", value: "(", pos: i });
+      i++;
+      continue;
+    }
+    if (c === ")") {
+      tokens.push({ kind: "RPAREN", value: ")", pos: i });
+      i++;
+      continue;
+    }
+    if (c === ",") {
+      tokens.push({ kind: "COMMA", value: ",", pos: i });
+      i++;
+      continue;
+    }
 
     // opérateurs (2 chars puis 1 char)
     const two = c + (src[i + 1] ?? "");
@@ -139,20 +144,7 @@ export type ExprAst =
   | { kind: "unary"; op: "!" | "-"; expr: ExprAst }
   | { kind: "binary"; op: BinaryOp; left: ExprAst; right: ExprAst };
 
-type BinaryOp =
-  | "+"
-  | "-"
-  | "*"
-  | "/"
-  | "%"
-  | "=="
-  | "!="
-  | "<"
-  | "<="
-  | ">"
-  | ">="
-  | "&&"
-  | "||";
+type BinaryOp = "+" | "-" | "*" | "/" | "%" | "==" | "!=" | "<" | "<=" | ">" | ">=" | "&&" | "||";
 
 // ── Parser (récursif descendant) ────────────────────────────
 
@@ -168,8 +160,9 @@ class Parser {
     return ast;
   }
 
-  private peek(): Token { return this.tokens[this.i]; }
-  private next(): Token { return this.tokens[this.i++]; }
+  private peek(): Token {
+    return this.tokens[this.i];
+  }
 
   private match(kind: TokenKind, value?: string): Token | null {
     const tok = this.peek();
@@ -304,7 +297,10 @@ class Parser {
 // ── Erreur typée ────────────────────────────────────────────
 
 export class ExprError extends Error {
-  constructor(message: string, public pos: number) {
+  constructor(
+    message: string,
+    public pos: number,
+  ) {
     super(`expr: ${message} (pos ${pos})`);
     this.name = "ExprError";
   }
@@ -340,11 +336,16 @@ const FUNCTIONS: Record<string, (...args: unknown[]) => unknown> = {
     if (ta === null || tb === null) return null;
     const ms = tb - ta;
     switch (unit) {
-      case "d": return Math.floor(ms / 86_400_000);
-      case "w": return Math.floor(ms / (7 * 86_400_000));
-      case "m": return Math.floor(ms / (30 * 86_400_000));
-      case "y": return Math.floor(ms / (365 * 86_400_000));
-      default: return null;
+      case "d":
+        return Math.floor(ms / 86_400_000);
+      case "w":
+        return Math.floor(ms / (7 * 86_400_000));
+      case "m":
+        return Math.floor(ms / (30 * 86_400_000));
+      case "y":
+        return Math.floor(ms / (365 * 86_400_000));
+      default:
+        return null;
     }
   },
   /** num(v) — coerce vers number, retourne null si impossible. */
@@ -393,13 +394,15 @@ function resolveField(row: Row, path: string): unknown {
 }
 
 function hasOwn(obj: object, key: string): boolean {
-  return Object.prototype.hasOwnProperty.call(obj, key);
+  return Object.hasOwn(obj, key);
 }
 
 function evalAst(ast: ExprAst, row: Row): unknown {
   switch (ast.kind) {
-    case "lit": return ast.value;
-    case "field": return resolveField(row, ast.name);
+    case "lit":
+      return ast.value;
+    case "field":
+      return resolveField(row, ast.name);
     case "fn": {
       const fn = FUNCTIONS[ast.name];
       if (!fn) throw new ExprError(`fonction inconnue '${ast.name}'`, 0);
@@ -413,7 +416,8 @@ function evalAst(ast: ExprAst, row: Row): unknown {
       if (typeof v === "number") return -v;
       return null;
     }
-    case "binary": return evalBinary(ast.op, evalAst(ast.left, row), evalAst(ast.right, row));
+    case "binary":
+      return evalBinary(ast.op, evalAst(ast.left, row), evalAst(ast.right, row));
   }
 }
 

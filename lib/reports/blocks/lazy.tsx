@@ -10,11 +10,11 @@
 
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
-import type { WaterfallDatum } from "@/lib/reports/blocks/Waterfall";
 import type { CohortRow } from "@/lib/reports/blocks/CohortTriangle";
-import type { SankeyNode, SankeyLink } from "@/lib/reports/blocks/Sankey";
-import type { RadarSeries } from "@/lib/reports/blocks/Radar";
 import type { GanttRange, GanttTask } from "@/lib/reports/blocks/Gantt";
+import type { RadarSeries } from "@/lib/reports/blocks/Radar";
+import type { SankeyLink, SankeyNode } from "@/lib/reports/blocks/Sankey";
+import type { WaterfallDatum } from "@/lib/reports/blocks/Waterfall";
 
 // ── Types des props des blocs lourds ────────────────────────────────────────
 
@@ -107,12 +107,12 @@ export const LazySankey = dynamic(
   { loading: () => <BlockSkeleton />, ssr: false },
 ) as ComponentType<SankeyLazyProps>;
 
-export const LazyRadar = dynamic(
-  () => import("@/lib/reports/blocks/Radar").then((m) => m.Radar),
-  { loading: () => <BlockSkeleton />, ssr: false },
-) as ComponentType<RadarLazyProps>;
+export const LazyRadar = dynamic(() => import("@/lib/reports/blocks/Radar").then((m) => m.Radar), {
+  loading: () => <BlockSkeleton />,
+  ssr: false,
+}) as ComponentType<RadarLazyProps>;
 
-export const LazyGantt = dynamic(
-  () => import("@/lib/reports/blocks/Gantt").then((m) => m.Gantt),
-  { loading: () => <BlockSkeleton />, ssr: false },
-) as ComponentType<GanttLazyProps>;
+export const LazyGantt = dynamic(() => import("@/lib/reports/blocks/Gantt").then((m) => m.Gantt), {
+  loading: () => <BlockSkeleton />,
+  ssr: false,
+}) as ComponentType<GanttLazyProps>;

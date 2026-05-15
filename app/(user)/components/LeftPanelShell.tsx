@@ -13,8 +13,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { useNavigationStore } from "@/stores/navigation";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { useNavigationStore } from "@/stores/navigation";
 import { TimelineRail } from "./TimelineRail";
 
 export function LeftPanelShell() {
@@ -37,7 +37,13 @@ export function LeftPanelShell() {
     }
   }, [isMobile, leftDrawerOpen, closeLeftDrawer]);
 
-  return <MobileAwareTimeline isMobile={isMobile} leftDrawerOpen={leftDrawerOpen} closeLeftDrawer={closeLeftDrawer} />;
+  return (
+    <MobileAwareTimeline
+      isMobile={isMobile}
+      leftDrawerOpen={leftDrawerOpen}
+      closeLeftDrawer={closeLeftDrawer}
+    />
+  );
 }
 
 function MobileAwareTimeline({

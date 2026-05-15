@@ -18,14 +18,8 @@
 import { randomUUID } from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
 import { globalRunBus } from "@/lib/events/global-bus";
-import type {
-  BrowserAction,
-  BrowserActionType,
-} from "@/lib/events/types";
-import {
-  getBrowserContext,
-  type PlaywrightBridge,
-} from "./playwright-bridge";
+import type { BrowserAction, BrowserActionType } from "@/lib/events/types";
+import { getBrowserContext, type PlaywrightBridge } from "./playwright-bridge";
 
 // ── Types ────────────────────────────────────────────────
 
@@ -151,12 +145,7 @@ function emitCompleted(
   });
 }
 
-function emitFailed(
-  runId: string,
-  sessionId: string,
-  error: string,
-  totalActions: number,
-): void {
+function emitFailed(runId: string, sessionId: string, error: string, totalActions: number): void {
   globalRunBus.broadcast({
     run_id: runId,
     timestamp: new Date().toISOString(),
@@ -176,8 +165,8 @@ function emitFailed(
 // Le mode "stub-light" (playwright-core indispo) reste : on émet juste un
 // event navigate déterministe pour ne pas casser l'UI.
 
-import { runAgentLoop, type AgentStep } from "./agent-loop";
 import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
+import { type AgentStep, runAgentLoop } from "./agent-loop";
 
 const URL_RE = /https?:\/\/[^\s<>'"]+/i;
 
@@ -236,7 +225,7 @@ class DefaultBrowserExecutor implements BrowserExecutor {
 
     let actionCount = 0;
     let summary = "";
-    let extractData: unknown = undefined;
+    let extractData: unknown;
     let aborted = false;
 
     // Compteur via wrap léger : chaque emitAction passe par ici pour respecter le cap.
@@ -395,9 +384,9 @@ class DefaultBrowserExecutor implements BrowserExecutor {
             });
           }
 
-          summary = agentResult.summary || (urlMatch
-            ? `Navigation sur ${fallbackTarget}`
-            : "Tâche exécutée");
+          summary =
+            agentResult.summary ||
+            (urlMatch ? `Navigation sur ${fallbackTarget}` : "Tâche exécutée");
           if (agentResult.aborted) {
             controller.abort(new Error("agent_loop_aborted"));
           }
@@ -533,8 +522,6 @@ export function getBrowserExecutor(): BrowserExecutor {
   return executorOverride ?? new DefaultBrowserExecutor();
 }
 
-export async function runBrowserTask(
-  opts: RunBrowserTaskOptions,
-): Promise<BrowserTaskResult> {
+export async function runBrowserTask(opts: RunBrowserTaskOptions): Promise<BrowserTaskResult> {
   return getBrowserExecutor().run(opts);
 }

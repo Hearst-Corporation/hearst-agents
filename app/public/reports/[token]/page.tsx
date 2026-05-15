@@ -10,18 +10,12 @@
  */
 
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { headers } from "next/headers";
-import {
-  verifyToken,
-  hashToken,
-} from "@/lib/reports/sharing/signed-url";
-import {
-  findShareByTokenHash,
-  incrementShareViewCount,
-} from "@/lib/reports/sharing/store";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { hashToken, verifyToken } from "@/lib/reports/sharing/signed-url";
+import { findShareByTokenHash, incrementShareViewCount } from "@/lib/reports/sharing/store";
 
 export const dynamic = "force-dynamic";
 
@@ -44,9 +38,7 @@ interface PublicReportError {
   code: string;
 }
 
-async function loadPublicReport(
-  token: string,
-): Promise<PublicReportData | PublicReportError> {
+async function loadPublicReport(token: string): Promise<PublicReportData | PublicReportError> {
   const verify = verifyToken(token);
   if (!verify.ok) {
     return { status: "error", code: verify.reason };
@@ -68,25 +60,18 @@ async function loadPublicReport(
 
   let narration: string | null = null;
   let blocks: Array<{ id: string; type: string; label?: string }> = [];
-  if (
-    typeof asset.content_ref === "string" &&
-    asset.content_ref.trim().startsWith("{")
-  ) {
+  if (typeof asset.content_ref === "string" && asset.content_ref.trim().startsWith("{")) {
     try {
       const parsed = JSON.parse(asset.content_ref) as Record<string, unknown>;
       const candidatePayload =
         (parsed.payload as Record<string, unknown> | undefined) ??
-        (parsed.__reportPayload === true
-          ? (parsed as Record<string, unknown>)
-          : undefined);
+        (parsed.__reportPayload === true ? (parsed as Record<string, unknown>) : undefined);
       if (candidatePayload && Array.isArray(candidatePayload.blocks)) {
-        blocks = (candidatePayload.blocks as Array<Record<string, unknown>>).map(
-          (b) => ({
-            id: String(b.id ?? "?"),
-            type: String(b.type ?? "?"),
-            label: typeof b.label === "string" ? b.label : undefined,
-          }),
-        );
+        blocks = (candidatePayload.blocks as Array<Record<string, unknown>>).map((b) => ({
+          id: String(b.id ?? "?"),
+          type: String(b.type ?? "?"),
+          label: typeof b.label === "string" ? b.label : undefined,
+        }));
       }
       if (typeof parsed.narration === "string") narration = parsed.narration;
     } catch {
@@ -109,9 +94,7 @@ async function loadPublicReport(
  * Métadonnées dynamiques : title + description extraite du rapport.
  * noindex / nofollow pour rester invisible aux moteurs (lien privé HMAC).
  */
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { token } = await params;
   const result = await loadPublicReport(token);
 
@@ -180,10 +163,7 @@ function BrandedHeader() {
           priority
         />
       </Link>
-      <span
-        className="t-11"
-        style={{ color: "var(--text-faint)", fontWeight: 300 }}
-      >
+      <span className="t-11" style={{ color: "var(--text-faint)", fontWeight: 300 }}>
         Rapport partagé via Hearst OS
       </span>
     </header>
@@ -236,8 +216,7 @@ function CtaFooter() {
             lineHeight: 1.55,
           }}
         >
-          Hearst OS génère des rapports comme celui-ci, automatiquement et en
-          continu.
+          Hearst OS génère des rapports comme celui-ci, automatiquement et en continu.
         </p>
         <Link
           href="https://hearstcorporation.io"
@@ -319,8 +298,7 @@ export default async function PublicReportPage({ params }: PageProps) {
       asset_not_found: "Le rapport associé est introuvable.",
       expired: "Ce lien a expiré.",
     };
-    const message =
-      errorMessages[result.code] ?? "Ce lien de partage n'est plus valide.";
+    const message = errorMessages[result.code] ?? "Ce lien de partage n'est plus valide.";
     return (
       <>
         <style>{publicReportKeyframes}</style>
@@ -334,16 +312,10 @@ export default async function PublicReportPage({ params }: PageProps) {
             minHeight: "60vh",
           }}
         >
-          <h1
-            className="t-28"
-            style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}
-          >
+          <h1 className="t-28" style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}>
             Lien indisponible
           </h1>
-          <p
-            className="t-13"
-            style={{ color: "var(--text-soft)", marginTop: "var(--space-3)" }}
-          >
+          <p className="t-13" style={{ color: "var(--text-soft)", marginTop: "var(--space-3)" }}>
             {message}
           </p>
         </main>
@@ -396,17 +368,13 @@ export default async function PublicReportPage({ params }: PageProps) {
               marginTop: "var(--space-4)",
             }}
           >
-            Lien valide jusqu&apos;au{" "}
-            {new Date(result.expiresAt).toLocaleString("fr-FR")}
+            Lien valide jusqu&apos;au {new Date(result.expiresAt).toLocaleString("fr-FR")}
           </p>
         </header>
 
         {result.narration ? (
           <section style={{ marginBottom: "var(--space-10)" }}>
-            <h2
-              className="halo-mono-label"
-              style={{ marginBottom: "var(--space-3)" }}
-            >
+            <h2 className="halo-mono-label" style={{ marginBottom: "var(--space-3)" }}>
               Narration
             </h2>
             <p
@@ -424,10 +392,7 @@ export default async function PublicReportPage({ params }: PageProps) {
 
         {result.blocks.length > 0 ? (
           <section>
-            <h2
-              className="halo-mono-label"
-              style={{ marginBottom: "var(--space-3)" }}
-            >
+            <h2 className="halo-mono-label" style={{ marginBottom: "var(--space-3)" }}>
               Blocs
             </h2>
             <ul
@@ -452,9 +417,7 @@ export default async function PublicReportPage({ params }: PageProps) {
                     color: "var(--text)",
                   }}
                 >
-                  <strong style={{ fontWeight: 500 }}>
-                    {b.label ?? b.id}
-                  </strong>{" "}
+                  <strong style={{ fontWeight: 500 }}>{b.label ?? b.id}</strong>{" "}
                   <span className="t-11" style={{ color: "var(--text-faint)" }}>
                     ({b.type})
                   </span>

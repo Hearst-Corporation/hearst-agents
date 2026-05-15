@@ -107,14 +107,16 @@ export function VideoPlayer({ variant }: VideoPlayerProps) {
       video.removeEventListener("enterpictureinpicture", onEnter);
       video.removeEventListener("leavepictureinpicture", onLeave);
     };
-  }, [isReady]);
+  }, []);
 
   async function togglePiP() {
     try {
       if (isPiP) {
         await document.exitPictureInPicture();
       } else {
-        const video = videoRef.current as (HTMLVideoElement & { requestPictureInPicture?: () => Promise<unknown> }) | null;
+        const video = videoRef.current as
+          | (HTMLVideoElement & { requestPictureInPicture?: () => Promise<unknown> })
+          | null;
         await video?.requestPictureInPicture?.();
       }
     } catch (err) {
@@ -128,7 +130,11 @@ export function VideoPlayer({ variant }: VideoPlayerProps) {
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${
-              isReady ? "bg-(--accent-teal)" : isFailed ? "bg-(--danger)" : "bg-(--warn) animate-pulse"
+              isReady
+                ? "bg-(--accent-teal)"
+                : isFailed
+                  ? "bg-(--danger)"
+                  : "bg-(--warn) animate-pulse"
             }`}
             style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             aria-hidden

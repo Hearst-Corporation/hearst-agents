@@ -15,10 +15,7 @@ interface SpatialHUDProps {
  */
 export function SpatialHUD({ topLeft, topRight, bottomCenter }: SpatialHUDProps) {
   return (
-    <div
-      className="absolute inset-0 pointer-events-none"
-      style={{ zIndex: SPATIAL_Z_LAYERS.hud }}
-    >
+    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: SPATIAL_Z_LAYERS.hud }}>
       {/* Top bar */}
       <div className="absolute top-0 left-0 w-full p-4 md:p-10 flex justify-between items-center">
         {topLeft && <div className="pointer-events-auto">{topLeft}</div>}

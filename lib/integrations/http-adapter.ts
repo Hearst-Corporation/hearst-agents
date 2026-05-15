@@ -6,13 +6,13 @@
  * Safety: read-only (GET only), timeout enforced, no secrets in output.
  */
 
+import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 import type {
-  IntegrationAdapter,
   AdapterAction,
   AdapterResult,
+  IntegrationAdapter,
   IntegrationCredentials,
 } from "./adapter";
-import { assertSafeUrl, SsrfBlockedError } from "@/lib/security/ssrf-guard";
 
 const HTTP_FETCH_ACTION: AdapterAction = {
   name: "http.fetch",
@@ -50,12 +50,24 @@ export class HttpAdapter implements IntegrationAdapter {
     credentials: IntegrationCredentials,
   ): Promise<AdapterResult> {
     if (action !== "http.fetch") {
-      return { success: false, data: null, status: 0, latency_ms: 0, error: `Unknown action: ${action}` };
+      return {
+        success: false,
+        data: null,
+        status: 0,
+        latency_ms: 0,
+        error: `Unknown action: ${action}`,
+      };
     }
 
     const url = input.url as string | undefined;
     if (!url) {
-      return { success: false, data: null, status: 0, latency_ms: 0, error: "Missing required field: url" };
+      return {
+        success: false,
+        data: null,
+        status: 0,
+        latency_ms: 0,
+        error: "Missing required field: url",
+      };
     }
 
     // SSRF guard : DNS lookup avant fetch (rebinding protection)
@@ -76,7 +88,9 @@ export class HttpAdapter implements IntegrationAdapter {
     // Domaine attendu pour l'intégration — les credentials ne sont envoyés
     // QUE si le host résolu correspond à celui configuré dans les credentials.
     // Cela empêche l'exfiltration de tokens vers un hôte malveillant.
-    const credentialHost = (credentials as Record<string, unknown>).expected_host as string | undefined;
+    const credentialHost = (credentials as Record<string, unknown>).expected_host as
+      | string
+      | undefined;
     const hostMatches = !credentialHost || safeUrl.hostname === credentialHost;
 
     const controller = new AbortController();
@@ -86,15 +100,15 @@ export class HttpAdapter implements IntegrationAdapter {
     try {
       const headers: Record<string, string> = {
         "User-Agent": "Hearst-Agent/1.0",
-        ...(input.headers as Record<string, string> ?? {}),
+        ...((input.headers as Record<string, string>) ?? {}),
       };
 
       // N'attache les credentials QUE si le host est celui attendu
       if (hostMatches) {
         if (credentials.bearer_token) {
-          headers["Authorization"] = `Bearer ${credentials.bearer_token}`;
+          headers.Authorization = `Bearer ${credentials.bearer_token}`;
         } else if (credentials.api_key) {
-          headers["Authorization"] = `Bearer ${credentials.api_key}`;
+          headers.Authorization = `Bearer ${credentials.api_key}`;
         }
       }
 
@@ -126,7 +140,11 @@ export class HttpAdapter implements IntegrationAdapter {
           data = text.slice(0, MAX_RESPONSE_SIZE);
           truncated = true;
         } else {
-          try { data = JSON.parse(text); } catch { data = text; }
+          try {
+            data = JSON.parse(text);
+          } catch {
+            data = text;
+          }
         }
       } else {
         const text = await res.text();
@@ -171,7 +189,7 @@ export class HttpAdapter implements IntegrationAdapter {
     try {
       const headers: Record<string, string> = {};
       if (credentials.bearer_token) {
-        headers["Authorization"] = `Bearer ${credentials.bearer_token}`;
+        headers.Authorization = `Bearer ${credentials.bearer_token}`;
       }
 
       const res = await fetch("https://httpstat.us/200", {

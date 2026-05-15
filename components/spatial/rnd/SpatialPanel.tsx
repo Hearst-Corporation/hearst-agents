@@ -1,15 +1,15 @@
 "use client";
 
 import { motion, useTransform } from "framer-motion";
-import { type ReactNode } from "react";
-import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
-import { useSpatialPanelsStore } from "@/stores/spatial-panels";
-import { SPATIAL_PANEL_CONFIG, type SpatialPanelType } from "@/lib/spatial/panel-types";
+import type { ReactNode } from "react";
 import {
   getOrbitPanelHeight,
   getOrbitPanelWidth,
   type OrbitPosition,
 } from "@/lib/spatial/panel-orbit";
+import { SPATIAL_PANEL_CONFIG, type SpatialPanelType } from "@/lib/spatial/panel-types";
+import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
+import { useSpatialPanelsStore } from "@/stores/spatial-panels";
 
 interface SpatialPanelProps {
   instanceId: string;
@@ -72,14 +72,8 @@ export function SpatialPanel({
   // États cibles
   const targetZ = position.depthZ;
   const targetScale = 1;
-  const targetOpacity = isInterruptiveDim && !isInterruptive
-    ? 0.1
-    : isDefocused
-      ? 0.6
-    : 1;
-  const targetBlur = isInterruptiveDim && !isInterruptive
-    ? 12
-    : 0;
+  const targetOpacity = isInterruptiveDim && !isInterruptive ? 0.1 : isDefocused ? 0.6 : 1;
+  const targetBlur = isInterruptiveDim && !isInterruptive ? 12 : 0;
   const targetSaturate = isDefocused ? 0.7 : 1;
 
   const filterValue =

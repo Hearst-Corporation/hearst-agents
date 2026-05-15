@@ -5,14 +5,14 @@
  * Canonical: uses runtime missions store with scope/auth.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { getMission as getRuntimeMission } from "@/lib/engine/runtime/missions/store";
-import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { type NextRequest, NextResponse } from "next/server";
+import { resumeMissionSchema } from "@/lib/contracts/missions";
 import { resumeMission as resumePlannerMission } from "@/lib/engine/planner/mission-engine";
 import { getMission as getPlannerMission } from "@/lib/engine/planner/store";
+import { getMission as getRuntimeMission } from "@/lib/engine/runtime/missions/store";
+import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { manifestMission } from "@/lib/ui/right-panel/manifestation";
-import { resumeMissionSchema } from "@/lib/contracts/missions";
 
 export async function POST(
   req: NextRequest,
@@ -69,7 +69,9 @@ export async function POST(
       runtimeMission.enabled = true;
       await updateScheduledMission(missionId, { enabled: true });
 
-      console.log(`[MissionsAPI] Runtime mission resumed: ${missionId} (user: ${scope.userId.slice(0, 8)})`);
+      console.log(
+        `[MissionsAPI] Runtime mission resumed: ${missionId} (user: ${scope.userId.slice(0, 8)})`,
+      );
 
       return NextResponse.json({
         success: true,
@@ -97,7 +99,9 @@ export async function POST(
       }
 
       await updateScheduledMission(missionId, { enabled: true });
-      console.log(`[MissionsAPI] Persisted mission resumed: ${missionId} (user: ${scope.userId.slice(0, 8)})`);
+      console.log(
+        `[MissionsAPI] Persisted mission resumed: ${missionId} (user: ${scope.userId.slice(0, 8)})`,
+      );
 
       return NextResponse.json({
         success: true,
@@ -144,11 +148,13 @@ export async function POST(
     // ── 4. Not found ───────────────────────────────────────────
     console.warn(`[MissionsAPI] Mission not found: ${missionId}`);
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
-
   } catch (err) {
     console.error(`[MissionsAPI] Error resuming mission ${missionId}:`, err);
     return NextResponse.json(
-      { error: "Failed to resume mission", message: err instanceof Error ? err.message : "Unknown error" },
+      {
+        error: "Failed to resume mission",
+        message: err instanceof Error ? err.message : "Unknown error",
+      },
       { status: 500 },
     );
   }

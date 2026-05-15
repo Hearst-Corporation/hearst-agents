@@ -6,8 +6,8 @@
  * nombre de rows à `limit` (défaut 50).
  */
 
-import { useState, useMemo } from "react";
-import { fmtNumber, fmtCurrency } from "./format";
+import { useMemo, useState } from "react";
+import { fmtCurrency, fmtNumber } from "./format";
 
 type Row = Record<string, unknown>;
 
@@ -117,7 +117,8 @@ export function Table({
                     letterSpacing: "0.15em",
                   }}
                 >
-                  {labels?.[col] ?? col} {indicator && <span style={{ color: "var(--accent-teal)" }}>{indicator}</span>}
+                  {labels?.[col] ?? col}{" "}
+                  {indicator && <span style={{ color: "var(--accent-teal)" }}>{indicator}</span>}
                 </th>
               );
             })}

@@ -56,10 +56,13 @@ const ALL_NODES: NodeId[] = [
 ];
 
 function freshNodeStates(): Record<NodeId, NodeState> {
-  return ALL_NODES.reduce((acc, id) => {
-    acc[id] = "idle";
-    return acc;
-  }, {} as Record<NodeId, NodeState>);
+  return ALL_NODES.reduce(
+    (acc, id) => {
+      acc[id] = "idle";
+      return acc;
+    },
+    {} as Record<NodeId, NodeState>,
+  );
 }
 
 let packetCounter = 0;
@@ -79,8 +82,7 @@ export const useCanvasStore = create<CanvasState>((set) => ({
 
   setMode: (mode) => set({ mode }),
 
-  setNodeState: (id, state) =>
-    set((s) => ({ nodeStates: { ...s.nodeStates, [id]: state } })),
+  setNodeState: (id, state) => set((s) => ({ nodeStates: { ...s.nodeStates, [id]: state } })),
 
   resetNodes: () => set({ nodeStates: freshNodeStates(), packets: [], runTrail: [] }),
 

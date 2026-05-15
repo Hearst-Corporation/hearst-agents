@@ -9,8 +9,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { getCockpitToday } from "@/lib/cockpit/today";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

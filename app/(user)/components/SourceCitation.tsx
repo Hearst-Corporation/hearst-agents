@@ -15,9 +15,9 @@
  *  - fetchedAt: timestamp ms — affiché dans le tooltip
  */
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { useStageStore } from "@/stores/stage";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useSelectionStore } from "@/stores/selection";
+import { useStageStore } from "@/stores/stage";
 
 export interface Source {
   id: string;
@@ -51,9 +51,7 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
 
     const sourceById = new Map(sources.map((s) => [s.id, s]));
 
-    const sups = Array.from(
-      root.querySelectorAll<HTMLElement>("sup[data-source-id]"),
-    );
+    const sups = Array.from(root.querySelectorAll<HTMLElement>("sup[data-source-id]"));
 
     const handleEnter = (e: Event) => {
       const target = e.currentTarget as HTMLElement;
@@ -96,7 +94,7 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
       });
     };
     // children peut changer ; sources synchronise la map.
-  }, [children, sources]);
+  }, [sources]);
 
   return (
     <div ref={containerRef} className="relative" data-testid="source-citation-root">
@@ -118,13 +116,8 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
             boxShadow: "var(--shadow-card-hover)",
           }}
         >
-          <p className="t-11 font-medium text-(--accent-teal)">
-            SOURCE
-          </p>
-          <p
-            className="t-11 font-light text-text"
-            style={{ marginTop: "var(--space-1)" }}
-          >
+          <p className="t-11 font-medium text-(--accent-teal)">SOURCE</p>
+          <p className="t-11 font-light text-text" style={{ marginTop: "var(--space-1)" }}>
             {activeSource.label}
           </p>
           {activeSource.url && (
@@ -136,10 +129,7 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
             </p>
           )}
           {activeSource.fetchedAt && (
-            <p
-              className="t-11 font-light text-text-faint"
-              style={{ marginTop: "var(--space-1)" }}
-            >
+            <p className="t-11 font-light text-text-faint" style={{ marginTop: "var(--space-1)" }}>
               {FORMATTER.format(new Date(activeSource.fetchedAt))}
             </p>
           )}
@@ -166,7 +156,9 @@ export function SourceCitation({ sources, children }: SourceCitationProps) {
 
 function openSource(src: Source): void {
   if (src.assetId) {
-    useSelectionStore.getState().select({ kind: "asset", id: src.assetId, label: src.label ?? src.assetId });
+    useSelectionStore
+      .getState()
+      .select({ kind: "asset", id: src.assetId, label: src.label ?? src.assetId });
     useStageStore.getState().setMode({ mode: "asset", assetId: src.assetId });
     return;
   }

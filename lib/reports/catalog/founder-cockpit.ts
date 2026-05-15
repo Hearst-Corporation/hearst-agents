@@ -6,8 +6,8 @@
  * n'est pas connectée le block s'affiche vide.
  */
 
-import type { ReportSpec } from "@/lib/reports/spec/schema";
 import { fmtCitation } from "@/lib/reports/blocks/format";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 export const FOUNDER_COCKPIT_ID = "00000000-0000-4000-8000-100000000001";
 
@@ -19,8 +19,7 @@ export function buildFounderCockpit(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "Founder Cockpit",
-      summary:
-        "MRR, pipeline ouvert, backlog email, semaine à venir, vélocité commits.",
+      summary: "MRR, pipeline ouvert, backlog email, semaine à venir, vélocité commits.",
       domain: "founder",
       persona: "founder",
       cadence: "daily",

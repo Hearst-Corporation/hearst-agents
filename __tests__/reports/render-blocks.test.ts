@@ -5,8 +5,8 @@
 
 import { describe, expect, it } from "vitest";
 import { renderBlocks } from "@/lib/reports/engine/render-blocks";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
 import type { Tabular } from "@/lib/reports/engine/tabular";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 const SPEC_ID = "00000000-0000-4000-8000-000000000001";
 
@@ -23,9 +23,7 @@ function baseSpec(): ReportSpec {
       confidentiality: "internal",
     },
     scope: { tenantId: "t", workspaceId: "w" },
-    sources: [
-      { id: "src", kind: "composio", spec: { action: "X", params: {} } },
-    ],
+    sources: [{ id: "src", kind: "composio", spec: { action: "X", params: {} } }],
     transforms: [],
     blocks: [],
     refresh: { mode: "manual", cooldownHours: 0 },
@@ -47,11 +45,7 @@ describe("renderBlocks — kpi", () => {
         props: { field: "mrr", deltaField: "delta", sparklineField: "v" },
       },
     ];
-    const data: Tabular = [
-      { mrr: 1000, delta: 0.12, v: 100 },
-      { v: 110 },
-      { v: 120 },
-    ];
+    const data: Tabular = [{ mrr: 1000, delta: 0.12, v: 100 }, { v: 110 }, { v: 120 }];
     const out = renderBlocks(spec, new Map([["src", data]]), 1700000000000);
     expect(out.__reportPayload).toBe(true);
     expect(out.blocks).toHaveLength(1);
@@ -72,11 +66,7 @@ describe("renderBlocks — kpi", () => {
         props: { field: "x", deltaField: "d" },
       },
     ];
-    const out = renderBlocks(
-      spec,
-      new Map([["src", [{ x: 42, d: -3 }]]]),
-      0,
-    );
+    const out = renderBlocks(spec, new Map([["src", [{ x: 42, d: -3 }]]]), 0);
     expect(out.scalars["k.value"]).toBe(42);
     expect(out.scalars["k.delta"]).toBe(-3);
   });
@@ -163,7 +153,6 @@ describe("renderBlocks — payload meta", () => {
         props: { field: "x" },
       },
     ];
-    expect(() => renderBlocks(spec, new Map([["src", []]]), 0))
-      .toThrow(/n'a pas été calculé/);
+    expect(() => renderBlocks(spec, new Map([["src", []]]), 0)).toThrow(/n'a pas été calculé/);
   });
 });

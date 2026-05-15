@@ -1,14 +1,13 @@
-import { NextRequest } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { getProvider, smartStreamChat } from "@/lib/llm";
-import type { ModelDecision } from "@/lib/llm";
-import { RunTracer } from "@/lib/engine/runtime";
-import { chatRequestSchema, parseBody, err } from "@/lib/domain";
-import { requireScope } from "@/lib/platform/auth/scope";
-import type { ChatMessage } from "@/lib/llm";
+import type { NextRequest } from "next/server";
 import type { Json } from "@/lib/database.types";
-import type { AgentGuardPolicy } from "@/lib/engine/runtime/prompt-guard";
 import type { ModelGoal } from "@/lib/decisions/model-selector";
+import { chatRequestSchema, err, parseBody } from "@/lib/domain";
+import { RunTracer } from "@/lib/engine/runtime";
+import type { AgentGuardPolicy } from "@/lib/engine/runtime/prompt-guard";
+import type { ChatMessage, ModelDecision } from "@/lib/llm";
+import { getProvider, smartStreamChat } from "@/lib/llm";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -41,10 +40,7 @@ function sanitizeClientError(err: unknown): string {
   return "server_error";
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   // Auth gate : exécute des appels LLM côté agent — public = abus tokens.
@@ -124,9 +120,7 @@ export async function POST(
     .filter(Boolean)
     .join("\n\n");
 
-  const memoryBlock = (memoriesRes.data ?? [])
-    .map((m) => `- ${m.key}: ${m.value}`)
-    .join("\n");
+  const memoryBlock = (memoriesRes.data ?? []).map((m) => `- ${m.key}: ${m.value}`).join("\n");
 
   const systemPrompt = [
     agent.system_prompt,
@@ -157,7 +151,7 @@ export async function POST(
       name: "load_agent_memory",
       input: { agent_id: id, count: memoriesRes.data.length },
       fn: async () => ({
-        output: { memories: memoriesRes.data!.length },
+        output: { memories: memoriesRes.data?.length },
       }),
     });
   }
@@ -194,7 +188,9 @@ export async function POST(
             if (chunk.profile_used) actualModelUsed = chunk.profile_used;
             fullContent += chunk.delta;
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`),
+              encoder.encode(
+                `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
+              ),
             );
             if (chunk.done) break;
           }
@@ -212,7 +208,9 @@ export async function POST(
           for await (const chunk of stream) {
             fullContent += chunk.delta;
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`),
+              encoder.encode(
+                `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
+              ),
             );
             if (chunk.done) break;
           }
@@ -222,7 +220,9 @@ export async function POST(
         const clientError = sanitizeClientError(streamErr);
         console.error(`chat stream error agent=${id} run=${runId}:`, rawMsg);
         controller.enqueue(
-          encoder.encode(`data: ${JSON.stringify({ error: clientError, done: true, run_id: runId })}\n\n`),
+          encoder.encode(
+            `data: ${JSON.stringify({ error: clientError, done: true, run_id: runId })}\n\n`,
+          ),
         );
         await tracer.endRun("failed", {}, rawMsg);
         controller.close();
@@ -250,7 +250,10 @@ export async function POST(
           was_overridden: modelDecision?.was_overridden ?? false,
         },
         fn: async () => ({
-          output: { content: fullContent, content_length: fullContent.length } as Record<string, Json>,
+          output: { content: fullContent, content_length: fullContent.length } as Record<
+            string,
+            Json
+          >,
           tokens_in: 0,
           tokens_out: 0,
           cost_usd: 0,
@@ -267,32 +270,40 @@ export async function POST(
         output_classification: validation?.classification ?? "valid",
         output_score: validation?.score ?? 1,
         smart_routing: useSmartRouting,
-        model_decision: modelDecision ? {
-          selected: `${modelDecision.selected_provider}/${modelDecision.selected_model}`,
-          was_overridden: modelDecision.was_overridden,
-          reason: modelDecision.reason,
-          goal: modelDecision.goal,
-        } : undefined,
+        model_decision: modelDecision
+          ? {
+              selected: `${modelDecision.selected_provider}/${modelDecision.selected_model}`,
+              was_overridden: modelDecision.was_overridden,
+              reason: modelDecision.reason,
+              goal: modelDecision.goal,
+            }
+          : undefined,
       });
 
       controller.enqueue(
-        encoder.encode(`data: ${JSON.stringify({
-          done: true,
-          run_id: runId,
-          model_used: actualModelUsed,
-          validation: validation ? {
-            trust: validation.trust,
-            classification: validation.classification,
-            score: validation.score,
-          } : undefined,
-          model_decision: modelDecision ? {
-            selected: `${modelDecision.selected_provider}/${modelDecision.selected_model}`,
-            was_overridden: modelDecision.was_overridden,
-            reason: modelDecision.reason,
-            goal: modelDecision.goal,
-            fallback_count: modelDecision.fallback_count,
-          } : undefined,
-        })}\n\n`),
+        encoder.encode(
+          `data: ${JSON.stringify({
+            done: true,
+            run_id: runId,
+            model_used: actualModelUsed,
+            validation: validation
+              ? {
+                  trust: validation.trust,
+                  classification: validation.classification,
+                  score: validation.score,
+                }
+              : undefined,
+            model_decision: modelDecision
+              ? {
+                  selected: `${modelDecision.selected_provider}/${modelDecision.selected_model}`,
+                  was_overridden: modelDecision.was_overridden,
+                  reason: modelDecision.reason,
+                  goal: modelDecision.goal,
+                  fallback_count: modelDecision.fallback_count,
+                }
+              : undefined,
+          })}\n\n`,
+        ),
       );
 
       controller.close();

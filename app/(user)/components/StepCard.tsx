@@ -11,9 +11,9 @@
  */
 
 import { useState } from "react";
+import type { PlanStepState } from "@/stores/runtime";
 import { ApprovalInline } from "./ApprovalInline";
 import { ProviderChip, type ProviderStatus } from "./ProviderChip";
-import type { PlanStepState } from "@/stores/runtime";
 
 export interface StepCardProps {
   step: PlanStepState;
@@ -52,7 +52,6 @@ function statusColor(status: PlanStepState["status"]): string {
       return "var(--danger)";
     case "skipped":
       return "var(--text-faint)";
-    case "idle":
     default:
       return "var(--text-ghost)";
   }
@@ -120,10 +119,7 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
           </p>
         </div>
         {showFooter && (
-          <div
-            className="flex items-center"
-            style={{ gap: "var(--space-2)" }}
-          >
+          <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
             {step.providerId && (
               <ProviderChip
                 providerId={step.providerId}
@@ -132,12 +128,8 @@ export function StepCard({ step, onApprove, onSkip, onRetry, onEdit }: StepCardP
                 costUSD={step.costUSD}
               />
             )}
-            <span className="t-9 font-mono text-text-faint">
-              {formatLatency(step.latencyMs)}
-            </span>
-            <span className="t-9 font-mono text-text-faint">
-              {formatCost(step.costUSD)}
-            </span>
+            <span className="t-9 font-mono text-text-faint">{formatLatency(step.latencyMs)}</span>
+            <span className="t-9 font-mono text-text-faint">{formatCost(step.costUSD)}</span>
           </div>
         )}
       </button>

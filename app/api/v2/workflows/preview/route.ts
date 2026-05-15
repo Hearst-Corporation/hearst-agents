@@ -9,16 +9,16 @@
  * route preview est volontairement synchrone pour rester simple.
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { executeWorkflow } from "@/lib/workflows/executor";
-import { validateGraph } from "@/lib/workflows/validate";
 import type {
   WorkflowExecutionContext,
   WorkflowExecutorEvent,
   WorkflowGraph,
 } from "@/lib/workflows/types";
+import { validateGraph } from "@/lib/workflows/validate";
 
 const workflowNodeSchema = z.object({
   id: z.string().max(200),
@@ -112,9 +112,6 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[WorkflowsPreview] uncaught", err);
-    return NextResponse.json(
-      { error: "preview_failed", message },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "preview_failed", message }, { status: 500 });
   }
 }

@@ -8,9 +8,8 @@
 // Si tu ajoutes un export ici, vérifie d'abord qu'il a un consommateur réel via
 // `grep -rn "from \"@/lib/engine/runtime\"" app lib`.
 
-export { RunTracer } from "./tracer";
+// Utilitaires génériques (lifecycle) — exposés pour réutilisation transverse.
+export { RuntimeError, withRetry, withTimeout } from "./lifecycle";
 
 export { enforceMemoryPolicy } from "./memory-governor";
-
-// Utilitaires génériques (lifecycle) — exposés pour réutilisation transverse.
-export { RuntimeError, withTimeout, withRetry } from "./lifecycle";
+export { RunTracer } from "./tracer";

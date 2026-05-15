@@ -13,12 +13,10 @@
  *   HEARST_E2E_RUN_AUTH=1 npx playwright test e2e/mission-memory.spec.ts
  */
 
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Mission Memory — API guards (no auth)", () => {
-  test("POST /api/v2/missions/[id]/messages refuse l'accès sans session", async ({
-    request,
-  }) => {
+  test("POST /api/v2/missions/[id]/messages refuse l'accès sans session", async ({ request }) => {
     const res = await request.post(
       "/api/v2/missions/00000000-0000-0000-0000-000000000000/messages",
       { data: { content: "test" } },
@@ -29,23 +27,15 @@ test.describe("Mission Memory — API guards (no auth)", () => {
     expect(res.status()).toBeLessThan(500);
   });
 
-  test("GET /api/v2/missions/[id]/messages refuse l'accès sans session", async ({
-    request,
-  }) => {
-    const res = await request.get(
-      "/api/v2/missions/00000000-0000-0000-0000-000000000000/messages",
-    );
+  test("GET /api/v2/missions/[id]/messages refuse l'accès sans session", async ({ request }) => {
+    const res = await request.get("/api/v2/missions/00000000-0000-0000-0000-000000000000/messages");
     // Accepte 200 (HEARST_DEV_AUTH_BYPASS=1 actif) ou 401/403/404/302/307
     // selon que le bypass est actif ou non. L'important : pas de 5xx.
     expect(res.status()).toBeLessThan(500);
   });
 
-  test("GET /api/v2/missions/[id]/context refuse l'accès sans session", async ({
-    request,
-  }) => {
-    const res = await request.get(
-      "/api/v2/missions/00000000-0000-0000-0000-000000000000/context",
-    );
+  test("GET /api/v2/missions/[id]/context refuse l'accès sans session", async ({ request }) => {
+    const res = await request.get("/api/v2/missions/00000000-0000-0000-0000-000000000000/context");
     // Accepte 200 (HEARST_DEV_AUTH_BYPASS=1 actif) ou 401/403/404/302/307
     // selon que le bypass est actif ou non. L'important : pas de 5xx.
     expect(res.status()).toBeLessThan(500);
@@ -67,9 +57,7 @@ test.describe("@skip-ci Mission Memory — full flow (auth required)", () => {
     await expect(page.locator("text=Conversation")).toBeVisible({ timeout: 10_000 });
 
     // Input visible
-    const textarea = page.locator(
-      'textarea[placeholder*="Continuer la conversation"]',
-    );
+    const textarea = page.locator('textarea[placeholder*="Continuer la conversation"]');
     await expect(textarea).toBeVisible();
 
     // Écrit + soumet

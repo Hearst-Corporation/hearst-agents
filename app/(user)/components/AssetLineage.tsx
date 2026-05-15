@@ -76,9 +76,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
           marginBottom: "var(--space-6)",
         }}
       >
-        <span className="t-11 font-light text-text-faint">
-          Provenance incomplète
-        </span>
+        <span className="t-11 font-light text-text-faint">Provenance incomplète</span>
       </div>
     );
   }
@@ -102,9 +100,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
       }}
     >
       <header className="flex items-center" style={{ gap: "var(--space-3)" }}>
-        <span className="t-11 font-medium text-(--accent-teal)">
-          PROVENANCE
-        </span>
+        <span className="t-11 font-medium text-(--accent-teal)">PROVENANCE</span>
         <span
           className="rounded-pill bg-[var(--text-ghost)]"
           style={{ width: "var(--space-1)", height: "var(--space-1)" }}
@@ -122,12 +118,8 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
           rowGap: "var(--space-2)",
         }}
       >
-        {prov.missionId && (
-          <Row label="Mission" value={prov.missionId.slice(0, 8) + "…"} />
-        )}
-        {prov.runId && (
-          <Row label="Run" value={prov.runId.slice(0, 8) + "…"} />
-        )}
+        {prov.missionId && <Row label="Mission" value={`${prov.missionId.slice(0, 8)}…`} />}
+        {prov.runId && <Row label="Run" value={`${prov.runId.slice(0, 8)}…`} />}
         {prov.modelUsed && <Row label="Modèle" value={prov.modelUsed} />}
         {typeof prov.costUsd === "number" && (
           <Row label="Coût" value={fmtCost(prov.costUsd)} accent />
@@ -143,11 +135,13 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
       {derived.length > 0 && (
         <div
           className="flex flex-col"
-          style={{ gap: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--surface-2)" }}
+          style={{
+            gap: "var(--space-2)",
+            paddingTop: "var(--space-2)",
+            borderTop: "1px solid var(--surface-2)",
+          }}
         >
-          <span className="t-11 font-light text-text-faint">
-            Basé sur · {derived.length}
-          </span>
+          <span className="t-11 font-light text-text-faint">Basé sur · {derived.length}</span>
           <div className="flex flex-wrap" style={{ gap: "var(--space-2)" }}>
             {derived.map((parentId) => (
               <button
@@ -184,7 +178,11 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
       {sources.length > 0 && (
         <div
           className="flex flex-col"
-          style={{ gap: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--surface-2)" }}
+          style={{
+            gap: "var(--space-2)",
+            paddingTop: "var(--space-2)",
+            borderTop: "1px solid var(--surface-2)",
+          }}
         >
           <button
             type="button"
@@ -200,12 +198,8 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
             aria-expanded={showSources}
             data-testid="asset-lineage-sources-toggle"
           >
-            <span className="t-11 font-light text-text-faint">
-              Sources · {sources.length}
-            </span>
-            <span className="t-11 font-medium text-(--accent-teal)">
-              {showSources ? "−" : "+"}
-            </span>
+            <span className="t-11 font-light text-text-faint">Sources · {sources.length}</span>
+            <span className="t-11 font-medium text-(--accent-teal)">{showSources ? "−" : "+"}</span>
           </button>
           {showSources && (
             <ul
@@ -229,9 +223,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
                 </li>
               ))}
               {sources.length > 12 && (
-                <li className="t-11 font-light text-text-faint">
-                  + {sources.length - 12} autres
-                </li>
+                <li className="t-11 font-light text-text-faint">+ {sources.length - 12} autres</li>
               )}
             </ul>
           )}
@@ -244,9 +236,7 @@ export function AssetLineage({ asset, onOpenParent }: AssetLineageProps) {
 function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-      <dt className="t-11 font-light text-text-faint">
-        {label}
-      </dt>
+      <dt className="t-11 font-light text-text-faint">{label}</dt>
       <dd
         className={`t-11 ${accent ? "text-(--accent-teal)" : "text-text-soft"} font-mono truncate`}
         title={value}

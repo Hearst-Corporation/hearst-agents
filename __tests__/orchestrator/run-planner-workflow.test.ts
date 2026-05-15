@@ -8,11 +8,15 @@
  * - Plan paused sur approval gate
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { isComplexIntent, isPlannerEnabled, runPlannerWorkflow } from "@/lib/engine/orchestrator/run-planner-workflow";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  isComplexIntent,
+  isPlannerEnabled,
+  runPlannerWorkflow,
+} from "@/lib/engine/orchestrator/run-planner-workflow";
+import { clearAllPlannerStores } from "@/lib/engine/planner/store";
 import { RunEventBus } from "@/lib/events/bus";
 import type { RunEvent } from "@/lib/events/types";
-import { clearAllPlannerStores } from "@/lib/engine/planner/store";
 
 // ── Helpers ─────────────────────────────────────────────────
 

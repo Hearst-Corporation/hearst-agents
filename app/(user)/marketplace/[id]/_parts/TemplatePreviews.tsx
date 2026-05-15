@@ -1,14 +1,11 @@
 "use client";
 
-import type { WorkflowGraph } from "@/lib/workflows/types";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
 import type { CreativePromptPayload } from "@/lib/marketplace/types";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
+import type { WorkflowGraph } from "@/lib/workflows/types";
 
 export function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 export function Chip({ children }: { children: React.ReactNode }) {
@@ -36,16 +33,9 @@ export function WorkflowPreview({ graph }: { graph: WorkflowGraph }) {
       }}
     >
       {graph.nodes.map((n, i) => (
-        <li
-          key={n.id}
-          className="flex items-baseline gap-2"
-        >
-          <span className="t-9 font-mono text-text-faint">
-            {String(i + 1).padStart(2, "0")}
-          </span>
-          <span className="t-11 font-medium text-(--accent-teal)">
-            {n.kind}
-          </span>
+        <li key={n.id} className="flex items-baseline gap-2">
+          <span className="t-9 font-mono text-text-faint">{String(i + 1).padStart(2, "0")}</span>
+          <span className="t-11 font-medium text-(--accent-teal)">{n.kind}</span>
           <span className="t-11 text-text">{escapeHtml(n.label)}</span>
         </li>
       ))}
@@ -69,16 +59,9 @@ export function ReportPreview({ spec }: { spec: ReportSpec }) {
       </p>
       <ul className="flex flex-col gap-1">
         {spec.blocks.map((b) => (
-          <li
-            key={b.id}
-            className="flex items-baseline gap-2"
-          >
-            <span className="t-11 font-medium text-(--accent-teal)">
-              {b.type}
-            </span>
-            <span className="t-11 text-text">
-              {escapeHtml(b.label ?? b.id)}
-            </span>
+          <li key={b.id} className="flex items-baseline gap-2">
+            <span className="t-11 font-medium text-(--accent-teal)">{b.type}</span>
+            <span className="t-11 text-text">{escapeHtml(b.label ?? b.id)}</span>
           </li>
         ))}
       </ul>
@@ -138,9 +121,7 @@ export function PersonaPreview({ payload }: { payload: Record<string, unknown> }
         </p>
       )}
       {styleGuide && (
-        <p className="t-11 text-text-soft whitespace-pre-wrap">
-          {escapeHtml(styleGuide)}
-        </p>
+        <p className="t-11 text-text-soft whitespace-pre-wrap">{escapeHtml(styleGuide)}</p>
       )}
       {systemPromptAddon && (
         <p className="t-11 text-text-muted whitespace-pre-wrap italic">

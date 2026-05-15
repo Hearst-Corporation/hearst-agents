@@ -3,7 +3,7 @@
  * kg-ingest-pipeline + embeddings/store.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Hoisted mocks ─────────────────────────────────────────────
 
@@ -31,9 +31,9 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   requireServerSupabase,
 }));
 
+import { searchEmbeddings } from "@/lib/embeddings/store";
 // Imports après les mocks
 import { ingestConversationTurn } from "@/lib/memory/kg-ingest-pipeline";
-import { searchEmbeddings } from "@/lib/embeddings/store";
 
 // ── Test 1 : extraction fail → skipped sans crash ─────────────
 
@@ -192,6 +192,6 @@ describe("kg-invariants — KG UNIQUE dedupe UPSERT", () => {
     ];
     expect(opts).toBeDefined();
     expect(typeof opts.onConflict).toBe("string");
-    expect(opts.onConflict!.length).toBeGreaterThan(0);
+    expect(opts.onConflict?.length).toBeGreaterThan(0);
   });
 });

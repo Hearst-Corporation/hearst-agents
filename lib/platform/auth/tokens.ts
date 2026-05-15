@@ -5,7 +5,7 @@
  * Architecture Finale: lib/platform/auth/tokens.ts
  */
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 
 /* ─── Supabase client (untyped, user_tokens isn't in generated types) ─── */
@@ -123,17 +123,11 @@ function decrypt(ciphertext: string): string {
 
   // Backward compat : ancien format sans keyId était `iv:tag:enc` (hex)
   if (legacyParts.length === 3 && !ciphertext.includes(".")) {
-    console.warn(
-      "[TokenStore] Décryption en format legacy (sans keyId) — migration conseillée",
-    );
+    console.warn("[TokenStore] Décryption en format legacy (sans keyId) — migration conseillée");
     const [ivHex, authTagHex, encHex] = legacyParts;
     if (!ivHex || !authTagHex || !encHex) throw new Error("Malformed legacy token");
     const key = keyProvider.getKey(); // Fallback sur ancien provider
-    const decipher = crypto.createDecipheriv(
-      ALGORITHM,
-      key,
-      Buffer.from(ivHex, "hex"),
-    );
+    const decipher = crypto.createDecipheriv(ALGORITHM, key, Buffer.from(ivHex, "hex"));
     decipher.setAuthTag(Buffer.from(authTagHex, "hex"));
     return Buffer.concat([decipher.update(Buffer.from(encHex, "hex")), decipher.final()]).toString(
       "utf8",
@@ -224,7 +218,9 @@ export async function getTokenMeta(userId: string, provider = "google"): Promise
     const sb = getSupabase();
     const { data, error } = await sb
       .from("user_tokens")
-      .select("access_token_enc, refresh_token_enc, expires_at, revoked_at, auth_failure_count, refresh_rotated_at")
+      .select(
+        "access_token_enc, refresh_token_enc, expires_at, revoked_at, auth_failure_count, refresh_rotated_at",
+      )
       .eq("user_id", userId)
       .eq("provider", provider)
       .single();
@@ -237,9 +233,8 @@ export async function getTokenMeta(userId: string, provider = "google"): Promise
     const authFailureCount = data.auth_failure_count ?? 0;
 
     const lastRotation = data.refresh_rotated_at ? new Date(data.refresh_rotated_at).getTime() : 0;
-    const needsRotation = lastRotation > 0
-      ? Date.now() - lastRotation > REFRESH_ROTATION_INTERVAL_MS
-      : false;
+    const needsRotation =
+      lastRotation > 0 ? Date.now() - lastRotation > REFRESH_ROTATION_INTERVAL_MS : false;
 
     return {
       tokens: {
@@ -301,9 +296,7 @@ export async function saveTokens(
       row.expires_at = tokens.expiresAt;
     }
 
-    const { error } = await sb
-      .from("user_tokens")
-      .upsert(row, { onConflict: "user_id,provider" });
+    const { error } = await sb.from("user_tokens").upsert(row, { onConflict: "user_id,provider" });
 
     if (error) {
       console.error("[TokenStore] Save failed:", error.message);
@@ -411,10 +404,7 @@ export async function revokeToken(userId: string, provider = "google") {
 export async function clearTokens(userId: string) {
   try {
     const sb = getSupabase();
-    const { error } = await sb
-      .from("user_tokens")
-      .delete()
-      .eq("user_id", userId);
+    const { error } = await sb.from("user_tokens").delete().eq("user_id", userId);
 
     if (error) {
       console.error("[TokenStore] Clear failed:", error.message);

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useNotificationsStore } from "@/stores/notifications";
+import { useEffect, useRef, useState } from "react";
 import type { AppNotification } from "@/stores/notifications";
+import { useNotificationsStore } from "@/stores/notifications";
 
 // ── Icônes inline (aucune dépendance externe) ──────────────────────────────
 
@@ -98,7 +98,9 @@ export function NotificationBell() {
     if (sessionStatus !== "authenticated") return;
     const tenantId = (session?.user as { tenantId?: string } | undefined)?.tenantId;
     if (!tenantId) {
-      console.warn("[NotificationBell] session.user.tenantId absent — realtime notifications désactivé");
+      console.warn(
+        "[NotificationBell] session.user.tenantId absent — realtime notifications désactivé",
+      );
       return;
     }
     startRealtime(tenantId);
@@ -255,10 +257,7 @@ export function NotificationBell() {
                   gap: "var(--space-2)",
                 }}
               >
-                <span
-                  style={{ color: "var(--text-ghost)", display: "inline-flex" }}
-                  aria-hidden
-                >
+                <span style={{ color: "var(--text-ghost)", display: "inline-flex" }} aria-hidden>
                   <BellIcon hasUnread={false} />
                 </span>
                 <span className="t-11" style={{ color: "var(--text-faint)" }}>
@@ -267,11 +266,7 @@ export function NotificationBell() {
               </div>
             ) : (
               preview.map((notif) => (
-                <NotifRow
-                  key={notif.id}
-                  notif={notif}
-                  onRead={() => void markRead(notif.id)}
-                />
+                <NotifRow key={notif.id} notif={notif} onRead={() => void markRead(notif.id)} />
               ))
             )}
           </div>
@@ -307,13 +302,7 @@ export function NotificationBell() {
 
 // ── Ligne notification ─────────────────────────────────────────────────────
 
-function NotifRow({
-  notif,
-  onRead,
-}: {
-  notif: AppNotification;
-  onRead: () => void;
-}) {
+function NotifRow({ notif, onRead }: { notif: AppNotification; onRead: () => void }) {
   const isUnread = notif.read_at === null;
 
   return (

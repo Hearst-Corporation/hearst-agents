@@ -74,8 +74,6 @@ export function fmtDelta(v: unknown): { text: string; tone: "up" | "down" | "neu
   if (!Number.isFinite(n)) return { text: "—", tone: "neutral" };
   const sign = n > 0 ? "+" : "";
   const isFractional = Math.abs(n) < 1;
-  const text = isFractional
-    ? `${sign}${fmtPercent(n)}`
-    : `${sign}${fmtNumber(n)}`;
+  const text = isFractional ? `${sign}${fmtPercent(n)}` : `${sign}${fmtNumber(n)}`;
   return { text, tone: n > 0 ? "up" : n < 0 ? "down" : "neutral" };
 }

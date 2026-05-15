@@ -28,19 +28,29 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
         return res.json() as Promise<CodeOutput>;
       })
       .then((data) => {
-        if (!cancelled) { setResult(data); setLoading(false); }
+        if (!cancelled) {
+          setResult(data);
+          setLoading(false);
+        }
       })
       .catch((err) => {
-        if (!cancelled) { setFetchError(err instanceof Error ? err.message : String(err)); setLoading(false); }
+        if (!cancelled) {
+          setFetchError(err instanceof Error ? err.message : String(err));
+          setLoading(false);
+        }
       });
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [storageUrl]);
 
   if (loading) {
     return <p className="t-13 font-light text-text-muted">Chargement des résultats…</p>;
   }
   if (fetchError || !result) {
-    return <p className="t-13 text-(--danger)">{fetchError ?? "Impossible de charger les résultats"}</p>;
+    return (
+      <p className="t-13 text-(--danger)">{fetchError ?? "Impossible de charger les résultats"}</p>
+    );
   }
 
   return (
@@ -83,7 +93,7 @@ function CodeResults({ storageUrl }: { storageUrl: string }) {
           >
             {out.data}
           </pre>
-        )
+        ),
       )}
     </div>
   );
@@ -99,7 +109,11 @@ export function CodeRunner({ variant }: CodeRunnerProps) {
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${
-              isReady ? "bg-(--accent-teal)" : isFailed ? "bg-(--danger)" : "bg-(--warn) animate-pulse"
+              isReady
+                ? "bg-(--accent-teal)"
+                : isFailed
+                  ? "bg-(--danger)"
+                  : "bg-(--warn) animate-pulse"
             }`}
             style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             aria-hidden
@@ -119,9 +133,7 @@ export function CodeRunner({ variant }: CodeRunnerProps) {
       ) : isFailed ? (
         <p className="t-13 text-(--danger)">{variant.error ?? "Génération échouée"}</p>
       ) : (
-        <p className="t-13 font-light text-text-muted">
-          Exécution sandbox E2B…
-        </p>
+        <p className="t-13 font-light text-text-muted">Exécution sandbox E2B…</p>
       )}
     </div>
   );

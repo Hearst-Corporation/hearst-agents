@@ -11,7 +11,7 @@
  * Un VersionDiff est immuable et sérialisable JSON.
  */
 
-import type { RenderPayload, RenderedBlock } from "@/lib/reports/engine/render-blocks";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
 
 // ── Types ─────────────────────────────────────────────────────
 
@@ -40,7 +40,7 @@ function rowCount(block: RenderedBlock): number | undefined {
 function kpiValue(block: RenderedBlock): number | undefined {
   const data = block.data as Record<string, unknown> | null | undefined;
   if (!data || typeof data !== "object") return undefined;
-  return safeNumber(data["value"]);
+  return safeNumber(data.value);
 }
 
 // ── diffVersions ──────────────────────────────────────────────
@@ -60,12 +60,8 @@ export function diffVersions(
 ): VersionDiff[] {
   const diffs: VersionDiff[] = [];
 
-  const blocksA = new Map<string, RenderedBlock>(
-    versionA.blocks.map((b) => [b.id, b]),
-  );
-  const blocksB = new Map<string, RenderedBlock>(
-    versionB.blocks.map((b) => [b.id, b]),
-  );
+  const blocksA = new Map<string, RenderedBlock>(versionA.blocks.map((b) => [b.id, b]));
+  const blocksB = new Map<string, RenderedBlock>(versionB.blocks.map((b) => [b.id, b]));
 
   // Blocks supprimés (dans A, pas dans B)
   for (const [id] of blocksA) {
@@ -102,9 +98,7 @@ export function diffVersions(
     }
 
     // Table / bar / sparkline / funnel : compare row count
-    const typesWithRows: RenderedBlock["type"][] = [
-      "table", "bar", "sparkline", "funnel",
-    ];
+    const typesWithRows: RenderedBlock["type"][] = ["table", "bar", "sparkline", "funnel"];
     if (typesWithRows.includes(blockA.type) || typesWithRows.includes(blockB.type)) {
       const countA = rowCount(blockA);
       const countB = rowCount(blockB);
@@ -121,11 +115,7 @@ export function diffVersions(
   }
 
   // Narration
-  if (
-    narrationA !== undefined &&
-    narrationB !== undefined &&
-    narrationA !== narrationB
-  ) {
+  if (narrationA !== undefined && narrationB !== undefined && narrationA !== narrationB) {
     diffs.push({
       blockRef: "__narration__",
       kind: "changed",

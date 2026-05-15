@@ -77,9 +77,7 @@ export function useOAuthCompletionPoll(onSuccess: (slug: string) => void) {
 
         // Apparition nouvelle = connexion réussie pendant le flow.
         const isActiveNow = conns.some(
-          (c) =>
-            c.appName.toLowerCase() === slugLower &&
-            c.status.toUpperCase() === "ACTIVE",
+          (c) => c.appName.toLowerCase() === slugLower && c.status.toUpperCase() === "ACTIVE",
         );
         const wasActiveBefore = initialActiveSlugsRef.current.has(slugLower);
 

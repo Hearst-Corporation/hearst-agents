@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { interceptLLMCalls, mockReportSpec, SPEC_ID } from "./fixtures";
 import { ReportPage } from "./ReportPage";
 
@@ -35,7 +35,11 @@ function mountBaseSession(page: Parameters<typeof interceptLLMCalls>[0]) {
       }),
     ),
     page.route("**/api/v2/threads*", (route) =>
-      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ threads: [] }) }),
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ threads: [] }),
+      }),
     ),
     page.route("**/api/v2/right-panel*", (route) =>
       route.fulfill({
@@ -58,18 +62,18 @@ test.describe("Editor — page démo /reports/editor", () => {
     await mountBaseSession(page);
     await page.goto("/reports/editor");
 
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
   });
 
   test("toggle visibilité d'un bloc le masque du rendu", async ({ page }) => {
     await mountBaseSession(page);
     await page.goto("/reports/editor");
 
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
 
     // Trouve le premier toggle de visibilité dans le ReportSpecEditor
     // (data-testid "spec-editor-toggle-{id}" ou équivalent — on cherche
@@ -93,9 +97,9 @@ test.describe("Editor — page démo /reports/editor", () => {
     await mountBaseSession(page);
     await page.goto("/reports/editor");
 
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
 
     // Clique "Show JSON"
     const showJsonBtn = page.getByRole("button", { name: /show json/i });
@@ -117,18 +121,24 @@ test.describe("Editor — page démo /reports/editor", () => {
     await mountBaseSession(page);
     await page.goto("/reports/editor");
 
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
 
     // Cherche un bouton "Apply" ou "Appliquer" dans le ReportSpecEditor
     const applyBtn = page
       .getByRole("button", { name: /apply/i })
       .or(page.getByRole("button", { name: /appliquer/i }));
 
-    const applyVisible = await applyBtn.first().isVisible().catch(() => false);
+    const applyVisible = await applyBtn
+      .first()
+      .isVisible()
+      .catch(() => false);
     if (!applyVisible) {
-      test.skip(true, "Bouton Apply non trouvé dans ReportSpecEditor — à vérifier selon la version du composant");
+      test.skip(
+        true,
+        "Bouton Apply non trouvé dans ReportSpecEditor — à vérifier selon la version du composant",
+      );
     }
 
     await applyBtn.first().click();
@@ -159,7 +169,10 @@ test.describe("Editor — ReportEditor inline depuis ReportLayout", () => {
     const editVisible = await editBtn.isVisible().catch(() => false);
 
     if (!editVisible) {
-      test.skip(true, "Bouton Éditer absent — le FocalStage ne passe pas encore spec au ReportLayout");
+      test.skip(
+        true,
+        "Bouton Éditer absent — le FocalStage ne passe pas encore spec au ReportLayout",
+      );
     }
 
     await editBtn.click();

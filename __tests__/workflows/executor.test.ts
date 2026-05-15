@@ -2,7 +2,7 @@
  * Workflow executor tests.
  */
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { executeWorkflow } from "@/lib/workflows/executor";
 import type {
   WorkflowExecutionContext,
@@ -10,9 +10,7 @@ import type {
   WorkflowGraph,
 } from "@/lib/workflows/types";
 
-function makeContext(
-  overrides: Partial<WorkflowExecutionContext> = {},
-): WorkflowExecutionContext {
+function makeContext(overrides: Partial<WorkflowExecutionContext> = {}): WorkflowExecutionContext {
   return {
     userId: "u",
     tenantId: "t",
@@ -60,18 +58,14 @@ describe("executeWorkflow — linéaire", () => {
   });
 
   it("propage les outputs via ${nodeId.path}", async () => {
-    const tool = vi.fn(
-      async (_name: string, _args: Record<string, unknown>) => ({
-        success: true,
-        output: { email: "lead@x.com" },
-      }),
-    );
-    const sendTool = vi.fn(
-      async (_name: string, _args: Record<string, unknown>) => ({
-        success: true,
-        output: null,
-      }),
-    );
+    const tool = vi.fn(async (_name: string, _args: Record<string, unknown>) => ({
+      success: true,
+      output: { email: "lead@x.com" },
+    }));
+    const sendTool = vi.fn(async (_name: string, _args: Record<string, unknown>) => ({
+      success: true,
+      output: null,
+    }));
     const graph: WorkflowGraph = {
       startNodeId: "t",
       nodes: [
@@ -117,18 +111,14 @@ describe("executeWorkflow — linéaire", () => {
 describe("executeWorkflow — condition", () => {
   it("suit la branch true quand expression évalue true", async () => {
     const events: WorkflowExecutorEvent[] = [];
-    const fetchTool = vi.fn(
-      async (_name: string, _args: Record<string, unknown>) => ({
-        success: true,
-        output: { stage: "qualified" },
-      }),
-    );
-    const sendTool = vi.fn(
-      async (_name: string, _args: Record<string, unknown>) => ({
-        success: true,
-        output: null,
-      }),
-    );
+    const fetchTool = vi.fn(async (_name: string, _args: Record<string, unknown>) => ({
+      success: true,
+      output: { stage: "qualified" },
+    }));
+    const sendTool = vi.fn(async (_name: string, _args: Record<string, unknown>) => ({
+      success: true,
+      output: null,
+    }));
     const graph: WorkflowGraph = {
       startNodeId: "t",
       nodes: [
@@ -250,14 +240,10 @@ describe("executeWorkflow — approval", () => {
       ],
     };
 
-    const result = await executeWorkflow(
-      graph,
-      makeContext({ preview: true }),
-      {
-        executeTool: sendTool,
-        emitEvent: (e) => events.push(e),
-      },
-    );
+    const result = await executeWorkflow(graph, makeContext({ preview: true }), {
+      executeTool: sendTool,
+      emitEvent: (e) => events.push(e),
+    });
 
     expect(result.status).toBe("completed");
     // En preview, le tool n'est pas appelé non plus (placeholder)
@@ -319,8 +305,7 @@ describe("executeWorkflow — error policies", () => {
       ],
     };
     const result = await executeWorkflow(graph, makeContext(), {
-      executeTool: async (name) =>
-        name === "x" ? tool() : okTool(),
+      executeTool: async (name) => (name === "x" ? tool() : okTool()),
       emitEvent: (e) => events.push(e),
     });
     // Avec policy skip + edges sans condition "error", le runner ne suit que
@@ -334,14 +319,10 @@ describe("executeWorkflow — error policies", () => {
 
 describe("executeWorkflow — invalid graph", () => {
   it("retourne invalid si validation échoue", async () => {
-    const result = await executeWorkflow(
-      { nodes: [], edges: [], startNodeId: "" },
-      makeContext(),
-      {
-        executeTool: async () => ({ success: true }),
-        emitEvent: () => undefined,
-      },
-    );
+    const result = await executeWorkflow({ nodes: [], edges: [], startNodeId: "" }, makeContext(), {
+      executeTool: async () => ({ success: true }),
+      emitEvent: () => undefined,
+    });
     expect(result.status).toBe("invalid");
   });
 });

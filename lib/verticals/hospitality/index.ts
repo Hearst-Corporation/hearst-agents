@@ -130,10 +130,7 @@ export async function getTenantIndustry(tenantId: string): Promise<TenantIndustr
  * Définit l'industry d'un tenant. Persisté en Supabase si dispo, sinon en
  * mémoire (utile pour seed/dev). Invalide le cache.
  */
-export async function setTenantIndustry(
-  tenantId: string,
-  industry: TenantIndustry,
-): Promise<void> {
+export async function setTenantIndustry(tenantId: string, industry: TenantIndustry): Promise<void> {
   if (!tenantId) throw new Error("tenantId requis");
   const normalized = normalizeIndustry(industry);
   memoryStore.set(tenantId, normalized);

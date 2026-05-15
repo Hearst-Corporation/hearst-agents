@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { RunTimeline } from "../../components/RunTimeline";
-import { GhostIconChevronRight, ServiceIdGlyph } from "../../components/ghost-icons";
-import { PageHeader } from "../../components/PageHeader";
-import { Action } from "../../components/ui";
+import { useCallback, useEffect, useState } from "react";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 import { toast } from "@/app/hooks/use-toast";
 import type { RunRecord } from "@/lib/engine/runtime/runs/types";
 import type { TimelineItem } from "@/lib/engine/runtime/timeline/types";
+import { GhostIconChevronRight, ServiceIdGlyph } from "../../components/ghost-icons";
+import { PageHeader } from "../../components/PageHeader";
+import { RunTimeline } from "../../components/RunTimeline";
+import { Action } from "../../components/ui";
 
 export default function RunDetailPage() {
   const params = useParams();
@@ -71,10 +71,7 @@ export default function RunDetailPage() {
         await loadRun();
       }
     } catch (err) {
-      toast.error(
-        "Erreur de relance",
-        err instanceof Error ? err.message : "Erreur inconnue",
-      );
+      toast.error("Erreur de relance", err instanceof Error ? err.message : "Erreur inconnue");
     } finally {
       setRerunning(false);
     }
@@ -82,7 +79,10 @@ export default function RunDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center" style={{ background: "var(--bg-elev)" }}>
+      <div
+        className="flex-1 flex items-center justify-center"
+        style={{ background: "var(--bg-elev)" }}
+      >
         <div className="text-text-muted t-13">Chargement…</div>
       </div>
     );
@@ -90,7 +90,10 @@ export default function RunDetailPage() {
 
   if (!run) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center p-8" style={{ background: "var(--bg-elev)" }}>
+      <div
+        className="flex-1 flex flex-col items-center justify-center p-8"
+        style={{ background: "var(--bg-elev)" }}
+      >
         <div className="text-text-muted t-13 mb-4">Run non trouvé</div>
         <button
           onClick={() => router.push("/")}
@@ -162,9 +165,7 @@ export default function RunDetailPage() {
           {/* Timeline */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="t-13 font-medium text-(--text-l1)">
-                Timeline
-              </h2>
+              <h2 className="t-13 font-medium text-(--text-l1)">Timeline</h2>
               {timelineSource !== "empty" && (
                 <span className="t-9 text-text-faint">
                   {timelineSource === "memory" ? "Live" : "Persisted"}
@@ -249,21 +250,16 @@ export default function RunDetailPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-text-faint">Créé</span>
-                  <span className="text-text">
-                    {new Date(run.createdAt).toLocaleString()}
-                  </span>
+                  <span className="text-text">{new Date(run.createdAt).toLocaleString()}</span>
                 </div>
                 {run.completedAt && (
                   <div className="flex justify-between">
                     <span className="text-text-faint">Terminé</span>
-                    <span className="text-text">
-                      {new Date(run.completedAt).toLocaleString()}
-                    </span>
+                    <span className="text-text">{new Date(run.completedAt).toLocaleString()}</span>
                   </div>
                 )}
               </div>
             </div>
-
           </div>
         </div>
       </div>

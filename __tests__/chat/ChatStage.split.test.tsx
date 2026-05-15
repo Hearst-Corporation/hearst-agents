@@ -9,11 +9,11 @@
  * test focalisé sur la composition split.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { render, screen, act } from "@testing-library/react";
-import { useWorkingDocumentStore } from "@/stores/working-document";
+import { act, render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
+import { useWorkingDocumentStore } from "@/stores/working-document";
 
 vi.mock("@/app/(user)/components/ChatMessages", () => ({
   ChatMessages: () => <div data-testid="chat-messages-mock">CHAT</div>,
@@ -54,9 +54,7 @@ describe("ChatStage — split layout", () => {
   it("renders only the chat pane when WorkingDocument is closed", async () => {
     render(
       <ChatStage
-        messages={[
-          { id: "m1", role: "user", content: "hello" } as never,
-        ]}
+        messages={[{ id: "m1", role: "user", content: "hello" } as never]}
         hasMessages
         onSubmit={async () => {}}
       />,
@@ -76,9 +74,7 @@ describe("ChatStage — split layout", () => {
 
     render(
       <ChatStage
-        messages={[
-          { id: "m1", role: "user", content: "hello" } as never,
-        ]}
+        messages={[{ id: "m1", role: "user", content: "hello" } as never]}
         hasMessages
         onSubmit={async () => {}}
       />,
@@ -97,11 +93,7 @@ describe("ChatStage — split layout", () => {
     });
 
     const { rerender } = render(
-      <ChatStage
-        messages={[]}
-        hasMessages={false}
-        onSubmit={async () => {}}
-      />,
+      <ChatStage messages={[]} hasMessages={false} onSubmit={async () => {}} />,
     );
 
     expect(screen.getByLabelText("Document de travail")).toBeTruthy();
@@ -109,13 +101,7 @@ describe("ChatStage — split layout", () => {
     act(() => {
       useWorkingDocumentStore.getState().close();
     });
-    rerender(
-      <ChatStage
-        messages={[]}
-        hasMessages={false}
-        onSubmit={async () => {}}
-      />,
-    );
+    rerender(<ChatStage messages={[]} hasMessages={false} onSubmit={async () => {}} />);
 
     expect(screen.queryByLabelText("Document de travail")).toBeNull();
   });

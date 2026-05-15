@@ -7,20 +7,16 @@
  *     cliquer "Générer", attendre le PDF
  */
 
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Daily Brief — API guards (no auth)", () => {
-  test("POST /api/v2/daily-brief/generate refuse l'accès sans session", async ({
-    request,
-  }) => {
+  test("POST /api/v2/daily-brief/generate refuse l'accès sans session", async ({ request }) => {
     const res = await request.post("/api/v2/daily-brief/generate", { data: {} });
     // Accepte 200 (HEARST_DEV_AUTH_BYPASS=1 actif) ou 401/403/302/307. L'important : pas de 5xx.
     expect(res.status()).toBeLessThan(500);
   });
 
-  test("GET /api/v2/daily-brief/today refuse l'accès sans session", async ({
-    request,
-  }) => {
+  test("GET /api/v2/daily-brief/today refuse l'accès sans session", async ({ request }) => {
     const res = await request.get("/api/v2/daily-brief/today");
     // Accepte 200 (HEARST_DEV_AUTH_BYPASS=1 actif) ou 401/403/302/307. L'important : pas de 5xx.
     expect(res.status()).toBeLessThan(500);

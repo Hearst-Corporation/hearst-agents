@@ -5,7 +5,7 @@
  * le comportement de restauration sans connexion réelle.
  */
 
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks ─────────────────────────────────────────────────────
 
@@ -19,12 +19,12 @@ vi.mock("@/lib/reports/engine/run-report", () => ({
   runReport: vi.fn(),
 }));
 
+import type { RunReportResult } from "@/lib/reports/engine/run-report";
+import { runReport } from "@/lib/reports/engine/run-report";
 // Import après les mocks
 import { restoreVersion } from "@/lib/reports/versions/restore";
-import { getVersion, createVersion } from "@/lib/reports/versions/store";
-import { runReport } from "@/lib/reports/engine/run-report";
 import type { VersionFull, VersionSummary } from "@/lib/reports/versions/store";
-import type { RunReportResult } from "@/lib/reports/engine/run-report";
+import { createVersion, getVersion } from "@/lib/reports/versions/store";
 
 // ── Données de test ───────────────────────────────────────────
 

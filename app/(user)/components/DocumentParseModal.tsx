@@ -16,8 +16,8 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { Action } from "./ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { Action } from "./ui";
 
 export interface DocumentParseModalProps {
   open: boolean;
@@ -173,15 +173,13 @@ export function DocumentParseModal({
             className="t-11 font-light text-text-muted"
             style={{ margin: 0, lineHeight: "var(--leading-base)" }}
           >
-            Colle l&apos;URL d&apos;un document accessible (Drive, S3 signé,
-            CDN public). Phase B : upload natif.
+            Colle l&apos;URL d&apos;un document accessible (Drive, S3 signé, CDN public). Phase B :
+            upload natif.
           </p>
         </div>
 
         <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-          <span className="t-11 font-light text-text-faint">
-            URL du fichier
-          </span>
+          <span className="t-11 font-light text-text-faint">URL du fichier</span>
           <input
             ref={inputRef}
             type="url"
@@ -209,9 +207,7 @@ export function DocumentParseModal({
           }}
         >
           <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-text-faint">
-              Type
-            </span>
+            <span className="t-11 font-light text-text-faint">Type</span>
             <select
               value={mimeType}
               onChange={(e) => setMimeType(e.target.value)}
@@ -234,9 +230,7 @@ export function DocumentParseModal({
             </select>
           </label>
           <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-text-faint">
-              Nom (optionnel)
-            </span>
+            <span className="t-11 font-light text-text-faint">Nom (optionnel)</span>
             <input
               type="text"
               value={fileName}
@@ -257,18 +251,12 @@ export function DocumentParseModal({
         </div>
 
         {errorMsg && (
-          <p
-            className="t-11 font-light text-(--danger)"
-            style={{ margin: 0 }}
-          >
+          <p className="t-11 font-light text-(--danger)" style={{ margin: 0 }}>
             {errorMsg}
           </p>
         )}
 
-        <div
-          className="flex items-center justify-end"
-          style={{ gap: "var(--space-2)" }}
-        >
+        <div className="flex items-center justify-end" style={{ gap: "var(--space-2)" }}>
           <Action
             variant="secondary"
             tone="neutral"

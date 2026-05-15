@@ -64,7 +64,7 @@ function joinList(values: string[] | undefined): string | null {
 export function buildPersonaAddon(persona: Persona): string {
   const lines: string[] = [];
   lines.push(`Persona active : ${persona.name}.`);
-  if (persona.description && persona.description.trim()) {
+  if (persona.description?.trim()) {
     lines.push(persona.description.trim());
   }
   if (persona.tone) {
@@ -78,10 +78,10 @@ export function buildPersonaAddon(persona: Persona): string {
   if (avoid) {
     lines.push(`À éviter : ${avoid}.`);
   }
-  if (persona.styleGuide && persona.styleGuide.trim()) {
+  if (persona.styleGuide?.trim()) {
     lines.push(`Style guide : ${persona.styleGuide.trim()}`);
   }
-  if (persona.systemPromptAddon && persona.systemPromptAddon.trim()) {
+  if (persona.systemPromptAddon?.trim()) {
     const sanitized = sanitizeAddon(persona.systemPromptAddon.trim());
     if (sanitized) {
       lines.push(sanitized);

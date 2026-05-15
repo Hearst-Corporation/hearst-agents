@@ -22,8 +22,8 @@
  *   └─────────────────────────────────────┘
  */
 
-import { COLORS, FONT_SIZES, PAGE, RULES, BRAND, SPACE } from "./pdf-tokens";
 import { setFont } from "./pdf-fonts";
+import { BRAND, COLORS, FONT_SIZES, PAGE, RULES, SPACE } from "./pdf-tokens";
 
 export interface CoverInput {
   title: string;
@@ -88,8 +88,7 @@ export function renderCover(doc: PDFKit.PDFDocument, input: CoverInput): void {
   y += SPACE.s8;
 
   // ── Eyebrow caps ───────────────────────────────────────
-  const eyebrowText =
-    BRAND.confidentialityLabel[input.confidentiality ?? "internal"];
+  const eyebrowText = BRAND.confidentialityLabel[input.confidentiality ?? "internal"];
   setFont(doc, "sansMedium", input.embedded);
   doc
     .fontSize(FONT_SIZES.eyebrow)
@@ -170,12 +169,9 @@ export function renderCover(doc: PDFKit.PDFDocument, input: CoverInput): void {
   // ── Footer cover (au pied de page) ─────────────────────
   const footerY = PAGE.height - PAGE.coverMarginY;
   setFont(doc, "sansSemiBold", input.embedded);
-  doc
-    .fontSize(FONT_SIZES.eyebrow)
-    .fillColor(eyebrowColor)
-    .text(BRAND.name, x, footerY, {
-      characterSpacing: 1.5,
-    });
+  doc.fontSize(FONT_SIZES.eyebrow).fillColor(eyebrowColor).text(BRAND.name, x, footerY, {
+    characterSpacing: 1.5,
+  });
 
   // Pagination cover : "01 — COVER"
   setFont(doc, "sans", input.embedded);
@@ -184,12 +180,7 @@ export function renderCover(doc: PDFKit.PDFDocument, input: CoverInput): void {
   doc
     .fontSize(FONT_SIZES.eyebrow)
     .fillColor(eyebrowColor)
-    .text(
-      pageLabel,
-      (PAGE.width - pageLabelWidth) / 2,
-      footerY,
-      { lineBreak: false },
-    );
+    .text(pageLabel, (PAGE.width - pageLabelWidth) / 2, footerY, { lineBreak: false });
 
   // Version
   const version = input.version ?? BRAND.version;
@@ -197,10 +188,5 @@ export function renderCover(doc: PDFKit.PDFDocument, input: CoverInput): void {
   doc
     .fontSize(FONT_SIZES.eyebrow)
     .fillColor(eyebrowColor)
-    .text(
-      version,
-      PAGE.width - PAGE.coverMarginX - versionWidth,
-      footerY,
-      { lineBreak: false },
-    );
+    .text(version, PAGE.width - PAGE.coverMarginX - versionWidth, footerY, { lineBreak: false });
 }

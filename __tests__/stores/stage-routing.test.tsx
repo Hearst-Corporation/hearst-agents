@@ -8,8 +8,8 @@
  * profondes (fetches, contexts, etc.).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useStageStore } from "@/stores/stage";
 
 // ── Mocks des sous-composants ─────────────────────────────────────────

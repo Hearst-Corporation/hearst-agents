@@ -7,8 +7,8 @@
  */
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import type { ConnectorConnection } from "./types";
 import { getProviderCapabilities } from "./provider-capabilities";
+import type { ConnectorConnection } from "./types";
 
 let _client: SupabaseClient | null = null;
 
@@ -27,16 +27,24 @@ function db(): SupabaseClient | null {
 
 const memoryStore: Map<string, ConnectorConnection> = new Map();
 
-function connectionKey(provider: string, tenantId: string, workspaceId: string, userId?: string): string {
+function connectionKey(
+  provider: string,
+  tenantId: string,
+  workspaceId: string,
+  userId?: string,
+): string {
   return `${tenantId}:${workspaceId}:${provider}${userId ? `:${userId}` : ""}`;
 }
 
 // ── Writes ─────────────────────────────────────────────────
 
-export async function upsertConnection(
-  connection: ConnectorConnection,
-): Promise<void> {
-  const key = connectionKey(connection.provider, connection.tenantId, connection.workspaceId, connection.userId);
+export async function upsertConnection(connection: ConnectorConnection): Promise<void> {
+  const key = connectionKey(
+    connection.provider,
+    connection.tenantId,
+    connection.workspaceId,
+    connection.userId,
+  );
   memoryStore.set(key, connection);
 
   const sb = db();
@@ -157,7 +165,9 @@ function toConnection(row: any): ConnectorConnection {
     tenantId: (cfg.tenantId as string) ?? "",
     workspaceId: (cfg.workspaceId as string) ?? "",
     userId: cfg.userId as string | undefined,
-    capabilities: (cfg.capabilities as ConnectorConnection["capabilities"]) ?? getProviderCapabilities(row.provider),
+    capabilities:
+      (cfg.capabilities as ConnectorConnection["capabilities"]) ??
+      getProviderCapabilities(row.provider),
     status: row.status as ConnectorConnection["status"],
     displayName: row.name ?? row.provider,
     connectionKey: cfg.connectionKey as string | undefined,

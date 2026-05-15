@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { progressLabel, type BatchVariantRun } from "./types";
+import { type BatchVariantRun, progressLabel } from "./types";
 
 export function VideoBatchGrid({
   runs,
@@ -51,13 +51,7 @@ export function VideoBatchGrid({
   );
 }
 
-function BatchRunCard({
-  run,
-  delayMs,
-}: {
-  run: BatchVariantRun;
-  delayMs: number;
-}) {
+function BatchRunCard({ run, delayMs }: { run: BatchVariantRun; delayMs: number }) {
   // Stagger entrée : on démarre invisible/translaté puis on bascule via
   // useEffect pour déclencher la transition CSS standard. Évite de
   // dépendre d'une keyframe globale.
@@ -69,8 +63,7 @@ function BatchRunCard({
 
   const label = useMemo(() => {
     if (run.phase === "queued") return "Mise en file…";
-    if (run.phase === "running")
-      return progressLabel(run.progress, run.form.provider);
+    if (run.phase === "running") return progressLabel(run.progress, run.form.provider);
     if (run.phase === "done") return "Vidéo prête";
     if (run.phase === "error") return run.errorMsg ?? "Échec";
     return "";
@@ -103,9 +96,7 @@ function BatchRunCard({
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="t-11 font-medium text-(--accent-teal)">
-          Variant {run.index + 1}
-        </span>
+        <span className="t-11 font-medium text-(--accent-teal)">Variant {run.index + 1}</span>
         <span
           className={`t-11 font-mono tabular-nums ${isError ? "text-(--danger)" : isDone ? "text-(--money)" : "text-text-muted"}`}
         >
@@ -125,11 +116,7 @@ function BatchRunCard({
               ? "var(--card-flat-bg)"
               : "var(--bg-elev)",
           border: `1px solid ${
-            isDone
-              ? "var(--accent-teal)"
-              : isError
-                ? "var(--danger)"
-                : "var(--surface-2)"
+            isDone ? "var(--accent-teal)" : isError ? "var(--danger)" : "var(--surface-2)"
           }`,
           borderRadius: "var(--radius-xs)",
           display: "flex",
@@ -144,7 +131,12 @@ function BatchRunCard({
             loop
             playsInline
             autoPlay
-            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "var(--radius-xs)" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "var(--radius-xs)",
+            }}
           />
         )}
         {isDone && !run.url && (
@@ -195,19 +187,13 @@ function BatchRunCard({
           style={{
             height: "100%",
             width: `${displayProgress}%`,
-            background: isError
-              ? "var(--danger)"
-              : isDone
-                ? "var(--money)"
-                : "var(--accent-teal)",
+            background: isError ? "var(--danger)" : isDone ? "var(--money)" : "var(--accent-teal)",
             transition: "width var(--duration-emphasis) var(--ease-out-soft)",
           }}
         />
       </div>
 
-      <span
-        className={`t-11 font-light ${isError ? "text-(--danger)" : "text-text-muted"}`}
-      >
+      <span className={`t-11 font-light ${isError ? "text-(--danger)" : "text-text-muted"}`}>
         {label}
       </span>
     </div>

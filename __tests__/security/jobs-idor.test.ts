@@ -35,7 +35,7 @@ describe("F-004 Jobs IDOR — ownership check userId", () => {
     const jobWithoutUserId = { state: "active", progress: 50, data: {} };
     const scopeUserId = "user-b-uuid";
     const jobUserId = (jobWithoutUserId.data as { userId?: string }).userId;
-    const allowed = !jobUserId || jobUserId === scopeUserId;
+    const _allowed = !jobUserId || jobUserId === scopeUserId;
     // !undefined === true → allowed = true → la condition `if (allowed) block` bloque bien.
     // Ici on vérifie que la condition de blocage est déclenchée.
     expect(!jobUserId || jobUserId !== scopeUserId).toBe(true);
@@ -58,14 +58,24 @@ describe("F-004 Abort run — ownership via in-memory store", () => {
   });
 
   it("bloque abort si le run appartient à un autre user", () => {
-    const run = { id: "run-123", userId: "user-a-uuid", createdAt: Date.now(), status: "running" as const };
+    const run = {
+      id: "run-123",
+      userId: "user-a-uuid",
+      createdAt: Date.now(),
+      status: "running" as const,
+    };
     const scopeUserId = "user-b-uuid";
     const canAbort = run.userId === scopeUserId;
     expect(canAbort).toBe(false);
   });
 
   it("autorise abort si le run appartient au scope user", () => {
-    const run = { id: "run-123", userId: "user-a-uuid", createdAt: Date.now(), status: "running" as const };
+    const run = {
+      id: "run-123",
+      userId: "user-a-uuid",
+      createdAt: Date.now(),
+      status: "running" as const,
+    };
     const scopeUserId = "user-a-uuid";
     const canAbort = run.userId === scopeUserId;
     expect(canAbort).toBe(true);

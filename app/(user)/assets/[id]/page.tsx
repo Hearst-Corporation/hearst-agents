@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { AssetPreview } from "../../components/AssetPreview";
-import type { Asset } from "@/lib/assets/types";
+import { useEffect, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
+import type { Asset } from "@/lib/assets/types";
+import { AssetPreview } from "../../components/AssetPreview";
 import { PageHeader } from "../../components/PageHeader";
 
 export default function AssetDetailPage() {
@@ -37,10 +37,13 @@ export default function AssetDetailPage() {
       const res = await fetch(`/api/v2/assets/${assetId}/download`);
       if (!res.ok) {
         console.error("Download failed:", res.status);
-        toast.error("Téléchargement échoué", `Impossible de télécharger ${asset?.title || "l'asset"}`);
+        toast.error(
+          "Téléchargement échoué",
+          `Impossible de télécharger ${asset?.title || "l'asset"}`,
+        );
         return;
       }
-      
+
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");

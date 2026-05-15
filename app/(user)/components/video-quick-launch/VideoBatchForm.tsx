@@ -8,18 +8,18 @@
  * `VideoBatchGrid` qui affiche les progress cards.
  */
 
-import { VideoBatchGrid } from "./VideoBatchGrid";
 import { SegmentedInline } from "./segments";
 import {
-  MAX_BATCH_VARIANTS,
-  RATIO_LABELS,
   type BatchPhase,
   type BatchVariantForm,
   type BatchVariantRun,
   type DurationOption,
+  MAX_BATCH_VARIANTS,
   type Provider,
+  RATIO_LABELS,
   type RatioOption,
 } from "./types";
+import { VideoBatchGrid } from "./VideoBatchGrid";
 
 export function VideoBatchForm({
   forms,
@@ -42,10 +42,7 @@ export function VideoBatchForm({
 }) {
   // Tant qu'on n'a pas lancé, on affiche les forms éditables. Quand running/
   // done/error, on switch sur la grille de progress cards.
-  const showRuns =
-    batchPhase === "creating" ||
-    batchPhase === "running" ||
-    batchPhase === "done";
+  const showRuns = batchPhase === "creating" || batchPhase === "running" || batchPhase === "done";
 
   if (showRuns) {
     return <VideoBatchGrid runs={runs} batchError={batchError} />;
@@ -120,9 +117,7 @@ function VideoBatchVariantField({
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="t-11 font-medium text-(--accent-teal)">
-          Variant {index + 1}
-        </span>
+        <span className="t-11 font-medium text-(--accent-teal)">Variant {index + 1}</span>
         {canRemove && (
           <button
             type="button"

@@ -17,18 +17,14 @@
  *   - directement par une route API (manuel / debug)
  */
 
+import crypto from "node:crypto";
 import { runReport, type SourceLoader } from "@/lib/reports/engine/run-report";
+import { buildShareUrl, signToken, TTL_DEFAULT_HOURS } from "@/lib/reports/sharing/signed-url";
+import { createShareRow } from "@/lib/reports/sharing/store";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 import { exportPdf } from "./pdf";
-import { exportXlsx } from "./xlsx";
 import { persistExport } from "./store";
-import {
-  signToken,
-  buildShareUrl,
-  TTL_DEFAULT_HOURS,
-} from "@/lib/reports/sharing/signed-url";
-import { createShareRow } from "@/lib/reports/sharing/store";
-import crypto from "node:crypto";
+import { exportXlsx } from "./xlsx";
 
 export type ExportFormat = "pdf" | "xlsx";
 
@@ -57,9 +53,7 @@ export interface ExportMissionResult {
   shareExpiresAt: string | null;
 }
 
-export async function runExportMission(
-  input: ExportMissionInput,
-): Promise<ExportMissionResult> {
+export async function runExportMission(input: ExportMissionInput): Promise<ExportMissionResult> {
   const runResult = await runReport(input.spec, {
     sourceLoader: input.sourceLoader,
     noCache: false,
@@ -73,9 +67,7 @@ export async function runExportMission(
   };
 
   const result =
-    input.format === "pdf"
-      ? await exportPdf(exportInput)
-      : await exportXlsx(exportInput);
+    input.format === "pdf" ? await exportPdf(exportInput) : await exportXlsx(exportInput);
 
   const persisted = await persistExport({
     result,

@@ -8,15 +8,10 @@
  */
 
 import { z } from "zod";
-import { reportSpecSchema, type ReportSpec } from "@/lib/reports/spec/schema";
+import { type ReportSpec, reportSpecSchema } from "@/lib/reports/spec/schema";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 
-export const MARKETPLACE_KINDS = [
-  "workflow",
-  "report_spec",
-  "persona",
-  "creative_prompt",
-] as const;
+export const MARKETPLACE_KINDS = ["workflow", "report_spec", "persona", "creative_prompt"] as const;
 export type MarketplaceKind = (typeof MARKETPLACE_KINDS)[number];
 
 /** Tag : alphanumérique + dash, 2-24 caractères, max 5 par template. */
@@ -35,9 +30,7 @@ const workflowNodeSchema = z.object({
   kind: z.enum(["trigger", "tool_call", "condition", "approval", "output", "transform"]),
   label: z.string().min(1),
   config: z.record(z.string(), z.unknown()),
-  position: z
-    .object({ x: z.number(), y: z.number() })
-    .optional(),
+  position: z.object({ x: z.number(), y: z.number() }).optional(),
   onError: z.enum(["abort", "skip", "retry"]).optional(),
 });
 
@@ -84,10 +77,7 @@ export type CreativePromptPayload = z.infer<typeof creativePromptPayloadSchema>;
 export const personaPayloadSchema = z.object({
   name: z.string().min(1).max(80),
   description: z.string().max(280).optional(),
-  tone: z
-    .enum(["formal", "casual", "analytical", "creative", "direct"])
-    .nullable()
-    .optional(),
+  tone: z.enum(["formal", "casual", "analytical", "creative", "direct"]).nullable().optional(),
   vocabulary: z
     .object({
       preferred: z.array(z.string().min(1).max(40)).max(20).optional(),
@@ -112,9 +102,7 @@ export type MarketplacePayload =
 export function validatePayload(
   kind: MarketplaceKind,
   payload: unknown,
-):
-  | { ok: true; data: MarketplacePayload }
-  | { ok: false; error: string } {
+): { ok: true; data: MarketplacePayload } | { ok: false; error: string } {
   if (kind === "workflow") {
     const r = workflowGraphSchema.safeParse(payload);
     return r.success

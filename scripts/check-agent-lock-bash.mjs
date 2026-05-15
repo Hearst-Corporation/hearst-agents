@@ -83,6 +83,6 @@ process.stderr.write(
   `🔒 Agents verrouillés${lockedAt}.${reason}\n` +
     `Commande Bash destructive bloquée : ${command}\n` +
     `Adrien doit déverrouiller depuis /admin/agent-driven-dev avant toute action destructive.\n` +
-    `Lecture (Read, Grep, Glob, Bash en lecture pure) reste autorisée.\n`
+    `Lecture (Read, Grep, Glob, Bash en lecture pure) reste autorisée.\n`,
 );
 process.exit(2);

@@ -7,12 +7,7 @@
  * avec le prompt cache Anthropic (1 hit par persona, pas une perte par tour).
  */
 
-export type PersonaTone =
-  | "formal"
-  | "casual"
-  | "analytical"
-  | "creative"
-  | "direct";
+export type PersonaTone = "formal" | "casual" | "analytical" | "creative" | "direct";
 
 export interface PersonaVocabulary {
   preferred?: string[];

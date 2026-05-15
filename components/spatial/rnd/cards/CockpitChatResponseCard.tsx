@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
+import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
 import { useNavigationStore } from "@/stores/navigation";
 import { CockpitCardShell } from "./CockpitCardShell";
-import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
 
 /**
  * Card ChatResponse — affiche le dernier message assistant du thread actif.
@@ -45,9 +45,7 @@ export function CockpitChatResponseCard(_props: SpatialPanelCardProps) {
             {lastAssistant.content}
           </p>
         ) : (
-          <p className="text-spatial-base font-light text-white/40">
-            Hearst rédige…
-          </p>
+          <p className="text-spatial-base font-light text-white/40">Hearst rédige…</p>
         )}
       </div>
     </CockpitCardShell>

@@ -5,7 +5,7 @@
  * the expected mode for various domain/message combinations.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { resolveCapabilityScope, resolveExecutionMode } from "@/lib/capabilities/router";
 
 describe("resolveExecutionMode — contract snapshots", () => {
@@ -43,7 +43,9 @@ describe("resolveExecutionMode — contract snapshots", () => {
 
   it("deterministic: same input always same output", () => {
     const scope = resolveCapabilityScope("Montre-moi mes fichiers Drive");
-    const results = Array.from({ length: 10 }, () => resolveExecutionMode(scope, "Montre-moi mes fichiers Drive"));
+    const results = Array.from({ length: 10 }, () =>
+      resolveExecutionMode(scope, "Montre-moi mes fichiers Drive"),
+    );
     const modes = new Set(results.map((r) => r.mode));
     expect(modes.size).toBe(1);
   });

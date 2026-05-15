@@ -69,9 +69,7 @@ export function CommandeurResultRow({
     >
       <span
         className={`t-13 font-mono shrink-0 transition-colors duration-(--duration-slow) ${
-          active && !disabled
-            ? "text-(--accent-teal)"
-            : "text-text-ghost"
+          active && !disabled ? "text-(--accent-teal)" : "text-text-ghost"
         }`}
       >
         {renderedGlyph}
@@ -93,10 +91,7 @@ export function CommandeurResultRow({
         </span>
       )}
       {hotkey && (
-        <span
-          className="t-11 font-light ml-auto shrink-0"
-          style={{ color: "var(--text-ghost)" }}
-        >
+        <span className="t-11 font-light ml-auto shrink-0" style={{ color: "var(--text-ghost)" }}>
           {hotkey}
         </span>
       )}

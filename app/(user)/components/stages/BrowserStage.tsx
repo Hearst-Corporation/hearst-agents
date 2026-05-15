@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { BrowserAction } from "@/lib/events/types";
 import { useStageStore } from "@/stores/stage";
-import { StageActionBar, type StageAction } from "./StageActionBar";
 import { ActionLog } from "../ActionLog";
 import { ExtractSchemaModal } from "../browser/ExtractSchemaModal";
 import { Action } from "../ui";
-import type { BrowserAction } from "@/lib/events/types";
+import { type StageAction, StageActionBar } from "./StageActionBar";
 
 interface BrowserStageProps {
   sessionId: string;
@@ -121,10 +121,9 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
 
     const fetchStatus = async () => {
       try {
-        const res = await fetch(
-          `/api/v2/browser/${encodeURIComponent(sessionId)}`,
-          { credentials: "include" },
-        );
+        const res = await fetch(`/api/v2/browser/${encodeURIComponent(sessionId)}`, {
+          credentials: "include",
+        });
         if (!res.ok) return false;
         const data = (await res.json()) as SessionStatusResponse;
         if (cancelled) return true;
@@ -204,10 +203,10 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
     setStopping(true);
     setError(null);
     try {
-      const res = await fetch(
-        `/api/v2/browser/${encodeURIComponent(sessionId)}`,
-        { method: "DELETE", credentials: "include" },
-      );
+      const res = await fetch(`/api/v2/browser/${encodeURIComponent(sessionId)}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
       const data = (await res.json().catch(() => ({}))) as {
         error?: string;
         message?: string;
@@ -236,10 +235,10 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
   const takeOver = useCallback(async () => {
     if (!sessionId) return;
     try {
-      await fetch(
-        `/api/v2/browser/${encodeURIComponent(sessionId)}/take-over`,
-        { method: "POST", credentials: "include" },
-      );
+      await fetch(`/api/v2/browser/${encodeURIComponent(sessionId)}/take-over`, {
+        method: "POST",
+        credentials: "include",
+      });
       setIsControlled(true);
       setExecuting(false);
     } catch (err) {
@@ -252,10 +251,10 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
     setCapturing(true);
     setError(null);
     try {
-      const res = await fetch(
-        `/api/v2/browser/${encodeURIComponent(sessionId)}/capture`,
-        { method: "POST", credentials: "include" },
-      );
+      const res = await fetch(`/api/v2/browser/${encodeURIComponent(sessionId)}/capture`, {
+        method: "POST",
+        credentials: "include",
+      });
       const data = (await res.json().catch(() => ({}))) as {
         assetId?: string;
         url?: string;
@@ -290,15 +289,12 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
       setExtractLoading(true);
       setError(null);
       try {
-        const res = await fetch(
-          `/api/v2/browser/${encodeURIComponent(sessionId)}/extract`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          },
-        );
+        const res = await fetch(`/api/v2/browser/${encodeURIComponent(sessionId)}/extract`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
         const data = (await res.json().catch(() => ({}))) as {
           assetId?: string;
           error?: string;
@@ -332,16 +328,12 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
                 className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               />
-              <span className="t-11 font-medium text-(--accent-teal)">
-                BROWSER
-              </span>
+              <span className="t-11 font-medium text-(--accent-teal)">BROWSER</span>
               <span
                 className="rounded-pill bg-[var(--text-ghost)]"
                 style={{ width: "var(--space-1)", height: "var(--space-1)" }}
               />
-              <span className="t-11 font-light text-text-muted">
-                AWAITING
-              </span>
+              <span className="t-11 font-light text-text-muted">AWAITING</span>
             </>
           }
           onBack={back}
@@ -361,12 +353,9 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
             >
               Aucune session browser active
             </p>
-            <p
-              className="t-13 text-text-muted"
-              style={{ lineHeight: "var(--leading-base)" }}
-            >
-              Décris la tâche à confier au browser agent — la session live
-              s{"'"}affichera ici avec l{"'"}ACTION_LOG en colonne droite.
+            <p className="t-13 text-text-muted" style={{ lineHeight: "var(--leading-base)" }}>
+              Décris la tâche à confier au browser agent — la session live s{"'"}affichera ici avec
+              l{"'"}ACTION_LOG en colonne droite.
             </p>
             <div className="flex flex-col gap-4 w-full mt-2">
               <input
@@ -389,11 +378,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
               >
                 Lancer la session
               </Action>
-              {error && (
-                <p className="t-11 font-medium text-(--danger)">
-                  {error}
-                </p>
-              )}
+              {error && <p className="t-11 font-medium text-(--danger)">{error}</p>}
             </div>
           </div>
         </div>
@@ -427,10 +412,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
   ];
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
@@ -438,26 +420,14 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
               className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-(--accent-teal)">
-              BROWSER
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">BROWSER</span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
             />
-            <span className="t-11 font-light text-text-muted">
-              {sessionId.slice(0, 8)}
-            </span>
-            {executing && (
-              <span className="t-11 font-medium text-(--accent-teal)">
-                · RUNNING
-              </span>
-            )}
-            {isControlled && (
-              <span className="t-11 font-medium text-(--warn)">
-                · USER
-              </span>
-            )}
+            <span className="t-11 font-light text-text-muted">{sessionId.slice(0, 8)}</span>
+            {executing && <span className="t-11 font-medium text-(--accent-teal)">· RUNNING</span>}
+            {isControlled && <span className="t-11 font-medium text-(--warn)">· USER</span>}
           </>
         }
         secondary={secondaryActions}
@@ -465,10 +435,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
       />
 
       <div className="flex-1 flex min-h-0">
-        <div
-          className="flex-1 flex flex-col min-h-0"
-          style={{ minWidth: 0 }}
-        >
+        <div className="flex-1 flex flex-col min-h-0" style={{ minWidth: 0 }}>
           {debugViewerUrl ? (
             <iframe
               src={debugViewerUrl}
@@ -486,18 +453,13 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
                   style={{ width: "var(--space-2)", height: "var(--space-2)" }}
                   aria-hidden
                 />
-                <span className="t-11 font-light text-text-muted">
-                  Connexion à la session…
-                </span>
+                <span className="t-11 font-light text-text-muted">Connexion à la session…</span>
               </div>
             </div>
           )}
         </div>
 
-        <div
-          className="flex-shrink-0"
-          style={{ width: "var(--width-context)" }}
-        >
+        <div className="flex-shrink-0" style={{ width: "var(--width-context)" }}>
           <ActionLog
             actions={actions}
             isControlled={isControlled}
@@ -512,9 +474,7 @@ export function BrowserStage({ sessionId }: BrowserStageProps) {
           className="flex-shrink-0 px-12 py-3 border-t border-(--border-default)"
           style={{ background: "var(--bg-soft)" }}
         >
-          <span className="t-11 font-medium text-(--danger)">
-            {error}
-          </span>
+          <span className="t-11 font-medium text-(--danger)">{error}</span>
         </div>
       )}
 

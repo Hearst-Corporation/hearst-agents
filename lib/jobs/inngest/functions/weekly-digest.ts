@@ -16,19 +16,16 @@
  *  5. Logger success/failure (Sentry si configuré).
  */
 
+import { buildWeeklyDigest, type WeeklyDigestPayload } from "@/lib/cockpit/weekly-digest";
+import { executeComposioAction } from "@/lib/connectors/composio/client";
+import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
 import { inngest } from "@/lib/jobs/inngest/client";
-import {
-  buildWeeklyDigest,
-  type WeeklyDigestPayload,
-} from "@/lib/cockpit/weekly-digest";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import {
   formatWeeklyDigestBlocks,
   WEEKLY_DIGEST_DEFAULT_CHANNEL,
   WEEKLY_DIGEST_DEFAULT_TZ,
 } from "@/lib/workflows/templates/weekly-slack-digest";
-import { executeComposioAction } from "@/lib/connectors/composio/client";
-import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 interface WeeklyDigestEventData {
   userId: string;
@@ -71,9 +68,7 @@ async function loadActiveUsersWithSlack(): Promise<ActiveUserScope[]> {
   if (!sb) return [];
 
   // Récupère users + tenant principal.
-  const { data: usersData, error: usersErr } = await sb
-    .from("users")
-    .select("id, tenant_ids");
+  const { data: usersData, error: usersErr } = await sb.from("users").select("id, tenant_ids");
   if (usersErr || !usersData) {
     await reportError("loadActiveUsersWithSlack:users", usersErr ?? new Error("no data"));
     return [];
@@ -119,9 +114,7 @@ export const weeklyDigestCronFunction = inngest.createFunction(
     triggers: [{ cron: "TZ=Europe/Paris 0 17 * * 5" }],
   },
   async ({ step }) => {
-    const users = await step.run("load-active-slack-users", () =>
-      loadActiveUsersWithSlack(),
-    );
+    const users = await step.run("load-active-slack-users", () => loadActiveUsersWithSlack());
 
     if (users.length === 0) {
       console.log("[WeeklyDigest/cron] aucun user avec Slack connecté.");
@@ -172,9 +165,7 @@ export const weeklyDigestPerUserFunction = inngest.createFunction(
           workspaceId: data.workspaceId ?? data.tenantId,
           userId: data.userId,
         });
-        return conns.some(
-          (c) => c.status === "connected" && c.provider === SLACK_PROVIDER,
-        );
+        return conns.some((c) => c.status === "connected" && c.provider === SLACK_PROVIDER);
       } catch (err) {
         await reportError("verify-slack-connected", err);
         return false;
@@ -182,9 +173,7 @@ export const weeklyDigestPerUserFunction = inngest.createFunction(
     });
 
     if (!slackConnected) {
-      console.log(
-        `[WeeklyDigest/user=${data.userId.slice(0, 8)}] Slack déconnecté — skip.`,
-      );
+      console.log(`[WeeklyDigest/user=${data.userId.slice(0, 8)}] Slack déconnecté — skip.`);
       return { skipped: true, reason: "slack_disconnected" };
     }
 

@@ -7,7 +7,7 @@
  * stageRequest attendu pour téléporter sur le bon Stage.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   createMeetingBotMock,
@@ -43,8 +43,8 @@ vi.mock("@/lib/connectors/composio/client", () => ({
   executeComposioAction: executeComposioMock,
 }));
 
-import { executeVoiceTool } from "@/lib/voice/tools";
 import type { CanonicalScope } from "@/lib/platform/auth/scope";
+import { executeVoiceTool } from "@/lib/voice/tools";
 
 const scope: CanonicalScope = {
   userId: "user-1",

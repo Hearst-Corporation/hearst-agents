@@ -12,8 +12,8 @@
  *  - 503 si toutes les enqueues échouent (jobs.length === 0)
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   requireScope,
@@ -51,14 +51,11 @@ const SCOPE = {
 };
 
 function makeReq(body: unknown, opts?: { rawBody?: string }): NextRequest {
-  return new NextRequest(
-    new URL("http://localhost/api/v2/assets/batch"),
-    {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: opts?.rawBody ?? JSON.stringify(body),
-    },
-  );
+  return new NextRequest(new URL("http://localhost/api/v2/assets/batch"), {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: opts?.rawBody ?? JSON.stringify(body),
+  });
 }
 
 const validVariant = (prompt: string) => ({
@@ -145,11 +142,7 @@ describe("POST /api/v2/assets/batch", () => {
     const { POST } = await import("@/app/api/v2/assets/batch/route");
     const res = await POST(
       makeReq({
-        variants: [
-          validVariant("prompt A"),
-          validVariant("prompt B"),
-          validVariant("prompt C"),
-        ],
+        variants: [validVariant("prompt A"), validVariant("prompt B"), validVariant("prompt C")],
         threadId: "thread-42",
       }),
     );
@@ -172,18 +165,14 @@ describe("POST /api/v2/assets/batch", () => {
       expect(typeof job.index).toBe("number");
     }
     // index 0..2 couverts.
-    const indices = (body.jobs as Array<{ index: number }>)
-      .map((j) => j.index)
-      .sort();
+    const indices = (body.jobs as Array<{ index: number }>).map((j) => j.index).sort();
     expect(indices).toEqual([0, 1, 2]);
 
     // L'asset shell est typé "report" avec metadata batch.
     const assetCall = storeAsset.mock.calls[0][0];
     expect(assetCall.kind).toBe("report");
     expect(assetCall.threadId).toBe("thread-42");
-    expect(assetCall.provenance.metadata.origin).toBe(
-      "video-quick-launch-batch",
-    );
+    expect(assetCall.provenance.metadata.origin).toBe("video-quick-launch-batch");
     expect(assetCall.provenance.metadata.variantCount).toBe(3);
   });
 
@@ -232,11 +221,7 @@ describe("POST /api/v2/assets/batch", () => {
     const { POST } = await import("@/app/api/v2/assets/batch/route");
     const res = await POST(
       makeReq({
-        variants: [
-          validVariant("A"),
-          validVariant("B"),
-          validVariant("C"),
-        ],
+        variants: [validVariant("A"), validVariant("B"), validVariant("C")],
       }),
     );
     expect(res.status).toBe(201);
@@ -251,8 +236,7 @@ describe("POST /api/v2/assets/batch", () => {
 
     // Variant marqué failed (cleanup individuel).
     const failedCalls = updateVariant.mock.calls.filter(
-      ([, patch]) =>
-        (patch as { status?: string }).status === "failed",
+      ([, patch]) => (patch as { status?: string }).status === "failed",
     );
     expect(failedCalls).toHaveLength(1);
   });

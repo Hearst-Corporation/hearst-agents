@@ -53,9 +53,7 @@ export function LibraryTabs({ active }: LibraryTabsProps) {
         })}
       </div>
       {current?.description && (
-        <p className="t-11 font-light text-text-faint hidden md:block">
-          {current.description}
-        </p>
+        <p className="t-11 font-light text-text-faint hidden md:block">{current.description}</p>
       )}
     </div>
   );

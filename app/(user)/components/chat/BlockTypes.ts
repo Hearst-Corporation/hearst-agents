@@ -11,12 +11,7 @@ export type BlockType =
   | "insight"
   | "paragraph";
 
-export type BlockActionId =
-  | "expand"
-  | "mission"
-  | "asset"
-  | "edit"
-  | "refine";
+export type BlockActionId = "expand" | "mission" | "asset" | "edit" | "refine";
 
 export interface BlockProps {
   content: string;

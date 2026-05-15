@@ -11,8 +11,8 @@
  * Stratégie : mock fluide léger autour de @supabase/supabase-js + mock email.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
 import crypto from "node:crypto";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Setup env vars AVANT l'import du module ────────────────────────────────
 // Le secret HMAC doit faire ≥ 32 chars sinon le module désactive le signing.
@@ -114,10 +114,7 @@ class QueryBuilder {
     onrejected?: (reason: unknown) => T2 | PromiseLike<T2>,
   ): Promise<T1 | T2> {
     const filtered = this.applyAll();
-    return Promise.resolve({ data: filtered, error: null }).then(
-      onfulfilled,
-      onrejected,
-    );
+    return Promise.resolve({ data: filtered, error: null }).then(onfulfilled, onrejected);
   }
 
   _setUpdate(values: Row) {
@@ -185,13 +182,13 @@ vi.mock("@supabase/supabase-js", () => ({
 // ── Imports du module testé (après mocks) ──────────────────────────────────
 
 import {
-  requestApprovals,
-  recordVote,
-  verifyApprovalToken,
+  APPROVAL_TTL_HOURS,
+  buildApprovalUrl,
   getApprovalState,
   hasActiveApprovalSession,
-  buildApprovalUrl,
-  APPROVAL_TTL_HOURS,
+  recordVote,
+  requestApprovals,
+  verifyApprovalToken,
 } from "@/lib/missions/approvals";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -315,7 +312,7 @@ describe("verifyApprovalToken", () => {
     const text = call.text as string;
     const match = text.match(/\/public\/approvals\/([^?\s]+)/);
     expect(match).toBeTruthy();
-    const token = decodeURIComponent(match![1]);
+    const token = decodeURIComponent(match?.[1]);
 
     const result = verifyApprovalToken(token);
     expect(result.ok).toBe(true);
@@ -338,7 +335,7 @@ describe("verifyApprovalToken", () => {
       mode: "all",
     });
     const text = emailMocks.sendTransactionalEmail.mock.calls[0][0].text as string;
-    const token = decodeURIComponent(text.match(/\/public\/approvals\/([^?\s]+)/)![1]);
+    const token = decodeURIComponent(text.match(/\/public\/approvals\/([^?\s]+)/)?.[1]);
     // Tamper la signature : flip un char en milieu de la 2e partie.
     const [payload, sig] = token.split(".");
     const tampered = `${payload}.${sig.slice(0, -2)}AA`;
@@ -379,7 +376,7 @@ async function setupSession(approvers: string[], mode: "all" | "any" | "majority
   expect(result.ok).toBe(true);
   const tokens = emailMocks.sendTransactionalEmail.mock.calls.map((c) => {
     const text = c[0].text as string;
-    return decodeURIComponent(text.match(/\/public\/approvals\/([^?\s]+)/)![1]);
+    return decodeURIComponent(text.match(/\/public\/approvals\/([^?\s]+)/)?.[1]);
   });
   return { tokens, sessionId: result.sessionId! };
 }
@@ -406,10 +403,7 @@ describe("recordVote — mode all", () => {
 
 describe("recordVote — mode any", () => {
   it("1 approuve sur 3 → isApproved=true immédiatement", async () => {
-    const { tokens } = await setupSession(
-      ["a@h.test", "b@h.test", "c@h.test"],
-      "any",
-    );
+    const { tokens } = await setupSession(["a@h.test", "b@h.test", "c@h.test"], "any");
     const r = await recordVote(tokens[0], "approved");
     expect(r.ok).toBe(true);
     expect(r.sessionApproved).toBe(true);
@@ -418,20 +412,14 @@ describe("recordVote — mode any", () => {
 
 describe("recordVote — mode majority", () => {
   it("2/3 approuvent → isApproved=true", async () => {
-    const { tokens } = await setupSession(
-      ["a@h.test", "b@h.test", "c@h.test"],
-      "majority",
-    );
+    const { tokens } = await setupSession(["a@h.test", "b@h.test", "c@h.test"], "majority");
     await recordVote(tokens[0], "approved");
     const r2 = await recordVote(tokens[1], "approved");
     expect(r2.sessionApproved).toBe(true);
   });
 
   it("1/3 approuve → isApproved=false", async () => {
-    const { tokens } = await setupSession(
-      ["a@h.test", "b@h.test", "c@h.test"],
-      "majority",
-    );
+    const { tokens } = await setupSession(["a@h.test", "b@h.test", "c@h.test"], "majority");
     const r = await recordVote(tokens[0], "approved");
     expect(r.sessionApproved).toBe(false);
     expect(r.state?.approved).toBe(1);
@@ -441,10 +429,7 @@ describe("recordVote — mode majority", () => {
 
 describe("recordVote — rejet bloquant", () => {
   it("1 rejected sur 3 → isRejected=true quel que soit le mode", async () => {
-    const { tokens } = await setupSession(
-      ["a@h.test", "b@h.test", "c@h.test"],
-      "all",
-    );
+    const { tokens } = await setupSession(["a@h.test", "b@h.test", "c@h.test"], "all");
     const r = await recordVote(tokens[0], "rejected");
     expect(r.ok).toBe(true);
     expect(r.sessionRejected).toBe(true);
@@ -498,10 +483,7 @@ describe("getApprovalState", () => {
   });
 
   it("retourne l'état agrégé après plusieurs votes", async () => {
-    const { tokens } = await setupSession(
-      ["a@h.test", "b@h.test", "c@h.test"],
-      "all",
-    );
+    const { tokens } = await setupSession(["a@h.test", "b@h.test", "c@h.test"], "all");
     await recordVote(tokens[0], "approved");
     const state = await getApprovalState("mission-1");
     expect(state).not.toBeNull();

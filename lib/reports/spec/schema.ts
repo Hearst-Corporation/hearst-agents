@@ -59,13 +59,7 @@ export const REPORT_PERSONAS = [
   "support",
 ] as const;
 
-export const REPORT_CADENCES = [
-  "ad-hoc",
-  "daily",
-  "weekly",
-  "monthly",
-  "event",
-] as const;
+export const REPORT_CADENCES = ["ad-hoc", "daily", "weekly", "monthly", "event"] as const;
 
 export const REPORT_CONFIDENTIALITY = ["internal", "shared"] as const;
 
@@ -175,9 +169,7 @@ const joinOpSchema = z.object({
   op: z.literal("join"),
   inputs: z.tuple([datasetRefSchema, datasetRefSchema]),
   params: z.object({
-    on: z.array(
-      z.object({ left: z.string(), right: z.string() }),
-    ).min(1),
+    on: z.array(z.object({ left: z.string(), right: z.string() })).min(1),
     how: z.enum(["inner", "left"]).default("inner"),
   }),
 });
@@ -192,17 +184,7 @@ const groupByOpSchema = z.object({
       .array(
         z.object({
           name: z.string().min(1),
-          fn: z.enum([
-            "count",
-            "sum",
-            "avg",
-            "min",
-            "max",
-            "median",
-            "p95",
-            "first",
-            "last",
-          ]),
+          fn: z.enum(["count", "sum", "avg", "min", "max", "median", "p95", "first", "last"]),
           field: z.string().optional(), // requis sauf pour count
         }),
       )
@@ -215,9 +197,7 @@ const windowOpSchema = z.object({
   inputs: z.tuple([datasetRefSchema]),
   params: z.object({
     /** Range temporel relatif. Ex: "30d", "12w", "6m". */
-    range: z
-      .string()
-      .regex(/^\d+(d|w|m|y)$/, "format attendu: <nombre><d|w|m|y>"),
+    range: z.string().regex(/^\d+(d|w|m|y)$/, "format attendu: <nombre><d|w|m|y>"),
     field: z.string().min(1).default("created_at"),
   }),
 });
@@ -228,9 +208,7 @@ const diffOpSchema = z.object({
   params: z.object({
     /** Champ scalaire à comparer entre deux fenêtres. */
     field: z.string().min(1),
-    window: z
-      .string()
-      .regex(/^\d+(d|w|m|y)$/),
+    window: z.string().regex(/^\d+(d|w|m|y)$/),
   }),
 });
 
@@ -578,22 +556,14 @@ export const ganttPropsSchema = z
           path: ["tasks", i, "end"],
         });
       }
-      if (
-        Number.isFinite(rangeStart) &&
-        Number.isFinite(ts) &&
-        ts < rangeStart
-      ) {
+      if (Number.isFinite(rangeStart) && Number.isFinite(ts) && ts < rangeStart) {
         ctx.addIssue({
           code: "custom",
           message: `gantt.tasks[${i}].start (${t.start}) hors range.start (${val.range.start})`,
           path: ["tasks", i, "start"],
         });
       }
-      if (
-        Number.isFinite(rangeEnd) &&
-        Number.isFinite(te) &&
-        te > rangeEnd
-      ) {
+      if (Number.isFinite(rangeEnd) && Number.isFinite(te) && te > rangeEnd) {
         ctx.addIssue({
           code: "custom",
           message: `gantt.tasks[${i}].end (${t.end}) hors range.end (${val.range.end})`,
@@ -767,10 +737,7 @@ export type NarrationSpec = z.infer<typeof narrationSpecSchema>;
 
 const cronExprSchema = z
   .string()
-  .regex(
-    /^(\S+\s+){4}\S+$/,
-    "cron 5 champs requis (minute heure jour mois jour-semaine)",
-  );
+  .regex(/^(\S+\s+){4}\S+$/, "cron 5 champs requis (minute heure jour mois jour-semaine)");
 
 export const refreshSpecSchema = z
   .object({
@@ -906,8 +873,8 @@ export function parseReportSpec(value: unknown): ReportSpec {
   return reportSpecSchema.parse(value);
 }
 
-export function safeParseReportSpec(value: unknown):
-  | { success: true; data: ReportSpec }
-  | { success: false; error: z.ZodError } {
+export function safeParseReportSpec(
+  value: unknown,
+): { success: true; data: ReportSpec } | { success: false; error: z.ZodError } {
   return reportSpecSchema.safeParse(value);
 }

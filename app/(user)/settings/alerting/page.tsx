@@ -2,8 +2,8 @@
  * /settings/alerting — Page configuration des alertes Hearst OS.
  */
 
-import { AlertingSettings } from "@/app/(user)/components/settings/AlertingSettings";
 import { PageHeader } from "@/app/(user)/components/PageHeader";
+import { AlertingSettings } from "@/app/(user)/components/settings/AlertingSettings";
 
 export default function AlertingSettingsPage() {
   return (
@@ -14,7 +14,11 @@ export default function AlertingSettingsPage() {
       <PageHeader
         title="Alerting"
         subtitle="Canaux de notification pour les signaux critiques de Hearst OS."
-        breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Réglages", href: "/settings" }, { label: "Alerting" }]}
+        breadcrumb={[
+          { label: "Hearst", href: "/" },
+          { label: "Réglages", href: "/settings" },
+          { label: "Alerting" },
+        ]}
       />
       <div
         className="w-full px-12 py-6"

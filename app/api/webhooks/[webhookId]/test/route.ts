@@ -7,10 +7,10 @@
 
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/platform/auth/options";
-import { listWebhooks } from "@/lib/webhooks/store";
-import { dispatchWebhookEventAsync } from "@/lib/webhooks/dispatcher";
 import { redactedError, withRoute } from "@/lib/observability/logger";
+import { authOptions } from "@/lib/platform/auth/options";
+import { dispatchWebhookEventAsync } from "@/lib/webhooks/dispatcher";
+import { listWebhooks } from "@/lib/webhooks/store";
 
 const log = withRoute("POST /api/webhooks/[webhookId]/test");
 
@@ -21,10 +21,7 @@ function getTenantId(session: unknown): string | null {
 
 type RouteContext = { params: Promise<{ webhookId: string }> };
 
-export async function POST(
-  _req: Request,
-  context: RouteContext,
-): Promise<NextResponse> {
+export async function POST(_req: Request, context: RouteContext): Promise<NextResponse> {
   const { webhookId } = await context.params;
   const session = await getServerSession(authOptions);
   const tenantId = getTenantId(session);

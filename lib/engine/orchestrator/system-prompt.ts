@@ -8,13 +8,13 @@
  * execution path (replaces the old planner+executor for action tasks).
  */
 
-import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
-import type { Persona } from "@/lib/personas/types";
-import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import { buildSlugStrictnessRule } from "@/lib/agents/connected-apps-context";
 import { buildDualAppGuidance } from "@/lib/agents/dual-apps";
+import type { DiscoveredTool } from "@/lib/connectors/composio/discovery";
 import { EDITORIAL_CHARTER_BLOCK } from "@/lib/editorial/charter";
 import { getSpotlightHeader } from "@/lib/memory/untrusted-fence";
+import { buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
+import type { Persona } from "@/lib/personas/types";
 
 export const ORCHESTRATOR_MODEL = "claude-sonnet-4-6";
 
@@ -93,8 +93,7 @@ export const PLAN_TOOL = {
     properties: {
       reasoning: {
         type: "string" as const,
-        description:
-          "Brief reasoning explaining the decomposition strategy (2-3 sentences max).",
+        description: "Brief reasoning explaining the decomposition strategy (2-3 sentences max).",
       },
       steps: {
         type: "array" as const,
@@ -102,12 +101,7 @@ export const PLAN_TOOL = {
           "Ordered list of execution steps. Empty array if the task is a simple chat response.",
         items: {
           type: "object" as const,
-          required: [
-            "intent",
-            "agent",
-            "task_description",
-            "expected_output",
-          ] as const,
+          required: ["intent", "agent", "task_description", "expected_output"] as const,
           properties: {
             intent: {
               type: "string" as const,
@@ -127,32 +121,17 @@ export const PLAN_TOOL = {
             },
             task_description: {
               type: "string" as const,
-              description:
-                "Detailed task for the agent. Must be self-contained.",
+              description: "Detailed task for the agent. Must be self-contained.",
             },
             expected_output: {
               type: "string" as const,
-              enum: [
-                "summary",
-                "draft",
-                "report",
-                "data",
-                "plan",
-                "execution_result",
-              ],
+              enum: ["summary", "draft", "report", "data", "plan", "execution_result"],
               description: "Type of output this step produces.",
             },
             retrieval_mode: {
               type: "string" as const,
-              enum: [
-                "documents",
-                "messages",
-                "structured_data",
-                "people_context",
-                "broad",
-              ],
-              description:
-                "Required for KnowledgeRetriever. Specifies what sources to search.",
+              enum: ["documents", "messages", "structured_data", "people_context", "broad"],
+              description: "Required for KnowledgeRetriever. Specifies what sources to search.",
             },
             needs_artifact: {
               type: "boolean" as const,
@@ -161,8 +140,7 @@ export const PLAN_TOOL = {
             },
             optional: {
               type: "boolean" as const,
-              description:
-                "True if the run can succeed even if this step fails.",
+              description: "True if the run can succeed even if this step fails.",
             },
             depends_on: {
               type: "array" as const,
@@ -291,7 +269,17 @@ interface AgentSystemPromptOpts {
  * surface and the model decides what to call.
  */
 export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
-  const { composioTools, surface, scheduleDirective, applicableReports, briefing, kgContext, retrievedMemory, persona, missionContext } = opts;
+  const {
+    composioTools,
+    surface,
+    scheduleDirective,
+    applicableReports,
+    briefing,
+    kgContext,
+    retrievedMemory,
+    persona,
+    missionContext,
+  } = opts;
 
   const today = new Date().toLocaleDateString("fr-FR", {
     weekday: "long",
@@ -317,7 +305,8 @@ export function buildAgentSystemPrompt(opts: AgentSystemPromptOpts): string {
           .map((t) => `- ${t.name} : ${t.description.slice(0, 100)}`)
           .join("\n") +
         (composioTools.length > 120 ? `\n(+${composioTools.length - 120} autres actions)` : "") +
-        "\n\n" + buildSlugStrictnessRule() +
+        "\n\n" +
+        buildSlugStrictnessRule() +
         dualAppSection
       : "(aucun outil tiers connecté pour ce tour)";
 

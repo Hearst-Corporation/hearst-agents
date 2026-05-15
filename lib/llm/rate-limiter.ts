@@ -72,7 +72,8 @@ export class LLMRateLimiter {
 
     for (const [userId, state] of this.userStates.entries()) {
       const isExpired = state.createdAt < maxAge;
-      const isInactive = state.lastActivity < inactiveThreshold &&
+      const isInactive =
+        state.lastActivity < inactiveThreshold &&
         state.callTimestamps.length === 0 &&
         state.tokenEntries.length === 0;
 
@@ -174,7 +175,11 @@ export class LLMRateLimiter {
 
     // Cleanup this specific entry if inactive (not global cleanup)
     const twoHoursAgo = now - 7200000;
-    if (state.lastActivity < twoHoursAgo && state.callTimestamps.length === 0 && state.tokenEntries.length === 0) {
+    if (
+      state.lastActivity < twoHoursAgo &&
+      state.callTimestamps.length === 0 &&
+      state.tokenEntries.length === 0
+    ) {
       this.userStates.delete(userId);
     }
   }
@@ -235,9 +240,7 @@ export class LLMRateLimiter {
    * lowercased. Permet de gérer indifféremment fetch Response.headers et
    * objets plain venant de SDK.
    */
-  private normalizeHeaders(
-    headers: Record<string, string> | Headers,
-  ): Record<string, string> {
+  private normalizeHeaders(headers: Record<string, string> | Headers): Record<string, string> {
     const out: Record<string, string> = {};
     if (typeof Headers !== "undefined" && headers instanceof Headers) {
       headers.forEach((value, key) => {
@@ -266,10 +269,7 @@ export class LLMRateLimiter {
    * Si headers non reconnus → ignore silencieusement.
    * Tolérant aux erreurs de parsing : ne throw jamais.
    */
-  recordHeaders(
-    provider: string,
-    headers: Record<string, string> | Headers,
-  ): void {
+  recordHeaders(provider: string, headers: Record<string, string> | Headers): void {
     if (!provider || !headers) return;
 
     let h: Record<string, string>;
@@ -445,10 +445,7 @@ export class LLMRateLimiter {
       state.tokensResetAt > now
     ) {
       const window = state.tokensResetAt - now;
-      const delay = Math.min(
-        Math.ceil(window / 10),
-        this.proactiveDelayCapMs,
-      );
+      const delay = Math.min(Math.ceil(window / 10), this.proactiveDelayCapMs);
       if (delay > 0) {
         this.logThrottle(provider, delay, state);
         return { throttle: true, reasonMs: delay };
@@ -463,7 +460,7 @@ export class LLMRateLimiter {
    */
   getNextDelay(provider: string): number {
     const decision = this.shouldThrottle(provider);
-    return decision.throttle ? decision.reasonMs ?? 0 : 0;
+    return decision.throttle ? (decision.reasonMs ?? 0) : 0;
   }
 
   /**
@@ -474,19 +471,13 @@ export class LLMRateLimiter {
     return state ? { ...state } : undefined;
   }
 
-  private logThrottle(
-    provider: string,
-    reasonMs: number,
-    state: ProviderRateLimit,
-  ): void {
+  private logThrottle(provider: string, reasonMs: number, state: ProviderRateLimit): void {
     const now = Date.now();
     const lastAt = this.lastThrottleLogAt.get(provider) ?? 0;
     if (now - lastAt < this.throttleLogDebounceMs) return;
     this.lastThrottleLogAt.set(provider, now);
 
-    const remaining = Number.isFinite(state.requestsRemaining)
-      ? state.requestsRemaining
-      : "∞";
+    const remaining = Number.isFinite(state.requestsRemaining) ? state.requestsRemaining : "∞";
     const limit = state.requestsLimit || "?";
     console.warn(
       `[ratelimit] ${provider} throttle ${reasonMs}ms (remaining=${remaining}/${limit})`,

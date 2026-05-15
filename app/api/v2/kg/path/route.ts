@@ -7,10 +7,10 @@
  * Retourne { path: { nodes, edges, hops } } ou { path: null } si pas trouvé.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { findPath } from "@/lib/memory/kg";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

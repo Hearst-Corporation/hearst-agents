@@ -94,13 +94,14 @@ export interface WorkflowExecutionContext {
   outputs: Map<string, unknown>;
 }
 
-export interface WorkflowToolHandler {
-  (tool: string, args: Record<string, unknown>): Promise<{
-    success: boolean;
-    output?: unknown;
-    error?: string;
-  }>;
-}
+export type WorkflowToolHandler = (
+  tool: string,
+  args: Record<string, unknown>,
+) => Promise<{
+  success: boolean;
+  output?: unknown;
+  error?: string;
+}>;
 
 export interface WorkflowExecutionCallbacks {
   /** Exécute un tool (Composio, send_message, etc.). */

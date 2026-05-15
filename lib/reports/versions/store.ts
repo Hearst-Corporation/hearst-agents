@@ -12,8 +12,8 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
 import type { BusinessSignal } from "@/lib/reports/signals/extract";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 // ── Schémas Zod ───────────────────────────────────────────────
 

@@ -3,7 +3,7 @@
  * Centralise toutes les valeurs magiques du module spatial.
  */
 
-import type { SpatialDepthLayer, SpatialTheme, SpatialSceneConfig, MotionConfig } from "./types";
+import type { MotionConfig, SpatialDepthLayer, SpatialSceneConfig, SpatialTheme } from "./types";
 
 export const SPATIAL_Z_LAYERS: Record<SpatialDepthLayer, number> = {
   background: 0,

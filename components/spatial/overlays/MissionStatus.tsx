@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
 
 interface MissionStatusProps {
@@ -13,10 +13,7 @@ interface MissionStatusProps {
  * Bandeau de statut de mission — un seul focus dominant pendant l'orchestration.
  * Centré au-dessus du noyau, pulse lent.
  */
-export function MissionStatus({
-  show,
-  label = "Mission en cours",
-}: MissionStatusProps) {
+export function MissionStatus({ show, label = "Mission en cours" }: MissionStatusProps) {
   return (
     <div
       className="absolute inset-x-0 top-[22%] flex items-center justify-center pointer-events-none"
@@ -27,11 +24,15 @@ export function MissionStatus({
           <motion.div
             initial={{ opacity: 0, y: -8, filter: "blur(8px)" }}
             animate={{
-              opacity: 1, y: 0, filter: "blur(0px)",
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
               transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 },
             }}
             exit={{
-              opacity: 0, y: -4, filter: "blur(6px)",
+              opacity: 0,
+              y: -4,
+              filter: "blur(6px)",
               transition: { duration: 0.5, ease: [0.4, 0, 1, 1] },
             }}
             className="flex items-center gap-3"

@@ -1,8 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import {
-  guardAndReserveCredits,
-  settleCredits,
-} from "@/lib/credits/client";
+import { beforeEach, describe, expect, it } from "vitest";
+import { guardAndReserveCredits, settleCredits } from "@/lib/credits/client";
 
 /**
  * Tests du cycle de vie des réservations de crédits.
@@ -20,7 +17,7 @@ import {
 
 describe("Credits reservation lifecycle", () => {
   // IDs de test fixes pour la traçabilité
-  const TEST_USER_ID = "test-user-" + Date.now();
+  const TEST_USER_ID = `test-user-${Date.now()}`;
   const TEST_TENANT_ID = "test-tenant";
 
   beforeEach(() => {
@@ -49,7 +46,7 @@ describe("Credits reservation lifecycle", () => {
     //
     // SKIP si test DB non dispo — le CI avec Supabase local passe.
     const result = await guardAndReserveCredits({
-      userId: TEST_USER_ID + "-ok",
+      userId: `${TEST_USER_ID}-ok`,
       tenantId: TEST_TENANT_ID,
       estimatedCostUsd: 0.01, // Très petit montant pour ne pas bloquer sur balance réelle
       jobId: "job-tiny",
@@ -73,7 +70,7 @@ describe("Credits reservation lifecycle", () => {
         jobId: job,
         jobKind: "image-gen",
         description: "Test settle with refund",
-      })
+      }),
     ).resolves.toBeUndefined();
   });
 
@@ -84,10 +81,10 @@ describe("Credits reservation lifecycle", () => {
     //
     // En pratique, le jobId sert d'idempotency_key. Si un worker retry
     // avec le même jobId, la réservation est idempotente.
-    const jobId = "job-idem-" + Date.now();
+    const jobId = `job-idem-${Date.now()}`;
 
     const first = await guardAndReserveCredits({
-      userId: TEST_USER_ID + "-idem",
+      userId: `${TEST_USER_ID}-idem`,
       tenantId: TEST_TENANT_ID,
       estimatedCostUsd: 1.0,
       jobId,
@@ -95,7 +92,7 @@ describe("Credits reservation lifecycle", () => {
     });
 
     const second = await guardAndReserveCredits({
-      userId: TEST_USER_ID + "-idem",
+      userId: `${TEST_USER_ID}-idem`,
       tenantId: TEST_TENANT_ID,
       estimatedCostUsd: 1.0,
       jobId,
@@ -114,25 +111,25 @@ describe("Credits reservation lifecycle", () => {
     // - settle convertit la réservation en débit de 7.50 + refund de 2.50
     //
     // Le code client ne return rien — la fonction SQL garantit l'atomicité.
-    const jobId = "job-refund-" + Date.now();
+    const jobId = `job-refund-${Date.now()}`;
 
     // Pré-condition : doit avoir au moins 10.00 dispo (ou le test retourne false)
     const guard = await guardAndReserveCredits({
-      userId: TEST_USER_ID + "-refund",
+      userId: `${TEST_USER_ID}-refund`,
       tenantId: TEST_TENANT_ID,
       estimatedCostUsd: 10.0,
-      jobId: jobId + "-reserve",
+      jobId: `${jobId}-reserve`,
       jobKind: "image-gen",
     });
 
     if (guard.allowed) {
       // Settle avec montant réel < réservé
       await settleCredits({
-        userId: TEST_USER_ID + "-refund",
+        userId: `${TEST_USER_ID}-refund`,
         tenantId: TEST_TENANT_ID,
         reservedUsd: 10.0,
         actualUsd: 7.5,
-        jobId: jobId + "-settle",
+        jobId: `${jobId}-settle`,
         jobKind: "image-gen",
         description: "Partial cost — refund 2.50",
       });

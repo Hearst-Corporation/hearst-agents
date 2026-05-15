@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/capabilities/providers/pdl", async () => {
   const actual = await vi.importActual<typeof import("@/lib/capabilities/providers/pdl")>(
@@ -22,9 +22,9 @@ vi.mock("@/lib/capabilities/providers/apollo", async () => {
   };
 });
 
-import { buildEnrichTools } from "@/lib/tools/native/enrich";
-import * as pdl from "@/lib/capabilities/providers/pdl";
 import * as apollo from "@/lib/capabilities/providers/apollo";
+import * as pdl from "@/lib/capabilities/providers/pdl";
+import { buildEnrichTools } from "@/lib/tools/native/enrich";
 
 describe("buildEnrichTools", () => {
   beforeEach(() => {
@@ -53,7 +53,7 @@ describe("buildEnrichTools", () => {
       });
 
       const tools = buildEnrichTools();
-      const result = (await tools.enrich_company.execute!(
+      const result = (await tools.enrich_company.execute?.(
         { domain: "stripe.com" },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {} as any,
@@ -71,7 +71,7 @@ describe("buildEnrichTools", () => {
       vi.mocked(pdl.enrichCompany).mockRejectedValue(new pdl.PdlUnavailableError());
 
       const tools = buildEnrichTools();
-      const result = (await tools.enrich_company.execute!(
+      const result = (await tools.enrich_company.execute?.(
         { domain: "x.com" },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {} as any,
@@ -84,7 +84,7 @@ describe("buildEnrichTools", () => {
       vi.mocked(pdl.enrichCompany).mockRejectedValue(new Error("rate_limited"));
 
       const tools = buildEnrichTools();
-      const result = (await tools.enrich_company.execute!(
+      const result = (await tools.enrich_company.execute?.(
         { domain: "x.com" },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {} as any,
@@ -112,7 +112,7 @@ describe("buildEnrichTools", () => {
       });
 
       const tools = buildEnrichTools();
-      const result = (await tools.enrich_contact.execute!(
+      const result = (await tools.enrich_contact.execute?.(
         { email: "patrick@stripe.com" },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {} as any,
@@ -129,7 +129,7 @@ describe("buildEnrichTools", () => {
       vi.mocked(apollo.enrichPerson).mockRejectedValue(new apollo.ApolloUnavailableError());
 
       const tools = buildEnrichTools();
-      const result = (await tools.enrich_contact.execute!(
+      const result = (await tools.enrich_contact.execute?.(
         { email: "x@y.com" },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {} as any,

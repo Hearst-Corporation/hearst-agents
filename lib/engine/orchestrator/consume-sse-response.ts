@@ -8,7 +8,9 @@ export type OrchestrateStreamResult = { ok: true } | { ok: false; error: string 
 /**
  * Read an orchestrate Response body until close; fail fast on run_failed events.
  */
-export async function consumeOrchestrateSseResponse(res: Response): Promise<OrchestrateStreamResult> {
+export async function consumeOrchestrateSseResponse(
+  res: Response,
+): Promise<OrchestrateStreamResult> {
   if (!res.ok) {
     let msg = `HTTP ${res.status}`;
     try {
@@ -51,9 +53,10 @@ export async function consumeOrchestrateSseResponse(res: Response): Promise<Orch
           if (event.type === "run_failed") {
             return {
               ok: false,
-              error: typeof event.error === "string" && event.error.length > 0
-                ? event.error
-                : "run_failed",
+              error:
+                typeof event.error === "string" && event.error.length > 0
+                  ? event.error
+                  : "run_failed",
             };
           }
         } catch {

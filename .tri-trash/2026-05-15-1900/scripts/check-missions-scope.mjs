@@ -35,7 +35,7 @@ async function main() {
     console.error("   Error:", userError.message);
     process.exit(1);
   }
-  
+
   if (!userMissions || userMissions.length === 0) {
     console.log("   ❌ No missions found\n");
     return;
@@ -53,7 +53,13 @@ async function main() {
 
   byTenant.forEach((missions, tenant) => {
     const isPersonal = tenant === PERSONAL_TENANT;
-    const label = isPersonal ? "📦 Personal tenant" : tenant === "null" ? "❓ No tenant" : tenant === "dev-tenant" ? "🔓 Shared dev-tenant" : `📦 Tenant: ${tenant}`;
+    const label = isPersonal
+      ? "📦 Personal tenant"
+      : tenant === "null"
+        ? "❓ No tenant"
+        : tenant === "dev-tenant"
+          ? "🔓 Shared dev-tenant"
+          : `📦 Tenant: ${tenant}`;
     console.log(`   ${label} (${missions.length} missions):`);
     missions.forEach((m) => {
       const actions = m.actions || {};

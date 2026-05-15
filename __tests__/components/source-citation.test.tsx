@@ -5,8 +5,8 @@
  * un tooltip au hover. fmtCitation produit la string HTML attendue.
  */
 
-import { describe, it, expect } from "vitest";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { SourceCitation } from "@/app/(user)/components/SourceCitation";
 import { fmtCitation } from "@/lib/reports/blocks/format";
 

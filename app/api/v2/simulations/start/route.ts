@@ -9,12 +9,12 @@
  * d'où `maxDuration = 60` (cf. Vercel/Next.js timeout).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { deepseekChat } from "@/lib/capabilities/providers/deepseek";
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
 import { storeAsset } from "@/lib/assets/types";
+import { deepseekChat } from "@/lib/capabilities/providers/deepseek";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -71,9 +71,10 @@ export async function POST(req: NextRequest) {
   }
 
   const variables = Array.isArray(body.variables) ? body.variables : [];
-  const variablesBlock = variables.length > 0
-    ? variables.map((v) => `- ${v.key}: ${v.value}`).join("\n")
-    : "(aucune variable spécifiée)";
+  const variablesBlock =
+    variables.length > 0
+      ? variables.map((v) => `- ${v.key}: ${v.value}`).join("\n")
+      : "(aucune variable spécifiée)";
 
   const prompt = `Réponds STRICTEMENT en français pour TOUS les champs (name, narrative, metrics keys, risks). Aucun mot anglais. Si le scénario contient des termes anglais, traduis-les.
 
@@ -162,10 +163,7 @@ Retourne UNIQUEMENT un JSON valide, sans texte autour, au format :
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[Simulations] DeepSeek call failed:", message);
-    return NextResponse.json(
-      { error: "simulation_failed", message },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "simulation_failed", message }, { status: 500 });
   }
 }
 

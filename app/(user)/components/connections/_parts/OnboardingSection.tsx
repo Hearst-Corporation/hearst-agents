@@ -1,7 +1,7 @@
 "use client";
 
 import { AppLogo } from "../AppLogo";
-import { STARTER_PICKS, type ComposioApp } from "../types";
+import { type ComposioApp, STARTER_PICKS } from "../types";
 
 export function OnboardingStage({
   apps,
@@ -10,9 +10,9 @@ export function OnboardingStage({
   apps: ComposioApp[];
   onSelect: (app: ComposioApp) => void;
 }) {
-  const starters = STARTER_PICKS
-    .map((slug) => apps.find((a) => a.key === slug))
-    .filter((a): a is ComposioApp => Boolean(a));
+  const starters = STARTER_PICKS.map((slug) => apps.find((a) => a.key === slug)).filter(
+    (a): a is ComposioApp => Boolean(a),
+  );
 
   return (
     <div className="px-8 pb-2">
@@ -38,13 +38,7 @@ export function OnboardingStage({
   );
 }
 
-function StarterTile({
-  app,
-  onClick,
-}: {
-  app: ComposioApp;
-  onClick: () => void;
-}) {
+function StarterTile({ app, onClick }: { app: ComposioApp; onClick: () => void }) {
   return (
     <button
       type="button"
@@ -62,9 +56,7 @@ function StarterTile({
       >
         {app.name}
       </span>
-      <span
-        className="t-9 font-light text-[var(--accent-teal-deep)] opacity-0 group-hover:opacity-100 transition-opacity"
-      >
+      <span className="t-9 font-light text-[var(--accent-teal-deep)] opacity-0 group-hover:opacity-100 transition-opacity">
         Connecter →
       </span>
     </button>

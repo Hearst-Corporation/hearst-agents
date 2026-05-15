@@ -89,9 +89,7 @@ export function RatingsList({ ratings }: RatingsListProps) {
   if (ratings.length === 0) return null;
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="t-13 text-text-soft">
-        Notes ({ratings.length})
-      </h2>
+      <h2 className="t-13 text-text-soft">Notes ({ratings.length})</h2>
       <ul className="flex flex-col gap-2">
         {ratings.map((r) => (
           <li
@@ -106,11 +104,7 @@ export function RatingsList({ ratings }: RatingsListProps) {
               {"★".repeat(r.rating)}
               {"·".repeat(5 - r.rating)}
             </span>
-            {r.comment && (
-              <p className="t-11 text-text-soft">
-                {escapeHtml(r.comment)}
-              </p>
-            )}
+            {r.comment && <p className="t-11 text-text-soft">{escapeHtml(r.comment)}</p>}
           </li>
         ))}
       </ul>

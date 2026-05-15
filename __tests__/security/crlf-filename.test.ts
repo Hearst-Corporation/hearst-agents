@@ -5,7 +5,7 @@
  * aux injections CRLF dans Content-Disposition.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("CRLF Content-Disposition Safety (F-055)", () => {
   it("should sanitize filenames by removing CR/LF", () => {

@@ -46,6 +46,6 @@ const lockedAt = state.lockedAt ? ` (depuis ${state.lockedAt})` : "";
 process.stderr.write(
   `🔒 Agents verrouillés${lockedAt}.${reason}\n` +
     `Adrien doit déverrouiller depuis /admin/agent-driven-dev avant toute écriture.\n` +
-    `Lecture (Read, Grep, Glob) reste autorisée.\n`
+    `Lecture (Read, Grep, Glob) reste autorisée.\n`,
 );
 process.exit(2);

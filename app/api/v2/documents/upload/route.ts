@@ -36,10 +36,7 @@ export async function POST(request: Request): Promise<Response> {
 
   // Cap taille : 25 Mo max
   if (file.size > MAX_BYTES) {
-    return Response.json(
-      { error: "file_too_large", maxBytes: MAX_BYTES },
-      { status: 413 },
-    );
+    return Response.json({ error: "file_too_large", maxBytes: MAX_BYTES }, { status: 413 });
   }
 
   if (file.type !== "application/pdf") {

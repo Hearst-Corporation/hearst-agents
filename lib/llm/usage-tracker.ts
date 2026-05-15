@@ -13,8 +13,8 @@
  * Best-effort : un échec d'agrégation ne casse jamais le flow LLM.
  */
 
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import * as Sentry from "@sentry/nextjs";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 type UsageEvent = {
   tenant_id: string;
@@ -51,9 +51,7 @@ export async function incrementTenantUsage(event: UsageEvent): Promise<void> {
   const client = getAdminClient();
   if (!client) {
     if (process.env.NODE_ENV !== "production") {
-      console.warn(
-        "[usage-tracker] no supabase admin client — usage event dropped",
-      );
+      console.warn("[usage-tracker] no supabase admin client — usage event dropped");
     }
     return;
   }
@@ -103,9 +101,7 @@ export async function getTenantUsage(
   const client = getAdminClient();
   if (!client) return null;
 
-  const since = new Date(Date.now() - daysBack * 86400000)
-    .toISOString()
-    .slice(0, 10);
+  const since = new Date(Date.now() - daysBack * 86400000).toISOString().slice(0, 10);
 
   const { data, error } = await client
     .from("tenant_usage_daily")

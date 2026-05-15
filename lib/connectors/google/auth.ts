@@ -1,11 +1,11 @@
 import { google } from "googleapis";
 import {
   getTokenMeta,
-  saveTokens,
-  touchLastUsed,
+  isTokenExpired,
   recordAuthFailure,
   resetAuthFailures,
-  isTokenExpired,
+  saveTokens,
+  touchLastUsed,
 } from "@/lib/platform/auth/tokens";
 
 /**
@@ -44,9 +44,7 @@ export async function getGoogleAuth(userId: string) {
 
         const updated: Parameters<typeof saveTokens>[1] = {
           accessToken: credentials.access_token ?? null,
-          expiresAt: credentials.expiry_date
-            ? Math.floor(credentials.expiry_date / 1000)
-            : 0,
+          expiresAt: credentials.expiry_date ? Math.floor(credentials.expiry_date / 1000) : 0,
         };
 
         if (credentials.refresh_token) {

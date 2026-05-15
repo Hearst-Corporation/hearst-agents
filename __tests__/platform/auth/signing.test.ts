@@ -38,7 +38,7 @@ describe("signToken / verifyToken", () => {
     const result = signToken({ shareId: SHARE_ID, assetId: ASSET_ID, ttlHours: 24, now });
     expect(result).not.toBeNull();
 
-    const verify = verifyToken(result!.token, { now });
+    const verify = verifyToken(result?.token, { now });
     expect(verify.ok).toBe(true);
     if (verify.ok) {
       expect(verify.payload.sid).toBe(SHARE_ID);
@@ -54,7 +54,7 @@ describe("signToken / verifyToken", () => {
     expect(result).not.toBeNull();
 
     // Vérification au moment actuel → token expiré
-    const verify = verifyToken(result!.token);
+    const verify = verifyToken(result?.token);
     expect(verify.ok).toBe(false);
     if (!verify.ok) {
       expect(verify.reason).toBe("expired");
@@ -73,7 +73,7 @@ describe("signToken / verifyToken", () => {
     process.env.REPORT_SHARING_SECRET = OTHER_SECRET;
     const { verifyToken } = await import("@/lib/reports/sharing/signed-url");
 
-    const verify = verifyToken(result!.token, { now });
+    const verify = verifyToken(result?.token, { now });
     expect(verify.ok).toBe(false);
     if (!verify.ok) {
       expect(verify.reason).toBe("bad_signature");

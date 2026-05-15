@@ -5,24 +5,24 @@
  * in-memory fallback for resilience.
  */
 
-import { getAllRuns as getMemoryRuns } from "@/lib/engine/runtime/runs/store";
-import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
-import {
-  getRuns as getPersistedRuns,
-  getScheduledMissions as getPersistedMissions,
-} from "@/lib/engine/runtime/state/adapter";
-import { getAssets as getPersistedAssets } from "@/lib/engine/runtime/assets/adapter";
+import type { Asset, AssetKind, AssetProvenance } from "@/lib/assets/types";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
+import { getMissionsForThread, getPlansForThread } from "@/lib/engine/planner/store";
+import { getAssets as getPersistedAssets } from "@/lib/engine/runtime/assets/adapter";
+import { formatOutput, type OutputTier } from "@/lib/engine/runtime/formatting/pipeline";
 import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
 import { getSchedulerMode } from "@/lib/engine/runtime/missions/scheduler-init";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { manifestAsset, resolveFocalObject } from "./manifestation";
-import { formatOutput, type OutputTier } from "@/lib/engine/runtime/formatting/pipeline";
-import { getPlansForThread, getMissionsForThread } from "@/lib/engine/planner/store";
-import type { Asset, AssetKind, AssetProvenance } from "@/lib/assets/types";
-import type { RightPanelData, FocalObjectView, RightPanelReportSuggestion } from "./types";
-import { getApplicableReports } from "@/lib/reports/catalog";
+import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
+import { getAllRuns as getMemoryRuns } from "@/lib/engine/runtime/runs/store";
+import {
+  getScheduledMissions as getPersistedMissions,
+  getRuns as getPersistedRuns,
+} from "@/lib/engine/runtime/state/adapter";
 import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { getApplicableReports } from "@/lib/reports/catalog";
+import { manifestAsset, resolveFocalObject } from "./manifestation";
+import type { FocalObjectView, RightPanelData, RightPanelReportSuggestion } from "./types";
 
 const MAX_RUNS = 20;
 const MAX_ASSETS = 50;
@@ -142,17 +142,17 @@ export async function buildRightPanelData(
         );
       })
       .map((m) => ({
-      id: m.id,
-      tenantId: m.tenantId,
-      workspaceId: m.workspaceId,
-      userId: m.userId,
-      name: m.name,
-      input: m.input,
-      schedule: m.schedule,
-      enabled: m.enabled,
-      createdAt: m.createdAt,
-      lastRunAt: m.lastRunAt,
-      lastRunId: m.lastRunId,
+        id: m.id,
+        tenantId: m.tenantId,
+        workspaceId: m.workspaceId,
+        userId: m.userId,
+        name: m.name,
+        input: m.input,
+        schedule: m.schedule,
+        enabled: m.enabled,
+        createdAt: m.createdAt,
+        lastRunAt: m.lastRunAt,
+        lastRunId: m.lastRunId,
       }));
   }
 
@@ -191,11 +191,11 @@ export async function buildRightPanelData(
       connectorHealth = {
         healthy: conns.filter((c) => c.status === "connected").length,
         degraded: conns.filter((c) => c.status === "degraded" || c.status === "error").length,
-        disconnected: conns.filter((c) => c.status === "disconnected" || c.status === "pending_auth").length,
+        disconnected: conns.filter(
+          (c) => c.status === "disconnected" || c.status === "pending_auth",
+        ).length,
       };
-      connectedProviders = conns
-        .filter((c) => c.status === "connected")
-        .map((c) => c.provider);
+      connectedProviders = conns.filter((c) => c.status === "connected").map((c) => c.provider);
     }
   } catch {
     /* connector health is optional */
@@ -212,14 +212,12 @@ export async function buildRightPanelData(
       const pid = getProviderIdForService(sid);
       return pid !== undefined && providerSet.has(pid);
     });
-    const applicable = getApplicableReports([
-      ...connectedProviders,
-      ...connectedServiceIds,
-    ]);
+    const applicable = getApplicableReports([...connectedProviders, ...connectedServiceIds]);
     if (applicable.length > 0) {
       reportSuggestions = applicable
-        .filter((r): r is typeof r & { status: "ready" | "partial" } =>
-          r.status === "ready" || r.status === "partial",
+        .filter(
+          (r): r is typeof r & { status: "ready" | "partial" } =>
+            r.status === "ready" || r.status === "partial",
         )
         .map((r) => ({
           specId: r.id,
@@ -328,16 +326,19 @@ export async function buildRightPanelData(
           title: resolvedFocal.title,
           status: resolvedFocal.status,
           summary: (resolvedFocal as { summary?: string }).summary,
-          sections: (resolvedFocal as { sections?: Array<{ heading?: string; body: string }> }).sections,
+          sections: (resolvedFocal as { sections?: Array<{ heading?: string; body: string }> })
+            .sections,
           threadId: resolvedFocal.threadId,
           sourcePlanId: resolvedFocal.sourcePlanId,
           sourceAssetId: resolvedFocal.sourceAssetId,
           missionId: (resolvedFocal as { missionId?: string }).missionId,
           morphTarget: resolvedFocal.morphTarget,
           primaryAction: resolvedFocal.primaryAction,
-        body: (resolvedFocal as { body?: string }).body,
-        wordCount: (resolvedFocal as { wordCount?: number }).wordCount,
-        provider: (resolvedFocal as { providerId?: string; provider?: string }).providerId ?? (resolvedFocal as { provider?: string }).provider,
+          body: (resolvedFocal as { body?: string }).body,
+          wordCount: (resolvedFocal as { wordCount?: number }).wordCount,
+          provider:
+            (resolvedFocal as { providerId?: string; provider?: string }).providerId ??
+            (resolvedFocal as { provider?: string }).provider,
           createdAt: resolvedFocal.createdAt,
           updatedAt: resolvedFocal.updatedAt,
         };
@@ -369,7 +370,12 @@ export async function buildRightPanelData(
           if (plan.id === focalSourceId) continue;
           if (plan.status === "awaiting_approval" || plan.status === "executing") {
             secondaryObjects.push({
-              objectType: plan.type === "mission" ? "mission_draft" : plan.type === "monitoring" ? "watcher_draft" : "outline",
+              objectType:
+                plan.type === "mission"
+                  ? "mission_draft"
+                  : plan.type === "monitoring"
+                    ? "watcher_draft"
+                    : "outline",
               id: `plan_${plan.id}`,
               title: plan.intent.slice(0, 60),
               status: plan.status === "awaiting_approval" ? "awaiting_approval" : "composing",
@@ -425,15 +431,16 @@ export async function buildRightPanelData(
             if (scope) {
               const tenantId = asset.provenance?.tenantId as string | undefined;
               const workspaceId = asset.provenance?.workspaceId as string | undefined;
-              if ((tenantId && tenantId !== scope.tenantId) || (workspaceId && workspaceId !== scope.workspaceId)) {
+              if (
+                (tenantId && tenantId !== scope.tenantId) ||
+                (workspaceId && workspaceId !== scope.workspaceId)
+              ) {
                 continue;
               }
             }
 
             const contentIsInline =
-              asset.contentRef &&
-              asset.contentRef.length > 0 &&
-              /\s/.test(asset.contentRef);
+              asset.contentRef && asset.contentRef.length > 0 && /\s/.test(asset.contentRef);
             const formatted = contentIsInline
               ? formatOutput(asset.contentRef!, (asset.outputTier ?? asset.kind) as OutputTier)
               : undefined;
@@ -469,5 +476,16 @@ export async function buildRightPanelData(
     }
   }
 
-  return { currentRun, recentRuns, assets, missions, reportSuggestions, connectorHealth, scheduler, missionOpsSummary, focalObject, secondaryObjects };
+  return {
+    currentRun,
+    recentRuns,
+    assets,
+    missions,
+    reportSuggestions,
+    connectorHealth,
+    scheduler,
+    missionOpsSummary,
+    focalObject,
+    secondaryObjects,
+  };
 }

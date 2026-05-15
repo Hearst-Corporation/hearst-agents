@@ -10,8 +10,8 @@
  * Dev fallback explicite et bruyant — jamais silencieux.
  */
 
-import { getUserId } from "./get-user-id";
 import { getServerSession } from "next-auth";
+import { getUserId } from "./get-user-id";
 import { authOptions } from "./options";
 
 export interface CanonicalScope {
@@ -58,12 +58,14 @@ export async function resolveScope(
   // Lecture depuis la session JWT (chargée depuis DB dans le callback jwt())
   // — source de vérité, pas depuis process.env.
   const session = await getServerSession(authOptions);
-  const sessionTenantId = (session?.user as { tenantId?: string } | undefined)?.tenantId
-    ?? (session as unknown as Record<string, unknown> | null)?.tenantId as string | undefined
-    ?? null;
-  const sessionWorkspaceId = (session?.user as { workspaceId?: string } | undefined)?.workspaceId
-    ?? (session as unknown as Record<string, unknown> | null)?.workspaceId as string | undefined
-    ?? null;
+  const sessionTenantId =
+    (session?.user as { tenantId?: string } | undefined)?.tenantId ??
+    ((session as unknown as Record<string, unknown> | null)?.tenantId as string | undefined) ??
+    null;
+  const sessionWorkspaceId =
+    (session?.user as { workspaceId?: string } | undefined)?.workspaceId ??
+    ((session as unknown as Record<string, unknown> | null)?.workspaceId as string | undefined) ??
+    null;
 
   let tenantId: string | null = sessionTenantId;
   let workspaceId: string | null = sessionWorkspaceId;
@@ -81,11 +83,15 @@ export async function resolveScope(
     // DEV uniquement : fallback bruyant sur env vars / constants.
     // Permet de bosser sans flow OAuth complet en local.
     if (requireTenant && !tenantId) {
-      console.error(`[Scope] Tenant required but not resolved (${context}, user: ${userId.slice(0, 8)})`);
+      console.error(
+        `[Scope] Tenant required but not resolved (${context}, user: ${userId.slice(0, 8)})`,
+      );
       return null;
     }
     if (requireWorkspace && !workspaceId) {
-      console.error(`[Scope] Workspace required but not resolved (${context}, user: ${userId.slice(0, 8)})`);
+      console.error(
+        `[Scope] Workspace required but not resolved (${context}, user: ${userId.slice(0, 8)})`,
+      );
       return null;
     }
 
@@ -112,7 +118,10 @@ export async function resolveScope(
  */
 export async function requireScope(
   options: ResolveScopeOptions = {},
-): Promise<{ scope: CanonicalScope; error: null } | { scope: null; error: { message: string; status: number } }> {
+): Promise<
+  | { scope: CanonicalScope; error: null }
+  | { scope: null; error: { message: string; status: number } }
+> {
   const scope = await resolveScope(options);
 
   if (!scope) {

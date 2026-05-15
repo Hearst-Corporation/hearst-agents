@@ -6,12 +6,12 @@
  * I-16 : history clipping — seuls les 10 derniers messages sont passés à orchestrate.
  */
 
-import { describe, it, expect } from "vitest";
-import type { StreamEvent } from "@/stores/runtime";
+import { describe, expect, it } from "vitest";
 import {
-  selectCompletedWrites,
   reduceToolEvents,
+  selectCompletedWrites,
 } from "@/app/(user)/components/chat-tool-stream-reducer";
+import type { StreamEvent } from "@/stores/runtime";
 
 // ── Helper : fabriquer un StreamEvent minimal ─────────────────────────────────
 
@@ -180,10 +180,7 @@ describe("I-16 — history clipping : 10 derniers messages max", () => {
   /** Réplique exacte de la logique ChatDock handleSubmit pour l'historique. */
   function clipHistory(messages: SimpleMessage[]): { role: string; content: string }[] {
     return messages
-      .filter(
-        (m) =>
-          (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0,
-      )
+      .filter((m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0)
       .slice(-10)
       .map((m) => ({ role: m.role, content: m.content }));
   }

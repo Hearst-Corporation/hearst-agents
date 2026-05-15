@@ -3,13 +3,10 @@
  * Calcule 7 scores 0-100 dérivés des findings et des signaux runtime.
  * Stockage append-only dans war-room/trust-history.json.
  */
+
+import { nowIso, readJson, writeJson } from "./fs-utils";
 import { HOM } from "./paths";
-import { readJson, writeJson, nowIso } from "./fs-utils";
-import type {
-  AgentRunResult,
-  TrustHistoryEntry,
-  TrustScores,
-} from "./types";
+import type { AgentRunResult, TrustHistoryEntry, TrustScores } from "./types";
 
 const DEFAULT_SCORES: TrustScores = {
   architecture: 100,
@@ -60,16 +57,10 @@ export async function computeTrust(
   after.release = Math.min(after.architecture, after.design, after.qa);
 
   // Orchestration = pénalisé par retries + quarantines
-  after.orchestration = Math.max(
-    0,
-    100 - input.retries * 4 - input.quarantinedAgents * 15,
-  );
+  after.orchestration = Math.max(0, 100 - input.retries * 4 - input.quarantinedAgents * 15);
 
   // Product experience = design + drift
-  after.product_experience = Math.max(
-    0,
-    after.design - input.driftFindings * 2,
-  );
+  after.product_experience = Math.max(0, after.design - input.driftFindings * 2);
 
   return { before, after };
 }

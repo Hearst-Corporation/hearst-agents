@@ -2,12 +2,16 @@
  * Capability Guard Tests
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { capabilityGuard } from "@/lib/capabilities/guard";
 
 describe("capabilityGuard", () => {
   it("allows KnowledgeRetriever for communication domain", () => {
-    const r = capabilityGuard({ agent: "KnowledgeRetriever", task: "emails", domain: "communication" });
+    const r = capabilityGuard({
+      agent: "KnowledgeRetriever",
+      task: "emails",
+      domain: "communication",
+    });
     expect(r.allowed).toBe(true);
   });
 

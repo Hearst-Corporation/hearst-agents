@@ -5,8 +5,8 @@
 import { describe, expect, it } from "vitest";
 import {
   alertingPreferencesSchema,
-  parseAlertingPreferences,
   DEFAULT_ALERTING_PREFERENCES,
+  parseAlertingPreferences,
 } from "@/lib/notifications/schema";
 
 describe("alertingPreferencesSchema", () => {
@@ -19,9 +19,7 @@ describe("alertingPreferencesSchema", () => {
 
   it("accepte une config webhook complète", () => {
     const r = alertingPreferencesSchema.parse({
-      webhooks: [
-        { url: "https://hook.example/x", signalTypes: ["mrr_drop", "*"] },
-      ],
+      webhooks: [{ url: "https://hook.example/x", signalTypes: ["mrr_drop", "*"] }],
     });
     expect(r.webhooks).toHaveLength(1);
   });
@@ -65,9 +63,7 @@ describe("alertingPreferencesSchema", () => {
 describe("parseAlertingPreferences", () => {
   it("retourne defaults sur null/undefined", () => {
     expect(parseAlertingPreferences(null)).toEqual(DEFAULT_ALERTING_PREFERENCES);
-    expect(parseAlertingPreferences(undefined)).toEqual(
-      DEFAULT_ALERTING_PREFERENCES,
-    );
+    expect(parseAlertingPreferences(undefined)).toEqual(DEFAULT_ALERTING_PREFERENCES);
   });
 
   it("retourne defaults sur shape invalide (au lieu de throw)", () => {

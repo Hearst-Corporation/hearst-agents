@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks hoistés ─────────────────────────────────────────────
 // Vitest exige `vi.hoisted` pour les variables référencées dans `vi.mock`.
@@ -99,7 +99,6 @@ describe("getCockpitToday", () => {
     });
   });
 
-
   it("missionsRunning join scheduled + live ops, running first", async () => {
     mocks.getMemoryMissions.mockReturnValue([
       {
@@ -160,9 +159,7 @@ describe("getCockpitToday", () => {
   });
 
   it("suggestions remplies quand connexions + reports applicables", async () => {
-    mocks.getConnectionsByScope.mockResolvedValue([
-      { provider: "stripe", status: "connected" },
-    ]);
+    mocks.getConnectionsByScope.mockResolvedValue([{ provider: "stripe", status: "connected" }]);
     mocks.getApplicableReports.mockReturnValue([
       {
         id: "founder-cockpit",

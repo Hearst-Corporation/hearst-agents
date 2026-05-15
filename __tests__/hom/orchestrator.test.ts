@@ -2,7 +2,7 @@
  * Smoke test orchestrator end-to-end.
  * Lance un vrai run sur le repo, vérifie l'output decision.json + snapshot.
  */
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 

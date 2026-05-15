@@ -5,7 +5,7 @@
  * Throws COST_LIMIT_EXCEEDED to halt the run if budget is blown.
  */
 
-import { RuntimeError, type RunEventKind } from "./lifecycle";
+import { type RunEventKind, RuntimeError } from "./lifecycle";
 
 export interface CostBudget {
   budget_usd: number | null;
@@ -25,12 +25,15 @@ export interface CostCheckResult {
   utilization: number | null;
 }
 
-export function checkCostBudget(
-  currentCost: number,
-  budget: CostBudget,
-): CostCheckResult {
+export function checkCostBudget(currentCost: number, budget: CostBudget): CostCheckResult {
   if (budget.budget_usd === null) {
-    return { exceeded: false, warning: false, current_usd: currentCost, budget_usd: null, utilization: null };
+    return {
+      exceeded: false,
+      warning: false,
+      current_usd: currentCost,
+      budget_usd: null,
+      utilization: null,
+    };
   }
 
   const utilization = currentCost / budget.budget_usd;
@@ -64,7 +67,7 @@ export function enforceCostBudget(
   if (result.exceeded) {
     throw new RuntimeError(
       "COST_LIMIT_EXCEEDED",
-      `Run cost $${currentCost.toFixed(4)} exceeds budget $${budget.budget_usd!.toFixed(4)}`,
+      `Run cost $${currentCost.toFixed(4)} exceeds budget $${budget.budget_usd?.toFixed(4)}`,
     );
   }
 }

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { type NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,10 +20,7 @@ const MIME_TYPES: Record<string, string> = {
   ".json": "application/json",
 };
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ path: string[] }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
   const { path: segments } = await params;
   if (!segments || segments.length === 0) {
     return NextResponse.json({ error: "missing_path" }, { status: 400 });

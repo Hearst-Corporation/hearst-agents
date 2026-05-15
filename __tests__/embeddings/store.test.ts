@@ -3,7 +3,7 @@
  * fallback cosine côté JS quand la RPC `match_embeddings` est absente.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { embedText, getServerSupabase } = vi.hoisted(() => ({
   embedText: vi.fn(),
@@ -24,19 +24,14 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   },
 }));
 
-import {
-  upsertEmbedding,
-  searchEmbeddings,
-} from "@/lib/embeddings/store";
 import { EMBEDDING_DIM } from "@/lib/embeddings/embed";
+import { searchEmbeddings, upsertEmbedding } from "@/lib/embeddings/store";
 
 const ORIGINAL_KEY = process.env.OPENAI_API_KEY;
 
 function vec(seed: number): number[] {
   // Vecteur 1536-dim simple, varie sur seed.
-  return Array.from({ length: EMBEDDING_DIM }, (_, i) =>
-    Math.sin((i + 1) * seed) * 0.5,
-  );
+  return Array.from({ length: EMBEDDING_DIM }, (_, i) => Math.sin((i + 1) * seed) * 0.5);
 }
 
 interface MockSb {

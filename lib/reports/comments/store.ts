@@ -100,15 +100,13 @@ export async function addComment(
   if (!sb) return null;
 
   const now = new Date().toISOString();
-  const { error } = await sb
-    .from("report_comments")
-    .insert({
-      asset_id: input.assetId,
-      tenant_id: input.tenantId,
-      user_id: input.userId,
-      block_ref: input.blockRef,
-      body: input.body,
-    });
+  const { error } = await sb.from("report_comments").insert({
+    asset_id: input.assetId,
+    tenant_id: input.tenantId,
+    user_id: input.userId,
+    block_ref: input.blockRef,
+    body: input.body,
+  });
 
   if (error) {
     console.error("[comments] insert error:", error.message);
@@ -198,10 +196,7 @@ export async function deleteComment(
   if (r.user_id !== input.userId) return { ok: false, reason: "forbidden" };
 
   // 2. Delete
-  const { error: delErr } = await sb
-    .from("report_comments")
-    .delete()
-    .eq("id", input.commentId);
+  const { error: delErr } = await sb.from("report_comments").delete().eq("id", input.commentId);
   if (delErr) {
     console.error("[comments] delete error:", delErr.message);
     return { ok: false, reason: "delete_failed" };

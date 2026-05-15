@@ -9,7 +9,7 @@
  *  - Filtre yearMonth : seuls les runs de la fenêtre comptent
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Setup env vars AVANT l'import du module ────────────────────────────────
 process.env.NEXT_PUBLIC_SUPABASE_URL = "http://localhost:54321";
@@ -64,7 +64,10 @@ class RunsBuilder {
   }
 
   then<T1, T2>(
-    onfulfilled?: (val: { data: { cost_usd: number }[] | null; error: unknown }) => T1 | PromiseLike<T1>,
+    onfulfilled?: (val: {
+      data: { cost_usd: number }[] | null;
+      error: unknown;
+    }) => T1 | PromiseLike<T1>,
     onrejected?: (reason: unknown) => T2 | PromiseLike<T2>,
   ): Promise<T1 | T2> {
     if (dbState.forcedError) {
@@ -95,10 +98,10 @@ vi.mock("@supabase/supabase-js", () => ({
 // ── Imports du module testé (après mock) ───────────────────────────────────
 
 import {
-  getMonthlyMissionCost,
-  getMissionBudgetState,
-  currentYearMonth,
   _resetBudgetCache,
+  currentYearMonth,
+  getMissionBudgetState,
+  getMonthlyMissionCost,
 } from "@/lib/engine/runtime/missions/budget";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -168,9 +171,7 @@ describe("getMonthlyMissionCost", () => {
 describe("cache 5 min", () => {
   it("un 2e call dans la fenêtre ne re-fetche pas la DB", async () => {
     const ym = "2026-05";
-    dbState.runs = [
-      { cost_usd: 7, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" },
-    ];
+    dbState.runs = [{ cost_usd: 7, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" }];
     const t1 = await getMonthlyMissionCost("m-1", ym);
     const callsAfter1 = dbState.selectCallCount;
     const t2 = await getMonthlyMissionCost("m-1", ym);
@@ -182,9 +183,7 @@ describe("cache 5 min", () => {
 
   it("_resetBudgetCache() invalide le cache → re-fetch", async () => {
     const ym = "2026-05";
-    dbState.runs = [
-      { cost_usd: 7, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" },
-    ];
+    dbState.runs = [{ cost_usd: 7, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" }];
     await getMonthlyMissionCost("m-1", ym);
     const callsAfter1 = dbState.selectCallCount;
     _resetBudgetCache();
@@ -209,9 +208,7 @@ describe("cache 5 min", () => {
 describe("getMissionBudgetState", () => {
   it("18/25 → utilization ≈ 0.72, exceeded=false", async () => {
     const ym = "2026-05";
-    dbState.runs = [
-      { cost_usd: 18, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" },
-    ];
+    dbState.runs = [{ cost_usd: 18, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" }];
     const state = await getMissionBudgetState("m-1", 25, ym);
     expect(state).not.toBeNull();
     expect(state?.budgetUsd).toBe(25);
@@ -223,9 +220,7 @@ describe("getMissionBudgetState", () => {
 
   it("30/25 → utilization 1.2, exceeded=true, remaining=0", async () => {
     const ym = "2026-05";
-    dbState.runs = [
-      { cost_usd: 30, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" },
-    ];
+    dbState.runs = [{ cost_usd: 30, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" }];
     const state = await getMissionBudgetState("m-1", 25, ym);
     expect(state?.utilization).toBeCloseTo(1.2, 2);
     expect(state?.exceeded).toBe(true);
@@ -249,9 +244,7 @@ describe("getMissionBudgetState", () => {
 
   it("currentUsd >= budgetUsd (égalité) → exceeded=true", async () => {
     const ym = "2026-05";
-    dbState.runs = [
-      { cost_usd: 25, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" },
-    ];
+    dbState.runs = [{ cost_usd: 25, created_at: "2026-05-10T00:00:00Z", missionId: "m-1" }];
     const state = await getMissionBudgetState("m-1", 25, ym);
     expect(state?.exceeded).toBe(true);
     expect(state?.utilization).toBe(1);

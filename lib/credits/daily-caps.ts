@@ -19,11 +19,7 @@ export interface DailyCap {
  * Vérifie et incrémente le compteur journalier pour un utilisateur.
  * Retourne { allowed, current, max }.
  */
-export async function checkDailyCap(
-  userId: string,
-  key: string,
-  max: number,
-): Promise<DailyCap> {
+export async function checkDailyCap(userId: string, key: string, max: number): Promise<DailyCap> {
   const redis = getRedis();
   if (!redis) {
     if (process.env.NODE_ENV === "production") {

@@ -8,8 +8,8 @@
  * Disable with ASSET_CLEANUP_ENABLED=false.
  */
 
-import { CleanupScheduler } from "./scheduler";
 import { getGlobalStorage } from "../storage";
+import { CleanupScheduler } from "./scheduler";
 
 const GLOBAL_KEY = "__hearst_cleanup_scheduler__";
 
@@ -53,9 +53,10 @@ export async function ensureCleanupSchedulerStarted(): Promise<void> {
     });
 
     scheduler.start();
-    console.log(`[CleanupBoot] Asset cleanup scheduler started (cron=${cron}, ttl=${ttlDays}d, dryRun=${dryRun})`);
+    console.log(
+      `[CleanupBoot] Asset cleanup scheduler started (cron=${cron}, ttl=${ttlDays}d, dryRun=${dryRun})`,
+    );
   } catch (err) {
     console.warn("[CleanupBoot] Failed to start cleanup scheduler:", err);
   }
 }
-

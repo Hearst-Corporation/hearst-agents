@@ -7,14 +7,14 @@ import { getServerSupabase } from "@/lib/platform/db/supabase";
 export const dynamic = "force-dynamic";
 
 const traceKindColor: Record<string, string> = {
-  llm_call:     "border-(--accent-teal)/50 text-(--accent-teal)",
-  tool_call:    "border-(--accent-llm)/50 text-(--accent-llm)",
-  memory_read:  "border-(--accent-teal)/50 text-(--accent-teal)",
+  llm_call: "border-(--accent-teal)/50 text-(--accent-teal)",
+  tool_call: "border-(--accent-llm)/50 text-(--accent-llm)",
+  memory_read: "border-(--accent-teal)/50 text-(--accent-teal)",
   memory_write: "border-(--accent-teal)/50 text-(--accent-teal)",
   skill_invoke: "border-(--warn)/50 text-(--warn)",
-  error:        "border-(--danger)/70 text-(--danger)",
-  guard:        "border-(--warn)/50 text-(--warn)",
-  custom:       "border-(--line-strong) text-text-muted",
+  error: "border-(--danger)/70 text-(--danger)",
+  guard: "border-(--warn)/50 text-(--warn)",
+  custom: "border-(--line-strong) text-text-muted",
 };
 
 interface Props {
@@ -57,9 +57,7 @@ export default async function RunDetailPage({ params }: Props) {
             {run.status}
           </span>
         </div>
-        {agent && (
-          <p className="mt-(--space-1) t-13 text-text-muted">Agent : {agent.name}</p>
-        )}
+        {agent && <p className="mt-(--space-1) t-13 text-text-muted">Agent : {agent.name}</p>}
       </div>
 
       {/* Run summary */}
@@ -71,8 +69,13 @@ export default async function RunDetailPage({ params }: Props) {
           { label: "Latence", value: `${run.latency_ms ?? 0}ms` },
           { label: "Traces", value: traces.length },
         ].map((s) => (
-          <div key={s.label} className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) px-(--space-4) py-(--space-3)">
-            <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">{s.label}</p>
+          <div
+            key={s.label}
+            className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) px-(--space-4) py-(--space-3)"
+          >
+            <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+              {s.label}
+            </p>
             <p className="mt-(--space-1) t-18 font-light text-text">{s.value}</p>
           </div>
         ))}
@@ -81,13 +84,17 @@ export default async function RunDetailPage({ params }: Props) {
       {/* Input / Output */}
       <div className="mb-(--space-8) grid grid-cols-1 gap-(--space-4) lg:grid-cols-2">
         <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-          <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Entrée</h3>
+          <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Entrée
+          </h3>
           <pre className="max-h-40 overflow-auto whitespace-pre-wrap font-mono t-9 text-text-soft">
             {JSON.stringify(run.input, null, 2)}
           </pre>
         </div>
         <div className="rounded-(--radius-md) border border-(--border-shell) bg-(--bg-elev) p-(--space-5)">
-          <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Sortie</h3>
+          <h3 className="mb-(--space-2) t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+            Sortie
+          </h3>
           <pre className="max-h-40 overflow-auto whitespace-pre-wrap font-mono t-9 text-text-soft">
             {JSON.stringify(run.output, null, 2)}
           </pre>
@@ -95,9 +102,7 @@ export default async function RunDetailPage({ params }: Props) {
       </div>
 
       {run.error && (
-        <div className="mb-(--space-8) admin-callout-danger t-13 text-(--danger)">
-          {run.error}
-        </div>
+        <div className="mb-(--space-8) admin-callout-danger t-13 text-(--danger)">{run.error}</div>
       )}
 
       {/* Traces timeline */}
@@ -132,19 +137,21 @@ export default async function RunDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              {t.error && (
-                <p className="mt-(--space-2) t-9 text-(--danger)">{t.error}</p>
-              )}
+              {t.error && <p className="mt-(--space-2) t-9 text-(--danger)">{t.error}</p>}
 
               <div className="mt-(--space-3) grid grid-cols-1 gap-(--space-3) lg:grid-cols-2">
                 <div>
-                  <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Entrée</p>
+                  <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+                    Entrée
+                  </p>
                   <pre className="mt-(--space-1) max-h-24 overflow-auto whitespace-pre-wrap font-mono t-11 text-text-muted">
                     {JSON.stringify(t.input, null, 2)}
                   </pre>
                 </div>
                 <div>
-                  <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">Sortie</p>
+                  <p className="t-9 font-mono uppercase tracking-(--tracking-stretch) text-text-faint">
+                    Sortie
+                  </p>
                   <pre className="mt-(--space-1) max-h-24 overflow-auto whitespace-pre-wrap font-mono t-11 text-text-muted">
                     {JSON.stringify(t.output, null, 2)}
                   </pre>
@@ -155,9 +162,7 @@ export default async function RunDetailPage({ params }: Props) {
         </div>
       )}
 
-      <p className="mt-(--space-8) font-mono t-10 text-text-faint">
-        run_id: {run.id}
-      </p>
+      <p className="mt-(--space-8) font-mono t-10 text-text-faint">run_id: {run.id}</p>
     </div>
   );
 }

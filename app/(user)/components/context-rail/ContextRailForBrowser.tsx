@@ -11,8 +11,7 @@ export function ContextRailForBrowser() {
     <div className="h-full overflow-y-auto">
       <Section label="Co-pilot">
         <p className="t-13 font-light text-text-faint leading-relaxed">
-          Agent navigating in the live session. Take Over coming with
-          Stagehand.
+          Agent navigating in the live session. Take Over coming with Stagehand.
         </p>
       </Section>
     </div>

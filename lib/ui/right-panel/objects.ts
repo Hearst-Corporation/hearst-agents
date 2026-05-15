@@ -7,12 +7,9 @@
  * Canonical source: stores/focal.ts (client) re-exported via lib/core/types/index.ts
  */
 
+import type { FormattedSection, OutputTone } from "@/lib/engine/runtime/formatting/pipeline";
 import type { ProviderId } from "@/lib/providers/types";
-import type { OutputTone, FormattedSection } from "@/lib/engine/runtime/formatting/pipeline";
-import type {
-  FocalType,
-  FocalStatus,
-} from "@/stores/focal";
+import type { FocalStatus, FocalType } from "@/stores/focal";
 
 // ── Re-exports from canonical source ────────────────────────
 

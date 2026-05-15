@@ -11,13 +11,17 @@
  *  - hotkey Escape ferme
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { OnboardingTour } from "@/app/(user)/components/OnboardingTour";
 
 describe("OnboardingTour", () => {
   beforeEach(() => {
-    try { window.localStorage.removeItem("hearst.onboarded"); } catch { /* ignore */ }
+    try {
+      window.localStorage.removeItem("hearst.onboarded");
+    } catch {
+      /* ignore */
+    }
   });
 
   it("ne s'affiche pas si le flag localStorage est déjà set", () => {

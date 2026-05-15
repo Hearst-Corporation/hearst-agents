@@ -1,8 +1,8 @@
 "use client";
 
+import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
 import { useFocalStore } from "@/stores/focal";
 import { CockpitCardShell } from "./CockpitCardShell";
-import type { SpatialPanelCardProps } from "@/lib/spatial/panel-registry";
 
 /**
  * Card AssetPreview — preview d'un asset fraîchement généré.

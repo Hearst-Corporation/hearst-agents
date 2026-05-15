@@ -40,9 +40,7 @@ export function ReportActions({ reportId, title }: ReportActionsProps) {
         onClick={() => setPanel(panel === "comments" ? null : "comments")}
         active={panel === "comments"}
       />
-      {panel === "share" && (
-        <SharePopover reportId={reportId} onClose={() => setPanel(null)} />
-      )}
+      {panel === "share" && <SharePopover reportId={reportId} onClose={() => setPanel(null)} />}
       {panel === "comments" && (
         <CommentsDrawer reportId={reportId} onClose={() => setPanel(null)} />
       )}
@@ -52,13 +50,7 @@ export function ReportActions({ reportId, title }: ReportActionsProps) {
 
 // ── Export menu ──────────────────────────────────────────────
 
-function ExportMenu({
-  reportId,
-  title,
-}: {
-  reportId: string;
-  title?: string;
-}) {
+function ExportMenu({ reportId, title }: { reportId: string; title?: string }) {
   const [open, setOpen] = useState(false);
   const triggerExport = useCallback(
     async (format: "pdf" | "xlsx" | "csv") => {
@@ -78,11 +70,7 @@ function ExportMenu({
 
   return (
     <div className="relative">
-      <ActionButton
-        label="Exporter"
-        onClick={() => setOpen((v) => !v)}
-        active={open}
-      />
+      <ActionButton label="Exporter" onClick={() => setOpen((v) => !v)} active={open} />
       {open && (
         <div
           role="menu"
@@ -114,13 +102,7 @@ const TTL_OPTIONS: Array<{ label: string; hours: number }> = [
   { label: "30 jours", hours: 720 },
 ];
 
-function SharePopover({
-  reportId,
-  onClose,
-}: {
-  reportId: string;
-  onClose: () => void;
-}) {
+function SharePopover({ reportId, onClose }: { reportId: string; onClose: () => void }) {
   const [ttlHours, setTtlHours] = useState(24);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
@@ -155,7 +137,7 @@ function SharePopover({
       <p
         className="t-11 font-light text-text-muted"
         style={{
-                    marginBottom: "var(--space-2)",
+          marginBottom: "var(--space-2)",
         }}
       >
         Durée du lien
@@ -170,14 +152,10 @@ function SharePopover({
             style={{
               padding: "var(--space-2) var(--space-3)",
               border:
-                "1px solid " +
-                (ttlHours === o.hours ? "var(--accent-teal)" : "var(--surface-2)"),
+                "1px solid " + (ttlHours === o.hours ? "var(--accent-teal)" : "var(--surface-2)"),
               borderRadius: "var(--radius-xs)",
               background: "transparent",
-              color:
-                ttlHours === o.hours
-                  ? "var(--accent-teal)"
-                  : "var(--text-muted)",
+              color: ttlHours === o.hours ? "var(--accent-teal)" : "var(--text-muted)",
             }}
           >
             {o.label}
@@ -196,10 +174,7 @@ function SharePopover({
         </Action>
       </div>
       {error && (
-        <p
-          className="t-9"
-          style={{ color: "var(--color-error)", marginTop: "var(--space-2)" }}
-        >
+        <p className="t-9" style={{ color: "var(--color-error)", marginTop: "var(--space-2)" }}>
           Erreur : {error}
         </p>
       )}
@@ -263,13 +238,7 @@ interface CommentRow {
   blockRef: string | null;
 }
 
-function CommentsDrawer({
-  reportId,
-  onClose,
-}: {
-  reportId: string;
-  onClose: () => void;
-}) {
+function CommentsDrawer({ reportId, onClose }: { reportId: string; onClose: () => void }) {
   const [comments, setComments] = useState<CommentRow[]>([]);
   const [body, setBody] = useState("");
   const [loading, setLoading] = useState(false);
@@ -278,9 +247,7 @@ function CommentsDrawer({
   const load = useCallback(async () => {
     setError(null);
     try {
-      const res = await fetch(
-        `/api/reports/${encodeURIComponent(reportId)}/comments`,
-      );
+      const res = await fetch(`/api/reports/${encodeURIComponent(reportId)}/comments`);
       const json = await res.json();
       if (!res.ok) {
         setError(typeof json.error === "string" ? json.error : "load_failed");
@@ -302,14 +269,11 @@ function CommentsDrawer({
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(
-        `/api/reports/${encodeURIComponent(reportId)}/comments`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ body }),
-        },
-      );
+      const res = await fetch(`/api/reports/${encodeURIComponent(reportId)}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body }),
+      });
       const json = await res.json();
       if (!res.ok) {
         setError(typeof json.error === "string" ? json.error : "post_failed");
@@ -350,10 +314,7 @@ function CommentsDrawer({
                 <p className="t-13" style={{ whiteSpace: "pre-wrap" }}>
                   {c.body}
                 </p>
-                <p
-                  className="t-9 font-mono"
-                  style={{ color: "var(--text-faint)" }}
-                >
+                <p className="t-9 font-mono" style={{ color: "var(--text-faint)" }}>
                   {new Date(c.createdAt).toLocaleString("fr-FR")}
                   {c.blockRef ? ` · bloc ${c.blockRef}` : ""}
                 </p>
@@ -377,7 +338,10 @@ function CommentsDrawer({
           resize: "vertical",
         }}
       />
-      <div className="flex items-center" style={{ marginTop: "var(--space-2)", gap: "var(--space-2)" }}>
+      <div
+        className="flex items-center"
+        style={{ marginTop: "var(--space-2)", gap: "var(--space-2)" }}
+      >
         <Action
           variant="primary"
           tone="brand"
@@ -415,7 +379,7 @@ function ActionButton({
       onClick={onClick}
       className="t-11 font-light hover:text-(--accent-teal)"
       style={{
-                padding: "var(--space-2) var(--space-3)",
+        padding: "var(--space-2) var(--space-3)",
         border: "1px solid var(--surface-2)",
         borderRadius: "var(--radius-xs)",
         background: "transparent",
@@ -428,13 +392,7 @@ function ActionButton({
   );
 }
 
-function MenuItem({
-  children,
-  onClick,
-}: {
-  children: React.ReactNode;
-  onClick: () => void;
-}) {
+function MenuItem({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
     <button
       type="button"
@@ -511,14 +469,11 @@ function PopoverShell({
         boxShadow: "var(--shadow-card)",
       }}
     >
-      <div
-        className="flex items-center justify-between"
-        style={{ marginBottom: "var(--space-3)" }}
-      >
+      <div className="flex items-center justify-between" style={{ marginBottom: "var(--space-3)" }}>
         <h3
           className="t-11 font-light"
           style={{
-                        color: "var(--text)",
+            color: "var(--text)",
             margin: 0,
           }}
         >

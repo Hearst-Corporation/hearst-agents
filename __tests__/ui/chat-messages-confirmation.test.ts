@@ -6,7 +6,7 @@
  * results and the schedule mission preview).
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 // Re-derived from app/(user)/components/ChatMessages.tsx — kept in sync
 // because the marker is the contract between the model output and the UI.
@@ -21,7 +21,8 @@ describe("hasPendingConfirmation", () => {
   });
 
   it("matches the schedule mission preview trailer", () => {
-    const trailer = "↩ Réponds **confirmer** pour créer la mission, ou **annuler** pour abandonner.";
+    const trailer =
+      "↩ Réponds **confirmer** pour créer la mission, ou **annuler** pour abandonner.";
     expect(hasPendingConfirmation(trailer)).toBe(true);
   });
 

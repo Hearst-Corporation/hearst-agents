@@ -11,8 +11,8 @@
  * `userId` (Hearst Supabase id) maps 1:1 onto Composio's `userId`.
  */
 
-import { getComposio, isComposioConfigured } from "./client";
 import { invalidateUserDiscovery } from "./cache";
+import { getComposio, isComposioConfigured } from "./client";
 import type { ConnectedAccount, InitiateConnectionResult } from "./types";
 
 export type { ConnectedAccount, InitiateConnectionResult };
@@ -39,7 +39,9 @@ function normalizeAccount(raw: RawConnectedAccount): ConnectedAccount | null {
   const slug =
     typeof raw.toolkit === "object" && raw.toolkit
       ? (raw.toolkit.slug ?? "")
-      : (typeof raw.toolkit === "string" ? raw.toolkit : (raw.appName ?? ""));
+      : typeof raw.toolkit === "string"
+        ? raw.toolkit
+        : (raw.appName ?? "");
   return {
     id,
     appName: slug.toLowerCase(),
@@ -135,7 +137,6 @@ function friendlyErrorMessage(
       return `Composio n'est pas correctement configuré (clé API ?). Vérifie COMPOSIO_API_KEY (format ak_…).`;
     case "INVALID_INPUT":
       return rawMessage;
-    case "UPSTREAM_ERROR":
     default:
       return `Composio a refusé la connexion à ${slug} : ${rawMessage}`;
   }
@@ -156,14 +157,10 @@ export async function listConnections(
     // `includeInactive: false` still drops fully terminal states.
     const raw = (await composio.connectedAccounts.list({
       userIds: [userId],
-      ...(opts.includeInactive
-        ? {}
-        : { statuses: ["ACTIVE", "INITIATED", "EXPIRED", "FAILED"] }),
+      ...(opts.includeInactive ? {} : { statuses: ["ACTIVE", "INITIATED", "EXPIRED", "FAILED"] }),
     })) as ListResponse;
     const items = raw.items ?? [];
-    return items
-      .map(normalizeAccount)
-      .filter((a): a is ConnectedAccount => a !== null);
+    return items.map(normalizeAccount).filter((a): a is ConnectedAccount => a !== null);
   } catch (err) {
     console.error(`[Composio/Connections] list failed for ${userId}:`, err);
     return [];

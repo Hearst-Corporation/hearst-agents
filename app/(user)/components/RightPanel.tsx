@@ -7,7 +7,7 @@
  * Mobile (< md): Full-height drawer with toggle button and overlay
  */
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ContextRail } from "./ContextRail";
 import { GhostIconMenu, GhostIconX } from "./ghost-icons";
 
@@ -44,7 +44,11 @@ export function RightPanel() {
             }}
             aria-label={isMobileOpen ? "Fermer le panneau" : "Ouvrir le panneau runtime"}
           >
-            {isMobileOpen ? <GhostIconX className="w-5 h-5" /> : <GhostIconMenu className="w-5 h-5" />}
+            {isMobileOpen ? (
+              <GhostIconX className="w-5 h-5" />
+            ) : (
+              <GhostIconMenu className="w-5 h-5" />
+            )}
           </button>
 
           {isMobileOpen && (

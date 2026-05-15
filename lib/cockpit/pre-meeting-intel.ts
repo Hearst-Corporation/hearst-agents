@@ -19,8 +19,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import type { KgNode } from "@/lib/memory/kg";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 // ── Types publics ────────────────────────────────────────────────
 
@@ -264,10 +264,7 @@ async function getLastInteractions(
       .limit(5),
   ]);
 
-  const allEdges = [
-    ...((outEdges ?? []) as KgEdgeLite[]),
-    ...((inEdges ?? []) as KgEdgeLite[]),
-  ]
+  const allEdges = [...((outEdges ?? []) as KgEdgeLite[]), ...((inEdges ?? []) as KgEdgeLite[])]
     .sort((a, b) => b.created_at.localeCompare(a.created_at))
     .slice(0, 3);
 
@@ -304,7 +301,10 @@ function buildKgSummary(node: KgNode | null, lastN: Array<{ label: string }>): s
   if (role) headParts.push(role);
   if (company) headParts.push(company);
   const head = headParts.length > 0 ? headParts.join(" · ") : node.label;
-  const tail = lastN.slice(0, 2).map((l) => l.label).join(", ");
+  const tail = lastN
+    .slice(0, 2)
+    .map((l) => l.label)
+    .join(", ");
   const out = tail ? `${head} — ${tail}` : head;
   return out.slice(0, 120);
 }
@@ -404,9 +404,7 @@ export async function getPreMeetingIntel(
     event.attendees.map(async (att): Promise<PreMeetingParticipant> => {
       try {
         const node = await findPersonNodeByEmail(scope.userId, scope.tenantId, att.email);
-        const last = node
-          ? await getLastInteractions(scope.userId, scope.tenantId, node.id)
-          : [];
+        const last = node ? await getLastInteractions(scope.userId, scope.tenantId, node.id) : [];
         const kgSummary = buildKgSummary(node, last);
         const lastInteraction = last.length > 0 ? last[0] : null;
         return {

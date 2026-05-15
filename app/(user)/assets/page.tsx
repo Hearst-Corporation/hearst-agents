@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useStageStore } from "@/stores/stage";
+import { useEffect, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { useNavigationStore } from "@/stores/navigation";
 import { useSelectionStore } from "@/stores/selection";
-import { RelativeTime } from "../components/RelativeTime";
-import { toast } from "@/app/hooks/use-toast";
+import { useStageStore } from "@/stores/stage";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { Action, ScreenShell } from "../components/ui";
 import { LibraryTabs } from "../components/library/LibraryTabs";
+import { RelativeTime } from "../components/RelativeTime";
+import { Action, ScreenShell } from "../components/ui";
 
 // Format V2 retourné par GET /api/v2/assets (Asset canonique).
 interface AssetListItem {
@@ -101,10 +101,7 @@ export default function AssetsPage() {
       const data = await res.json().catch(() => ({}));
       toast.error("Suppression impossible", data.error ?? `Erreur serveur (${res.status})`);
     } catch (err) {
-      toast.error(
-        "Erreur de suppression",
-        err instanceof Error ? err.message : "Erreur réseau",
-      );
+      toast.error("Erreur de suppression", err instanceof Error ? err.message : "Erreur réseau");
     } finally {
       setIsDeleting(false);
     }
@@ -114,7 +111,11 @@ export default function AssetsPage() {
     <>
       <ScreenShell
         title="Bibliothèque"
-        subtitle={loading ? "Chargement…" : `${assets.length} ${assets.length === 1 ? "production" : "productions"}`}
+        subtitle={
+          loading
+            ? "Chargement…"
+            : `${assets.length} ${assets.length === 1 ? "production" : "productions"}`
+        }
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Bibliothèque" }]}
         actions={
           <Action variant="link" tone="brand" onClick={handleNewAsset}>
@@ -136,71 +137,73 @@ export default function AssetsPage() {
       >
         <div className="max-w-4xl mx-auto">
           <div>
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
-                <span className="w-4" />
-                <span>Name</span>
-                <span className="text-right">Type</span>
-                <span className="text-right">Size</span>
-                <span className="text-right">Created</span>
-                <span aria-hidden />
-                <span aria-hidden />
-              </div>
+            <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
+              <span className="w-4" />
+              <span>Name</span>
+              <span className="text-right">Type</span>
+              <span className="text-right">Size</span>
+              <span className="text-right">Created</span>
+              <span aria-hidden />
+              <span aria-hidden />
+            </div>
 
-              {assets.map((asset) => (
-                <div
-                  key={asset.id}
-                  onClick={() => handleOpen(asset)}
-                  className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-(--border-soft) group cursor-pointer transition-colors"
-                  title={`Open ${asset.title}`}
+            {assets.map((asset) => (
+              <div
+                key={asset.id}
+                onClick={() => handleOpen(asset)}
+                className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-(--border-soft) group cursor-pointer transition-colors"
+                title={`Open ${asset.title}`}
+              >
+                <span className="t-15 text-(--accent-teal) opacity-40 group-hover:opacity-100 transition-opacity leading-none w-4 text-center">
+                  {glyph(asset.kind)}
+                </span>
+                <span className="t-13 text-text-soft group-hover:text-(--accent-teal) transition-colors truncate">
+                  {asset.title}
+                </span>
+                <span className="t-9 font-medium text-text-faint text-right">{asset.kind}</span>
+                <span className="t-9 font-mono tabular-nums text-text-faint text-right">
+                  {asset.provenance?.pdfFile?.sizeBytes
+                    ? `${(asset.provenance.pdfFile.sizeBytes / 1024).toFixed(1)} KB`
+                    : "—"}
+                </span>
+                <RelativeTime
+                  ts={asset.createdAt}
+                  className="t-9 font-mono tabular-nums text-text-ghost text-right"
+                />
+                <button
+                  type="button"
+                  onClick={(e) => handleDownload(asset, e)}
+                  disabled={!asset.provenance?.pdfFile}
+                  className="t-9 font-light text-text-ghost hover:text-(--accent-teal) opacity-0 group-hover:opacity-100 transition-[color,opacity] disabled:opacity-0"
                 >
-                  <span className="t-15 text-(--accent-teal) opacity-40 group-hover:opacity-100 transition-opacity leading-none w-4 text-center">
-                    {glyph(asset.kind)}
-                  </span>
-                  <span className="t-13 text-text-soft group-hover:text-(--accent-teal) transition-colors truncate">
-                    {asset.title}
-                  </span>
-                  <span className="t-9 font-medium text-text-faint text-right">
-                    {asset.kind}
-                  </span>
-                  <span className="t-9 font-mono tabular-nums text-text-faint text-right">
-                    {asset.provenance?.pdfFile?.sizeBytes
-                      ? `${(asset.provenance.pdfFile.sizeBytes / 1024).toFixed(1)} KB`
-                      : "—"}
-                  </span>
-                  <RelativeTime
-                    ts={asset.createdAt}
-                    className="t-9 font-mono tabular-nums text-text-ghost text-right"
-                  />
-                  <button
-                    type="button"
-                    onClick={(e) => handleDownload(asset, e)}
-                    disabled={!asset.provenance?.pdfFile}
-                    className="t-9 font-light text-text-ghost hover:text-(--accent-teal) opacity-0 group-hover:opacity-100 transition-[color,opacity] disabled:opacity-0"
-                  >
-                    Télécharger
-                  </button>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setConfirmDelete(asset);
-                    }}
-                    className="t-9 font-light text-text-ghost hover:text-(--danger) opacity-0 group-hover:opacity-100 transition-[color,opacity]"
-                    title={`Supprimer ${asset.title}`}
-                    aria-label={`Supprimer ${asset.title}`}
-                  >
-                    Supprimer
-                  </button>
-                </div>
-              ))}
-        </div>
+                  Télécharger
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setConfirmDelete(asset);
+                  }}
+                  className="t-9 font-light text-text-ghost hover:text-(--danger) opacity-0 group-hover:opacity-100 transition-[color,opacity]"
+                  title={`Supprimer ${asset.title}`}
+                  aria-label={`Supprimer ${asset.title}`}
+                >
+                  Supprimer
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </ScreenShell>
 
       <ConfirmModal
         open={confirmDelete !== null}
         title="Supprimer cet asset ?"
-        description={confirmDelete ? `« ${confirmDelete.title} » sera supprimé définitivement. Cette action est irréversible.` : undefined}
+        description={
+          confirmDelete
+            ? `« ${confirmDelete.title} » sera supprimé définitivement. Cette action est irréversible.`
+            : undefined
+        }
         confirmLabel="Supprimer"
         variant="danger"
         loading={isDeleting}

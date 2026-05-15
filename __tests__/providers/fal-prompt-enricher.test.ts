@@ -3,11 +3,11 @@
  * params steps/guidance, fast mode detection.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
+  ENRICH_MODES,
   enrichPrompt,
   isFastModeRequested,
-  ENRICH_MODES,
 } from "@/lib/capabilities/providers/fal-prompt-enricher";
 
 describe("enrichPrompt", () => {

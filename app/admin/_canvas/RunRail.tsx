@@ -47,7 +47,7 @@ function formatTs(ts: number): string {
 }
 
 function truncateInput(s: string, max = 38): string {
-  return s.length > max ? s.slice(0, max) + "…" : s;
+  return s.length > max ? `${s.slice(0, max)}…` : s;
 }
 
 export default function RunRail({ onSelect }: Props) {
@@ -70,9 +70,7 @@ export default function RunRail({ onSelect }: Props) {
     <div className="flex flex-col h-full overflow-hidden">
       <header className="flex items-center justify-between px-(--space-4) py-(--space-2) border-b border-line shrink-0">
         <span className="t-11 font-medium text-text-muted">Runs récents</span>
-        {!loading && runs.length > 0 && (
-          <span className="t-10 text-text-faint">{runs.length}</span>
-        )}
+        {!loading && runs.length > 0 && <span className="t-10 text-text-faint">{runs.length}</span>}
       </header>
 
       <div className="flex-1 overflow-y-auto">
@@ -108,9 +106,7 @@ export default function RunRail({ onSelect }: Props) {
                     </span>
                     <span className="t-10 text-text-faint shrink-0">{formatTs(run.createdAt)}</span>
                   </div>
-                  <span className="t-11 text-text truncate">
-                    {truncateInput(run.input)}
-                  </span>
+                  <span className="t-11 text-text truncate">{truncateInput(run.input)}</span>
                   {run.metrics?.latencyMs != null && (
                     <span className="t-10 text-text-faint">
                       {(run.metrics.latencyMs / 1000).toFixed(1)}s

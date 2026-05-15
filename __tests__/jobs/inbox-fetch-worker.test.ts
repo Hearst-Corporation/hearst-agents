@@ -6,7 +6,7 @@
  * besoin de connexion BullMQ).
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   generateInboxBrief: vi.fn(),

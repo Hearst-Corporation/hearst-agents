@@ -10,7 +10,7 @@
  * en important directement le module (sans React).
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 // ── Constantes du module ──────────────────────────────────────
 
@@ -32,7 +32,7 @@ function makeLru(cap: number) {
     if (idx === -1) return null;
     const [entry] = cache.splice(idx, 1);
     cache.unshift(entry!);
-    return entry!.results;
+    return entry?.results;
   }
 
   function set(q: string, results: Record<string, unknown>) {
@@ -42,9 +42,13 @@ function makeLru(cap: number) {
     if (cache.length > cap) cache.pop();
   }
 
-  function size() { return cache.length; }
+  function size() {
+    return cache.length;
+  }
 
-  function has(q: string) { return cache.some((e) => e.q === q); }
+  function has(q: string) {
+    return cache.some((e) => e.q === q);
+  }
 
   return { get, set, size, has };
 }
@@ -104,8 +108,8 @@ describe("LRU cache — 10 entrées max", () => {
     // Ajouter une 11e entrée → q1 (maintenant la plus ancienne) est évincée
     lru.set("q-new", { val: 99 });
 
-    expect(lru.has("q0")).toBe(true);   // promue → préservée
-    expect(lru.has("q1")).toBe(false);  // évincée
+    expect(lru.has("q0")).toBe(true); // promue → préservée
+    expect(lru.has("q1")).toBe(false); // évincée
     expect(lru.has("q-new")).toBe(true);
     expect(lru.size()).toBe(LRU_CAP);
   });

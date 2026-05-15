@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { authOptions } from "@/lib/platform/auth/options";
 import { verifyOAuthState } from "@/lib/platform/auth/signed-state";
 import { saveTokens } from "@/lib/platform/auth/tokens";
-import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
 import { aj } from "@/lib/security/arcjet";
-import { withRoute, redactedError } from "@/lib/observability/logger";
 
 const log = withRoute("GET /api/auth/callback/slack");
 
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
   const currentSession = await getServerSession(authOptions);
   const sessionUserId =
     (currentSession?.user as { id?: string } | undefined)?.id ??
-    (currentSession as unknown as Record<string, unknown> | null)?.userId as string | undefined ??
+    ((currentSession as unknown as Record<string, unknown> | null)?.userId as string | undefined) ??
     undefined;
   if (!sessionUserId || sessionUserId !== userId) {
     log.warn(
@@ -110,7 +110,9 @@ export async function GET(request: NextRequest) {
     }
 
     const teamId = data.team?.id as string | undefined;
-    const refreshToken = (data.authed_user?.refresh_token ?? data.refresh_token ?? null) as string | null;
+    const refreshToken = (data.authed_user?.refresh_token ?? data.refresh_token ?? null) as
+      | string
+      | null;
     const expiresIn = (data.authed_user?.expires_in ?? data.expires_in ?? 0) as number;
 
     await saveTokens(

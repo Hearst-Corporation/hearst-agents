@@ -104,13 +104,9 @@ export async function updateRun(
 
     if (Object.keys(metaPatch).length > 0) {
       // Merge into existing metadata using Postgres jsonb concat
-      const { data: existing } = await sb
-        .from("runs")
-        .select("metadata")
-        .eq("id", runId)
-        .single();
+      const { data: existing } = await sb.from("runs").select("metadata").eq("id", runId).single();
 
-      const merged = { ...(existing?.metadata as Record<string, unknown> ?? {}), ...metaPatch };
+      const merged = { ...((existing?.metadata as Record<string, unknown>) ?? {}), ...metaPatch };
       update.metadata = merged;
     }
 
@@ -208,12 +204,14 @@ function toRunRecord(row: any): PersistedRunRecord {
     createdAt: new Date(row.created_at).getTime(),
     completedAt: row.finished_at ? new Date(row.finished_at).getTime() : undefined,
     assets: (meta.assets as PersistedRunRecord["assets"]) ?? [],
-    metrics: meta.usage ? {
-      tokensIn: (meta.usage as { input_tokens?: number }).input_tokens,
-      tokensOut: (meta.usage as { output_tokens?: number }).output_tokens,
-      costUsd: meta.costUsd as number | undefined,
-      latencyMs: meta.latencyMs as number | undefined,
-    } : undefined,
+    metrics: meta.usage
+      ? {
+          tokensIn: (meta.usage as { input_tokens?: number }).input_tokens,
+          tokensOut: (meta.usage as { output_tokens?: number }).output_tokens,
+          costUsd: meta.costUsd as number | undefined,
+          latencyMs: meta.latencyMs as number | undefined,
+        }
+      : undefined,
     metadata: meta,
   };
 }
@@ -226,9 +224,7 @@ function mapDbStatus(s: string): PersistedRunRecord["status"] {
 
 // ── Scheduled Missions ──────────────────────────────────────
 
-export async function saveScheduledMission(
-  mission: PersistedScheduledMission,
-): Promise<boolean> {
+export async function saveScheduledMission(mission: PersistedScheduledMission): Promise<boolean> {
   const sb = db();
   if (!sb) {
     console.warn("[RuntimeState] No Supabase client — mission not persisted:", mission.id);
@@ -395,7 +391,8 @@ export async function getScheduledMissions(params?: {
     if (params?.tenantId || params?.workspaceId) {
       return missions.filter((m) => {
         if (params.tenantId && m.tenantId && m.tenantId !== params.tenantId) return false;
-        if (params.workspaceId && m.workspaceId && m.workspaceId !== params.workspaceId) return false;
+        if (params.workspaceId && m.workspaceId && m.workspaceId !== params.workspaceId)
+          return false;
         return true;
       });
     }
@@ -429,9 +426,7 @@ function toScheduledMission(row: any): PersistedScheduledMission {
     contextSummary: (actions.contextSummary as string | null | undefined) ?? null,
     contextSummaryUpdatedAt: actions.contextSummaryUpdatedAt as number | undefined,
     budgetUsd: actions.budgetUsd as number | undefined,
-    approvers: Array.isArray(actions.approvers)
-      ? (actions.approvers as string[])
-      : undefined,
+    approvers: Array.isArray(actions.approvers) ? (actions.approvers as string[]) : undefined,
     approvalMode: actions.approvalMode as PersistedScheduledMission["approvalMode"],
   };
 }

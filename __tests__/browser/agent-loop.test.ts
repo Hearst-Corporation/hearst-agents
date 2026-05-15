@@ -11,10 +11,10 @@
  *  - Pas de clé Anthropic → abort propre
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { runAgentLoop } from "@/lib/browser/agent-loop";
-import { createFakePage } from "@/lib/browser/playwright-bridge";
 import type { PlaywrightPage } from "@/lib/browser/playwright-bridge";
+import { createFakePage } from "@/lib/browser/playwright-bridge";
 
 // ── Helpers : mock Anthropic ─────────────────────────────────
 
@@ -210,9 +210,7 @@ describe("runAgentLoop", () => {
             type: "message" as const,
             role: "assistant" as const,
             model: "x",
-            content: [
-              { type: "text" as const, text: '{"title":"Acme","price":"$99"}' },
-            ],
+            content: [{ type: "text" as const, text: '{"title":"Acme","price":"$99"}' }],
             stop_reason: "end_turn" as const,
             stop_sequence: null,
             usage: { input_tokens: 200, output_tokens: 20 },
@@ -366,9 +364,7 @@ describe("runAgentLoop", () => {
           type: "message" as const,
           role: "assistant" as const,
           model: "x",
-          content: [
-            { type: "text" as const, text: "Je n'ai pas assez d'info pour agir." },
-          ],
+          content: [{ type: "text" as const, text: "Je n'ai pas assez d'info pour agir." }],
           stop_reason: "end_turn" as const,
           stop_sequence: null,
           usage: { input_tokens: 10, output_tokens: 10 },

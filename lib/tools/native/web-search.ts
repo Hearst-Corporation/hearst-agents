@@ -7,10 +7,10 @@
  * info" — actualités, prix, données publiques, recherche factuelle.
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
-import { searchWeb } from "@/lib/tools/handlers/web-search";
+import { jsonSchema } from "ai";
 import { fenceUntrusted } from "@/lib/memory/untrusted-fence";
+import { searchWeb } from "@/lib/tools/handlers/web-search";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -19,7 +19,11 @@ interface WebSearchArgs {
   query: string;
 }
 
-function formatResult(query: string, summary: string, results: Array<{ title: string; url: string; snippet: string }>): string {
+function formatResult(
+  query: string,
+  summary: string,
+  results: Array<{ title: string; url: string; snippet: string }>,
+): string {
   const lines: string[] = [];
   lines.push(`Recherche : ${query}`);
   lines.push("");
@@ -63,7 +67,8 @@ export function buildWebSearchTools(): AiToolMap {
       properties: {
         query: {
           type: "string",
-          description: "Requête de recherche en langage naturel (ex: 'dernières actualités sur l'IA générative', 'capitale du Pérou', 'météo Paris demain').",
+          description:
+            "Requête de recherche en langage naturel (ex: 'dernières actualités sur l'IA générative', 'capitale du Pérou', 'météo Paris demain').",
         },
       },
     }),

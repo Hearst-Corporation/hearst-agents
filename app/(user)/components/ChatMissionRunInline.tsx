@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useRuntimeStore, type StreamEvent } from "@/stores/runtime";
 import { toast } from "@/app/hooks/use-toast";
+import { type StreamEvent, useRuntimeStore } from "@/stores/runtime";
 
 interface MissionRunRequest {
   missionId: string;
@@ -52,10 +52,7 @@ export function ChatMissionRunInline() {
   const [done, setDone] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
 
-  const request = useMemo(
-    () => selectLatestRunRequest(events, lastRunId),
-    [events, lastRunId],
-  );
+  const request = useMemo(() => selectLatestRunRequest(events, lastRunId), [events, lastRunId]);
 
   if (!request) return null;
 
@@ -126,13 +123,9 @@ export function ChatMissionRunInline() {
               <span>Lancement…</span>
             </>
           ) : done ? (
-            <>
-              <span>Lancée</span>
-            </>
+            <span>Lancée</span>
           ) : lastError ? (
-            <>
-              <span>Réessayer</span>
-            </>
+            <span>Réessayer</span>
           ) : (
             <>
               <span>Lancer maintenant</span>

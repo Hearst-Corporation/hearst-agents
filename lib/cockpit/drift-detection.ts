@@ -89,7 +89,9 @@ export async function analyzeMissionDrift(
 
   if (error || !Array.isArray(data) || data.length < 2) return empty;
 
-  const runs = (data as unknown as RunRow[]).filter((r) => r.output !== null && r.output !== undefined);
+  const runs = (data as unknown as RunRow[]).filter(
+    (r) => r.output !== null && r.output !== undefined,
+  );
   if (runs.length < 2) return empty;
 
   // On parcourt les runs du plus récent vers les plus anciens. Tant qu'un
@@ -163,7 +165,9 @@ export async function generateDriftNarration(
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    const fallback = clipFr(`${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`);
+    const fallback = clipFr(
+      `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
+    );
     narrationCache.set(cacheKey, { text: fallback, expiresAt: Date.now() + NARRATION_TTL_MS });
     return fallback;
   }
@@ -195,7 +199,9 @@ export async function generateDriftNarration(
     const text = block?.type === "text" ? block.text : "";
     const cleaned = clipFr(text);
     if (cleaned.length === 0) {
-      const fallback = clipFr(`${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`);
+      const fallback = clipFr(
+        `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
+      );
       narrationCache.set(cacheKey, { text: fallback, expiresAt: Date.now() + NARRATION_TTL_MS });
       return fallback;
     }
@@ -203,7 +209,9 @@ export async function generateDriftNarration(
     return cleaned;
   } catch (err) {
     console.warn("[drift-detection] Haiku narration failed:", err);
-    const fallback = clipFr(`${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`);
+    const fallback = clipFr(
+      `${safeTitle} n'a pas changé depuis ${staleRuns} runs. Toujours pertinente ?`,
+    );
     narrationCache.set(cacheKey, { text: fallback, expiresAt: Date.now() + NARRATION_TTL_MS });
     return fallback;
   }

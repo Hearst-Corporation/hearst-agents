@@ -19,16 +19,9 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import {
-  EDGES,
-  NODES,
-  VIEWBOX_H,
-  VIEWBOX_W,
-  type CanvasNode,
-  type NodeId,
-} from "./topology";
 import FlowEdge from "./FlowEdge";
-import { useCanvasStore, type NodeState } from "./store";
+import { type NodeState, useCanvasStore } from "./store";
+import { type CanvasNode, EDGES, NODES, type NodeId, VIEWBOX_H, VIEWBOX_W } from "./topology";
 
 const KIND_BY_ID: Record<NodeId, string> = {
   entry: "entry",
@@ -88,9 +81,7 @@ function NodeCard({ node, index, state, selected, onSelect }: CardProps) {
       </div>
       <div className="pipeline-card-row pipeline-card-row-bottom">
         <span className="pipeline-led" aria-hidden="true" />
-        {showPill ? (
-          <span className="pipeline-state-pill">{STATE_LABEL[state]}</span>
-        ) : null}
+        {showPill ? <span className="pipeline-state-pill">{STATE_LABEL[state]}</span> : null}
       </div>
       <div className="pipeline-progress-rail" aria-hidden="true" />
     </button>

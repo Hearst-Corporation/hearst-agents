@@ -1,23 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { toast } from "@/app/hooks/use-toast";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useOAuthCompletionPoll } from "@/app/hooks/use-oauth-completion-poll";
 import { invalidateOAuthExpiryCache } from "@/app/hooks/use-oauth-expiry";
+import { toast } from "@/app/hooks/use-toast";
 import { openOAuthPopup } from "@/lib/oauth/popup";
 import { useOAuthStore } from "@/stores/oauth";
 import {
+  type ComposioApp,
+  type ConnectedAccount,
+  categoryLabel,
+  categoryLabelById,
+  type DiscoveredTool,
+  type DrawerState,
   INTENT_KEYWORDS,
   STATUS_RANK,
   SUGGESTION_PICKS,
   WALLPAPER_PAGE,
-  categoryLabel,
-  categoryLabelById,
-  type ComposioApp,
-  type ConnectedAccount,
-  type DiscoveredTool,
-  type DrawerState,
 } from "./types";
 
 // ============================================================================
@@ -43,8 +43,8 @@ export function useConnectionsHub() {
   const [enabled, setEnabled] = useState(true);
   const [sdkError, setSdkError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | null>(
-    () => searchParams.get("category"),
+  const [activeCategory, setActiveCategory] = useState<string | null>(() =>
+    searchParams.get("category"),
   );
   const [wallpaperLimit, setWallpaperLimit] = useState(WALLPAPER_PAGE);
   // Filtre "attentions" — quand actif, le wallpaper ne montre que les
@@ -67,9 +67,7 @@ export function useConnectionsHub() {
     try {
       const [composioRes, nativeRes] = await Promise.all([
         fetch("/api/composio/connections", { credentials: "include" }),
-        fetch("/api/connections/native", { credentials: "include" }).catch(
-          () => null,
-        ),
+        fetch("/api/connections/native", { credentials: "include" }).catch(() => null),
       ]);
 
       if (composioRes.status === 503) {
@@ -91,12 +89,13 @@ export function useConnectionsHub() {
       const composioData = (await composioRes.json()) as {
         connections?: ConnectedAccount[];
       };
-      const composioConns: ConnectedAccount[] = (composioData.connections ?? []).map(
-        (c) => ({ ...c, source: "composio" }),
-      );
+      const composioConns: ConnectedAccount[] = (composioData.connections ?? []).map((c) => ({
+        ...c,
+        source: "composio",
+      }));
 
       let nativeConns: ConnectedAccount[] = [];
-      if (nativeRes && nativeRes.ok) {
+      if (nativeRes?.ok) {
         const nativeData = (await nativeRes.json()) as {
           connections?: ConnectedAccount[];
         };
@@ -106,12 +105,8 @@ export function useConnectionsHub() {
       // Dédup : si un slug existe en composio ET en native, on garde le
       // composio (qui prouve un OAuth explicite, plus "fort"). Le natif est
       // un fallback automatique du SSO. (cf invariant I-16)
-      const composioSlugs = new Set(
-        composioConns.map((c) => c.appName.toLowerCase()),
-      );
-      const filteredNative = nativeConns.filter(
-        (n) => !composioSlugs.has(n.appName.toLowerCase()),
-      );
+      const composioSlugs = new Set(composioConns.map((c) => c.appName.toLowerCase()));
+      const filteredNative = nativeConns.filter((n) => !composioSlugs.has(n.appName.toLowerCase()));
       setAccounts([...composioConns, ...filteredNative]);
     } catch (err) {
       console.error("[Composio] failed to load connections", err);
@@ -180,9 +175,7 @@ export function useConnectionsHub() {
   // + 1 EXPIRED ne compte pas comme attention puisque le meilleur statut
   // est ACTIVE.
   const stats = useMemo(() => {
-    const attentions = Array.from(statusBySlug.values()).filter(
-      (s) => s !== "active",
-    ).length;
+    const attentions = Array.from(statusBySlug.values()).filter((s) => s !== "active").length;
     return {
       connectedCount: connectedApps.length,
       catalogCount: apps.length,
@@ -228,13 +221,11 @@ export function useConnectionsHub() {
   // catalogue, hint = leur catégorie en lower-case.
   const suggestions = useMemo(() => {
     type Sugg = { app: ComposioApp; hint: string };
-    const fromPicks: Sugg[] = SUGGESTION_PICKS
-      .map((p) => {
-        const app = apps.find((a) => a.key === p.slug);
-        if (!app || connectedSlugs.has(p.slug)) return null;
-        return { app, hint: p.hint };
-      })
-      .filter((s): s is Sugg => s !== null);
+    const fromPicks: Sugg[] = SUGGESTION_PICKS.map((p) => {
+      const app = apps.find((a) => a.key === p.slug);
+      if (!app || connectedSlugs.has(p.slug)) return null;
+      return { app, hint: p.hint };
+    }).filter((s): s is Sugg => s !== null);
 
     if (fromPicks.length >= 3) return fromPicks.slice(0, 3);
 
@@ -309,10 +300,9 @@ export function useConnectionsHub() {
       // en mode discovery.
       setDrawerLoadingActions(true);
       try {
-        const res = await fetch(
-          `/api/composio/app-actions?app=${encodeURIComponent(app.key)}`,
-          { credentials: "include" },
-        );
+        const res = await fetch(`/api/composio/app-actions?app=${encodeURIComponent(app.key)}`, {
+          credentials: "include",
+        });
         if (res.ok) {
           const data = (await res.json()) as { tools?: DiscoveredTool[] };
           setDrawerActions(data.tools ?? []);
@@ -369,8 +359,7 @@ export function useConnectionsHub() {
           // n'a pas d'auth-config côté dashboard Composio). Pas un bug client,
           // donc pas de console.error qui crie en rouge dans devtools.
           const isMissingIntegration =
-            data.errorCode === "NO_INTEGRATION" ||
-            data.errorCode === "AUTH_CONFIG_REQUIRED";
+            data.errorCode === "NO_INTEGRATION" || data.errorCode === "AUTH_CONFIG_REQUIRED";
           if (!isMissingIntegration) {
             console.warn(
               `[Composio] Connect failed for ${app.key}: code=${data.errorCode} message=${message}`,
@@ -419,10 +408,9 @@ export function useConnectionsHub() {
       } catch (err) {
         toast.error("Connexion impossible", err instanceof Error ? err.message : "Erreur réseau");
         if (popup && !popup.closed) popup.close();
-        useOAuthStore.getState().setStatus(
-          "error",
-          err instanceof Error ? err.message : "Erreur réseau",
-        );
+        useOAuthStore
+          .getState()
+          .setStatus("error", err instanceof Error ? err.message : "Erreur réseau");
       } finally {
         setBusy(null);
       }
@@ -466,10 +454,7 @@ export function useConnectionsHub() {
     const connected = params.get("connected");
     if (!connected) return;
 
-    const isPopup =
-      window.opener &&
-      window.opener !== window &&
-      !(window.opener as Window).closed;
+    const isPopup = window.opener && window.opener !== window && !(window.opener as Window).closed;
 
     if (isPopup) {
       try {
@@ -554,10 +539,7 @@ export function useConnectionsHub() {
   // confirmation côté Hearst sans attendre que l'utilisateur ferme la popup.
   const onOAuthSuccess = useCallback(
     (slug: string) => {
-      toast.success(
-        `${slug} connecté ✓`,
-        `Demande à Hearst d'utiliser ${slug} dans le chat`,
-      );
+      toast.success(`${slug} connecté ✓`, `Demande à Hearst d'utiliser ${slug} dans le chat`);
       void fetch("/api/composio/invalidate-cache", {
         method: "POST",
         credentials: "include",
@@ -578,9 +560,7 @@ export function useConnectionsHub() {
   // render au lieu d'un setState dans useEffect (anti-pattern react-hooks).
   const liveDrawer = useMemo(() => {
     if (!drawer) return null;
-    const matched = accounts.find(
-      (a) => a.appName.toLowerCase() === drawer.app.key,
-    );
+    const matched = accounts.find((a) => a.appName.toLowerCase() === drawer.app.key);
     return { ...drawer, connectedAccount: matched };
   }, [accounts, drawer]);
 

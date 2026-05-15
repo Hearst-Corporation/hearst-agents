@@ -53,11 +53,12 @@ function formatNode(node: KgNode): string {
   const props = node.properties as Record<string, unknown> | null | undefined;
   const role =
     props && typeof props === "object"
-      ? (props.role as string | undefined) ?? (props.title as string | undefined)
+      ? ((props.role as string | undefined) ?? (props.title as string | undefined))
       : undefined;
-  const label = role && typeof role === "string" && role.trim()
-    ? `${node.label} (${role.trim().slice(0, 40)})`
-    : node.label;
+  const label =
+    role && typeof role === "string" && role.trim()
+      ? `${node.label} (${role.trim().slice(0, 40)})`
+      : node.label;
   return fenceUntrusted("kg", label, {
     id: node.id,
     type: node.type,

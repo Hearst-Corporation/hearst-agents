@@ -8,23 +8,22 @@
  * Body : { stepId: string, skip?: boolean }
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { approvePlan } from "@/lib/engine/planner";
 import { getPlan } from "@/lib/engine/planner/store";
 import { requireScope } from "@/lib/platform/auth/scope";
 
-const approveStepBodySchema = z.object({
-  stepId: z.string().min(1).max(200),
-  skip: z.boolean().optional(),
-}).strict();
+const approveStepBodySchema = z
+  .object({
+    stepId: z.string().min(1).max(200),
+    skip: z.boolean().optional(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({
     context: "POST /api/v2/missions/[id]/approve-step",
   });
@@ -48,23 +47,15 @@ export async function POST(
   // F-056: Ownership check — vérifier que le plan appartient à l'utilisateur actuel
   const plan = getPlan(id);
   if (!plan) {
-    console.warn(
-      `[ApproveStep] plan/mission ${id} introuvable (user ${scope.userId.slice(0, 8)})`,
-    );
-    return NextResponse.json(
-      { error: "plan_not_found", id },
-      { status: 404 },
-    );
+    console.warn(`[ApproveStep] plan/mission ${id} introuvable (user ${scope.userId.slice(0, 8)})`);
+    return NextResponse.json({ error: "plan_not_found", id }, { status: 404 });
   }
 
   if (plan.userId !== scope.userId) {
     console.warn(
       `[ApproveStep] IDOR attempt — user ${scope.userId.slice(0, 8)} tried to access plan of ${plan.userId.slice(0, 8)}`,
     );
-    return NextResponse.json(
-      { error: "forbidden" },
-      { status: 403 },
-    );
+    return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
 
   // POURQUOI : on essaie d'approuver le plan via le store planner. Si l'`id`
@@ -77,10 +68,7 @@ export async function POST(
     console.warn(
       `[ApproveStep] plan ${id} pas en awaiting_approval (user ${scope.userId.slice(0, 8)})`,
     );
-    return NextResponse.json(
-      { error: "plan_not_awaiting_approval", id },
-      { status: 404 },
-    );
+    return NextResponse.json({ error: "plan_not_awaiting_approval", id }, { status: 404 });
   }
 
   console.log(

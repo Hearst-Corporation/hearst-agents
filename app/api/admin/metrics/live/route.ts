@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 

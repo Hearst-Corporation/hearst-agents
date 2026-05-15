@@ -2,20 +2,20 @@
  * Tests — hospitality reports specs (3 specs valides Zod + sample data
  * generators consistants).
  */
-import { describe, it, expect } from "vitest";
-import { reportSpecSchema } from "@/lib/reports/spec/schema";
+import { describe, expect, it } from "vitest";
 import {
   buildHospitalityDailyBrief,
   buildHospitalityDailyBriefSampleData,
-  HOSPITALITY_DAILY_BRIEF_ID,
-  buildHospitalityRevpar,
-  buildHospitalityRevparSampleData,
-  HOSPITALITY_REVPAR_ID,
   buildHospitalityGuestSatisfaction,
   buildHospitalityGuestSatisfactionSampleData,
-  HOSPITALITY_GUEST_SATISFACTION_ID,
+  buildHospitalityRevpar,
+  buildHospitalityRevparSampleData,
   CATALOG,
+  HOSPITALITY_DAILY_BRIEF_ID,
+  HOSPITALITY_GUEST_SATISFACTION_ID,
+  HOSPITALITY_REVPAR_ID,
 } from "@/lib/reports/catalog";
+import { reportSpecSchema } from "@/lib/reports/spec/schema";
 
 const SCOPE = {
   tenantId: "tenant-h",

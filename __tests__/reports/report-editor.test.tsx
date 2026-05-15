@@ -12,8 +12,8 @@
  *   - load template : liste, sélection → GET fetch spec, onChange
  */
 
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ReportEditor } from "@/app/(user)/components/reports/ReportEditor";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 
@@ -162,16 +162,12 @@ describe("ReportEditor — reset", () => {
   it("le bouton Reset restaure le spec initial mémorisé au mount", () => {
     const spec = buildSpec();
     const onChange = vi.fn();
-    const { rerender } = render(
-      <ReportEditor spec={spec} onChange={onChange} />,
-    );
+    const { rerender } = render(<ReportEditor spec={spec} onChange={onChange} />);
 
     // Simule que le parent a appliqué une modification (toggle hidden).
     const modifiedSpec: ReportSpec = {
       ...spec,
-      blocks: spec.blocks.map((b, i) =>
-        i === 0 ? { ...b, hidden: true } : b,
-      ),
+      blocks: spec.blocks.map((b, i) => (i === 0 ? { ...b, hidden: true } : b)),
     };
     rerender(<ReportEditor spec={modifiedSpec} onChange={onChange} />);
 
@@ -221,9 +217,7 @@ describe("ReportEditor — preview JSON", () => {
       current = next;
     };
 
-    const { rerender } = render(
-      <ReportEditor spec={current} onChange={onChange} />,
-    );
+    const { rerender } = render(<ReportEditor spec={current} onChange={onChange} />);
     fireEvent.click(screen.getByTestId("report-editor-down-b_kpi"));
     rerender(<ReportEditor spec={current} onChange={onChange} />);
     fireEvent.click(screen.getByTestId("report-editor-json-toggle"));
@@ -385,9 +379,7 @@ describe("ReportEditor — save template", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("report-editor-save-feedback").textContent).toMatch(
-        /erreur/i,
-      );
+      expect(screen.getByTestId("report-editor-save-feedback").textContent).toMatch(/erreur/i);
     });
   });
 });

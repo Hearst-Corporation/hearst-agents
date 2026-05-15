@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { RunTracer } from "@/lib/engine/runtime/tracer";
+import { describe, expect, it } from "vitest";
 import { RuntimeError } from "@/lib/engine/runtime/lifecycle";
+import { RunTracer } from "@/lib/engine/runtime/tracer";
 import { createMockSupabase } from "./mock-supabase";
 
 function makeSb() {
@@ -39,7 +39,7 @@ describe("RunTracer integration", () => {
     expect(result.output.content).toBe("Hello back!");
     expect(result.trace_id).toBeTruthy();
     expect(result.validation).toBeDefined();
-    expect(result.validation!.trust).toBe("unverified");
+    expect(result.validation?.trust).toBe("unverified");
 
     await tracer.endRun("completed", { done: true });
     expect(tracer.getStatus()).toBe("completed");
@@ -69,9 +69,9 @@ describe("RunTracer integration", () => {
     });
 
     expect(result.validation).toBeDefined();
-    expect(result.validation!.trust).toBe("guard_failed");
-    expect(result.validation!.classification).not.toBe("valid");
-    expect(result.validation!.failed_guards).toContain("blacklist");
+    expect(result.validation?.trust).toBe("guard_failed");
+    expect(result.validation?.classification).not.toBe("valid");
+    expect(result.validation?.failed_guards).toContain("blacklist");
   });
 
   it("does not validate non-LLM traces", async () => {
@@ -160,7 +160,7 @@ describe("RunTracer integration", () => {
     const events = tracer.getEvents();
     const costWarning = events.find((e) => e.kind === "cost:warning");
     expect(costWarning).toBeDefined();
-    expect(costWarning!.data.utilization).toBeGreaterThanOrEqual(0.8);
+    expect(costWarning?.data.utilization).toBeGreaterThanOrEqual(0.8);
   });
 
   it("refuses trace after run is finished", async () => {
@@ -199,7 +199,9 @@ describe("RunTracer integration", () => {
       tracer.trace({
         kind: "llm_call",
         name: "failing",
-        fn: async () => { throw new Error("provider down"); },
+        fn: async () => {
+          throw new Error("provider down");
+        },
       }),
     ).rejects.toThrow("provider down");
 
@@ -229,6 +231,6 @@ describe("RunTracer integration", () => {
     });
 
     expect(result.validation).toBeDefined();
-    expect(result.validation!.trust).toBe("stubbed");
+    expect(result.validation?.trust).toBe("stubbed");
   });
 });

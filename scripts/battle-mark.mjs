@@ -12,8 +12,8 @@
  * Statuts finding valides: pending | triaged | implementing | tested | reaudited | validated | closed | wont_fix
  */
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { resolve, join, dirname } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -52,7 +52,7 @@ function loadJson(p) {
 }
 
 function saveJson(p, data) {
-  writeFileSync(p, JSON.stringify(data, null, 2) + "\n", "utf-8");
+  writeFileSync(p, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
 }
 
 function nowIso() {
@@ -64,7 +64,9 @@ function checkAgentLock() {
   if (!existsSync(lockPath)) return;
   const lock = JSON.parse(readFileSync(lockPath, "utf-8"));
   if (lock.locked === true) {
-    console.error(`❌ AGENT-LOCK actif (reason: ${lock.reason ?? "—"}) — aucune écriture autorisée.`);
+    console.error(
+      `❌ AGENT-LOCK actif (reason: ${lock.reason ?? "—"}) — aucune écriture autorisée.`,
+    );
     process.exit(1);
   }
 }
@@ -112,7 +114,9 @@ function markBatch(batchId, newStatus, reason, actor) {
   });
 
   // Update phase status if all batches done
-  const allDone = (foundPhase.batches || []).every((b) => b.status === "done" || b.status === "deferred");
+  const allDone = (foundPhase.batches || []).every(
+    (b) => b.status === "done" || b.status === "deferred",
+  );
   if (allDone && foundPhase.status !== "deferred") {
     foundPhase.status = "done";
   } else if (foundPhase.status !== "deferred") {
@@ -124,7 +128,9 @@ function markBatch(batchId, newStatus, reason, actor) {
   plan.last_updated = nowIso();
 
   saveJson(PLAN_PATH, plan);
-  console.log(`✓ Batch ${batchId}: ${previousStatus} → ${newStatus} (phase ${foundPhase.id} → ${foundPhase.status})`);
+  console.log(
+    `✓ Batch ${batchId}: ${previousStatus} → ${newStatus} (phase ${foundPhase.id} → ${foundPhase.status})`,
+  );
 }
 
 function markFinding(findingId, newStatus, reason, actor) {
@@ -173,7 +179,9 @@ function main() {
 
   if (args.batch) {
     if (!VALID_BATCH_STATUSES.includes(args.status)) {
-      console.error(`❌ Invalid batch status: ${args.status}. Valid: ${VALID_BATCH_STATUSES.join(", ")}`);
+      console.error(
+        `❌ Invalid batch status: ${args.status}. Valid: ${VALID_BATCH_STATUSES.join(", ")}`,
+      );
       process.exit(1);
     }
     markBatch(args.batch, args.status, args.reason, args.by);
@@ -182,7 +190,9 @@ function main() {
 
   if (args.finding) {
     if (!VALID_FINDING_STATUSES.includes(args.status)) {
-      console.error(`❌ Invalid finding status: ${args.status}. Valid: ${VALID_FINDING_STATUSES.join(", ")}`);
+      console.error(
+        `❌ Invalid finding status: ${args.status}. Valid: ${VALID_FINDING_STATUSES.join(", ")}`,
+      );
       process.exit(1);
     }
     markFinding(args.finding, args.status, args.reason, args.by);

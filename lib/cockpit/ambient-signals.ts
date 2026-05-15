@@ -17,13 +17,13 @@
  * permet aux tests de purger le cache entre les cas.
  */
 
-import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
-import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
-import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { getConnectionsByScope } from "@/lib/connectors/control-plane/store";
+import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
+import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
+import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { loadLatestInboxBrief } from "@/lib/inbox/store";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 export type AmbientSignalKind =
   | "mission_failed"

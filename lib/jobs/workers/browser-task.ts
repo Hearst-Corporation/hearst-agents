@@ -1,6 +1,6 @@
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { createSession, stopSession } from "@/lib/capabilities/providers/browserbase";
 import type { BrowserTaskInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 
 const handler: WorkerHandler<BrowserTaskInput> = {
   kind: "browser-task",

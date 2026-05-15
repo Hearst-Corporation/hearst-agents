@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { runSeed, type SeedResource } from "@/lib/admin/seed";
 import { redactedError, withRoute } from "@/lib/observability/logger";
 
@@ -36,16 +36,10 @@ function checkRateLimit(adminId: string): boolean {
   return true;
 }
 
-export async function POST(
-  req: Request,
-  context: { params: Promise<{ resource: string }> },
-) {
+export async function POST(req: Request, context: { params: Promise<{ resource: string }> }) {
   const { resource } = await context.params;
   if (!VALID.includes(resource as SeedResource)) {
-    return NextResponse.json(
-      { error: "invalid_resource", allowed: VALID },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "invalid_resource", allowed: VALID }, { status: 400 });
   }
 
   const guard = await requireAdmin(`POST /api/admin/seed/${resource}`, {
@@ -65,9 +59,9 @@ export async function POST(
   }
 
   // F-124: Replay protection via idempotency key (X-Idempotency-Key header)
-  const idempotencyKey = (
-    req.headers as unknown as { get?: (key: string) => string | null }
-  ).get?.("x-idempotency-key");
+  const idempotencyKey = (req.headers as unknown as { get?: (key: string) => string | null }).get?.(
+    "x-idempotency-key",
+  );
   if (idempotencyKey) {
     const cached = seedReplays.get(idempotencyKey);
     if (cached && Date.now() - cached.at < REPLAY_TTL_MS) {

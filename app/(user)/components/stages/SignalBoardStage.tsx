@@ -19,17 +19,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useStageStore } from "@/stores/stage";
-import { StageActionBar } from "./StageActionBar";
 import { EmptyState } from "../ui";
+import { StageActionBar } from "./StageActionBar";
 
 interface AmbientSignal {
   id: string;
-  kind:
-    | "mission_failed"
-    | "oauth_expired"
-    | "brief_stale"
-    | "variant_timeout"
-    | "mission_silent";
+  kind: "mission_failed" | "oauth_expired" | "brief_stale" | "variant_timeout" | "mission_silent";
   narration: string;
   detectedAt: string;
   ctaHref?: string;
@@ -190,10 +185,7 @@ export function SignalBoardStage() {
   };
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
@@ -201,9 +193,7 @@ export function SignalBoardStage() {
               className="rounded-pill bg-(--accent-teal) halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-(--accent-teal)">
-              SIGNAUX
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">SIGNAUX</span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
@@ -223,10 +213,7 @@ export function SignalBoardStage() {
           className="flex-1 min-w-0 flex flex-col min-h-0 overflow-y-auto"
           style={{ padding: "var(--space-12) var(--space-12)" }}
         >
-          <div
-            className="max-w-3xl mx-auto w-full flex flex-col"
-            style={{ gap: "var(--space-8)" }}
-          >
+          <div className="max-w-3xl mx-auto w-full flex flex-col" style={{ gap: "var(--space-8)" }}>
             {/* Header */}
             <header className="flex flex-col" style={{ gap: "var(--space-3)" }}>
               <h1 className="t-28 font-light text-text">Signaux</h1>
@@ -234,18 +221,15 @@ export function SignalBoardStage() {
                 className="t-13 font-light text-text-muted"
                 style={{ lineHeight: "var(--leading-base)" }}
               >
-                Vue agrégée de l&apos;activité ambient — missions, connexions,
-                briefings, vidéos. Choisis une fenêtre, filtre par type, ou
-                investigue un signal en particulier.
+                Vue agrégée de l&apos;activité ambient — missions, connexions, briefings, vidéos.
+                Choisis une fenêtre, filtre par type, ou investigue un signal en particulier.
               </p>
             </header>
 
             {/* Filtres : range + kind */}
             <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
               <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-                <span className="t-11 font-light text-text-faint shrink-0">
-                  Fenêtre
-                </span>
+                <span className="t-11 font-light text-text-faint shrink-0">Fenêtre</span>
                 <div className="flex" style={{ gap: "var(--space-1)" }}>
                   {RANGE_OPTIONS.map((opt) => (
                     <FilterPill
@@ -258,9 +242,7 @@ export function SignalBoardStage() {
                 </div>
               </div>
               <div className="flex items-center flex-wrap" style={{ gap: "var(--space-2)" }}>
-                <span className="t-11 font-light text-text-faint shrink-0">
-                  Type
-                </span>
+                <span className="t-11 font-light text-text-faint shrink-0">Type</span>
                 <div className="flex flex-wrap" style={{ gap: "var(--space-1)" }}>
                   {KIND_OPTIONS.map((opt) => (
                     <FilterPill
@@ -278,11 +260,7 @@ export function SignalBoardStage() {
             <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
               {loading && <SignalSkeleton count={3} />}
               {!loading && error && (
-                <EmptyState
-                  icon="◇"
-                  title="Échec de chargement"
-                  description={error}
-                />
+                <EmptyState icon="◇" title="Échec de chargement" description={error} />
               )}
               {!loading && !error && filtered.length === 0 && (
                 <EmptyState
@@ -320,9 +298,7 @@ export function SignalBoardStage() {
           }}
         >
           <header className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-            <span className="t-11 font-light text-text-faint">
-              CUMUL
-            </span>
+            <span className="t-11 font-light text-text-faint">CUMUL</span>
             <p className="t-28 font-light text-text">{stats.total}</p>
             <p className="t-11 font-light text-text-faint">
               signal{stats.total > 1 ? "aux" : ""} sur la fenêtre
@@ -330,25 +306,21 @@ export function SignalBoardStage() {
           </header>
 
           <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
-            <span className="t-11 font-light text-text-faint">
-              RÉPARTITION
-            </span>
-            {(Object.keys(stats.byKind) as Array<AmbientSignal["kind"]>).map(
-              (kind) => (
-                <div
-                  key={kind}
-                  className="flex items-center justify-between"
-                  style={{ gap: "var(--space-3)" }}
-                >
-                  <span className="t-11 font-light text-text-muted truncate flex-1 min-w-0">
-                    {KIND_LABEL[kind]}
-                  </span>
-                  <span className="t-11 font-mono tabular-nums text-text shrink-0">
-                    {stats.byKind[kind]}
-                  </span>
-                </div>
-              ),
-            )}
+            <span className="t-11 font-light text-text-faint">RÉPARTITION</span>
+            {(Object.keys(stats.byKind) as Array<AmbientSignal["kind"]>).map((kind) => (
+              <div
+                key={kind}
+                className="flex items-center justify-between"
+                style={{ gap: "var(--space-3)" }}
+              >
+                <span className="t-11 font-light text-text-muted truncate flex-1 min-w-0">
+                  {KIND_LABEL[kind]}
+                </span>
+                <span className="t-11 font-mono tabular-nums text-text shrink-0">
+                  {stats.byKind[kind]}
+                </span>
+              </div>
+            ))}
           </div>
         </aside>
       </div>
@@ -380,9 +352,7 @@ function FilterPill({
         paddingBottom: "var(--space-1)",
         background: active ? "var(--accent-teal-bg-active)" : "transparent",
         color: active ? "var(--accent-teal)" : "var(--text-muted)",
-        border:
-          "1px solid " +
-          (active ? "var(--accent-teal-border-hover)" : "var(--border-shell)"),
+        border: "1px solid " + (active ? "var(--accent-teal-border-hover)" : "var(--border-shell)"),
         borderRadius: "var(--radius-xs)",
         cursor: "pointer",
         transition:
@@ -416,21 +386,13 @@ function SignalCard({ signal, nowMs, highlighted, onInvestigate }: SignalCardPro
         borderTopWidth: "1px",
         borderRightWidth: "1px",
         borderBottomWidth: "1px",
-        borderLeftColor: highlighted
-          ? "var(--accent-teal)"
-          : "var(--accent-teal-bg-active)",
+        borderLeftColor: highlighted ? "var(--accent-teal)" : "var(--accent-teal-bg-active)",
         borderRadius: "var(--radius-xs)",
         transition: "border-color var(--duration-slow) var(--ease-standard)",
       }}
     >
-      <header
-        className="flex items-start justify-between"
-        style={{ gap: "var(--space-3)" }}
-      >
-        <div
-          className="flex items-start min-w-0 flex-1"
-          style={{ gap: "var(--space-3)" }}
-        >
+      <header className="flex items-start justify-between" style={{ gap: "var(--space-3)" }}>
+        <div className="flex items-start min-w-0 flex-1" style={{ gap: "var(--space-3)" }}>
           <span
             aria-hidden
             className="t-15 text-(--accent-teal) opacity-70 shrink-0"
@@ -442,13 +404,8 @@ function SignalCard({ signal, nowMs, highlighted, onInvestigate }: SignalCardPro
             <p className="t-13 text-text" style={{ lineHeight: "var(--leading-base)" }}>
               {signal.narration}
             </p>
-            <div
-              className="flex items-center"
-              style={{ gap: "var(--space-2)" }}
-            >
-              <span className="t-9 font-mono text-text-faint">
-                {KIND_LABEL[signal.kind]}
-              </span>
+            <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+              <span className="t-9 font-mono text-text-faint">{KIND_LABEL[signal.kind]}</span>
               <span
                 className="rounded-pill bg-[var(--text-ghost)]"
                 style={{ width: "var(--space-1)", height: "var(--space-1)" }}
@@ -462,10 +419,7 @@ function SignalCard({ signal, nowMs, highlighted, onInvestigate }: SignalCardPro
         </div>
       </header>
 
-      <footer
-        className="flex items-center justify-end"
-        style={{ gap: "var(--space-2)" }}
-      >
+      <footer className="flex items-center justify-end" style={{ gap: "var(--space-2)" }}>
         {signal.ctaHref && (
           <a
             href={signal.ctaHref}

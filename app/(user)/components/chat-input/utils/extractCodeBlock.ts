@@ -12,10 +12,7 @@ export function extractCodeBlock(value: string): {
   if (fenced) {
     const lang = (fenced[1] ?? "").toLowerCase();
     const runtime: "python" | "node" =
-      lang === "js" ||
-      lang === "javascript" ||
-      lang === "node" ||
-      lang === "typescript"
+      lang === "js" || lang === "javascript" || lang === "node" || lang === "typescript"
         ? "node"
         : "python";
     return { code: fenced[2].trim(), runtime };

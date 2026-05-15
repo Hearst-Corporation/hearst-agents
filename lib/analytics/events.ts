@@ -27,7 +27,7 @@ export interface AnalyticsEvent {
 export function logAnalyticsEvent(
   type: AnalyticsEventType,
   userId: string,
-  properties?: Record<string, unknown>
+  properties?: Record<string, unknown>,
 ): void {
   const userHash = hashUserId(userId);
 
@@ -49,7 +49,7 @@ function hashUserId(userId: string): string {
   let hash = 0;
   for (let i = 0; i < userId.length; i++) {
     const char = userId.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+    hash = (hash << 5) - hash + char;
     hash = hash & hash;
   }
   return `user_${Math.abs(hash).toString(16)}`;

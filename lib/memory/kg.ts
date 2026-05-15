@@ -10,9 +10,9 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import type { Database } from "@/lib/database.types";
-import { KG_EXTRACTION_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { formatFewShotBlock, KG_EXTRACTION_FEWSHOT } from "@/lib/prompts/examples";
 
 type Json = Database["public"]["Tables"]["kg_nodes"]["Row"]["properties"];
 
@@ -166,9 +166,10 @@ export async function extractEntities(text: string): Promise<ExtractionResult> {
       if (!label) continue;
       const type = e.type as KgNodeType;
       if (!ENTITY_TYPES.includes(type)) continue;
-      const properties = e.properties && typeof e.properties === "object"
-        ? (e.properties as Record<string, unknown>)
-        : {};
+      const properties =
+        e.properties && typeof e.properties === "object"
+          ? (e.properties as Record<string, unknown>)
+          : {};
       entities.push({ type, label, properties });
     }
   }
@@ -177,8 +178,18 @@ export async function extractEntities(text: string): Promise<ExtractionResult> {
   if (Array.isArray(obj.relations)) {
     for (const item of obj.relations) {
       if (!item || typeof item !== "object") continue;
-      const r = item as { source_label?: unknown; target_label?: unknown; type?: unknown; weight?: unknown };
-      if (typeof r.source_label !== "string" || typeof r.target_label !== "string" || typeof r.type !== "string") continue;
+      const r = item as {
+        source_label?: unknown;
+        target_label?: unknown;
+        type?: unknown;
+        weight?: unknown;
+      };
+      if (
+        typeof r.source_label !== "string" ||
+        typeof r.target_label !== "string" ||
+        typeof r.type !== "string"
+      )
+        continue;
       const source = r.source_label.trim();
       const target = r.target_label.trim();
       const relType = r.type.trim();
@@ -209,9 +220,7 @@ const FORBIDDEN_LABEL_PATTERNS: ReadonlyArray<RegExp> = [
  * Cap 100 chars, strip control chars, neutralise les patterns d'injection.
  */
 export function sanitizeKgLabel(label: string): string {
-  let safe = label
-    .slice(0, 100)
-    .replace(/[\x00-\x1F\x7F]/g, "");
+  let safe = label.slice(0, 100).replace(/[\x00-\x1F\x7F]/g, "");
   for (const re of FORBIDDEN_LABEL_PATTERNS) {
     safe = safe.replace(re, "[stripped]");
   }
@@ -305,11 +314,7 @@ export async function upsertEdge(
  * Recherche fuzzy de nodes par label (ILIKE %q%). Scope strict.
  * Limit raisonnable — au-delà on devra ajouter trigram index ou full-text.
  */
-export async function searchNodes(
-  scope: KgScope,
-  q: string,
-  limit = 30,
-): Promise<KgNode[]> {
+export async function searchNodes(scope: KgScope, q: string, limit = 30): Promise<KgNode[]> {
   const sb = requireServerSupabase();
   const safe = q.trim().replace(/[%_]/g, "\\$&");
   if (!safe) return [];
@@ -360,9 +365,9 @@ export async function findPath(
   for (const e of graph.edges) {
     if (!adj.has(e.source_id)) adj.set(e.source_id, []);
     if (!adj.has(e.target_id)) adj.set(e.target_id, []);
-    adj.get(e.source_id)!.push({ neighborId: e.target_id, edge: e });
+    adj.get(e.source_id)?.push({ neighborId: e.target_id, edge: e });
     // Considéré bidirectionnel pour les besoins du pathfinder UI
-    adj.get(e.target_id)!.push({ neighborId: e.source_id, edge: e });
+    adj.get(e.target_id)?.push({ neighborId: e.source_id, edge: e });
   }
 
   // BFS
@@ -443,9 +448,7 @@ export async function getEntityTimeline(
 
   // Fetch tous les nodes "autres" pour résoudre labels
   const otherIds = Array.from(
-    new Set(
-      allEdges.map((e) => (e.source_id === entityId ? e.target_id : e.source_id)),
-    ),
+    new Set(allEdges.map((e) => (e.source_id === entityId ? e.target_id : e.source_id))),
   );
   const { data: otherNodes, error: nodesErr } = await sb
     .from("kg_nodes")
@@ -512,18 +515,11 @@ export async function getGraph(scope: KgScope): Promise<KgGraph> {
 
   const sb = requireServerSupabase();
 
-  const [{ data: nodes, error: nodesError }, { data: edges, error: edgesError }] = await Promise.all([
-    sb
-      .from("kg_nodes")
-      .select("*")
-      .eq("user_id", scope.userId)
-      .eq("tenant_id", scope.tenantId),
-    sb
-      .from("kg_edges")
-      .select("*")
-      .eq("user_id", scope.userId)
-      .eq("tenant_id", scope.tenantId),
-  ]);
+  const [{ data: nodes, error: nodesError }, { data: edges, error: edgesError }] =
+    await Promise.all([
+      sb.from("kg_nodes").select("*").eq("user_id", scope.userId).eq("tenant_id", scope.tenantId),
+      sb.from("kg_edges").select("*").eq("user_id", scope.userId).eq("tenant_id", scope.tenantId),
+    ]);
 
   if (nodesError) throw new Error(`[kg] getGraph nodes failed: ${nodesError.message}`);
   if (edgesError) throw new Error(`[kg] getGraph edges failed: ${edgesError.message}`);

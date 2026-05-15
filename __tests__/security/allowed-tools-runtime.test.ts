@@ -5,7 +5,7 @@
  * est fourni, et que les tools hors allowlist sont bien supprimés.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 /**
  * Simule la logique d'intersection de ai-pipeline.ts

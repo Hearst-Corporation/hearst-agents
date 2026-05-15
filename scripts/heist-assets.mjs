@@ -11,22 +11,22 @@
  *   - themes/<slug>/seed.sql                  (INSERT pour theme_assets)
  */
 
-import { chromium } from "playwright";
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createHash } from "node:crypto";
+import { chromium } from "playwright";
 
 const BASE_URL = process.argv[2];
-const SLUG     = process.argv[3];
+const SLUG = process.argv[3];
 
 if (!BASE_URL || !SLUG) {
   console.error("Usage: node scripts/heist-assets.mjs <base-url> <slug>");
   process.exit(1);
 }
 
-const HOST      = new URL(BASE_URL).hostname;
+const HOST = new URL(BASE_URL).hostname;
 const ASSET_DIR = `public/themes/${SLUG}/assets`;
-const META_DIR  = `themes/${SLUG}`;
+const META_DIR = `themes/${SLUG}`;
 const MAX_PAGES = 40;
 const CONCURRENCY = 3;
 
@@ -35,8 +35,12 @@ await fs.mkdir(META_DIR, { recursive: true });
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function isSameHost(url) {
-  try { return new URL(url).hostname === HOST; } catch { return false; }
+function _isSameHost(url) {
+  try {
+    return new URL(url).hostname === HOST;
+  } catch {
+    return false;
+  }
 }
 
 function classifyAsset(url, width, height, alt = "") {
@@ -44,20 +48,52 @@ function classifyAsset(url, width, height, alt = "") {
   const name = path.basename(u).split("?")[0];
 
   if (u.includes(".mp4") || u.includes(".webm") || u.includes(".mov")) return "video";
-  if (u.includes("font") || u.endsWith(".woff") || u.endsWith(".woff2") || u.endsWith(".ttf")) return "font";
+  if (u.includes("font") || u.endsWith(".woff") || u.endsWith(".woff2") || u.endsWith(".ttf"))
+    return "font";
 
   const isSvg = u.endsWith(".svg") || u.includes(".svg");
   const smallDim = width > 0 && height > 0 && width < 100 && height < 100;
 
   const logoPatterns = ["logo", "brand", "mark", "wordmark"];
-  const iconPatterns = ["icon", "ico", "arrow", "chevron", "check", "plus", "minus", "close", "menu"];
-  const bgPatterns   = ["bg", "background", "pattern", "texture", "noise", "grain", "gradient", "blob"];
-  const photoPatterns = ["photo", "image", "img", "picture", "hero", "banner", "cover", "thumbnail", "feature", "product"];
+  const iconPatterns = [
+    "icon",
+    "ico",
+    "arrow",
+    "chevron",
+    "check",
+    "plus",
+    "minus",
+    "close",
+    "menu",
+  ];
+  const bgPatterns = [
+    "bg",
+    "background",
+    "pattern",
+    "texture",
+    "noise",
+    "grain",
+    "gradient",
+    "blob",
+  ];
+  const photoPatterns = [
+    "photo",
+    "image",
+    "img",
+    "picture",
+    "hero",
+    "banner",
+    "cover",
+    "thumbnail",
+    "feature",
+    "product",
+  ];
 
-  const isLogo   = logoPatterns.some(p => name.includes(p) || alt.toLowerCase().includes(p));
-  const isIcon   = iconPatterns.some(p => name.includes(p) || alt.toLowerCase().includes(p)) || smallDim;
-  const isBg     = bgPatterns.some(p => name.includes(p));
-  const isPhoto  = photoPatterns.some(p => name.includes(p));
+  const isLogo = logoPatterns.some((p) => name.includes(p) || alt.toLowerCase().includes(p));
+  const isIcon =
+    iconPatterns.some((p) => name.includes(p) || alt.toLowerCase().includes(p)) || smallDim;
+  const isBg = bgPatterns.some((p) => name.includes(p));
+  const isPhoto = photoPatterns.some((p) => name.includes(p));
 
   if (isLogo) return "logo";
   if (isSvg && isIcon) return "icon";
@@ -71,9 +107,12 @@ function classifyAsset(url, width, height, alt = "") {
 function safeFilename(url) {
   try {
     const u = new URL(url);
-    const name = path.basename(u.pathname).replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 80);
+    const name = path
+      .basename(u.pathname)
+      .replace(/[^a-zA-Z0-9._-]/g, "_")
+      .slice(0, 80);
     const hash = createHash("sha1").update(url).digest("hex").slice(0, 8);
-    const ext  = path.extname(name) || ".bin";
+    const ext = path.extname(name) || ".bin";
     const base = path.basename(name, ext).slice(0, 50);
     return `${base}_${hash}${ext}`;
   } catch {
@@ -93,8 +132,8 @@ async function downloadAsset(url, filename) {
     });
     if (!res.ok) return { ok: false, reason: `HTTP ${res.status}` };
 
-    const buf     = Buffer.from(await res.arrayBuffer());
-    const mime    = res.headers.get("content-type") || "application/octet-stream";
+    const buf = Buffer.from(await res.arrayBuffer());
+    const mime = res.headers.get("content-type") || "application/octet-stream";
     await fs.writeFile(dest, buf);
     return { ok: true, size: buf.byteLength, mime };
   } catch (e) {
@@ -116,8 +155,8 @@ const ctx = await browser.newContext({
 });
 
 const discovered = new Set([BASE_URL]);
-const queue      = [BASE_URL];
-const visited    = new Set();
+const queue = [BASE_URL];
+const visited = new Set();
 
 // Visite la homepage pour trouver tous les liens internes
 {
@@ -125,9 +164,7 @@ const visited    = new Set();
   await page.goto(BASE_URL, { waitUntil: "networkidle", timeout: 45_000 });
   await page.waitForTimeout(2000);
 
-  const links = await page.$$eval("a[href]", (els) =>
-    els.map((a) => a.href).filter(Boolean)
-  );
+  const links = await page.$$eval("a[href]", (els) => els.map((a) => a.href).filter(Boolean));
 
   for (const link of links) {
     try {
@@ -194,13 +231,21 @@ async function scrapePage(pageUrl) {
       // SVG inline (keep top-level, take outerHTML snippet)
       document.querySelectorAll("svg").forEach((svg) => {
         const id = svg.id || svg.classList[0] || "";
-        const w  = svg.viewBox?.baseVal?.width || svg.width?.baseVal?.value || 0;
-        const h  = svg.viewBox?.baseVal?.height || svg.height?.baseVal?.value || 0;
+        const w = svg.viewBox?.baseVal?.width || svg.width?.baseVal?.value || 0;
+        const h = svg.viewBox?.baseVal?.height || svg.height?.baseVal?.value || 0;
         // Only keep meaningful SVGs (not tiny decorative)
         if (w > 0 || h > 0 || svg.children.length > 1) {
           const snippet = svg.outerHTML.slice(0, 4000);
           // Mark as inline SVG — we'll save separately
-          assets.push({ url: `inline-svg:${id}:${w}x${h}`, alt: id, width: w, height: h, tag: "svg", type: "svg", snippet });
+          assets.push({
+            url: `inline-svg:${id}:${w}x${h}`,
+            alt: id,
+            width: w,
+            height: h,
+            tag: "svg",
+            type: "svg",
+            snippet,
+          });
         }
       });
 
@@ -208,7 +253,7 @@ async function scrapePage(pageUrl) {
       const all = document.querySelectorAll("*");
       for (const el of Array.from(all).slice(0, 4000)) {
         const bg = getComputedStyle(el).backgroundImage;
-        if (bg && bg.startsWith("url(")) {
+        if (bg?.startsWith("url(")) {
           const match = bg.match(/url\(['"]?([^'")\s]+)['"]?\)/);
           if (match?.[1] && !match[1].startsWith("data:")) {
             addAsset(match[1], "img", { tag: "css-bg" });
@@ -230,7 +275,7 @@ async function scrapePage(pageUrl) {
     for (const a of extracted) {
       // Inline SVGs: save as .svg file
       if (a.url.startsWith("inline-svg:") && a.snippet) {
-        const svgId    = a.url.replace(/^inline-svg:/, "").replace(/[^a-zA-Z0-9-]/g, "_");
+        const svgId = a.url.replace(/^inline-svg:/, "").replace(/[^a-zA-Z0-9-]/g, "_");
         const filename = `inline_${svgId}_${createHash("sha1").update(a.snippet).digest("hex").slice(0, 8)}.svg`;
         const existing = allAssets.get(`inline:${filename}`);
         if (!existing) {
@@ -255,12 +300,16 @@ async function scrapePage(pageUrl) {
 
       // Resolve relative URLs
       let resolvedUrl;
-      try { resolvedUrl = new URL(a.url, pageUrl).href; } catch { continue; }
+      try {
+        resolvedUrl = new URL(a.url, pageUrl).href;
+      } catch {
+        continue;
+      }
 
       if (allAssets.has(resolvedUrl)) continue;
 
       const filename = safeFilename(resolvedUrl);
-      const dl       = await downloadAsset(resolvedUrl, filename);
+      const dl = await downloadAsset(resolvedUrl, filename);
 
       const category = classifyAsset(resolvedUrl, a.width, a.height, a.alt);
 
@@ -293,10 +342,19 @@ async function scrapePage(pageUrl) {
 
 function guessMime(url) {
   const ext = path.extname(new URL(url).pathname).toLowerCase();
-  const map = { ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",
-    ".gif": "image/gif", ".webp": "image/webp", ".svg": "image/svg+xml",
-    ".ico": "image/x-icon", ".mp4": "video/mp4", ".webm": "video/webm",
-    ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf",
+  const map = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+    ".svg": "image/svg+xml",
+    ".ico": "image/x-icon",
+    ".mp4": "video/mp4",
+    ".webm": "video/webm",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+    ".ttf": "font/ttf",
   };
   return map[ext] || "application/octet-stream";
 }
@@ -328,7 +386,7 @@ const manifest = {
   pages_scraped: pageStats.length,
   total_assets: assets.length,
   by_category: Object.fromEntries(
-    Object.entries(byCategory).map(([cat, items]) => [cat, items.length])
+    Object.entries(byCategory).map(([cat, items]) => [cat, items.length]),
   ),
   assets,
 };
@@ -339,7 +397,10 @@ console.log(`\n📦 Manifest → ${META_DIR}/assets.json (${assets.length} asset
 // ─── Phase 4 : seed.sql ───────────────────────────────────────────────────────
 
 const rows = assets.map((a) => {
-  const esc = (s) => String(s || "").replace(/'/g, "''").slice(0, 500);
+  const esc = (s) =>
+    String(s || "")
+      .replace(/'/g, "''")
+      .slice(0, 500);
   return `  ('${SLUG}', '${esc(a.url)}', '${esc(a.local_path)}', '${esc(a.type)}', '${esc(a.category)}', '${esc(a.alt)}', ${a.width || 0}, ${a.height || 0}, ${a.file_size || 0}, '${esc(a.mime_type)}', '${esc(a.source_page)}', '${esc(a.filename)}')`;
 });
 
@@ -381,27 +442,28 @@ const sortedCategories = categoryOrder.filter((c) => byCategory[c]?.length);
 
 function assetCard(a) {
   const isVideo = a.category === "video";
-  const isFont  = a.category === "font";
-  const isSvg   = a.url.startsWith("inline:");
-  const thumb   = isSvg
+  const isFont = a.category === "font";
+  const isSvg = a.url.startsWith("inline:");
+  const thumb = isSvg
     ? `/themes/${SLUG}/assets/${a.filename}`
     : isVideo
-    ? ""
-    : `/themes/${SLUG}/assets/${a.filename}`;
+      ? ""
+      : `/themes/${SLUG}/assets/${a.filename}`;
   const dim = a.width && a.height ? `${a.width}×${a.height}` : "";
-  const size = a.file_size > 0
-    ? a.file_size > 1024 * 1024
-      ? `${(a.file_size / 1024 / 1024).toFixed(1)} MB`
-      : `${Math.round(a.file_size / 1024)} KB`
-    : "";
+  const size =
+    a.file_size > 0
+      ? a.file_size > 1024 * 1024
+        ? `${(a.file_size / 1024 / 1024).toFixed(1)} MB`
+        : `${Math.round(a.file_size / 1024)} KB`
+      : "";
 
   const preview = isVideo
     ? `<div class="thumb video-thumb"><span class="play">▶</span></div>`
     : isFont
-    ? `<div class="thumb font-thumb"><span>Aa</span></div>`
-    : `<img class="thumb" src="${thumb}" alt="${a.alt || a.filename}" loading="lazy" onerror="this.src='/themes/${SLUG}/assets/placeholder.svg';this.onerror=null" />`;
+      ? `<div class="thumb font-thumb"><span>Aa</span></div>`
+      : `<img class="thumb" src="${thumb}" alt="${a.alt || a.filename}" loading="lazy" onerror="this.src='/themes/${SLUG}/assets/placeholder.svg';this.onerror=null" />`;
 
-  const srcDisplay = a.url.startsWith("inline:") ? "(inline SVG)" : a.url;
+  const _srcDisplay = a.url.startsWith("inline:") ? "(inline SVG)" : a.url;
 
   return `<div class="card" data-cat="${a.category}" data-src="${a.source_page}" data-name="${a.filename.toLowerCase()}">
   ${preview}
@@ -422,7 +484,7 @@ function assetCard(a) {
 </div>`;
 }
 
-const totalByPage = Object.fromEntries(pageStats.map((p) => [p.path, p.assets]));
+const _totalByPage = Object.fromEntries(pageStats.map((p) => [p.path, p.assets]));
 
 const catalog = `<!doctype html>
 <html lang="fr">
@@ -538,11 +600,15 @@ const catalog = `<!doctype html>
     Tous
     <span class="count">${assets.length}</span>
   </div>
-  ${sortedCategories.map((cat) => `
+  ${sortedCategories
+    .map(
+      (cat) => `
   <div class="nav-item" data-filter-cat="${cat}">
     ${CATEGORY_LABELS[cat] || cat}
     <span class="count">${byCategory[cat].length}</span>
-  </div>`).join("")}
+  </div>`,
+    )
+    .join("")}
 
   <hr class="divider">
   <div class="sidebar-section">Pages (${pageStats.length})</div>
@@ -550,17 +616,24 @@ const catalog = `<!doctype html>
     <div class="page-item active" data-filter-page="all">
       Toutes les pages
     </div>
-    ${pageStats.sort((a, b) => b.assets - a.assets).map((p) => `
+    ${pageStats
+      .sort((a, b) => b.assets - a.assets)
+      .map(
+        (p) => `
     <div class="page-item" data-filter-page="${p.path}" title="${p.url}">
       <span style="overflow:hidden;text-overflow:ellipsis">${p.path || "/"}</span>
       <span class="pcnt">${p.assets}</span>
-    </div>`).join("")}
+    </div>`,
+      )
+      .join("")}
   </div>
 </nav>
 
 <!-- MAIN -->
 <main class="main" id="main">
-${sortedCategories.map((cat) => `
+${sortedCategories
+  .map(
+    (cat) => `
 <section class="cat-section" data-section="${cat}">
   <div class="section-header">
     <span class="section-title">${CATEGORY_LABELS[cat] || cat}</span>
@@ -570,7 +643,9 @@ ${sortedCategories.map((cat) => `
     ${byCategory[cat].map(assetCard).join("\n    ")}
     <div class="empty" data-empty="${cat}" style="display:none">Aucun asset visible avec ce filtre.</div>
   </div>
-</section>`).join("")}
+</section>`,
+  )
+  .join("")}
 </main>
 
 </div>
@@ -665,7 +740,10 @@ console.log(`
 ║  Pages visitées : ${String(pageStats.length).padEnd(22)}║
 ║  Assets uniques : ${String(assets.length).padEnd(22)}║
 ╠══════════════════════════════════════════╣
-${bycat.split("\n").map((l) => `║  ${l.padEnd(41)}║`).join("\n")}
+${bycat
+  .split("\n")
+  .map((l) => `║  ${l.padEnd(41)}║`)
+  .join("\n")}
 ╚══════════════════════════════════════════╝
 
   ✓ Fichiers → public/themes/${SLUG}/assets/

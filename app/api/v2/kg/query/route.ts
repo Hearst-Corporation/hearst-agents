@@ -10,7 +10,7 @@
  * ou ContextRail).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { runKgQuery } from "@/lib/tools/native/kg-query";

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * useSplineApp — capture l'`Application` Spline au mount + expose helpers
@@ -14,11 +14,11 @@
  * pas — on protège juste contre les erreurs JS pendant le hot-reload dev.
  */
 
-import { useCallback, useRef } from 'react';
-import type { Application, SPEObject, SplineEventName } from '@splinetool/runtime';
+import type { Application, SPEObject, SplineEventName } from "@splinetool/runtime";
+import { useCallback, useRef } from "react";
 
-const TARGET_OBJECTS = ['Robot', 'Orb', 'Halo', 'Eyes'] as const;
-export type SplineTargetName = typeof TARGET_OBJECTS[number];
+const TARGET_OBJECTS = ["Robot", "Orb", "Halo", "Eyes"] as const;
+export type SplineTargetName = (typeof TARGET_OBJECTS)[number];
 
 export interface UseSplineApp {
   onLoad: (app: Application) => void;
@@ -49,9 +49,9 @@ export function useSplineApp(): UseSplineApp {
     if (!foundAny && !warnedMissingObjectsRef.current) {
       warnedMissingObjectsRef.current = true;
       console.warn(
-        '[spatial/useSplineApp] aucun des objets Spline attendus introuvable ' +
-          `(${TARGET_OBJECTS.join(', ')}). Les bridges runtime tomberont en no-op silencieux. ` +
-          'Demander au designer Spline de nommer les objets canoniques.',
+        "[spatial/useSplineApp] aucun des objets Spline attendus introuvable " +
+          `(${TARGET_OBJECTS.join(", ")}). Les bridges runtime tomberont en no-op silencieux. ` +
+          "Demander au designer Spline de nommer les objets canoniques.",
       );
     }
     readyRef.current = true;
@@ -65,8 +65,8 @@ export function useSplineApp(): UseSplineApp {
     } catch (err) {
       // emitEvent peut throw si l'event/target est inconnu de la scène.
       // On swallow : la scène n'expose juste pas cet event, l'app reste viable.
-      if (process.env.NODE_ENV !== 'production') {
-        console.debug('[spatial/useSplineApp] emitEvent no-op:', event, target, err);
+      if (process.env.NODE_ENV !== "production") {
+        console.debug("[spatial/useSplineApp] emitEvent no-op:", event, target, err);
       }
     }
   }, []);
@@ -77,8 +77,8 @@ export function useSplineApp(): UseSplineApp {
     try {
       app.setVariable(name, value);
     } catch (err) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.debug('[spatial/useSplineApp] setVariable no-op:', name, err);
+      if (process.env.NODE_ENV !== "production") {
+        console.debug("[spatial/useSplineApp] setVariable no-op:", name, err);
       }
     }
   }, []);

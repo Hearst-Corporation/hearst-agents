@@ -1,11 +1,11 @@
 import type { AuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import AzureADProvider from "next-auth/providers/azure-ad";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { saveTokens } from "@/lib/platform/auth/tokens";
+import GoogleProvider from "next-auth/providers/google";
 import { registerProviderUsage } from "@/lib/connectors/control-plane/register";
-import { resolveOrCreateUserUuid } from "./user-resolver";
+import { saveTokens } from "@/lib/platform/auth/tokens";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { resolveOrCreateUserUuid } from "./user-resolver";
 
 const DEV_BYPASS = process.env.HEARST_DEV_AUTH_BYPASS === "1";
 const DEV_USER_UUID = "36914162-75f9-4c27-b38b-bb050f51d52b";
@@ -18,20 +18,22 @@ export const authOptions: AuthOptions = {
     // ── Dev bypass provider (HEARST_DEV_AUTH_BYPASS=1 uniquement) ──────────
     // Crée une vraie session JWT sans OAuth pour le dev/Electron local.
     // Désactivé automatiquement en prod (DEV_BYPASS=false).
-    ...(DEV_BYPASS ? [
-      CredentialsProvider({
-        id: "dev-bypass",
-        name: "Dev Bypass",
-        credentials: {},
-        async authorize() {
-          return {
-            id: DEV_USER_UUID,
-            name: "Adrien (dev)",
-            email: "adriennejkovic@gmail.com",
-          };
-        },
-      }),
-    ] : []),
+    ...(DEV_BYPASS
+      ? [
+          CredentialsProvider({
+            id: "dev-bypass",
+            name: "Dev Bypass",
+            credentials: {},
+            async authorize() {
+              return {
+                id: DEV_USER_UUID,
+                name: "Adrien (dev)",
+                email: "adriennejkovic@gmail.com",
+              };
+            },
+          }),
+        ]
+      : []),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
@@ -77,9 +79,7 @@ export const authOptions: AuthOptions = {
       // Dev bypass NextAuth provider — toujours autorisé
       if (account?.provider === "dev-bypass") return true;
 
-      const email = (profile as { email?: string } | undefined)?.email
-        ?? user?.email
-        ?? null;
+      const email = (profile as { email?: string } | undefined)?.email ?? user?.email ?? null;
       if (!email) {
         console.warn(`[Auth] signIn rejected: no email (provider=${account?.provider})`);
         return false;
@@ -92,14 +92,18 @@ export const authOptions: AuthOptions = {
 
       // En prod : allowlist obligatoire. En dev : pass-through si vide.
       if (process.env.NODE_ENV === "production" && allowed.length === 0) {
-        console.error("[Auth] HEARST_ALLOWED_EMAIL_DOMAINS not set in production — rejecting all signins");
+        console.error(
+          "[Auth] HEARST_ALLOWED_EMAIL_DOMAINS not set in production — rejecting all signins",
+        );
         return false;
       }
       if (allowed.length === 0) return true; // dev only
 
       const domain = email.split("@")[1]?.toLowerCase() ?? "";
       if (!allowed.includes(domain)) {
-        console.warn(`[Auth] signIn rejected: domain ${domain} not in allowlist (email=${email}, provider=${account?.provider})`);
+        console.warn(
+          `[Auth] signIn rejected: domain ${domain} not in allowlist (email=${email}, provider=${account?.provider})`,
+        );
         return false;
       }
       return true;
@@ -140,17 +144,21 @@ export const authOptions: AuthOptions = {
         // Avant ce fix, token.userId = profile.email — ce qui faisait
         // remonter un email comme identifiant dans toutes les écritures
         // DB (cf. cleanup migration 0026_user_identity_uuid_cleanup.sql).
-        const uuid = email ? await resolveOrCreateUserUuid(email).catch((err) => {
-          console.error("[Auth] resolveOrCreateUserUuid failed:", err);
-          return null;
-        }) : null;
+        const uuid = email
+          ? await resolveOrCreateUserUuid(email).catch((err) => {
+              console.error("[Auth] resolveOrCreateUserUuid failed:", err);
+              return null;
+            })
+          : null;
 
         // Fallback strict : si la résolution échoue (DB indispo, email absent),
         // on ne fabrique PAS d'identifiant artificiel. Le user n'aura pas
         // d'userId valide → resolveScope() retournera null → 401 sur les
         // routes auth-required. Préférable à un email silencieux qui pollue.
         if (!uuid) {
-          console.warn(`[Auth] Unable to resolve UUID for email=${email ?? "<none>"}, provider=${providerName}`);
+          console.warn(
+            `[Auth] Unable to resolve UUID for email=${email ?? "<none>"}, provider=${providerName}`,
+          );
         }
 
         // Mod 1.B — Charge primary_tenant_id/primary_workspace_id depuis la DB
@@ -170,7 +178,9 @@ export const authOptions: AuthOptions = {
               primaryTenantId = data.primary_tenant_id ?? undefined;
               primaryWorkspaceId = data.primary_workspace_id ?? undefined;
             } else if (error) {
-              console.error(`[Auth] Failed to load tenant for user ${uuid.slice(0, 8)}: ${error.message}`);
+              console.error(
+                `[Auth] Failed to load tenant for user ${uuid.slice(0, 8)}: ${error.message}`,
+              );
             }
           }
         }
@@ -198,7 +208,9 @@ export const authOptions: AuthOptions = {
           const tenantId = primaryTenantId;
           const workspaceId = primaryWorkspaceId;
           if (!tenantId || !workspaceId) {
-            console.error(`[Auth] No primary_tenant for user ${uuid.slice(0, 8)} — registerProviderUsage skipped`);
+            console.error(
+              `[Auth] No primary_tenant for user ${uuid.slice(0, 8)} — registerProviderUsage skipped`,
+            );
           } else {
             void registerProviderUsage({
               provider: providerName as "google",

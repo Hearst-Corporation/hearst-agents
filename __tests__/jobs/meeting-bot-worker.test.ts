@@ -6,7 +6,7 @@
  * (le worker ferait des sleep de 30s).
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   getBotStatus: vi.fn(),
@@ -88,12 +88,12 @@ describe("worker meeting-bot — finalisation", () => {
 
     await storeAsset({
       id: "bot-1",
-      threadId: existing!.threadId,
+      threadId: existing?.threadId,
       kind: "event",
-      title: existing!.title,
+      title: existing?.title,
       summary: `Réunion terminée · ${items.length} action items`,
-      createdAt: existing!.createdAt,
-      provenance: existing!.provenance,
+      createdAt: existing?.createdAt,
+      provenance: existing?.provenance,
       contentRef: JSON.stringify({
         status: "done",
         transcript: detail.transcript,

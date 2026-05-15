@@ -6,7 +6,7 @@
  * suggestion-flow.spec.ts (sans classe formelle).
  */
 
-import type { Page, Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { SPEC_ID } from "./fixtures";
 
 export class ReportPage {
@@ -38,23 +38,23 @@ export class ReportPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.reportLayout      = page.locator('[data-testid="report-layout"]');
-    this.kpiLabels         = page.locator('[data-testid="kpi-label"]');
-    this.kpiValues         = page.locator('[data-testid="kpi-value"]');
-    this.suggestion        = page.locator(`[data-testid="report-suggestion-${SPEC_ID}"]`);
+    this.reportLayout = page.locator('[data-testid="report-layout"]');
+    this.kpiLabels = page.locator('[data-testid="kpi-label"]');
+    this.kpiValues = page.locator('[data-testid="kpi-value"]');
+    this.suggestion = page.locator(`[data-testid="report-suggestion-${SPEC_ID}"]`);
 
-    this.editToggleBtn     = page.locator('[data-testid="report-layout-edit-toggle"]');
-    this.historyToggleBtn  = page.locator('[data-testid="report-layout-history-toggle"]');
+    this.editToggleBtn = page.locator('[data-testid="report-layout-edit-toggle"]');
+    this.historyToggleBtn = page.locator('[data-testid="report-layout-history-toggle"]');
 
-    this.reportEditor      = page.locator('[data-testid="report-editor"]');
-    this.resetBtn          = page.locator('[data-testid="report-editor-reset"]');
-    this.jsonToggleBtn     = page.locator('[data-testid="report-editor-json-toggle"]');
-    this.jsonPreview       = page.locator('[data-testid="report-editor-json"]');
-    this.blockList         = page.locator('[data-testid="report-editor-block-list"]');
+    this.reportEditor = page.locator('[data-testid="report-editor"]');
+    this.resetBtn = page.locator('[data-testid="report-editor-reset"]');
+    this.jsonToggleBtn = page.locator('[data-testid="report-editor-json-toggle"]');
+    this.jsonPreview = page.locator('[data-testid="report-editor-json"]');
+    this.blockList = page.locator('[data-testid="report-editor-block-list"]');
 
     // ReportActions — boutons textuels (pas de data-testid dessus, OK par spec)
-    this.exportBtn         = page.getByRole("button", { name: "Exporter" });
-    this.shareBtn          = page.getByRole("button", { name: "Partager" });
+    this.exportBtn = page.getByRole("button", { name: "Exporter" });
+    this.shareBtn = page.getByRole("button", { name: "Partager" });
   }
 
   // ── Actions ──────────────────────────────────────────────────

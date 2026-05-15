@@ -12,13 +12,9 @@
  * - getSpotlightHeader retourne un string non vide
  */
 
-import { describe, it, expect } from "vitest";
-import {
-  fenceUntrusted,
-  sanitizeForFence,
-  getSpotlightHeader,
-} from "@/lib/memory/untrusted-fence";
+import { describe, expect, it } from "vitest";
 import { sanitizeKgLabel } from "@/lib/memory/kg";
+import { fenceUntrusted, getSpotlightHeader, sanitizeForFence } from "@/lib/memory/untrusted-fence";
 
 // ── fenceUntrusted ───────────────────────────────────────────
 

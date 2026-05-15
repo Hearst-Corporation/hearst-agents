@@ -53,7 +53,7 @@ export function ActionLog({
     if (!autoScroll || !containerRef.current) return;
     const el = containerRef.current;
     el.scrollTop = el.scrollHeight;
-  }, [actions.length, autoScroll]);
+  }, [autoScroll]);
 
   const onScroll = () => {
     const el = containerRef.current;
@@ -84,9 +84,7 @@ export function ActionLog({
                   : "var(--text-ghost)",
             }}
           />
-          <span className="t-11 font-light text-text-faint">
-            ACTION_LOG
-          </span>
+          <span className="t-11 font-light text-text-faint">ACTION_LOG</span>
         </div>
         {isRunning && onTakeOver && (
           <button
@@ -105,9 +103,7 @@ export function ActionLog({
           style={{ background: "var(--accent-teal-surface)" }}
         >
           <span className="t-13 text-(--accent-teal)">◉</span>
-          <span className="t-13 text-text">
-            Tu pilotes maintenant
-          </span>
+          <span className="t-13 text-text">Tu pilotes maintenant</span>
         </div>
       )}
 
@@ -122,9 +118,7 @@ export function ActionLog({
               className="t-11 font-light text-text-faint text-center"
               style={{ lineHeight: "var(--leading-base)" }}
             >
-              {isRunning
-                ? "L'agent démarre…"
-                : "L'agent attend une tâche"}
+              {isRunning ? "L'agent démarre…" : "L'agent attend une tâche"}
             </p>
           </div>
         ) : (
@@ -138,28 +132,19 @@ export function ActionLog({
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span
-                    className="t-11 font-mono text-(--accent-teal) flex-shrink-0"
-                    aria-hidden
-                  >
+                  <span className="t-11 font-mono text-(--accent-teal) flex-shrink-0" aria-hidden>
                     {TYPE_GLYPH[a.type]}
                   </span>
                   <span className="t-11 font-light text-text-muted flex-shrink-0">
                     {TYPE_LABEL[a.type]}
                   </span>
-                  <span className="t-11 text-text truncate">
-                    {a.target}
-                  </span>
+                  <span className="t-11 text-text truncate">{a.target}</span>
                 </div>
                 <span className="t-9 font-mono text-text-faint flex-shrink-0">
                   {formatDuration(a.durationMs)}
                 </span>
               </div>
-              {a.value && (
-                <p className="t-11 font-mono text-text-muted line-clamp-2">
-                  {a.value}
-                </p>
-              )}
+              {a.value && <p className="t-11 font-mono text-text-muted line-clamp-2">{a.value}</p>}
               {a.screenshotUrl && (
                 <div
                   className="rounded-md overflow-hidden border border-(--border-soft)"

@@ -6,8 +6,8 @@
  */
 
 import Link from "next/link";
-import { useState } from "react";
 import type { ReactNode } from "react";
+import { useState } from "react";
 
 export interface GhostFooterLinkProps {
   href?: string;

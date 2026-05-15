@@ -8,8 +8,8 @@
  *   - render conditional editable (toggle vers BlockEditor au clic Éditer)
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { Block, detectBlockType } from "@/app/(user)/components/chat/Block";
 
 describe("detectBlockType", () => {
@@ -67,9 +67,7 @@ describe("Block — rendu", () => {
   });
 
   it("rend des action_items avec checkboxes", () => {
-    const { container } = render(
-      <Block content={"[ ] première\n[x] deuxième"} />,
-    );
+    const { container } = render(<Block content={"[ ] première\n[x] deuxième"} />);
     const checkboxes = container.querySelectorAll("input[type='checkbox']");
     expect(checkboxes.length).toBe(2);
     expect((checkboxes[0] as HTMLInputElement).checked).toBe(false);

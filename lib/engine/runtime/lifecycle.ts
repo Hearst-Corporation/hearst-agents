@@ -10,12 +10,12 @@
 export type RunStatus = "pending" | "running" | "completed" | "failed" | "cancelled" | "timeout";
 
 const RUN_TRANSITIONS: Record<RunStatus, RunStatus[]> = {
-  pending:   ["running", "cancelled"],
-  running:   ["completed", "failed", "cancelled", "timeout"],
+  pending: ["running", "cancelled"],
+  running: ["completed", "failed", "cancelled", "timeout"],
   completed: [],
-  failed:    [],
+  failed: [],
   cancelled: [],
-  timeout:   [],
+  timeout: [],
 };
 
 export function canTransitionRun(from: RunStatus, to: RunStatus): boolean {
@@ -24,10 +24,7 @@ export function canTransitionRun(from: RunStatus, to: RunStatus): boolean {
 
 export function assertRunTransition(from: RunStatus, to: RunStatus): void {
   if (!canTransitionRun(from, to)) {
-    throw new RuntimeError(
-      "INVALID_TRANSITION",
-      `Run cannot transition from '${from}' to '${to}'`,
-    );
+    throw new RuntimeError("INVALID_TRANSITION", `Run cannot transition from '${from}' to '${to}'`);
   }
 }
 
@@ -36,12 +33,12 @@ export function assertRunTransition(from: RunStatus, to: RunStatus): void {
 export type TraceStatus = "pending" | "running" | "completed" | "failed" | "skipped" | "timeout";
 
 const TRACE_TRANSITIONS: Record<TraceStatus, TraceStatus[]> = {
-  pending:   ["running", "skipped"],
-  running:   ["completed", "failed", "timeout"],
+  pending: ["running", "skipped"],
+  running: ["completed", "failed", "timeout"],
   completed: [],
-  failed:    [],
-  skipped:   [],
-  timeout:   [],
+  failed: [],
+  skipped: [],
+  timeout: [],
 };
 
 export function canTransitionTrace(from: TraceStatus, to: TraceStatus): boolean {
@@ -95,25 +92,27 @@ export interface TimeoutConfig {
 }
 
 export const DEFAULT_TIMEOUTS: TimeoutConfig = {
-  run_timeout_ms: 300_000,    // 5 min
-  step_timeout_ms: 120_000,   // 2 min
-  tool_timeout_ms: 30_000,    // 30s
-  llm_timeout_ms: 60_000,     // 1 min
+  run_timeout_ms: 300_000, // 5 min
+  step_timeout_ms: 120_000, // 2 min
+  tool_timeout_ms: 30_000, // 30s
+  llm_timeout_ms: 60_000, // 1 min
 };
 
-export function withTimeout<T>(
-  promise: Promise<T>,
-  ms: number,
-  label: string,
-): Promise<T> {
+export function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
   return new Promise<T>((resolve, reject) => {
     const timer = setTimeout(
       () => reject(new RuntimeError("TIMEOUT", `${label} timed out after ${ms}ms`)),
       ms,
     );
     promise
-      .then((v) => { clearTimeout(timer); resolve(v); })
-      .catch((e) => { clearTimeout(timer); reject(e); });
+      .then((v) => {
+        clearTimeout(timer);
+        resolve(v);
+      })
+      .catch((e) => {
+        clearTimeout(timer);
+        reject(e);
+      });
   });
 }
 

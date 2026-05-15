@@ -1,10 +1,10 @@
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { updateVariant } from "@/lib/assets/variants";
 import { heygenGenerateVideo, heygenGetStatus } from "@/lib/capabilities/providers/heygen";
 import { runwayGenerateVideo, runwayGetTask } from "@/lib/capabilities/providers/runway";
-import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import type { JobResult, VideoGenInput } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { logger } from "@/lib/observability/logger";
-import type { VideoGenInput, JobResult } from "@/lib/jobs/types";
 
 const POLL_INTERVAL_MS = 5_000;
 const POLL_MAX_ATTEMPTS = 60;
@@ -43,9 +43,10 @@ const handler: WorkerHandler<VideoGenInput> = {
 
   async process(ctx): Promise<JobResult> {
     const { payload, reportProgress } = ctx;
-    const variantId = (payload as VideoGenInput & { variantId?: string }).variantId
-      ?? (typeof payload === "object" && payload !== null && "metadata" in payload
-        ? ((payload as { metadata?: { variantId?: string } }).metadata?.variantId)
+    const variantId =
+      (payload as VideoGenInput & { variantId?: string }).variantId ??
+      (typeof payload === "object" && payload !== null && "metadata" in payload
+        ? (payload as { metadata?: { variantId?: string } }).metadata?.variantId
         : undefined);
 
     const provider = payload.provider ?? "runway";

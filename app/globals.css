@@ -54,6 +54,15 @@
   --text-muted: rgba(255, 255, 255, 0.65);
   --text-faint: rgba(255, 255, 255, 0.45);
   --text-ghost: rgba(255, 255, 255, 0.42);
+  --text-decor-25: rgba(
+    255,
+    255,
+    255,
+    0.25
+  ); /* décoratif pur : séparateurs, filigrane — jamais du texte lisible */
+
+  /* Skeleton pulse — fond des barres de chargement */
+  --skeleton-base: var(--bg-elev); /* rgba(255,255,255,0.05) — même valeur, nom sémantique */
 
   /* Accent colors */
   --cyan-accent: #4a8b86;
@@ -398,6 +407,17 @@
   --border-default: rgba(255, 255, 255, 0.12);
   --border-strong: rgba(255, 255, 255, 0.14);
   --border-focus: rgba(255, 255, 255, 0.4);
+
+  /* Orbital mono palette — aliases neutres pour la constellation Cockpit.
+     Ces tokens alimentent CockpitOrbitView (lignes de connexion) et
+     OrbitalQuickActions (boutons pill). Ne pas utiliser ailleurs. */
+  --mono-surface: var(--surface-2);
+  --mono-border: rgba(255, 255, 255, 0.08);
+  --mono-border-hover: var(--border-strong);
+  --mono-text-35: var(--text-faint);
+  --mono-text-70: var(--text-muted);
+  --mono-line: rgba(255, 255, 255, 0.12);
+  --mono-line-dim: var(--line-strong);
 
   /* ─── Hearst Connect — Status colors ────────────────────────── */
   --color-success: #2dc558;
@@ -1373,7 +1393,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: var(--font-satoshi) !important;
+  font-family: var(--font-satoshi);
 }
 
 html,
@@ -1715,7 +1735,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .sf-dot {
-    animation: none !important;
+    animation: none;
     opacity: 0.5;
   }
 }
@@ -2572,10 +2592,7 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   letter-spacing: -0.04em;
   line-height: 1;
   user-select: none;
-  font-family:
-    var(--font-satoshi),
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-satoshi), -apple-system, sans-serif;
 }
 
 .orbe-ring-svg {

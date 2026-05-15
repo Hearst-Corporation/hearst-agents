@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRuntimeStore } from "@/stores/runtime";
+import { SPATIAL_PANEL_CONFIG } from "@/lib/spatial/panel-types";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
 import { useSpatialPanelsStore } from "@/stores/spatial-panels";
-import { SPATIAL_PANEL_CONFIG } from "@/lib/spatial/panel-types";
 
 /**
  * Branche le store de panels spatiaux aux stores existants (runtime / focal /
@@ -50,7 +50,7 @@ export function useSpatialPanelsAgentSync() {
   const messages = useNavigationStore((s) =>
     activeThreadId ? s.messages[activeThreadId] : undefined,
   );
-  const lastMessageContent = messages?.[messages.length - 1]?.content ?? "";
+  const _lastMessageContent = messages?.[messages.length - 1]?.content ?? "";
 
   useEffect(() => {
     const ttlMs = SPATIAL_PANEL_CONFIG["chat-response"].ttlMs ?? 15_000;
@@ -63,7 +63,7 @@ export function useSpatialPanelsAgentSync() {
     }, ttlMs);
 
     return () => clearTimeout(timer);
-  }, [lastMessageContent, coreState, close, getByType]);
+  }, [coreState, close, getByType]);
 
   // 4. AssetPreview : ouvre quand un focal non-brief apparaît, TTL 30s
   const focal = useFocalStore((s) => s.focal);

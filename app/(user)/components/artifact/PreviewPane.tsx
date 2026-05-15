@@ -41,15 +41,18 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
   const htmlResult = useMemo(() => {
     if (!result) return null;
     return result.results.find(
-      (r) => r.type === "text" && typeof r.data === "string" && /^<!?\w/i.test((r.data as string).trim()),
+      (r) =>
+        r.type === "text" &&
+        typeof r.data === "string" &&
+        /^<!?\w/i.test((r.data as string).trim()),
     ) as ExecResultItem | undefined;
   }, [result]);
 
   const imageResult = useMemo(() => {
     if (!result) return null;
-    return result.results.find(
-      (r) => r.type === "image/png" || r.type === "image/jpeg",
-    ) as ExecResultItem | undefined;
+    return result.results.find((r) => r.type === "image/png" || r.type === "image/jpeg") as
+      | ExecResultItem
+      | undefined;
   }, [result]);
 
   const jsonResult = useMemo(() => {
@@ -66,9 +69,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
         <p className="t-13 font-light text-text-faint">
           La sortie d&apos;exécution apparaîtra ici.
         </p>
-        <p className="t-11 mt-2 font-light text-text-faint">
-          ⌘Enter pour lancer
-        </p>
+        <p className="t-11 mt-2 font-light text-text-faint">⌘Enter pour lancer</p>
       </div>
     );
   }
@@ -97,13 +98,8 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
   if (state === "failed") {
     return (
-      <div
-        className="flex h-full flex-1 flex-col gap-3"
-        style={{ padding: "var(--space-6)" }}
-      >
-        <span className="t-11 font-medium text-(--danger)">
-          ÉCHEC
-        </span>
+      <div className="flex h-full flex-1 flex-col gap-3" style={{ padding: "var(--space-6)" }}>
+        <span className="t-11 font-medium text-(--danger)">ÉCHEC</span>
         <pre
           className="t-11 font-mono whitespace-pre-wrap text-(--danger)"
           style={{
@@ -128,9 +124,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
     >
       {result.error && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-(--danger)">
-            ERROR
-          </span>
+          <span className="t-11 font-medium text-(--danger)">ERROR</span>
           <pre
             className="t-11 font-mono whitespace-pre-wrap text-(--danger)"
             style={{
@@ -146,9 +140,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {imageResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-(--accent-teal)">
-            IMAGE
-          </span>
+          <span className="t-11 font-medium text-(--accent-teal)">IMAGE</span>
           <Image
             unoptimized
             src={`data:${imageResult.type};base64,${imageResult.data as string}`}
@@ -162,9 +154,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {htmlResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-(--accent-teal)">
-            HTML
-          </span>
+          <span className="t-11 font-medium text-(--accent-teal)">HTML</span>
           <iframe
             sandbox="allow-scripts"
             srcDoc={htmlResult.data as string}
@@ -177,9 +167,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {jsonResult && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-light text-text-faint">
-            JSON
-          </span>
+          <span className="t-11 font-light text-text-faint">JSON</span>
           <pre
             className="t-11 font-mono whitespace-pre-wrap text-text-muted"
             style={{
@@ -196,9 +184,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {result.stdout && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-light text-text-faint">
-            STDOUT
-          </span>
+          <span className="t-11 font-light text-text-faint">STDOUT</span>
           <pre
             className="t-11 font-mono whitespace-pre-wrap text-text"
             style={{
@@ -215,9 +201,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
 
       {result.stderr && (
         <section className="flex flex-col gap-2">
-          <span className="t-11 font-medium text-(--warn)">
-            STDERR
-          </span>
+          <span className="t-11 font-medium text-(--warn)">STDERR</span>
           <pre
             className="t-11 font-mono whitespace-pre-wrap text-(--warn)"
             style={{
@@ -233,9 +217,7 @@ export function PreviewPane({ state, result, errorMessage, progress }: PreviewPa
       )}
 
       {!result.stdout && !result.stderr && !result.error && result.results.length === 0 && (
-        <p className="t-13 font-light text-text-faint">
-          Exécution terminée sans sortie.
-        </p>
+        <p className="t-13 font-light text-text-faint">Exécution terminée sans sortie.</p>
       )}
     </div>
   );

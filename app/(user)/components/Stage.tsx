@@ -1,20 +1,20 @@
 "use client";
 
-import { useStageStore } from "@/stores/stage";
-import { CockpitStage } from "./stages/CockpitStage";
-import { ChatStage } from "./stages/ChatStage";
-import { AssetStage } from "./stages/AssetStage";
-import { AssetCompareStage } from "./stages/AssetCompareStage";
-import { MissionStage } from "./stages/MissionStage";
-import { BrowserStage } from "./stages/BrowserStage";
-import { MeetingStage } from "./stages/MeetingStage";
-import { KnowledgeStage } from "./stages/KnowledgeStage";
-import { VoiceStage } from "./stages/VoiceStage";
-import { SimulationStage } from "./stages/SimulationStage";
-import { ArtifactStage } from "./stages/ArtifactStage";
-import { SignalBoardStage } from "./stages/SignalBoardStage";
-import type { Message } from "@/lib/core/types";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import type { Message } from "@/lib/core/types";
+import { useStageStore } from "@/stores/stage";
+import { ArtifactStage } from "./stages/ArtifactStage";
+import { AssetCompareStage } from "./stages/AssetCompareStage";
+import { AssetStage } from "./stages/AssetStage";
+import { BrowserStage } from "./stages/BrowserStage";
+import { ChatStage } from "./stages/ChatStage";
+import { CockpitStage } from "./stages/CockpitStage";
+import { KnowledgeStage } from "./stages/KnowledgeStage";
+import { MeetingStage } from "./stages/MeetingStage";
+import { MissionStage } from "./stages/MissionStage";
+import { SignalBoardStage } from "./stages/SignalBoardStage";
+import { SimulationStage } from "./stages/SimulationStage";
+import { VoiceStage } from "./stages/VoiceStage";
 
 interface StageProps {
   /** Messages du thread actif (utilisé par ChatStage). */

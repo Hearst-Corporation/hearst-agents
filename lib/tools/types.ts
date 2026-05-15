@@ -18,10 +18,4 @@ export type ToolCapability =
   | "calendar"
   | "automation";
 
-export type ToolContext =
-  | "inbox"
-  | "calendar"
-  | "files"
-  | "finance"
-  | "research"
-  | "general";
+export type ToolContext = "inbox" | "calendar" | "files" | "finance" | "research" | "general";

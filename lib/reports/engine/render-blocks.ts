@@ -115,10 +115,7 @@ function trimRows(data: Tabular, block: BlockSpec): Tabular {
   // Pour bar/funnel/pareto : on remonte les top-N par valeur si props.valueField
   //   est défini. Sinon, premières rows.
   const valueField = block.props?.valueField as string | undefined;
-  if (
-    valueField &&
-    (block.type === "bar" || block.type === "funnel" || block.type === "pareto")
-  ) {
+  if (valueField && (block.type === "bar" || block.type === "funnel" || block.type === "pareto")) {
     return [...data]
       .sort((a, b) => Number(b[valueField] ?? 0) - Number(a[valueField] ?? 0))
       .slice(0, MAX_ROWS_PER_BLOCK);
@@ -168,11 +165,7 @@ function shapeData(block: BlockSpec, data: Tabular): unknown {
  * le nom `{blockId}.{scalarName}` et consommées par les rules signals
  * composites (extract.ts).
  */
-function extractScalars(
-  block: BlockSpec,
-  data: Tabular,
-  scalars: Record<string, unknown>,
-): void {
+function extractScalars(block: BlockSpec, data: Tabular, scalars: Record<string, unknown>): void {
   if (block.type === "kpi") {
     const field = (block.props?.field as string) ?? "value";
     const deltaField = block.props?.deltaField as string | undefined;
@@ -205,10 +198,5 @@ function isStringRecord(v: unknown): v is Record<string, unknown> {
 }
 
 function isPrimitive(v: unknown): boolean {
-  return (
-    v === null ||
-    typeof v === "string" ||
-    typeof v === "number" ||
-    typeof v === "boolean"
-  );
+  return v === null || typeof v === "string" || typeof v === "number" || typeof v === "boolean";
 }

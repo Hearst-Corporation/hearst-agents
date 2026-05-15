@@ -8,8 +8,8 @@
  * Le service_role bypass RLS pour ces appels (writes côté serveur).
  */
 
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type {
   CreditBalance,
   CreditGuardResult,
@@ -25,15 +25,12 @@ function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | 
 
 // ── Read ────────────────────────────────────────────────────
 
-async function getBalance(
-  userId: string,
-  tenantId: string,
-): Promise<CreditBalance | null> {
+async function getBalance(userId: string, tenantId: string): Promise<CreditBalance | null> {
   const sb = getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await rawDb(sb)!
-    .from("user_credits")
+  const { data, error } = await rawDb(sb)
+    ?.from("user_credits")
     .select("user_id, tenant_id, balance_usd, reserved_usd, updated_at")
     .eq("user_id", userId)
     .eq("tenant_id", tenantId)
@@ -63,7 +60,7 @@ async function reserveCredits(args: ReserveCreditsArgs): Promise<boolean> {
     return true;
   }
 
-  const { data, error } = await rawDb(sb)!.rpc("reserve_credits", {
+  const { data, error } = await rawDb(sb)?.rpc("reserve_credits", {
     p_user_id: args.userId,
     p_tenant_id: args.tenantId,
     p_amount_usd: args.amountUsd,
@@ -96,7 +93,7 @@ export async function reserveCreditsAtomic(
     return { success: true };
   }
 
-  const { data, error } = await rawDb(sb)!.rpc("reserve_credits_atomic", {
+  const { data, error } = await rawDb(sb)?.rpc("reserve_credits_atomic", {
     p_user_id: userId,
     p_tenant_id: tenantId,
     p_amount: amountUsd,
@@ -126,7 +123,7 @@ export async function settleCredits(args: SettleCreditsArgs): Promise<void> {
   const sb = getServerSupabase();
   if (!sb) return;
 
-  const { error } = await rawDb(sb)!.rpc("settle_credits", {
+  const { error } = await rawDb(sb)?.rpc("settle_credits", {
     p_user_id: args.userId,
     p_tenant_id: args.tenantId,
     p_reserved_usd: args.reservedUsd,

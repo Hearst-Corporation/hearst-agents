@@ -9,15 +9,12 @@
  * doit éditer le Spec dans le canvas pour changer l'email.
  */
 
-import type { ReportSpec } from "@/lib/reports/spec/schema";
 import { fmtCitation } from "@/lib/reports/blocks/format";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 export const CUSTOMER_360_ID = "00000000-0000-4000-8000-100000000002";
 
-export function buildCustomer360(
-  scope: ReportSpec["scope"],
-  customerEmail: string,
-): ReportSpec {
+export function buildCustomer360(scope: ReportSpec["scope"], customerEmail: string): ReportSpec {
   const now = Date.now();
 
   return {
@@ -25,8 +22,7 @@ export function buildCustomer360(
     version: 1,
     meta: {
       title: `Customer 360 — ${customerEmail}`,
-      summary:
-        "LTV, plan actuel, dernière interaction, tickets ouverts, timeline.",
+      summary: "LTV, plan actuel, dernière interaction, tickets ouverts, timeline.",
       domain: "crm",
       persona: "csm",
       cadence: "ad-hoc",
@@ -188,9 +184,4 @@ export function buildCustomer360(
   };
 }
 
-export const CUSTOMER_360_REQUIRED_APPS = [
-  "hubspot",
-  "stripe",
-  "intercom",
-  "gmail",
-] as const;
+export const CUSTOMER_360_REQUIRED_APPS = ["hubspot", "stripe", "intercom", "gmail"] as const;

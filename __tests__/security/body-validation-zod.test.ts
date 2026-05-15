@@ -11,66 +11,80 @@ import { z } from "zod";
 
 // ── Schémas répliqués pour les tests (sources vérité = les routes) ─────────
 
-const analyticsBodySchema = z.object({
-  type: z.enum(["login_success", "first_message_sent", "run_completed", "run_failed"]),
-  userId: z.unknown().optional(),
-  properties: z.record(z.string(), z.unknown()).optional(),
-}).strict();
+const analyticsBodySchema = z
+  .object({
+    type: z.enum(["login_success", "first_message_sent", "run_completed", "run_failed"]),
+    userId: z.unknown().optional(),
+    properties: z.record(z.string(), z.unknown()).optional(),
+  })
+  .strict();
 
-const kgIngestBodySchema = z.object({
-  text: z.string().min(1).max(50_000),
-  sourceLabel: z.string().max(200).optional(),
-}).strict();
+const kgIngestBodySchema = z
+  .object({
+    text: z.string().min(1).max(50_000),
+    sourceLabel: z.string().max(200).optional(),
+  })
+  .strict();
 
-const voiceToolCallBodySchema = z.object({
-  name: z.string().min(1).max(200),
-  args: z.record(z.string(), z.unknown()).optional().default({}),
-  callId: z.string().max(200).optional(),
-  sessionId: z.string().max(200).optional(),
-  threadId: z.string().max(200).optional(),
-}).strict();
-
-const missionMessageBodySchema = z.object({
-  content: z.string().min(1).max(10_000),
-  role: z.enum(["user", "system"]).optional().default("user"),
-}).strict();
-
-const notificationReadSchema = z.object({
-  id: z.string().uuid(),
-}).strict();
-
-const variantsBodySchema = z.object({
-  kind: z.enum(["audio", "video", "slides", "site", "image"]),
-  text: z.string().max(10_000).optional(),
-  voiceId: z.string().max(200).optional(),
-  modelId: z.string().max(200).optional(),
-  provider: z.enum(["runway", "heygen"]).optional(),
-  prompt: z.string().max(10_000).optional(),
-  scriptText: z.string().max(10_000).optional(),
-  avatarId: z.string().max(200).optional(),
-  ratio: z.enum(["1280:720", "720:1280"]).optional(),
-  derivedFrom: z.array(z.string().max(200)).max(20).optional(),
-  duration: z.number().int().min(1).max(600).optional(),
-  durationSeconds: z.union([z.literal(5), z.literal(10)]).optional(),
-}).strict();
-
-const transcriptsAppendBodySchema = z.object({
-  sessionId: z.string().min(1).max(200),
-  threadId: z.string().max(200).optional(),
-  entry: z.object({
-    id: z.string().min(1).max(200),
-    role: z.enum(["user", "assistant", "tool_call", "tool_result"]),
-    text: z.string().max(10_000),
-    timestamp: z.number().int().optional(),
-    toolName: z.string().max(200).optional(),
+const voiceToolCallBodySchema = z
+  .object({
+    name: z.string().min(1).max(200),
+    args: z.record(z.string(), z.unknown()).optional().default({}),
     callId: z.string().max(200).optional(),
-    args: z.record(z.string(), z.unknown()).optional(),
-    output: z.string().max(10_000).optional(),
-    status: z.enum(["pending", "success", "error"]).optional(),
-    providerId: z.string().max(200).optional(),
-    stageRequest: z.unknown().optional(),
-  }),
-}).strict();
+    sessionId: z.string().max(200).optional(),
+    threadId: z.string().max(200).optional(),
+  })
+  .strict();
+
+const missionMessageBodySchema = z
+  .object({
+    content: z.string().min(1).max(10_000),
+    role: z.enum(["user", "system"]).optional().default("user"),
+  })
+  .strict();
+
+const notificationReadSchema = z
+  .object({
+    id: z.string().uuid(),
+  })
+  .strict();
+
+const variantsBodySchema = z
+  .object({
+    kind: z.enum(["audio", "video", "slides", "site", "image"]),
+    text: z.string().max(10_000).optional(),
+    voiceId: z.string().max(200).optional(),
+    modelId: z.string().max(200).optional(),
+    provider: z.enum(["runway", "heygen"]).optional(),
+    prompt: z.string().max(10_000).optional(),
+    scriptText: z.string().max(10_000).optional(),
+    avatarId: z.string().max(200).optional(),
+    ratio: z.enum(["1280:720", "720:1280"]).optional(),
+    derivedFrom: z.array(z.string().max(200)).max(20).optional(),
+    duration: z.number().int().min(1).max(600).optional(),
+    durationSeconds: z.union([z.literal(5), z.literal(10)]).optional(),
+  })
+  .strict();
+
+const transcriptsAppendBodySchema = z
+  .object({
+    sessionId: z.string().min(1).max(200),
+    threadId: z.string().max(200).optional(),
+    entry: z.object({
+      id: z.string().min(1).max(200),
+      role: z.enum(["user", "assistant", "tool_call", "tool_result"]),
+      text: z.string().max(10_000),
+      timestamp: z.number().int().optional(),
+      toolName: z.string().max(200).optional(),
+      callId: z.string().max(200).optional(),
+      args: z.record(z.string(), z.unknown()).optional(),
+      output: z.string().max(10_000).optional(),
+      status: z.enum(["pending", "success", "error"]).optional(),
+      providerId: z.string().max(200).optional(),
+      stageRequest: z.unknown().optional(),
+    }),
+  })
+  .strict();
 
 // ── Tests analytics ──────────────────────────────────────────────────────────
 

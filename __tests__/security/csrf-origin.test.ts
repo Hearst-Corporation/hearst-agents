@@ -5,7 +5,7 @@
  * Origin header matching NEXTAUTH_URL.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("CSRF Origin Check (F-052)", () => {
   beforeEach(() => {

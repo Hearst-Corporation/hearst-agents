@@ -27,20 +27,22 @@
  * RLS migration 0045.
  */
 
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { executeVoiceTool } from "@/lib/voice/tools";
 import { appendTranscriptEntry } from "@/lib/voice/transcript-store";
 
-const voiceToolCallBodySchema = z.object({
-  name: z.string().min(1).max(200),
-  args: z.record(z.string(), z.unknown()).optional().default({}),
-  callId: z.string().max(200).optional(),
-  sessionId: z.string().max(200).optional(),
-  threadId: z.string().max(200).optional(),
-}).strict();
+const voiceToolCallBodySchema = z
+  .object({
+    name: z.string().min(1).max(200),
+    args: z.record(z.string(), z.unknown()).optional().default({}),
+    callId: z.string().max(200).optional(),
+    sessionId: z.string().max(200).optional(),
+    threadId: z.string().max(200).optional(),
+  })
+  .strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

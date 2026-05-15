@@ -84,8 +84,7 @@ export function Bullet({ items, format = "number" }: BulletProps) {
         const pctActual = Math.max(0, Math.min(100, (safeActual / max) * 100));
         const pctTarget = Math.max(0, Math.min(100, (safeTarget / max) * 100));
 
-        const valueStr = (v: number) =>
-          format === "currency" ? fmtNumber(v) : fmtNumber(v);
+        const valueStr = (v: number) => (format === "currency" ? fmtNumber(v) : fmtNumber(v));
 
         return (
           <div

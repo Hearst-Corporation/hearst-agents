@@ -9,17 +9,13 @@
  * - email   : stub — log uniquement (pas de vrai provider)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { loadAlertingPreferences } from "@/lib/notifications/alert-dispatcher";
+import type { AlertContext } from "@/lib/notifications/channels";
+import { dispatchEmail, dispatchSlack, dispatchWebhook } from "@/lib/notifications/channels";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { loadAlertingPreferences } from "@/lib/notifications/alert-dispatcher";
-import {
-  dispatchWebhook,
-  dispatchSlack,
-  dispatchEmail,
-} from "@/lib/notifications/channels";
-import type { AlertContext } from "@/lib/notifications/channels";
-import { z } from "zod";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -81,38 +77,23 @@ export async function POST(req: NextRequest) {
         );
       }
       // On force signalTypes à ["*"] pour que le test passe sans filtre
-      const result = await dispatchWebhook(
-        { ...hook, signalTypes: ["*"] },
-        ctx,
-      );
+      const result = await dispatchWebhook({ ...hook, signalTypes: ["*"] }, ctx);
       return NextResponse.json({ ok: result?.ok ?? false, result });
     }
 
     case "slack": {
       if (!prefs.slack) {
-        return NextResponse.json(
-          { error: "Aucune config Slack configurée" },
-          { status: 404 },
-        );
+        return NextResponse.json({ error: "Aucune config Slack configurée" }, { status: 404 });
       }
-      const result = await dispatchSlack(
-        { ...prefs.slack, signalTypes: ["*"] },
-        ctx,
-      );
+      const result = await dispatchSlack({ ...prefs.slack, signalTypes: ["*"] }, ctx);
       return NextResponse.json({ ok: result?.ok ?? false, result });
     }
 
     case "email": {
       if (!prefs.email) {
-        return NextResponse.json(
-          { error: "Aucune config email configurée" },
-          { status: 404 },
-        );
+        return NextResponse.json({ error: "Aucune config email configurée" }, { status: 404 });
       }
-      const result = await dispatchEmail(
-        { ...prefs.email, signalTypes: ["*"] },
-        ctx,
-      );
+      const result = await dispatchEmail({ ...prefs.email, signalTypes: ["*"] }, ctx);
       return NextResponse.json({ ok: result?.ok ?? false, result });
     }
   }

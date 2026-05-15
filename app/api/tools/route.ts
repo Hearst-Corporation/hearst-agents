@@ -1,9 +1,9 @@
-import { NextRequest } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
-import { createToolSchema, ok, err, parseBody, dbErr, slugify } from "@/lib/domain";
+import type { NextRequest } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import type { Database } from "@/lib/database.types";
+import { createToolSchema, dbErr, err, ok, parseBody, slugify } from "@/lib/domain";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 type ToolInsert = Database["public"]["Tables"]["tools"]["Insert"];
 
@@ -58,11 +58,7 @@ export async function POST(req: NextRequest) {
       timeout_ms: input.timeout_ms,
     };
 
-    const { data, error } = await sb
-      .from("tools")
-      .insert(row)
-      .select()
-      .single();
+    const { data, error } = await sb.from("tools").insert(row).select().single();
 
     if (error) return dbErr("POST /api/tools", error);
     return ok({ tool: data }, 201);

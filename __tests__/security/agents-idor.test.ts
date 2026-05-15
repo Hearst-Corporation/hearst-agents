@@ -67,9 +67,7 @@ describe("F-002 Agents IDOR — isolation tenant_id", () => {
   it("filtre DELETE par tenant_id — ne supprime pas d'autres tenants", () => {
     // Simule .delete().eq("id", id).eq("tenant_id", scope.tenantId)
     const agents = [AGENT_TENANT_A];
-    const toDelete = agents.filter(
-      (a) => a.id === "agent-1" && a.tenant_id === SCOPE_B.tenantId
-    );
+    const toDelete = agents.filter((a) => a.id === "agent-1" && a.tenant_id === SCOPE_B.tenantId);
     // SCOPE_B ne peut pas supprimer l'agent de SCOPE_A
     expect(toDelete).toHaveLength(0);
   });

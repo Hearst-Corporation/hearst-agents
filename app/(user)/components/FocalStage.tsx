@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFocalStore } from "@/stores/focal";
-import { useNavigationStore } from "@/stores/navigation";
+import { isHtmlContent, tryParseReportPayload } from "@/lib/assets/content-parser";
 import type { FocalObject, FocalStatus } from "@/lib/core/types";
 import { mapFocalObject } from "@/lib/core/types/focal";
+import { useFocalStore } from "@/stores/focal";
+import { useNavigationStore } from "@/stores/navigation";
+import { AssetVariantTabs } from "./AssetVariantTabs";
 import { FocalRetryButton } from "./FocalRetryButton";
 import { ReportLayout } from "./ReportLayout";
-import { AssetVariantTabs } from "./AssetVariantTabs";
-import { isHtmlContent, tryParseReportPayload } from "@/lib/assets/content-parser";
 import { ResearchReportArticle } from "./reports/ResearchReportArticle";
 import { Action } from "./ui";
 
@@ -47,7 +47,13 @@ const TYPE_LABELS: Record<FocalObject["type"], string> = {
   mission_active: "Mission active",
 };
 
-function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActionComplete: () => void }) {
+function FocalContent({
+  focal,
+  onActionComplete,
+}: {
+  focal: FocalObject;
+  onActionComplete: () => void;
+}) {
   const activeThreadId = useNavigationStore((s) => s.activeThreadId);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -85,7 +91,9 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
       .finally(() => {
         if (!cancelled) setPreviewLoading(false);
       });
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [sourceAssetId]);
 
   const handlePrimaryAction = async () => {
@@ -139,27 +147,36 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
     <div className="w-full">
       <header className="flex items-center justify-between mb-10 pb-6 border-b border-[var(--surface-2)]">
         <div className="flex items-center gap-6">
-          <span className={`w-2 h-2 rounded-pill ${STATUS_COLORS[focal.status]} ${isLive ? "animate-pulse" : ""}`} />
+          <span
+            className={`w-2 h-2 rounded-pill ${STATUS_COLORS[focal.status]} ${isLive ? "animate-pulse" : ""}`}
+          />
           <div className="flex items-center gap-4">
             <span className="t-13 font-medium text-(--text-l1)">{TYPE_LABELS[focal.type]}</span>
             <span className="w-1 h-1 rounded-pill bg-[var(--text-ghost)]" />
-            <span className={`t-13 font-light ${focal.status === "awaiting_approval" ? "text-(--warn)" : focal.status === "failed" ? "text-(--danger)" : "text-text-faint"}`}>
+            <span
+              className={`t-13 font-light ${focal.status === "awaiting_approval" ? "text-(--warn)" : focal.status === "failed" ? "text-(--danger)" : "text-text-faint"}`}
+            >
               {STATUS_LABELS[focal.status]}
             </span>
           </div>
         </div>
         <div className="t-11 font-mono tabular-nums text-text-faint">
-          {focal.sourcePlanId && (
-            <span>Réf {focal.sourcePlanId.slice(0, 8)}</span>
-          )}
+          {focal.sourcePlanId && <span>Réf {focal.sourcePlanId.slice(0, 8)}</span>}
         </div>
       </header>
 
-      <h1 className="t-28 font-medium text-text mb-10 tracking-tight" style={{ lineHeight: "var(--leading-snug)" }}>{focal.title}</h1>
+      <h1
+        className="t-28 font-medium text-text mb-10 tracking-tight"
+        style={{ lineHeight: "var(--leading-snug)" }}
+      >
+        {focal.title}
+      </h1>
 
       {focal.body && (
         <div className="prose prose-invert max-w-none">
-          <div className="t-15 leading-(--leading-body) text-text-muted font-normal whitespace-pre-wrap">{focal.body}</div>
+          <div className="t-15 leading-(--leading-body) text-text-muted font-normal whitespace-pre-wrap">
+            {focal.body}
+          </div>
         </div>
       )}
 
@@ -174,7 +191,9 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
               {section.heading && (
                 <h3 className="t-13 font-medium text-(--text-l1) mb-4">{section.heading}</h3>
               )}
-              <div className="t-15 leading-(--leading-body) text-text-muted font-normal">{section.body}</div>
+              <div className="t-15 leading-(--leading-body) text-text-muted font-normal">
+                {section.body}
+              </div>
             </div>
           ))}
         </div>
@@ -190,9 +209,7 @@ function FocalContent({ focal, onActionComplete }: { focal: FocalObject; onActio
         <div className="mt-12 pt-8 border-t border-[var(--surface-2)]">
           <div className="flex items-baseline gap-3 mb-4">
             <span className="t-13 font-medium text-(--text-l1)">Aperçu</span>
-            {previewLoading && (
-              <span className="t-11 font-light text-text-faint">Chargement…</span>
-            )}
+            {previewLoading && <span className="t-11 font-light text-text-faint">Chargement…</span>}
           </div>
           {previewContent && tryParseReportPayload(previewContent) ? (
             <ReportLayout payload={tryParseReportPayload(previewContent)!} />
@@ -266,10 +283,14 @@ export function FocalStage({ compact = false }: FocalStageProps = {}) {
   const handleActionComplete = async () => {
     if (!activeThreadId) return;
     try {
-      const res = await fetch(`/api/v2/right-panel?thread_id=${encodeURIComponent(activeThreadId)}`);
+      const res = await fetch(
+        `/api/v2/right-panel?thread_id=${encodeURIComponent(activeThreadId)}`,
+      );
       if (res.ok) {
         const data = await res.json();
-        const mappedFocal = data.focalObject ? mapFocalObject(data.focalObject, activeThreadId) : null;
+        const mappedFocal = data.focalObject
+          ? mapFocalObject(data.focalObject, activeThreadId)
+          : null;
         const secondary: FocalObject[] = [];
         if (data.secondaryObjects && Array.isArray(data.secondaryObjects)) {
           for (const obj of data.secondaryObjects) {

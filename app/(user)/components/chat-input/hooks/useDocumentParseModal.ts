@@ -16,9 +16,7 @@ export function useDocumentParseModal() {
   const closeModal = useCallback(() => setDocParseOpen(false), []);
 
   const handleSuccess = useCallback(() => {
-    setDocParseMessage(
-      "Document en parsing — il apparaîtra dans tes assets.",
-    );
+    setDocParseMessage("Document en parsing — il apparaîtra dans tes assets.");
     setTimeout(() => setDocParseMessage(null), SUCCESS_RESET_MS);
   }, []);
 

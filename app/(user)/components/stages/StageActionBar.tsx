@@ -14,8 +14,8 @@
  * `var(--*)`. Aucun magic number.
  */
 
-import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface StageAction {
   id: string;
@@ -74,7 +74,8 @@ export function StageActionBar({
               paddingRight: "var(--space-3)",
               paddingTop: "var(--space-1)",
               paddingBottom: "var(--space-1)",
-              transition: "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
+              transition:
+                "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
             }}
             title={backLabel}
             data-testid="stage-action-back"
@@ -85,7 +86,11 @@ export function StageActionBar({
             <span className="t-9 font-mono tabular-nums opacity-60">{"⌘⌫"}</span>
           </button>
         )}
-        {context && <div className="flex items-center" style={{ gap: "var(--space-4)" }}>{context}</div>}
+        {context && (
+          <div className="flex items-center" style={{ gap: "var(--space-4)" }}>
+            {context}
+          </div>
+        )}
       </div>
 
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
@@ -119,7 +124,7 @@ function PrimaryButton({ action }: { action: StageAction }) {
         paddingBottom: "var(--space-1)",
         background: isDanger ? "var(--danger)" : "var(--accent-teal)",
         color: "var(--text-on-accent-teal)",
-        border: "1px solid " + (isDanger ? "var(--danger)" : "var(--accent-teal)"),
+        border: `1px solid ${isDanger ? "var(--danger)" : "var(--accent-teal)"}`,
         borderRadius: "var(--radius-xs)",
         cursor: action.disabled || action.loading ? "not-allowed" : "pointer",
         opacity: action.disabled || action.loading ? 0.5 : 1,
@@ -153,11 +158,12 @@ function SecondaryButton({ action }: { action: StageAction }) {
         paddingBottom: "var(--space-1)",
         background: "transparent",
         color: isDanger ? "var(--danger)" : "var(--text-faint)",
-        border: "1px solid " + (isDanger ? "var(--danger)" : "var(--border-shell)"),
+        border: `1px solid ${isDanger ? "var(--danger)" : "var(--border-shell)"}`,
         borderRadius: "var(--radius-xs)",
         cursor: action.disabled || action.loading ? "not-allowed" : "pointer",
         opacity: action.disabled || action.loading ? 0.5 : 1,
-        transition: "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
+        transition:
+          "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
       }}
     >
       {action.icon && <span aria-hidden>{action.icon}</span>}
@@ -206,10 +212,11 @@ function OverflowMenu({ actions }: { actions: StageAction[] }) {
           height: "var(--space-8)",
           background: "transparent",
           color: open ? "var(--accent-teal)" : "var(--text-faint)",
-          border: "1px solid " + (open ? "var(--accent-teal-border-hover)" : "var(--border-shell)"),
+          border: `1px solid ${open ? "var(--accent-teal-border-hover)" : "var(--border-shell)"}`,
           borderRadius: "var(--radius-xs)",
           cursor: "pointer",
-          transition: "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
+          transition:
+            "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)",
         }}
       >
         <span aria-hidden>{"⋯"}</span>
@@ -258,7 +265,9 @@ function OverflowMenu({ actions }: { actions: StageAction[] }) {
             >
               {a.icon && <span aria-hidden>{a.icon}</span>}
               <span style={{ flex: 1 }}>{a.label}</span>
-              {a.shortcut && <span className="t-9 font-mono tabular-nums opacity-60">{a.shortcut}</span>}
+              {a.shortcut && (
+                <span className="t-9 font-mono tabular-nums opacity-60">{a.shortcut}</span>
+              )}
             </button>
           ))}
         </div>

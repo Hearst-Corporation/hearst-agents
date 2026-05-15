@@ -17,11 +17,11 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { getRecentEmails } from "@/lib/connectors/google/gmail";
-import { getTodayEvents } from "@/lib/connectors/google/calendar";
 import { executeComposioAction, isComposioConfigured } from "@/lib/connectors/composio/client";
-import { INBOX_PRIORITY_FEWSHOT, formatFewShotBlock } from "@/lib/prompts/examples";
+import { getTodayEvents } from "@/lib/connectors/google/calendar";
+import { getRecentEmails } from "@/lib/connectors/google/gmail";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { formatFewShotBlock, INBOX_PRIORITY_FEWSHOT } from "@/lib/prompts/examples";
 
 /**
  * Prompt classification inbox — assistant de tri d'un founder pressé.
@@ -29,25 +29,27 @@ import { composeEditorialPrompt } from "@/lib/editorial/charter";
  * Classe chaque item en 3 niveaux selon des critères explicites + produit
  * un summary 1 ligne (max 80 chars) qui synthétise l'enjeu réel, pas le sujet.
  */
-export const INBOX_PRIORITY_SYSTEM_PROMPT = composeEditorialPrompt([
-  "Tu tries la boîte de réception d'un founder pressé. Pour chaque item, tu produis une priorité et un summary 1 ligne.",
-  "",
-  "CRITÈRES STRICTS :",
-  "- urgent : action requise sous 24h ET bloquant (signature en attente, deadline imminente, demande directe d'un client clé ou exec).",
-  "- important : réponse attendue dans la journée (question d'un partenaire, ticket support, info produit qui demande arbitrage).",
-  "- info : FYI uniquement (newsletter, notification automatique, compte rendu pour archive, digest).",
-  "",
-  "RÈGLES DE SUMMARY :",
-  "- Max 80 caractères.",
-  "- Nomme l'enjeu réel (ce qui doit se passer), pas le sujet de l'email.",
-  "- Pas de paraphrase du title.",
-  "",
-  "FORMAT STRICT — JSON ARRAY uniquement :",
-  '[{ "id": string, "priority": "urgent"|"important"|"info", "summary": string }]',
-  "",
-  "EXEMPLES :",
-  formatFewShotBlock(INBOX_PRIORITY_FEWSHOT),
-].join("\n"));
+export const INBOX_PRIORITY_SYSTEM_PROMPT = composeEditorialPrompt(
+  [
+    "Tu tries la boîte de réception d'un founder pressé. Pour chaque item, tu produis une priorité et un summary 1 ligne.",
+    "",
+    "CRITÈRES STRICTS :",
+    "- urgent : action requise sous 24h ET bloquant (signature en attente, deadline imminente, demande directe d'un client clé ou exec).",
+    "- important : réponse attendue dans la journée (question d'un partenaire, ticket support, info produit qui demande arbitrage).",
+    "- info : FYI uniquement (newsletter, notification automatique, compte rendu pour archive, digest).",
+    "",
+    "RÈGLES DE SUMMARY :",
+    "- Max 80 caractères.",
+    "- Nomme l'enjeu réel (ce qui doit se passer), pas le sujet de l'email.",
+    "- Pas de paraphrase du title.",
+    "",
+    "FORMAT STRICT — JSON ARRAY uniquement :",
+    '[{ "id": string, "priority": "urgent"|"important"|"info", "summary": string }]',
+    "",
+    "EXEMPLES :",
+    formatFewShotBlock(INBOX_PRIORITY_FEWSHOT),
+  ].join("\n"),
+);
 
 export type InboxItemKind = "email" | "slack" | "calendar";
 export type InboxItemPriority = "urgent" | "important" | "info";
@@ -124,10 +126,22 @@ function emailToItem(email: RawEmail): InboxItem {
     source: senderName,
     originUrl: `https://mail.google.com/mail/u/0/#inbox/${email.id}`,
     suggestedActions: [
-      { kind: "reply", label: "Répondre", payload: { messageId: email.id, sender: email.sender, subject: email.subject } },
-      { kind: "draft", label: "Brouillon", payload: { messageId: email.id, sender: email.sender, subject: email.subject } },
+      {
+        kind: "reply",
+        label: "Répondre",
+        payload: { messageId: email.id, sender: email.sender, subject: email.subject },
+      },
+      {
+        kind: "draft",
+        label: "Brouillon",
+        payload: { messageId: email.id, sender: email.sender, subject: email.subject },
+      },
       { kind: "snooze", label: "Snooze", payload: { itemId: `email:${email.id}` } },
-      { kind: "open", label: "Ouvrir", payload: { url: `https://mail.google.com/mail/u/0/#inbox/${email.id}` } },
+      {
+        kind: "open",
+        label: "Ouvrir",
+        payload: { url: `https://mail.google.com/mail/u/0/#inbox/${email.id}` },
+      },
     ],
     receivedAt: ts,
   };
@@ -159,10 +173,17 @@ function calendarToItem(event: RawCalendarEvent): InboxItem {
     kind: "calendar",
     priority: "info",
     title: event.title,
-    summary: (attendees ? `avec ${attendees}` : event.location ?? "Réunion").slice(0, TRUNCATE_SUMMARY),
+    summary: (attendees ? `avec ${attendees}` : (event.location ?? "Réunion")).slice(
+      0,
+      TRUNCATE_SUMMARY,
+    ),
     source: "Calendar",
     suggestedActions: [
-      { kind: "schedule", label: "Préparer brief", payload: { eventId: event.id, title: event.title } },
+      {
+        kind: "schedule",
+        label: "Préparer brief",
+        payload: { eventId: event.id, title: event.title },
+      },
       { kind: "snooze", label: "Snooze", payload: { itemId: `calendar:${event.id}` } },
       { kind: "open", label: "Ouvrir", payload: { eventId: event.id } },
     ],
@@ -217,7 +238,10 @@ async function classifyBatch(items: InboxItem[]): Promise<Map<string, Classified
     const parsed = JSON.parse(match[0]) as ClassifiedItem[];
     const out = new Map<string, ClassifiedItem>();
     for (const c of parsed) {
-      if (c.id && (c.priority === "urgent" || c.priority === "important" || c.priority === "info")) {
+      if (
+        c.id &&
+        (c.priority === "urgent" || c.priority === "important" || c.priority === "info")
+      ) {
         out.set(c.id, {
           id: c.id,
           priority: c.priority,
@@ -273,11 +297,14 @@ async function fetchSlackUnread(userId: string): Promise<RawSlackMessage[]> {
   });
 
   if (!result.ok) return [];
-  const data = result.data as { messages?: Array<{ channel?: string; text?: string; ts?: string; user?: string }> } | undefined;
+  const data = result.data as
+    | { messages?: Array<{ channel?: string; text?: string; ts?: string; user?: string }> }
+    | undefined;
   const msgs = data?.messages ?? [];
   return msgs
-    .filter((m): m is { channel: string; text: string; ts: string; user?: string } =>
-      typeof m.channel === "string" && typeof m.text === "string" && typeof m.ts === "string",
+    .filter(
+      (m): m is { channel: string; text: string; ts: string; user?: string } =>
+        typeof m.channel === "string" && typeof m.text === "string" && typeof m.ts === "string",
     )
     .slice(0, 5);
 }

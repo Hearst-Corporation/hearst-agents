@@ -15,10 +15,18 @@ export interface PopupHandle {
 
 class WebPopupHandle implements PopupHandle {
   constructor(private readonly win: Window) {}
-  navigate(url: string) { this.win.location.href = url; }
-  close() { this.win.close(); }
-  focus() { this.win.focus(); }
-  get closed() { return this.win.closed; }
+  navigate(url: string) {
+    this.win.location.href = url;
+  }
+  close() {
+    this.win.close();
+  }
+  focus() {
+    this.win.focus();
+  }
+  get closed() {
+    return this.win.closed;
+  }
 }
 
 export interface PopupDriver {

@@ -4,15 +4,17 @@
  * Body : { id: string }
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
+import { markRead } from "@/lib/notifications/in-app";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { markRead } from "@/lib/notifications/in-app";
 
-const notificationReadSchema = z.object({
-  id: z.string().uuid(),
-}).strict();
+const notificationReadSchema = z
+  .object({
+    id: z.string().uuid(),
+  })
+  .strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

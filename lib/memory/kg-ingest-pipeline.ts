@@ -11,9 +11,9 @@
  *     → log + cache invalidation pour kg-context
  */
 
-import { extractEntities, upsertNode, upsertEdge } from "./kg";
-import { __clearKgContextCache } from "./kg-context";
 import { upsertEmbedding } from "@/lib/embeddings/store";
+import { extractEntities, upsertEdge, upsertNode } from "./kg";
+import { __clearKgContextCache } from "./kg-context";
 import { buildNodeExcerpt } from "./kg-excerpt";
 
 export interface IngestTurnInput {
@@ -38,12 +38,7 @@ function buildExtractionInput(userMessage: string, assistantReply: string): stri
   const u = userMessage.trim().slice(0, 3000);
   const a = assistantReply.trim().slice(0, 3000);
   if (!u && !a) return "";
-  return [
-    u ? `USER: ${u}` : "",
-    a ? `ASSISTANT: ${a}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n\n");
+  return [u ? `USER: ${u}` : "", a ? `ASSISTANT: ${a}` : ""].filter(Boolean).join("\n\n");
 }
 
 /**
@@ -51,9 +46,7 @@ function buildExtractionInput(userMessage: string, assistantReply: string): stri
  * à upsertNode (ON CONFLICT user_id+tenant_id+type+label) et upsertEdge
  * (qui incrémente le weight si l'arête existe).
  */
-export async function ingestConversationTurn(
-  input: IngestTurnInput,
-): Promise<IngestTurnResult> {
+export async function ingestConversationTurn(input: IngestTurnInput): Promise<IngestTurnResult> {
   const text = buildExtractionInput(input.userMessage, input.assistantReply);
   if (!text) {
     return { entitiesCreated: 0, edgesCreated: 0, skipped: true, reason: "empty_text" };

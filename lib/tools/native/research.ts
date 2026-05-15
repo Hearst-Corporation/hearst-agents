@@ -11,12 +11,12 @@
  * runResearchReport() émet ses propres events sur le runId via eventBus.
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
+import { jsonSchema } from "ai";
+import { runResearchReport } from "@/lib/engine/orchestrator/run-research-report";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import { runResearchReport } from "@/lib/engine/orchestrator/run-research-report";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;

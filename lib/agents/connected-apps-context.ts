@@ -67,9 +67,7 @@ export function buildSlugStrictnessRule(): string {
 export function extractAppsFromToolNames(toolNames: ReadonlyArray<string>): string[] {
   return Array.from(
     new Set(
-      toolNames
-        .map((n) => n.split("_")[0]?.toLowerCase())
-        .filter((s): s is string => Boolean(s)),
+      toolNames.map((n) => n.split("_")[0]?.toLowerCase()).filter((s): s is string => Boolean(s)),
     ),
   ).sort();
 }

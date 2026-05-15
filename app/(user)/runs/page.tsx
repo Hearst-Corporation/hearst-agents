@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useStageStore } from "@/stores/stage";
-import { useNavigationStore } from "@/stores/navigation";
-import { RelativeTime } from "../components/RelativeTime";
-import { RowActions, type RowAction } from "../components/RowActions";
-import { ConfirmModal } from "../components/ConfirmModal";
-import { Action, ScreenShell } from "../components/ui";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "@/app/hooks/use-toast";
+import { useNavigationStore } from "@/stores/navigation";
+import { useStageStore } from "@/stores/stage";
+import { ConfirmModal } from "../components/ConfirmModal";
+import { RelativeTime } from "../components/RelativeTime";
+import { type RowAction, RowActions } from "../components/RowActions";
+import { Action, ScreenShell } from "../components/ui";
 
 interface RunListItem {
   id: string;
@@ -51,7 +51,16 @@ const STATUS_LABEL: Record<string, string> = {
 
 function EyeIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
       <circle cx="12" cy="12" r="3" />
     </svg>
@@ -60,7 +69,16 @@ function EyeIcon() {
 
 function RefreshIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="1 4 1 10 7 10" />
       <path d="M3.51 15a9 9 0 1 0 .49-5.83" />
     </svg>
@@ -69,7 +87,16 @@ function RefreshIcon() {
 
 function DownloadIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
@@ -79,7 +106,16 @@ function DownloadIcon() {
 
 function TrashIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="3 6 5 6 21 6" />
       <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
       <path d="M10 11v6" />
@@ -199,7 +235,11 @@ export default function RunsPage() {
     <>
       <ScreenShell
         title="Runs"
-        subtitle={loading ? "Chargement…" : `Historique d'exécutions · ${runs.length} ${runs.length === 1 ? "récente" : "récentes"}`}
+        subtitle={
+          loading
+            ? "Chargement…"
+            : `Historique d'exécutions · ${runs.length} ${runs.length === 1 ? "récente" : "récentes"}`
+        }
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Runs" }]}
         actions={
           <Action variant="link" tone="brand" onClick={handleNewReport}>
@@ -220,108 +260,113 @@ export default function RunsPage() {
       >
         <div className="max-w-5xl mx-auto">
           <div>
-              {actionError && (
-                <div
-                  data-testid="runs-action-error"
-                  className="t-11 font-light mb-3 px-2 py-2 border"
-                  style={{
-                    color: "var(--danger)",
-                    background: "var(--surface-1)",
-                    borderColor: "var(--danger)",
-                    borderRadius: "var(--radius-xs)",
-                  }}
-                >
-                  {actionError}
-                </div>
-              )}
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
-                <span className="w-2" />
-                <span>Entrée</span>
-                <span className="text-right">Statut</span>
-                <span className="text-right">Assets</span>
-                <span className="text-right">Durée</span>
-                <span className="text-right">Quand</span>
-                <span className="text-right">Actions</span>
+            {actionError && (
+              <div
+                data-testid="runs-action-error"
+                className="t-11 font-light mb-3 px-2 py-2 border"
+                style={{
+                  color: "var(--danger)",
+                  background: "var(--surface-1)",
+                  borderColor: "var(--danger)",
+                  borderRadius: "var(--radius-xs)",
+                }}
+              >
+                {actionError}
               </div>
+            )}
+            <div className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 px-2 py-3 t-11 font-medium text-(--text-l1) border-b border-(--border-soft)">
+              <span className="w-2" />
+              <span>Entrée</span>
+              <span className="text-right">Statut</span>
+              <span className="text-right">Assets</span>
+              <span className="text-right">Durée</span>
+              <span className="text-right">Quand</span>
+              <span className="text-right">Actions</span>
+            </div>
 
-              {runs.map((run) => {
-                const statusKey = run.status?.toLowerCase() ?? "idle";
-                const dotClass = STATUS_COLOR[statusKey] || "bg-text-ghost";
-                const statusLabel = STATUS_LABEL[statusKey] || statusKey.toUpperCase().slice(0, 5);
-                const isPendingRerun = pendingAction === `rerun-${run.id}`;
-                const isPendingDelete = pendingAction === `delete-${run.id}`;
-                const actions: RowAction[] = [
-                  {
-                    id: "open",
-                    label: "Voir détail",
-                    onClick: () => handleOpen(run.id),
-                    icon: <EyeIcon />,
-                  },
-                  {
-                    id: "rerun",
-                    label: "Re-run",
-                    onClick: () => handleRerun(run.id),
-                    icon: <RefreshIcon />,
-                    disabled: isPendingRerun || isPendingDelete,
-                  },
-                  {
-                    id: "export",
-                    label: "Export trace",
-                    onClick: () => handleExport(run.id),
-                    icon: <DownloadIcon />,
-                  },
-                  {
-                    id: "delete",
-                    label: "Supprimer",
-                    onClick: () => setConfirmDeleteId(run.id),
-                    icon: <TrashIcon />,
-                    variant: "danger",
-                    disabled: isPendingRerun || isPendingDelete,
-                  },
-                ];
-                return (
-                  <div
-                    key={run.id}
-                    onClick={() => handleOpen(run.id)}
-                    className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-(--border-soft) group cursor-pointer transition-colors"
-                    title={`Open run ${run.id.slice(0, 8)}`}
-                  >
-                    <span className={`w-1.5 h-1.5 rounded-pill shrink-0 ${dotClass}`} />
-                    <div className="min-w-0">
-                      <p className="t-13 text-text-soft group-hover:text-(--accent-teal) transition-colors truncate">
-                        {run.input || `Run ${run.id.slice(0, 8)}`}
-                      </p>
-                      <p className="t-9 font-light text-text-ghost mt-1">
-                        {run.surface || "—"}
-                        {run.missionId ? ` · Mission ${run.missionId.slice(0, 6)}` : ""}
-                        {run.executionMode ? ` · ${run.executionMode}` : ""}
-                      </p>
-                    </div>
-                    <span className={`t-9 font-medium text-right ${
-                      statusKey === "running" ? "text-(--accent-teal)" :
-                      statusKey === "failed" ? "text-(--danger)" :
-                      statusKey === "succeeded" || statusKey === "success" ? "text-(--money)" :
-                      "text-text-faint"
-                    }`}>
-                      {statusLabel}
-                    </span>
-                    <span className="t-9 font-mono tabular-nums text-text-faint text-right">
-                      {run.assetCount > 0 ? `${run.assetCount}×` : "—"}
-                    </span>
-                    <span className="t-9 font-mono tabular-nums text-text-faint text-right">
-                      {formatDuration(run.metrics?.durationMs)}
-                    </span>
-                    <RelativeTime
-                      ts={run.createdAt}
-                      className="t-9 font-mono tabular-nums text-text-ghost text-right"
-                    />
-                    <div className="flex justify-end">
-                      <RowActions actions={actions} />
-                    </div>
+            {runs.map((run) => {
+              const statusKey = run.status?.toLowerCase() ?? "idle";
+              const dotClass = STATUS_COLOR[statusKey] || "bg-text-ghost";
+              const statusLabel = STATUS_LABEL[statusKey] || statusKey.toUpperCase().slice(0, 5);
+              const isPendingRerun = pendingAction === `rerun-${run.id}`;
+              const isPendingDelete = pendingAction === `delete-${run.id}`;
+              const actions: RowAction[] = [
+                {
+                  id: "open",
+                  label: "Voir détail",
+                  onClick: () => handleOpen(run.id),
+                  icon: <EyeIcon />,
+                },
+                {
+                  id: "rerun",
+                  label: "Re-run",
+                  onClick: () => handleRerun(run.id),
+                  icon: <RefreshIcon />,
+                  disabled: isPendingRerun || isPendingDelete,
+                },
+                {
+                  id: "export",
+                  label: "Export trace",
+                  onClick: () => handleExport(run.id),
+                  icon: <DownloadIcon />,
+                },
+                {
+                  id: "delete",
+                  label: "Supprimer",
+                  onClick: () => setConfirmDeleteId(run.id),
+                  icon: <TrashIcon />,
+                  variant: "danger",
+                  disabled: isPendingRerun || isPendingDelete,
+                },
+              ];
+              return (
+                <div
+                  key={run.id}
+                  onClick={() => handleOpen(run.id)}
+                  className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto_auto_auto_auto] gap-x-6 items-center px-2 py-4 border-b border-(--border-soft) group cursor-pointer transition-colors"
+                  title={`Open run ${run.id.slice(0, 8)}`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-pill shrink-0 ${dotClass}`} />
+                  <div className="min-w-0">
+                    <p className="t-13 text-text-soft group-hover:text-(--accent-teal) transition-colors truncate">
+                      {run.input || `Run ${run.id.slice(0, 8)}`}
+                    </p>
+                    <p className="t-9 font-light text-text-ghost mt-1">
+                      {run.surface || "—"}
+                      {run.missionId ? ` · Mission ${run.missionId.slice(0, 6)}` : ""}
+                      {run.executionMode ? ` · ${run.executionMode}` : ""}
+                    </p>
                   </div>
-                );
-              })}
-        </div>
+                  <span
+                    className={`t-9 font-medium text-right ${
+                      statusKey === "running"
+                        ? "text-(--accent-teal)"
+                        : statusKey === "failed"
+                          ? "text-(--danger)"
+                          : statusKey === "succeeded" || statusKey === "success"
+                            ? "text-(--money)"
+                            : "text-text-faint"
+                    }`}
+                  >
+                    {statusLabel}
+                  </span>
+                  <span className="t-9 font-mono tabular-nums text-text-faint text-right">
+                    {run.assetCount > 0 ? `${run.assetCount}×` : "—"}
+                  </span>
+                  <span className="t-9 font-mono tabular-nums text-text-faint text-right">
+                    {formatDuration(run.metrics?.durationMs)}
+                  </span>
+                  <RelativeTime
+                    ts={run.createdAt}
+                    className="t-9 font-mono tabular-nums text-text-ghost text-right"
+                  />
+                  <div className="flex justify-end">
+                    <RowActions actions={actions} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </ScreenShell>
 
@@ -332,7 +377,7 @@ export default function RunsPage() {
         confirmLabel="Supprimer"
         cancelLabel="Annuler"
         variant="danger"
-        loading={pendingAction !== null && pendingAction.startsWith("delete-")}
+        loading={pendingAction?.startsWith("delete-")}
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDeleteId(null)}
       />

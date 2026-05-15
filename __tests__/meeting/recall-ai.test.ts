@@ -5,17 +5,17 @@
  * On mock global.fetch et on inspecte les appels (URL, headers, body).
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createHmac } from "node:crypto";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   createMeetingBot,
-  getBotStatus,
   detectMeetingProvider,
-  validateMeetingUrl,
-  verifyWebhookSignature,
+  getBotStatus,
   isRecallAiConfigured,
   RecallAiUnavailableError,
+  validateMeetingUrl,
+  verifyWebhookSignature,
 } from "@/lib/capabilities/providers/recall-ai";
 
 const ORIGINAL_KEY = process.env.RECALL_API_KEY;
@@ -60,10 +60,10 @@ describe("Recall.ai provider", () => {
     const calls: Array<{ url: string; init?: RequestInit }> = [];
     mockFetch(async (input, init) => {
       calls.push({ url: String(input), init });
-      return new Response(
-        JSON.stringify({ id: "bot-123", status: "joining" }),
-        { status: 200, headers: { "content-type": "application/json" } },
-      );
+      return new Response(JSON.stringify({ id: "bot-123", status: "joining" }), {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      });
     });
 
     const result = await createMeetingBot({
@@ -76,9 +76,9 @@ describe("Recall.ai provider", () => {
     expect(result.status).toBe("joining");
     expect(calls).toHaveLength(1);
     expect(calls[0].url).toContain("/bot");
-    const headers = calls[0].init!.headers as Record<string, string>;
-    expect(headers["Authorization"]).toBe("Token rk-test-1");
-    const body = JSON.parse(String(calls[0].init!.body));
+    const headers = calls[0].init?.headers as Record<string, string>;
+    expect(headers.Authorization).toBe("Token rk-test-1");
+    const body = JSON.parse(String(calls[0].init?.body));
     expect(body.meeting_url).toBe("https://meet.google.com/abc-defg-hij");
     expect(body.bot_name).toBe("Hearst Test");
     expect(body.recording_config.transcript.provider.deepgram.language).toBe("en");
@@ -86,23 +86,24 @@ describe("Recall.ai provider", () => {
 
   it("createMeetingBot throw avec status non-2xx", async () => {
     mockFetch(async () => new Response("bad request", { status: 400 }));
-    await expect(
-      createMeetingBot({ meetingUrl: "https://zoom.us/j/123" }),
-    ).rejects.toThrow(/createBot failed 400/);
+    await expect(createMeetingBot({ meetingUrl: "https://zoom.us/j/123" })).rejects.toThrow(
+      /createBot failed 400/,
+    );
   });
 
   it("getBotStatus map status_changes -> latest code si status absent", async () => {
-    mockFetch(async () =>
-      new Response(
-        JSON.stringify({
-          status_changes: [
-            { code: "joining_call", created_at: "..." },
-            { code: "in_call_recording", created_at: "..." },
-          ],
-          video_url: "https://cdn.recall.ai/video.mp4",
-        }),
-        { status: 200, headers: { "content-type": "application/json" } },
-      ),
+    mockFetch(
+      async () =>
+        new Response(
+          JSON.stringify({
+            status_changes: [
+              { code: "joining_call", created_at: "..." },
+              { code: "in_call_recording", created_at: "..." },
+            ],
+            video_url: "https://cdn.recall.ai/video.mp4",
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        ),
     );
     const status = await getBotStatus("bot-9");
     expect(status.status).toBe("in_call_recording");

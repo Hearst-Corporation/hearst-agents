@@ -9,26 +9,42 @@
  * Deal-to-Cash apparaître dans applicableReports[].
  */
 
+import type { ReportSpec } from "@/lib/reports/spec/schema";
+import type { TemplateSummary } from "@/lib/reports/templates/schema";
+import { buildCustomer360, CUSTOMER_360_ID, CUSTOMER_360_REQUIRED_APPS } from "./customer-360";
+import { buildDealToCash, DEAL_TO_CASH_ID, DEAL_TO_CASH_REQUIRED_APPS } from "./deal-to-cash";
+import {
+  buildEngineeringVelocity,
+  ENGINEERING_VELOCITY_ID,
+  ENGINEERING_VELOCITY_REQUIRED_APPS,
+} from "./engineering-velocity";
+import { buildFinancialPnL, FINANCIAL_PNL_ID, FINANCIAL_PNL_REQUIRED_APPS } from "./financial-pnl";
 import {
   buildFounderCockpit,
   FOUNDER_COCKPIT_ID,
   FOUNDER_COCKPIT_REQUIRED_APPS,
 } from "./founder-cockpit";
 import {
-  buildCustomer360,
-  CUSTOMER_360_ID,
-  CUSTOMER_360_REQUIRED_APPS,
-} from "./customer-360";
+  buildHospitalityDailyBrief,
+  HOSPITALITY_DAILY_BRIEF_ID,
+  HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS,
+} from "./hospitality-daily-brief";
 import {
-  buildDealToCash,
-  DEAL_TO_CASH_ID,
-  DEAL_TO_CASH_REQUIRED_APPS,
-} from "./deal-to-cash";
+  buildHospitalityGuestSatisfaction,
+  HOSPITALITY_GUEST_SATISFACTION_ID,
+  HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS,
+} from "./hospitality-guest-satisfaction";
 import {
-  buildFinancialPnL,
-  FINANCIAL_PNL_ID,
-  FINANCIAL_PNL_REQUIRED_APPS,
-} from "./financial-pnl";
+  buildHospitalityRevpar,
+  HOSPITALITY_REVPAR_ID,
+  HOSPITALITY_REVPAR_REQUIRED_APPS,
+} from "./hospitality-revpar";
+import { buildHrPeople, HR_PEOPLE_ID, HR_PEOPLE_REQUIRED_APPS } from "./hr-people";
+import {
+  buildMarketingAarrr,
+  MARKETING_AARRR_ID,
+  MARKETING_AARRR_REQUIRED_APPS,
+} from "./marketing-aarrr";
 import {
   buildProductAnalytics,
   PRODUCT_ANALYTICS_ID,
@@ -39,38 +55,6 @@ import {
   SUPPORT_HEALTH_ID,
   SUPPORT_HEALTH_REQUIRED_APPS,
 } from "./support-health";
-import {
-  buildEngineeringVelocity,
-  ENGINEERING_VELOCITY_ID,
-  ENGINEERING_VELOCITY_REQUIRED_APPS,
-} from "./engineering-velocity";
-import {
-  buildMarketingAarrr,
-  MARKETING_AARRR_ID,
-  MARKETING_AARRR_REQUIRED_APPS,
-} from "./marketing-aarrr";
-import {
-  buildHrPeople,
-  HR_PEOPLE_ID,
-  HR_PEOPLE_REQUIRED_APPS,
-} from "./hr-people";
-import {
-  buildHospitalityDailyBrief,
-  HOSPITALITY_DAILY_BRIEF_ID,
-  HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS,
-} from "./hospitality-daily-brief";
-import {
-  buildHospitalityRevpar,
-  HOSPITALITY_REVPAR_ID,
-  HOSPITALITY_REVPAR_REQUIRED_APPS,
-} from "./hospitality-revpar";
-import {
-  buildHospitalityGuestSatisfaction,
-  HOSPITALITY_GUEST_SATISFACTION_ID,
-  HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS,
-} from "./hospitality-guest-satisfaction";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
-import type { TemplateSummary } from "@/lib/reports/templates/schema";
 
 export interface CatalogEntry {
   id: string;
@@ -101,8 +85,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: CUSTOMER_360_ID,
     title: "Customer 360",
-    description:
-      "Vue unifiée d'un client : LTV, support, échanges, paiements à partir de l'email.",
+    description: "Vue unifiée d'un client : LTV, support, échanges, paiements à partir de l'email.",
     domain: "crm",
     persona: "csm",
     requiredApps: CUSTOMER_360_REQUIRED_APPS,
@@ -112,8 +95,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: DEAL_TO_CASH_ID,
     title: "Deal-to-Cash",
-    description:
-      "Funnel deal-to-cash : étapes pipeline, cycle time, deals bloqués sans facture.",
+    description: "Funnel deal-to-cash : étapes pipeline, cycle time, deals bloqués sans facture.",
     domain: "finance",
     persona: "ops",
     requiredApps: DEAL_TO_CASH_REQUIRED_APPS,
@@ -122,8 +104,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: FINANCIAL_PNL_ID,
     title: "Financial P&L",
-    description:
-      "P&L mensuel, cash flow, runway et top expenses sur 12 mois.",
+    description: "P&L mensuel, cash flow, runway et top expenses sur 12 mois.",
     domain: "finance",
     persona: "founder",
     requiredApps: FINANCIAL_PNL_REQUIRED_APPS,
@@ -132,8 +113,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: PRODUCT_ANALYTICS_ID,
     title: "Product Analytics",
-    description:
-      "Funnel AARRR, cohortes de rétention, NPS et features les plus utilisées.",
+    description: "Funnel AARRR, cohortes de rétention, NPS et features les plus utilisées.",
     domain: "growth",
     persona: "founder",
     requiredApps: PRODUCT_ANALYTICS_REQUIRED_APPS,
@@ -142,8 +122,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: SUPPORT_HEALTH_ID,
     title: "Support Health",
-    description:
-      "CSAT, SLA, volume tickets et top issues sur les 7 derniers jours.",
+    description: "CSAT, SLA, volume tickets et top issues sur les 7 derniers jours.",
     domain: "support",
     persona: "csm",
     requiredApps: SUPPORT_HEALTH_REQUIRED_APPS,
@@ -162,8 +141,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: MARKETING_AARRR_ID,
     title: "Marketing AARRR",
-    description:
-      "Funnel AARRR, CAC / LTV / payback par cohorte et canal sur 12 semaines.",
+    description: "Funnel AARRR, CAC / LTV / payback par cohorte et canal sur 12 semaines.",
     domain: "growth",
     persona: "marketing",
     requiredApps: MARKETING_AARRR_REQUIRED_APPS,
@@ -172,8 +150,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: HR_PEOPLE_ID,
     title: "HR / People",
-    description:
-      "Hiring funnel, signaux burnout (heures tardives) et headcount plan sur 90 jours.",
+    description: "Hiring funnel, signaux burnout (heures tardives) et headcount plan sur 90 jours.",
     domain: "people",
     persona: "people",
     requiredApps: HR_PEOPLE_REQUIRED_APPS,
@@ -202,8 +179,7 @@ export const CATALOG: ReadonlyArray<CatalogEntry> = [
   {
     id: HOSPITALITY_GUEST_SATISFACTION_ID,
     title: "Guest Satisfaction — Hospitality",
-    description:
-      "NPS par canal, reviews aggregées, complaints et taux de recovery sur 7 jours.",
+    description: "NPS par canal, reviews aggregées, complaints et taux de recovery sur 7 jours.",
     domain: "support",
     persona: "csm",
     requiredApps: HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS,
@@ -245,7 +221,7 @@ function normalizeForMatch(s: string): string {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
-    .replace(/[—–\-]/g, " ")
+    .replace(/[—–-]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -325,9 +301,7 @@ export interface ApplicableReport {
   source: "catalog" | "custom";
 }
 
-export function getApplicableReports(
-  connectedApps: ReadonlyArray<string>,
-): ApplicableReport[] {
+export function getApplicableReports(connectedApps: ReadonlyArray<string>): ApplicableReport[] {
   const connected = new Set(connectedApps.map((a) => a.toLowerCase()));
   const out: ApplicableReport[] = [];
   for (const entry of CATALOG) {
@@ -387,12 +361,6 @@ export function getApplicableReportsWithTemplates(
   return [...base, ...custom];
 }
 
-// Re-exports
-export {
-  buildFounderCockpit,
-  FOUNDER_COCKPIT_ID,
-  FOUNDER_COCKPIT_REQUIRED_APPS,
-} from "./founder-cockpit";
 export {
   buildCustomer360,
   CUSTOMER_360_ID,
@@ -404,10 +372,49 @@ export {
   DEAL_TO_CASH_REQUIRED_APPS,
 } from "./deal-to-cash";
 export {
+  buildEngineeringVelocity,
+  ENGINEERING_VELOCITY_ID,
+  ENGINEERING_VELOCITY_REQUIRED_APPS,
+} from "./engineering-velocity";
+export {
   buildFinancialPnL,
   FINANCIAL_PNL_ID,
   FINANCIAL_PNL_REQUIRED_APPS,
 } from "./financial-pnl";
+// Re-exports
+export {
+  buildFounderCockpit,
+  FOUNDER_COCKPIT_ID,
+  FOUNDER_COCKPIT_REQUIRED_APPS,
+} from "./founder-cockpit";
+export {
+  buildHospitalityDailyBrief,
+  buildHospitalityDailyBriefSampleData,
+  HOSPITALITY_DAILY_BRIEF_ID,
+  HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS,
+} from "./hospitality-daily-brief";
+export {
+  buildHospitalityGuestSatisfaction,
+  buildHospitalityGuestSatisfactionSampleData,
+  HOSPITALITY_GUEST_SATISFACTION_ID,
+  HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS,
+} from "./hospitality-guest-satisfaction";
+export {
+  buildHospitalityRevpar,
+  buildHospitalityRevparSampleData,
+  HOSPITALITY_REVPAR_ID,
+  HOSPITALITY_REVPAR_REQUIRED_APPS,
+} from "./hospitality-revpar";
+export {
+  buildHrPeople,
+  HR_PEOPLE_ID,
+  HR_PEOPLE_REQUIRED_APPS,
+} from "./hr-people";
+export {
+  buildMarketingAarrr,
+  MARKETING_AARRR_ID,
+  MARKETING_AARRR_REQUIRED_APPS,
+} from "./marketing-aarrr";
 export {
   buildProductAnalytics,
   PRODUCT_ANALYTICS_ID,
@@ -418,36 +425,3 @@ export {
   SUPPORT_HEALTH_ID,
   SUPPORT_HEALTH_REQUIRED_APPS,
 } from "./support-health";
-export {
-  buildEngineeringVelocity,
-  ENGINEERING_VELOCITY_ID,
-  ENGINEERING_VELOCITY_REQUIRED_APPS,
-} from "./engineering-velocity";
-export {
-  buildMarketingAarrr,
-  MARKETING_AARRR_ID,
-  MARKETING_AARRR_REQUIRED_APPS,
-} from "./marketing-aarrr";
-export {
-  buildHrPeople,
-  HR_PEOPLE_ID,
-  HR_PEOPLE_REQUIRED_APPS,
-} from "./hr-people";
-export {
-  buildHospitalityDailyBrief,
-  buildHospitalityDailyBriefSampleData,
-  HOSPITALITY_DAILY_BRIEF_ID,
-  HOSPITALITY_DAILY_BRIEF_REQUIRED_APPS,
-} from "./hospitality-daily-brief";
-export {
-  buildHospitalityRevpar,
-  buildHospitalityRevparSampleData,
-  HOSPITALITY_REVPAR_ID,
-  HOSPITALITY_REVPAR_REQUIRED_APPS,
-} from "./hospitality-revpar";
-export {
-  buildHospitalityGuestSatisfaction,
-  buildHospitalityGuestSatisfactionSampleData,
-  HOSPITALITY_GUEST_SATISFACTION_ID,
-  HOSPITALITY_GUEST_SATISFACTION_REQUIRED_APPS,
-} from "./hospitality-guest-satisfaction";

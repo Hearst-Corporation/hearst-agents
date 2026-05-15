@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server";
-import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
-import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
 import { getAllMissionOps } from "@/lib/engine/runtime/missions/ops-store";
-import { requireScope } from "@/lib/platform/auth/scope";
 import type { MissionOpsRecord } from "@/lib/engine/runtime/missions/ops-types";
+import { getAllMissions as getMemoryMissions } from "@/lib/engine/runtime/missions/store";
+import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { getApprovalState } from "@/lib/missions/approvals";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const { error: authError } = await requireScope({ context: "GET /api/v2/missions/ops" });
-  if (authError) return NextResponse.json({ error: authError.message }, { status: authError.status });
+  if (authError)
+    return NextResponse.json({ error: authError.message }, { status: authError.status });
 
   try {
     let missionList = await getScheduledMissions();

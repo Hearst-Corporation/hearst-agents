@@ -9,12 +9,12 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { ThinkingDisclosure } from "../ThinkingDisclosure";
-import { StageActionBar } from "./StageActionBar";
 import { Action } from "../ui";
-import { toast } from "@/app/hooks/use-toast";
+import { StageActionBar } from "./StageActionBar";
 
 interface Variable {
   key: string;
@@ -77,50 +77,52 @@ export function SimulationStage() {
   // `scenarioOverride` permet à l'auto-run au mount (depuis le payload du
   // Stage) de passer le scenario directement, sans dépendre du flush
   // React de setScenarioInput qui ne serait pas encore appliqué.
-  const launchSimulation = useCallback(async (scenarioOverride?: string) => {
-    const scenario = (scenarioOverride ?? scenarioInput).trim();
-    if (!scenario) {
-      toast.error("Scénario requis", "Décris le scénario business à simuler.");
-      return;
-    }
-    const cleanedVariables = variables
-      .map((v) => ({ key: v.key.trim(), value: v.value.trim() }))
-      .filter((v) => v.key.length > 0);
-
-    setPhase("running");
-    setScenarios([]);
-    setReasoning(null);
-    setAssetId(null);
-    try {
-      const res = await fetch("/api/v2/simulations/start", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ scenario, variables: cleanedVariables }),
-      });
-      const data = (await res.json()) as SimulationResponse;
-      if (!res.ok || !Array.isArray(data.scenarios)) {
-        toast.error("Échec simulation", data.message || data.error || "Sortie DeepSeek invalide");
-        setPhase("idle");
+  const launchSimulation = useCallback(
+    async (scenarioOverride?: string) => {
+      const scenario = (scenarioOverride ?? scenarioInput).trim();
+      if (!scenario) {
+        toast.error("Scénario requis", "Décris le scénario business à simuler.");
         return;
       }
-      setScenarios(data.scenarios);
-      setReasoning(data.reasoning ?? null);
-      setAssetId(data.assetId ?? null);
-      setPhase("done");
-    } catch (err) {
-      toast.error("Erreur réseau", err instanceof Error ? err.message : String(err));
-      setPhase("idle");
-    }
-  }, [scenarioInput, variables]);
+      const cleanedVariables = variables
+        .map((v) => ({ key: v.key.trim(), value: v.value.trim() }))
+        .filter((v) => v.key.length > 0);
+
+      setPhase("running");
+      setScenarios([]);
+      setReasoning(null);
+      setAssetId(null);
+      try {
+        const res = await fetch("/api/v2/simulations/start", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ scenario, variables: cleanedVariables }),
+        });
+        const data = (await res.json()) as SimulationResponse;
+        if (!res.ok || !Array.isArray(data.scenarios)) {
+          toast.error("Échec simulation", data.message || data.error || "Sortie DeepSeek invalide");
+          setPhase("idle");
+          return;
+        }
+        setScenarios(data.scenarios);
+        setReasoning(data.reasoning ?? null);
+        setAssetId(data.assetId ?? null);
+        setPhase("done");
+      } catch (err) {
+        toast.error("Erreur réseau", err instanceof Error ? err.message : String(err));
+        setPhase("idle");
+      }
+    },
+    [scenarioInput, variables],
+  );
 
   // Auto-run au mount si le payload du Stage contient un scenario (déclenché
   // par le tool start_simulation côté chat). Le ref évite la double-exécution
   // en Strict Mode dev. On passe le scenario directement à launchSimulation
   // car setScenarioInput est async et n'aurait pas flushé au moment du call.
   const stagePayload = useStageStore((s) => s.current);
-  const initialScenario =
-    stagePayload.mode === "simulation" ? stagePayload.scenario : undefined;
+  const initialScenario = stagePayload.mode === "simulation" ? stagePayload.scenario : undefined;
   const autoRanRef = useRef(false);
   useEffect(() => {
     if (autoRanRef.current) return;
@@ -131,15 +133,13 @@ export function SimulationStage() {
     setScenarioInput(initialScenario);
     void launchSimulation(initialScenario);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- one-shot au mount, deps volontairement absentes pour ne pas re-fire
-  }, []);
+  }, [phase, launchSimulation, initialScenario]);
 
-  const headerLabel = phase === "running" ? "RAISONNEMENT" : phase === "done" ? "SCÉNARIOS" : "STANDBY";
+  const headerLabel =
+    phase === "running" ? "RAISONNEMENT" : phase === "done" ? "SCÉNARIOS" : "STANDBY";
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
@@ -147,16 +147,12 @@ export function SimulationStage() {
               className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-(--accent-teal)">
-              SIMULATION
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">SIMULATION</span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
             />
-            <span className="t-11 font-light text-text-muted">
-              {headerLabel}
-            </span>
+            <span className="t-11 font-light text-text-muted">{headerLabel}</span>
           </>
         }
         onBack={back}
@@ -219,9 +215,7 @@ function SimulationForm({
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <span className="t-11 font-light text-text-faint">
-          SCÉNARIO
-        </span>
+        <span className="t-11 font-light text-text-faint">SCÉNARIO</span>
         <textarea
           value={scenarioInput}
           onChange={(e) => onScenarioChange(e.target.value)}
@@ -234,9 +228,7 @@ function SimulationForm({
 
       <div className="flex flex-col gap-4">
         <header className="flex items-center justify-between">
-          <span className="t-11 font-light text-text-faint">
-            VARIABLES CLÉS
-          </span>
+          <span className="t-11 font-light text-text-faint">VARIABLES CLÉS</span>
           <button
             type="button"
             onClick={onVariableAdd}
@@ -271,7 +263,16 @@ function SimulationForm({
                 className="w-8 h-8 flex items-center justify-center text-text-faint hover:text-(--danger) transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                 aria-label="Retirer la variable"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
@@ -280,12 +281,7 @@ function SimulationForm({
         </div>
       </div>
 
-      <Action
-        variant="primary"
-        tone="brand"
-        onClick={onLaunch}
-        disabled={!scenarioInput.trim()}
-      >
+      <Action variant="primary" tone="brand" onClick={onLaunch} disabled={!scenarioInput.trim()}>
         Lancer la simulation
       </Action>
     </div>
@@ -302,15 +298,10 @@ function SimulationRunning() {
         style={{ width: "var(--space-4)", height: "var(--space-4)" }}
         aria-hidden
       />
-      <p
-        className="t-15 font-medium text-text"
-        style={{ lineHeight: "var(--leading-snug)" }}
-      >
+      <p className="t-15 font-medium text-text" style={{ lineHeight: "var(--leading-snug)" }}>
         Génération de scénarios… DeepSeek R1 raisonne.
       </p>
-      <p className="t-11 font-light text-text-faint">
-        30-50 secondes habituellement
-      </p>
+      <p className="t-11 font-light text-text-faint">30-50 secondes habituellement</p>
     </div>
   );
 }
@@ -374,9 +365,7 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
     >
       <header className="flex items-start justify-between gap-4">
         <h3 className="t-15 font-medium text-text">{scenario.name}</h3>
-        <span className="t-11 font-medium text-(--accent-teal) shrink-0">
-          {probabilityPct}%
-        </span>
+        <span className="t-11 font-medium text-(--accent-teal) shrink-0">{probabilityPct}%</span>
       </header>
 
       {scenario.narrative && (
@@ -406,7 +395,9 @@ function ScenarioCard({ scenario }: { scenario: Scenario }) {
               className="t-11 text-(--warn) flex items-start gap-2"
               style={{ lineHeight: "var(--leading-base)" }}
             >
-              <span className="text-(--warn) mt-0.5 shrink-0" aria-hidden>▲</span>
+              <span className="text-(--warn) mt-0.5 shrink-0" aria-hidden>
+                ▲
+              </span>
               <span className="flex-1 min-w-0">{risk}</span>
             </li>
           ))}

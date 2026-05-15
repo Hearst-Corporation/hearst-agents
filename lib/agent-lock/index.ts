@@ -59,10 +59,9 @@ async function readFromFs(): Promise<AgentLockState> {
 async function writeToFs(state: AgentLockState): Promise<void> {
   const payload = {
     ...state,
-    _doc:
-      "État du verrou agent. Si locked=true, AUCUN agent ne doit modifier de fichier (Edit, Write, NotebookEdit) ni exécuter d'action destructive (rm, git commit, etc.). Voir docs/AGENT-DRIVEN-DEV.md section 'Verrou agent'.",
+    _doc: "État du verrou agent. Si locked=true, AUCUN agent ne doit modifier de fichier (Edit, Write, NotebookEdit) ni exécuter d'action destructive (rm, git commit, etc.). Voir docs/AGENT-DRIVEN-DEV.md section 'Verrou agent'.",
   };
-  await fs.writeFile(LOCK_PATH, JSON.stringify(payload, null, 2) + "\n");
+  await fs.writeFile(LOCK_PATH, `${JSON.stringify(payload, null, 2)}\n`);
 }
 
 // ── Public API ─────────────────────────────────────────────────

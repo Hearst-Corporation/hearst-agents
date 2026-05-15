@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import { useFocalStore } from '@/stores/focal';
-import { useNavigationStore } from '@/stores/navigation';
-import { useStageStore } from '@/stores/stage';
-import { relativeTime } from '@/lib/spatial/utils';
-import { BentoCard } from './BentoCard';
+import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+import { relativeTime } from "@/lib/spatial/utils";
+import { useFocalStore } from "@/stores/focal";
+import { useNavigationStore } from "@/stores/navigation";
+import { useStageStore } from "@/stores/stage";
+import { BentoCard } from "./BentoCard";
 
 interface AssetsPanelProps {
   show: boolean;
@@ -41,9 +41,9 @@ export function AssetsPanel({ show }: AssetsPanelProps) {
     // pendant le render (rule react-hooks/purity).
     const messageRefs = (messages ?? []).filter((m) => !!m.assetRef).slice(-5);
     const fromMessages: AssetEntry[] = messageRefs.map((m, i) => ({
-      id: m.assetRef!.id,
-      label: m.assetRef!.title || 'Asset',
-      time: 'récent',
+      id: m.assetRef?.id,
+      label: m.assetRef?.title || "Asset",
+      time: "récent",
       // Base 0 + i pour préserver l'ordre relatif sans Date.now()
       ts: i,
     }));
@@ -61,14 +61,16 @@ export function AssetsPanel({ show }: AssetsPanelProps) {
       const existing = map.get(a.id);
       if (!existing || existing.ts < a.ts) map.set(a.id, a);
     }
-    return Array.from(map.values()).sort((a, b) => b.ts - a.ts).slice(0, 4);
+    return Array.from(map.values())
+      .sort((a, b) => b.ts - a.ts)
+      .slice(0, 4);
   }, [secondary, messages]);
 
   if (assets.length === 0 && !show) return null;
 
   function openAsset(id: string) {
-    useStageStore.getState().setMode({ mode: 'asset', assetId: id });
-    router.push('/');
+    useStageStore.getState().setMode({ mode: "asset", assetId: id });
+    router.push("/");
   }
 
   const count = assets.length;
@@ -83,8 +85,8 @@ export function AssetsPanel({ show }: AssetsPanelProps) {
             </div>
             <div className="text-spatial-2xl font-extralight tracking-tight text-white/95">
               {count > 0
-                ? `${count} document${count > 1 ? 's' : ''} récent${count > 1 ? 's' : ''}`
-                : 'Aucun document récent'}
+                ? `${count} document${count > 1 ? "s" : ""} récent${count > 1 ? "s" : ""}`
+                : "Aucun document récent"}
             </div>
           </div>
         </div>

@@ -6,18 +6,15 @@
  * un nouvel asset (timestamped).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { captureScreenshot } from "@/lib/browser/screenshot";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { captureScreenshot } from "@/lib/browser/screenshot";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function POST(
-  _req: NextRequest,
-  ctx: { params: Promise<{ id: string }> },
-) {
+export async function POST(_req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
 
   const { scope, error } = await requireScope({
@@ -51,10 +48,7 @@ export async function POST(
   }
 
   if (!process.env.BROWSERBASE_API_KEY) {
-    return NextResponse.json(
-      { error: "browserbase_unavailable" },
-      { status: 503 },
-    );
+    return NextResponse.json({ error: "browserbase_unavailable" }, { status: 503 });
   }
 
   try {
@@ -68,9 +62,6 @@ export async function POST(
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[BrowserCapture] failed:", message);
-    return NextResponse.json(
-      { error: "capture_failed", message },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: "capture_failed", message }, { status: 502 });
   }
 }

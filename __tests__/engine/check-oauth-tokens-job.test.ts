@@ -10,7 +10,7 @@
  *  - buildCheckOAuthTokensPayload : valide / invalide
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks — hoisted pour éviter l'erreur "before initialization" ────────────
 
@@ -48,11 +48,11 @@ vi.mock("@supabase/supabase-js", () => ({
 
 // ── Import après mocks ────────────────────────────────────────
 
-import {
-  runCheckOAuthTokensJob,
-  buildCheckOAuthTokensPayload,
-} from "@/lib/engine/runtime/jobs/check-oauth-tokens";
 import type { ExpiringConnection } from "@/lib/connections/oauth-refresh";
+import {
+  buildCheckOAuthTokensPayload,
+  runCheckOAuthTokensJob,
+} from "@/lib/engine/runtime/jobs/check-oauth-tokens";
 
 // ── Helpers ──────────────────────────────────────────────────
 
@@ -123,18 +123,14 @@ afterEach(() => {
 
 describe("validation payload", () => {
   it("retourne erreur propre si userId n'est pas un UUID", async () => {
-    const result = await runCheckOAuthTokensJob(
-      makePayload({ userId: "pas-un-uuid" }),
-    );
+    const result = await runCheckOAuthTokensJob(makePayload({ userId: "pas-un-uuid" }));
     expect(result.ok).toBe(false);
     expect(result.error).toMatch(/UUID|invalide/i);
     expect(result.checked).toBe(0);
   });
 
   it("retourne erreur propre si tenantId n'est pas un UUID", async () => {
-    const result = await runCheckOAuthTokensJob(
-      makePayload({ tenantId: "invalid-tenant" }),
-    );
+    const result = await runCheckOAuthTokensJob(makePayload({ tenantId: "invalid-tenant" }));
     expect(result.ok).toBe(false);
     expect(result.error).toBeDefined();
   });
@@ -210,9 +206,7 @@ describe("happy path — refresh OK", () => {
 
 describe("refresh impossible — notification critical", () => {
   it("crée une notification critical si token révoqué", async () => {
-    mockCheckExpiringTokens.mockResolvedValueOnce([
-      makeExpiring("c1", "github", 0, "expired"),
-    ]);
+    mockCheckExpiringTokens.mockResolvedValueOnce([makeExpiring("c1", "github", 0, "expired")]);
     // Status expired → refresh non tenté (bypass dans le job)
 
     const result = await runCheckOAuthTokensJob(makePayload());
@@ -298,9 +292,7 @@ describe("dryRun=true", () => {
 
 describe("erreurs inattendues", () => {
   it("absorbe une erreur de checkExpiringTokens sans throw", async () => {
-    mockCheckExpiringTokens.mockRejectedValueOnce(
-      new Error("Composio réseau KO"),
-    );
+    mockCheckExpiringTokens.mockRejectedValueOnce(new Error("Composio réseau KO"));
 
     const result = await runCheckOAuthTokensJob(makePayload());
 
@@ -327,8 +319,6 @@ describe("buildCheckOAuthTokensPayload", () => {
   });
 
   it("throw si userId invalide", () => {
-    expect(() =>
-      buildCheckOAuthTokensPayload("not-a-uuid", TENANT_ID),
-    ).toThrow();
+    expect(() => buildCheckOAuthTokensPayload("not-a-uuid", TENANT_ID)).toThrow();
   });
 });

@@ -10,7 +10,7 @@
  * envoyés et la mécanique de composition.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks hoisted ─────────────────────────────────────────────
 const { searchEmbeddings, getKgContextForUser } = vi.hoisted(() => ({
@@ -217,6 +217,6 @@ describe("MISSION_CONTEXT_SYSTEM_PROMPT", () => {
   it("contient au moins 2 few-shot examples (pattern <example>)", () => {
     const matches = MISSION_CONTEXT_SYSTEM_PROMPT.match(/<example>/g);
     expect(matches).not.toBeNull();
-    expect(matches!.length).toBeGreaterThanOrEqual(2);
+    expect(matches?.length).toBeGreaterThanOrEqual(2);
   });
 });

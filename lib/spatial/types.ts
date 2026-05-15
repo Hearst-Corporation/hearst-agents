@@ -3,21 +3,9 @@
  * Hors design system Hearst OS. Voir CLAUDE.md section "Modules hors DS".
  */
 
-export type SpatialStage =
-  | "idle"
-  | "focus"
-  | "mission"
-  | "asset"
-  | "expert"
-  | "transition";
+export type SpatialStage = "idle" | "focus" | "mission" | "asset" | "expert" | "transition";
 
-export type SpatialMotionPreset =
-  | "emerge"
-  | "dissolve"
-  | "orbit"
-  | "pulse"
-  | "drift"
-  | "snap";
+export type SpatialMotionPreset = "emerge" | "dissolve" | "orbit" | "pulse" | "drift" | "snap";
 
 export type SpatialPanelPosition =
   | "center"
@@ -31,13 +19,13 @@ export type SpatialPanelPosition =
   | "corner-br";
 
 export type SpatialDepthLayer =
-  | "background"   // z: 0  — canvas WebGL
-  | "scene"        // z: 10 — éléments 3D
-  | "ground"       // z: 20 — overlays bas (constellations)
-  | "surface"      // z: 30 — panels HTML flottants
-  | "overlay"      // z: 40 — overlays plein écran
-  | "hud"          // z: 50 — éléments HUD persistants (nav, status)
-  | "critical";    // z: 60 — modals, toasts critiques
+  | "background" // z: 0  — canvas WebGL
+  | "scene" // z: 10 — éléments 3D
+  | "ground" // z: 20 — overlays bas (constellations)
+  | "surface" // z: 30 — panels HTML flottants
+  | "overlay" // z: 40 — overlays plein écran
+  | "hud" // z: 50 — éléments HUD persistants (nav, status)
+  | "critical"; // z: 60 — modals, toasts critiques
 
 export interface SpatialTheme {
   background: string;

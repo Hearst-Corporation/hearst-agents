@@ -5,7 +5,7 @@
  *  - appel répété de startInboxCron : idempotent (state reset entre tests)
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   getBullConnection: vi.fn(),
@@ -34,9 +34,9 @@ vi.mock("bullmq", () => ({
 }));
 
 import {
-  startInboxCron,
   registerInboxRepeatable,
   resetInboxCronForTests,
+  startInboxCron,
 } from "@/lib/jobs/scheduled/inbox-cron";
 
 function makeSupabaseStub(rows: Array<{ config: unknown }>) {
@@ -78,9 +78,7 @@ describe("inbox-cron — BullMQ Repeatable Jobs", () => {
     await startInboxCron();
 
     expect(mocks.queueAdd).not.toHaveBeenCalled();
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("REDIS_URL absent"),
-    );
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("REDIS_URL absent"));
   });
 
   it("avec mock queue : ajoute un repeatable job pour chaque user actif (jobId déterministe)", async () => {
@@ -114,9 +112,7 @@ describe("inbox-cron — BullMQ Repeatable Jobs", () => {
   it("startInboxCron appelé plusieurs fois : idempotent (deuxième appel court-circuité)", async () => {
     mocks.getBullConnection.mockReturnValue({} as never);
     mocks.getServerSupabase.mockReturnValue(
-      makeSupabaseStub([
-        { config: { userId: "u1", tenantId: "t1", workspaceId: "w1" } },
-      ]) as never,
+      makeSupabaseStub([{ config: { userId: "u1", tenantId: "t1", workspaceId: "w1" } }]) as never,
     );
 
     await startInboxCron();
@@ -154,8 +150,6 @@ describe("inbox-cron — BullMQ Repeatable Jobs", () => {
 
     await startInboxCron();
     expect(mocks.queueAdd).not.toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining("no active users"),
-    );
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("no active users"));
   });
 });

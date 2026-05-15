@@ -9,8 +9,8 @@
  * pending their own Composio actions or native SDK wiring.
  */
 
-import type { ProviderId } from "@/lib/providers/types";
 import { gmailSendEmail, isComposioConfigured } from "@/lib/connectors/composio";
+import type { ProviderId } from "@/lib/providers/types";
 
 // ── Types ───────────────────────────────────────────────────
 
@@ -120,7 +120,9 @@ async function sendViaGmail(input: SendMessageInput): Promise<SendMessageResult>
 
 // ── Router ──────────────────────────────────────────────────
 
-const HANDLERS: Partial<Record<ProviderId, (input: SendMessageInput) => Promise<SendMessageResult>>> = {
+const HANDLERS: Partial<
+  Record<ProviderId, (input: SendMessageInput) => Promise<SendMessageResult>>
+> = {
   slack: sendViaSlack,
   whatsapp: sendViaWhatsApp,
   google: sendViaGmail,

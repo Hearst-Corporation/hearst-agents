@@ -10,13 +10,10 @@
  * Les tests sont skippés si le serveur ne répond pas.
  */
 
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
+import { expect, test } from "@playwright/test";
+import { interceptAlertingAPI, mountSession } from "../notifications/fixtures";
 import { AlertingPage } from "./AlertingPage";
-import {
-  mountSession,
-  interceptAlertingAPI,
-} from "../notifications/fixtures";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -300,7 +297,11 @@ test.describe("AlertingSettings — email", () => {
     });
 
     await page.route("**/api/settings/alerting/test", (route) =>
-      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) }),
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ ok: true }),
+      }),
     );
 
     const ap = new AlertingPage(page);
@@ -315,11 +316,7 @@ test.describe("AlertingSettings — email", () => {
     await ap.saveBtn.click();
 
     // Attend que le PUT soit envoyé
-    await page.waitForFunction(
-      (urls) => urls.length > 0,
-      putRequests,
-      { timeout: 5000 },
-    );
+    await page.waitForFunction((urls) => urls.length > 0, putRequests, { timeout: 5000 });
 
     expect(putRequests.length).toBeGreaterThan(0);
   });

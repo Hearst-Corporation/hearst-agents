@@ -39,9 +39,7 @@ export function ReportHeader({
       className="flex items-center justify-end"
       style={{ marginBottom: "var(--space-3)", gap: "var(--space-2)" }}
     >
-      {showActions && assetId && (
-        <ReportActions reportId={assetId} title={assetTitle} />
-      )}
+      {showActions && assetId && <ReportActions reportId={assetId} title={assetTitle} />}
       {showActions && (
         <button
           type="button"

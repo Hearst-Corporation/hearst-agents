@@ -2,7 +2,7 @@
  * POST /api/v2/workflows/preview — dry-run d'un graphe.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({

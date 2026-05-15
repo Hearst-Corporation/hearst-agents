@@ -11,7 +11,7 @@
  * Tokens uniquement (CLAUDE.md §1).
  */
 
-import type { ReactNode, MouseEvent } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 export interface RowAction {
   id: string;
@@ -79,12 +79,15 @@ function IconButton({ action }: { action: RowAction }) {
         borderRadius: "var(--radius-xs)",
         cursor: action.disabled ? "not-allowed" : "pointer",
         opacity: action.disabled ? 0.5 : 1,
-        transition: "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard)",
+        transition:
+          "color var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard)",
       }}
       onMouseEnter={(e) => {
         if (action.disabled) return;
         e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--accent-teal)";
-        e.currentTarget.style.borderColor = isDanger ? "var(--danger)" : "var(--accent-teal-border-hover)";
+        e.currentTarget.style.borderColor = isDanger
+          ? "var(--danger)"
+          : "var(--accent-teal-border-hover)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.color = isDanger ? "var(--danger)" : "var(--text-faint)";

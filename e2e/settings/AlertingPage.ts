@@ -5,7 +5,7 @@
  * Suit le même pattern que ReportPage.ts.
  */
 
-import type { Page, Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 export class AlertingPage {
   readonly page: Page;
@@ -39,29 +39,30 @@ export class AlertingPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.heading         = page.getByRole("heading", { name: /alerting/i });
-    this.saveBtn         = page.getByRole("button", { name: /enregistrer/i });
+    this.heading = page.getByRole("heading", { name: /alerting/i });
+    this.saveBtn = page.getByRole("button", { name: /enregistrer/i });
     this.saveConfirmation = page.getByText(/enregistré/i);
-    this.saveError       = page.locator("span").filter({ hasText: /erreur/i });
+    this.saveError = page.locator("span").filter({ hasText: /erreur/i });
 
     // Webhooks
-    this.addWebhookBtn       = page.getByRole("button", { name: /\+ ajouter un webhook/i });
-    this.newWebhookForm      = page.locator("input[type='url']").first();
-    this.webhookUrlInput     = page.locator("input[placeholder*='https://hook']");
+    this.addWebhookBtn = page.getByRole("button", { name: /\+ ajouter un webhook/i });
+    this.newWebhookForm = page.locator("input[type='url']").first();
+    this.webhookUrlInput = page.locator("input[placeholder*='https://hook']");
     this.webhookAddConfirmBtn = page.getByRole("button", { name: /^ajouter$/i });
-    this.webhookCancelBtn    = page.getByRole("button", { name: /annuler/i });
-    this.webhookCards        = page.locator('[class*="flex"][class*="items-center"][class*="justify-between"]')
+    this.webhookCancelBtn = page.getByRole("button", { name: /annuler/i });
+    this.webhookCards = page
+      .locator('[class*="flex"][class*="items-center"][class*="justify-between"]')
       .filter({ has: page.getByRole("button", { name: /tester/i }) });
 
     // Email
-    this.emailToggle         = page.getByRole("switch", { name: /activer les alertes email/i });
+    this.emailToggle = page.getByRole("switch", { name: /activer les alertes email/i });
     this.emailRecipientsInput = page.locator("input[placeholder*='alice@example']");
-    this.emailTestBtn        = page.getByRole("button", { name: /tester l.envoi/i });
+    this.emailTestBtn = page.getByRole("button", { name: /tester l.envoi/i });
 
     // Slack
-    this.slackToggle         = page.getByRole("switch", { name: /activer les alertes slack/i });
-    this.slackUrlInput       = page.locator("input[placeholder*='hooks.slack.com']");
-    this.slackTestBtn        = page.getByRole("button", { name: /tester la connexion/i });
+    this.slackToggle = page.getByRole("switch", { name: /activer les alertes slack/i });
+    this.slackUrlInput = page.locator("input[placeholder*='hooks.slack.com']");
+    this.slackTestBtn = page.getByRole("button", { name: /tester la connexion/i });
   }
 
   // ── Actions ────────────────────────────────────────────────────────────

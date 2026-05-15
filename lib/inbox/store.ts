@@ -32,8 +32,8 @@ export async function loadLatestInboxBrief(userId: string): Promise<InboxBrief |
   const sb = getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await rawDb(sb)!
-    .from("assets")
+  const { data, error } = await rawDb(sb)
+    ?.from("assets")
     .select("id, thread_id, kind, title, summary, content_ref, provenance, created_at")
     .eq("kind", "inbox_brief")
     .order("created_at", { ascending: false })
@@ -60,5 +60,3 @@ export async function loadLatestInboxBrief(userId: string): Promise<InboxBrief |
   }
   return null;
 }
-
-

@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
-import { interceptLLMCalls, mockRenderPayload, SPEC_ID, ASSET_ID } from "./fixtures";
+import { expect, test } from "@playwright/test";
+import { ASSET_ID, interceptLLMCalls, mockRenderPayload, SPEC_ID } from "./fixtures";
 
 /**
  * run-report.spec.ts — flow complet "Lancer un rapport".
@@ -106,7 +106,10 @@ test.describe("Run Report — flow Founder Cockpit", () => {
       .or(page.locator('[data-testid="report-narration"]'));
 
     // Non-bloquant si le composant n'affiche pas la narration directement
-    const visible = await narrationEl.first().isVisible().catch(() => false);
+    const visible = await narrationEl
+      .first()
+      .isVisible()
+      .catch(() => false);
     if (!visible) {
       console.info("[run-report] narration non visible dans le DOM — OK si rendue ailleurs");
     }
@@ -185,7 +188,11 @@ test.describe("Run Report — edge cases réseau", () => {
       }),
     );
     await page.route("**/api/v2/threads*", (route) =>
-      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ threads: [] }) }),
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ threads: [] }),
+      }),
     );
     await page.route("**/api/v2/right-panel*", (route) =>
       route.fulfill({
@@ -209,10 +216,18 @@ test.describe("Run Report — edge cases réseau", () => {
       }),
     );
     await page.route(`**/api/v2/reports/${SPEC_ID}/run`, (route) =>
-      route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ error: "internal" }) }),
+      route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({ error: "internal" }),
+      }),
     );
     await page.route("**/api/v2/threads/*/messages*", (route) =>
-      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ messages: [] }) }),
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ messages: [] }),
+      }),
     );
 
     await page.goto("/");

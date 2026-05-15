@@ -12,15 +12,15 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import type { UnifiedConnectorRecord, UnifiedConnectorStatus } from "./types";
-import { getConnectionsByScope } from "../control-plane/store";
-import { registerProviderUsage } from "../control-plane/register";
 import {
   getAllProviders,
   getConnectableProviders,
-  getProviderLabel,
   getProviderCapabilitiesFromRegistry,
+  getProviderLabel,
 } from "@/lib/providers/registry";
+import { registerProviderUsage } from "../control-plane/register";
+import { getConnectionsByScope } from "../control-plane/store";
+import type { UnifiedConnectorRecord, UnifiedConnectorStatus } from "./types";
 
 interface AuthRecord {
   provider: string;
@@ -111,9 +111,9 @@ export async function getUnifiedConnectors(input: {
       reconciliationNote = "Auth token exists but control-plane record missing — auto-healing";
       void healControlPlane(provider, input);
     } else if (authConnected && cpExists && !cpConnected) {
-      if (cp!.status === "degraded" || cp!.status === "error") {
+      if (cp?.status === "degraded" || cp?.status === "error") {
         status = "degraded";
-        reconciliationNote = `Auth exists but control-plane reports ${cp!.status}`;
+        reconciliationNote = `Auth exists but control-plane reports ${cp?.status}`;
       } else {
         status = "connected";
         isDiverged = true;
@@ -128,7 +128,7 @@ export async function getUnifiedConnectors(input: {
         status = "connected";
       }
     } else if (cpExists && !cpConnected) {
-      status = cp!.status === "pending_auth" ? "pending_auth" : "disconnected";
+      status = cp?.status === "pending_auth" ? "pending_auth" : "disconnected";
     } else {
       status = canConnect ? "disconnected" : "coming_soon";
     }

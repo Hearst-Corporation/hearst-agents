@@ -2,7 +2,7 @@
  * kg-ingest-pipeline — extraction + persistence d'un turn de conversation.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { extractEntities, upsertNode, upsertEdge } = vi.hoisted(() => ({
   extractEntities: vi.fn(),
@@ -15,10 +15,7 @@ vi.mock("@/lib/memory/kg", async (importOriginal) => {
   return { ...actual, extractEntities, upsertNode, upsertEdge };
 });
 
-import {
-  ingestConversationTurn,
-  fireAndForgetIngestTurn,
-} from "@/lib/memory/kg-ingest-pipeline";
+import { fireAndForgetIngestTurn, ingestConversationTurn } from "@/lib/memory/kg-ingest-pipeline";
 
 describe("ingestConversationTurn", () => {
   beforeEach(() => {
@@ -57,13 +54,9 @@ describe("ingestConversationTurn", () => {
         { type: "person", label: "Adrien", properties: {} },
         { type: "company", label: "ACME", properties: {} },
       ],
-      relations: [
-        { source_label: "Adrien", target_label: "ACME", type: "works_at", weight: 1.0 },
-      ],
+      relations: [{ source_label: "Adrien", target_label: "ACME", type: "works_at", weight: 1.0 }],
     });
-    upsertNode
-      .mockResolvedValueOnce("node-1")
-      .mockResolvedValueOnce("node-2");
+    upsertNode.mockResolvedValueOnce("node-1").mockResolvedValueOnce("node-2");
     upsertEdge.mockResolvedValue(undefined);
 
     const res = await ingestConversationTurn({
@@ -95,9 +88,7 @@ describe("ingestConversationTurn", () => {
       ],
       relations: [],
     });
-    upsertNode
-      .mockRejectedValueOnce(new Error("DB down"))
-      .mockResolvedValueOnce("node-2");
+    upsertNode.mockRejectedValueOnce(new Error("DB down")).mockResolvedValueOnce("node-2");
 
     const res = await ingestConversationTurn({
       userId: "u1",
@@ -112,9 +103,7 @@ describe("ingestConversationTurn", () => {
   it("relation référençant un label non créé → skip silencieux", async () => {
     extractEntities.mockResolvedValue({
       entities: [{ type: "person", label: "Adrien", properties: {} }],
-      relations: [
-        { source_label: "Adrien", target_label: "Inconnu", type: "knows", weight: 1.0 },
-      ],
+      relations: [{ source_label: "Adrien", target_label: "Inconnu", type: "knows", weight: 1.0 }],
     });
     upsertNode.mockResolvedValueOnce("n1");
 

@@ -2,16 +2,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useCanvasStore } from "./store";
-import { useReplay } from "./use-replay";
-import { useEventStream } from "./use-event-stream";
 import FlowCanvas from "./FlowCanvas";
 import FlowLegend from "./FlowLegend";
 import NodeDetailPanel from "./NodeDetailPanel";
 import RunRail from "./RunRail";
 import RunWaterfall from "./RunWaterfall";
-import { NODES } from "./topology";
 import { fetchAdminJson } from "./safe-admin-fetch";
+import { useCanvasStore } from "./store";
+import { NODES } from "./topology";
+import { useEventStream } from "./use-event-stream";
+import { useReplay } from "./use-replay";
 
 interface PersistedEvent {
   type: string;
@@ -87,9 +87,7 @@ export default function CanvasShell() {
     }
   };
 
-  const selectedNode = selectedNodeId
-    ? NODES.find((n) => n.id === selectedNodeId) ?? null
-    : null;
+  const selectedNode = selectedNodeId ? (NODES.find((n) => n.id === selectedNodeId) ?? null) : null;
 
   const showIdleHint = mode !== "live" && !selectedRunId;
   const showWaterfall = !!selectedRunId;
@@ -108,7 +106,8 @@ export default function CanvasShell() {
         <span className="t-28 text-text-faint">⌥</span>
         <p className="t-15 font-medium text-text">Vue desktop requise</p>
         <p className="t-13 text-text-muted max-w-xs">
-          Le canvas pipeline est optimisé pour les écrans larges. Ouvre cette page depuis un ordinateur.
+          Le canvas pipeline est optimisé pour les écrans larges. Ouvre cette page depuis un
+          ordinateur.
         </p>
       </div>
 
@@ -200,10 +199,7 @@ export default function CanvasShell() {
             style={{ width: asideCollapsed ? "0" : "var(--width-context)" }}
           >
             <section className="flex-[3] min-h-0 flex flex-col overflow-hidden border-b border-line bg-surface">
-              <NodeDetailPanel
-                node={selectedNode}
-                onClear={() => setSelectedNodeId(null)}
-              />
+              <NodeDetailPanel node={selectedNode} onClear={() => setSelectedNodeId(null)} />
             </section>
             <section className="flex-[2] min-h-0 flex flex-col overflow-hidden">
               <RunRail onSelect={onSelectRun} />

@@ -33,11 +33,9 @@ export function usePreMeetingActive(): {
     const participants = Array.isArray(meta.participants)
       ? (meta.participants as PreMeetingNotificationMeta["participants"])
       : [];
-    const suggestedAgenda =
-      typeof meta.suggestedAgenda === "string" ? meta.suggestedAgenda : "";
+    const suggestedAgenda = typeof meta.suggestedAgenda === "string" ? meta.suggestedAgenda : "";
     const eventId = typeof meta.eventId === "string" ? meta.eventId : "";
-    const generatedAt =
-      typeof meta.generatedAt === "number" ? meta.generatedAt : startsAt;
+    const generatedAt = typeof meta.generatedAt === "number" ? meta.generatedAt : startsAt;
 
     // Le titre est dans la notif title : "Pre-meeting · <titre>"
     const eventTitle = n.title.replace(/^Pre-meeting\s*·\s*/i, "").trim() || "(sans titre)";

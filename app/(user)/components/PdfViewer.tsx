@@ -63,12 +63,7 @@ export function PdfViewer({
           Ce navigateur ne peut pas afficher le PDF en ligne.
         </p>
         {fallbackHref && (
-          <a
-            href={fallbackHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="read-more"
-          >
+          <a href={fallbackHref} target="_blank" rel="noopener noreferrer" className="read-more">
             Télécharger le PDF →
           </a>
         )}

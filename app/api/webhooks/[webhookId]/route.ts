@@ -8,9 +8,9 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/platform/auth/options";
 import {
+  deleteWebhook,
   listWebhooks,
   updateWebhook,
-  deleteWebhook,
   updateWebhookSchema,
 } from "@/lib/webhooks/store";
 
@@ -21,10 +21,7 @@ function getTenantId(session: unknown): string | null {
 
 type RouteContext = { params: Promise<{ webhookId: string }> };
 
-export async function GET(
-  _req: Request,
-  context: RouteContext,
-): Promise<NextResponse> {
+export async function GET(_req: Request, context: RouteContext): Promise<NextResponse> {
   const { webhookId } = await context.params;
   const session = await getServerSession(authOptions);
   const tenantId = getTenantId(session);
@@ -48,10 +45,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: Request,
-  context: RouteContext,
-): Promise<NextResponse> {
+export async function PUT(req: Request, context: RouteContext): Promise<NextResponse> {
   const { webhookId } = await context.params;
   const session = await getServerSession(authOptions);
   const tenantId = getTenantId(session);
@@ -88,10 +82,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  _req: Request,
-  context: RouteContext,
-): Promise<NextResponse> {
+export async function DELETE(_req: Request, context: RouteContext): Promise<NextResponse> {
   const { webhookId } = await context.params;
   const session = await getServerSession(authOptions);
   const tenantId = getTenantId(session);

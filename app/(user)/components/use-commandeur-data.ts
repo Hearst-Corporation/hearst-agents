@@ -91,10 +91,10 @@ export function useCommandeurData(query: string, enabled: boolean) {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(
-          `/api/v2/search?q=${encodeURIComponent(trimmed)}&limit=20`,
-          { credentials: "include", signal: controller.signal },
-        );
+        const res = await fetch(`/api/v2/search?q=${encodeURIComponent(trimmed)}&limit=20`, {
+          credentials: "include",
+          signal: controller.signal,
+        });
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }

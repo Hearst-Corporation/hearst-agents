@@ -8,9 +8,9 @@
  *  - startPolling() legacy appelle fetchNotifications + démarre le polling
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { useNotificationsStore } from "@/stores/notifications";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AppNotification } from "@/stores/notifications";
+import { useNotificationsStore } from "@/stores/notifications";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -299,9 +299,6 @@ describe("fallback si env Supabase manquant", () => {
     useNotificationsStore.getState().startRealtime(TENANT_ID);
 
     expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), 60_000);
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Supabase client indisponible"),
-    );
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("Supabase client indisponible"));
   });
 });
-

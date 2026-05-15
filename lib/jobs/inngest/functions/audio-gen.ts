@@ -9,12 +9,12 @@
  * Idempotency : event.id = deterministicHash(payload) posé par enqueueJob()
  */
 
-import { inngest } from "@/lib/jobs/inngest/client";
-import { synthesizeSpeech } from "@/lib/capabilities/providers/elevenlabs";
 import { updateVariant } from "@/lib/assets/variants";
-import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
-import { computeGenerationHash, findDuplicateAsset } from "@/lib/engine/runtime/assets/dedup";
+import { synthesizeSpeech } from "@/lib/capabilities/providers/elevenlabs";
 import { settleCredits } from "@/lib/credits/client";
+import { computeGenerationHash, findDuplicateAsset } from "@/lib/engine/runtime/assets/dedup";
+import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { inngest } from "@/lib/jobs/inngest/client";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { AudioGenInput } from "@/lib/jobs/types";
 
@@ -34,9 +34,7 @@ export const audioGenFunction = inngest.createFunction(
 
     const variantId =
       (payload as AudioGenInput & { variantId?: string }).variantId ??
-      (typeof payload === "object" &&
-      payload !== null &&
-      "metadata" in payload
+      (typeof payload === "object" && payload !== null && "metadata" in payload
         ? (
             payload as {
               metadata?: { variantId?: string };
@@ -56,7 +54,10 @@ export const audioGenFunction = inngest.createFunction(
     if (payload.tenantId) {
       const existingKey = await findDuplicateAsset(payload.tenantId, generationHash);
       if (existingKey) {
-        console.info("[audio-gen/Inngest] dedup hit — skipping generation", { existingKey, hash: generationHash });
+        console.info("[audio-gen/Inngest] dedup hit — skipping generation", {
+          existingKey,
+          hash: generationHash,
+        });
         return {
           assetId: payload.assetId,
           variantId,

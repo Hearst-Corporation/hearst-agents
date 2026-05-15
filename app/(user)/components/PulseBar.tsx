@@ -17,18 +17,18 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { useRuntimeStore } from "@/stores/runtime";
-import { useStageStore } from "@/stores/stage";
-import { useNavigationStore } from "@/stores/navigation";
-import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import { useFocusMode } from "@/stores/focus-mode";
+import { useNavigationStore } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
 import { useServicesStore } from "@/stores/services";
+import { useStageStore } from "@/stores/stage";
+import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import {
-  GhostIconMenu,
   GhostIconCamera,
+  GhostIconCard,
+  GhostIconMenu,
   GhostIconTarget,
   GhostIconWave,
-  GhostIconCard,
 } from "./ghost-icons";
 import { NotificationBell } from "./NotificationBell";
 import { SpaceSelector } from "./SpaceSelector";
@@ -48,12 +48,7 @@ interface ConnectionsMeta {
 
 interface AmbientSignal {
   id: string;
-  kind:
-    | "mission_failed"
-    | "oauth_expired"
-    | "brief_stale"
-    | "variant_timeout"
-    | "mission_silent";
+  kind: "mission_failed" | "oauth_expired" | "brief_stale" | "variant_timeout" | "mission_silent";
   narration: string;
   detectedAt: string;
   ctaHref?: string;
@@ -99,7 +94,10 @@ export function PulseBar() {
     let cancelled = false;
     async function refreshConnections() {
       try {
-        const r = await fetch("/api/v2/user/connections", { cache: "no-store", credentials: "include" });
+        const r = await fetch("/api/v2/user/connections", {
+          cache: "no-store",
+          credentials: "include",
+        });
         if (!r.ok) return;
         const data = (await r.json()) as { services?: unknown };
         if (!cancelled && Array.isArray(data?.services)) {
@@ -239,9 +237,7 @@ export function PulseBar() {
          Q3-B (2026-05-10) : ajout d'un mini-bouton "Voir tous" sur hover
          qui ouvre le SignalBoardStage en drill-down. Le clic principal
          garde le ctaHref direct — le bouton "Voir tous" est secondaire. */}
-      {currentSignal && (
-        <AmbientWhisper key={currentSignal.id} signal={currentSignal} />
-      )}
+      {currentSignal && <AmbientWhisper key={currentSignal.id} signal={currentSignal} />}
 
       {/* Droite : run/voice/credits/profile (tout conditionnel).
          Pivot UI 2026-05-01 : on retire les labels mono caps tracking-marquee
@@ -287,9 +283,7 @@ export function PulseBar() {
             <span className="t-11 font-mono tabular-nums text-text-soft">
               {connections.connected}
             </span>
-            <span className="t-11 font-light text-text-faint">
-              / {connections.total} services
-            </span>
+            <span className="t-11 font-light text-text-faint">/ {connections.total} services</span>
           </a>
         )}
 
@@ -437,17 +431,10 @@ function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
         }}
         aria-hidden
       />
-      <span
-        className="t-11 font-light truncate"
-        style={{ color: "var(--text-faint)" }}
-      >
+      <span className="t-11 font-light truncate" style={{ color: "var(--text-faint)" }}>
         {signal.narration}
       </span>
-      <span
-        className="t-11 shrink-0"
-        aria-hidden
-        style={{ color: "var(--text-faint)" }}
-      >
+      <span className="t-11 shrink-0" aria-hidden style={{ color: "var(--text-faint)" }}>
         →
       </span>
     </>
@@ -459,8 +446,7 @@ function AmbientWhisper({ signal }: { signal: AmbientSignal }) {
     setMode({ mode: "signal", selectedSignalId: signal.id });
   };
 
-  const groupClass =
-    "hidden md:flex items-center min-w-0 max-w-sm group transition-opacity";
+  const groupClass = "hidden md:flex items-center min-w-0 max-w-sm group transition-opacity";
   const groupStyle: React.CSSProperties = {
     gap: "var(--space-2)",
     opacity: visible ? 1 : 0,

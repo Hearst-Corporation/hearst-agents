@@ -4,8 +4,8 @@
  * On mock le storage et on bypass le fetch via `bufferOverride`.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Buffer } from "node:buffer";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const uploadFn = vi.fn(async (key: string, buf: Buffer) => ({
   url: `https://cdn.test/${key}`,
@@ -24,7 +24,7 @@ import {
   persistExtraction,
   persistSessionReport,
 } from "@/lib/browser/screenshot";
-import { getAsset, clearAllAssets } from "@/lib/engine/runtime/assets/create-asset";
+import { clearAllAssets, getAsset } from "@/lib/engine/runtime/assets/create-asset";
 
 const scope = {
   userId: "user-1",
@@ -59,12 +59,10 @@ describe("captureScreenshot", () => {
 
 describe("persistExtraction", () => {
   it("stocke un asset JSON kind=extract", async () => {
-    const asset = await persistExtraction(
-      "sess-1",
-      { title: "Hello" },
-      scope,
-      { instruction: "extract title", schema: { title: "string" } },
-    );
+    const asset = await persistExtraction("sess-1", { title: "Hello" }, scope, {
+      instruction: "extract title",
+      schema: { title: "string" },
+    });
     expect(asset.type).toBe("json");
     expect(asset.metadata?.kind).toBe("extract");
     expect(asset.metadata?.data).toEqual({ title: "Hello" });

@@ -41,10 +41,7 @@ export async function GET() {
   try {
     // Google : si on a un refresh ou access token non révoqué, le SSO est valide.
     const googleMeta = await getTokenMeta(userId, "google");
-    if (
-      !googleMeta.revoked &&
-      (googleMeta.tokens.refreshToken || googleMeta.tokens.accessToken)
-    ) {
+    if (!googleMeta.revoked && (googleMeta.tokens.refreshToken || googleMeta.tokens.accessToken)) {
       for (const slug of NATIVE_GOOGLE_SLUGS) {
         connections.push({
           id: `native::google::${slug}`,
@@ -58,10 +55,7 @@ export async function GET() {
     // Microsoft : idem (Azure AD provider). Si le user s'est loggé Outlook
     // SSO, on flag ces toolkits.
     const msMeta = await getTokenMeta(userId, "microsoft");
-    if (
-      !msMeta.revoked &&
-      (msMeta.tokens.refreshToken || msMeta.tokens.accessToken)
-    ) {
+    if (!msMeta.revoked && (msMeta.tokens.refreshToken || msMeta.tokens.accessToken)) {
       for (const slug of NATIVE_MICROSOFT_SLUGS) {
         connections.push({
           id: `native::microsoft::${slug}`,

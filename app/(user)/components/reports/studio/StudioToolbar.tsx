@@ -36,9 +36,9 @@ export interface StudioToolbarProps {
 }
 
 const SCHEDULE_PRESETS: ReadonlyArray<{ label: string; cron: string }> = [
-  { label: "Quotidien · 09h",        cron: "0 9 * * *" },
-  { label: "Hebdo · Lun 09h",        cron: "0 9 * * 1" },
-  { label: "Mensuel · 1er à 09h",    cron: "0 9 1 * *" },
+  { label: "Quotidien · 09h", cron: "0 9 * * *" },
+  { label: "Hebdo · Lun 09h", cron: "0 9 * * 1" },
+  { label: "Mensuel · 1er à 09h", cron: "0 9 1 * *" },
 ];
 
 export function StudioToolbar({
@@ -119,7 +119,7 @@ export function StudioToolbar({
           className="t-9 font-mono uppercase"
           style={{
             color: "var(--text-muted)",
-                      }}
+          }}
         >
           Studio
         </span>
@@ -207,7 +207,7 @@ export function StudioToolbar({
             className="t-9 font-mono uppercase"
             style={{
               color: "var(--text-muted)",
-                          }}
+            }}
           >
             {savedSpecId ? "Mise à jour" : "Enregistrer"}
           </span>
@@ -287,7 +287,7 @@ export function StudioToolbar({
             className="t-9 font-mono uppercase"
             style={{
               color: "var(--text-muted)",
-                          }}
+            }}
           >
             Programmer
           </span>

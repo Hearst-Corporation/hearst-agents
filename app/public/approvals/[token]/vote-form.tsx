@@ -19,7 +19,12 @@ interface ApprovalVoteFormProps {
 type SubmitState =
   | { kind: "idle" }
   | { kind: "submitting" }
-  | { kind: "success"; vote: "approved" | "rejected"; sessionApproved: boolean; sessionRejected: boolean }
+  | {
+      kind: "success";
+      vote: "approved" | "rejected";
+      sessionApproved: boolean;
+      sessionRejected: boolean;
+    }
   | { kind: "error"; message: string };
 
 export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps) {
@@ -53,7 +58,7 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
           not_found: "Demande d'approbation introuvable.",
         };
         const message = data.error
-          ? errorLabels[data.error] ?? `Erreur : ${data.error}`
+          ? (errorLabels[data.error] ?? `Erreur : ${data.error}`)
           : `Erreur HTTP ${res.status}`;
         setState({ kind: "error", message });
         return;
@@ -84,11 +89,8 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
         }}
       >
         <p className="t-15" style={{ color: "var(--text)", margin: 0 }}>
-          Votre vote{" "}
-          <strong>
-            {state.vote === "approved" ? "Approuver" : "Rejeter"}
-          </strong>{" "}
-          a été enregistré.
+          Votre vote <strong>{state.vote === "approved" ? "Approuver" : "Rejeter"}</strong> a été
+          enregistré.
         </p>
         {state.sessionApproved ? (
           <p
@@ -200,9 +202,7 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
             padding: "var(--space-3) var(--space-5)",
             background: "transparent",
             color: "var(--text)",
-            border: rejectPreselect
-              ? "2px solid var(--text)"
-              : "1px solid var(--border-subtle)",
+            border: rejectPreselect ? "2px solid var(--text)" : "1px solid var(--border-subtle)",
             borderRadius: "var(--radius-pill, 9999px)",
             fontWeight: 500,
             fontSize: "14px",

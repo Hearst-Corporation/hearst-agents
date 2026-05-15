@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
-import { toast } from "@/app/hooks/use-toast";
-import { StageActionBar, type StageAction } from "./StageActionBar";
 import { Action } from "../ui";
+import { type StageAction, StageActionBar } from "./StageActionBar";
 
 interface MeetingStageProps {
   meetingId: string;
@@ -109,10 +109,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
       }
       setMode({ mode: "meeting", meetingId: data.meetingId });
     } catch (err) {
-      toast.error(
-        "Échec lancement bot",
-        err instanceof Error ? err.message : String(err),
-      );
+      toast.error("Échec lancement bot", err instanceof Error ? err.message : String(err));
     } finally {
       setStarting(false);
     }
@@ -126,10 +123,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
       toast.info("Bot arrêté", "Le bot quitte la réunion.");
       setMode({ mode: "meeting", meetingId: "" });
     } catch (err) {
-      toast.error(
-        "Échec arrêt bot",
-        err instanceof Error ? err.message : String(err),
-      );
+      toast.error("Échec arrêt bot", err instanceof Error ? err.message : String(err));
     } finally {
       setStopping(false);
     }
@@ -187,10 +181,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
         : undefined;
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
@@ -198,16 +189,12 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
               className="rounded-pill bg-(--accent-teal) animate-pulse halo-dot"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-(--accent-teal)">
-              MEETING
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">MEETING</span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
             />
-            <span className="t-11 font-light text-text-muted">
-              {headerLabel}
-            </span>
+            <span className="t-11 font-light text-text-muted">{headerLabel}</span>
           </>
         }
         primary={meetingPrimary}
@@ -230,13 +217,9 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
             >
               Aucun meeting actif
             </p>
-            <p
-              className="t-13 text-text-muted"
-              style={{ lineHeight: "var(--leading-base)" }}
-            >
-              Colle l{"'"}URL d{"'"}un meeting Zoom, Meet ou Teams. L
-              {"'"}agent rejoint, transcrit en temps réel et détecte les{" "}
-              <em>action items</em>.
+            <p className="t-13 text-text-muted" style={{ lineHeight: "var(--leading-base)" }}>
+              Colle l{"'"}URL d{"'"}un meeting Zoom, Meet ou Teams. L{"'"}agent rejoint, transcrit
+              en temps réel et détecte les <em>action items</em>.
             </p>
             <form
               onSubmit={(e) => {
@@ -257,10 +240,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                 }}
                 disabled={starting}
               />
-              <fieldset
-                className="flex items-center justify-center gap-2"
-                disabled={starting}
-              >
+              <fieldset className="flex items-center justify-center gap-2" disabled={starting}>
                 <legend className="sr-only">Langue de transcription</legend>
                 {(["fr", "en"] as const).map((code) => (
                   <button
@@ -298,14 +278,10 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
             className="basis-3/5 flex flex-col min-h-0 border-r border-(--border-default)"
             style={{ padding: "var(--space-6)", gap: "var(--space-4)" }}
           >
-            <header className="t-11 font-light text-text-faint">
-              TRANSCRIPT
-            </header>
+            <header className="t-11 font-light text-text-faint">TRANSCRIPT</header>
             <div className="flex-1 min-h-0 overflow-y-auto">
               {transcript.trim().length === 0 ? (
-                <p className="t-11 font-light text-text-faint">
-                  En attente du transcript…
-                </p>
+                <p className="t-11 font-light text-text-faint">En attente du transcript…</p>
               ) : (
                 <pre className="t-13 font-light text-text-muted whitespace-pre-wrap font-sans">
                   {transcript}
@@ -348,9 +324,7 @@ export function MeetingStage({ meetingId }: MeetingStageProps) {
                         <p className="t-13 text-text">{item.action}</p>
                         {(item.owner || item.deadline) && (
                           <p className="t-11 font-light text-text-faint">
-                            {[item.owner, item.deadline]
-                              .filter(Boolean)
-                              .join(" · ")}
+                            {[item.owner, item.deadline].filter(Boolean).join(" · ")}
                           </p>
                         )}
                       </div>

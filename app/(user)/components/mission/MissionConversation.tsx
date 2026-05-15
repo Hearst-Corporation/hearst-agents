@@ -42,10 +42,7 @@ const MSG_TIME_FMT = new Intl.DateTimeFormat("fr-FR", {
   timeZone: "Europe/Paris",
 });
 
-export function MissionConversation({
-  missionId,
-  onRunTriggered,
-}: MissionConversationProps) {
+export function MissionConversation({ missionId, onRunTriggered }: MissionConversationProps) {
   const [context, setContext] = useState<MissionContextDto | null>(null);
   const [loading, setLoading] = useState(true);
   const [draft, setDraft] = useState("");
@@ -76,7 +73,7 @@ export function MissionConversation({
         credentials: "include",
       }).catch(() => null);
       if (cancelled) return;
-      if (res && res.ok) {
+      if (res?.ok) {
         const data = (await res.json()) as { context: MissionContextDto };
         if (!cancelled) setContext(data.context);
       }
@@ -107,9 +104,7 @@ export function MissionConversation({
       metadata: { pending: true },
     };
     setContext((prev) =>
-      prev
-        ? { ...prev, recentMessages: [...prev.recentMessages, optimistic] }
-        : prev,
+      prev ? { ...prev, recentMessages: [...prev.recentMessages, optimistic] } : prev,
     );
     setDraft("");
 
@@ -186,10 +181,7 @@ export function MissionConversation({
           ))}
         </ul>
       ) : (
-        <p
-          className="t-11 font-light text-text-faint"
-          style={{ marginBottom: "var(--space-6)" }}
-        >
+        <p className="t-11 font-light text-text-faint" style={{ marginBottom: "var(--space-6)" }}>
           Aucun échange enregistré. Pose une question pour démarrer le fil.
         </p>
       )}
@@ -218,9 +210,7 @@ export function MissionConversation({
           }}
         />
         <div className="flex items-center justify-between">
-          <span className="t-9 font-light text-text-faint">
-            ⌘ + Entrée pour envoyer
-          </span>
+          <span className="t-9 font-light text-text-faint">⌘ + Entrée pour envoyer</span>
           <button
             type="submit"
             disabled={submitting || draft.trim().length === 0}
@@ -229,13 +219,8 @@ export function MissionConversation({
               padding: "var(--space-2) var(--space-5)",
               borderRadius: "var(--radius-pill)",
               background:
-                submitting || draft.trim().length === 0
-                  ? "var(--bg-soft)"
-                  : "var(--accent-teal)",
-              color:
-                submitting || draft.trim().length === 0
-                  ? "var(--text-faint)"
-                  : "var(--bg)",
+                submitting || draft.trim().length === 0 ? "var(--bg-soft)" : "var(--accent-teal)",
+              color: submitting || draft.trim().length === 0 ? "var(--text-faint)" : "var(--bg)",
               opacity: submitting ? 0.6 : 1,
             }}
           >
@@ -267,14 +252,8 @@ function MessageRow({ message }: { message: MissionMessage }) {
         opacity: message.metadata?.pending ? 0.6 : 1,
       }}
     >
-      <div
-        className="flex items-baseline"
-        style={{ gap: "var(--space-3)" }}
-      >
-        <span
-          className="t-11 font-medium"
-          style={{ color: labelColor }}
-        >
+      <div className="flex items-baseline" style={{ gap: "var(--space-3)" }}>
+        <span className="t-11 font-medium" style={{ color: labelColor }}>
           {label}
         </span>
         <span className="t-9 font-light text-text-faint">
@@ -316,10 +295,7 @@ function SummaryRendered({ text }: { text: string }) {
           const [, title, body] = match;
           return (
             <div key={i} className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-              <span
-                className="t-9 font-medium"
-                style={{ color: "var(--text-l2)" }}
-              >
+              <span className="t-9 font-medium" style={{ color: "var(--text-l2)" }}>
                 {title}
               </span>
               <p

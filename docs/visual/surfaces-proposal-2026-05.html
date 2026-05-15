@@ -878,21 +878,21 @@
   ────────────────────────────────────────────────── */
   let currentId = null;
 
-  function selectPalette(id) {
+  function _selectPalette(id) {
     if (currentId === id) {
-      document.getElementById("card-" + id).classList.remove("selected");
+      document.getElementById(`card-${id}`).classList.remove("selected");
       document.getElementById("detailPanel").classList.remove("visible");
       currentId = null;
       return;
     }
 
     if (currentId) {
-      document.getElementById("card-" + currentId).classList.remove("selected");
+      document.getElementById(`card-${currentId}`).classList.remove("selected");
     }
 
     currentId = id;
     const p = PALETTES.find(x => x.id === id);
-    document.getElementById("card-" + id).classList.add("selected");
+    document.getElementById(`card-${id}`).classList.add("selected");
 
     document.getElementById("detailName").textContent = p.name;
     document.getElementById("detailChar").textContent = p.character;

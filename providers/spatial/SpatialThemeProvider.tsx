@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, ReactNode } from 'react';
-import { SPATIAL_THEME_DARK } from '@/lib/spatial/constants';
+import { createContext, type ReactNode, useContext } from "react";
+import { SPATIAL_THEME_DARK } from "@/lib/spatial/constants";
 
 interface SpatialThemeContextType {
   isDark: boolean;
@@ -11,7 +11,7 @@ interface SpatialThemeContextType {
 
 const SpatialThemeContext = createContext<SpatialThemeContextType>({
   isDark: true,
-  accentColor: '#ffffff',
+  accentColor: "#ffffff",
   theme: SPATIAL_THEME_DARK,
 });
 
@@ -20,7 +20,7 @@ export const useSpatialTheme = () => useContext(SpatialThemeContext);
 export function SpatialThemeProvider({ children }: { children: ReactNode }) {
   return (
     <SpatialThemeContext.Provider
-      value={{ isDark: true, accentColor: '#ffffff', theme: SPATIAL_THEME_DARK }}
+      value={{ isDark: true, accentColor: "#ffffff", theme: SPATIAL_THEME_DARK }}
     >
       {children}
     </SpatialThemeContext.Provider>

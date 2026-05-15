@@ -7,7 +7,7 @@
  * pour les tests. La fonction extractBody reste privée dans gmail.ts.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 /**
  * Réplique locale de stripEmailHtml pour les tests unitaires.

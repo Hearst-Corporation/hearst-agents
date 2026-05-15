@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("react", async () => {
   const actual = await vi.importActual<typeof import("react")>("react");
@@ -76,9 +76,7 @@ describe("useBatchSubmit", () => {
       ok: true,
       json: async () => ({
         assetId: "a1",
-        jobs: [
-          { jobId: "j1", index: 0, variantId: "v1", kind: "video" },
-        ],
+        jobs: [{ jobId: "j1", index: 0, variantId: "v1", kind: "video" }],
       }),
     });
 
@@ -112,9 +110,7 @@ describe("useBatchSubmit", () => {
     await submit();
 
     expect(batch.setPhase).toHaveBeenCalledWith("error");
-    expect(batch.setErrorMsg).toHaveBeenCalledWith(
-      "Aucun variant n'a pu être enqueué",
-    );
+    expect(batch.setErrorMsg).toHaveBeenCalledWith("Aucun variant n'a pu être enqueué");
     expect(batch.subscribe).not.toHaveBeenCalled();
   });
 

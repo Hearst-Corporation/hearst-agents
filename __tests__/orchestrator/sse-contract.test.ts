@@ -6,7 +6,7 @@
  * must preserve these contracts or the frontend breaks.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 const REQUIRED_EVENT_TYPES = [
   "execution_mode_selected",
@@ -92,11 +92,7 @@ describe("SSE event contract — focal_object shape", () => {
 
 describe("SSE event contract — minimum event sequence", () => {
   it("a successful run must emit at minimum: execution_mode_selected + (text_delta | focal_object_ready) + run_completed", () => {
-    const minSequence = [
-      "execution_mode_selected",
-      "text_delta",
-      "run_completed",
-    ];
+    const minSequence = ["execution_mode_selected", "text_delta", "run_completed"];
     for (const evt of minSequence) {
       expect(REQUIRED_EVENT_TYPES).toContain(evt);
     }

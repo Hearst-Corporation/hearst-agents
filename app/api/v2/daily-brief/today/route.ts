@@ -10,9 +10,9 @@
  * par POST /generate.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import { loadDailyBriefForDate } from "@/lib/daily-brief/store";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -30,8 +30,7 @@ export async function GET(req: NextRequest) {
 
   const url = new URL(req.url);
   const dateParam = url.searchParams.get("date");
-  const targetDate =
-    dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : undefined;
+  const targetDate = dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam) ? dateParam : undefined;
 
   const brief = await loadDailyBriefForDate({
     userId: scope.userId,

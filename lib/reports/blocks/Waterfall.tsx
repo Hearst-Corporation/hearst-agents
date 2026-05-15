@@ -92,10 +92,7 @@ export function Waterfall({
       const from = acc.cumul;
       const to = acc.cumul + safeValue;
       return {
-        segments: [
-          ...acc.segments,
-          { from, to, value: safeValue, type: d.type, label: d.label },
-        ],
+        segments: [...acc.segments, { from, to, value: safeValue, type: d.type, label: d.label }],
         cumul: to,
       };
     },
@@ -216,10 +213,7 @@ export function Waterfall({
               >
                 {d.label}
               </span>
-              <span
-                className="t-11 font-mono tabular-nums"
-                style={{ color }}
-              >
+              <span className="t-11 font-mono tabular-nums" style={{ color }}>
                 {sign}
                 {fmt(d.value)}
               </span>

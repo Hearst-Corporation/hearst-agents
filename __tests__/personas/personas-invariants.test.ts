@@ -8,9 +8,9 @@
  *  4. getPersonaForSurface("voice") → retourne builtin:casual si aucune persona custom
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { buildPersonaAddon } from "@/lib/personas/system-prompt-addon";
+import { describe, expect, it, vi } from "vitest";
 import { BUILTIN_PERSONAS } from "@/lib/personas/defaults";
+import { buildPersonaAddon } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
 // ── Contrôleurs du mock Supabase ──────────────────────────────
@@ -157,7 +157,7 @@ describe("buildPersonaAddon — cap 1500 chars", () => {
     // Le body entre les balises ne dépasse pas 1500 chars
     const bodyMatch = addon.match(/<persona>\n([\s\S]*)\n<\/persona>/);
     expect(bodyMatch).not.toBeNull();
-    const body = bodyMatch![1]!;
+    const body = bodyMatch?.[1]!;
     expect(body.length).toBeLessThanOrEqual(1500);
   });
 

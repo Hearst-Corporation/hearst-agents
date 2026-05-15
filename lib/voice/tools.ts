@@ -12,18 +12,18 @@
  * meeting bot, persist asset, enqueue job) sans le pattern run/SSE.
  */
 
-import { randomUUID } from "crypto";
-import { createMeetingBot } from "@/lib/capabilities/providers/recall-ai";
+import { randomUUID } from "node:crypto";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant } from "@/lib/assets/variants";
+import { createMeetingBot } from "@/lib/capabilities/providers/recall-ai";
+import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { ImageGenInput } from "@/lib/jobs/types";
-import { executeComposioAction } from "@/lib/connectors/composio/client";
 import type { CanonicalScope } from "@/lib/platform/auth/scope";
 import type { StagePayload } from "@/stores/stage";
 import { isComposioToolName } from "./composio-bridge";
 
-export { voiceToolDefs, type VoiceToolDef } from "./tool-defs";
+export { type VoiceToolDef, voiceToolDefs } from "./tool-defs";
 
 export interface VoiceToolResult {
   /** Texte renvoyé au modèle Realtime via function_call_output. */
@@ -48,9 +48,7 @@ interface ExecuteVoiceToolInput {
   scope: CanonicalScope;
 }
 
-export async function executeVoiceTool(
-  input: ExecuteVoiceToolInput,
-): Promise<VoiceToolResult> {
+export async function executeVoiceTool(input: ExecuteVoiceToolInput): Promise<VoiceToolResult> {
   const { name, args, scope } = input;
   const startedAt = Date.now();
 

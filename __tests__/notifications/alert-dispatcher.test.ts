@@ -264,11 +264,7 @@ describe("dispatchAlerts — multi canaux", () => {
       now: 0,
     });
 
-    expect(out.results.map((r) => r.kind).sort()).toEqual([
-      "email",
-      "slack",
-      "webhook",
-    ]);
+    expect(out.results.map((r) => r.kind).sort()).toEqual(["email", "slack", "webhook"]);
     expect(out.anyDelivered).toBe(true);
     expect(fetchMock).toHaveBeenCalledTimes(2); // webhook + slack
     expect(emailSendMock).toHaveBeenCalledTimes(1);
@@ -300,7 +296,7 @@ describe("dispatchAlerts — webhook payload shape", () => {
     });
 
     expect(captured).not.toBeNull();
-    const body = captured!.body as {
+    const body = captured?.body as {
       v: number;
       tenantId: string;
       emittedAt: number;

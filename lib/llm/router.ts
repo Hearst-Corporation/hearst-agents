@@ -1,17 +1,29 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database, Json } from "../database.types";
-import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk, ModelProfileConfig } from "./types";
-import type { RunTracer } from "../engine/runtime/tracer";
-import { OpenAIProvider } from "./openai";
-import { AnthropicProvider } from "./anthropic";
-import { ComposerProvider } from "./composer";
-import { GeminiProvider } from "./gemini";
-import { scoreModels, selectModel, type ModelGoal, type ModelScore, type ModelSelection } from "../decisions/model-selector";
-import { CostLimitExceededError, RateLimitExceededError } from "./errors";
-import { defaultRateLimiter } from "./rate-limiter";
-import { defaultCircuitBreaker } from "./circuit-breaker";
-import { defaultMetrics } from "./metrics";
 import { logger } from "@/lib/observability/logger";
+import type { Database, Json } from "../database.types";
+import {
+  type ModelGoal,
+  type ModelScore,
+  type ModelSelection,
+  scoreModels,
+  selectModel,
+} from "../decisions/model-selector";
+import type { RunTracer } from "../engine/runtime/tracer";
+import { AnthropicProvider } from "./anthropic";
+import { defaultCircuitBreaker } from "./circuit-breaker";
+import { ComposerProvider } from "./composer";
+import { CostLimitExceededError, RateLimitExceededError } from "./errors";
+import { GeminiProvider } from "./gemini";
+import { defaultMetrics } from "./metrics";
+import { OpenAIProvider } from "./openai";
+import { defaultRateLimiter } from "./rate-limiter";
+import type {
+  ChatRequest,
+  ChatResponse,
+  LLMProvider,
+  ModelProfileConfig,
+  StreamChunk,
+} from "./types";
 
 const providers: Record<string, LLMProvider> = {};
 
@@ -59,10 +71,7 @@ function isTransientError(err: unknown): boolean {
   return /\b(429|500|502|503|504)\b/.test(err.message);
 }
 
-async function retryWithBackoff<T>(
-  fn: () => Promise<T>,
-  maxRetries = 3,
-): Promise<T> {
+async function retryWithBackoff<T>(fn: () => Promise<T>, maxRetries = 3): Promise<T> {
   let attempt = 0;
   while (true) {
     try {
@@ -70,7 +79,7 @@ async function retryWithBackoff<T>(
     } catch (e) {
       attempt++;
       if (!isTransientError(e) || attempt > maxRetries) throw e;
-      const base = Math.pow(2, attempt - 1) * 1000;
+      const base = 2 ** (attempt - 1) * 1000;
       const jitter = base * 0.2 * (Math.random() * 2 - 1);
       await new Promise((r) => setTimeout(r, base + jitter));
     }
@@ -83,7 +92,9 @@ export async function resolveModelProfile(
 ): Promise<ModelProfileConfig | null> {
   const { data } = await sb
     .from("model_profiles")
-    .select("provider, model, temperature, max_tokens, top_p, cost_per_1k_in, cost_per_1k_out, max_cost_per_run, fallback_profile_id")
+    .select(
+      "provider, model, temperature, max_tokens, top_p, cost_per_1k_in, cost_per_1k_out, max_cost_per_run, fallback_profile_id",
+    )
     .eq("id", profileId)
     .single();
 
@@ -191,9 +202,13 @@ export async function chatWithProfile(
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (!(e instanceof CostLimitExceededError)) {
-        const wasClosedBefore = defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
+        const wasClosedBefore =
+          defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
         defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
-        if (wasClosedBefore && defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN") {
+        if (
+          wasClosedBefore &&
+          defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN"
+        ) {
           defaultMetrics.incrementCounter("circuit_breaker_trip");
         }
       }
@@ -272,9 +287,13 @@ export async function* streamChatWithProfile(
       return;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      const wasClosedBefore = defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
+      const wasClosedBefore =
+        defaultCircuitBreaker.getState(profile.provider, tenantId) === "CLOSED";
       defaultCircuitBreaker.recordFailure(profile.provider, lastError, tenantId);
-      if (wasClosedBefore && defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN") {
+      if (
+        wasClosedBefore &&
+        defaultCircuitBreaker.getState(profile.provider, tenantId) === "OPEN"
+      ) {
         defaultMetrics.incrementCounter("circuit_breaker_trip");
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
@@ -406,16 +425,25 @@ export async function smartChat(
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (!(e instanceof CostLimitExceededError)) {
-        const wasClosedBefore = defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
+        const wasClosedBefore =
+          defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
         defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
-        if (wasClosedBefore && defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN") {
+        if (
+          wasClosedBefore &&
+          defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN"
+        ) {
           defaultMetrics.incrementCounter("circuit_breaker_trip");
         }
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
       logger.error(
-        { err: lastError, provider: attempt.provider, model: attempt.model, attempt: attemptIndex + 1 },
+        {
+          err: lastError,
+          provider: attempt.provider,
+          model: attempt.model,
+          attempt: attemptIndex + 1,
+        },
         "[router] smart-chat failed, trying fallback",
       );
       attemptIndex++;
@@ -496,15 +524,24 @@ export async function* smartStreamChat(
       return;
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      const wasClosedBefore = defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
+      const wasClosedBefore =
+        defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "CLOSED";
       defaultCircuitBreaker.recordFailure(attempt.provider, lastError, opts.tenantId);
-      if (wasClosedBefore && defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN") {
+      if (
+        wasClosedBefore &&
+        defaultCircuitBreaker.getState(attempt.provider, opts.tenantId) === "OPEN"
+      ) {
         defaultMetrics.incrementCounter("circuit_breaker_trip");
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
       logger.error(
-        { err: lastError, provider: attempt.provider, model: attempt.model, attempt: attemptIndex + 1 },
+        {
+          err: lastError,
+          provider: attempt.provider,
+          model: attempt.model,
+          attempt: attemptIndex + 1,
+        },
         "[router] smart-stream failed, trying fallback",
       );
       attemptIndex++;
@@ -547,9 +584,7 @@ function buildDecision(
   };
 }
 
-function buildSmartChain(
-  decision: ModelDecision,
-): Array<{ provider: string; model: string }> {
+function buildSmartChain(decision: ModelDecision): Array<{ provider: string; model: string }> {
   const chain: Array<{ provider: string; model: string }> = [];
 
   chain.push({ provider: decision.selected_provider, model: decision.selected_model });

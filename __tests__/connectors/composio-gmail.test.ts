@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { execute } = vi.hoisted(() => ({ execute: vi.fn() }));
 
@@ -8,7 +8,6 @@ vi.mock("@composio/core", () => {
     toolkits = { list: vi.fn(), get: vi.fn(), authorize: vi.fn() };
     connectedAccounts = { list: vi.fn(), delete: vi.fn() };
     create = vi.fn();
-    constructor(_opts: { apiKey?: string }) {}
   }
   return { Composio };
 });

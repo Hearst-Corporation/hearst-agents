@@ -1,6 +1,6 @@
-import { chromium } from "playwright";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { chromium } from "playwright";
 
 const URL_ARG = process.argv[2];
 const SLUG = process.argv[3];
@@ -23,12 +23,41 @@ await page.screenshot({ path: `${OUT}/reference-full.png`, fullPage: true });
 
 const tokens = await page.evaluate(() => {
   const SELECTORS = [
-    "body", "main", "header", "nav", "footer", "section", "article",
-    "h1", "h2", "h3", "h4", "h5", "h6", "p", "a", "small", "code",
-    "button", "input", "textarea", "select", "label",
-    "[class*='btn']", "[class*='button']", "[class*='card']", "[class*='primary']",
-    "[class*='accent']", "[class*='hero']", "[class*='cta']", "[class*='link']",
-    ".container", ".wrapper", ".grid", "[role='button']", "[role='link']",
+    "body",
+    "main",
+    "header",
+    "nav",
+    "footer",
+    "section",
+    "article",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "p",
+    "a",
+    "small",
+    "code",
+    "button",
+    "input",
+    "textarea",
+    "select",
+    "label",
+    "[class*='btn']",
+    "[class*='button']",
+    "[class*='card']",
+    "[class*='primary']",
+    "[class*='accent']",
+    "[class*='hero']",
+    "[class*='cta']",
+    "[class*='link']",
+    ".container",
+    ".wrapper",
+    ".grid",
+    "[role='button']",
+    "[role='link']",
   ];
 
   const seen = new Set();
@@ -91,8 +120,14 @@ const tokens = await page.evaluate(() => {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 24)
     .map(([color, count]) => ({ color, count }));
-  const topBg = Object.entries(allBg).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([c, n]) => ({ c, n }));
-  const topFg = Object.entries(allFg).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([c, n]) => ({ c, n }));
+  const topBg = Object.entries(allBg)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([c, n]) => ({ c, n }));
+  const topFg = Object.entries(allFg)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([c, n]) => ({ c, n }));
 
   const fonts = new Set();
   for (const el of Array.from(all).slice(0, 1000)) {
@@ -105,7 +140,10 @@ const tokens = await page.evaluate(() => {
     const fs = getComputedStyle(el).fontSize;
     if (fs) sizes[fs] = (sizes[fs] || 0) + 1;
   }
-  const topSizes = Object.entries(sizes).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([s, n]) => ({ s, n }));
+  const topSizes = Object.entries(sizes)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 12)
+    .map(([s, n]) => ({ s, n }));
 
   // Radii distribution
   const radii = {};
@@ -113,7 +151,10 @@ const tokens = await page.evaluate(() => {
     const r = getComputedStyle(el).borderRadius;
     if (r && r !== "0px") radii[r] = (radii[r] || 0) + 1;
   }
-  const topRadii = Object.entries(radii).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([r, n]) => ({ r, n }));
+  const topRadii = Object.entries(radii)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([r, n]) => ({ r, n }));
 
   // Shadows
   const shadows = {};
@@ -121,7 +162,10 @@ const tokens = await page.evaluate(() => {
     const sh = getComputedStyle(el).boxShadow;
     if (sh && sh !== "none") shadows[sh] = (shadows[sh] || 0) + 1;
   }
-  const topShadows = Object.entries(shadows).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([s, n]) => ({ s, n }));
+  const topShadows = Object.entries(shadows)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([s, n]) => ({ s, n }));
 
   const logo =
     document.querySelector("link[rel*='icon']")?.href ||
@@ -147,7 +191,21 @@ const tokens = await page.evaluate(() => {
     if (prop.startsWith("--")) cssVars[prop] = rootCs.getPropertyValue(prop);
   }
 
-  return { samples, palette, topBg, topFg, topSizes, topRadii, topShadows, fonts: [...fonts], logo, images, cssVars, title: document.title, host: location.host };
+  return {
+    samples,
+    palette,
+    topBg,
+    topFg,
+    topSizes,
+    topRadii,
+    topShadows,
+    fonts: [...fonts],
+    logo,
+    images,
+    cssVars,
+    title: document.title,
+    host: location.host,
+  };
 });
 
 await fs.writeFile(`${OUT}/raw.json`, JSON.stringify(tokens, null, 2));
@@ -158,7 +216,9 @@ if (tokens.logo) {
     const buf = Buffer.from(await res.arrayBuffer());
     const ext = (tokens.logo.split(".").pop() || "png").split("?")[0].slice(0, 5);
     await fs.writeFile(`${OUT}/assets/logo.${ext}`, buf);
-  } catch (e) { console.warn("logo fail", e.message); }
+  } catch (e) {
+    console.warn("logo fail", e.message);
+  }
 }
 
 for (const img of tokens.images.slice(0, 6)) {
@@ -167,7 +227,7 @@ for (const img of tokens.images.slice(0, 6)) {
     const buf = Buffer.from(await res.arrayBuffer());
     const name = path.basename(new URL(img.src).pathname).slice(0, 40) || "img.bin";
     await fs.writeFile(`${OUT}/assets/${name}`, buf);
-  } catch (e) {}
+  } catch (_e) {}
 }
 
 await browser.close();

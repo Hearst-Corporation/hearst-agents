@@ -5,14 +5,14 @@
  * de la route publique.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
+  _resetShareRateLimit,
+  checkShareRateLimit,
+  hashToken,
+  SHARE_RATE_LIMIT_PER_HOUR,
   signToken,
   verifyToken,
-  hashToken,
-  checkShareRateLimit,
-  _resetShareRateLimit,
-  SHARE_RATE_LIMIT_PER_HOUR,
 } from "@/lib/reports/sharing/signed-url";
 
 const VALID_SECRET = "a".repeat(32); // exactement 32 chars — seuil min
@@ -166,9 +166,7 @@ describe("sharing-invariants — headers route publique", () => {
     const savedSec = process.env.REPORT_SHARING_SECRET;
     process.env.REPORT_SHARING_SECRET = VALID_SECRET;
 
-    const { GET } = await import(
-      "@/app/api/public/reports/[token]/route"
-    );
+    const { GET } = await import("@/app/api/public/reports/[token]/route");
 
     const req = new Request("http://localhost/api/public/reports/malformed");
     const ctx = {

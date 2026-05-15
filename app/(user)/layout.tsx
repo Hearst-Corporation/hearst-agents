@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
 import { SessionProvider } from "next-auth/react";
-import { LeftPanelShell } from "./components/LeftPanelShell";
-import { RightPanel } from "./components/RightPanel";
-import { Commandeur } from "./components/Commandeur";
-import { ChatDock } from "./components/ChatDock";
-import { StageFooter } from "./components/StageFooter";
-import { PulseBar } from "./components/PulseBar";
-import { MobileBottomNav } from "./components/MobileBottomNav";
-import { VoicePulse } from "./components/voice/VoicePulse";
-import { FocusBadge } from "./components/FocusBadge";
-import { VideoQuickLaunch } from "./components/VideoQuickLaunch";
+import { Suspense, useEffect } from "react";
 import { ToastContainer } from "@/app/components/ToastContainer";
-import { useToast } from "@/app/hooks/use-toast";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
-import { useVoiceStore } from "@/stores/voice";
-import { useNotificationsStore } from "@/stores/notifications";
+import { useToast } from "@/app/hooks/use-toast";
 import { useFocusMode } from "@/stores/focus-mode";
+import { useNotificationsStore } from "@/stores/notifications";
+import { useVoiceStore } from "@/stores/voice";
+import { ChatDock } from "./components/ChatDock";
+import { Commandeur } from "./components/Commandeur";
+import { FocusBadge } from "./components/FocusBadge";
+import { LeftPanelShell } from "./components/LeftPanelShell";
+import { MobileBottomNav } from "./components/MobileBottomNav";
+import { PulseBar } from "./components/PulseBar";
+import { RightPanel } from "./components/RightPanel";
+import { StageFooter } from "./components/StageFooter";
+import { VideoQuickLaunch } from "./components/VideoQuickLaunch";
+import { VoicePulse } from "./components/voice/VoicePulse";
 
 function BriefingAutoTrigger() {
   useEffect(() => {
@@ -152,9 +152,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
               {/* Alerte tokens OAuth expirants : badge dot sur l'item Apps de
                  la TimelineRail (cf. useOAuthExpiry). Pas de banner global
                  — le signal vit dans le rail. */}
-              <main className="flex-1 flex flex-col min-w-0 min-h-0 relative">
-                {children}
-              </main>
+              <main className="flex-1 flex flex-col min-w-0 min-h-0 relative">{children}</main>
               {/* ChatDock utilise useSearchParams() — wrapper Suspense
                   obligatoire pour le build static (Next.js 16). */}
               <Suspense fallback={null}>

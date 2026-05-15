@@ -14,7 +14,7 @@
  * absent. Le pipeline tourne sans retrieved memory.
  */
 
-import { searchEmbeddings, type RetrievedEmbedding } from "@/lib/embeddings/store";
+import { type RetrievedEmbedding, searchEmbeddings } from "@/lib/embeddings/store";
 import { getRedis } from "@/lib/platform/redis/client";
 import { fenceUntrusted } from "./untrusted-fence";
 
@@ -24,7 +24,10 @@ const CACHE_TTL_S = 60;
 const DEFAULT_K = 5;
 
 // Fallback in-process pour dev local / Redis absent
-interface LocalEntry { text: string; expiresAt: number }
+interface LocalEntry {
+  text: string;
+  expiresAt: number;
+}
 const localCache = new Map<string, LocalEntry>();
 
 export interface RetrievedMemoryParams {
@@ -44,21 +47,27 @@ function hashMessage(s: string): string {
   return h.toString(16);
 }
 
-function labelFor(kind: RetrievedEmbedding["sourceKind"]): string {
+function _labelFor(kind: RetrievedEmbedding["sourceKind"]): string {
   switch (kind) {
-    case "message":    return "message";
-    case "asset":      return "asset";
-    case "briefing":   return "briefing";
-    case "kg_node":    return "kg";
-    case "transcript": return "transcript";
-    default:           return "mem";
+    case "message":
+      return "message";
+    case "asset":
+      return "asset";
+    case "briefing":
+      return "briefing";
+    case "kg_node":
+      return "kg";
+    case "transcript":
+      return "transcript";
+    default:
+      return "mem";
   }
 }
 
 function clampLine(text: string, max: number): string {
   const oneLine = text.replace(/\s+/g, " ").trim();
   if (oneLine.length <= max) return oneLine;
-  return oneLine.slice(0, max - 1) + "…";
+  return `${oneLine.slice(0, max - 1)}…`;
 }
 
 export function formatRetrievedItems(items: RetrievedEmbedding[]): string {
@@ -93,7 +102,11 @@ export function formatRetrievedItems(items: RetrievedEmbedding[]): string {
 async function cacheGet(key: string): Promise<string | null> {
   const redis = getRedis();
   if (redis) {
-    try { return await redis.get(`ltm:${key}`); } catch { /* fall through */ }
+    try {
+      return await redis.get(`ltm:${key}`);
+    } catch {
+      /* fall through */
+    }
   }
   const now = Date.now();
   const entry = localCache.get(key);
@@ -107,7 +120,9 @@ async function cacheSet(key: string, text: string): Promise<void> {
     try {
       await redis.setex(`ltm:${key}`, CACHE_TTL_S, text);
       return;
-    } catch { /* fall through to local */ }
+    } catch {
+      /* fall through to local */
+    }
   }
   localCache.set(key, { text, expiresAt: Date.now() + CACHE_TTL_S * 1000 });
 }
@@ -116,9 +131,7 @@ async function cacheSet(key: string, text: string): Promise<void> {
  * Récupère top-K embeddings pour le user et formate en bloc texte.
  * Retourne string vide si rien de pertinent ou si erreur.
  */
-export async function getRetrievedMemoryForUser(
-  params: RetrievedMemoryParams,
-): Promise<string> {
+export async function getRetrievedMemoryForUser(params: RetrievedMemoryParams): Promise<string> {
   const { userId, tenantId, currentMessage, k = DEFAULT_K } = params;
   const trimmed = (currentMessage ?? "").trim();
   if (!trimmed || !userId) return "";

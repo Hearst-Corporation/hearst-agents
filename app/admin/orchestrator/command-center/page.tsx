@@ -1,6 +1,6 @@
-import { HomShell, PageHeader } from "../_components/Shell";
-import { CommandCenterLive } from "../_components/CommandCenterLive";
 import { loadCC } from "@/lib/hom/cc-state";
+import { CommandCenterLive } from "../_components/CommandCenterLive";
+import { HomShell, PageHeader } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 

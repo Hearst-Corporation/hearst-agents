@@ -7,9 +7,9 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
+import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 import { useReportsStore } from "@/stores/reports";
 import { useSafeSession } from "./use-safe-session";
-import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 
 interface UseRealtimePayloadResult {
   effectivePayload: RenderPayload;
@@ -33,16 +33,14 @@ export function useRealtimePayload(
       unsubscribeFromReport(assetId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assetId, tenantId]);
+  }, [assetId, tenantId, subscribeToReport, unsubscribeFromReport]);
 
   const livePayload = assetId ? liveReports.get(assetId) : undefined;
   const effectivePayload =
-    livePayload && livePayload.generatedAt > payload.generatedAt
-      ? livePayload
-      : payload;
+    livePayload && livePayload.generatedAt > payload.generatedAt ? livePayload : payload;
 
   const [showToast, setShowToast] = useState(false);
-  const prevLiveGenAt = useMemo(() => livePayload?.generatedAt, [livePayload]);
+  const _prevLiveGenAt = useMemo(() => livePayload?.generatedAt, [livePayload]);
   useEffect(() => {
     if (!livePayload) return;
     if (livePayload.generatedAt <= payload.generatedAt) return;
@@ -54,7 +52,7 @@ export function useRealtimePayload(
     };
     // On surveille uniquement le generatedAt du livePayload
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prevLiveGenAt]);
+  }, [livePayload.generatedAt, payload.generatedAt, livePayload]);
 
   return { effectivePayload, showToast };
 }

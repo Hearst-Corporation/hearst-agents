@@ -4,8 +4,8 @@
  * Verifies approval/clarification state transitions.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { useRuntimeStore, type CoreState } from "@/stores/runtime";
+import { beforeEach, describe, expect, it } from "vitest";
+import { type CoreState, useRuntimeStore } from "@/stores/runtime";
 
 // Helper to get current state
 const getRuntimeState = () => useRuntimeStore.getState();

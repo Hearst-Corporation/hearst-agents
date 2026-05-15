@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  detectDualAppConflicts,
-  buildDualAppGuidance,
-} from "@/lib/agents/dual-apps";
+import { buildDualAppGuidance, detectDualAppConflicts } from "@/lib/agents/dual-apps";
 
 describe("detectDualAppConflicts", () => {
   it("retourne aucun conflit quand 1 seule app par catégorie", () => {

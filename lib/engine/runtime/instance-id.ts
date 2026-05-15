@@ -5,9 +5,7 @@
  * otherwise generates a random id at boot.
  */
 
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
 
 export const INSTANCE_ID: string =
-  process.env.INSTANCE_ID ||
-  process.env.HOSTNAME ||
-  `local-${randomUUID().slice(0, 8)}`;
+  process.env.INSTANCE_ID || process.env.HOSTNAME || `local-${randomUUID().slice(0, 8)}`;

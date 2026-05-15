@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 /**
  * Happy Path E2E Tests
@@ -65,13 +65,13 @@ test.describe("Responsive — Mobile Viewport", () => {
 
     // Open drawer
     await page.click("button[aria-label='Ouvrir le panneau runtime']");
-    
+
     // Drawer should be visible
     await expect(page.locator("text=Runtime")).toBeVisible();
 
     // Close via overlay
     await page.click("[class*='fixed inset-0']"); // Backdrop
-    
+
     // Drawer should close
     await expect(page.locator("text=Runtime")).not.toBeVisible();
   });
@@ -96,7 +96,9 @@ test.describe("Error Handling — Toast Visibility", () => {
     });
 
     // Try to send message
-    const input = page.locator("[data-testid='chat-input'] textarea, [data-testid='chat-input'] input").first();
+    const input = page
+      .locator("[data-testid='chat-input'] textarea, [data-testid='chat-input'] input")
+      .first();
     await input.fill("Test error");
     await page.keyboard.press("Enter");
 

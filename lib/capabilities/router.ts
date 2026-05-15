@@ -8,17 +8,17 @@
  * inferToolContext, and getRequiredProvidersForInput.
  */
 
+import type { ToolContext } from "@/lib/tools/types";
 import {
-  resolveDomain,
-  resolveRetrievalMode,
-  resolveDataIntent,
-  isAgentValidForDomain,
+  type Capability,
   DOMAIN_TAXONOMY,
   type Domain,
-  type Capability,
+  isAgentValidForDomain,
   type RetrievalMode,
+  resolveDataIntent,
+  resolveDomain,
+  resolveRetrievalMode,
 } from "./taxonomy";
-import type { ToolContext } from "@/lib/tools/types";
 
 // ── Capability Scope ────────────────────────────────────────
 
@@ -45,15 +45,41 @@ export interface CapabilityScope {
 // jusqu'ici inaperçu en pratique (le fail-soft ramène toujours sur Sonnet
 // si DeepSeek est down ou la clé absente — voir branch reasoning index.ts).
 const SCOPE_REASONING_KEYWORDS = [
-  "analyse", "projette", "compare", "simule", "modélise",
-  "calcule", "démontre", "prouve", "évalue", "optimise",
+  "analyse",
+  "projette",
+  "compare",
+  "simule",
+  "modélise",
+  "calcule",
+  "démontre",
+  "prouve",
+  "évalue",
+  "optimise",
   // Math / preuves formelles
-  "récurrence", "recurrence", "théorème", "theoreme", "preuve",
-  "résous", "resous", "résoudre", "resoudre",
-  "équation", "equation", "système d'équation", "systeme d'equation",
-  "logique formelle", "raisonne", "déduis", "deduis",
+  "récurrence",
+  "recurrence",
+  "théorème",
+  "theoreme",
+  "preuve",
+  "résous",
+  "resous",
+  "résoudre",
+  "resoudre",
+  "équation",
+  "equation",
+  "système d'équation",
+  "systeme d'equation",
+  "logique formelle",
+  "raisonne",
+  "déduis",
+  "deduis",
   // EN
-  "prove", "solve", "deduce", "reasoning", "step by step", "step-by-step",
+  "prove",
+  "solve",
+  "deduce",
+  "reasoning",
+  "step by step",
+  "step-by-step",
 ];
 
 // ── Domain → ToolContext mapping ────────────────────────────
@@ -79,10 +105,7 @@ const DOMAIN_TO_TOOL_CONTEXT: Record<Domain, ToolContext> = {
  * Surface override: if the user is on a specific surface (inbox, calendar, files),
  * that takes priority over keyword detection.
  */
-export function resolveCapabilityScope(
-  message: string,
-  surface?: string,
-): CapabilityScope {
+export function resolveCapabilityScope(message: string, surface?: string): CapabilityScope {
   let domain: Domain;
 
   if (surface && surface !== "home") {
@@ -130,7 +153,10 @@ export function resolveCapabilityScope(
 /**
  * Validate that an agent proposed by the planner is allowed for the current scope.
  */
-export function validateAgentForScope(agent: string, scope: CapabilityScope): {
+export function validateAgentForScope(
+  agent: string,
+  scope: CapabilityScope,
+): {
   valid: boolean;
   reason?: string;
 } {
@@ -153,7 +179,12 @@ export function scopeRequiresProviders(scope: CapabilityScope): boolean {
 
 // ── Execution Mode Resolution ───────────────────────────────
 
-export type ExecutionMode = "direct_answer" | "tool_call" | "workflow" | "custom_agent" | "managed_agent";
+export type ExecutionMode =
+  | "direct_answer"
+  | "tool_call"
+  | "workflow"
+  | "custom_agent"
+  | "managed_agent";
 
 export interface ExecutionDecision {
   mode: ExecutionMode;
@@ -164,13 +195,26 @@ export interface ExecutionDecision {
 }
 
 const AUTONOMOUS_PATTERNS = [
-  "analyse", "analyser", "recherche", "scrape", "crawl",
-  "surveille", "monitore", "scan",
+  "analyse",
+  "analyser",
+  "recherche",
+  "scrape",
+  "crawl",
+  "surveille",
+  "monitore",
+  "scan",
 ];
 const MEMORY_PATTERNS = ["souviens", "rappelle", "mémorise", "retiens"];
 const REASONING_PATTERNS = [
-  "projette", "compare", "simule", "modélise", "calcule",
-  "raisonne", "déduis", "explique pourquoi", "quelle stratégie",
+  "projette",
+  "compare",
+  "simule",
+  "modélise",
+  "calcule",
+  "raisonne",
+  "déduis",
+  "explique pourquoi",
+  "quelle stratégie",
 ];
 
 /**
@@ -189,38 +233,67 @@ export function resolveExecutionMode(
   const wordCount = message.split(/\s+/).filter(Boolean).length;
 
   if (needsAutonomy || needsMemory) {
-    return { mode: "custom_agent", reason: "Requires autonomous agent", backend: "hearst_runtime", requiresReasoning };
+    return {
+      mode: "custom_agent",
+      reason: "Requires autonomous agent",
+      backend: "hearst_runtime",
+      requiresReasoning,
+    };
   }
 
-  const hasProviders = scope.providers.length > 0 && scope.domain !== "general" && scope.domain !== "research";
+  const hasProviders =
+    scope.providers.length > 0 && scope.domain !== "general" && scope.domain !== "research";
   const isSimple = scope.domain === "general" && !hasProviders && wordCount <= 30 && !focalContext;
 
   if (isSimple) {
-    return { mode: "direct_answer", reason: "Simple response — no providers needed", requiresReasoning };
+    return {
+      mode: "direct_answer",
+      reason: "Simple response — no providers needed",
+      requiresReasoning,
+    };
   }
 
   if (scope.retrievalMode && !hasProviders) {
-    return { mode: "tool_call", reason: "Single retrieval", backend: "hearst_runtime", requiresReasoning };
+    return {
+      mode: "tool_call",
+      reason: "Single retrieval",
+      backend: "hearst_runtime",
+      requiresReasoning,
+    };
   }
 
   if (hasProviders) {
-    return { mode: "workflow", reason: "Provider-backed workflow", backend: "hearst_runtime", requiresReasoning };
+    return {
+      mode: "workflow",
+      reason: "Provider-backed workflow",
+      backend: "hearst_runtime",
+      requiresReasoning,
+    };
   }
 
-  return { mode: "workflow", reason: "Default workflow", backend: "hearst_runtime", requiresReasoning };
+  return {
+    mode: "workflow",
+    reason: "Default workflow",
+    backend: "hearst_runtime",
+    requiresReasoning,
+  };
 }
 
 // ── Helpers ─────────────────────────────────────────────────
 
 function surfaceToDomain(surface: string): Domain {
   switch (surface) {
-    case "inbox": return "communication";
-    case "calendar": return "productivity";
-    case "files": return "productivity";
-    case "finance": return "finance";
-    case "research": return "research";
-    default: return "general";
+    case "inbox":
+      return "communication";
+    case "calendar":
+      return "productivity";
+    case "files":
+      return "productivity";
+    case "finance":
+      return "finance";
+    case "research":
+      return "research";
+    default:
+      return "general";
   }
 }
-
-

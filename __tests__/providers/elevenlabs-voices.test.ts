@@ -3,10 +3,10 @@
  * fallback default, et tuning stab/sim/style par tone.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  resolveVoiceProfile,
   listVoiceProfiles,
+  resolveVoiceProfile,
   SUPPORTED_TONES,
 } from "@/lib/capabilities/providers/elevenlabs-voices";
 

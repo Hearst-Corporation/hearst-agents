@@ -6,9 +6,9 @@
  */
 
 import { SpatialLayout } from "@/components/spatial/core/SpatialLayout";
-import { SpatialRndRoot } from "./SpatialRndRoot";
+import { type CockpitTodayPayload, getCockpitToday } from "@/lib/cockpit/today";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { getCockpitToday, type CockpitTodayPayload } from "@/lib/cockpit/today";
+import { SpatialRndRoot } from "./SpatialRndRoot";
 import "@/styles/spatial/spatial.css";
 
 export const dynamic = "force-dynamic";

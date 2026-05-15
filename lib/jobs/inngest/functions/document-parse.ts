@@ -9,11 +9,11 @@
  */
 
 import { Buffer } from "node:buffer";
-import { inngest } from "@/lib/jobs/inngest/client";
-import { parseDocument } from "@/lib/capabilities/providers/llamaparse";
 import { updateVariant } from "@/lib/assets/variants";
-import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { parseDocument } from "@/lib/capabilities/providers/llamaparse";
 import { settleCredits } from "@/lib/credits/client";
+import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { inngest } from "@/lib/jobs/inngest/client";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { DocumentParseInput } from "@/lib/jobs/types";
 
@@ -33,9 +33,7 @@ export const documentParseFunction = inngest.createFunction(
 
     const variantId =
       (payload as DocumentParseInput & { variantId?: string }).variantId ??
-      (typeof payload === "object" &&
-      payload !== null &&
-      "metadata" in payload
+      (typeof payload === "object" && payload !== null && "metadata" in payload
         ? (
             payload as {
               metadata?: { variantId?: string };

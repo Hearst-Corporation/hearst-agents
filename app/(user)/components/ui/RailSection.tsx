@@ -38,14 +38,9 @@ export function RailSection({
 }: RailSectionProps) {
   if (flex) {
     return (
-      <section
-        className={`px-5 py-5 flex flex-col min-h-0 ${className}`}
-        style={{ flex }}
-      >
+      <section className={`px-5 py-5 flex flex-col min-h-0 ${className}`} style={{ flex }}>
         <SectionHeader label={label} count={count} action={action} />
-        <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
-          {children}
-        </div>
+        <div className="flex-1 min-h-0 overflow-hidden flex flex-col">{children}</div>
       </section>
     );
   }

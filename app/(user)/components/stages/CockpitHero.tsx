@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 interface CockpitHeroProps {
   /** Briefing optionnel : si fourni, on rend la zone summary sous le greeting. */
@@ -44,7 +44,9 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
   useEffect(() => {
     const tick = () => {
       const d = new Date();
-      setTime(`${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`);
+      setTime(
+        `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`,
+      );
       setDateLabel(DATE_FORMATTER.format(d));
     };
     tick();
@@ -81,51 +83,49 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
           >
             {dateLabel}
           </span>
-          <span
-            className="t-13 font-mono tabular-nums"
-            style={{ color: "var(--text-faint)" }}
-          >
+          <span className="t-13 font-mono tabular-nums" style={{ color: "var(--text-faint)" }}>
             {time}
           </span>
         </div>
       </div>
 
-      {briefing && !briefing.empty && (() => {
-        const stripMarker = (s: string) =>
-          s.replace(/\s*\[Résumé précédent\]\s*/g, "").trim();
-        const headline = stripMarker(briefing.headline);
-        const body = briefing.body ? stripMarker(briefing.body) : null;
-        if (!headline && !body) return null;
-        return (
-          <div style={{ marginTop: "var(--space-8)", maxWidth: "var(--width-actions)" }}>
-            {headline && (
-              <p
-                className="t-15"
-                style={{
-                  fontWeight: "var(--weight-regular)",
-                  lineHeight: "var(--leading-tight)",
-                  color: "var(--text-l1)",
-                }}
-              >
-                {headline}
-              </p>
-            )}
-            {body && (
-              <p
-                className="t-13"
-                style={{
-                  lineHeight: "var(--leading-tight)",
-                  color: "var(--text-l2)",
-                  marginTop: "var(--space-3)",
-                  whiteSpace: "pre-wrap",
-                }}
-              >
-                {body}
-              </p>
-            )}
-          </div>
-        );
-      })()}
+      {briefing &&
+        !briefing.empty &&
+        (() => {
+          const stripMarker = (s: string) => s.replace(/\s*\[Résumé précédent\]\s*/g, "").trim();
+          const headline = stripMarker(briefing.headline);
+          const body = briefing.body ? stripMarker(briefing.body) : null;
+          if (!headline && !body) return null;
+          return (
+            <div style={{ marginTop: "var(--space-8)", maxWidth: "var(--width-actions)" }}>
+              {headline && (
+                <p
+                  className="t-15"
+                  style={{
+                    fontWeight: "var(--weight-regular)",
+                    lineHeight: "var(--leading-tight)",
+                    color: "var(--text-l1)",
+                  }}
+                >
+                  {headline}
+                </p>
+              )}
+              {body && (
+                <p
+                  className="t-13"
+                  style={{
+                    lineHeight: "var(--leading-tight)",
+                    color: "var(--text-l2)",
+                    marginTop: "var(--space-3)",
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  {body}
+                </p>
+              )}
+            </div>
+          );
+        })()}
 
       {briefing?.empty && emptyAction && (
         <div style={{ marginTop: "var(--space-8)", maxWidth: "var(--width-actions)" }}>
@@ -176,10 +176,7 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
             }}
             aria-hidden="true"
           >
-            <span
-              className="t-9 font-medium"
-              style={{ color: "var(--text-l2)" }}
-            >
+            <span className="t-9 font-medium" style={{ color: "var(--text-l2)" }}>
               Aperçu — exemple type
             </span>
             <p
@@ -191,7 +188,9 @@ export function CockpitHero({ briefing, emptyAction }: CockpitHeroProps = {}) {
                 fontStyle: "italic",
               }}
             >
-              Matinée à fort enjeu : la term sheet Sequoia se reclarifie en parallèle de la signature Acme. Le staging encore instable côté backend pèse sur la confiance opérationnelle.
+              Matinée à fort enjeu : la term sheet Sequoia se reclarifie en parallèle de la
+              signature Acme. Le staging encore instable côté backend pèse sur la confiance
+              opérationnelle.
             </p>
             <p
               className="t-11 font-light"

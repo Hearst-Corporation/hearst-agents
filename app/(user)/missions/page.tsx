@@ -1,16 +1,16 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { MissionEditor } from "../components/MissionEditor";
-import { toast } from "@/app/hooks/use-toast";
+import { Suspense, useEffect, useState } from "react";
 import { usePollingEffect } from "@/app/hooks/use-polling-effect";
-import { GhostIconX } from "../components/ghost-icons";
-import { useStageStore } from "@/stores/stage";
+import { toast } from "@/app/hooks/use-toast";
 import { useSelectionStore } from "@/stores/selection";
+import { useStageStore } from "@/stores/stage";
 import { ConfirmModal } from "../components/ConfirmModal";
+import { GhostIconX } from "../components/ghost-icons";
+import { MissionEditor } from "../components/MissionEditor";
+import { type Mission, type MissionOpsStatus, MissionRow } from "../components/missions/MissionRow";
 import { Action, ScreenShell } from "../components/ui";
-import { MissionRow, type Mission, type MissionOpsStatus } from "../components/missions/MissionRow";
 
 function MissionsPageContent() {
   const router = useRouter();
@@ -77,10 +77,23 @@ function MissionsPageContent() {
         if (opsRes.ok) {
           const opsData = await opsRes.json();
           const opsMap = new Map(
-            opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number; drift?: { staleRuns: number; suggestion: string } }) => [
-              op.missionId,
-              { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince, drift: op.drift },
-            ]) || []
+            opsData.missions?.map(
+              (op: {
+                missionId: string;
+                status: MissionOpsStatus;
+                lastError?: string;
+                runningSince?: number;
+                drift?: { staleRuns: number; suggestion: string };
+              }) => [
+                op.missionId,
+                {
+                  opsStatus: op.status,
+                  lastError: op.lastError,
+                  runningSince: op.runningSince,
+                  drift: op.drift,
+                },
+              ],
+            ) || [],
           );
 
           const enriched = baseMissions.map((m: Mission) => ({
@@ -108,16 +121,37 @@ function MissionsPageContent() {
       if (!res.ok) return;
       const opsData = await res.json();
       const opsMap = new Map(
-        opsData.missions?.map((op: { missionId: string; status: MissionOpsStatus; lastError?: string; runningSince?: number; drift?: { staleRuns: number; suggestion: string }; approval?: { mode: "all" | "any" | "majority"; total: number; approved: number; rejected: number; pending: number } }) => [
-          op.missionId,
-          { opsStatus: op.status, lastError: op.lastError, runningSince: op.runningSince, drift: op.drift, approval: op.approval },
-        ]) || []
+        opsData.missions?.map(
+          (op: {
+            missionId: string;
+            status: MissionOpsStatus;
+            lastError?: string;
+            runningSince?: number;
+            drift?: { staleRuns: number; suggestion: string };
+            approval?: {
+              mode: "all" | "any" | "majority";
+              total: number;
+              approved: number;
+              rejected: number;
+              pending: number;
+            };
+          }) => [
+            op.missionId,
+            {
+              opsStatus: op.status,
+              lastError: op.lastError,
+              runningSince: op.runningSince,
+              drift: op.drift,
+              approval: op.approval,
+            },
+          ],
+        ) || [],
       );
       setMissions((prev) =>
         prev.map((m) => ({
           ...m,
           ...(opsMap.get(m.id) || {}),
-        }))
+        })),
       );
     } catch (err) {
       console.error("[MissionsPage] Background ops refresh failed:", err);
@@ -157,8 +191,8 @@ function MissionsPageContent() {
             prev.map((m) =>
               m.id === editingMission.id
                 ? { ...m, ...formData, status: formData.enabled ? "active" : "paused" }
-                : m
-            )
+                : m,
+            ),
           );
           toast.success("Mission mise à jour", `« ${formData.name} » a été enregistrée`);
           setShowEditor(false);
@@ -188,10 +222,13 @@ function MissionsPageContent() {
         });
         if (res.ok) {
           const newMission = await res.json();
-          setMissions((prev) => [...prev, {
-            ...newMission.mission,
-            frequency: formData.frequency,
-          }]);
+          setMissions((prev) => [
+            ...prev,
+            {
+              ...newMission.mission,
+              frequency: formData.frequency,
+            },
+          ]);
           toast.success("Mission créée", `« ${formData.name} » est prête`);
           setShowEditor(false);
           setEditingMission(null);
@@ -251,8 +288,8 @@ function MissionsPageContent() {
           prev.map((m) =>
             m.id === mission.id
               ? { ...m, enabled: willEnable, status: willEnable ? "active" : "paused" }
-              : m
-          )
+              : m,
+          ),
         );
         toast.success(
           willEnable ? "Mission activée" : "Mission mise en pause",
@@ -329,10 +366,30 @@ function MissionsPageContent() {
   // "0 en cours · 0 échecs" sur écran vide).
   const statChips = (() => {
     const items = [
-      { count: missions.filter((m) => m.enabled).length, label: "activées", color: "var(--money)" as const, pulse: false },
-      { count: missions.filter((m) => m.opsStatus === "running").length, label: "en cours", color: "var(--accent-teal)" as const, pulse: true },
-      { count: missions.filter((m) => m.opsStatus === "failed").length, label: "échecs", color: "var(--danger)" as const, pulse: false },
-      { count: missions.filter((m) => m.opsStatus === "blocked").length, label: "bloqués", color: "var(--warn)" as const, pulse: false },
+      {
+        count: missions.filter((m) => m.enabled).length,
+        label: "activées",
+        color: "var(--money)" as const,
+        pulse: false,
+      },
+      {
+        count: missions.filter((m) => m.opsStatus === "running").length,
+        label: "en cours",
+        color: "var(--accent-teal)" as const,
+        pulse: true,
+      },
+      {
+        count: missions.filter((m) => m.opsStatus === "failed").length,
+        label: "échecs",
+        color: "var(--danger)" as const,
+        pulse: false,
+      },
+      {
+        count: missions.filter((m) => m.opsStatus === "blocked").length,
+        label: "bloqués",
+        color: "var(--warn)" as const,
+        pulse: false,
+      },
     ].filter((s) => s.count > 0);
     if (items.length === 0) return null;
     return items.map((s) => (
@@ -341,7 +398,9 @@ function MissionsPageContent() {
           className={`rounded-pill ${s.pulse ? "animate-pulse" : ""}`}
           style={{ width: "var(--space-2)", height: "var(--space-2)", background: s.color }}
         />
-        <span className="text-text-muted">{s.count} {s.label}</span>
+        <span className="text-text-muted">
+          {s.count} {s.label}
+        </span>
       </div>
     ));
   })();
@@ -354,7 +413,12 @@ function MissionsPageContent() {
         breadcrumb={[{ label: "Hearst", href: "/" }, { label: "Missions" }]}
         actions={
           <>
-            <Action variant="secondary" tone="neutral" size="sm" onClick={() => router.push("/missions/builder")}>
+            <Action
+              variant="secondary"
+              tone="neutral"
+              size="sm"
+              onClick={() => router.push("/missions/builder")}
+            >
               Builder visuel
             </Action>
             <Action variant="primary" tone="brand" size="sm" onClick={openNewMission}>
@@ -383,7 +447,11 @@ function MissionsPageContent() {
             <span className="text-right">Actions</span>
           </div>
           {missions.map((mission) => (
-            <div key={mission.id} data-mission-id={mission.id} className="transition-shadow rounded-sm">
+            <div
+              key={mission.id}
+              data-mission-id={mission.id}
+              className="transition-shadow rounded-sm"
+            >
               <MissionRow
                 mission={mission}
                 currentTime={currentTime}
@@ -403,7 +471,11 @@ function MissionsPageContent() {
       <ConfirmModal
         open={confirmDelete !== null}
         title="Supprimer cette mission ?"
-        description={confirmDelete ? `« ${confirmDelete.name} » sera supprimée définitivement. Cette action est irréversible.` : undefined}
+        description={
+          confirmDelete
+            ? `« ${confirmDelete.name} » sera supprimée définitivement. Cette action est irréversible.`
+            : undefined
+        }
         confirmLabel="Supprimer"
         variant="danger"
         loading={isDeleting}
@@ -424,27 +496,32 @@ function MissionsPageContent() {
       {/* Editor — drawer depuis la droite */}
       {showEditor && (
         <>
-        <div
-          className="ghost-overlay-backdrop"
-          style={{ zIndex: "var(--z-backdrop)" as unknown as number }}
-          onClick={closeEditor}
-        />
-        <div
-          className="fixed top-0 right-0 bottom-0 flex flex-col overflow-y-auto pointer-events-auto"
-          style={{
-            zIndex: "var(--z-modal)" as unknown as number,
-            width: "clamp(var(--width-drawer-min), 36vw, var(--width-drawer-max))",
-            background: "var(--rail)",
-            borderLeft: "1px solid var(--border-shell)",
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
+          <div
+            className="ghost-overlay-backdrop"
+            style={{ zIndex: "var(--z-backdrop)" as unknown as number }}
+            onClick={closeEditor}
+          />
+          <div
+            className="fixed top-0 right-0 bottom-0 flex flex-col overflow-y-auto pointer-events-auto"
+            style={{
+              zIndex: "var(--z-modal)" as unknown as number,
+              width: "clamp(var(--width-drawer-min), 36vw, var(--width-drawer-max))",
+              background: "var(--rail)",
+              borderLeft: "1px solid var(--border-shell)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-8">
               <div className="flex items-center justify-between mb-8 border-b border-(--line) pb-4">
                 <h2 className="t-15 font-medium tracking-tight text-text">
                   {editingMission ? "Modifier la mission" : "Nouvelle mission"}
                 </h2>
-                <button type="button" onClick={closeEditor} className="text-text-muted hover:text-text p-1" aria-label="Fermer">
+                <button
+                  type="button"
+                  onClick={closeEditor}
+                  className="text-text-muted hover:text-text p-1"
+                  aria-label="Fermer"
+                >
                   <GhostIconX className="w-5 h-5" />
                 </button>
               </div>
@@ -456,7 +533,11 @@ function MissionsPageContent() {
                         name: editingMission.name,
                         description: editingMission.description,
                         prompt: editingMission.input || "",
-                        frequency: editingMission.frequency as "daily" | "weekly" | "monthly" | "custom",
+                        frequency: editingMission.frequency as
+                          | "daily"
+                          | "weekly"
+                          | "monthly"
+                          | "custom",
                         enabled: editingMission.enabled,
                         approvers: editingMission.approvers,
                         approvalMode: editingMission.approvalMode,

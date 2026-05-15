@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { messagesCreate, stream } = vi.hoisted(() => ({
   messagesCreate: vi.fn(),
@@ -100,16 +100,18 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("surfaces cache_creation/read tokens on ChatResponse", async () => {
-    messagesCreate.mockReturnValueOnce(mockApiPromise(
-      fakeAnthropicResponse({
-        usage: {
-          input_tokens: 10,
-          output_tokens: 3,
-          cache_creation_input_tokens: 1500,
-          cache_read_input_tokens: 0,
-        },
-      }),
-    ));
+    messagesCreate.mockReturnValueOnce(
+      mockApiPromise(
+        fakeAnthropicResponse({
+          usage: {
+            input_tokens: 10,
+            output_tokens: 3,
+            cache_creation_input_tokens: 1500,
+            cache_read_input_tokens: 0,
+          },
+        }),
+      ),
+    );
     const p = new AnthropicProvider();
     const res = await p.chat({
       model: "claude-sonnet-4-6",
@@ -120,16 +122,18 @@ describe("AnthropicProvider — cache_control plumbing", () => {
   });
 
   it("reports a cache hit when cache_read_input_tokens > 0", async () => {
-    messagesCreate.mockReturnValueOnce(mockApiPromise(
-      fakeAnthropicResponse({
-        usage: {
-          input_tokens: 8,
-          output_tokens: 2,
-          cache_creation_input_tokens: 0,
-          cache_read_input_tokens: 1500,
-        },
-      }),
-    ));
+    messagesCreate.mockReturnValueOnce(
+      mockApiPromise(
+        fakeAnthropicResponse({
+          usage: {
+            input_tokens: 8,
+            output_tokens: 2,
+            cache_creation_input_tokens: 0,
+            cache_read_input_tokens: 1500,
+          },
+        }),
+      ),
+    );
     const p = new AnthropicProvider();
     const res = await p.chat({
       model: "claude-sonnet-4-6",

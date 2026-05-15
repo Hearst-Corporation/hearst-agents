@@ -9,13 +9,7 @@
 
 import { create } from "zustand";
 
-export type VoicePhase =
-  | "idle"
-  | "connecting"
-  | "listening"
-  | "processing"
-  | "speaking"
-  | "error";
+export type VoicePhase = "idle" | "connecting" | "listening" | "processing" | "speaking" | "error";
 
 export type TranscriptRole = "user" | "assistant" | "tool_call" | "tool_result";
 
@@ -76,8 +70,7 @@ export const useVoiceStore = create<VoiceState>((set) => ({
 
   setPhase: (phase) => set({ phase }),
   setSessionId: (id) => set({ sessionId: id }),
-  appendTranscript: (entry) =>
-    set((state) => ({ transcript: [...state.transcript, entry] })),
+  appendTranscript: (entry) => set((state) => ({ transcript: [...state.transcript, entry] })),
   updateLastTranscript: (id, delta) =>
     set((state) => ({
       transcript: state.transcript.map((entry) =>

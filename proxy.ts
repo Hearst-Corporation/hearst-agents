@@ -14,10 +14,10 @@
  */
 
 import { timingSafeEqual } from "node:crypto";
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { aj, ajOrchestrate, ajLlmJobs, isArcjetEnabled } from "@/lib/security/arcjet";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
+import { aj, ajLlmJobs, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -195,10 +195,7 @@ export async function proxy(req: NextRequest): Promise<NextResponse> {
     // 2. CSRF Origin check (F-052) — avant d'accepter la requête
     if (!isCsrfSafe(req)) {
       console.warn(`[Proxy] CSRF origin mismatch — ${req.method} ${path}`);
-      return NextResponse.json(
-        { error: "csrf_origin_mismatch" },
-        { status: 403 },
-      );
+      return NextResponse.json({ error: "csrf_origin_mismatch" }, { status: 403 });
     }
 
     if (isDevBypass()) {

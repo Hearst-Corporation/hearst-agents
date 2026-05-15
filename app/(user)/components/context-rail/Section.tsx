@@ -25,17 +25,11 @@ export function Section({
   return (
     <section className="px-5 py-5">
       <header className="flex items-baseline justify-between mb-4">
-        <span
-          className="t-13 font-medium"
-          style={{ color: "var(--text-l1)" }}
-        >
+        <span className="t-13 font-medium" style={{ color: "var(--text-l1)" }}>
           {label}
         </span>
         {typeof count === "number" && (
-          <span
-            className="t-11 font-mono tabular-nums"
-            style={{ color: "var(--text-faint)" }}
-          >
+          <span className="t-11 font-mono tabular-nums" style={{ color: "var(--text-faint)" }}>
             {count.toString().padStart(2, "0")}
           </span>
         )}

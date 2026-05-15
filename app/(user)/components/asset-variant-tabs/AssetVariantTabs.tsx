@@ -39,13 +39,13 @@
 
 import { useCallback, useState } from "react";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
-import { TABS, TAB_META, type ForkPanelState, type VideoRatio } from "./shared";
-import { useVariantPolling } from "./hooks/useVariantPolling";
-import { VariantTab } from "./VariantTab";
-import { VariantPreview } from "./VariantPreview";
-import { VariantEmptyState } from "./VariantEmptyState";
 import { EnrichmentPreviewModal } from "./EnrichmentPreviewModal";
 import { ForkPanel } from "./ForkPanel";
+import { useVariantPolling } from "./hooks/useVariantPolling";
+import { type ForkPanelState, TAB_META, TABS, type VideoRatio } from "./shared";
+import { VariantEmptyState } from "./VariantEmptyState";
+import { VariantPreview } from "./VariantPreview";
+import { VariantTab } from "./VariantTab";
 
 interface AssetVariantTabsProps {
   assetId: string;
@@ -61,19 +61,11 @@ interface AssetVariantTabsProps {
 // essence (rendu directement par AssetStage / FocalStage). Les onglets
 // listent uniquement les formats alternatifs générables à la demande.
 
-export function AssetVariantTabs({
-  assetId,
-  sourceText,
-  defaultKind,
-}: AssetVariantTabsProps) {
-  const [activeTab, setActiveTab] = useState<AssetVariantKind>(
-    defaultKind ?? "audio",
-  );
+export function AssetVariantTabs({ assetId, sourceText, defaultKind }: AssetVariantTabsProps) {
+  const [activeTab, setActiveTab] = useState<AssetVariantKind>(defaultKind ?? "audio");
   const [generating, setGenerating] = useState<AssetVariantKind | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [videoProvider, setVideoProvider] = useState<"runway" | "heygen">(
-    "runway",
-  );
+  const [videoProvider, setVideoProvider] = useState<"runway" | "heygen">("runway");
   // [S2-F] Ratio Runway
   const [videoRatio, setVideoRatio] = useState<VideoRatio>("1280:720");
 
@@ -107,9 +99,7 @@ export function AssetVariantTabs({
 
   /** [S2-B] Appelle l'API d'enrichissement et retourne le résultat. */
   const fetchEnrichment = useCallback(
-    async (
-      rawPrompt: string,
-    ): Promise<{ enriched: string; diff: string[] } | null> => {
+    async (rawPrompt: string): Promise<{ enriched: string; diff: string[] } | null> => {
       try {
         const res = await fetch("/api/v2/assets/enrich-video-prompt", {
           method: "POST",
@@ -166,15 +156,12 @@ export function AssetVariantTabs({
         if (overrides?.derivedFrom && overrides.derivedFrom.length > 0) {
           requestBody.derivedFrom = overrides.derivedFrom;
         }
-        const res = await fetch(
-          `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(requestBody),
-          },
-        );
+        const res = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody),
+        });
         const data = await res.json();
         if (!res.ok) {
           setError(data.message || data.error || "Échec de la génération");
@@ -242,12 +229,9 @@ export function AssetVariantTabs({
         ratio?: unknown;
         duration?: unknown;
       };
-      const prevPrompt =
-        typeof meta.prompt === "string" ? meta.prompt : (sourceText ?? "");
-      const prevRatio: VideoRatio =
-        meta.ratio === "720:1280" ? "720:1280" : "1280:720";
-      const prevDuration =
-        typeof meta.duration === "number" ? meta.duration : 5;
+      const prevPrompt = typeof meta.prompt === "string" ? meta.prompt : (sourceText ?? "");
+      const prevRatio: VideoRatio = meta.ratio === "720:1280" ? "720:1280" : "1280:720";
+      const prevDuration = typeof meta.duration === "number" ? meta.duration : 5;
       setForkPanel({
         parentId: variant.id,
         parentKind: variant.kind,
@@ -298,9 +282,7 @@ export function AssetVariantTabs({
   return (
     <div className="border-t border-[var(--surface-2)] pt-8">
       <header className="flex items-baseline justify-between mb-6">
-        <span className="t-13 font-medium text-(--text-l1)">
-          Formats alternatifs
-        </span>
+        <span className="t-13 font-medium text-(--text-l1)">Formats alternatifs</span>
         <div className="flex items-center gap-2">
           {TABS.map((tab) => (
             <VariantTab

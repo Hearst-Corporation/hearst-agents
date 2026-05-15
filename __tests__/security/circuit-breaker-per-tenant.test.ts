@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 
 describe("Circuit breaker per-tenant", () => {

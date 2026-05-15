@@ -10,8 +10,8 @@
  * 5. Retourner le top 1 + alternatives
  */
 
-import { readFileSync, existsSync } from "node:fs";
-import { resolve, join, dirname } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -74,10 +74,18 @@ function main() {
 
   if (eligible.length === 0) {
     if (isJson) {
-      console.log(JSON.stringify({ next: null, message: "No eligible batch — all done or all blocked" }, null, 2));
+      console.log(
+        JSON.stringify(
+          { next: null, message: "No eligible batch — all done or all blocked" },
+          null,
+          2,
+        ),
+      );
     } else {
       console.log("\n🎉 Aucun batch éligible.\n");
-      console.log("Soit tout est done (🚀 GO-LIVE prêt), soit tous les pendings sont bloqués par pre-conditions.\n");
+      console.log(
+        "Soit tout est done (🚀 GO-LIVE prêt), soit tous les pendings sont bloqués par pre-conditions.\n",
+      );
       console.log("Lance `node scripts/battle-status.mjs` pour vue globale.");
     }
     return;
@@ -97,7 +105,20 @@ function main() {
   const alternatives = eligible.slice(1, 4); // top 3 alternatives
 
   if (isJson) {
-    console.log(JSON.stringify({ next: { phase: next.phase.id, batch: next.batch }, alternatives: alternatives.map(({ batch, phase }) => ({ phase: phase.id, batch_id: batch.id, title: batch.title })) }, null, 2));
+    console.log(
+      JSON.stringify(
+        {
+          next: { phase: next.phase.id, batch: next.batch },
+          alternatives: alternatives.map(({ batch, phase }) => ({
+            phase: phase.id,
+            batch_id: batch.id,
+            title: batch.title,
+          })),
+        },
+        null,
+        2,
+      ),
+    );
     return;
   }
 
@@ -137,7 +158,9 @@ function main() {
   if (alternatives.length > 0) {
     console.log("Alternatives (mêmes pre-conditions satisfaites) :");
     for (const alt of alternatives) {
-      console.log(`  · ${alt.batch.id} — ${alt.batch.title.slice(0, 70)} (${alt.batch.estimated_effort ?? "?"})`);
+      console.log(
+        `  · ${alt.batch.id} — ${alt.batch.title.slice(0, 70)} (${alt.batch.estimated_effort ?? "?"})`,
+      );
     }
   }
 }

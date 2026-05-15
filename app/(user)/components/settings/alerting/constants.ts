@@ -2,7 +2,7 @@
  * Mapping sévérité par signal business.
  */
 
-import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
+import type { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 
 export const SIGNAL_SEVERITY: Record<
   (typeof BUSINESS_SIGNAL_TYPES)[number],

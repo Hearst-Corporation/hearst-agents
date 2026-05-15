@@ -9,12 +9,7 @@
 
 export type PlanStatus = "active" | "completed" | "abandoned";
 
-export type PlanStepStatus =
-  | "pending"
-  | "running"
-  | "completed"
-  | "failed"
-  | "skipped";
+export type PlanStepStatus = "pending" | "running" | "completed" | "failed" | "skipped";
 
 // ── Plan ───────────────────────────────────────────────────
 
@@ -45,4 +40,3 @@ export interface PlanStep {
   completed_at: string | null;
   created_at?: string;
 }
-

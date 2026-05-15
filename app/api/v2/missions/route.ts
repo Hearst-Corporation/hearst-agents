@@ -3,18 +3,18 @@
  * Uses the canonical v2 mission layer (lib/engine/runtime/missions + state/adapter).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { createMissionSchema, toggleMissionSchema } from "@/lib/contracts/missions";
 import { createScheduledMission } from "@/lib/engine/runtime/missions/create-mission";
 import { addMission, disableMission, getMission } from "@/lib/engine/runtime/missions/store";
 import {
-  saveScheduledMission,
   getScheduledMissions,
+  saveScheduledMission,
   updateScheduledMission,
 } from "@/lib/engine/runtime/state/adapter";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { validateGraph } from "@/lib/workflows/validate";
 import type { WorkflowGraph } from "@/lib/workflows/types";
-import { createMissionSchema, toggleMissionSchema } from "@/lib/contracts/missions";
+import { validateGraph } from "@/lib/workflows/validate";
 
 export const dynamic = "force-dynamic";
 
@@ -89,9 +89,7 @@ export async function POST(req: NextRequest) {
       );
     }
     if (!body.schedule) {
-      const start = body.workflowGraph.nodes.find(
-        (n) => n.id === body.workflowGraph!.startNodeId,
-      );
+      const start = body.workflowGraph.nodes.find((n) => n.id === body.workflowGraph?.startNodeId);
       const cron = (start?.config?.cron as string | undefined) ?? "manual";
       body.schedule = cron;
     }
@@ -101,10 +99,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (!body.input || !body.schedule) {
-    return NextResponse.json(
-      { error: "input_and_schedule_required" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "input_and_schedule_required" }, { status: 400 });
   }
 
   const name = body.name || body.input.slice(0, 80);
@@ -118,9 +113,7 @@ export async function POST(req: NextRequest) {
 
   const duplicateMission = existingMissions.find(
     (mission) =>
-      mission.name === name &&
-      mission.input === body.input &&
-      mission.schedule === body.schedule,
+      mission.name === name && mission.input === body.input && mission.schedule === body.schedule,
   );
 
   if (duplicateMission) {
@@ -177,7 +170,9 @@ export async function POST(req: NextRequest) {
     console.warn("[MissionsAPI] Mission saved in-memory only — Supabase unavailable");
   }
 
-  console.log(`[MissionsAPI] Mission created: ${mission.id} — ${mission.schedule} (user: ${scope.userId.slice(0, 8)})`);
+  console.log(
+    `[MissionsAPI] Mission created: ${mission.id} — ${mission.schedule} (user: ${scope.userId.slice(0, 8)})`,
+  );
 
   return NextResponse.json({ mission }, { status: 201 });
 }
@@ -207,7 +202,7 @@ export async function PATCH(req: NextRequest) {
 
   // Verify ownership before updating
   const mem = getMission(body.id);
-  if (mem && mem.userId && mem.userId !== scope.userId) {
+  if (mem?.userId && mem.userId !== scope.userId) {
     console.warn(`[MissionsAPI] Access denied — user mismatch for mission ${body.id}`);
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
@@ -224,7 +219,9 @@ export async function PATCH(req: NextRequest) {
   // Update in Supabase
   await updateScheduledMission(body.id, { enabled: body.enabled });
 
-  console.log(`[MissionsAPI] Mission ${body.id} ${body.enabled ? "enabled" : "disabled"} (user: ${scope.userId.slice(0, 8)})`);
+  console.log(
+    `[MissionsAPI] Mission ${body.id} ${body.enabled ? "enabled" : "disabled"} (user: ${scope.userId.slice(0, 8)})`,
+  );
 
   return NextResponse.json({ ok: true, id: body.id, enabled: body.enabled });
 }

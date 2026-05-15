@@ -34,9 +34,7 @@ export async function register() {
     // 1. Storage — doit être initialisé avant les workers et le cleanup.
     // Priorité : Supabase Storage (serverless-friendly, pas d'AWS SDK).
     // Fallback historique : R2 (S3-compatible) si configuré.
-    const { initGlobalStorage } = await import(
-      "@/lib/engine/runtime/assets/storage"
-    );
+    const { initGlobalStorage } = await import("@/lib/engine/runtime/assets/storage");
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -86,15 +84,15 @@ export async function register() {
               },
             }),
       });
-      console.info(`[Storage] Initialized — ${isProd ? "r2" : "hybrid (local+r2)"} (legacy fallback)`);
+      console.info(
+        `[Storage] Initialized — ${isProd ? "r2" : "hybrid (local+r2)"} (legacy fallback)`,
+      );
     } else {
       console.info("[Storage] No backend configured — using local dev storage");
     }
 
     // 2. Mission scheduler
-    const { ensureSchedulerStarted } = await import(
-      "@/lib/engine/runtime/missions/scheduler-init"
-    );
+    const { ensureSchedulerStarted } = await import("@/lib/engine/runtime/missions/scheduler-init");
     await ensureSchedulerStarted();
 
     // 3. Asset cleanup scheduler

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { bezierPath, edgePorts, getNode, portAt, type CanvasEdge } from "./topology";
-import { useCanvasStore, type NodeState } from "./store";
+import { type NodeState, useCanvasStore } from "./store";
+import { bezierPath, type CanvasEdge, edgePorts, getNode, portAt } from "./topology";
 
 interface Props {
   edge: CanvasEdge;
@@ -71,12 +71,7 @@ export default function FlowEdge({ edge }: Props) {
       data-active={active ? "true" : undefined}
       data-failed={failed ? "true" : undefined}
     >
-      <path
-        id={edge.id}
-        d={d}
-        className="pipeline-cable-halo"
-        strokeWidth={cableWidth * 3.5}
-      />
+      <path id={edge.id} d={d} className="pipeline-cable-halo" strokeWidth={cableWidth * 3.5} />
       <path d={d} className="pipeline-cable-body" strokeWidth={cableWidth} />
       {!failed && (
         <path d={d} className="pipeline-cable-core" strokeWidth={Math.max(cableWidth * 0.4, 0.6)} />

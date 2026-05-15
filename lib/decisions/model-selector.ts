@@ -42,14 +42,11 @@ export interface ModelSelection {
 const WEIGHTS = {
   success_rate: 0.45,
   latency: 0.25,
-  cost: 0.20,
-  volume: 0.10,
+  cost: 0.2,
+  volume: 0.1,
 };
 
-export async function scoreModels(
-  sb: DB,
-  opts: { days?: number } = {},
-): Promise<ModelScore[]> {
+export async function scoreModels(sb: DB, opts: { days?: number } = {}): Promise<ModelScore[]> {
   const days = opts.days ?? 14;
   const since = new Date(Date.now() - days * 86400_000).toISOString();
 
@@ -85,9 +82,8 @@ export async function scoreModels(
     const successRate = total > 0 ? successful / total : 0;
 
     const latencies = modelTraces.map((t) => t.latency_ms ?? 0).filter((l) => l > 0);
-    const avgLatency = latencies.length > 0
-      ? latencies.reduce((a, b) => a + b, 0) / latencies.length
-      : 0;
+    const avgLatency =
+      latencies.length > 0 ? latencies.reduce((a, b) => a + b, 0) / latencies.length : 0;
 
     const costs = modelTraces.map((t) => t.cost_usd ?? 0);
     const avgCost = total > 0 ? costs.reduce((a, b) => a + b, 0) / total : 0;
@@ -100,7 +96,12 @@ export async function scoreModels(
       rank: 0,
       reliability: "unknown",
       flags: [],
-      stats: { total_calls: total, success_rate: successRate, avg_latency_ms: Math.round(avgLatency), avg_cost_usd: Math.round(avgCost * 10000) / 10000 },
+      stats: {
+        total_calls: total,
+        success_rate: successRate,
+        avg_latency_ms: Math.round(avgLatency),
+        avg_cost_usd: Math.round(avgCost * 10000) / 10000,
+      },
     });
   }
 
@@ -116,12 +117,14 @@ export async function scoreModels(
     const costScore = 1 - Math.min(s.stats.avg_cost_usd / maxCost, 1);
     const volumeScore = Math.min(s.stats.total_calls / maxVolume, 1);
 
-    s.score = Math.round((
-      successScore * WEIGHTS.success_rate +
-      latencyScore * WEIGHTS.latency +
-      costScore * WEIGHTS.cost +
-      volumeScore * WEIGHTS.volume
-    ) * 1000) / 1000;
+    s.score =
+      Math.round(
+        (successScore * WEIGHTS.success_rate +
+          latencyScore * WEIGHTS.latency +
+          costScore * WEIGHTS.cost +
+          volumeScore * WEIGHTS.volume) *
+          1000,
+      ) / 1000;
 
     if (s.stats.total_calls < 3) {
       s.reliability = "unknown";
@@ -141,24 +144,21 @@ export async function scoreModels(
   }
 
   scores.sort((a, b) => b.score - a.score);
-  scores.forEach((s, i) => { s.rank = i + 1; });
+  scores.forEach((s, i) => {
+    s.rank = i + 1;
+  });
 
   return scores;
 }
 
-export function selectModel(
-  scores: ModelScore[],
-  goal: ModelGoal = "balanced",
-): ModelSelection {
+export function selectModel(scores: ModelScore[], goal: ModelGoal = "balanced"): ModelSelection {
   const usable = scores.filter((s) => s.reliability !== "unstable");
 
   if (usable.length === 0) {
     return {
       selected: null,
       fallbacks: [],
-      reason: scores.length === 0
-        ? "No model profiles with trace data"
-        : "All models are unstable",
+      reason: scores.length === 0 ? "No model profiles with trace data" : "All models are unstable",
     };
   }
 
@@ -195,8 +195,6 @@ function sortByGoal(models: ModelScore[], goal: ModelGoal): ModelScore[] {
         if (!a.flags.includes("high_cost") && b.flags.includes("high_cost")) return -1;
         return b.score - a.score;
       });
-
-    case "balanced":
     default:
       return [...models].sort((a, b) => b.score - a.score);
   }

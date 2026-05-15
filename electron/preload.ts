@@ -23,8 +23,7 @@ contextBridge.exposeInMainWorld("hearstBridge", {
 
   // ── Notifications natives ───────────────────────────────────────────
   notification: {
-    show: (opts: { title: string; body: string }) =>
-      ipcRenderer.invoke("notification:show", opts),
+    show: (opts: { title: string; body: string }) => ipcRenderer.invoke("notification:show", opts),
   },
 
   // ── Dialogs ────────────────────────────────────────────────────────
@@ -49,11 +48,7 @@ contextBridge.exposeInMainWorld("hearstBridge", {
 
   // ── Event listeners (menu / deeplinks) ────────────────────────────
   on: (channel: string, listener: (...args: unknown[]) => void) => {
-    const allowed = [
-      "menu:new-thread",
-      "menu:navigate",
-      "deeplink:navigate",
-    ];
+    const allowed = ["menu:new-thread", "menu:navigate", "deeplink:navigate"];
     if (!allowed.includes(channel)) return;
     const wrapped = (_event: Electron.IpcRendererEvent, ...args: unknown[]) => listener(...args);
     ipcRenderer.on(channel, wrapped);

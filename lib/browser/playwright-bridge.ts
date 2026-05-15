@@ -27,8 +27,14 @@ export interface PlaywrightBridge {
 
 /** Surface minimale qu'on consomme — évite de tirer les types playwright-core. */
 export interface PlaywrightPage {
-  goto(url: string, opts?: { waitUntil?: "load" | "domcontentloaded" | "networkidle"; timeout?: number }): Promise<unknown>;
-  waitForLoadState(state?: "load" | "domcontentloaded" | "networkidle", opts?: { timeout?: number }): Promise<void>;
+  goto(
+    url: string,
+    opts?: { waitUntil?: "load" | "domcontentloaded" | "networkidle"; timeout?: number },
+  ): Promise<unknown>;
+  waitForLoadState(
+    state?: "load" | "domcontentloaded" | "networkidle",
+    opts?: { timeout?: number },
+  ): Promise<void>;
   /** Pause d'attente explicite — utilisée par l'agent loop pour laisser charger
    *  une page après un click (default 500ms). */
   waitForTimeout?(ms: number): Promise<void>;
@@ -42,7 +48,10 @@ export interface PlaywrightPage {
 }
 
 interface ChromiumLike {
-  connectOverCDP(url: string, opts?: { timeout?: number }): Promise<{
+  connectOverCDP(
+    url: string,
+    opts?: { timeout?: number },
+  ): Promise<{
     contexts(): unknown[];
     newContext?(): Promise<unknown>;
     close(): Promise<void>;
@@ -55,7 +64,7 @@ async function loadChromium(): Promise<ChromiumLike | null> {
   if (cachedChromium !== undefined) return cachedChromium;
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore — peer dep dynamique, types pas indispensables
+    // @ts-expect-error — peer dep dynamique, types pas indispensables
     const mod: unknown = await import("playwright-core");
     const m = mod as { chromium?: ChromiumLike };
     cachedChromium = m.chromium ?? null;
@@ -110,8 +119,7 @@ export async function getBrowserContext(opts: {
   }
 
   const pages = ctx.pages?.() ?? [];
-  const page: PlaywrightPage =
-    pages[0] ?? (await ctx.newPage!());
+  const page: PlaywrightPage = pages[0] ?? (await ctx.newPage?.());
 
   return {
     browser,

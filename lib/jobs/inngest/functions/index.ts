@@ -7,20 +7,14 @@
  * client.ts).
  */
 
-import { dailyBriefFunction } from "./daily-brief";
-import {
-  weeklyDigestCronFunction,
-  weeklyDigestPerUserFunction,
-} from "./weekly-digest";
-import { preMeetingIntelFunction } from "./pre-meeting-intel";
-import {
-  monthlyCardCronFunction,
-  monthlyCardPerUserFunction,
-} from "./monthly-card";
 import { audioGenFunction } from "./audio-gen";
-import { imageGenFunction } from "./image-gen";
 import { codeExecFunction } from "./code-exec";
+import { dailyBriefFunction } from "./daily-brief";
 import { documentParseFunction } from "./document-parse";
+import { imageGenFunction } from "./image-gen";
+import { monthlyCardCronFunction, monthlyCardPerUserFunction } from "./monthly-card";
+import { preMeetingIntelFunction } from "./pre-meeting-intel";
+import { weeklyDigestCronFunction, weeklyDigestPerUserFunction } from "./weekly-digest";
 
 export const inngestFunctions = [
   dailyBriefFunction,

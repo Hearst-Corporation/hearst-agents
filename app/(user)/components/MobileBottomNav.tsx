@@ -127,9 +127,7 @@ export function MobileBottomNav() {
             <span aria-hidden="true" className="t-15" style={{ lineHeight: 1 }}>
               {item.glyph}
             </span>
-            <span className="t-11 font-light">
-              {item.label}
-            </span>
+            <span className="t-11 font-light">{item.label}</span>
           </button>
         );
       })}

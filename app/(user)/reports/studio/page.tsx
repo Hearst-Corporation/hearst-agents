@@ -17,21 +17,17 @@
  * Tokens uniquement, conforme CLAUDE.md.
  */
 
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import type {
-  ReportSpec,
-  BlockSpec,
-  PrimitiveKind,
-} from "@/lib/reports/spec/schema";
-import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
-import { BlockPalette } from "@/app/(user)/components/reports/studio/BlockPalette";
-import { SpecOutline } from "@/app/(user)/components/reports/studio/SpecOutline";
-import { BlockConfigPanel } from "@/app/(user)/components/reports/studio/BlockConfigPanel";
-import { PreviewPane } from "@/app/(user)/components/reports/studio/PreviewPane";
-import { StudioToolbar } from "@/app/(user)/components/reports/studio/StudioToolbar";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { PublishTemplateModal } from "@/app/(user)/components/marketplace/PublishTemplateModal";
+import { BlockConfigPanel } from "@/app/(user)/components/reports/studio/BlockConfigPanel";
+import { BlockPalette } from "@/app/(user)/components/reports/studio/BlockPalette";
+import { PreviewPane } from "@/app/(user)/components/reports/studio/PreviewPane";
+import { SpecOutline } from "@/app/(user)/components/reports/studio/SpecOutline";
+import { StudioToolbar } from "@/app/(user)/components/reports/studio/StudioToolbar";
+import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import type { BlockSpec, PrimitiveKind, ReportSpec } from "@/lib/reports/spec/schema";
 
 // ── Spec helpers ───────────────────────────────────────────
 
@@ -230,54 +226,41 @@ function ReportStudioPageContent() {
 
   // ── Handlers spec mutation ─────────────────────────────────
 
-  const updateBlock = useCallback(
-    (next: BlockSpec) => {
-      setSpec((prev) => ({
-        ...prev,
-        blocks: prev.blocks.map((b) => (b.id === next.id ? next : b)),
-      }));
-    },
-    [],
-  );
+  const updateBlock = useCallback((next: BlockSpec) => {
+    setSpec((prev) => ({
+      ...prev,
+      blocks: prev.blocks.map((b) => (b.id === next.id ? next : b)),
+    }));
+  }, []);
 
-  const addBlock = useCallback(
-    (kind: PrimitiveKind) => {
-      setSpec((prev) => {
-        const dataRef =
-          prev.transforms[0]?.id ?? prev.sources[0]?.id ?? "src_default";
-        const newBlock = makeBlockOfKind(kind, dataRef, prev.blocks.length);
-        return { ...prev, blocks: [...prev.blocks, newBlock] };
-      });
-    },
-    [],
-  );
+  const addBlock = useCallback((kind: PrimitiveKind) => {
+    setSpec((prev) => {
+      const dataRef = prev.transforms[0]?.id ?? prev.sources[0]?.id ?? "src_default";
+      const newBlock = makeBlockOfKind(kind, dataRef, prev.blocks.length);
+      return { ...prev, blocks: [...prev.blocks, newBlock] };
+    });
+  }, []);
 
-  const removeBlock = useCallback(
-    (blockId: string) => {
-      setSpec((prev) => ({
-        ...prev,
-        blocks: prev.blocks.filter((b) => b.id !== blockId),
-      }));
-      setSelectedBlockId((cur) => (cur === blockId ? null : cur));
-    },
-    [],
-  );
+  const removeBlock = useCallback((blockId: string) => {
+    setSpec((prev) => ({
+      ...prev,
+      blocks: prev.blocks.filter((b) => b.id !== blockId),
+    }));
+    setSelectedBlockId((cur) => (cur === blockId ? null : cur));
+  }, []);
 
-  const moveBlock = useCallback(
-    (blockId: string, direction: -1 | 1) => {
-      setSpec((prev) => {
-        const idx = prev.blocks.findIndex((b) => b.id === blockId);
-        if (idx === -1) return prev;
-        const target = idx + direction;
-        if (target < 0 || target >= prev.blocks.length) return prev;
-        const next = [...prev.blocks];
-        const [moved] = next.splice(idx, 1);
-        next.splice(target, 0, moved);
-        return { ...prev, blocks: next };
-      });
-    },
-    [],
-  );
+  const moveBlock = useCallback((blockId: string, direction: -1 | 1) => {
+    setSpec((prev) => {
+      const idx = prev.blocks.findIndex((b) => b.id === blockId);
+      if (idx === -1) return prev;
+      const target = idx + direction;
+      if (target < 0 || target >= prev.blocks.length) return prev;
+      const next = [...prev.blocks];
+      const [moved] = next.splice(idx, 1);
+      next.splice(target, 0, moved);
+      return { ...prev, blocks: next };
+    });
+  }, []);
 
   // ── Sample run ─────────────────────────────────────────────
 
@@ -291,9 +274,7 @@ function ReportStudioPageContent() {
       const url = savedSpecId
         ? `/api/v2/reports/${savedSpecId}/run`
         : `/api/v2/reports/specs/sample`;
-      const body = savedSpecId
-        ? JSON.stringify({ sample: true })
-        : JSON.stringify({ spec });
+      const body = savedSpecId ? JSON.stringify({ sample: true }) : JSON.stringify({ spec });
       const res = await fetch(url, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -323,9 +304,7 @@ function ReportStudioPageContent() {
           ...spec,
           meta: { ...spec.meta, title: name, summary: description ?? spec.meta.summary },
         };
-        const url = savedSpecId
-          ? `/api/v2/reports/specs/${savedSpecId}`
-          : `/api/v2/reports/specs`;
+        const url = savedSpecId ? `/api/v2/reports/specs/${savedSpecId}` : `/api/v2/reports/specs`;
         const method = savedSpecId ? "PATCH" : "POST";
         const body = savedSpecId
           ? { name, description, spec: sealedSpec }
@@ -479,25 +458,17 @@ function ReportStudioPageContent() {
             background: "var(--surface-1)",
           }}
         >
-          <span className="t-11 font-medium text-(--accent-teal)">
-            Vue desktop
-          </span>
-          <h2 className="t-15 text-text">
-            Report Studio optimisé pour ordinateur
-          </h2>
+          <span className="t-11 font-medium text-(--accent-teal)">Vue desktop</span>
+          <h2 className="t-15 text-text">Report Studio optimisé pour ordinateur</h2>
           <p className="t-13 text-text-muted">
-            Le block editor utilise un layout 3 colonnes (palette / preview /
-            config). Ouvre Report Studio sur ordinateur pour la meilleure
-            expérience.
+            Le block editor utilise un layout 3 colonnes (palette / preview / config). Ouvre Report
+            Studio sur ordinateur pour la meilleure expérience.
           </p>
         </div>
       </div>
 
       {/* 3-column layout */}
-      <div
-        className="hidden lg:flex flex-1 min-h-0"
-        style={{ background: "var(--bg-elev)" }}
-      >
+      <div className="hidden lg:flex flex-1 min-h-0" style={{ background: "var(--bg-elev)" }}>
         {/* Left : palette */}
         <div style={{ width: "var(--space-32)", flexShrink: 0 }}>
           <BlockPalette onAdd={addBlock} />
@@ -522,7 +493,13 @@ function ReportStudioPageContent() {
             borderLeft: "1px solid var(--border-default)",
           }}
         >
-          <div style={{ flex: "0 0 40%", overflow: "hidden", borderBottom: "1px solid var(--border-subtle)" }}>
+          <div
+            style={{
+              flex: "0 0 40%",
+              overflow: "hidden",
+              borderBottom: "1px solid var(--border-subtle)",
+            }}
+          >
             <SpecOutline
               blocks={spec.blocks}
               selectedBlockId={selectedBlockId ?? undefined}
@@ -542,7 +519,6 @@ function ReportStudioPageContent() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -12,13 +12,10 @@
  * }
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
-import {
-  appendTranscriptEntry,
-  type VoiceTranscriptEntry,
-} from "@/lib/voice/transcript-store";
+import { appendTranscriptEntry, type VoiceTranscriptEntry } from "@/lib/voice/transcript-store";
 
 const transcriptEntrySchema = z.object({
   id: z.string().min(1).max(200),
@@ -34,11 +31,13 @@ const transcriptEntrySchema = z.object({
   stageRequest: z.unknown().optional(),
 });
 
-const transcriptsAppendBodySchema = z.object({
-  sessionId: z.string().min(1).max(200),
-  threadId: z.string().max(200).optional(),
-  entry: transcriptEntrySchema,
-}).strict();
+const transcriptsAppendBodySchema = z
+  .object({
+    sessionId: z.string().min(1).max(200),
+    threadId: z.string().max(200).optional(),
+    entry: transcriptEntrySchema,
+  })
+  .strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

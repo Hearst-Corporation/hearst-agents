@@ -12,7 +12,7 @@
  *
  * Pas de dépendance externe — Node stdlib uniquement.
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.cwd();
@@ -21,7 +21,7 @@ const API_DIR = join(ROOT, "app", "api");
 const HTTP_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"];
 const METHOD_RE = new RegExp(
   `export\\s+(?:async\\s+)?(?:const|function)\\s+(${HTTP_METHODS.join("|")})\\b`,
-  "g"
+  "g",
 );
 
 const ROUTE_FILE_RE = /^route\.(ts|tsx|js)$/;
@@ -73,7 +73,7 @@ function diskPathToRoute(file) {
       out.push(seg);
     }
   }
-  return "/" + out.join("/");
+  return `/${out.join("/")}`;
 }
 
 function detectMethods(file) {

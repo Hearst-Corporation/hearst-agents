@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
-import { interceptLLMCalls, ASSET_ID } from "./fixtures";
+import { expect, test } from "@playwright/test";
+import { ASSET_ID, interceptLLMCalls } from "./fixtures";
 import { ReportPage } from "./ReportPage";
 
 /**
@@ -36,26 +36,23 @@ async function mockExportEndpoint(
   const contentType = contentTypes[format];
   const fileName = `Founder Cockpit.${format}`;
 
-  await page.route(
-    `**/api/reports/${ASSET_ID}/export*`,
-    (route) => {
-      const url = route.request().url();
-      if (!url.includes(`format=${format}`)) {
-        route.continue();
-        return;
-      }
-      route.fulfill({
-        status: 200,
-        contentType,
-        headers: {
-          "Content-Disposition": `attachment; filename="${fileName}"`,
-          "Content-Length": "1024",
-          "Cache-Control": "private, no-store",
-        },
-        body: "MOCK_BINARY_CONTENT",
-      });
-    },
-  );
+  await page.route(`**/api/reports/${ASSET_ID}/export*`, (route) => {
+    const url = route.request().url();
+    if (!url.includes(`format=${format}`)) {
+      route.continue();
+      return;
+    }
+    route.fulfill({
+      status: 200,
+      contentType,
+      headers: {
+        "Content-Disposition": `attachment; filename="${fileName}"`,
+        "Content-Length": "1024",
+        "Cache-Control": "private, no-store",
+      },
+      body: "MOCK_BINARY_CONTENT",
+    });
+  });
 }
 
 // ── Présence des boutons ──────────────────────────────────────────────────────
@@ -173,15 +170,13 @@ test.describe("Export — API endpoint /api/reports/:id/export", () => {
   });
 
   test("GET /api/reports/:id/export?format=csv → 401 ou 404 sans auth", async ({ request }) => {
-    const res = await request
-      .get(`/api/reports/${ASSET_ID}/export?format=csv`)
-      .catch(() => null);
+    const res = await request.get(`/api/reports/${ASSET_ID}/export?format=csv`).catch(() => null);
 
     if (!res) {
       test.skip(true, "Serveur non disponible");
     }
 
-    const status = res!.status();
+    const status = res?.status();
     // Sans auth : 401 ou redirect 302/307 ; avec bypass + asset inexistant : 404/403
     expect([200, 401, 302, 307, 404, 403]).toContain(status);
   });
@@ -195,12 +190,14 @@ test.describe("Export — API endpoint /api/reports/:id/export", () => {
       test.skip(true, "Serveur non disponible");
     }
 
-    const status = res!.status();
+    const status = res?.status();
     // Si auth bypass actif : 400 (bad format) ; sans auth : 401
     expect([400, 401, 302, 307]).toContain(status);
   });
 
-  test("GET /api/reports/:id/export?format=pdf → content-type application/pdf si auth OK", async ({ request }) => {
+  test("GET /api/reports/:id/export?format=pdf → content-type application/pdf si auth OK", async ({
+    request,
+  }) => {
     // Nécessite un asset réel — skip si pas d'auth ou asset inexistant
     const check = await request.get("/api/v2/reports").catch(() => null);
     if (!check || check.status() !== 200) {

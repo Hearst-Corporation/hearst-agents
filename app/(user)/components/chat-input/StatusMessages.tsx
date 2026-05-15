@@ -30,17 +30,11 @@ export function StatusMessages({
 }: StatusMessagesProps) {
   return (
     <>
-      {uploadError && (
-        <p className="t-10 tracking-wide text-(--danger) px-1 pb-3">
-          {uploadError}
-        </p>
-      )}
+      {uploadError && <p className="t-10 tracking-wide text-(--danger) px-1 pb-3">{uploadError}</p>}
       {imageGenMessage && (
         <p
           className={`t-10 tracking-wide px-1 pb-3 ${
-            imageGenStatus === "error"
-              ? "text-(--danger)"
-              : "text-(--accent-teal)"
+            imageGenStatus === "error" ? "text-(--danger)" : "text-(--accent-teal)"
           }`}
         >
           {imageGenMessage}
@@ -49,9 +43,7 @@ export function StatusMessages({
       {audioGenMessage && (
         <p
           className={`t-10 tracking-wide px-1 pb-3 ${
-            audioGenStatus === "error"
-              ? "text-(--danger)"
-              : "text-(--accent-teal)"
+            audioGenStatus === "error" ? "text-(--danger)" : "text-(--accent-teal)"
           }`}
         >
           {audioGenMessage}
@@ -60,18 +52,14 @@ export function StatusMessages({
       {codeExecMessage && (
         <p
           className={`t-10 tracking-wide px-1 pb-3 ${
-            codeExecStatus === "error"
-              ? "text-(--danger)"
-              : "text-(--accent-teal)"
+            codeExecStatus === "error" ? "text-(--danger)" : "text-(--accent-teal)"
           }`}
         >
           {codeExecMessage}
         </p>
       )}
       {docParseMessage && (
-        <p className="t-10 tracking-wide px-1 pb-3 text-(--accent-teal)">
-          {docParseMessage}
-        </p>
+        <p className="t-10 tracking-wide px-1 pb-3 text-(--accent-teal)">{docParseMessage}</p>
       )}
     </>
   );

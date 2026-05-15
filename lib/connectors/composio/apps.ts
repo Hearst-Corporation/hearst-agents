@@ -88,9 +88,7 @@ function categoriesOf(raw: RawApiItem): string[] {
 function normalize(raw: RawApiItem): Omit<ComposioApp, "connectable"> | null {
   const slug = raw.slug ?? raw.key;
   if (!slug || !raw.name) return null;
-  const noAuth =
-    Boolean(raw.no_auth ?? raw.noAuth) ||
-    raw.authConfig?.authScheme === "no_auth";
+  const noAuth = Boolean(raw.no_auth ?? raw.noAuth) || raw.authConfig?.authScheme === "no_auth";
   return {
     key: slug.toLowerCase(),
     name: raw.name,
@@ -117,12 +115,9 @@ interface ComposioAuthConfigsModule {
   list: (params: Record<string, unknown>) => Promise<RawAuthConfigPage>;
 }
 
-async function fetchConfiguredToolkitSlugs(
-  composio: unknown,
-): Promise<Set<string>> {
+async function fetchConfiguredToolkitSlugs(composio: unknown): Promise<Set<string>> {
   const set = new Set<string>();
-  const authConfigs = (composio as { authConfigs?: ComposioAuthConfigsModule })
-    .authConfigs;
+  const authConfigs = (composio as { authConfigs?: ComposioAuthConfigsModule }).authConfigs;
   if (!authConfigs?.list) return set;
   let cursor: string | undefined;
   const MAX_PAGES = 30;
@@ -147,9 +142,7 @@ async function fetchConfiguredToolkitSlugs(
   return set;
 }
 
-export async function listAvailableApps(
-  opts: { force?: boolean } = {},
-): Promise<ComposioApp[]> {
+export async function listAvailableApps(opts: { force?: boolean } = {}): Promise<ComposioApp[]> {
   if (!isComposioConfigured()) return [];
 
   const now = Date.now();
@@ -164,9 +157,7 @@ export async function listAvailableApps(
   // makes one API call and discards the pagination cursor.  We access the
   // raw HTTP client directly — it is a stable, explicitly-exposed property
   // on the Toolkits class instance.
-  const rawHttp = (
-    composio.toolkits as unknown as { client: RawHttpClient }
-  ).client;
+  const rawHttp = (composio.toolkits as unknown as { client: RawHttpClient }).client;
 
   try {
     const all: RawApiItem[] = [];
@@ -191,10 +182,12 @@ export async function listAvailableApps(
     const apps = all
       .map(normalize)
       .filter((a): a is Omit<ComposioApp, "connectable"> => a !== null)
-      .map((a): ComposioApp => ({
-        ...a,
-        connectable: a.noAuth || configuredSlugs.has(a.key),
-      }))
+      .map(
+        (a): ComposioApp => ({
+          ...a,
+          connectable: a.noAuth || configuredSlugs.has(a.key),
+        }),
+      )
       .sort((a, b) => a.name.localeCompare(b.name));
 
     cachedCatalog = { apps, expiresAt: now + CATALOG_TTL_MS };

@@ -46,10 +46,7 @@ class InMemoryThrottleStore implements ThrottleStore {
 
 export const inMemoryStore: ThrottleStore = new InMemoryThrottleStore();
 
-function buildThrottleKey(
-  tenantId: string,
-  signal: BusinessSignalType,
-): string {
+function buildThrottleKey(tenantId: string, signal: BusinessSignalType): string {
   return `${tenantId}:${signal}`;
 }
 

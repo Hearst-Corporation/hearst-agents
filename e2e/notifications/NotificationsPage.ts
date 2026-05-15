@@ -6,7 +6,7 @@
  * dans les specs. Suit le même pattern que ReportPage.ts.
  */
 
-import type { Page, Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 export class NotificationsPage {
   readonly page: Page;
@@ -38,16 +38,18 @@ export class NotificationsPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.bellButton   = page.getByRole("button", { name: /notifications/i });
-    this.unreadBadge  = page.locator('[aria-label*="non lues"]').or(
+    this.bellButton = page.getByRole("button", { name: /notifications/i });
+    this.unreadBadge = page.locator('[aria-label*="non lues"]').or(
       // Fallback : le span badge aria-hidden positionné sur la cloche
       page.locator('button[aria-label*="Notifications"] span[aria-hidden]'),
     );
-    this.dropdown     = page.getByRole("dialog", { name: "Notifications" });
+    this.dropdown = page.getByRole("dialog", { name: "Notifications" });
     this.markAllReadBtn = page.getByRole("button", { name: /tout marquer lu/i });
-    this.emptyState   = page.getByText(/aucune notification/i);
-    this.notifRows    = this.dropdown.getByRole("button").filter({ hasNot: page.getByRole("button", { name: /tout marquer lu/i }) });
-    this.viewAllLink  = page.getByRole("link", { name: /voir toutes les notifications/i });
+    this.emptyState = page.getByText(/aucune notification/i);
+    this.notifRows = this.dropdown
+      .getByRole("button")
+      .filter({ hasNot: page.getByRole("button", { name: /tout marquer lu/i }) });
+    this.viewAllLink = page.getByRole("link", { name: /voir toutes les notifications/i });
   }
 
   // ── Actions ────────────────────────────────────────────────────────────

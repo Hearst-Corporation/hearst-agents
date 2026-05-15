@@ -35,9 +35,7 @@ export interface DualAppConflict {
  * Pour chaque catégorie, retourne les apps connectées qui s'y trouvent
  * SI au moins 2 sont connectées dans la catégorie. Sinon skip.
  */
-export function detectDualAppConflicts(
-  connectedApps: ReadonlyArray<string>,
-): DualAppConflict[] {
+export function detectDualAppConflicts(connectedApps: ReadonlyArray<string>): DualAppConflict[] {
   const lowercased = new Set(connectedApps.map((a) => a.toLowerCase()));
   const conflicts: DualAppConflict[] = [];
   for (const [category, members] of Object.entries(DUAL_APP_GROUPS)) {
@@ -53,15 +51,11 @@ export function detectDualAppConflicts(
  * Construit le bloc d'instruction à injecter dans le system prompt.
  * Retourne `null` si aucun conflit (pas de bloc à ajouter).
  */
-export function buildDualAppGuidance(
-  connectedApps: ReadonlyArray<string>,
-): string | null {
+export function buildDualAppGuidance(connectedApps: ReadonlyArray<string>): string | null {
   const conflicts = detectDualAppConflicts(connectedApps);
   if (conflicts.length === 0) return null;
 
-  const lines = [
-    "DUAL-APPS CONNECTÉES — l'utilisateur a plusieurs apps dans la même catégorie :",
-  ];
+  const lines = ["DUAL-APPS CONNECTÉES — l'utilisateur a plusieurs apps dans la même catégorie :"];
   for (const c of conflicts) {
     lines.push(`- ${c.category} : ${c.apps.join(", ")}`);
   }

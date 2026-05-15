@@ -1,2 +1,2 @@
-export * from "./variants";
 export { SpatialTransition } from "./SpatialTransition";
+export * from "./variants";

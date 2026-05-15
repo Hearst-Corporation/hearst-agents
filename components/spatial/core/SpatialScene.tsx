@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 interface SpatialSceneProps {
   children?: ReactNode;
@@ -12,9 +12,5 @@ interface SpatialSceneProps {
  * sur les noyaux qui le supportent.
  */
 export function SpatialScene({ children }: SpatialSceneProps) {
-  return (
-    <div className="spatial-canvas-container fixed inset-0 z-1">
-      {children}
-    </div>
-  );
+  return <div className="spatial-canvas-container fixed inset-0 z-1">{children}</div>;
 }

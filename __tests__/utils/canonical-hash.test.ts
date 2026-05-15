@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { canonicalStringify, canonicalHash } from "@/lib/utils/canonical-hash";
+import { describe, expect, it } from "vitest";
+import { canonicalHash, canonicalStringify } from "@/lib/utils/canonical-hash";
 
 describe("canonicalStringify", () => {
   it("trie les clés objet en lexico (ordre d'insertion ignoré)", () => {

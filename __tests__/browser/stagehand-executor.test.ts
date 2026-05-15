@@ -2,13 +2,13 @@
  * lib/browser/stagehand-executor — émission d'events + abort + cap.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
-  runBrowserTask,
-  requestTakeOver,
-  markUserControlled,
-  isSessionUserControlled,
   clearUserControlled,
+  isSessionUserControlled,
+  markUserControlled,
+  requestTakeOver,
+  runBrowserTask,
 } from "@/lib/browser/stagehand-executor";
 import { globalRunBus } from "@/lib/events/global-bus";
 import type { RunEvent } from "@/lib/events/types";
@@ -46,9 +46,7 @@ describe("runBrowserTask", () => {
       task: "ouvre https://example.com",
     });
     unsub();
-    const nav = events.find(
-      (e) => e.type === "browser_action" && e.action.type === "navigate",
-    );
+    const nav = events.find((e) => e.type === "browser_action" && e.action.type === "navigate");
     expect(nav).toBeDefined();
     if (nav && nav.type === "browser_action") {
       expect(nav.action.target).toBe("https://example.com");

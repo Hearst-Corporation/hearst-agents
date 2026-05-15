@@ -41,4 +41,3 @@ export function disableMission(id: string): void {
 export function evictMission(id: string): void {
   missions.delete(id);
 }
-

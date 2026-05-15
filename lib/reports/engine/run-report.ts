@@ -13,25 +13,19 @@
  * (threadId, tenantId, etc.).
  */
 
-import type { ReportSpec, SourceRef } from "@/lib/reports/spec/schema";
-import type { Tabular } from "./tabular";
-import { applyTransforms } from "./apply-transforms";
-import { renderBlocks, type RenderPayload, type RenderedSource } from "./render-blocks";
-import { narrate } from "./narrate";
-import {
-  getRenderCache,
-  setRenderCache,
-  hashKey,
-} from "./cache";
-import {
-  extractSignals,
-  type BusinessSignal,
-} from "@/lib/reports/signals/extract";
+import { type BusinessSignal, extractSignals } from "@/lib/reports/signals/extract";
 import type { Severity } from "@/lib/reports/signals/types";
+import type { ReportSpec, SourceRef } from "@/lib/reports/spec/schema";
+import { applyTransforms } from "./apply-transforms";
+import { getRenderCache, hashKey, setRenderCache } from "./cache";
 import { checkReportBudget, REPORT_BUDGET_USD, SONNET_4_6_PRICING } from "./cost-meter";
+import { narrate } from "./narrate";
+import { type RenderedSource, type RenderPayload, renderBlocks } from "./render-blocks";
+import type { Tabular } from "./tabular";
 
 /** Prix output Sonnet 4-6 en USD/1M tokens (utilisé pour l'estimation pré-call). */
 const SONNET_OUTPUT_PRICE_PER_M = SONNET_4_6_PRICING.output;
+
 import type {
   DispatchAlertsInput,
   DispatchAlertsResult,
@@ -216,9 +210,7 @@ export async function runReport(
   // Si la spec n'a pas de narration, l'estimation est 0.
   const narrateMaxTokens = spec.narration?.maxTokens ?? 0;
   const estimatedNarrateCostUsd =
-    narrateMaxTokens > 0
-      ? (narrateMaxTokens / 1_000_000) * SONNET_OUTPUT_PRICE_PER_M
-      : 0;
+    narrateMaxTokens > 0 ? (narrateMaxTokens / 1_000_000) * SONNET_OUTPUT_PRICE_PER_M : 0;
 
   let budgetSkipped = false;
   if (spec.narration && estimatedNarrateCostUsd > maxBudgetUsd) {

@@ -14,12 +14,12 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { storeAsset } from "@/lib/assets/types";
 import { deepseekChat } from "@/lib/capabilities/providers/deepseek";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { simulationOutputSchema, type SimulationOutput } from "@/lib/simulations/schemas";
 import type { JobResult, SimulationInput } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { type SimulationOutput, simulationOutputSchema } from "@/lib/simulations/schemas";
 
 const SIMULATION_PROMPT = [
   "Tu es un analyste business expert. L'utilisateur soumet un scénario, tu retournes 3 à 5 scénarios contrastés.",
@@ -28,7 +28,7 @@ const SIMULATION_PROMPT = [
   "{",
   '  "summary": "1-2 phrases — synthèse globale (optionnel)",',
   '  "scenarios": [',
-  '    {',
+  "    {",
   '      "name": "Nom court (max 80 chars)",',
   '      "narrative": "Description détaillée (3-6 phrases)",',
   '      "metrics": { "revenue": "$5M", "timeline": "12 months", ... },',
@@ -56,9 +56,7 @@ async function processSimulation(payload: SimulationInput): Promise<JobResult> {
     .eq("id", payload.simulationId);
 
   // 2. Build prompt
-  const variablesText = (payload.variables ?? [])
-    .map((v) => `${v.key}: ${v.value}`)
-    .join("\n");
+  const variablesText = (payload.variables ?? []).map((v) => `${v.key}: ${v.value}`).join("\n");
   const userMessage = [
     `Scénario : ${payload.scenario}`,
     "",
@@ -159,10 +157,7 @@ async function processSimulation(payload: SimulationInput): Promise<JobResult> {
 }
 
 function formatScenariosMarkdown(output: SimulationOutput, scenarioInput: string): string {
-  const lines: string[] = [
-    `# Simulation : ${scenarioInput}`,
-    "",
-  ];
+  const lines: string[] = [`# Simulation : ${scenarioInput}`, ""];
   if (output.summary) {
     lines.push(`> ${output.summary}`, "");
   }

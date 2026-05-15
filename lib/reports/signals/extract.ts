@@ -49,18 +49,18 @@ const EXPENSE_SPIKE_BASELINE_MULTIPLIER = 1.3;
  */
 const RETENTION_DROP_THRESHOLD_PP = 0.05;
 /** Adoption < 20% du MAU pour le top feature → feature_adoption_low. */
-const FEATURE_ADOPTION_LOW_RATIO = 0.20;
+const FEATURE_ADOPTION_LOW_RATIO = 0.2;
 /** NPS courant < précédent - 10 points (échelle -100..100). */
 const NPS_DECLINE_THRESHOLD = 10;
 /** CSAT 7j < CSAT 30j baseline - 5pp. CSAT exprimé en fraction (0..1). */
 const CSAT_DROP_THRESHOLD_PP = 0.05;
 /** Compliance SLA < 90% → sla_breach. */
-const SLA_BREACH_COMPLIANCE_THRESHOLD = 0.90;
+const SLA_BREACH_COMPLIANCE_THRESHOLD = 0.9;
 
 // MRR
 const MRR_DROP_CRITICAL_DELTA = -0.15;
 const MRR_DROP_WARNING_DELTA = -0.05;
-const MRR_SPIKE_DELTA = 0.10;
+const MRR_SPIKE_DELTA = 0.1;
 
 // Runway
 const RUNWAY_CRITICAL_MONTHS = 6;
@@ -74,8 +74,8 @@ const INBOX_OVERLOAD = 50;
 const TICKETS_AT_RISK = 5;
 
 // Velocity / cycle
-const COMMIT_VELOCITY_DROP_DELTA = -0.30;
-const CYCLE_TIME_DRIFT_DELTA = 0.20;
+const COMMIT_VELOCITY_DROP_DELTA = -0.3;
+const CYCLE_TIME_DRIFT_DELTA = 0.2;
 
 // Calendar
 const CALENDAR_OVERLOAD = 25;
@@ -90,9 +90,9 @@ const CHANGE_FAILURE_THRESHOLD = 0.15;
 
 // HR — burnout
 /** Ratio late-hours / MAU au-delà duquel on alerte. */
-const BURNOUT_HOURS_RATIO = 0.30;
+const BURNOUT_HOURS_RATIO = 0.3;
 /** Ratio weekend-activity / MAU au-delà duquel on alerte. */
-const BURNOUT_WEEKEND_RATIO = 0.20;
+const BURNOUT_WEEKEND_RATIO = 0.2;
 /**
  * Ratio late-hours / total-hours au-delà duquel on alerte (sans MAU).
  * Heures soir+weekend sur total des heures envoyées.
@@ -297,8 +297,7 @@ const RULES: ReadonlyArray<Rule> = [
     kind: "composite",
     blockId: "kpi_retention_c2",
     fields: ["value", "baseline"],
-    predicate: ({ value, baseline }) =>
-      value < baseline - RETENTION_DROP_THRESHOLD_PP,
+    predicate: ({ value, baseline }) => value < baseline - RETENTION_DROP_THRESHOLD_PP,
     signal: "retention_drop",
     severity: "critical",
     build: ({ value, baseline }) => {
@@ -357,8 +356,7 @@ const RULES: ReadonlyArray<Rule> = [
     predicate: (n) => n < SLA_BREACH_COMPLIANCE_THRESHOLD,
     signal: "sla_breach",
     severity: "critical",
-    build: (n) =>
-      `SLA respecté à seulement ${(n * 100).toFixed(1)}% (<90%)`,
+    build: (n) => `SLA respecté à seulement ${(n * 100).toFixed(1)}% (<90%)`,
   },
 
   // ── Lead time drift : lead_time > baseline * 1.3 ─────────
@@ -384,8 +382,7 @@ const RULES: ReadonlyArray<Rule> = [
     predicate: (n) => n > CHANGE_FAILURE_THRESHOLD,
     signal: "change_failure_high",
     severity: "critical",
-    build: (n) =>
-      `Change Failure Rate critique : ${(n * 100).toFixed(1)}% (>15%)`,
+    build: (n) => `Change Failure Rate critique : ${(n * 100).toFixed(1)}% (>15%)`,
   },
 
   // ── Burnout risk (composite OR) :
@@ -406,8 +403,7 @@ const RULES: ReadonlyArray<Rule> = [
     kind: "composite",
     blockId: "kpi_weekend_activity",
     fields: ["value", "mau"],
-    predicate: ({ value, mau }) =>
-      mau > 0 && value / mau > BURNOUT_WEEKEND_RATIO,
+    predicate: ({ value, mau }) => mau > 0 && value / mau > BURNOUT_WEEKEND_RATIO,
     signal: "burnout_risk",
     severity: "warning",
     build: ({ value, mau }) => {

@@ -1,11 +1,11 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  checkOutputBasicGuards,
-  checkJsonStructure,
-  checkOutputSize,
-  checkOutputRegex,
-  checkOutputBlacklist,
   applyAgentGuardPolicy,
+  checkJsonStructure,
+  checkOutputBasicGuards,
+  checkOutputBlacklist,
+  checkOutputRegex,
+  checkOutputSize,
   determineOutputTrust,
 } from "@/lib/engine/runtime/prompt-guard";
 
@@ -39,7 +39,7 @@ describe("checkJsonStructure", () => {
   });
 
   it("passes on valid JSON array", () => {
-    expect(checkJsonStructure('[1,2,3]').passed).toBe(true);
+    expect(checkJsonStructure("[1,2,3]").passed).toBe(true);
   });
 
   it("fails on plain text", () => {
@@ -169,22 +169,57 @@ describe("applyAgentGuardPolicy", () => {
 
 describe("determineOutputTrust", () => {
   it("returns stubbed for stubs", () => {
-    expect(determineOutputTrust({ is_stub: true, has_tool_backing: false, guard_passed: true, has_error: false })).toBe("stubbed");
+    expect(
+      determineOutputTrust({
+        is_stub: true,
+        has_tool_backing: false,
+        guard_passed: true,
+        has_error: false,
+      }),
+    ).toBe("stubbed");
   });
 
   it("returns guard_failed on error", () => {
-    expect(determineOutputTrust({ is_stub: false, has_tool_backing: false, guard_passed: true, has_error: true })).toBe("guard_failed");
+    expect(
+      determineOutputTrust({
+        is_stub: false,
+        has_tool_backing: false,
+        guard_passed: true,
+        has_error: true,
+      }),
+    ).toBe("guard_failed");
   });
 
   it("returns guard_failed when guard fails", () => {
-    expect(determineOutputTrust({ is_stub: false, has_tool_backing: false, guard_passed: false, has_error: false })).toBe("guard_failed");
+    expect(
+      determineOutputTrust({
+        is_stub: false,
+        has_tool_backing: false,
+        guard_passed: false,
+        has_error: false,
+      }),
+    ).toBe("guard_failed");
   });
 
   it("returns tool_backed when tool backing", () => {
-    expect(determineOutputTrust({ is_stub: false, has_tool_backing: true, guard_passed: true, has_error: false })).toBe("tool_backed");
+    expect(
+      determineOutputTrust({
+        is_stub: false,
+        has_tool_backing: true,
+        guard_passed: true,
+        has_error: false,
+      }),
+    ).toBe("tool_backed");
   });
 
   it("returns unverified for raw LLM output", () => {
-    expect(determineOutputTrust({ is_stub: false, has_tool_backing: false, guard_passed: true, has_error: false })).toBe("unverified");
+    expect(
+      determineOutputTrust({
+        is_stub: false,
+        has_tool_backing: false,
+        guard_passed: true,
+        has_error: false,
+      }),
+    ).toBe("unverified");
   });
 });

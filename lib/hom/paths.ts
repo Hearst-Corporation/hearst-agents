@@ -16,22 +16,18 @@ export const HOM = {
   orchestratorConfig: path.join(HOM_ROOT, "orchestrator", "config.json"),
   runs: path.join(HOM_ROOT, "orchestrator", "runs"),
   run: (runId: string) => path.join(HOM_ROOT, "orchestrator", "runs", runId),
-  runIntake: (runId: string) =>
-    path.join(HOM_ROOT, "orchestrator", "runs", runId, "intake.json"),
+  runIntake: (runId: string) => path.join(HOM_ROOT, "orchestrator", "runs", runId, "intake.json"),
   runDecision: (runId: string) =>
     path.join(HOM_ROOT, "orchestrator", "runs", runId, "decision.json"),
   runSnapshot: (runId: string) =>
     path.join(HOM_ROOT, "orchestrator", "runs", runId, "snapshot.json"),
-  runEvents: (runId: string) =>
-    path.join(HOM_ROOT, "orchestrator", "runs", runId, "events.log"),
-  runSpans: (runId: string) =>
-    path.join(HOM_ROOT, "orchestrator", "runs", runId, "spans.jsonl"),
+  runEvents: (runId: string) => path.join(HOM_ROOT, "orchestrator", "runs", runId, "events.log"),
+  runSpans: (runId: string) => path.join(HOM_ROOT, "orchestrator", "runs", runId, "spans.jsonl"),
 
   // Agents
   agents: path.join(HOM_ROOT, "agents"),
   agentDir: (id: string) => path.join(HOM_ROOT, "agents", id),
-  agentContract: (id: string) =>
-    path.join(HOM_ROOT, "agents", id, "contracts.json"),
+  agentContract: (id: string) => path.join(HOM_ROOT, "agents", id, "contracts.json"),
   agentPrompts: (id: string) => path.join(HOM_ROOT, "agents", id, "prompts.md"),
 
   // Audits (append-only)
@@ -57,8 +53,7 @@ export const HOM = {
   // War Room
   warRoom: path.join(HOM_ROOT, "war-room"),
   warRoomSnapshots: path.join(HOM_ROOT, "war-room", "snapshots"),
-  warRoomSnapshot: (runId: string) =>
-    path.join(HOM_ROOT, "war-room", "snapshots", runId),
+  warRoomSnapshot: (runId: string) => path.join(HOM_ROOT, "war-room", "snapshots", runId),
   warRoomIndex: path.join(HOM_ROOT, "war-room", "index.json"),
   trustHistory: path.join(HOM_ROOT, "war-room", "trust-history.json"),
   driftLog: path.join(HOM_ROOT, "war-room", "drift-log.json"),

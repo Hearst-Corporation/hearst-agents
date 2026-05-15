@@ -8,8 +8,8 @@
  */
 
 import { useCallback } from "react";
-import type { UseVideoSSEResult } from "./useVideoSSE";
 import type { DurationOption, Provider, RatioOption } from "../types";
+import type { UseVideoSSEResult } from "./useVideoSSE";
 
 interface SingleSubmitParams {
   prompt: string;
@@ -63,29 +63,22 @@ export function useSingleSubmit({
       onAssetCreated(assetId);
 
       single.setPhase("queued");
-      const variantRes = await fetch(
-        `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            kind: "video",
-            provider,
-            prompt: prompt.trim(),
-            scriptText: prompt.trim(),
-            durationSeconds: duration,
-            ratio: provider === "runway" ? ratio : undefined,
-          }),
-        },
-      );
+      const variantRes = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "video",
+          provider,
+          prompt: prompt.trim(),
+          scriptText: prompt.trim(),
+          durationSeconds: duration,
+          ratio: provider === "runway" ? ratio : undefined,
+        }),
+      });
       const variantBody = await variantRes.json();
       if (!variantRes.ok) {
-        throw new Error(
-          variantBody?.message ??
-            variantBody?.error ??
-            "Enqueue du job échoué",
-        );
+        throw new Error(variantBody?.message ?? variantBody?.error ?? "Enqueue du job échoué");
       }
       const jobId: string | undefined = variantBody.jobId;
       if (!jobId) {
@@ -94,9 +87,7 @@ export function useSingleSubmit({
 
       single.subscribe(jobId, provider);
     } catch (err) {
-      single.setErrorMsg(
-        err instanceof Error ? err.message : "Erreur inattendue",
-      );
+      single.setErrorMsg(err instanceof Error ? err.message : "Erreur inattendue");
       single.setPhase("error");
     }
   }, [prompt, provider, duration, ratio, single, onAssetCreated]);

@@ -9,12 +9,12 @@
  */
 
 import { Buffer } from "node:buffer";
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
-import { parseDocument } from "@/lib/capabilities/providers/llamaparse";
 import { updateVariant } from "@/lib/assets/variants";
+import { parseDocument } from "@/lib/capabilities/providers/llamaparse";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { DocumentParseInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 
 const handler: WorkerHandler<DocumentParseInput> = {
   kind: "document-parse",
@@ -27,9 +27,10 @@ const handler: WorkerHandler<DocumentParseInput> = {
 
   async process(ctx): Promise<JobResult> {
     const { payload, reportProgress } = ctx;
-    const variantId = (payload as DocumentParseInput & { variantId?: string }).variantId
-      ?? (typeof payload === "object" && payload !== null && "metadata" in payload
-        ? ((payload as { metadata?: { variantId?: string } }).metadata?.variantId)
+    const variantId =
+      (payload as DocumentParseInput & { variantId?: string }).variantId ??
+      (typeof payload === "object" && payload !== null && "metadata" in payload
+        ? (payload as { metadata?: { variantId?: string } }).metadata?.variantId
         : undefined);
 
     await reportProgress(5, "Parsing en cours");

@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 /**
  * Smoke tests — Critical path validation (Semaine 1)
@@ -18,17 +18,11 @@ test.describe("Login Page", () => {
     await page.goto("/login");
 
     // OAuth buttons should be visible (FR labels — Semaine 4)
-    await expect(
-      page.locator("text=Continuer avec Google")
-    ).toBeVisible();
-    await expect(
-      page.locator("text=Continuer avec Outlook")
-    ).toBeVisible();
+    await expect(page.locator("text=Continuer avec Google")).toBeVisible();
+    await expect(page.locator("text=Continuer avec Outlook")).toBeVisible();
 
     // French title (Semaine 4 i18n)
-    await expect(
-      page.locator("text=Accédez à votre espace de travail")
-    ).toBeVisible();
+    await expect(page.locator("text=Accédez à votre espace de travail")).toBeVisible();
   });
 
   test("login page is responsive", async ({ page }) => {

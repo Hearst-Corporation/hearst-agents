@@ -6,41 +6,41 @@
 // Toute modification de couleur DS doit être répercutée ici aussi.
 const CY = {
   // Fonds
-  bgBase:       "#16161B",   // --bg-base
-  bgSurface:    "#1B1B22",   // --bg-surface
-  bgTrigger:    "#0E1F1E",   // tint cykan foncé
-  bgCondition:  "#1C1A0E",   // tint gold foncé
-  bgApproval:   "#1C0E0E",   // tint danger foncé
-  bgRunning:    "#0E2F2E",   // tint cykan plus fort
-  bgSuccess:    "#0E1F14",   // tint green foncé
-  bgFailed:     "#1C0A0A",   // tint red foncé
-  bgAwaiting:   "#1C1A08",   // tint gold très foncé
+  bgBase: "#16161B", // --bg-base
+  bgSurface: "#1B1B22", // --bg-surface
+  bgTrigger: "#0E1F1E", // tint cykan foncé
+  bgCondition: "#1C1A0E", // tint gold foncé
+  bgApproval: "#1C0E0E", // tint danger foncé
+  bgRunning: "#0E2F2E", // tint cykan plus fort
+  bgSuccess: "#0E1F14", // tint green foncé
+  bgFailed: "#1C0A0A", // tint red foncé
+  bgAwaiting: "#1C1A08", // tint gold très foncé
   // Bordures
-  borderBase:   "#2A2A35",   // --border
-  borderAlt:    "#3A3A48",   // --border-strong
-  borderEdge:   "#2A2A3A",   // bord edge neutre
-  borderEdgeArr:"#3A3A50",   // flèche edge neutre
+  borderBase: "#2A2A35", // --border
+  borderAlt: "#3A3A48", // --border-strong
+  borderEdge: "#2A2A3A", // bord edge neutre
+  borderEdgeArr: "#3A3A50", // flèche edge neutre
   // Tokens sémantiques
-  cykan:        "#4A8B86",   // --cykan
-  cykanA50:     "#4A8B8680", // --cykan @50%
-  cykanA60:     "#4A8B8660", // --cykan @60%
-  cykanText:    "#7DCFCA",   // --cykan-light (texte sur fond sombre)
-  gold:         "#FFCC00",   // --gold
-  goldA50:      "#FFCC0060", // --gold @60%
-  goldText:     "#FDE68A",   // --gold-light
-  danger:       "#FF3333",   // --danger
-  dangerA50:    "#FF333360", // --danger @60%
-  dangerText:   "#FCA5A5",   // --danger-light
-  green:        "#22C55E",   // --money / success
-  greenA50:     "#22C55E60", // --money @60%
-  greenText:    "#86EFAC",   // --money-light
+  cykan: "#4A8B86", // --cykan
+  cykanA50: "#4A8B8680", // --cykan @50%
+  cykanA60: "#4A8B8660", // --cykan @60%
+  cykanText: "#7DCFCA", // --cykan-light (texte sur fond sombre)
+  gold: "#FFCC00", // --gold
+  goldA50: "#FFCC0060", // --gold @60%
+  goldText: "#FDE68A", // --gold-light
+  danger: "#FF3333", // --danger
+  dangerA50: "#FF333360", // --danger @60%
+  dangerText: "#FCA5A5", // --danger-light
+  green: "#22C55E", // --money / success
+  greenA50: "#22C55E60", // --money @60%
+  greenText: "#86EFAC", // --money-light
   // Texte
-  textPrimary:  "#E8E8EE",   // --text-primary
-  textMuted:    "#666680",   // --text-muted
+  textPrimary: "#E8E8EE", // --text-primary
+  textMuted: "#666680", // --text-muted
   // Fond canvas
-  canvasBg:     "#000000",
+  canvasBg: "#000000",
   // Brand tiers (icônes apps — couleurs imposées par les marques)
-  googleBlue:   "#1A73E8",
+  googleBlue: "#1A73E8",
   googleSearch: "#5F6368",
 } as const;
 
@@ -55,8 +55,8 @@ const CY = {
  * Pas de drag-create node ici — c'est la palette qui ajoute les nodes.
  */
 
-import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { WorkflowGraph } from "@/lib/workflows/types";
 
 // ── SVG data URIs for node icons ───────────────────────────────
@@ -111,10 +111,7 @@ const ICON_SEARCH = strokeSvg(
 );
 
 // Logic & outputs
-const ICON_CONDITION = strokeSvg(
-  `<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>`,
-  CY.gold,
-);
+const ICON_CONDITION = strokeSvg(`<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>`, CY.gold);
 const ICON_TRANSFORM = strokeSvg(
   `<polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>`,
   "#9CA3AF",
@@ -181,7 +178,6 @@ interface WorkflowCanvasProps {
   runStatus?: Map<string, NodeRunStatus["status"]>;
 }
 
-
 export function WorkflowCanvas({
   graph,
   selectedNodeId,
@@ -243,8 +239,8 @@ export function WorkflowCanvas({
         selector: "node",
         style: {
           "background-color": CY.bgBase,
-          "label": "data(label)",
-          "color": CY.textPrimary,
+          label: "data(label)",
+          color: CY.textPrimary,
           "font-size": 11,
           "font-weight": 500,
           "font-family": "var(--font-satoshi), -apple-system, sans-serif",
@@ -253,9 +249,9 @@ export function WorkflowCanvas({
           "text-wrap": "ellipsis",
           "text-max-width": "110px",
           "text-margin-y": -10,
-          "width": 156,
-          "height": 84,
-          "shape": "round-rectangle",
+          width: 156,
+          height: 84,
+          shape: "round-rectangle",
           "border-width": 1,
           "border-color": CY.borderBase,
           // Icon from node data
@@ -344,7 +340,7 @@ export function WorkflowCanvas({
         style: {
           "border-color": CY.cykan,
           "background-color": CY.bgRunning,
-          "color": CY.cykanText,
+          color: CY.cykanText,
           "shadow-color": CY.cykan,
           "shadow-opacity": 0.4,
           "shadow-blur": 16,
@@ -355,7 +351,7 @@ export function WorkflowCanvas({
         style: {
           "border-color": CY.greenA50,
           "background-color": CY.bgSuccess,
-          "color": CY.greenText,
+          color: CY.greenText,
         },
       },
       {
@@ -363,7 +359,7 @@ export function WorkflowCanvas({
         style: {
           "border-color": CY.dangerA50,
           "background-color": CY.bgFailed,
-          "color": CY.dangerText,
+          color: CY.dangerText,
         },
       },
       {
@@ -371,28 +367,28 @@ export function WorkflowCanvas({
         style: {
           "border-color": CY.goldA50,
           "background-color": CY.bgAwaiting,
-          "color": CY.goldText,
+          color: CY.goldText,
         },
       },
       {
         selector: "node.wf-node-status-skipped",
-        style: { "opacity": 0.35 },
+        style: { opacity: 0.35 },
       },
       // ── Edges ─────────────────────────────────────────────────
       {
         selector: "edge",
         style: {
-          "width": 1.5,
+          width: 1.5,
           "line-color": CY.borderEdge,
           "target-arrow-color": CY.borderEdgeArr,
           "target-arrow-shape": "triangle",
           "arrow-scale": 0.8,
           "curve-style": "bezier",
-          "label": "data(label)",
+          label: "data(label)",
           "font-size": 9,
           "font-family": "var(--font-satoshi), -apple-system, sans-serif",
           "text-rotation": "autorotate",
-          "color": CY.textMuted,
+          color: CY.textMuted,
           "text-background-color": CY.bgBase,
           "text-background-opacity": 1,
           "text-background-padding": 2,
@@ -426,12 +422,14 @@ export function WorkflowCanvas({
 
   // Bind cytoscape events
   useEffect(() => {
-    const cy = cyRef.current as unknown as
-      | {
-          on: (event: string, selector: string | undefined, handler: (...args: unknown[]) => void) => void;
-          off: (event: string, selector?: string) => void;
-        }
-      | null;
+    const cy = cyRef.current as unknown as {
+      on: (
+        event: string,
+        selector: string | undefined,
+        handler: (...args: unknown[]) => void,
+      ) => void;
+      off: (event: string, selector?: string) => void;
+    } | null;
     if (!cy) return;
 
     const handleTapNode = (evt: { target: { id: () => string } }) => {
@@ -461,7 +459,11 @@ export function WorkflowCanvas({
     };
 
     cy.on("tap", "node", handleTapNode as unknown as (...args: unknown[]) => void);
-    cy.on("tap", undefined as unknown as string, handleTapBackground as unknown as (...args: unknown[]) => void);
+    cy.on(
+      "tap",
+      undefined as unknown as string,
+      handleTapBackground as unknown as (...args: unknown[]) => void,
+    );
     cy.on("dragfree", "node", handleDragFree as unknown as (...args: unknown[]) => void);
 
     return () => {
@@ -490,7 +492,7 @@ export function WorkflowCanvas({
         cy={(rawCy) => {
           const cy = rawCy as {
             ready: (fn: () => void) => void;
-            zoom: (z?: number) => number | void;
+            zoom: (z?: number) => number | undefined;
             center: () => void;
             minZoom: (z: number) => void;
             maxZoom: (z: number) => void;
@@ -520,11 +522,20 @@ export function WorkflowCanvas({
               style={{
                 width: 48,
                 height: 48,
-                background: "rgba(74,139,134,0.12)",   // cykan tint — toléré ici (canvas)
+                background: "rgba(74,139,134,0.12)", // cykan tint — toléré ici (canvas)
                 border: "1px solid rgba(74,139,134,0.3)", // cykan tint — toléré ici (canvas)
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={CY.cykan} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={CY.cykan}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
@@ -539,7 +550,12 @@ export function WorkflowCanvas({
       {/* Connection mode hint — only when needed */}
       <div
         className="absolute pointer-events-none flex flex-col"
-        style={{ bottom: "var(--space-4)", left: "50%", transform: "translateX(-50%)", gap: "var(--space-2)" }}
+        style={{
+          bottom: "var(--space-4)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          gap: "var(--space-2)",
+        }}
       >
         {pendingSource && (
           <div
@@ -558,10 +574,7 @@ export function WorkflowCanvas({
 
       {/* Connect button — bottom right, only when node selected */}
       {selectedNodeId && (
-        <div
-          className="absolute"
-          style={{ bottom: "var(--space-4)", right: "var(--space-4)" }}
-        >
+        <div className="absolute" style={{ bottom: "var(--space-4)", right: "var(--space-4)" }}>
           <button
             type="button"
             onClick={() => {
@@ -571,7 +584,8 @@ export function WorkflowCanvas({
             className="t-11 font-medium pointer-events-auto rounded-md transition-[background-color,border-color,color] duration-(--duration-slow) ease-(--ease-standard)"
             style={{
               padding: "var(--space-2) var(--space-3)",
-              background: pendingSource === selectedNodeId ? "rgba(255,204,0,0.15)" : "rgba(74,139,134,0.15)",
+              background:
+                pendingSource === selectedNodeId ? "rgba(255,204,0,0.15)" : "rgba(74,139,134,0.15)",
               border: `1px solid ${pendingSource === selectedNodeId ? "rgba(255,204,0,0.4)" : "rgba(74,139,134,0.4)"}`,
               color: pendingSource === selectedNodeId ? CY.gold : CY.cykan,
             }}

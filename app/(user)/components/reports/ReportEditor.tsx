@@ -32,11 +32,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 import type { TemplateSummary } from "@/lib/reports/templates/schema";
+import { BlockEditorRow } from "./_parts/BlockEditorRow";
 import { EditorHeader } from "./_parts/EditorHeader";
 import { EditorToolbar } from "./_parts/EditorToolbar";
-import { SaveTemplateForm } from "./_parts/SaveTemplateForm";
 import { LoadTemplateList } from "./_parts/LoadTemplateList";
-import { BlockEditorRow } from "./_parts/BlockEditorRow";
+import { SaveTemplateForm } from "./_parts/SaveTemplateForm";
 
 export interface ReportEditorProps {
   /** Spec courant édité — source de vérité, contrôlé par le parent. */
@@ -80,9 +80,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
 
   const toggleHidden = useCallback(
     (blockId: string) => {
-      const next = spec.blocks.map((b) =>
-        b.id === blockId ? { ...b, hidden: !b.hidden } : b,
-      );
+      const next = spec.blocks.map((b) => (b.id === blockId ? { ...b, hidden: !b.hidden } : b));
       onChange({ ...spec, blocks: next });
     },
     [spec, onChange],
@@ -190,7 +188,6 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
 
   return (
     <aside
-      role="complementary"
       aria-label="Éditeur de rapport"
       data-testid="report-editor"
       className="flex flex-col h-full w-full"
@@ -201,11 +198,7 @@ export function ReportEditor({ spec, onChange, onClose }: ReportEditorProps) {
         padding: "var(--space-5)",
       }}
     >
-      <EditorHeader
-        visibleCount={visibleCount}
-        totalCount={totalCount}
-        onClose={onClose}
-      />
+      <EditorHeader visibleCount={visibleCount} totalCount={totalCount} onClose={onClose} />
 
       <EditorToolbar
         jsonOpen={jsonOpen}

@@ -20,7 +20,7 @@
  * `/admin/metrics`). Bouton manuel pour forcer.
  */
 
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // ---------------------------------------------------------------------------
 // Types (miroir du payload de /api/health/llm)
@@ -116,13 +116,10 @@ function StatusPill({ status }: { status: HealthStatus }) {
         ? "bg-(--warn)/15 text-(--warn) border-(--warn)/25"
         : "bg-(--danger)/15 text-(--danger) border-(--danger)/25";
 
-  const label =
-    status === "ok" ? "Réussi" : status === "degraded" ? "Dégradé" : "Hors ligne";
+  const label = status === "ok" ? "Réussi" : status === "degraded" ? "Dégradé" : "Hors ligne";
 
   return (
-    <span
-      className={`t-10 px-(--space-2) py-(--space-1) rounded-pill border font-medium ${cls}`}
-    >
+    <span className={`t-10 px-(--space-2) py-(--space-1) rounded-pill border font-medium ${cls}`}>
       {label}
     </span>
   );
@@ -227,17 +224,12 @@ export default function HealthPage() {
   const overall: HealthStatus = (() => {
     if (!llmHealth) return "ok";
     if (!llmHealth.ok) return "down";
-    const anyDegraded = Object.values(llmHealth.providers).some(
-      (p) => p.status === "degraded",
-    );
+    const anyDegraded = Object.values(llmHealth.providers).some((p) => p.status === "degraded");
     return anyDegraded ? "degraded" : "ok";
   })();
 
   return (
-    <div
-      className="p-(--space-8) overflow-y-auto h-full"
-      style={{ scrollbarWidth: "thin" }}
-    >
+    <div className="p-(--space-8) overflow-y-auto h-full" style={{ scrollbarWidth: "thin" }}>
       {/* En-tête */}
       <div className="flex items-center justify-between mb-(--space-8)">
         <div className="flex items-center gap-(--space-4)">
@@ -300,9 +292,7 @@ export default function HealthPage() {
                       gridTemplateColumns: "1.2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr 1fr",
                     }}
                   >
-                    <span className="text-text font-medium">
-                      {PROVIDER_LABELS[name] ?? name}
-                    </span>
+                    <span className="text-text font-medium">{PROVIDER_LABELS[name] ?? name}</span>
                     <span>
                       <StatusPill status={p.status} />
                     </span>
@@ -310,9 +300,7 @@ export default function HealthPage() {
                     <span>
                       <CircuitBadge state={p.breaker_state} />
                     </span>
-                    <span className="text-text-muted">
-                      {fmtPct(p.cache_hit_ratio_24h)}
-                    </span>
+                    <span className="text-text-muted">{fmtPct(p.cache_hit_ratio_24h)}</span>
                     <span className="text-text-muted">
                       {fmtNum(p.headroom.requests_remaining)}
                       {p.headroom.tokens_remaining !== null && (
@@ -354,10 +342,7 @@ export default function HealthPage() {
 
           {/* ── Section 3 : Supabase ────────────────────────────── */}
           <section>
-            <SectionHeader
-              title="Supabase"
-              hint="ping de l&apos;app Next.js (signal indirect)"
-            />
+            <SectionHeader title="Supabase" hint="ping de l&apos;app Next.js (signal indirect)" />
             <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex items-center justify-between">
               <div className="flex flex-col gap-(--space-1)">
                 <span className="t-13 text-text-soft">
@@ -373,20 +358,14 @@ export default function HealthPage() {
 
           {/* ── Section 4 : Langfuse ────────────────────────────── */}
           <section>
-            <SectionHeader
-              title="Langfuse"
-              hint="observabilité prompts / outputs / traces"
-            />
+            <SectionHeader title="Langfuse" hint="observabilité prompts / outputs / traces" />
             <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex items-center justify-between">
               <div className="flex flex-col gap-(--space-1)">
                 <span className="t-13 text-text-soft">
-                  {llmHealth?.langfuse.enabled
-                    ? "Activé"
-                    : "Désactivé (clés absentes)"}
+                  {llmHealth?.langfuse.enabled ? "Activé" : "Désactivé (clés absentes)"}
                 </span>
                 <span className="t-10 text-text-ghost">
-                  Flushable :{" "}
-                  {llmHealth?.langfuse.flushable ? "oui" : "non"}
+                  Flushable : {llmHealth?.langfuse.flushable ? "oui" : "non"}
                 </span>
               </div>
               <StatusPill

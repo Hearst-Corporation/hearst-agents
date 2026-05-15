@@ -11,16 +11,13 @@
  * Read-only tools bypass the gate entirely.
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
+import { jsonSchema } from "ai";
+import { hashToolArgs, verifyConfirmationToken } from "@/lib/tools/hitl/confirmation-token";
 import { executeComposioAction } from "./client";
 import type { DiscoveredTool } from "./discovery";
-import { isWriteAction, formatActionPreview } from "./write-guard";
 import { getFormatterForAction } from "./preview-formatters";
-import {
-  verifyConfirmationToken,
-  hashToolArgs,
-} from "@/lib/tools/hitl/confirmation-token";
+import { formatActionPreview, isWriteAction } from "./write-guard";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AiToolMap = Record<string, Tool<any, any>>;

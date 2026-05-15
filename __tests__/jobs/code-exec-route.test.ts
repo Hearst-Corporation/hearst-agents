@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   requireScope,
@@ -110,9 +110,7 @@ describe("POST /api/v2/jobs/code-exec", () => {
   });
 
   it("202 + payload code-exec correctement formé", async () => {
-    const res = await POST(
-      makeReq({ code: "print(2+2)", runtime: "python" }) as never,
-    );
+    const res = await POST(makeReq({ code: "print(2+2)", runtime: "python" }) as never);
     expect(res.status).toBe(202);
     const payload = enqueueJob.mock.calls[0][0];
     expect(payload.jobKind).toBe("code-exec");

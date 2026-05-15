@@ -8,10 +8,10 @@
  * - WEBHOOK_EVENTS contient tous les events attendus
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { WEBHOOK_EVENTS, type WebhookEvent } from "@/lib/webhooks/types";
+import { describe, expect, it, vi } from "vitest";
 import { dispatchWebhookEventAsync } from "@/lib/webhooks/dispatcher";
 import type { CustomWebhook } from "@/lib/webhooks/types";
+import { WEBHOOK_EVENTS, type WebhookEvent } from "@/lib/webhooks/types";
 
 // ── Mock Supabase ─────────────────────────────────────────────
 

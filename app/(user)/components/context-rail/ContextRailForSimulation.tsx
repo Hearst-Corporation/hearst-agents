@@ -6,7 +6,7 @@
  */
 
 import { useStageData } from "@/stores/stage-data";
-import { Section, EmptyHint } from "./Section";
+import { EmptyHint, Section } from "./Section";
 
 export function ContextRailForSimulation() {
   const { variables, scenarios, phase } = useStageData((s) => s.simulation);
@@ -20,12 +20,8 @@ export function ContextRailForSimulation() {
           <ul className="flex flex-col gap-3">
             {cleanVars.map((v, i) => (
               <li key={i} className="flex items-baseline gap-3">
-                <span className="t-9 font-medium text-text-ghost truncate">
-                  {v.key}
-                </span>
-                <span className="t-13 font-light text-text-soft truncate">
-                  {v.value || "—"}
-                </span>
+                <span className="t-9 font-medium text-text-ghost truncate">{v.key}</span>
+                <span className="t-13 font-light text-text-soft truncate">{v.value || "—"}</span>
               </li>
             ))}
           </ul>
@@ -33,16 +29,11 @@ export function ContextRailForSimulation() {
       </Section>
       <Section label="Generated scenarios" count={scenarios.length}>
         {scenarios.length === 0 ? (
-          <EmptyHint>
-            {phase === "running" ? "DeepSeek thinking…" : "No scenarios"}
-          </EmptyHint>
+          <EmptyHint>{phase === "running" ? "DeepSeek thinking…" : "No scenarios"}</EmptyHint>
         ) : (
           <ul className="flex flex-col gap-3">
             {scenarios.map((s, i) => (
-              <li
-                key={i}
-                className="border-l border-[var(--accent-teal-border)] pl-4 py-1"
-              >
+              <li key={i} className="border-l border-[var(--accent-teal-border)] pl-4 py-1">
                 <p className="t-13 font-light text-text-soft truncate mb-1">{s.name}</p>
                 <p className="t-9 font-medium text-text-ghost">
                   PROB · {(s.probability * 100).toFixed(0)}%
@@ -52,7 +43,6 @@ export function ContextRailForSimulation() {
           </ul>
         )}
       </Section>
-
     </div>
   );
 }

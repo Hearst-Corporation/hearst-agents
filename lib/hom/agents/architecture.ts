@@ -2,11 +2,12 @@
  * A1 Architecture Agent — scan layering, server-only, imports critiques.
  * Vraie analyse statique (regex + AST léger) sur app/, lib/, electron/.
  */
-import path from "node:path";
+
 import fs from "node:fs/promises";
+import path from "node:path";
 import { walkFiles } from "../fs-utils";
 import type { Finding } from "../types";
-import { runAgent, makeFindingId, type AgentExecCtx, type ScanResult } from "./base";
+import { type AgentExecCtx, makeFindingId, runAgent, type ScanResult } from "./base";
 
 const ROOT = process.cwd();
 
@@ -15,10 +16,7 @@ export async function scanArchitecture(_ctx: AgentExecCtx): Promise<ScanResult> 
     path.join(ROOT, "app"),
     (f) => f.endsWith(".ts") || f.endsWith(".tsx"),
   );
-  const libFiles = await walkFiles(
-    path.join(ROOT, "lib"),
-    (f) => f.endsWith(".ts"),
-  );
+  const libFiles = await walkFiles(path.join(ROOT, "lib"), (f) => f.endsWith(".ts"));
 
   const findings: Finding[] = [];
   let scanned = 0;
@@ -66,8 +64,7 @@ export async function scanArchitecture(_ctx: AgentExecCtx): Promise<ScanResult> 
         agent: "architecture",
         severity: "critical",
         title: "Composant client important server-only",
-        detail:
-          "Un composant marqué `use client` ne doit jamais importer `server-only`.",
+        detail: "Un composant marqué `use client` ne doit jamais importer `server-only`.",
         evidence: [rel],
         scope: rel,
       });
@@ -81,8 +78,7 @@ export async function scanArchitecture(_ctx: AgentExecCtx): Promise<ScanResult> 
           agent: "architecture",
           severity: "high",
           title: "Route API important un composant TSX",
-          detail:
-            "Une route API ne doit pas importer un composant React (.tsx).",
+          detail: "Une route API ne doit pas importer un composant React (.tsx).",
           evidence: [rel],
           scope: rel,
         });

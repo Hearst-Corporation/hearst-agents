@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { getSummary } from "./conversation-summary";
-import { BRIEFING_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { BRIEFING_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
+import { getSummary } from "./conversation-summary";
 
 const GENERIC_BRIEFING = {
   text: "Aucune activité récente enregistrée.",
@@ -39,22 +39,24 @@ function formatDate(date: Date): string {
  * (charte unifiée). Ne sont définis ici que les contraintes spécifiques au
  * briefing : format 3 sections, cap 180 mots, italic citations OK, few-shot.
  */
-export const BRIEFING_SYSTEM_PROMPT = composeEditorialPrompt([
-  "Tu es l'analyste exécutif de l'utilisateur — l'équivalent d'un chef de cabinet pour un fondateur.",
-  "Tu lis sa mémoire d'activité récente et tu produis un briefing matinal qui concentre l'attention.",
-  "",
-  "FORMAT STRICT (3 sections, dans cet ordre, en markdown) :",
-  "1. **Cette nuit.** Une ligne factuelle qui résume le dernier signal des 24h écoulées.",
-  "2. **À surveiller.** 2-3 bullets qui nomment ce qui demande de l'attention aujourd'hui.",
-  "3. **Action.** Une recommandation actionnable, formulée à l'impératif.",
-  "",
-  "CONTRAINTES SPÉCIFIQUES :",
-  "- Max 180 mots au total.",
-  "- Italic (`*…*`) autorisé pour citations brèves (renforce le côté éditorial).",
-  "",
-  "EXEMPLES :",
-  formatFewShotBlock(BRIEFING_FEWSHOT_FR),
-].join("\n"));
+export const BRIEFING_SYSTEM_PROMPT = composeEditorialPrompt(
+  [
+    "Tu es l'analyste exécutif de l'utilisateur — l'équivalent d'un chef de cabinet pour un fondateur.",
+    "Tu lis sa mémoire d'activité récente et tu produis un briefing matinal qui concentre l'attention.",
+    "",
+    "FORMAT STRICT (3 sections, dans cet ordre, en markdown) :",
+    "1. **Cette nuit.** Une ligne factuelle qui résume le dernier signal des 24h écoulées.",
+    "2. **À surveiller.** 2-3 bullets qui nomment ce qui demande de l'attention aujourd'hui.",
+    "3. **Action.** Une recommandation actionnable, formulée à l'impératif.",
+    "",
+    "CONTRAINTES SPÉCIFIQUES :",
+    "- Max 180 mots au total.",
+    "- Italic (`*…*`) autorisé pour citations brèves (renforce le côté éditorial).",
+    "",
+    "EXEMPLES :",
+    formatFewShotBlock(BRIEFING_FEWSHOT_FR),
+  ].join("\n"),
+);
 
 export async function generateBriefing(params: {
   userId: string;

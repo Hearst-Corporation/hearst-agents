@@ -58,22 +58,20 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
 
   const pdfFile = asset.provenance?.pdfFile;
   const kindRef = KIND_REF[asset.kind] ?? "TYPE_ASSET";
-  const mimeLabel = pdfFile?.mimeType ? (MIME_TYPE_LABELS[pdfFile.mimeType] ?? asset.kind.toUpperCase()) : asset.kind.toUpperCase();
+  const mimeLabel = pdfFile?.mimeType
+    ? (MIME_TYPE_LABELS[pdfFile.mimeType] ?? asset.kind.toUpperCase())
+    : asset.kind.toUpperCase();
   const canPreviewInline = ["message", "brief"].includes(asset.kind);
   const narration = extractNarration(asset.contentRef);
 
   return (
     <div className="border-t border-[var(--ghost-modal-top)] bg-bg overflow-hidden">
       <div className="p-6 border-b border-(--line) flex flex-wrap items-start gap-6">
-        <span
-          className="font-mono t-9 text-text-muted border-b border-(--accent-teal) pb-1"
-        >
+        <span className="font-mono t-9 text-text-muted border-b border-(--accent-teal) pb-1">
           {kindRef}
         </span>
         <div className="flex-1 min-w-0">
-          <h3 className="t-15 font-semibold text-text truncate">
-            {asset.title}
-          </h3>
+          <h3 className="t-15 font-semibold text-text truncate">{asset.title}</h3>
           <p className="t-11 font-light text-text-muted mt-2">
             {mimeLabel}
             {pdfFile?.sizeBytes != null && (
@@ -108,11 +106,11 @@ export function AssetPreview({ asset, onDownload }: AssetPreviewProps) {
           </div>
         ) : (
           <div className="text-center space-y-4">
-            <p className="t-11 font-medium text-text-faint">
-              {kindRef.toLowerCase()}
-            </p>
+            <p className="t-11 font-medium text-text-faint">{kindRef.toLowerCase()}</p>
             <p className="t-9 font-light text-text-muted">
-              {pdfFile ? "Fichier binaire — téléchargement disponible" : "Aucun contenu preview disponible"}
+              {pdfFile
+                ? "Fichier binaire — téléchargement disponible"
+                : "Aucun contenu preview disponible"}
             </p>
           </div>
         )}

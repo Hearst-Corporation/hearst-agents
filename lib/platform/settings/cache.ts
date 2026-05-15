@@ -5,8 +5,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { SettingValue, SystemSetting, SettingDefinition } from "./types";
 import { getSetting, setSetting } from "./store";
+import type { SettingDefinition, SettingValue, SystemSetting } from "./types";
 
 // In-memory cache with 60s TTL
 const cache = new Map<string, { value: SettingValue; expiresAt: number }>();
@@ -20,7 +20,7 @@ export async function getSettingValue<T extends SettingValue>(
   db: SupabaseClient,
   key: string,
   defaultValue: T,
-  tenantId?: string | null
+  tenantId?: string | null,
 ): Promise<T> {
   // Check cache
   const cacheKey = tenantId ? `${key}:${tenantId}` : key;
@@ -47,7 +47,7 @@ export async function setSettingValue(
   definition: SettingDefinition,
   value: SettingValue,
   tenantId?: string | null,
-  updatedBy?: string
+  updatedBy?: string,
 ): Promise<SystemSetting> {
   const result = await setSetting(db, definition.key, value, definition.category, tenantId, {
     description: definition.description,

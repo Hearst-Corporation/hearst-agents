@@ -1,12 +1,12 @@
 "use client";
 
 import { motion, useTransform } from "framer-motion";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
 import {
+  type SpatialEntityId,
   useSpatialEntityState,
   useSpatialSelectionStore,
-  type SpatialEntityId,
 } from "@/stores/spatial-selection";
 
 interface CockpitPanel3DProps {

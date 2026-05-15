@@ -13,20 +13,19 @@
  * À ne pas confondre avec /spatial-safe (sauvegarde figée de la production).
  */
 
-import { useSplineApp } from "@/hooks/spatial/useSplineApp";
-import { useSplineIdleAmbient } from "@/hooks/spatial/useSplineIdleAmbient";
-import { useSpatialPanelsAgentSync } from "@/hooks/spatial/useSpatialPanelsAgentSync";
-import { useRuntimeStore } from "@/stores/runtime";
-import { useSpatialPanelsStore } from "@/stores/spatial-panels";
-import { SpatialScene } from "@/components/spatial/core/SpatialScene";
 import { SpatialLogoCore } from "@/components/spatial/core/SpatialLogoCore";
+import { SpatialScene } from "@/components/spatial/core/SpatialScene";
 import { CommandBar } from "@/components/spatial/overlays/CommandBar";
 import { CockpitPanelsLayer } from "@/components/spatial/rnd/CockpitPanelsLayer";
 import { SpatialPanelDock } from "@/components/spatial/rnd/SpatialPanelDock";
 import { SpatialRobotPresence } from "@/components/spatial/rnd/SpatialRobotPresence";
+import { useSpatialPanelsAgentSync } from "@/hooks/spatial/useSpatialPanelsAgentSync";
+import { useSplineApp } from "@/hooks/spatial/useSplineApp";
+import { useSplineIdleAmbient } from "@/hooks/spatial/useSplineIdleAmbient";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-
 import { SPATIAL_RND_MESSAGES, SPATIAL_RND_STATES } from "@/lib/i18n/fr";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useSpatialPanelsStore } from "@/stores/spatial-panels";
 
 interface SpatialRndRootProps {
   initialCockpitData?: CockpitTodayPayload | null;
@@ -41,8 +40,7 @@ export function SpatialRndRoot({ initialCockpitData = null }: SpatialRndRootProp
     ),
   );
   const isAgentActive =
-    coreState === SPATIAL_RND_STATES.STREAMING ||
-    coreState === SPATIAL_RND_STATES.PROCESSING;
+    coreState === SPATIAL_RND_STATES.STREAMING || coreState === SPATIAL_RND_STATES.PROCESSING;
   const presenceMode =
     coreState === SPATIAL_RND_STATES.AWAITING_APPROVAL
       ? "approval"
@@ -50,7 +48,7 @@ export function SpatialRndRoot({ initialCockpitData = null }: SpatialRndRootProp
         ? "active"
         : surfaceOpen
           ? "surface"
-        : "idle";
+          : "idle";
   useSplineIdleAmbient(spline);
   // Branche les stores existants (runtime / focal / navigation) au store de panels.
   useSpatialPanelsAgentSync();
@@ -65,9 +63,7 @@ export function SpatialRndRoot({ initialCockpitData = null }: SpatialRndRootProp
       <SpatialRobotPresence mode={presenceMode} surfaceOpen={surfaceOpen} />
 
       {/* Couche cockpit : panels contextuels en profondeur Z */}
-      <CockpitPanelsLayer
-        initialCockpitData={initialCockpitData}
-      />
+      <CockpitPanelsLayer initialCockpitData={initialCockpitData} />
 
       {/* Chat bar en bas */}
       <CommandBar show={true} />
@@ -92,7 +88,8 @@ export function SpatialRndRoot({ initialCockpitData = null }: SpatialRndRootProp
             className="h-1.5 w-1.5 rounded-full"
             style={{
               background:
-                coreState === SPATIAL_RND_STATES.STREAMING || coreState === SPATIAL_RND_STATES.PROCESSING
+                coreState === SPATIAL_RND_STATES.STREAMING ||
+                coreState === SPATIAL_RND_STATES.PROCESSING
                   ? "rgba(0,229,204,0.9)"
                   : coreState === SPATIAL_RND_STATES.AWAITING_APPROVAL
                     ? "rgba(232,176,120,0.95)"

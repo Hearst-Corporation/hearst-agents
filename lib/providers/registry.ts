@@ -14,9 +14,20 @@ import type { ProviderDefinition, ProviderId } from "./types";
  * ProviderId type in types.ts is derived from this array.
  */
 export const PROVIDER_IDS = [
-  "google", "slack", "whatsapp", "web", "anthropic_managed", "notion",
-  "github", "stripe", "jira", "hubspot", "airtable",
-  "figma", "zapier", "system",
+  "google",
+  "slack",
+  "whatsapp",
+  "web",
+  "anthropic_managed",
+  "notion",
+  "github",
+  "stripe",
+  "jira",
+  "hubspot",
+  "airtable",
+  "figma",
+  "zapier",
+  "system",
 ] as const;
 
 const PROVIDERS: ProviderDefinition[] = [
@@ -29,15 +40,44 @@ const PROVIDERS: ProviderDefinition[] = [
     auth: { tokenBucket: "google", connectable: true },
     keywords: {
       fr: [
-        "email", "emails", "mail", "mails", "boîte", "boite", "courrier",
-        "agenda", "calendrier", "réunion", "reunion", "événement", "evenement",
-        "planning", "rendez-vous", "rdv",
-        "fichier", "fichiers", "document", "documents", "drive", "dossier",
+        "email",
+        "emails",
+        "mail",
+        "mails",
+        "boîte",
+        "boite",
+        "courrier",
+        "agenda",
+        "calendrier",
+        "réunion",
+        "reunion",
+        "événement",
+        "evenement",
+        "planning",
+        "rendez-vous",
+        "rdv",
+        "fichier",
+        "fichiers",
+        "document",
+        "documents",
+        "drive",
+        "dossier",
       ],
       en: [
-        "email", "emails", "mail", "inbox",
-        "calendar", "meeting", "event", "schedule",
-        "file", "files", "document", "documents", "drive", "folder",
+        "email",
+        "emails",
+        "mail",
+        "inbox",
+        "calendar",
+        "meeting",
+        "event",
+        "schedule",
+        "file",
+        "files",
+        "document",
+        "documents",
+        "drive",
+        "folder",
       ],
     },
     blockedMessage: "Google n'est pas connecté. Connectez votre compte Google dans Applications.",
@@ -242,7 +282,8 @@ export function getProviderLabel(id: ProviderId | string): string {
   return byId.get(id as ProviderId)?.label ?? id.charAt(0).toUpperCase() + id.slice(1);
 }
 
-export function getProviderCapabilitiesFromRegistry(id: ProviderId | string): ConnectorCapability[] {
+export function getProviderCapabilitiesFromRegistry(
+  id: ProviderId | string,
+): ConnectorCapability[] {
   return byId.get(id as ProviderId)?.capabilities ?? [];
 }
-

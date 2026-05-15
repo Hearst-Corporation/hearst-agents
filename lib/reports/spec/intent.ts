@@ -12,14 +12,14 @@ const REPORT_KEYWORDS = [
   /\brapport(s)?\b(?!\s+de\s+bug)/i,
   /\bcockpit\b/i,
   /\btableau\s+de\s+bord\b/i,
-  /\bsynth[èe]se\b/i,          // "synthèse mensuelle", "synthèse hebdo", "synthèse" seul
+  /\bsynth[èe]se\b/i, // "synthèse mensuelle", "synthèse hebdo", "synthèse" seul
   /\bvue\s+d['']ensemble\b/i,
-  /\bbilan\b/i,                 // "bilan trimestriel", "bilan" seul
+  /\bbilan\b/i, // "bilan trimestriel", "bilan" seul
   /\b(KPI|kpis)\b/,
   /\bdashboard\b/i,
-  /\b360\b/,                    // "Customer 360", "vue 360"
-  /\banalyse\b/i,               // "analyse du P&L", "analyse de la vélocité"
-  /\bP&L\b/i,                   // "P&L mensuel", "mon P&L"
+  /\b360\b/, // "Customer 360", "vue 360"
+  /\banalyse\b/i, // "analyse du P&L", "analyse de la vélocité"
+  /\bP&L\b/i, // "P&L mensuel", "mon P&L"
   /\bmontre(?:z)?[-\s]moi\b/i, // "montre-moi les ventes", "montrez-moi le cockpit"
   /\bgén[eè]re\s+(?:un|une|le|la|mon|ma)\s+rapport\b/i, // "génère un rapport"
   /\bgén[eè]re\s+(?:un|une|le|la|mon|ma)\s+cockpit\b/i,
@@ -34,14 +34,14 @@ const REPORT_KEYWORDS = [
   /\bmarketing\s+(aarrr|funnel)\b/i,
   /\bhr\s+(people|report)\b/i,
   /\bpeople\s+report\b/i,
-  /\bv[eé]locit[eé]\b/i,         // "vélocité engineering"
-  /\bmon\s+runway\b/i,             // "mon runway" — pas "analyse du runway"
+  /\bv[eé]locit[eé]\b/i, // "vélocité engineering"
+  /\bmon\s+runway\b/i, // "mon runway" — pas "analyse du runway"
   /\b(rapport|cockpit|tableau|bilan|synth[èe]se|vue)\s+(?:du\s+|de\s+(?:la\s+|l['']|mon\s+|ma\s+)?)?(?:MRR|ARR|runway)\b/i, // "rapport MRR", "cockpit ARR"
   // EN
   /\breport\b(?!\s+(a\s+)?bug)/i,
   /\boverview\b/i,
   /\bsummary\s+(report|view|of)\b/i,
-  /\bshow\s+me\s+(my|the)\b/i,   // "show me my metrics"
+  /\bshow\s+me\s+(my|the)\b/i, // "show me my metrics"
   /\bgive\s+me\s+(a|an|my|the)\s+report\b/i,
 ];
 

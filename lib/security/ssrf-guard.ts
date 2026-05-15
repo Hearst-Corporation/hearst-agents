@@ -118,10 +118,7 @@ export async function assertSafeUrl(
  *
  * Utiliser assertSafeUrl() côté serveur juste avant fetch.
  */
-export function isUrlShapeAllowed(
-  raw: string,
-  opts?: { allowedSchemes?: string[] },
-): boolean {
+export function isUrlShapeAllowed(raw: string, opts?: { allowedSchemes?: string[] }): boolean {
   const allowedSchemes = opts?.allowedSchemes ?? ["http:", "https:"];
   try {
     const u = new URL(raw);

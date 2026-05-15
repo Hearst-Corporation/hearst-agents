@@ -18,38 +18,51 @@ const ROOT = process.cwd();
 
 // Même mapping que build-features-manifest.mjs — chemins relatifs à __tests__/
 const FEATURE_TEST_DIRS = {
-  auth:            ["platform/auth", "stores/selection"],
-  chat:            ["chat", "orchestrator", "stores/runtime", "stores/chat-context", "stores/working-document"],
-  cockpit:         ["cockpit", "right-panel"],
-  stage:           ["stores/stage", "stores/focal", "ui/context-rail"],
-  missions:        ["api/missions", "engine", "orchestrator/schedule-tool", "orchestrator/run-planner"],
-  assets:          ["assets", "runtime/assets", "api/assets", "jobs/audio-gen", "jobs/image-gen", "jobs/video-gen"],
-  connections:     ["connectors", "connections", "composio"],
-  "memory-kg":     ["memory", "embeddings"],
-  reports:         ["reports", "api/reports-specs"],
-  runs:            ["api/usage-today", "engine/runs"],
-  personas:        ["personas"],
-  notifications:   ["notifications"],
-  webhooks:        ["webhooks"],
-  workflows:       ["workflows"],
-  voice:           ["voice"],
-  meetings:        ["meeting", "meetings"],
-  "daily-brief":   ["daily-brief", "inbox"],
-  commandeur:      ["components/commandeur"],
-  settings:        ["settings", "platform/settings"],
+  auth: ["platform/auth", "stores/selection"],
+  chat: [
+    "chat",
+    "orchestrator",
+    "stores/runtime",
+    "stores/chat-context",
+    "stores/working-document",
+  ],
+  cockpit: ["cockpit", "right-panel"],
+  stage: ["stores/stage", "stores/focal", "ui/context-rail"],
+  missions: ["api/missions", "engine", "orchestrator/schedule-tool", "orchestrator/run-planner"],
+  assets: [
+    "assets",
+    "runtime/assets",
+    "api/assets",
+    "jobs/audio-gen",
+    "jobs/image-gen",
+    "jobs/video-gen",
+  ],
+  connections: ["connectors", "connections", "composio"],
+  "memory-kg": ["memory", "embeddings"],
+  reports: ["reports", "api/reports-specs"],
+  runs: ["api/usage-today", "engine/runs"],
+  personas: ["personas"],
+  notifications: ["notifications"],
+  webhooks: ["webhooks"],
+  workflows: ["workflows"],
+  voice: ["voice"],
+  meetings: ["meeting", "meetings"],
+  "daily-brief": ["daily-brief", "inbox"],
+  commandeur: ["components/commandeur"],
+  settings: ["settings", "platform/settings"],
   "timeline-rail": ["ui/thread"],
-  marketplace:     ["marketplace", "api/marketplace"],
-  onboarding:      ["components"],
-  pulsebar:        [],
-  planner:         ["engine"],
-  simulation:      [],
-  artifact:        ["ui/asset"],
-  datasets:        [],
-  electron:        [],
-  admin:           ["admin"],
-  "context-rail":  ["ui/context-rail", "right-panel"],
-  browser:         ["browser"],
-  hospitality:     ["verticals/hospitality"],
+  marketplace: ["marketplace", "api/marketplace"],
+  onboarding: ["components"],
+  pulsebar: [],
+  planner: ["engine"],
+  simulation: [],
+  artifact: ["ui/asset"],
+  datasets: [],
+  electron: [],
+  admin: ["admin"],
+  "context-rail": ["ui/context-rail", "right-panel"],
+  browser: ["browser"],
+  hospitality: ["verticals/hospitality"],
 };
 
 const args = process.argv.slice(2);
@@ -104,10 +117,10 @@ console.log(`\n[features:test] Running tests for: ${args.join(", ")}`);
 console.log(`  Paths: ${uniquePaths.map((p) => path.relative(ROOT, p)).join(", ")}\n`);
 
 try {
-  execSync(
-    `npx vitest run ${uniquePaths.map((p) => JSON.stringify(p)).join(" ")}`,
-    { stdio: "inherit", cwd: ROOT }
-  );
+  execSync(`npx vitest run ${uniquePaths.map((p) => JSON.stringify(p)).join(" ")}`, {
+    stdio: "inherit",
+    cwd: ROOT,
+  });
 } catch {
   process.exit(1);
 }

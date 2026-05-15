@@ -9,7 +9,7 @@
  *   - accepte un token valide pour le bon contexte
  */
 
-import { describe, it, expect, beforeAll, vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
 // Garantir que NEXTAUTH_SECRET est présent avant d'importer le module
 beforeAll(() => {
@@ -17,16 +17,11 @@ beforeAll(() => {
 });
 
 // Import dynamique après setup env
-const getModule = async () =>
-  import("@/lib/tools/hitl/confirmation-token");
+const getModule = async () => import("@/lib/tools/hitl/confirmation-token");
 
 describe("HITL confirmation token — issueConfirmationToken / verifyConfirmationToken", () => {
   it("accepte un token valide pour le bon (user, tenant, tool, args)", async () => {
-    const {
-      issueConfirmationToken,
-      verifyConfirmationToken,
-      hashToolArgs,
-    } = await getModule();
+    const { issueConfirmationToken, verifyConfirmationToken, hashToolArgs } = await getModule();
 
     const args = { to: "alice@example.com", subject: "Hello" };
     const argsHash = hashToolArgs(args);
@@ -49,11 +44,7 @@ describe("HITL confirmation token — issueConfirmationToken / verifyConfirmatio
   });
 
   it("rejette un token signé pour un autre user", async () => {
-    const {
-      issueConfirmationToken,
-      verifyConfirmationToken,
-      hashToolArgs,
-    } = await getModule();
+    const { issueConfirmationToken, verifyConfirmationToken, hashToolArgs } = await getModule();
 
     const args = { to: "alice@example.com" };
     const argsHash = hashToolArgs(args);
@@ -77,11 +68,7 @@ describe("HITL confirmation token — issueConfirmationToken / verifyConfirmatio
   });
 
   it("rejette un token expiré", async () => {
-    const {
-      issueConfirmationToken,
-      verifyConfirmationToken,
-      hashToolArgs,
-    } = await getModule();
+    const { issueConfirmationToken, verifyConfirmationToken, hashToolArgs } = await getModule();
 
     const args = { to: "bob@example.com" };
     const argsHash = hashToolArgs(args);
@@ -113,11 +100,7 @@ describe("HITL confirmation token — issueConfirmationToken / verifyConfirmatio
   });
 
   it("rejette args modifiés — replay attack avec args différents", async () => {
-    const {
-      issueConfirmationToken,
-      verifyConfirmationToken,
-      hashToolArgs,
-    } = await getModule();
+    const { issueConfirmationToken, verifyConfirmationToken, hashToolArgs } = await getModule();
 
     const originalArgs = { to: "alice@example.com", subject: "Rapport mensuel" };
     const tamperedArgs = { to: "attacker@evil.com", subject: "Rapport mensuel" };
@@ -167,11 +150,7 @@ describe("HITL confirmation token — issueConfirmationToken / verifyConfirmatio
   });
 
   it("rejette un token pour le mauvais tool", async () => {
-    const {
-      issueConfirmationToken,
-      verifyConfirmationToken,
-      hashToolArgs,
-    } = await getModule();
+    const { issueConfirmationToken, verifyConfirmationToken, hashToolArgs } = await getModule();
 
     const args = { channel: "#general", message: "Hello" };
     const argsHash = hashToolArgs(args);

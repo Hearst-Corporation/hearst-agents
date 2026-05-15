@@ -5,21 +5,21 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  filter,
-  join,
-  groupBy,
-  windowOp,
-  diff,
-  rank,
   derive,
+  diff,
+  filter,
+  groupBy,
+  join,
   pivot,
+  rank,
   unionAll,
+  windowOp,
 } from "@/lib/reports/engine/tabular";
 
 const STRIPE = [
   { id: "ch_1", customer: "cus_a", amount: 100, currency: "EUR", created_at: "2026-04-01" },
   { id: "ch_2", customer: "cus_a", amount: 200, currency: "EUR", created_at: "2026-04-15" },
-  { id: "ch_3", customer: "cus_b", amount: 50,  currency: "EUR", created_at: "2026-04-20" },
+  { id: "ch_3", customer: "cus_b", amount: 50, currency: "EUR", created_at: "2026-04-20" },
   { id: "ch_4", customer: "cus_c", amount: 300, currency: "USD", created_at: "2026-04-22" },
 ];
 
@@ -50,7 +50,7 @@ describe("filter", () => {
 describe("join", () => {
   const customers = [
     { id: "cus_a", name: "Alice", country: "FR" },
-    { id: "cus_b", name: "Bob",   country: "FR" },
+    { id: "cus_b", name: "Bob", country: "FR" },
     { id: "cus_c", name: "Carol", country: "US" },
   ];
 
@@ -83,7 +83,10 @@ describe("join", () => {
   });
 
   it("ignore les rows avec clé null", () => {
-    const a = [{ id: null, x: 1 }, { id: "ok", x: 2 }];
+    const a = [
+      { id: null, x: 1 },
+      { id: "ok", x: 2 },
+    ];
     const b = [{ id: "ok", y: 3 }];
     const out = join(a, b, { on: [{ left: "id", right: "id" }], how: "inner" });
     expect(out).toHaveLength(1);
@@ -108,8 +111,16 @@ describe("groupBy + measures", () => {
 
   it("min, max, median, p95", () => {
     const data = [
-      { x: 1 }, { x: 2 }, { x: 3 }, { x: 4 }, { x: 5 },
-      { x: 6 }, { x: 7 }, { x: 8 }, { x: 9 }, { x: 10 },
+      { x: 1 },
+      { x: 2 },
+      { x: 3 },
+      { x: 4 },
+      { x: 5 },
+      { x: 6 },
+      { x: 7 },
+      { x: 8 },
+      { x: 9 },
+      { x: 10 },
     ];
     const out = groupBy(data, {
       by: [],
@@ -133,18 +144,18 @@ describe("groupBy + measures", () => {
   });
 
   it("ignore les valeurs non-numériques pour sum", () => {
-    const out = groupBy(
-      [{ x: 5 }, { x: "abc" }, { x: 10 }],
-      { by: [], measures: [{ name: "s", fn: "sum", field: "x" }] },
-    );
+    const out = groupBy([{ x: 5 }, { x: "abc" }, { x: 10 }], {
+      by: [],
+      measures: [{ name: "s", fn: "sum", field: "x" }],
+    });
     expect(out[0].s).toBe(15);
   });
 
   it("retourne null si aucune valeur valide", () => {
-    const out = groupBy(
-      [{ x: null }, { x: undefined }],
-      { by: [], measures: [{ name: "s", fn: "sum", field: "x" }] },
-    );
+    const out = groupBy([{ x: null }, { x: undefined }], {
+      by: [],
+      measures: [{ name: "s", fn: "sum", field: "x" }],
+    });
     expect(out[0].s).toBeNull();
   });
 });
@@ -170,15 +181,17 @@ describe("windowOp", () => {
 
   it("ignore les rows sans timestamp valide", () => {
     const out = windowOp(
-      [{ id: 1, created_at: "not a date" }, { id: 2, created_at: "2026-04-25" }],
+      [
+        { id: 1, created_at: "not a date" },
+        { id: 2, created_at: "2026-04-25" },
+      ],
       { range: "30d", field: "created_at", now: NOW },
     );
     expect(out.map((r) => r.id)).toEqual([2]);
   });
 
   it("rejette un range invalide", () => {
-    expect(() => windowOp(events, { range: "30 days", field: "created_at", now: NOW }))
-      .toThrow();
+    expect(() => windowOp(events, { range: "30 days", field: "created_at", now: NOW })).toThrow();
   });
 });
 
@@ -194,7 +207,12 @@ describe("diff", () => {
   const NOW = Date.parse("2026-04-28T00:00:00Z");
 
   it("calcule current/previous/delta sur deux fenêtres", () => {
-    const out = diff(charges, { field: "amount", window: "14d", timeField: "created_at", now: NOW });
+    const out = diff(charges, {
+      field: "amount",
+      window: "14d",
+      timeField: "created_at",
+      now: NOW,
+    });
     expect(out).toHaveLength(1);
     expect(out[0]).toMatchObject({ current: 250, previous: 50, delta: 200 });
     expect(out[0].delta_pct).toBeCloseTo(4, 5); // (250-50)/50 = 4
@@ -239,7 +257,10 @@ describe("rank", () => {
 
 describe("derive", () => {
   it("ajoute une colonne calculée", () => {
-    const data = [{ a: 10, b: 2 }, { a: 5, b: 5 }];
+    const data = [
+      { a: 10, b: 2 },
+      { a: 5, b: 5 },
+    ];
     const out = derive(data, { columns: [{ name: "ratio", expr: "a / b" }] });
     expect(out[0].ratio).toBe(5);
     expect(out[1].ratio).toBe(1);
@@ -281,7 +302,7 @@ describe("pivot", () => {
     const us = out.find((r) => r.region === "US");
     expect(fr).toMatchObject({ region: "FR", A: 100, B: 200 });
     expect(us).toMatchObject({ region: "US", A: 50 });
-    expect(us!.B).toBeUndefined();
+    expect(us?.B).toBeUndefined();
   });
 
   it("compte avec fn=count", () => {

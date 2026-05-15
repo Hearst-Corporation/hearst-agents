@@ -52,8 +52,7 @@ export function guestArrivalPrepTemplate(): WorkflowGraph {
         kind: "approval",
         label: "Validation notes VIP",
         config: {
-          preview:
-            "Envoyer ${filter_vip.length} welcome notes VIP au staff frontdesk ?",
+          preview: "Envoyer ${filter_vip.length} welcome notes VIP au staff frontdesk ?",
         },
         position: { x: 1100, y: 200 },
       },

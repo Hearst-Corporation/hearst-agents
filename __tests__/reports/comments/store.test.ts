@@ -9,14 +9,14 @@
  *   - tenant isolation : un user du tenant B ne peut pas delete une row tenant A
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
-import {
-  addComment,
-  listComments,
-  deleteComment,
-  type AddCommentInput,
-} from "@/lib/reports/comments/store";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { beforeEach, describe, expect, it } from "vitest";
+import {
+  type AddCommentInput,
+  addComment,
+  deleteComment,
+  listComments,
+} from "@/lib/reports/comments/store";
 
 // ── Mock Supabase minimal ────────────────────────────────────
 
@@ -158,17 +158,12 @@ describe("addComment", () => {
 
   it("throw sur body > 4000 chars", async () => {
     const { client } = makeFakeClient();
-    await expect(
-      addComment({ ...baseInput, body: "a".repeat(4001) }, client),
-    ).rejects.toThrow();
+    await expect(addComment({ ...baseInput, body: "a".repeat(4001) }, client)).rejects.toThrow();
   });
 
   it("accepte blockRef pour scoper un commentaire à un bloc précis", async () => {
     const { client } = makeFakeClient();
-    const c = await addComment(
-      { ...baseInput, blockRef: "kpi_arr", body: "scoped" },
-      client,
-    );
+    const c = await addComment({ ...baseInput, blockRef: "kpi_arr", body: "scoped" }, client);
     expect(c?.blockRef).toBe("kpi_arr");
   });
 });

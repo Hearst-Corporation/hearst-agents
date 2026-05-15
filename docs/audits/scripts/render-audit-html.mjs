@@ -11,8 +11,8 @@
  * Le HTML généré est standalone (vanilla JS + CSS embedded), ouvrable dans Chrome.
  */
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { resolve, join, dirname, basename } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -539,7 +539,9 @@ render();
 
   const outPath = join(auditDir, "AUDIT-MASTER.html");
   writeFileSync(outPath, html, "utf-8");
-  console.log(`✓ ${auditDir.replace(AUDITS_ROOT, "docs/audits")}/AUDIT-MASTER.html — ${findings.length} findings`);
+  console.log(
+    `✓ ${auditDir.replace(AUDITS_ROOT, "docs/audits")}/AUDIT-MASTER.html — ${findings.length} findings`,
+  );
   return true;
 }
 
@@ -554,7 +556,9 @@ function main() {
   // No arg : render all audits in REGISTRY.json
   const registryPath = join(AUDITS_ROOT, "REGISTRY.json");
   if (!existsSync(registryPath)) {
-    console.error(`❌ ${registryPath} not found. Pass an audit dir as arg, or create REGISTRY.json.`);
+    console.error(
+      `❌ ${registryPath} not found. Pass an audit dir as arg, or create REGISTRY.json.`,
+    );
     process.exit(1);
   }
   const registry = JSON.parse(readFileSync(registryPath, "utf-8"));

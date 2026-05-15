@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import dynamic from 'next/dynamic';
-import type { Application } from '@splinetool/runtime';
-import { SpatialLogoInteraction } from './SpatialLogoInteraction';
+import type { Application } from "@splinetool/runtime";
+import dynamic from "next/dynamic";
+import { SpatialLogoInteraction } from "./SpatialLogoInteraction";
 
-const SPLINE_SCENE = 'https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecode';
+const SPLINE_SCENE = "https://prod.spline.design/jc1CUanFKE-XIpec/scene.splinecode";
 
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
   loading: () => (
     <div className="absolute inset-0 flex items-center justify-center text-white/20 text-spatial-sm animate-pulse">

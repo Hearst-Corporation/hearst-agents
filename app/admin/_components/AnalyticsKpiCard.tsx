@@ -27,10 +27,10 @@ export function AnalyticsKpiCard({
 
   return (
     <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-4) flex flex-col gap-(--space-2)">
-      <span className="t-11 font-medium text-text-faint">
-        {label}
-      </span>
-      <span className={`font-light ${size === "lg" ? "t-28 tracking-tight" : "t-24"} ${valueColor}`}>
+      <span className="t-11 font-medium text-text-faint">{label}</span>
+      <span
+        className={`font-light ${size === "lg" ? "t-28 tracking-tight" : "t-24"} ${valueColor}`}
+      >
         {value}
       </span>
       {sub && <span className="t-10 text-text-ghost">{sub}</span>}

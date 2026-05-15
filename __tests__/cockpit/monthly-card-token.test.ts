@@ -7,13 +7,13 @@
  *  - URLs builder (public + render)
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
-  signCardToken,
-  verifyCardToken,
   buildPublicCardUrl,
   buildRenderCardUrl,
+  signCardToken,
   TTL_DEFAULT_HOURS,
+  verifyCardToken,
 } from "@/lib/cockpit/monthly-card-token";
 
 const SECRET = "x".repeat(64);
@@ -46,14 +46,14 @@ describe("signCardToken / verifyCardToken", () => {
     });
 
     expect(signed).not.toBeNull();
-    expect(signed!.token).toContain(".");
-    expect(signed!.payload.uid).toBe(USER_ID);
-    expect(signed!.payload.ym).toBe(YEAR_MONTH);
-    expect(signed!.payload.mode).toBe("public");
+    expect(signed?.token).toContain(".");
+    expect(signed?.payload.uid).toBe(USER_ID);
+    expect(signed?.payload.ym).toBe(YEAR_MONTH);
+    expect(signed?.payload.mode).toBe("public");
 
     // TTL_DEFAULT_HOURS = 24 * 365 = 1 an
     const expectedExpSec = Math.floor(now / 1000) + TTL_DEFAULT_HOURS * 3600;
-    expect(signed!.payload.exp).toBe(expectedExpSec);
+    expect(signed?.payload.exp).toBe(expectedExpSec);
   });
 
   it("signe un token valide en mode render avec TTL court", () => {
@@ -67,9 +67,9 @@ describe("signCardToken / verifyCardToken", () => {
     });
 
     expect(signed).not.toBeNull();
-    expect(signed!.payload.mode).toBe("render");
+    expect(signed?.payload.mode).toBe("render");
     const expectedExpSec = Math.floor(now / 1000) + 1 * 3600;
-    expect(signed!.payload.exp).toBe(expectedExpSec);
+    expect(signed?.payload.exp).toBe(expectedExpSec);
   });
 
   it("verifyCardToken accepte un token valide et retourne le payload", () => {
@@ -78,7 +78,7 @@ describe("signCardToken / verifyCardToken", () => {
       yearMonth: YEAR_MONTH,
       mode: "public",
     });
-    const result = verifyCardToken(signed!.token);
+    const result = verifyCardToken(signed?.token);
 
     expect(result.ok).toBe(true);
     if (result.ok) {
@@ -95,7 +95,7 @@ describe("signCardToken / verifyCardToken", () => {
       mode: "public",
     });
     // Tamper : flip le dernier caractère de la signature.
-    const parts = signed!.token.split(".");
+    const parts = signed?.token.split(".");
     const lastChar = parts[1].slice(-1);
     const altered = parts[1].slice(0, -1) + (lastChar === "A" ? "B" : "A");
     const tampered = `${parts[0]}.${altered}`;
@@ -116,7 +116,7 @@ describe("signCardToken / verifyCardToken", () => {
       ttlHours: 1,
       now: oneHourAgo,
     });
-    const result = verifyCardToken(signed!.token);
+    const result = verifyCardToken(signed?.token);
 
     expect(result.ok).toBe(false);
     if (!result.ok) {
@@ -143,7 +143,7 @@ describe("signCardToken / verifyCardToken", () => {
       yearMonth: YEAR_MONTH,
       mode: "public",
     });
-    const parts = signed!.token.split(".");
+    const parts = signed?.token.split(".");
     // Inverser le case du premier byte du payload (B64 reste valide)
     const head = parts[0].charCodeAt(0);
     const swapped = String.fromCharCode(head ^ 1) + parts[0].slice(1);
@@ -162,7 +162,7 @@ describe("signCardToken / verifyCardToken", () => {
       mode: "public",
     });
     expect(signed).not.toBeNull();
-    const result = verifyCardToken(signed!.token);
+    const result = verifyCardToken(signed?.token);
     expect(result.ok).toBe(true);
   });
 });
@@ -174,15 +174,8 @@ describe("buildPublicCardUrl / buildRenderCardUrl", () => {
   });
 
   it("construit une URL de rendu avec query param token", () => {
-    const url = buildRenderCardUrl(
-      "user-1",
-      "2026-04",
-      "tok",
-      "https://app.test",
-    );
-    expect(url).toBe(
-      "https://app.test/hearst-card/user-1/2026-04?token=tok",
-    );
+    const url = buildRenderCardUrl("user-1", "2026-04", "tok", "https://app.test");
+    expect(url).toBe("https://app.test/hearst-card/user-1/2026-04?token=tok");
   });
 
   it("trim le slash final du baseUrl", () => {

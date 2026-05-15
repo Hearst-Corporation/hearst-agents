@@ -20,20 +20,13 @@ export function RunProgressBanner() {
 
   const isIdle = coreState === "idle";
   const isError = coreState === "error";
-  const isAwaiting =
-    coreState === "awaiting_approval" || coreState === "awaiting_clarification";
+  const isAwaiting = coreState === "awaiting_approval" || coreState === "awaiting_clarification";
 
   // Dernier step démarré — contexte le plus récent.
-  const lastStep = [...events]
-    .reverse()
-    .find((e) => e.type === "step_started" && "title" in e);
+  const lastStep = [...events].reverse().find((e) => e.type === "step_started" && "title" in e);
   const stepTitle = lastStep && "title" in lastStep ? (lastStep.title as string) : null;
 
-  const accentColor = isError
-    ? "var(--danger)"
-    : isAwaiting
-      ? "var(--warn)"
-      : "var(--accent-teal)";
+  const accentColor = isError ? "var(--danger)" : isAwaiting ? "var(--warn)" : "var(--accent-teal)";
 
   return (
     <div
@@ -57,10 +50,7 @@ export function RunProgressBanner() {
           />
 
           {/* Label flow + step */}
-          <span
-            className="t-9 font-medium truncate"
-            style={{ color: accentColor }}
-          >
+          <span className="t-9 font-medium truncate" style={{ color: accentColor }}>
             {isError
               ? "Erreur"
               : isAwaiting

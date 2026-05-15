@@ -65,7 +65,8 @@ async function generateXlsx(
     const values: Record<string, unknown> = {};
     for (const h of headers) {
       const v = row[h];
-      values[h] = v === null || v === undefined ? "" : typeof v === "object" ? JSON.stringify(v) : v;
+      values[h] =
+        v === null || v === undefined ? "" : typeof v === "object" ? JSON.stringify(v) : v;
     }
     sheet.addRow(values);
   }
@@ -83,10 +84,7 @@ async function generateXlsx(
   });
 }
 
-function generateCsvFallback(
-  input: GenerateSpreadsheetInput,
-  safeName: string,
-): AssetFileInfo {
+function generateCsvFallback(input: GenerateSpreadsheetInput, safeName: string): AssetFileInfo {
   const headers = collectHeaders(input.rows);
   const lines = [headers.join(",")];
 

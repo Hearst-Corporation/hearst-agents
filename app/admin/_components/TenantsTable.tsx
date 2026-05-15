@@ -24,9 +24,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
           background: "var(--bg-elev)",
         }}
       >
-        <span className="t-12 text-text-faint">
-          Aucun tenant sur la fenêtre
-        </span>
+        <span className="t-12 text-text-faint">Aucun tenant sur la fenêtre</span>
       </div>
     );
   }
@@ -72,9 +70,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
                   background: selected ? "var(--accent-teal-surface)" : "transparent",
                 }}
               >
-                <Td className="col-span-3 truncate t-13 font-medium text-text">
-                  {t.tenantId}
-                </Td>
+                <Td className="col-span-3 truncate t-13 font-medium text-text">{t.tenantId}</Td>
                 <Td className="col-span-2 text-right t-13 font-mono text-text-soft">
                   {t.totalRuns}
                 </Td>
@@ -103,13 +99,7 @@ export function TenantsTable({ tenants, selectedId = null, onSelect }: TenantsTa
 }
 
 function Th({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span
-      className={`t-10 font-medium text-text-faint ${className ?? ""}`}
-    >
-      {children}
-    </span>
-  );
+  return <span className={`t-10 font-medium text-text-faint ${className ?? ""}`}>{children}</span>;
 }
 
 function Td({ children, className }: { children: React.ReactNode; className?: string }) {

@@ -1,11 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import { type NextRequest, NextResponse } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ runId: string }> }) {
-  const guard = await requireAdmin("GET /api/admin/runs/[runId]/events", { resource: "runs", action: "read" });
+  const guard = await requireAdmin("GET /api/admin/runs/[runId]/events", {
+    resource: "runs",
+    action: "read",
+  });
   if (isError(guard)) return guard;
 
   const { runId } = await params;

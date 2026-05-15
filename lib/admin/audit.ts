@@ -65,11 +65,9 @@ export interface AuditQueryFilters {
  */
 export async function getAuditLogs(
   db: SupabaseClient,
-  filters: AuditQueryFilters = {}
+  filters: AuditQueryFilters = {},
 ): Promise<{ logs: AuditLog[]; total: number }> {
-  let query = db
-    .from("audit_logs")
-    .select("*", { count: "exact" });
+  let query = db.from("audit_logs").select("*", { count: "exact" });
 
   // Apply filters
   if (filters.userId) {
@@ -100,9 +98,7 @@ export async function getAuditLogs(
   // Pagination
   const limit = filters.limit ?? 100;
   const offset = filters.offset ?? 0;
-  query = query
-    .order("created_at", { ascending: false })
-    .range(offset, offset + limit - 1);
+  query = query.order("created_at", { ascending: false }).range(offset, offset + limit - 1);
 
   const { data, error, count } = await query;
 

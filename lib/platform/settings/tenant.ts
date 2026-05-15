@@ -6,8 +6,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { SystemSetting, SettingValue, SettingCategory } from "./types";
-import { getSetting, setSetting, getAllSettings } from "./store";
+import { getAllSettings, getSetting, setSetting } from "./store";
+import type { SettingCategory, SettingValue, SystemSetting } from "./types";
 
 export async function getTenantSetting<T extends SettingValue>(
   db: SupabaseClient,
@@ -71,17 +71,11 @@ export async function getTenantLimit(
 /**
  * Reset all tenant overrides (revert to global defaults).
  */
-export async function resetTenantSettings(
-  db: SupabaseClient,
-  tenantId: string,
-): Promise<number> {
+export async function resetTenantSettings(db: SupabaseClient, tenantId: string): Promise<number> {
   const tenantSettings = await getAllTenantSettings(db, tenantId);
   let deleted = 0;
   for (const setting of tenantSettings) {
-    const { error } = await db
-      .from("system_settings")
-      .delete()
-      .eq("id", setting.id);
+    const { error } = await db.from("system_settings").delete().eq("id", setting.id);
     if (!error) deleted++;
   }
   return deleted;

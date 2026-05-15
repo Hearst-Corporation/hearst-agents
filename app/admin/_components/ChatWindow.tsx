@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Message {
   role: "user" | "assistant";
@@ -19,7 +19,7 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, []);
 
   const send = async () => {
     if (!input.trim() || loading) return;
@@ -39,7 +39,7 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
       if (!reader) throw new Error("No stream");
 
       const decoder = new TextDecoder();
-            setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -65,25 +65,23 @@ export default function ChatWindow({ agentId }: ChatWindowProps) {
         }
       }
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "Erreur de connexion." },
-      ]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "Erreur de connexion." }]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col rounded-(--radius-md) border border-(--border-shell) bg-surface overflow-hidden" style={{ height: "var(--height-admin-prompt-max)" }}>
+    <div
+      className="flex flex-col rounded-(--radius-md) border border-(--border-shell) bg-surface overflow-hidden"
+      style={{ height: "var(--height-admin-prompt-max)" }}
+    >
       <div className="flex-1 overflow-y-auto p-(--space-4) space-y-(--space-3)">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
               className={`rounded-(--radius-sm) px-(--space-3) py-(--space-2) t-13 ${
-                m.role === "user"
-                  ? "bg-surface-2 text-text"
-                  : "bg-surface-1 text-text-soft"
+                m.role === "user" ? "bg-surface-2 text-text" : "bg-surface-1 text-text-soft"
               }`}
               style={{ maxWidth: "80%" }}
             >

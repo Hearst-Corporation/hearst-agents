@@ -24,12 +24,7 @@ export interface BlockConfigPanelProps {
   onChange: (next: BlockSpec) => void;
 }
 
-export function BlockConfigPanel({
-  block,
-  sources,
-  transforms,
-  onChange,
-}: BlockConfigPanelProps) {
+export function BlockConfigPanel({ block, sources, transforms, onChange }: BlockConfigPanelProps) {
   if (!block) {
     return (
       <aside
@@ -77,7 +72,7 @@ export function BlockConfigPanel({
           className="t-9 font-mono uppercase"
           style={{
             color: "var(--text-muted)",
-                      }}
+          }}
         >
           Configuration
         </h2>
@@ -97,10 +92,7 @@ export function BlockConfigPanel({
       </Field>
 
       {/* DataRef */}
-      <Field
-        label="Source de données"
-        help="Source brute ou transform du spec"
-      >
+      <Field label="Source de données" help="Source brute ou transform du spec">
         <SelectInput
           value={block.dataRef}
           options={datasetIds.map((d) => ({
@@ -140,10 +132,7 @@ export function BlockConfigPanel({
 
       {/* Hidden */}
       <Field label="Visibilité">
-        <label
-          className="flex items-center"
-          style={{ gap: "var(--space-2)", cursor: "pointer" }}
-        >
+        <label className="flex items-center" style={{ gap: "var(--space-2)", cursor: "pointer" }}>
           <input
             type="checkbox"
             checked={!block.hidden}
@@ -180,7 +169,7 @@ function Field({
         className="t-9 font-mono uppercase"
         style={{
           color: "var(--text-muted)",
-                  }}
+        }}
       >
         {label}
       </span>
@@ -285,7 +274,9 @@ function TypeSpecificFields({
         <Field label="Format">
           <select
             value={(block.props?.format as string) ?? "number"}
-            onChange={(e) => onChange({ ...block, props: { ...block.props, format: e.target.value } })}
+            onChange={(e) =>
+              onChange({ ...block, props: { ...block.props, format: e.target.value } })
+            }
             data-testid="config-kpi-format"
             className="t-11"
             style={{
@@ -401,10 +392,7 @@ function PropsJsonEditor({
   };
 
   return (
-    <Field
-      label="Props (JSON)"
-      help="Éditeur libre — voir doc des primitives V2/V3"
-    >
+    <Field label="Props (JSON)" help="Éditeur libre — voir doc des primitives V2/V3">
       <textarea
         value={draft}
         onChange={(e) => setDraft(e.target.value)}

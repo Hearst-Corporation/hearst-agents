@@ -8,8 +8,8 @@
  */
 
 import { useState } from "react";
-import { Action } from "../ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { Action } from "../ui";
 
 interface PublishTemplateModalProps {
   open: boolean;
@@ -126,16 +126,11 @@ export function PublishTemplateModal({
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <header
-          className="flex items-baseline justify-between"
-          style={{ gap: "var(--space-3)" }}
-        >
+        <header className="flex items-baseline justify-between" style={{ gap: "var(--space-3)" }}>
           <h2 id="publish-modal-title" className="t-15 font-medium text-text">
             Publier au marketplace
           </h2>
-          <span className="t-11 font-light text-text-faint">
-            {KIND_LABELS[kind]}
-          </span>
+          <span className="t-11 font-light text-text-faint">{KIND_LABELS[kind]}</span>
         </header>
 
         <Field label="Titre">
@@ -214,28 +209,13 @@ export function PublishTemplateModal({
             onChange={(e) => setAnonymize(e.target.checked)}
             data-testid="publish-anonymize"
           />
-          <span className="t-11 text-text-soft">
-            Publier en anonyme (masquer le nom)
-          </span>
+          <span className="t-11 text-text-soft">Publier en anonyme (masquer le nom)</span>
         </label>
 
-        {err && (
-          <p className="t-11 font-medium text-(--danger)">
-            {err}
-          </p>
-        )}
+        {err && <p className="t-11 font-medium text-(--danger)">{err}</p>}
 
-        <div
-          className="flex items-center justify-end"
-          style={{ gap: "var(--space-2)" }}
-        >
-          <Action
-            variant="secondary"
-            tone="neutral"
-            size="sm"
-            onClick={onClose}
-            disabled={busy}
-          >
+        <div className="flex items-center justify-end" style={{ gap: "var(--space-2)" }}>
+          <Action variant="secondary" tone="neutral" size="sm" onClick={onClose} disabled={busy}>
             Annuler
           </Action>
           <Action
@@ -255,18 +235,10 @@ export function PublishTemplateModal({
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <span className="t-11 font-light text-text-faint">
-        {label}
-      </span>
+      <span className="t-11 font-light text-text-faint">{label}</span>
       {children}
     </label>
   );

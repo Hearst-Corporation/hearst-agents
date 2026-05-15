@@ -2,7 +2,7 @@
  * Notion preview formatters.
  */
 
-import { footer, header, line, preview, asArray } from "./shared";
+import { asArray, footer, header, line, preview } from "./shared";
 
 export function formatNotionCreatePage(args: Record<string, unknown>): string {
   const parent = String(
@@ -14,9 +14,7 @@ export function formatNotionCreatePage(args: Record<string, unknown>): string {
       "—",
   );
   const title = String(
-    args.title ??
-      (args.properties as Record<string, unknown> | undefined)?.title ??
-      "(sans titre)",
+    args.title ?? (args.properties as Record<string, unknown> | undefined)?.title ?? "(sans titre)",
   );
   const blocks = asArray(args.children).length;
   const props =

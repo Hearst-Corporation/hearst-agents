@@ -8,15 +8,9 @@
  * Chrome neutre (pas de halo-on-hover), labels en voix régulière FR (.t-11).
  */
 
-import { useMemo, type JSX } from "react";
-import {
-  SourceCitation,
-  type Source,
-} from "@/app/(user)/components/SourceCitation";
-import type {
-  RenderPayload,
-  RenderedBlock,
-} from "@/lib/reports/engine/render-blocks";
+import { type JSX, useMemo } from "react";
+import { type Source, SourceCitation } from "@/app/(user)/components/SourceCitation";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
 import { BlockRenderer } from "./BlockRenderer";
 
 interface ReportGridProps {

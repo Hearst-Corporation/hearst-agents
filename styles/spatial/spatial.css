@@ -126,7 +126,7 @@
 }
 
 .spatial-stats {
-  top: auto !important;
-  bottom: 12px !important;
-  left: 12px !important;
+  top: auto;
+  bottom: 12px;
+  left: 12px;
 }

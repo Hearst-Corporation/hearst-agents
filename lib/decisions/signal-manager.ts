@@ -7,8 +7,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database, Json } from "../database.types";
 import type { FeedbackSignal } from "../analytics/feedback";
+import type { Database, Json } from "../database.types";
 
 type DB = SupabaseClient<Database>;
 
@@ -19,10 +19,7 @@ export interface PersistResult {
   skipped_duplicates: number;
 }
 
-export async function persistSignals(
-  sb: DB,
-  signals: FeedbackSignal[],
-): Promise<PersistResult> {
+export async function persistSignals(sb: DB, signals: FeedbackSignal[]): Promise<PersistResult> {
   let created = 0;
   let skipped = 0;
 
@@ -40,19 +37,17 @@ export async function persistSignals(
       continue;
     }
 
-    const { error } = await sb
-      .from("improvement_signals")
-      .insert({
-        kind: signal.kind,
-        priority: signal.priority,
-        status: "open",
-        target_id: signal.target_id,
-        target_type: signal.target_type,
-        title: signal.title,
-        description: signal.description,
-        suggestion: signal.suggestion,
-        data: signal.data as unknown as Json,
-      });
+    const { error } = await sb.from("improvement_signals").insert({
+      kind: signal.kind,
+      priority: signal.priority,
+      status: "open",
+      target_id: signal.target_id,
+      target_type: signal.target_type,
+      title: signal.title,
+      description: signal.description,
+      suggestion: signal.suggestion,
+      data: signal.data as unknown as Json,
+    });
 
     if (!error) created++;
   }

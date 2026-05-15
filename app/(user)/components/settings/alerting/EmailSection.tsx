@@ -6,8 +6,8 @@
 
 import type { Dispatch } from "react";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
-import { Btn, Card, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
 import { parseEmailInput } from "./helpers";
+import { Btn, Card, Input, SectionTitle, TestBadge, Toggle } from "./primitives";
 import type { Action, SignalType, State } from "./types";
 
 interface Props {
@@ -64,10 +64,7 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
           {prefs.email && (
             <>
               <div>
-                <label
-                  className="t-9 block mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <label className="t-9 block mb-2" style={{ color: "var(--text-muted)" }}>
                   Destinataires (séparés par virgule)
                 </label>
                 <Input
@@ -76,10 +73,7 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
                   placeholder="alice@example.com, bob@example.com"
                   type="text"
                 />
-                <div
-                  className="flex flex-wrap gap-1 mt-2"
-                  onBlur={handleEmailRecipientsBlur}
-                >
+                <div className="flex flex-wrap gap-1 mt-2" onBlur={handleEmailRecipientsBlur}>
                   {prefs.email.recipients.map((r) => (
                     <span
                       key={r}
@@ -114,10 +108,7 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
               </div>
 
               <div>
-                <label
-                  className="t-9 block mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <label className="t-9 block mb-2" style={{ color: "var(--text-muted)" }}>
                   Signaux déclencheurs
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -143,15 +134,11 @@ export function EmailSection({ prefs, state, dispatch, onTest }: Props) {
               </div>
 
               <div className="flex items-center gap-3">
-                <TestBadge
-                  state={state.testStates["email"]}
-                  message={state.testMessages["email"]}
-                />
+                <TestBadge state={state.testStates.email} message={state.testMessages.email} />
                 <Btn
                   onClick={() => onTest("email")}
                   disabled={
-                    state.testStates["email"] === "testing" ||
-                    prefs.email.recipients.length === 0
+                    state.testStates.email === "testing" || prefs.email.recipients.length === 0
                   }
                 >
                   Tester l&apos;envoi

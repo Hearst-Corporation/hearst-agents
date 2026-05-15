@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { scoreTools } from "@/lib/analytics/tool-ranking";
+import { describe, expect, it } from "vitest";
 import type { ToolMetrics } from "@/lib/analytics/metrics";
+import { scoreTools } from "@/lib/analytics/tool-ranking";
 
 function makeMetrics(overrides: Partial<ToolMetrics> & { tool_name: string }): ToolMetrics {
   return {
@@ -26,8 +26,18 @@ describe("scoreTools", () => {
 
   it("scores and ranks tools", () => {
     const metrics = [
-      makeMetrics({ tool_name: "tool:fast", success_rate: 1.0, avg_latency_ms: 100, avg_cost_usd: 0.001 }),
-      makeMetrics({ tool_name: "tool:slow", success_rate: 0.8, avg_latency_ms: 5000, avg_cost_usd: 0.05 }),
+      makeMetrics({
+        tool_name: "tool:fast",
+        success_rate: 1.0,
+        avg_latency_ms: 100,
+        avg_cost_usd: 0.001,
+      }),
+      makeMetrics({
+        tool_name: "tool:slow",
+        success_rate: 0.8,
+        avg_latency_ms: 5000,
+        avg_cost_usd: 0.05,
+      }),
     ];
     const scores = scoreTools(metrics);
     expect(scores.length).toBe(2);
@@ -38,7 +48,13 @@ describe("scoreTools", () => {
 
   it("flags unstable tools", () => {
     const metrics = [
-      makeMetrics({ tool_name: "tool:broken", success_rate: 0.5, total_calls: 20, successful: 10, failed: 10 }),
+      makeMetrics({
+        tool_name: "tool:broken",
+        success_rate: 0.5,
+        total_calls: 20,
+        successful: 10,
+        failed: 10,
+      }),
     ];
     const scores = scoreTools(metrics);
     expect(scores[0].reliability).toBe("unstable");
@@ -46,26 +62,20 @@ describe("scoreTools", () => {
   });
 
   it("flags insufficient data", () => {
-    const metrics = [
-      makeMetrics({ tool_name: "tool:new", total_calls: 2, success_rate: 1.0 }),
-    ];
+    const metrics = [makeMetrics({ tool_name: "tool:new", total_calls: 2, success_rate: 1.0 })];
     const scores = scoreTools(metrics);
     expect(scores[0].reliability).toBe("unknown");
     expect(scores[0].flags).toContain("insufficient_data");
   });
 
   it("flags high p95 latency", () => {
-    const metrics = [
-      makeMetrics({ tool_name: "tool:laggy", p95_latency_ms: 15000 }),
-    ];
+    const metrics = [makeMetrics({ tool_name: "tool:laggy", p95_latency_ms: 15000 })];
     const scores = scoreTools(metrics);
     expect(scores[0].flags).toContain("high_p95_latency");
   });
 
   it("flags frequent timeouts", () => {
-    const metrics = [
-      makeMetrics({ tool_name: "tool:timeout", timed_out: 15, total_calls: 100 }),
-    ];
+    const metrics = [makeMetrics({ tool_name: "tool:timeout", timed_out: 15, total_calls: 100 })];
     const scores = scoreTools(metrics);
     expect(scores[0].flags).toContain("frequent_timeouts");
   });

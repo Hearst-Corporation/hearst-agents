@@ -173,7 +173,13 @@ async function fetchTrello(userId: string, limit: number): Promise<ExtraSourceIt
     params: { limit },
   });
   if (!r.ok) return [];
-  const boards = (r.data as Array<{ id: string; name?: string; url?: string; dateLastActivity?: string }> | null) ?? [];
+  const boards =
+    (r.data as Array<{
+      id: string;
+      name?: string;
+      url?: string;
+      dateLastActivity?: string;
+    }> | null) ?? [];
   return boards.slice(0, limit).map((b) => ({
     id: b.id,
     title: b.name ?? "(board sans nom)",
@@ -195,4 +201,3 @@ const providers: ExtraProvider[] = [
 export const EXTRAS_PROVIDERS: Record<string, ExtraProvider> = Object.fromEntries(
   providers.map((p) => [p.toolkit, p]),
 );
-

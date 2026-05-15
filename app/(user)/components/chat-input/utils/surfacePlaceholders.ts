@@ -11,9 +11,6 @@ const SURFACE_PLACEHOLDERS: Record<string, string> = {
   apps: "Configurer tes connecteurs…",
 };
 
-export function resolvePlaceholder(
-  surface: string,
-  override?: string,
-): string {
+export function resolvePlaceholder(surface: string, override?: string): string {
   return override || SURFACE_PLACEHOLDERS[surface] || "Demande quelque chose à Hearst…";
 }

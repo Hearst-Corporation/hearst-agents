@@ -1,10 +1,10 @@
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
+import { type Asset, storeAsset } from "@/lib/assets/types";
+import { createVariant } from "@/lib/assets/variants";
+import { enqueueJob } from "@/lib/jobs/queue";
+import type { AudioGenInput } from "@/lib/jobs/types";
 import { generateBriefing } from "@/lib/memory/briefing";
 import { getRedis } from "@/lib/platform/redis/client";
-import { enqueueJob } from "@/lib/jobs/queue";
-import { createVariant } from "@/lib/assets/variants";
-import { storeAsset, type Asset } from "@/lib/assets/types";
-import type { AudioGenInput } from "@/lib/jobs/types";
 
 const BRIEFING_TTL_SECS = 24 * 60 * 60;
 

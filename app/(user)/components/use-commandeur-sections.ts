@@ -8,11 +8,11 @@
  * callbacks du Commandeur (setStageMode, setOpen, etc.).
  */
 
-import { useMemo } from "react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useMemo } from "react";
 import type { StagePayload } from "@/stores/stage";
-import type { CommandeurSearchResults } from "./use-commandeur-data";
 import type { CommandRow } from "./use-commandeur-actions";
+import type { CommandeurSearchResults } from "./use-commandeur-data";
 
 export interface CommandSection {
   key: string;
@@ -70,7 +70,10 @@ export function useCommandeurSections({
             kind: "asset" as const,
             label: a.title,
             hint: a.kind,
-            perform: () => { setStageMode({ mode: "asset", assetId: a.id } as StagePayload); setOpen(false); },
+            perform: () => {
+              setStageMode({ mode: "asset", assetId: a.id } as StagePayload);
+              setOpen(false);
+            },
           })),
         });
       }
@@ -83,7 +86,10 @@ export function useCommandeurSections({
             kind: "mission" as const,
             label: m.title,
             hint: m.status,
-            perform: () => { setStageMode({ mode: "mission", missionId: m.id } as StagePayload); setOpen(false); },
+            perform: () => {
+              setStageMode({ mode: "mission", missionId: m.id } as StagePayload);
+              setOpen(false);
+            },
           })),
         });
       }
@@ -113,7 +119,10 @@ export function useCommandeurSections({
             kind: "kg" as const,
             label: n.label,
             hint: n.type,
-            perform: () => { setStageMode({ mode: "kg", entityId: n.id } as StagePayload); setOpen(false); },
+            perform: () => {
+              setStageMode({ mode: "kg", entityId: n.id } as StagePayload);
+              setOpen(false);
+            },
           })),
         });
       }
@@ -126,7 +135,10 @@ export function useCommandeurSections({
             kind: "run" as const,
             label: r.label,
             hint: r.createdAt ? new Date(r.createdAt).toLocaleDateString("fr-FR") : "",
-            perform: () => { router.push(`/runs/${r.id}`); setOpen(false); },
+            perform: () => {
+              router.push(`/runs/${r.id}`);
+              setOpen(false);
+            },
           })),
         });
       }

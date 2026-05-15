@@ -11,7 +11,7 @@
  *  - generateDriftNarration : output ≤140ch FR + cache + fallback sans API key
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mock Supabase via getServerSupabase ────────────────────────────────────
 
@@ -73,7 +73,10 @@ class RunsBuilder {
       );
     }
     let res = dbState.runs.filter((r) => {
-      if (this.filterMissionId && (r as RunRow & { missionId?: string }).missionId !== this.filterMissionId)
+      if (
+        this.filterMissionId &&
+        (r as RunRow & { missionId?: string }).missionId !== this.filterMissionId
+      )
         return false;
       if (this.filterStatus && r.status !== this.filterStatus) return false;
       return true;
@@ -112,17 +115,13 @@ vi.mock("@anthropic-ai/sdk", () => {
   // que `new` fonctionne (vi.fn() simple n'est pas constructible).
   class MockAnthropic {
     messages = { create: anthropicMocks.messagesCreate };
-    constructor(_opts: unknown) {}
   }
   return { default: MockAnthropic };
 });
 
 // ── Imports du module testé (après mocks) ──────────────────────────────────
 
-import {
-  analyzeMissionDrift,
-  generateDriftNarration,
-} from "@/lib/cockpit/drift-detection";
+import { analyzeMissionDrift, generateDriftNarration } from "@/lib/cockpit/drift-detection";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -279,7 +278,7 @@ describe("generateDriftNarration", () => {
     const text = await generateDriftNarration("Veille concurrence", 5);
     expect(anthropicMocks.messagesCreate).toHaveBeenCalledTimes(1);
     expect(text.length).toBeLessThanOrEqual(140);
-    expect(text).not.toContain("\""); // pas de guillemets
+    expect(text).not.toContain('"'); // pas de guillemets
     expect(text).not.toContain("!"); // pas de point d'exclamation
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
 
 interface OrbAffordanceProps {

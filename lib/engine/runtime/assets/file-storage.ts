@@ -4,8 +4,8 @@
  * Files are stored under `.runtime-assets/<tenantId>/<runId>/<fileName>`.
  */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync, statSync } from "fs";
-import { join, resolve } from "path";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import type { AssetFileInfo } from "./types";
 
 const STORAGE_ROOT = resolve(process.cwd(), ".runtime-assets");
@@ -34,7 +34,8 @@ export function saveAssetFile(input: SaveFileInput): AssetFileInfo {
   ensureDir(dir);
 
   const filePath = join(dir, input.fileName);
-  const data = typeof input.content === "string" ? Buffer.from(input.content, "utf-8") : input.content;
+  const data =
+    typeof input.content === "string" ? Buffer.from(input.content, "utf-8") : input.content;
 
   writeFileSync(filePath, data);
 

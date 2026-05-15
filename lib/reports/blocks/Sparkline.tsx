@@ -82,7 +82,14 @@ export function Sparkline({
     >
       <title>{label ?? "Tendance"}</title>
       <path d={areaPath} fill={color} fillOpacity={0.1} />
-      <path d={path} fill="none" stroke={color} strokeWidth={1.5} strokeLinejoin="round" strokeLinecap="round" />
+      <path
+        d={path}
+        fill="none"
+        stroke={color}
+        strokeWidth={1.5}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

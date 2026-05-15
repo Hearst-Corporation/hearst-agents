@@ -2,7 +2,7 @@
  * Embed service — cache LRU, truncation, EmbeddingsUnavailableError.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { embeddingsCreateMock } = vi.hoisted(() => ({
   embeddingsCreateMock: vi.fn(),
@@ -17,11 +17,11 @@ vi.mock("openai", () => {
 });
 
 import {
-  embedText,
-  EmbeddingsUnavailableError,
-  isEmbeddingsAvailable,
   __clearEmbedCache,
   EMBEDDING_DIM,
+  EmbeddingsUnavailableError,
+  embedText,
+  isEmbeddingsAvailable,
 } from "@/lib/embeddings/embed";
 
 const ORIGINAL_KEY = process.env.OPENAI_API_KEY;
@@ -69,9 +69,7 @@ describe("embed", () => {
 
   it("throw EmbeddingsUnavailableError sans OPENAI_API_KEY", async () => {
     delete process.env.OPENAI_API_KEY;
-    await expect(embedText("anything")).rejects.toBeInstanceOf(
-      EmbeddingsUnavailableError,
-    );
+    await expect(embedText("anything")).rejects.toBeInstanceOf(EmbeddingsUnavailableError);
   });
 
   it("throw si vecteur de mauvaise taille", async () => {

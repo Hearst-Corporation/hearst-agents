@@ -9,10 +9,10 @@
  * all keyword logic into a single capability taxonomy.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { resolveRetrievalMode } from "@/lib/capabilities/taxonomy";
 import { getRequiredProvidersForInput } from "@/lib/engine/orchestrator/provider-requirements";
-import { isResearchIntent, isReportIntent } from "@/lib/engine/orchestrator/research-intent";
+import { isReportIntent, isResearchIntent } from "@/lib/engine/orchestrator/research-intent";
 
 // ── resolveRetrievalMode (replaces detectRetrievalMode) ─────
 
@@ -41,13 +41,13 @@ describe("getRequiredProvidersForInput — contract", () => {
   it("email prompt → requires google provider", () => {
     const r = getRequiredProvidersForInput("Montre-moi mes emails");
     expect(r).not.toBeNull();
-    expect(r!.providers).toContain("google");
+    expect(r?.providers).toContain("google");
   });
 
   it("calendar prompt → requires google provider", () => {
     const r = getRequiredProvidersForInput("Mon agenda pour demain");
     expect(r).not.toBeNull();
-    expect(r!.providers).toContain("google");
+    expect(r?.providers).toContain("google");
   });
 
   it("generic prompt → no provider required", () => {

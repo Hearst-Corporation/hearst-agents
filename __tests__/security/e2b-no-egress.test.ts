@@ -5,7 +5,7 @@
  * Valide via mock que les options de sécurité sont bien passées à Sandbox.create().
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mock E2B ─────────────────────────────────────────────────────────────────
 

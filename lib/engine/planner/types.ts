@@ -13,8 +13,8 @@
  * The user feels the OS understands, prepares, and acts.
  */
 
-import type { ProviderId } from "@/lib/providers/types";
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
+import type { ProviderId } from "@/lib/providers/types";
 
 // ── Plan status lifecycle ───────────────────────────────────
 
@@ -39,13 +39,7 @@ export type PlanStepKind =
   | "monitor"
   | "wait_for_approval";
 
-export type PlanStepStatus =
-  | "pending"
-  | "ready"
-  | "running"
-  | "done"
-  | "failed"
-  | "skipped";
+export type PlanStepStatus = "pending" | "ready" | "running" | "done" | "failed" | "skipped";
 
 export type StepRisk = "low" | "medium" | "high";
 
@@ -143,9 +137,7 @@ export function isPlanTerminal(status: PlanStatus): boolean {
 }
 
 export function getReadySteps(plan: ExecutionPlan): ExecutionPlanStep[] {
-  const doneIds = new Set(
-    plan.steps.filter((s) => s.status === "done").map((s) => s.id),
-  );
+  const doneIds = new Set(plan.steps.filter((s) => s.status === "done").map((s) => s.id));
   return plan.steps.filter((s) => {
     if (s.status !== "pending") return false;
     return s.dependsOn.every((dep) => doneIds.has(dep));

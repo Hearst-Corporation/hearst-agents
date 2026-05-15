@@ -1,8 +1,5 @@
-import { describe, it, expect } from "vitest";
-import {
-  progressLabel,
-  makeBatchForm,
-} from "@/app/(user)/components/video-quick-launch/types";
+import { describe, expect, it } from "vitest";
+import { makeBatchForm, progressLabel } from "@/app/(user)/components/video-quick-launch/types";
 
 describe("progressLabel", () => {
   it("renvoie 'Initialisation…' pour progress 0 (runway)", () => {

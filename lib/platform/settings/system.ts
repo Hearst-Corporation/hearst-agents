@@ -6,9 +6,9 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { SettingValue } from "./types";
 import { getSettingValue, setSettingValue } from "./cache";
-import { getDefaultDefinition, DEFAULT_SETTINGS } from "./defaults";
+import { DEFAULT_SETTINGS, getDefaultDefinition } from "./defaults";
+import type { SettingValue } from "./types";
 
 export async function getFeatureFlag(
   db: SupabaseClient,
@@ -73,13 +73,14 @@ export async function getLimit(
 /**
  * Seed all default settings into the database (idempotent).
  */
-export async function seedDefaults(
-  db: SupabaseClient,
-  updatedBy?: string,
-): Promise<number> {
+export async function seedDefaults(db: SupabaseClient, updatedBy?: string): Promise<number> {
   let seeded = 0;
   for (const def of DEFAULT_SETTINGS) {
-    const existing = await getSettingValue<SettingValue>(db, def.key, undefined as unknown as SettingValue);
+    const existing = await getSettingValue<SettingValue>(
+      db,
+      def.key,
+      undefined as unknown as SettingValue,
+    );
     if (existing === undefined || existing === null) {
       await setSettingValue(db, def, def.defaultValue, null, updatedBy);
       seeded++;

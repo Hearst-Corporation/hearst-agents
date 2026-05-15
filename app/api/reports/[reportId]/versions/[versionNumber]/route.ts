@@ -3,12 +3,12 @@
  * POST /api/reports/[reportId]/versions/[versionNumber]  → restaurer (re-run + nouvelle version)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { reportVersionNumberSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { getVersion } from "@/lib/reports/versions/store";
 import { restoreVersion } from "@/lib/reports/versions/restore";
-import { reportVersionNumberSchema } from "@/lib/contracts/reports";
+import { getVersion } from "@/lib/reports/versions/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -59,9 +59,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
     const status =
-      resolved.error === "forbidden" ? 403
-      : resolved.error === "not_found" ? 404
-      : 503;
+      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 
@@ -95,9 +93,7 @@ export async function POST(_req: NextRequest, ctx: RouteContext) {
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
     const status =
-      resolved.error === "forbidden" ? 403
-      : resolved.error === "not_found" ? 404
-      : 503;
+      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 
@@ -110,9 +106,7 @@ export async function POST(_req: NextRequest, ctx: RouteContext) {
 
   if (!outcome.ok) {
     const status =
-      outcome.reason === "version_not_found" ? 404
-      : outcome.reason === "invalid_spec" ? 422
-      : 500;
+      outcome.reason === "version_not_found" ? 404 : outcome.reason === "invalid_spec" ? 422 : 500;
     return NextResponse.json({ error: outcome.reason }, { status });
   }
 

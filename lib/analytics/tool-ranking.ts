@@ -17,8 +17,8 @@ export interface ToolScore {
 }
 
 const WEIGHTS = {
-  success_rate: 0.50,
-  latency: 0.20,
+  success_rate: 0.5,
+  latency: 0.2,
   cost: 0.15,
   volume: 0.15,
 };
@@ -49,12 +49,14 @@ export function scoreTools(metrics: ToolMetrics[]): ToolScore[] {
 
     const volumeScore = Math.min(m.total_calls / maxVolume, 1);
 
-    const score = Math.round((
-      successScore * WEIGHTS.success_rate +
-      latencyScore * WEIGHTS.latency +
-      costScore * WEIGHTS.cost +
-      volumeScore * WEIGHTS.volume
-    ) * 1000) / 1000;
+    const score =
+      Math.round(
+        (successScore * WEIGHTS.success_rate +
+          latencyScore * WEIGHTS.latency +
+          costScore * WEIGHTS.cost +
+          volumeScore * WEIGHTS.volume) *
+          1000,
+      ) / 1000;
 
     let reliability: ToolScore["reliability"] = "stable";
     if (m.total_calls < THRESHOLDS.min_calls_for_ranking) {
@@ -90,7 +92,9 @@ export function scoreTools(metrics: ToolMetrics[]): ToolScore[] {
   });
 
   scored.sort((a, b) => b.score - a.score);
-  scored.forEach((s, i) => { s.rank = i + 1; });
+  scored.forEach((s, i) => {
+    s.rank = i + 1;
+  });
 
   return scored;
 }

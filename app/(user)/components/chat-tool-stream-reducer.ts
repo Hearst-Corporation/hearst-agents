@@ -34,10 +34,7 @@ export function selectCompletedWrites(
  * to preserve start order and dedupe by step_id, so each tool appears once
  * with its latest status (running → completed).
  */
-export function reduceToolEvents(
-  events: StreamEvent[],
-  runId: string | null,
-): ToolCallEntry[] {
+export function reduceToolEvents(events: StreamEvent[], runId: string | null): ToolCallEntry[] {
   if (!runId) return [];
   const byStepId = new Map<string, ToolCallEntry>();
 

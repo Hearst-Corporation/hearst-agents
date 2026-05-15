@@ -25,8 +25,8 @@ if (dsn) {
     beforeSend(event) {
       // Strip headers sensibles
       if (event.request?.headers) {
-        delete event.request.headers["authorization"];
-        delete event.request.headers["cookie"];
+        delete event.request.headers.authorization;
+        delete event.request.headers.cookie;
         delete event.request.headers["x-api-key"];
       }
       // Redact body

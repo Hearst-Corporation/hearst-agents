@@ -6,9 +6,9 @@
  * d'entité, par profondeur depuis un focus node).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import { getGraph } from "@/lib/memory/kg";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

@@ -11,16 +11,16 @@
  * /api/v2/voice/tool-call.
  */
 
-import type { VoiceToolDef } from "@/lib/voice/tools";
-import {
-  resolveRealtimeVoice,
-  DEFAULT_REALTIME_VOICE,
-  type RealtimeVoice,
-} from "@/lib/voice/voice-mapping";
 import {
   buildConnectedAppsContext,
   buildSlugStrictnessRule,
 } from "@/lib/agents/connected-apps-context";
+import type { VoiceToolDef } from "@/lib/voice/tools";
+import {
+  DEFAULT_REALTIME_VOICE,
+  type RealtimeVoice,
+  resolveRealtimeVoice,
+} from "@/lib/voice/voice-mapping";
 
 const OPENAI_BASE = "https://api.openai.com/v1";
 
@@ -37,9 +37,7 @@ interface MintRealtimeSessionInput {
   connectedApps?: string[];
 }
 
-export async function mintRealtimeSession(
-  input: MintRealtimeSessionInput = {},
-): Promise<{
+export async function mintRealtimeSession(input: MintRealtimeSessionInput = {}): Promise<{
   sessionId: string;
   ephemeralKey: string;
   expiresAt: number;
@@ -63,18 +61,17 @@ export async function mintRealtimeSession(
     model: "gpt-4o-realtime-preview",
     voice,
     modalities: ["audio", "text"],
-    instructions:
-      [
-        "Tu es l'assistant ambient de Hearst OS.",
-        "Réponds en français, ton conversationnel, phrases courtes.",
-        "L'utilisateur parle naturellement pendant qu'il travaille — sois bref, utile, jamais bavard.",
-        "Quand l'utilisateur demande une action concrète (lancer un meeting bot, ouvrir une simulation, générer une image, envoyer un mail, créer une tâche, etc.), invoque l'outil correspondant — ne te contente pas de décrire ce que tu ferais.",
-        "Tu as accès aux tools internes Hearst (start_meeting_bot, start_simulation, generate_image, start_browser) et aux tools des apps connectées (préfixés par le nom de l'app en majuscules, ex: GMAIL_FETCH_EMAILS, SLACK_SEND_MESSAGE).",
-        connectedAppsLine,
-        buildSlugStrictnessRule(),
-        "Pour les actions DESTRUCTIVES (envoyer un mail, créer un ticket, supprimer, archiver, poster un message public), confirme oralement AVANT d'invoquer le tool : redonne à l'utilisateur les paramètres clés (destinataire, sujet, contenu) et demande 'je l'envoie ?'. Invoque le tool seulement après un 'oui', 'confirme', 'go' explicite.",
-        "Pour les actions LECTURE (chercher, lister, récupérer), invoque directement sans demander.",
-      ].join(" "),
+    instructions: [
+      "Tu es l'assistant ambient de Hearst OS.",
+      "Réponds en français, ton conversationnel, phrases courtes.",
+      "L'utilisateur parle naturellement pendant qu'il travaille — sois bref, utile, jamais bavard.",
+      "Quand l'utilisateur demande une action concrète (lancer un meeting bot, ouvrir une simulation, générer une image, envoyer un mail, créer une tâche, etc.), invoque l'outil correspondant — ne te contente pas de décrire ce que tu ferais.",
+      "Tu as accès aux tools internes Hearst (start_meeting_bot, start_simulation, generate_image, start_browser) et aux tools des apps connectées (préfixés par le nom de l'app en majuscules, ex: GMAIL_FETCH_EMAILS, SLACK_SEND_MESSAGE).",
+      connectedAppsLine,
+      buildSlugStrictnessRule(),
+      "Pour les actions DESTRUCTIVES (envoyer un mail, créer un ticket, supprimer, archiver, poster un message public), confirme oralement AVANT d'invoquer le tool : redonne à l'utilisateur les paramètres clés (destinataire, sujet, contenu) et demande 'je l'envoie ?'. Invoque le tool seulement après un 'oui', 'confirme', 'go' explicite.",
+      "Pour les actions LECTURE (chercher, lister, récupérer), invoque directement sans demander.",
+    ].join(" "),
   };
   if (input.tools && input.tools.length > 0) {
     body.tools = input.tools;

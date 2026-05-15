@@ -14,12 +14,12 @@
  * - Completed plan can produce assets + actions
  */
 
-import type { ExecutionPlan, ExecutionPlanStep } from "./types";
-import { getReadySteps, isPlanTerminal } from "./types";
-import { getPlan, savePlan } from "./store";
-import { logPlanEvent } from "./debug";
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
 import type { ProviderId } from "@/lib/providers/types";
+import { logPlanEvent } from "./debug";
+import { getPlan, savePlan } from "./store";
+import type { ExecutionPlan, ExecutionPlanStep } from "./types";
+import { getReadySteps, isPlanTerminal } from "./types";
 
 // ── Types ───────────────────────────────────────────────────
 
@@ -167,7 +167,11 @@ async function executeStep(
   const providerId = step.providerId ?? ("system" as ProviderId);
 
   try {
-    const result = await callbacks.executeTool(tool, { intent: plan.intent, expectedOutput: step.expectedOutput }, providerId);
+    const result = await callbacks.executeTool(
+      tool,
+      { intent: plan.intent, expectedOutput: step.expectedOutput },
+      providerId,
+    );
 
     if (result.success) {
       step.status = "done";

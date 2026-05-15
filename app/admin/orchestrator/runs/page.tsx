@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { HomShell, PageHeader, Card } from "../_components/Shell";
 import { listRuns } from "@/lib/hom/registry";
+import { Card, HomShell, PageHeader } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 

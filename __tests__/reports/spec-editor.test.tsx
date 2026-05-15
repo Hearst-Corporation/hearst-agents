@@ -6,8 +6,8 @@
  * des primitives (déjà couvert par blocks.test).
  */
 
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { render, screen, fireEvent, within } from "@testing-library/react";
 import { ReportSpecEditor } from "@/app/(user)/components/reports/ReportSpecEditor";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
 

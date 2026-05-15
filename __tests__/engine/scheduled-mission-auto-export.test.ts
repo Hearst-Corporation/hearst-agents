@@ -11,8 +11,8 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  autoExportConfigSchema,
   type AutoExportConfig,
+  autoExportConfigSchema,
   type ScheduledMission,
 } from "@/lib/engine/runtime/missions/types";
 

@@ -43,7 +43,7 @@ export async function getSystemHealth(
   options?: {
     checkLLM?: boolean;
     checkCache?: boolean;
-  }
+  },
 ): Promise<HealthStatus> {
   const checks: HealthStatus["checks"] = {
     database: false,
@@ -116,7 +116,7 @@ export async function getSystemHealth(
  * Check database connectivity and performance
  */
 async function checkDatabaseHealth(
-  db: SupabaseClient
+  db: SupabaseClient,
 ): Promise<{ ok: boolean; latencyMs: number; error?: string }> {
   const start = Date.now();
 
@@ -150,7 +150,7 @@ async function checkDatabaseHealth(
  * Check storage provider health
  */
 async function checkStorageHealth(
-  storage: StorageProvider
+  storage: StorageProvider,
 ): Promise<{ ok: boolean; latencyMs: number; error?: string }> {
   const start = Date.now();
 
@@ -173,9 +173,7 @@ async function checkStorageHealth(
 /**
  * Check connectors subsystem health
  */
-async function checkConnectorsHealth(
-  db: SupabaseClient
-): Promise<{ ok: boolean; error?: string }> {
+async function checkConnectorsHealth(db: SupabaseClient): Promise<{ ok: boolean; error?: string }> {
   try {
     // Check if we can query integration_connections
     const { error } = await db

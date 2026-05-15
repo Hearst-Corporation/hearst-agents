@@ -24,6 +24,7 @@ export const REGISTRY: Theme[] = [
     preview: "/themes/robotflowtemplate-webflow-io/preview.png",
     cssPath: "/themes/robotflowtemplate-webflow-io/tokens.css",
     capturedAt: "2026-05-15",
-    description: "Tech dark futuriste — accent violet électrique, coins ultra-arrondis, Inter Tight.",
+    description:
+      "Tech dark futuriste — accent violet électrique, coins ultra-arrondis, Inter Tight.",
   },
 ];

@@ -3,24 +3,22 @@
  * POST /api/admin/settings — upsert setting (RBAC: update settings)
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, isError } from "../_helpers";
-import {
-  getSystemSettings,
-  upsertSystemSetting,
-  type SettingCategory,
-} from "@/lib/admin/settings";
+import { getSystemSettings, type SettingCategory, upsertSystemSetting } from "@/lib/admin/settings";
 import { redactedError, withRoute } from "@/lib/observability/logger";
+import { isError, requireAdmin } from "../_helpers";
 
-const adminSettingsBodySchema = z.object({
-  key: z.string().min(1).max(200),
-  value: z.unknown(),
-  category: z.enum(["feature_flags", "thresholds", "limits", "integrations", "ui", "analytics"]),
-  description: z.string().max(1000).optional(),
-  isEncrypted: z.boolean().optional(),
-  tenantId: z.string().uuid().nullable().optional(),
-}).strict();
+const adminSettingsBodySchema = z
+  .object({
+    key: z.string().min(1).max(200),
+    value: z.unknown(),
+    category: z.enum(["feature_flags", "thresholds", "limits", "integrations", "ui", "analytics"]),
+    description: z.string().max(1000).optional(),
+    isEncrypted: z.boolean().optional(),
+    tenantId: z.string().uuid().nullable().optional(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +26,10 @@ const logGet = withRoute("GET /api/admin/settings");
 const logPost = withRoute("POST /api/admin/settings");
 
 export async function GET(req: NextRequest) {
-  const guard = await requireAdmin("GET /api/admin/settings", { resource: "settings", action: "read" });
+  const guard = await requireAdmin("GET /api/admin/settings", {
+    resource: "settings",
+    action: "read",
+  });
   if (isError(guard)) return guard;
 
   const { db } = guard;
@@ -50,7 +51,10 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const guard = await requireAdmin("POST /api/admin/settings", { resource: "settings", action: "update" });
+  const guard = await requireAdmin("POST /api/admin/settings", {
+    resource: "settings",
+    action: "update",
+  });
   if (isError(guard)) return guard;
 
   const { scope, db } = guard;

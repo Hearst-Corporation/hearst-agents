@@ -4,8 +4,8 @@ import { create } from "zustand";
 import {
   MAX_ACTIVE_PANELS,
   SPATIAL_PANEL_CONFIG,
-  type SpatialPanelType,
   type SpatialPanelCategory,
+  type SpatialPanelType,
 } from "@/lib/spatial/panel-types";
 
 /**
@@ -45,10 +45,7 @@ interface SpatialPanelsState {
    * Ouvre un panel. Si un panel du même type avec mêmes payload existe déjà,
    * il reçoit le focus au lieu d'ouvrir un doublon. Retourne l'ID d'instance.
    */
-  open: (
-    type: SpatialPanelType,
-    payload?: Record<string, unknown>,
-  ) => PanelInstanceId;
+  open: (type: SpatialPanelType, payload?: Record<string, unknown>) => PanelInstanceId;
 
   /** Ferme un panel par ID (animation gérée par AnimatePresence). */
   close: (id: PanelInstanceId) => void;
@@ -66,11 +63,7 @@ interface SpatialPanelsState {
    * Synchronise un panel "sticky" : si la condition est vraie, ouvre s'il
    * n'existe pas. Si fausse, ferme s'il existe. Idempotent.
    */
-  sync: (
-    type: SpatialPanelType,
-    condition: boolean,
-    payload?: Record<string, unknown>,
-  ) => void;
+  sync: (type: SpatialPanelType, condition: boolean, payload?: Record<string, unknown>) => void;
 
   /** Helper : récupère un panel par type (premier trouvé) ou null. */
   getByType: (type: SpatialPanelType) => SpatialPanelInstance | null;
@@ -101,7 +94,6 @@ function processPanels(panels: SpatialPanelInstance[]): SpatialPanelInstance[] {
   return ejected.map((p, i) => ({ ...p, orbitIndex: i }));
 }
 
-
 export const useSpatialPanelsStore = create<SpatialPanelsState>((set, get) => ({
   panels: [],
   focusedId: null,
@@ -124,36 +116,36 @@ export const useSpatialPanelsStore = create<SpatialPanelsState>((set, get) => ({
       orbitIndex: 0,
     };
 
-      set((state) => {
-        const panelsWithNew = [...state.panels, newPanel];
-        return {
-          panels: processPanels(panelsWithNew),
-          focusedId: id,
-        };
-      });
+    set((state) => {
+      const panelsWithNew = [...state.panels, newPanel];
+      return {
+        panels: processPanels(panelsWithNew),
+        focusedId: id,
+      };
+    });
 
     return id;
   },
 
   close: (id) => {
-      set((state) => {
-        const filteredPanels = state.panels.filter((p) => p.id !== id);
-        return {
-          panels: processPanels(filteredPanels),
-          focusedId: state.focusedId === id ? null : state.focusedId,
-        };
-      });
+    set((state) => {
+      const filteredPanels = state.panels.filter((p) => p.id !== id);
+      return {
+        panels: processPanels(filteredPanels),
+        focusedId: state.focusedId === id ? null : state.focusedId,
+      };
+    });
   },
 
   closeByType: (type) => {
-      set((state) => {
-        const filteredPanels = state.panels.filter((p) => p.type !== type);
-        const stillHasFocused = filteredPanels.some((p) => p.id === state.focusedId);
-        return {
-          panels: processPanels(filteredPanels),
-          focusedId: stillHasFocused ? state.focusedId : null,
-        };
-      });
+    set((state) => {
+      const filteredPanels = state.panels.filter((p) => p.type !== type);
+      const stillHasFocused = filteredPanels.some((p) => p.id === state.focusedId);
+      return {
+        panels: processPanels(filteredPanels),
+        focusedId: stillHasFocused ? state.focusedId : null,
+      };
+    });
   },
 
   focus: (id) => {
@@ -173,9 +165,7 @@ export const useSpatialPanelsStore = create<SpatialPanelsState>((set, get) => ({
     } else if (condition && existing && payload) {
       // Update payload silencieusement
       set((state) => ({
-        panels: state.panels.map((p) =>
-          p.id === existing.id ? { ...p, payload } : p,
-        ),
+        panels: state.panels.map((p) => (p.id === existing.id ? { ...p, payload } : p)),
       }));
     }
   },
@@ -197,7 +187,5 @@ export function panelCategory(panel: SpatialPanelInstance): SpatialPanelCategory
  * Utilisé pour dim global de la scène (overlay modal).
  */
 export function hasInterruptive(panels: SpatialPanelInstance[]): boolean {
-  return panels.some(
-    (p) => SPATIAL_PANEL_CONFIG[p.type].category === "interruptive",
-  );
+  return panels.some((p) => SPATIAL_PANEL_CONFIG[p.type].category === "interruptive");
 }

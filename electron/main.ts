@@ -1,20 +1,20 @@
+import { type ChildProcess, spawn } from "node:child_process";
+import * as http from "node:http";
+import * as net from "node:net";
+import { join } from "node:path";
 import {
   app,
   BrowserWindow,
-  shell,
-  nativeTheme,
-  Menu,
-  ipcMain,
   clipboard,
-  Notification,
   dialog,
-  Tray,
+  ipcMain,
+  Menu,
+  Notification,
   nativeImage,
+  nativeTheme,
+  shell,
+  Tray,
 } from "electron";
-import { spawn, ChildProcess } from "child_process";
-import { join } from "path";
-import * as http from "http";
-import * as net from "net";
 
 const isDev =
   (process as NodeJS.Process & { defaultApp?: boolean }).defaultApp === true ||
@@ -127,12 +127,7 @@ async function startNextServer(): Promise<void> {
 
   serverPort = await findFreePort(9001);
 
-  const serverScript = join(
-    process.resourcesPath,
-    ".next",
-    "standalone",
-    "server.js",
-  );
+  const serverScript = join(process.resourcesPath, ".next", "standalone", "server.js");
 
   const env: NodeJS.ProcessEnv = {
     ...process.env,
@@ -148,12 +143,8 @@ async function startNextServer(): Promise<void> {
     cwd: join(process.resourcesPath, ".next", "standalone"),
   });
 
-  nextServer.stdout?.on("data", (d: Buffer) =>
-    process.stdout.write(`[next] ${d}`),
-  );
-  nextServer.stderr?.on("data", (d: Buffer) =>
-    process.stderr.write(`[next] ${d}`),
-  );
+  nextServer.stdout?.on("data", (d: Buffer) => process.stdout.write(`[next] ${d}`));
+  nextServer.stderr?.on("data", (d: Buffer) => process.stderr.write(`[next] ${d}`));
   nextServer.on("error", (err: Error) =>
     console.error("[electron] Échec du serveur Next.js :", err),
   );
@@ -248,10 +239,7 @@ function buildMenu(): void {
         { role: "minimize" as const },
         { role: "zoom" as const },
         ...(isMac
-          ? [
-              { type: "separator" as const },
-              { role: "front" as const },
-            ]
+          ? [{ type: "separator" as const }, { role: "front" as const }]
           : [{ role: "close" as const }]),
       ],
     },
@@ -328,14 +316,11 @@ function registerIpcHandlers(): void {
   ipcMain.handle("clipboard:read-text", () => clipboard.readText());
 
   // Notifications natives OS
-  ipcMain.handle(
-    "notification:show",
-    (_event, opts: { title: string; body: string }) => {
-      if (Notification.isSupported()) {
-        new Notification({ title: opts.title, body: opts.body }).show();
-      }
-    },
-  );
+  ipcMain.handle("notification:show", (_event, opts: { title: string; body: string }) => {
+    if (Notification.isSupported()) {
+      new Notification({ title: opts.title, body: opts.body }).show();
+    }
+  });
 
   // Sélecteur de fichier (upload document)
   ipcMain.handle(
@@ -361,37 +346,34 @@ function registerIpcHandlers(): void {
   });
 
   // OAuth popup — ouvre une BrowserWindow dédiée, capture le redirect et ferme
-  ipcMain.handle(
-    "oauth:open-popup",
-    (_event, opts: { url: string; redirectHost: string }) => {
-      return new Promise<{ code: string } | null>((resolve) => {
-        const popup = new BrowserWindow({
-          width: 500,
-          height: 700,
-          parent: mainWindow ?? undefined,
-          modal: true,
-          webPreferences: { nodeIntegration: false, contextIsolation: true },
-        });
-
-        popup.loadURL(opts.url);
-
-        popup.webContents.on("will-redirect", (_ev, url) => {
-          if (url.includes(opts.redirectHost)) {
-            try {
-              const parsed = new URL(url);
-              const code = parsed.searchParams.get("code");
-              resolve(code ? { code } : null);
-            } catch {
-              resolve(null);
-            }
-            popup.destroy();
-          }
-        });
-
-        popup.on("closed", () => resolve(null));
+  ipcMain.handle("oauth:open-popup", (_event, opts: { url: string; redirectHost: string }) => {
+    return new Promise<{ code: string } | null>((resolve) => {
+      const popup = new BrowserWindow({
+        width: 500,
+        height: 700,
+        parent: mainWindow ?? undefined,
+        modal: true,
+        webPreferences: { nodeIntegration: false, contextIsolation: true },
       });
-    },
-  );
+
+      popup.loadURL(opts.url);
+
+      popup.webContents.on("will-redirect", (_ev, url) => {
+        if (url.includes(opts.redirectHost)) {
+          try {
+            const parsed = new URL(url);
+            const code = parsed.searchParams.get("code");
+            resolve(code ? { code } : null);
+          } catch {
+            resolve(null);
+          }
+          popup.destroy();
+        }
+      });
+
+      popup.on("closed", () => resolve(null));
+    });
+  });
 }
 
 // ── BrowserWindow ────────────────────────────────────────────────────────────
@@ -428,8 +410,7 @@ function createWindow(): void {
 
   mainWindow.webContents.setWindowOpenHandler(({ url: target }) => {
     const isLocal =
-      target.startsWith("http://localhost:") ||
-      target.startsWith("http://127.0.0.1:");
+      target.startsWith("http://localhost:") || target.startsWith("http://127.0.0.1:");
     if (isLocal) return { action: "allow" };
     void shell.openExternal(target);
     return { action: "deny" };

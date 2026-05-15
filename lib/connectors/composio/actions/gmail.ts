@@ -57,7 +57,9 @@ export async function gmailSendEmail(input: GmailSendInput): Promise<GmailSendOu
   if (!result.ok) return result;
 
   // Composio responses typically wrap the provider payload under `data` or `response_data`.
-  const payload = result.data as { id?: string; messageId?: string; data?: { id?: string } } | undefined;
+  const payload = result.data as
+    | { id?: string; messageId?: string; data?: { id?: string } }
+    | undefined;
   const messageId = payload?.messageId ?? payload?.id ?? payload?.data?.id;
 
   return { ok: true, data: result.data, messageId };

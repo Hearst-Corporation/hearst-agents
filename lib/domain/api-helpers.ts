@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { ZodSchema, ZodError } from "zod";
+import type { ZodError, ZodSchema } from "zod";
 
 export function ok<T>(data: T, status = 200) {
   return NextResponse.json({ ok: true, ...data }, { status });
@@ -9,9 +9,10 @@ export function err(error: string, status = 400) {
   return NextResponse.json({ ok: false, error }, { status });
 }
 
-export function parseBody<T>(schema: ZodSchema<T>, data: unknown):
-  | { success: true; data: T }
-  | { success: false; response: NextResponse } {
+export function parseBody<T>(
+  schema: ZodSchema<T>,
+  data: unknown,
+): { success: true; data: T } | { success: false; response: NextResponse } {
   const result = schema.safeParse(data);
   if (!result.success) {
     const issues = (result.error as ZodError).issues

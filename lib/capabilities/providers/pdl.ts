@@ -52,7 +52,11 @@ const companyCache = new QuickLRU<string, PdlCompany>({
 
 /** Enrichit une entreprise via son domaine principal. */
 export async function enrichCompany(input: { domain: string }): Promise<PdlCompany> {
-  const domain = input.domain.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  const domain = input.domain
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/\/.*$/, "");
   if (!domain) throw new Error("[PDL] domain requis");
 
   const cached = companyCache.get(domain);
@@ -72,9 +76,7 @@ export async function enrichCompany(input: { domain: string }): Promise<PdlCompa
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(
-      `[PDL] enrich status=${res.status} message=${body.slice(0, 200)}`,
-    );
+    throw new Error(`[PDL] enrich status=${res.status} message=${body.slice(0, 200)}`);
   }
 
   const data = (await res.json()) as {

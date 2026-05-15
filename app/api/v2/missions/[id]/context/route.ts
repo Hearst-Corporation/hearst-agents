@@ -8,18 +8,15 @@
  *       ContextRailForMission.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import { getMission } from "@/lib/engine/runtime/missions/store";
 import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
 import { getMissionContext } from "@/lib/memory/mission-context";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({
     context: "GET /api/v2/missions/[id]/context",
   });

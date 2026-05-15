@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Action } from "./components/ui";
 
 export default function UserError({
@@ -35,9 +35,13 @@ export default function UserError({
           Quelque chose s&apos;est cassé
         </h1>
         <p className="t-13 font-light text-text-muted" style={{ margin: 0 }}>
-          {error.message || "Une erreur est survenue lors du rendu de cette page."} Tu peux réessayer, ou revenir au cockpit.
+          {error.message || "Une erreur est survenue lors du rendu de cette page."} Tu peux
+          réessayer, ou revenir au cockpit.
         </p>
-        <div className="flex items-center" style={{ gap: "var(--space-2)", marginTop: "var(--space-2)" }}>
+        <div
+          className="flex items-center"
+          style={{ gap: "var(--space-2)", marginTop: "var(--space-2)" }}
+        >
           <Action variant="secondary" tone="neutral" size="sm" onClick={() => router.push("/")}>
             Retour au cockpit
           </Action>

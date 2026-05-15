@@ -10,10 +10,10 @@
  * adossé aux endpoints existants.
  */
 
-import { useCallback, useEffect, useState, type JSX } from "react";
-import type { VersionSummary } from "@/lib/reports/versions/store";
-import type { VersionDiff } from "@/lib/reports/versions/diff";
+import { type JSX, useCallback, useEffect, useState } from "react";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import type { VersionDiff } from "@/lib/reports/versions/diff";
+import type { VersionSummary } from "@/lib/reports/versions/store";
 import { fmtIso, kindLabel } from "./utils";
 
 const VERSIONS_LIST_LIMIT = 50;
@@ -24,10 +24,7 @@ interface VersionHistoryPanelProps {
   onClose: () => void;
 }
 
-export function VersionHistoryPanel({
-  assetId,
-  onClose,
-}: VersionHistoryPanelProps): JSX.Element {
+export function VersionHistoryPanel({ assetId, onClose }: VersionHistoryPanelProps): JSX.Element {
   const [versions, setVersions] = useState<VersionSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,9 +39,7 @@ export function VersionHistoryPanel({
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(
-        `/api/reports/${assetId}/versions?limit=${VERSIONS_LIST_LIMIT}`,
-      );
+      const res = await fetch(`/api/reports/${assetId}/versions?limit=${VERSIONS_LIST_LIMIT}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as { versions: VersionSummary[] };
       setVersions(json.versions ?? []);
@@ -61,7 +56,7 @@ export function VersionHistoryPanel({
     };
     run().catch(console.error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assetId]);
+  }, [loadVersions]);
 
   const handleCompare = useCallback(async () => {
     if (compareA === null || compareB === null) return;
@@ -70,9 +65,7 @@ export function VersionHistoryPanel({
     setDiffLoading(true);
     setDiffs(null);
     try {
-      const res = await fetch(
-        `/api/reports/${assetId}/versions/diff?from=${from}&to=${to}`,
-      );
+      const res = await fetch(`/api/reports/${assetId}/versions/diff?from=${from}&to=${to}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as { diffs: VersionDiff[] };
       setDiffs(json.diffs ?? []);
@@ -94,14 +87,10 @@ export function VersionHistoryPanel({
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as { version: VersionSummary };
-        setRestoreMsg(
-          `Version ${vn} restaurée → nouvelle v${json.version.versionNumber}`,
-        );
+        setRestoreMsg(`Version ${vn} restaurée → nouvelle v${json.version.versionNumber}`);
         void loadVersions();
       } catch (e) {
-        setRestoreMsg(
-          `Erreur : ${e instanceof Error ? e.message : "inconnue"}`,
-        );
+        setRestoreMsg(`Erreur : ${e instanceof Error ? e.message : "inconnue"}`);
       } finally {
         setRestoring(null);
       }
@@ -123,10 +112,7 @@ export function VersionHistoryPanel({
       }}
     >
       {/* Header */}
-      <div
-        className="flex items-center justify-between"
-        style={{ gap: "var(--space-2)" }}
-      >
+      <div className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
         <span className="t-13 font-medium text-text-muted">Historique</span>
         <button
           type="button"
@@ -144,16 +130,10 @@ export function VersionHistoryPanel({
       </div>
 
       {/* États */}
-      {loading && (
-        <span className="t-11 font-light text-text-faint">Chargement…</span>
-      )}
-      {error && (
-        <span className="t-11 font-light text-(--danger)">{error}</span>
-      )}
+      {loading && <span className="t-11 font-light text-text-faint">Chargement…</span>}
+      {error && <span className="t-11 font-light text-(--danger)">{error}</span>}
       {!loading && !error && versions.length === 0 && (
-        <span className="t-11 font-light text-text-faint">
-          Aucune version enregistrée.
-        </span>
+        <span className="t-11 font-light text-text-faint">Aucune version enregistrée.</span>
       )}
 
       {/* Feedback restauration */}
@@ -183,10 +163,7 @@ export function VersionHistoryPanel({
               onSelectCompare={() => {
                 if (compareA === null) {
                   setCompareA(v.versionNumber);
-                } else if (
-                  compareB === null &&
-                  v.versionNumber !== compareA
-                ) {
+                } else if (compareB === null && v.versionNumber !== compareA) {
                   setCompareB(v.versionNumber);
                 } else {
                   setCompareA(v.versionNumber);
@@ -233,11 +210,7 @@ function VersionRow({
 }: VersionRowProps): JSX.Element {
   const isRestoring = restoring === v.versionNumber;
   const compareLabel =
-    compareA === v.versionNumber
-      ? "A"
-      : compareB === v.versionNumber
-        ? "B"
-        : "Comparer";
+    compareA === v.versionNumber ? "A" : compareB === v.versionNumber ? "B" : "Comparer";
   const compareColor =
     compareA === v.versionNumber || compareB === v.versionNumber
       ? "var(--accent-teal)"
@@ -255,14 +228,10 @@ function VersionRow({
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="t-11 font-mono tabular-nums text-text">
-          v{v.versionNumber}
-        </span>
+        <span className="t-11 font-mono tabular-nums text-text">v{v.versionNumber}</span>
         <span className="t-11 font-light text-text-faint">{v.triggeredBy}</span>
       </div>
-      <span className="t-11 font-light text-text-muted">
-        {fmtIso(v.createdAt)}
-      </span>
+      <span className="t-11 font-light text-text-muted">{fmtIso(v.createdAt)}</span>
       <span className="t-11 font-light text-text-faint">
         {v.signalsCount} signal{v.signalsCount !== 1 ? "s" : ""}
       </span>
@@ -345,9 +314,7 @@ function CompareSection({
       {diffs !== null && (
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
           {diffs.length === 0 ? (
-            <span className="t-11 font-light text-text-faint">
-              Aucune différence détectée.
-            </span>
+            <span className="t-11 font-light text-text-faint">Aucune différence détectée.</span>
           ) : (
             diffs.map((d, i) => <DiffRow key={i} diff={d} />)
           )}
@@ -377,9 +344,7 @@ function DiffRow({ diff: d }: { diff: VersionDiff }): JSX.Element {
       }}
     >
       <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-        <span className="t-11 font-mono tabular-nums text-text">
-          {d.blockRef}
-        </span>
+        <span className="t-11 font-mono tabular-nums text-text">{d.blockRef}</span>
         <span className="t-11 font-medium" style={{ color: kindColor }}>
           {kindLabel(d.kind)}
         </span>

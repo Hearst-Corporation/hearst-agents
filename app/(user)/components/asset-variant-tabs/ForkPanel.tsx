@@ -23,9 +23,7 @@ export function ForkPanel({ state, setState, onSubmit, generating }: ForkPanelPr
       style={{ backgroundColor: "var(--card-flat-bg)" }}
     >
       <div className="flex items-baseline justify-between">
-        <span className="t-13 font-medium text-(--text-l1)">
-          Modifier ce variant
-        </span>
+        <span className="t-13 font-medium text-(--text-l1)">Modifier ce variant</span>
         <span className="t-11 font-light text-text-muted">
           Lineage : nouveau variant dérivé de l&apos;original
         </span>
@@ -54,9 +52,7 @@ export function ForkPanel({ state, setState, onSubmit, generating }: ForkPanelPr
               max={10}
               step={1}
               value={state.duration}
-              onChange={(e) =>
-                setState({ ...state, duration: Number(e.target.value) })
-              }
+              onChange={(e) => setState({ ...state, duration: Number(e.target.value) })}
               disabled={generating}
               className="accent-(--accent-teal)"
             />

@@ -2,7 +2,7 @@
  * Trello preview formatters.
  */
 
-import { footer, header, line, preview, asArray } from "./shared";
+import { asArray, footer, header, line, preview } from "./shared";
 
 export function formatTrelloCreateCard(args: Record<string, unknown>): string {
   const name = String(args.name ?? args.title ?? "(sans titre)");

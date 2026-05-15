@@ -1,17 +1,17 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useNavigationStore } from "@/stores/navigation";
-import { useRuntimeStore } from "@/stores/runtime";
-import { useStageStore, type StagePayload } from "@/stores/stage";
-import { useStageData } from "@/stores/stage-data";
-import { useServicesStore } from "@/stores/services";
-import { useChatContext } from "@/stores/chat-context";
-import { getAllServices } from "@/lib/integrations/catalog";
-import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 import { toast } from "@/app/hooks/use-toast";
 import type { Message } from "@/lib/core/types";
+import { getAllServices } from "@/lib/integrations/catalog";
+import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
+import { useChatContext } from "@/stores/chat-context";
+import { useNavigationStore } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useServicesStore } from "@/stores/services";
+import { type StagePayload, useStageStore } from "@/stores/stage";
+import { useStageData } from "@/stores/stage-data";
 import { ChatInput } from "./ChatInput";
 
 function trackAnalytics(
@@ -144,16 +144,13 @@ export function ChatDock() {
       loadConnections();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  }, [searchParams, router.replace, setStoreServices, setStoreLoaded, services.length, pathname]);
 
   const assistantBufferRef = useRef<string>("");
   const currentAssistantIdRef = useRef<string | null>(null);
 
   const handleSubmit = useCallback(
-    async (
-      message: string,
-      opts?: { attachedAssetIds?: string[] },
-    ) => {
+    async (message: string, opts?: { attachedAssetIds?: string[] }) => {
       // Si on n'est pas sur la page racine, on y revient pour que l'utilisateur
       // voie le Stage chat se mettre à jour avec ses messages.
       if (pathname !== "/") {
@@ -195,9 +192,7 @@ export function ChatDock() {
       addMessageToThread(threadId, assistantMessage);
 
       const recentMessages = messages
-        .filter(
-          (m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0,
-        )
+        .filter((m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0)
         .slice(-10)
         .map((m) => ({ role: m.role, content: m.content }));
 
@@ -310,10 +305,5 @@ export function ChatDock() {
     ],
   );
 
-  return (
-    <ChatInput
-      onSubmit={handleSubmit}
-      connectedServices={connectedServices}
-    />
-  );
+  return <ChatInput onSubmit={handleSubmit} connectedServices={connectedServices} />;
 }

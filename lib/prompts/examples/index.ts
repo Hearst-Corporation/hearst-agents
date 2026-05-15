@@ -157,17 +157,40 @@ export const KG_EXTRACTION_FEWSHOT: ReadonlyArray<FewShotExample> = [
           { type: "company", label: "Sequoia", properties: {} },
           { type: "company", label: "Hearst OS", properties: {} },
           { type: "project", label: "Series A Hearst OS", properties: {} },
-          { type: "commitment", label: "Décision Series A avant 15 mai", properties: { deadline: "2026-05-15" } },
+          {
+            type: "commitment",
+            label: "Décision Series A avant 15 mai",
+            properties: { deadline: "2026-05-15" },
+          },
           { type: "person", label: "Marc Dubois", properties: { role: "CFO" } },
           { type: "company", label: "Acme", properties: {} },
-          { type: "decision", label: "Signature contrat Acme 240k€", properties: { amount: 240000, currency: "EUR" } },
+          {
+            type: "decision",
+            label: "Signature contrat Acme 240k€",
+            properties: { amount: 240000, currency: "EUR" },
+          },
         ],
         relations: [
           { source_label: "Sarah Martin", target_label: "Sequoia", type: "works_at", weight: 1.0 },
           { source_label: "Marc Dubois", target_label: "Acme", type: "works_at", weight: 1.0 },
-          { source_label: "Sarah Martin", target_label: "Series A Hearst OS", type: "owns", weight: 1.0 },
-          { source_label: "Series A Hearst OS", target_label: "Décision Series A avant 15 mai", type: "depends_on", weight: 1.0 },
-          { source_label: "Marc Dubois", target_label: "Signature contrat Acme 240k€", type: "owns", weight: 1.0 },
+          {
+            source_label: "Sarah Martin",
+            target_label: "Series A Hearst OS",
+            type: "owns",
+            weight: 1.0,
+          },
+          {
+            source_label: "Series A Hearst OS",
+            target_label: "Décision Series A avant 15 mai",
+            type: "depends_on",
+            weight: 1.0,
+          },
+          {
+            source_label: "Marc Dubois",
+            target_label: "Signature contrat Acme 240k€",
+            type: "owns",
+            weight: 1.0,
+          },
         ],
       },
       null,
@@ -261,16 +284,14 @@ export const DAILY_BRIEF_FEWSHOT_FR: ReadonlyArray<FewShotExample> = [
     ].join("\n"),
     output: JSON.stringify(
       {
-        lead:
-          "Matinée à fort enjeu : la term sheet Sequoia se reclarifie en parallèle de la signature Acme. Le staging encore instable côté backend pèse sur la confiance opérationnelle.",
+        lead: "Matinée à fort enjeu : la term sheet Sequoia se reclarifie en parallèle de la signature Acme. Le staging encore instable côté backend pèse sur la confiance opérationnelle.",
         people:
           "Sarah attend 2 retours précis sur la term sheet avant 9h00 — pas un email-fleuve, deux décisions chiffrées. Marc envoie le DocuSign à midi, MSA v3 déjà validé. Chloé attend un feedback deck pricing en DM Slack — court, mais à débloquer dans la matinée.",
         decisions:
           "Trancher les deux points term sheet avant le call 9h. Confirmer la fenêtre signature Acme (11h30, pas de glissement). Décider si on bloque le merge de #244 (Léa) sur la résolution ENG-118 ou si on fast-tracke pour soulager le staging.",
         signals:
           "CI rouge sur main signalée par Pierre — blocking pour toute mise en prod. PR #241 sans review depuis 2 jours, sortir Pierre du focus pour 30 min. Bug staging /api/runs récurrent : ENG-118 reste P1 tant qu'on n'a pas trace claire du root cause.",
-        action:
-          "Avant 9h, écris à Sarah les deux arbitrages chiffrés sur la term sheet.",
+        action: "Avant 9h, écris à Sarah les deux arbitrages chiffrés sur la term sheet.",
       },
       null,
       2,
@@ -294,8 +315,7 @@ export const DAILY_BRIEF_FEWSHOT_FR: ReadonlyArray<FewShotExample> = [
           "Choix unique du jour : protéger le focus block ou rattraper de la dette accumulée. Pas de demande externe à arbitrer.",
         signals:
           "Aucune anomalie, aucun PR stuck, aucune issue critique. Profiter — ces journées sont rares.",
-        action:
-          "Bloque 90 minutes sur la dette tech la plus visible avant midi.",
+        action: "Bloque 90 minutes sur la dette tech la plus visible avant midi.",
       },
       null,
       2,
@@ -333,9 +353,17 @@ export const INBOX_PRIORITY_FEWSHOT: ReadonlyArray<FewShotExample> = [
     ),
     output: JSON.stringify(
       [
-        { id: "email:001", priority: "urgent", summary: "Marc attend validation clause Acme avant 11h45." },
+        {
+          id: "email:001",
+          priority: "urgent",
+          summary: "Marc attend validation clause Acme avant 11h45.",
+        },
         { id: "email:002", priority: "info", summary: "Newsletter SaaS metrics 2026." },
-        { id: "email:003", priority: "important", summary: "Sarah attend retour term sheet Series A cette semaine." },
+        {
+          id: "email:003",
+          priority: "important",
+          summary: "Sarah attend retour term sheet Series A cette semaine.",
+        },
       ],
       null,
       2,
@@ -363,7 +391,11 @@ export const INBOX_PRIORITY_FEWSHOT: ReadonlyArray<FewShotExample> = [
     output: JSON.stringify(
       [
         { id: "email:101", priority: "info", summary: "Compte rendu réunion produit (FYI)." },
-        { id: "email:102", priority: "important", summary: "Staging renvoie 500 sur /api/runs, regarder dans la journée." },
+        {
+          id: "email:102",
+          priority: "important",
+          summary: "Staging renvoie 500 sur /api/runs, regarder dans la journée.",
+        },
       ],
       null,
       2,

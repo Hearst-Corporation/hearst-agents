@@ -9,9 +9,9 @@
  * un CTA "Configure Recall.ai dans .env".
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { storeAsset } from "@/lib/assets/types";
 import {
   createMeetingBot,
   detectMeetingProvider,
@@ -19,20 +19,22 @@ import {
   RecallAiUnavailableError,
   validateMeetingUrl,
 } from "@/lib/capabilities/providers/recall-ai";
-import { storeAsset } from "@/lib/assets/types";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { MeetingBotInput } from "@/lib/jobs/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const meetingsStartBodySchema = z.object({
-  meetingUrl: z.string().max(2048).optional(),
-  joinUrl: z.string().max(2048).optional(),
-  threadId: z.string().max(200).optional(),
-  language: z.string().max(10).optional(),
-  botName: z.string().max(200).optional(),
-}).strict();
+const meetingsStartBodySchema = z
+  .object({
+    meetingUrl: z.string().max(2048).optional(),
+    joinUrl: z.string().max(2048).optional(),
+    threadId: z.string().max(200).optional(),
+    language: z.string().max(10).optional(),
+    botName: z.string().max(200).optional(),
+  })
+  .strict();
 
 type StartBody = z.infer<typeof meetingsStartBodySchema>;
 
@@ -94,10 +96,7 @@ export async function POST(req: NextRequest) {
       );
     }
     const message = err instanceof Error ? err.message : String(err);
-    return NextResponse.json(
-      { error: "meeting_bot_create_failed", message },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: "meeting_bot_create_failed", message }, { status: 502 });
   }
 
   const meetingId = botResult.botId;
@@ -141,8 +140,7 @@ export async function POST(req: NextRequest) {
     const jobPayload: MeetingBotInput = {
       jobKind: "meeting-bot",
       meetingUrl,
-      meetingProvider:
-        provider === "unknown" ? "zoom" : provider,
+      meetingProvider: provider === "unknown" ? "zoom" : provider,
       recordingPolicy: "all_participants_consent",
       userId: scope.userId,
       tenantId: scope.tenantId,

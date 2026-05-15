@@ -8,7 +8,7 @@
  */
 
 import { fmtNumber, fmtPercent } from "./format";
-import { inferStringField, inferNumericField } from "./infer";
+import { inferNumericField, inferStringField } from "./infer";
 
 type Row = Record<string, unknown>;
 
@@ -63,7 +63,7 @@ export function Funnel({
         const widthPct = Math.max(0, Math.min(100, (value / top) * 100));
         const labelStr = String(row[lf] ?? `Étape ${i + 1}`);
         const prevValue = i > 0 ? Number(stages[i - 1][vf] ?? 0) : value;
-        const conv = i === 0 ? 1 : (prevValue > 0 ? value / prevValue : 0);
+        const conv = i === 0 ? 1 : prevValue > 0 ? value / prevValue : 0;
         const globalConv = top > 0 ? value / top : 0;
 
         return (
@@ -81,7 +81,10 @@ export function Funnel({
                 </span>
                 <span
                   className="t-9 font-mono uppercase"
-                  style={{ color: i === 0 ? "var(--text-faint)" : "var(--accent-teal)", letterSpacing: "0.15em" }}
+                  style={{
+                    color: i === 0 ? "var(--text-faint)" : "var(--accent-teal)",
+                    letterSpacing: "0.15em",
+                  }}
                 >
                   {i === 0 ? "—" : fmtPercent(conv)}
                 </span>

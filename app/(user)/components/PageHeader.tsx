@@ -11,8 +11,8 @@
  * Tokens uniquement (CLAUDE.md §1).
  */
 
-import type { ReactNode } from "react";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { Breadcrumb, type Crumb } from "./Breadcrumb";
 
 interface BackLink {
@@ -47,18 +47,9 @@ const ChevronLeftIcon = () => (
   </svg>
 );
 
-export function PageHeader({
-  title,
-  subtitle,
-  breadcrumb,
-  actions,
-  back,
-}: PageHeaderProps) {
+export function PageHeader({ title, subtitle, breadcrumb, actions, back }: PageHeaderProps) {
   return (
-    <header
-      className="flex flex-col px-12 py-6"
-      style={{ gap: "var(--space-2)" }}
-    >
+    <header className="flex flex-col px-12 py-6" style={{ gap: "var(--space-2)" }}>
       {/* Top row : breadcrumb OU back link.
          Pivot UI 2026-05-01 : back link en typo régulière (pas mono caps
          tracking-marquee) — voix éditoriale, plus calme. PulseBar fournit déjà
@@ -88,21 +79,16 @@ export function PageHeader({
       ) : null}
 
       {/* Title row */}
-      <div
-        className="flex items-start justify-between"
-        style={{ gap: "var(--space-4)" }}
-      >
+      <div className="flex items-start justify-between" style={{ gap: "var(--space-4)" }}>
         <div className="flex flex-col min-w-0" style={{ gap: "var(--space-2)" }}>
-          <h1 className="t-28 font-medium tracking-tight text-text">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="t-13 font-light text-text-muted">
-              {subtitle}
-            </p>
-          )}
+          <h1 className="t-28 font-medium tracking-tight text-text">{title}</h1>
+          {subtitle && <p className="t-13 font-light text-text-muted">{subtitle}</p>}
         </div>
-        {actions && <div className="flex items-center shrink-0" style={{ gap: "var(--space-2)" }}>{actions}</div>}
+        {actions && (
+          <div className="flex items-center shrink-0" style={{ gap: "var(--space-2)" }}>
+            {actions}
+          </div>
+        )}
       </div>
     </header>
   );

@@ -12,11 +12,10 @@
  */
 
 import { z } from "zod";
-import { getVersion } from "@/lib/reports/versions/store";
-import { createVersion } from "@/lib/reports/versions/store";
-import type { VersionSummary } from "@/lib/reports/versions/store";
-import { runReport, type RunReportOptions } from "@/lib/reports/engine/run-report";
+import { type RunReportOptions, runReport } from "@/lib/reports/engine/run-report";
 import { parseReportSpec } from "@/lib/reports/spec/schema";
+import type { VersionSummary } from "@/lib/reports/versions/store";
+import { createVersion, getVersion } from "@/lib/reports/versions/store";
 
 // ── Schéma ────────────────────────────────────────────────────
 
@@ -31,7 +30,15 @@ export type RestoreVersionInput = z.infer<typeof restoreVersionInputSchema>;
 
 export type RestoreVersionOutcome =
   | { ok: true; newVersion: VersionSummary }
-  | { ok: false; reason: "version_not_found" | "invalid_spec" | "run_failed" | "persist_failed" | "unavailable" };
+  | {
+      ok: false;
+      reason:
+        | "version_not_found"
+        | "invalid_spec"
+        | "run_failed"
+        | "persist_failed"
+        | "unavailable";
+    };
 
 // ── restoreVersion ────────────────────────────────────────────
 
@@ -71,7 +78,10 @@ export async function restoreVersion(
       noCache: true, // force un run frais, pas de cache sur restauration
     });
   } catch (err) {
-    console.error("[restoreVersion] runReport a throw:", err instanceof Error ? err.message : String(err));
+    console.error(
+      "[restoreVersion] runReport a throw:",
+      err instanceof Error ? err.message : String(err),
+    );
     return { ok: false, reason: "run_failed" };
   }
 
@@ -92,7 +102,7 @@ export async function restoreVersion(
 
   console.log(
     `[restoreVersion] asset=${input.assetId} restauré depuis v${input.versionNumber} → nouvelle v${newVersion.versionNumber}` +
-    (input.userId ? ` par user=${input.userId}` : ""),
+      (input.userId ? ` par user=${input.userId}` : ""),
   );
 
   return { ok: true, newVersion };

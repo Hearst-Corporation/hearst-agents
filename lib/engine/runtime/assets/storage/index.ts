@@ -7,22 +7,22 @@
  *   const storage = createStorageProvider("hybrid", { ... });
  */
 
-import type { StorageProvider, StorageConfig } from "./types";
+import { HybridStorageProvider } from "./hybrid";
 import { LocalStorageProvider } from "./local";
 import { R2StorageProvider } from "./r2";
-import { HybridStorageProvider } from "./hybrid";
 import { SupabaseStorageProvider } from "./supabase";
+import type { StorageConfig, StorageProvider } from "./types";
 
-export * from "./types";
 export { LocalStorageProvider } from "./local";
 export { R2StorageProvider } from "./r2";
+export * from "./types";
 
 /**
  * Factory — crée le provider approprié selon la config
  */
 function createStorageProvider(
   type: StorageConfig["provider"],
-  config: Omit<StorageConfig, "provider">
+  config: Omit<StorageConfig, "provider">,
 ): StorageProvider {
   switch (type) {
     case "local": {
@@ -31,8 +31,7 @@ function createStorageProvider(
       }
       return new LocalStorageProvider({
         basePath: config.local.basePath,
-        publicBaseUrl:
-          config.local.publicBaseUrl || "http://localhost:9000/assets",
+        publicBaseUrl: config.local.publicBaseUrl || "http://localhost:9000/assets",
       });
     }
 
@@ -117,4 +116,3 @@ export function getGlobalStorage(): StorageProvider {
   }
   return globalStorage;
 }
-

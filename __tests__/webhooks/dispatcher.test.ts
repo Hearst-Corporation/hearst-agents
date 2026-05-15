@@ -12,9 +12,9 @@
  * - last_status mis à jour après dispatch
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { createHmac } from "crypto";
-import { signPayload, __testInternals, dispatchWebhookEventAsync } from "@/lib/webhooks/dispatcher";
+import { createHmac } from "node:crypto";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { __testInternals, dispatchWebhookEventAsync, signPayload } from "@/lib/webhooks/dispatcher";
 import type { CustomWebhook } from "@/lib/webhooks/types";
 
 // ── Mock Supabase (pour updateWebhookStatus) ─────────────────
@@ -217,13 +217,9 @@ describe("dispatchWebhookEventAsync", () => {
     };
 
     const webhook = makeWebhook({ secret: SECRET });
-    await dispatchWebhookEventAsync(
-      "report.generated",
-      TENANT,
-      {},
-      fetcher as typeof fetch,
-      [webhook],
-    );
+    await dispatchWebhookEventAsync("report.generated", TENANT, {}, fetcher as typeof fetch, [
+      webhook,
+    ]);
 
     expect(capturedHeaders["x-hearst-signature"]).toMatch(/^sha256=[0-9a-f]{64}$/);
   });
@@ -236,13 +232,9 @@ describe("dispatchWebhookEventAsync", () => {
     };
 
     const webhook = makeWebhook({ secret: undefined });
-    await dispatchWebhookEventAsync(
-      "report.generated",
-      TENANT,
-      {},
-      fetcher as typeof fetch,
-      [webhook],
-    );
+    await dispatchWebhookEventAsync("report.generated", TENANT, {}, fetcher as typeof fetch, [
+      webhook,
+    ]);
 
     expect(capturedHeaders["x-hearst-signature"]).toBeUndefined();
   });
@@ -282,13 +274,9 @@ describe("dispatchWebhookEventAsync", () => {
     const fetcher = async () => new Response(null, { status: 200 });
     const webhook = makeWebhook();
 
-    await dispatchWebhookEventAsync(
-      "asset.created",
-      TENANT,
-      {},
-      fetcher as typeof fetch,
-      [webhook],
-    );
+    await dispatchWebhookEventAsync("asset.created", TENANT, {}, fetcher as typeof fetch, [
+      webhook,
+    ]);
 
     expect(updateWebhookStatus).toHaveBeenCalledWith(
       expect.objectContaining({ id: WEBHOOK_ID, status: "success" }),
@@ -300,13 +288,9 @@ describe("dispatchWebhookEventAsync", () => {
     const fetcher = async () => new Response(null, { status: 500 });
     const webhook = makeWebhook();
 
-    await dispatchWebhookEventAsync(
-      "mission.failed",
-      TENANT,
-      {},
-      fetcher as typeof fetch,
-      [webhook],
-    );
+    await dispatchWebhookEventAsync("mission.failed", TENANT, {}, fetcher as typeof fetch, [
+      webhook,
+    ]);
 
     expect(updateWebhookStatus).toHaveBeenCalledWith(
       expect.objectContaining({ id: WEBHOOK_ID, status: "failed" }),

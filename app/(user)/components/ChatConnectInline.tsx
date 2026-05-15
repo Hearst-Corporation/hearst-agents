@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRuntimeStore, type StreamEvent } from "@/stores/runtime";
 import { toast } from "@/app/hooks/use-toast";
+import { type StreamEvent, useRuntimeStore } from "@/stores/runtime";
 
 interface ConnectRequest {
   app: string;
@@ -26,7 +26,9 @@ function selectLatestConnectRequest(
   for (const ev of events) {
     if (ev.run_id !== runId) continue;
     if (ev.type === "app_connect_required") {
-      const app = String(ev.app ?? "").trim().toLowerCase();
+      const app = String(ev.app ?? "")
+        .trim()
+        .toLowerCase();
       const reason = String(ev.reason ?? "").trim();
       if (!app) return null;
       return { app, reason };
@@ -41,10 +43,7 @@ export function ChatConnectInline() {
   const [busy, setBusy] = useState(false);
   const [lastError, setLastError] = useState<{ message: string; code?: string } | null>(null);
 
-  const request = useMemo(
-    () => selectLatestConnectRequest(events, lastRunId),
-    [events, lastRunId],
-  );
+  const request = useMemo(() => selectLatestConnectRequest(events, lastRunId), [events, lastRunId]);
 
   if (!request) return null;
 
@@ -145,9 +144,7 @@ export function ChatConnectInline() {
               <span>Redirection…</span>
             </>
           ) : lastError ? (
-            <>
-              <span>Réessayer</span>
-            </>
+            <span>Réessayer</span>
           ) : (
             <>
               <span>Connecter {request.app}</span>

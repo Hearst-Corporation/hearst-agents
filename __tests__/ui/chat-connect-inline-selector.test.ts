@@ -3,7 +3,7 @@
  * need a DOM. The full React render is covered by the e2e tests.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import type { StreamEvent } from "@/stores/runtime";
 
 // Replicate the same shape used in the component (kept private there but
@@ -16,7 +16,9 @@ function selectLatestConnectRequest(
   for (const ev of events) {
     if (ev.run_id !== runId) continue;
     if (ev.type === "app_connect_required") {
-      const app = String(ev.app ?? "").trim().toLowerCase();
+      const app = String(ev.app ?? "")
+        .trim()
+        .toLowerCase();
       const reason = String(ev.reason ?? "").trim();
       if (!app) return null;
       return { app, reason };
@@ -25,12 +27,8 @@ function selectLatestConnectRequest(
   return null;
 }
 
-function fromChronological(
-  events: Array<{ type: string; [key: string]: unknown }>,
-): StreamEvent[] {
-  return events
-    .map((e, i): StreamEvent => ({ ...e, timestamp: 1_000_000 + i }))
-    .reverse(); // newest-first as the store stores them
+function fromChronological(events: Array<{ type: string; [key: string]: unknown }>): StreamEvent[] {
+  return events.map((e, i): StreamEvent => ({ ...e, timestamp: 1_000_000 + i })).reverse(); // newest-first as the store stores them
 }
 
 describe("ChatConnectInline selector", () => {
@@ -41,7 +39,12 @@ describe("ChatConnectInline selector", () => {
   it("returns null when there is no app_connect_required event", () => {
     const events = fromChronological([
       { type: "text_delta", run_id: "r", delta: "ok" },
-      { type: "tool_call_started", run_id: "r", step_id: "s1", tool: "google.gmail.list_recent_messages" },
+      {
+        type: "tool_call_started",
+        run_id: "r",
+        step_id: "s1",
+        tool: "google.gmail.list_recent_messages",
+      },
     ]);
     expect(selectLatestConnectRequest(events, "r")).toBeNull();
   });

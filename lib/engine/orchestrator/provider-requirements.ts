@@ -6,11 +6,8 @@
  * Returns null when no external provider is needed.
  */
 
-import {
-  getAllProviders,
-  getProviderLabel,
-} from "@/lib/providers/registry";
 import { keywordMatches } from "@/lib/capabilities/taxonomy";
+import { getAllProviders, getProviderLabel } from "@/lib/providers/registry";
 
 export interface ProviderRequirementResult {
   capability: string;
@@ -30,7 +27,10 @@ export function getRequiredProvidersForInput(input: string): ProviderRequirement
 
     if (matched && provider.capabilities.length > 0) {
       const relevantProviders = allProviders
-        .filter((p) => p.auth.connectable && p.capabilities.some((c) => provider.capabilities.includes(c)))
+        .filter(
+          (p) =>
+            p.auth.connectable && p.capabilities.some((c) => provider.capabilities.includes(c)),
+        )
         .map((p) => p.id);
 
       return {

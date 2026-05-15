@@ -88,4 +88,3 @@ export interface ScheduledMission {
   /** Mode d'agrégation des votes (défaut "all" — unanimité). */
   approvalMode?: ApprovalMode;
 }
-

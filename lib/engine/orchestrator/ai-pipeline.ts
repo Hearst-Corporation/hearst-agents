@@ -11,51 +11,44 @@
  * (runResearchReport) and raw retrieval (fetchProviderData) flows here.
  */
 
-import { streamText, stepCountIs, jsonSchema } from "ai";
-import type { ModelMessage, Tool } from "ai";
+import { randomUUID } from "node:crypto";
 import { createAnthropic } from "@ai-sdk/anthropic";
+import type { ModelMessage, Tool } from "ai";
+import { jsonSchema, stepCountIs, streamText } from "ai";
 import { z } from "zod";
-import type { RunEngine } from "@/lib/engine/runtime/engine";
-import type { RunEventBus } from "@/lib/events/bus";
+import { type Asset, type AssetKind, storeAsset } from "@/lib/assets/types";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
 import { toAiTools } from "@/lib/connectors/composio/to-ai-tools";
 import { filterToolsByDomain, isWriteAction } from "@/lib/connectors/composio/write-guard";
-import {
-  buildNativeGoogleTools,
-  NATIVE_GOOGLE_TOOL_DESCRIPTORS,
-} from "@/lib/tools/native/google";
-import { buildHearstActionTools } from "@/lib/tools/native/hearst-actions";
-import { buildEnrichTools } from "@/lib/tools/native/enrich";
-import { buildWebSearchTools } from "@/lib/tools/native/web-search";
-import { buildMarketDataTools } from "@/lib/tools/native/market-data";
-import { buildExtrasServicesTools } from "@/lib/tools/native/extras-services";
-import { buildResearchTools } from "@/lib/tools/native/research";
-import { buildExtrasMediaTools } from "@/lib/tools/native/extras-media";
-import { buildKgQueryTools } from "@/lib/tools/native/kg-query";
-import { buildMissionTools } from "@/lib/tools/native/missions";
-import { buildMeetingsTools } from "@/lib/tools/native/meetings";
+import { upsertEmbedding } from "@/lib/embeddings/store";
+import type { RunEngine } from "@/lib/engine/runtime/engine";
 import { createScheduledMission } from "@/lib/engine/runtime/missions/create-mission";
 import { addMission } from "@/lib/engine/runtime/missions/store";
 import { saveScheduledMission as persistMission } from "@/lib/engine/runtime/state/adapter";
-import { appendModelMessages, getRecentModelMessages } from "@/lib/memory/store";
+import type { RunEventBus } from "@/lib/events/bus";
+import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
 import { generateBriefing } from "@/lib/memory/briefing";
 import { getKgContextForUser } from "@/lib/memory/kg-context";
 import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
 import { getRetrievedMemoryForUser } from "@/lib/memory/retrieval-context";
-import { upsertEmbedding } from "@/lib/embeddings/store";
+import { appendModelMessages, getRecentModelMessages } from "@/lib/memory/store";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
-import { storeAsset, type Asset, type AssetKind } from "@/lib/assets/types";
+import { getDefaultPersona, getPersonaById, getPersonaForSurface } from "@/lib/personas/store";
 import { getApplicableReports } from "@/lib/reports/catalog";
-import { randomUUID } from "crypto";
 import { buildProposeReportSpecTool } from "@/lib/reports/spec/llm-tool";
-import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
+import { buildEnrichTools } from "@/lib/tools/native/enrich";
+import { buildExtrasMediaTools } from "@/lib/tools/native/extras-media";
+import { buildExtrasServicesTools } from "@/lib/tools/native/extras-services";
+import { buildNativeGoogleTools, NATIVE_GOOGLE_TOOL_DESCRIPTORS } from "@/lib/tools/native/google";
+import { buildHearstActionTools } from "@/lib/tools/native/hearst-actions";
+import { buildKgQueryTools } from "@/lib/tools/native/kg-query";
+import { buildMarketDataTools } from "@/lib/tools/native/market-data";
+import { buildMeetingsTools } from "@/lib/tools/native/meetings";
+import { buildMissionTools } from "@/lib/tools/native/missions";
+import { buildResearchTools } from "@/lib/tools/native/research";
+import { buildWebSearchTools } from "@/lib/tools/native/web-search";
 import { canonicalHash } from "@/lib/utils/canonical-hash";
-import {
-  getPersonaById,
-  getDefaultPersona,
-  getPersonaForSurface,
-} from "@/lib/personas/store";
+import { buildAgentSystemPrompt, ORCHESTRATOR_MODEL } from "./system-prompt";
 
 // Schema for validating tool results from the AI pipeline
 const ToolResultSchema = z.object({
@@ -338,7 +331,8 @@ function buildCreateArtifactTool(
         },
         summary: {
           type: "string",
-          description: "Optional one-line summary of the artifact (≤ 140 chars), shown under the title.",
+          description:
+            "Optional one-line summary of the artifact (≤ 140 chars), shown under the title.",
         },
       },
     }),
@@ -347,7 +341,7 @@ function buildCreateArtifactTool(
       if (!cleanTitle) {
         return "Error: artifact title is required.";
       }
-      if (!args.content || !args.content.trim()) {
+      if (!args.content?.trim()) {
         return "Error: artifact content is empty.";
       }
 
@@ -356,11 +350,15 @@ function buildCreateArtifactTool(
       // in the right-panel Assets list).
       const displayType =
         args.contentType ??
-        (args.kind === "report" ? "report"
-          : args.kind === "brief" ? "brief"
-          : args.kind === "spreadsheet" ? "csv"
-          : args.kind === "message" ? "text"
-          : "doc");
+        (args.kind === "report"
+          ? "report"
+          : args.kind === "brief"
+            ? "brief"
+            : args.kind === "spreadsheet"
+              ? "csv"
+              : args.kind === "message"
+                ? "text"
+                : "doc");
 
       const asset: Asset = {
         id: randomUUID(),
@@ -391,9 +389,7 @@ function buildCreateArtifactTool(
       // Map the V1 AssetKind (DB schema) to the V2 AssetType used in events,
       // so downstream consumers (right panel, focal mappers) treat it uniformly.
       const eventAssetType =
-        args.kind === "report"      ? "report"
-        : args.kind === "spreadsheet" ? "excel"
-        : "doc";
+        args.kind === "report" ? "report" : args.kind === "spreadsheet" ? "excel" : "doc";
 
       eventBus.emit({
         type: "asset_generated",
@@ -433,46 +429,44 @@ export async function runAiPipeline(
   //   provider, no Composio popup required.
   // - Composio tools for everything else (Slack, Notion, GitHub, Airtable,
   //   HubSpot, …).
-  const [nativeGoogleTools, composioToolsRaw, briefingResult, kgContext, retrievedMemory] = await Promise.all([
-    buildNativeGoogleTools(input.userId).catch((err) => {
-      console.error("[AiPipeline] native Google discovery failed:", err);
-      return {} as Record<string, unknown>;
-    }),
-    getToolsForUser(input.userId).catch((err) => {
-      console.error("[AiPipeline] Composio discovery failed:", err);
-      return [] as Awaited<ReturnType<typeof getToolsForUser>>;
-    }),
-    // Briefing memory : fail-soft, jamais bloquant. Si Redis ou Anthropic
-    // tombent, on continue sans contexte personnalisé.
-    generateBriefing({ userId: input.userId }).catch((err) => {
-      console.warn("[AiPipeline] briefing fetch failed:", err);
-      return null;
-    }),
-    // Knowledge Graph context : fail-soft. Si Supabase tombe ou pas
-    // d'entités, on continue sans (le user n'a peut-être encore rien
-    // ingéré).
-    getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
-      console.warn("[AiPipeline] KG context fetch failed:", err);
-      return null;
-    }),
-    // Retrieved memory (LTM) : top-K embeddings sémantiques sur le
-    // message courant. Fail-soft : sans OPENAI_API_KEY ou sans pgvector
-    // upgradé, on continue avec une chaîne vide.
-    getRetrievedMemoryForUser({
-      userId: input.userId,
-      tenantId: resolvedTenantId,
-      currentMessage: input.message,
-    }).catch((err) => {
-      console.warn("[AiPipeline] retrieved memory fetch failed:", err);
-      return "";
-    }),
-  ]);
+  const [nativeGoogleTools, composioToolsRaw, briefingResult, kgContext, retrievedMemory] =
+    await Promise.all([
+      buildNativeGoogleTools(input.userId).catch((err) => {
+        console.error("[AiPipeline] native Google discovery failed:", err);
+        return {} as Record<string, unknown>;
+      }),
+      getToolsForUser(input.userId).catch((err) => {
+        console.error("[AiPipeline] Composio discovery failed:", err);
+        return [] as Awaited<ReturnType<typeof getToolsForUser>>;
+      }),
+      // Briefing memory : fail-soft, jamais bloquant. Si Redis ou Anthropic
+      // tombent, on continue sans contexte personnalisé.
+      generateBriefing({ userId: input.userId }).catch((err) => {
+        console.warn("[AiPipeline] briefing fetch failed:", err);
+        return null;
+      }),
+      // Knowledge Graph context : fail-soft. Si Supabase tombe ou pas
+      // d'entités, on continue sans (le user n'a peut-être encore rien
+      // ingéré).
+      getKgContextForUser(input.userId, resolvedTenantId).catch((err) => {
+        console.warn("[AiPipeline] KG context fetch failed:", err);
+        return null;
+      }),
+      // Retrieved memory (LTM) : top-K embeddings sémantiques sur le
+      // message courant. Fail-soft : sans OPENAI_API_KEY ou sans pgvector
+      // upgradé, on continue avec une chaîne vide.
+      getRetrievedMemoryForUser({
+        userId: input.userId,
+        tenantId: resolvedTenantId,
+        currentMessage: input.message,
+      }).catch((err) => {
+        console.warn("[AiPipeline] retrieved memory fetch failed:", err);
+        return "";
+      }),
+    ]);
 
   // Filter Composio tools to domain-relevant ones (prevents token explosion).
-  const filteredComposio = filterToolsByDomain(
-    composioToolsRaw,
-    input.domain ?? "general",
-  );
+  const filteredComposio = filterToolsByDomain(composioToolsRaw, input.domain ?? "general");
 
   const nativeCount = Object.keys(nativeGoogleTools).length;
   eventBus.emit({
@@ -616,10 +610,12 @@ export async function runAiPipeline(
       : [];
   // Calcule les rapports applicables depuis les apps connectées pour guider le LLM
   // vers les templates du catalogue plutôt qu'une génération from scratch.
-  const connectedAppNames = [...new Set([
-    ...(nativeCount > 0 ? ["google", "gmail", "calendar", "drive"] : []),
-    ...composioToolsRaw.map((t) => t.app.toLowerCase()),
-  ])];
+  const connectedAppNames = [
+    ...new Set([
+      ...(nativeCount > 0 ? ["google", "gmail", "calendar", "drive"] : []),
+      ...composioToolsRaw.map((t) => t.app.toLowerCase()),
+    ]),
+  ];
   const applicableReports = getApplicableReports(connectedAppNames)
     .filter((r): r is typeof r & { status: "ready" | "partial" } => r.status !== "blocked")
     .map((r) => ({
@@ -701,7 +697,11 @@ export async function runAiPipeline(
         const TOTAL_BUDGET = 8000;
         const perAssetBudget = Math.floor(TOTAL_BUDGET / valid.length);
         const blocks = valid.map((a) => {
-          const safeTitle = a.title.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          const safeTitle = a.title
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
           const summary = a.summary ? a.summary.slice(0, 200).trim() : "";
           // Contenu tronqué au budget. Les séquences </content> sont neutralisées
           // pour éviter de casser le balisage XML du prompt.
@@ -713,10 +713,11 @@ export async function runAiPipeline(
             summary ? `<summary>${summary}</summary>` : "",
             `<content>${safeContent}</content>`,
             `</asset>`,
-          ].filter(Boolean).join("\n");
+          ]
+            .filter(Boolean)
+            .join("\n");
         });
-        userMessageContent =
-          `<assets count="${valid.length}">\n${blocks.join("\n\n")}\n</assets>\n\n${input.message}`;
+        userMessageContent = `<assets count="${valid.length}">\n${blocks.join("\n\n")}\n</assets>\n\n${input.message}`;
       }
     } catch (err) {
       console.warn("[AiPipeline] attached assets injection failed:", err);
@@ -838,7 +839,7 @@ export async function runAiPipeline(
           if (streamingTokenCount > MAX_STREAMING_TOKENS) {
             console.error(
               `[AiPipeline] Runaway generation detected: ${streamingTokenCount} tokens emitted. ` +
-              `Max expected: ${MAX_STREAMING_TOKENS}. Aborting run ${engine.id}.`
+                `Max expected: ${MAX_STREAMING_TOKENS}. Aborting run ${engine.id}.`,
             );
             eventBus.emit({
               type: "orchestrator_log",
@@ -863,8 +864,7 @@ export async function runAiPipeline(
           // Both meta tools (request_connection, create_scheduled_mission) and
           // preview write calls are silenced from the chip stream.
           const args = (event.input ?? {}) as Record<string, unknown>;
-          const isPreviewWrite =
-            isWriteAction(event.toolName) && args._preview !== false;
+          const isPreviewWrite = isWriteAction(event.toolName) && args._preview !== false;
           const skip = isInternalMetaTool(event.toolName) || isPreviewWrite;
 
           // Loop detection: check if same tool with same args is called repeatedly.
@@ -878,7 +878,7 @@ export async function runAiPipeline(
           if (loopCount >= LOOP_WARNING_THRESHOLD) {
             console.warn(
               `[AiPipeline] Potential loop detected: ${event.toolName} called ${loopCount} times with same args. ` +
-              `Run=${engine.id}, step=${event.toolCallId}`
+                `Run=${engine.id}, step=${event.toolCallId}`,
             );
             eventBus.emit({
               type: "orchestrator_log",
@@ -889,7 +889,7 @@ export async function runAiPipeline(
 
           if (loopCount >= LOOP_ABORT_THRESHOLD) {
             console.error(
-              `[AiPipeline] Loop abort: ${event.toolName} exceeded ${LOOP_ABORT_THRESHOLD} identical calls. Stopping run.`
+              `[AiPipeline] Loop abort: ${event.toolName} exceeded ${LOOP_ABORT_THRESHOLD} identical calls. Stopping run.`,
             );
             eventBus.emit({
               type: "orchestrator_log",
@@ -907,14 +907,16 @@ export async function runAiPipeline(
           const hardCap = PER_TOOL_HARD_CAPS[event.toolName];
           if (hardCap !== undefined && globalCount > hardCap) {
             console.warn(
-              `[AiPipeline] Per-tool hard cap exceeded: ${event.toolName} called ${globalCount} times (cap=${hardCap}). Stopping run.`
+              `[AiPipeline] Per-tool hard cap exceeded: ${event.toolName} called ${globalCount} times (cap=${hardCap}). Stopping run.`,
             );
             eventBus.emit({
               type: "orchestrator_log",
               run_id: engine.id,
               message: `Cap dépassé : ${event.toolName} appelé ${globalCount} fois (max ${hardCap}). Arrêt du run.`,
             });
-            throw new Error(`Per-tool cap exceeded for ${event.toolName} (${globalCount} > ${hardCap})`);
+            throw new Error(
+              `Per-tool cap exceeded for ${event.toolName} (${globalCount} > ${hardCap})`,
+            );
           }
 
           if (skip) {
@@ -992,11 +994,15 @@ export async function runAiPipeline(
             streamingTokenCount = Math.max(streamingTokenCount, ev.usage.outputTokens);
             crossStepTokens += ev.usage.outputTokens;
 
-            if (!crossStepWarned && crossStepTokens >= CROSS_STEP_WARNING && crossStepTokens < MAX_CROSS_STEP_TOKENS) {
+            if (
+              !crossStepWarned &&
+              crossStepTokens >= CROSS_STEP_WARNING &&
+              crossStepTokens < MAX_CROSS_STEP_TOKENS
+            ) {
               crossStepWarned = true;
               console.warn(
                 `[AiPipeline] Cross-step token warning: ${crossStepTokens} output tokens cumulated. ` +
-                `Run=${engine.id}`
+                  `Run=${engine.id}`,
               );
               eventBus.emit({
                 type: "orchestrator_log",
@@ -1008,14 +1014,16 @@ export async function runAiPipeline(
             if (crossStepTokens >= MAX_CROSS_STEP_TOKENS) {
               console.error(
                 `[AiPipeline] Cross-step budget exceeded: ${crossStepTokens} tokens > ${MAX_CROSS_STEP_TOKENS}. ` +
-                `Aborting run ${engine.id}.`
+                  `Aborting run ${engine.id}.`,
               );
               eventBus.emit({
                 type: "orchestrator_log",
                 run_id: engine.id,
                 message: `Budget tokens dépassé (${crossStepTokens.toLocaleString()} tokens). Arrêt du run.`,
               });
-              throw new Error(`Cross-step token budget exceeded: ${crossStepTokens} > ${MAX_CROSS_STEP_TOKENS}`);
+              throw new Error(
+                `Cross-step token budget exceeded: ${crossStepTokens} > ${MAX_CROSS_STEP_TOKENS}`,
+              );
             }
           }
           break;
@@ -1085,11 +1093,7 @@ export async function runAiPipeline(
           workspaceId: resolvedWorkspaceId,
           userId: input.userId,
         };
-        appendModelMessages(
-          input.conversationId,
-          [userMessage, ...responseMessages],
-          scope,
-        );
+        appendModelMessages(input.conversationId, [userMessage, ...responseMessages], scope);
       } catch (err) {
         console.error("[AiPipeline] Failed to persist structured messages:", err);
       }
@@ -1120,7 +1124,11 @@ export async function runAiPipeline(
           sourceKind: "message",
           sourceId: `${turnId}:${Date.now()}:user`,
           textExcerpt: input.message,
-          metadata: { role: "user", conversationId: input.conversationId ?? null, runId: engine.id },
+          metadata: {
+            role: "user",
+            conversationId: input.conversationId ?? null,
+            runId: engine.id,
+          },
         }).catch((err) => {
           console.warn("[AiPipeline] LTM upsert (user) failed:", err);
         });
@@ -1132,7 +1140,11 @@ export async function runAiPipeline(
           sourceKind: "message",
           sourceId: `${turnId}:${Date.now() + 1}:assistant`,
           textExcerpt: assistantTextBuffer,
-          metadata: { role: "assistant", conversationId: input.conversationId ?? null, runId: engine.id },
+          metadata: {
+            role: "assistant",
+            conversationId: input.conversationId ?? null,
+            runId: engine.id,
+          },
         }).catch((err) => {
           console.warn("[AiPipeline] LTM upsert (assistant) failed:", err);
         });

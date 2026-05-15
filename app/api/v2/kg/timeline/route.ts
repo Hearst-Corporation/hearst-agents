@@ -5,10 +5,10 @@
  * UI : KgNodeDetail.tsx — bouton "Voir la timeline" dans le panel détail.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { getEntityTimeline } from "@/lib/memory/kg";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

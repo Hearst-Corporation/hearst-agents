@@ -4,36 +4,17 @@
  * → cross-check → trust → snapshot → archive. Aucun peer-to-peer.
  */
 import path from "node:path";
-import { HOM } from "./paths";
-import {
-  ensureDir,
-  nowIso,
-  shortId,
-  writeJson,
-  sha256,
-  readJson,
-  fileExists,
-} from "./fs-utils";
-import { startSpan, ensureTelemetryDirs } from "./telemetry";
-import { evaluate } from "./policy";
-import { computeTrust, appendHistory } from "./trust";
-import { captureSnapshot } from "./snapshot";
-import {
-  loadCC,
-  setPhase,
-  setAgentStatus,
-  recordRunEnd,
-  refreshFromQuarantine,
-} from "./cc-state";
-import {
-  recordAnomaly,
-  isAgentAvailable,
-} from "./quarantine";
-import { generateWarRoomSnapshot } from "./war-room";
 import { executeArchitecture } from "./agents/architecture";
 import { executeDesignSystem } from "./agents/design-system";
 import { executeQa } from "./agents/qa";
-import { ALL_AGENTS, SEVERITY_RANK } from "./types";
+import { loadCC, recordRunEnd, refreshFromQuarantine, setAgentStatus, setPhase } from "./cc-state";
+import { ensureDir, fileExists, nowIso, readJson, sha256, shortId, writeJson } from "./fs-utils";
+import { HOM } from "./paths";
+import { evaluate } from "./policy";
+import { isAgentAvailable, recordAnomaly } from "./quarantine";
+import { captureSnapshot } from "./snapshot";
+import { ensureTelemetryDirs, startSpan } from "./telemetry";
+import { appendHistory, computeTrust } from "./trust";
 import type {
   AgentId,
   AgentRunResult,
@@ -42,6 +23,8 @@ import type {
   RunIntake,
   Severity,
 } from "./types";
+import { ALL_AGENTS, SEVERITY_RANK } from "./types";
+import { generateWarRoomSnapshot } from "./war-room";
 
 interface RunOptions {
   triggeredBy: string;
@@ -149,7 +132,6 @@ export async function startRun(opts: RunOptions): Promise<RunOutcome> {
     await setAgentStatus(agentId, result.status, null);
     await recordAnomaly(agentId, runId, result);
     results.push(result);
-
   }
 
   // AGGREGATE + CROSS-CHECK
@@ -222,7 +204,12 @@ async function ensureRunDirs(runId: string): Promise<void> {
 
 async function abortRun(
   runId: string,
-  span: { end: (o: { status: "error" | "cancelled" | "ok"; attributes?: Record<string, string | number | boolean | null> }) => Promise<unknown> },
+  span: {
+    end: (o: {
+      status: "error" | "cancelled" | "ok";
+      attributes?: Record<string, string | number | boolean | null>;
+    }) => Promise<unknown>;
+  },
   decision: RunDecision,
   reason: string,
 ): Promise<RunOutcome> {
@@ -270,10 +257,7 @@ function stackFromAgents(results: AgentRunResult[]): Record<Severity, number> {
   return stack;
 }
 
-function decide(
-  stack: Record<Severity, number>,
-  scores: { release: number },
-): RunDecision {
+function decide(stack: Record<Severity, number>, scores: { release: number }): RunDecision {
   if (stack.critical > 0) return "release_blocked";
   if (scores.release < 90) return "needs_review";
   return "release_candidate";

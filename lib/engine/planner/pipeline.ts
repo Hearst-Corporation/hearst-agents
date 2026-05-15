@@ -19,26 +19,26 @@
  * - All providers fail → unified failure message (never raw error)
  */
 
-import type { ProviderId } from "@/lib/providers/types";
-import type { ConnectorCapability } from "@/lib/connectors/platform/types";
-import type { FocalObject } from "@/lib/ui/right-panel/objects";
-import type { ExecutionPlan } from "./types";
-import { createPlanFromIntent, approvePlan } from "./index";
-import { executePlan } from "./executor";
-import type { ExecutorCallbacks, StepExecutionResult } from "./executor";
-import { resolveProvider, resolveFallback } from "@/lib/providers/resolver";
-import { recordProviderSuccess, recordProviderFailure } from "@/lib/providers/state";
-import { formatOutput, detectOutputTier } from "@/lib/engine/runtime/formatting/pipeline";
-import { storeAsset, storeAction, type Asset } from "@/lib/assets/types";
-import { handleSendMessage } from "@/lib/tools/handlers/send-message";
-import { manifestPlan, manifestAsset } from "@/lib/ui/right-panel/manifestation";
-import { logPlanEvent } from "./debug";
-import { getRecentEmails } from "@/lib/connectors/google/gmail";
+import { type Asset, storeAction, storeAsset } from "@/lib/assets/types";
 import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { getRecentFiles } from "@/lib/connectors/google/drive";
-import { searchWeb } from "@/lib/tools/handlers/web-search";
+import { getRecentEmails } from "@/lib/connectors/google/gmail";
+import type { ConnectorCapability } from "@/lib/connectors/platform/types";
 import { generatePdfArtifact } from "@/lib/engine/runtime/assets/generators/pdf";
 import { generateSpreadsheetArtifact } from "@/lib/engine/runtime/assets/generators/spreadsheet";
+import { detectOutputTier, formatOutput } from "@/lib/engine/runtime/formatting/pipeline";
+import { resolveFallback, resolveProvider } from "@/lib/providers/resolver";
+import { recordProviderFailure, recordProviderSuccess } from "@/lib/providers/state";
+import type { ProviderId } from "@/lib/providers/types";
+import { handleSendMessage } from "@/lib/tools/handlers/send-message";
+import { searchWeb } from "@/lib/tools/handlers/web-search";
+import { manifestAsset, manifestPlan } from "@/lib/ui/right-panel/manifestation";
+import type { FocalObject } from "@/lib/ui/right-panel/objects";
+import { logPlanEvent } from "./debug";
+import type { ExecutorCallbacks, StepExecutionResult } from "./executor";
+import { executePlan } from "./executor";
+import { approvePlan, createPlanFromIntent } from "./index";
+import type { ExecutionPlan } from "./types";
 
 // ── Types ───────────────────────────────────────────────────
 
@@ -143,12 +143,15 @@ export async function executeIntent(
         recordProviderFailure(providerId, ctx.userId, ctx.tenantId);
         failedProviders.push(providerId);
 
-        const fallback = resolveFallback({
-          capability: (params.capability as ConnectorCapability) ?? "messaging",
-          userId: ctx.userId,
-          tenantId: ctx.tenantId,
-          connectedProviders: ctx.connectedProviders,
-        }, failedProviders);
+        const fallback = resolveFallback(
+          {
+            capability: (params.capability as ConnectorCapability) ?? "messaging",
+            userId: ctx.userId,
+            tenantId: ctx.tenantId,
+            connectedProviders: ctx.connectedProviders,
+          },
+          failedProviders,
+        );
 
         if (fallback && !fallback.degraded) {
           logPlanEvent("fallback_attempt", { from: providerId, to: fallback.provider.id });
@@ -197,7 +200,8 @@ export async function executeIntent(
   if (producedAssets.length > 0) {
     const latest = producedAssets[producedAssets.length - 1];
     const tier = detectOutputTier(intent);
-    const rawContent = (stepOutputs.values().next().value as Record<string, unknown> | undefined)?.content;
+    const rawContent = (stepOutputs.values().next().value as Record<string, unknown> | undefined)
+      ?.content;
     const formatted = rawContent ? formatOutput(rawContent as string, tier) : undefined;
     focalObject = manifestAsset(latest, formatted);
   }
@@ -299,7 +303,10 @@ async function executeToolCall(
         };
       } catch (err) {
         logPlanEvent("tool_error", { tool, providerId, error: (err as Error).message });
-        return { success: false, error: `Impossible de lire les emails: ${(err as Error).message}` };
+        return {
+          success: false,
+          error: `Impossible de lire les emails: ${(err as Error).message}`,
+        };
       }
     }
 
@@ -308,7 +315,10 @@ async function executeToolCall(
         const days = (params.days as number) ?? 7;
         const events = await getUpcomingEvents(ctx.userId, days);
         const content = events
-          .map((e) => `- **${e.title}** — ${e.startTime} → ${e.endTime}${e.location ? ` (${e.location})` : ""}`)
+          .map(
+            (e) =>
+              `- **${e.title}** — ${e.startTime} → ${e.endTime}${e.location ? ` (${e.location})` : ""}`,
+          )
           .join("\n");
         return {
           success: true,
@@ -316,7 +326,10 @@ async function executeToolCall(
         };
       } catch (err) {
         logPlanEvent("tool_error", { tool, providerId, error: (err as Error).message });
-        return { success: false, error: `Impossible de lire le calendrier: ${(err as Error).message}` };
+        return {
+          success: false,
+          error: `Impossible de lire le calendrier: ${(err as Error).message}`,
+        };
       }
     }
 
@@ -332,7 +345,10 @@ async function executeToolCall(
         };
       } catch (err) {
         logPlanEvent("tool_error", { tool, providerId, error: (err as Error).message });
-        return { success: false, error: `Impossible de lire les fichiers: ${(err as Error).message}` };
+        return {
+          success: false,
+          error: `Impossible de lire les fichiers: ${(err as Error).message}`,
+        };
       }
     }
 
@@ -433,7 +449,12 @@ function createAssetFromOutput(
   scope: { tenantId: string; workspaceId?: string; userId: string },
   existingId?: string,
 ): Asset {
-  const kind = tier === "report" ? "report" as const : tier === "brief" ? "brief" as const : "document" as const;
+  const kind =
+    tier === "report"
+      ? ("report" as const)
+      : tier === "brief"
+        ? ("brief" as const)
+        : ("document" as const);
   return {
     id: existingId ?? `asset_${Date.now()}`,
     threadId,

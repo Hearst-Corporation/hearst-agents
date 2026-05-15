@@ -7,12 +7,12 @@
  * puis on vérifie le rendu des KPIs et des badges circuit breaker.
  */
 
-import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, waitFor, act } from "@testing-library/react";
-import MetricsPage from "../../app/admin/metrics/page";
+import { act, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import type { CircuitState } from "@/lib/llm/circuit-breaker";
 import type { MetricsSnapshot } from "@/lib/llm/metrics";
 import type { CustomWebhook } from "@/lib/webhooks/types";
-import type { CircuitState } from "@/lib/llm/circuit-breaker";
+import MetricsPage from "../../app/admin/metrics/page";
 
 // ---------------------------------------------------------------------------
 // Fixtures

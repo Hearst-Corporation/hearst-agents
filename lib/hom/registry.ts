@@ -3,13 +3,14 @@
  * Lit l'arborescence + audits + drift + trust + tests pour produire
  * une vue unifiée alimentant /admin/orchestrator/registry.
  */
-import path from "node:path";
+
 import fs from "node:fs/promises";
-import { HOM } from "./paths";
-import { walkFiles, readJson, listDir, fileExists } from "./fs-utils";
-import { loadDriftLog } from "./drift";
-import { latestScores } from "./trust";
+import path from "node:path";
 import { loadAllContracts } from "./contracts";
+import { loadDriftLog } from "./drift";
+import { fileExists, listDir, readJson, walkFiles } from "./fs-utils";
+import { HOM } from "./paths";
+import { latestScores } from "./trust";
 import type { AgentContract, TrustScores } from "./types";
 
 export interface RegistryEntry {
@@ -60,12 +61,8 @@ export async function buildRegistry(): Promise<RegistrySnapshot> {
 
   const entries: RegistryEntry[] = [
     ...pages.map((p) => makeEntry("page", p, agents, driftByFile, tests)),
-    ...components.map((p) =>
-      makeEntry("component", p, agents, driftByFile, tests),
-    ),
-    ...apiRoutes.map((p) =>
-      makeEntry("api-route", p, agents, driftByFile, tests),
-    ),
+    ...components.map((p) => makeEntry("component", p, agents, driftByFile, tests)),
+    ...apiRoutes.map((p) => makeEntry("api-route", p, agents, driftByFile, tests)),
     ...tests.map((p) => makeEntry("test", p, agents, driftByFile, tests)),
     ...stores.map((p) => makeEntry("store", p, agents, driftByFile, tests)),
   ];
@@ -160,10 +157,7 @@ async function findTests(): Promise<string[]> {
     path.join(ROOT, "__tests__"),
     (f) => f.endsWith(".test.ts") || f.endsWith(".test.tsx"),
   );
-  const b = await walkFiles(
-    path.join(ROOT, "e2e"),
-    (f) => f.endsWith(".spec.ts"),
-  );
+  const b = await walkFiles(path.join(ROOT, "e2e"), (f) => f.endsWith(".spec.ts"));
   return [...a, ...b];
 }
 

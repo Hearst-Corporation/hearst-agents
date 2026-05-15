@@ -5,9 +5,9 @@
 
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/platform/auth/options";
-import { listWebhooks, createWebhook, createWebhookSchema } from "@/lib/webhooks/store";
 import { z } from "zod";
+import { authOptions } from "@/lib/platform/auth/options";
+import { createWebhook, createWebhookSchema, listWebhooks } from "@/lib/webhooks/store";
 
 function getTenantId(session: unknown): string | null {
   const s = session as { user?: { tenantId?: string } } | null;
@@ -46,7 +46,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Body JSON invalide" }, { status: 400 });
   }
 
-  const parsed = createWebhookSchema.safeParse({ ...body as object, tenantId });
+  const parsed = createWebhookSchema.safeParse({ ...(body as object), tenantId });
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Validation échouée", issues: parsed.error.issues },

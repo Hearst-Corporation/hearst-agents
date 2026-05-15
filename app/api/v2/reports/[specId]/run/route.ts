@@ -21,24 +21,21 @@
  * payload est juste retourné dans la réponse.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
+import { type Asset, storeAsset } from "@/lib/assets/types";
+import { runReportSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getCatalogEntry } from "@/lib/reports/catalog";
 import { runReport } from "@/lib/reports/engine/run-report";
 import { createSourceLoader } from "@/lib/reports/sources";
-import { storeAsset, type Asset } from "@/lib/assets/types";
-import { loadTemplate } from "@/lib/reports/templates/store";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
-import { runReportSchema } from "@/lib/contracts/reports";
-import { randomUUID } from "crypto";
+import { loadTemplate } from "@/lib/reports/templates/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function POST(
-  req: NextRequest,
-  ctx: { params: Promise<{ specId: string }> },
-) {
+export async function POST(req: NextRequest, ctx: { params: Promise<{ specId: string }> }) {
   const { specId } = await ctx.params;
   const { scope, error } = await requireScope({
     context: `POST /api/v2/reports/${specId}/run`,

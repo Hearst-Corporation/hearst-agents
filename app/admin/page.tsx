@@ -1,5 +1,5 @@
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { getSystemHealth } from "@/lib/admin/health";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { AnalyticsKpiCard } from "./_components/AnalyticsKpiCard";
 
 export const dynamic = "force-dynamic";
@@ -41,7 +41,11 @@ async function loadDashboard() {
 
   let kpis = null;
   if (hourRunsResult.status === "fulfilled" && !hourRunsResult.value.error) {
-    const rows = (hourRunsResult.value.data ?? []) as Array<{ status: string | null; latency_ms: number | null; created_at: string }>;
+    const rows = (hourRunsResult.value.data ?? []) as Array<{
+      status: string | null;
+      latency_ms: number | null;
+      created_at: string;
+    }>;
     const oneMinAgo = Date.now() - 60 * 1000;
     const runsPerMin = rows.filter((r) => new Date(r.created_at).getTime() >= oneMinAgo).length;
     const failed = rows.filter((r) => r.status === "failed").length;
@@ -78,7 +82,6 @@ export default async function AdminHomePage() {
   return (
     <div className="h-full min-h-0 overflow-y-auto bg-bg text-text">
       <div className="p-(--space-8) space-y-(--space-8)">
-
         <div>
           <h1 className="t-24 font-light text-text">Administration</h1>
         </div>
@@ -94,7 +97,11 @@ export default async function AdminHomePage() {
             <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) p-(--space-5) space-y-(--space-4)">
               <div className="flex items-center gap-(--space-3)">
                 <span className={`t-15 font-medium ${healthColor}`}>
-                  {health.status === "healthy" ? "Opérationnel" : health.status === "degraded" ? "Dégradé" : "Hors ligne"}
+                  {health.status === "healthy"
+                    ? "Opérationnel"
+                    : health.status === "degraded"
+                      ? "Dégradé"
+                      : "Hors ligne"}
                 </span>
                 <span className="t-10 text-text-ghost font-mono">
                   {new Date(health.timestamp).toLocaleTimeString("fr-FR")}
@@ -161,14 +168,21 @@ export default async function AdminHomePage() {
                     key={run.id}
                     className="grid grid-cols-12 items-center px-(--space-4) py-(--space-3) border-b border-line last:border-0 gap-(--space-3) hover:bg-surface-2 transition-colors"
                   >
-                    <span className="col-span-4 t-11 font-mono text-text-ghost truncate">{run.id.slice(0, 8)}…</span>
+                    <span className="col-span-4 t-11 font-mono text-text-ghost truncate">
+                      {run.id.slice(0, 8)}…
+                    </span>
                     <span className="col-span-2 t-12 text-text-muted">{run.kind ?? "—"}</span>
-                    <span className={`col-span-2 t-12 font-medium ${statusColor}`}>{run.status ?? "—"}</span>
+                    <span className={`col-span-2 t-12 font-medium ${statusColor}`}>
+                      {run.status ?? "—"}
+                    </span>
                     <span className="col-span-2 t-11 text-text-ghost text-right">
                       {run.latency_ms !== null ? `${run.latency_ms}ms` : "—"}
                     </span>
                     <span className="col-span-2 t-10 text-text-ghost text-right font-mono">
-                      {new Date(run.created_at).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
+                      {new Date(run.created_at).toLocaleTimeString("fr-FR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </span>
                   </div>
                 );
@@ -176,9 +190,7 @@ export default async function AdminHomePage() {
             </div>
           )}
         </section>
-
       </div>
     </div>
   );
 }
-

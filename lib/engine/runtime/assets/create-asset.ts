@@ -3,7 +3,7 @@
  * Tenant scope is required — assets cannot be created without it.
  */
 
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
 import type { Asset, AssetType } from "./types";
 
 interface CreateAssetInput {

@@ -149,8 +149,7 @@ export function ServiceIdGlyph({
   size?: "sm" | "md" | "lg";
   className?: string;
 }) {
-  const dim =
-    size === "sm" ? "w-5 h-5" : size === "lg" ? "w-8 h-8" : "w-6 h-6";
+  const dim = size === "sm" ? "w-5 h-5" : size === "lg" ? "w-8 h-8" : "w-6 h-6";
 
   if (icon) {
     return (

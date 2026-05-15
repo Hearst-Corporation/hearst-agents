@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { BentoCard } from './BentoCard';
-import type { CockpitTodayPayload } from '@/lib/cockpit/today';
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { BentoCard } from "./BentoCard";
 
 interface KPIBentoProps {
   show?: boolean;
@@ -22,9 +22,9 @@ interface KPI {
  */
 export function KPIBento({ show = true, data }: KPIBentoProps) {
   const kpis: KPI[] = [
-    { label: 'Agenda', value: data?.agenda.length ?? 0 },
-    { label: 'Missions', value: data?.missionsRunning.length ?? 0 },
-    { label: 'Suggestions', value: data?.suggestions.length ?? 0 },
+    { label: "Agenda", value: data?.agenda.length ?? 0 },
+    { label: "Missions", value: data?.missionsRunning.length ?? 0 },
+    { label: "Suggestions", value: data?.suggestions.length ?? 0 },
   ];
 
   return (
@@ -36,10 +36,10 @@ export function KPIBento({ show = true, data }: KPIBentoProps) {
               {k.label}
             </div>
             <div className="text-spatial-3xl font-extralight tracking-tight text-white/95">
-              {k.value.toString().padStart(2, '0')}
+              {k.value.toString().padStart(2, "0")}
             </div>
             {i < kpis.length - 1 && (
-              <div className="absolute" style={{ display: 'none' }} aria-hidden />
+              <div className="absolute" style={{ display: "none" }} aria-hidden />
             )}
           </div>
         ))}

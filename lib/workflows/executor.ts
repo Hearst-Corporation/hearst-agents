@@ -55,9 +55,7 @@ export async function executeWorkflow(
 ): Promise<WorkflowExecutionResult> {
   const validation = validateGraph(graph);
   if (!validation.valid) {
-    const message = validation.errors
-      .map((e) => e.message)
-      .join("; ");
+    const message = validation.errors.map((e) => e.message).join("; ");
     callbacks.emitEvent({ type: "workflow_failed", error: message });
     return {
       status: "invalid",
@@ -98,7 +96,7 @@ export async function executeWorkflow(
       label: node.label,
     });
 
-    let stepOutput: unknown = undefined;
+    let stepOutput: unknown;
     let stepFailed = false;
     let stepError: string | undefined;
     let conditionResult: boolean | string | undefined;
@@ -250,9 +248,7 @@ async function executeNode(
     }
 
     case "approval": {
-      const preview = String(
-        node.config.preview ?? node.label ?? "Validation requise",
-      );
+      const preview = String(node.config.preview ?? node.label ?? "Validation requise");
       if (context.preview) {
         // En preview, on saute l'approval (auto-approve).
         return { output: { approved: true, preview, autoApproved: true } };
@@ -299,7 +295,12 @@ function selectNextEdges({
   }
 
   if (node.kind === "condition" && conditionResult !== undefined) {
-    const matchKey = conditionResult === true ? "true" : conditionResult === false ? "false" : String(conditionResult);
+    const matchKey =
+      conditionResult === true
+        ? "true"
+        : conditionResult === false
+          ? "false"
+          : String(conditionResult);
     const matched = outgoing.filter((e) => e.condition === matchKey);
     if (matched.length > 0) return matched;
     if (strictConditions) return [];
@@ -343,10 +344,7 @@ function resolveValue(value: unknown, context: WorkflowExecutionContext): unknow
   }
   if (Array.isArray(value)) return value.map((v) => resolveValue(v, context));
   if (value && typeof value === "object") {
-    return resolveArgsFromOutputs(
-      value as Record<string, unknown>,
-      context,
-    );
+    return resolveArgsFromOutputs(value as Record<string, unknown>, context);
   }
   return value;
 }
@@ -367,10 +365,7 @@ function readPath(path: string, context: WorkflowExecutionContext): unknown {
 
 const COMPARISON_RE = /^(.+?)\s*(==|!=|<=|>=|<|>)\s*(.+)$/;
 
-export function evaluateCondition(
-  expression: string,
-  context: WorkflowExecutionContext,
-): boolean {
+export function evaluateCondition(expression: string, context: WorkflowExecutionContext): boolean {
   const trimmed = expression.trim();
   if (!trimmed) return false;
 
@@ -402,10 +397,7 @@ export function evaluateCondition(
   return false;
 }
 
-export function evaluateValue(
-  raw: string,
-  context: WorkflowExecutionContext,
-): unknown {
+export function evaluateValue(raw: string, context: WorkflowExecutionContext): unknown {
   const trimmed = raw.trim();
 
   // String literal

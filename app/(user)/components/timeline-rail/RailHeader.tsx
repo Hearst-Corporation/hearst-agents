@@ -7,8 +7,6 @@
  * handleHome (= setActiveThread(null) + setStageMode cockpit).
  */
 
-import { HearstLogo } from "../HearstLogo";
-
 export interface RailHeaderProps {
   collapsed: boolean;
   onHome: () => void;
@@ -20,7 +18,7 @@ export function RailHeader({ collapsed, onHome }: RailHeaderProps) {
       className="shrink-0 flex items-center justify-center pt-8 pb-8 px-8"
       style={{
         boxShadow: "none",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.05)"
+        borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
       }}
     >
       <button
@@ -29,21 +27,34 @@ export function RailHeader({ collapsed, onHome }: RailHeaderProps) {
         title="Hearst"
       >
         {collapsed ? (
-          <span className="font-medium tracking-tight leading-none" style={{ fontSize: "15px", color: "rgba(255,255,255,0.8)" }}>
+          <span
+            className="font-medium tracking-tight leading-none"
+            style={{ fontSize: "15px", color: "rgba(255,255,255,0.8)" }}
+          >
             H
           </span>
         ) : (
           <div className="flex items-center gap-3">
-            <div style={{ 
-              width: "24px", 
-              height: "24px", 
-              borderRadius: "50%", 
-              border: "3px solid rgba(167, 139, 250, 0.3)", 
-              borderTopColor: "rgba(167, 139, 250, 1)", 
-              boxShadow: "0 0 16px rgba(167, 139, 250, 0.6), inset 0 0 8px rgba(167, 139, 250, 0.4)", 
-              transform: "rotate(-45deg)" 
-            }} />
-            <span className="font-light" style={{ fontSize: "20px", color: "rgba(255, 255, 255, 0.9)", letterSpacing: "0.02em" }}>
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                borderRadius: "50%",
+                border: "3px solid rgba(167, 139, 250, 0.3)",
+                borderTopColor: "rgba(167, 139, 250, 1)",
+                boxShadow:
+                  "0 0 16px rgba(167, 139, 250, 0.6), inset 0 0 8px rgba(167, 139, 250, 0.4)",
+                transform: "rotate(-45deg)",
+              }}
+            />
+            <span
+              className="font-light"
+              style={{
+                fontSize: "20px",
+                color: "rgba(255, 255, 255, 0.9)",
+                letterSpacing: "0.02em",
+              }}
+            >
               halo
             </span>
           </div>

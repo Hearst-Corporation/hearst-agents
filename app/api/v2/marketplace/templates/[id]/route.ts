@@ -3,13 +3,9 @@
  * DELETE /api/v2/marketplace/templates/[id]  — archive (soft delete owner-only)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { archiveTemplate, getTemplate, listRatings } from "@/lib/marketplace/store";
 import { requireScope } from "@/lib/platform/auth/scope";
-import {
-  archiveTemplate,
-  getTemplate,
-  listRatings,
-} from "@/lib/marketplace/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

@@ -16,7 +16,7 @@
  * findPath → getGraph → supabase.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 interface MockRow {
   id: string;
@@ -49,9 +49,7 @@ vi.mock("@/lib/platform/db/supabase", () => ({
             // Dernière clause attendue → on résout la query.
             mockState.calls++;
             const filtered = rows.filter(
-              (r) =>
-                r.user_id === this._filters["user_id"] &&
-                r.tenant_id === this._filters["tenant_id"],
+              (r) => r.user_id === this._filters.user_id && r.tenant_id === this._filters.tenant_id,
             );
             return Promise.resolve({ data: filtered, error: null });
           }
@@ -60,12 +58,11 @@ vi.mock("@/lib/platform/db/supabase", () => ({
             const target = rows.find(
               (r) =>
                 r.id === val &&
-                r.user_id === this._filters["user_id"] &&
-                r.tenant_id === this._filters["tenant_id"],
+                r.user_id === this._filters.user_id &&
+                r.tenant_id === this._filters.tenant_id,
             );
             return {
-              maybeSingle: () =>
-                Promise.resolve({ data: target ?? null, error: null }),
+              maybeSingle: () => Promise.resolve({ data: target ?? null, error: null }),
             };
           }
           return this;
@@ -76,12 +73,7 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   }),
 }));
 
-import {
-  findPath,
-  _resetKgCacheForTests,
-  type KgEdge,
-  type KgNode,
-} from "@/lib/memory/kg";
+import { _resetKgCacheForTests, findPath, type KgEdge, type KgNode } from "@/lib/memory/kg";
 
 function node(id: string, label: string): KgNode {
   return {
@@ -129,9 +121,9 @@ describe("findPath (BFS)", () => {
     setGraph([node("a", "A"), node("b", "B")], [edge("e1", "a", "b")]);
     const result = await findPath(SCOPE, "a", "b");
     expect(result).not.toBeNull();
-    expect(result!.hops).toBe(1);
-    expect(result!.nodes.map((n) => n.id)).toEqual(["a", "b"]);
-    expect(result!.edges.map((e) => e.id)).toEqual(["e1"]);
+    expect(result?.hops).toBe(1);
+    expect(result?.nodes.map((n) => n.id)).toEqual(["a", "b"]);
+    expect(result?.edges.map((e) => e.id)).toEqual(["e1"]);
   });
 
   it("trouve un chemin transitif en 2 hops via un intermédiaire", async () => {
@@ -141,8 +133,8 @@ describe("findPath (BFS)", () => {
     );
     const result = await findPath(SCOPE, "a", "c");
     expect(result).not.toBeNull();
-    expect(result!.hops).toBe(2);
-    expect(result!.nodes.map((n) => n.id)).toEqual(["a", "b", "c"]);
+    expect(result?.hops).toBe(2);
+    expect(result?.nodes.map((n) => n.id)).toEqual(["a", "b", "c"]);
   });
 
   it("respecte maxHops (chemin > cap → null)", async () => {
@@ -155,10 +147,7 @@ describe("findPath (BFS)", () => {
   });
 
   it("retourne null si les nodes ne sont pas connectés", async () => {
-    setGraph(
-      [node("a", "A"), node("b", "B"), node("c", "C")],
-      [edge("e1", "a", "b")],
-    );
+    setGraph([node("a", "A"), node("b", "B"), node("c", "C")], [edge("e1", "a", "b")]);
     const result = await findPath(SCOPE, "a", "c");
     expect(result).toBeNull();
   });

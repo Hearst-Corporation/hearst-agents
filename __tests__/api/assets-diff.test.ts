@@ -5,7 +5,7 @@
  * On stub loadAssetById et requireScope pour éviter le call DB.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({
@@ -17,8 +17,8 @@ vi.mock("@/lib/assets/types", () => ({
   loadAssetById: vi.fn(),
 }));
 
-import { loadAssetById } from "@/lib/assets/types";
 import { POST } from "@/app/api/v2/assets/diff/route";
+import { loadAssetById } from "@/lib/assets/types";
 
 describe("POST /api/v2/assets/diff", () => {
   beforeEach(() => {

@@ -2,7 +2,7 @@
  * POST /api/v2/browser/[id]/capture — auth + capture flow.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 let authResult: {
   scope: { userId: string; tenantId: string; workspaceId: string; isDevFallback: boolean } | null;
@@ -53,20 +53,14 @@ describe("POST /api/v2/browser/[id]/capture", () => {
   it("401 sans auth", async () => {
     authResult = { scope: null, error: { message: "not_authenticated", status: 401 } };
     const { POST } = await import("@/app/api/v2/browser/[id]/capture/route");
-    const res = await POST(
-      makeReq() as never,
-      { params: Promise.resolve({ id: "sess" }) },
-    );
+    const res = await POST(makeReq() as never, { params: Promise.resolve({ id: "sess" }) });
     expect(res.status).toBe(401);
   });
 
   it("503 sans BROWSERBASE_API_KEY", async () => {
     delete process.env.BROWSERBASE_API_KEY;
     const { POST } = await import("@/app/api/v2/browser/[id]/capture/route");
-    const res = await POST(
-      makeReq() as never,
-      { params: Promise.resolve({ id: "sess" }) },
-    );
+    const res = await POST(makeReq() as never, { params: Promise.resolve({ id: "sess" }) });
     expect(res.status).toBe(503);
   });
 
@@ -78,10 +72,7 @@ describe("POST /api/v2/browser/[id]/capture", () => {
       mimeType: "image/png",
     });
     const { POST } = await import("@/app/api/v2/browser/[id]/capture/route");
-    const res = await POST(
-      makeReq() as never,
-      { params: Promise.resolve({ id: "sess" }) },
-    );
+    const res = await POST(makeReq() as never, { params: Promise.resolve({ id: "sess" }) });
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.assetId).toBe("asset-1");
@@ -92,10 +83,7 @@ describe("POST /api/v2/browser/[id]/capture", () => {
   it("502 quand capture throw", async () => {
     captureFn.mockRejectedValueOnce(new Error("boom"));
     const { POST } = await import("@/app/api/v2/browser/[id]/capture/route");
-    const res = await POST(
-      makeReq() as never,
-      { params: Promise.resolve({ id: "sess" }) },
-    );
+    const res = await POST(makeReq() as never, { params: Promise.resolve({ id: "sess" }) });
     expect(res.status).toBe(502);
   });
 });

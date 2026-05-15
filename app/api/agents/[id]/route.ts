@@ -1,17 +1,14 @@
-import { NextRequest } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { updateAgentSchema, ok, err, parseBody, dbErr } from "@/lib/domain";
+import type { NextRequest } from "next/server";
 import type { Database, Json } from "@/lib/database.types";
+import { dbErr, err, ok, parseBody, updateAgentSchema } from "@/lib/domain";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 type AgentUpdate = Database["public"]["Tables"]["agents"]["Update"];
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents/[id]" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
@@ -32,10 +29,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error: scopeError } = await requireScope({ context: "PUT /api/agents/[id]" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
@@ -99,21 +93,14 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error: scopeError } = await requireScope({ context: "DELETE /api/agents/[id]" });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
     const sb = requireServerSupabase();
     // Filtre tenant_id — un user ne peut supprimer que ses propres agents (F-002)
-    const { error } = await sb
-      .from("agents")
-      .delete()
-      .eq("id", id)
-      .eq("tenant_id", scope.tenantId);
+    const { error } = await sb.from("agents").delete().eq("id", id).eq("tenant_id", scope.tenantId);
     if (error) return dbErr(`DELETE /api/agents/${id}`, error);
     return ok({ deleted: true });
   } catch (e) {

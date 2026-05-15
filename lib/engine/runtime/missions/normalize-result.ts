@@ -19,14 +19,12 @@ const BLOCKED_PATTERNS = [
   "disconnected",
 ];
 
-export function normalizeMissionResult(
-  outcome: { runId?: string | null; error?: unknown },
-): NormalizedMissionResult {
+export function normalizeMissionResult(outcome: {
+  runId?: string | null;
+  error?: unknown;
+}): NormalizedMissionResult {
   if (outcome.error) {
-    const msg =
-      outcome.error instanceof Error
-        ? outcome.error.message
-        : String(outcome.error);
+    const msg = outcome.error instanceof Error ? outcome.error.message : String(outcome.error);
 
     const lower = msg.toLowerCase();
     const isBlocked = BLOCKED_PATTERNS.some((p) => lower.includes(p));

@@ -9,25 +9,30 @@
  * pour détecter les call sites pollués.
  */
 
-import { z } from "zod";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { logAnalyticsEvent } from "@/lib/analytics/events";
+import { redactedError, withRoute } from "@/lib/observability/logger";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { withRoute, redactedError } from "@/lib/observability/logger";
 
 const log = withRoute("POST /api/analytics");
 
-const analyticsBodySchema = z.object({
-  type: z.enum(["login_success", "first_message_sent", "run_completed", "run_failed"]),
-  // userId ignoré volontairement — résolu depuis scope.userId côté serveur
-  userId: z.unknown().optional(),
-  properties: z.record(z.string(), z.unknown()).optional(),
-}).strict();
+const analyticsBodySchema = z
+  .object({
+    type: z.enum(["login_success", "first_message_sent", "run_completed", "run_failed"]),
+    // userId ignoré volontairement — résolu depuis scope.userId côté serveur
+    userId: z.unknown().optional(),
+    properties: z.record(z.string(), z.unknown()).optional(),
+  })
+  .strict();
 
 export async function POST(req: Request) {
   const { scope, error: scopeError } = await requireScope({ context: "POST /api/analytics" });
   if (scopeError || !scope) {
-    return NextResponse.json({ error: scopeError?.message ?? "not_authenticated" }, { status: scopeError?.status ?? 401 });
+    return NextResponse.json(
+      { error: scopeError?.message ?? "not_authenticated" },
+      { status: scopeError?.status ?? 401 },
+    );
   }
 
   try {
@@ -43,10 +48,7 @@ export async function POST(req: Request) {
     const { type, userId: bodyUserId, properties } = parsed.data;
 
     if (typeof bodyUserId !== "undefined") {
-      log.warn(
-        { bodyUserIdType: typeof bodyUserId },
-        "body_userid_ignored",
-      );
+      log.warn({ bodyUserIdType: typeof bodyUserId }, "body_userid_ignored");
     }
 
     logAnalyticsEvent(type, scope.userId, properties);
@@ -54,9 +56,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (err) {
     log.error({ err: redactedError(err) }, "log_event_failed");
-    return NextResponse.json(
-      { error: "Failed to log event" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to log event" }, { status: 500 });
   }
 }

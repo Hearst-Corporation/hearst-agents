@@ -41,11 +41,7 @@ export function AssetHeroImage({
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- image storage URL dynamique, pas optimizable */}
-        <img
-          src={primaryImageUrl}
-          alt={title}
-          className="w-full h-auto block"
-        />
+        <img src={primaryImageUrl} alt={title} className="w-full h-auto block" />
       </a>
     );
   }
@@ -79,9 +75,7 @@ export function AssetHeroImage({
           background: "var(--surface-1)",
         }}
       >
-        <p className="t-11 font-medium text-(--danger)">
-          Échec de la génération d&apos;image
-        </p>
+        <p className="t-11 font-medium text-(--danger)">Échec de la génération d&apos;image</p>
         <p className="t-13 font-light text-text-muted">
           La génération a échoué. Tu peux relancer une nouvelle tentative.
         </p>

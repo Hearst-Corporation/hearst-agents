@@ -7,8 +7,8 @@
  * fallback heuristique). Tri descendant par défaut, top N rows visibles.
  */
 
-import { fmtNumber, fmtCurrency } from "./format";
-import { inferStringField, inferNumericField } from "./infer";
+import { fmtCurrency, fmtNumber } from "./format";
+import { inferNumericField, inferStringField } from "./infer";
 
 type Row = Record<string, unknown>;
 
@@ -60,13 +60,14 @@ export function Bar({
   const lf = labelField ?? inferStringField(data[0]) ?? "label";
   const vf = valueField ?? inferNumericField(data[0]) ?? "value";
 
-  const sorted = direction === "none"
-    ? [...data]
-    : [...data].sort((a, b) => {
-        const av = Number(a[vf] ?? 0);
-        const bv = Number(b[vf] ?? 0);
-        return direction === "desc" ? bv - av : av - bv;
-      });
+  const sorted =
+    direction === "none"
+      ? [...data]
+      : [...data].sort((a, b) => {
+          const av = Number(a[vf] ?? 0);
+          const bv = Number(b[vf] ?? 0);
+          return direction === "desc" ? bv - av : av - bv;
+        });
 
   const top = sorted.slice(0, limit);
   const max = top.reduce((m, r) => Math.max(m, Number(r[vf] ?? 0)), 0) || 1;
@@ -83,9 +84,10 @@ export function Bar({
         const value = Number(row[vf] ?? 0);
         const width = Math.max(0, Math.min(100, (value / max) * 100));
         const labelStr = String(row[lf] ?? "—");
-        const valueStr = format === "currency"
-          ? fmtCurrency(value, currency, { compact: true })
-          : fmtNumber(value);
+        const valueStr =
+          format === "currency"
+            ? fmtCurrency(value, currency, { compact: true })
+            : fmtNumber(value);
 
         return (
           <div
@@ -127,4 +129,3 @@ export function Bar({
     </div>
   );
 }
-

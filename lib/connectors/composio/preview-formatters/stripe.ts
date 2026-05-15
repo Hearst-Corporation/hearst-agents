@@ -19,9 +19,7 @@ export function formatStripeCreateInvoice(args: Record<string, unknown>): string
   const customer = String(args.customer ?? args.customer_id ?? "—");
   const amount = formatAmount(args.amount, args.currency);
   const description = args.description ? preview(String(args.description), 200) : null;
-  const collectionMethod = args.collection_method
-    ? String(args.collection_method)
-    : null;
+  const collectionMethod = args.collection_method ? String(args.collection_method) : null;
   const dueDate = args.due_date ?? args.dueDate;
 
   const lines = [
@@ -38,9 +36,7 @@ export function formatStripeCreateInvoice(args: Record<string, unknown>): string
 
 export function formatStripeRefund(args: Record<string, unknown>): string {
   const charge = String(args.charge ?? args.charge_id ?? args.payment_intent ?? "—");
-  const amount = args.amount
-    ? formatAmount(args.amount, args.currency ?? "usd")
-    : "Montant total";
+  const amount = args.amount ? formatAmount(args.amount, args.currency ?? "usd") : "Montant total";
   const reason = args.reason ? String(args.reason) : null;
 
   const lines = [

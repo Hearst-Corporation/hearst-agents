@@ -20,12 +20,12 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "@/app/hooks/use-toast";
 import { useStageStore } from "@/stores/stage";
 import { CodeEditor } from "../artifact/CodeEditor";
-import { PreviewPane, type ExecResult } from "../artifact/PreviewPane";
+import { type ExecResult, PreviewPane } from "../artifact/PreviewPane";
 import { ProviderChip } from "../ProviderChip";
-import { StageActionBar, type StageAction } from "./StageActionBar";
-import { toast } from "@/app/hooks/use-toast";
+import { type StageAction, StageActionBar } from "./StageActionBar";
 
 const POLL_INTERVAL_MS = 1500;
 const POLL_MAX_ATTEMPTS = 80;
@@ -107,8 +107,7 @@ export function ArtifactStage({
             asset?: { contentRef?: string; provenance?: { language?: string } };
           };
           if (!cancelled && data.asset?.contentRef) setCode(data.asset.contentRef);
-          if (!cancelled && data.asset?.provenance?.language === "node")
-            setLanguage("node");
+          if (!cancelled && data.asset?.provenance?.language === "node") setLanguage("node");
         }
         if (variantsRes.ok) {
           const v = (await variantsRes.json()) as { variants?: AssetVariantRow[] };
@@ -176,10 +175,10 @@ export function ArtifactStage({
         await new Promise((r) => setTimeout(r, POLL_INTERVAL_MS));
         if (abort.signal.aborted) return;
 
-        const statusRes = await fetch(
-          `/api/v2/jobs/${enq.jobId}/status?kind=code-exec`,
-          { credentials: "include", signal: abort.signal },
-        );
+        const statusRes = await fetch(`/api/v2/jobs/${enq.jobId}/status?kind=code-exec`, {
+          credentials: "include",
+          signal: abort.signal,
+        });
         if (!statusRes.ok) continue;
         const data = (await statusRes.json()) as {
           state: string;
@@ -253,10 +252,7 @@ export function ArtifactStage({
   };
 
   return (
-    <div
-      className="flex flex-1 flex-col min-h-0"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex flex-1 flex-col min-h-0" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
@@ -265,9 +261,7 @@ export function ArtifactStage({
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
               aria-hidden
             />
-            <span className="t-11 font-medium text-(--accent-teal)">
-              ARTIFACT
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">ARTIFACT</span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
@@ -367,11 +361,7 @@ export function ArtifactStage({
               providerId="e2b"
               label="E2B"
               status={
-                runState === "running"
-                  ? "pending"
-                  : runState === "failed"
-                    ? "error"
-                    : "success"
+                runState === "running" ? "pending" : runState === "failed" ? "error" : "success"
               }
               latencyMs={latencyMs}
               costUSD={costUsd}

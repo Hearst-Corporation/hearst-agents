@@ -1,20 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
-import { deleteAssetById } from "@/lib/engine/runtime/assets/adapter";
+import { type NextRequest, NextResponse } from "next/server";
 import { evictAssetById, loadAssetById } from "@/lib/assets/types";
+import { deleteAssetById } from "@/lib/engine/runtime/assets/adapter";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   try {
     const { scope, error } = await requireScope({ context: `GET /api/v2/assets/${id}` });
     if (error || !scope) {
-      return NextResponse.json({ error: error?.message ?? "not_authenticated" }, { status: error?.status ?? 401 });
+      return NextResponse.json(
+        { error: error?.message ?? "not_authenticated" },
+        { status: error?.status ?? 401 },
+      );
     }
 
     const asset = await loadAssetById(id, {
@@ -40,10 +40,7 @@ export async function GET(
  * Storage blob cleanup is left to the cleanup worker (async); the asset
  * disappears from the user's view as soon as the row is gone.
  */
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   const { scope, error } = await requireScope({ context: `DELETE /api/v2/assets/${id}` });
@@ -63,10 +60,7 @@ export async function DELETE(
   evictAssetById(id);
 
   if (!result.ok) {
-    return NextResponse.json(
-      { error: result.error ?? "delete_failed" },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: result.error ?? "delete_failed" }, { status: 502 });
   }
   return NextResponse.json({ ok: true, dbDeleted: result.deletedCount });
 }

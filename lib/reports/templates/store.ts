@@ -10,21 +10,21 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { reportSpecSchema } from "@/lib/reports/spec/schema";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
+import { reportSpecSchema } from "@/lib/reports/spec/schema";
 import {
-  saveTemplateInputSchema,
-  loadTemplateInputSchema,
-  listTemplatesInputSchema,
+  type DeleteTemplateInput,
   deleteTemplateInputSchema,
-  updateTemplateInputSchema,
+  type ListTemplatesInput,
+  type LoadTemplateInput,
+  listTemplatesInputSchema,
+  loadTemplateInputSchema,
+  type SaveTemplateInput,
+  saveTemplateInputSchema,
   type Template,
   type TemplateSummary,
-  type SaveTemplateInput,
-  type LoadTemplateInput,
-  type ListTemplatesInput,
-  type DeleteTemplateInput,
   type UpdateTemplateInput,
+  updateTemplateInputSchema,
 } from "./schema";
 
 // ── Row Supabase (snake_case) ───────────────────────────────
@@ -170,7 +170,9 @@ export async function listTemplates(
 
   let query = sb
     .from("report_templates")
-    .select("id, tenant_id, created_by, name, description, domain, is_public, created_at, updated_at")
+    .select(
+      "id, tenant_id, created_by, name, description, domain, is_public, created_at, updated_at",
+    )
     .or(`tenant_id.eq.${tenantId},is_public.eq.true`)
     .order("created_at", { ascending: false });
 

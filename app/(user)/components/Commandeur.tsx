@@ -19,16 +19,16 @@
  *   - Keyboard nav ↑↓ entre toutes les sections, Enter, Esc
  */
 
-import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useStageStore, type StagePayload } from "@/stores/stage";
+import { useEffect, useMemo, useState } from "react";
+import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
-import { CommandeurResultRow } from "./CommandeurResultRow";
-import { useCommandeurData } from "./use-commandeur-data";
-import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { type StagePayload, useStageStore } from "@/stores/stage";
 import { AssetCompareModal } from "./AssetCompareModal";
-import { useCommandeurActions, type CommandRow } from "./use-commandeur-actions";
+import { CommandeurResultRow } from "./CommandeurResultRow";
+import { type CommandRow, useCommandeurActions } from "./use-commandeur-actions";
+import { useCommandeurData } from "./use-commandeur-data";
 import { useCommandeurSections } from "./use-commandeur-sections";
 
 export function Commandeur() {
@@ -90,10 +90,7 @@ export function Commandeur() {
   });
 
   // Flatten pour la nav clavier.
-  const flatRows = useMemo<CommandRow[]>(
-    () => sections.flatMap((s) => s.rows),
-    [sections],
-  );
+  const flatRows = useMemo<CommandRow[]>(() => sections.flatMap((s) => s.rows), [sections]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -121,14 +118,26 @@ export function Commandeur() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reset index quand query change
     setActiveIndex(0);
-  }, [query]);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
-      if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex((i) => Math.min(i + 1, flatRows.length - 1)); return; }
-      if (e.key === "ArrowUp") { e.preventDefault(); setActiveIndex((i) => Math.max(i - 1, 0)); return; }
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActiveIndex((i) => Math.min(i + 1, flatRows.length - 1));
+        return;
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((i) => Math.max(i - 1, 0));
+        return;
+      }
       if (e.key === "Enter") {
         e.preventDefault();
         const row = flatRows[activeIndex];
@@ -163,79 +172,78 @@ export function Commandeur() {
 
   return (
     <>
-    <div
-      className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
-      style={{
-        zIndex: "var(--z-modal)" as unknown as number,
-        background: "var(--overlay-scrim)",
-        backdropFilter: "var(--blur-lg)",
-        WebkitBackdropFilter: "var(--blur-lg)",
-        paddingTop: "15vh",
-      }}
-      onClick={() => setOpen(false)}
-    >
       <div
-        ref={dialogRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Palette de commandes"
-        className="w-full max-w-3xl overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
-        style={{ background: "transparent" }}
-        onClick={(e) => e.stopPropagation()}
+        className="fixed inset-0 flex items-start justify-center transition-opacity duration-(--duration-slow)"
+        style={{
+          zIndex: "var(--z-modal)" as unknown as number,
+          background: "var(--overlay-scrim)",
+          backdropFilter: "var(--blur-lg)",
+          WebkitBackdropFilter: "var(--blur-lg)",
+          paddingTop: "15vh",
+        }}
+        onClick={() => setOpen(false)}
       >
-        <div className="flex items-center gap-8 px-12 py-8">
-          <input
-            autoFocus
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Rechercher..."
-            className="flex-1 bg-transparent t-48 leading-none font-bold tracking-tight text-text placeholder-[var(--text-ghost)] outline-none"
-          />
-          {loading && (
-            <span className="t-11 font-light text-text-faint">
-              Recherche…
-            </span>
-          )}
-        </div>
+        <div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Palette de commandes"
+          className="w-full max-w-3xl overflow-hidden transition-[opacity,transform] duration-(--duration-slow) border-l border-(--border-shell)"
+          style={{ background: "transparent" }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center gap-8 px-12 py-8">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Rechercher..."
+              className="flex-1 bg-transparent t-48 leading-none font-bold tracking-tight text-text placeholder-[var(--text-ghost)] outline-none"
+            />
+            {loading && <span className="t-11 font-light text-text-faint">Recherche…</span>}
+          </div>
 
-        <div className="max-h-[60vh] overflow-y-auto px-12 pb-16 scrollbar-hide">
-          {sections.length === 0 ? (
-            <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>
-          ) : (
-            <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
-              {sections.map((section) => (
-                <section key={section.key} className="flex flex-col gap-1">
-                  <h2
-                    className="t-11 font-light"
-                    style={{ color: "var(--text-ghost)", marginBottom: "var(--space-2)" }}
-                  >
-                    {section.title}
-                  </h2>
-                  {section.rows.map((row) => {
-                    const myIndex = runningIndex++;
-                    return (
-                      <CommandeurResultRow
-                        key={row.id}
-                        kind={row.kind}
-                        label={row.label}
-                        hint={row.hint}
-                        hotkey={row.hotkey}
-                        active={myIndex === activeIndex}
-                        disabled={row.disabled}
-                        onSelect={() => { if (!row.disabled) row.perform(); }}
-                        onHover={() => { if (!row.disabled) setActiveIndex(myIndex); }}
-                      />
-                    );
-                  })}
-                </section>
-              ))}
-            </div>
-          )}
+          <div className="max-h-[60vh] overflow-y-auto px-12 pb-16 scrollbar-hide">
+            {sections.length === 0 ? (
+              <p className="t-13 text-text-ghost font-light">Aucun résultat.</p>
+            ) : (
+              <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
+                {sections.map((section) => (
+                  <section key={section.key} className="flex flex-col gap-1">
+                    <h2
+                      className="t-11 font-light"
+                      style={{ color: "var(--text-ghost)", marginBottom: "var(--space-2)" }}
+                    >
+                      {section.title}
+                    </h2>
+                    {section.rows.map((row) => {
+                      const myIndex = runningIndex++;
+                      return (
+                        <CommandeurResultRow
+                          key={row.id}
+                          kind={row.kind}
+                          label={row.label}
+                          hint={row.hint}
+                          hotkey={row.hotkey}
+                          active={myIndex === activeIndex}
+                          disabled={row.disabled}
+                          onSelect={() => {
+                            if (!row.disabled) row.perform();
+                          }}
+                          onHover={() => {
+                            if (!row.disabled) setActiveIndex(myIndex);
+                          }}
+                        />
+                      );
+                    })}
+                  </section>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-    {compareModal}
+      {compareModal}
     </>
   );
 }

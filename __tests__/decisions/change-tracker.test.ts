@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { trackChange, listChanges } from "../../lib/decisions/change-tracker";
+import { describe, expect, it } from "vitest";
+import { listChanges, trackChange } from "../../lib/decisions/change-tracker";
 import { createMockSupabase } from "../runtime/mock-supabase";
 
 describe("change-tracker", () => {

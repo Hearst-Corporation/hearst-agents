@@ -13,12 +13,12 @@
  *   { kind, title, description?, payload, tags?, anonymizeAuthor? }
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { listTemplates, publishTemplate } from "@/lib/marketplace/store";
 import { checkRateLimit } from "@/lib/marketplace/rate-limit";
+import { listTemplates, publishTemplate } from "@/lib/marketplace/store";
 import { MARKETPLACE_KINDS, tagsSchema } from "@/lib/marketplace/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -41,7 +41,11 @@ export async function GET(req: NextRequest) {
       : undefined;
   const tagsParam = searchParams.get("tags");
   const tags = tagsParam
-    ? tagsParam.split(",").map((t) => t.trim()).filter(Boolean).slice(0, 5)
+    ? tagsParam
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean)
+        .slice(0, 5)
     : undefined;
   const featured = searchParams.get("featured") === "1";
   const q = searchParams.get("q") ?? undefined;

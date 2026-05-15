@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
 import type { APIRequestContext } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 /**
  * discovery.spec.ts — tests de la page catalogue /reports (+ API catalogue).
@@ -24,11 +24,7 @@ async function requireServer(request: APIRequestContext) {
 // ── Constantes domaine ───────────────────────────────────────────────────────
 
 const FINANCE_DOMAINS = ["finance"];
-const EXPECTED_CATALOG_TITLES = [
-  "Founder Cockpit",
-  "Financial P&L",
-  "Deal-to-Cash",
-];
+const EXPECTED_CATALOG_TITLES = ["Founder Cockpit", "Financial P&L", "Deal-to-Cash"];
 
 // ── API catalogue ────────────────────────────────────────────────────────────
 
@@ -43,7 +39,9 @@ test.describe("Discovery — API catalogue /api/v2/reports", () => {
     if (res.status() !== 200) {
       test.skip(true, "Auth requise — test valide en local avec bypass actif");
     }
-    const body = await res.json() as { catalog: Array<{ id: string; title: string; requiredApps: string[] }> };
+    const body = (await res.json()) as {
+      catalog: Array<{ id: string; title: string; requiredApps: string[] }>;
+    };
     expect(Array.isArray(body.catalog)).toBe(true);
     expect(body.catalog.length).toBeGreaterThan(0);
 
@@ -58,7 +56,7 @@ test.describe("Discovery — API catalogue /api/v2/reports", () => {
     if (res.status() !== 200) {
       test.skip(true, "Auth requise");
     }
-    const body = await res.json() as { catalog: Array<{ title: string }> };
+    const body = (await res.json()) as { catalog: Array<{ title: string }> };
     const titles = body.catalog.map((e) => e.title);
 
     for (const expected of EXPECTED_CATALOG_TITLES) {
@@ -71,13 +69,11 @@ test.describe("Discovery — API catalogue /api/v2/reports", () => {
     if (res.status() !== 200) {
       test.skip(true, "Auth requise");
     }
-    const body = await res.json() as {
+    const body = (await res.json()) as {
       catalog: Array<{ title: string; domain: string; requiredApps: string[] }>;
     };
 
-    const financeEntries = body.catalog.filter((e) =>
-      FINANCE_DOMAINS.includes(e.domain),
-    );
+    const financeEntries = body.catalog.filter((e) => FINANCE_DOMAINS.includes(e.domain));
     expect(financeEntries.length).toBeGreaterThan(0);
 
     for (const entry of financeEntries) {
@@ -90,7 +86,7 @@ test.describe("Discovery — API catalogue /api/v2/reports", () => {
     if (res.status() !== 200) {
       test.skip(true, "Auth requise");
     }
-    const body = await res.json() as {
+    const body = (await res.json()) as {
       catalog: Array<{ requiredApps: unknown }>;
     };
     for (const entry of body.catalog) {
@@ -143,9 +139,9 @@ test.describe("Discovery — page /reports/editor", () => {
     await page.goto("/reports/editor");
 
     // Titre h1 de la page démo
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
   });
 
   test("page /reports/editor affiche la liste des blocs du spec démo", async ({ page }) => {
@@ -177,9 +173,9 @@ test.describe("Discovery — page /reports/editor", () => {
     await page.goto("/reports/editor");
 
     // ReportSpecEditor doit avoir chargé au moins un bloc
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
 
     // Le composant ReportSpecEditor rend une liste de blocs — au moins 1
     // (on cherche le type de bloc "kpi" qui est dans le spec fondateur)
@@ -199,7 +195,11 @@ test.describe("Discovery — page /reports/editor", () => {
       }),
     );
     await page.route("**/api/v2/threads*", (route) =>
-      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ threads: [] }) }),
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ threads: [] }),
+      }),
     );
     await page.route("**/api/v2/right-panel*", (route) =>
       route.fulfill({
@@ -210,9 +210,9 @@ test.describe("Discovery — page /reports/editor", () => {
     );
 
     await page.goto("/reports/editor");
-    await expect(
-      page.getByRole("heading", { name: "Report Spec Editor" }),
-    ).toBeVisible({ timeout: 8000 });
+    await expect(page.getByRole("heading", { name: "Report Spec Editor" })).toBeVisible({
+      timeout: 8000,
+    });
 
     // Clique "Show JSON"
     const showJsonBtn = page.getByRole("button", { name: /show json/i });
@@ -239,7 +239,7 @@ test.describe("Discovery — filtrage domaine finance", () => {
     if (res.status() !== 200) {
       test.skip(true, "Auth requise");
     }
-    const body = await res.json() as {
+    const body = (await res.json()) as {
       catalog: Array<{ title: string; domain: string }>;
     };
     const financeOnly = body.catalog.filter((e) => e.domain === "finance");
@@ -258,7 +258,7 @@ test.describe("Discovery — filtrage domaine finance", () => {
     if (res.status() !== 200) {
       test.skip(true, "Auth requise");
     }
-    const body = await res.json() as {
+    const body = (await res.json()) as {
       catalog: Array<{ id: string; requiredApps: string[] }>;
     };
     // Tous les rapports doivent avoir le champ requiredApps défini

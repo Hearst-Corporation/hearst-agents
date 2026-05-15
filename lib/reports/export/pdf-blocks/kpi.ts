@@ -12,8 +12,8 @@
  * dispose en colonnes. Ici on rend juste un KPI dans la box donnée.
  */
 
-import { COLORS, FONT_SIZES, SPACE } from "../pdf-tokens";
 import { setFont } from "../pdf-fonts";
+import { COLORS, FONT_SIZES, SPACE } from "../pdf-tokens";
 
 export interface KpiBoxInput {
   label: string;
@@ -59,23 +59,17 @@ export function renderKpi(doc: PDFKit.PDFDocument, input: KpiBoxInput): number {
   // Chiffre serif large
   const valueStr = formatKpiValue(input.value);
   setFont(doc, "serifBold", embedded);
-  doc
-    .fontSize(FONT_SIZES.h1)
-    .fillColor(COLORS.ink)
-    .text(valueStr, x, cursorY, {
-      width,
-      lineGap: -2,
-    });
+  doc.fontSize(FONT_SIZES.h1).fillColor(COLORS.ink).text(valueStr, x, cursorY, {
+    width,
+    lineGap: -2,
+  });
   cursorY = doc.y + SPACE.s1;
 
   // Delta italique
   if (input.delta !== null && input.delta !== undefined) {
     const { text: deltaText, color } = formatDelta(input.delta);
     setFont(doc, "serifItalic", embedded);
-    doc
-      .fontSize(FONT_SIZES.small)
-      .fillColor(color)
-      .text(deltaText, x, cursorY, { width });
+    doc.fontSize(FONT_SIZES.small).fillColor(color).text(deltaText, x, cursorY, { width });
     cursorY = doc.y;
   }
 
@@ -100,8 +94,7 @@ function formatKpiValue(v: unknown): string {
 function formatDelta(v: unknown): { text: string; color: string } {
   if (typeof v === "number") {
     const sign = v > 0 ? "↑" : v < 0 ? "↓" : "·";
-    const color =
-      v > 0 ? COLORS.positive : v < 0 ? COLORS.negative : COLORS.muted;
+    const color = v > 0 ? COLORS.positive : v < 0 ? COLORS.negative : COLORS.muted;
     return {
       text: `${sign} ${Math.abs(v).toFixed(1)}%`,
       color,

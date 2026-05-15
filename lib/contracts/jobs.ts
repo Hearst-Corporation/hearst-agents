@@ -19,13 +19,9 @@ export const imageGenSchema = z.object({
   prompt: z.string().min(1).max(2000),
   threadId: z.string().optional(),
   count: z.number().int().min(1).max(4).optional(),
-  size: z
-    .enum(["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536"])
-    .optional(),
+  size: z.enum(["256x256", "512x512", "1024x1024", "1536x1024", "1024x1536"]).optional(),
   /** Mode d'enrichissement automatique. Default = editorial. */
-  style: z
-    .enum(["editorial", "cinematic", "flat-illustration", "portrait", "product"])
-    .optional(),
+  style: z.enum(["editorial", "cinematic", "flat-illustration", "portrait", "product"]).optional(),
 });
 
 export type ImageGenPayload = z.infer<typeof imageGenSchema>;
@@ -39,15 +35,7 @@ export const audioGenSchema = z.object({
   threadId: z.string().optional(),
   /** Tone de la persona pour mapping voix automatique. */
   tone: z
-    .enum([
-      "formal",
-      "direct",
-      "analytical",
-      "casual",
-      "warm-professional",
-      "creative",
-      "default",
-    ])
+    .enum(["formal", "direct", "analytical", "casual", "warm-professional", "creative", "default"])
     .optional(),
   /** ID persona (alternatif à tone — non utilisé pour résolution serveur ici). */
   personaId: z.string().optional(),

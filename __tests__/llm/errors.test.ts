@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  CostLimitExceededError,
-  RateLimitExceededError,
-  LLMTimeoutError,
   CircuitOpenError,
+  CostLimitExceededError,
+  LLMTimeoutError,
+  RateLimitExceededError,
   sanitizeProviderError,
 } from "../../lib/llm/errors";
 

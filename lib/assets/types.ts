@@ -14,8 +14,8 @@
  * - Assets surface through the Halo artifact system and right panel focal mode
  */
 
-import type { ProviderId } from "@/lib/providers/types";
 import type { OutputTier } from "@/lib/engine/runtime/formatting/pipeline";
+import type { ProviderId } from "@/lib/providers/types";
 
 // ── Asset types ─────────────────────────────────────────────
 
@@ -145,8 +145,8 @@ export interface Action {
 
 // ── Persistent store (Supabase DB + in-memory cache) ────────
 
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | null {
@@ -200,7 +200,7 @@ export async function storeAsset(asset: Asset): Promise<void> {
   if (!asset.provenance?.userId) {
     console.warn(
       `[AssetStore] Asset ${asset.id} (${asset.kind}) has no provenance.userId — ` +
-      `bug d'auth en amont, à fixer côté call site (run-research-report, planner, etc.).`,
+        `bug d'auth en amont, à fixer côté call site (run-research-report, planner, etc.).`,
     );
   }
 
@@ -216,8 +216,8 @@ export async function storeAsset(asset: Asset): Promise<void> {
   const sb = getServerSupabase();
   if (!sb) return;
 
-  const { error } = await rawDb(sb)!
-    .from("assets")
+  const { error } = await rawDb(sb)
+    ?.from("assets")
     .upsert({
       id: asset.id,
       thread_id: asset.threadId,
@@ -238,13 +238,15 @@ export async function storeAsset(asset: Asset): Promise<void> {
     // ── Webhook asset.created (fire-and-forget) ──────────────
     const tenantId = asset.provenance?.tenantId;
     if (tenantId) {
-      import("@/lib/webhooks/dispatcher").then(({ dispatchWebhookEvent }) => {
-        dispatchWebhookEvent("asset.created", tenantId, {
-          assetId: asset.id,
-          kind: asset.kind,
-          title: cleanTitle,
-        });
-      }).catch(() => {});
+      import("@/lib/webhooks/dispatcher")
+        .then(({ dispatchWebhookEvent }) => {
+          dispatchWebhookEvent("asset.created", tenantId, {
+            assetId: asset.id,
+            kind: asset.kind,
+            title: cleanTitle,
+          });
+        })
+        .catch(() => {});
     }
   }
 }
@@ -273,8 +275,8 @@ export async function loadAssetsForScope({
   const sb = getServerSupabase();
   if (!sb) return [];
 
-  const { data, error } = await rawDb(sb)!
-    .from("assets")
+  const { data, error } = await rawDb(sb)
+    ?.from("assets")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(limit);
@@ -282,18 +284,20 @@ export async function loadAssetsForScope({
   if (error || !data) return [];
 
   return (data as Record<string, unknown>[])
-    .map((row): Asset => ({
-      id: row.id as string,
-      threadId: (row.thread_id as string) ?? "default",
-      kind: row.kind as AssetKind,
-      title: (row.title as string) ?? "Untitled",
-      summary: (row.summary as string | undefined) ?? undefined,
-      outputTier: (row.output_tier as OutputTier | undefined) ?? undefined,
-      provenance: (row.provenance ?? {}) as AssetProvenance,
-      createdAt: new Date(row.created_at as string).getTime(),
-      contentRef: (row.content_ref as string | undefined) ?? undefined,
-      runId: (row.run_id as string | undefined) ?? undefined,
-    }))
+    .map(
+      (row): Asset => ({
+        id: row.id as string,
+        threadId: (row.thread_id as string) ?? "default",
+        kind: row.kind as AssetKind,
+        title: (row.title as string) ?? "Untitled",
+        summary: (row.summary as string | undefined) ?? undefined,
+        outputTier: (row.output_tier as OutputTier | undefined) ?? undefined,
+        provenance: (row.provenance ?? {}) as AssetProvenance,
+        createdAt: new Date(row.created_at as string).getTime(),
+        contentRef: (row.content_ref as string | undefined) ?? undefined,
+        runId: (row.run_id as string | undefined) ?? undefined,
+      }),
+    )
     .filter((asset) => {
       const prov = asset.provenance;
       if (prov.tenantId && prov.tenantId !== tenantId) return false;
@@ -314,11 +318,7 @@ export async function loadAssetById(
   const sb = getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await rawDb(sb)!
-    .from("assets")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
+  const { data, error } = await rawDb(sb)?.from("assets").select("*").eq("id", id).maybeSingle();
 
   if (error || !data) return null;
 
@@ -349,7 +349,8 @@ export function storeAction(action: Action): void {
 
   const sb = getServerSupabase();
   if (sb) {
-    rawDb(sb)!.from("actions")
+    rawDb(sb)
+      ?.from("actions")
       .upsert({
         id: action.id,
         thread_id: action.threadId,
@@ -365,4 +366,3 @@ export function storeAction(action: Action): void {
       });
   }
 }
-

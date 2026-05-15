@@ -3,10 +3,7 @@ import { LLMTimeoutError } from "./errors";
 export const CHAT_TIMEOUT_MS = Number(process.env.LLM_CHAT_TIMEOUT_MS ?? "30000");
 export const STREAM_TIMEOUT_MS = Number(process.env.LLM_STREAM_TIMEOUT_MS ?? "60000");
 
-export function makeAbortSignal(
-  defaultMs: number,
-  userSignal?: AbortSignal,
-): AbortSignal {
+export function makeAbortSignal(defaultMs: number, userSignal?: AbortSignal): AbortSignal {
   const controller = new AbortController();
 
   const timeoutId = setTimeout(() => {
@@ -27,7 +24,7 @@ export function makeAbortSignal(
   }
 
   const origAbort = controller.abort.bind(controller);
-  controller.abort = function (reason?: unknown) {
+  controller.abort = (reason?: unknown) => {
     clearTimeout(timeoutId);
     return origAbort(reason);
   };

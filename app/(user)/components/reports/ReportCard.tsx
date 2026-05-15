@@ -16,58 +16,67 @@
  */
 
 import { useRouter } from "next/navigation";
-import { useNavigationStore } from "@/stores/navigation";
-import { useStageStore } from "@/stores/stage";
 import { Action } from "@/app/(user)/components/ui";
 import type { ApplicableReport } from "@/lib/reports/catalog";
+import { useNavigationStore } from "@/stores/navigation";
+import { useStageStore } from "@/stores/stage";
 
 // ── Domain colors (accent-teal-scale + status colors — tokens only) ──
 
 const DOMAIN_LABELS: Record<string, string> = {
-  finance:  "Finance",
-  crm:      "CRM",
-  ops:      "Ops",
-  growth:   "Growth",
-  founder:  "Founder",
+  finance: "Finance",
+  crm: "CRM",
+  ops: "Ops",
+  growth: "Growth",
+  founder: "Founder",
   "ops-eng": "Eng",
-  support:  "Support",
-  mixed:    "Mixte",
-  people:   "People",
+  support: "Support",
+  mixed: "Mixte",
+  people: "People",
   marketing: "Marketing",
 };
 
 const DOMAIN_STYLE: Record<string, { bg: string; color: string }> = {
-  finance:   { bg: "var(--color-success-bg)",   color: "var(--color-success)" },
-  crm:       { bg: "var(--accent-teal-surface)",       color: "var(--accent-teal)" },
-  ops:       { bg: "var(--color-warning-bg)",    color: "var(--color-warning)" },
-  growth:    { bg: "var(--accent-teal-surface)",       color: "var(--accent-teal)" },
-  founder:   { bg: "var(--surface-2)",           color: "var(--text-soft)" },
-  "ops-eng": { bg: "var(--color-info-bg)",       color: "var(--color-info)" },
-  support:   { bg: "var(--color-warning-bg)",    color: "var(--color-warning)" },
-  mixed:     { bg: "var(--surface-2)",           color: "var(--text-muted)" },
-  people:    { bg: "var(--color-success-bg)",    color: "var(--color-success)" },
-  marketing: { bg: "var(--accent-teal-surface)",       color: "var(--accent-teal)" },
+  finance: { bg: "var(--color-success-bg)", color: "var(--color-success)" },
+  crm: { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
+  ops: { bg: "var(--color-warning-bg)", color: "var(--color-warning)" },
+  growth: { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
+  founder: { bg: "var(--surface-2)", color: "var(--text-soft)" },
+  "ops-eng": { bg: "var(--color-info-bg)", color: "var(--color-info)" },
+  support: { bg: "var(--color-warning-bg)", color: "var(--color-warning)" },
+  mixed: { bg: "var(--surface-2)", color: "var(--text-muted)" },
+  people: { bg: "var(--color-success-bg)", color: "var(--color-success)" },
+  marketing: { bg: "var(--accent-teal-surface)", color: "var(--accent-teal)" },
 };
 
 const PERSONA_LABELS: Record<string, string> = {
-  founder:     "Founder",
-  csm:         "CSM",
-  ops:         "Ops",
-  sales:       "Sales",
-  eng:         "Eng",
+  founder: "Founder",
+  csm: "CSM",
+  ops: "Ops",
+  sales: "Sales",
+  eng: "Eng",
   engineering: "Engineering",
-  marketing:   "Marketing",
-  people:      "People",
-  finance:     "Finance",
-  product:     "Product",
-  support:     "Support",
+  marketing: "Marketing",
+  people: "People",
+  finance: "Finance",
+  product: "Product",
+  support: "Support",
 };
 
 // ── Icons ──────────────────────────────────────────────────────
 
 function CalendarIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
       <line x1="16" y1="2" x2="16" y2="6" />
       <line x1="8" y1="2" x2="8" y2="6" />
@@ -86,7 +95,16 @@ function PlayIcon() {
 
 function SettingsIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="12" r="3" />
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
     </svg>
@@ -95,7 +113,16 @@ function SettingsIcon() {
 
 function LinkIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </svg>
@@ -114,15 +141,15 @@ function StarIcon() {
 
 function getCadenceLabel(domain: string): string {
   const map: Record<string, string> = {
-    finance:   "Mensuel",
-    crm:       "Hebdomadaire",
-    ops:       "Hebdomadaire",
-    growth:    "Hebdomadaire",
-    founder:   "Quotidien",
+    finance: "Mensuel",
+    crm: "Hebdomadaire",
+    ops: "Hebdomadaire",
+    growth: "Hebdomadaire",
+    founder: "Quotidien",
     "ops-eng": "Hebdomadaire",
-    support:   "Quotidien",
-    mixed:     "À la demande",
-    people:    "Mensuel",
+    support: "Quotidien",
+    mixed: "À la demande",
+    people: "Mensuel",
     marketing: "Hebdomadaire",
   };
   return map[domain] ?? "À la demande";
@@ -222,7 +249,10 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
         )}
 
         {/* Spacer + cadence */}
-        <span className="ml-auto inline-flex items-center gap-1 t-9 font-light" style={{ color: "var(--text-ghost)" }}>
+        <span
+          className="ml-auto inline-flex items-center gap-1 t-9 font-light"
+          style={{ color: "var(--text-ghost)" }}
+        >
           <CalendarIcon />
           {cadence}
         </span>
@@ -234,7 +264,10 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
           {report.title}
         </h3>
         {report.description && (
-          <p className="t-13 font-light line-clamp-2" style={{ color: "var(--text-faint)", lineHeight: "var(--leading-base)" }}>
+          <p
+            className="t-13 font-light line-clamp-2"
+            style={{ color: "var(--text-faint)", lineHeight: "var(--leading-base)" }}
+          >
             {report.description}
           </p>
         )}
@@ -243,7 +276,10 @@ export function ReportCard({ report, onLaunch }: ReportCardProps) {
       {/* Apps manquantes (partial) */}
       {isPartial && report.missingApps.length > 0 && (
         <div className="flex flex-col gap-1">
-          <span className="t-9 font-medium tracking-wide uppercase" style={{ color: "var(--color-warning)" }}>
+          <span
+            className="t-9 font-medium tracking-wide uppercase"
+            style={{ color: "var(--color-warning)" }}
+          >
             Apps manquantes
           </span>
           <div className="flex flex-wrap gap-1">
@@ -345,7 +381,10 @@ export function ReportCardSkeleton() {
         <div className="h-3 w-full rounded" style={{ background: "var(--surface-1)" }} />
         <div className="h-3 w-3/4 rounded" style={{ background: "var(--surface-1)" }} />
       </div>
-      <div className="h-8 w-24 rounded" style={{ background: "var(--surface-2)", borderRadius: "var(--radius-sm)" }} />
+      <div
+        className="h-8 w-24 rounded"
+        style={{ background: "var(--surface-2)", borderRadius: "var(--radius-sm)" }}
+      />
     </div>
   );
 }

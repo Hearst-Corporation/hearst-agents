@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { messagesCreate, createPlanSpy } = vi.hoisted(() => ({
   messagesCreate: vi.fn(),
@@ -14,7 +14,6 @@ vi.mock("@anthropic-ai/sdk", () => ({
 vi.mock("@/lib/engine/runtime/plans/store", () => ({
   PlanStore: class {
     createPlan = createPlanSpy;
-    constructor(_db: unknown) {}
   },
 }));
 
@@ -50,13 +49,7 @@ describe("planFromIntent — system prompt blocks", () => {
 
   it("always emits the inline-connect guidance block, even with no discoveredActions", async () => {
     messagesCreate.mockResolvedValueOnce(okResponse());
-    await planFromIntent(
-      {} as never,
-      fakeEngine() as never,
-      "hello",
-      [],
-      { surface: "home" },
-    );
+    await planFromIntent({} as never, fakeEngine() as never, "hello", [], { surface: "home" });
     const params = messagesCreate.mock.calls[0][0];
     expect(Array.isArray(params.system)).toBe(true);
     expect(params.system).toHaveLength(2);
@@ -114,14 +107,7 @@ describe("planFromIntent — system prompt blocks", () => {
 
   it("still accepts the legacy positional (surface, capabilityDomain) signature", async () => {
     messagesCreate.mockResolvedValueOnce(okResponse());
-    await planFromIntent(
-      {} as never,
-      fakeEngine() as never,
-      "hi",
-      [],
-      "inbox",
-      "communication",
-    );
+    await planFromIntent({} as never, fakeEngine() as never, "hi", [], "inbox", "communication");
     const params = messagesCreate.mock.calls[0][0];
     // 2 blocks now: cached static + dynamic (inline-connect guidance always present)
     expect(params.system).toHaveLength(2);

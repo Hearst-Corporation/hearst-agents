@@ -5,30 +5,27 @@
  * Pas de test sur l'output LLM (trop flaky), uniquement sur le PROMPT envoyé.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+import { ACTION_ITEMS_SYSTEM_PROMPT } from "@/lib/capabilities/providers/deepgram";
+import { DAILY_BRIEF_SYSTEM_PROMPT } from "@/lib/daily-brief/generate";
+import { INBOX_PRIORITY_SYSTEM_PROMPT } from "@/lib/inbox/inbox-brief";
 import { BRIEFING_SYSTEM_PROMPT } from "@/lib/memory/briefing";
 import { CONV_SUMMARY_SYSTEM_PROMPT } from "@/lib/memory/conversation-summary";
-import { ACTION_ITEMS_SYSTEM_PROMPT } from "@/lib/capabilities/providers/deepgram";
-import { INBOX_PRIORITY_SYSTEM_PROMPT } from "@/lib/inbox/inbox-brief";
 import { EXTRACTION_PROMPT } from "@/lib/memory/kg";
+import { MISSION_CONTEXT_SYSTEM_PROMPT } from "@/lib/memory/mission-context";
 import {
+  ACTION_ITEMS_FEWSHOT,
   BRIEFING_FEWSHOT_FR,
   CONV_SUMMARY_FEWSHOT,
-  ACTION_ITEMS_FEWSHOT,
-  KG_EXTRACTION_FEWSHOT,
-  INBOX_PRIORITY_FEWSHOT,
-  NARRATION_FEWSHOT_FR,
-  MISSION_CONTEXT_FEWSHOT_FR,
   DAILY_BRIEF_FEWSHOT_FR,
   formatFewShotBlock,
+  INBOX_PRIORITY_FEWSHOT,
+  KG_EXTRACTION_FEWSHOT,
+  MISSION_CONTEXT_FEWSHOT_FR,
+  NARRATION_FEWSHOT_FR,
 } from "@/lib/prompts/examples";
-import { MISSION_CONTEXT_SYSTEM_PROMPT } from "@/lib/memory/mission-context";
-import { DAILY_BRIEF_SYSTEM_PROMPT } from "@/lib/daily-brief/generate";
 
-const BANNED_FORMULAS_GLOBAL = [
-  "n'hésite pas",
-  "j'espère que",
-];
+const BANNED_FORMULAS_GLOBAL = ["n'hésite pas", "j'espère que"];
 
 interface PromptCheck {
   name: string;
@@ -72,27 +69,13 @@ const PROMPT_CHECKS: ReadonlyArray<PromptCheck> = [
   {
     name: "action-items",
     prompt: ACTION_ITEMS_SYSTEM_PROMPT,
-    mustContain: [
-      "transcript",
-      "FORMAT STRICT",
-      "JSON",
-      "owner",
-      "deadline",
-      "EXEMPLES",
-    ],
+    mustContain: ["transcript", "FORMAT STRICT", "JSON", "owner", "deadline", "EXEMPLES"],
     minFewShot: 2,
   },
   {
     name: "inbox-priority",
     prompt: INBOX_PRIORITY_SYSTEM_PROMPT,
-    mustContain: [
-      "founder",
-      "urgent",
-      "important",
-      "info",
-      "FORMAT STRICT",
-      "EXEMPLES",
-    ],
+    mustContain: ["founder", "urgent", "important", "info", "FORMAT STRICT", "EXEMPLES"],
     minFewShot: 2,
   },
   {
@@ -171,9 +154,7 @@ describe("Prompt quality regression", () => {
           // section "bannis" ou "interdit" si présent.
           if (lower.includes(banned.toLowerCase())) {
             expect(
-              lower.includes("banni") ||
-                lower.includes("interdit") ||
-                lower.includes("jamais"),
+              lower.includes("banni") || lower.includes("interdit") || lower.includes("jamais"),
               `formule "${banned}" présente sans être déclarée bannie`,
             ).toBe(true);
           }

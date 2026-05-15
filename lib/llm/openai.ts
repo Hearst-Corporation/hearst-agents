@@ -1,7 +1,7 @@
 import OpenAI from "openai";
-import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk } from "./types";
-import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { defaultRateLimiter } from "./rate-limiter";
+import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
+import type { ChatRequest, ChatResponse, LLMProvider, StreamChunk } from "./types";
 
 export class OpenAIProvider implements LLMProvider {
   readonly name = "openai";
@@ -24,16 +24,19 @@ export class OpenAIProvider implements LLMProvider {
     await this.maybeWaitForRateLimit();
 
     const { data: res, response } = await this.client.chat.completions
-      .create({
-        model: req.model,
-        messages: req.messages.map((m) => ({
-          role: m.role as "system" | "user" | "assistant",
-          content: m.content,
-        })),
-        temperature: req.temperature,
-        max_tokens: req.max_tokens,
-        top_p: req.top_p,
-      }, { signal })
+      .create(
+        {
+          model: req.model,
+          messages: req.messages.map((m) => ({
+            role: m.role as "system" | "user" | "assistant",
+            content: m.content,
+          })),
+          temperature: req.temperature,
+          max_tokens: req.max_tokens,
+          top_p: req.top_p,
+        },
+        { signal },
+      )
       .withResponse();
 
     this.recordRateLimitHeaders(response);
@@ -59,17 +62,20 @@ export class OpenAIProvider implements LLMProvider {
     await this.maybeWaitForRateLimit();
 
     const { data: stream, response } = await this.client.chat.completions
-      .create({
-        model: req.model,
-        messages: req.messages.map((m) => ({
-          role: m.role as "system" | "user" | "assistant",
-          content: m.content,
-        })),
-        temperature: req.temperature,
-        max_tokens: req.max_tokens,
-        top_p: req.top_p,
-        stream: true,
-      }, { signal })
+      .create(
+        {
+          model: req.model,
+          messages: req.messages.map((m) => ({
+            role: m.role as "system" | "user" | "assistant",
+            content: m.content,
+          })),
+          temperature: req.temperature,
+          max_tokens: req.max_tokens,
+          top_p: req.top_p,
+          stream: true,
+        },
+        { signal },
+      )
       .withResponse();
 
     this.recordRateLimitHeaders(response);

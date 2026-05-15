@@ -19,7 +19,7 @@
  */
 
 import { useState } from "react";
-import { useActiveSpace, type SpaceConfig } from "@/stores/active-space";
+import { type SpaceConfig, useActiveSpace } from "@/stores/active-space";
 
 export function SpaceSelector() {
   const spaces = useActiveSpace((s) => s.spaces);

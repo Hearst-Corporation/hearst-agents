@@ -11,7 +11,12 @@ vi.mock("@/lib/engine/runtime/runs/store", () => ({
 }));
 
 vi.mock("@/lib/engine/runtime/state/adapter", () => ({
-  getRuns: (params?: { userId?: string; tenantId?: string; workspaceId?: string; limit?: number }) => getPersistedRunsMock(params),
+  getRuns: (params?: {
+    userId?: string;
+    tenantId?: string;
+    workspaceId?: string;
+    limit?: number;
+  }) => getPersistedRunsMock(params),
 }));
 
 vi.mock("@/lib/engine/runtime/assets/file-storage", () => ({

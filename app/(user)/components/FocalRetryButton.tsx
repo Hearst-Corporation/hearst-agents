@@ -43,9 +43,7 @@ function buildFocalContext(params: {
   if (!sourcePlanId && !threadId) return undefined;
 
   const id = sourcePlanId ?? threadId ?? "unknown";
-  const objectType =
-    focalObjectType?.trim() ||
-    (sourcePlanId ? "execution_plan" : "thread");
+  const objectType = focalObjectType?.trim() || (sourcePlanId ? "execution_plan" : "thread");
 
   return {
     id,
@@ -119,18 +117,22 @@ export function FocalRetryButton({
         return;
       }
 
-      toast.warning("Réessai non disponible", "Impossible de déterminer comment réessayer cette opération");
+      toast.warning(
+        "Réessai non disponible",
+        "Impossible de déterminer comment réessayer cette opération",
+      );
     } catch (error) {
       console.error("[FocalRetryButton] Retry failed:", error);
-      toast.error("Échec du réessai", error instanceof Error ? error.message : "Une erreur est survenue");
+      toast.error(
+        "Échec du réessai",
+        error instanceof Error ? error.message : "Une erreur est survenue",
+      );
     } finally {
       setIsRetrying(false);
     }
   };
 
-  const baseClasses = compact
-    ? "px-4 py-2 t-11 font-medium"
-    : "px-8 py-4 t-13 font-medium";
+  const baseClasses = compact ? "px-4 py-2 t-11 font-medium" : "px-8 py-4 t-13 font-medium";
 
   return (
     <button

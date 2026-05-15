@@ -17,48 +17,102 @@
  * pour les liens d'apprentissage, brand pour les actions principales).
  */
 
-import { useState, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { RailSection, Action } from "../ui";
+import { type ReactNode, useState } from "react";
 import { useBuilderStore } from "@/stores/builder";
-import { NodePalette } from "../missions/builder/NodePalette";
 import { NodeConfigPanel } from "../missions/builder/NodeConfigPanel";
+import { NodePalette } from "../missions/builder/NodePalette";
+import { Action, RailSection } from "../ui";
 
 // ── Icons (stroke 1.5, 14×14, cohérent avec TimelineRail) ──────
 
 const CategoryIcons: Record<string, ReactNode> = {
   communication: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
     </svg>
   ),
   productivity: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="9 11 12 14 22 4" />
       <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
     </svg>
   ),
   crm: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="3 17 9 11 13 15 21 7" />
       <polyline points="14 7 21 7 21 14" />
     </svg>
   ),
   "developer-tools": (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="16 18 22 12 16 6" />
       <polyline points="8 6 2 12 8 18" />
     </svg>
   ),
   design: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 19l7-7 3 3-7 7-3-3z" />
       <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
       <circle cx="6" cy="6" r="1.5" />
     </svg>
   ),
   scheduling: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="4" width="18" height="18" rx="2" />
       <line x1="16" y1="2" x2="16" y2="6" />
       <line x1="8" y1="2" x2="8" y2="6" />
@@ -66,7 +120,16 @@ const CategoryIcons: Record<string, ReactNode> = {
     </svg>
   ),
   ai: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="4" y="4" width="16" height="16" rx="2" />
       <rect x="9" y="9" width="6" height="6" />
       <line x1="9" y1="1" x2="9" y2="4" />
@@ -80,7 +143,16 @@ const CategoryIcons: Record<string, ReactNode> = {
     </svg>
   ),
   analytics: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <line x1="18" y1="20" x2="18" y2="10" />
       <line x1="12" y1="20" x2="12" y2="4" />
       <line x1="6" y1="20" x2="6" y2="14" />
@@ -89,7 +161,16 @@ const CategoryIcons: Record<string, ReactNode> = {
 };
 
 const ChevronDownIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M6 9l6 6 6-6" />
   </svg>
 );
@@ -120,9 +201,7 @@ function CollapsibleRailSection({
         className="w-full flex items-baseline justify-between gap-3 group"
         style={{ marginBottom: expanded ? "var(--space-4)" : 0 }}
       >
-        <span className="t-13 font-medium text-(--text-l1) truncate text-left">
-          {label}
-        </span>
+        <span className="t-13 font-medium text-(--text-l1) truncate text-left">{label}</span>
         <span
           className="inline-flex items-center justify-center transition-transform duration-emphasis ease-out-soft text-text-faint group-hover:text-text-soft shrink-0"
           style={{ transform: expanded ? "rotate(0deg)" : "rotate(-90deg)" }}
@@ -248,8 +327,8 @@ export function ContextRailForRuns() {
 
       <RailSection label="Aide">
         <p className="t-11 font-light text-text-faint">
-          Chaque run garde sa trace complète : prompt, modèle, coût, latence,
-          assets produits. Re-run un run conserve le contexte.
+          Chaque run garde sa trace complète : prompt, modèle, coût, latence, assets produits.
+          Re-run un run conserve le contexte.
         </p>
       </RailSection>
     </div>
@@ -278,10 +357,12 @@ export function ContextRailForMissionsAdmin() {
 
   return (
     <div className="h-full flex flex-col min-h-0 overflow-hidden">
-
       {/* ── Builder: Palette + Inspecteur ─────────────────── */}
       {isOnBuilder && (
-        <div className="flex flex-col min-h-0 shrink-0" style={{ borderBottom: "1px solid var(--border-shell)" }}>
+        <div
+          className="flex flex-col min-h-0 shrink-0"
+          style={{ borderBottom: "1px solid var(--border-shell)" }}
+        >
           {/* Tab toggle */}
           <div
             className="flex items-center shrink-0"
@@ -310,7 +391,9 @@ export function ContextRailForMissionsAdmin() {
                 >
                   {label}
                   {t === "inspector" && selectedNode && (
-                    <span className="ml-1" style={{ color: "var(--accent-teal)" }}>·</span>
+                    <span className="ml-1" style={{ color: "var(--accent-teal)" }}>
+                      ·
+                    </span>
                   )}
                 </button>
               );
@@ -318,10 +401,7 @@ export function ContextRailForMissionsAdmin() {
           </div>
 
           {/* Tab content — max-height so it doesn't consume the whole rail */}
-          <div
-            className="overflow-y-auto"
-            style={{ maxHeight: "55vh", padding: "var(--space-4)" }}
-          >
+          <div className="overflow-y-auto" style={{ maxHeight: "55vh", padding: "var(--space-4)" }}>
             {tab === "palette" ? (
               <NodePalette onAdd={handlers?.onAdd ?? (() => {})} />
             ) : (
@@ -345,13 +425,8 @@ export function ContextRailForMissionsAdmin() {
               { label: "Mensuelle", cron: "0 9 1 * *" },
               { label: "Personnalisée", cron: "custom" },
             ].map((c) => (
-              <li
-                key={c.label}
-                className="flex items-baseline justify-between"
-              >
-                <span className="t-13 font-light text-text-soft">
-                  {c.label}
-                </span>
+              <li key={c.label} className="flex items-baseline justify-between">
+                <span className="t-13 font-light text-text-soft">{c.label}</span>
                 <span className="t-11 font-mono tabular-nums text-text-faint">
                   {c.cron === "custom" ? "—" : c.cron}
                 </span>
@@ -377,9 +452,9 @@ export function ContextRailForMissionsAdmin() {
 
         <RailSection label="Aide">
           <p className="t-11 font-light text-text-faint">
-            Les missions sont des automatisations planifiées. Elles s&apos;exécutent
-            selon une cadence cron, peuvent enchaîner plusieurs étapes et
-            déclencher des actions sur tes apps connectées.
+            Les missions sont des automatisations planifiées. Elles s&apos;exécutent selon une
+            cadence cron, peuvent enchaîner plusieurs étapes et déclencher des actions sur tes apps
+            connectées.
           </p>
         </RailSection>
       </div>
@@ -431,8 +506,8 @@ export function ContextRailForApps() {
 
       <RailSection label="Aide">
         <p className="t-11 font-light text-text-faint">
-          Connecte tes outils via OAuth. Une fois liés, ils alimentent
-          automatiquement Hearst : emails, calendrier, fichiers, code, etc.
+          Connecte tes outils via OAuth. Une fois liés, ils alimentent automatiquement Hearst :
+          emails, calendrier, fichiers, code, etc.
         </p>
       </RailSection>
     </div>
@@ -481,9 +556,8 @@ export function ContextRailForReports() {
 
       <RailSection label="Aide">
         <p className="t-11 font-light text-text-faint">
-          Les rapports génèrent des analyses chiffrées à la demande ou
-          planifiées (en mission). Chaque rapport peut être exporté en PDF
-          ou partagé via lien signé.
+          Les rapports génèrent des analyses chiffrées à la demande ou planifiées (en mission).
+          Chaque rapport peut être exporté en PDF ou partagé via lien signé.
         </p>
       </RailSection>
     </div>

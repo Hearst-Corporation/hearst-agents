@@ -4,7 +4,7 @@
  * Stratégie : mock requireScope + getServerSupabase (null) → on vérifie au
  * moins le contrat (auth, validation 400, fallback builtins via store).
  */
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({
@@ -71,10 +71,7 @@ describe("DELETE /api/v2/personas/[id] (builtin protégé)", () => {
       method: "DELETE",
     });
     const ctx = { params: Promise.resolve({ id: "builtin:default" }) };
-    const res = await DELETE(
-      req as unknown as import("next/server").NextRequest,
-      ctx,
-    );
+    const res = await DELETE(req as unknown as import("next/server").NextRequest, ctx);
     expect(res.status).toBe(400);
     const body = (await res.json()) as { error: string };
     expect(body.error).toBe("builtin_immutable");

@@ -2733,12 +2733,12 @@
 </main>
 
 <script>
-function togglePhase(phaseId) {
-  const el = document.getElementById('phase-' + phaseId);
+function _togglePhase(phaseId) {
+  const el = document.getElementById(`phase-${phaseId}`);
   if (el) el.classList.toggle('hidden');
 }
-function toggleBatch(batchId) {
-  const el = document.getElementById('batch-' + batchId);
+function _toggleBatch(batchId) {
+  const el = document.getElementById(`batch-${batchId}`);
   if (el) el.classList.toggle('show');
 }
 

@@ -7,7 +7,7 @@
  * Invalide le cache 5min de getTenantIndustry pour reflet immédiat.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { setTenantIndustry } from "@/lib/verticals/hospitality";

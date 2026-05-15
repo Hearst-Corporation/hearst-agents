@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 import type { ChatRequest, LLMProvider } from "../../lib/llm/types";
 
 /**
@@ -64,7 +64,8 @@ describe("LLM Layer — End-to-End Access", () => {
     });
 
     it("error classes are properly typed", async () => {
-      const { CostLimitExceededError, RateLimitExceededError, LLMTimeoutError, CircuitOpenError } = await import("../../lib/llm/errors");
+      const { CostLimitExceededError, RateLimitExceededError, LLMTimeoutError, CircuitOpenError } =
+        await import("../../lib/llm/errors");
 
       const costErr = new CostLimitExceededError(0.1, 0.05, "test-provider", "test-model");
       expect(costErr.code).toBe("COST_LIMIT_EXCEEDED");
@@ -231,7 +232,11 @@ describe("LLM Layer — End-to-End Access", () => {
 
       const testCases = [
         { status: 401, body: "Authorization: Bearer sk-abc123", shouldNotContain: "sk-abc123" },
-        { status: 403, body: 'error: {"api_key": "secret-key-xyz"}', shouldNotContain: "secret-key-xyz" },
+        {
+          status: 403,
+          body: 'error: {"api_key": "secret-key-xyz"}',
+          shouldNotContain: "secret-key-xyz",
+        },
         { status: 500, body: "Server error with ANTHROPIC_API_KEY=xxx", shouldNotContain: "xxx" },
       ];
 

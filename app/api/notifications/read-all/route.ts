@@ -3,10 +3,10 @@
  * du tenant courant (ciblées au user ou broadcast) comme lues.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { markAllRead } from "@/lib/notifications/in-app";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { markAllRead } from "@/lib/notifications/in-app";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

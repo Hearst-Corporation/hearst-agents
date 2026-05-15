@@ -69,12 +69,15 @@ export function SpecOutline({
         transition: `background var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard)`,
       }}
     >
-      <header className="flex items-center justify-between" style={{ marginBottom: "var(--space-2)" }}>
+      <header
+        className="flex items-center justify-between"
+        style={{ marginBottom: "var(--space-2)" }}
+      >
         <h2
           className="t-9 font-mono uppercase"
           style={{
             color: "var(--text-muted)",
-                      }}
+          }}
         >
           Structure
         </h2>
@@ -136,7 +139,7 @@ export function SpecOutline({
                   className="t-9 font-mono uppercase"
                   style={{
                     color: "var(--accent-teal)",
-                                        minWidth: "var(--space-16)",
+                    minWidth: "var(--space-16)",
                   }}
                 >
                   {block.type}

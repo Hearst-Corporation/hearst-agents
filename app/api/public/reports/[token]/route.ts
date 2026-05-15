@@ -20,16 +20,10 @@
  *   503 no_secret (server misconfig)
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import {
-  verifyToken,
-  hashToken,
-} from "@/lib/reports/sharing/signed-url";
-import {
-  findShareByTokenHash,
-  incrementShareViewCount,
-} from "@/lib/reports/sharing/store";
+import { type NextRequest, NextResponse } from "next/server";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { hashToken, verifyToken } from "@/lib/reports/sharing/signed-url";
+import { findShareByTokenHash, incrementShareViewCount } from "@/lib/reports/sharing/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -63,30 +57,18 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
       );
     }
     if (verify.reason === "expired") {
-      return NextResponse.json(
-        { error: "expired" },
-        { status: 403, headers: noIndexHeaders() },
-      );
+      return NextResponse.json({ error: "expired" }, { status: 403, headers: noIndexHeaders() });
     }
-    return NextResponse.json(
-      { error: verify.reason },
-      { status: 403, headers: noIndexHeaders() },
-    );
+    return NextResponse.json({ error: verify.reason }, { status: 403, headers: noIndexHeaders() });
   }
 
   const tokenHash = hashToken(token);
   const share = await findShareByTokenHash(tokenHash);
   if (!share) {
-    return NextResponse.json(
-      { error: "not_found" },
-      { status: 404, headers: noIndexHeaders() },
-    );
+    return NextResponse.json({ error: "not_found" }, { status: 404, headers: noIndexHeaders() });
   }
   if (share.revoked_at) {
-    return NextResponse.json(
-      { error: "revoked" },
-      { status: 403, headers: noIndexHeaders() },
-    );
+    return NextResponse.json({ error: "revoked" }, { status: 403, headers: noIndexHeaders() });
   }
 
   // Charge l'asset + son contenu (RenderPayload sérialisé dans content_ref).

@@ -17,8 +17,8 @@
  * Voir lib/credits/estimators.ts (Phase B suivante) pour les formules.
  */
 
-import { guardAndReserveCredits } from "./client";
 import type { JobKind } from "@/lib/jobs/types";
+import { guardAndReserveCredits } from "./client";
 import type { CreditGuardResult } from "./types";
 
 interface RequireCreditsArgs {

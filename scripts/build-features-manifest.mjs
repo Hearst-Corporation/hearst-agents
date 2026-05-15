@@ -40,38 +40,51 @@ const SUBSECTION_RE = /^###\s+(.+?)\s*$/;
 // domaines (ex. orchestrator/ couvre à la fois chat et missions).
 //
 const FEATURE_TEST_DIRS = {
-  auth:          ["platform/auth", "stores/selection"],
-  chat:          ["chat", "orchestrator", "stores/runtime", "stores/chat-context", "stores/working-document"],
-  cockpit:       ["cockpit", "right-panel"],
-  stage:         ["stores/stage", "stores/focal", "ui/context-rail"],
-  missions:      ["api/missions", "engine", "orchestrator/schedule-tool", "orchestrator/run-planner"],
-  assets:        ["assets", "runtime/assets", "api/assets", "jobs/audio-gen", "jobs/image-gen", "jobs/video-gen"],
-  connections:   ["connectors", "connections", "composio"],
-  "memory-kg":   ["memory", "embeddings"],
-  reports:       ["reports", "api/reports-specs"],
-  runs:          ["api/usage-today", "engine/runs"],
-  personas:      ["personas"],
+  auth: ["platform/auth", "stores/selection"],
+  chat: [
+    "chat",
+    "orchestrator",
+    "stores/runtime",
+    "stores/chat-context",
+    "stores/working-document",
+  ],
+  cockpit: ["cockpit", "right-panel"],
+  stage: ["stores/stage", "stores/focal", "ui/context-rail"],
+  missions: ["api/missions", "engine", "orchestrator/schedule-tool", "orchestrator/run-planner"],
+  assets: [
+    "assets",
+    "runtime/assets",
+    "api/assets",
+    "jobs/audio-gen",
+    "jobs/image-gen",
+    "jobs/video-gen",
+  ],
+  connections: ["connectors", "connections", "composio"],
+  "memory-kg": ["memory", "embeddings"],
+  reports: ["reports", "api/reports-specs"],
+  runs: ["api/usage-today", "engine/runs"],
+  personas: ["personas"],
   notifications: ["notifications"],
-  webhooks:      ["webhooks"],
-  workflows:     ["workflows"],
-  voice:         ["voice"],
-  meetings:      ["meeting", "meetings"],
+  webhooks: ["webhooks"],
+  workflows: ["workflows"],
+  voice: ["voice"],
+  meetings: ["meeting", "meetings"],
   "daily-brief": ["daily-brief", "inbox"],
-  commandeur:    ["components/commandeur"],
-  settings:      ["settings", "platform/settings"],
+  commandeur: ["components/commandeur"],
+  settings: ["settings", "platform/settings"],
   "timeline-rail": ["ui/thread"],
-  marketplace:   ["marketplace", "api/marketplace"],
-  onboarding:    ["components"],
-  pulsebar:      [],
-  planner:       ["engine"],
-  simulation:    [],
-  artifact:      ["ui/asset"],
-  datasets:      [],
-  electron:      [],
-  admin:         ["admin"],
+  marketplace: ["marketplace", "api/marketplace"],
+  onboarding: ["components"],
+  pulsebar: [],
+  planner: ["engine"],
+  simulation: [],
+  artifact: ["ui/asset"],
+  datasets: [],
+  electron: [],
+  admin: ["admin"],
   "context-rail": ["ui/context-rail", "right-panel"],
-  browser:       ["browser"],
-  hospitality:   ["verticals/hospitality"],
+  browser: ["browser"],
+  hospitality: ["verticals/hospitality"],
 };
 
 // ── Scan __tests__/ pour obtenir les vrais chiffres ───────────────────────────
@@ -80,10 +93,17 @@ async function getAllTestFiles() {
   const result = [];
   async function walk(dir) {
     let entries;
-    try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { return; }
+    try {
+      entries = await fs.readdir(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
     for (const e of entries) {
       const full = path.join(dir, e.name);
-      if (e.isDirectory()) { await walk(full); continue; }
+      if (e.isDirectory()) {
+        await walk(full);
+        continue;
+      }
       if (/\.test\.(ts|tsx)$/.test(e.name)) result.push(full);
     }
   }
@@ -106,16 +126,24 @@ function matchTestFilesForFeature(featureId, allTestFiles) {
     const lc = featureId.toLowerCase().replace(/-/g, "[-_]?");
     return allTestFiles.filter((f) => {
       const rel = path.relative(TESTS_DIR, f).toLowerCase();
-      return rel.startsWith(lc + "/") || rel.startsWith(lc + ".") ||
-             rel.includes("/" + lc + "/") || rel.includes("/" + lc + ".");
+      return (
+        rel.startsWith(`${lc}/`) ||
+        rel.startsWith(`${lc}.`) ||
+        rel.includes(`/${lc}/`) ||
+        rel.includes(`/${lc}.`)
+      );
     });
   }
   return allTestFiles.filter((f) => {
     const rel = path.relative(TESTS_DIR, f).toLowerCase().replace(/\\/g, "/");
     return patterns.some((p) => {
       const lp = p.toLowerCase();
-      return rel.startsWith(lp + "/") || rel.startsWith(lp + ".") ||
-             rel.includes("/" + lp + "/") || rel.includes("/" + lp + ".");
+      return (
+        rel.startsWith(`${lp}/`) ||
+        rel.startsWith(`${lp}.`) ||
+        rel.includes(`/${lp}/`) ||
+        rel.includes(`/${lp}.`)
+      );
     });
   });
 }
@@ -153,7 +181,11 @@ function splitSections(content) {
   let current = null;
   for (const line of lines) {
     const m = line.match(SECTION_RE);
-    if (m) { current = m[1]; sections[current] = []; continue; }
+    if (m) {
+      current = m[1];
+      sections[current] = [];
+      continue;
+    }
     if (current) sections[current].push(line);
   }
   return sections;
@@ -199,14 +231,14 @@ async function parseFeatureFile(filename, allTestFiles) {
   const content = await fs.readFile(filePath, "utf-8");
   const sections = splitSections(content);
 
-  const metaLines = sections["Métadonnées"] ?? [];
+  const metaLines = sections.Métadonnées ?? [];
   const meta = parseMetadataTable(metaLines);
 
   const invariantsLines = sections["Invariants verrouillés"] ?? [];
   const invariantsCount = countSubsections(invariantsLines);
   const invariantsTitles = listSubsections(invariantsLines);
 
-  const testsLines = sections["Tests"] ?? [];
+  const testsLines = sections.Tests ?? [];
   // Chiffres documentaires (bullet points dans les specs — intention, pas réalité)
   const testsDocExistants = countBulletsInSubsection(testsLines, "Existants");
   const testsManquantsCount = countBulletsInSubsection(testsLines, "Manquants");
@@ -248,15 +280,16 @@ async function parseFeatureFile(filename, allTestFiles) {
     // Documentaire (intention spec)
     testsDocExistants,
     testsManquantsCount,
-    testGap: testsOnDisk === 0 && testsManquantsCount === 0
-      ? "aucun"
-      : testsOnDisk === 0
-        ? "élevé"
-        : testsManquantsCount >= 10
-          ? "moyen"
-          : testsManquantsCount >= 4
-            ? "faible"
-            : "aucun",
+    testGap:
+      testsOnDisk === 0 && testsManquantsCount === 0
+        ? "aucun"
+        : testsOnDisk === 0
+          ? "élevé"
+          : testsManquantsCount >= 10
+            ? "moyen"
+            : testsManquantsCount >= 4
+              ? "faible"
+              : "aucun",
     orphansCount,
   };
 }
@@ -276,7 +309,7 @@ async function main() {
   const actualTotals = await getActualTestTotals(allTestFiles);
 
   const specFiles = (await fs.readdir(FEATURES_DIR)).filter(
-    (f) => f.endsWith(".md") && !SKIP_FILES.has(f)
+    (f) => f.endsWith(".md") && !SKIP_FILES.has(f),
   );
 
   const features = [];
@@ -297,7 +330,7 @@ async function main() {
       review: features.filter((x) => x.statut === "review").length,
       active: features.filter((x) => x.statut === "active").length,
       autres: features.filter(
-        (x) => !["verrouillé", "in_progress", "review", "active"].includes(x.statut)
+        (x) => !["verrouillé", "in_progress", "review", "active"].includes(x.statut),
       ).length,
     },
     // Chiffres documentaires (bullet points dans les specs — intention)
@@ -316,10 +349,10 @@ async function main() {
     features,
   };
 
-  await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");
+  await fs.writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
   console.log(
     `[features:manifest] ${features.length} features | ` +
-    `${actualTotals.files} test files | ${actualTotals.cases} test cases → ${path.relative(ROOT, MANIFEST_PATH)}`
+      `${actualTotals.files} test files | ${actualTotals.cases} test cases → ${path.relative(ROOT, MANIFEST_PATH)}`,
   );
 }
 

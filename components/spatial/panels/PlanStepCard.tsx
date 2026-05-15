@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { BentoCard } from './BentoCard';
-import type { PlanStepState } from '@/stores/runtime';
+import type { PlanStepState } from "@/stores/runtime";
+import { BentoCard } from "./BentoCard";
 
 interface PlanStepCardProps {
   step: PlanStepState;
@@ -9,21 +9,21 @@ interface PlanStepCardProps {
 }
 
 const KIND_ICON: Record<string, string> = {
-  llm: '∿',
-  tool: '◇',
-  search: '⌕',
-  email: '✉',
-  message: '◆',
-  fetch: '↓',
-  generate: '✦',
-  approval: '!',
+  llm: "∿",
+  tool: "◇",
+  search: "⌕",
+  email: "✉",
+  message: "◆",
+  fetch: "↓",
+  generate: "✦",
+  approval: "!",
 };
 
 function kindIcon(kind: string): string {
   for (const [k, v] of Object.entries(KIND_ICON)) {
     if (kind.toLowerCase().includes(k)) return v;
   }
-  return '◇';
+  return "◇";
 }
 
 /**
@@ -31,8 +31,8 @@ function kindIcon(kind: string): string {
  * Pulse cyan si awaiting_approval.
  */
 export function PlanStepCard({ step, delay = 0 }: PlanStepCardProps) {
-  const isAwaiting = step.status === 'awaiting_approval';
-  const isRunning = step.status === 'running';
+  const isAwaiting = step.status === "awaiting_approval";
+  const isRunning = step.status === "running";
 
   return (
     <BentoCard show={true} colSpan={1} rowSpan={1} delay={delay}>
@@ -41,8 +41,8 @@ export function PlanStepCard({ step, delay = 0 }: PlanStepCardProps) {
           <div
             className="text-spatial-2xl leading-none"
             style={{
-              color: isAwaiting ? 'rgba(120,220,220,0.95)' : 'rgba(255,255,255,0.85)',
-              textShadow: isAwaiting ? '0 0 12px rgba(120,220,220,0.6)' : undefined,
+              color: isAwaiting ? "rgba(120,220,220,0.95)" : "rgba(255,255,255,0.85)",
+              textShadow: isAwaiting ? "0 0 12px rgba(120,220,220,0.6)" : undefined,
             }}
           >
             {kindIcon(step.kind)}
@@ -63,22 +63,23 @@ export function PlanStepCard({ step, delay = 0 }: PlanStepCardProps) {
               className="h-1.5 w-1.5 rounded-full"
               style={{
                 background: isAwaiting
-                  ? 'rgba(120,220,220,0.9)'
+                  ? "rgba(120,220,220,0.9)"
                   : isRunning
-                    ? 'rgba(255,255,255,0.9)'
-                    : 'rgba(255,255,255,0.4)',
+                    ? "rgba(255,255,255,0.9)"
+                    : "rgba(255,255,255,0.4)",
                 boxShadow: isAwaiting
-                  ? '0 0 10px rgba(120,220,220,0.7)'
+                  ? "0 0 10px rgba(120,220,220,0.7)"
                   : isRunning
-                    ? '0 0 8px rgba(255,255,255,0.6)'
+                    ? "0 0 8px rgba(255,255,255,0.6)"
                     : undefined,
-                animation: isRunning || isAwaiting
-                  ? 'spatial-mission-pulse 2.4s ease-in-out infinite'
-                  : undefined,
+                animation:
+                  isRunning || isAwaiting
+                    ? "spatial-mission-pulse 2.4s ease-in-out infinite"
+                    : undefined,
               }}
             />
             <div className="text-spatial-sm font-light text-white/55">
-              {isAwaiting ? 'Validation' : isRunning ? 'En cours' : step.status}
+              {isAwaiting ? "Validation" : isRunning ? "En cours" : step.status}
             </div>
           </div>
           {step.providerId && (

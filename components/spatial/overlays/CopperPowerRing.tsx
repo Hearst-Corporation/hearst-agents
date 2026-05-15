@@ -43,14 +43,20 @@ export function CopperPowerRing() {
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </linearGradient>
         </defs>
-        <circle cx="120" cy="120" r="116"
+        <circle
+          cx="120"
+          cy="120"
+          r="116"
           fill="none"
           stroke="url(#copper-ring-grad-1)"
           strokeWidth="1.5"
           strokeDasharray="6 18"
           opacity="0.8"
         />
-        <circle cx="120" cy="120" r="110"
+        <circle
+          cx="120"
+          cy="120"
+          r="110"
           fill="none"
           stroke="url(#copper-ring-grad-2)"
           strokeWidth="1"
@@ -60,23 +66,26 @@ export function CopperPowerRing() {
       </svg>
 
       {/* Halo glow externe pulsant */}
-      <div className="orbe-outer-glow" style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        pointerEvents: "none",
-      }} />
+      <div
+        className="orbe-outer-glow"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Particules flottantes — positionnées en % relatives au conteneur */}
       {[
-        { x: -25,  y: -75,  delay: "0s" },
-        { x:  66,  y: -50,  delay: "0.8s" },
-        { x:  79,  y:  25,  delay: "1.6s" },
-        { x:  21,  y:  79,  delay: "2.4s" },
-        { x: -71,  y:  41,  delay: "3.2s" },
-        { x: -79,  y: -16,  delay: "4s" },
+        { x: -25, y: -75, delay: "0s" },
+        { x: 66, y: -50, delay: "0.8s" },
+        { x: 79, y: 25, delay: "1.6s" },
+        { x: 21, y: 79, delay: "2.4s" },
+        { x: -71, y: 41, delay: "3.2s" },
+        { x: -79, y: -16, delay: "4s" },
       ].map((p, i) => (
         <div
           key={i}

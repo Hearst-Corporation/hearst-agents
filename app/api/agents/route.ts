@@ -1,8 +1,8 @@
-import { NextRequest } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { createAgentSchema, ok, err, parseBody, dbErr, slugify } from "@/lib/domain";
+import type { NextRequest } from "next/server";
 import type { Database } from "@/lib/database.types";
+import { createAgentSchema, dbErr, err, ok, parseBody, slugify } from "@/lib/domain";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 type AgentInsert = Database["public"]["Tables"]["agents"]["Insert"];
 
@@ -17,7 +17,9 @@ export async function GET() {
     // Filtre par tenant_id — évite la fuite cross-tenant (F-002)
     const { data, error } = await sb
       .from("agents")
-      .select("id, name, slug, description, model_provider, model_name, status, version, created_at, updated_at")
+      .select(
+        "id, name, slug, description, model_provider, model_name, status, version, created_at, updated_at",
+      )
       .eq("tenant_id", scope.tenantId)
       .order("created_at", { ascending: false })
       .limit(50);
@@ -62,11 +64,7 @@ export async function POST(req: NextRequest) {
       owner_user_id: scope.userId,
     };
 
-    const { data, error } = await sb
-      .from("agents")
-      .insert(row)
-      .select()
-      .single();
+    const { data, error } = await sb.from("agents").insert(row).select().single();
 
     if (error) return dbErr("POST /api/agents", error);
     return ok({ agent: data }, 201);

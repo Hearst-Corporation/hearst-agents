@@ -9,38 +9,45 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { CreateRunInput } from "@/lib/engine/runtime/engine/types";
-import { RunEngine } from "@/lib/engine/runtime/engine";
-import { RunEventBus } from "@/lib/events/bus";
-import { SSEAdapter } from "@/lib/events/consumers/sse-adapter";
-import { LogPersister } from "@/lib/events/consumers/log-persister";
-import { globalRunBus } from "@/lib/events/global-bus";
-import { runAiPipeline } from "./ai-pipeline";
-import { runPlannerWorkflow, isComplexIntent, isPlannerEnabled } from "./run-planner-workflow";
-import { registerRun, unregisterRun } from "./abort-registry";
-import { resolveExecutionMode, resolveCapabilityScope, scopeRequiresProviders, type ExecutionDecision } from "@/lib/capabilities/router";
-
+import { isFeatureEnabled } from "@/lib/admin/settings";
 import { selectAgentForContext } from "@/lib/agents/agent-selector";
-import type { RunRecord } from "@/lib/engine/runtime/runs/types";
+import {
+  type ExecutionDecision,
+  resolveCapabilityScope,
+  resolveExecutionMode,
+  scopeRequiresProviders,
+} from "@/lib/capabilities/router";
+import { preflightConnector } from "@/lib/connectors/control-plane/preflight";
+import { RunEngine } from "@/lib/engine/runtime/engine";
+import type { CreateRunInput } from "@/lib/engine/runtime/engine/types";
 import { addRun as storeRun } from "@/lib/engine/runtime/runs/store";
+import type { RunRecord } from "@/lib/engine/runtime/runs/types";
 import {
   saveRun as persistRun,
   updateRun as persistUpdateRun,
 } from "@/lib/engine/runtime/state/adapter";
-import type { TenantScope } from "@/lib/multi-tenant/types";
-import { assertTenantScope } from "@/lib/multi-tenant/guards";
-import { SYSTEM_CONFIG } from "@/lib/system/config";
-import { preflightConnector } from "@/lib/connectors/control-plane/preflight";
-import { appendMessage, getRecentMessages } from "@/lib/memory/store";
-import { memoryToConversationHistory } from "@/lib/memory/format";
+import { persistRunEvent, shouldPersistEvent } from "@/lib/engine/runtime/timeline/persist";
+import { RunEventBus } from "@/lib/events/bus";
+import { LogPersister } from "@/lib/events/consumers/log-persister";
+import { SSEAdapter } from "@/lib/events/consumers/sse-adapter";
+import { globalRunBus } from "@/lib/events/global-bus";
 import { appendToSummary } from "@/lib/memory/conversation-summary";
-import { isResearchIntent, isReportIntent, shouldBypassResearchPath } from "./research-intent";
-import { isScheduleIntent } from "./schedule-intent";
-import { checkSafetyGate } from "./safety-gate";
+import { memoryToConversationHistory } from "@/lib/memory/format";
+import { appendMessage, getRecentMessages } from "@/lib/memory/store";
+import { assertTenantScope } from "@/lib/multi-tenant/guards";
+import type { TenantScope } from "@/lib/multi-tenant/types";
+import { SYSTEM_CONFIG } from "@/lib/system/config";
+import { registerRun, unregisterRun } from "./abort-registry";
+import { runAiPipeline } from "./ai-pipeline";
+import {
+  getBlockedReasonForProviders,
+  getRequiredProvidersForInput,
+} from "./provider-requirements";
+import { isReportIntent, isResearchIntent, shouldBypassResearchPath } from "./research-intent";
+import { isComplexIntent, isPlannerEnabled, runPlannerWorkflow } from "./run-planner-workflow";
 import { runResearchReport } from "./run-research-report";
-import { getRequiredProvidersForInput, getBlockedReasonForProviders } from "./provider-requirements";
-import { shouldPersistEvent, persistRunEvent } from "@/lib/engine/runtime/timeline/persist";
-import { isFeatureEnabled } from "@/lib/admin/settings";
+import { checkSafetyGate } from "./safety-gate";
+import { isScheduleIntent } from "./schedule-intent";
 
 interface FocalContext {
   id: string;
@@ -110,10 +117,7 @@ function buildTenantScope(input: OrchestrateInput): TenantScope {
 /**
  * Full orchestration pipeline returning an SSE ReadableStream.
  */
-export function orchestrate(
-  db: SupabaseClient,
-  input: OrchestrateInput,
-): ReadableStream {
+export function orchestrate(db: SupabaseClient, input: OrchestrateInput): ReadableStream {
   const eventBus = new RunEventBus();
   eventBus.on((e) => globalRunBus.broadcast(e));
   const sse = new SSEAdapter(eventBus);
@@ -187,7 +191,6 @@ async function handleAiPipeline(
   });
 }
 
-
 // ── Main pipeline ────────────────────────────────────────────
 //
 // Mission scheduling is handled by the `create_scheduled_mission` tool in the
@@ -212,11 +215,15 @@ async function runPipeline(
     // Await la WAL durable côté store : garantit que le message user est
     // récupérable depuis Redis même si le process meurt avant le persist
     // Supabase. Coût ~5ms — négligeable face au LLM call qui suit.
-    await appendMessage(input.conversationId, {
-      role: "user",
-      content: input.message,
-      createdAt: Date.now(),
-    }, scope);
+    await appendMessage(
+      input.conversationId,
+      {
+        role: "user",
+        content: input.message,
+        createdAt: Date.now(),
+      },
+      scope,
+    );
     void appendToSummary({ userId: input.userId, role: "user", content: input.message });
 
     if (!input.conversationHistory || input.conversationHistory.length === 0) {
@@ -239,7 +246,11 @@ async function runPipeline(
 
   // ── 1. Capability-first routing ─────────────────────────────
   const capScope = resolveCapabilityScope(input.message, input.surface);
-  const decision: ExecutionDecision = resolveExecutionMode(capScope, input.message, input.focalContext);
+  const decision: ExecutionDecision = resolveExecutionMode(
+    capScope,
+    input.message,
+    input.focalContext,
+  );
 
   const researchDetected = isResearchIntent(input.message);
   const reportDetected = isReportIntent(input.message);
@@ -368,12 +379,14 @@ async function runPipeline(
         id: event.asset_id,
         name: event.name,
         type: event.asset_type,
-        ...(ev.filePath ? {
-          _filePath: ev.filePath as string,
-          _fileName: ev.fileName as string,
-          _mimeType: ev.mimeType as string,
-          _sizeBytes: ev.sizeBytes as number,
-        } : {}),
+        ...(ev.filePath
+          ? {
+              _filePath: ev.filePath as string,
+              _fileName: ev.fileName as string,
+              _mimeType: ev.mimeType as string,
+              _sizeBytes: ev.sizeBytes as number,
+            }
+          : {}),
       });
     }
     if (event.type === "run_completed") {
@@ -477,11 +490,15 @@ async function runPipeline(
     if (input.conversationId && assistantOutput.length > 0) {
       // Await la WAL durable (~5ms Redis) avant de rendre la main : le
       // message assistant doit survivre au teardown du process serverless.
-      await appendMessage(input.conversationId, {
-        role: "assistant",
-        content: assistantOutput,
-        createdAt: Date.now(),
-      }, scope);
+      await appendMessage(
+        input.conversationId,
+        {
+          role: "assistant",
+          content: assistantOutput,
+          createdAt: Date.now(),
+        },
+        scope,
+      );
       void appendToSummary({ userId: input.userId, role: "assistant", content: assistantOutput });
     }
   };
@@ -525,8 +542,7 @@ async function runPipeline(
             // event the AI pipeline already uses, so the UI shows
             // `ChatConnectInline` instead of a hard run failure.
             const userMessage =
-              providerReq?.userMessage ??
-              getBlockedReasonForProviders(providersToCheck);
+              providerReq?.userMessage ?? getBlockedReasonForProviders(providersToCheck);
 
             for (const app of providersToCheck) {
               eventBus.emit({
@@ -577,7 +593,8 @@ async function runPipeline(
         eventBus.emit({
           type: "orchestrator_log",
           run_id: engine.id,
-          message: "Reasoning intent detected but DEEPSEEK_API_KEY absent — falling back to AI pipeline (Sonnet)",
+          message:
+            "Reasoning intent detected but DEEPSEEK_API_KEY absent — falling back to AI pipeline (Sonnet)",
         });
       } else {
         try {
@@ -639,14 +656,21 @@ async function runPipeline(
         run_id: engine.id,
         message: `${pathLabel} intent detected — using deterministic research path`,
       });
-      await runResearchReport({ message: input.message, engine, eventBus, scope, threadId: input.threadId });
+      await runResearchReport({
+        message: input.message,
+        engine,
+        eventBus,
+        scope,
+        threadId: input.threadId,
+      });
       return;
     }
     if (researchDetected && bypassResearch) {
       eventBus.emit({
         type: "orchestrator_log",
         run_id: engine.id,
-        message: "Research keywords detected but request matches catalogue template or native tool — routing to AI pipeline",
+        message:
+          "Research keywords detected but request matches catalogue template or native tool — routing to AI pipeline",
       });
     }
 

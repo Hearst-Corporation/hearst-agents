@@ -11,32 +11,31 @@
  */
 
 import type { JSX } from "react";
-import type { RenderedBlock } from "@/lib/reports/engine/render-blocks";
-
+import { Bar } from "@/lib/reports/blocks/Bar";
+import { Bullet, type BulletItem } from "@/lib/reports/blocks/Bullet";
+import type { CohortRow } from "@/lib/reports/blocks/CohortTriangle";
+import { Funnel } from "@/lib/reports/blocks/Funnel";
+import type { GanttRange, GanttTask } from "@/lib/reports/blocks/Gantt";
+import { inferNumericField } from "@/lib/reports/blocks/infer";
 // Blocs légers — import statique, rendu immédiat
 import { KpiTile } from "@/lib/reports/blocks/KpiTile";
-import { Sparkline } from "@/lib/reports/blocks/Sparkline";
-import { Bar } from "@/lib/reports/blocks/Bar";
-import { Table } from "@/lib/reports/blocks/Table";
-import { Funnel } from "@/lib/reports/blocks/Funnel";
-import { Bullet, type BulletItem } from "@/lib/reports/blocks/Bullet";
 
 // Blocs lourds — dynamic imports (lazy) + skeleton + types
 import {
   BlockSkeleton,
-  LazyWaterfall,
   LazyCohortTriangle,
-  LazyHeatmap,
-  LazySankey,
-  LazyRadar,
   LazyGantt,
+  LazyHeatmap,
+  LazyRadar,
+  LazySankey,
+  LazyWaterfall,
 } from "@/lib/reports/blocks/lazy";
-import type { WaterfallDatum } from "@/lib/reports/blocks/Waterfall";
-import type { CohortRow } from "@/lib/reports/blocks/CohortTriangle";
-import type { SankeyNode, SankeyLink } from "@/lib/reports/blocks/Sankey";
 import type { RadarSeries } from "@/lib/reports/blocks/Radar";
-import type { GanttRange, GanttTask } from "@/lib/reports/blocks/Gantt";
-import { inferNumericField } from "@/lib/reports/blocks/infer";
+import type { SankeyLink, SankeyNode } from "@/lib/reports/blocks/Sankey";
+import { Sparkline } from "@/lib/reports/blocks/Sparkline";
+import { Table } from "@/lib/reports/blocks/Table";
+import type { WaterfallDatum } from "@/lib/reports/blocks/Waterfall";
+import type { RenderedBlock } from "@/lib/reports/engine/render-blocks";
 
 const SPARKLINE_DEFAULT_HEIGHT = 64;
 const BAR_DEFAULT_LIMIT = 10;
@@ -58,7 +57,13 @@ export function BlockRenderer({ block }: { block: RenderedBlock }): JSX.Element 
     case "kpi":
       return (
         <KpiTile
-          data={block.data as { value: unknown; delta?: unknown; sparkline?: ReadonlyArray<number> | null }}
+          data={
+            block.data as {
+              value: unknown;
+              delta?: unknown;
+              sparkline?: ReadonlyArray<number> | null;
+            }
+          }
           label={block.label ?? block.id}
           format={(props.format as "number" | "currency" | "percent") ?? "number"}
           currency={(props.currency as string) ?? "EUR"}
@@ -104,7 +109,9 @@ export function BlockRenderer({ block }: { block: RenderedBlock }): JSX.Element 
           data={block.data as ReadonlyArray<Record<string, unknown>>}
           columns={props.columns as ReadonlyArray<string> | undefined}
           labels={props.labels as Record<string, string> | undefined}
-          formats={props.formats as Record<string, "number" | "currency" | "date" | "text"> | undefined}
+          formats={
+            props.formats as Record<string, "number" | "currency" | "date" | "text"> | undefined
+          }
           currency={(props.currency as string) ?? "EUR"}
           limit={(props.limit as number) ?? TABLE_DEFAULT_LIMIT}
         />
@@ -200,9 +207,7 @@ export function BlockRenderer({ block }: { block: RenderedBlock }): JSX.Element 
             minHeight: "var(--space-12)",
           }}
         >
-          <span className="t-11 font-light text-text-faint">
-            {block.type}_pending
-          </span>
+          <span className="t-11 font-light text-text-faint">{block.type}_pending</span>
         </div>
       );
   }

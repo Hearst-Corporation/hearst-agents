@@ -13,14 +13,14 @@
  * - query_langfuse_traces : recherche traces LLM passées
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
+import { jsonSchema } from "ai";
 import { Resend } from "resend";
 import { inngest, isInngestEnabled } from "@/lib/jobs/inngest/client";
 import {
+  hashToolArgs,
   issueConfirmationToken,
   verifyConfirmationToken,
-  hashToolArgs,
 } from "@/lib/tools/hitl/confirmation-token";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -344,9 +344,7 @@ const scheduleInngestJobTool: Tool<ScheduleInngestJobArgs, unknown> = {
   execute: async (args) => {
     // F-102 : whitelist — rejeter tout event hors liste autorisée.
     if (!INNGEST_EVENT_WHITELIST.has(args.eventName)) {
-      console.warn(
-        `[schedule_inngest] Blocked unauthorized event: ${args.eventName}`,
-      );
+      console.warn(`[schedule_inngest] Blocked unauthorized event: ${args.eventName}`);
       return `Erreur : l'event '${args.eventName}' n'est pas autorisé. Events disponibles : ${[...INNGEST_EVENT_WHITELIST].join(", ")}.`;
     }
 
@@ -429,10 +427,7 @@ const queryLangfuseTracesTool: Tool<QueryLangfuseTracesArgs, unknown> = {
 
 // ── Public API ────────────────────────────────────────────────────
 
-export function buildExtrasServicesTools(scope?: {
-  userId: string;
-  tenantId: string;
-}): AiToolMap {
+export function buildExtrasServicesTools(scope?: { userId: string; tenantId: string }): AiToolMap {
   return {
     send_email: buildSendEmailTool(scope),
     query_sentry_issues: querySentryIssuesTool,

@@ -2,9 +2,9 @@
  * Tests export CSV — vérifie l'échappement RFC 4180 + les sections par bloc.
  */
 
-import { describe, it, expect } from "vitest";
-import { exportCsv, _renderPayloadCsv } from "@/lib/reports/export/csv";
+import { describe, expect, it } from "vitest";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { _renderPayloadCsv, exportCsv } from "@/lib/reports/export/csv";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
 
 const meta: ReportMeta = {

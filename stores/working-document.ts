@@ -35,7 +35,10 @@ export interface WorkingDocumentState {
 
 function generateId(): string {
   // crypto.randomUUID est dispo dans tous les navigateurs modernes + Node 19+.
-  if (typeof globalThis.crypto !== "undefined" && typeof globalThis.crypto.randomUUID === "function") {
+  if (
+    typeof globalThis.crypto !== "undefined" &&
+    typeof globalThis.crypto.randomUUID === "function"
+  ) {
     return globalThis.crypto.randomUUID();
   }
   return `wd-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;

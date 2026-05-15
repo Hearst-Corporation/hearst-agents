@@ -2,7 +2,7 @@
  * Slack preview formatters.
  */
 
-import { footer, header, line, preview, asArray } from "./shared";
+import { asArray, footer, header, line, preview } from "./shared";
 
 export function formatSlackSendMessage(args: Record<string, unknown>): string {
   let channel = String(args.channel ?? args.channel_id ?? "—");

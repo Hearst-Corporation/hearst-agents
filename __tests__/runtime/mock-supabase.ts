@@ -6,7 +6,7 @@
  * from().update().eq(), from().select().eq().order().
  */
 
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
 
 type Row = Record<string, unknown>;
 
@@ -84,7 +84,10 @@ class MockChain {
 class MockUpdateChain {
   private filters: Array<{ col: string; val: unknown }> = [];
 
-  constructor(private values: Row, private rows: Row[]) {}
+  constructor(
+    private values: Row,
+    private rows: Row[],
+  ) {}
 
   eq(col: string, val: unknown) {
     this.filters.push({ col, val });

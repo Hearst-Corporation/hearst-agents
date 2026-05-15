@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { type MissionLike, missionToFocal } from "@/lib/ui/focal-mappers";
 import { useFocalStore } from "@/stores/focal";
 import { useNavigationStore } from "@/stores/navigation";
-import { missionToFocal, type MissionLike } from "@/lib/ui/focal-mappers";
 
 export default function MissionDeepLinkPage() {
   const params = useParams();
@@ -25,7 +25,9 @@ export default function MissionDeepLinkPage() {
         if (!res.ok) throw new Error("Failed to load missions");
         const data = await res.json();
         if (cancelled) return;
-        const mission = (data.missions as MissionLike[] | undefined)?.find((m) => m.id === missionId);
+        const mission = (data.missions as MissionLike[] | undefined)?.find(
+          (m) => m.id === missionId,
+        );
         if (!mission) {
           setError("Mission introuvable");
           return;
@@ -59,9 +61,7 @@ export default function MissionDeepLinkPage() {
             </button>
           </>
         ) : (
-          <p className="t-13 font-light text-text-faint animate-pulse">
-            Chargement de la mission…
-          </p>
+          <p className="t-13 font-light text-text-faint animate-pulse">Chargement de la mission…</p>
         )}
       </div>
     </div>

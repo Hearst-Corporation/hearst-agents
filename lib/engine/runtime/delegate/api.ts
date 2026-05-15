@@ -7,20 +7,17 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import type { RunEngine } from "../engine";
-import type { DelegateInput, DelegateResult } from "./types";
-import type { StepActor } from "../engine/types";
-import { getTokens } from "@/lib/platform/auth/tokens";
-import { searchDriveFiles, readDriveFileContent } from "@/lib/connectors/google/drive";
-import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
-import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
 import { capabilityGuard } from "@/lib/capabilities/guard";
 import type { Domain } from "@/lib/capabilities/taxonomy";
+import { getUpcomingEvents } from "@/lib/connectors/google/calendar";
+import { readDriveFileContent, searchDriveFiles } from "@/lib/connectors/google/drive";
+import { searchEmails as searchGmail } from "@/lib/connectors/google/gmail";
+import { getTokens } from "@/lib/platform/auth/tokens";
+import type { RunEngine } from "../engine";
+import type { StepActor } from "../engine/types";
+import type { DelegateInput, DelegateResult } from "./types";
 
-export async function delegate(
-  engine: RunEngine,
-  input: DelegateInput,
-): Promise<DelegateResult> {
+export async function delegate(engine: RunEngine, input: DelegateInput): Promise<DelegateResult> {
   const step = await engine.steps.create({
     run_id: engine.id,
     parent_step_id: input.parent_step_id ?? null,
@@ -238,9 +235,10 @@ async function fetchCalendarData(
     const summaries = events.map((event, i) => {
       const time = event.isAllDay ? "Toute la journée" : `${event.startTime} → ${event.endTime}`;
       const location = event.location ? `\n  Lieu: ${event.location}` : "";
-      const attendees = event.attendees && event.attendees.length > 0
-        ? `\n  Participants: ${event.attendees.join(", ")}`
-        : "";
+      const attendees =
+        event.attendees && event.attendees.length > 0
+          ? `\n  Participants: ${event.attendees.join(", ")}`
+          : "";
       return `Événement ${i + 1}:\n  Titre: ${event.title}\n  Horaire: ${time}${location}${attendees}`;
     });
 
@@ -252,7 +250,8 @@ async function fetchCalendarData(
     const msg = err instanceof Error ? err.message : String(err);
     if (msg === "not_authenticated" || msg === "token_revoked") {
       return {
-        providerData: "[Google Calendar] Accès non autorisé — veuillez reconnecter votre compte Google.",
+        providerData:
+          "[Google Calendar] Accès non autorisé — veuillez reconnecter votre compte Google.",
         providerUsed: "google_calendar",
       };
     }
@@ -263,21 +262,59 @@ async function fetchCalendarData(
 
 function extractSearchKeywords(task: string): string {
   const stopWords = new Set([
-    "résume", "resume", "résumer", "summarize", "summary",
-    "mon", "ma", "mes", "le", "la", "les", "un", "une", "des",
-    "sur", "dans", "de", "du", "au", "en", "et", "ou", "à",
-    "google", "drive", "gmail", "email", "emails", "document",
-    "fichier", "file", "files", "derniers", "dernières", "récents",
-    "donne", "moi", "donner", "cherche", "trouve", "lis", "lire",
+    "résume",
+    "resume",
+    "résumer",
+    "summarize",
+    "summary",
+    "mon",
+    "ma",
+    "mes",
+    "le",
+    "la",
+    "les",
+    "un",
+    "une",
+    "des",
+    "sur",
+    "dans",
+    "de",
+    "du",
+    "au",
+    "en",
+    "et",
+    "ou",
+    "à",
+    "google",
+    "drive",
+    "gmail",
+    "email",
+    "emails",
+    "document",
+    "fichier",
+    "file",
+    "files",
+    "derniers",
+    "dernières",
+    "récents",
+    "donne",
+    "moi",
+    "donner",
+    "cherche",
+    "trouve",
+    "lis",
+    "lire",
   ]);
 
-  return task
-    .toLowerCase()
-    .replace(/[^a-zàâäéèêëïîôùûüÿç0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter((w) => w.length > 2 && !stopWords.has(w))
-    .join(" ")
-    .trim() || task.slice(0, 40);
+  return (
+    task
+      .toLowerCase()
+      .replace(/[^a-zàâäéèêëïîôùûüÿç0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 2 && !stopWords.has(w))
+      .join(" ")
+      .trim() || task.slice(0, 40)
+  );
 }
 
 // ── Core execution ───────────────────────────────────────────────
@@ -339,7 +376,9 @@ async function executeAgentSync(
   }
 
   const useWebSearch = !providerPayload && AGENTS_WITH_WEB_SEARCH.has(input.agent);
-  console.log(`[Delegate] agent=${input.agent} retrieval_mode=${input.retrieval_mode ?? "none"} provider=${providerPayload?.providerUsed ?? "none"} web_search=${useWebSearch}`);
+  console.log(
+    `[Delegate] agent=${input.agent} retrieval_mode=${input.retrieval_mode ?? "none"} provider=${providerPayload?.providerUsed ?? "none"} web_search=${useWebSearch}`,
+  );
 
   let text: string;
   let usageTokens = { input_tokens: 0, output_tokens: 0 };
@@ -358,7 +397,10 @@ async function executeAgentSync(
       .map((b) => (b as Anthropic.Beta.BetaTextBlock).text)
       .join("\n");
 
-    usageTokens = { input_tokens: response.usage.input_tokens, output_tokens: response.usage.output_tokens };
+    usageTokens = {
+      input_tokens: response.usage.input_tokens,
+      output_tokens: response.usage.output_tokens,
+    };
   } else {
     const response = await client.messages.create({
       model: "claude-sonnet-4-6",
@@ -372,7 +414,10 @@ async function executeAgentSync(
       .map((b) => b.text)
       .join("\n");
 
-    usageTokens = { input_tokens: response.usage.input_tokens, output_tokens: response.usage.output_tokens };
+    usageTokens = {
+      input_tokens: response.usage.input_tokens,
+      output_tokens: response.usage.output_tokens,
+    };
   }
 
   await engine.cost.track({
@@ -408,10 +453,15 @@ async function executeAgentSync(
   };
 }
 
-function buildAgentPrompt(agent: string, expectedOutput: string, connectedProviders: string[] = []): string {
-  const providerStatus = connectedProviders.length > 0
-    ? `\n🔐 CONNECTEURS ACTIFS : ${connectedProviders.join(", ")}`
-    : "\n🔐 Aucun connecteur actif";
+function buildAgentPrompt(
+  agent: string,
+  expectedOutput: string,
+  connectedProviders: string[] = [],
+): string {
+  const providerStatus =
+    connectedProviders.length > 0
+      ? `\n🔐 CONNECTEURS ACTIFS : ${connectedProviders.join(", ")}`
+      : "\n🔐 Aucun connecteur actif";
 
   const gmailAccess = connectedProviders.includes("gmail")
     ? "\n✅ L'utilisateur EST CONNECTÉ à Gmail. Tu PEUX accéder à ses emails. Ne dis JAMAIS que tu n'as pas accès."
@@ -426,8 +476,7 @@ function buildAgentPrompt(agent: string, expectedOutput: string, connectedProvid
     : "";
 
   const base: Record<string, string> = {
-    KnowledgeRetriever:
-      `Tu es un agent de recherche d'information de HEARST OS.${providerStatus}${gmailAccess}${driveAccess}${slackAccess}\n\nQuand des données réelles de provider sont fournies, tu dois les utiliser comme source primaire. Analyse, synthétise et structure l'information de façon factuelle. Ne fabrique jamais d'information non présente dans les données.`,
+    KnowledgeRetriever: `Tu es un agent de recherche d'information de HEARST OS.${providerStatus}${gmailAccess}${driveAccess}${slackAccess}\n\nQuand des données réelles de provider sont fournies, tu dois les utiliser comme source primaire. Analyse, synthétise et structure l'information de façon factuelle. Ne fabrique jamais d'information non présente dans les données.`,
     Analyst:
       "Tu es un analyste. Structure les données, identifie les patterns, produis des insights clairs et actionnables.",
     DocBuilder:
@@ -440,7 +489,8 @@ function buildAgentPrompt(agent: string, expectedOutput: string, connectedProvid
       "Tu es un planificateur. Produis un plan structuré avec des étapes claires, des dépendances et des priorités.",
   };
 
-  const agentPrompt = base[agent] ?? `Tu es l'agent ${agent}. Réponds de façon structurée et complète.`;
+  const agentPrompt =
+    base[agent] ?? `Tu es l'agent ${agent}. Réponds de façon structurée et complète.`;
 
   return `${agentPrompt}\n\nFormat de sortie attendu : ${expectedOutput}.\nRéponds en français sauf si la demande est en anglais.`;
 }

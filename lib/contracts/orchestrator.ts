@@ -7,7 +7,7 @@
  */
 
 import { z } from "zod";
-import { ALL_AGENTS, type AgentId } from "@/lib/hom/types";
+import { type AgentId, ALL_AGENTS } from "@/lib/hom/types";
 
 const agentIdSchema = z.enum(ALL_AGENTS as [AgentId, ...AgentId[]]);
 

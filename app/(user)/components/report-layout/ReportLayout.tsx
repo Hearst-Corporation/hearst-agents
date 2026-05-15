@@ -22,18 +22,18 @@
  * le sharing HMAC vivent côté backend et ne sont pas touchés ici.
  */
 
-import { useState, type JSX } from "react";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
+import { type JSX, useState } from "react";
 import { ReportEditor } from "@/app/(user)/components/reports/ReportEditor";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 import { RealtimeToast } from "./RealtimeToast";
-import { ReportHeader } from "./ReportHeader";
 import { ReportGrid } from "./ReportGrid";
+import { ReportHeader } from "./ReportHeader";
 import { ReportMetaFooter } from "./ReportMetaFooter";
-import { VersionHistoryPanel } from "./VersionHistoryPanel";
 import { useRealtimePayload } from "./use-realtime-payload";
 import { useVisibleBlocks } from "./use-visible-blocks";
+import { VersionHistoryPanel } from "./VersionHistoryPanel";
 
 export interface ReportLayoutProps {
   payload: RenderPayload;
@@ -78,15 +78,10 @@ export function ReportLayout({
   const visibleBlocks = useVisibleBlocks(effectivePayload, spec);
 
   const showHistoryPanel = historyOpen && Boolean(assetId) && !readonly;
-  const showEditorPanel =
-    editable && editorOpen && Boolean(spec) && Boolean(onSpecChange);
+  const showEditorPanel = editable && editorOpen && Boolean(spec) && Boolean(onSpecChange);
 
   return (
-    <div
-      className="flex w-full"
-      style={{ gap: "var(--space-4)" }}
-      data-testid="report-layout"
-    >
+    <div className="flex w-full" style={{ gap: "var(--space-4)" }} data-testid="report-layout">
       <div className="flex flex-col flex-1 min-w-0">
         {showToast && <RealtimeToast />}
 
@@ -113,23 +108,13 @@ export function ReportLayout({
       </div>
 
       {showEditorPanel && spec && onSpecChange && (
-        <div
-          className="flex flex-col shrink-0"
-          style={{ width: "var(--width-context)" }}
-        >
-          <ReportEditor
-            spec={spec}
-            onChange={onSpecChange}
-            onClose={() => setEditorOpen(false)}
-          />
+        <div className="flex flex-col shrink-0" style={{ width: "var(--width-context)" }}>
+          <ReportEditor spec={spec} onChange={onSpecChange} onClose={() => setEditorOpen(false)} />
         </div>
       )}
 
       {showHistoryPanel && assetId && (
-        <div
-          className="flex flex-col shrink-0"
-          style={{ width: "var(--width-context)" }}
-        >
+        <div className="flex flex-col shrink-0" style={{ width: "var(--width-context)" }}>
           <VersionHistoryPanel
             assetId={assetId}
             currentPayload={payload}

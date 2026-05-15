@@ -5,7 +5,7 @@
  * (cf `lib/reports/comments/store.ts` — RLS aligné).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { deleteComment } from "@/lib/reports/comments/store";
@@ -40,8 +40,7 @@ export async function DELETE(_req: NextRequest, ctx: RouteContext) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
   const provenance = (asset.provenance ?? {}) as Record<string, unknown>;
-  const tenantId =
-    (provenance.tenantId as string | undefined) ?? scope.tenantId;
+  const tenantId = (provenance.tenantId as string | undefined) ?? scope.tenantId;
 
   const outcome = await deleteComment({
     commentId,
@@ -50,10 +49,13 @@ export async function DELETE(_req: NextRequest, ctx: RouteContext) {
   });
   if (!outcome.ok) {
     const status =
-      outcome.reason === "not_found" ? 404
-      : outcome.reason === "forbidden" ? 403
-      : outcome.reason === "supabase_unavailable" ? 503
-      : 500;
+      outcome.reason === "not_found"
+        ? 404
+        : outcome.reason === "forbidden"
+          ? 403
+          : outcome.reason === "supabase_unavailable"
+            ? 503
+            : 500;
     return NextResponse.json({ error: outcome.reason }, { status });
   }
   return NextResponse.json({ ok: true });

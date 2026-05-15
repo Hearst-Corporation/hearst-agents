@@ -1,7 +1,7 @@
-import type { LLMProvider, ChatRequest, ChatResponse, StreamChunk } from "./types";
-import { sanitizeProviderError } from "./errors";
-import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { redactString } from "@/lib/observability/langfuse-redact";
+import { sanitizeProviderError } from "./errors";
+import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
+import type { ChatRequest, ChatResponse, LLMProvider, StreamChunk } from "./types";
 
 /**
  * Google Gemini (Gemini API) — REST `generateContent` / `streamGenerateContent`.
@@ -27,10 +27,7 @@ function buildGeminiPayload(req: ChatRequest): Record<string, unknown> {
   for (const m of req.messages) {
     if (m.role === "system") continue;
     const role = m.role === "assistant" ? "model" : "user";
-    const text =
-      m.role === "tool"
-        ? `[tool]\n${m.content}`
-        : m.content;
+    const text = m.role === "tool" ? `[tool]\n${m.content}` : m.content;
     contents.push({ role, parts: [{ text }] });
   }
 
@@ -85,7 +82,10 @@ export class GeminiProvider implements LLMProvider {
 
     const raw = await res.text();
     if (!res.ok) {
-      console.error("gemini.chat http_error", { status: res.status, bodyPreview: redactString(raw.slice(0, 500)) });
+      console.error("gemini.chat http_error", {
+        status: res.status,
+        bodyPreview: redactString(raw.slice(0, 500)),
+      });
       throw new Error(sanitizeProviderError(res.status, raw));
     }
 
@@ -99,14 +99,13 @@ export class GeminiProvider implements LLMProvider {
     try {
       json = JSON.parse(raw) as typeof json;
     } catch (e) {
-      console.error("gemini.chat json_parse", { message: e instanceof Error ? e.message : String(e) });
+      console.error("gemini.chat json_parse", {
+        message: e instanceof Error ? e.message : String(e),
+      });
       throw new Error("Gemini API returned non-JSON body");
     }
 
-    const text =
-      json.candidates?.[0]?.content?.parts
-        ?.map((p) => p.text ?? "")
-        .join("") ?? "";
+    const text = json.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
 
     const tokensIn = json.usageMetadata?.promptTokenCount ?? 0;
     const tokensOut = json.usageMetadata?.candidatesTokenCount ?? 0;
@@ -143,7 +142,10 @@ export class GeminiProvider implements LLMProvider {
 
     if (!res.ok || !res.body) {
       const t = await res.text().catch(() => "");
-      console.error("gemini.streamChat http_error", { status: res.status, bodyPreview: redactString(t.slice(0, 500)) });
+      console.error("gemini.streamChat http_error", {
+        status: res.status,
+        bodyPreview: redactString(t.slice(0, 500)),
+      });
       throw new Error(sanitizeProviderError(res.status, t));
     }
 
@@ -172,9 +174,7 @@ export class GeminiProvider implements LLMProvider {
               candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
             };
             const piece =
-              obj.candidates?.[0]?.content?.parts
-                ?.map((p) => p.text ?? "")
-                .join("") ?? "";
+              obj.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
             if (piece) yield { delta: piece, done: false };
           } catch {
             /* ignore framing / partial JSON */

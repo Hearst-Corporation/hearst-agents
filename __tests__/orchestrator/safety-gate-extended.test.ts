@@ -5,7 +5,7 @@
  * violent, harassment, illegal, exfil (prompt injection), caps mass-action.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { checkSafetyGate } from "@/lib/engine/orchestrator/safety-gate";
 
 // ── 1. VIOLENT_PATTERNS ──────────────────────────────────────────────────────

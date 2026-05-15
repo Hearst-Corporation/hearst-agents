@@ -5,10 +5,10 @@
  * Can be called after any trace to enrich output_trust.
  */
 
-import type { OutputTrust, AgentGuardPolicy, PolicyCheckResult } from "./prompt-guard";
+import type { AgentGuardPolicy, OutputTrust, PolicyCheckResult } from "./prompt-guard";
 import {
-  checkOutputBasicGuards,
   applyAgentGuardPolicy,
+  checkOutputBasicGuards,
   determineOutputTrust,
 } from "./prompt-guard";
 
@@ -61,9 +61,7 @@ export function validateOutput(
 
   if (context.policy) {
     const policyResult = applyAgentGuardPolicy(output, context.policy);
-    const failedGuards = policyResult.checks
-      .filter((c) => !c.passed)
-      .map((c) => c.guard);
+    const failedGuards = policyResult.checks.filter((c) => !c.passed).map((c) => c.guard);
 
     const checksTotal = policyResult.checks.length;
     const checksPassed = policyResult.checks.filter((c) => c.passed).length;

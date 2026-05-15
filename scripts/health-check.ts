@@ -24,17 +24,27 @@ interface CheckResult {
   note: string;
 }
 
-async function timed<T>(fn: () => Promise<T>): Promise<{ result: T | null; ms: number; err: string | null }> {
+async function timed<T>(
+  fn: () => Promise<T>,
+): Promise<{ result: T | null; ms: number; err: string | null }> {
   const start = Date.now();
   try {
     const result = await fn();
     return { result, ms: Date.now() - start, err: null };
   } catch (e) {
-    return { result: null, ms: Date.now() - start, err: e instanceof Error ? e.message : String(e) };
+    return {
+      result: null,
+      ms: Date.now() - start,
+      err: e instanceof Error ? e.message : String(e),
+    };
   }
 }
 
-async function head(url: string, headers: Record<string, string> = {}, timeoutMs = 5000): Promise<number> {
+async function head(
+  url: string,
+  headers: Record<string, string> = {},
+  timeoutMs = 5000,
+): Promise<number> {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
@@ -74,7 +84,9 @@ async function checkAnthropic(): Promise<CheckResult> {
     }),
   );
   if (err) return fail("Anthropic", cat, ms, err);
-  return result === 200 ? ok("Anthropic", cat, ms, "models endpoint") : fail("Anthropic", cat, ms, `HTTP ${result}`);
+  return result === 200
+    ? ok("Anthropic", cat, ms, "models endpoint")
+    : fail("Anthropic", cat, ms, `HTTP ${result}`);
 }
 
 async function checkOpenAI(): Promise<CheckResult> {
@@ -85,7 +97,9 @@ async function checkOpenAI(): Promise<CheckResult> {
     head("https://api.openai.com/v1/models", { Authorization: `Bearer ${key}` }),
   );
   if (err) return fail("OpenAI", cat, ms, err);
-  return result === 200 ? ok("OpenAI", cat, ms, "models endpoint") : fail("OpenAI", cat, ms, `HTTP ${result}`);
+  return result === 200
+    ? ok("OpenAI", cat, ms, "models endpoint")
+    : fail("OpenAI", cat, ms, `HTTP ${result}`);
 }
 
 async function checkDeepseek(): Promise<CheckResult> {
@@ -168,7 +182,9 @@ async function checkElevenLabs(): Promise<CheckResult> {
     head("https://api.elevenlabs.io/v1/user", { "xi-api-key": key }, 5000),
   );
   if (err) return fail("ElevenLabs", cat, ms, err);
-  return result === 200 ? ok("ElevenLabs", cat, ms, "user endpoint") : fail("ElevenLabs", cat, ms, `HTTP ${result}`);
+  return result === 200
+    ? ok("ElevenLabs", cat, ms, "user endpoint")
+    : fail("ElevenLabs", cat, ms, `HTTP ${result}`);
 }
 
 async function checkHeyGen(): Promise<CheckResult> {
@@ -180,7 +196,9 @@ async function checkHeyGen(): Promise<CheckResult> {
     head("https://api.heygen.com/v1/voice.list", { "X-Api-Key": key }, 12000),
   );
   if (err) return fail("HeyGen", cat, ms, err);
-  return result === 200 ? ok("HeyGen", cat, ms, "voice.list") : fail("HeyGen", cat, ms, `HTTP ${result}`);
+  return result === 200
+    ? ok("HeyGen", cat, ms, "voice.list")
+    : fail("HeyGen", cat, ms, `HTTP ${result}`);
 }
 
 async function checkRunway(): Promise<CheckResult> {
@@ -188,10 +206,14 @@ async function checkRunway(): Promise<CheckResult> {
   const key = process.env.RUNWAY_API_KEY;
   if (!key) return skip("Runway", cat);
   const { result, ms, err } = await timed(() =>
-    head("https://api.dev.runwayml.com/v1/organization", {
-      Authorization: `Bearer ${key}`,
-      "X-Runway-Version": "2024-11-06",
-    }, 5000),
+    head(
+      "https://api.dev.runwayml.com/v1/organization",
+      {
+        Authorization: `Bearer ${key}`,
+        "X-Runway-Version": "2024-11-06",
+      },
+      5000,
+    ),
   );
   if (err) return fail("Runway", cat, ms, err);
   return result === 200 ? ok("Runway", cat, ms, "") : fail("Runway", cat, ms, `HTTP ${result}`);
@@ -202,7 +224,11 @@ async function checkLlamaParse(): Promise<CheckResult> {
   const key = process.env.LLAMA_CLOUD_API_KEY;
   if (!key) return skip("LlamaParse", cat);
   const { result, ms, err } = await timed(() =>
-    head("https://api.cloud.llamaindex.ai/api/v1/parsing/job/health", { Authorization: `Bearer ${key}` }, 5000),
+    head(
+      "https://api.cloud.llamaindex.ai/api/v1/parsing/job/health",
+      { Authorization: `Bearer ${key}` },
+      5000,
+    ),
   );
   if (err) return fail("LlamaParse", cat, ms, err);
   return result && result < 500
@@ -233,7 +259,9 @@ async function checkBrowserbase(): Promise<CheckResult> {
     head(`https://api.browserbase.com/v1/projects/${projectId}`, { "x-bb-api-key": key }, 5000),
   );
   if (err) return fail("Browserbase", cat, ms, err);
-  return result === 200 ? ok("Browserbase", cat, ms, "") : fail("Browserbase", cat, ms, `HTTP ${result}`);
+  return result === 200
+    ? ok("Browserbase", cat, ms, "")
+    : fail("Browserbase", cat, ms, `HTTP ${result}`);
 }
 
 async function checkRecall(): Promise<CheckResult> {
@@ -297,7 +325,7 @@ async function checkPDL(): Promise<CheckResult> {
   // /v5/person/search avec une query bidon — 401 si key invalide, 200 si OK
   const { result, ms, err } = await timed(() =>
     head(
-      "https://api.peopledatalabs.com/v5/person/search?size=1&query=" + encodeURIComponent('{"query":{"match_all":{}}}'),
+      `https://api.peopledatalabs.com/v5/person/search?size=1&query=${encodeURIComponent('{"query":{"match_all":{}}}')}`,
       { "X-Api-Key": key },
       5000,
     ),
@@ -313,7 +341,11 @@ async function checkComposio(): Promise<CheckResult> {
   const key = process.env.COMPOSIO_API_KEY;
   if (!key) return skip("Composio", cat);
   const { result, ms, err } = await timed(() =>
-    head("https://backend.composio.dev/api/v3/internal/sdk/auth/health", { "x-api-key": key }, 5000),
+    head(
+      "https://backend.composio.dev/api/v3/internal/sdk/auth/health",
+      { "x-api-key": key },
+      5000,
+    ),
   );
   if (err) return fail("Composio", cat, ms, err);
   return result && result < 500
@@ -342,10 +374,16 @@ async function checkSupabaseStorage(): Promise<CheckResult> {
   if (!url || !key) return skip("Supabase Storage", cat);
   const bucket = process.env.SUPABASE_STORAGE_BUCKET ?? "assets";
   const { result, ms, err } = await timed(() =>
-    head(`${url}/storage/v1/bucket/${bucket}`, { apikey: key, Authorization: `Bearer ${key}` }, 5000),
+    head(
+      `${url}/storage/v1/bucket/${bucket}`,
+      { apikey: key, Authorization: `Bearer ${key}` },
+      5000,
+    ),
   );
   if (err) return fail("Supabase Storage", cat, ms, err);
-  return result === 200 ? ok("Supabase Storage", cat, ms, `bucket=${bucket}`) : fail("Supabase Storage", cat, ms, `HTTP ${result}`);
+  return result === 200
+    ? ok("Supabase Storage", cat, ms, `bucket=${bucket}`)
+    : fail("Supabase Storage", cat, ms, `HTTP ${result}`);
 }
 
 async function checkUpstashREST(): Promise<CheckResult> {
@@ -353,11 +391,17 @@ async function checkUpstashREST(): Promise<CheckResult> {
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) return skip("Upstash REST", cat);
-  const { result, ms, err } = await timed(() =>
-    fetch(`${url}/ping`, { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(5000) }).then((r) => r.json()) as Promise<{ result: string }>,
+  const { result, ms, err } = await timed(
+    () =>
+      fetch(`${url}/ping`, {
+        headers: { Authorization: `Bearer ${token}` },
+        signal: AbortSignal.timeout(5000),
+      }).then((r) => r.json()) as Promise<{ result: string }>,
   );
   if (err) return fail("Upstash REST", cat, ms, err);
-  return result?.result === "PONG" ? ok("Upstash REST", cat, ms, "PONG") : fail("Upstash REST", cat, ms, `unexpected: ${JSON.stringify(result)}`);
+  return result?.result === "PONG"
+    ? ok("Upstash REST", cat, ms, "PONG")
+    : fail("Upstash REST", cat, ms, `unexpected: ${JSON.stringify(result)}`);
 }
 
 async function checkUpstashTCP(): Promise<CheckResult> {
@@ -375,9 +419,7 @@ async function checkInngest(): Promise<CheckResult> {
   const eventKey = process.env.INNGEST_EVENT_KEY;
   const signingKey = process.env.INNGEST_SIGNING_KEY;
   if (!eventKey || !signingKey) return skip("Inngest", cat);
-  const { result, ms, err } = await timed(() =>
-    head(`https://inn.gs/e/${eventKey}`, {}, 5000),
-  );
+  const { result, ms, err } = await timed(() => head(`https://inn.gs/e/${eventKey}`, {}, 5000));
   if (err) return fail("Inngest", cat, ms, err);
   return result && result < 500
     ? ok("Inngest", cat, ms, `HTTP ${result}`)
@@ -440,7 +482,8 @@ async function checkArcjet(): Promise<CheckResult> {
   const key = process.env.ARCJET_KEY;
   if (!key) return skip("Arcjet", cat);
   // Arcjet n'a pas de health endpoint public ; on vérifie juste le format
-  if (!key.startsWith("ajkey_")) return fail("Arcjet", cat, 0, "format key invalide (attendu ajkey_...)");
+  if (!key.startsWith("ajkey_"))
+    return fail("Arcjet", cat, 0, "format key invalide (attendu ajkey_...)");
   return ok("Arcjet", cat, 0, "key format OK (ping skip — décisions au runtime edge)");
 }
 

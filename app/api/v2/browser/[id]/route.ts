@@ -7,9 +7,9 @@
  * stage).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import { getSession, stopSession } from "@/lib/capabilities/providers/browserbase";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +37,10 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
 
   const { scope, error } = await requireScope({ context: "GET /api/v2/browser/[id]" });
   if (error || !scope) {
-    return NextResponse.json({ error: error?.message ?? "not_authenticated" }, { status: error?.status ?? 401 });
+    return NextResponse.json(
+      { error: error?.message ?? "not_authenticated" },
+      { status: error?.status ?? 401 },
+    );
   }
 
   if (!id?.trim()) {
@@ -71,7 +74,10 @@ export async function DELETE(_req: NextRequest, ctx: { params: Promise<{ id: str
 
   const { scope, error } = await requireScope({ context: "DELETE /api/v2/browser/[id]" });
   if (error || !scope) {
-    return NextResponse.json({ error: error?.message ?? "not_authenticated" }, { status: error?.status ?? 401 });
+    return NextResponse.json(
+      { error: error?.message ?? "not_authenticated" },
+      { status: error?.status ?? 401 },
+    );
   }
 
   if (!id?.trim()) {

@@ -10,12 +10,12 @@
  * 500.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { loadAssetById, type Asset } from "@/lib/assets/types";
 import Anthropic from "@anthropic-ai/sdk";
+import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { type Asset, loadAssetById } from "@/lib/assets/types";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -127,7 +127,8 @@ async function llmDiff(a: Asset, b: Asset, apiKey: string): Promise<DiffResult> 
   const response = await client.messages.create({
     model: "claude-sonnet-4-6",
     max_tokens: 1024,
-    system: composeEditorialPrompt(`
+    system: composeEditorialPrompt(
+      `
 Tu es l'analyste qui compare deux assets Hearst OS et produit un diff sémantique structuré.
 
 FORMAT STRICT (JSON valide uniquement, pas de markdown fence) :
@@ -139,7 +140,8 @@ CONTRAINTES SPÉCIFIQUES :
 - kind : slug court (ex: 'title', 'tone', 'metrics', 'sources', 'structure').
 - description : nomme le delta (« A → B » ou « ajouté X » ou « retiré Y »).
 - Pas d'inférence si le contenu ne le supporte pas — dis « différence non détectable » plutôt qu'inventer.
-    `.trim()),
+    `.trim(),
+    ),
     messages: [
       {
         role: "user",
@@ -168,7 +170,10 @@ CONTRAINTES SPÉCIFIQUES :
   return {
     summary: String(parsed.summary),
     differences: parsed.differences
-      .filter((d): d is DiffEntry => Boolean(d) && typeof d.kind === "string" && typeof d.description === "string")
+      .filter(
+        (d): d is DiffEntry =>
+          Boolean(d) && typeof d.kind === "string" && typeof d.description === "string",
+      )
       .slice(0, 8),
   };
 }

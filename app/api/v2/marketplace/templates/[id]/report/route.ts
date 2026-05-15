@@ -6,11 +6,11 @@
  * manuelle out-of-scope MVP.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { reportTemplate } from "@/lib/marketplace/store";
 import { checkRateLimit } from "@/lib/marketplace/rate-limit";
+import { reportTemplate } from "@/lib/marketplace/store";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

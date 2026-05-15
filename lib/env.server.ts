@@ -17,7 +17,7 @@ function validateEnv(): void {
   if (isProd && process.env.HEARST_DEV_AUTH_BYPASS === "1") {
     throw new Error(
       "[ENV ERROR] HEARST_DEV_AUTH_BYPASS=1 is forbidden in production. " +
-        "This would expose all API routes without authentication."
+        "This would expose all API routes without authentication.",
     );
   }
 
@@ -29,7 +29,7 @@ function validateEnv(): void {
     throw new Error(
       "[ENV ERROR] HEARST_ALLOWED_EMAIL_DOMAINS is required in production. " +
         "Without it, any Google/Azure user can self-enroll in the production tenant. " +
-        "Set it as CSV (e.g. 'hearstcorporation.io,partner.com')."
+        "Set it as CSV (e.g. 'hearstcorporation.io,partner.com').",
     );
   }
 
@@ -39,13 +39,13 @@ function validateEnv(): void {
   if (isProd && !process.env.HEARST_TENANT_ID) {
     console.warn(
       "[ENV] HEARST_TENANT_ID not set — utilisé uniquement pour hearst-card screenshotter. " +
-        "Ce check sera supprimé en PR 4."
+        "Ce check sera supprimé en PR 4.",
     );
   }
   if (isProd && !process.env.HEARST_WORKSPACE_ID) {
     console.warn(
       "[ENV] HEARST_WORKSPACE_ID not set — scope.ts lit désormais session.workspaceId (DB). " +
-        "Ce check sera supprimé en PR 4."
+        "Ce check sera supprimé en PR 4.",
     );
   }
 
@@ -57,9 +57,7 @@ function validateEnv(): void {
   // Optional: warn if HEARST_API_KEY is not set in production
   // (session-only auth is allowed per decision, but we log for visibility)
   if (isProd && !process.env.HEARST_API_KEY) {
-    console.log(
-      "[ENV] Note: HEARST_API_KEY not set — relying on session auth only"
-    );
+    console.log("[ENV] Note: HEARST_API_KEY not set — relying on session auth only");
   }
 
   // Jobs async : warn si ni Redis ni Inngest ne sont configurés en prod.
@@ -68,8 +66,8 @@ function validateEnv(): void {
   if (isProd && !process.env.REDIS_URL && !process.env.INNGEST_EVENT_KEY) {
     console.warn(
       "[ENV] Warning: REDIS_URL and INNGEST_EVENT_KEY both absent — " +
-      "async jobs (audio, image, video, code-exec, doc-parse) will fail. " +
-      "Set INNGEST_EVENT_KEY for Vercel or REDIS_URL for self-hosted."
+        "async jobs (audio, image, video, code-exec, doc-parse) will fail. " +
+        "Set INNGEST_EVENT_KEY for Vercel or REDIS_URL for self-hosted.",
     );
   }
 }

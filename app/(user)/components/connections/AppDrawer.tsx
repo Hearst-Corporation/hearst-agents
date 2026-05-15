@@ -6,11 +6,11 @@ import { AppLogo } from "./AppLogo";
 import {
   ACTIONS_PREVIEW,
   actionLabel,
-  categoryLabel,
-  truncateDescription,
   type ComposioApp,
+  categoryLabel,
   type DiscoveredTool,
   type DrawerState,
+  truncateDescription,
 } from "./types";
 
 // ─── Drawer (logique inchangée) ───────────────────────────────
@@ -39,9 +39,7 @@ export function AppDrawer({
   const [showAll, setShowAll] = useState(false);
 
   const totalActions = actions?.length ?? 0;
-  const visibleActions = showAll
-    ? actions ?? []
-    : (actions ?? []).slice(0, ACTIONS_PREVIEW);
+  const visibleActions = showAll ? (actions ?? []) : (actions ?? []).slice(0, ACTIONS_PREVIEW);
   const overflow = totalActions - visibleActions.length;
 
   return (
@@ -71,11 +69,7 @@ export function AppDrawer({
           >
             ← Fermer
           </button>
-          {isConnected && (
-            <span className="t-11 font-medium text-(--accent-teal)">
-              ● Connecté
-            </span>
-          )}
+          {isConnected && <span className="t-11 font-medium text-(--accent-teal)">● Connecté</span>}
         </div>
 
         {/* Body scrollable — titre, description, liste d'actions */}
@@ -89,9 +83,7 @@ export function AppDrawer({
               >
                 {app.name}
               </h2>
-              <p className="t-11 font-light text-text-faint m-0 mt-1">
-                {categoryLabel(app)}
-              </p>
+              <p className="t-11 font-light text-text-faint m-0 mt-1">{categoryLabel(app)}</p>
             </div>
           </div>
 
@@ -160,13 +152,10 @@ function NativeFooter() {
       <p className="t-11 font-medium" style={{ color: "var(--accent-teal-deep)" }}>
         Géré via le SSO
       </p>
-      <p
-        className="t-11"
-        style={{ color: "var(--text-soft)", lineHeight: "var(--leading-snug)" }}
-      >
-        L&apos;accès à ce service vient de ton login Google/Microsoft initial —
-        Hearst l&apos;utilise nativement, sans OAuth additionnel. Pour révoquer,
-        change de session ou retire les permissions côté provider.
+      <p className="t-11" style={{ color: "var(--text-soft)", lineHeight: "var(--leading-snug)" }}>
+        L&apos;accès à ce service vient de ton login Google/Microsoft initial — Hearst
+        l&apos;utilise nativement, sans OAuth additionnel. Pour révoquer, change de session ou
+        retire les permissions côté provider.
       </p>
     </div>
   );
@@ -179,12 +168,9 @@ function NotConnectableFooter({ app }: { app: ComposioApp }) {
   const dashboardUrl = `https://app.composio.dev/app/${encodeURIComponent(app.key)}`;
   return (
     <div className="flex flex-col gap-2">
-      <p
-        className="t-11"
-        style={{ color: "var(--text-soft)", lineHeight: "var(--leading-snug)" }}
-      >
-        Ce service demande une auth-config personnalisée côté Composio avant
-        d&apos;être connectable depuis Hearst.
+      <p className="t-11" style={{ color: "var(--text-soft)", lineHeight: "var(--leading-snug)" }}>
+        Ce service demande une auth-config personnalisée côté Composio avant d&apos;être connectable
+        depuis Hearst.
       </p>
       <a
         href={dashboardUrl}
@@ -251,7 +237,8 @@ function ActionsSection({
         </ul>
       ) : actions.length === 0 ? (
         <p className="t-11 text-text-faint">
-          Aucune action listée pour ce service. Connecte-le et Hearst découvrira automatiquement ce qu&apos;il peut faire.
+          Aucune action listée pour ce service. Connecte-le et Hearst découvrira automatiquement ce
+          qu&apos;il peut faire.
         </p>
       ) : (
         <ul className="space-y-px">
@@ -265,9 +252,7 @@ function ActionsSection({
                 onClick={onToggleShowAll}
                 className="t-11 font-medium text-[var(--accent-teal-deep)] hover:text-(--accent-teal) transition-colors"
               >
-                {showAll
-                  ? "← Réduire"
-                  : `Voir les ${totalActions} actions →`}
+                {showAll ? "← Réduire" : `Voir les ${totalActions} actions →`}
               </button>
             </li>
           )}
@@ -285,24 +270,15 @@ function ActionBullet({ action }: { action: DiscoveredTool }) {
       className="flex items-start gap-3 py-2 border-b"
       style={{ borderColor: "var(--border-soft)" }}
     >
-      <span
-        className="t-13 leading-none text-(--accent-teal) mt-1"
-        aria-hidden
-      >
+      <span className="t-13 leading-none text-(--accent-teal) mt-1" aria-hidden>
         ·
       </span>
       <div className="flex-1 min-w-0">
-        <div
-          className="t-13"
-          style={{ fontWeight: "var(--weight-medium)", color: "var(--text)" }}
-        >
+        <div className="t-13" style={{ fontWeight: "var(--weight-medium)", color: "var(--text)" }}>
           {title}
         </div>
         {desc && (
-          <div
-            className="t-11 mt-1 text-text-faint"
-            style={{ lineHeight: "var(--leading-snug)" }}
-          >
+          <div className="t-11 mt-1 text-text-faint" style={{ lineHeight: "var(--leading-snug)" }}>
             {desc}
           </div>
         )}

@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { mapFocalObject } from "@/lib/core/types/focal";
-import { missionToFocal, type MissionLike } from "@/lib/ui/focal-mappers";
+import { type MissionLike, missionToFocal } from "@/lib/ui/focal-mappers";
 
 const THREAD_ID = "thread-test-1";
 
@@ -8,17 +8,14 @@ const THREAD_ID = "thread-test-1";
 
 describe("mapFocalObject", () => {
   it("type invalide → forcé à 'brief' (fallback)", () => {
-    const result = mapFocalObject(
-      { objectType: "not_a_real_type", title: "T" },
-      THREAD_ID
-    );
+    const result = mapFocalObject({ objectType: "not_a_real_type", title: "T" }, THREAD_ID);
     expect(result?.type).toBe("brief");
   });
 
   it("status invalide → forcé à 'ready' (fallback)", () => {
     const result = mapFocalObject(
       { objectType: "report", title: "T", status: "unknown_status" },
-      THREAD_ID
+      THREAD_ID,
     );
     expect(result?.status).toBe("ready");
   });
@@ -26,7 +23,7 @@ describe("mapFocalObject", () => {
   it("body absent mais summary présent → body devient le summary", () => {
     const result = mapFocalObject(
       { objectType: "brief", title: "T", summary: "Résumé complet." },
-      THREAD_ID
+      THREAD_ID,
     );
     // mapFocalObject uses: body = o.body || o.summary || ""
     expect(result?.body).toBe("Résumé complet.");
@@ -34,30 +31,24 @@ describe("mapFocalObject", () => {
 
   it("id absent → id généré au format 'focal-{ts}'", () => {
     const before = Date.now();
-    const result = mapFocalObject(
-      { objectType: "brief", title: "T" },
-      THREAD_ID
-    );
+    const result = mapFocalObject({ objectType: "brief", title: "T" }, THREAD_ID);
     const after = Date.now();
 
     expect(result?.id).toMatch(/^focal-\d+$/);
-    const ts = parseInt(result!.id.replace("focal-", ""), 10);
+    const ts = parseInt(result?.id.replace("focal-", ""), 10);
     expect(ts).toBeGreaterThanOrEqual(before);
     expect(ts).toBeLessThanOrEqual(after);
   });
 
   it("type valide 'report' → préservé tel quel", () => {
-    const result = mapFocalObject(
-      { objectType: "report", title: "Mon rapport" },
-      THREAD_ID
-    );
+    const result = mapFocalObject({ objectType: "report", title: "Mon rapport" }, THREAD_ID);
     expect(result?.type).toBe("report");
   });
 
   it("status valide 'delivered' → préservé tel quel", () => {
     const result = mapFocalObject(
       { objectType: "brief", title: "T", status: "delivered" },
-      THREAD_ID
+      THREAD_ID,
     );
     expect(result?.status).toBe("delivered");
   });

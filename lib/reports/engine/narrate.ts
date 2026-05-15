@@ -9,10 +9,10 @@
 
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText } from "ai";
-import type { ReportSpec, NarrationSpec } from "@/lib/reports/spec/schema";
-import type { RenderPayload } from "./render-blocks";
-import { NARRATION_FEWSHOT_FR, formatFewShotBlock } from "@/lib/prompts/examples";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { formatFewShotBlock, NARRATION_FEWSHOT_FR } from "@/lib/prompts/examples";
+import type { NarrationSpec, ReportSpec } from "@/lib/reports/spec/schema";
+import type { RenderPayload } from "./render-blocks";
 
 const NARRATE_MODEL = "claude-sonnet-4-6";
 
@@ -183,9 +183,7 @@ function buildUserPrompt(spec: ReportSpec, payload: RenderPayload): string {
     return `[${b.id}] ${b.type} "${b.label ?? b.id}" — top ${rows.length}/${(b.data as ReadonlyArray<unknown>).length}: ${JSON.stringify(rows)}`;
   });
 
-  const scalarLines = Object.entries(payload.scalars).map(
-    ([k, v]) => `  ${k} = ${fmt(v)}`,
-  );
+  const scalarLines = Object.entries(payload.scalars).map(([k, v]) => `  ${k} = ${fmt(v)}`);
 
   return [
     `Report: ${meta.title}`,

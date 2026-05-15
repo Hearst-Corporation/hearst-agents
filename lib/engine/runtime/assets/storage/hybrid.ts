@@ -6,15 +6,15 @@
  * Migration automatique cold → hot sur accès.
  */
 
+import type { LocalStorageProvider } from "./local";
+import type { R2StorageProvider } from "./r2";
 import type {
-  StorageProvider,
-  StorageObject,
-  UploadResult,
   DownloadResult,
   SignedUrlOptions,
+  StorageObject,
+  StorageProvider,
+  UploadResult,
 } from "./types";
-import { LocalStorageProvider } from "./local";
-import { R2StorageProvider } from "./r2";
 
 interface CacheEntry {
   key: string;
@@ -56,7 +56,7 @@ export class HybridStorageProvider implements StorageProvider {
       contentType: string;
       metadata?: Record<string, string>;
       tenantId?: string;
-    }
+    },
   ): Promise<UploadResult> {
     // Always upload to cold storage (source of truth)
     const coldResult = await this.cold.upload(key, data, options);
@@ -97,14 +97,10 @@ export class HybridStorageProvider implements StorageProvider {
       const buffer = Buffer.concat(chunks.map((c) => Buffer.from(c)));
 
       // Write to hot storage
-      await this.hot.upload(
-        key,
-        buffer,
-        {
-          contentType: coldResult.contentType,
-          tenantId,
-        }
-      );
+      await this.hot.upload(key, buffer, {
+        contentType: coldResult.contentType,
+        tenantId,
+      });
 
       this.updateCache(key, coldResult.size);
 
@@ -128,7 +124,7 @@ export class HybridStorageProvider implements StorageProvider {
     key: string,
     operation: "read" | "write",
     options?: SignedUrlOptions,
-    tenantId?: string
+    tenantId?: string,
   ): Promise<string> {
     // Always use cold storage for signed URLs (authoritative)
     return this.cold.getSignedUrl(key, operation, options, tenantId);
@@ -145,10 +141,7 @@ export class HybridStorageProvider implements StorageProvider {
 
   async exists(key: string, tenantId?: string): Promise<boolean> {
     // Check hot first, then cold
-    return (
-      (await this.hot.exists(key, tenantId)) ||
-      (await this.cold.exists(key, tenantId))
-    );
+    return (await this.hot.exists(key, tenantId)) || (await this.cold.exists(key, tenantId));
   }
 
   async list(prefix: string, tenantId?: string): Promise<StorageObject[]> {
@@ -158,16 +151,10 @@ export class HybridStorageProvider implements StorageProvider {
 
   async health(): Promise<{ ok: boolean; latencyMs: number; error?: string }> {
     const start = Date.now();
-    const [hotHealth, coldHealth] = await Promise.all([
-      this.hot.health(),
-      this.cold.health(),
-    ]);
+    const [hotHealth, coldHealth] = await Promise.all([this.hot.health(), this.cold.health()]);
 
     const ok = hotHealth.ok && coldHealth.ok;
-    const errors = [
-      hotHealth.error,
-      coldHealth.error,
-    ].filter(Boolean);
+    const errors = [hotHealth.error, coldHealth.error].filter(Boolean);
 
     return {
       ok,
@@ -179,10 +166,7 @@ export class HybridStorageProvider implements StorageProvider {
   /**
    * Force sync cold → hot (admin/maintenance)
    */
-  async warmCache(
-    keys: string[],
-    tenantId?: string
-  ): Promise<{ warmed: number; failed: number }> {
+  async warmCache(keys: string[], tenantId?: string): Promise<{ warmed: number; failed: number }> {
     let warmed = 0;
     let failed = 0;
 
@@ -203,11 +187,7 @@ export class HybridStorageProvider implements StorageProvider {
         }
         const buffer = Buffer.concat(chunks.map((c) => Buffer.from(c)));
 
-        await this.hot.upload(
-          key,
-          buffer,
-          { contentType: coldResult.contentType, tenantId }
-        );
+        await this.hot.upload(key, buffer, { contentType: coldResult.contentType, tenantId });
         this.updateCache(key, coldResult.size);
         warmed++;
       } catch {

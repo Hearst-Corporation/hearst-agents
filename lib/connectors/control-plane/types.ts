@@ -7,12 +7,7 @@
 
 import type { ConnectorCapability } from "@/lib/connectors/platform/types";
 
-export type ConnectorStatus =
-  | "connected"
-  | "disconnected"
-  | "degraded"
-  | "error"
-  | "pending_auth";
+export type ConnectorStatus = "connected" | "disconnected" | "degraded" | "error" | "pending_auth";
 
 export interface ConnectorConnection {
   id: string;
@@ -41,4 +36,3 @@ export interface ConnectorPreflightResult {
   status: ConnectorStatus;
   reason?: string;
 }
-

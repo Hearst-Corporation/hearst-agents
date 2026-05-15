@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 
 interface MiniChartProps {
   /** Nombre de barres (12 par défaut) */
@@ -42,14 +42,14 @@ export function MiniChart({ bars = 12, intervalMs = 3000, heights, className }: 
   }, [useRandom, randomBars, heights, bars]);
 
   return (
-    <div className={`flex h-[60px] items-end gap-1 ${className ?? ''}`}>
+    <div className={`flex h-[60px] items-end gap-1 ${className ?? ""}`}>
       {values.map((h, i) => (
         <div
           key={i}
           className="flex-1 rounded-[2px] transition-[height] duration-1000 ease-out"
           style={{
             height: `${Math.max(2, h)}%`,
-            background: 'rgba(255,255,255,0.6)',
+            background: "rgba(255,255,255,0.6)",
             opacity: h > 0 ? 0.35 : 0.08,
           }}
         />

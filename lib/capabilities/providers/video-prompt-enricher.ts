@@ -44,7 +44,7 @@ const SYSTEM_PROMPT = [
   "- Aucune mention de marque, de personnalité publique, ou d'élément générant un refus du modèle.",
   "",
   "FORMAT DE SORTIE :",
-  "- Retourne UNIQUEMENT le prompt enrichi, sans préfixe (\"Prompt:\", \"Voici…\"), sans guillemets.",
+  '- Retourne UNIQUEMENT le prompt enrichi, sans préfixe ("Prompt:", "Voici…"), sans guillemets.',
 ].join("\n");
 
 const HEURISTIC_SUFFIX =

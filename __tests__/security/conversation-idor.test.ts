@@ -36,7 +36,7 @@ describe("F-003 Conversation IDOR — filtre user_id dans getRecentMessages", ()
   it("retourne uniquement les messages du scope.userId", () => {
     // Simule la requête avec filtre user_id
     const filtered = CHAT_MESSAGES.filter(
-      (m) => m.conversation_id === "conv-1" && m.user_id === SCOPE_A.userId
+      (m) => m.conversation_id === "conv-1" && m.user_id === SCOPE_A.userId,
     );
     expect(filtered).toHaveLength(1);
     expect(filtered[0].content).toBe("Message de user A");
@@ -44,7 +44,7 @@ describe("F-003 Conversation IDOR — filtre user_id dans getRecentMessages", ()
 
   it("ne retourne aucun message d'un autre user", () => {
     const filteredForB = CHAT_MESSAGES.filter(
-      (m) => m.conversation_id === "conv-1" && m.user_id === SCOPE_B.userId
+      (m) => m.conversation_id === "conv-1" && m.user_id === SCOPE_B.userId,
     );
     // user B ne peut voir que ses messages, pas ceux de user A
     expect(filteredForB).toHaveLength(1);
@@ -67,11 +67,15 @@ describe("F-003 Conversation IDOR — filtre user_id dans getRecentMessages", ()
   it("getRecentModelMessages — filtre user_id sur payload IS NOT NULL", () => {
     const STRUCTURED = [
       { conversation_id: "conv-2", user_id: "user-a-uuid", payload: { role: "user", content: [] } },
-      { conversation_id: "conv-2", user_id: "user-b-uuid", payload: { role: "assistant", content: [] } },
+      {
+        conversation_id: "conv-2",
+        user_id: "user-b-uuid",
+        payload: { role: "assistant", content: [] },
+      },
     ];
 
     const filteredForA = STRUCTURED.filter(
-      (m) => m.conversation_id === "conv-2" && m.user_id === SCOPE_A.userId
+      (m) => m.conversation_id === "conv-2" && m.user_id === SCOPE_A.userId,
     );
     expect(filteredForA).toHaveLength(1);
   });

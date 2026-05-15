@@ -1,11 +1,8 @@
 /**
  * Tests — `buildPersonaAddon` & `buildPersonaAddonOrNull`.
  */
-import { describe, it, expect } from "vitest";
-import {
-  buildPersonaAddon,
-  buildPersonaAddonOrNull,
-} from "@/lib/personas/system-prompt-addon";
+import { describe, expect, it } from "vitest";
+import { buildPersonaAddon, buildPersonaAddonOrNull } from "@/lib/personas/system-prompt-addon";
 import type { Persona } from "@/lib/personas/types";
 
 function makePersona(overrides: Partial<Persona>): Persona {

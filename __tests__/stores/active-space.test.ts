@@ -9,7 +9,7 @@
  *  - persistance : localStorage.setItem appelé après update
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const STORAGE_KEY = "hearst-active-space";
 
@@ -40,11 +40,7 @@ const ls = vi.hoisted(() => {
   return { store, fakeWindow };
 });
 
-import {
-  useActiveSpace,
-  DEFAULT_SPACES,
-  type SpaceConfig,
-} from "@/stores/active-space";
+import { DEFAULT_SPACES, type SpaceConfig, useActiveSpace } from "@/stores/active-space";
 
 describe("useActiveSpace store", () => {
   beforeEach(() => {
@@ -65,11 +61,7 @@ describe("useActiveSpace store", () => {
     it("expose 3 spaces par défaut (personal, side-project, venture)", () => {
       const spaces = useActiveSpace.getState().spaces;
       expect(spaces).toHaveLength(3);
-      expect(spaces.map((s) => s.id)).toEqual([
-        "personal",
-        "side-project",
-        "venture",
-      ]);
+      expect(spaces.map((s) => s.id)).toEqual(["personal", "side-project", "venture"]);
     });
 
     it("DEFAULT_SPACES utilise des CSS vars (jamais hex en dur)", () => {
@@ -178,9 +170,7 @@ describe("useActiveSpace store", () => {
       const raw = ls.store[STORAGE_KEY];
       expect(raw).toBeTruthy();
       const parsed = JSON.parse(raw);
-      expect(
-        parsed.state.spaces.find((s: SpaceConfig) => s.id === "client-y"),
-      ).toBeTruthy();
+      expect(parsed.state.spaces.find((s: SpaceConfig) => s.id === "client-y")).toBeTruthy();
     });
 
     it("removeSpace persiste la liste filtrée", () => {
@@ -188,9 +178,7 @@ describe("useActiveSpace store", () => {
       const raw = ls.store[STORAGE_KEY];
       expect(raw).toBeTruthy();
       const parsed = JSON.parse(raw);
-      expect(
-        parsed.state.spaces.find((s: SpaceConfig) => s.id === "venture"),
-      ).toBeUndefined();
+      expect(parsed.state.spaces.find((s: SpaceConfig) => s.id === "venture")).toBeUndefined();
     });
   });
 });

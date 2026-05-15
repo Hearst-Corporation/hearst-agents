@@ -4,8 +4,8 @@
  * ProviderChip — render, statut, tooltip latence/coût.
  */
 
-import { describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { ProviderChip } from "@/app/(user)/components/ProviderChip";
 
 describe("ProviderChip", () => {
@@ -15,18 +15,14 @@ describe("ProviderChip", () => {
   });
 
   it("expose data-provider et data-status", () => {
-    const { container } = render(
-      <ProviderChip providerId="slack" status="pending" />,
-    );
+    const { container } = render(<ProviderChip providerId="slack" status="pending" />);
     const chip = container.querySelector('[data-provider="slack"]');
     expect(chip).toBeTruthy();
     expect(chip?.getAttribute("data-status")).toBe("pending");
   });
 
   it("statut error visible côté a11y label", () => {
-    render(
-      <ProviderChip providerId="stripe" label="Stripe" status="error" />,
-    );
+    render(<ProviderChip providerId="stripe" label="Stripe" status="error" />);
     const chip = screen.getByLabelText(/Provider Stripe, statut error/);
     expect(chip).toBeTruthy();
   });
@@ -56,14 +52,7 @@ describe("ProviderChip", () => {
   });
 
   it("formate les latences > 1s en secondes", () => {
-    render(
-      <ProviderChip
-        providerId="notion"
-        label="Notion"
-        latencyMs={2340}
-        costUSD={0.05}
-      />,
-    );
+    render(<ProviderChip providerId="notion" label="Notion" latencyMs={2340} costUSD={0.05} />);
     fireEvent.focus(screen.getByLabelText(/Provider Notion/));
     expect(screen.getByRole("tooltip").textContent).toContain("2.34 s");
     expect(screen.getByRole("tooltip").textContent).toContain("$0.05");

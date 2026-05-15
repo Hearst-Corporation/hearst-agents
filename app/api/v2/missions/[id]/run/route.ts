@@ -3,32 +3,29 @@
  * Creates a real v2 run through the orchestrator with missionId linkage.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { randomUUID } from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
+import { runMissionSchema } from "@/lib/contracts/missions";
 import { orchestrate } from "@/lib/engine/orchestrator";
+import { getMission, updateMissionLastRun } from "@/lib/engine/runtime/missions/store";
 import { getScheduledMissions, updateScheduledMission } from "@/lib/engine/runtime/state/adapter";
-import { updateMissionLastRun, getMission } from "@/lib/engine/runtime/missions/store";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { executeWorkflow } from "@/lib/workflows/executor";
-import { executeWorkflowTool } from "@/lib/workflows/handlers";
-import type { WorkflowGraph } from "@/lib/workflows/types";
+import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
 import {
   appendMissionMessage,
   formatMissionContextBlock,
   getMissionContext,
   updateMissionContextSummary,
 } from "@/lib/memory/mission-context";
-import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
-import { randomUUID } from "crypto";
-import { runMissionSchema } from "@/lib/contracts/missions";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
+import { executeWorkflow } from "@/lib/workflows/executor";
+import { executeWorkflowTool } from "@/lib/workflows/handlers";
+import type { WorkflowGraph } from "@/lib/workflows/types";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   // Resolve scope with dev fallback allowed
   const { scope, error } = await requireScope({ context: "POST /api/v2/missions/[id]/run" });
   if (error) {
@@ -96,7 +93,9 @@ export async function POST(
     return NextResponse.json({ error: "mission_not_found" }, { status: 404 });
   }
 
-  console.log(`[MissionRunNow] Triggering "${missionName}" (${id}) for user ${scope.userId.slice(0, 8)}`);
+  console.log(
+    `[MissionRunNow] Triggering "${missionName}" (${id}) for user ${scope.userId.slice(0, 8)}`,
+  );
 
   // Branch C3 : si la mission a un workflowGraph, on exécute via le workflow
   // executor au lieu de l'orchestrator standard. Run synchrone — les events
@@ -228,7 +227,9 @@ export async function POST(
               textParts.push(event.delta);
             }
           }
-        } catch { /* skip */ }
+        } catch {
+          /* skip */
+        }
       }
     }
   } catch (err) {

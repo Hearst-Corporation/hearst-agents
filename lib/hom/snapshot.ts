@@ -5,10 +5,10 @@
  */
 import { execSync } from "node:child_process";
 import fs from "node:fs/promises";
+import { fileExists, nowIso, sha256, writeJson } from "./fs-utils";
 import { HOM } from "./paths";
-import { writeJson, sha256, fileExists, nowIso } from "./fs-utils";
-import { ALL_AGENTS } from "./types";
 import type { ReplaySnapshot } from "./types";
+import { ALL_AGENTS } from "./types";
 
 async function gitInfo(): Promise<{ branch: string; commit: string; dirty: boolean }> {
   try {
@@ -35,21 +35,13 @@ async function hashFiles(files: string[]): Promise<string> {
 export async function captureSnapshot(runId: string): Promise<ReplaySnapshot> {
   const git = await gitInfo();
 
-  const policiesHash = await hashFiles([
-    HOM.fleetPolicy,
-    HOM.releasePolicy,
-  ]);
+  const policiesHash = await hashFiles([HOM.fleetPolicy, HOM.releasePolicy]);
 
-  const contractsHash = await hashFiles(
-    ALL_AGENTS.map((id) => HOM.agentContract(id)),
-  );
+  const contractsHash = await hashFiles(ALL_AGENTS.map((id) => HOM.agentContract(id)));
 
-  const promptsHash = await hashFiles(
-    ALL_AGENTS.map((id) => HOM.agentPrompts(id)),
-  );
+  const promptsHash = await hashFiles(ALL_AGENTS.map((id) => HOM.agentPrompts(id)));
 
-  const lockHash = await hashFiles([HOM.root + "/../package-lock.json"])
-    .catch(() => "absent");
+  const lockHash = await hashFiles([`${HOM.root}/../package-lock.json`]).catch(() => "absent");
 
   const snap: ReplaySnapshot = {
     run_id: runId,

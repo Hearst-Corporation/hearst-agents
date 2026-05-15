@@ -12,9 +12,9 @@ import type { RefObject } from "react";
 import { ProgressBlock, SegmentedRow } from "./segments";
 import {
   DURATION_LABELS,
-  RATIO_LABELS,
   type DurationOption,
   type Provider,
+  RATIO_LABELS,
   type RatioOption,
   type SinglePhase,
 } from "./types";

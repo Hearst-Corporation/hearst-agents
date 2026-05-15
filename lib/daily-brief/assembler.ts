@@ -10,15 +10,11 @@
  * l'assemblage. Le narrator écrira un brief même partiel.
  */
 
-import { getRecentEmails } from "@/lib/connectors/google/gmail";
-import { getTodayEvents } from "@/lib/connectors/google/calendar";
 import { executeComposioAction } from "@/lib/connectors/composio/client";
 import { listConnections } from "@/lib/connectors/composio/connections";
-import {
-  EXTRAS_PROVIDERS,
-  isReservedToolkit,
-  type ExtraSource,
-} from "./extras-providers";
+import { getTodayEvents } from "@/lib/connectors/google/calendar";
+import { getRecentEmails } from "@/lib/connectors/google/gmail";
+import { EXTRAS_PROVIDERS, type ExtraSource, isReservedToolkit } from "./extras-providers";
 import type {
   DailyBriefCalendarItem,
   DailyBriefData,
@@ -115,10 +111,9 @@ async function fetchSlack(userId: string, limit: number): Promise<DailyBriefSlac
   if (!result.ok) return [];
   const messages = unwrapList<RawSlackMessage>(result.data);
   return messages
-    .filter((m): m is { channel: string; text: string; ts: string; user?: string } =>
-      typeof m.channel === "string" &&
-      typeof m.text === "string" &&
-      typeof m.ts === "string",
+    .filter(
+      (m): m is { channel: string; text: string; ts: string; user?: string } =>
+        typeof m.channel === "string" && typeof m.text === "string" && typeof m.ts === "string",
     )
     .slice(0, limit)
     .map((m, idx) => ({
@@ -163,7 +158,7 @@ async function fetchGithub(userId: string, limit: number): Promise<DailyBriefGit
         (p.repository_url ? p.repository_url.split("/").slice(-2).join("/") : "");
       const author =
         typeof p.user === "object" && p.user
-          ? p.user.login ?? "unknown"
+          ? (p.user.login ?? "unknown")
           : typeof p.user === "string"
             ? p.user
             : "unknown";
@@ -212,10 +207,14 @@ async function fetchLinear(userId: string, limit: number): Promise<DailyBriefLin
   return issues
     .map((i) => {
       const stateName =
-        typeof i.state === "object" && i.state ? i.state.name ?? "" : typeof i.state === "string" ? i.state : "";
+        typeof i.state === "object" && i.state
+          ? (i.state.name ?? "")
+          : typeof i.state === "string"
+            ? i.state
+            : "";
       const assigneeName =
         typeof i.assignee === "object" && i.assignee
-          ? i.assignee.name ?? null
+          ? (i.assignee.name ?? null)
           : typeof i.assignee === "string"
             ? i.assignee
             : null;
@@ -246,7 +245,12 @@ async function fetchExtras(userId: string, perSourceLimit: number): Promise<Extr
       const provider = EXTRAS_PROVIDERS[c.appName.toLowerCase()];
       return provider ? { provider, conn: c } : null;
     })
-    .filter((x): x is { provider: (typeof EXTRAS_PROVIDERS)[string]; conn: (typeof connections)[number] } => x !== null);
+    .filter(
+      (
+        x,
+      ): x is { provider: (typeof EXTRAS_PROVIDERS)[string]; conn: (typeof connections)[number] } =>
+        x !== null,
+    );
 
   if (tasks.length === 0) return [];
 
@@ -294,14 +298,15 @@ export async function assembleDailyBriefData(
   const githubLimit = opts.githubLimit ?? 15;
   const linearLimit = opts.linearLimit ?? 15;
 
-  const [emailsRes, calendarRes, slackRes, githubRes, linearRes, extrasRes] = await Promise.allSettled([
-    fetchEmails(opts.userId, gmailLimit),
-    fetchCalendar(opts.userId, calendarLimit),
-    fetchSlack(opts.userId, slackLimit),
-    fetchGithub(opts.userId, githubLimit),
-    fetchLinear(opts.userId, linearLimit),
-    fetchExtras(opts.userId, 10),
-  ]);
+  const [emailsRes, calendarRes, slackRes, githubRes, linearRes, extrasRes] =
+    await Promise.allSettled([
+      fetchEmails(opts.userId, gmailLimit),
+      fetchCalendar(opts.userId, calendarLimit),
+      fetchSlack(opts.userId, slackLimit),
+      fetchGithub(opts.userId, githubLimit),
+      fetchLinear(opts.userId, linearLimit),
+      fetchExtras(opts.userId, 10),
+    ]);
 
   const sources: string[] = [];
   const emails =
@@ -310,7 +315,8 @@ export async function assembleDailyBriefData(
       : (sources.push("gmail:error"), [] as DailyBriefEmailItem[]);
   const calendar =
     calendarRes.status === "fulfilled"
-      ? (sources.push(calendarRes.value.length > 0 ? "calendar" : "calendar:empty"), calendarRes.value)
+      ? (sources.push(calendarRes.value.length > 0 ? "calendar" : "calendar:empty"),
+        calendarRes.value)
       : (sources.push("calendar:error"), [] as DailyBriefCalendarItem[]);
   const slack =
     slackRes.status === "fulfilled"

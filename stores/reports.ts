@@ -14,9 +14,9 @@
  * est plus récent que le payload initial.
  */
 
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
 
 // ── Types ────────────────────────────────────────────────────────────────────

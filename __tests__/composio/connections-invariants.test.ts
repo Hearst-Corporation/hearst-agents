@@ -11,7 +11,7 @@
  *  7. initiateConnection appelle invalidateUserDiscovery
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Mocks hoistés
@@ -61,7 +61,7 @@ vi.mock("@/lib/connectors/composio/connections", () => ({
 // Imports (après mocks)
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { isWriteAction, formatActionPreview } from "@/lib/connectors/composio/write-guard";
+import { formatActionPreview, isWriteAction } from "@/lib/connectors/composio/write-guard";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tests 1-4 : isWriteAction
@@ -137,9 +137,9 @@ describe("discovery cache — ne cache pas les résultats vides", () => {
     // vi.importActual pour accéder à la logique réelle.
 
     // Utiliser vi.importActual pour importer le vrai module discovery
-    const realDiscovery = await vi.importActual<typeof import("@/lib/connectors/composio/discovery")>(
-      "@/lib/connectors/composio/discovery",
-    );
+    const realDiscovery = await vi.importActual<
+      typeof import("@/lib/connectors/composio/discovery")
+    >("@/lib/connectors/composio/discovery");
 
     const { resetDiscoveryCache, getToolsForUser } = realDiscovery;
 

@@ -1,12 +1,15 @@
-import { NextRequest } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import type { NextRequest } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { globalRunBus } from "@/lib/events/global-bus";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET(req: NextRequest) {
-  const guard = await requireAdmin("GET /api/admin/events-stream", { resource: "runs", action: "read" });
+  const guard = await requireAdmin("GET /api/admin/events-stream", {
+    resource: "runs",
+    action: "read",
+  });
   if (isError(guard)) return guard;
 
   const encoder = new TextEncoder();

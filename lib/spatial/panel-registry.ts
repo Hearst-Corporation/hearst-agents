@@ -6,17 +6,16 @@
  * l'enregistrer ici.
  */
 
-import { type ComponentType } from "react";
-import type { SpatialPanelType } from "./panel-types";
-import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-
-import { CockpitBriefCard } from "@/components/spatial/rnd/cards/CockpitBriefCard";
-import { CockpitKPICard } from "@/components/spatial/rnd/cards/CockpitKPICard";
-import { CockpitMissionCard } from "@/components/spatial/rnd/cards/CockpitMissionCard";
-import { CockpitAssetsCard } from "@/components/spatial/rnd/cards/CockpitAssetsCard";
-import { CockpitChatResponseCard } from "@/components/spatial/rnd/cards/CockpitChatResponseCard";
+import type { ComponentType } from "react";
 import { CockpitApprovalCard } from "@/components/spatial/rnd/cards/CockpitApprovalCard";
 import { CockpitAssetPreviewCard } from "@/components/spatial/rnd/cards/CockpitAssetPreviewCard";
+import { CockpitAssetsCard } from "@/components/spatial/rnd/cards/CockpitAssetsCard";
+import { CockpitBriefCard } from "@/components/spatial/rnd/cards/CockpitBriefCard";
+import { CockpitChatResponseCard } from "@/components/spatial/rnd/cards/CockpitChatResponseCard";
+import { CockpitKPICard } from "@/components/spatial/rnd/cards/CockpitKPICard";
+import { CockpitMissionCard } from "@/components/spatial/rnd/cards/CockpitMissionCard";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import type { SpatialPanelType } from "./panel-types";
 
 /**
  * Props injectées à chaque card. Toutes les cards reçoivent éventuellement

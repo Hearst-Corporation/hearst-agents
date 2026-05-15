@@ -14,7 +14,7 @@
  * - onPublish       : publie vers le marketplace (optionnel)
  */
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 interface BuilderToolbarProps {
   onOpenTemplates: () => void;
@@ -69,9 +69,7 @@ export function BuilderToolbar({
       </div>
 
       {previewSummary && (
-        <span className="t-11 text-text-muted truncate max-w-md">
-          {previewSummary}
-        </span>
+        <span className="t-11 text-text-muted truncate max-w-md">{previewSummary}</span>
       )}
 
       {/* Primary + Tertiary */}
@@ -173,10 +171,7 @@ function OverflowMenu({ items }: OverflowMenuProps) {
   useEffect(() => {
     if (!open) return;
     function handleClick(e: MouseEvent) {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(e.target as Node)
-      ) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }

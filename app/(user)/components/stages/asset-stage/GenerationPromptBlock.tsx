@@ -87,7 +87,15 @@ export function GenerationPromptBlock({
             ) : (
               /* Clipboard icon */
               <>
-                <rect x="5" y="3" width="8" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
+                <rect
+                  x="5"
+                  y="3"
+                  width="8"
+                  height="11"
+                  rx="1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                />
                 <path
                   d="M5 5H4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-1"
                   stroke="currentColor"

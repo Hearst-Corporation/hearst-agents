@@ -11,22 +11,11 @@ export type Provider = "runway" | "heygen";
 export type DurationOption = 5 | 10;
 export type RatioOption = "1280:720" | "720:1280";
 
-export type SinglePhase =
-  | "idle"
-  | "creating"
-  | "queued"
-  | "running"
-  | "done"
-  | "error";
+export type SinglePhase = "idle" | "creating" | "queued" | "running" | "done" | "error";
 
 export type BatchVariantPhase = "queued" | "running" | "done" | "error";
 
-export type BatchPhase =
-  | "idle"
-  | "creating"
-  | "running"
-  | "done"
-  | "error";
+export type BatchPhase = "idle" | "creating" | "running" | "done" | "error";
 
 export const DURATION_LABELS: Record<DurationOption, string> = {
   5: "5 sec",
@@ -74,17 +63,13 @@ export function progressLabel(progress: number, provider: Provider): string {
   if (progress < 5) return "Initialisation…";
   if (progress < 20) return "Soumission au provider";
   if (progress < 80)
-    return provider === "runway"
-      ? "Runway génère la vidéo…"
-      : "HeyGen prépare l'avatar…";
+    return provider === "runway" ? "Runway génère la vidéo…" : "HeyGen prépare l'avatar…";
   if (progress < 90) return "Téléchargement de la vidéo";
   if (progress < 100) return "Upload sur le storage";
   return "Vidéo prête";
 }
 
-export function makeBatchForm(
-  seed?: Partial<BatchVariantForm>,
-): BatchVariantForm {
+export function makeBatchForm(seed?: Partial<BatchVariantForm>): BatchVariantForm {
   return {
     localId:
       typeof crypto !== "undefined" && "randomUUID" in crypto

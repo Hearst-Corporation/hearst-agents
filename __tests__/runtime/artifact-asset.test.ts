@@ -6,14 +6,16 @@
  *     et le worker traque le provider via metadata.runtime + variants)
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { storeAssetMock, createVariantMock, enqueueJobMock, requireCreditsMock } = vi.hoisted(() => ({
-  storeAssetMock: vi.fn().mockResolvedValue(undefined),
-  createVariantMock: vi.fn().mockResolvedValue("variant-id"),
-  enqueueJobMock: vi.fn().mockResolvedValue({ jobId: "job-1" }),
-  requireCreditsMock: vi.fn().mockResolvedValue({ allowed: true }),
-}));
+const { storeAssetMock, createVariantMock, enqueueJobMock, requireCreditsMock } = vi.hoisted(
+  () => ({
+    storeAssetMock: vi.fn().mockResolvedValue(undefined),
+    createVariantMock: vi.fn().mockResolvedValue("variant-id"),
+    enqueueJobMock: vi.fn().mockResolvedValue({ jobId: "job-1" }),
+    requireCreditsMock: vi.fn().mockResolvedValue({ allowed: true }),
+  }),
+);
 
 vi.mock("@/lib/platform/auth/scope", () => ({
   requireScope: vi.fn(async () => ({

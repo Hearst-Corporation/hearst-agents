@@ -8,7 +8,7 @@
  * runReport pour rester unit-test pur.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { reportSpecSchema } from "@/lib/reports/spec/schema";
 
 vi.mock("@/lib/platform/auth/scope", () => ({
@@ -115,7 +115,14 @@ describe("/api/v2/reports/[specId]/run — custom spec", () => {
   it("résout un custom spec via loadTemplate quand specId hors catalog", async () => {
     storeMock.loadTemplate.mockResolvedValueOnce(makeSpec());
     runReportMock.mockResolvedValueOnce({
-      payload: { __reportPayload: true, specId: "x", version: 1, generatedAt: 0, blocks: [], scalars: {} },
+      payload: {
+        __reportPayload: true,
+        specId: "x",
+        version: 1,
+        generatedAt: 0,
+        blocks: [],
+        scalars: {},
+      },
       narration: "",
       signals: [],
       severity: "info",

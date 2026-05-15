@@ -14,7 +14,10 @@
 export class PermanentJobError extends Error {
   readonly isPermanent = true;
 
-  constructor(message: string, public readonly cause?: unknown) {
+  constructor(
+    message: string,
+    public readonly cause?: unknown,
+  ) {
     super(message);
     this.name = "PermanentJobError";
   }

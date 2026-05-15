@@ -5,7 +5,7 @@
  * Format : keyId.iv.tag.ciphertext (base64url)
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
 describe("Token Encryption Rotation (F-028)", () => {
   beforeEach(() => {

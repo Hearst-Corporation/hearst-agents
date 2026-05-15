@@ -16,10 +16,10 @@
  */
 
 import { useMemo, useState } from "react";
-import type { ReportSpec, BlockSpec } from "@/lib/reports/spec/schema";
-import type { RenderPayload, RenderedBlock } from "@/lib/reports/engine/render-blocks";
 import { ReportLayout } from "@/app/(user)/components/ReportLayout";
 import { Action } from "@/app/(user)/components/ui";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
+import type { BlockSpec, ReportSpec } from "@/lib/reports/spec/schema";
 
 export interface ReportSpecEditorProps {
   /** Spec source (lecture seule). */
@@ -82,11 +82,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
         }}
       >
         <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-          <span
-            className="t-9 font-mono uppercase text-text-muted"
-                     >
-            Visibilité
-          </span>
+          <span className="t-9 font-mono uppercase text-text-muted">Visibilité</span>
           <span className="t-13 text-text tabular-nums">
             {visibleCount} / {totalCount}
           </span>
@@ -97,7 +93,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
             onClick={resetAll}
             className="t-9 font-mono uppercase text-text-muted hover:text-text-soft transition-colors"
             style={{
-                            padding: "var(--space-2) var(--space-3)",
+              padding: "var(--space-2) var(--space-3)",
               border: "1px solid var(--surface-2)",
               borderRadius: "var(--radius-xs)",
               background: "transparent",
@@ -150,7 +146,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
               <span
                 className="t-9 font-mono uppercase text-(--accent-teal)"
                 style={{
-                                    minWidth: "var(--space-20)",
+                  minWidth: "var(--space-20)",
                 }}
               >
                 {block.type}
@@ -163,9 +159,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
               >
                 {block.label ?? block.id}
               </span>
-              <span
-                className="t-9 font-mono uppercase text-text-faint"
-                             >
+              <span className="t-9 font-mono uppercase text-text-faint">
                 col_{block.layout.col}
               </span>
             </li>
@@ -187,7 +181,7 @@ export function ReportSpecEditor({ spec, onChange }: ReportSpecEditorProps) {
           <div
             className="t-9 font-mono uppercase text-text-faint"
             style={{
-                            textAlign: "center",
+              textAlign: "center",
               padding: "var(--space-8)",
             }}
           >

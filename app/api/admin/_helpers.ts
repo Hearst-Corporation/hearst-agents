@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
-import { requireScope, type CanonicalScope } from "@/lib/platform/auth/scope";
-import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { checkPermission, type PermissionCheck } from "@/lib/admin/permissions";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { NextResponse } from "next/server";
+import { checkPermission, type PermissionCheck } from "@/lib/admin/permissions";
+import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
+import { type CanonicalScope, requireScope } from "@/lib/platform/auth/scope";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 interface AdminGuardResult {
   scope: CanonicalScope;
@@ -12,7 +12,7 @@ interface AdminGuardResult {
 
 export async function requireAdmin(
   context: string,
-  permission: Omit<PermissionCheck, "userId" | "tenantId">
+  permission: Omit<PermissionCheck, "userId" | "tenantId">,
 ): Promise<AdminGuardResult | NextResponse> {
   const { scope, error } = await requireScope({ context });
   if (error) {
@@ -43,7 +43,7 @@ export async function requireAdmin(
     if (!allowed) {
       return NextResponse.json(
         { error: "forbidden", message: `Missing ${permission.action} on ${permission.resource}` },
-        { status: 403 }
+        { status: 403 },
       );
     }
   } catch {

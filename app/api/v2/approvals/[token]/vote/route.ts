@@ -10,9 +10,9 @@
  * fetch interne vers /api/v2/missions/[id]/run (best-effort, fire-and-forget).
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { recordVote, getApprovalState } from "@/lib/missions/approvals";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { getApprovalState, recordVote } from "@/lib/missions/approvals";
 
 export const dynamic = "force-dynamic";
 
@@ -21,10 +21,7 @@ const voteBodySchema = z.object({
   comment: z.string().max(1000).optional(),
 });
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ token: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
 
   let body: { vote: "approved" | "rejected"; comment?: string };
@@ -54,10 +51,7 @@ export async function POST(
   // Trigger mission run si la session bascule en approved
   if (result.sessionApproved && result.missionId) {
     void triggerMissionRun(result.missionId).catch((err) => {
-      console.warn(
-        `[approvals/vote] runMissionNow failed for ${result.missionId}:`,
-        err,
-      );
+      console.warn(`[approvals/vote] runMissionNow failed for ${result.missionId}:`, err);
     });
   }
 
@@ -73,14 +67,9 @@ export async function POST(
  * GET — renvoie l'état public de la session pour la page de vote
  * (read-only, contexte mission sans exposer la liste complète des emails).
  */
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ token: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
-  const { verifyApprovalToken, getApprovalByTokenHash } = await import(
-    "@/lib/missions/approvals"
-  );
+  const { verifyApprovalToken, getApprovalByTokenHash } = await import("@/lib/missions/approvals");
 
   const v = verifyApprovalToken(token);
   if (!v.ok) {

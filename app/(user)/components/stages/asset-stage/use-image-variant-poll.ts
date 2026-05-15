@@ -33,18 +33,15 @@ export function useImageVariantPoll(assetId: string): UseImageVariantPollResult 
 
     const fetchVariants = async () => {
       try {
-        const res = await fetch(
-          `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-          { credentials: "include" },
-        );
+        const res = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
+          credentials: "include",
+        });
         if (!res.ok || cancelled) return;
         const data = (await res.json()) as {
           variants?: Array<{ kind: string; status: string; storageUrl?: string | null }>;
         };
         const imageVariants = (data.variants ?? []).filter((v) => v.kind === "image");
-        const imageReady = imageVariants.find(
-          (v) => v.status === "ready" && v.storageUrl,
-        );
+        const imageReady = imageVariants.find((v) => v.status === "ready" && v.storageUrl);
         const imagePending = imageVariants.find(
           (v) => v.status === "pending" || v.status === "generating",
         );

@@ -12,16 +12,29 @@
 // ── Write-action detection ────────────────────────────────────
 
 const WRITE_SEGMENTS = [
-  "_SEND_", "_CREATE_", "_DELETE_", "_UPDATE_", "_REPLY_",
-  "_ARCHIVE_", "_MOVE_", "_POST_", "_PUBLISH_", "_REMOVE_",
-  "_WRITE_", "_PATCH_", "_PUT_", "_SUBMIT_", "_FORWARD_",
-  "_MARK_", "_UNSUBSCRIBE_", "_INVITE_", "_ASSIGN_",
+  "_SEND_",
+  "_CREATE_",
+  "_DELETE_",
+  "_UPDATE_",
+  "_REPLY_",
+  "_ARCHIVE_",
+  "_MOVE_",
+  "_POST_",
+  "_PUBLISH_",
+  "_REMOVE_",
+  "_WRITE_",
+  "_PATCH_",
+  "_PUT_",
+  "_SUBMIT_",
+  "_FORWARD_",
+  "_MARK_",
+  "_UNSUBSCRIBE_",
+  "_INVITE_",
+  "_ASSIGN_",
 ] as const;
 
 // Handles tools that START with a write verb (no leading underscore)
-const WRITE_PREFIXES = [
-  "SEND_", "CREATE_", "DELETE_", "UPDATE_", "POST_", "PUBLISH_",
-] as const;
+const WRITE_PREFIXES = ["SEND_", "CREATE_", "DELETE_", "UPDATE_", "POST_", "PUBLISH_"] as const;
 
 export function isWriteAction(toolName: string): boolean {
   const upper = toolName.toUpperCase();
@@ -60,7 +73,8 @@ function extractVerb(toolName: string): string {
 const MAX_PREVIEW_VALUE_LEN = 300;
 
 function formatValue(v: unknown): string {
-  if (typeof v === "string") return v.length > MAX_PREVIEW_VALUE_LEN ? v.slice(0, MAX_PREVIEW_VALUE_LEN) + "…" : v;
+  if (typeof v === "string")
+    return v.length > MAX_PREVIEW_VALUE_LEN ? `${v.slice(0, MAX_PREVIEW_VALUE_LEN)}…` : v;
   if (typeof v === "object" && v !== null) return JSON.stringify(v).slice(0, MAX_PREVIEW_VALUE_LEN);
   return String(v);
 }
@@ -68,10 +82,7 @@ function formatValue(v: unknown): string {
 // Keys shown prominently at the top of the preview
 const PROMINENT_KEYS = new Set(["to", "recipient", "channel", "subject", "title", "name", "email"]);
 
-export function formatActionPreview(
-  toolName: string,
-  args: Record<string, unknown>,
-): string {
+export function formatActionPreview(toolName: string, args: Record<string, unknown>): string {
   const app = extractApp(toolName);
   const verb = extractVerb(toolName);
 
@@ -80,8 +91,7 @@ export function formatActionPreview(
   const prominent = entries.filter(([k]) => PROMINENT_KEYS.has(k.toLowerCase()));
   const rest = entries.filter(([k]) => !PROMINENT_KEYS.has(k.toLowerCase())).slice(0, 4);
 
-  const lines = [...prominent, ...rest]
-    .map(([k, v]) => `**${k}** : ${formatValue(v)}`);
+  const lines = [...prominent, ...rest].map(([k, v]) => `**${k}** : ${formatValue(v)}`);
 
   const header = `📋 Draft · ${app.toUpperCase()} · ${verb}`;
   const body = lines.length > 0 ? lines.join("\n") : "(aucun paramètre)";
@@ -94,11 +104,19 @@ export function formatActionPreview(
 
 const DOMAIN_APP_ALLOWLIST: Record<string, string[]> = {
   communication: ["gmail", "slack", "outlook", "teams", "whatsapp", "telegram", "discord"],
-  productivity:  ["googlecalendar", "google_calendar", "notion", "todoist", "asana", "trello", "airtable"],
-  finance:       ["stripe", "quickbooks", "hubspot", "chargebee", "braintree"],
-  developer:     ["github", "jira", "linear", "gitlab", "bitbucket", "sentry"],
-  crm:           ["hubspot", "salesforce", "pipedrive", "close"],
-  design:        ["figma"],
+  productivity: [
+    "googlecalendar",
+    "google_calendar",
+    "notion",
+    "todoist",
+    "asana",
+    "trello",
+    "airtable",
+  ],
+  finance: ["stripe", "quickbooks", "hubspot", "chargebee", "braintree"],
+  developer: ["github", "jira", "linear", "gitlab", "bitbucket", "sentry"],
+  crm: ["hubspot", "salesforce", "pipedrive", "close"],
+  design: ["figma"],
 };
 
 /**

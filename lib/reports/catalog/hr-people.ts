@@ -44,8 +44,7 @@ export function buildHrPeople(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "HR / People",
-      summary:
-        "Hiring funnel, signaux burnout (heures tardives) et headcount plan sur 90 jours.",
+      summary: "Hiring funnel, signaux burnout (heures tardives) et headcount plan sur 90 jours.",
       domain: "people",
       persona: "people",
       cadence: "weekly",
@@ -276,9 +275,7 @@ export function buildHrPeople(scope: ReportSpec["scope"]): ReportSpec {
         op: "derive",
         inputs: ["late_activity_join"],
         params: {
-          columns: [
-            { name: "value", expr: "num(late_count) / num(total_count)" },
-          ],
+          columns: [{ name: "value", expr: "num(late_count) / num(total_count)" }],
         },
       },
 
@@ -412,8 +409,4 @@ export function buildHrPeople(scope: ReportSpec["scope"]): ReportSpec {
   };
 }
 
-export const HR_PEOPLE_REQUIRED_APPS = [
-  "greenhouse",
-  "slack",
-  "bamboohr",
-] as const;
+export const HR_PEOPLE_REQUIRED_APPS = ["greenhouse", "slack", "bamboohr"] as const;

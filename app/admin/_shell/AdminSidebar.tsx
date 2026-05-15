@@ -107,9 +107,7 @@ export default function AdminSidebar({
                   >
                     <NavIcon d={item.iconPath} />
                   </span>
-                  {!collapsed && (
-                    <span className="t-12 truncate">{item.label}</span>
-                  )}
+                  {!collapsed && <span className="t-12 truncate">{item.label}</span>}
                 </Link>
               );
             })}

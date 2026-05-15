@@ -5,16 +5,16 @@
  * 3. latest asset → 4. active mission → 5. null
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+import type { Asset } from "@/lib/assets/types";
+import type { ExecutionPlan, MissionDefinition } from "@/lib/engine/planner/types";
+import type { ProviderId } from "@/lib/providers/types";
 import {
-  resolveFocalObject,
-  manifestPlan,
   manifestAsset,
   manifestMission,
+  manifestPlan,
+  resolveFocalObject,
 } from "@/lib/ui/right-panel/manifestation";
-import type { ExecutionPlan, MissionDefinition } from "@/lib/engine/planner/types";
-import type { Asset } from "@/lib/assets/types";
-import type { ProviderId } from "@/lib/providers/types";
 
 describe("resolveFocalObject — Canonical Priority", () => {
   const mockThreadId = "test-thread-1";
@@ -272,7 +272,15 @@ describe("manifestAsset — Asset Type Mapping", () => {
   it("should include wordCount when available", () => {
     const result = manifestAsset(
       { ...baseAsset, kind: "report" },
-      { wordCount: 1500, title: "Test", summary: "Test summary", sections: [], tier: "report", tone: "executive", truncated: false }
+      {
+        wordCount: 1500,
+        title: "Test",
+        summary: "Test summary",
+        sections: [],
+        tier: "report",
+        tone: "executive",
+        truncated: false,
+      },
     );
     expect((result as { wordCount?: number })?.wordCount).toBe(1500);
   });

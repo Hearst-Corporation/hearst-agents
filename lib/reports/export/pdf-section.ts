@@ -10,15 +10,8 @@
  * (pagination "NN · TITRE" + version) sur les pages intérieures.
  */
 
-import {
-  COLORS,
-  FONT_SIZES,
-  PAGE,
-  RULES,
-  BRAND,
-  SPACE,
-} from "./pdf-tokens";
 import { setFont } from "./pdf-fonts";
+import { BRAND, COLORS, FONT_SIZES, PAGE, RULES, SPACE } from "./pdf-tokens";
 
 export interface SectionHeaderInput {
   /** Petit eyebrow caps au-dessus du titre. Ex. "SECTION 02 — REVENUS". */
@@ -30,10 +23,7 @@ export interface SectionHeaderInput {
   embedded: boolean;
 }
 
-export function renderSectionHeader(
-  doc: PDFKit.PDFDocument,
-  input: SectionHeaderInput,
-): void {
+export function renderSectionHeader(doc: PDFKit.PDFDocument, input: SectionHeaderInput): void {
   const x = doc.x;
   const startY = doc.y;
 
@@ -52,23 +42,17 @@ export function renderSectionHeader(
   // Eyebrow caps
   if (input.eyebrow && input.eyebrow.trim().length > 0) {
     setFont(doc, "sansMedium", input.embedded);
-    doc
-      .fontSize(FONT_SIZES.eyebrow)
-      .fillColor(COLORS.muted)
-      .text(input.eyebrow, x, doc.y, {
-        characterSpacing: 1.4,
-      });
+    doc.fontSize(FONT_SIZES.eyebrow).fillColor(COLORS.muted).text(input.eyebrow, x, doc.y, {
+      characterSpacing: 1.4,
+    });
     doc.y += SPACE.s2;
   }
 
   // Titre H2 serif
   setFont(doc, "serifBold", input.embedded);
-  doc
-    .fontSize(FONT_SIZES.h2)
-    .fillColor(COLORS.ink)
-    .text(input.title, x, doc.y, {
-      lineGap: -2,
-    });
+  doc.fontSize(FONT_SIZES.h2).fillColor(COLORS.ink).text(input.title, x, doc.y, {
+    lineGap: -2,
+  });
   doc.y += SPACE.s2;
 
   // Lead optionnel
@@ -101,10 +85,7 @@ export interface PageChromeInput {
  * Rendre header + footer brand sur une page intérieure.
  * À appeler à chaque `addPage()` (ou au début).
  */
-export function renderPageChrome(
-  doc: PDFKit.PDFDocument,
-  input: PageChromeInput,
-): void {
+export function renderPageChrome(doc: PDFKit.PDFDocument, input: PageChromeInput): void {
   const headerY = SPACE.s8;
   const footerY = PAGE.height - SPACE.s8;
   const xLeft = PAGE.marginX;
@@ -112,13 +93,10 @@ export function renderPageChrome(
 
   // ── Header ───────────────────────────────────────────
   setFont(doc, "sansSemiBold", input.embedded);
-  doc
-    .fontSize(FONT_SIZES.eyebrow)
-    .fillColor(COLORS.muted)
-    .text(BRAND.shortName, xLeft, headerY, {
-      characterSpacing: 1.8,
-      lineBreak: false,
-    });
+  doc.fontSize(FONT_SIZES.eyebrow).fillColor(COLORS.muted).text(BRAND.shortName, xLeft, headerY, {
+    characterSpacing: 1.8,
+    lineBreak: false,
+  });
 
   // Rule fine sous le header
   const ruleY = headerY + SPACE.s4;
@@ -149,13 +127,10 @@ export function renderPageChrome(
 
   // Brand gauche
   setFont(doc, "sansSemiBold", input.embedded);
-  doc
-    .fontSize(FONT_SIZES.eyebrow)
-    .fillColor(COLORS.muted)
-    .text(BRAND.name, xLeft, footerY, {
-      characterSpacing: 1.5,
-      lineBreak: false,
-    });
+  doc.fontSize(FONT_SIZES.eyebrow).fillColor(COLORS.muted).text(BRAND.name, xLeft, footerY, {
+    characterSpacing: 1.5,
+    lineBreak: false,
+  });
 
   // Pagination centre
   setFont(doc, "sans", input.embedded);
@@ -163,24 +138,14 @@ export function renderPageChrome(
   doc
     .fontSize(FONT_SIZES.eyebrow)
     .fillColor(COLORS.muted)
-    .text(
-      pageLabel,
-      (PAGE.width - labelWidth) / 2,
-      footerY,
-      { lineBreak: false },
-    );
+    .text(pageLabel, (PAGE.width - labelWidth) / 2, footerY, { lineBreak: false });
 
   // Version droite
   const versionWidth = doc.widthOfString(version);
   doc
     .fontSize(FONT_SIZES.eyebrow)
     .fillColor(COLORS.muted)
-    .text(
-      version,
-      xRight - versionWidth,
-      footerY,
-      { lineBreak: false },
-    );
+    .text(version, xRight - versionWidth, footerY, { lineBreak: false });
 }
 
 function formatPageLabel(n: number, title: string): string {

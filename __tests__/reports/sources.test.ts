@@ -5,10 +5,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import {
-  extractTabular,
-  applyMapping,
-} from "@/lib/reports/sources/extract";
+import { applyMapping, extractTabular } from "@/lib/reports/sources/extract";
 
 describe("extractTabular — payloads hétérogènes", () => {
   it("retourne un Array tel quel", () => {

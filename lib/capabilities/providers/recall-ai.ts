@@ -12,8 +12,7 @@
 
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-const RECALL_API_BASE =
-  process.env.RECALL_API_BASE ?? "https://us-east-1.recall.ai/api/v1";
+const RECALL_API_BASE = process.env.RECALL_API_BASE ?? "https://us-east-1.recall.ai/api/v1";
 
 export class RecallAiUnavailableError extends Error {
   constructor(message = "Recall.ai non configuré (RECALL_API_KEY manquant)") {
@@ -118,9 +117,7 @@ export async function getBotStatus(botId: string): Promise<BotStatus> {
   };
 
   const latestStatus =
-    data.status ??
-    data.status_changes?.[data.status_changes.length - 1]?.code ??
-    "unknown";
+    data.status ?? data.status_changes?.[data.status_changes.length - 1]?.code ?? "unknown";
 
   return {
     status: latestStatus,
@@ -168,7 +165,10 @@ export async function getTranscript(
   }>;
 
   const segments: TranscriptSegment[] = data.map((seg) => {
-    const text = (seg.words ?? []).map((w) => w.text).join(" ").trim();
+    const text = (seg.words ?? [])
+      .map((w) => w.text)
+      .join(" ")
+      .trim();
     const start = seg.words?.[0]?.start_timestamp ?? 0;
     const end = seg.words?.[seg.words.length - 1]?.end_timestamp ?? start;
     return {
@@ -261,9 +261,7 @@ export function verifyWebhookSignature(params: {
     }
   }
 
-  const payload = params.timestamp
-    ? `${params.timestamp}.${params.rawBody}`
-    : params.rawBody;
+  const payload = params.timestamp ? `${params.timestamp}.${params.rawBody}` : params.rawBody;
   const expected = createHmac("sha256", secret).update(payload).digest("hex");
 
   try {
@@ -271,18 +269,14 @@ export function verifyWebhookSignature(params: {
     const b = Buffer.from(params.signature);
     if (a.length !== b.length) return { valid: false, reason: "length_mismatch" };
     const ok = timingSafeEqual(a, b);
-    return ok
-      ? { valid: true, reason: "valid" }
-      : { valid: false, reason: "signature_mismatch" };
+    return ok ? { valid: true, reason: "valid" } : { valid: false, reason: "signature_mismatch" };
   } catch {
     return { valid: false, reason: "compare_failed" };
   }
 }
 
 /** Détecte le provider de meeting depuis l'URL pour télémétrie / UI. */
-export function detectMeetingProvider(
-  url: string,
-): "zoom" | "google_meet" | "teams" | "unknown" {
+export function detectMeetingProvider(url: string): "zoom" | "google_meet" | "teams" | "unknown" {
   const u = url.toLowerCase();
   if (u.includes("zoom.us") || u.includes("zoom.com")) return "zoom";
   if (u.includes("meet.google.com")) return "google_meet";
@@ -291,9 +285,7 @@ export function detectMeetingProvider(
 }
 
 /** Validation legère côté API : URL parsable et provider connu. */
-export function validateMeetingUrl(
-  url: string,
-): { ok: true } | { ok: false; reason: string } {
+export function validateMeetingUrl(url: string): { ok: true } | { ok: false; reason: string } {
   if (!url || url.trim().length === 0) {
     return { ok: false, reason: "empty" };
   }

@@ -5,15 +5,22 @@
  */
 
 import { use, useEffect, useState } from "react";
+import type { CreativePromptPayload } from "@/lib/marketplace/types";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
+import type { WorkflowGraph } from "@/lib/workflows/types";
 import { PageHeader } from "../../components/PageHeader";
 import { Action } from "../../components/ui";
-import type { CreativePromptPayload } from "@/lib/marketplace/types";
-import type { WorkflowGraph } from "@/lib/workflows/types";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
-import { Chip, WorkflowPreview, ReportPreview, CreativePromptPreview, PersonaPreview, escapeHtml } from "./_parts/TemplatePreviews";
 import { RatingSection, RatingsList } from "./_parts/RatingSection";
 import { ReportForm } from "./_parts/ReportForm";
-import { useTemplateActions, type DetailResponse } from "./_parts/useTemplateActions";
+import {
+  Chip,
+  CreativePromptPreview,
+  escapeHtml,
+  PersonaPreview,
+  ReportPreview,
+  WorkflowPreview,
+} from "./_parts/TemplatePreviews";
+import { type DetailResponse, useTemplateActions } from "./_parts/useTemplateActions";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -68,10 +75,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
   if (error) {
     return (
       <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
-        <PageHeader
-          title="Marketplace"
-          back={{ label: "Marketplace", href: "/marketplace" }}
-        />
+        <PageHeader title="Marketplace" back={{ label: "Marketplace", href: "/marketplace" }} />
         <p className="px-12 py-8 t-13 text-(--danger)">{error}</p>
       </div>
     );
@@ -80,13 +84,8 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
   if (!data) {
     return (
       <div className="h-full min-h-0 overflow-y-auto bg-bg-elev text-text">
-        <PageHeader
-          title="Marketplace"
-          back={{ label: "Marketplace", href: "/marketplace" }}
-        />
-        <p className="px-12 py-8 t-11 font-light text-text-faint">
-          Chargement…
-        </p>
+        <PageHeader title="Marketplace" back={{ label: "Marketplace", href: "/marketplace" }} />
+        <p className="px-12 py-8 t-11 font-light text-text-faint">Chargement…</p>
       </div>
     );
   }
@@ -140,11 +139,7 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
       />
 
       <div className="px-12 py-8 mx-auto w-full max-w-[min(100%,var(--width-actions))] flex flex-col gap-6">
-        {flash && (
-          <p className="t-11 font-light text-(--accent-teal)">
-            {flash}
-          </p>
-        )}
+        {flash && <p className="t-11 font-light text-(--accent-teal)">{flash}</p>}
 
         {/* Méta */}
         <section className="flex flex-wrap gap-3">
@@ -166,12 +161,8 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
         {/* Preview */}
         <section className="flex flex-col gap-3">
           <h2 className="t-13 text-text-soft">Aperçu</h2>
-          {tpl.kind === "workflow" && (
-            <WorkflowPreview graph={tpl.payload as WorkflowGraph} />
-          )}
-          {tpl.kind === "report_spec" && (
-            <ReportPreview spec={tpl.payload as ReportSpec} />
-          )}
+          {tpl.kind === "workflow" && <WorkflowPreview graph={tpl.payload as WorkflowGraph} />}
+          {tpl.kind === "report_spec" && <ReportPreview spec={tpl.payload as ReportSpec} />}
           {tpl.kind === "persona" && (
             <PersonaPreview payload={tpl.payload as Record<string, unknown>} />
           )}
@@ -185,10 +176,12 @@ export default function MarketplaceDetailPage({ params }: PageProps) {
             reason={reportReason}
             busy={busy}
             onChangeReason={setReportReason}
-            onSubmit={() => void handleReport(reportReason, () => {
-              setReportOpen(false);
-              setReportReason("");
-            })}
+            onSubmit={() =>
+              void handleReport(reportReason, () => {
+                setReportOpen(false);
+                setReportReason("");
+              })
+            }
             onCancel={() => setReportOpen(false)}
           />
         )}

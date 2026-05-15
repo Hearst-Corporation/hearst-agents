@@ -6,8 +6,8 @@
  * Path: lib/engine/runtime/assets/generators/pdf.ts
  */
 
+import path from "node:path";
 import PDFDocument from "pdfkit";
-import path from "path";
 import { saveAssetFile } from "../file-storage";
 import type { AssetFileInfo } from "../types";
 
@@ -87,7 +87,11 @@ async function renderPdf(title: string, content: string): Promise<Buffer> {
       month: "long",
       day: "numeric",
     });
-    doc.fontSize(9).font("Helvetica").fillColor("#888888").text(`Généré le ${dateStr}`, { align: "center" });
+    doc
+      .fontSize(9)
+      .font("Helvetica")
+      .fillColor("#888888")
+      .text(`Généré le ${dateStr}`, { align: "center" });
     doc.fillColor("#000000");
     doc.moveDown(1.5);
 
@@ -128,9 +132,12 @@ async function renderPdf(title: string, content: string): Promise<Buffer> {
 
       // Bullet points
       if (/^[-*] /.test(trimmed)) {
-        doc.fontSize(10).font("Helvetica").text(`  •  ${trimmed.replace(/^[-*] /, "")}`, {
-          indent: 10,
-        });
+        doc
+          .fontSize(10)
+          .font("Helvetica")
+          .text(`  •  ${trimmed.replace(/^[-*] /, "")}`, {
+            indent: 10,
+          });
         continue;
       }
 

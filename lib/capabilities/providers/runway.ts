@@ -67,9 +67,7 @@ export async function runwayGetTask(taskId: string): Promise<{
 
     if (!res.ok) {
       const errBody = await res.text().catch(() => "");
-      throw new Error(
-        `[Runway] task status failed ${res.status}: ${errBody.slice(0, 200)}`,
-      );
+      throw new Error(`[Runway] task status failed ${res.status}: ${errBody.slice(0, 200)}`);
     }
 
     const data = (await res.json()) as {

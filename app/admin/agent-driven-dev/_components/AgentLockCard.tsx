@@ -52,21 +52,16 @@ export default function AgentLockCard({ initial }: Props) {
           <div className="flex items-start gap-(--space-3) min-w-0">
             <span className="size-(--space-3) rounded-(--radius-full) bg-danger animate-pulse shrink-0 mt-(--space-1)" />
             <div className="min-w-0 space-y-(--space-1)">
-              <p className="t-11 font-medium text-danger">
-                Agents verrouillés
-              </p>
+              <p className="t-11 font-medium text-danger">Agents verrouillés</p>
               <p className="t-15 text-text">
                 Aucun agent ne peut écrire ou exécuter d&apos;action destructive.
               </p>
               <p className="t-12 text-text-muted">
                 Verrouillé{" "}
-                {state.lockedAt &&
-                  `le ${new Date(state.lockedAt).toLocaleString("fr-FR")}`}
+                {state.lockedAt && `le ${new Date(state.lockedAt).toLocaleString("fr-FR")}`}
                 {state.lockedBy && ` · par ${state.lockedBy.slice(0, 8)}…`}
               </p>
-              {state.reason && (
-                <p className="t-12 text-text-soft italic">« {state.reason} »</p>
-              )}
+              {state.reason && <p className="t-12 text-text-soft italic">« {state.reason} »</p>}
             </div>
           </div>
           <button
@@ -89,9 +84,7 @@ export default function AgentLockCard({ initial }: Props) {
         <div className="flex items-start gap-(--space-3) min-w-0">
           <span className="size-(--space-3) rounded-(--radius-full) bg-money shrink-0 mt-(--space-1)" />
           <div className="min-w-0 space-y-(--space-1)">
-            <p className="t-11 font-medium text-text-faint">
-              Édition libre
-            </p>
+            <p className="t-11 font-medium text-text-faint">Édition libre</p>
             <p className="t-15 text-text">
               Les agents peuvent écrire selon les invariants des features verrouillées.
             </p>

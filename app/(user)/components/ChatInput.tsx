@@ -3,5 +3,6 @@
  * Conservé pour la rétrocompatibilité des imports historiques
  * (ChatDock, tests, etc.).
  */
-export { ChatInput } from "./chat-input";
+
 export type { ChatInputProps } from "./chat-input";
+export { ChatInput } from "./chat-input";

@@ -5,14 +5,14 @@
 
 import { describe, expect, it } from "vitest";
 import { applyTransforms } from "@/lib/reports/engine/apply-transforms";
-import { stableStringify, hashKey } from "@/lib/reports/engine/cache";
-import type { TransformOp } from "@/lib/reports/spec/schema";
+import { hashKey, stableStringify } from "@/lib/reports/engine/cache";
 import type { Tabular } from "@/lib/reports/engine/tabular";
+import type { TransformOp } from "@/lib/reports/spec/schema";
 
 const STRIPE: Tabular = [
   { id: "ch_1", customer: "cus_a", amount: 100, currency: "EUR" },
   { id: "ch_2", customer: "cus_a", amount: 200, currency: "EUR" },
-  { id: "ch_3", customer: "cus_b", amount: 50,  currency: "EUR" },
+  { id: "ch_3", customer: "cus_b", amount: 50, currency: "EUR" },
   { id: "ch_4", customer: "cus_c", amount: 300, currency: "USD" },
 ];
 

@@ -13,25 +13,28 @@
  * On each tick, hydrates from Supabase if in-memory store is empty.
  */
 
-import type { ScheduledMission } from "./types";
-import { getEnabledMissions, addMission, getAllMissions, updateMissionLastRun } from "./store";
-import { getScheduledMissions, updateScheduledMission as persistUpdateMission } from "../state/adapter";
-import { isMissionRunning, markMissionRunning, markMissionCompleted } from "./lease";
-import { tryAcquireMissionLease, releaseMissionLease } from "./distributed-lease";
-import {
-  setMissionRunning as opsRunning,
-  setMissionResult as opsResult,
-  setMissionDrift,
-  clearMissionDrift,
-  getMissionDrift,
-} from "./ops-store";
-import { normalizeMissionResult } from "./normalize-result";
-import { INSTANCE_ID } from "../instance-id";
-import { buildExportJobPayload, runExportScheduledReportJob } from "./export-job";
-import { getMonthlyMissionCost } from "./budget";
 import { analyzeMissionDrift, generateDriftNarration } from "@/lib/cockpit/drift-detection";
 import { hasActiveApprovalSession, requestApprovals } from "@/lib/missions/approvals";
 import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
+import { INSTANCE_ID } from "../instance-id";
+import {
+  getScheduledMissions,
+  updateScheduledMission as persistUpdateMission,
+} from "../state/adapter";
+import { getMonthlyMissionCost } from "./budget";
+import { releaseMissionLease, tryAcquireMissionLease } from "./distributed-lease";
+import { buildExportJobPayload, runExportScheduledReportJob } from "./export-job";
+import { isMissionRunning, markMissionCompleted, markMissionRunning } from "./lease";
+import { normalizeMissionResult } from "./normalize-result";
+import {
+  clearMissionDrift,
+  getMissionDrift,
+  setMissionResult as opsResult,
+  setMissionRunning as opsRunning,
+  setMissionDrift,
+} from "./ops-store";
+import { addMission, getAllMissions, getEnabledMissions, updateMissionLastRun } from "./store";
+import type { ScheduledMission } from "./types";
 
 const POLL_INTERVAL_MS = 60_000;
 const triggeredThisMinute = new Set<string>();
@@ -124,10 +127,7 @@ async function hydrateIfNeeded(): Promise<void> {
 
 // ── Scheduler loop ───────────────────────────────────────
 
-async function tick(
-  trigger: SchedulerTriggerFn,
-  isLeader: IsLeaderFn,
-): Promise<void> {
+async function tick(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): Promise<void> {
   // Layer 1: leadership gate
   const leader = await isLeader();
   if (!leader) return; // standby instance — skip silently
@@ -179,10 +179,7 @@ async function tick(
         // Lecture budget en erreur — fail-open : on laisse passer pour ne pas
         // bloquer l'agent si Supabase est down. L'enforcement sera retenté
         // au prochain tick.
-        console.warn(
-          `[Scheduler] Mission "${mission.name}" budget check failed (fail-open):`,
-          err,
-        );
+        console.warn(`[Scheduler] Mission "${mission.name}" budget check failed (fail-open):`, err);
       }
     }
 
@@ -263,7 +260,11 @@ async function tick(
         updateMissionLastRun(mission.id, runId);
       }
 
-      opsResult(mission.id, { status: result.status, runId: runId ?? undefined, error: result.message });
+      opsResult(mission.id, {
+        status: result.status,
+        runId: runId ?? undefined,
+        error: result.message,
+      });
 
       // Persist ops durably
       void persistUpdateMission(mission.id, {
@@ -279,10 +280,7 @@ async function tick(
         // Fire-and-forget : la détection de drift et la notification ne
         // doivent jamais bloquer le tick suivant ni faire échouer le run.
         runDriftHook(mission).catch((err) => {
-          console.warn(
-            `[Scheduler] Drift hook failed for mission "${mission.name}":`,
-            err,
-          );
+          console.warn(`[Scheduler] Drift hook failed for mission "${mission.name}":`, err);
         });
         // ── Webhook mission.completed (fire-and-forget) ───────
         try {
@@ -304,14 +302,13 @@ async function tick(
           );
           // Fire-and-forget : l'échec de l'export ne doit pas impacter le run.
           runExportScheduledReportJob(jobPayload).catch((err) => {
-            console.error(
-              `[Scheduler] export-job failed for mission "${mission.name}":`,
-              err,
-            );
+            console.error(`[Scheduler] export-job failed for mission "${mission.name}":`, err);
           });
         }
       } else {
-        console.warn(`[Scheduler] Mission "${mission.name}" finished with status: ${result.status}`);
+        console.warn(
+          `[Scheduler] Mission "${mission.name}" finished with status: ${result.status}`,
+        );
       }
     } catch (err) {
       const result = normalizeMissionResult({ error: err });
@@ -348,10 +345,7 @@ async function tick(
  * Start the scheduler polling loop.
  * Returns a cleanup function to stop it.
  */
-export function startScheduler(
-  trigger: SchedulerTriggerFn,
-  isLeader: IsLeaderFn,
-): () => void {
+export function startScheduler(trigger: SchedulerTriggerFn, isLeader: IsLeaderFn): () => void {
   if (intervalId) {
     console.warn("[Scheduler] Already running — skipping duplicate start");
     return () => stopScheduler();
@@ -359,16 +353,12 @@ export function startScheduler(
 
   console.log(`[Scheduler] Started (polling every 60s) [${INSTANCE_ID}]`);
 
-  tick(trigger, isLeader).catch((e) =>
-    console.error("[Scheduler] Initial tick error:", e),
-  );
+  tick(trigger, isLeader).catch((e) => console.error("[Scheduler] Initial tick error:", e));
 
   intervalId = setInterval(() => {
-    tick(trigger, isLeader).catch((e) =>
-      console.error("[Scheduler] Tick error:", e),
-    );
+    tick(trigger, isLeader).catch((e) => console.error("[Scheduler] Tick error:", e));
   }, POLL_INTERVAL_MS);
-  
+
   // Register HMR cleanup
   registerHMRCleanup(() => {
     console.log("[Scheduler] HMR cleanup — stopping scheduler");
@@ -422,7 +412,7 @@ async function runDriftHook(mission: ScheduledMission): Promise<void> {
     staleRuns: analysis.consecutiveStaleRuns,
     suggestion,
     lastChangeAt: analysis.lastChangeAt,
-    notifiedAt: shouldNotify ? now : previous?.notifiedAt ?? now,
+    notifiedAt: shouldNotify ? now : (previous?.notifiedAt ?? now),
   });
 
   if (!shouldNotify) return;
@@ -455,4 +445,3 @@ async function runDriftHook(mission: ScheduledMission): Promise<void> {
     console.warn(`[Scheduler] Drift notification failed for ${mission.id}:`, err);
   }
 }
-

@@ -46,8 +46,7 @@ export function MonthlyCardView({ data, mode = "screen" }: MonthlyCardViewProps)
     height: `${CARD_HEIGHT}px`,
     background: `linear-gradient(180deg, ${COLOR_BG_TOP} 0%, ${COLOR_BG_BOTTOM} 100%)`,
     color: COLOR_TEXT,
-    fontFamily:
-      "'Satoshi Variable', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+    fontFamily: "'Satoshi Variable', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
     display: "flex",
     flexDirection: "column",
     padding: "96px 80px",
@@ -241,16 +240,8 @@ export function MonthlyCardView({ data, mode = "screen" }: MonthlyCardViewProps)
           marginBottom: "96px",
         }}
       >
-        <NumberedRow
-          number="01"
-          label="Missions exécutées"
-          value={formatNumber(missionsRun)}
-        />
-        <NumberedRow
-          number="02"
-          label="Rapports générés"
-          value={formatNumber(reportsGenerated)}
-        />
+        <NumberedRow number="01" label="Missions exécutées" value={formatNumber(missionsRun)} />
+        <NumberedRow number="02" label="Rapports générés" value={formatNumber(reportsGenerated)} />
         <NumberedRow
           number="03"
           label="Signaux à inspecter"
@@ -401,4 +392,3 @@ function NumberedRow({ number, label, value, accent = false }: NumberedRowProps)
     </div>
   );
 }
-

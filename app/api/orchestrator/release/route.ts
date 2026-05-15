@@ -1,23 +1,22 @@
 import { NextResponse } from "next/server";
-import { latestScores } from "@/lib/hom/trust";
-import { evaluateReleaseGates } from "@/lib/hom/policy";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { loadDriftLog } from "@/lib/hom/drift";
-import { listRuns } from "@/lib/hom/registry";
 import { readJson } from "@/lib/hom/fs-utils";
 import { HOM } from "@/lib/hom/paths";
+import { evaluateReleaseGates } from "@/lib/hom/policy";
+import { listRuns } from "@/lib/hom/registry";
+import { latestScores } from "@/lib/hom/trust";
 import type { RunDecisionFile } from "@/lib/hom/types";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const guard = await requireAdmin("GET /api/orchestrator/release", { resource: "settings", action: "read" });
+  const guard = await requireAdmin("GET /api/orchestrator/release", {
+    resource: "settings",
+    action: "read",
+  });
   if (isError(guard)) return guard;
-  const [scores, drift, runs] = await Promise.all([
-    latestScores(),
-    loadDriftLog(),
-    listRuns(),
-  ]);
+  const [scores, drift, runs] = await Promise.all([latestScores(), loadDriftLog(), listRuns()]);
 
   // Récupère decision du dernier run pour évaluer hasCritical
   const lastRun = runs[0];

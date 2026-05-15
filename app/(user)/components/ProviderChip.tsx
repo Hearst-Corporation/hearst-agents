@@ -127,7 +127,6 @@ export function ProviderChip({
       onMouseLeave={() => setShowTooltip(false)}
       onFocus={() => setShowTooltip(true)}
       onBlur={() => setShowTooltip(false)}
-      tabIndex={0}
       aria-label={`Provider ${displayLabel}, statut ${status}`}
     >
       <span

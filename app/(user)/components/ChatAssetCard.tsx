@@ -1,11 +1,11 @@
 "use client";
 
-import { useFocalStore } from "@/stores/focal";
-import { useStageStore } from "@/stores/stage";
-import { useSelectionStore } from "@/stores/selection";
-import { assetToFocal } from "@/lib/ui/focal-mappers";
 import { isPlaceholderAssetId } from "@/lib/ui/asset-id";
+import { assetToFocal } from "@/lib/ui/focal-mappers";
+import { useFocalStore } from "@/stores/focal";
 import type { MessageAssetRef } from "@/stores/navigation";
+import { useSelectionStore } from "@/stores/selection";
+import { useStageStore } from "@/stores/stage";
 
 /* ─── Labels par type ──────────────────────────────────────────── */
 const TYPE_LABELS: Record<string, string> = {
@@ -67,7 +67,16 @@ function AssetIcon({ type }: { type: string }) {
 
   if (t === "video") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <polygon points="23 7 16 12 23 17 23 7" />
         <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
       </svg>
@@ -76,7 +85,16 @@ function AssetIcon({ type }: { type: string }) {
 
   if (t === "audio") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M9 18V5l12-2v13" />
         <circle cx="6" cy="18" r="3" />
         <circle cx="18" cy="16" r="3" />
@@ -86,7 +104,16 @@ function AssetIcon({ type }: { type: string }) {
 
   if (t === "image") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
         <circle cx="8.5" cy="8.5" r="1.5" />
         <polyline points="21 15 16 10 5 21" />
@@ -96,7 +123,16 @@ function AssetIcon({ type }: { type: string }) {
 
   if (t === "code") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <polyline points="16 18 22 12 16 6" />
         <polyline points="8 6 2 12 8 18" />
       </svg>
@@ -105,7 +141,16 @@ function AssetIcon({ type }: { type: string }) {
 
   if (t === "report" || t === "synthesis") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <line x1="18" y1="20" x2="18" y2="10" />
         <line x1="12" y1="20" x2="12" y2="4" />
         <line x1="6" y1="20" x2="6" y2="14" />
@@ -115,7 +160,16 @@ function AssetIcon({ type }: { type: string }) {
 
   if (t === "brief") {
     return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
       </svg>
@@ -124,7 +178,16 @@ function AssetIcon({ type }: { type: string }) {
 
   // doc / document / fallback
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <polyline points="14 2 14 8 20 8" />
     </svg>
@@ -205,9 +268,7 @@ export function ChatAssetCard({ assetRef }: { assetRef: MessageAssetRef }) {
           >
             {typeLabel}
           </span>
-          <span className="t-13 text-text-faint font-light truncate">
-            {assetRef.title}
-          </span>
+          <span className="t-13 text-text-faint font-light truncate">{assetRef.title}</span>
         </div>
 
         {/* Indicateur génération */}
@@ -232,7 +293,8 @@ export function ChatAssetCard({ assetRef }: { assetRef: MessageAssetRef }) {
         transition: `border-color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard)`,
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--accent-teal-border-hover)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor =
+          "var(--accent-teal-border-hover)";
         (e.currentTarget as HTMLButtonElement).style.background = "var(--accent-teal-bg-hover)";
       }}
       onMouseLeave={(e) => {
@@ -269,9 +331,7 @@ export function ChatAssetCard({ assetRef }: { assetRef: MessageAssetRef }) {
         >
           {typeLabel}
         </span>
-        <span className="t-13 text-text font-light truncate">
-          {assetRef.title}
-        </span>
+        <span className="t-13 text-text font-light truncate">{assetRef.title}</span>
       </div>
 
       {/* CTA */}

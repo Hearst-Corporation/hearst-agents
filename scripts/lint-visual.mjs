@@ -16,7 +16,7 @@
  *
  * Run : npm run lint:visual
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.cwd();
@@ -35,9 +35,7 @@ const STRICT_PATHS = [
 // Modules intentionnellement hors design system. Aucun fichier sous ces
 // préfixes n'est scanné (ni règles globales, ni règles strict).
 // Voir CLAUDE.md section "Modules hors DS".
-const IGNORE_PATH_PREFIXES = [
-  "app/spatial/",
-];
+const IGNORE_PATH_PREFIXES = ["app/spatial/"];
 
 const SKIP_DIRS = new Set(["node_modules", ".next", "test-results", ".git"]);
 
@@ -45,8 +43,13 @@ const SKIP_DIRS = new Set(["node_modules", ".next", "test-results", ".git"]);
 
 const HEX_RE = /#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})\b/g;
 const BRAND_ALLOWLIST = new Set([
-  "#0078D4", "#0364B8", "#28A8EA",
-  "#4285F4", "#34A853", "#FBBC05", "#EA4335",
+  "#0078D4",
+  "#0364B8",
+  "#28A8EA",
+  "#4285F4",
+  "#34A853",
+  "#FBBC05",
+  "#EA4335",
 ]);
 
 const TEXT_PX_RE = /text-\[\d+px\]/g;
@@ -64,7 +67,8 @@ const TW_SHADOW_RE = /\bshadow-(?:2xl|xl|lg|md|sm)\b/g;
 
 // Magic `<prop>: "Npx"` ou `<prop>: 'Npx'` en inline style. Liste blanche
 // pour les valeurs neutres `0px`, `1px`, `2px` (bordures fines, dividers).
-const STYLE_PX_RE = /(width|height|padding|margin|gap|top|left|right|bottom|max-width|min-width|max-height|min-height|borderRadius|maxWidth|minWidth|maxHeight|minHeight)\s*:\s*['"](\d+)px['"]/g;
+const STYLE_PX_RE =
+  /(width|height|padding|margin|gap|top|left|right|bottom|max-width|min-width|max-height|min-height|borderRadius|maxWidth|minWidth|maxHeight|minHeight)\s*:\s*['"](\d+)px['"]/g;
 const STYLE_PX_ALLOWED = new Set([0, 1, 2]);
 
 // `bg-[…]` ou `text-[…]` ou `rounded-[…]` qui ne contient pas `var(`.
@@ -179,10 +183,12 @@ const byRule = violations.reduce((acc, v) => {
 const RULE_HINTS = {
   "no-hex": "remplacer par var(--token-couleur).",
   "no-arbitrary-text-size": "utiliser .t-N (.t-9, .t-11, .t-13, .t-15, .t-18…).",
-  "no-arbitrary-tracking": "utiliser tracking-section / tracking-display / tracking-stretch / tracking-label / etc.",
+  "no-arbitrary-tracking":
+    "utiliser tracking-section / tracking-display / tracking-stretch / tracking-label / etc.",
   "no-rgba": "définir un token --xxx-bg ou --xxx-tint dans globals.css au lieu de rgba inline.",
   "no-tailwind-shadow": "utiliser var(--shadow-card) / --shadow-card-hover / --shadow-input-focus.",
-  "no-magic-px-style": "utiliser var(--space-N) ou var(--width-/--height-/--size-XXX). Si le token manque, le rajouter dans globals.css.",
+  "no-magic-px-style":
+    "utiliser var(--space-N) ou var(--width-/--height-/--size-XXX). Si le token manque, le rajouter dans globals.css.",
   "no-arbitrary-non-token": "remplir le bracket avec var(--token), ex: bg-[var(--surface-1)].",
   "no-inline-shadow": "utiliser box-shadow: var(--shadow-XXX).",
 };

@@ -5,18 +5,20 @@
  * on sérialise simplement la même payload que GET /api/v2/runs/[id].
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
 import { getRunById } from "@/lib/engine/runtime/runs/store";
+import { getRunById as getPersistedRun } from "@/lib/engine/runtime/state/adapter";
 import { normalizeRunEventsToTimeline } from "@/lib/engine/runtime/timeline/normalize";
 import { getPersistedRunEvents } from "@/lib/engine/runtime/timeline/persist";
-import { requireScope } from "@/lib/platform/auth/scope";
 import type { RunEvent } from "@/lib/events/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 /* F-055: Safe Content-Disposition header */
 function safeFilename(name: string): string {
-  return String(name).replace(/[\r\n"\\]/g, "_").slice(0, 200);
+  return String(name)
+    .replace(/[\r\n"\\]/g, "_")
+    .slice(0, 200);
 }
 
 export const runtime = "nodejs";
@@ -24,10 +26,7 @@ export const dynamic = "force-dynamic";
 
 const ParamsSchema = z.object({ id: z.string().min(1, "id_required") });
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({ context: "GET /api/v2/runs/[id]/export" });
   if (error) {
     return NextResponse.json({ error: error.message }, { status: error.status });
@@ -46,7 +45,7 @@ export async function GET(
 
   try {
     const memRun = getRunById(id);
-    if (memRun && memRun.userId && memRun.userId !== scope.userId) {
+    if (memRun?.userId && memRun.userId !== scope.userId) {
       return NextResponse.json({ error: "run_not_found" }, { status: 404 });
     }
 
@@ -68,9 +67,7 @@ export async function GET(
       events = persistedEvents.map((e) => e.payload as RunEvent);
     }
 
-    const timeline = events.length > 0
-      ? normalizeRunEventsToTimeline({ runId: id, events })
-      : [];
+    const timeline = events.length > 0 ? normalizeRunEventsToTimeline({ runId: id, events }) : [];
 
     const payload = {
       run: {

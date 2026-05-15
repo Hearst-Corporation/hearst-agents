@@ -10,9 +10,7 @@ export interface AssetDragPayload {
  * Extrait le payload d'un drop event si présent.
  * Retourne `null` si le drop ne porte pas notre MIME type ou si le JSON est invalide.
  */
-export function readAssetDragPayload(
-  event: React.DragEvent<HTMLElement>,
-): AssetDragPayload | null {
+export function readAssetDragPayload(event: React.DragEvent<HTMLElement>): AssetDragPayload | null {
   try {
     const raw = event.dataTransfer.getData(ASSET_DRAG_MIME);
     if (!raw) return null;

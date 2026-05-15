@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getRuns } from "@/lib/engine/runtime/state/adapter";
+import { type NextRequest, NextResponse } from "next/server";
 import { getAllRuns } from "@/lib/engine/runtime/runs/store";
+import { getRuns } from "@/lib/engine/runtime/state/adapter";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
@@ -13,10 +13,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const limit = Math.min(
-      parseInt(req.nextUrl.searchParams.get("limit") ?? "50", 10),
-      200,
-    );
+    const limit = Math.min(parseInt(req.nextUrl.searchParams.get("limit") ?? "50", 10), 200);
     const missionId = req.nextUrl.searchParams.get("mission_id") ?? undefined;
 
     // Canonical source: Supabase persistence — scoped to current user

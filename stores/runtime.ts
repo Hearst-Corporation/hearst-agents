@@ -4,7 +4,7 @@
 
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
-import { useFocalStore, type FocalType, type FocalStatus } from "./focal";
+import { type FocalStatus, type FocalType, useFocalStore } from "./focal";
 import { useNavigationStore } from "./navigation";
 
 export type StreamEvent = {
@@ -13,11 +13,24 @@ export type StreamEvent = {
   [key: string]: unknown;
 };
 
-export type CoreState = "idle" | "connecting" | "streaming" | "processing" | "error" | "awaiting_approval" | "awaiting_clarification";
+export type CoreState =
+  | "idle"
+  | "connecting"
+  | "streaming"
+  | "processing"
+  | "error"
+  | "awaiting_approval"
+  | "awaiting_clarification";
 
 // ── Mission Control B1 — multi-step plan slice ─────────────────
 
-export type PlanStepStatus = "idle" | "running" | "awaiting_approval" | "done" | "error" | "skipped";
+export type PlanStepStatus =
+  | "idle"
+  | "running"
+  | "awaiting_approval"
+  | "done"
+  | "error"
+  | "skipped";
 
 export interface PlanStepState {
   id: string;
@@ -48,7 +61,7 @@ interface RuntimeState {
   connected: boolean;
   setConnected: (connected: boolean) => void;
   events: StreamEvent[];
-  addEvent: (event: { type: string;[key: string]: unknown }) => void;
+  addEvent: (event: { type: string; [key: string]: unknown }) => void;
   clearEvents: () => void;
   coreState: CoreState;
   flowLabel: string | null;
@@ -107,12 +120,16 @@ export const useRuntimeStore = create<RuntimeState>()(
         if (!currentRunId.startsWith("run_")) {
           console.log(`[RuntimeStore] Transitioning run_id: ${currentRunId} -> ${eventRunId}`);
         } else {
-          console.warn(`[RuntimeStore] Run ID mismatch in event ${event.type}: current=${currentRunId}, event=${eventRunId}`);
+          console.warn(
+            `[RuntimeStore] Run ID mismatch in event ${event.type}: current=${currentRunId}, event=${eventRunId}`,
+          );
         }
       }
 
       if (eventRunId && !currentRunId) {
-        console.warn(`[RuntimeStore] Event ${event.type} arrived with run_id ${eventRunId} but no current run`);
+        console.warn(
+          `[RuntimeStore] Event ${event.type} arrived with run_id ${eventRunId} but no current run`,
+        );
       }
 
       switch (event.type) {
@@ -124,7 +141,7 @@ export const useRuntimeStore = create<RuntimeState>()(
             coreState: "streaming",
             currentRunId: eventRunId || currentRunId,
             lastRunId: eventRunId || currentRunId,
-            flowLabel: event.flow_label as string || null,
+            flowLabel: (event.flow_label as string) || null,
           });
           break;
         case "run_completed":
@@ -163,7 +180,10 @@ export const useRuntimeStore = create<RuntimeState>()(
           // Return to active state if we were in a waiting state
           const currentState = get().coreState;
           if (currentState === "awaiting_approval" || currentState === "awaiting_clarification") {
-            set({ coreState: "streaming", flowLabel: event.flow_label as string || "En cours..." });
+            set({
+              coreState: "streaming",
+              flowLabel: (event.flow_label as string) || "En cours...",
+            });
           }
           break;
         }
@@ -185,7 +205,8 @@ export const useRuntimeStore = create<RuntimeState>()(
         // ── Mission Control B1 — plan lifecycle ───────────────
         case "plan_preview": {
           const ev = event as Record<string, unknown>;
-          const steps = (ev.steps as Array<{ id: string; kind: string; title: string }> | undefined) ?? [];
+          const steps =
+            (ev.steps as Array<{ id: string; kind: string; title: string }> | undefined) ?? [];
           set({
             currentPlan: {
               id: ev.plan_id as string,
@@ -329,13 +350,17 @@ export const useRuntimeStore = create<RuntimeState>()(
               sourcePlanId: (focalData.sourcePlanId as string) ?? undefined,
               sourceAssetId: (focalData.sourceAssetId as string) ?? undefined,
               missionId: (focalData.missionId as string) ?? undefined,
-              morphTarget: focalData.morphTarget === null ? null : (focalData.morphTarget as string) ?? undefined,
-              primaryAction: focalData.primaryAction && typeof focalData.primaryAction === "object"
-                ? {
-                    kind: (focalData.primaryAction as Record<string, string>).kind,
-                    label: (focalData.primaryAction as Record<string, string>).label,
-                  }
-                : undefined,
+              morphTarget:
+                focalData.morphTarget === null
+                  ? null
+                  : ((focalData.morphTarget as string) ?? undefined),
+              primaryAction:
+                focalData.primaryAction && typeof focalData.primaryAction === "object"
+                  ? {
+                      kind: (focalData.primaryAction as Record<string, string>).kind,
+                      label: (focalData.primaryAction as Record<string, string>).label,
+                    }
+                  : undefined,
             });
           }
           break;
@@ -348,8 +373,15 @@ export const useRuntimeStore = create<RuntimeState>()(
     setAbortController: (controller) => set({ abortController: controller }),
 
     startRun: (runId) =>
-      set({ coreState: "streaming", currentRunId: runId, lastRunId: runId, connected: true, currentPlan: null }),
-    completeRun: () => set({ coreState: "idle", currentRunId: null, flowLabel: null, abortController: null }),
+      set({
+        coreState: "streaming",
+        currentRunId: runId,
+        lastRunId: runId,
+        connected: true,
+        currentPlan: null,
+      }),
+    completeRun: () =>
+      set({ coreState: "idle", currentRunId: null, flowLabel: null, abortController: null }),
     resetPlan: () => set({ currentPlan: null }),
     approveStep: async (planId: string, stepId: string) => {
       // POURQUOI : POST côté backend pour reprendre l'exécution. Endpoint
@@ -394,7 +426,7 @@ export const useRuntimeStore = create<RuntimeState>()(
         }
       }, 1500);
     },
-  }))
+  })),
 );
 
 // Dev-only : expose le store runtime sur window pour Playwright e2e + QA
@@ -403,6 +435,6 @@ export const useRuntimeStore = create<RuntimeState>()(
 // sans réellement déclencher une run. Le check NODE_ENV est inliné par
 // Webpack au build → 0 byte ajouté en prod.
 if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
-  (window as unknown as { __hearstRuntimeStore?: typeof useRuntimeStore })
-    .__hearstRuntimeStore = useRuntimeStore;
+  (window as unknown as { __hearstRuntimeStore?: typeof useRuntimeStore }).__hearstRuntimeStore =
+    useRuntimeStore;
 }

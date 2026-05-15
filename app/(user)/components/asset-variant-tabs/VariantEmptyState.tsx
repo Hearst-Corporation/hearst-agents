@@ -8,8 +8,8 @@
  * Les onglets non-vidéo n'affichent que message + CTA.
  */
 
-import { Action } from "../ui";
 import type { AssetVariantKind } from "@/lib/assets/variants";
+import { Action } from "../ui";
 import type { TabCopy, VideoRatio } from "./shared";
 
 export interface VariantEmptyStateProps {
@@ -50,14 +50,10 @@ export function VariantEmptyState({
       {kind === "video" && (
         <div className="flex flex-col gap-3">
           <label className="flex flex-col gap-2">
-            <span className="t-11 font-medium text-(--text-l1)">
-              Fournisseur
-            </span>
+            <span className="t-11 font-medium text-(--text-l1)">Fournisseur</span>
             <select
               value={videoProvider}
-              onChange={(e) =>
-                setVideoProvider(e.target.value === "heygen" ? "heygen" : "runway")
-              }
+              onChange={(e) => setVideoProvider(e.target.value === "heygen" ? "heygen" : "runway")}
               disabled={generating}
               className="px-3 py-2 t-13 font-light text-text bg-[var(--card-flat-bg)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -118,8 +114,7 @@ export function VariantEmptyState({
                 className="accent-(--accent-teal)"
               />
               <span className="t-11 font-light text-text-muted">
-                Enrichir automatiquement le prompt (Claude Haiku →
-                cinématographique)
+                Enrichir automatiquement le prompt (Claude Haiku → cinématographique)
               </span>
             </label>
           )}

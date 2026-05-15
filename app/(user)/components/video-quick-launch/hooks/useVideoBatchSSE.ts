@@ -12,11 +12,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type {
-  BatchPhase,
-  BatchVariantForm,
-  BatchVariantRun,
-} from "../types";
+import type { BatchPhase, BatchVariantForm, BatchVariantRun } from "../types";
 
 export interface UseVideoBatchSSEResult {
   phase: BatchPhase;
@@ -70,9 +66,7 @@ export function useVideoBatchSSE(): UseVideoBatchSSEResult {
     eventSourcesRef.current.push(es);
 
     const updateRun = (patch: Partial<BatchVariantRun>) => {
-      setRuns((prev) =>
-        prev.map((r) => (r.index === runIndex ? { ...r, ...patch } : r)),
-      );
+      setRuns((prev) => prev.map((r) => (r.index === runIndex ? { ...r, ...patch } : r)));
     };
 
     updateRun({ phase: "running" });
@@ -93,10 +87,15 @@ export function useVideoBatchSSE(): UseVideoBatchSSEResult {
     es.addEventListener("completed", (ev) => {
       let url: string | null = null;
       try {
-        const data = JSON.parse((ev as MessageEvent<string>).data ?? "{}") as Record<string, unknown>;
+        const data = JSON.parse((ev as MessageEvent<string>).data ?? "{}") as Record<
+          string,
+          unknown
+        >;
         if (typeof data.assetUrl === "string") url = data.assetUrl;
         else if (typeof data.url === "string") url = data.url;
-      } catch { /* ignore */ }
+      } catch {
+        /* ignore */
+      }
       updateRun({ progress: 100, phase: "done", url });
       es.close();
     });
@@ -156,9 +155,7 @@ export function useVideoBatchSSE(): UseVideoBatchSSEResult {
   // sont terminés. La transition est dérivée d'un signal externe SSE.
   useEffect(() => {
     if (phase !== "running" || runs.length === 0) return;
-    const allFinished = runs.every(
-      (r) => r.phase === "done" || r.phase === "error",
-    );
+    const allFinished = runs.every((r) => r.phase === "done" || r.phase === "error");
     // eslint-disable-next-line react-hooks/set-state-in-effect -- transition d'état dérivée d'un signal externe (SSE batch completion)
     if (allFinished) setPhase("done");
   }, [runs, phase]);

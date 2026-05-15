@@ -7,19 +7,12 @@
  */
 
 import {
-  getRecentEmails,
-  type EmailSummary,
-} from "@/lib/connectors/google/gmail";
-import {
+  type CalendarEvent,
   getTodayEvents,
   getUpcomingEvents,
-  type CalendarEvent,
 } from "@/lib/connectors/google/calendar";
-import {
-  getRecentFiles,
-  searchDriveFiles,
-  type DriveFile,
-} from "@/lib/connectors/google/drive";
+import { type DriveFile, getRecentFiles, searchDriveFiles } from "@/lib/connectors/google/drive";
+import { type EmailSummary, getRecentEmails } from "@/lib/connectors/google/gmail";
 import type { Tabular } from "@/lib/reports/engine/tabular";
 
 export type GoogleService = "gmail" | "calendar" | "drive";

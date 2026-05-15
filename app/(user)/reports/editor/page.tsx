@@ -11,10 +11,10 @@
  */
 
 import { useState } from "react";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
-import { ReportSpecEditor } from "@/app/(user)/components/reports/ReportSpecEditor";
 import { PageHeader } from "@/app/(user)/components/PageHeader";
+import { ReportSpecEditor } from "@/app/(user)/components/reports/ReportSpecEditor";
 import { buildFounderCockpit } from "@/lib/reports/catalog/founder-cockpit";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
 
 const DEMO_SCOPE = {
   tenantId: "demo-tenant",
@@ -164,9 +164,7 @@ export default function ReportEditorDemoPage() {
           }}
         >
           <div className="flex items-center justify-between">
-            <span
-              className="t-9 font-mono uppercase text-text-muted"
-                         >
+            <span className="t-9 font-mono uppercase text-text-muted">
               Spec final {appliedSpec ? "(applied)" : "(en attente)"}
             </span>
             <button
@@ -174,7 +172,7 @@ export default function ReportEditorDemoPage() {
               onClick={() => setShowJson((v) => !v)}
               className="t-9 font-mono uppercase text-text-muted hover:text-text-soft transition-colors"
               style={{
-                                padding: "var(--space-1) var(--space-3)",
+                padding: "var(--space-1) var(--space-3)",
                 border: "1px solid var(--surface-2)",
                 borderRadius: "var(--radius-xs)",
                 background: "transparent",

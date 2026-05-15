@@ -7,7 +7,7 @@
  * null, le pipeline construit le prompt sans briefing et n'échoue pas.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   getToolsForUser,
@@ -153,9 +153,9 @@ describe("runAiPipeline — briefing injection", () => {
 
 describe("buildAgentSystemPrompt — briefing rendering", () => {
   it("briefing fourni → balise <user_briefing> dans le prompt", async () => {
-    const actual = await vi.importActual<
-      typeof import("@/lib/engine/orchestrator/system-prompt")
-    >("@/lib/engine/orchestrator/system-prompt");
+    const actual = await vi.importActual<typeof import("@/lib/engine/orchestrator/system-prompt")>(
+      "@/lib/engine/orchestrator/system-prompt",
+    );
     const prompt = actual.buildAgentSystemPrompt({
       composioTools: [],
       briefing: "Activité récente : 2 réunions cette semaine.",
@@ -166,9 +166,9 @@ describe("buildAgentSystemPrompt — briefing rendering", () => {
   });
 
   it("briefing vide → pas de balise", async () => {
-    const actual = await vi.importActual<
-      typeof import("@/lib/engine/orchestrator/system-prompt")
-    >("@/lib/engine/orchestrator/system-prompt");
+    const actual = await vi.importActual<typeof import("@/lib/engine/orchestrator/system-prompt")>(
+      "@/lib/engine/orchestrator/system-prompt",
+    );
     const prompt = actual.buildAgentSystemPrompt({
       composioTools: [],
       briefing: "   ",
@@ -177,17 +177,17 @@ describe("buildAgentSystemPrompt — briefing rendering", () => {
   });
 
   it("briefing absent → pas de balise", async () => {
-    const actual = await vi.importActual<
-      typeof import("@/lib/engine/orchestrator/system-prompt")
-    >("@/lib/engine/orchestrator/system-prompt");
+    const actual = await vi.importActual<typeof import("@/lib/engine/orchestrator/system-prompt")>(
+      "@/lib/engine/orchestrator/system-prompt",
+    );
     const prompt = actual.buildAgentSystemPrompt({ composioTools: [] });
     expect(prompt).not.toContain("<user_briefing>");
   });
 
   it("briefing > 2000 chars → tronqué", async () => {
-    const actual = await vi.importActual<
-      typeof import("@/lib/engine/orchestrator/system-prompt")
-    >("@/lib/engine/orchestrator/system-prompt");
+    const actual = await vi.importActual<typeof import("@/lib/engine/orchestrator/system-prompt")>(
+      "@/lib/engine/orchestrator/system-prompt",
+    );
     const long = "x".repeat(3000);
     const prompt = actual.buildAgentSystemPrompt({
       composioTools: [],
@@ -195,6 +195,6 @@ describe("buildAgentSystemPrompt — briefing rendering", () => {
     });
     const match = prompt.match(/<user_briefing>\n([\s\S]+?)\n<\/user_briefing>/);
     expect(match).not.toBeNull();
-    expect(match![1].length).toBeLessThanOrEqual(2000);
+    expect(match?.[1].length).toBeLessThanOrEqual(2000);
   });
 });

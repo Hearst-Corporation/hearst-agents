@@ -12,16 +12,16 @@
  * generic `formatActionPreview`.
  */
 
-import { formatGmailSendEmail, formatGmailReply } from "./gmail";
-import { formatSlackSendMessage } from "./slack";
-import { formatNotionCreatePage } from "./notion";
-import { formatLinearCreateIssue } from "./linear";
+import { formatAirtableCreateRecord } from "./airtable";
+import { formatAsanaCreateTask } from "./asana";
+import { formatGmailReply, formatGmailSendEmail } from "./gmail";
 import { formatCalendarCreateEvent } from "./googlecalendar";
 import { formatHubspotCreateContact, formatHubspotUpdateDeal } from "./hubspot";
+import { formatLinearCreateIssue } from "./linear";
+import { formatNotionCreatePage } from "./notion";
+import { formatSlackSendMessage } from "./slack";
 import { formatStripeCreateInvoice, formatStripeRefund } from "./stripe";
-import { formatAsanaCreateTask } from "./asana";
 import { formatTrelloCreateCard } from "./trello";
-import { formatAirtableCreateRecord } from "./airtable";
 import { formatWhatsappSendMessage } from "./whatsapp";
 
 export type PreviewFormatter = (args: Record<string, unknown>) => string;
@@ -134,18 +134,18 @@ export function listRegisteredActions(): string[] {
 
 // Re-exports
 export {
-  formatGmailSendEmail,
-  formatGmailReply,
-  formatSlackSendMessage,
-  formatNotionCreatePage,
-  formatLinearCreateIssue,
+  formatAirtableCreateRecord,
+  formatAsanaCreateTask,
   formatCalendarCreateEvent,
+  formatGmailReply,
+  formatGmailSendEmail,
   formatHubspotCreateContact,
   formatHubspotUpdateDeal,
+  formatLinearCreateIssue,
+  formatNotionCreatePage,
+  formatSlackSendMessage,
   formatStripeCreateInvoice,
   formatStripeRefund,
-  formatAsanaCreateTask,
   formatTrelloCreateCard,
-  formatAirtableCreateRecord,
   formatWhatsappSendMessage,
 };

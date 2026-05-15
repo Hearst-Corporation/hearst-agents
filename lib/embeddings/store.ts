@@ -13,15 +13,10 @@
  * un résultat vide (search) ou false (upsert) — pipeline jamais bloqué.
  */
 
-import { embedText, EmbeddingsUnavailableError } from "./embed";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
+import { EmbeddingsUnavailableError, embedText } from "./embed";
 
-export type EmbeddingSourceKind =
-  | "message"
-  | "asset"
-  | "briefing"
-  | "kg_node"
-  | "transcript";
+export type EmbeddingSourceKind = "message" | "asset" | "briefing" | "kg_node" | "transcript";
 
 export interface UpsertEmbeddingInput {
   userId: string;
@@ -65,9 +60,7 @@ function clampExcerpt(text: string): string {
  * Returns `true` si la row a été écrite, `false` si fail-soft (Supabase
  * absent, OpenAI absent, ou erreur DB).
  */
-export async function upsertEmbedding(
-  input: UpsertEmbeddingInput,
-): Promise<boolean> {
+export async function upsertEmbedding(input: UpsertEmbeddingInput): Promise<boolean> {
   const text = clampExcerpt(input.textExcerpt);
   if (!text) return false;
 
@@ -107,11 +100,13 @@ export async function upsertEmbedding(
     };
     // `embeddings` n'est pas encore dans Database types (migration récente).
     // Cast minimal sur la table pour ne pas bloquer le typecheck global.
-    const { error } = await (sb as unknown as {
-      from: (
-        t: string,
-      ) => { upsert: (p: unknown, opts: { onConflict: string }) => Promise<{ error: unknown }> };
-    })
+    const { error } = await (
+      sb as unknown as {
+        from: (t: string) => {
+          upsert: (p: unknown, opts: { onConflict: string }) => Promise<{ error: unknown }>;
+        };
+      }
+    )
       .from("embeddings")
       .upsert(payload, { onConflict: "user_id,tenant_id,source_kind,source_id" });
     if (error) {
@@ -163,22 +158,19 @@ export async function searchEmbeddings(
   // sur le fallback JS (scan + cosine en mémoire), avec log warn pour
   // ne pas masquer un déploiement incomplet.
   try {
-    const rpcRes = await (sb.rpc as unknown as (
-      fn: string,
-      args: Record<string, unknown>,
-    ) => Promise<{ data: unknown; error: unknown }>)(
-      "match_embeddings",
-      {
-        query_embedding: vectorLiteral,
-        match_user_id: input.userId,
-        match_tenant_id: input.tenantId,
-        match_count: k,
-        source_kinds:
-          input.sourceKinds && input.sourceKinds.length > 0
-            ? Array.from(input.sourceKinds)
-            : null,
-      },
-    );
+    const rpcRes = await (
+      sb.rpc as unknown as (
+        fn: string,
+        args: Record<string, unknown>,
+      ) => Promise<{ data: unknown; error: unknown }>
+    )("match_embeddings", {
+      query_embedding: vectorLiteral,
+      match_user_id: input.userId,
+      match_tenant_id: input.tenantId,
+      match_count: k,
+      source_kinds:
+        input.sourceKinds && input.sourceKinds.length > 0 ? Array.from(input.sourceKinds) : null,
+    });
     if (!rpcRes.error && Array.isArray(rpcRes.data)) {
       return (rpcRes.data as Array<Record<string, unknown>>).map(rowToResult);
     }
@@ -189,31 +181,30 @@ export async function searchEmbeddings(
       );
     }
   } catch (err) {
-    console.warn(
-      "[embeddings/store] match_embeddings RPC threw — fallback JS scan:",
-      err,
-    );
+    console.warn("[embeddings/store] match_embeddings RPC threw — fallback JS scan:", err);
   }
 
   // ── Fallback : SELECT * scopé + tri en JS (cosine similarity manuelle)
   try {
-    const fetchRes = await (sb as unknown as {
-      from: (t: string) => {
-        select: (cols: string) => {
-          eq: (
-            c: string,
-            v: string,
-          ) => {
+    const fetchRes = await (
+      sb as unknown as {
+        from: (t: string) => {
+          select: (cols: string) => {
             eq: (
               c: string,
               v: string,
             ) => {
-              limit: (n: number) => Promise<{ data: unknown; error: unknown }>;
+              eq: (
+                c: string,
+                v: string,
+              ) => {
+                limit: (n: number) => Promise<{ data: unknown; error: unknown }>;
+              };
             };
           };
         };
-      };
-    })
+      }
+    )
       .from("embeddings")
       .select("source_kind, source_id, text_excerpt, embedding, metadata, created_at")
       .eq("user_id", input.userId)
@@ -234,9 +225,10 @@ export async function searchEmbeddings(
       created_at: string;
     }>;
 
-    const filtered = input.sourceKinds && input.sourceKinds.length > 0
-      ? rows.filter((r) => input.sourceKinds!.includes(r.source_kind))
-      : rows;
+    const filtered =
+      input.sourceKinds && input.sourceKinds.length > 0
+        ? rows.filter((r) => input.sourceKinds?.includes(r.source_kind))
+        : rows;
 
     const scored = filtered
       .map((r) => {
@@ -303,4 +295,3 @@ function cosine(a: number[], b: number[]): number {
   if (denom === 0) return 0;
   return dot / denom;
 }
-

@@ -8,11 +8,7 @@
  */
 
 import type { BusinessSignal } from "@/lib/reports/signals/extract";
-import type {
-  EmailChannelConfig,
-  SlackChannelConfig,
-  WebhookChannelConfig,
-} from "./schema";
+import type { EmailChannelConfig, SlackChannelConfig, WebhookChannelConfig } from "./schema";
 
 /** Timeout HTTP fixe pour les canaux externes (webhook, Slack). */
 export const CHANNEL_HTTP_TIMEOUT_MS = 5_000;
@@ -55,10 +51,7 @@ export interface ChannelResult {
 
 // ── Helpers ────────────────────────────────────────────────
 
-function matchesSignalFilter(
-  filter: ReadonlyArray<string>,
-  type: BusinessSignal["type"],
-): boolean {
+function matchesSignalFilter(filter: ReadonlyArray<string>, type: BusinessSignal["type"]): boolean {
   if (filter.length === 0) return false;
   if (filter.includes("*")) return true;
   return (filter as ReadonlyArray<string>).includes(type);
@@ -233,13 +226,10 @@ export interface EmailSender {
  */
 const stubEmailSender: EmailSender = {
   async send(msg) {
-    console.warn(
-      `[alerting][email-stub] aucun provider email configuré — message non envoyé`,
-      {
-        to: msg.to,
-        subject: msg.subject,
-      },
-    );
+    console.warn(`[alerting][email-stub] aucun provider email configuré — message non envoyé`, {
+      to: msg.to,
+      subject: msg.subject,
+    });
     return { ok: false, error: "email-sender-not-configured" };
   },
 };
@@ -254,10 +244,7 @@ export function getEmailSender(): EmailSender {
   return activeEmailSender;
 }
 
-function buildEmailMessage(
-  config: EmailChannelConfig,
-  ctx: AlertContext,
-): EmailMessage {
+function buildEmailMessage(config: EmailChannelConfig, ctx: AlertContext): EmailMessage {
   const subject = `[${ctx.signal.severity.toUpperCase()}] ${ctx.signal.type} — ${ctx.report.title}`;
   const text = [
     ctx.signal.message,
@@ -304,4 +291,3 @@ function truncateUrl(url: string): string {
   if (url.length <= 60) return url;
   return `${url.slice(0, 30)}...${url.slice(-20)}`;
 }
-

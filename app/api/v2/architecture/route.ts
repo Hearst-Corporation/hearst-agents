@@ -1,13 +1,18 @@
 import { NextResponse } from "next/server";
-import { loadArchitectureMap, invalidateCache } from "@/lib/architecture-map/load";
-import { getArchitectureGraph, getReverseDependencies, getDownstreamDependencies } from "@/lib/architecture-map/graph";
+import {
+  getArchitectureGraph,
+  getDownstreamDependencies,
+  getReverseDependencies,
+} from "@/lib/architecture-map/graph";
+import { invalidateCache, loadArchitectureMap } from "@/lib/architecture-map/load";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const { error: authError } = await requireScope({ context: "GET /api/v2/architecture" });
-  if (authError) return NextResponse.json({ error: authError.message }, { status: authError.status });
+  if (authError)
+    return NextResponse.json({ error: authError.message }, { status: authError.status });
 
   try {
     invalidateCache();

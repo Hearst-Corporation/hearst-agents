@@ -155,7 +155,12 @@ export const SUGGESTION_PICKS: { slug: string; hint: string }[] = [
 // Priorité de statut : plus petit = meilleur. Quand un service a plusieurs
 // connexions (ex: Slack ACTIVE + EXPIRED), on affiche le plus favorable.
 export const STATUS_RANK: Record<string, number> = {
-  active: 0, initiated: 1, pending: 2, failed: 3, error: 3, expired: 4,
+  active: 0,
+  initiated: 1,
+  pending: 2,
+  failed: 3,
+  error: 3,
+  expired: 4,
 };
 
 // Wallpaper : combien de tuiles on affiche d'office. Sur 1030 apps, charger
@@ -199,7 +204,7 @@ export function truncateDescription(desc: string): string | null {
   const firstSentence = cleaned.split(/(?<=[.!?])\s+/)[0] ?? cleaned;
   const max = 120;
   if (firstSentence.length <= max) return firstSentence;
-  return firstSentence.slice(0, max).trimEnd() + "…";
+  return `${firstSentence.slice(0, max).trimEnd()}…`;
 }
 
 export function actionLabel(action: DiscoveredTool): string {

@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { parseMeetingContent, normalize } from "@/lib/tools/native/meetings";
 import type { Asset } from "@/lib/assets/types";
+import { normalize, parseMeetingContent } from "@/lib/tools/native/meetings";
 
 function makeAsset(contentRef: string | undefined): Asset {
   return {
@@ -40,17 +40,17 @@ describe("parseMeetingContent", () => {
     };
     const result = parseMeetingContent(makeAsset(JSON.stringify(payload)));
     expect(result).not.toBeNull();
-    expect(result!.transcript).toBe("Adrien : ...");
-    expect(result!.actionItems).toHaveLength(1);
-    expect(result!.editorialSummary).toContain("Contexte");
+    expect(result?.transcript).toBe("Adrien : ...");
+    expect(result?.actionItems).toHaveLength(1);
+    expect(result?.editorialSummary).toContain("Contexte");
   });
 
   it("accepte un contentRef partiel", () => {
     // Pas tous les champs requis — juste transcript par exemple
     const result = parseMeetingContent(makeAsset(JSON.stringify({ transcript: "test" })));
     expect(result).not.toBeNull();
-    expect(result!.transcript).toBe("test");
-    expect(result!.actionItems).toBeUndefined();
+    expect(result?.transcript).toBe("test");
+    expect(result?.actionItems).toBeUndefined();
   });
 });
 

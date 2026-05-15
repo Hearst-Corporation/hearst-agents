@@ -1,5 +1,5 @@
-import { HomShell, PageHeader, Card, MetricCell } from "../_components/Shell";
 import { buildRegistry } from "@/lib/hom/registry";
+import { Card, HomShell, MetricCell, PageHeader } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 
@@ -11,10 +11,7 @@ export default async function RegistryPage({
   const sp = await searchParams;
   const view = sp.view ?? "all";
   const reg = await buildRegistry();
-  const filtered =
-    view === "all"
-      ? reg.entries
-      : reg.entries.filter((e) => e.kind === view);
+  const filtered = view === "all" ? reg.entries : reg.entries.filter((e) => e.kind === view);
 
   const tabs = [
     { key: "all", label: "Tout", count: reg.entries.length },
@@ -88,9 +85,7 @@ export default async function RegistryPage({
               key={`${entry.path}-${i}`}
               className="grid grid-cols-12 items-center px-(--space-4) py-(--space-2) border-b border-(--line) last:border-0 hover:bg-surface-1 transition-colors"
             >
-              <span className="col-span-1 t-10 font-mono text-text-faint">
-                {entry.kind}
-              </span>
+              <span className="col-span-1 t-10 font-mono text-text-faint">{entry.kind}</span>
               <span className="col-span-6 t-11 font-mono text-text-muted truncate">
                 {entry.path}
               </span>

@@ -47,62 +47,59 @@ export function useVideoSSE(): UseVideoSSEResult {
     close();
   }, [close]);
 
-  const subscribe = useCallback(
-    (jobId: string, providerUsed: Provider) => {
-      const url = `/api/v2/jobs/${encodeURIComponent(jobId)}/progress?kind=video-gen`;
-      const es = new EventSource(url, { withCredentials: true });
-      eventSourceRef.current = es;
-      setPhase("running");
+  const subscribe = useCallback((jobId: string, providerUsed: Provider) => {
+    const url = `/api/v2/jobs/${encodeURIComponent(jobId)}/progress?kind=video-gen`;
+    const es = new EventSource(url, { withCredentials: true });
+    eventSourceRef.current = es;
+    setPhase("running");
 
-      es.addEventListener("progress", (ev) => {
-        try {
-          const data = JSON.parse((ev as MessageEvent<string>).data) as {
-            progress: number;
-            label?: string | null;
-          };
-          if (typeof data.progress === "number") {
-            setProgress(data.progress);
-          }
-          void providerUsed;
-        } catch {
-          /* payload malformé — ignore */
+    es.addEventListener("progress", (ev) => {
+      try {
+        const data = JSON.parse((ev as MessageEvent<string>).data) as {
+          progress: number;
+          label?: string | null;
+        };
+        if (typeof data.progress === "number") {
+          setProgress(data.progress);
         }
-      });
+        void providerUsed;
+      } catch {
+        /* payload malformé — ignore */
+      }
+    });
 
-      es.addEventListener("completed", () => {
-        setProgress(100);
-        setPhase("done");
-        es.close();
-        eventSourceRef.current = null;
-      });
+    es.addEventListener("completed", () => {
+      setProgress(100);
+      setPhase("done");
+      es.close();
+      eventSourceRef.current = null;
+    });
 
-      es.addEventListener("failed", (ev) => {
-        try {
-          const data = JSON.parse((ev as MessageEvent<string>).data) as {
-            reason?: string;
-          };
-          setErrorMsg(data.reason ?? "Échec de la génération vidéo");
-        } catch {
-          setErrorMsg("Échec de la génération vidéo");
-        }
-        setPhase("error");
-        es.close();
-        eventSourceRef.current = null;
-      });
+    es.addEventListener("failed", (ev) => {
+      try {
+        const data = JSON.parse((ev as MessageEvent<string>).data) as {
+          reason?: string;
+        };
+        setErrorMsg(data.reason ?? "Échec de la génération vidéo");
+      } catch {
+        setErrorMsg("Échec de la génération vidéo");
+      }
+      setPhase("error");
+      es.close();
+      eventSourceRef.current = null;
+    });
 
-      es.addEventListener("not_found", () => {
-        setErrorMsg("Job introuvable côté queue.");
-        setPhase("error");
-        es.close();
-        eventSourceRef.current = null;
-      });
+    es.addEventListener("not_found", () => {
+      setErrorMsg("Job introuvable côté queue.");
+      setPhase("error");
+      es.close();
+      eventSourceRef.current = null;
+    });
 
-      es.onerror = () => {
-        // EventSource retry automatiquement.
-      };
-    },
-    [],
-  );
+    es.onerror = () => {
+      // EventSource retry automatiquement.
+    };
+  }, []);
 
   // Cleanup au unmount.
   useEffect(() => {

@@ -7,7 +7,7 @@
  *   3. unsubscribe → cleanup du channel et de liveReports
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mock env ─────────────────────────────────────────────────────────────────
 vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://test.supabase.co");
@@ -34,17 +34,13 @@ const mockChannelState: MockChannelState = {
 };
 
 const mockChannel = {
-  on: vi.fn().mockImplementation(
-    (
-      _type: string,
-      opts: { filter?: string },
-      handler: EventHandler,
-    ) => {
+  on: vi
+    .fn()
+    .mockImplementation((_type: string, opts: { filter?: string }, handler: EventHandler) => {
       mockChannelState.filter = opts?.filter ?? null;
       mockChannelState.handler = handler;
       return mockChannel;
-    },
-  ),
+    }),
   subscribe: vi.fn().mockImplementation((cb: (status: string) => void) => {
     mockChannelState.subscribeCallback = cb;
     return mockChannel;
@@ -141,21 +137,21 @@ describe("useReportsStore", () => {
     useReportsStore.getState().subscribeToReport(ASSET_ID, TENANT_ID);
 
     // Simule un UPDATE Postgres avec content_ref stringifié
-    mockChannelState.handler!({
+    mockChannelState.handler?.({
       new: { id: ASSET_ID, content_ref: JSON.stringify(PAYLOAD_V2) },
     });
 
     const live = useReportsStore.getState().liveReports.get(ASSET_ID);
     expect(live).toBeDefined();
-    expect(live!.generatedAt).toBe(PAYLOAD_V2.generatedAt);
-    expect(live!.version).toBe(2);
+    expect(live?.generatedAt).toBe(PAYLOAD_V2.generatedAt);
+    expect(live?.version).toBe(2);
   });
 
   it("met à jour liveReports à la réception d'un UPDATE event (content_ref objet)", () => {
     useReportsStore.getState().subscribeToReport(ASSET_ID, TENANT_ID);
 
     // Simule un UPDATE Postgres avec content_ref déjà parsé (objet)
-    mockChannelState.handler!({
+    mockChannelState.handler?.({
       new: { id: ASSET_ID, content_ref: PAYLOAD_V2 },
     });
 
@@ -166,7 +162,7 @@ describe("useReportsStore", () => {
   it("ignore un UPDATE dont content_ref n'est pas un RenderPayload valide", () => {
     useReportsStore.getState().subscribeToReport(ASSET_ID, TENANT_ID);
 
-    mockChannelState.handler!({
+    mockChannelState.handler?.({
       new: { id: ASSET_ID, content_ref: "not-json-{{{" },
     });
 
@@ -178,7 +174,7 @@ describe("useReportsStore", () => {
     useReportsStore.getState().subscribeToReport(ASSET_ID, TENANT_ID);
 
     // Hydrate un live payload
-    mockChannelState.handler!({
+    mockChannelState.handler?.({
       new: { id: ASSET_ID, content_ref: PAYLOAD_V1 },
     });
 

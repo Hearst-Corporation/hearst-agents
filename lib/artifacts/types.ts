@@ -2,21 +2,11 @@
  * Artifact types — Unified model for all document/output types.
  */
 
-export type ArtifactType =
-  | "chat_response"
-  | "draft"
-  | "memo"
-  | "report"
-  | "deliverable";
+export type ArtifactType = "chat_response" | "draft" | "memo" | "report" | "deliverable";
 
 export type ArtifactStatus = "draft" | "final";
 
-export type ArtifactFormat =
-  | "text"
-  | "markdown"
-  | "html"
-  | "pdf_ready"
-  | "json";
+export type ArtifactFormat = "text" | "markdown" | "html" | "pdf_ready" | "json";
 
 export interface ArtifactSection {
   id: string;

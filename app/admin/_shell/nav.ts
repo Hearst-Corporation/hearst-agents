@@ -24,14 +24,12 @@ export const NAV_SECTIONS: NavSection[] = [
       {
         href: "/admin",
         label: "Accueil",
-        iconPath:
-          "M3 10 12 3l9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z",
+        iconPath: "M3 10 12 3l9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10z",
       },
       {
         href: "/admin/pipeline",
         label: "Pipeline",
-        iconPath:
-          "M3 3h6v6H3zM3 15h6v6H3zM15 15h6v6h-6zM15 3h6v6h-6zM6 9v6m9-9h-3a3 3 0 0 0-3 3v3",
+        iconPath: "M3 3h6v6H3zM3 15h6v6H3zM15 15h6v6h-6zM15 3h6v6h-6zM6 9v6m9-9h-3a3 3 0 0 0-3 3v3",
       },
       {
         href: "/admin/agents",
@@ -52,8 +50,7 @@ export const NAV_SECTIONS: NavSection[] = [
       {
         href: "/admin/orchestrator",
         label: "Orchestrateur",
-        iconPath:
-          "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",
+        iconPath: "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",
       },
     ],
   },
@@ -63,20 +60,17 @@ export const NAV_SECTIONS: NavSection[] = [
       {
         href: "/admin/metrics",
         label: "Métriques",
-        iconPath:
-          "M3 3v18h18M7 16l4-4 4 4 4-4",
+        iconPath: "M3 3v18h18M7 16l4-4 4 4 4-4",
       },
       {
         href: "/admin/analytics",
         label: "Analytics",
-        iconPath:
-          "M3 3v18h18M7 13l4-4 4 4 4-4 -4-4",
+        iconPath: "M3 3v18h18M7 13l4-4 4 4 4-4 -4-4",
       },
       {
         href: "/admin/health",
         label: "Health",
-        iconPath:
-          "M22 12h-4l-3 9L9 3l-3 9H2",
+        iconPath: "M22 12h-4l-3 9L9 3l-3 9H2",
       },
       {
         href: "/admin/audit",
@@ -87,8 +81,7 @@ export const NAV_SECTIONS: NavSection[] = [
       {
         href: "/admin/agent-driven-dev",
         label: "Gouvernance",
-        iconPath:
-          "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4",
+        iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4",
       },
       {
         href: "/admin/themes",

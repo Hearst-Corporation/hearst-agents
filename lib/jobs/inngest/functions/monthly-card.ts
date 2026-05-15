@@ -14,16 +14,13 @@
  * cockpit et clique pour ouvrir la card.
  */
 
-import { inngest } from "@/lib/jobs/inngest/client";
 import {
   buildMonthlyCardData,
-  previousYearMonth,
   type MonthlyCardData,
+  previousYearMonth,
 } from "@/lib/cockpit/monthly-card";
-import {
-  signCardToken,
-  buildPublicCardUrl,
-} from "@/lib/cockpit/monthly-card-token";
+import { buildPublicCardUrl, signCardToken } from "@/lib/cockpit/monthly-card-token";
+import { inngest } from "@/lib/jobs/inngest/client";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 interface MonthlyCardEventData {

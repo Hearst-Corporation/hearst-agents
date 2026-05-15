@@ -5,8 +5,8 @@
  * Supports reverse dependency lookups for impact analysis.
  */
 
-import type { ArchitectureMap, ArchNode, ArchEdge, FlowEntry, NodeCategory } from "./types";
 import { loadArchitectureMap } from "./load";
+import type { ArchEdge, ArchitectureMap, ArchNode, FlowEntry, NodeCategory } from "./types";
 
 interface BaseEntry {
   id: string;
@@ -17,10 +17,7 @@ interface BaseEntry {
   connects_to: string[];
 }
 
-function toNodes<T extends BaseEntry>(
-  entries: T[],
-  category: NodeCategory,
-): ArchNode[] {
+function toNodes<T extends BaseEntry>(entries: T[], category: NodeCategory): ArchNode[] {
   return entries.map((e) => {
     const rest: Record<string, unknown> = {};
     const skip = new Set(["id", "label", "role", "status", "critical", "connects_to"]);
@@ -39,9 +36,7 @@ function toNodes<T extends BaseEntry>(
   });
 }
 
-function toEdges(
-  entries: Array<{ id: string; connects_to: string[] }>,
-): ArchEdge[] {
+function toEdges(entries: Array<{ id: string; connects_to: string[] }>): ArchEdge[] {
   const edges: ArchEdge[] = [];
   for (const entry of entries) {
     for (const target of entry.connects_to) {

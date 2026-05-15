@@ -17,12 +17,12 @@
  */
 
 import PDFDocument from "pdfkit";
-import { BRAND, FONT_SIZES, PAGE, SPACE, COLORS } from "@/lib/reports/export/pdf-tokens";
-import { registerFonts, setFont } from "@/lib/reports/export/pdf-fonts";
-import { renderCover } from "@/lib/reports/export/pdf-cover";
-import { renderPageChrome, renderSectionHeader } from "@/lib/reports/export/pdf-section";
 import { renderProse } from "@/lib/reports/export/pdf-blocks/prose";
 import { renderTable } from "@/lib/reports/export/pdf-blocks/table";
+import { renderCover } from "@/lib/reports/export/pdf-cover";
+import { registerFonts, setFont } from "@/lib/reports/export/pdf-fonts";
+import { renderPageChrome, renderSectionHeader } from "@/lib/reports/export/pdf-section";
+import { BRAND, COLORS, FONT_SIZES, PAGE, SPACE } from "@/lib/reports/export/pdf-tokens";
 import type { DailyBriefData, DailyBriefNarration } from "./types";
 
 interface DailyBriefPdfInput {
@@ -57,9 +57,7 @@ function clip(s: string, max: number): string {
   return `${s.slice(0, max - 1)}…`;
 }
 
-export async function renderDailyBriefPdf(
-  input: DailyBriefPdfInput,
-): Promise<DailyBriefPdfResult> {
+export async function renderDailyBriefPdf(input: DailyBriefPdfInput): Promise<DailyBriefPdfResult> {
   const date = input.date ?? new Date(input.data.targetDate);
   const totalSignals =
     input.data.emails.length +
@@ -178,10 +176,7 @@ export async function renderDailyBriefPdf(
             timeZone: "Europe/Paris",
           }),
       Événement: clip(e.title, 60),
-      Participants:
-        e.attendees.length > 0
-          ? clip(e.attendees.slice(0, 3).join(", "), 50)
-          : "—",
+      Participants: e.attendees.length > 0 ? clip(e.attendees.slice(0, 3).join(", "), 50) : "—",
     }));
     renderTable(doc, { rows, embedded });
   }

@@ -6,8 +6,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { SettingValue, SettingCategory } from "./types";
 import { getSetting, setSetting } from "./store";
+import type { SettingCategory, SettingValue } from "./types";
 
 function userKey(userId: string, key: string): string {
   return `user:${userId}:${key}`;
@@ -36,10 +36,7 @@ export async function setUserPreference(
   });
 }
 
-export async function getUserLocale(
-  db: SupabaseClient,
-  userId: string,
-): Promise<string> {
+export async function getUserLocale(db: SupabaseClient, userId: string): Promise<string> {
   return getUserPreference(db, userId, "locale", "fr");
 }
 

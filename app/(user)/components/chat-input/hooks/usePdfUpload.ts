@@ -15,43 +15,40 @@ export function usePdfUpload() {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const handleFileChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      event.target.value = "";
-      setUploading(true);
-      fetch("/api/v2/documents/upload", {
-        method: "POST",
-        body: (() => {
-          const fd = new FormData();
-          fd.append("file", file);
-          return fd;
-        })(),
-        credentials: "include",
+  const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    event.target.value = "";
+    setUploading(true);
+    fetch("/api/v2/documents/upload", {
+      method: "POST",
+      body: (() => {
+        const fd = new FormData();
+        fd.append("file", file);
+        return fd;
+      })(),
+      credentials: "include",
+    })
+      .then(async (r) => {
+        const data = (await r.json()) as {
+          fileName?: string;
+          text?: string;
+          pageCount?: number;
+          error?: string;
+        };
+        if (!r.ok) throw new Error(data.error ?? "Upload error");
+        setAttachment({
+          fileName: data.fileName ?? file.name,
+          text: data.text ?? "",
+          pageCount: data.pageCount ?? 0,
+        });
       })
-        .then(async (r) => {
-          const data = (await r.json()) as {
-            fileName?: string;
-            text?: string;
-            pageCount?: number;
-            error?: string;
-          };
-          if (!r.ok) throw new Error(data.error ?? "Upload error");
-          setAttachment({
-            fileName: data.fileName ?? file.name,
-            text: data.text ?? "",
-            pageCount: data.pageCount ?? 0,
-          });
-        })
-        .catch(() => {
-          setUploadError("PDF parsing failed");
-          setTimeout(() => setUploadError(null), UPLOAD_ERROR_RESET_MS);
-        })
-        .finally(() => setUploading(false));
-    },
-    [],
-  );
+      .catch(() => {
+        setUploadError("PDF parsing failed");
+        setTimeout(() => setUploadError(null), UPLOAD_ERROR_RESET_MS);
+      })
+      .finally(() => setUploading(false));
+  }, []);
 
   const clearAttachment = useCallback(() => {
     setAttachment(null);

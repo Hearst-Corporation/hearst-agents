@@ -13,17 +13,17 @@
  */
 
 import { Buffer } from "node:buffer";
-import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
-import { falGenerate, FAL_DEFAULT_MODEL, FAST_MODEL } from "@/lib/capabilities/providers/fal";
+import { updateVariant } from "@/lib/assets/variants";
+import { FAL_DEFAULT_MODEL, FAST_MODEL, falGenerate } from "@/lib/capabilities/providers/fal";
 import {
+  type EnrichMode,
   enrichPrompt,
   isFastModeRequested,
-  type EnrichMode,
 } from "@/lib/capabilities/providers/fal-prompt-enricher";
-import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { ImageGenInput, JobResult } from "@/lib/jobs/types";
+import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 
 const handler: WorkerHandler<ImageGenInput> = {
   kind: "image-gen",
@@ -36,9 +36,10 @@ const handler: WorkerHandler<ImageGenInput> = {
 
   async process(ctx): Promise<JobResult> {
     const { payload, reportProgress } = ctx;
-    const variantId = (payload as ImageGenInput & { variantId?: string }).variantId
-      ?? (typeof payload === "object" && payload !== null && "metadata" in payload
-        ? ((payload as { metadata?: { variantId?: string } }).metadata?.variantId)
+    const variantId =
+      (payload as ImageGenInput & { variantId?: string }).variantId ??
+      (typeof payload === "object" && payload !== null && "metadata" in payload
+        ? (payload as { metadata?: { variantId?: string } }).metadata?.variantId
         : undefined);
 
     await reportProgress(5, "Enrichissement du prompt");
@@ -51,8 +52,7 @@ const handler: WorkerHandler<ImageGenInput> = {
     //    "rapide / fast / draft", sinon flux-pro (qualité éditoriale).
     //    `modelHint` overide tout (ex: appel programmatique précis).
     const fastRequested = isFastModeRequested(payload.prompt);
-    const model =
-      payload.modelHint ?? (fastRequested ? FAST_MODEL : FAL_DEFAULT_MODEL);
+    const model = payload.modelHint ?? (fastRequested ? FAST_MODEL : FAL_DEFAULT_MODEL);
 
     await reportProgress(15, "Génération en cours");
 

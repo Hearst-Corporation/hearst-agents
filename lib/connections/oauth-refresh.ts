@@ -15,20 +15,20 @@
  * Composio, ce module reste léger.
  */
 
-import { listConnections } from "@/lib/connectors/composio/connections";
-import { isComposioConfigured, getComposio } from "@/lib/connectors/composio/client";
 import {
   AUTH_EXPIRING_DAYS_THRESHOLD,
-  ExpiringConnectionSchema,
   type ExpiringConnection,
+  ExpiringConnectionSchema,
 } from "@/lib/connections/oauth-constants";
+import { getComposio, isComposioConfigured } from "@/lib/connectors/composio/client";
+import { listConnections } from "@/lib/connectors/composio/connections";
 
 // Ré-export des constantes et types partagés pour les consommateurs de ce module.
 export {
-  AUTH_EXPIRING_DAYS_THRESHOLD,
   AUTH_CRITICAL_DAYS_THRESHOLD,
-  ExpiringConnectionSchema,
+  AUTH_EXPIRING_DAYS_THRESHOLD,
   type ExpiringConnection,
+  ExpiringConnectionSchema,
 } from "@/lib/connections/oauth-constants";
 
 /** Résultat d'une tentative de refresh OAuth (Composio). */
@@ -65,7 +65,7 @@ function estimateDaysUntilExpiry(
   }
 
   const updated = new Date(updatedAt).getTime();
-  if (isNaN(updated)) return { days: null, isExpired: false };
+  if (Number.isNaN(updated)) return { days: null, isExpired: false };
 
   // Durée de vie typique OAuth2 = 90 jours pour la plupart des providers.
   const TYPICAL_OAUTH_LIFETIME_DAYS = 90;
@@ -105,16 +105,10 @@ export async function checkExpiringTokens({
   const expiring: ExpiringConnection[] = [];
 
   for (const account of accounts) {
-    const { days, isExpired } = estimateDaysUntilExpiry(
-      account.status,
-      account.updatedAt,
-    );
+    const { days, isExpired } = estimateDaysUntilExpiry(account.status, account.updatedAt);
 
     const isExpiringSoon =
-      !isExpired &&
-      days !== null &&
-      days <= AUTH_EXPIRING_DAYS_THRESHOLD &&
-      days > 0;
+      !isExpired && days !== null && days <= AUTH_EXPIRING_DAYS_THRESHOLD && days > 0;
 
     if (!isExpired && !isExpiringSoon) continue;
 
@@ -191,9 +185,7 @@ export async function refreshOAuthToken({
     })) as { items?: Array<{ id?: string; nanoid?: string; status?: string }> };
 
     const items = raw.items ?? [];
-    const found = items.find(
-      (acc) => (acc.id ?? acc.nanoid) === connectionId,
-    );
+    const found = items.find((acc) => (acc.id ?? acc.nanoid) === connectionId);
 
     if (!found) {
       return {

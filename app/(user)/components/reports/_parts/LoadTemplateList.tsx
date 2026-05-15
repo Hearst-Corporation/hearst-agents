@@ -22,9 +22,7 @@ export function LoadTemplateList({ templateList, onLoad, onCancel }: LoadTemplat
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="t-9 font-mono uppercase text-text-muted">
-          Templates disponibles
-        </span>
+        <span className="t-9 font-mono uppercase text-text-muted">Templates disponibles</span>
         <button
           type="button"
           onClick={onCancel}
@@ -42,10 +40,7 @@ export function LoadTemplateList({ templateList, onLoad, onCancel }: LoadTemplat
         </button>
       </div>
       {templateList.length === 0 ? (
-        <span
-          className="t-11 text-text-faint"
-          data-testid="report-editor-load-empty"
-        >
+        <span className="t-11 text-text-faint" data-testid="report-editor-load-empty">
           Aucun template sauvegardé.
         </span>
       ) : (

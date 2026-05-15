@@ -7,26 +7,23 @@
  * - rate-limit : bloque au 11ᵉ hit dans la même fenêtre
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: vi.fn(() => null),
 }));
 
+import { __clearRateLimits, checkRateLimit } from "@/lib/marketplace/rate-limit";
 import {
-  publishTemplate,
-  listTemplates,
-  getTemplate,
+  archiveTemplate,
   cloneTemplate,
+  getTemplate,
+  listTemplates,
+  publishTemplate,
   rateTemplate,
   reportTemplate,
-  archiveTemplate,
 } from "@/lib/marketplace/store";
 import { validatePayload } from "@/lib/marketplace/types";
-import {
-  checkRateLimit,
-  __clearRateLimits,
-} from "@/lib/marketplace/rate-limit";
 import { dailyStandupTemplate } from "@/lib/workflows/templates/daily-standup";
 
 describe("marketplace/types — validatePayload", () => {

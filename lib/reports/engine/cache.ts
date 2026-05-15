@@ -14,13 +14,13 @@
  * supprimer dès que Supabase types sont régénérés.
  */
 
-import { createHash } from "crypto";
+import { createHash } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type {
+  ReportRenderCacheRow,
   ReportSourceCacheRow,
   ReportTransformCacheRow,
-  ReportRenderCacheRow,
 } from "./cache-types";
 
 // ── Hash & key helpers ─────────────────────────────────────
@@ -40,9 +40,7 @@ export function stableStringify(value: unknown): string {
   if (typeof value === "object") {
     const obj = value as Record<string, unknown>;
     const keys = Object.keys(obj).sort();
-    return `{${keys
-      .map((k) => `${JSON.stringify(k)}:${stableStringify(obj[k])}`)
-      .join(",")}}`;
+    return `{${keys.map((k) => `${JSON.stringify(k)}:${stableStringify(obj[k])}`).join(",")}}`;
   }
   return "null";
 }
@@ -103,9 +101,7 @@ export async function setSourceCache(
 
 // ── L2 — transform cache ───────────────────────────────────
 
-export async function getTransformCache<T = unknown>(
-  hash: string,
-): Promise<T | null> {
+export async function getTransformCache<T = unknown>(hash: string): Promise<T | null> {
   const sb = client();
   if (!sb) return null;
   const { data, error } = await sb
@@ -145,9 +141,7 @@ export interface RenderCacheValue {
   narration: string | null;
 }
 
-export async function getRenderCache(
-  key: RenderCacheKey,
-): Promise<RenderCacheValue | null> {
+export async function getRenderCache(key: RenderCacheKey): Promise<RenderCacheValue | null> {
   const sb = client();
   if (!sb) return null;
   const { data, error } = await sb
@@ -158,10 +152,7 @@ export async function getRenderCache(
     .eq("payload_hash", key.payloadHash)
     .maybeSingle();
   if (error || !data) return null;
-  const row = data as Pick<
-    ReportRenderCacheRow,
-    "payload_json" | "narration" | "expires_at"
-  >;
+  const row = data as Pick<ReportRenderCacheRow, "payload_json" | "narration" | "expires_at">;
   if (isExpired(row.expires_at)) return null;
   return { payload: row.payload_json, narration: row.narration ?? null };
 }

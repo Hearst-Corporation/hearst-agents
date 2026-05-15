@@ -62,7 +62,7 @@ describe("F-053 — isProductionEnv OR logic", () => {
     vi.stubEnv("HEARST_DEV_AUTH_BYPASS", "1");
 
     await expect(import("@/lib/platform/auth/dev-bypass")).rejects.toThrow(
-      /HEARST_DEV_AUTH_BYPASS=1 detected in a production environment/
+      /HEARST_DEV_AUTH_BYPASS=1 detected in a production environment/,
     );
   });
 

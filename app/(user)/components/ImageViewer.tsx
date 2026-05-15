@@ -17,7 +17,11 @@ export function ImageViewer({ variant }: ImageViewerProps) {
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${
-              isReady ? "bg-(--accent-teal)" : isFailed ? "bg-(--danger)" : "bg-(--warn) animate-pulse"
+              isReady
+                ? "bg-(--accent-teal)"
+                : isFailed
+                  ? "bg-(--danger)"
+                  : "bg-(--warn) animate-pulse"
             }`}
             style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             aria-hidden
@@ -32,7 +36,11 @@ export function ImageViewer({ variant }: ImageViewerProps) {
         </div>
         <div className="flex items-center gap-4 t-11 font-light text-text-faint">
           {meta.model && <span>Modèle · {meta.model}</span>}
-          {meta.width && meta.height && <span className="font-mono tabular-nums">{meta.width}×{meta.height}</span>}
+          {meta.width && meta.height && (
+            <span className="font-mono tabular-nums">
+              {meta.width}×{meta.height}
+            </span>
+          )}
         </div>
       </header>
 
@@ -47,9 +55,7 @@ export function ImageViewer({ variant }: ImageViewerProps) {
       ) : isFailed ? (
         <p className="t-13 text-(--danger)">{variant.error ?? "Génération échouée"}</p>
       ) : (
-        <p className="t-13 font-light text-text-muted">
-          Génération en cours via fal.ai…
-        </p>
+        <p className="t-13 font-light text-text-muted">Génération en cours via fal.ai…</p>
       )}
     </div>
   );

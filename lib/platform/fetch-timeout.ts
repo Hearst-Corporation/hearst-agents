@@ -26,7 +26,10 @@ export async function fetchWithTimeout(
   timeoutMs: number = DEFAULT_FETCH_TIMEOUT_MS,
 ): Promise<Response> {
   const controller = new AbortController();
-  const tid = setTimeout(() => controller.abort(new Error(`fetch timeout after ${timeoutMs}ms`)), timeoutMs);
+  const tid = setTimeout(
+    () => controller.abort(new Error(`fetch timeout after ${timeoutMs}ms`)),
+    timeoutMs,
+  );
 
   let signal: AbortSignal = controller.signal;
 

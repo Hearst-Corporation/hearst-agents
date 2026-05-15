@@ -33,8 +33,7 @@ export function SectionHeader({
   density = "compact",
   className = "",
 }: SectionHeaderProps) {
-  const marginBottom =
-    density === "section" ? "var(--space-6)" : "var(--space-4)";
+  const marginBottom = density === "section" ? "var(--space-6)" : "var(--space-4)";
 
   return (
     <header
@@ -42,9 +41,7 @@ export function SectionHeader({
       style={{ marginBottom }}
     >
       <div className="flex items-baseline gap-3 min-w-0">
-        <span className="t-13 font-medium text-(--text-l1) truncate">
-          {label}
-        </span>
+        <span className="t-13 font-medium text-(--text-l1) truncate">{label}</span>
         {typeof count === "number" && (
           <span className="t-11 font-mono tabular-nums text-text-faint shrink-0">
             {count.toString().padStart(2, "0")}

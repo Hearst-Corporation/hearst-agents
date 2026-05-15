@@ -5,16 +5,14 @@
  * l'endpoint test — sans appel réseau réel (Supabase + fetch mockés).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { alertingPreferencesSchema } from "@/lib/notifications/schema";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
+import { alertingPreferencesSchema } from "@/lib/notifications/schema";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const VALID_PREFS: AlertingPreferences = {
-  webhooks: [
-    { url: "https://hook.example.com/abc", signalTypes: ["mrr_drop", "*"] },
-  ],
+  webhooks: [{ url: "https://hook.example.com/abc", signalTypes: ["mrr_drop", "*"] }],
   email: { recipients: ["alice@example.com"], signalTypes: ["*"] },
   slack: { webhookUrl: "https://hooks.slack.com/services/T/B/x", signalTypes: ["*"] },
 };

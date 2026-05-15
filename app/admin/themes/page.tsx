@@ -16,10 +16,10 @@ export default function ThemesPage() {
       <header className="space-y-(--space-2)">
         <h1 className="text-2xl text-(--text) font-medium">Apparence</h1>
         <p className="text-(--text-muted)">
-          Choisis le design system de l&apos;application. Le switch est immédiat
-          et persiste sur ton compte. Les nouveaux thèmes sont ajoutés via{" "}
-          <code className="text-xs bg-(--bg-elev) px-1.5 py-0.5 rounded">/skin &lt;url&gt;</code>{" "}
-          en CLI.
+          Choisis le design system de l&apos;application. Le switch est immédiat et persiste sur ton
+          compte. Les nouveaux thèmes sont ajoutés via{" "}
+          <code className="text-xs bg-(--bg-elev) px-1.5 py-0.5 rounded">/skin &lt;url&gt;</code> en
+          CLI.
         </p>
       </header>
 

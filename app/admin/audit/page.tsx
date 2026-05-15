@@ -1,5 +1,5 @@
+import { type AuditLog, getAuditLogs } from "@/lib/admin/audit";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { getAuditLogs, type AuditLog } from "@/lib/admin/audit";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +32,9 @@ export default async function AuditPage() {
     <div className="p-(--space-8) space-y-(--space-8) text-text-soft h-full overflow-y-auto">
       <div className="flex items-center justify-between">
         <h1 className="t-24 font-light text-text">Journal d&apos;audit</h1>
-        <span className="t-13 text-text-faint">{total} au total — affichage de {logs.length}</span>
+        <span className="t-13 text-text-faint">
+          {total} au total — affichage de {logs.length}
+        </span>
       </div>
 
       {dbError && (
@@ -52,7 +54,9 @@ export default async function AuditPage() {
         </div>
 
         {logs.length === 0 && (
-          <p className="px-(--space-4) py-(--space-8) text-center t-13 text-text-ghost">Aucune entrée d&apos;audit</p>
+          <p className="px-(--space-4) py-(--space-8) text-center t-13 text-text-ghost">
+            Aucune entrée d&apos;audit
+          </p>
         )}
 
         {logs.map((log) => (
@@ -67,7 +71,9 @@ export default async function AuditPage() {
             <span className="text-text-muted truncate">
               {log.resource}
               {log.resourceId && (
-                <span className="text-text-ghost ml-(--space-1)">#{log.resourceId.slice(0, 8)}</span>
+                <span className="text-text-ghost ml-(--space-1)">
+                  #{log.resourceId.slice(0, 8)}
+                </span>
               )}
             </span>
             <span>

@@ -1,10 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import {
-  readAssetDragPayload,
-  type AssetDragPayload,
-} from "../../use-asset-drag";
+import { type AssetDragPayload, readAssetDragPayload } from "../../use-asset-drag";
 
 interface UseAttachedAssetsParams {
   setInput: React.Dispatch<React.SetStateAction<string>>;
@@ -16,13 +13,8 @@ interface UseAttachedAssetsParams {
  * Le payload `application/x-hearst-asset+json` est lu via `readAssetDragPayload`.
  * Pas d'inlining du contenu : on passe par référence (`assetId`) — invariant I-17.
  */
-export function useAttachedAssets({
-  setInput,
-  inputRef,
-}: UseAttachedAssetsParams) {
-  const [attachedAssets, setAttachedAssets] = useState<AssetDragPayload[]>(
-    [],
-  );
+export function useAttachedAssets({ setInput, inputRef }: UseAttachedAssetsParams) {
+  const [attachedAssets, setAttachedAssets] = useState<AssetDragPayload[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleAssetDrop = useCallback(
@@ -37,29 +29,20 @@ export function useAttachedAssets({
       });
       const mention = `@asset:${payload.title}`;
       setInput((prev) =>
-        prev.endsWith(" ") || prev.length === 0
-          ? prev + mention + " "
-          : prev + " " + mention + " ",
+        prev.endsWith(" ") || prev.length === 0 ? `${prev + mention} ` : `${prev} ${mention} `,
       );
       inputRef.current?.focus();
     },
     [setInput, inputRef],
   );
 
-  const handleAssetDragOver = useCallback(
-    (event: React.DragEvent<HTMLDivElement>) => {
-      if (
-        event.dataTransfer.types.includes(
-          "application/x-hearst-asset+json",
-        )
-      ) {
-        event.preventDefault();
-        event.dataTransfer.dropEffect = "copy";
-        setIsDragOver(true);
-      }
-    },
-    [],
-  );
+  const handleAssetDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    if (event.dataTransfer.types.includes("application/x-hearst-asset+json")) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "copy";
+      setIsDragOver(true);
+    }
+  }, []);
 
   const handleAssetDragLeave = useCallback(() => {
     setIsDragOver(false);

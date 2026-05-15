@@ -11,8 +11,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
 import { checkExpiringTokens } from "@/lib/connections/oauth-refresh";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
 
 export async function GET() {
   const userId = await getUserId();

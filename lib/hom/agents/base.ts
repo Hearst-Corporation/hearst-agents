@@ -2,18 +2,12 @@
  * Helpers communs aux 3 agents : exécution timée, écriture du rapport
  * append-only, calcul du hash chain, propagation telemetry.
  */
-import path from "node:path";
+
 import fs from "node:fs/promises";
+import path from "node:path";
+import { ensureDir, nowIso, readTextSafe, sha256, shortId } from "../fs-utils";
 import { HOM } from "../paths";
-import {
-  ensureDir,
-  nowIso,
-  readTextSafe,
-  sha256,
-  shortId,
-} from "../fs-utils";
 import { startSpan } from "../telemetry";
-import { SEVERITY_RANK } from "../types";
 import type {
   AgentId,
   AgentReport,
@@ -22,6 +16,7 @@ import type {
   Finding,
   Severity,
 } from "../types";
+import { SEVERITY_RANK } from "../types";
 
 const SEVERITY_PENALTY: Record<Severity, number> = {
   info: 0,
@@ -140,11 +135,7 @@ interface ReportInput {
   status: AgentStatus;
 }
 
-async function writeReport(
-  agent: AgentId,
-  runId: string,
-  input: ReportInput,
-): Promise<string> {
+async function writeReport(agent: AgentId, runId: string, input: ReportInput): Promise<string> {
   const dir = HOM.auditsAgent(agent);
   await ensureDir(dir);
   const ts = nowIso().replace(/[:.]/g, "-");
@@ -176,7 +167,7 @@ async function writeReport(
 
   const body = renderMarkdown(reportObject);
   const hash_self = sha256(body);
-  const final = body + `\n\n<!-- hash:${hash_self} -->\n`;
+  const final = `${body}\n\n<!-- hash:${hash_self} -->\n`;
   await fs.writeFile(reportFile, final, "utf8");
   return path.relative(process.cwd(), reportFile);
 }
@@ -262,7 +253,8 @@ function renderMarkdown(r: Omit<AgentReport, "hash_self">): string {
           "## Findings",
           "",
           ...r.findings.map(
-            (f) => `### [${f.severity.toUpperCase()}] ${f.title}\n\n` +
+            (f) =>
+              `### [${f.severity.toUpperCase()}] ${f.title}\n\n` +
               `**Scope** : \`${f.scope}\`\n\n` +
               `${f.detail}\n\n` +
               (f.evidence.length

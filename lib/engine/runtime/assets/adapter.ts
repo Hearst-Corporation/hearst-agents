@@ -36,7 +36,9 @@ export async function saveAsset(asset: Asset): Promise<boolean> {
   // that would resurface as "Untitled" rows in the right panel.
   const cleanTitle = (asset.name ?? "").trim();
   if (!cleanTitle || cleanTitle.toLowerCase() === "untitled") {
-    console.warn(`[AssetsAdapter] Refusing to persist asset ${asset.id} — empty or 'Untitled' title`);
+    console.warn(
+      `[AssetsAdapter] Refusing to persist asset ${asset.id} — empty or 'Untitled' title`,
+    );
     return false;
   }
 
@@ -166,16 +168,17 @@ export async function deleteAssetById(
         // Out of scope — pretend it doesn't exist (no info leak).
         return { ok: true, deletedCount: 0 };
       }
-      if (scope.workspaceId && provenance.workspaceId && provenance.workspaceId !== scope.workspaceId) {
+      if (
+        scope.workspaceId &&
+        provenance.workspaceId &&
+        provenance.workspaceId !== scope.workspaceId
+      ) {
         return { ok: true, deletedCount: 0 };
       }
     }
 
     // 2. Delete by id (preflight already enforced ownership).
-    const { error, count } = await sb
-      .from("assets")
-      .delete({ count: "exact" })
-      .eq("id", id);
+    const { error, count } = await sb.from("assets").delete({ count: "exact" }).eq("id", id);
     if (error) {
       console.error("[AssetsAdapter] delete failed:", error.message);
       return { ok: false, deletedCount: 0, error: error.message };

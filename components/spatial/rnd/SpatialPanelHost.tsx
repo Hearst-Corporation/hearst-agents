@@ -2,15 +2,12 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
-import { useSpatialPanelsStore, hasInterruptive } from "@/stores/spatial-panels";
-import { SPATIAL_PANEL_CONFIG } from "@/lib/spatial/panel-types";
-import {
-  getOrbitPosition,
-  getInterruptivePosition,
-} from "@/lib/spatial/panel-orbit";
-import { SPATIAL_PANEL_REGISTRY } from "@/lib/spatial/panel-registry";
-import { SpatialPanel } from "./SpatialPanel";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { getInterruptivePosition, getOrbitPosition } from "@/lib/spatial/panel-orbit";
+import { SPATIAL_PANEL_REGISTRY } from "@/lib/spatial/panel-registry";
+import { SPATIAL_PANEL_CONFIG } from "@/lib/spatial/panel-types";
+import { hasInterruptive, useSpatialPanelsStore } from "@/stores/spatial-panels";
+import { SpatialPanel } from "./SpatialPanel";
 
 interface SpatialPanelHostProps {
   /** Données prefetch RSC pour les cards qui en ont besoin (KPI surtout). */
@@ -31,9 +28,7 @@ interface SpatialPanelHostProps {
  * - Esc : défocalise (sans fermer)
  * - Click vide : défocalise
  */
-export function SpatialPanelHost({
-  initialCockpitData = null,
-}: SpatialPanelHostProps) {
+export function SpatialPanelHost({ initialCockpitData = null }: SpatialPanelHostProps) {
   const panels = useSpatialPanelsStore((s) => s.panels);
   const focusedId = useSpatialPanelsStore((s) => s.focusedId);
   const defocus = useSpatialPanelsStore((s) => s.defocus);
@@ -59,10 +54,7 @@ export function SpatialPanelHost({
       style={{ zIndex: 30, perspective: "1400px" }}
       onClick={() => defocus()}
     >
-      <div
-        className="relative h-full w-full"
-        style={{ transformStyle: "preserve-3d" }}
-      >
+      <div className="relative h-full w-full" style={{ transformStyle: "preserve-3d" }}>
         {/* Dim global quand un panel interruptif est ouvert */}
         <AnimatePresence>
           {interruptiveOpen && (
@@ -93,8 +85,7 @@ export function SpatialPanelHost({
               : getOrbitPosition(panel.orbitIndex, panels.length);
 
             const isFocused = focusedId === panel.id;
-            const isDefocused =
-              focusedId !== null && focusedId !== panel.id && !isInterruptive;
+            const isDefocused = focusedId !== null && focusedId !== panel.id && !isInterruptive;
             const isInterruptiveDim = interruptiveOpen && !isInterruptive;
 
             return (
@@ -108,10 +99,7 @@ export function SpatialPanelHost({
                 isDefocused={isDefocused}
                 isInterruptiveDim={isInterruptiveDim}
               >
-                <Card
-                  payload={panel.payload}
-                  initialCockpitData={initialCockpitData}
-                />
+                <Card payload={panel.payload} initialCockpitData={initialCockpitData} />
               </SpatialPanel>
             );
           })}

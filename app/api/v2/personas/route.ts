@@ -3,14 +3,11 @@
  * POST /api/v2/personas       — crée une nouvelle persona
  */
 
-import { NextResponse, type NextRequest } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import {
-  listPersonasForUser,
-  createPersona,
-} from "@/lib/personas/store";
-import type { PersonaInsert } from "@/lib/personas/types";
+import { type NextRequest, NextResponse } from "next/server";
 import { createPersonaSchema } from "@/lib/contracts/personas";
+import { createPersona, listPersonasForUser } from "@/lib/personas/store";
+import type { PersonaInsert } from "@/lib/personas/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 

@@ -7185,7 +7185,7 @@ function refresh() {
       if (show) { card.removeAttribute("data-hidden"); vis++; }
       else card.setAttribute("data-hidden","");
     });
-    const emp = document.getElementById("empty-"+cat);
+    const emp = document.getElementById(`empty-${cat}`);
     if (emp) emp.style.display = vis === 0 ? "block" : "none";
   });
 }

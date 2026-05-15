@@ -12,10 +12,7 @@ interface AttachedAssetChipsProps {
  * Affichés au-dessus du textarea. Click sur "×" retire l'asset.
  * Le contenu n'est jamais inliné — invariant I-17, on passe par référence.
  */
-export function AttachedAssetChips({
-  attachedAssets,
-  onRemove,
-}: AttachedAssetChipsProps) {
+export function AttachedAssetChips({ attachedAssets, onRemove }: AttachedAssetChipsProps) {
   if (attachedAssets.length === 0) return null;
 
   return (
@@ -41,9 +38,7 @@ export function AttachedAssetChips({
             borderRadius: "var(--radius-pill)",
           }}
         >
-          <span className="t-11 font-medium text-(--accent-teal)">
-            @{a.kind}
-          </span>
+          <span className="t-11 font-medium text-(--accent-teal)">@{a.kind}</span>
           <span
             className="t-11 font-light text-text truncate"
             style={{ maxWidth: "var(--space-32)" }}

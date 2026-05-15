@@ -2,10 +2,10 @@
 // lint-visual-disable-file
 
 import { useCallback, useEffect, useState } from "react";
+import { usePollingEffect } from "@/app/hooks/use-polling-effect";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { CockpitOrbitView } from "../cockpit/orbital/CockpitOrbitView";
 import { OnboardingTour } from "../OnboardingTour";
-import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-import { usePollingEffect } from "@/app/hooks/use-polling-effect";
 
 /**
  * CockpitStage — home polymorphe (mode="cockpit").
@@ -124,36 +124,56 @@ function CockpitSkeleton() {
     <div
       className="flex-1 flex flex-col"
       style={{
-        padding: "48px 64px",
-        gap: "40px",
+        padding: "var(--space-12) var(--space-16)",
+        gap: "var(--space-10)",
       }}
       aria-busy="true"
       aria-live="polite"
     >
       {/* Header */}
-      <div className="flex flex-col" style={{ gap: "12px" }}>
+      <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
         <div
           className="animate-pulse"
-          style={{ height: "16px", width: "120px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
+          style={{
+            height: "var(--space-4)",
+            width: "120px",
+            background: "var(--skeleton-base)",
+            borderRadius: "var(--radius-xs)",
+          }}
         />
         <div
           className="animate-pulse"
-          style={{ height: "48px", width: "240px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
+          style={{
+            height: "var(--space-12)",
+            width: "240px",
+            background: "var(--skeleton-base)",
+            borderRadius: "var(--radius-xs)",
+          }}
         />
       </div>
 
       {/* Briefing */}
-      <div className="flex flex-col" style={{ gap: "16px" }}>
+      <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
         <div
           className="animate-pulse"
-          style={{ height: "24px", width: "75%", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
+          style={{
+            height: "var(--space-6)",
+            width: "75%",
+            background: "var(--skeleton-base)",
+            borderRadius: "var(--radius-xs)",
+          }}
         />
-        <div className="flex flex-col" style={{ gap: "8px" }}>
+        <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
           {[0.65, 0.55, 0.45].map((w, i) => (
             <div
               key={i}
               className="animate-pulse"
-              style={{ height: "16px", width: `${w * 100}%`, background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
+              style={{
+                height: "var(--space-4)",
+                width: `${w * 100}%`,
+                background: "var(--skeleton-base)",
+                borderRadius: "var(--radius-xs)",
+              }}
             />
           ))}
         </div>
@@ -162,19 +182,34 @@ function CockpitSkeleton() {
       {/* Sections */}
       <div
         className="flex flex-col"
-        style={{ gap: "40px", paddingTop: "24px", borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
+        style={{
+          gap: "var(--space-10)",
+          paddingTop: "var(--space-6)",
+          borderTop: "1px solid var(--line-strong)",
+        }}
       >
         {[3, 2, 3].map((lines, si) => (
-          <div key={si} className="flex flex-col" style={{ gap: "12px" }}>
+          <div key={si} className="flex flex-col" style={{ gap: "var(--space-3)" }}>
             <div
               className="animate-pulse"
-              style={{ height: "12px", width: "96px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px", marginBottom: "4px" }}
+              style={{
+                height: "var(--space-3)",
+                width: "96px",
+                background: "var(--skeleton-base)",
+                borderRadius: "var(--radius-xs)",
+                marginBottom: "var(--space-1)",
+              }}
             />
             {Array.from({ length: lines }).map((_, li) => (
               <div
                 key={li}
                 className="animate-pulse"
-                style={{ height: "12px", width: `${(0.8 - li * 0.1) * 100}%`, background: "rgba(255, 255, 255, 0.05)", borderRadius: "4px" }}
+                style={{
+                  height: "var(--space-3)",
+                  width: `${(0.8 - li * 0.1) * 100}%`,
+                  background: "var(--skeleton-base)",
+                  borderRadius: "var(--radius-xs)",
+                }}
               />
             ))}
           </div>
@@ -188,13 +223,16 @@ function CockpitErrorState({ message }: { message: string }) {
   return (
     <div
       className="flex-1 flex flex-col items-start justify-center"
-      style={{ padding: "48px 56px", gap: "12px" }}
+      style={{ padding: "var(--space-12) var(--space-14)", gap: "var(--space-3)" }}
     >
       <span className="t-11 font-light text-text-ghost">Cockpit · erreur</span>
-      <p className="font-light" style={{ fontSize: "18px", color: "rgba(255, 255, 255, 0.88)", maxWidth: "420px", lineHeight: "1.4" }}>
+      <p
+        className="t-18 font-light"
+        style={{ color: "var(--text-soft)", maxWidth: "420px", lineHeight: "1.4" }}
+      >
         Impossible de charger ton cockpit pour le moment.
       </p>
-      <p className="font-mono" style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.25)" }}>
+      <p className="t-11 font-mono" style={{ color: "var(--text-decor-25)" }}>
         {message}
       </p>
     </div>

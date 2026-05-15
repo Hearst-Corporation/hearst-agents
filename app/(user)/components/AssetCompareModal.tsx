@@ -14,8 +14,8 @@
  */
 
 import { useState } from "react";
-import { Action } from "./ui";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
+import { Action } from "./ui";
 
 export interface AssetCompareModalProps {
   open: boolean;
@@ -113,7 +113,6 @@ export function AssetCompareModal({ open, onCancel, onCompare }: AssetCompareMod
                 }
               }}
               placeholder="asset-id-a"
-              autoFocus
               data-testid="asset-compare-input-a"
               className="t-13 font-light outline-none"
               style={{

@@ -116,10 +116,11 @@ export function Sankey({ nodes, links, height = 280 }: SankeyProps) {
     nodeWeight.set(l.source, (nodeWeight.get(l.source) ?? 0) + l.value);
     nodeWeight.set(l.target, (nodeWeight.get(l.target) ?? 0) + l.value);
   }
-  const maxColumnSum = columns.reduce((m, col) => {
-    const sum = col.reduce((s, n) => s + (nodeWeight.get(n.id) ?? 0), 0);
-    return Math.max(m, sum);
-  }, 0) || 1;
+  const maxColumnSum =
+    columns.reduce((m, col) => {
+      const sum = col.reduce((s, n) => s + (nodeWeight.get(n.id) ?? 0), 0);
+      return Math.max(m, sum);
+    }, 0) || 1;
 
   // Position de chaque node : y empilé par colonne, h proportionnel au poids.
   type NodeBox = { id: string; label: string; x: number; y: number; w: number; h: number };
@@ -128,14 +129,14 @@ export function Sankey({ nodes, links, height = 280 }: SankeyProps) {
 
   columns.forEach((col, colIdx) => {
     const totalH = col.reduce(
-      (s, n) => s + ((nodeWeight.get(n.id) ?? 0) / maxColumnSum) * VB_H * NODE_H_FACTOR / 100,
+      (s, n) => s + (((nodeWeight.get(n.id) ?? 0) / maxColumnSum) * VB_H * NODE_H_FACTOR) / 100,
       0,
     );
     const padding = Math.max(0, (VB_H - totalH) / Math.max(1, col.length + 1));
     let cursorY = padding;
     for (const n of col) {
       const w = nodeWeight.get(n.id) ?? 0;
-      const h = Math.max(8, (w / maxColumnSum) * VB_H * NODE_H_FACTOR / 100);
+      const h = Math.max(8, ((w / maxColumnSum) * VB_H * NODE_H_FACTOR) / 100);
       const x = colIdx * colSpan;
       nodeBoxes.set(n.id, { id: n.id, label: n.label, x, y: cursorY, w: NODE_W, h });
       cursorY += h + padding;
@@ -143,7 +144,8 @@ export function Sankey({ nodes, links, height = 280 }: SankeyProps) {
   });
 
   // Largeur des links : proportionnelle à value relative au max link.
-  const maxLinkValue = links.reduce((m, l) => Math.max(m, Number.isFinite(l.value) ? l.value : 0), 0) || 1;
+  const maxLinkValue =
+    links.reduce((m, l) => Math.max(m, Number.isFinite(l.value) ? l.value : 0), 0) || 1;
 
   // Track le cursor d'attache (y) sur chaque node pour empiler les links.
   const sourceCursor = new Map<string, number>();
@@ -234,11 +236,7 @@ export function Sankey({ nodes, links, height = 280 }: SankeyProps) {
         }}
       >
         {columns.map((col, ci) => (
-          <div
-            key={`col-${ci}`}
-            className="flex flex-col"
-            style={{ gap: "var(--space-1)" }}
-          >
+          <div key={`col-${ci}`} className="flex flex-col" style={{ gap: "var(--space-1)" }}>
             {col.map((n) => (
               <span
                 key={`label-${n.id}`}

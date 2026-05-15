@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { useRuntimeStore } from "@/stores/runtime";
 import type { StreamEvent } from "@/stores/runtime";
+import { useRuntimeStore } from "@/stores/runtime";
 
 /**
  * Récapitulatif d'exécution post-run — affiché sous le dernier message
@@ -21,9 +21,7 @@ interface RunSummary {
 function selectRunSummary(events: StreamEvent[], lastRunId: string | null): RunSummary | null {
   if (!lastRunId) return null;
 
-  const runEvents = events.filter(
-    (e) => (e.run_id as string | undefined) === lastRunId,
-  );
+  const runEvents = events.filter((e) => (e.run_id as string | undefined) === lastRunId);
 
   // Compter les steps complétés + collecter les providers
   const completedSteps = runEvents.filter((e) => e.type === "plan_step_completed");
@@ -38,8 +36,7 @@ function selectRunSummary(events: StreamEvent[], lastRunId: string | null): RunS
   // Durée : run_started → run_completed timestamps
   const startEvent = runEvents.find((e) => e.type === "run_started");
   const endEvent = runEvents.find((e) => e.type === "run_completed");
-  const durationMs =
-    startEvent && endEvent ? endEvent.timestamp - startEvent.timestamp : null;
+  const durationMs = startEvent && endEvent ? endEvent.timestamp - startEvent.timestamp : null;
 
   return {
     steps: completedSteps.length,
@@ -58,10 +55,7 @@ export function ChatRunReceipt() {
   const events = useRuntimeStore((s) => s.events);
   const lastRunId = useRuntimeStore((s) => s.lastRunId);
 
-  const summary = useMemo(
-    () => selectRunSummary(events, lastRunId),
-    [events, lastRunId],
-  );
+  const summary = useMemo(() => selectRunSummary(events, lastRunId), [events, lastRunId]);
 
   // Afficher uniquement en idle, avec des steps significatifs
   if (coreState !== "idle" || !summary) return null;

@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { selectModel, type ModelScore } from "../../lib/decisions/model-selector";
+import { describe, expect, it } from "vitest";
+import { type ModelScore, selectModel } from "../../lib/decisions/model-selector";
 
 function score(overrides: Partial<ModelScore> = {}): ModelScore {
   return {
@@ -36,9 +36,7 @@ describe("selectModel", () => {
   });
 
   it("returns null when all unstable", () => {
-    const models = [
-      score({ reliability: "unstable" }),
-    ];
+    const models = [score({ reliability: "unstable" })];
     const result = selectModel(models);
     expect(result.selected).toBeNull();
     expect(result.reason).toContain("unstable");

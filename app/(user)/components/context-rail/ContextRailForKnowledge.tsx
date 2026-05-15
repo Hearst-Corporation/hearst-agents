@@ -5,7 +5,7 @@
  */
 
 import { useStageData } from "@/stores/stage-data";
-import { Section, EmptyHint } from "./Section";
+import { EmptyHint, Section } from "./Section";
 
 export function ContextRailForKnowledge() {
   const { graph, selectedNode } = useStageData((s) => s.kg);
@@ -14,24 +14,16 @@ export function ContextRailForKnowledge() {
       <Section label="Focus entity">
         {selectedNode ? (
           <div className="flex flex-col gap-3">
-            <span className="t-9 font-medium text-(--accent-teal)">
-              {selectedNode.type}
-            </span>
+            <span className="t-9 font-medium text-(--accent-teal)">{selectedNode.type}</span>
             <p className="t-13 font-light text-text-soft">{selectedNode.label}</p>
             {Object.keys(selectedNode.properties ?? {}).length > 0 && (
               <ul className="flex flex-col gap-2 mt-3">
-                {Object.entries(
-                  selectedNode.properties as Record<string, unknown>,
-                )
+                {Object.entries(selectedNode.properties as Record<string, unknown>)
                   .slice(0, 6)
                   .map(([k, v]) => (
                     <li key={k} className="flex items-baseline gap-3">
-                      <span className="t-9 font-medium text-text-ghost truncate">
-                        {k}
-                      </span>
-                      <span className="t-11 font-light text-text-muted truncate">
-                        {String(v)}
-                      </span>
+                      <span className="t-9 font-medium text-text-ghost truncate">{k}</span>
+                      <span className="t-11 font-light text-text-muted truncate">{String(v)}</span>
                     </li>
                   ))}
               </ul>
@@ -46,7 +38,6 @@ export function ContextRailForKnowledge() {
           {graph.nodes.length} entities · {graph.edges.length} relations
         </p>
       </Section>
-
     </div>
   );
 }

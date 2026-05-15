@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { toolkitsAuthorize, accountsList, accountsDelete } = vi.hoisted(() => ({
   toolkitsAuthorize: vi.fn(),
@@ -12,15 +12,14 @@ vi.mock("@composio/core", () => {
     toolkits = { list: vi.fn(), get: vi.fn(), authorize: toolkitsAuthorize };
     connectedAccounts = { list: accountsList, delete: accountsDelete };
     create = vi.fn();
-    constructor(_opts: { apiKey?: string }) {}
   }
   return { Composio };
 });
 
 import {
+  disconnectAccount,
   initiateConnection,
   listConnections,
-  disconnectAccount,
   resetComposioClient,
   resetDiscoveryCache,
 } from "@/lib/connectors/composio";
@@ -97,9 +96,7 @@ describe("Composio connections (new SDK)", () => {
     it("forwards userIds for server-side tenant filtering", async () => {
       accountsList.mockResolvedValueOnce({ items: [] });
       await listConnections("user-42");
-      expect(accountsList).toHaveBeenCalledWith(
-        expect.objectContaining({ userIds: ["user-42"] }),
-      );
+      expect(accountsList).toHaveBeenCalledWith(expect.objectContaining({ userIds: ["user-42"] }));
     });
   });
 

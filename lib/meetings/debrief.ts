@@ -83,11 +83,7 @@ export async function generateMeetingDebrief(
     userPromptLines.push(`## Titre du meeting`, input.title, "");
   }
   if (input.participants && input.participants.length > 0) {
-    userPromptLines.push(
-      `## Participants identifiés`,
-      input.participants.join(", "),
-      "",
-    );
+    userPromptLines.push(`## Participants identifiés`, input.participants.join(", "), "");
   }
 
   userPromptLines.push(

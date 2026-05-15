@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { MissionLike } from "@/lib/ui/focal-mappers";
+import { useRuntimeStore } from "@/stores/runtime";
 import { useStageStore } from "@/stores/stage";
-import { StageActionBar, type StageAction } from "./StageActionBar";
 import { ConfirmModal } from "../ConfirmModal";
 import { MissionStepGraph } from "../MissionStepGraph";
-import { useRuntimeStore } from "@/stores/runtime";
-import { Action } from "../ui";
-import type { MissionLike } from "@/lib/ui/focal-mappers";
 import { MissionConversation } from "../mission/MissionConversation";
+import { Action } from "../ui";
+import { type StageAction, StageActionBar } from "./StageActionBar";
 
 interface MissionStageProps {
   missionId: string;
@@ -220,10 +220,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
           : "var(--text-faint)";
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       {(() => {
         const primary: StageAction = {
           id: "run",
@@ -272,26 +269,19 @@ export function MissionStage({ missionId }: MissionStageProps) {
           <StageActionBar
             context={
               <>
-                <span className="t-11 font-light text-text-faint">
-                  Mission
-                </span>
+                <span className="t-11 font-light text-text-faint">Mission</span>
                 <span
                   className="rounded-pill bg-[var(--text-ghost)]"
                   style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                 />
-                <span className="t-11 font-light text-text-muted">
-                  {missionId.slice(0, 8)}
-                </span>
+                <span className="t-11 font-light text-text-muted">{missionId.slice(0, 8)}</span>
                 {mission && (
                   <>
                     <span
                       className="rounded-pill bg-[var(--text-ghost)]"
                       style={{ width: "var(--space-1)", height: "var(--space-1)" }}
                     />
-                    <span
-                      className="t-11 font-medium"
-                      style={{ color: statusColor }}
-                    >
+                    <span className="t-11 font-medium" style={{ color: statusColor }}>
                       {statusLabel(status)}
                     </span>
                   </>
@@ -318,19 +308,16 @@ export function MissionStage({ missionId }: MissionStageProps) {
                 style={{ width: "var(--space-2)", height: "var(--space-2)" }}
                 aria-hidden
               />
-              <p className="t-11 font-light text-text-faint">
-                Chargement de la mission…
-              </p>
+              <p className="t-11 font-light text-text-faint">Chargement de la mission…</p>
             </div>
           )}
 
           {error && !loading && (
-            <div className="border-l-2 border-(--danger) px-4 py-3"
+            <div
+              className="border-l-2 border-(--danger) px-4 py-3"
               style={{ background: "var(--surface-1)" }}
             >
-              <p className="t-11 font-medium text-(--danger)">
-                Erreur · {error}
-              </p>
+              <p className="t-11 font-medium text-(--danger)">Erreur · {error}</p>
             </div>
           )}
 
@@ -355,9 +342,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
 
               <div className="flex items-center gap-3 mb-10 t-11 font-light text-text-faint">
                 {mission.schedule && <span>{mission.schedule}</span>}
-                {mission.frequency && !mission.schedule && (
-                  <span>{mission.frequency}</span>
-                )}
+                {mission.frequency && !mission.schedule && <span>{mission.frequency}</span>}
                 {mission.lastRunAt && (
                   <>
                     <span
@@ -367,19 +352,14 @@ export function MissionStage({ missionId }: MissionStageProps) {
                         height: "var(--space-1)",
                       }}
                     />
-                    <span>
-                      Dernier run · {FORMATTER.format(new Date(mission.lastRunAt))}
-                    </span>
+                    <span>Dernier run · {FORMATTER.format(new Date(mission.lastRunAt))}</span>
                   </>
                 )}
               </div>
 
               {(mission.input || mission.description) && (
                 <div className="mb-10">
-                  <p
-                    className="t-11 font-light mb-3"
-                    style={{ color: "var(--text-l2)" }}
-                  >
+                  <p className="t-11 font-light mb-3" style={{ color: "var(--text-l2)" }}>
                     Prompt
                   </p>
                   <p className="t-15 leading-(--leading-body) font-light text-text-muted whitespace-pre-wrap">
@@ -409,10 +389,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
                     className="ghost-input-line w-full font-mono t-13"
                     data-testid="mission-stage-cadence-input"
                   />
-                  <div
-                    className="flex mt-4"
-                    style={{ gap: "var(--space-2)" }}
-                  >
+                  <div className="flex mt-4" style={{ gap: "var(--space-2)" }}>
                     <Action
                       variant="primary"
                       tone="brand"
@@ -439,20 +416,14 @@ export function MissionStage({ missionId }: MissionStageProps) {
               <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-(--border-default)">
                 <Stat label="Statut" value={statusLabel(status)} />
                 <Stat label="Activée" value={mission.enabled ? "Oui" : "Non"} />
-                <Stat
-                  label="Fréquence"
-                  value={mission.schedule ?? mission.frequency ?? "—"}
-                />
+                <Stat label="Fréquence" value={mission.schedule ?? mission.frequency ?? "—"} />
               </div>
 
               {/* Derniers runs */}
               {/* The ConfirmModal lives below the scroll container so the
                   backdrop overlays the entire stage. */}
               <div className="mt-12 pt-8 border-t border-(--border-default)">
-                <p
-                  className="t-11 font-light mb-4"
-                  style={{ color: "var(--text-l2)" }}
-                >
+                <p className="t-11 font-light mb-4" style={{ color: "var(--text-l2)" }}>
                   Derniers runs · {runs.length.toString().padStart(2, "0")}
                 </p>
                 {runs.length === 0 ? (
@@ -478,24 +449,17 @@ export function MissionStage({ missionId }: MissionStageProps) {
                           className="flex items-center justify-between py-2 border-b border-(--border-shell)"
                         >
                           <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-                            <span
-                              className="t-11 font-medium"
-                              style={{ color: statusCol }}
-                            >
+                            <span className="t-11 font-medium" style={{ color: statusCol }}>
                               {statusLabel(r.status)}
                             </span>
                             <span className="t-11 font-light text-text-soft">
                               {FORMATTER.format(new Date(r.createdAt))}
                             </span>
                             {duration !== null && (
-                              <span className="t-9 font-mono text-text-faint">
-                                {duration}s
-                              </span>
+                              <span className="t-9 font-mono text-text-faint">{duration}s</span>
                             )}
                           </div>
-                          <span className="t-9 font-mono text-text-faint">
-                            {r.id.slice(0, 8)}
-                          </span>
+                          <span className="t-9 font-mono text-text-faint">{r.id.slice(0, 8)}</span>
                         </li>
                       );
                     })}
@@ -529,9 +493,7 @@ export function MissionStage({ missionId }: MissionStageProps) {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="t-11 font-light text-text-faint">
-        {label}
-      </span>
+      <span className="t-11 font-light text-text-faint">{label}</span>
       <span className="t-15 font-light text-text">{value}</span>
     </div>
   );

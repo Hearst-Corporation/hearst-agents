@@ -100,7 +100,9 @@ export async function perplexitySearch(
       _consecutiveTimeouts++;
       if (_consecutiveTimeouts >= TIMEOUT_THRESHOLD) {
         _circuitOpenUntil = Date.now() + CIRCUIT_OPEN_MS;
-        console.warn(`[Perplexity] circuit ouvert 5min après ${TIMEOUT_THRESHOLD} timeouts consécutifs`);
+        console.warn(
+          `[Perplexity] circuit ouvert 5min après ${TIMEOUT_THRESHOLD} timeouts consécutifs`,
+        );
         _consecutiveTimeouts = 0;
       }
       throw new Error(`[Perplexity] Timeout after ${PERPLEXITY_TIMEOUT_MS}ms`);

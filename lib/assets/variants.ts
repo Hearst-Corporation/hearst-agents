@@ -7,8 +7,8 @@
  * `getVariantsForAsset()`.
  */
 
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | null {
@@ -49,8 +49,8 @@ export async function createVariant(input: CreateVariantInput): Promise<string |
   const sb = getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await rawDb(sb)!
-    .from("asset_variants")
+  const { data, error } = await rawDb(sb)
+    ?.from("asset_variants")
     .insert({
       asset_id: input.assetId,
       kind: input.kind,
@@ -83,10 +83,7 @@ interface UpdateVariantInput {
   generationHash?: string;
 }
 
-export async function updateVariant(
-  variantId: string,
-  patch: UpdateVariantInput,
-): Promise<void> {
+export async function updateVariant(variantId: string, patch: UpdateVariantInput): Promise<void> {
   const sb = getServerSupabase();
   if (!sb) return;
 
@@ -104,10 +101,7 @@ export async function updateVariant(
   if (patch.metadata !== undefined) update.metadata = patch.metadata;
   if (patch.generationHash !== undefined) update.generation_hash = patch.generationHash;
 
-  const { error } = await rawDb(sb)!
-    .from("asset_variants")
-    .update(update)
-    .eq("id", variantId);
+  const { error } = await rawDb(sb)?.from("asset_variants").update(update).eq("id", variantId);
 
   if (error) {
     console.error("[Variants] update failed:", error.message);
@@ -118,8 +112,8 @@ export async function getVariantsForAsset(assetId: string): Promise<AssetVariant
   const sb = getServerSupabase();
   if (!sb) return [];
 
-  const { data, error } = await rawDb(sb)!
-    .from("asset_variants")
+  const { data, error } = await rawDb(sb)
+    ?.from("asset_variants")
     .select("*")
     .eq("asset_id", assetId)
     .order("created_at", { ascending: true });

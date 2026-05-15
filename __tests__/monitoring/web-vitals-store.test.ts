@@ -9,14 +9,14 @@
  * - Mapping des ratings selon les seuils Google
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
+import type { VitalName } from "@/lib/monitoring/web-vitals-store";
 import {
-  WebVitalsStore,
   p75,
   VITAL_THRESHOLDS,
   VITALS_WINDOW_SIZE,
+  WebVitalsStore,
 } from "@/lib/monitoring/web-vitals-store";
-import type { VitalName } from "@/lib/monitoring/web-vitals-store";
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -84,7 +84,14 @@ export function useDashboardCounts(): DashboardCounts {
       if (cancelled) return;
 
       const next: Partial<DashboardCounts> = {};
-      let liveMissions: Array<{ id: string; name?: string; status: string; schedule?: string | null; lastRunAt?: number; lastRunStatus?: string }> = [];
+      let liveMissions: Array<{
+        id: string;
+        name?: string;
+        status: string;
+        schedule?: string | null;
+        lastRunAt?: number;
+        lastRunStatus?: string;
+      }> = [];
       let fromFallback = false;
 
       if (todayRes) {
@@ -102,7 +109,19 @@ export function useDashboardCounts(): DashboardCounts {
       // /api/v2/missions liste des missions, on les utilise. Source canonique
       // de vérité pour la zone droite.
       if (liveMissions.length === 0 && missionsRes) {
-        const missionsList = (missionsRes as { missions?: Array<{ id: string; name?: string; lastRunStatus?: string; schedule?: string; enabled?: boolean; lastRunAt?: number }> }).missions ?? [];
+        const missionsList =
+          (
+            missionsRes as {
+              missions?: Array<{
+                id: string;
+                name?: string;
+                lastRunStatus?: string;
+                schedule?: string;
+                enabled?: boolean;
+                lastRunAt?: number;
+              }>;
+            }
+          ).missions ?? [];
         liveMissions = missionsList
           .filter((m) => m.enabled !== false)
           .slice(0, 5)

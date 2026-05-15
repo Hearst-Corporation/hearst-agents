@@ -14,9 +14,7 @@
 
 const FIXTURE_PREFIX = "00000000-0000-4000-8000-";
 
-export function isPlaceholderAssetId(
-  assetId: string | null | undefined,
-): boolean {
+export function isPlaceholderAssetId(assetId: string | null | undefined): boolean {
   if (!assetId) return true;
   const trimmed = assetId.trim();
   if (!trimmed) return true;

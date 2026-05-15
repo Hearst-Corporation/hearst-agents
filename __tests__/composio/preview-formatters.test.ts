@@ -4,21 +4,21 @@
  * "confirmer / annuler".
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  formatGmailSendEmail,
-  formatGmailReply,
-  formatSlackSendMessage,
-  formatNotionCreatePage,
-  formatLinearCreateIssue,
+  formatAirtableCreateRecord,
+  formatAsanaCreateTask,
   formatCalendarCreateEvent,
+  formatGmailReply,
+  formatGmailSendEmail,
   formatHubspotCreateContact,
   formatHubspotUpdateDeal,
+  formatLinearCreateIssue,
+  formatNotionCreatePage,
+  formatSlackSendMessage,
   formatStripeCreateInvoice,
   formatStripeRefund,
-  formatAsanaCreateTask,
   formatTrelloCreateCard,
-  formatAirtableCreateRecord,
   formatWhatsappSendMessage,
   getFormatterForAction,
   listRegisteredActions,

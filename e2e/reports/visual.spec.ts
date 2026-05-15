@@ -1,10 +1,13 @@
-import { test, expect } from "@playwright/test";
-import type { Page, APIRequestContext } from "@playwright/test";
-import path from "path";
-import fs from "fs";
+import fs from "node:fs";
+import path from "node:path";
+import type { APIRequestContext, Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 async function requireServer(request: APIRequestContext) {
-  const ok = await request.get("/api/health").then((r) => r.ok()).catch(() => false);
+  const ok = await request
+    .get("/api/health")
+    .then((r) => r.ok())
+    .catch(() => false);
   if (!ok) test.skip();
 }
 
@@ -130,7 +133,8 @@ async function mountMocks(page: Page) {
         assetId: ASSET_ID,
         title: "Founder Cockpit",
         payload: MOCK_REPORT_PAYLOAD,
-        narration: "MRR en hausse de 8 % à 24 500 €. Pipeline solide à 180 k€ avec 3 deals en closing. Runway confortable à 14,5 mois.",
+        narration:
+          "MRR en hausse de 8 % à 24 500 €. Pipeline solide à 180 k€ avec 3 deals en closing. Runway confortable à 14,5 mois.",
         signals: [{ type: "mrr_spike", severity: "info", value: 0.08, unit: "ratio" }],
         severity: "ok",
         cost: { inputTokens: 4800, outputTokens: 320, usd: 0.019, exceeded: false },
@@ -224,7 +228,9 @@ test.describe("Visual — RightPanel suggestions", () => {
     });
 
     console.log(`Screenshots sauvegardés dans ${screenshotsDir}`);
-    console.log("Comparer avec HEARST-OS-DESIGN-SYSTEM.html, hearst-ui-vision.html, mock-chat-central.html");
+    console.log(
+      "Comparer avec HEARST-OS-DESIGN-SYSTEM.html, hearst-ui-vision.html, mock-chat-central.html",
+    );
   });
 
   test("screenshot mobile — ReportLayout responsive 375px", async ({ page }) => {

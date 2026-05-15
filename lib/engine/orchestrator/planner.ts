@@ -8,17 +8,21 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Plan, PlanStep } from "@/lib/engine/runtime/plans/types";
+import {
+  type Domain,
+  getValidAgentsForDomain,
+  isAgentValidForDomain,
+} from "@/lib/capabilities/taxonomy";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import { PlanStore } from "@/lib/engine/runtime/plans/store";
+import type { Plan, PlanStep } from "@/lib/engine/runtime/plans/types";
 import {
-  ORCHESTRATOR_SYSTEM_PROMPT,
   ORCHESTRATOR_MODEL,
+  ORCHESTRATOR_SYSTEM_PROMPT,
   PLAN_TOOL,
-  RESPOND_TOOL,
   REQUEST_CONNECTION_TOOL,
+  RESPOND_TOOL,
 } from "./system-prompt";
-import { isAgentValidForDomain, getValidAgentsForDomain, type Domain } from "@/lib/capabilities/taxonomy";
 
 export type PlanningResult =
   | { kind: "plan"; plan: Plan }
@@ -142,9 +146,7 @@ export async function planFromIntent(
     cache_read_input_tokens: response.usage.cache_read_input_tokens ?? undefined,
   });
 
-  const toolUse = response.content.find(
-    (b): b is Anthropic.ToolUseBlock => b.type === "tool_use",
-  );
+  const toolUse = response.content.find((b): b is Anthropic.ToolUseBlock => b.type === "tool_use");
   if (!toolUse) {
     const text = response.content
       .filter((b): b is Anthropic.TextBlock => b.type === "text")
@@ -192,7 +194,9 @@ export async function planFromIntent(
       if (capabilityDomain && !isAgentValidForDomain(agent, capabilityDomain as Domain)) {
         const validAgents = getValidAgentsForDomain(capabilityDomain as Domain);
         const fallback = validAgents[0] ?? "KnowledgeRetriever";
-        console.warn(`[Planner] Agent "${agent}" invalid for domain "${capabilityDomain}" — remapped to "${fallback}"`);
+        console.warn(
+          `[Planner] Agent "${agent}" invalid for domain "${capabilityDomain}" — remapped to "${fallback}"`,
+        );
         agent = fallback;
       }
 
@@ -209,11 +213,7 @@ export async function planFromIntent(
     });
 
     const store = new PlanStore(db);
-    const plan = await store.createPlan(
-      engine.id,
-      input.reasoning,
-      planSteps,
-    );
+    const plan = await store.createPlan(engine.id, input.reasoning, planSteps);
 
     await engine.attachPlanId(plan.id, plan.steps.length);
 

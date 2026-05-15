@@ -5,19 +5,15 @@
  * rate-limits Composio / Google.
  */
 
-import type { SourceRef, ReportSpec } from "@/lib/reports/spec/schema";
-import type { Tabular } from "@/lib/reports/engine/tabular";
+import { getSourceCache, hashKey, setSourceCache } from "@/lib/reports/engine/cache";
 import type { SourceLoader } from "@/lib/reports/engine/run-report";
-import {
-  getSourceCache,
-  setSourceCache,
-  hashKey,
-} from "@/lib/reports/engine/cache";
-import { applyMapping } from "./extract";
+import type { Tabular } from "@/lib/reports/engine/tabular";
+import type { ReportSpec, SourceRef } from "@/lib/reports/spec/schema";
+import { fetchAsset } from "./asset";
 import { fetchComposio } from "./composio";
+import { applyMapping } from "./extract";
 import { fetchGoogle, type GoogleService } from "./google";
 import { fetchHttp } from "./http";
-import { fetchAsset } from "./asset";
 
 const CONCURRENCY_CAP = 3;
 
@@ -32,9 +28,7 @@ interface LoaderOptions {
 /**
  * Construit un SourceLoader prêt à passer à runReport.
  */
-export function createSourceLoader(
-  options: LoaderOptions & { spec: ReportSpec },
-): SourceLoader {
+export function createSourceLoader(options: LoaderOptions & { spec: ReportSpec }): SourceLoader {
   const { spec, noCache, ttlSeconds, dateBucketSeconds = 60 } = options;
 
   return async (sources, scope) => {
@@ -84,9 +78,7 @@ async function loadOne(
 
   if (src.kind === "composio") {
     if (!scope.userId) {
-      console.warn(
-        `[reports/sources] composio source '${src.id}' nécessite un userId — ignoré`,
-      );
+      console.warn(`[reports/sources] composio source '${src.id}' nécessite un userId — ignoré`);
     } else {
       const r = await fetchComposio({
         action: src.spec.action,
@@ -94,17 +86,13 @@ async function loadOne(
         userId: scope.userId,
       });
       if (!r.ok) {
-        console.warn(
-          `[reports/sources] composio '${src.spec.action}' a échoué : ${r.error}`,
-        );
+        console.warn(`[reports/sources] composio '${src.spec.action}' a échoué : ${r.error}`);
       }
       rows = r.rows;
     }
   } else if (src.kind === "native_google") {
     if (!scope.userId) {
-      console.warn(
-        `[reports/sources] google source '${src.id}' nécessite un userId — ignoré`,
-      );
+      console.warn(`[reports/sources] google source '${src.id}' nécessite un userId — ignoré`);
     } else {
       const r = await fetchGoogle({
         service: src.spec.service as GoogleService,
@@ -136,9 +124,7 @@ async function loadOne(
       format: src.spec.format,
     });
     if (!r.ok) {
-      console.warn(
-        `[reports/sources] asset ${src.spec.assetId} a échoué : ${r.error}`,
-      );
+      console.warn(`[reports/sources] asset ${src.spec.assetId} a échoué : ${r.error}`);
     }
     rows = r.rows;
   }
@@ -150,9 +136,9 @@ async function loadOne(
   return applyMapping(rows, src.mapping);
 }
 
+export { fetchAsset } from "./asset";
 // Re-exports pour les tests / consommateurs ─────────────────
 export { fetchComposio } from "./composio";
+export { applyMapping, extractTabular } from "./extract";
 export { fetchGoogle } from "./google";
 export { fetchHttp } from "./http";
-export { fetchAsset } from "./asset";
-export { extractTabular, applyMapping } from "./extract";

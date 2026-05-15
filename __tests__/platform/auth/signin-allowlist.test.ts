@@ -6,7 +6,7 @@
  * prod sans allowlist, dev-bypass).
  */
 
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 // Extrait la logique pure du callback signIn pour la tester indépendamment
 // de NextAuth. Miroir exact de la fonction dans options.ts.
@@ -22,8 +22,7 @@ function createSignInCallback(nodeEnv: string, allowedDomainsEnv: string | undef
   }): Promise<boolean> {
     if (account?.provider === "dev-bypass") return true;
 
-    const email =
-      (profile as { email?: string } | undefined)?.email ?? user?.email ?? null;
+    const email = (profile as { email?: string } | undefined)?.email ?? user?.email ?? null;
     if (!email) return false;
 
     const allowed = (allowedDomainsEnv ?? "")
@@ -85,11 +84,7 @@ describe("F-096 — signIn allowlist callback", () => {
     const signIn = createSignInCallback(PROD, "hearstcorporation.io, partner.com , test.io");
 
     it("accepte chaque domaine de la CSV", async () => {
-      for (const email of [
-        "a@hearstcorporation.io",
-        "b@partner.com",
-        "c@test.io",
-      ]) {
+      for (const email of ["a@hearstcorporation.io", "b@partner.com", "c@test.io"]) {
         expect(await signIn({ account: { provider: "google" }, profile: { email } })).toBe(true);
       }
     });

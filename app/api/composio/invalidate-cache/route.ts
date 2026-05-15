@@ -8,8 +8,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
 import { invalidateUserDiscovery } from "@/lib/connectors/composio/discovery";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
 
 export async function POST() {
   const userId = await getUserId();

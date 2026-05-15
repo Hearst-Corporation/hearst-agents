@@ -31,14 +31,12 @@
  * `playwright.config.ts`).
  */
 
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 // ──────────────────────────────────────────────────────────────
 // Viewports
 // ──────────────────────────────────────────────────────────────
-const VIEWPORTS = [
-  { name: "desktop-1440", width: 1440, height: 900 },
-] as const;
+const VIEWPORTS = [{ name: "desktop-1440", width: 1440, height: 900 }] as const;
 
 // ──────────────────────────────────────────────────────────────
 // Modes Stage — alignés sur stores/stage.ts (StageMode union)
@@ -151,8 +149,8 @@ test.describe("Visual regression — Cockpit modes @visual @skip-ci", () => {
         // 2. Attendre que le store Stage soit exposé (mount client)
         await page.waitForFunction(
           () =>
-            typeof (window as unknown as { __hearstStageStore?: unknown })
-              .__hearstStageStore !== "undefined",
+            typeof (window as unknown as { __hearstStageStore?: unknown }).__hearstStageStore !==
+            "undefined",
           undefined,
           { timeout: 10_000 },
         );
@@ -168,15 +166,12 @@ test.describe("Visual regression — Cockpit modes @visual @skip-ci", () => {
         await freezeUI(page);
 
         // 6. Snapshot
-        await expect(page).toHaveScreenshot(
-          `cockpit-${mode.id}-${viewport.name}.png`,
-          {
-            fullPage: false,
-            maxDiffPixelRatio: 0.02,
-            animations: "disabled",
-            caret: "hide",
-          },
-        );
+        await expect(page).toHaveScreenshot(`cockpit-${mode.id}-${viewport.name}.png`, {
+          fullPage: false,
+          maxDiffPixelRatio: 0.02,
+          animations: "disabled",
+          caret: "hide",
+        });
       });
     }
   }

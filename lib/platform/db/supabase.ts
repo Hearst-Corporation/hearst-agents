@@ -21,12 +21,9 @@ export function getServerSupabase(): SupabaseClient<Database> | null {
 export function requireServerSupabase(): SupabaseClient<Database> {
   const sb = getServerSupabase();
   if (!sb) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY",
-    );
+    throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
   }
   return sb;
 }
 
-export type { SupabaseClient };
-export type { Database };
+export type { Database, SupabaseClient };

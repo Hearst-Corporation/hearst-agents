@@ -9,11 +9,11 @@
  */
 
 import { Buffer } from "node:buffer";
-import { inngest } from "@/lib/jobs/inngest/client";
-import { executeCode } from "@/lib/capabilities/providers/e2b";
 import { updateVariant } from "@/lib/assets/variants";
-import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { executeCode } from "@/lib/capabilities/providers/e2b";
 import { settleCredits } from "@/lib/credits/client";
+import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { inngest } from "@/lib/jobs/inngest/client";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { CodeExecInput } from "@/lib/jobs/types";
 
@@ -36,9 +36,7 @@ export const codeExecFunction = inngest.createFunction(
 
     const variantId =
       (payload as CodeExecInput & { variantId?: string }).variantId ??
-      (typeof payload === "object" &&
-      payload !== null &&
-      "metadata" in payload
+      (typeof payload === "object" && payload !== null && "metadata" in payload
         ? (
             payload as {
               metadata?: { variantId?: string };

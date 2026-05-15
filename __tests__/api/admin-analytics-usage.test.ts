@@ -4,7 +4,7 @@
  * Auth admin requise → on mock requireAdmin pour vérifier le contrat
  * (authorisé / refusé) et le payload.
  */
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Empêche le store admin de toucher Supabase réel
 vi.mock("@/lib/platform/db/supabase", () => ({
@@ -33,7 +33,9 @@ describe("GET /api/admin/analytics/usage", () => {
 
   it("renvoie 200 + payload quand l'admin est autorisé", async () => {
     const helpers = await import("@/app/api/admin/_helpers");
-    (helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(allowGuard);
+    (
+      helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }
+    ).mockResolvedValue(allowGuard);
 
     const { GET } = await import("@/app/api/admin/analytics/usage/route");
     const req = new Request(
@@ -51,7 +53,9 @@ describe("GET /api/admin/analytics/usage", () => {
 
   it("renvoie 403 quand requireAdmin refuse", async () => {
     const helpers = await import("@/app/api/admin/_helpers");
-    (helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(denyGuard);
+    (
+      helpers.requireAdmin as unknown as { mockResolvedValue: (v: unknown) => void }
+    ).mockResolvedValue(denyGuard);
 
     const { GET } = await import("@/app/api/admin/analytics/usage/route");
     const req = new Request("http://t/api/admin/analytics/usage");

@@ -17,10 +17,10 @@
  */
 
 import { createHash } from "node:crypto";
-import { getRedis } from "@/lib/platform/redis/client";
 import { exaSearch } from "@/lib/capabilities/providers/exa";
-import { tavilySearch } from "@/lib/capabilities/providers/tavily";
 import { perplexitySearch } from "@/lib/capabilities/providers/perplexity";
+import { tavilySearch } from "@/lib/capabilities/providers/tavily";
+import { getRedis } from "@/lib/platform/redis/client";
 
 export interface WebSearchResult {
   query: string;
@@ -37,9 +37,24 @@ const CACHE_TTL_SECONDS = 24 * 60 * 60;
 
 const FACTUAL_KEYWORDS = ["who", "when", "what", "define", "meaning", "price", "weather", "news"];
 const RESEARCH_KEYWORDS = [
-  "explain", "analyze", "analyse", "compare", "why", "how does", "how do",
-  "difference between", "pros", "cons", "overview", "research", "summarize",
-  "summarise", "what is the best", "recommend", "guide", "tutorial",
+  "explain",
+  "analyze",
+  "analyse",
+  "compare",
+  "why",
+  "how does",
+  "how do",
+  "difference between",
+  "pros",
+  "cons",
+  "overview",
+  "research",
+  "summarize",
+  "summarise",
+  "what is the best",
+  "recommend",
+  "guide",
+  "tutorial",
 ];
 
 function isResearchQuery(query: string): boolean {
@@ -51,9 +66,7 @@ function isResearchQuery(query: string): boolean {
 
 function isFactualQuery(query: string): boolean {
   const q = query.toLowerCase().trim();
-  return FACTUAL_KEYWORDS.some(
-    (kw) => q === kw || q.startsWith(kw + " ") || q.includes(" " + kw + " "),
-  );
+  return FACTUAL_KEYWORDS.some((kw) => q === kw || q.startsWith(`${kw} `) || q.includes(` ${kw} `));
 }
 
 function hashQuery(query: string, tenantId?: string): string {
@@ -66,15 +79,23 @@ async function runExa(query: string): Promise<WebSearchResult["results"]> {
   return results.map((r) => ({ title: r.title, url: r.url, snippet: r.snippet }));
 }
 
-async function runTavily(query: string): Promise<{ results: WebSearchResult["results"]; answer?: string }> {
-  const results = await tavilySearch(query, { searchDepth: "basic", includeAnswer: true, maxResults: 5 });
+async function runTavily(
+  query: string,
+): Promise<{ results: WebSearchResult["results"]; answer?: string }> {
+  const results = await tavilySearch(query, {
+    searchDepth: "basic",
+    includeAnswer: true,
+    maxResults: 5,
+  });
   return {
     results: results.map((r) => ({ title: r.title, url: r.url, snippet: r.content })),
     answer: results[0]?.answer,
   };
 }
 
-async function runPerplexity(query: string): Promise<{ results: WebSearchResult["results"]; answer: string }> {
+async function runPerplexity(
+  query: string,
+): Promise<{ results: WebSearchResult["results"]; answer: string }> {
   const { answer, citations } = await perplexitySearch(query, { model: "sonar-pro" });
   // Perplexity retourne une synthèse + liste de citations URLs
   const results: WebSearchResult["results"] = citations.slice(0, 5).map((url, i) => ({
@@ -85,7 +106,10 @@ async function runPerplexity(query: string): Promise<{ results: WebSearchResult[
   return { results, answer };
 }
 
-export async function searchWeb(query: string, opts?: { tenantId?: string }): Promise<WebSearchResult> {
+export async function searchWeb(
+  query: string,
+  opts?: { tenantId?: string },
+): Promise<WebSearchResult> {
   const cacheKey = `search:${hashQuery(query, opts?.tenantId)}`;
 
   // Cache check
@@ -108,10 +132,22 @@ export async function searchWeb(query: string, opts?: { tenantId?: string }): Pr
   // Ordre de priorité : research → Perplexity, factual → Tavily, reste → Exa
   const providers: Array<() => Promise<{ results: WebSearchResult["results"]; answer?: string }>> =
     research
-      ? [() => runPerplexity(query), () => runTavily(query), () => runExa(query).then((r) => ({ results: r }))]
+      ? [
+          () => runPerplexity(query),
+          () => runTavily(query),
+          () => runExa(query).then((r) => ({ results: r })),
+        ]
       : factual
-        ? [() => runTavily(query), () => runExa(query).then((r) => ({ results: r })), () => runPerplexity(query)]
-        : [() => runExa(query).then((r) => ({ results: r })), () => runTavily(query), () => runPerplexity(query)];
+        ? [
+            () => runTavily(query),
+            () => runExa(query).then((r) => ({ results: r })),
+            () => runPerplexity(query),
+          ]
+        : [
+            () => runExa(query).then((r) => ({ results: r })),
+            () => runTavily(query),
+            () => runPerplexity(query),
+          ];
 
   for (const run of providers) {
     try {

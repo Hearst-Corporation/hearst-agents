@@ -1,13 +1,13 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
+import { LLMCircuitBreaker } from "../circuit-breaker";
 import {
-  LLMMetricsAggregator,
-  percentile,
+  DEFAULT_PRICING,
   defaultMetrics,
   getMetrics,
   LATENCY_WINDOW_SIZE,
-  DEFAULT_PRICING,
+  LLMMetricsAggregator,
+  percentile,
 } from "../metrics";
-import { LLMCircuitBreaker } from "../circuit-breaker";
 
 describe("percentile()", () => {
   it("returns null for empty array", () => {
@@ -337,11 +337,7 @@ describe("LLMMetricsAggregator — snapshot shape", () => {
     });
 
     const snap = agg.getMetrics();
-    expect(snap.providers.map((p) => p.provider)).toEqual([
-      "anthropic",
-      "gemini",
-      "openai",
-    ]);
+    expect(snap.providers.map((p) => p.provider)).toEqual(["anthropic", "gemini", "openai"]);
   });
 
   it("computes avgPerCallUsd correctly", () => {
@@ -352,7 +348,7 @@ describe("LLMMetricsAggregator — snapshot shape", () => {
       latencyMs: 100,
       tokensIn: 100,
       tokensOut: 50,
-      costUsd: 0.10,
+      costUsd: 0.1,
     });
     agg.recordCall({
       provider: "openai",
@@ -360,11 +356,11 @@ describe("LLMMetricsAggregator — snapshot shape", () => {
       latencyMs: 100,
       tokensIn: 100,
       tokensOut: 50,
-      costUsd: 0.30,
+      costUsd: 0.3,
     });
 
     const snap = agg.getMetrics();
-    expect(snap.providers[0].cost.avgPerCallUsd).toBeCloseTo(0.20, 4);
+    expect(snap.providers[0].cost.avgPerCallUsd).toBeCloseTo(0.2, 4);
   });
 });
 
@@ -406,10 +402,10 @@ describe("LLMMetricsAggregator — circuitBreakers dans le snapshot", () => {
 
     const snap = agg.getMetrics();
     expect(snap.circuitBreakers).toBeDefined();
-    expect(snap.circuitBreakers["anthropic"]).toBeDefined();
-    expect(snap.circuitBreakers["anthropic"].state).toBe("CLOSED");
-    expect(snap.circuitBreakers["anthropic"].failures).toBe(0);
-    expect(snap.circuitBreakers["anthropic"].nextRetryAt).toBeUndefined();
+    expect(snap.circuitBreakers.anthropic).toBeDefined();
+    expect(snap.circuitBreakers.anthropic.state).toBe("CLOSED");
+    expect(snap.circuitBreakers.anthropic.failures).toBe(0);
+    expect(snap.circuitBreakers.anthropic.nextRetryAt).toBeUndefined();
   });
 
   it("inclut l'état OPEN avec nextRetryAt après dépassement du seuil", () => {
@@ -430,7 +426,7 @@ describe("LLMMetricsAggregator — circuitBreakers dans le snapshot", () => {
     }
 
     const snap = agg.getMetrics();
-    const entry = snap.circuitBreakers["openai"];
+    const entry = snap.circuitBreakers.openai;
     expect(entry).toBeDefined();
     expect(entry.state).toBe("OPEN");
     expect(entry.failures).toBe(5);

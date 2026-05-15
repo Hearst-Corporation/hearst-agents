@@ -7,14 +7,11 @@
  *  - 400 quand body JSON invalide (mais signature OK)
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createHmac } from "node:crypto";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { POST } from "@/app/api/v2/meetings/webhook/route";
-import {
-  clearWebhookCache,
-  getLatestWebhookEvent,
-} from "@/lib/meetings/webhook-cache";
+import { clearWebhookCache, getLatestWebhookEvent } from "@/lib/meetings/webhook-cache";
 
 function makeReq(body: string, headers: Record<string, string> = {}): Request {
   return new Request("http://localhost/api/v2/meetings/webhook", {
@@ -61,9 +58,7 @@ describe("POST /api/v2/meetings/webhook", () => {
     const json = await res.json();
     expect(json.ok).toBe(true);
     expect(json.botId).toBe("bot-1");
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining("RECALL_WEBHOOK_SECRET absent"),
-    );
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("RECALL_WEBHOOK_SECRET absent"));
     const cached = getLatestWebhookEvent("bot-1");
     expect(cached?.event).toBe("bot.in_call_recording");
   });
@@ -87,9 +82,7 @@ describe("POST /api/v2/meetings/webhook", () => {
   it("403 quand secret set mais signature invalide", async () => {
     process.env.RECALL_WEBHOOK_SECRET = "secret-prod";
     const body = JSON.stringify({ event: "bot.done", data: { bot_id: "bot-2" } });
-    const res = await POST(
-      makeReq(body, { "x-recall-signature": "deadbeef".repeat(8) }) as never,
-    );
+    const res = await POST(makeReq(body, { "x-recall-signature": "deadbeef".repeat(8) }) as never);
     expect(res.status).toBe(403);
     const json = await res.json();
     expect(json.error).toBe("invalid_signature");
@@ -104,9 +97,7 @@ describe("POST /api/v2/meetings/webhook", () => {
       data: { bot_id: "bot-3", recording: { url: "https://cdn.recall.ai/x.mp4" } },
     });
     const sig = createHmac("sha256", "secret-prod").update(body).digest("hex");
-    const res = await POST(
-      makeReq(body, { "x-recall-signature": sig }) as never,
-    );
+    const res = await POST(makeReq(body, { "x-recall-signature": sig }) as never);
     expect(res.status).toBe(200);
     const cached = getLatestWebhookEvent("bot-3");
     expect(cached?.recordingUrl).toBe("https://cdn.recall.ai/x.mp4");

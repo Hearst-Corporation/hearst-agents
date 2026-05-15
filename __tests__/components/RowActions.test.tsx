@@ -4,8 +4,8 @@
  * RowActions — visibility / hover / click / disabled.
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { RowActions } from "@/app/(user)/components/RowActions";
 
 describe("RowActions", () => {
@@ -19,7 +19,13 @@ describe("RowActions", () => {
       <RowActions
         actions={[
           { id: "open", label: "Ouvrir", icon: <span>O</span>, onClick: () => {} },
-          { id: "del", label: "Supprimer", icon: <span>D</span>, onClick: () => {}, variant: "danger" },
+          {
+            id: "del",
+            label: "Supprimer",
+            icon: <span>D</span>,
+            onClick: () => {},
+            variant: "danger",
+          },
         ]}
       />,
     );
@@ -32,9 +38,7 @@ describe("RowActions", () => {
     const outer = vi.fn();
     render(
       <div onClick={outer}>
-        <RowActions
-          actions={[{ id: "x", label: "Test", icon: "x", onClick: inner }]}
-        />
+        <RowActions actions={[{ id: "x", label: "Test", icon: "x", onClick: inner }]} />
       </div>,
     );
     fireEvent.click(screen.getByTestId("row-action-x"));
@@ -46,20 +50,14 @@ describe("RowActions", () => {
   it("does not call onClick when disabled", () => {
     const onClick = vi.fn();
     render(
-      <RowActions
-        actions={[{ id: "x", label: "Test", icon: "x", onClick, disabled: true }]}
-      />,
+      <RowActions actions={[{ id: "x", label: "Test", icon: "x", onClick, disabled: true }]} />,
     );
     fireEvent.click(screen.getByTestId("row-action-x"));
     expect(onClick).not.toHaveBeenCalled();
   });
 
   it("starts hidden when showOnHover=true (default)", () => {
-    render(
-      <RowActions
-        actions={[{ id: "x", label: "Test", icon: "x", onClick: () => {} }]}
-      />,
-    );
+    render(<RowActions actions={[{ id: "x", label: "Test", icon: "x", onClick: () => {} }]} />);
     const wrapper = screen.getByTestId("row-actions");
     expect(wrapper.className).toContain("opacity-0");
   });

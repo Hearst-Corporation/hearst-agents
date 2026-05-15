@@ -12,9 +12,9 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  runExportScheduledReportJob,
   buildExportJobPayload,
   exportScheduledReportPayloadSchema,
+  runExportScheduledReportJob,
 } from "@/lib/engine/runtime/missions/export-job";
 import { setEmailSender } from "@/lib/notifications/channels";
 
@@ -94,9 +94,7 @@ describe("exportScheduledReportPayloadSchema", () => {
   });
 
   it("rejette recipients vide", () => {
-    const result = exportScheduledReportPayloadSchema.safeParse(
-      makePayload({ recipients: [] }),
-    );
+    const result = exportScheduledReportPayloadSchema.safeParse(makePayload({ recipients: [] }));
     expect(result.success).toBe(false);
     if (!result.success) {
       const msg = result.error.issues[0]?.message ?? "";
@@ -105,9 +103,7 @@ describe("exportScheduledReportPayloadSchema", () => {
   });
 
   it("rejette un format invalide", () => {
-    const result = exportScheduledReportPayloadSchema.safeParse(
-      makePayload({ format: "csv" }),
-    );
+    const result = exportScheduledReportPayloadSchema.safeParse(makePayload({ format: "csv" }));
     expect(result.success).toBe(false);
   });
 
@@ -177,18 +173,14 @@ describe("runExportScheduledReportJob — happy path", () => {
   });
 
   it("format=excel est normalisé vers xlsx pour runExport", async () => {
-    const runExportMock = vi
-      .fn()
-      .mockResolvedValue({ ...MOCK_EXPORT_RESULT, format: "xlsx" });
+    const runExportMock = vi.fn().mockResolvedValue({ ...MOCK_EXPORT_RESULT, format: "xlsx" });
 
     await runExportScheduledReportJob(makePayload({ format: "excel" }), {
       getSpec: async () => MOCK_SPEC,
       runExport: runExportMock,
     });
 
-    expect(runExportMock).toHaveBeenCalledWith(
-      expect.objectContaining({ format: "xlsx" }),
-    );
+    expect(runExportMock).toHaveBeenCalledWith(expect.objectContaining({ format: "xlsx" }));
   });
 });
 

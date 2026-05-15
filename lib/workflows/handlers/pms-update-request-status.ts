@@ -20,9 +20,7 @@ export const pmsUpdateRequestStatus: WorkflowHandler = async (args) => {
     };
   }
 
-  console.log(
-    `[handler:pms_update_request_status] (demo) requestId=${requestId} → ${status}`,
-  );
+  console.log(`[handler:pms_update_request_status] (demo) requestId=${requestId} → ${status}`);
 
   return {
     success: true,

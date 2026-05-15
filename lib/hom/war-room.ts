@@ -4,10 +4,11 @@
  * Pas de JS, pas de fonts externes, CSS inline pour archivage offline.
  * Indexé dans hom/war-room/index.json.
  */
-import path from "node:path";
+
 import fs from "node:fs/promises";
+import path from "node:path";
+import { ensureDir, nowIso, readJson, sha256, writeJson } from "./fs-utils";
 import { HOM } from "./paths";
-import { ensureDir, readJson, sha256, writeJson, nowIso } from "./fs-utils";
 import type { RunDecisionFile, TrustScores } from "./types";
 
 interface SnapshotIndexEntry {
@@ -57,11 +58,7 @@ async function appendIndex(entry: SnapshotIndexEntry): Promise<void> {
 function renderHTML(runId: string, d: RunDecisionFile): string {
   const trust = d.trust_after as TrustScores;
   const escape = (s: string) =>
-    s
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
   const trustRows = (Object.entries(trust) as [keyof TrustScores, number][])
     .map(

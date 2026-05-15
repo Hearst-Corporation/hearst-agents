@@ -4,8 +4,8 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  computeCostUsd,
   checkReportBudget,
+  computeCostUsd,
   REPORT_BUDGET_USD,
   SONNET_4_6_PRICING,
 } from "@/lib/reports/engine/cost-meter";

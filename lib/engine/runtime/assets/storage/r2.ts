@@ -6,22 +6,22 @@
  */
 
 import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
   HeadObjectCommand,
   ListObjectsV2Command,
+  PutObjectCommand,
+  S3Client,
   type S3ClientConfig,
 } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { Upload } from "@aws-sdk/lib-storage";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import type {
-  StorageProvider,
-  StorageObject,
-  UploadResult,
   DownloadResult,
   SignedUrlOptions,
+  StorageObject,
+  StorageProvider,
+  UploadResult,
 } from "./types";
 
 export interface R2StorageOptions {
@@ -61,7 +61,7 @@ export class R2StorageProvider implements StorageProvider {
       contentType: string;
       metadata?: Record<string, string>;
       tenantId?: string;
-    }
+    },
   ): Promise<UploadResult> {
     const fullKey = options.tenantId ? `${options.tenantId}/${key}` : key;
 
@@ -84,7 +84,7 @@ export class R2StorageProvider implements StorageProvider {
       new HeadObjectCommand({
         Bucket: this.bucket,
         Key: fullKey,
-      })
+      }),
     );
 
     return {
@@ -135,7 +135,7 @@ export class R2StorageProvider implements StorageProvider {
     key: string,
     operation: "read" | "write",
     options?: SignedUrlOptions,
-    tenantId?: string
+    tenantId?: string,
   ): Promise<string> {
     const fullKey = tenantId ? `${tenantId}/${key}` : key;
     const expiresIn = options?.expiresInSeconds || 3600;
@@ -197,9 +197,7 @@ export class R2StorageProvider implements StorageProvider {
       if (!obj.Key || !obj.Size) continue;
 
       // Remove tenant prefix from key
-      const key = tenantId
-        ? obj.Key.replace(`${tenantId}/`, "")
-        : obj.Key;
+      const key = tenantId ? obj.Key.replace(`${tenantId}/`, "") : obj.Key;
 
       objects.push({
         key,

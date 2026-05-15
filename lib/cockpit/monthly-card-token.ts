@@ -45,10 +45,7 @@ export interface MonthlyCardTokenPayload {
 let _warned = false;
 
 function getCardSecret(): string | null {
-  const secret =
-    process.env.HEARST_CARD_SHARING_SECRET ??
-    process.env.REPORT_SHARING_SECRET ??
-    "";
+  const secret = process.env.HEARST_CARD_SHARING_SECRET ?? process.env.REPORT_SHARING_SECRET ?? "";
   if (secret.length < SECRET_MIN_LENGTH) {
     if (!_warned) {
       console.warn(
@@ -63,11 +60,7 @@ function getCardSecret(): string | null {
 
 function base64url(buf: Buffer | string): string {
   const b = Buffer.isBuffer(buf) ? buf : Buffer.from(buf, "utf8");
-  return b
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
+  return b.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 function fromBase64url(s: string): Buffer {
@@ -86,10 +79,7 @@ export function signCardToken(input: {
   const secret = getCardSecret();
   if (!secret) return null;
 
-  const ttl = Math.min(
-    Math.max(input.ttlHours ?? TTL_DEFAULT_HOURS, TTL_MIN_HOURS),
-    TTL_MAX_HOURS,
-  );
+  const ttl = Math.min(Math.max(input.ttlHours ?? TTL_DEFAULT_HOURS, TTL_MIN_HOURS), TTL_MAX_HOURS);
   const nowMs = input.now ?? Date.now();
   const iat = Math.floor(nowMs / 1000);
   const exp = iat + ttl * 3600;
@@ -103,10 +93,7 @@ export function signCardToken(input: {
   };
 
   const payloadB64 = base64url(JSON.stringify(payload));
-  const sig = crypto
-    .createHmac(HMAC_ALG, secret)
-    .update(payloadB64)
-    .digest();
+  const sig = crypto.createHmac(HMAC_ALG, secret).update(payloadB64).digest();
   const sigB64 = base64url(sig);
   const token = `${payloadB64}${TOKEN_SEPARATOR}${sigB64}`;
 
@@ -133,10 +120,7 @@ export function verifyCardToken(
   const [payloadB64, sigB64] = parts;
   if (!payloadB64 || !sigB64) return { ok: false, reason: "malformed" };
 
-  const expectedSig = crypto
-    .createHmac(HMAC_ALG, secret)
-    .update(payloadB64)
-    .digest();
+  const expectedSig = crypto.createHmac(HMAC_ALG, secret).update(payloadB64).digest();
   let providedSig: Buffer;
   try {
     providedSig = fromBase64url(sigB64);
@@ -181,11 +165,7 @@ export function verifyCardToken(
 }
 
 export function buildPublicCardUrl(token: string, baseUrl?: string): string {
-  const base =
-    baseUrl ??
-    process.env.NEXT_PUBLIC_APP_URL ??
-    process.env.NEXTAUTH_URL ??
-    "";
+  const base = baseUrl ?? process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "";
   const trimmed = base.replace(/\/+$/, "");
   return `${trimmed}/public/hearst-card/${encodeURIComponent(token)}`;
 }
@@ -196,11 +176,7 @@ export function buildRenderCardUrl(
   token: string,
   baseUrl?: string,
 ): string {
-  const base =
-    baseUrl ??
-    process.env.NEXT_PUBLIC_APP_URL ??
-    process.env.NEXTAUTH_URL ??
-    "";
+  const base = baseUrl ?? process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "";
   const trimmed = base.replace(/\/+$/, "");
   return `${trimmed}/hearst-card/${encodeURIComponent(userId)}/${encodeURIComponent(yearMonth)}?token=${encodeURIComponent(token)}`;
 }

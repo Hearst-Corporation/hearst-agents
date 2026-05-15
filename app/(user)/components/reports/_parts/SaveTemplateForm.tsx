@@ -1,6 +1,6 @@
 "use client";
 
-import { type RefObject } from "react";
+import type { RefObject } from "react";
 
 interface SaveTemplateFormProps {
   saveName: string;
@@ -35,9 +35,7 @@ export function SaveTemplateForm({
         borderRadius: "var(--radius-xs)",
       }}
     >
-      <span className="t-9 font-mono uppercase text-text-muted">
-        Nom du template
-      </span>
+      <span className="t-9 font-mono uppercase text-text-muted">Nom du template</span>
       <input
         ref={saveNameRef}
         type="text"

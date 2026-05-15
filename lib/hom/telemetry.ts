@@ -4,20 +4,9 @@
  * Stockage strictement file-based, aucun service externe.
  */
 import path from "node:path";
+import { appendJsonl, appendText, ensureDir, nowIso, shortId } from "./fs-utils";
 import { HOM, todayUtc } from "./paths";
-import {
-  appendJsonl,
-  appendText,
-  nowIso,
-  shortId,
-  ensureDir,
-} from "./fs-utils";
-import type {
-  AgentId,
-  LogEvent,
-  RunPhase,
-  Span,
-} from "./types";
+import type { AgentId, LogEvent, RunPhase, Span } from "./types";
 
 export interface SpanRecorder {
   span: Span;
@@ -26,11 +15,14 @@ export interface SpanRecorder {
     attributes?: Record<string, string | number | boolean | null>;
   }): Promise<Span>;
   log(level: LogEvent["level"], msg: string, context?: Record<string, unknown>): Promise<void>;
-  child(name: string, opts?: {
-    agent_id?: AgentId | "master";
-    phase?: RunPhase;
-    attributes?: Span["attributes"];
-  }): SpanRecorder;
+  child(
+    name: string,
+    opts?: {
+      agent_id?: AgentId | "master";
+      phase?: RunPhase;
+      attributes?: Span["attributes"];
+    },
+  ): SpanRecorder;
 }
 
 interface SpanOpts {
@@ -128,10 +120,7 @@ export async function ensureTelemetryDirs(): Promise<void> {
 export async function readRunSpans(runId: string): Promise<Span[]> {
   const fs = await import("node:fs/promises");
   try {
-    const raw = await fs.readFile(
-      path.join(HOM.runs, runId, "spans.jsonl"),
-      "utf8",
-    );
+    const raw = await fs.readFile(path.join(HOM.runs, runId, "spans.jsonl"), "utf8");
     return raw
       .trim()
       .split("\n")
@@ -146,10 +135,7 @@ export async function readRunSpans(runId: string): Promise<Span[]> {
 export async function readDayLogs(day: string, agent: string): Promise<LogEvent[]> {
   const fs = await import("node:fs/promises");
   try {
-    const raw = await fs.readFile(
-      path.join(HOM.logs, day, `${agent}.jsonl`),
-      "utf8",
-    );
+    const raw = await fs.readFile(path.join(HOM.logs, day, `${agent}.jsonl`), "utf8");
     return raw
       .trim()
       .split("\n")

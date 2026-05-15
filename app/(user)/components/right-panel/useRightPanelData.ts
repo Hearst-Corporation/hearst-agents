@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RightPanelData } from "@/lib/core/types";
 import { mapFocalObject, mapFocalObjects } from "@/lib/core/types/focal";
 import { useFocalStore } from "@/stores/focal";
@@ -24,9 +24,7 @@ export function useRightPanelData(): RightPanelDataState {
   const [data, setData] = useState<RightPanelData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const [trackedThreadId, setTrackedThreadId] = useState<string | null>(
-    activeThreadId ?? null,
-  );
+  const [trackedThreadId, setTrackedThreadId] = useState<string | null>(activeThreadId ?? null);
   if (trackedThreadId !== (activeThreadId ?? null)) {
     setTrackedThreadId(activeThreadId ?? null);
     setData(null);
@@ -42,12 +40,9 @@ export function useRightPanelData(): RightPanelDataState {
   useEffect(() => {
     if (!activeThreadId) return;
     const assetEvent = runtimeEvents.find((e) => e.type === "asset_generated");
-    if (!assetEvent || assetEvent.timestamp <= lastAssetEventTsRef.current)
-      return;
+    if (!assetEvent || assetEvent.timestamp <= lastAssetEventTsRef.current) return;
     lastAssetEventTsRef.current = assetEvent.timestamp;
-    fetch(
-      `/api/v2/right-panel?thread_id=${encodeURIComponent(activeThreadId)}`,
-    )
+    fetch(`/api/v2/right-panel?thread_id=${encodeURIComponent(activeThreadId)}`)
       .then((r) => (r.ok ? r.json() : null))
       .then((panelData: RightPanelData | null) => {
         if (panelData) setData(panelData);
@@ -71,17 +66,13 @@ export function useRightPanelData(): RightPanelDataState {
       ]).then(([mResp, aResp]) => {
         if (cancelled) return;
         const missions = (mResp.missions ?? []) as RightPanelData["missions"];
-        const rawAssets = (aResp.assets ?? []) as Array<
-          Record<string, unknown>
-        >;
-        const assets = rawAssets.map(
-          (a): RightPanelData["assets"][number] => ({
-            id: String(a.id ?? ""),
-            name: String(a.name ?? a.title ?? "Untitled"),
-            type: String(a.type ?? a.kind ?? "doc"),
-            runId: String(a.run_id ?? a.runId ?? ""),
-          }),
-        );
+        const rawAssets = (aResp.assets ?? []) as Array<Record<string, unknown>>;
+        const assets = rawAssets.map((a): RightPanelData["assets"][number] => ({
+          id: String(a.id ?? ""),
+          name: String(a.name ?? a.title ?? "Untitled"),
+          type: String(a.type ?? a.kind ?? "doc"),
+          runId: String(a.run_id ?? a.runId ?? ""),
+        }));
         setData({
           assets,
           missions,
@@ -109,14 +100,9 @@ export function useRightPanelData(): RightPanelDataState {
       setData(panelData);
       const hydrateThreadState = useFocalStore.getState().hydrateThreadState;
       const tid = activeThreadIdRef.current;
-      const mappedFocal = panelData.focalObject
-        ? mapFocalObject(panelData.focalObject, tid)
-        : null;
+      const mappedFocal = panelData.focalObject ? mapFocalObject(panelData.focalObject, tid) : null;
       const secondary = panelData.secondaryObjects
-        ? mapFocalObjects(
-            panelData.secondaryObjects as unknown[],
-            tid,
-          ).slice(0, 3)
+        ? mapFocalObjects(panelData.secondaryObjects as unknown[], tid).slice(0, 3)
         : [];
       hydrateThreadState(mappedFocal, secondary);
       setLoading(false);

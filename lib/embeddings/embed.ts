@@ -14,8 +14,8 @@
  * au char count, ~4 chars / token : 32_000 chars max).
  */
 
+import crypto from "node:crypto";
 import OpenAI from "openai";
-import crypto from "crypto";
 
 const EMBEDDING_MODEL = "text-embedding-3-small";
 export const EMBEDDING_DIM = 1536;

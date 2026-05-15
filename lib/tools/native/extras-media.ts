@@ -10,20 +10,20 @@
  * - run_code (E2B sandbox) : sécurité critique, **validation syntaxe + blacklist** + confirm
  */
 
-import { jsonSchema } from "ai";
-import type { Tool } from "ai";
 import { randomUUID } from "node:crypto";
-import type { RunEventBus } from "@/lib/events/bus";
-import type { TenantScope } from "@/lib/multi-tenant/types";
+import type { Tool } from "ai";
+import { jsonSchema } from "ai";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant } from "@/lib/assets/variants";
+import type { RunEventBus } from "@/lib/events/bus";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type {
   AudioGenInput,
+  CodeExecInput,
   DocumentParseInput,
   VideoGenInput,
-  CodeExecInput,
 } from "@/lib/jobs/types";
+import type { TenantScope } from "@/lib/multi-tenant/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -136,8 +136,7 @@ export function buildExtrasMediaTools(opts: {
         voiceId: { type: "string", description: "ID voix ElevenLabs (optionnel)." },
         tone: {
           type: "string",
-          description:
-            "Tone de la persona (warm/professional/dramatic). Résolu côté worker.",
+          description: "Tone de la persona (warm/professional/dramatic). Résolu côté worker.",
         },
       },
     }),
@@ -432,10 +431,13 @@ export function buildExtrasMediaTools(opts: {
       const isPreview = args._preview !== false;
       if (isPreview) {
         const snippet = code.split("\n").slice(0, 20).join("\n");
-        const truncated = code.split("\n").length > 20 ? `\n... (${code.split("\n").length - 20} lignes de plus)` : "";
+        const truncated =
+          code.split("\n").length > 20
+            ? `\n... (${code.split("\n").length - 20} lignes de plus)`
+            : "";
         return [
           `**Preview exécution code** (runtime: ${args.runtime})`,
-          "```" + (args.runtime === "python" ? "python" : "javascript"),
+          `\`\`\`${args.runtime === "python" ? "python" : "javascript"}`,
           snippet + truncated,
           "```",
           ``,

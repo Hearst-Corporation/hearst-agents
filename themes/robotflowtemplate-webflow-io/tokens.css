@@ -10,29 +10,28 @@
  */
 
 :root[data-theme="robotflowtemplate-webflow-io"] {
-
   /* ─── Palette Robotflow ──────────────────────────────────────── */
-  --_rf-bg:         #050607;
-  --_rf-bg-elev:    #090a0c;
-  --_rf-surface:    #121418;
+  --_rf-bg: #050607;
+  --_rf-bg-elev: #090a0c;
+  --_rf-surface: #121418;
   --_rf-surface-hi: #1a1d22;
-  --_rf-border:     #3b3e45;
-  --_rf-border-soft:#1e2028;
-  --_rf-text:       #ffffff;
-  --_rf-body:       #b6bcc9;
-  --_rf-muted:      #7c818d;
-  --_rf-dim:        #666977;
-  --_rf-accent:     #523ff5;
-  --_rf-accent-hi:  #6a55ff;
+  --_rf-border: #3b3e45;
+  --_rf-border-soft: #1e2028;
+  --_rf-text: #ffffff;
+  --_rf-body: #b6bcc9;
+  --_rf-muted: #7c818d;
+  --_rf-dim: #666977;
+  --_rf-accent: #523ff5;
+  --_rf-accent-hi: #6a55ff;
 
   /* ─── Core surfaces ─────────────────────────────────────────── */
-  --bg:          var(--_rf-bg);
-  --bg-elev:     var(--_rf-bg-elev);
-  --bg-soft:     rgba(18, 20, 24, 0.5);
-  --background:  var(--_rf-bg);
-  --foreground:  var(--_rf-text);
-  --surface:     var(--_rf-surface);
-  --rail:        var(--_rf-bg-elev);
+  --bg: var(--_rf-bg);
+  --bg-elev: var(--_rf-bg-elev);
+  --bg-soft: rgba(18, 20, 24, 0.5);
+  --background: var(--_rf-bg);
+  --foreground: var(--_rf-text);
+  --surface: var(--_rf-surface);
+  --rail: var(--_rf-bg-elev);
 
   /* ─── Material scale ────────────────────────────────────────── */
   --mat-100: #030304;
@@ -42,88 +41,88 @@
   --mat-gray: var(--_rf-surface);
 
   /* ─── Lines / séparateurs ────────────────────────────────────── */
-  --line:        rgba(255, 255, 255, 0.05);
+  --line: rgba(255, 255, 255, 0.05);
   --line-strong: rgba(255, 255, 255, 0.09);
-  --sep:         rgba(255, 255, 255, 0.05);
+  --sep: rgba(255, 255, 255, 0.05);
 
   /* ─── Surface scale translucide ─────────────────────────────── */
   --surface-1: rgba(18, 20, 24, 0.6);
   --surface-2: rgba(27, 30, 36, 0.8);
-  --surface-card:      rgba(18, 20, 24, 0.9);
-  --surface-row-rest:  rgba(18, 20, 24, 0.4);
+  --surface-card: rgba(18, 20, 24, 0.9);
+  --surface-row-rest: rgba(18, 20, 24, 0.4);
   --surface-row-hover: rgba(27, 30, 36, 0.8);
   --surface-icon-tile: rgba(59, 62, 69, 0.3);
-  --card-flat-bg:      rgba(18, 20, 24, 0.8);
-  --card-flat-border:  rgba(59, 62, 69, 0.45);
+  --card-flat-bg: rgba(18, 20, 24, 0.8);
+  --card-flat-border: rgba(59, 62, 69, 0.45);
   --layer-1: rgba(18, 20, 24, 0.6);
   --layer-2: rgba(27, 30, 36, 0.85);
-  --ghost-modal-top:   rgba(59, 62, 69, 0.2);
-  --progress-track:    rgba(255, 255, 255, 0.06);
-  --modal-backdrop:    rgba(0, 0, 0, 0.7);
-  --overlay-scrim:     rgba(0, 0, 0, 0.5);
+  --ghost-modal-top: rgba(59, 62, 69, 0.2);
+  --progress-track: rgba(255, 255, 255, 0.06);
+  --modal-backdrop: rgba(0, 0, 0, 0.7);
+  --overlay-scrim: rgba(0, 0, 0, 0.5);
 
   /* ─── Texte ──────────────────────────────────────────────────── */
-  --text:        var(--_rf-text);
-  --text-soft:   rgba(255, 255, 255, 0.88);
-  --text-muted:  var(--_rf-body);
-  --text-faint:  var(--_rf-muted);
-  --text-ghost:  rgba(182, 188, 201, 0.6);
-  --text-l0:     var(--_rf-text);
-  --text-l1:     var(--_rf-body);
-  --text-l2:     var(--_rf-muted);
-  --text-l3:     rgba(182, 188, 201, 0.3);
+  --text: var(--_rf-text);
+  --text-soft: rgba(255, 255, 255, 0.88);
+  --text-muted: var(--_rf-body);
+  --text-faint: var(--_rf-muted);
+  --text-ghost: rgba(182, 188, 201, 0.6);
+  --text-l0: var(--_rf-text);
+  --text-l1: var(--_rf-body);
+  --text-l2: var(--_rf-muted);
+  --text-l3: rgba(182, 188, 201, 0.3);
   --text-on-accent-teal: #ffffff;
 
   /* ─── Accent → violet électrique ────────────────────────────── */
-  --accent:            var(--_rf-accent);
-  --cyan-accent:       var(--_rf-accent);
-  --accent-teal:       var(--_rf-accent);
-  --money:             var(--_rf-accent);
-  --accent-llm:        var(--_rf-accent-hi);
-  --accent-agent:      #efc42c;
+  --accent: var(--_rf-accent);
+  --cyan-accent: var(--_rf-accent);
+  --accent-teal: var(--_rf-accent);
+  --money: var(--_rf-accent);
+  --accent-llm: var(--_rf-accent-hi);
+  --accent-agent: #efc42c;
 
-  --accent-teal-border:        rgba(82, 63, 245, 0.25);
-  --accent-teal-surface:       rgba(82, 63, 245, 0.07);
-  --accent-teal-bg-active:     rgba(82, 63, 245, 0.09);
-  --accent-teal-bg-hover:      rgba(82, 63, 245, 0.05);
-  --accent-teal-border-hover:  rgba(82, 63, 245, 0.25);
+  --accent-teal-border: rgba(82, 63, 245, 0.25);
+  --accent-teal-surface: rgba(82, 63, 245, 0.07);
+  --accent-teal-bg-active: rgba(82, 63, 245, 0.09);
+  --accent-teal-bg-hover: rgba(82, 63, 245, 0.05);
+  --accent-teal-border-hover: rgba(82, 63, 245, 0.25);
 
   /* ─── Status ─────────────────────────────────────────────────── */
-  --warn:    #efc42c;
-  --danger:  #fe566b;
-  --gold:    var(--_rf-body);
-  --gold-border:   rgba(182, 188, 201, 0.28);
-  --gold-surface:  rgba(182, 188, 201, 0.06);
+  --warn: #efc42c;
+  --danger: #fe566b;
+  --gold: var(--_rf-body);
+  --gold-border: rgba(182, 188, 201, 0.28);
+  --gold-surface: rgba(182, 188, 201, 0.06);
   --gold-bg-hover: rgba(182, 188, 201, 0.08);
 
-  --warn-surface:       rgba(239, 196, 44, 0.12);
-  --warn-surface-soft:  rgba(239, 196, 44, 0.06);
-  --danger-surface:     rgba(254, 86, 107, 0.12);
-  --danger-surface-soft:rgba(254, 86, 107, 0.06);
+  --warn-surface: rgba(239, 196, 44, 0.12);
+  --warn-surface-soft: rgba(239, 196, 44, 0.06);
+  --danger-surface: rgba(254, 86, 107, 0.12);
+  --danger-surface-soft: rgba(254, 86, 107, 0.06);
   --quarantine-surface: rgba(106, 85, 255, 0.14);
 
-  --color-success:        #74d184;
-  --color-success-bg:     rgba(116, 209, 132, 0.1);
+  --color-success: #74d184;
+  --color-success-bg: rgba(116, 209, 132, 0.1);
   --color-success-border: rgba(116, 209, 132, 0.2);
-  --color-warning:        #efc42c;
-  --color-warning-bg:     rgba(239, 196, 44, 0.1);
+  --color-warning: #efc42c;
+  --color-warning-bg: rgba(239, 196, 44, 0.1);
   --color-warning-border: rgba(239, 196, 44, 0.2);
-  --color-error:          #fe566b;
-  --color-error-bg:       rgba(254, 86, 107, 0.1);
-  --color-error-border:   rgba(254, 86, 107, 0.2);
-  --color-info:           #64a7ff;
-  --color-info-bg:        rgba(100, 167, 255, 0.1);
-  --color-info-border:    rgba(100, 167, 255, 0.2);
+  --color-error: #fe566b;
+  --color-error-bg: rgba(254, 86, 107, 0.1);
+  --color-error-border: rgba(254, 86, 107, 0.2);
+  --color-info: #64a7ff;
+  --color-info-bg: rgba(100, 167, 255, 0.1);
+  --color-info-border: rgba(100, 167, 255, 0.2);
 
   /* ─── Borders ────────────────────────────────────────────────── */
-  --border:        var(--_rf-border);
-  --border-shell:  rgba(59, 62, 69, 0.55);
-  --border-soft:   rgba(59, 62, 69, 0.4);
-  --border-input:  rgba(59, 62, 69, 0.65);
+  --border: var(--_rf-border);
+  --border-shell: rgba(59, 62, 69, 0.55);
+  --border-soft: rgba(59, 62, 69, 0.4);
+  --border-input: rgba(59, 62, 69, 0.65);
   --border-subtle: rgba(59, 62, 69, 0.85);
-  --border-default:rgba(59, 62, 69, 0.65);
+  --border-default: rgba(59, 62, 69, 0.65);
   --border-strong: rgba(59, 62, 69, 0.75);
-  --border-focus:  var(--_rf-accent);
+  --border-focus: var(--_rf-accent);
 
   /* ─── Glows / shadows → accent violet ───────────────────────── */
   --glow-cyan-sm: 0 0 30px rgba(82, 63, 245, 0.12);
@@ -135,89 +134,92 @@
   --glow-success-sm: 0 0 30px rgba(116, 209, 132, 0.1);
   --glow-success-md: 0 0 60px rgba(116, 209, 132, 0.15);
 
-  --input-glow:       0 0 40px rgba(82, 63, 245, 0.12), 0 0 80px rgba(82, 63, 245, 0.06);
+  --input-glow: 0 0 40px rgba(82, 63, 245, 0.12), 0 0 80px rgba(82, 63, 245, 0.06);
   --input-glow-focus: 0 0 40px rgba(82, 63, 245, 0.24), 0 0 80px rgba(82, 63, 245, 0.12);
   --neon-accent-teal: 0 0 10px rgba(82, 63, 245, 0.7), 0 0 20px rgba(82, 63, 245, 0.3);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-neon-accent-teal:  0 0 8px rgba(82, 63, 245, 0.6);
-  --shadow-pulse-dot:         0 0 6px rgba(82, 63, 245, 0.32);
-  --shadow-pulse-dot-sm:      0 0 5px rgba(82, 63, 245, 0.32);
-  --shadow-pulse-dot-md:      0 0 8px rgba(82, 63, 245, 0.32);
-  --shadow-input-focus:       0 0 15px rgba(82, 63, 245, 0.18);
-  --shadow-focus-ring:        0 0 0 2px var(--_rf-accent);
-  --shadow-stage-card: 0 1px 2px rgba(0,0,0,0.25), 0 8px 28px rgba(0,0,0,0.35);
+  --shadow-neon-accent-teal: 0 0 8px rgba(82, 63, 245, 0.6);
+  --shadow-pulse-dot: 0 0 6px rgba(82, 63, 245, 0.32);
+  --shadow-pulse-dot-sm: 0 0 5px rgba(82, 63, 245, 0.32);
+  --shadow-pulse-dot-md: 0 0 8px rgba(82, 63, 245, 0.32);
+  --shadow-input-focus: 0 0 15px rgba(82, 63, 245, 0.18);
+  --shadow-focus-ring: 0 0 0 2px var(--_rf-accent);
+  --shadow-stage-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 8px 28px rgba(0, 0, 0, 0.35);
   --shadow-divider-bottom-subtle: inset 0 -1px 0 0 var(--line);
-  --shadow-inset-highlight: inset 0 1px 0 rgba(255,255,255,0.05);
+  --shadow-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --shadow-card:
-    0 4px 8px rgba(0,0,0,0.5), 0 20px 40px -12px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+    0 4px 8px rgba(0, 0, 0, 0.5), 0 20px 40px -12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --shadow-card-hover:
-    0 8px 16px rgba(0,0,0,0.6), 0 30px 60px rgba(82,63,245,0.2),
-    0 40px 80px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08);
+    0 8px 16px rgba(0, 0, 0, 0.6), 0 30px 60px rgba(82, 63, 245, 0.2),
+    0 40px 80px -20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   --shadow-card-deep:
-    0 1px 2px rgba(0,0,0,0.4), 0 12px 24px rgba(0,0,0,0.3),
-    0 20px 40px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
-  --shadow-panel-lift: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(82,63,245,0.18);
+    0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 24px rgba(0, 0, 0, 0.3),
+    0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-panel-lift: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(82, 63, 245, 0.18);
   --shadow-playhead-accent-teal: 0 0 6px var(--_rf-accent);
-  --glow-subtle-accent: drop-shadow(0 0 24px rgba(82,63,245,0.12));
+  --glow-subtle-accent: drop-shadow(0 0 24px rgba(82, 63, 245, 0.12));
 
   /* ─── Gradients ──────────────────────────────────────────────── */
   --bg-gradient-radial-subtle:
-    radial-gradient(circle at center, rgba(82,63,245,0.04) 0%, transparent 70%),
-    radial-gradient(circle at 80% 20%, rgba(182,188,201,0.01) 0%, transparent 60%);
-  --bg-gradient-linear-bottom-glow:
-    linear-gradient(to top, rgba(82,63,245,0.06) 0%, transparent 80%);
+    radial-gradient(circle at center, rgba(82, 63, 245, 0.04) 0%, transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(182, 188, 201, 0.01) 0%, transparent 60%);
+  --bg-gradient-linear-bottom-glow: linear-gradient(
+    to top,
+    rgba(82, 63, 245, 0.06) 0%,
+    transparent 80%
+  );
   --bg-panel-gradient:
-    radial-gradient(circle at 10% 90%, rgba(106,85,255,0.03) 0%, transparent 50%),
-    radial-gradient(circle at 90% 10%, rgba(182,188,201,0.01) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.02) 100%);
+    radial-gradient(circle at 10% 90%, rgba(106, 85, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 90% 10%, rgba(182, 188, 201, 0.01) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.02) 100%);
 
   /* ─── Radius → Robotflow (arrondi généreux) ──────────────────── */
-  --radius-xs:   4px;
-  --radius-sm:   8px;
-  --radius-md:   16px;
-  --radius-lg:   24px;
-  --radius-xl:   32px;
-  --radius-2xl:  48px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 48px;
   --radius-pill: 200px;
   --radius-full: 9999px;
 
   /* ─── Motion → Robotflow (300ms ease-out) ───────────────────── */
-  --duration-fast:    150ms;
-  --duration-base:    300ms;
-  --duration-slow:    500ms;
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
   --duration-emphasis: 400ms;
-  --ease-spring:    cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-standard:  cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-soft:  cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-base:      cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out:       cubic-bezier(0, 0, 0.2, 1);
-  --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-base: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* ─── Typographie → Inter Tight ─────────────────────────────── */
-  --font-family:     "Inter Tight", "Inter", system-ui, sans-serif;
-  --font-satoshi:    "Inter Tight", "Inter", system-ui, sans-serif;
-  --font-family-mono:"JetBrains Mono", "SF Mono", ui-monospace, monospace;
-  --font-size-base:  18px;
+  --font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-satoshi: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  --font-size-base: 18px;
 
   /* ─── Tokens Robotflow natifs (pour sandbox / futur usage) ───── */
-  --color-bg:          var(--_rf-bg);
+  --color-bg: var(--_rf-bg);
   --color-bg-elevated: var(--_rf-bg-elev);
-  --color-surface:     var(--_rf-surface);
-  --color-surface-hi:  var(--_rf-surface-hi);
-  --color-border:      var(--_rf-border);
+  --color-surface: var(--_rf-surface);
+  --color-surface-hi: var(--_rf-surface-hi);
+  --color-border: var(--_rf-border);
   --color-border-soft: var(--_rf-border-soft);
-  --color-fg:          var(--_rf-text);
-  --color-fg-body:     var(--_rf-body);
-  --color-fg-muted:    var(--_rf-muted);
-  --color-fg-dim:      var(--_rf-dim);
-  --color-accent:      var(--_rf-accent);
-  --color-accent-hi:   var(--_rf-accent-hi);
+  --color-fg: var(--_rf-text);
+  --color-fg-body: var(--_rf-body);
+  --color-fg-muted: var(--_rf-muted);
+  --color-fg-dim: var(--_rf-dim);
+  --color-accent: var(--_rf-accent);
+  --color-accent-hi: var(--_rf-accent-hi);
   --color-accent-soft: rgba(82, 63, 245, 0.18);
-  --color-on-accent:   #ffffff;
-  --color-on-fg:       var(--_rf-bg);
+  --color-on-accent: #ffffff;
+  --color-on-fg: var(--_rf-bg);
   --container-max: 1280px;
 }
 

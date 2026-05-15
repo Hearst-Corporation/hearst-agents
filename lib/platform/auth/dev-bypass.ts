@@ -40,7 +40,7 @@ export function assertDevBypassNotInProduction(): void {
       "[auth] HEARST_DEV_AUTH_BYPASS=1 detected in a production environment " +
         "(NODE_ENV, VERCEL_ENV, or HEARST_ENV indicates production). " +
         "Refusing to boot — this flag must NEVER ship to production. " +
-        "Unset HEARST_DEV_AUTH_BYPASS or fix the environment."
+        "Unset HEARST_DEV_AUTH_BYPASS or fix the environment.",
     );
   }
 }

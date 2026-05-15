@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 /**
  * Test de la détection des erreurs transientes (500, 502, 503, 504)

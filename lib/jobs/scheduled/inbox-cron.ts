@@ -20,12 +20,12 @@
  * (manual trigger), pas appliqué côté tick (BullMQ rythme déjà à 30min).
  */
 
-import { Queue } from "bullmq";
-import { getBullConnection } from "@/lib/jobs/connection";
-import { JOB_QUEUE_CONFIGS } from "@/lib/jobs/configs";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { Queue } from "bullmq";
+import { JOB_QUEUE_CONFIGS } from "@/lib/jobs/configs";
+import { getBullConnection } from "@/lib/jobs/connection";
 import type { InboxFetchInput } from "@/lib/jobs/types";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 const REPEAT_EVERY_MS = 30 * 60_000; // 30 min
 
@@ -86,16 +86,12 @@ export async function registerInboxRepeatable(user: ActiveUser): Promise<void> {
   };
 
   try {
-    await _inboxQueue.add(
-      "inbox-fetch",
-      payload,
-      {
-        repeat: { every: REPEAT_EVERY_MS },
-        jobId,
-        removeOnComplete: 5,
-        removeOnFail: 5,
-      },
-    );
+    await _inboxQueue.add("inbox-fetch", payload, {
+      repeat: { every: REPEAT_EVERY_MS },
+      jobId,
+      removeOnComplete: 5,
+      removeOnFail: 5,
+    });
   } catch (err) {
     console.warn(`[InboxCron] register repeatable failed for ${user.userId}:`, err);
   }

@@ -1,25 +1,25 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  AGENT_ROLES,
   AGENT_METADATA,
-  mapToolToService,
+  AGENT_ROLES,
+  CO_ACTIVE_WINDOW_MS,
   classifyToolAction,
-  mapEventToRole,
   deriveActiveRolesFromEvents,
-  deriveCoActivePairs,
   deriveActiveServicesFromEvents,
+  deriveCoActivePairs,
+  mapEventToRole,
+  mapToolToService,
   ROLE_ACTIVE_TTL_MS,
   SERVICE_ACTIVE_TTL_MS,
-  CO_ACTIVE_WINDOW_MS,
 } from "@/lib/cockpit/agents";
 import type { StreamEvent } from "@/stores/runtime";
 
 const now = 1_700_000_000_000;
-const ev = (
-  type: string,
-  ts: number,
-  extra: Record<string, unknown> = {},
-): StreamEvent => ({ type, timestamp: ts, ...extra });
+const ev = (type: string, ts: number, extra: Record<string, unknown> = {}): StreamEvent => ({
+  type,
+  timestamp: ts,
+  ...extra,
+});
 
 describe("AGENT_METADATA", () => {
   it("contient les 6 rôles", () => {
@@ -146,7 +146,9 @@ describe("deriveActiveRolesFromEvents", () => {
       ev("tool_call_started", now - 100, { toolName: "GMAIL_SEARCH", run_id: "r1" }),
       ev("kg_ingested", now - 200, { run_id: "r1" }),
     ];
-    const ids = deriveActiveRolesFromEvents(events, now).map((r) => r.id).sort();
+    const ids = deriveActiveRolesFromEvents(events, now)
+      .map((r) => r.id)
+      .sort();
     expect(ids).toEqual(["cortex", "delve"]);
   });
 });

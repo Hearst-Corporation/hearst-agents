@@ -2,8 +2,8 @@
 // lint-visual-disable-file — couleurs hex = identités visuelles de marques tierces (Gmail, Slack, Calendar, Google) non tokenisables
 
 import type React from "react";
-import type { WorkflowNodeKind } from "@/lib/workflows/types";
 import { BRAND_COLORS } from "@/lib/connectors/composio/brand-colors";
+import type { WorkflowNodeKind } from "@/lib/workflows/types";
 
 export interface PaletteEntry {
   kind: WorkflowNodeKind;
@@ -19,7 +19,16 @@ interface NodePaletteProps {
 
 function IconManual() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0" />
       <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2" />
       <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8" />
@@ -30,7 +39,16 @@ function IconManual() {
 
 function IconCron() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>
@@ -39,7 +57,16 @@ function IconCron() {
 
 function IconWebhook() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </svg>
@@ -48,7 +75,16 @@ function IconWebhook() {
 
 function IconCondition() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
     </svg>
   );
@@ -56,7 +92,16 @@ function IconCondition() {
 
 function IconTransform() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="16 3 21 3 21 8" />
       <line x1="4" y1="20" x2="21" y2="3" />
       <polyline points="21 16 21 21 16 21" />
@@ -67,7 +112,16 @@ function IconTransform() {
 
 function IconApproval() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -76,7 +130,16 @@ function IconApproval() {
 
 function IconOutput() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <polyline points="14 2 14 8 20 8" />
       <line x1="16" y1="13" x2="8" y2="13" />
@@ -106,12 +169,31 @@ function LogoSlack() {
 
 function LogoCalendar() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
       <line x1="16" y1="2" x2="16" y2="6" />
       <line x1="8" y1="2" x2="8" y2="6" />
       <line x1="3" y1="10" x2="21" y2="10" />
-      <text x="12" y="19" textAnchor="middle" fontSize="7" fontWeight="600" fill="currentColor" stroke="none">GCal</text>
+      <text
+        x="12"
+        y="19"
+        textAnchor="middle"
+        fontSize="7"
+        fontWeight="600"
+        fill="currentColor"
+        stroke="none"
+      >
+        GCal
+      </text>
     </svg>
   );
 }
@@ -126,7 +208,16 @@ function LogoDrive() {
 
 function LogoSearch() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="11" cy="11" r="8" />
       <line x1="21" y1="21" x2="16.65" y2="16.65" />
     </svg>
@@ -136,9 +227,9 @@ function LogoSearch() {
 // ── Palette data ───────────────────────────────────────────────
 
 const TRIGGERS: PaletteEntry[] = [
-  { kind: "trigger", label: "Manuel",   defaultConfig: { mode: "manual" } },
+  { kind: "trigger", label: "Manuel", defaultConfig: { mode: "manual" } },
   { kind: "trigger", label: "Planifié", defaultConfig: { mode: "cron", cron: "0 9 * * *" } },
-  { kind: "trigger", label: "Signal",   defaultConfig: { mode: "webhook" } },
+  { kind: "trigger", label: "Signal", defaultConfig: { mode: "webhook" } },
 ];
 
 const TRIGGER_ICONS = [IconManual, IconCron, IconWebhook];
@@ -151,37 +242,62 @@ interface AppAction {
 
 const APP_ACTIONS: AppAction[] = [
   {
-    entry: { kind: "tool_call", label: "Gmail",    defaultConfig: { tool: "gmail_send", args: { to: "", content: "" } } },
+    entry: {
+      kind: "tool_call",
+      label: "Gmail",
+      defaultConfig: { tool: "gmail_send", args: { to: "", content: "" } },
+    },
     Logo: LogoGmail,
     color: BRAND_COLORS.gmail,
   },
   {
-    entry: { kind: "tool_call", label: "Slack",    defaultConfig: { tool: "slack_send_message", args: { channel: "", content: "" } } },
+    entry: {
+      kind: "tool_call",
+      label: "Slack",
+      defaultConfig: { tool: "slack_send_message", args: { channel: "", content: "" } },
+    },
     Logo: LogoSlack,
     color: BRAND_COLORS.slack,
   },
   {
-    entry: { kind: "tool_call", label: "Agenda",   defaultConfig: { tool: "calendar_create_event", args: { title: "", start: "", end: "" } } },
+    entry: {
+      kind: "tool_call",
+      label: "Agenda",
+      defaultConfig: { tool: "calendar_create_event", args: { title: "", start: "", end: "" } },
+    },
     Logo: LogoCalendar,
     color: BRAND_COLORS.googleCalendar,
   },
   {
-    entry: { kind: "tool_call", label: "Drive",    defaultConfig: { tool: "drive_create_doc", args: { title: "", content: "" } } },
+    entry: {
+      kind: "tool_call",
+      label: "Drive",
+      defaultConfig: { tool: "drive_create_doc", args: { title: "", content: "" } },
+    },
     Logo: LogoDrive,
     color: BRAND_COLORS.googleDrive,
   },
   {
-    entry: { kind: "tool_call", label: "Recherche", defaultConfig: { tool: "search_web", args: { query: "" } } },
+    entry: {
+      kind: "tool_call",
+      label: "Recherche",
+      defaultConfig: { tool: "search_web", args: { query: "" } },
+    },
     Logo: LogoSearch,
     color: BRAND_COLORS.searchWeb,
   },
 ];
 
 const UTILITY_ENTRIES: (PaletteEntry & { Icon: () => React.ReactElement })[] = [
-  { kind: "condition", label: "Condition",  Icon: IconCondition,  defaultConfig: { expression: "" } },
-  { kind: "transform", label: "Transform",  Icon: IconTransform,  defaultConfig: { expression: "" } },
-  { kind: "approval",  label: "Validation", Icon: IconApproval,   defaultConfig: { preview: "Confirmer cette action ?" } },
-  { kind: "output",    label: "Asset",      Icon: IconOutput,     defaultConfig: { payload: {} } },
+  { kind: "condition", label: "Condition", Icon: IconCondition, defaultConfig: { expression: "" } },
+  { kind: "transform", label: "Transform", Icon: IconTransform, defaultConfig: { expression: "" } },
+  {
+    kind: "approval",
+    label: "Validation",
+    Icon: IconApproval,
+    defaultConfig: { preview: "Confirmer cette action ?" },
+  },
+  { kind: "output", label: "Asset", Icon: IconOutput, defaultConfig: { payload: {} } },
 ];
 
 // ── Component ──────────────────────────────────────────────────
@@ -189,12 +305,9 @@ const UTILITY_ENTRIES: (PaletteEntry & { Icon: () => React.ReactElement })[] = [
 export function NodePalette({ onAdd }: NodePaletteProps) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-6)" }}>
-
       {/* Déclencheurs */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-text-faint">
-          Déclencheurs
-        </span>
+        <span className="t-9 font-medium text-text-faint">Déclencheurs</span>
         <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
           {TRIGGERS.map((entry, i) => {
             const Icon = TRIGGER_ICONS[i];
@@ -219,13 +332,22 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                   e.currentTarget.style.background = "var(--bg-elev)";
                 }}
               >
-                <span className="text-text-muted group-hover:text-(--accent-teal) transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
+                <span
+                  className="text-text-muted group-hover:text-(--accent-teal) transition-colors"
+                  style={{ transitionDuration: "var(--duration-base)" }}
+                >
                   <Icon />
                 </span>
-                <span className="t-11 font-medium text-text-soft group-hover:text-(--accent-teal) transition-colors flex-1" style={{ transitionDuration: "var(--duration-base)" }}>
+                <span
+                  className="t-11 font-medium text-text-soft group-hover:text-(--accent-teal) transition-colors flex-1"
+                  style={{ transitionDuration: "var(--duration-base)" }}
+                >
                   {entry.label}
                 </span>
-                <span className="t-9 font-mono text-text-faint opacity-0 group-hover:opacity-100 transition-opacity" style={{ transitionDuration: "var(--duration-base)" }}>
+                <span
+                  className="t-9 font-mono text-text-faint opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ transitionDuration: "var(--duration-base)" }}
+                >
                   +
                 </span>
               </button>
@@ -236,13 +358,8 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Actions — apps */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-text-faint">
-          Actions
-        </span>
-        <div
-          className="grid gap-2"
-          style={{ gridTemplateColumns: "1fr 1fr" }}
-        >
+        <span className="t-9 font-medium text-text-faint">Actions</span>
+        <div className="grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
           {APP_ACTIONS.map(({ entry, Logo, color }) => (
             <button
               key={entry.label}
@@ -257,8 +374,8 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                 transitionDuration: "var(--duration-base)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = color + "66";
-                e.currentTarget.style.background = color + "11";
+                e.currentTarget.style.borderColor = `${color}66`;
+                e.currentTarget.style.background = `${color}11`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "var(--border-soft)";
@@ -268,9 +385,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
               <span style={{ color }}>
                 <Logo />
               </span>
-              <span className="t-9 font-medium text-text-muted">
-                {entry.label}
-              </span>
+              <span className="t-9 font-medium text-text-muted">{entry.label}</span>
             </button>
           ))}
         </div>
@@ -278,9 +393,7 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
 
       {/* Logique + Validation + Sortie */}
       <div className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-        <span className="t-9 font-medium text-text-faint">
-          Logique & sorties
-        </span>
+        <span className="t-9 font-medium text-text-faint">Logique & sorties</span>
         <div className="grid gap-1" style={{ gridTemplateColumns: "1fr 1fr" }}>
           {UTILITY_ENTRIES.map(({ Icon, label, ...entry }) => (
             <button
@@ -303,17 +416,22 @@ export function NodePalette({ onAdd }: NodePaletteProps) {
                 e.currentTarget.style.background = "transparent";
               }}
             >
-              <span className="text-text-faint group-hover:text-text-muted transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
+              <span
+                className="text-text-faint group-hover:text-text-muted transition-colors"
+                style={{ transitionDuration: "var(--duration-base)" }}
+              >
                 <Icon />
               </span>
-              <span className="t-9 font-medium text-text-faint group-hover:text-text-soft transition-colors" style={{ transitionDuration: "var(--duration-base)" }}>
+              <span
+                className="t-9 font-medium text-text-faint group-hover:text-text-soft transition-colors"
+                style={{ transitionDuration: "var(--duration-base)" }}
+              >
                 {label}
               </span>
             </button>
           ))}
         </div>
       </div>
-
     </div>
   );
 }

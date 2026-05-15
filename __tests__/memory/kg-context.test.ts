@@ -2,7 +2,7 @@
  * kg-context — formats compact KG summary string + 60s memory cache.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { getGraph } = vi.hoisted(() => ({ getGraph: vi.fn() }));
 
@@ -11,11 +11,8 @@ vi.mock("@/lib/memory/kg", async (importOriginal) => {
   return { ...actual, getGraph };
 });
 
-import {
-  getKgContextForUser,
-  __clearKgContextCache,
-} from "@/lib/memory/kg-context";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
+import { __clearKgContextCache, getKgContextForUser } from "@/lib/memory/kg-context";
 
 function makeNode(partial: Partial<KgNode> & { type: string; label: string }): KgNode {
   return {
@@ -80,7 +77,7 @@ describe("getKgContextForUser", () => {
     getGraph.mockResolvedValue({ nodes: many, edges: [] });
     const ctx = await getKgContextForUser("u1", "t1", { bypassCache: true });
     expect(ctx).not.toBeNull();
-    expect(ctx!.length).toBeLessThanOrEqual(1500);
+    expect(ctx?.length).toBeLessThanOrEqual(1500);
   });
 
   it("cache hit pendant TTL — getGraph appelé une seule fois", async () => {

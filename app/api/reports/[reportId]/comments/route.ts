@@ -9,14 +9,11 @@
  * s'aligne sur le pattern `requireScope`).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { createReportCommentSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import {
-  addComment,
-  listComments,
-} from "@/lib/reports/comments/store";
-import { createReportCommentSchema } from "@/lib/contracts/reports";
+import { addComment, listComments } from "@/lib/reports/comments/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -48,14 +45,10 @@ async function resolveAssetTenant(
   if (data.kind !== "report") return { error: "not_found" };
 
   const provenance = (data.provenance ?? {}) as Record<string, unknown>;
-  if (
-    provenance.userId !== undefined &&
-    provenance.userId !== callerUserId
-  ) {
+  if (provenance.userId !== undefined && provenance.userId !== callerUserId) {
     return { error: "forbidden" };
   }
-  const tenantId =
-    (provenance.tenantId as string | undefined) ?? fallbackTenantId;
+  const tenantId = (provenance.tenantId as string | undefined) ?? fallbackTenantId;
   return { tenantId };
 }
 
@@ -71,9 +64,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext) {
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
     const status =
-      resolved.error === "forbidden" ? 403
-      : resolved.error === "not_found" ? 404
-      : 503;
+      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 
@@ -112,9 +103,7 @@ export async function POST(req: NextRequest, ctx: RouteContext) {
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
     const status =
-      resolved.error === "forbidden" ? 403
-      : resolved.error === "not_found" ? 404
-      : 503;
+      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 

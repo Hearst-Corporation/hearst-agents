@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 export function StartRunButton() {
   const router = useRouter();
@@ -40,9 +40,7 @@ export function StartRunButton() {
       >
         {isPending ? "Run en cours…" : "Lancer un run"}
       </button>
-      {error ? (
-        <p className="t-11 text-(--danger) font-mono">Erreur : {error}</p>
-      ) : null}
+      {error ? <p className="t-11 text-(--danger) font-mono">Erreur : {error}</p> : null}
       {lastRun ? (
         <p className="t-11 text-text-muted font-mono">
           ✓ run <span className="text-text">{lastRun.run_id}</span> · {lastRun.decision}

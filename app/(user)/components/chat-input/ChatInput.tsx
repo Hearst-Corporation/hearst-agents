@@ -1,23 +1,23 @@
 "use client";
 
-import { Suspense, lazy } from "react";
-import { useRuntimeStore } from "@/stores/runtime";
+import { lazy, Suspense } from "react";
 import { useNavigationStore } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
 import { ContextChips } from "../chat/ContextChips";
 import { AttachedAssetChips } from "./AttachedAssetChips";
 import { ComposerActions } from "./ComposerActions";
-import { MentionTypeahead } from "./MentionTypeahead";
-import { PdfAttachmentRow } from "./PdfAttachmentRow";
-import { QuickMentionRow } from "./QuickMentionRow";
-import { StatusMessages } from "./StatusMessages";
 import { useAttachedAssets } from "./hooks/useAttachedAssets";
 import { useChatComposer } from "./hooks/useChatComposer";
 import { useDocumentParseModal } from "./hooks/useDocumentParseModal";
 import { useInlineGen } from "./hooks/useInlineGen";
 import { useMentionTypeahead } from "./hooks/useMentionTypeahead";
 import { usePdfUpload } from "./hooks/usePdfUpload";
-import { resolvePlaceholder } from "./utils/surfacePlaceholders";
+import { MentionTypeahead } from "./MentionTypeahead";
+import { PdfAttachmentRow } from "./PdfAttachmentRow";
+import { QuickMentionRow } from "./QuickMentionRow";
+import { StatusMessages } from "./StatusMessages";
 import type { ChatInputProps } from "./types";
+import { resolvePlaceholder } from "./utils/surfacePlaceholders";
 
 // Lazy-load : modal rendu uniquement à la première ouverture (gain bundle
 // initial du chat ~5-8 KB selon le contenu de DocumentParseModal).
@@ -47,13 +47,7 @@ export function ChatInput({
   const isRunning = useRuntimeStore((s) => s.coreState !== "idle");
   const surface = useNavigationStore((s) => s.surface);
 
-  const {
-    input,
-    setInput,
-    setInputFocused,
-    inputRef,
-    isExpanded,
-  } = useChatComposer();
+  const { input, setInput, setInputFocused, inputRef, isExpanded } = useChatComposer();
 
   const {
     typeaheadRef,
@@ -104,13 +98,8 @@ export function ChatInput({
     handleCodeExec,
   } = useInlineGen({ input, setInput });
 
-  const {
-    docParseOpen,
-    docParseMessage,
-    openModal,
-    closeModal,
-    handleSuccess,
-  } = useDocumentParseModal();
+  const { docParseOpen, docParseMessage, openModal, closeModal, handleSuccess } =
+    useDocumentParseModal();
 
   function handleSubmit() {
     if (!input.trim() || isRunning) return;
@@ -118,10 +107,7 @@ export function ChatInput({
       ? `Parsed document (${attachment.fileName}, ${attachment.pageCount} pages):\n\n${attachment.text}\n\n---\n\n${input.trim()}`
       : input.trim();
     const attachedAssetIds = attachedAssets.map((a) => a.assetId);
-    onSubmit(
-      finalMessage,
-      attachedAssetIds.length > 0 ? { attachedAssetIds } : undefined,
-    );
+    onSubmit(finalMessage, attachedAssetIds.length > 0 ? { attachedAssetIds } : undefined);
     setInput("");
     resetUpload();
     resetAttachedAssets();
@@ -130,7 +116,6 @@ export function ChatInput({
 
   return (
     <form
-      role="form"
       aria-label="Envoyer un message"
       onSubmit={(e) => {
         e.preventDefault();
@@ -144,9 +129,7 @@ export function ChatInput({
         boxShadow: "var(--shadow-panel-lift)",
       }}
     >
-      <div
-        className="mx-auto relative max-w-input shell-input-pill-new"
-      >
+      <div className="mx-auto relative max-w-input shell-input-pill-new">
         {showTypeahead && (
           <MentionTypeahead
             typeaheadRef={typeaheadRef}
@@ -168,17 +151,9 @@ export function ChatInput({
           onDrop={handleAssetDrop}
           data-drag-over={isDragOver}
         >
-          <AttachedAssetChips
-            attachedAssets={attachedAssets}
-            onRemove={removeAttachedAsset}
-          />
+          <AttachedAssetChips attachedAssets={attachedAssets} onRemove={removeAttachedAsset} />
 
-          {attachment && (
-            <PdfAttachmentRow
-              attachment={attachment}
-              onRemove={clearAttachment}
-            />
-          )}
+          {attachment && <PdfAttachmentRow attachment={attachment} onRemove={clearAttachment} />}
 
           <StatusMessages
             uploadError={uploadError}
@@ -244,19 +219,12 @@ export function ChatInput({
         </div>
 
         {/* Quick-mention apps — clic logo → @mention ; + vers /apps */}
-        <QuickMentionRow
-          connectedServices={connectedServices}
-          onMention={insertMentionFromIcon}
-        />
+        <QuickMentionRow connectedServices={connectedServices} onMention={insertMentionFromIcon} />
       </div>
 
       {docParseOpen && (
         <Suspense fallback={null}>
-          <DocumentParseModal
-            open={docParseOpen}
-            onClose={closeModal}
-            onSuccess={handleSuccess}
-          />
+          <DocumentParseModal open={docParseOpen} onClose={closeModal} onSuccess={handleSuccess} />
         </Suspense>
       )}
     </form>

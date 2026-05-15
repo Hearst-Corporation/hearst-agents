@@ -4,11 +4,10 @@
  * Working Document Store — open/close/updateContent, no-persist.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { useWorkingDocumentStore } from "@/stores/working-document";
 
-const reset = () =>
-  useWorkingDocumentStore.setState({ current: null, isOpen: false });
+const reset = () => useWorkingDocumentStore.setState({ current: null, isOpen: false });
 
 describe("Working Document Store", () => {
   beforeEach(() => {

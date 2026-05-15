@@ -8,7 +8,7 @@
  *   - AssistantActions stays gated by content.length > 0.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 interface RenderProbe {
   showShimmer: boolean;

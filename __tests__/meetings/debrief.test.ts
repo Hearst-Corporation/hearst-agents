@@ -5,10 +5,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import {
-  generateMeetingDebrief,
-  DEBRIEF_SYSTEM_PROMPT,
-} from "@/lib/meetings/debrief";
+import { DEBRIEF_SYSTEM_PROMPT, generateMeetingDebrief } from "@/lib/meetings/debrief";
 
 describe("DEBRIEF_SYSTEM_PROMPT", () => {
   it("contient les 4 sections canoniques", () => {

@@ -5,6 +5,6 @@
  * depuis ici pour garder l'API publique stable (props, isReportPayload).
  */
 
-export { ReportLayout } from "./ReportLayout";
 export type { ReportLayoutProps } from "./ReportLayout";
+export { ReportLayout } from "./ReportLayout";
 export { isReportPayload } from "./utils";

@@ -4,8 +4,8 @@
  * MobileBottomNav — render, interactions Stage store, voice activation.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MobileBottomNav } from "@/app/(user)/components/MobileBottomNav";
 import { useStageStore } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
@@ -82,11 +82,7 @@ describe("MobileBottomNav", () => {
   it("data-active=true sur le bouton du mode actif", () => {
     useStageStore.setState({ current: { mode: "voice" } });
     render(<MobileBottomNav />);
-    expect(
-      screen.getByTestId("mobile-nav-voice").getAttribute("data-active"),
-    ).toBe("true");
-    expect(
-      screen.getByTestId("mobile-nav-cockpit").getAttribute("data-active"),
-    ).toBe("false");
+    expect(screen.getByTestId("mobile-nav-voice").getAttribute("data-active")).toBe("true");
+    expect(screen.getByTestId("mobile-nav-cockpit").getAttribute("data-active")).toBe("false");
   });
 });

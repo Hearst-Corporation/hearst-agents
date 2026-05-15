@@ -7,11 +7,8 @@
  * `createFakePage` est consommable comme une vraie PlaywrightPage.
  */
 
-import { describe, it, expect } from "vitest";
-import {
-  createFakePage,
-  isPlaywrightAvailable,
-} from "@/lib/browser/playwright-bridge";
+import { describe, expect, it } from "vitest";
+import { createFakePage, isPlaywrightAvailable } from "@/lib/browser/playwright-bridge";
 
 describe("playwright-bridge", () => {
   it("createFakePage expose la surface attendue", async () => {

@@ -6,7 +6,7 @@
  * We extract the same logic here for testing without spinning up streamText.
  */
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 interface ToolResultEnvelope {
   ok?: boolean;
@@ -53,26 +53,22 @@ describe("AUTH_REQUIRED auto-recovery", () => {
   it("extracts the app slug from the first underscore segment (gmail)", () => {
     const emit = vi.fn();
     maybeEmitAuthRecovery("GMAIL_SEND_EMAIL", { ok: false, errorCode: "AUTH_REQUIRED" }, emit);
-    expect(emit).toHaveBeenCalledWith(
-      expect.objectContaining({ app: "gmail" }),
-    );
+    expect(emit).toHaveBeenCalledWith(expect.objectContaining({ app: "gmail" }));
   });
 
   it("extracts the app slug for hubspot", () => {
     const emit = vi.fn();
-    maybeEmitAuthRecovery("HUBSPOT_CREATE_CONTACT", { ok: false, errorCode: "AUTH_REQUIRED" }, emit);
-    expect(emit).toHaveBeenCalledWith(
-      expect.objectContaining({ app: "hubspot" }),
+    maybeEmitAuthRecovery(
+      "HUBSPOT_CREATE_CONTACT",
+      { ok: false, errorCode: "AUTH_REQUIRED" },
+      emit,
     );
+    expect(emit).toHaveBeenCalledWith(expect.objectContaining({ app: "hubspot" }));
   });
 
   it("does NOT emit on success envelope", () => {
     const emit = vi.fn();
-    const triggered = maybeEmitAuthRecovery(
-      "SLACK_SEND_MESSAGE",
-      { ok: true, data: {} },
-      emit,
-    );
+    const triggered = maybeEmitAuthRecovery("SLACK_SEND_MESSAGE", { ok: true, data: {} }, emit);
     expect(triggered).toBe(false);
     expect(emit).not.toHaveBeenCalled();
   });
@@ -89,11 +85,7 @@ describe("AUTH_REQUIRED auto-recovery", () => {
 
   it("does NOT emit when output is a plain string (e.g., request_connection)", () => {
     const emit = vi.fn();
-    const triggered = maybeEmitAuthRecovery(
-      "request_connection",
-      "Connection request sent",
-      emit,
-    );
+    const triggered = maybeEmitAuthRecovery("request_connection", "Connection request sent", emit);
     expect(triggered).toBe(false);
   });
 
@@ -111,13 +103,19 @@ describe("AUTH_REQUIRED auto-recovery", () => {
 
   it("does NOT emit when toolName is undefined", () => {
     const emit = vi.fn();
-    expect(maybeEmitAuthRecovery(undefined, { ok: false, errorCode: "AUTH_REQUIRED" }, emit)).toBe(false);
+    expect(maybeEmitAuthRecovery(undefined, { ok: false, errorCode: "AUTH_REQUIRED" }, emit)).toBe(
+      false,
+    );
     expect(emit).not.toHaveBeenCalled();
   });
 
   it("does NOT emit when toolName has no underscore (single token)", () => {
     const emit = vi.fn();
-    const triggered = maybeEmitAuthRecovery("solo", { ok: false, errorCode: "AUTH_REQUIRED" }, emit);
+    const triggered = maybeEmitAuthRecovery(
+      "solo",
+      { ok: false, errorCode: "AUTH_REQUIRED" },
+      emit,
+    );
     // split("_")[0] = "solo", non-empty → app = "solo", emit fires
     expect(triggered).toBe(true);
     expect(emit).toHaveBeenCalledWith(expect.objectContaining({ app: "solo" }));
@@ -126,7 +124,11 @@ describe("AUTH_REQUIRED auto-recovery", () => {
   it("does NOT emit when toolName starts with underscore", () => {
     const emit = vi.fn();
     // "_FOO".split("_") → ["", "FOO"] → first is "", falsy → no emit
-    const triggered = maybeEmitAuthRecovery("_FOO", { ok: false, errorCode: "AUTH_REQUIRED" }, emit);
+    const triggered = maybeEmitAuthRecovery(
+      "_FOO",
+      { ok: false, errorCode: "AUTH_REQUIRED" },
+      emit,
+    );
     expect(triggered).toBe(false);
   });
 

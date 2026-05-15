@@ -1,7 +1,7 @@
 "use client";
 
 import { AppLogo } from "../AppLogo";
-import { categoryLabel, type ComposioApp } from "../types";
+import { type ComposioApp, categoryLabel } from "../types";
 
 // ─── Search globale (résultats) ────────────────────────────────
 
@@ -19,9 +19,7 @@ export function SearchResultsSection({
   if (results.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center gap-3 px-8">
-        <p className="t-15 font-medium text-text-muted">
-          Aucun résultat
-        </p>
+        <p className="t-15 font-medium text-text-muted">Aucun résultat</p>
       </div>
     );
   }

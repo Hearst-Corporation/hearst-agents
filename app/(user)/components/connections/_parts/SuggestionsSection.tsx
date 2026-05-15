@@ -15,12 +15,7 @@ export function SuggestionsGrid({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-8 pb-6">
       {suggestions.map((s) => (
-        <SuggestionCard
-          key={s.app.key}
-          app={s.app}
-          hint={s.hint}
-          onClick={() => onSelect(s.app)}
-        />
+        <SuggestionCard key={s.app.key} app={s.app} hint={s.hint} onClick={() => onSelect(s.app)} />
       ))}
     </div>
   );

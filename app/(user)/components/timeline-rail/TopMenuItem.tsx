@@ -6,8 +6,8 @@
  * le chrome (uniquement sur les états actifs intentionnels — voix éditoriale).
  */
 
-import { useState } from "react";
 import type { ReactNode } from "react";
+import { useState } from "react";
 
 export type BadgeSeverity = "warn" | "error" | null;
 
@@ -33,11 +33,7 @@ export function TopMenuItem({
   const [hover, setHover] = useState(false);
   const highlight = isActive || hover;
   const badgeColor =
-    badge === "error"
-      ? "var(--color-error)"
-      : badge === "warn"
-        ? "var(--warn)"
-        : null;
+    badge === "error" ? "var(--color-error)" : badge === "warn" ? "var(--warn)" : null;
   return (
     <button
       type="button"

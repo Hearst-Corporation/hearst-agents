@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it } from "vitest";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
 import { diffVersions } from "@/lib/reports/versions/diff";
-import type { RenderPayload, RenderedBlock } from "@/lib/reports/engine/render-blocks";
 
 // ── Helpers ───────────────────────────────────────────────────
 

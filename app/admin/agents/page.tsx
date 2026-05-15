@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 import AgentCard from "../_components/AgentCard";
 import EmptyState from "../_components/EmptyState";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -48,9 +48,7 @@ export default async function AgentsPage() {
       </div>
 
       {error && (
-        <div className="mb-(--space-6) admin-callout-danger t-13 text-(--danger)">
-          {error}
-        </div>
+        <div className="mb-(--space-6) admin-callout-danger t-13 text-(--danger)">{error}</div>
       )}
 
       {agents.length === 0 && !error ? (

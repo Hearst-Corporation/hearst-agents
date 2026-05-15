@@ -2,8 +2,8 @@
  * Daily Brief API routes — auth + idempotence + happy path.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
 import { NextRequest } from "next/server";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   requireScope: vi.fn(),
@@ -81,9 +81,7 @@ describe("POST /api/v2/daily-brief/generate", () => {
       pdfUrl: "https://example.com/pdf",
     });
     const { POST } = await import("@/app/api/v2/daily-brief/generate/route");
-    const res = await POST(
-      makeReq("http://localhost/x", { targetDate: "2026-05-01" }),
-    );
+    const res = await POST(makeReq("http://localhost/x", { targetDate: "2026-05-01" }));
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.status).toBe("exists");
@@ -107,9 +105,7 @@ describe("POST /api/v2/daily-brief/generate", () => {
 
   it("ignore targetDate invalide et utilise aujourd'hui", async () => {
     const { POST } = await import("@/app/api/v2/daily-brief/generate/route");
-    await POST(
-      makeReq("http://localhost/x", { targetDate: "not-a-date" }),
-    );
+    await POST(makeReq("http://localhost/x", { targetDate: "not-a-date" }));
     const today = new Date().toISOString().slice(0, 10);
     expect(mocks.loadDailyBriefForDate).toHaveBeenCalledWith(
       expect.objectContaining({ targetDate: today }),

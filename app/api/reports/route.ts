@@ -7,15 +7,15 @@
  * Auth : session NextAuth requise via requireScope.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { listConnections } from "@/lib/connectors/composio/connections";
 import { requireScope } from "@/lib/platform/auth/scope";
 import {
+  type ApplicableReport,
   CATALOG,
   getApplicableReportsWithTemplates,
-  type ApplicableReport,
 } from "@/lib/reports/catalog";
 import { listTemplates } from "@/lib/reports/templates/store";
-import { listConnections } from "@/lib/connectors/composio/connections";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -57,9 +57,7 @@ export async function GET(_req: NextRequest) {
 
   // Charger les apps connectées depuis Composio (liste active seulement)
   const connections = await listConnections(scope.userId, { includeInactive: false });
-  const connectedApps = connections
-    .filter((c) => c.status === "ACTIVE")
-    .map((c) => c.appName);
+  const connectedApps = connections.filter((c) => c.status === "ACTIVE").map((c) => c.appName);
 
   // Charger les templates personnalisés du tenant
   const templates = await listTemplates({ tenantId: scope.tenantId });

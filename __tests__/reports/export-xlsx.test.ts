@@ -2,10 +2,10 @@
  * Tests export XLSX — structure des feuilles, types blocs, meta sheet.
  */
 
-import { describe, it, expect } from "vitest";
 import ExcelJS from "exceljs";
-import { exportXlsx } from "@/lib/reports/export/xlsx";
+import { describe, expect, it } from "vitest";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { exportXlsx } from "@/lib/reports/export/xlsx";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
 
 const META: ReportMeta = {
@@ -58,10 +58,7 @@ function buildPayload(): RenderPayload {
 async function readWorkbook(buffer: Buffer): Promise<ExcelJS.Workbook> {
   const wb = new ExcelJS.Workbook();
   // exceljs.xlsx.load attend ExcelJS.Buffer (≈ Buffer Node), on passe ArrayBuffer pour matcher.
-  const ab = buffer.buffer.slice(
-    buffer.byteOffset,
-    buffer.byteOffset + buffer.byteLength,
-  );
+  const ab = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
   await wb.xlsx.load(ab as ArrayBuffer);
   return wb;
 }

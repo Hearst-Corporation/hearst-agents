@@ -19,8 +19,8 @@
  */
 
 import { useCallback, useEffect, useRef } from "react";
+import { type StagePayload, useStageStore } from "@/stores/stage";
 import { useVoiceStore } from "@/stores/voice";
-import { useStageStore, type StagePayload } from "@/stores/stage";
 
 const REALTIME_MODEL = "gpt-4o-realtime-preview";
 const REALTIME_SDP_URL = `https://api.openai.com/v1/realtime?model=${REALTIME_MODEL}`;
@@ -196,7 +196,6 @@ export function VoicePulse() {
         setPhase("listening");
         useStageStore.getState().setMode(stageRequest);
       }
-
     },
     [setPhase, appendTranscript, patchTranscriptEntry],
   );
@@ -216,7 +215,10 @@ export function VoicePulse() {
         credentials: "include",
       });
       if (!sessionRes.ok) {
-        const errBody = (await sessionRes.json().catch(() => ({}))) as { message?: string; error?: string };
+        const errBody = (await sessionRes.json().catch(() => ({}))) as {
+          message?: string;
+          error?: string;
+        };
         throw new Error(errBody.message || errBody.error || "Échec création session");
       }
       const { sessionId, ephemeralKey } = (await sessionRes.json()) as {

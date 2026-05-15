@@ -1,19 +1,19 @@
 "use client";
 
-import { useRef, useCallback, useMemo, useEffect } from "react";
-import { useFocalStore } from "@/stores/focal";
-import { useRuntimeStore } from "@/stores/runtime";
-import { useNavigationStore } from "@/stores/navigation";
-import { useServicesStore } from "@/stores/services";
-import { useStageStore, type StagePayload } from "@/stores/stage";
-import { useVoiceStore } from "@/stores/voice";
-import type { Message, RightPanelData } from "@/lib/core/types";
-import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
-import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-import { mapFocalObject, mapFocalObjects } from "@/lib/core/types/focal";
-import { Stage } from "./components/Stage";
-import { toast } from "@/app/hooks/use-toast";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { invalidateOAuthExpiryCache } from "@/app/hooks/use-oauth-expiry";
+import { toast } from "@/app/hooks/use-toast";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import type { Message, RightPanelData } from "@/lib/core/types";
+import { mapFocalObject, mapFocalObjects } from "@/lib/core/types/focal";
+import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
+import { useFocalStore } from "@/stores/focal";
+import { useNavigationStore } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useServicesStore } from "@/stores/services";
+import { type StagePayload, useStageStore } from "@/stores/stage";
+import { useVoiceStore } from "@/stores/voice";
+import { Stage } from "./components/Stage";
 
 export interface HomePageClientProps {
   /**
@@ -25,7 +25,10 @@ export interface HomePageClientProps {
   initialCockpitData: CockpitTodayPayload | null;
 }
 
-function trackAnalytics(type: "first_message_sent" | "run_completed" | "run_failed", properties?: Record<string, unknown>) {
+function trackAnalytics(
+  type: "first_message_sent" | "run_completed" | "run_failed",
+  properties?: Record<string, unknown>,
+) {
   // Anti-pattern banni : pas d'userId envoyé au backend depuis le frontend.
   // /api/analytics résout l'utilisateur via requireScope() côté serveur.
   fetch("/api/analytics", {
@@ -88,7 +91,7 @@ export default function HomePageClient({ initialCockpitData }: HomePageClientPro
     window.history.replaceState({}, "", url.toString());
     // Run only once au load.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setVoiceActive, setStageMode]);
 
   useEffect(() => {
     // Thread switch : on drop le focal pinned du thread précédent AVANT
@@ -106,7 +109,9 @@ export default function HomePageClient({ initialCockpitData }: HomePageClientPro
     let cancelled = false;
     const fetchThreadState = async () => {
       try {
-        const res = await fetch(`/api/v2/right-panel?thread_id=${encodeURIComponent(activeThreadId)}`);
+        const res = await fetch(
+          `/api/v2/right-panel?thread_id=${encodeURIComponent(activeThreadId)}`,
+        );
         if (cancelled) return;
         if (!res.ok) {
           hydrateThreadState(null, []);
@@ -141,12 +146,18 @@ export default function HomePageClient({ initialCockpitData }: HomePageClientPro
   const setStoreServices = useServicesStore((s) => s.setServices);
   const setStoreLoaded = useServicesStore((s) => s.setLoaded);
 
-  const setServices = useCallback((next: ServiceWithConnectionStatus[]) => {
-    setStoreServices(next);
-  }, [setStoreServices]);
-  const setConnectionsLoaded = useCallback((next: boolean) => {
-    setStoreLoaded(next);
-  }, [setStoreLoaded]);
+  const setServices = useCallback(
+    (next: ServiceWithConnectionStatus[]) => {
+      setStoreServices(next);
+    },
+    [setStoreServices],
+  );
+  const setConnectionsLoaded = useCallback(
+    (next: boolean) => {
+      setStoreLoaded(next);
+    },
+    [setStoreLoaded],
+  );
 
   useEffect(() => {
     async function loadConnections() {
@@ -191,130 +202,158 @@ export default function HomePageClient({ initialCockpitData }: HomePageClientPro
   const assistantBufferRef = useRef<string>("");
   const currentAssistantIdRef = useRef<string | null>(null);
 
-  const handleSubmit = useCallback(async (message: string) => {
-    const threadId = activeThreadId ?? addThread("New", surface);
-    const clientToken = `client-${Date.now()}`;
-    const userMessage: Message = {
-      id: `user-${Date.now()}`,
-      role: "user",
-      content: message,
-    };
-    addMessageToThread(threadId, userMessage);
+  const handleSubmit = useCallback(
+    async (message: string) => {
+      const threadId = activeThreadId ?? addThread("New", surface);
+      const clientToken = `client-${Date.now()}`;
+      const userMessage: Message = {
+        id: `user-${Date.now()}`,
+        role: "user",
+        content: message,
+      };
+      addMessageToThread(threadId, userMessage);
 
-    // Premier message d'un thread → switch automatique vers le Stage chat.
-    // Les Stages spécialisés (asset/browser/meeting/kg/voice) sont déclenchés
-    // par les tools côté backend qui SSE-broadcast un "stage_request" event.
-    if (stageMode === "cockpit") {
-      setStageMode({ mode: "chat", threadId });
-    }
-
-    if (messages.length === 0) {
-      trackAnalytics("first_message_sent", { threadId });
-      const raw = message.slice(0, 50);
-      const name = message.length > 40
-        ? (raw.lastIndexOf(" ") > 15 ? raw.slice(0, raw.lastIndexOf(" ")) : raw.slice(0, 40))
-        : message;
-      updateThreadName(threadId, name);
-    }
-
-    assistantBufferRef.current = "";
-    currentAssistantIdRef.current = `assistant-${Date.now()}`;
-
-    const assistantMessage: Message = {
-      id: currentAssistantIdRef.current,
-      role: "assistant",
-      content: "",
-    };
-    addMessageToThread(threadId, assistantMessage);
-
-    const recentMessages = messages
-      .filter((m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0)
-      .slice(-10)
-      .map((m) => ({ role: m.role, content: m.content }));
-
-    startRun(clientToken);
-
-    const controller = new AbortController();
-    setAbortController(controller);
-
-    try {
-      const res = await fetch("/api/orchestrate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message,
-          surface,
-          thread_id: threadId,
-          conversation_id: threadId,
-          history: recentMessages,
-          capability_mode: "general",
-        }),
-        signal: controller.signal,
-      });
-      if (!res.ok) {
-        const errorMsg = `Erreur serveur: ${res.status}`;
-        toast.error("Échec de l'envoi", errorMsg);
-        addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken, client_token: clientToken });
-        return;
+      // Premier message d'un thread → switch automatique vers le Stage chat.
+      // Les Stages spécialisés (asset/browser/meeting/kg/voice) sont déclenchés
+      // par les tools côté backend qui SSE-broadcast un "stage_request" event.
+      if (stageMode === "cockpit") {
+        setStageMode({ mode: "chat", threadId });
       }
-      const reader = res.body?.getReader();
-      if (!reader) return;
-      const decoder = new TextDecoder();
-      let buffer = "";
-      let canonicalRunId: string | null = null;
 
-      while (true) {
-        if (controller.signal.aborted) break;
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() ?? "";
-        for (const line of lines) {
-          if (!line.startsWith("data: ")) continue;
-          try {
-            const event = JSON.parse(line.slice(6));
-            if (event.type === "run_started" && event.run_id) {
-              canonicalRunId = event.run_id as string;
-            }
-            if (event.type === "text_delta" && event.delta) {
-              assistantBufferRef.current += event.delta;
-              updateMessageInThread(threadId, currentAssistantIdRef.current!, assistantBufferRef.current);
-            }
-            // Stage routing — un tool a demandé à téléporter l'utilisateur.
-            // Le payload `stage` matche la shape StagePayload du store.
-            if (event.type === "stage_request" && event.stage) {
-              setStageMode(event.stage as StagePayload);
-            }
-            const eventRunId = (event.run_id as string) || canonicalRunId || clientToken;
-            addEvent({ ...event, run_id: eventRunId });
-          } catch (_parseErr) {}
+      if (messages.length === 0) {
+        trackAnalytics("first_message_sent", { threadId });
+        const raw = message.slice(0, 50);
+        const name =
+          message.length > 40
+            ? raw.lastIndexOf(" ") > 15
+              ? raw.slice(0, raw.lastIndexOf(" "))
+              : raw.slice(0, 40)
+            : message;
+        updateThreadName(threadId, name);
+      }
+
+      assistantBufferRef.current = "";
+      currentAssistantIdRef.current = `assistant-${Date.now()}`;
+
+      const assistantMessage: Message = {
+        id: currentAssistantIdRef.current,
+        role: "assistant",
+        content: "",
+      };
+      addMessageToThread(threadId, assistantMessage);
+
+      const recentMessages = messages
+        .filter((m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0)
+        .slice(-10)
+        .map((m) => ({ role: m.role, content: m.content }));
+
+      startRun(clientToken);
+
+      const controller = new AbortController();
+      setAbortController(controller);
+
+      try {
+        const res = await fetch("/api/orchestrate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message,
+            surface,
+            thread_id: threadId,
+            conversation_id: threadId,
+            history: recentMessages,
+            capability_mode: "general",
+          }),
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          const errorMsg = `Erreur serveur: ${res.status}`;
+          toast.error("Échec de l'envoi", errorMsg);
+          addEvent({
+            type: "run_failed",
+            error: errorMsg,
+            run_id: clientToken,
+            client_token: clientToken,
+          });
+          return;
         }
+        const reader = res.body?.getReader();
+        if (!reader) return;
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let canonicalRunId: string | null = null;
+
+        while (true) {
+          if (controller.signal.aborted) break;
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            try {
+              const event = JSON.parse(line.slice(6));
+              if (event.type === "run_started" && event.run_id) {
+                canonicalRunId = event.run_id as string;
+              }
+              if (event.type === "text_delta" && event.delta) {
+                assistantBufferRef.current += event.delta;
+                updateMessageInThread(
+                  threadId,
+                  currentAssistantIdRef.current!,
+                  assistantBufferRef.current,
+                );
+              }
+              // Stage routing — un tool a demandé à téléporter l'utilisateur.
+              // Le payload `stage` matche la shape StagePayload du store.
+              if (event.type === "stage_request" && event.stage) {
+                setStageMode(event.stage as StagePayload);
+              }
+              const eventRunId = (event.run_id as string) || canonicalRunId || clientToken;
+              addEvent({ ...event, run_id: eventRunId });
+            } catch (_parseErr) {}
+          }
+        }
+
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        trackAnalytics("run_completed", {
+          runId: canonicalRunId || clientToken,
+          messageCount: messages.length,
+        });
+      } catch (err) {
+        const isAbort =
+          controller.signal.aborted ||
+          (err instanceof DOMException && err.name === "AbortError") ||
+          (err instanceof Error && err.name === "AbortError");
+        if (isAbort) return;
+
+        const errorMsg = err instanceof Error ? err.message : "Échec de la connexion";
+        toast.error("Erreur de connexion", errorMsg);
+        addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
+        trackAnalytics("run_failed", { runId: clientToken, error: errorMsg });
+      } finally {
+        setAbortController(null);
       }
-
-      if (controller.signal.aborted) {
-        return;
-      }
-
-      trackAnalytics("run_completed", {
-        runId: canonicalRunId || clientToken,
-        messageCount: messages.length,
-      });
-    } catch (err) {
-      const isAbort =
-        controller.signal.aborted ||
-        (err instanceof DOMException && err.name === "AbortError") ||
-        (err instanceof Error && err.name === "AbortError");
-      if (isAbort) return;
-
-      const errorMsg = err instanceof Error ? err.message : "Échec de la connexion";
-      toast.error("Erreur de connexion", errorMsg);
-      addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
-      trackAnalytics("run_failed", { runId: clientToken, error: errorMsg });
-    } finally {
-      setAbortController(null);
-    }
-  }, [surface, activeThreadId, addThread, messages, addEvent, startRun, setAbortController, addMessageToThread, updateMessageInThread, updateThreadName, stageMode, setStageMode]);
+    },
+    [
+      surface,
+      activeThreadId,
+      addThread,
+      messages,
+      addEvent,
+      startRun,
+      setAbortController,
+      addMessageToThread,
+      updateMessageInThread,
+      updateThreadName,
+      stageMode,
+      setStageMode,
+    ],
+  );
 
   // Esc ferme le focal stage. Ignore les inputs/textarea/contenteditable.
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
 import { aj } from "@/lib/security/arcjet";
 

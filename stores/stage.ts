@@ -112,10 +112,8 @@ export const useStageStore = create<StageState>((set, get) => ({
 
   setMode: (payload) => {
     const prev = get().current;
-    const nextLastAssetId =
-      payload.mode === "asset" ? payload.assetId : get().lastAssetId;
-    const nextLastMissionId =
-      payload.mode === "mission" ? payload.missionId : get().lastMissionId;
+    const nextLastAssetId = payload.mode === "asset" ? payload.assetId : get().lastAssetId;
+    const nextLastMissionId = payload.mode === "mission" ? payload.missionId : get().lastMissionId;
     set({
       current: payload,
       history: [...get().history, { payload: prev, ts: Date.now() }].slice(-20),
@@ -131,10 +129,8 @@ export const useStageStore = create<StageState>((set, get) => ({
       return;
     }
     const prev = get().current;
-    const nextLastAssetId =
-      payload.mode === "asset" ? payload.assetId : get().lastAssetId;
-    const nextLastMissionId =
-      payload.mode === "mission" ? payload.missionId : get().lastMissionId;
+    const nextLastAssetId = payload.mode === "asset" ? payload.assetId : get().lastAssetId;
+    const nextLastMissionId = payload.mode === "mission" ? payload.missionId : get().lastMissionId;
     set({
       current: payload,
       history: [...get().history, { payload: prev, ts: Date.now() }].slice(-20),
@@ -172,8 +168,8 @@ export const useStageStore = create<StageState>((set, get) => ({
 // strictement encapsulé. Le check `process.env.NODE_ENV` est inliné par
 // Webpack au build, donc 0 byte ajouté côté production.
 if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
-  (window as unknown as { __hearstStageStore?: typeof useStageStore })
-    .__hearstStageStore = useStageStore;
+  (window as unknown as { __hearstStageStore?: typeof useStageStore }).__hearstStageStore =
+    useStageStore;
 }
 
 /**

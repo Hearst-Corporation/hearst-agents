@@ -8,15 +8,16 @@
  * `X-Search-Mode`.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { requireScope, getServerSupabase, searchEmbeddings, isEmbeddingsAvailable } =
-  vi.hoisted(() => ({
+const { requireScope, getServerSupabase, searchEmbeddings, isEmbeddingsAvailable } = vi.hoisted(
+  () => ({
     requireScope: vi.fn(),
     getServerSupabase: vi.fn(),
     searchEmbeddings: vi.fn(),
     isEmbeddingsAvailable: vi.fn(),
-  }));
+  }),
+);
 
 vi.mock("@/lib/platform/auth/scope", () => ({ requireScope }));
 vi.mock("@/lib/platform/db/supabase", () => ({ getServerSupabase }));
@@ -37,10 +38,7 @@ interface TableResult {
   error: { message: string } | null;
 }
 
-function makeDb(
-  tables: Record<string, TableResult>,
-  inTables?: Record<string, TableResult>,
-) {
+function makeDb(tables: Record<string, TableResult>, inTables?: Record<string, TableResult>) {
   return {
     from: (tableName: string) => {
       const result = tables[tableName] ?? { data: [], error: null };
@@ -58,8 +56,7 @@ function makeDb(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onFulfilled: (v: TableResult) => any,
         onRejected?: (e: unknown) => unknown,
-      ) =>
-        Promise.resolve(result).then(onFulfilled, onRejected);
+      ) => Promise.resolve(result).then(onFulfilled, onRejected);
       return builder;
     },
   };

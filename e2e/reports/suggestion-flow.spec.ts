@@ -1,9 +1,12 @@
-import { test, expect } from "@playwright/test";
-import type { Page, APIRequestContext } from "@playwright/test";
+import type { APIRequestContext, Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 /** Skip le test si le serveur dev n'est pas démarré. */
 async function requireServer(request: APIRequestContext) {
-  const ok = await request.get("/api/health").then((r) => r.ok()).catch(() => false);
+  const ok = await request
+    .get("/api/health")
+    .then((r) => r.ok())
+    .catch(() => false);
   if (!ok) test.skip();
 }
 
@@ -70,7 +73,9 @@ async function mountMocks(page: Page) {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        threads: [{ id: THREAD_ID, title: "Test thread", createdAt: Date.now(), updatedAt: Date.now() }],
+        threads: [
+          { id: THREAD_ID, title: "Test thread", createdAt: Date.now(), updatedAt: Date.now() },
+        ],
       }),
     }),
   );

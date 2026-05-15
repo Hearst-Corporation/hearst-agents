@@ -9,33 +9,33 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getServerSupabase } from "@/lib/platform/db/supabase";
 import type { Database } from "@/lib/database.types";
-import type { ReportSpec } from "@/lib/reports/spec/schema";
-import type { WorkflowGraph } from "@/lib/workflows/types";
-import { saveTemplate as saveReportTemplate } from "@/lib/reports/templates/store";
-import { createPersona } from "@/lib/personas/store";
 import { createScheduledMission } from "@/lib/engine/runtime/missions/create-mission";
 import { addMission } from "@/lib/engine/runtime/missions/store";
 import { saveScheduledMission } from "@/lib/engine/runtime/state/adapter";
-import {
-  validatePayload,
-  tagsSchema,
-  MARKETPLACE_KINDS,
-  type MarketplaceKind,
-  type MarketplaceTemplate,
-  type MarketplaceTemplateSummary,
-  type MarketplaceRating,
-  type PublishTemplateInput,
-  type ListTemplatesInput,
-  type CloneResult,
-  type PersonaPayload,
-} from "./types";
+import { createPersona } from "@/lib/personas/store";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
+import type { ReportSpec } from "@/lib/reports/spec/schema";
+import { saveTemplate as saveReportTemplate } from "@/lib/reports/templates/store";
+import type { WorkflowGraph } from "@/lib/workflows/types";
 import {
   CREATIVE_PACKS_BUILTINS,
-  isBuiltinCreativePackId,
   getBuiltinCreativePack,
+  isBuiltinCreativePackId,
 } from "./creative-packs";
+import {
+  type CloneResult,
+  type ListTemplatesInput,
+  MARKETPLACE_KINDS,
+  type MarketplaceKind,
+  type MarketplaceRating,
+  type MarketplaceTemplate,
+  type MarketplaceTemplateSummary,
+  type PersonaPayload,
+  type PublishTemplateInput,
+  tagsSchema,
+  validatePayload,
+} from "./types";
 
 // ── Row Supabase (snake_case, untyped — table absente de Database). ─
 
@@ -220,9 +220,7 @@ export async function listTemplates(
   }
   if (input.q && input.q.trim().length > 0) {
     const term = input.q.trim().replace(/[%_]/g, "");
-    query = query.or(
-      `title.ilike.%${term}%,description.ilike.%${term}%`,
-    );
+    query = query.or(`title.ilike.%${term}%,description.ilike.%${term}%`);
   }
 
   const { data, error } = await query;
@@ -392,15 +390,9 @@ export async function cloneTemplate(
   return { ok: true, resourceId };
 }
 
-async function incrementCloneCount(
-  id: string,
-  client: SupabaseClient,
-): Promise<void> {
+async function incrementCloneCount(id: string, client: SupabaseClient): Promise<void> {
   // Lecture + écriture (pas de RPC dispo). Race possible mais MVP.
-  const { data } = await table(client)
-    .select("clone_count")
-    .eq("id", id)
-    .maybeSingle();
+  const { data } = await table(client).select("clone_count").eq("id", id).maybeSingle();
   const current = data ? Number((data as { clone_count: number }).clone_count) || 0 : 0;
   await table(client)
     .update({ clone_count: current + 1, updated_at: new Date().toISOString() })
@@ -453,19 +445,13 @@ export async function rateTemplate(
   return true;
 }
 
-async function recalcRatingFallback(
-  templateId: string,
-  client: SupabaseClient,
-): Promise<void> {
-  const { data, error } = await ratingsTable(client)
-    .select("rating")
-    .eq("template_id", templateId);
+async function recalcRatingFallback(templateId: string, client: SupabaseClient): Promise<void> {
+  const { data, error } = await ratingsTable(client).select("rating").eq("template_id", templateId);
   if (error || !data) return;
   const rows = data as Array<{ rating: number }>;
   const count = rows.length;
-  const avg = count === 0
-    ? 0
-    : Math.round((rows.reduce((s, r) => s + r.rating, 0) / count) * 100) / 100;
+  const avg =
+    count === 0 ? 0 : Math.round((rows.reduce((s, r) => s + r.rating, 0) / count) * 100) / 100;
   await table(client)
     .update({
       rating_avg: avg,
@@ -494,19 +480,21 @@ export async function listRatings(
     console.error("[marketplace/store] list ratings error:", error.message);
     return [];
   }
-  return (data ?? []).map((r: {
-    template_id: string;
-    user_id: string;
-    rating: number;
-    comment: string | null;
-    created_at: string;
-  }) => ({
-    templateId: r.template_id,
-    userId: r.user_id,
-    rating: r.rating,
-    comment: r.comment ?? null,
-    createdAt: r.created_at,
-  }));
+  return (data ?? []).map(
+    (r: {
+      template_id: string;
+      user_id: string;
+      rating: number;
+      comment: string | null;
+      created_at: string;
+    }) => ({
+      templateId: r.template_id,
+      userId: r.user_id,
+      rating: r.rating,
+      comment: r.comment ?? null,
+      createdAt: r.created_at,
+    }),
+  );
 }
 
 // ── reportTemplate (signalement abuse) ──────────────────────

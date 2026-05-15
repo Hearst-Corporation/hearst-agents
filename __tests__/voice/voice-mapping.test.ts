@@ -3,13 +3,13 @@
  * Realtime, fallback alloy, et helper getVoiceForPersona.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  resolveRealtimeVoice,
+  DEFAULT_REALTIME_VOICE,
   getVoiceForPersona,
   listVoiceMapping,
+  resolveRealtimeVoice,
   SUPPORTED_REALTIME_VOICES,
-  DEFAULT_REALTIME_VOICE,
 } from "@/lib/voice/voice-mapping";
 
 describe("resolveRealtimeVoice", () => {
@@ -62,9 +62,7 @@ describe("getVoiceForPersona", () => {
   });
 
   it("personaId inconnu → alloy fallback", () => {
-    expect(getVoiceForPersona("unknown", { foo: "casual" })).toBe(
-      DEFAULT_REALTIME_VOICE,
-    );
+    expect(getVoiceForPersona("unknown", { foo: "casual" })).toBe(DEFAULT_REALTIME_VOICE);
   });
 
   it("undefined personaId → alloy", () => {

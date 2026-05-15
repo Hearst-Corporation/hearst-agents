@@ -13,20 +13,19 @@
  * au caller, 403 explicite si on a une trace de mismatch user.
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { getMission } from "@/lib/engine/runtime/missions/store";
 import { getScheduledMissions } from "@/lib/engine/runtime/state/adapter";
-import {
-  appendMissionMessage,
-  listMissionMessages,
-} from "@/lib/memory/mission-context";
+import { appendMissionMessage, listMissionMessages } from "@/lib/memory/mission-context";
+import { requireScope } from "@/lib/platform/auth/scope";
 
-const missionMessageBodySchema = z.object({
-  content: z.string().min(1).max(10_000),
-  role: z.enum(["user", "system"]).optional().default("user"),
-}).strict();
+const missionMessageBodySchema = z
+  .object({
+    content: z.string().min(1).max(10_000),
+    role: z.enum(["user", "system"]).optional().default("user"),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 
@@ -45,10 +44,7 @@ async function ensureOwnership(
   return { ok: true };
 }
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({
     context: "GET /api/v2/missions/[id]/messages",
   });
@@ -77,10 +73,7 @@ export async function GET(
   return NextResponse.json({ messages });
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { scope, error } = await requireScope({
     context: "POST /api/v2/missions/[id]/messages",
   });

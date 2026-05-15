@@ -13,9 +13,9 @@
  * It provides the mission lifecycle management layer above it.
  */
 
-import type { MissionDefinition } from "./types";
-import { saveMission, getMission, getActiveMissions, getDueMissions } from "./store";
 import { logPlanEvent } from "./debug";
+import { getActiveMissions, getDueMissions, getMission, saveMission } from "./store";
+import type { MissionDefinition } from "./types";
 
 // ── Lifecycle transitions ───────────────────────────────────
 
@@ -56,9 +56,9 @@ export { getActiveMissions, getDueMissions };
 
 const SCHEDULE_INTERVALS: Record<string, number> = {
   "every minute": 60 * 1000,
-  "hourly": 60 * 60 * 1000,
-  "daily": 24 * 60 * 60 * 1000,
-  "weekly": 7 * 24 * 60 * 60 * 1000,
+  hourly: 60 * 60 * 1000,
+  daily: 24 * 60 * 60 * 1000,
+  weekly: 7 * 24 * 60 * 60 * 1000,
   "chaque heure": 60 * 60 * 1000,
   "tous les jours": 24 * 60 * 60 * 1000,
   "chaque jour": 24 * 60 * 60 * 1000,

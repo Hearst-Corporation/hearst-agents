@@ -2,14 +2,17 @@
  * GET /api/admin/audit — list audit logs (RBAC: admin)
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, isError } from "../_helpers";
-import { getAuditLogs, type AuditQueryFilters } from "@/lib/admin/audit";
+import { type NextRequest, NextResponse } from "next/server";
+import { type AuditQueryFilters, getAuditLogs } from "@/lib/admin/audit";
+import { isError, requireAdmin } from "../_helpers";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const guard = await requireAdmin("GET /api/admin/audit", { resource: "settings", action: "admin" });
+  const guard = await requireAdmin("GET /api/admin/audit", {
+    resource: "settings",
+    action: "admin",
+  });
   if (isError(guard)) return guard;
 
   const { db } = guard;

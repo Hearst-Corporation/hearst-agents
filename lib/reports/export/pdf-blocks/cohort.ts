@@ -11,8 +11,8 @@
  *   └──────┴──────┴──────┴──────┘
  */
 
-import { COLORS, FONT_SIZES, SPACE, RULES, PAGE } from "../pdf-tokens";
 import { setFont } from "../pdf-fonts";
+import { COLORS, FONT_SIZES, PAGE, RULES, SPACE } from "../pdf-tokens";
 
 export interface CohortInput {
   cohorts: Array<{ label: string; values: number[] }>;
@@ -36,9 +36,7 @@ export function renderCohort(doc: PDFKit.PDFDocument, input: CohortInput): void 
 
   // Header row
   setFont(doc, "sansSemiBold", input.embedded);
-  doc
-    .fontSize(FONT_SIZES.eyebrow)
-    .fillColor(COLORS.muted);
+  doc.fontSize(FONT_SIZES.eyebrow).fillColor(COLORS.muted);
 
   const headerY = doc.y;
   doc.text("COHORTE", x, headerY + 6, {
@@ -75,13 +73,11 @@ export function renderCohort(doc: PDFKit.PDFDocument, input: CohortInput): void 
     const rowY = doc.y;
 
     // Label
-    doc
-      .fillColor(COLORS.ink)
-      .text(c.label, x, rowY + 6, {
-        width: labelW - SPACE.s1,
-        lineBreak: false,
-        ellipsis: true,
-      });
+    doc.fillColor(COLORS.ink).text(c.label, x, rowY + 6, {
+      width: labelW - SPACE.s1,
+      lineBreak: false,
+      ellipsis: true,
+    });
 
     // Cells
     for (let i = 0; i < maxCols; i++) {
@@ -95,17 +91,18 @@ export function renderCohort(doc: PDFKit.PDFDocument, input: CohortInput): void 
       const opacity = 0.08 + intensity * 0.32;
       // Fond
       doc.save();
-      doc.fillOpacity(opacity).rect(cellX + 1, rowY + 1, cellW - 2, cellH - 2).fill(COLORS.accent);
+      doc
+        .fillOpacity(opacity)
+        .rect(cellX + 1, rowY + 1, cellW - 2, cellH - 2)
+        .fill(COLORS.accent);
       doc.restore();
 
       const text = input.asPercent ? `${(v * 100).toFixed(1)}%` : String(v);
-      doc
-        .fillColor(COLORS.ink)
-        .text(text, cellX, rowY + 6, {
-          width: cellW,
-          align: "center",
-          lineBreak: false,
-        });
+      doc.fillColor(COLORS.ink).text(text, cellX, rowY + 6, {
+        width: cellW,
+        align: "center",
+        lineBreak: false,
+      });
     }
     doc.y = rowY + cellH;
   }

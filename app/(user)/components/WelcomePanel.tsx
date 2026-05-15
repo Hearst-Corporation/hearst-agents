@@ -41,9 +41,7 @@ export function WelcomePanel() {
 
       <div
         style={{
-          padding: activeThreadId
-            ? "var(--space-12)"
-            : "0 var(--space-12) var(--space-12)",
+          padding: activeThreadId ? "var(--space-12)" : "0 var(--space-12) var(--space-12)",
         }}
       >
         <p

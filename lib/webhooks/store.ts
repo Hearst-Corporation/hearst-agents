@@ -7,11 +7,11 @@
  * - name : non vide
  */
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import type { SupabaseClient } from "@supabase/supabase-js";
-import { WEBHOOK_EVENTS, type CustomWebhook, type WebhookEvent } from "./types";
 import { isUrlShapeAllowed } from "@/lib/security/ssrf-guard";
+import { type CustomWebhook, WEBHOOK_EVENTS, type WebhookEvent } from "./types";
 
 // ── Schémas Zod ─────────────────────────────────────────────
 
@@ -32,9 +32,7 @@ export const createWebhookSchema = z.object({
   name: z.string().min(1, "Le nom est requis"),
   url: webhookUrlSchema,
   secret: z.string().optional(),
-  events: z
-    .array(z.enum(WEBHOOK_EVENTS))
-    .min(1, "Au moins un événement est requis"),
+  events: z.array(z.enum(WEBHOOK_EVENTS)).min(1, "Au moins un événement est requis"),
 });
 
 export const updateWebhookSchema = z.object({
@@ -77,9 +75,7 @@ function rowToWebhook(row: Record<string, unknown>): CustomWebhook {
 /**
  * Crée un webhook pour un tenant.
  */
-export async function createWebhook(
-  input: CreateWebhookInput,
-): Promise<CustomWebhook> {
+export async function createWebhook(input: CreateWebhookInput): Promise<CustomWebhook> {
   const parsed = createWebhookSchema.parse(input);
   const client = db();
   if (!client) throw new Error("Supabase non disponible");

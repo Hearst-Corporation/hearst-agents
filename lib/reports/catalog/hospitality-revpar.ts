@@ -7,10 +7,7 @@
  */
 
 import type { ReportSpec } from "@/lib/reports/spec/schema";
-import {
-  getMockRevpar30d,
-  getMockRevenueBySource,
-} from "@/lib/verticals/hospitality/mock-data";
+import { getMockRevenueBySource, getMockRevpar30d } from "@/lib/verticals/hospitality/mock-data";
 
 export const HOSPITALITY_REVPAR_ID = "00000000-0000-4000-8000-700000000002";
 
@@ -22,8 +19,7 @@ export function buildHospitalityRevpar(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "RevPAR & ADR — 30 jours",
-      summary:
-        "RevPAR, ADR, occupancy détaillés sur 30 jours + segmentation revenue.",
+      summary: "RevPAR, ADR, occupancy détaillés sur 30 jours + segmentation revenue.",
       domain: "finance",
       persona: "ops",
       cadence: "daily",

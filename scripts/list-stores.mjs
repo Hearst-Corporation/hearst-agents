@@ -11,7 +11,7 @@
  *
  * Pas de dépendance externe — Node stdlib uniquement.
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.cwd();

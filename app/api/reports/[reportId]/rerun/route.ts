@@ -8,17 +8,14 @@
  * Body optionnel : { noCache?: boolean }
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { type Asset, loadAssetById, storeAsset } from "@/lib/assets/types";
+import { reportIdParamSchema, rerunReportSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { loadAssetById, storeAsset, type Asset } from "@/lib/assets/types";
 import { getCatalogEntry } from "@/lib/reports/catalog";
-import { loadTemplate } from "@/lib/reports/templates/store";
 import { runReport } from "@/lib/reports/engine/run-report";
 import { createSourceLoader } from "@/lib/reports/sources";
-import {
-  rerunReportSchema,
-  reportIdParamSchema,
-} from "@/lib/contracts/reports";
+import { loadTemplate } from "@/lib/reports/templates/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

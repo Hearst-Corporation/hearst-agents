@@ -13,8 +13,8 @@
  * V2 : assets, missions, KG entries unifiés dans une vue temporelle.
  */
 
-import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigationStore } from "@/stores/navigation";
 import { useStageStore } from "@/stores/stage";
 import { ScreenShell } from "../components/ui";
@@ -80,7 +80,6 @@ export default function ArchivePage() {
       stats={
         <input
           type="text"
-          autoFocus
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Chercher dans l'archive…"
@@ -106,7 +105,10 @@ export default function ArchivePage() {
             onClick={() => handleOpen(thread.id)}
             className="w-full text-left group flex items-baseline gap-6 py-3 px-4 -mx-4 hover:bg-surface-1 transition-colors"
           >
-            <span className="t-9 font-mono tabular-nums text-text-ghost shrink-0" style={{ width: "var(--space-20)" }}>
+            <span
+              className="t-9 font-mono tabular-nums text-text-ghost shrink-0"
+              style={{ width: "var(--space-20)" }}
+            >
               {thread.lastActivity ? FORMATTER.format(new Date(thread.lastActivity)) : "—"}
             </span>
             <span className="flex-1 t-15 font-light text-text-muted group-hover:text-text transition-colors truncate">

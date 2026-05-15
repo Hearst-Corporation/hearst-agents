@@ -6,14 +6,14 @@
  * sont toujours rendues avec leur empty state interne (I-1).
  */
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import type { Thread } from "@/stores/navigation";
 import { AppIcon, ChatIcon, ChevronDownIcon, HomeIcon } from "./icons";
-import { TopMenuItem, type BadgeSeverity } from "./TopMenuItem";
-import { ThreadRow } from "./ThreadRow";
-import { SectionHeader, EmptyHint } from "./SectionHeader";
+import { EmptyHint, SectionHeader } from "./SectionHeader";
 import type { ThreadGroups } from "./shared";
+import { ThreadRow } from "./ThreadRow";
+import { type BadgeSeverity, TopMenuItem } from "./TopMenuItem";
 
 export interface RailExpandedBodyProps {
   groups: ThreadGroups;
@@ -59,12 +59,7 @@ export function RailExpandedBody({
         }}
       >
         <div className="flex flex-col">
-          <TopMenuItem
-            label="Home"
-            icon={<HomeIcon />}
-            isActive={isHomeActive}
-            onClick={onHome}
-          />
+          <TopMenuItem label="Home" icon={<HomeIcon />} isActive={isHomeActive} onClick={onHome} />
           <TopMenuItem
             label="Apps"
             icon={<AppIcon />}
@@ -75,11 +70,7 @@ export function RailExpandedBody({
           />
         </div>
         <div className="flex flex-col" style={{ marginTop: "var(--space-2)" }}>
-          <TopMenuItem
-            label="Chat"
-            icon={<ChatIcon />}
-            onClick={onNewThread}
-          />
+          <TopMenuItem label="Chat" icon={<ChatIcon />} onClick={onNewThread} />
         </div>
       </div>
 

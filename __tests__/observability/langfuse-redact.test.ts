@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { redactForLangfuse, redactString } from "@/lib/observability/langfuse-redact";
 
 describe("redactString", () => {

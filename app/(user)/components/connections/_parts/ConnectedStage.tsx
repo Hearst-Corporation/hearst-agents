@@ -1,7 +1,7 @@
 "use client";
 
 import { AppLogo } from "../AppLogo";
-import { stageVariant, type ComposioApp } from "../types";
+import { type ComposioApp, stageVariant } from "../types";
 
 // ─── Stage — grosses tiles carrées des connectés ──────────────
 
@@ -44,13 +44,9 @@ function StageTile({
 }) {
   const variant = stageVariant(status);
   const dotColor =
-    variant === "warn" ? "var(--color-warning)"
-      : variant === "error" ? "var(--color-error)"
-        : null;
+    variant === "warn" ? "var(--color-warning)" : variant === "error" ? "var(--color-error)" : null;
   const statusLabel =
-    variant === "warn" ? "OAuth en cours"
-      : variant === "error" ? "À reconnecter"
-        : null;
+    variant === "warn" ? "OAuth en cours" : variant === "error" ? "À reconnecter" : null;
 
   return (
     <button
@@ -94,10 +90,7 @@ function StageTile({
         {app.name}
       </span>
       {statusLabel && dotColor && (
-        <span
-          className="t-9 font-light"
-          style={{ color: dotColor }}
-        >
+        <span className="t-9 font-light" style={{ color: dotColor }}>
           {statusLabel}
         </span>
       )}

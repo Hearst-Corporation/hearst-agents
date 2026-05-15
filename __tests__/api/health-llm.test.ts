@@ -9,8 +9,8 @@
  * Mocks Langfuse pour éviter de devoir set des env vars en test.
  */
 
-import { describe, it, expect, vi } from "vitest";
 import { NextResponse } from "next/server";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/observability/langfuse", () => ({
   getLangfuseClient: vi.fn(() => null),

@@ -5,12 +5,12 @@
  * et pas pour un signal info.
  */
 
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { dispatchAlerts } from "@/lib/notifications/alert-dispatcher";
+import * as inApp from "@/lib/notifications/in-app";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
 import type { ThrottleStore } from "@/lib/notifications/throttle";
 import type { BusinessSignal } from "@/lib/reports/signals/extract";
-import * as inApp from "@/lib/notifications/in-app";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -28,7 +28,9 @@ function buildStore(): ThrottleStore {
   const map = new Map<string, number>();
   return {
     getLast: (k) => map.get(k) ?? null,
-    markEmitted: (k, t) => { map.set(k, t); },
+    markEmitted: (k, t) => {
+      map.set(k, t);
+    },
   };
 }
 

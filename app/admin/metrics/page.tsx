@@ -7,10 +7,10 @@
  * RBAC délégué au layout admin (session requise) + API (requireAdmin).
  */
 
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { CircuitState } from "@/lib/llm/circuit-breaker";
 import type { MetricsSnapshot, ProviderMetrics } from "@/lib/llm/metrics";
 import type { CustomWebhook } from "@/lib/webhooks/types";
-import type { CircuitState } from "@/lib/llm/circuit-breaker";
 import { AnalyticsKpiCard } from "../_components/AnalyticsKpiCard";
 
 // ---------------------------------------------------------------------------
@@ -50,7 +50,7 @@ function fmtUsd(usd: number): string {
 
 function maskUrl(url: string): string {
   if (url.length <= 20) return url;
-  return url.slice(0, 20) + "…";
+  return `${url.slice(0, 20)}…`;
 }
 
 function relativeTime(iso: string | undefined): string {
@@ -80,9 +80,7 @@ function CircuitBadge({ state }: { state: CircuitState }) {
         : "bg-(--warn)/15 text-(--warn)";
 
   return (
-    <span
-      className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}
-    >
+    <span className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}>
       {CIRCUIT_LABELS[state]}
     </span>
   );
@@ -95,11 +93,7 @@ function WebhookStatusBadge({ status }: { status: "success" | "failed" | undefin
       ? "bg-(--accent-teal)/15 text-(--accent-teal)"
       : "bg-(--danger)/15 text-(--danger)";
   const label = status === "success" ? "Réussi" : "Échec";
-  return (
-    <span className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}>
-      {label}
-    </span>
-  );
+  return <span className={`t-10 px-(--space-2) rounded-pill font-medium ${cls}`}>{label}</span>;
 }
 
 // Table header row
@@ -155,7 +149,9 @@ export default function MetricsPage() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void fetchAll();
-    const id = setInterval(() => { void fetchAll(); }, REFRESH_INTERVAL_MS);
+    const id = setInterval(() => {
+      void fetchAll();
+    }, REFRESH_INTERVAL_MS);
     return () => clearInterval(id);
   }, [fetchAll]);
 
@@ -174,23 +170,19 @@ export default function MetricsPage() {
 
   // ── KPIs globaux ────────────────────────────────────────────────────────
   const globalCacheHit =
-    snapshot?.providers.find((p) => p.tokens.cacheHitRate !== null)?.tokens
-      .cacheHitRate ?? null;
+    snapshot?.providers.find((p) => p.tokens.cacheHitRate !== null)?.tokens.cacheHitRate ?? null;
 
-  const globalP95 = snapshot?.providers.reduce<number | null>((acc, p) => {
-    if (p.latency.p95 === null) return acc;
-    return acc === null ? p.latency.p95 : Math.max(acc, p.latency.p95);
-  }, null) ?? null;
+  const globalP95 =
+    snapshot?.providers.reduce<number | null>((acc, p) => {
+      if (p.latency.p95 === null) return acc;
+      return acc === null ? p.latency.p95 : Math.max(acc, p.latency.p95);
+    }, null) ?? null;
 
-  const globalCost = snapshot?.providers.reduce(
-    (acc, p) => acc + p.cost.totalUsd,
-    0,
-  ) ?? 0;
+  const globalCost = snapshot?.providers.reduce((acc, p) => acc + p.cost.totalUsd, 0) ?? 0;
 
   const globalErrorRate =
     snapshot && snapshot.providers.length > 0
-      ? snapshot.providers.reduce((acc, p) => acc + p.errorRate, 0) /
-        snapshot.providers.length
+      ? snapshot.providers.reduce((acc, p) => acc + p.errorRate, 0) / snapshot.providers.length
       : null;
 
   // ── Temps depuis mise à jour ──────────────────────────────────────────
@@ -219,10 +211,7 @@ export default function MetricsPage() {
   // ── Render ─────────────────────────────────────────────────────────────
 
   return (
-    <div
-      className="p-(--space-8) overflow-y-auto h-full"
-      style={{ scrollbarWidth: "thin" }}
-    >
+    <div className="p-(--space-8) overflow-y-auto h-full" style={{ scrollbarWidth: "thin" }}>
       {/* En-tête */}
       <div className="flex items-center justify-between mb-(--space-8)">
         <h1 className="t-24 font-light text-text">Métriques système</h1>
@@ -250,12 +239,9 @@ export default function MetricsPage() {
 
       {!loading && snapshot && (
         <div className="space-y-(--space-8)">
-
           {/* ── Section 1 : KPIs LLM ─────────────────────────── */}
           <section>
-            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
-              LLM — Vue globale
-            </h2>
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">LLM — Vue globale</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4)">
               <AnalyticsKpiCard
                 label="Cache hit rate"
@@ -263,11 +249,7 @@ export default function MetricsPage() {
                 sub="Anthropic prompt cache"
                 accent="accent-teal"
               />
-              <AnalyticsKpiCard
-                label="Latence p95"
-                value={fmtMs(globalP95)}
-                sub="pire provider"
-              />
+              <AnalyticsKpiCard label="Latence p95" value={fmtMs(globalP95)} sub="pire provider" />
               <AnalyticsKpiCard
                 label="Coût total"
                 value={fmtUsd(globalCost)}
@@ -278,20 +260,14 @@ export default function MetricsPage() {
                 label="Taux d'erreur"
                 value={fmtPct(globalErrorRate)}
                 sub="moyenne providers"
-                accent={
-                  globalErrorRate !== null && globalErrorRate > 0.1
-                    ? "danger"
-                    : undefined
-                }
+                accent={globalErrorRate !== null && globalErrorRate > 0.1 ? "danger" : undefined}
               />
             </div>
           </section>
 
           {/* ── Section 2 : Compteurs ────────────────────────── */}
           <section>
-            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
-              Compteurs
-            </h2>
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">Compteurs</h2>
             <div className="grid grid-cols-3 gap-(--space-4)">
               <AnalyticsKpiCard
                 label="Circuit breaker trips"
@@ -329,11 +305,7 @@ export default function MetricsPage() {
                     <span className="text-text-muted">{fmtMs(p.latency.p50)}</span>
                     <span className="text-text-muted">{fmtMs(p.latency.p95)}</span>
                     <span className="text-text-muted">{fmtMs(p.latency.p99)}</span>
-                    <span
-                      className={
-                        p.errorRate > 0.1 ? "text-(--danger)" : "text-text-faint"
-                      }
-                    >
+                    <span className={p.errorRate > 0.1 ? "text-(--danger)" : "text-text-faint"}>
                       {p.totalErrors} ({fmtPct(p.errorRate)})
                     </span>
                   </div>
@@ -349,7 +321,9 @@ export default function MetricsPage() {
                 Coûts par provider (USD)
               </h2>
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
-                <TableHeader cols={["Provider", "Total", "Moy / call", "Tokens IN", "Tokens OUT", "Cache hit"]} />
+                <TableHeader
+                  cols={["Provider", "Total", "Moy / call", "Tokens IN", "Tokens OUT", "Cache hit"]}
+                />
                 {snapshot.providers.map((p) => (
                   <div
                     key={p.provider}
@@ -358,15 +332,11 @@ export default function MetricsPage() {
                     <span className="text-text font-medium">{p.provider}</span>
                     <span className="text-(--accent-teal)">{fmtUsd(p.cost.totalUsd)}</span>
                     <span className="text-text-muted">
-                      {p.cost.avgPerCallUsd !== null
-                        ? fmtUsd(p.cost.avgPerCallUsd)
-                        : "—"}
+                      {p.cost.avgPerCallUsd !== null ? fmtUsd(p.cost.avgPerCallUsd) : "—"}
                     </span>
                     <span className="text-text-muted">{p.tokens.totalIn.toLocaleString()}</span>
                     <span className="text-text-muted">{p.tokens.totalOut.toLocaleString()}</span>
-                    <span className="text-text-muted">
-                      {fmtPct(p.tokens.cacheHitRate)}
-                    </span>
+                    <span className="text-text-muted">{fmtPct(p.tokens.cacheHitRate)}</span>
                   </div>
                 ))}
               </div>
@@ -407,15 +377,14 @@ export default function MetricsPage() {
 
           {/* ── Section 6 : Webhooks ─────────────────────────── */}
           <section>
-            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">
-              Webhooks custom
-            </h2>
+            <h2 className="t-13 font-medium text-text-faint mb-(--space-4)">Webhooks custom</h2>
             {webhooks.length === 0 ? (
               <p className="t-13 text-text-ghost">Aucun webhook configuré</p>
             ) : (
               <div className="rounded-(--radius-md) bg-surface-1 border border-(--border-shell) overflow-hidden">
                 {/* Header */}
-                <div className="grid px-(--space-4) py-(--space-2) t-10 font-medium text-text-ghost border-b border-(--border-shell)"
+                <div
+                  className="grid px-(--space-4) py-(--space-2) t-10 font-medium text-text-ghost border-b border-(--border-shell)"
                   style={{ gridTemplateColumns: "1fr 1fr 1fr auto auto auto" }}
                 >
                   <span>Nom</span>
@@ -432,15 +401,10 @@ export default function MetricsPage() {
                     style={{ gridTemplateColumns: "1fr 1fr 1fr auto auto auto" }}
                   >
                     <span className="text-text font-medium truncate">{wh.name}</span>
-                    <span
-                      className="text-text-faint font-mono t-10 truncate"
-                      title={wh.url}
-                    >
+                    <span className="text-text-faint font-mono t-10 truncate" title={wh.url}>
                       {maskUrl(wh.url)}
                     </span>
-                    <span className="text-text-muted t-10 truncate">
-                      {wh.events.join(", ")}
-                    </span>
+                    <span className="text-text-muted t-10 truncate">{wh.events.join(", ")}</span>
                     <span className="text-text-ghost t-10 whitespace-nowrap px-(--space-2)">
                       {relativeTime(wh.lastTriggeredAt)}
                     </span>
@@ -461,7 +425,6 @@ export default function MetricsPage() {
               </div>
             )}
           </section>
-
         </div>
       )}
 

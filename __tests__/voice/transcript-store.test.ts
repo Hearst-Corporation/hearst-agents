@@ -3,7 +3,7 @@
  * row, suivantes append, patch d'une entry existante par id la remplace).
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 interface Row {
   id: string;
@@ -96,9 +96,7 @@ describe("appendTranscriptEntry", () => {
     expect(ok).toBe(true);
     expect(rows.length).toBe(1);
     expect(rows[0].session_id).toBe("sess-1");
-    expect(rows[0].entries).toEqual([
-      { id: "u-1", role: "user", text: "salut", timestamp: 1 },
-    ]);
+    expect(rows[0].entries).toEqual([{ id: "u-1", role: "user", text: "salut", timestamp: 1 }]);
   });
 
   it("append à une session existante", async () => {

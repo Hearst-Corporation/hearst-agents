@@ -33,7 +33,11 @@ export function AudioPlayer({ variant }: AudioPlayerProps) {
         <div className="flex items-center gap-3">
           <span
             className={`rounded-pill ${
-              isReady ? "bg-(--accent-teal)" : isFailed ? "bg-(--danger)" : "bg-(--warn) animate-pulse"
+              isReady
+                ? "bg-(--accent-teal)"
+                : isFailed
+                  ? "bg-(--danger)"
+                  : "bg-(--warn) animate-pulse"
             }`}
             style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             aria-hidden

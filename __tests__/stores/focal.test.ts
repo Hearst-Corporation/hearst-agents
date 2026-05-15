@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { useFocalStore, type FocalObject } from "@/stores/focal";
+import { beforeEach, describe, expect, it } from "vitest";
+import { type FocalObject, useFocalStore } from "@/stores/focal";
 
 const baseFocal = (id: string, sourceAssetId?: string, missionId?: string): FocalObject => ({
   id,

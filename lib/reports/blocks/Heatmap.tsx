@@ -76,15 +76,8 @@ export function Heatmap({
       className="flex flex-col w-full"
       style={{ gap: "var(--space-2)" }}
     >
-      <div
-        role="table"
-        aria-label="Grille heatmap"
-        className="w-full overflow-auto"
-      >
-        <table
-          className="w-full"
-          style={{ borderCollapse: "separate", borderSpacing: 0 }}
-        >
+      <div role="table" aria-label="Grille heatmap" className="w-full overflow-auto">
+        <table className="w-full" style={{ borderCollapse: "separate", borderSpacing: 0 }}>
           <thead>
             <tr>
               <th
@@ -130,17 +123,12 @@ export function Heatmap({
                   </th>
                   {xLabels.map((_, xi) => {
                     const raw = row[xi];
-                    const v =
-                      typeof raw === "number" && Number.isFinite(raw) ? raw : 0;
-                    const intensity = Math.max(
-                      0,
-                      Math.min(1, (v - vMin) / vSpan),
-                    );
+                    const v = typeof raw === "number" && Number.isFinite(raw) ? raw : 0;
+                    const intensity = Math.max(0, Math.min(1, (v - vMin) / vSpan));
                     const display = fmtNumber(v);
                     return (
                       <td
                         key={`cell-${yi}-${xi}`}
-                        role="cell"
                         aria-label={`${yl} ${xLabels[xi]}: ${display}`}
                         className="t-9 font-mono tabular-nums"
                         style={{
@@ -148,9 +136,7 @@ export function Heatmap({
                           height: cellHeight ? `${cellHeight}px` : "var(--space-6)",
                           textAlign: "center",
                           color:
-                            intensity > 0.55
-                              ? "var(--text-on-accent-teal)"
-                              : "var(--text-soft)",
+                            intensity > 0.55 ? "var(--text-on-accent-teal)" : "var(--text-soft)",
                           background: `color-mix(in srgb, var(--accent-teal) ${(intensity * 100).toFixed(0)}%, transparent)`,
                           borderBottom: "1px solid var(--line)",
                           minWidth: "var(--space-6)",

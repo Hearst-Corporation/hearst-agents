@@ -12,8 +12,8 @@
  */
 
 import { z } from "zod";
-import type { AutoExportConfig } from "./types";
 import { getEmailSender } from "@/lib/notifications/channels";
+import type { AutoExportConfig } from "./types";
 
 // ── Zod schema du payload job ────────────────────────────────
 
@@ -29,9 +29,7 @@ export const exportScheduledReportPayloadSchema = z.object({
   recipients: z.array(z.string().email()).min(1, "au moins un destinataire"),
 });
 
-export type ExportScheduledReportPayload = z.infer<
-  typeof exportScheduledReportPayloadSchema
->;
+export type ExportScheduledReportPayload = z.infer<typeof exportScheduledReportPayloadSchema>;
 
 // ── Résultat du job ──────────────────────────────────────────
 
@@ -85,17 +83,12 @@ async function notifyRecipients(
   try {
     const res = await sender.send({ to: recipients, subject, text });
     if (!res.ok) {
-      console.warn(
-        `[export-job] email non envoyé (${res.error}) — mission ${opts.missionId}`,
-      );
+      console.warn(`[export-job] email non envoyé (${res.error}) — mission ${opts.missionId}`);
       return 0;
     }
     return recipients.length;
   } catch (err) {
-    console.error(
-      `[export-job] erreur email (mission ${opts.missionId}):`,
-      err,
-    );
+    console.error(`[export-job] erreur email (mission ${opts.missionId}):`, err);
     return 0;
   }
 }
@@ -112,9 +105,14 @@ export async function runExportScheduledReportJob(
   rawPayload: unknown,
   deps?: {
     /** Charge le ReportSpec depuis l'asset. */
-    getSpec?: (assetId: string, tenantId: string) => Promise<import("@/lib/reports/spec/schema").ReportSpec | null>;
+    getSpec?: (
+      assetId: string,
+      tenantId: string,
+    ) => Promise<import("@/lib/reports/spec/schema").ReportSpec | null>;
     /** Exécute l'export (run-report + persit + share). */
-    runExport?: (input: import("@/lib/reports/export/mission-job").ExportMissionInput) => Promise<import("@/lib/reports/export/mission-job").ExportMissionResult>;
+    runExport?: (
+      input: import("@/lib/reports/export/mission-job").ExportMissionInput,
+    ) => Promise<import("@/lib/reports/export/mission-job").ExportMissionResult>;
   },
 ): Promise<ExportJobResult> {
   // ── Validation du payload ──────────────────────────────────
@@ -170,9 +168,7 @@ export async function runExportScheduledReportJob(
     const runner =
       deps?.runExport ??
       (async (input) => {
-        const { runExportMission } = await import(
-          "@/lib/reports/export/mission-job"
-        );
+        const { runExportMission } = await import("@/lib/reports/export/mission-job");
         return runExportMission(input);
       });
 

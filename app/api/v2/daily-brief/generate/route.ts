@@ -11,16 +11,21 @@
  * targetDate, on retourne 200 + l'asset existant plutôt que de relancer.
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { enqueueJob } from "@/lib/jobs/queue";
-import { loadDailyBriefForDate } from "@/lib/daily-brief/store";
 import { checkDailyCap } from "@/lib/credits/daily-caps";
+import { loadDailyBriefForDate } from "@/lib/daily-brief/store";
+import { enqueueJob } from "@/lib/jobs/queue";
+import { requireScope } from "@/lib/platform/auth/scope";
 
-const dailyBriefBodySchema = z.object({
-  targetDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-}).optional();
+const dailyBriefBodySchema = z
+  .object({
+    targetDate: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/)
+      .optional(),
+  })
+  .optional();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -52,9 +57,7 @@ export async function POST(req: NextRequest) {
   }
 
   const targetDate =
-    typeof parsedBody?.data?.targetDate === "string"
-      ? parsedBody.data.targetDate
-      : todayIso();
+    typeof parsedBody?.data?.targetDate === "string" ? parsedBody.data.targetDate : todayIso();
 
   // Daily cap: 5 briefs/jour
   const cap = await checkDailyCap(scope.userId, "daily-brief", 5);
@@ -110,9 +113,7 @@ export async function POST(req: NextRequest) {
         const { assembleDailyBriefData } = await import("@/lib/daily-brief/assembler");
         const { generateDailyBriefNarration } = await import("@/lib/daily-brief/generate");
         const { renderDailyBriefPdf } = await import("@/lib/daily-brief/pdf");
-        const { persistExport, getExportSignedUrl } = await import(
-          "@/lib/reports/export/store"
-        );
+        const { persistExport, getExportSignedUrl } = await import("@/lib/reports/export/store");
         const { storeAsset } = await import("@/lib/assets/types");
         const { randomUUID } = await import("node:crypto");
 

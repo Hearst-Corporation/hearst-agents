@@ -1,12 +1,12 @@
 /**
  * Tests Apollo provider — error handling + cache.
  */
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  _resetApolloCache,
+  ApolloUnavailableError,
   enrichPerson,
   isApolloConfigured,
-  ApolloUnavailableError,
-  _resetApolloCache,
 } from "@/lib/capabilities/providers/apollo";
 
 const ORIGINAL_KEY = process.env.APOLLO_API_KEY;
@@ -29,9 +29,7 @@ describe("Apollo provider", () => {
 
   it("throw ApolloUnavailableError sans clé", async () => {
     delete process.env.APOLLO_API_KEY;
-    await expect(enrichPerson({ email: "a@b.com" })).rejects.toBeInstanceOf(
-      ApolloUnavailableError,
-    );
+    await expect(enrichPerson({ email: "a@b.com" })).rejects.toBeInstanceOf(ApolloUnavailableError);
   });
 
   it("retourne ApolloPerson normalisée", async () => {

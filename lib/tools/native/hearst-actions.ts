@@ -13,18 +13,18 @@
  * l'utilisateur via `setStageMode`.
  */
 
-import { jsonSchema } from "ai";
+import { randomUUID } from "node:crypto";
 import type { Tool } from "ai";
-import { randomUUID } from "crypto";
-import type { RunEventBus } from "@/lib/events/bus";
-import type { TenantScope } from "@/lib/multi-tenant/types";
-import { createMeetingBot } from "@/lib/capabilities/providers/recall-ai";
+import { jsonSchema } from "ai";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant } from "@/lib/assets/variants";
+import { runBrowserTask } from "@/lib/browser/stagehand-executor";
+import { createSession } from "@/lib/capabilities/providers/browserbase";
+import { createMeetingBot } from "@/lib/capabilities/providers/recall-ai";
+import type { RunEventBus } from "@/lib/events/bus";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { ImageGenInput } from "@/lib/jobs/types";
-import { createSession } from "@/lib/capabilities/providers/browserbase";
-import { runBrowserTask } from "@/lib/browser/stagehand-executor";
+import type { TenantScope } from "@/lib/multi-tenant/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -68,8 +68,14 @@ export function buildHearstActionTools(opts: {
       type: "object",
       required: ["meeting_url"],
       properties: {
-        meeting_url: { type: "string", description: "URL complète du meeting (Zoom, Google Meet, Teams)." },
-        bot_name: { type: "string", description: "Nom affiché du bot dans le meeting (optionnel)." },
+        meeting_url: {
+          type: "string",
+          description: "URL complète du meeting (Zoom, Google Meet, Teams).",
+        },
+        bot_name: {
+          type: "string",
+          description: "Nom affiché du bot dans le meeting (optionnel).",
+        },
       },
     }),
     execute: async (args) => {
@@ -114,16 +120,15 @@ export function buildHearstActionTools(opts: {
       const sb = requireServerSupabase();
       const simulationId = randomUUID();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error: insertErr } = await (sb.from("simulation_runs" as any) as any)
-        .insert({
-          id: simulationId,
-          user_id: scope.userId,
-          tenant_id: scope.tenantId,
-          parent_run_id: runId,
-          scenario_input: args.scenario,
-          variables: args.variables ?? [],
-          status: "pending",
-        });
+      const { error: insertErr } = await (sb.from("simulation_runs" as any) as any).insert({
+        id: simulationId,
+        user_id: scope.userId,
+        tenant_id: scope.tenantId,
+        parent_run_id: runId,
+        scenario_input: args.scenario,
+        variables: args.variables ?? [],
+        status: "pending",
+      });
       if (insertErr) {
         console.error("[start_simulation] insert failed:", insertErr);
         return `Erreur création simulation : ${insertErr.message}`;
@@ -167,7 +172,10 @@ export function buildHearstActionTools(opts: {
       required: ["prompt"],
       properties: {
         prompt: { type: "string", description: "Description textuelle de l'image à générer." },
-        style: { type: "string", description: "Style artistique (ex: photorealistic, watercolor, cinematic)." },
+        style: {
+          type: "string",
+          description: "Style artistique (ex: photorealistic, watercolor, cinematic).",
+        },
       },
     }),
     execute: async (args) => {
@@ -242,8 +250,16 @@ export function buildHearstActionTools(opts: {
       type: "object",
       required: ["task"],
       properties: {
-        task: { type: "string", description: "Tâche à effectuer dans le navigateur (ex: 'Cherche le prix de l'iPhone sur apple.com', 'Résume la page d'accueil de techcrunch.com')." },
-        start_url: { type: "string", description: "URL de départ optionnelle (ex: 'https://google.com'). Si absente, Stagehand choisit lui-même le point de départ." },
+        task: {
+          type: "string",
+          description:
+            "Tâche à effectuer dans le navigateur (ex: 'Cherche le prix de l'iPhone sur apple.com', 'Résume la page d'accueil de techcrunch.com').",
+        },
+        start_url: {
+          type: "string",
+          description:
+            "URL de départ optionnelle (ex: 'https://google.com'). Si absente, Stagehand choisit lui-même le point de départ.",
+        },
       },
     }),
     execute: async (args) => {

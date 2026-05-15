@@ -1,10 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
-import {
-  getAgentLockState,
-  setAgentLockState,
-  type AgentLockState,
-} from "@/lib/agent-lock";
+import { type NextRequest, NextResponse } from "next/server";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
+import { type AgentLockState, getAgentLockState, setAgentLockState } from "@/lib/agent-lock";
 import { withRoute } from "@/lib/observability/logger";
 
 export const runtime = "nodejs";
@@ -37,7 +33,7 @@ export async function POST(request: NextRequest) {
   if (typeof body.locked !== "boolean") {
     return NextResponse.json(
       { error: "invalid_payload", message: "locked: boolean requis" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

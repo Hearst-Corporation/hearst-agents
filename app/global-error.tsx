@@ -12,11 +12,7 @@ import { useEffect } from "react";
  * Required: "use client" en première ligne — sinon le boundary ne se
  * monte pas côté client.
  */
-export default function GlobalError({
-  error,
-}: {
-  error: Error & { digest?: string };
-}) {
+export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
     captureException(error);
   }, [error]);

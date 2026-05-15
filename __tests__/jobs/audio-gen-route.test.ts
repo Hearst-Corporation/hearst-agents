@@ -8,7 +8,7 @@
  *  - 503 + refund si enqueueJob throw
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   requireScope,
@@ -125,9 +125,7 @@ describe("POST /api/v2/jobs/audio-gen", () => {
   });
 
   it("202 + jobId au happy path ; payload audio-gen correctement formé", async () => {
-    const res = await POST(
-      makeReq({ text: "Salut le monde", threadId: "thread-1" }) as never,
-    );
+    const res = await POST(makeReq({ text: "Salut le monde", threadId: "thread-1" }) as never);
     expect(res.status).toBe(202);
     const body = await res.json();
     expect(body.jobId).toBe("job-1");

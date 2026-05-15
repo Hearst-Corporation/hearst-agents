@@ -6,12 +6,12 @@
  * Les deux doivent appartenir au même asset et au même tenant.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { diffReportVersionsQuerySchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { getVersion } from "@/lib/reports/versions/store";
 import { diffVersions } from "@/lib/reports/versions/diff";
-import { diffReportVersionsQuerySchema } from "@/lib/contracts/reports";
+import { getVersion } from "@/lib/reports/versions/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -73,14 +73,16 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
     const status =
-      resolved.error === "forbidden" ? 403
-      : resolved.error === "not_found" ? 404
-      : 503;
+      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 
   const [versionFrom, versionTo] = await Promise.all([
-    getVersion({ assetId: reportId, versionNumber: qParsed.data.from, tenantId: resolved.tenantId }),
+    getVersion({
+      assetId: reportId,
+      versionNumber: qParsed.data.from,
+      tenantId: resolved.tenantId,
+    }),
     getVersion({ assetId: reportId, versionNumber: qParsed.data.to, tenantId: resolved.tenantId }),
   ]);
 

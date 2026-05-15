@@ -18,34 +18,65 @@
  * du planner, le caller (orchestrator) doit fallback sur runAiPipeline.
  */
 
+import type { ConnectorCapability } from "@/lib/connectors/platform/types";
+import { createPlanFromIntent } from "@/lib/engine/planner";
+import {
+  type ExecutorCallbacks,
+  executePlan,
+  type StepExecutionResult,
+} from "@/lib/engine/planner/executor";
+import type { ExecutionPlan, ExecutionPlanStep } from "@/lib/engine/planner/types";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
-import type { ExecutionPlan, ExecutionPlanStep } from "@/lib/engine/planner/types";
-import type { ConnectorCapability } from "@/lib/connectors/platform/types";
-import type { ProviderId } from "@/lib/providers/types";
-import { createPlanFromIntent } from "@/lib/engine/planner";
-import { executePlan, type ExecutorCallbacks, type StepExecutionResult } from "@/lib/engine/planner/executor";
 import { resolveProvider } from "@/lib/providers/resolver";
+import type { ProviderId } from "@/lib/providers/types";
 import { handleSendMessage } from "@/lib/tools/handlers/send-message";
 import { searchWeb } from "@/lib/tools/handlers/web-search";
 
 // ── Heuristique « complex intent » ─────────────────────────────
 
 const COMPLEX_KEYWORDS_FR = [
-  "prépare", "orchestre", "automatise", "génère un rapport", "génère le rapport",
-  "board pack", "weekly digest", "audit", "plan", "rétrospective",
-  "synthétise", "compile", "structure",
+  "prépare",
+  "orchestre",
+  "automatise",
+  "génère un rapport",
+  "génère le rapport",
+  "board pack",
+  "weekly digest",
+  "audit",
+  "plan",
+  "rétrospective",
+  "synthétise",
+  "compile",
+  "structure",
 ];
 const COMPLEX_KEYWORDS_EN = [
-  "prepare", "orchestrate", "automate", "generate a report", "board pack",
-  "weekly digest", "audit", "plan", "retrospective", "compile", "structure",
+  "prepare",
+  "orchestrate",
+  "automate",
+  "generate a report",
+  "board pack",
+  "weekly digest",
+  "audit",
+  "plan",
+  "retrospective",
+  "compile",
+  "structure",
 ];
 
 const MULTI_DOMAIN_HINTS = [
   // hints multi-domaines : le user nomme plusieurs surfaces
-  "et envoie", "and send", "puis envoie", "then send",
-  "et publie", "and publish", "puis poste", "et poste",
-  "compile", "agrège", "aggregate",
+  "et envoie",
+  "and send",
+  "puis envoie",
+  "then send",
+  "et publie",
+  "and publish",
+  "puis poste",
+  "et poste",
+  "compile",
+  "agrège",
+  "aggregate",
 ];
 
 /**

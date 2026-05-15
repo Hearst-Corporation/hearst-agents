@@ -1,14 +1,14 @@
 /**
  * Tests workflow handlers — registry + comportement individuel.
  */
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/connectors/composio/client", () => ({
   executeComposioAction: vi.fn(),
 }));
 
-import { executeWorkflowTool, WORKFLOW_HANDLERS } from "@/lib/workflows/handlers";
 import { executeComposioAction } from "@/lib/connectors/composio/client";
+import { executeWorkflowTool, WORKFLOW_HANDLERS } from "@/lib/workflows/handlers";
 
 const CTX = {
   userId: "user-1",
@@ -45,9 +45,7 @@ describe("workflow handlers registry", () => {
     const res = await executeWorkflowTool("does_not_exist", {}, CTX);
     expect(res.success).toBe(false);
     expect(res.error).toContain("tool_not_implemented");
-    expect((res.output as { errorCode?: string }).errorCode).toBe(
-      "tool_not_implemented",
-    );
+    expect((res.output as { errorCode?: string }).errorCode).toBe("tool_not_implemented");
   });
 
   it("pms_list_arrivals_today retourne source=demo + count", async () => {
@@ -60,11 +58,7 @@ describe("workflow handlers registry", () => {
   });
 
   it("pms_update_request_status sans requestId → error", async () => {
-    const res = await executeWorkflowTool(
-      "pms_update_request_status",
-      { status: "done" },
-      CTX,
-    );
+    const res = await executeWorkflowTool("pms_update_request_status", { status: "done" }, CTX);
     expect(res.success).toBe(false);
     expect(res.error).toContain("requestId manquant");
   });
@@ -94,11 +88,7 @@ describe("workflow handlers registry", () => {
   });
 
   it("slack_send_message sans channel → error", async () => {
-    const res = await executeWorkflowTool(
-      "slack_send_message",
-      { content: "x" },
-      CTX,
-    );
+    const res = await executeWorkflowTool("slack_send_message", { content: "x" }, CTX);
     expect(res.success).toBe(false);
     expect(res.error).toContain("channel manquant");
   });
@@ -159,11 +149,7 @@ describe("workflow handlers registry", () => {
   });
 
   it("ai_draft_welcome_notes arrivals vide → notes=[]", async () => {
-    const res = await executeWorkflowTool(
-      "ai_draft_welcome_notes",
-      { arrivals: [] },
-      CTX,
-    );
+    const res = await executeWorkflowTool("ai_draft_welcome_notes", { arrivals: [] }, CTX);
     expect(res.success).toBe(true);
     expect((res.output as { notes: unknown[] }).notes).toHaveLength(0);
   });
@@ -182,11 +168,7 @@ describe("workflow handlers registry", () => {
   });
 
   it("ai_classify_priority text vide → degraded normal", async () => {
-    const res = await executeWorkflowTool(
-      "ai_classify_priority",
-      { text: "" },
-      CTX,
-    );
+    const res = await executeWorkflowTool("ai_classify_priority", { text: "" }, CTX);
     expect(res.success).toBe(true);
     expect((res.output as { priority: string }).priority).toBe("normal");
   });

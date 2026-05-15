@@ -5,11 +5,8 @@
  */
 
 import { useMemo } from "react";
+import type { RenderedBlock, RenderPayload } from "@/lib/reports/engine/render-blocks";
 import type { ReportSpec } from "@/lib/reports/spec/schema";
-import type {
-  RenderPayload,
-  RenderedBlock,
-} from "@/lib/reports/engine/render-blocks";
 
 export function useVisibleBlocks(
   payload: RenderPayload,
@@ -29,7 +26,5 @@ export function useVisibleBlocks(
       .filter((b): b is RenderedBlock => Boolean(b));
   }, [spec, payload.blocks]);
 
-  return spec
-    ? orderedBlocks
-    : payload.blocks.filter((b) => !hiddenIds.has(b.id));
+  return spec ? orderedBlocks : payload.blocks.filter((b) => !hiddenIds.has(b.id));
 }

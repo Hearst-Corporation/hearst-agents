@@ -23,22 +23,21 @@
  *   une reprise transparente (voir /lib/workflows/executor.ts).
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 
-const approveNodeBodySchema = z.object({
-  nodeId: z.string().min(1).max(200),
-  decision: z.enum(["approve", "skip", "edit"]),
-  editPayload: z.unknown().optional(),
-}).strict();
+const approveNodeBodySchema = z
+  .object({
+    nodeId: z.string().min(1).max(200),
+    decision: z.enum(["approve", "skip", "edit"]),
+    editPayload: z.unknown().optional(),
+  })
+  .strict();
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ runId: string }> },
-) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ runId: string }> }) {
   const { scope, error } = await requireScope({
     context: "POST /api/v2/workflows/[runId]/approve-node",
   });

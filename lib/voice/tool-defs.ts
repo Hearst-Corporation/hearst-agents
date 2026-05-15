@@ -85,7 +85,8 @@ export const voiceToolDefs: VoiceToolDef[] = [
       properties: {
         task: {
           type: "string",
-          description: "Tâche à effectuer dans le navigateur (ex: 'Cherche le prix de l'iPhone sur apple.com').",
+          description:
+            "Tâche à effectuer dans le navigateur (ex: 'Cherche le prix de l'iPhone sur apple.com').",
         },
         start_url: {
           type: "string",

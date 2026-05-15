@@ -7,7 +7,7 @@
  *   - Le sendEmailTool exécute quand _preview est false
  */
 
-import { describe, it, expect, beforeAll } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
 beforeAll(() => {
   process.env.NEXTAUTH_SECRET = "test-secret-hitl-32bytes-minimum!";
@@ -59,11 +59,9 @@ describe("F-102 — schedule_inngest_job whitelist", () => {
 describe("F-010 — sendEmailTool _preview gate", () => {
   it("retourne un draft quand _preview est omis (défaut true)", async () => {
     // Importer le tool via buildExtrasServicesTools et simuler l'exécution
-    const { buildExtrasServicesTools } = await import(
-      "@/lib/tools/native/extras-services"
-    );
+    const { buildExtrasServicesTools } = await import("@/lib/tools/native/extras-services");
     const tools = buildExtrasServicesTools();
-    const sendEmail = tools["send_email"];
+    const sendEmail = tools.send_email;
     expect(sendEmail).toBeDefined();
 
     const result = await sendEmail.execute?.(
@@ -78,11 +76,9 @@ describe("F-010 — sendEmailTool _preview gate", () => {
   });
 
   it("retourne un draft quand _preview est true explicitement", async () => {
-    const { buildExtrasServicesTools } = await import(
-      "@/lib/tools/native/extras-services"
-    );
+    const { buildExtrasServicesTools } = await import("@/lib/tools/native/extras-services");
     const tools = buildExtrasServicesTools();
-    const sendEmail = tools["send_email"];
+    const sendEmail = tools.send_email;
 
     const result = await sendEmail.execute?.(
       { to: "bob@example.com", subject: "Hello", _preview: true },
@@ -93,11 +89,9 @@ describe("F-010 — sendEmailTool _preview gate", () => {
   });
 
   it("refuse l'envoi quand _preview est false sans token HMAC (fail-closed F-010)", async () => {
-    const { buildExtrasServicesTools } = await import(
-      "@/lib/tools/native/extras-services"
-    );
+    const { buildExtrasServicesTools } = await import("@/lib/tools/native/extras-services");
     const tools = buildExtrasServicesTools();
-    const sendEmail = tools["send_email"];
+    const sendEmail = tools.send_email;
 
     // Post-fix F-010 : _preview:false seul ne suffit plus. Un token HMAC est requis.
     // Comportement attendu : la gate rejette et retourne un draft (pas d'envoi réseau).

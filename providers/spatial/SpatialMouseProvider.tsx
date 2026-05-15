@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, type ReactNode } from "react";
-import { useMotionValue, useSpring, type MotionValue } from "framer-motion";
+import { type MotionValue, useMotionValue, useSpring } from "framer-motion";
+import { createContext, type ReactNode, useContext, useEffect } from "react";
 import { normalizeMousePosition } from "@/lib/spatial/utils";
 
 interface SpatialMouseContextValue {

@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { extractSignals } from "@/lib/reports/signals/extract";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { extractSignals } from "@/lib/reports/signals/extract";
 
 function payload(scalars: Record<string, unknown>): RenderPayload {
   return {
@@ -20,7 +20,7 @@ function payload(scalars: Record<string, unknown>): RenderPayload {
 
 describe("extractSignals — MRR", () => {
   it("émet mrr_drop critical si delta <= -0.15", () => {
-    const out = extractSignals(payload({ "kpi_mrr.delta": -0.20 }));
+    const out = extractSignals(payload({ "kpi_mrr.delta": -0.2 }));
     expect(out.signals).toHaveLength(1);
     expect(out.signals[0].type).toBe("mrr_drop");
     expect(out.signals[0].severity).toBe("critical");
@@ -28,7 +28,7 @@ describe("extractSignals — MRR", () => {
   });
 
   it("émet mrr_drop warning si delta entre -0.15 et -0.05", () => {
-    const out = extractSignals(payload({ "kpi_mrr.delta": -0.10 }));
+    const out = extractSignals(payload({ "kpi_mrr.delta": -0.1 }));
     expect(out.signals[0].type).toBe("mrr_drop");
     expect(out.signals[0].severity).toBe("warning");
   });
@@ -85,9 +85,9 @@ describe("extractSignals — multi-signaux et severity globale", () => {
   it("émet plusieurs signaux dans un seul payload", () => {
     const out = extractSignals(
       payload({
-        "kpi_mrr.delta": -0.20,        // critical
-        "kpi_runway.value": 5,          // critical
-        "kpi_pipeline.value": 30_000,   // warning
+        "kpi_mrr.delta": -0.2, // critical
+        "kpi_runway.value": 5, // critical
+        "kpi_pipeline.value": 30_000, // warning
       }),
     );
     expect(out.signals.length).toBe(3);
@@ -97,7 +97,7 @@ describe("extractSignals — multi-signaux et severity globale", () => {
 
   it("dédup : un type de signal émis une seule fois max", () => {
     // Même si plusieurs règles MRR matchent, on n'émet pas mrr_drop deux fois
-    const out = extractSignals(payload({ "kpi_mrr.delta": -0.30 }));
+    const out = extractSignals(payload({ "kpi_mrr.delta": -0.3 }));
     const mrrSignals = out.signals.filter((s) => s.type === "mrr_drop");
     expect(mrrSignals).toHaveLength(1);
   });
@@ -115,7 +115,7 @@ describe("extractSignals — multi-signaux et severity globale", () => {
 
 describe("extractSignals — déterminisme", () => {
   it("même payload → mêmes signaux à chaque call", () => {
-    const p = payload({ "kpi_mrr.delta": -0.10, "kpi_pipeline.value": 25_000 });
+    const p = payload({ "kpi_mrr.delta": -0.1, "kpi_pipeline.value": 25_000 });
     const a = extractSignals(p);
     const b = extractSignals(p);
     expect(a).toEqual(b);
@@ -160,8 +160,8 @@ describe("extractSignals — retention_drop", () => {
   it("émet si C2 actual < baseline - 5pp", () => {
     const out = extractSignals(
       payload({
-        "kpi_retention_c2.value": 0.40,
-        "kpi_retention_c2.baseline": 0.50, // drop de 10pp
+        "kpi_retention_c2.value": 0.4,
+        "kpi_retention_c2.baseline": 0.5, // drop de 10pp
       }),
     );
     expect(out.signals[0].type).toBe("retention_drop");
@@ -172,7 +172,7 @@ describe("extractSignals — retention_drop", () => {
     const out = extractSignals(
       payload({
         "kpi_retention_c2.value": 0.46,
-        "kpi_retention_c2.baseline": 0.50, // 4pp
+        "kpi_retention_c2.baseline": 0.5, // 4pp
       }),
     );
     expect(out.signals).toHaveLength(0);
@@ -182,7 +182,7 @@ describe("extractSignals — retention_drop", () => {
     const out = extractSignals(
       payload({
         "kpi_retention_c2.value": 0.45,
-        "kpi_retention_c2.baseline": 0.50,
+        "kpi_retention_c2.baseline": 0.5,
       }),
     );
     expect(out.signals).toHaveLength(0);
@@ -212,43 +212,33 @@ describe("extractSignals — feature_adoption_low", () => {
   });
 
   it("n'émet rien si MAU = 0 (évite division par zéro)", () => {
-    const out = extractSignals(
-      payload({ "kpi_top_feature.value": 0, "kpi_top_feature.mau": 0 }),
-    );
+    const out = extractSignals(payload({ "kpi_top_feature.value": 0, "kpi_top_feature.mau": 0 }));
     expect(out.signals).toHaveLength(0);
   });
 });
 
 describe("extractSignals — nps_decline", () => {
   it("émet si NPS courant < précédent - 10", () => {
-    const out = extractSignals(
-      payload({ "kpi_nps.value": 30, "kpi_nps.previous": 45 }),
-    );
+    const out = extractSignals(payload({ "kpi_nps.value": 30, "kpi_nps.previous": 45 }));
     expect(out.signals[0].type).toBe("nps_decline");
     expect(out.signals[0].severity).toBe("warning");
   });
 
   it("n'émet rien si drop <= 10", () => {
-    const out = extractSignals(
-      payload({ "kpi_nps.value": 38, "kpi_nps.previous": 45 }),
-    );
+    const out = extractSignals(payload({ "kpi_nps.value": 38, "kpi_nps.previous": 45 }));
     expect(out.signals).toHaveLength(0);
   });
 });
 
 describe("extractSignals — csat_drop", () => {
   it("émet si CSAT 7j < baseline 30j - 5pp", () => {
-    const out = extractSignals(
-      payload({ "kpi_csat_7d.value": 0.78, "kpi_csat_7d.baseline": 0.90 }),
-    );
+    const out = extractSignals(payload({ "kpi_csat_7d.value": 0.78, "kpi_csat_7d.baseline": 0.9 }));
     expect(out.signals[0].type).toBe("csat_drop");
     expect(out.signals[0].severity).toBe("warning");
   });
 
   it("n'émet rien si CSAT 7j >= baseline - 5pp", () => {
-    const out = extractSignals(
-      payload({ "kpi_csat_7d.value": 0.86, "kpi_csat_7d.baseline": 0.90 }),
-    );
+    const out = extractSignals(payload({ "kpi_csat_7d.value": 0.86, "kpi_csat_7d.baseline": 0.9 }));
     expect(out.signals).toHaveLength(0);
   });
 });
@@ -275,7 +265,7 @@ describe("extractSignals — V2 multi-signaux + severity globale", () => {
   it("ramène la severity globale à critical si un seul signal critical V2", () => {
     const out = extractSignals(
       payload({
-        "kpi_sla.value": 0.80, // critical sla_breach
+        "kpi_sla.value": 0.8, // critical sla_breach
         "kpi_top_feature.value": 50,
         "kpi_top_feature.mau": 1000, // warning feature_adoption_low
       }),
@@ -309,7 +299,7 @@ describe("extractSignals — lead_time_drift", () => {
   it("n'émet pas exactement au seuil 1.3x (strict)", () => {
     const out = extractSignals(
       payload({
-        "kpi_lead_time.value": 39,    // = 30 * 1.3 pile
+        "kpi_lead_time.value": 39, // = 30 * 1.3 pile
         "kpi_lead_time.baseline": 30,
       }),
     );
@@ -336,9 +326,7 @@ describe("extractSignals — lead_time_drift", () => {
 
 describe("extractSignals — change_failure_high", () => {
   it("émet critical si CFR > 15%", () => {
-    const out = extractSignals(
-      payload({ "kpi_change_failure_rate.value": 0.20 }),
-    );
+    const out = extractSignals(payload({ "kpi_change_failure_rate.value": 0.2 }));
     const sig = out.signals.find((s) => s.type === "change_failure_high");
     expect(sig).toBeDefined();
     expect(sig?.severity).toBe("critical");
@@ -346,16 +334,12 @@ describe("extractSignals — change_failure_high", () => {
   });
 
   it("n'émet pas exactement à 15% (strict)", () => {
-    const out = extractSignals(
-      payload({ "kpi_change_failure_rate.value": 0.15 }),
-    );
+    const out = extractSignals(payload({ "kpi_change_failure_rate.value": 0.15 }));
     expect(out.signals.find((s) => s.type === "change_failure_high")).toBeUndefined();
   });
 
   it("n'émet pas si CFR < 15%", () => {
-    const out = extractSignals(
-      payload({ "kpi_change_failure_rate.value": 0.05 }),
-    );
+    const out = extractSignals(payload({ "kpi_change_failure_rate.value": 0.05 }));
     expect(out.signals).toHaveLength(0);
   });
 
@@ -407,7 +391,7 @@ describe("extractSignals — burnout_risk", () => {
   it("n'émet pas si ratios sous les seuils (composite OR)", () => {
     const out = extractSignals(
       payload({
-        "kpi_late_hours.value": 20,    // 20% < 30%
+        "kpi_late_hours.value": 20, // 20% < 30%
         "kpi_late_hours.mau": 100,
         "kpi_weekend_activity.value": 15, // 15% < 20%
         "kpi_weekend_activity.mau": 100,
@@ -485,7 +469,7 @@ describe("extractSignals — incident_spike", () => {
 
 describe("extractSignals — burnout_risk via late_activity_ratio", () => {
   it("émet warning si kpi_late_activity.value > 0.25", () => {
-    const out = extractSignals(payload({ "kpi_late_activity.value": 0.30 }));
+    const out = extractSignals(payload({ "kpi_late_activity.value": 0.3 }));
     const sig = out.signals.find((s) => s.type === "burnout_risk");
     expect(sig).toBeDefined();
     expect(sig?.severity).toBe("warning");
@@ -498,7 +482,7 @@ describe("extractSignals — burnout_risk via late_activity_ratio", () => {
   });
 
   it("n'émet pas si ratio < 25%", () => {
-    const out = extractSignals(payload({ "kpi_late_activity.value": 0.10 }));
+    const out = extractSignals(payload({ "kpi_late_activity.value": 0.1 }));
     expect(out.signals).toHaveLength(0);
   });
 });
@@ -537,9 +521,7 @@ describe("extractSignals — meeting_overload", () => {
 
 describe("extractSignals — integration : support-health csat_drop + sla_breach", () => {
   it("détecte csat_drop + sla_breach depuis un payload support-health", async () => {
-    const { renderBlocks } = await import(
-      "@/lib/reports/engine/render-blocks"
-    );
+    const { renderBlocks } = await import("@/lib/reports/engine/render-blocks");
     const spec = {
       id: "00000000-0000-4000-8000-100000000006",
       version: 1,
@@ -552,9 +534,7 @@ describe("extractSignals — integration : support-health csat_drop + sla_breach
         confidentiality: "internal" as const,
       },
       scope: { tenantId: "t", workspaceId: "w" },
-      sources: [
-        { id: "src", kind: "composio" as const, spec: { action: "X", params: {} } },
-      ],
+      sources: [{ id: "src", kind: "composio" as const, spec: { action: "X", params: {} } }],
       transforms: [],
       blocks: [
         {
@@ -584,12 +564,10 @@ describe("extractSignals — integration : support-health csat_drop + sla_breach
     };
     // CSAT 7j = 0.78, baseline 30j = 0.90 → drop de 12pp > 5pp → csat_drop
     // SLA compliance = 0.82 → < 90% → sla_breach
-    const datasets = new Map([
-      ["src", [{ csat: 0.78, baseline: 0.90, value: 0.82 }]],
-    ]);
+    const datasets = new Map([["src", [{ csat: 0.78, baseline: 0.9, value: 0.82 }]]]);
     const out = renderBlocks(spec, datasets, 0);
     expect(out.scalars["kpi_csat_7d.value"]).toBe(0.78);
-    expect(out.scalars["kpi_csat_7d.baseline"]).toBe(0.90);
+    expect(out.scalars["kpi_csat_7d.baseline"]).toBe(0.9);
     expect(out.scalars["kpi_sla.value"]).toBe(0.82);
 
     const signals = extractSignals(out);
@@ -608,9 +586,7 @@ describe("extractSignals — integration : baseline_3m généré par renderBlock
   it("financial-pnl rule expense_spike consomme baseline_3m issu d'un transform", async () => {
     // Simule l'intégration end-to-end : un block KPI avec subScalars publie
     // bien le sous-scalaire baseline_3m, qui est consommé par la rule.
-    const { renderBlocks } = await import(
-      "@/lib/reports/engine/render-blocks"
-    );
+    const { renderBlocks } = await import("@/lib/reports/engine/render-blocks");
     const spec = {
       id: "00000000-0000-4000-8000-100000000004",
       version: 1,
@@ -649,9 +625,7 @@ describe("extractSignals — integration : baseline_3m généré par renderBlock
       createdAt: 0,
       updatedAt: 0,
     };
-    const datasets = new Map([
-      ["src", [{ value: 14_000, baseline_3m: 10_000 }]],
-    ]);
+    const datasets = new Map([["src", [{ value: 14_000, baseline_3m: 10_000 }]]]);
     const out = renderBlocks(spec, datasets, 0);
     expect(out.scalars["kpi_expenses.value"]).toBe(14_000);
     expect(out.scalars["kpi_expenses.baseline_3m"]).toBe(10_000);

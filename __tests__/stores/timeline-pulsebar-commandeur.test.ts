@@ -7,13 +7,13 @@
  * du setup React.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
 // ── Stores ──────────────────────────────────────────────────────
 
 import { useNavigationStore } from "@/stores/navigation";
-import { useStageStore } from "@/stores/stage";
 import { useRuntimeStore } from "@/stores/runtime";
+import { useStageStore } from "@/stores/stage";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TimelineRail invariants (via useNavigationStore)

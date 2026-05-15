@@ -3,10 +3,10 @@
  * on vérifie que les sheets attendus sont créés en re-parseant via exceljs.
  */
 
-import { describe, it, expect } from "vitest";
 import ExcelJS from "exceljs";
-import { exportXlsx } from "@/lib/reports/export/xlsx";
+import { describe, expect, it } from "vitest";
 import type { RenderPayload } from "@/lib/reports/engine/render-blocks";
+import { exportXlsx } from "@/lib/reports/export/xlsx";
 import type { ReportMeta } from "@/lib/reports/spec/schema";
 
 const meta: ReportMeta = {

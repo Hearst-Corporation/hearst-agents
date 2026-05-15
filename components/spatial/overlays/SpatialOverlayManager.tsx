@@ -1,20 +1,14 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useRuntimeStore } from '@/stores/runtime';
-import { useFocalStore } from '@/stores/focal';
-import {
-  BriefPanel,
-  MissionPanel,
-  AssetsPanel,
-  PlanStepCard,
-  AssetCard,
-} from '../panels';
-import { CommandBar } from './CommandBar';
-import { ApprovalAlert } from './ApprovalAlert';
-import { SpatialHotkeys } from './SpatialHotkeys';
-import { SPATIAL_Z_LAYERS } from '@/lib/spatial/constants';
-import type { CockpitTodayPayload } from '@/lib/cockpit/today';
+import React from "react";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
+import { useFocalStore } from "@/stores/focal";
+import { useRuntimeStore } from "@/stores/runtime";
+import { AssetCard, AssetsPanel, BriefPanel, MissionPanel, PlanStepCard } from "../panels";
+import { ApprovalAlert } from "./ApprovalAlert";
+import { CommandBar } from "./CommandBar";
+import { SpatialHotkeys } from "./SpatialHotkeys";
 
 const EMPTY_SECONDARY: never[] = [];
 const EMPTY_STEPS: never[] = [];
@@ -28,8 +22,8 @@ export function SpatialOverlayManager({ initialCockpitData = null }: SpatialOver
   const currentPlan = useRuntimeStore((s) => s.currentPlan);
   const secondary = useFocalStore((s) => s.secondary) ?? EMPTY_SECONDARY;
 
-  const isRunning = coreState === 'streaming' || coreState === 'processing';
-  const isAwaiting = coreState === 'awaiting_approval' || coreState === 'awaiting_clarification';
+  const isRunning = coreState === "streaming" || coreState === "processing";
+  const isAwaiting = coreState === "awaiting_approval" || coreState === "awaiting_clarification";
   const hasMission = !!currentPlan;
   const hasAssets = secondary.length > 0;
 
@@ -37,7 +31,7 @@ export function SpatialOverlayManager({ initialCockpitData = null }: SpatialOver
   const liveSteps = React.useMemo(
     () =>
       (currentPlan?.steps ?? EMPTY_STEPS)
-        .filter((s) => s.status === 'running' || s.status === 'awaiting_approval')
+        .filter((s) => s.status === "running" || s.status === "awaiting_approval")
         .slice(0, 3),
     [currentPlan],
   );
@@ -52,7 +46,7 @@ export function SpatialOverlayManager({ initialCockpitData = null }: SpatialOver
         <div
           className="grid h-[min(640px,80vh)] w-[min(720px,52vw)] gap-4 md:grid-cols-4 grid-cols-1 grid-rows-3"
           style={{
-            perspective: '1200px',
+            perspective: "1200px",
           }}
         >
           <BriefPanel show={!isRunning && !hasMission} />

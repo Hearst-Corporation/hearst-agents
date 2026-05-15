@@ -1,12 +1,11 @@
-import { describe, it, expect } from "vitest";
-import type { ModelDecision } from "../../lib/llm/router";
-
+import { describe, expect, it } from "vitest";
 /**
  * Unit tests for the smart routing decision logic.
  * We test buildDecision behavior indirectly via the exported interface shape,
  * and verify the model selector integration via selectModel.
  */
-import { selectModel, type ModelScore } from "../../lib/decisions/model-selector";
+import { type ModelScore, selectModel } from "../../lib/decisions/model-selector";
+import type { ModelDecision } from "../../lib/llm/router";
 
 function makeScore(overrides: Partial<ModelScore> = {}): ModelScore {
   return {
@@ -83,9 +82,7 @@ describe("smart-router decision building", () => {
   });
 
   it("falls back to agent model when all models are unstable", () => {
-    const scores = [
-      makeScore({ reliability: "unstable" }),
-    ];
+    const scores = [makeScore({ reliability: "unstable" })];
     const selection = selectModel(scores, "balanced");
     const decision = buildDecisionFromSelection(selection, scores, "balanced", "openai", "gpt-4");
 
@@ -96,7 +93,12 @@ describe("smart-router decision building", () => {
 
   it("includes fallbacks in decision", () => {
     const scores = Array.from({ length: 5 }, (_, i) =>
-      makeScore({ profile_id: `p-${i}`, provider: `prov-${i}`, model: `model-${i}`, score: 1 - i * 0.1 }),
+      makeScore({
+        profile_id: `p-${i}`,
+        provider: `prov-${i}`,
+        model: `model-${i}`,
+        score: 1 - i * 0.1,
+      }),
     );
     const selection = selectModel(scores, "balanced");
     const decision = buildDecisionFromSelection(selection, scores, "balanced", "prov-0", "model-0");
@@ -151,9 +153,7 @@ describe("smart chain construction", () => {
   });
 
   it("does not duplicate agent model if already in chain", () => {
-    const scores = [
-      makeScore({ provider: "openai", model: "gpt-4", score: 0.95 }),
-    ];
+    const scores = [makeScore({ provider: "openai", model: "gpt-4", score: 0.95 })];
     const selection = selectModel(scores, "balanced");
     const decision = buildDecisionFromSelection(selection, scores, "balanced", "openai", "gpt-4");
 

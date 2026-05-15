@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * useSplineVoiceBridge — pousse `voiceStore.audioLevel` (0..1) dans la scène
@@ -15,9 +15,9 @@
  *  - Si rien de tout ça : no-op silencieux, l'app reste fonctionnelle
  */
 
-import { useEffect } from 'react';
-import { useVoiceStore } from '@/stores/voice';
-import type { UseSplineApp } from './useSplineApp';
+import { useEffect } from "react";
+import { useVoiceStore } from "@/stores/voice";
+import type { UseSplineApp } from "./useSplineApp";
 
 const PULSE_SCALE_MIN = 1;
 const PULSE_SCALE_AMP = 0.18;
@@ -37,10 +37,10 @@ export function useSplineVoiceBridge(spline: UseSplineApp) {
       lastLevel = level;
 
       // Variable Spline canonique : `pulse` (0..1)
-      spline.setVar('pulse', level);
+      spline.setVar("pulse", level);
 
       // Fallback : mute scale direct sur l'objet `Orb`
-      const orb = spline.obj('Orb');
+      const orb = spline.obj("Orb");
       if (orb) {
         const s = PULSE_SCALE_MIN + level * PULSE_SCALE_AMP;
         orb.scale.x = s;

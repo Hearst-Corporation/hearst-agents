@@ -5,7 +5,7 @@
  * via la fonction headers().
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("CSP & Security Headers (F-078)", () => {
   it("should have Content-Security-Policy header configured", () => {

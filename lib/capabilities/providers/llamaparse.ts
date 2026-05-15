@@ -29,7 +29,9 @@ export async function parseDocument(params: {
     signal: AbortSignal.timeout(FILE_FETCH_TIMEOUT_MS),
   });
   if (fileRes.status >= 300 && fileRes.status < 400) {
-    throw new Error(`[LlamaParse] Redirect non autorisé (${fileRes.status}) depuis ${safeUrl.hostname}`);
+    throw new Error(
+      `[LlamaParse] Redirect non autorisé (${fileRes.status}) depuis ${safeUrl.hostname}`,
+    );
   }
   if (!fileRes.ok) {
     throw new Error(`[LlamaParse] Fetch fichier échoué: ${fileRes.status}`);
@@ -54,7 +56,7 @@ export async function parseDocument(params: {
     throw new Error(`[LlamaParse] Upload échoué ${uploadRes.status}: ${errBody.slice(0, 200)}`);
   }
 
-  const { id: jobId } = await uploadRes.json() as { id: string };
+  const { id: jobId } = (await uploadRes.json()) as { id: string };
 
   // 3. Poll GET /job/{jobId}/result every 3s, max 40 attempts
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
@@ -69,7 +71,7 @@ export async function parseDocument(params: {
       continue;
     }
 
-    const result = await pollRes.json() as {
+    const result = (await pollRes.json()) as {
       status: string;
       markdown?: string;
       pages?: number;
@@ -116,7 +118,7 @@ export async function parseDocumentBuffer(
     throw new Error(`[LlamaParse] Upload échoué ${uploadRes.status}: ${errBody.slice(0, 200)}`);
   }
 
-  const { id: jobId } = await uploadRes.json() as { id: string };
+  const { id: jobId } = (await uploadRes.json()) as { id: string };
 
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
@@ -130,7 +132,7 @@ export async function parseDocumentBuffer(
       continue;
     }
 
-    const result = await pollRes.json() as {
+    const result = (await pollRes.json()) as {
       status: string;
       markdown?: string;
       pages?: number;

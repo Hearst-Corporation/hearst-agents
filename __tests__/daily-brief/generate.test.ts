@@ -3,13 +3,10 @@
  * fallback déterministe.
  */
 
-import { describe, it, expect } from "vitest";
-import {
-  DAILY_BRIEF_SYSTEM_PROMPT,
-  generateDailyBriefNarration,
-} from "@/lib/daily-brief/generate";
-import { DAILY_BRIEF_FEWSHOT_FR } from "@/lib/prompts/examples";
+import { describe, expect, it } from "vitest";
+import { DAILY_BRIEF_SYSTEM_PROMPT, generateDailyBriefNarration } from "@/lib/daily-brief/generate";
 import type { DailyBriefData } from "@/lib/daily-brief/types";
+import { DAILY_BRIEF_FEWSHOT_FR } from "@/lib/prompts/examples";
 
 const EMPTY_DATA: DailyBriefData = {
   emails: [],
@@ -43,7 +40,7 @@ describe("DAILY_BRIEF_SYSTEM_PROMPT", () => {
   it("contient au moins 2 few-shot examples", () => {
     const matches = DAILY_BRIEF_SYSTEM_PROMPT.match(/<example>/g);
     expect(matches).not.toBeNull();
-    expect(matches!.length).toBeGreaterThanOrEqual(2);
+    expect(matches?.length).toBeGreaterThanOrEqual(2);
   });
 });
 

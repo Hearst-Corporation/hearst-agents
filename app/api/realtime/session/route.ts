@@ -11,14 +11,14 @@
  * active (ash/sage/alloy/coral/ballad/verse). Sans tone → "alloy" default.
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { mintRealtimeSession } from "@/lib/capabilities/providers/openai-realtime";
-import { voiceToolDefs } from "@/lib/voice/tools";
-import { getVoiceComposioTools } from "@/lib/voice/composio-bridge";
-import { resolveRealtimeVoice } from "@/lib/voice/voice-mapping";
 import { extractAppsFromToolNames } from "@/lib/agents/connected-apps-context";
+import { mintRealtimeSession } from "@/lib/capabilities/providers/openai-realtime";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { getVoiceComposioTools } from "@/lib/voice/composio-bridge";
+import { voiceToolDefs } from "@/lib/voice/tools";
+import { resolveRealtimeVoice } from "@/lib/voice/voice-mapping";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -95,9 +95,6 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[realtime/session] mint failed:", message);
-    return NextResponse.json(
-      { error: "realtime_session_failed", message },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "realtime_session_failed", message }, { status: 500 });
   }
 }

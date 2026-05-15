@@ -2,7 +2,7 @@
  * getCockpitToday — vérifie l'intégration de la section inbox dans le payload.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   getAllMissionOps: vi.fn(),
@@ -15,10 +15,16 @@ const mocks = vi.hoisted(() => ({
   loadLatestInboxBrief: vi.fn(),
 }));
 
-vi.mock("@/lib/engine/runtime/missions/ops-store", () => ({ getAllMissionOps: mocks.getAllMissionOps }));
-vi.mock("@/lib/engine/runtime/state/adapter", () => ({ getScheduledMissions: mocks.getScheduledMissions }));
+vi.mock("@/lib/engine/runtime/missions/ops-store", () => ({
+  getAllMissionOps: mocks.getAllMissionOps,
+}));
+vi.mock("@/lib/engine/runtime/state/adapter", () => ({
+  getScheduledMissions: mocks.getScheduledMissions,
+}));
 vi.mock("@/lib/engine/runtime/missions/store", () => ({ getAllMissions: mocks.getMemoryMissions }));
-vi.mock("@/lib/connectors/control-plane/store", () => ({ getConnectionsByScope: mocks.getConnectionsByScope }));
+vi.mock("@/lib/connectors/control-plane/store", () => ({
+  getConnectionsByScope: mocks.getConnectionsByScope,
+}));
 vi.mock("@/lib/integrations/service-map", () => ({
   getAllServiceIds: mocks.getAllServiceIds,
   getProviderIdForService: mocks.getProviderIdForService,
@@ -65,17 +71,13 @@ describe("getCockpitToday — section inbox", () => {
   });
 
   it("needsConnection=false quand Gmail connecté", async () => {
-    mocks.getConnectionsByScope.mockResolvedValue([
-      { provider: "google", status: "connected" },
-    ]);
+    mocks.getConnectionsByScope.mockResolvedValue([{ provider: "google", status: "connected" }]);
     const payload = await getCockpitToday(SCOPE);
     expect(payload.inbox.needsConnection).toBe(false);
   });
 
   it("brief retourné si présent + stale=false si frais (<1h)", async () => {
-    mocks.getConnectionsByScope.mockResolvedValue([
-      { provider: "slack", status: "connected" },
-    ]);
+    mocks.getConnectionsByScope.mockResolvedValue([{ provider: "slack", status: "connected" }]);
     mocks.loadLatestInboxBrief.mockResolvedValue({
       items: [
         {
@@ -95,14 +97,12 @@ describe("getCockpitToday — section inbox", () => {
     });
     const payload = await getCockpitToday(SCOPE);
     expect(payload.inbox.brief).toBeTruthy();
-    expect(payload.inbox.brief!.items).toHaveLength(1);
+    expect(payload.inbox.brief?.items).toHaveLength(1);
     expect(payload.inbox.stale).toBe(false);
   });
 
   it("stale=true si brief > 1h ancien", async () => {
-    mocks.getConnectionsByScope.mockResolvedValue([
-      { provider: "slack", status: "connected" },
-    ]);
+    mocks.getConnectionsByScope.mockResolvedValue([{ provider: "slack", status: "connected" }]);
     mocks.loadLatestInboxBrief.mockResolvedValue({
       items: [],
       generatedAt: Date.now() - 2 * 3600_000, // 2h ago
@@ -114,9 +114,7 @@ describe("getCockpitToday — section inbox", () => {
   });
 
   it("filtre les items snoozed jusqu'à demain", async () => {
-    mocks.getConnectionsByScope.mockResolvedValue([
-      { provider: "slack", status: "connected" },
-    ]);
+    mocks.getConnectionsByScope.mockResolvedValue([{ provider: "slack", status: "connected" }]);
     mocks.loadLatestInboxBrief.mockResolvedValue({
       items: [
         {
@@ -146,8 +144,8 @@ describe("getCockpitToday — section inbox", () => {
       empty: false,
     });
     const payload = await getCockpitToday(SCOPE);
-    expect(payload.inbox.brief!.items).toHaveLength(1);
-    expect(payload.inbox.brief!.items[0].id).toBe("email:1");
+    expect(payload.inbox.brief?.items).toHaveLength(1);
+    expect(payload.inbox.brief?.items[0].id).toBe("email:1");
   });
 
   it("fail-soft : si loadLatestInboxBrief throw, inbox reste cohérent", async () => {

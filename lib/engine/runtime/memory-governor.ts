@@ -130,7 +130,13 @@ export async function enforceMemoryPolicy(
       .limit(overflow);
 
     if (toTrim && toTrim.length > 0) {
-      await sb.from("agent_memory").delete().in("id", toTrim.map((r) => r.id));
+      await sb
+        .from("agent_memory")
+        .delete()
+        .in(
+          "id",
+          toTrim.map((r) => r.id),
+        );
       trimmed += toTrim.length;
     }
   }

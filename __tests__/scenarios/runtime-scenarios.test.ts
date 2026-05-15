@@ -6,19 +6,19 @@
  * decisions, and guard behavior — deterministically.
  */
 
-import { describe, it, expect } from "vitest";
-import { createMockSupabase } from "../runtime/mock-supabase";
-import { RunTracer } from "../../lib/engine/runtime/tracer";
-import { validateOutput } from "../../lib/engine/runtime/output-validator";
+import { describe, expect, it } from "vitest";
 import {
-  classifyTraceFailure,
-  classifyRunFailure,
   aggregateFailures,
+  classifyRunFailure,
+  classifyTraceFailure,
 } from "../../lib/analytics/failure-classifier";
 import type { ToolScore } from "../../lib/analytics/tool-ranking";
+import { type ModelScore, selectModel } from "../../lib/decisions/model-selector";
 import { selectTool } from "../../lib/decisions/tool-selector";
-import { selectModel, type ModelScore } from "../../lib/decisions/model-selector";
+import { validateOutput } from "../../lib/engine/runtime/output-validator";
 import type { AgentGuardPolicy } from "../../lib/engine/runtime/prompt-guard";
+import { RunTracer } from "../../lib/engine/runtime/tracer";
+import { createMockSupabase } from "../runtime/mock-supabase";
 
 // ─────────────────────────────────────────────────────────────
 // SCÉNARIO 1 — TOOL FAILURE + FALLBACK + TRACE
@@ -61,9 +61,9 @@ describe("Scenario 1: Tool failure + smart fallback", () => {
     });
 
     expect(toolAClassification).not.toBeNull();
-    expect(toolAClassification!.category).toBe("tool_failure");
-    expect(toolAClassification!.severity).toBe("medium");
-    expect(toolAClassification!.retryable).toBe(true);
+    expect(toolAClassification?.category).toBe("tool_failure");
+    expect(toolAClassification?.severity).toBe("medium");
+    expect(toolAClassification?.retryable).toBe(true);
 
     // --- Fallback: tool B succeeds ---
     const toolBResult = await tracer.trace({
@@ -87,12 +87,18 @@ describe("Scenario 1: Tool failure + smart fallback", () => {
     const successTrace = toolTraces.find((t: Record<string, unknown>) => t.status === "completed");
     expect(failedTrace).toBeTruthy();
     expect(successTrace).toBeTruthy();
-    expect(failedTrace!.name).toBe("tool:api_fetcher_v1");
-    expect(successTrace!.name).toBe("tool:api_fetcher_v2");
+    expect(failedTrace?.name).toBe("tool:api_fetcher_v1");
+    expect(successTrace?.name).toBe("tool:api_fetcher_v2");
 
     // --- Tool selector would recommend B over A ---
     const toolScores: ToolScore[] = [
-      { tool_name: "tool:api_fetcher_v1", score: 0.3, rank: 2, reliability: "unstable", flags: ["low_success_rate"] },
+      {
+        tool_name: "tool:api_fetcher_v1",
+        score: 0.3,
+        rank: 2,
+        reliability: "unstable",
+        flags: ["low_success_rate"],
+      },
       { tool_name: "tool:api_fetcher_v2", score: 0.9, rank: 1, reliability: "stable", flags: [] },
     ];
 
@@ -103,7 +109,6 @@ describe("Scenario 1: Tool failure + smart fallback", () => {
     await tracer.endRun("completed", { fallback_used: true });
     expect(tracer.getStatus()).toBe("completed");
   });
-
 });
 
 // ─────────────────────────────────────────────────────────────
@@ -176,9 +181,9 @@ describe("Scenario 2: Cost limit hard stop", () => {
     });
 
     expect(runClassification).not.toBeNull();
-    expect(runClassification!.category).toBe("cost_exceeded");
-    expect(runClassification!.severity).toBe("critical");
-    expect(runClassification!.retryable).toBe(false);
+    expect(runClassification?.category).toBe("cost_exceeded");
+    expect(runClassification?.severity).toBe("critical");
+    expect(runClassification?.retryable).toBe(false);
 
     // Verify traces count
     const traces = sb._getTable("traces").getRows();
@@ -197,7 +202,8 @@ describe("Scenario 3: Guard failure with strict policy", () => {
       max_output_chars: 50,
     };
 
-    const longOutput = "To store a password securely, you should use bcrypt hashing with a salt factor of at least 12.";
+    const longOutput =
+      "To store a password securely, you should use bcrypt hashing with a salt factor of at least 12.";
 
     const result = validateOutput(longOutput, { policy });
 
@@ -215,7 +221,9 @@ describe("Scenario 3: Guard failure with strict policy", () => {
       max_output_chars: 20,
     };
 
-    const result = validateOutput("This is a response that is way too long for the policy limit.", { policy });
+    const result = validateOutput("This is a response that is way too long for the policy limit.", {
+      policy,
+    });
 
     expect(result.trust).toBe("guard_failed");
     expect(result.failed_guards).toContain("output_size");
@@ -233,9 +241,9 @@ describe("Scenario 3: Guard failure with strict policy", () => {
     });
 
     expect(classification).not.toBeNull();
-    expect(classification!.category).toBe("guard_failure");
-    expect(classification!.severity).toBe("high");
-    expect(classification!.retryable).toBe(false);
+    expect(classification?.category).toBe("guard_failure");
+    expect(classification?.severity).toBe("high");
+    expect(classification?.retryable).toBe(false);
   });
 
   it("integrates guard policy into tracer without crash", async () => {
@@ -268,15 +276,15 @@ describe("Scenario 3: Guard failure with strict policy", () => {
 
     // Validation runs and produces result — no crash
     expect(result.validation).toBeDefined();
-    expect(result.validation!.trust).toBe("guard_failed");
-    expect(result.validation!.classification).not.toBe("valid");
-    expect(result.validation!.failed_guards.length).toBeGreaterThan(0);
+    expect(result.validation?.trust).toBe("guard_failed");
+    expect(result.validation?.classification).not.toBe("valid");
+    expect(result.validation?.failed_guards.length).toBeGreaterThan(0);
 
     // Trace was persisted with output_trust
     const traces = sb._getTable("traces").getRows();
     const llmTrace = traces.find((t: Record<string, unknown>) => t.kind === "llm_call");
     expect(llmTrace).toBeTruthy();
-    expect(llmTrace!.output_trust).toBe("guard_failed");
+    expect(llmTrace?.output_trust).toBe("guard_failed");
 
     await tracer.endRun("completed", {});
   });
@@ -324,9 +332,9 @@ describe("Scenario 4: Model routing with fallback", () => {
     // reliability goal
     const selection = selectModel(scores, "reliability");
     expect(selection.selected).not.toBeNull();
-    expect(selection.selected!.provider).toBe("anthropic");
-    expect(selection.selected!.model).toBe("claude-3-sonnet");
-    expect(selection.selected!.reliability).toBe("stable");
+    expect(selection.selected?.provider).toBe("anthropic");
+    expect(selection.selected?.model).toBe("claude-3-sonnet");
+    expect(selection.selected?.reliability).toBe("stable");
     expect(selection.reason).toContain("reliability");
 
     // unstable model excluded from selection
@@ -352,7 +360,7 @@ describe("Scenario 4: Model routing with fallback", () => {
 
     const selection = selectModel(scores, "reliability");
     const wasOverridden =
-      selection.selected!.provider !== "openai" || selection.selected!.model !== "gpt-4";
+      selection.selected?.provider !== "openai" || selection.selected?.model !== "gpt-4";
 
     expect(wasOverridden).toBe(true);
   });
@@ -389,11 +397,15 @@ describe("Scenario 4: Model routing with fallback", () => {
     });
 
     const traces = sb._getTable("traces").getRows();
-    const selectionTrace = traces.find((t: Record<string, unknown>) => t.name === "model_selection");
+    const selectionTrace = traces.find(
+      (t: Record<string, unknown>) => t.name === "model_selection",
+    );
     expect(selectionTrace).toBeTruthy();
-    expect((selectionTrace!.output as Record<string, unknown>).was_overridden).toBe(true);
-    expect((selectionTrace!.output as Record<string, unknown>).selected).toBe("anthropic/claude-3-sonnet");
-    expect((selectionTrace!.output as Record<string, unknown>).reason).toContain("reliability");
+    expect((selectionTrace?.output as Record<string, unknown>).was_overridden).toBe(true);
+    expect((selectionTrace?.output as Record<string, unknown>).selected).toBe(
+      "anthropic/claude-3-sonnet",
+    );
+    expect((selectionTrace?.output as Record<string, unknown>).reason).toContain("reliability");
 
     await tracer.endRun("completed", {});
   });
@@ -426,8 +438,8 @@ describe("Scenario 4: Model routing with fallback", () => {
     const traces = sb._getTable("traces").getRows();
     const fallbackTrace = traces.find((t: Record<string, unknown>) => t.name === "model_fallback");
     expect(fallbackTrace).toBeTruthy();
-    expect((fallbackTrace!.output as Record<string, unknown>).fallback_to).toBe("openai/gpt-4");
-    expect((fallbackTrace!.input as Record<string, unknown>).error).toBe("Provider rate limited");
+    expect((fallbackTrace?.output as Record<string, unknown>).fallback_to).toBe("openai/gpt-4");
+    expect((fallbackTrace?.input as Record<string, unknown>).error).toBe("Provider rate limited");
 
     await tracer.endRun("completed", {});
   });
@@ -493,7 +505,7 @@ describe("Scenario 5: Full workflow end-to-end", () => {
     });
     expect(step3.status).toBe("completed");
     expect(step3.validation).toBeDefined();
-    expect(step3.validation!.classification).toBe("valid");
+    expect(step3.validation?.classification).toBe("valid");
 
     // Step 4: condition eval
     const step4 = await tracer.trace({
@@ -561,9 +573,9 @@ describe("Scenario 5: Full workflow end-to-end", () => {
 
     expect(result.status).toBe("completed");
     expect(result.validation).toBeDefined();
-    expect(result.validation!.trust).toBe("stubbed");
-    expect(result.validation!.classification).toBe("valid");
-    expect(result.validation!.score).toBe(1);
+    expect(result.validation?.trust).toBe("stubbed");
+    expect(result.validation?.classification).toBe("valid");
+    expect(result.validation?.score).toBe(1);
 
     const totals = tracer.getTotals();
     expect(totals.cost_usd).toBe(0);
@@ -581,20 +593,39 @@ describe("Scenario 6: Failure aggregation", () => {
   it("aggregates multiple failure types correctly", () => {
     const classifications = [
       classifyTraceFailure({
-        status: "failed", kind: "tool_call", name: "tool:fetcher",
-        error: "HTTP 500", output_trust: null, cost_usd: 0, latency_ms: 100,
+        status: "failed",
+        kind: "tool_call",
+        name: "tool:fetcher",
+        error: "HTTP 500",
+        output_trust: null,
+        cost_usd: 0,
+        latency_ms: 100,
       })!,
       classifyTraceFailure({
-        status: "timeout", kind: "tool_call", name: "tool:fetcher",
-        error: "Timed out after 5000ms", output_trust: null, cost_usd: 0, latency_ms: 5000,
+        status: "timeout",
+        kind: "tool_call",
+        name: "tool:fetcher",
+        error: "Timed out after 5000ms",
+        output_trust: null,
+        cost_usd: 0,
+        latency_ms: 5000,
       })!,
       classifyTraceFailure({
-        status: "completed", kind: "llm_call", name: "openai/gpt-4",
-        error: null, output_trust: "guard_failed", cost_usd: 0.01, latency_ms: 1200,
+        status: "completed",
+        kind: "llm_call",
+        name: "openai/gpt-4",
+        error: null,
+        output_trust: "guard_failed",
+        cost_usd: 0.01,
+        latency_ms: 1200,
       })!,
       classifyRunFailure({
-        status: "failed", error: "Run cost $0.05 exceeds budget $0.01",
-        cost_usd: 0.05, cost_budget_usd: 0.01, latency_ms: 8000, timeout_ms: 60000,
+        status: "failed",
+        error: "Run cost $0.05 exceeds budget $0.01",
+        cost_usd: 0.05,
+        cost_budget_usd: 0.01,
+        latency_ms: 8000,
+        timeout_ms: 60000,
       })!,
     ];
 

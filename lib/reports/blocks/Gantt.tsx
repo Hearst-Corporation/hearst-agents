@@ -120,8 +120,7 @@ export function Gantt({ range, tasks, height }: GanttProps) {
   const CHART_W = VB_W - LEFT_COL;
 
   // Mappe ms → x dans le viewBox.
-  const xFor = (ms: number) =>
-    LEFT_COL + ((ms - startMs) / totalMs) * CHART_W;
+  const xFor = (ms: number) => LEFT_COL + ((ms - startMs) / totalMs) * CHART_W;
 
   // Position y du milieu d'une row (tâche index i).
   const yMid = (i: number) => AXIS_H + i * ROW_H + ROW_H / 2;
@@ -159,10 +158,7 @@ export function Gantt({ range, tasks, height }: GanttProps) {
             markerHeight="6"
             orient="auto-start-reverse"
           >
-            <path
-              d="M 0 0 L 10 5 L 0 10 z"
-              fill="var(--text-faint)"
-            />
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-faint)" />
           </marker>
         </defs>
 
@@ -226,7 +222,10 @@ export function Gantt({ range, tasks, height }: GanttProps) {
             const y = yMid(i);
             const barTop = y - (ROW_H - BAR_PAD * 2) / 2;
             const barH = ROW_H - BAR_PAD * 2;
-            const progress = Math.max(0, Math.min(1, Number.isFinite(task.progress) ? task.progress : 0));
+            const progress = Math.max(
+              0,
+              Math.min(1, Number.isFinite(task.progress) ? task.progress : 0),
+            );
             const progressW = Math.max(0, w * progress);
 
             return (
@@ -257,14 +256,7 @@ export function Gantt({ range, tasks, height }: GanttProps) {
                 </text>
 
                 {/* Barre background */}
-                <rect
-                  x={x1}
-                  y={barTop}
-                  width={w}
-                  height={barH}
-                  fill="var(--surface-2)"
-                  rx={2}
-                />
+                <rect x={x1} y={barTop} width={w} height={barH} fill="var(--surface-2)" rx={2} />
                 {/* Progression */}
                 <rect
                   x={x1}
@@ -275,9 +267,7 @@ export function Gantt({ range, tasks, height }: GanttProps) {
                   fillOpacity={0.85}
                   rx={2}
                 >
-                  <title>
-                    {`${task.label} — ${fmtNumber(progress * 100, { decimals: 0 })} %`}
-                  </title>
+                  <title>{`${task.label} — ${fmtNumber(progress * 100, { decimals: 0 })} %`}</title>
                 </rect>
                 {/* Cadre fin pour lisibilité quand progression=0 */}
                 <rect

@@ -6,8 +6,8 @@
  */
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "./options";
 import { isDevBypassEnabled } from "./dev-bypass";
+import { authOptions } from "./options";
 
 // UUID Adrien dans public.users — cohérent avec lib/platform/auth/get-user-id.ts.
 const DEV_USER = "36914162-75f9-4c27-b38b-bb050f51d52b";

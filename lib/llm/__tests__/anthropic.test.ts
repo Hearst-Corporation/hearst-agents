@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 process.env.ANTHROPIC_API_KEY = "test-key";
 
@@ -20,7 +20,7 @@ vi.mock("@anthropic-ai/sdk", () => {
                 },
               },
               response: new Response(),
-            })
+            }),
           ),
         })),
         stream: vi.fn(),

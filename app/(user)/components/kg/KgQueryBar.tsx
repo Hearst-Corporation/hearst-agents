@@ -8,7 +8,7 @@
  * ne gère que l'input + appel parent.
  */
 
-import { useState, type FormEvent } from "react";
+import { type FormEvent, useState } from "react";
 
 interface KgQueryBarProps {
   defaultValue?: string;
@@ -46,10 +46,7 @@ export function KgQueryBar({
       className="flex items-center gap-3 border border-(--border-default) bg-[var(--surface-card)] rounded-md"
       style={{ padding: "var(--space-2) var(--space-4)" }}
     >
-      <span
-        aria-hidden
-        className="t-13 text-text-faint"
-      >
+      <span aria-hidden className="t-13 text-text-faint">
         ⌕
       </span>
       <input
@@ -74,7 +71,11 @@ export function KgQueryBar({
         type="submit"
         disabled={loading}
         className="t-11 font-medium text-(--accent-teal) disabled:opacity-50"
-        style={{ transitionProperty: "letter-spacing", transitionDuration: "var(--duration-slow)", transitionTimingFunction: "var(--ease-out)" }}
+        style={{
+          transitionProperty: "letter-spacing",
+          transitionDuration: "var(--duration-slow)",
+          transitionTimingFunction: "var(--ease-out)",
+        }}
       >
         {loading ? "…" : "GO"}
       </button>

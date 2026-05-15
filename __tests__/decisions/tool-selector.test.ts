@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { selectTool } from "@/lib/decisions/tool-selector";
+import { describe, expect, it } from "vitest";
 import type { ToolScore } from "@/lib/analytics/tool-ranking";
+import { selectTool } from "@/lib/decisions/tool-selector";
 
 function makeScore(name: string, overrides: Partial<ToolScore> = {}): ToolScore {
   return {
@@ -54,10 +54,7 @@ describe("selectTool", () => {
   });
 
   it("excludes specified tools", () => {
-    const candidates = [
-      makeScore("tool:a", { score: 0.95 }),
-      makeScore("tool:b", { score: 0.8 }),
-    ];
+    const candidates = [makeScore("tool:a", { score: 0.95 }), makeScore("tool:b", { score: 0.8 })];
     const result = selectTool({ candidates, exclude: ["tool:a"] });
     expect(result.selected).toBe("tool:b");
   });

@@ -12,13 +12,13 @@
  * les 60s également.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import {
-  getAmbientSignals,
   type AmbientSignal,
   type AmbientSignalsRange,
+  getAmbientSignals,
 } from "@/lib/cockpit/ambient-signals";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -27,9 +27,7 @@ const ALLOWED_RANGES: AmbientSignalsRange[] = ["1h", "7d", "30d", "all"];
 
 function parseRange(value: string | null): AmbientSignalsRange {
   if (!value) return "1h";
-  return (ALLOWED_RANGES as string[]).includes(value)
-    ? (value as AmbientSignalsRange)
-    : "1h";
+  return (ALLOWED_RANGES as string[]).includes(value) ? (value as AmbientSignalsRange) : "1h";
 }
 
 export async function GET(req: NextRequest) {

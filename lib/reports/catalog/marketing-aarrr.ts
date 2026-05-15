@@ -40,8 +40,7 @@ export function buildMarketingAarrr(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "Marketing AARRR",
-      summary:
-        "Funnel AARRR, CAC / LTV / payback par cohorte et canal sur 12 semaines.",
+      summary: "Funnel AARRR, CAC / LTV / payback par cohorte et canal sur 12 semaines.",
       domain: "growth",
       persona: "marketing",
       cadence: "weekly",
@@ -128,9 +127,7 @@ export function buildMarketingAarrr(scope: ReportSpec["scope"]): ReportSpec {
         inputs: ["events_window"],
         params: {
           by: ["cohort_month", "period"],
-          measures: [
-            { name: "active_users", fn: "count", field: "user_id" },
-          ],
+          measures: [{ name: "active_users", fn: "count", field: "user_id" }],
         },
       },
 
@@ -186,9 +183,7 @@ export function buildMarketingAarrr(scope: ReportSpec["scope"]): ReportSpec {
         op: "derive",
         inputs: ["cac_global_agg"],
         params: {
-          columns: [
-            { name: "cac", expr: "num(spend) / num(n_contacts)" },
-          ],
+          columns: [{ name: "cac", expr: "num(spend) / num(n_contacts)" }],
         },
       },
 
@@ -339,8 +334,4 @@ export function buildMarketingAarrr(scope: ReportSpec["scope"]): ReportSpec {
   };
 }
 
-export const MARKETING_AARRR_REQUIRED_APPS = [
-  "googleanalytics",
-  "stripe",
-  "hubspot",
-] as const;
+export const MARKETING_AARRR_REQUIRED_APPS = ["googleanalytics", "stripe", "hubspot"] as const;

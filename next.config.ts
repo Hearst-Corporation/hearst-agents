@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
+import type { NextConfig } from "next";
 
 /* ── F-078: Sécurité HTTP headers (CSP, HSTS, X-Frame, Permissions-Policy) ── */
 const securityHeaders = [

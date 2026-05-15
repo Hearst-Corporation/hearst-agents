@@ -1,11 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { LLMProvider, ChatRequest, ChatMessage, ChatResponse, StreamChunk } from "./types";
-import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "./timeout";
 import { startTrace } from "@/lib/observability/langfuse";
 import { redactForLangfuse } from "@/lib/observability/langfuse-redact";
-import { defaultRateLimiter } from "./rate-limiter";
-import { computeCostUsd } from "./pricing";
 import { logger } from "@/lib/observability/logger";
+import { computeCostUsd } from "./pricing";
+import { defaultRateLimiter } from "./rate-limiter";
+import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "./timeout";
+import type { ChatMessage, ChatRequest, ChatResponse, LLMProvider, StreamChunk } from "./types";
 
 /**
  * Headers rate-limit exposés par Anthropic sur chaque réponse HTTP.
@@ -70,10 +70,7 @@ export class AnthropicProvider implements LLMProvider {
    * Single-turn chat with optional tool definitions.
    * Returns tool_use blocks if the model wants to call tools.
    */
-  async chatWithTools(
-    req: ChatRequest,
-    tools?: Anthropic.Tool[],
-  ): Promise<ToolChatResult> {
+  async chatWithTools(req: ChatRequest, tools?: Anthropic.Tool[]): Promise<ToolChatResult> {
     const systemMsg = req.messages.find((m) => m.role === "system");
     const userMessages = this.buildMessages(req);
 
@@ -110,7 +107,10 @@ export class AnthropicProvider implements LLMProvider {
       res = data;
       recordAnthropicRateHeaders(response);
     } catch (err) {
-      generation?.end({ level: "ERROR", statusMessage: err instanceof Error ? err.message : String(err) });
+      generation?.end({
+        level: "ERROR",
+        statusMessage: err instanceof Error ? err.message : String(err),
+      });
       throw err;
     }
 
@@ -155,7 +155,14 @@ export class AnthropicProvider implements LLMProvider {
 
     // Log cache metrics for observability
     if (result.cacheReadTokens > 0 || result.cacheCreationTokens > 0) {
-      logger.debug({ cache_read: result.cacheReadTokens, cache_created: result.cacheCreationTokens, model: req.model }, "[anthropic] cache metrics");
+      logger.debug(
+        {
+          cache_read: result.cacheReadTokens,
+          cache_created: result.cacheCreationTokens,
+          model: req.model,
+        },
+        "[anthropic] cache metrics",
+      );
     }
 
     return {
@@ -206,10 +213,7 @@ export class AnthropicProvider implements LLMProvider {
     let collectedText = "";
     try {
       for await (const event of stream) {
-        if (
-          event.type === "content_block_delta" &&
-          event.delta.type === "text_delta"
-        ) {
+        if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
           collectedText += event.delta.text;
           yield { delta: event.delta.text, done: false };
         }
@@ -273,9 +277,7 @@ export class AnthropicProvider implements LLMProvider {
    * minimum) to optimize repeated calls. The ephemeral 5-min TTL is perfect
    * for chat sessions where the system context is stable.
    */
-  private buildSystem(
-    systemMsg: ChatMessage | undefined,
-  ): Anthropic.MessageCreateParams["system"] {
+  private buildSystem(systemMsg: ChatMessage | undefined): Anthropic.MessageCreateParams["system"] {
     if (!systemMsg) return undefined;
 
     // If explicitly set, respect it

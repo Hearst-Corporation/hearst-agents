@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { beforeEach, describe, expect, it } from "vitest";
 import type { Database } from "../../lib/database.types";
-import type { ModelProfileConfig } from "../../lib/llm/types";
-import { getProvider, loadFallbackChain, resetLlmProviderCache } from "../../lib/llm/router";
 import { ComposerProvider } from "../../lib/llm/composer";
 import { GeminiProvider } from "../../lib/llm/gemini";
+import { getProvider, loadFallbackChain, resetLlmProviderCache } from "../../lib/llm/router";
+import type { ModelProfileConfig } from "../../lib/llm/types";
 
 beforeEach(() => {
   resetLlmProviderCache();
@@ -87,12 +87,12 @@ describe("loadFallbackChain with composer → gemini profiles", () => {
     const chain = await loadFallbackChain(sb, composerId, 5);
 
     expect(chain).toHaveLength(2);
-    expect(chain[0]!.provider).toBe("composer");
-    expect(chain[0]!.model).toBe("cursor-composer-2");
-    expect(chain[1]!.provider).toBe("gemini");
-    expect(chain[1]!.model).toBe("gemini-3-flash-preview");
-    expect(getProvider(chain[0]!.provider).name).toBe("composer");
-    expect(getProvider(chain[1]!.provider).name).toBe("gemini");
+    expect(chain[0]?.provider).toBe("composer");
+    expect(chain[0]?.model).toBe("cursor-composer-2");
+    expect(chain[1]?.provider).toBe("gemini");
+    expect(chain[1]?.model).toBe("gemini-3-flash-preview");
+    expect(getProvider(chain[0]?.provider).name).toBe("composer");
+    expect(getProvider(chain[1]?.provider).name).toBe("gemini");
   });
 
   it("stops at null fallback_profile_id", async () => {
@@ -101,7 +101,7 @@ describe("loadFallbackChain with composer → gemini profiles", () => {
     });
     const chain = await loadFallbackChain(sb, geminiId, 5);
     expect(chain).toHaveLength(1);
-    expect(chain[0]!.provider).toBe("gemini");
+    expect(chain[0]?.provider).toBe("gemini");
   });
 
   it("respects maxDepth", async () => {
@@ -136,7 +136,7 @@ describe("loadFallbackChain with composer → gemini profiles", () => {
 
     const chain = await loadFallbackChain(sb, a, 2);
     expect(chain).toHaveLength(2);
-    expect(chain[0]!.model).toBe("m-a");
-    expect(chain[1]!.model).toBe("m-b");
+    expect(chain[0]?.model).toBe("m-a");
+    expect(chain[1]?.model).toBe("m-b");
   });
 });

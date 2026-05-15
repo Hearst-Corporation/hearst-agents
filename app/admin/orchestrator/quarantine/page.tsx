@@ -1,6 +1,6 @@
-import { HomShell, PageHeader, Card, StatusPill } from "../_components/Shell";
 import { loadQuarantine } from "@/lib/hom/quarantine";
 import { RestoreAgentButton } from "../_components/RestoreAgentButton";
+import { Card, HomShell, PageHeader, StatusPill } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 
@@ -41,16 +41,14 @@ export default async function QuarantinePage() {
               />
             </div>
             <div className="space-y-(--space-2) mb-(--space-3)">
-              <Row
-                label="Anomaly score"
-                value={entry.anomaly_score.toFixed(2)}
-              />
+              <Row label="Anomaly score" value={entry.anomaly_score.toFixed(2)} />
               {entry.triggered_at ? (
-                <Row label="Triggered" value={new Date(entry.triggered_at).toLocaleString("fr-FR")} />
+                <Row
+                  label="Triggered"
+                  value={new Date(entry.triggered_at).toLocaleString("fr-FR")}
+                />
               ) : null}
-              {entry.triggered_run ? (
-                <Row label="Run" value={entry.triggered_run} />
-              ) : null}
+              {entry.triggered_run ? <Row label="Run" value={entry.triggered_run} /> : null}
               {entry.reason ? <Row label="Raison" value={entry.reason} /> : null}
             </div>
 

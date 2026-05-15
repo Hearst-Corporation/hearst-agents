@@ -8,12 +8,12 @@
  *  4. user_id null broadcast : listNotifications sans userId ne filtre pas par user_id
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { shouldThrottle, THROTTLE_WINDOW_MS } from "@/lib/notifications/throttle";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { dispatchAlerts } from "@/lib/notifications/alert-dispatcher";
-import { listNotifications, createNotification } from "@/lib/notifications/in-app";
-import type { ThrottleStore } from "@/lib/notifications/throttle";
+import { createNotification, listNotifications } from "@/lib/notifications/in-app";
 import type { AlertingPreferences } from "@/lib/notifications/schema";
+import type { ThrottleStore } from "@/lib/notifications/throttle";
+import { shouldThrottle, THROTTLE_WINDOW_MS } from "@/lib/notifications/throttle";
 import type { BusinessSignal } from "@/lib/reports/signals/extract";
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -22,11 +22,16 @@ function makeStore(): ThrottleStore {
   const map = new Map<string, number>();
   return {
     getLast: (k) => map.get(k) ?? null,
-    markEmitted: (k, t) => { map.set(k, t); },
+    markEmitted: (k, t) => {
+      map.set(k, t);
+    },
   };
 }
 
-function makeSignal(severity: BusinessSignal["severity"], type: BusinessSignal["type"] = "mrr_drop"): BusinessSignal {
+function makeSignal(
+  severity: BusinessSignal["severity"],
+  type: BusinessSignal["type"] = "mrr_drop",
+): BusinessSignal {
   return { type, severity, message: "test message", blockId: "b1" };
 }
 

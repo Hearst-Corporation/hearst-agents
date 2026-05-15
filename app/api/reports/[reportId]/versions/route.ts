@@ -8,11 +8,11 @@
  *   limit  (optionnel, défaut 50, max 200)
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { listReportVersionsQuerySchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 import { listVersions } from "@/lib/reports/versions/store";
-import { listReportVersionsQuerySchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -70,9 +70,7 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
   const resolved = await resolveAssetTenant(reportId, scope.userId, scope.tenantId);
   if ("error" in resolved) {
     const status =
-      resolved.error === "forbidden" ? 403
-      : resolved.error === "not_found" ? 404
-      : 503;
+      resolved.error === "forbidden" ? 403 : resolved.error === "not_found" ? 404 : 503;
     return NextResponse.json({ error: resolved.error }, { status });
   }
 

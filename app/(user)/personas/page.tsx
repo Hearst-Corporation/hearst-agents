@@ -6,15 +6,15 @@
  * Liste + create + edit + A/B test inline. Tokens uniquement (CLAUDE.md §1).
  */
 
-import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { PersonaABTestPanel } from "../components/PersonaABTestPanel";
-import { PublishTemplateModal } from "../components/marketplace/PublishTemplateModal";
-import { Action, EmptyState, CardSkeleton, ScreenShell } from "../components/ui";
-import { ConfirmModal } from "../components/ConfirmModal";
-import { PersonaCard } from "../components/personas/PersonaCard";
+import { useEffect, useState } from "react";
 import type { Persona, PersonaTone } from "@/lib/personas/types";
 import { PERSONA_TONES } from "@/lib/personas/types";
+import { ConfirmModal } from "../components/ConfirmModal";
+import { PublishTemplateModal } from "../components/marketplace/PublishTemplateModal";
+import { PersonaABTestPanel } from "../components/PersonaABTestPanel";
+import { PersonaCard } from "../components/personas/PersonaCard";
+import { Action, CardSkeleton, EmptyState, ScreenShell } from "../components/ui";
 
 const SURFACES = ["chat", "inbox", "simulation", "voice", "cockpit"] as const;
 
@@ -146,11 +146,7 @@ export default function PersonasPage() {
         className="mx-auto w-full flex flex-col"
         style={{ gap: "var(--space-6)", maxWidth: "var(--width-actions)" }}
       >
-        {flash && (
-          <p className="t-13 font-light text-(--accent-teal)">
-            {flash}
-          </p>
-        )}
+        {flash && <p className="t-13 font-light text-(--accent-teal)">{flash}</p>}
 
         {(creating || editing) && (
           <PersonaForm
@@ -180,7 +176,11 @@ export default function PersonasPage() {
               style={{ gap: "var(--space-3)" }}
             >
               {personas.map((p) => (
-                <li key={p.id} data-persona-id={p.id} className="transition-shadow rounded-md list-none">
+                <li
+                  key={p.id}
+                  data-persona-id={p.id}
+                  className="transition-shadow rounded-md list-none"
+                >
                   <PersonaCard
                     persona={p}
                     busy={busy}
@@ -197,14 +197,16 @@ export default function PersonasPage() {
           )}
         </section>
 
-        {personas && personas.length >= 2 && (
-          <PersonaABTestPanel personas={personas} />
-        )}
+        {personas && personas.length >= 2 && <PersonaABTestPanel personas={personas} />}
 
         <ConfirmModal
           open={confirmDeletePersona !== null}
           title="Supprimer cette persona ?"
-          description={confirmDeletePersona ? `« ${confirmDeletePersona.name} » sera supprimée définitivement. Cette action est irréversible.` : undefined}
+          description={
+            confirmDeletePersona
+              ? `« ${confirmDeletePersona.name} » sera supprimée définitivement. Cette action est irréversible.`
+              : undefined
+          }
           confirmLabel="Supprimer"
           variant="danger"
           loading={isDeleting}
@@ -291,9 +293,7 @@ function PersonaForm({
   onCancel: () => void;
   onSave: (form: ReturnType<typeof toPayload>) => void;
 }) {
-  const [form, setForm] = useState<PersonaFormState>(
-    initial ? fromPersona(initial) : emptyForm(),
-  );
+  const [form, setForm] = useState<PersonaFormState>(initial ? fromPersona(initial) : emptyForm());
 
   function update<K extends keyof PersonaFormState>(key: K, value: PersonaFormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -322,10 +322,7 @@ function PersonaForm({
         {initial ? `Éditer "${initial.name}"` : "Nouvelle persona"}
       </h3>
 
-      <div
-        className="grid grid-cols-1 md:grid-cols-2"
-        style={{ gap: "var(--space-3)" }}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "var(--space-3)" }}>
         <Field label="Nom">
           <input
             type="text"
@@ -415,9 +412,7 @@ function PersonaForm({
           <input
             type="text"
             value={form.vocabulary.avoid}
-            onChange={(e) =>
-              update("vocabulary", { ...form.vocabulary, avoid: e.target.value })
-            }
+            onChange={(e) => update("vocabulary", { ...form.vocabulary, avoid: e.target.value })}
             className="block w-full bg-transparent t-13 text-text focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent-teal-border-hover)]"
             style={{
               padding: "var(--space-2) var(--space-3)",
@@ -468,13 +463,7 @@ function PersonaForm({
       </label>
 
       <div className="flex items-center justify-end" style={{ gap: "var(--space-3)" }}>
-        <Action
-          variant="ghost"
-          tone="neutral"
-          size="sm"
-          onClick={onCancel}
-          disabled={busy}
-        >
+        <Action variant="ghost" tone="neutral" size="sm" onClick={onCancel} disabled={busy}>
           Annuler
         </Action>
         <Action
@@ -492,18 +481,10 @@ function PersonaForm({
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col" style={{ gap: "var(--space-2)" }}>
-      <span className="t-11 font-light text-text-faint">
-        {label}
-      </span>
+      <span className="t-11 font-light text-text-faint">{label}</span>
       {children}
     </label>
   );
@@ -527,7 +508,6 @@ function toPayload(form: PersonaFormState) {
     styleGuide: form.styleGuide.trim() || null,
     systemPromptAddon: form.systemPromptAddon.trim() || null,
     isDefault: form.isDefault,
-    vocabulary:
-      preferred.length > 0 || avoid.length > 0 ? { preferred, avoid } : null,
+    vocabulary: preferred.length > 0 || avoid.length > 0 ? { preferred, avoid } : null,
   };
 }

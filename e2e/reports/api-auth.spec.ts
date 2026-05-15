@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 /**
  * Vérifie que les endpoints reports exigent une authentification.
@@ -17,17 +17,19 @@ test.describe("Reports API — protection auth (sans bypass)", () => {
     const res = await request.get("/api/v2/reports").catch(() => null);
     if (!res) test.skip();
     // Sans bypass, une requête non authentifiée doit être rejetée
-    const status = res!.status();
+    const status = res?.status();
     expect([401, 302, 307]).toContain(status);
   });
 
   test("POST /api/v2/reports/:id/run exige auth → 401/403", async ({ request }) => {
-    const res = await request.post(`/api/v2/reports/${FAKE_SPEC_ID}/run`, {
-      data: {},
-    }).catch(() => null);
+    const res = await request
+      .post(`/api/v2/reports/${FAKE_SPEC_ID}/run`, {
+        data: {},
+      })
+      .catch(() => null);
     if (!res) test.skip();
     // Sans bypass, une requête non authentifiée doit être rejetée
-    const status = res!.status();
+    const status = res?.status();
     expect([401, 302, 307]).toContain(status);
   });
 });
@@ -44,7 +46,7 @@ test.describe("Reports API — format catalogue", () => {
     const res = await request.get("/api/v2/reports");
     expect(res.status()).toBe(200);
 
-    const body = await res.json() as { catalog: unknown[] };
+    const body = (await res.json()) as { catalog: unknown[] };
     expect(Array.isArray(body.catalog)).toBe(true);
     expect(body.catalog.length).toBeGreaterThan(0);
 

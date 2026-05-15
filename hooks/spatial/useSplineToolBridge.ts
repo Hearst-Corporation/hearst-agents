@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * useSplineToolBridge — déclenche des anims Spline contextuelles quand un
@@ -11,24 +11,20 @@
  * No-op si la scène ne définit pas ces States — l'app reste fonctionnelle.
  */
 
-import { useEffect, useRef } from 'react';
-import { useRuntimeStore } from '@/stores/runtime';
-import type { UseSplineApp } from './useSplineApp';
+import { useEffect, useRef } from "react";
+import { useRuntimeStore } from "@/stores/runtime";
+import type { UseSplineApp } from "./useSplineApp";
 
 const PROVIDER_TO_SPLINE_KEY: Record<string, string> = {
-  gmail: 'G',
-  google_mail: 'G',
-  slack: 'H',
-  fal_ai: 'I',
-  fal: 'I',
-  composio: 'J',
+  gmail: "G",
+  google_mail: "G",
+  slack: "H",
+  fal_ai: "I",
+  fal: "I",
+  composio: "J",
 };
 
-const TOOL_EVENT_TYPES = new Set([
-  'tool_call_started',
-  'tool_call_start',
-  'plan_step_started',
-]);
+const TOOL_EVENT_TYPES = new Set(["tool_call_started", "tool_call_start", "plan_step_started"]);
 
 export function useSplineToolBridge(spline: UseSplineApp) {
   const lastEventTsRef = useRef<number>(0);
@@ -50,15 +46,15 @@ export function useSplineToolBridge(spline: UseSplineApp) {
           (head.providerId as string | undefined) ??
           (head.provider_id as string | undefined) ??
           (head.kind as string | undefined);
-        const key = (providerId && PROVIDER_TO_SPLINE_KEY[providerId]) ?? 'J';
+        const key = (providerId && PROVIDER_TO_SPLINE_KEY[providerId]) ?? "J";
         // Met à jour la mood pour qu'un shader scene-side puisse lire le contexte
-        spline.setVar('mood', `tool:${providerId ?? 'generic'}`);
-        spline.emit('keyDown', 'Robot');
+        spline.setVar("mood", `tool:${providerId ?? "generic"}`);
+        spline.emit("keyDown", "Robot");
         // L'event Spline pour le providerId spécifique est encodé via setVariable
         // (le Mapping G/H/I/J n'est pas envoyé sur 'Robot' directement — Spline
         // ne supporte qu'une key par event 'keyDown'. La scène doit lire `mood`
         // pour décider de la sub-animation.)
-        spline.setVar('tool_key', key);
+        spline.setVar("tool_key", key);
       },
     );
     return () => {

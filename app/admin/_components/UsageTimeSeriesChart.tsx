@@ -21,10 +21,7 @@ interface UsageTimeSeriesChartProps {
 const VIEW_W = 1000;
 const PADDING = 32;
 
-export function UsageTimeSeriesChart({
-  points,
-  height = 220,
-}: UsageTimeSeriesChartProps) {
+export function UsageTimeSeriesChart({ points, height = 220 }: UsageTimeSeriesChartProps) {
   if (points.length === 0) {
     return (
       <div
@@ -36,9 +33,7 @@ export function UsageTimeSeriesChart({
           background: "var(--bg-elev)",
         }}
       >
-        <span className="t-12 text-text-faint">
-          Aucune donnée sur la fenêtre
-        </span>
+        <span className="t-12 text-text-faint">Aucune donnée sur la fenêtre</span>
       </div>
     );
   }
@@ -120,12 +115,8 @@ export function UsageTimeSeriesChart({
         />
       </svg>
       <div className="flex items-center justify-between gap-(--space-3)">
-        <span className="t-10 font-mono text-text-faint">
-          {firstLabel}
-        </span>
-        <span className="t-10 font-mono text-text-faint">
-          {lastLabel}
-        </span>
+        <span className="t-10 font-mono text-text-faint">{firstLabel}</span>
+        <span className="t-10 font-mono text-text-faint">{lastLabel}</span>
       </div>
     </div>
   );
@@ -133,9 +124,7 @@ export function UsageTimeSeriesChart({
 
 function Legend({ label, colorVar }: { label: string; colorVar: string }) {
   return (
-    <span
-      className="flex items-center gap-(--space-2) t-10 text-text-muted"
-    >
+    <span className="flex items-center gap-(--space-2) t-10 text-text-muted">
       <span
         aria-hidden="true"
         style={{

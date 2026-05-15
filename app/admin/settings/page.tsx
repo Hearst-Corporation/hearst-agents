@@ -1,5 +1,5 @@
+import { getFeatureFlags, getSystemSettings } from "@/lib/admin/settings";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { getSystemSettings, getFeatureFlags } from "@/lib/admin/settings";
 import type { SystemSetting } from "@/lib/platform/settings/types";
 
 export const dynamic = "force-dynamic";
@@ -12,10 +12,7 @@ export default async function SettingsPage() {
 
   if (sb) {
     try {
-      [settings, flags] = await Promise.all([
-        getSystemSettings(sb),
-        getFeatureFlags(sb),
-      ]);
+      [settings, flags] = await Promise.all([getSystemSettings(sb), getFeatureFlags(sb)]);
     } catch (e) {
       dbError = e instanceof Error ? e.message : "Unknown error";
     }
@@ -52,9 +49,7 @@ export default async function SettingsPage() {
               <span className="t-12 text-text-muted truncate mr-(--space-2)">{key}</span>
               <span
                 className={`t-9 font-mono px-(--space-2) rounded-pill ${
-                  enabled
-                    ? "bg-(--money)/20 text-(--money)"
-                    : "bg-(--surface-2) text-text-ghost"
+                  enabled ? "bg-(--money)/20 text-(--money)" : "bg-(--surface-2) text-text-ghost"
                 }`}
               >
                 {enabled ? "actif" : "inactif"}
@@ -77,7 +72,10 @@ export default async function SettingsPage() {
             {settings
               .filter((s) => s.category === cat)
               .map((s) => (
-                <div key={s.id} className="px-(--space-4) py-(--space-3) flex items-center justify-between">
+                <div
+                  key={s.id}
+                  className="px-(--space-4) py-(--space-3) flex items-center justify-between"
+                >
                   <div className="min-w-0">
                     <p className="t-13 text-text-soft font-mono truncate">{s.key}</p>
                     {s.description && (
@@ -89,8 +87,8 @@ export default async function SettingsPage() {
                       {s.isEncrypted
                         ? "••••••"
                         : typeof s.value === "object"
-                        ? JSON.stringify(s.value).slice(0, 40)
-                        : String(s.value)}
+                          ? JSON.stringify(s.value).slice(0, 40)
+                          : String(s.value)}
                     </p>
                     {s.tenantId && (
                       <p className="t-10 text-text-faint mt-(--space-1)">

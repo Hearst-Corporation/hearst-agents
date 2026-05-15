@@ -17,30 +17,27 @@
  * /reports) sont traités AVANT le switch et ont priorité absolue.
  */
 
-import { Suspense } from "react";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 import { useStageStore } from "@/stores/stage";
+import {
+  ContextRailForApps,
+  ContextRailForMissionsAdmin,
+  ContextRailForReports,
+  ContextRailForRuns,
+} from "./ContextRailForAdmin";
+import { ContextRailForArtifact } from "./ContextRailForArtifact";
+import { ContextRailForAsset } from "./ContextRailForAsset";
+import { ContextRailForAssetCompare } from "./ContextRailForAssetCompare";
+import { ContextRailForBrowser } from "./ContextRailForBrowser";
+import { ContextRailForChat, ContextRailForCockpit } from "./ContextRailForCockpitChat";
+import { ContextRailForKnowledge } from "./ContextRailForKnowledge";
+import { ContextRailForMeeting } from "./ContextRailForMeeting";
 import { ContextRailForMission } from "./ContextRailForMission";
 import { ContextRailForPreMeeting } from "./ContextRailForPreMeeting";
-import {
-  ContextRailForRuns,
-  ContextRailForMissionsAdmin,
-  ContextRailForApps,
-  ContextRailForReports,
-} from "./ContextRailForAdmin";
-import { ContextRailShell } from "./ContextRailShell";
-import {
-  ContextRailForCockpit,
-  ContextRailForChat,
-} from "./ContextRailForCockpitChat";
-import { ContextRailForAsset } from "./ContextRailForAsset";
-import { ContextRailForBrowser } from "./ContextRailForBrowser";
-import { ContextRailForMeeting } from "./ContextRailForMeeting";
-import { ContextRailForKnowledge } from "./ContextRailForKnowledge";
-import { ContextRailForVoice } from "./ContextRailForVoice";
-import { ContextRailForArtifact } from "./ContextRailForArtifact";
-import { ContextRailForAssetCompare } from "./ContextRailForAssetCompare";
 import { ContextRailForSimulation } from "./ContextRailForSimulation";
+import { ContextRailForVoice } from "./ContextRailForVoice";
+import { ContextRailShell } from "./ContextRailShell";
 import { usePreMeetingActive } from "./hooks/usePreMeetingActive";
 
 interface ContextRailProps {

@@ -1,15 +1,14 @@
-import { NextRequest } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { createMemorySchema, ok, err, parseBody, dbErr } from "@/lib/domain";
+import type { NextRequest } from "next/server";
+import { createMemorySchema, dbErr, err, ok, parseBody } from "@/lib/domain";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { scope, error: scopeError } = await requireScope({ context: "GET /api/agents/[id]/memory" });
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { scope, error: scopeError } = await requireScope({
+    context: "GET /api/agents/[id]/memory",
+  });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {
@@ -40,11 +39,10 @@ export async function GET(
   }
 }
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { scope, error: scopeError } = await requireScope({ context: "POST /api/agents/[id]/memory" });
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { scope, error: scopeError } = await requireScope({
+    context: "POST /api/agents/[id]/memory",
+  });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {

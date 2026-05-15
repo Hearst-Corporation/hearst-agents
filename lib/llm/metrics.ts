@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { type CircuitState, defaultCircuitBreaker, LLMCircuitBreaker } from "./circuit-breaker";
+import {
+  type CircuitState,
+  defaultCircuitBreaker,
+  type LLMCircuitBreaker,
+} from "./circuit-breaker";
 
 /**
  * In-memory LLM metrics aggregator.
@@ -86,11 +90,7 @@ const RecordErrorSchema = z.object({
 
 export type RecordErrorInput = z.infer<typeof RecordErrorSchema>;
 
-const CounterKindSchema = z.enum([
-  "circuit_breaker_trip",
-  "rate_limit_hit",
-  "tool_loop_detected",
-]);
+const CounterKindSchema = z.enum(["circuit_breaker_trip", "rate_limit_hit", "tool_loop_detected"]);
 
 export type CounterKind = z.infer<typeof CounterKindSchema>;
 
@@ -147,8 +147,8 @@ export interface ProviderMetrics {
 interface CircuitBreakerEntry {
   state: CircuitState;
   failures: number;
-  lastFailureAt?: string;  // ISO — non utilisé dans le snapshot actuel (pas stocké côté CB)
-  nextRetryAt?: string;    // ISO — présent si state === "OPEN"
+  lastFailureAt?: string; // ISO — non utilisé dans le snapshot actuel (pas stocké côté CB)
+  nextRetryAt?: string; // ISO — présent si state === "OPEN"
 }
 
 export interface MetricsSnapshot {

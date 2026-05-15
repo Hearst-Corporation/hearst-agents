@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { useSpatialPanelsStore } from "@/stores/spatial-panels";
 import { SpatialPanelHost } from "./SpatialPanelHost";
-import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 
 interface CockpitPanelsLayerProps {
   initialCockpitData?: CockpitTodayPayload | null;
@@ -16,9 +16,7 @@ interface CockpitPanelsLayerProps {
  * Les autres panels apparaissent via les subscribers branchés ailleurs
  * (useSpatialPanelsAgentSync).
  */
-export function CockpitPanelsLayer({
-  initialCockpitData = null,
-}: CockpitPanelsLayerProps) {
+export function CockpitPanelsLayer({ initialCockpitData = null }: CockpitPanelsLayerProps) {
   const open = useSpatialPanelsStore((s) => s.open);
 
   useEffect(() => {
@@ -28,7 +26,7 @@ export function CockpitPanelsLayer({
     if (!state.getByType("brief")) open("brief");
     useSpatialPanelsStore.getState().defocus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [open]);
 
   return <SpatialPanelHost initialCockpitData={initialCockpitData} />;
 }

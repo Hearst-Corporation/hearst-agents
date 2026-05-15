@@ -8,7 +8,7 @@ export function polarToCartesian(
   angle: number,
   radiusX: number,
   radiusY: number,
-  tiltRad = 0
+  tiltRad = 0,
 ): { x: number; y: number; z: number } {
   const x = Math.cos(angle) * radiusX;
   const y = Math.sin(angle) * radiusY * Math.cos(tiltRad);
@@ -16,7 +16,11 @@ export function polarToCartesian(
   return { x, y, z };
 }
 
-export function distributeOnEllipse(count: number, radiusX: number, radiusY: number): SpatialNode[] {
+export function distributeOnEllipse(
+  count: number,
+  radiusX: number,
+  radiusY: number,
+): SpatialNode[] {
   return Array.from({ length: count }, (_, i) => {
     const angle = (i / count) * Math.PI * 2;
     const { x, y } = polarToCartesian(angle, radiusX, radiusY);
@@ -40,8 +44,8 @@ export function clamp(value: number, min: number, max: number): number {
 export function normalizeMousePosition(
   clientX: number,
   clientY: number,
-  width = typeof window !== 'undefined' ? window.innerWidth : 1920,
-  height = typeof window !== 'undefined' ? window.innerHeight : 1080
+  width = typeof window !== "undefined" ? window.innerWidth : 1920,
+  height = typeof window !== "undefined" ? window.innerHeight : 1080,
 ): { x: number; y: number } {
   return {
     x: (clientX / width) * 2 - 1,
@@ -53,7 +57,7 @@ export function normalizeMousePosition(
  * Format relatif "à l'instant", "5min", "hier", "lun.", "12 mai".
  * Utilisé par les cards bento spatial pour les timestamps assets/messages.
  */
-const FR_DAY_SHORT = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
+const FR_DAY_SHORT = ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."];
 
 export function relativeTime(ts: number): string {
   const diff = Date.now() - ts;
@@ -63,11 +67,11 @@ export function relativeTime(ts: number): string {
   const h = Math.floor(min / 60);
   if (h < 24) return `${h}h`;
   const days = Math.floor(h / 24);
-  if (days === 1) return 'hier';
+  if (days === 1) return "hier";
   if (days < 7) {
     const d = new Date(ts);
     return FR_DAY_SHORT[d.getDay()];
   }
   const d = new Date(ts);
-  return `${d.getDate()} ${d.toLocaleString('fr-FR', { month: 'short' })}`;
+  return `${d.getDate()} ${d.toLocaleString("fr-FR", { month: "short" })}`;
 }

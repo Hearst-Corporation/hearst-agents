@@ -15,7 +15,7 @@ export function SpatialRobotPresence({ mode, surfaceOpen }: SpatialRobotPresence
         ? "rgba(232,176,120,0.22)"
         : mode === "surface"
           ? "rgba(255,255,255,0.2)"
-        : "rgba(255,255,255,0.14)";
+          : "rgba(255,255,255,0.14)";
 
   return (
     <div

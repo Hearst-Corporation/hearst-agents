@@ -62,23 +62,17 @@ export function EnrichmentPreviewModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col gap-1">
-          <span
-            id="enrichment-preview-title"
-            className="t-15 font-medium text-(--text-l1)"
-          >
+          <span id="enrichment-preview-title" className="t-15 font-medium text-(--text-l1)">
             Prompt enrichi
           </span>
           <span className="t-11 font-light text-text-muted">
-            Claude a réécrit votre prompt en direction cinématographique.
-            Vérifiez avant génération.
+            Claude a réécrit votre prompt en direction cinématographique. Vérifiez avant génération.
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
           <span className="t-11 font-medium text-text-muted">Original</span>
-          <p className="t-13 font-light text-text-muted whitespace-pre-wrap">
-            {preview.original}
-          </p>
+          <p className="t-13 font-light text-text-muted whitespace-pre-wrap">{preview.original}</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -90,15 +84,12 @@ export function EnrichmentPreviewModal({
 
         {editingManually && (
           <div className="flex flex-col gap-2">
-            <span className="t-11 font-medium text-(--text-l1)">
-              Modification manuelle
-            </span>
+            <span className="t-11 font-medium text-(--text-l1)">Modification manuelle</span>
             <textarea
               value={manualPrompt}
               onChange={(e) => setManualPrompt(e.target.value)}
               rows={4}
               className="px-3 py-2 t-13 font-light text-text bg-[var(--surface-1)] border border-(--border-shell) hover:border-[var(--accent-teal-border-hover)] focus:border-(--accent-teal) outline-none transition-colors resize-y"
-              autoFocus
             />
           </div>
         )}
@@ -157,10 +148,7 @@ export function EnrichmentPreviewModal({
 }
 
 /** Surligne les fragments du diff dans le texte enrichi pour l'UI. */
-function renderEnrichedWithDiff(
-  enriched: string,
-  diff: string[],
-): React.ReactNode {
+function renderEnrichedWithDiff(enriched: string, diff: string[]): React.ReactNode {
   if (diff.length === 0) return enriched;
 
   // Construction d'une regex qui capture tous les fragments du diff

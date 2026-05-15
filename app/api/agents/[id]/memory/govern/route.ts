@@ -1,16 +1,15 @@
-import { NextRequest } from "next/server";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
-import { ok, err } from "@/lib/domain";
+import type { NextRequest } from "next/server";
+import { err, ok } from "@/lib/domain";
 import { enforceMemoryPolicy } from "@/lib/engine/runtime";
 import { requireScope } from "@/lib/platform/auth/scope";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
 export const dynamic = "force-dynamic";
 
-export async function POST(
-  _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { scope, error: scopeError } = await requireScope({ context: "POST /api/agents/[id]/memory/govern" });
+export async function POST(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { scope, error: scopeError } = await requireScope({
+    context: "POST /api/agents/[id]/memory/govern",
+  });
   if (scopeError) return err(scopeError.message, scopeError.status);
   const { id } = await params;
   try {

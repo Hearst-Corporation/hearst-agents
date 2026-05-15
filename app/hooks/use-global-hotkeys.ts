@@ -21,11 +21,11 @@
  */
 
 import { useEffect } from "react";
-import { useStageStore, STAGE_HOTKEYS } from "@/stores/stage";
+import { useFocusMode } from "@/stores/focus-mode";
+import { STAGE_HOTKEYS, useStageStore } from "@/stores/stage";
+import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 import { useVoiceStore } from "@/stores/voice";
 import { useWorkingDocumentStore } from "@/stores/working-document";
-import { useFocusMode } from "@/stores/focus-mode";
-import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 
 export function useGlobalHotkeys() {
   const toggleCommandeur = useStageStore((s) => s.toggleCommandeur);

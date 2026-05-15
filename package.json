@@ -20,12 +20,12 @@
     "prebuild": "npm run lint:visual",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint && node scripts/lint-visual.mjs",
+    "lint": "biome check . && node scripts/lint-visual.mjs",
     "lint:visual": "node scripts/lint-visual.mjs",
     "typecheck": "tsc --noEmit --incremental",
     "typecheck:watch": "tsc --noEmit --watch",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css,yml,yaml}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css,yml,yaml}\"",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
@@ -60,15 +60,16 @@
     "kill:zombies": "bash scripts/kill-node-zombies.sh"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged && npm run features:manifest && git add docs/features/_manifest.json"
+    "pre-commit": "pnpm exec lint-staged && pnpm run features:manifest && git add docs/features/_manifest.json"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix"
+    "*.{ts,tsx,js,jsx}": [
+      "biome check --write"
     ],
-    "*.{md,json,css,yml,yaml}": [
-      "prettier --write"
-    ]
+    "*.{json,yml,yaml}": [
+      "biome format --write"
+    ],
+    "*.{md,css}": []
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.71",
@@ -119,6 +120,7 @@
     "postcss": ">=8.5.10"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
     "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/react": "^16.3.0",
@@ -133,8 +135,6 @@
     "electron": "^41.5.1",
     "electron-builder": "^26.8.1",
     "esbuild": "^0.28.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.4",
     "jsdom": "^26.0.0",
     "knip": "^6.12.2",
     "lint-staged": "^17.0.3",
@@ -142,7 +142,6 @@
     "pixelmatch": "^7.2.0",
     "playwright": "^1.59.1",
     "pngjs": "^7.0.0",
-    "prettier": "^3.8.3",
     "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4",
     "typescript": "^5",

@@ -11,8 +11,8 @@
  * Pas de magic number — tous les espacements via var(--space-*).
  */
 
+import { fmtCurrency, fmtDelta, fmtNumber } from "./format";
 import { Sparkline } from "./Sparkline";
-import { fmtCurrency, fmtNumber, fmtDelta } from "./format";
 
 interface KpiTileData {
   value: unknown;
@@ -64,7 +64,7 @@ export function KpiTile({
   return (
     <div
       role="group"
-      aria-label={`${label}: ${value}${suffix ? " " + suffix : ""}`}
+      aria-label={`${label}: ${value}${suffix ? ` ${suffix}` : ""}`}
       className="flex flex-col"
       style={{
         gap: "var(--space-2)",
@@ -73,16 +73,22 @@ export function KpiTile({
         border: "1px solid var(--card-flat-border)",
       }}
     >
-      <span className="t-9 font-mono uppercase text-[var(--text-muted)]" style={{ letterSpacing: "0.2em" }} data-testid="kpi-label">
+      <span
+        className="t-9 font-mono uppercase text-[var(--text-muted)]"
+        style={{ letterSpacing: "0.2em" }}
+        data-testid="kpi-label"
+      >
         {label}
       </span>
       <div className="flex items-baseline" style={{ gap: "var(--space-2)" }}>
-        <span className="t-28 text-[var(--text)] tracking-tight" style={{ fontWeight: 200 }} data-testid="kpi-value">
+        <span
+          className="t-28 text-[var(--text)] tracking-tight"
+          style={{ fontWeight: 200 }}
+          data-testid="kpi-value"
+        >
           {value}
         </span>
-        {suffix && (
-          <span className="t-13 text-[var(--text-faint)]">{suffix}</span>
-        )}
+        {suffix && <span className="t-13 text-[var(--text-faint)]">{suffix}</span>}
       </div>
       {delta && (
         <span
@@ -97,10 +103,7 @@ export function KpiTile({
          * captionHtml était utilisé uniquement pour injecter des <sup> de
          * citation (fmtCitation). Ces citations sont désormais rendues via
          * le composant SourceCitation en dehors du tile. */
-        <span
-          className="t-9 font-mono text-[var(--text-faint)]"
-          data-testid="kpi-caption"
-        >
+        <span className="t-9 font-mono text-[var(--text-faint)]" data-testid="kpi-caption">
           {captionHtml.replace(/<[^>]*>/g, "")}
         </span>
       )}

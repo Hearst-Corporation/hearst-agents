@@ -4,7 +4,7 @@
  * AI pipeline (where Composio tools live).
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { isWriteIntent } from "@/lib/engine/orchestrator/write-intent";
 
 describe("isWriteIntent — French", () => {

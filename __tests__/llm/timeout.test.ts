@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { makeAbortSignal, CHAT_TIMEOUT_MS, STREAM_TIMEOUT_MS } from "../../lib/llm/timeout";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { CHAT_TIMEOUT_MS, makeAbortSignal, STREAM_TIMEOUT_MS } from "../../lib/llm/timeout";
 
 describe("makeAbortSignal", () => {
   beforeEach(() => {

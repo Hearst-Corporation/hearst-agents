@@ -11,17 +11,18 @@
  * pdfFile? }`). Persisté via `storeAsset` de `lib/assets/types.ts` → table
  * Supabase `assets`. Plus de `createAsset` runtime in-memory only.
  */
-import { randomUUID } from "crypto";
+
+import { randomUUID } from "node:crypto";
+import Anthropic from "@anthropic-ai/sdk";
+import { type Asset, storeAsset } from "@/lib/assets/types";
+import { composeEditorialPrompt } from "@/lib/editorial/charter";
+import { generatePdfArtifact } from "@/lib/engine/runtime/assets/generators/pdf";
+import type { AssetFileInfo } from "@/lib/engine/runtime/assets/types";
 import type { RunEngine } from "@/lib/engine/runtime/engine";
 import type { RunEventBus } from "@/lib/events/bus";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 import { searchWeb, type WebSearchResult } from "@/lib/tools/handlers/web-search";
-import { storeAsset, type Asset } from "@/lib/assets/types";
-import { generatePdfArtifact } from "@/lib/engine/runtime/assets/generators/pdf";
-import type { AssetFileInfo } from "@/lib/engine/runtime/assets/types";
 import { extractResearchQuery, isReportIntent } from "./research-intent";
-import Anthropic from "@anthropic-ai/sdk";
-import { composeEditorialPrompt } from "@/lib/editorial/charter";
 
 /**
  * System prompt pour synthesizeReport — appelé uniquement si le summary
@@ -29,30 +30,32 @@ import { composeEditorialPrompt } from "@/lib/editorial/charter";
  * complète + structure pyramide pour produire un livrable scannable et
  * cohérent avec le reste de la voix Hearst.
  */
-const RESEARCH_REPORT_SYSTEM_PROMPT = composeEditorialPrompt([
-  "Tu es l'analyste éditorial qui rédige un rapport de recherche pour un fondateur exigeant.",
-  "Le rapport sera affiché tel quel dans l'app — il doit être livrable, pas un brouillon.",
-  "",
-  "STRUCTURE PYRAMIDE OBLIGATOIRE :",
-  "",
-  "1. **Synthèse** (1 paragraphe, ≤ 30 mots)",
-  "   La une du rapport — quel est le signal central ? Incarné, pas mécanique.",
-  "",
-  "2. **Sections thématiques** (3 à 6 sections, format `## Titre`)",
-  "   Chacune ≤ 200 mots, structure interne :",
-  "   - Une phrase d'intro qui nomme le fait pivot.",
-  "   - 3 à 5 bullets factuels (cap 18 mots/bullet, parallélisme strict).",
-  "   - Citations sources entre crochets [1], [2] quand factuel.",
-  "",
-  "3. **À retenir** (1 paragraphe ≤ 40 mots)",
-  "   La conclusion opérationnelle. Si une décision se profile, nomme-la. Pas de récap.",
-  "",
-  "RÈGLES SPÉCIFIQUES :",
-  "- Pas de heading H1 (`#`) — le titre est porté par le composant React.",
-  "- Pas de tables ni de code blocks.",
-  "- Cite les sources entre crochets uniquement quand un fait précis est référencé.",
-  "- Si une donnée est absente des sources, dis-le (« non documenté dans les sources retenues ») plutôt que combler.",
-].join("\n"));
+const RESEARCH_REPORT_SYSTEM_PROMPT = composeEditorialPrompt(
+  [
+    "Tu es l'analyste éditorial qui rédige un rapport de recherche pour un fondateur exigeant.",
+    "Le rapport sera affiché tel quel dans l'app — il doit être livrable, pas un brouillon.",
+    "",
+    "STRUCTURE PYRAMIDE OBLIGATOIRE :",
+    "",
+    "1. **Synthèse** (1 paragraphe, ≤ 30 mots)",
+    "   La une du rapport — quel est le signal central ? Incarné, pas mécanique.",
+    "",
+    "2. **Sections thématiques** (3 à 6 sections, format `## Titre`)",
+    "   Chacune ≤ 200 mots, structure interne :",
+    "   - Une phrase d'intro qui nomme le fait pivot.",
+    "   - 3 à 5 bullets factuels (cap 18 mots/bullet, parallélisme strict).",
+    "   - Citations sources entre crochets [1], [2] quand factuel.",
+    "",
+    "3. **À retenir** (1 paragraphe ≤ 40 mots)",
+    "   La conclusion opérationnelle. Si une décision se profile, nomme-la. Pas de récap.",
+    "",
+    "RÈGLES SPÉCIFIQUES :",
+    "- Pas de heading H1 (`#`) — le titre est porté par le composant React.",
+    "- Pas de tables ni de code blocks.",
+    "- Cite les sources entre crochets uniquement quand un fait précis est référencé.",
+    "- Si une donnée est absente des sources, dis-le (« non documenté dans les sources retenues ») plutôt que combler.",
+  ].join("\n"),
+);
 
 export interface ResearchReportInput {
   message: string;
@@ -301,10 +304,7 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
 
 // ── Helpers ──────────────────────────────────────────────────
 
-async function synthesizeReport(
-  query: string,
-  search: WebSearchResult,
-): Promise<string> {
+async function synthesizeReport(query: string, search: WebSearchResult): Promise<string> {
   if (search.summary && search.summary.length > 200) {
     return search.summary;
   }
@@ -368,7 +368,12 @@ function buildAssetName(query: string): string {
   }
 
   // Drop leading filler (« une mission », « un rapport ») — on garde le sujet
-  stripped = stripped.replace(/^(?:une?\s+)?(?:mission|rapport|brief|r[ée]sum[ée]|document|note)\s+(?:que\s+|sur\s+|de\s+|du\s+|des\s+|à\s+propos\s+de\s+)?/i, "").trim();
+  stripped = stripped
+    .replace(
+      /^(?:une?\s+)?(?:mission|rapport|brief|r[ée]sum[ée]|document|note)\s+(?:que\s+|sur\s+|de\s+|du\s+|des\s+|à\s+propos\s+de\s+)?/i,
+      "",
+    )
+    .trim();
 
   if (stripped.length === 0) {
     stripped = query.toLowerCase().slice(0, 50);

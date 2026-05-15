@@ -2,15 +2,15 @@
  * Tests — hospitality vertical (industry detection + vocabulary).
  * Le payload Cockpit n'expose plus de section hospitality (pivot v1.6).
  */
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
 import {
-  getTenantIndustry,
-  setTenantIndustry,
-  isHospitalityTenant,
   __resetHospitalityCache,
-  HOSPITALITY_VOCABULARY,
+  getTenantIndustry,
   HOSPITALITY_KPIS,
+  HOSPITALITY_VOCABULARY,
+  isHospitalityTenant,
+  setTenantIndustry,
 } from "@/lib/verticals/hospitality";
 
 describe("hospitality — industry detection", () => {

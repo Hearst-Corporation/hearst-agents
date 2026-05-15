@@ -28,26 +28,26 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
-import { useStageStore } from "@/stores/stage";
 import { useModalA11y } from "@/app/(user)/hooks/useModalA11y";
-import { useVideoSSE } from "./hooks/useVideoSSE";
-import { useVideoBatchSSE } from "./hooks/useVideoBatchSSE";
-import { useSingleSubmit } from "./hooks/useSingleSubmit";
-import { useBatchSubmit } from "./hooks/useBatchSubmit";
-import {
-  MAX_BATCH_VARIANTS,
-  makeBatchForm,
-  progressLabel,
-  type BatchVariantForm,
-  type DurationOption,
-  type Provider,
-  type RatioOption,
-} from "./types";
-import { PanelHeader } from "./_parts/PanelHeader";
+import { useStageStore } from "@/stores/stage";
+import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
+import { FooterActions } from "./_parts/FooterActions";
 import { ModeToggle } from "./_parts/ModeToggle";
 import { PanelBody } from "./_parts/PanelBody";
-import { FooterActions } from "./_parts/FooterActions";
+import { PanelHeader } from "./_parts/PanelHeader";
+import { useBatchSubmit } from "./hooks/useBatchSubmit";
+import { useSingleSubmit } from "./hooks/useSingleSubmit";
+import { useVideoBatchSSE } from "./hooks/useVideoBatchSSE";
+import { useVideoSSE } from "./hooks/useVideoSSE";
+import {
+  type BatchVariantForm,
+  type DurationOption,
+  MAX_BATCH_VARIANTS,
+  makeBatchForm,
+  type Provider,
+  progressLabel,
+  type RatioOption,
+} from "./types";
 
 export function VideoQuickLaunchPanel() {
   const open = useVideoQuickLaunchStore((s) => s.open);
@@ -131,14 +131,9 @@ export function VideoQuickLaunchPanel() {
   }, [createdAssetId, setStageMode, close]);
 
   // ── BATCH MODE : helpers form ──────────────────────────────────
-  const updateBatchForm = useCallback(
-    (localId: string, patch: Partial<BatchVariantForm>) => {
-      setBatchForms((prev) =>
-        prev.map((f) => (f.localId === localId ? { ...f, ...patch } : f)),
-      );
-    },
-    [],
-  );
+  const updateBatchForm = useCallback((localId: string, patch: Partial<BatchVariantForm>) => {
+    setBatchForms((prev) => prev.map((f) => (f.localId === localId ? { ...f, ...patch } : f)));
+  }, []);
 
   const addBatchForm = useCallback(() => {
     setBatchForms((prev) => {
@@ -168,9 +163,7 @@ export function VideoQuickLaunchPanel() {
   // ── BATCH MODE : ouvrir AssetCompareStage ──────────────────────
   const openCompare = useCallback(() => {
     if (!batch.assetId) return;
-    const ids = batch.runs
-      .filter((r) => r.phase === "done")
-      .map(() => batch.assetId as string);
+    const ids = batch.runs.filter((r) => r.phase === "done").map(() => batch.assetId as string);
     if (ids.length < 2) {
       setStageMode({
         mode: "asset",
@@ -184,25 +177,19 @@ export function VideoQuickLaunchPanel() {
   }, [batch.assetId, batch.runs, setStageMode, close]);
 
   const isSingleBusy =
-    single.phase === "creating" ||
-    single.phase === "queued" ||
-    single.phase === "running";
-  const isBatchBusy =
-    batch.phase === "creating" || batch.phase === "running";
+    single.phase === "creating" || single.phase === "queued" || single.phase === "running";
+  const isBatchBusy = batch.phase === "creating" || batch.phase === "running";
 
   const phaseLabel = useMemo(() => {
     if (single.phase === "creating") return "Création de l'asset…";
     if (single.phase === "queued") return "Mise en file…";
-    if (single.phase === "running")
-      return progressLabel(single.progress, provider);
+    if (single.phase === "running") return progressLabel(single.progress, provider);
     if (single.phase === "done") return "Vidéo prête";
     if (single.phase === "error") return "Échec";
     return "";
   }, [single.phase, single.progress, provider]);
 
-  const validBatchCount = batchForms.filter(
-    (f) => f.prompt.trim().length > 0,
-  ).length;
+  const validBatchCount = batchForms.filter((f) => f.prompt.trim().length > 0).length;
 
   const resetSingle = useCallback(() => {
     single.setPhase("idle");

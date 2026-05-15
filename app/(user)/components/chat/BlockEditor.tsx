@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
   type ChangeEvent,
   type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 
 /**
@@ -23,11 +23,7 @@ interface BlockEditorProps {
   onCancel: () => void;
 }
 
-export function BlockEditor({
-  initialValue,
-  onSave,
-  onCancel,
-}: BlockEditorProps) {
+export function BlockEditor({ initialValue, onSave, onCancel }: BlockEditorProps) {
   const [value, setValue] = useState(initialValue);
   const taRef = useRef<HTMLTextAreaElement>(null);
 
@@ -102,10 +98,7 @@ export function BlockEditor({
         >
           Enregistrer
         </button>
-        <span
-          className="t-11 font-light text-text-faint"
-          aria-hidden
-        >
+        <span className="t-11 font-light text-text-faint" aria-hidden>
           ESC · ⌘+↵
         </span>
       </div>

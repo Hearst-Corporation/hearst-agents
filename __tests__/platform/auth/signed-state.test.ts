@@ -31,9 +31,7 @@ describe("signOAuthState / verifyOAuthState (F-006)", () => {
   });
 
   it("round-trip : signOAuthState → verifyOAuthState retourne le payload exact", async () => {
-    const { signOAuthState, verifyOAuthState } = await import(
-      "@/lib/platform/auth/signed-state"
-    );
+    const { signOAuthState, verifyOAuthState } = await import("@/lib/platform/auth/signed-state");
     const payload = { v: "code-verifier-abc", u: "user-uuid-123", t: "tenant-1", w: "ws-1" };
     const state = signOAuthState(payload);
 
@@ -59,9 +57,7 @@ describe("signOAuthState / verifyOAuthState (F-006)", () => {
   });
 
   it("verify rejette un state avec signature corrompue (dernier char altéré)", async () => {
-    const { signOAuthState, verifyOAuthState } = await import(
-      "@/lib/platform/auth/signed-state"
-    );
+    const { signOAuthState, verifyOAuthState } = await import("@/lib/platform/auth/signed-state");
     const state = signOAuthState({ v: "v", u: "u", t: "t", w: "w" });
 
     // Corrompt le dernier caractère de la signature
@@ -70,9 +66,7 @@ describe("signOAuthState / verifyOAuthState (F-006)", () => {
   });
 
   it("verify rejette un state avec body modifié (signature mismatch)", async () => {
-    const { signOAuthState, verifyOAuthState } = await import(
-      "@/lib/platform/auth/signed-state"
-    );
+    const { signOAuthState, verifyOAuthState } = await import("@/lib/platform/auth/signed-state");
     const original = signOAuthState({ v: "v", u: "victim-uuid", t: "t", w: "w" });
     const [, sig] = original.split(".");
 
@@ -115,9 +109,7 @@ describe("signOAuthState / verifyOAuthState (F-006)", () => {
   });
 
   it("payload complexe (objets imbriqués, unicode) round-trip OK", async () => {
-    const { signOAuthState, verifyOAuthState } = await import(
-      "@/lib/platform/auth/signed-state"
-    );
+    const { signOAuthState, verifyOAuthState } = await import("@/lib/platform/auth/signed-state");
     const payload = {
       v: "verifier-with-special-chars_-~",
       u: "36914162-75f9-4c27-b38b-bb050f51d52b",

@@ -12,12 +12,12 @@
  * Le job ne throw jamais — tous les chemins d'erreur sont absorbés et loggés.
  */
 
-import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
+import { z } from "zod";
 import {
+  AUTH_EXPIRING_DAYS_THRESHOLD,
   checkExpiringTokens,
   refreshOAuthToken,
-  AUTH_EXPIRING_DAYS_THRESHOLD,
 } from "@/lib/connections/oauth-refresh";
 import { createNotification } from "@/lib/notifications/in-app";
 import { dispatchWebhookEvent } from "@/lib/webhooks/dispatcher";
@@ -68,9 +68,7 @@ function getDb() {
  * Vérifie les tokens OAuth d'un utilisateur, tente les refresh possibles,
  * crée les notifications in-app appropriées, et dispatch le webhook.
  */
-export async function runCheckOAuthTokensJob(
-  rawPayload: unknown,
-): Promise<CheckOAuthTokensResult> {
+export async function runCheckOAuthTokensJob(rawPayload: unknown): Promise<CheckOAuthTokensResult> {
   // Validation Zod
   const parsed = checkOAuthTokensPayloadSchema.safeParse(rawPayload);
   if (!parsed.success) {
@@ -149,10 +147,7 @@ export async function runCheckOAuthTokensJob(
         });
         refreshOk = result.ok;
       } catch (err) {
-        console.error(
-          `[check-oauth-tokens] Refresh échoué pour ${conn.appName}:`,
-          err,
-        );
+        console.error(`[check-oauth-tokens] Refresh échoué pour ${conn.appName}:`, err);
         refreshOk = false;
       }
     }
@@ -202,22 +197,18 @@ export async function runCheckOAuthTokensJob(
   // 3. Dispatch webhook `auth.token_expiring`
   if (!dryRun && checked > 0) {
     try {
-      dispatchWebhookEvent(
-        "auth.token_expiring" as WebhookEvent,
-        tenantId,
-        {
-          userId,
-          totalExpiring: checked,
-          refreshed,
-          revoked,
-          connections: expiring.map((c) => ({
-            connectionId: c.connectionId,
-            appName: c.appName,
-            daysUntilExpiry: c.daysUntilExpiry,
-            status: c.status,
-          })),
-        },
-      );
+      dispatchWebhookEvent("auth.token_expiring" as WebhookEvent, tenantId, {
+        userId,
+        totalExpiring: checked,
+        refreshed,
+        revoked,
+        connections: expiring.map((c) => ({
+          connectionId: c.connectionId,
+          appName: c.appName,
+          daysUntilExpiry: c.daysUntilExpiry,
+          status: c.status,
+        })),
+      });
       webhookDispatched = true;
     } catch (err) {
       // Fire-and-forget : on log mais on ne fail pas le job

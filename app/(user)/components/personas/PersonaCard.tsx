@@ -18,13 +18,7 @@ interface PersonaCardProps {
   onPublish: (persona: Persona) => void;
 }
 
-export function PersonaCard({
-  persona,
-  busy,
-  onEdit,
-  onRemove,
-  onPublish,
-}: PersonaCardProps) {
+export function PersonaCard({ persona, busy, onEdit, onRemove, onPublish }: PersonaCardProps) {
   const isBuiltin = persona.id.startsWith("builtin:");
 
   return (
@@ -33,25 +27,18 @@ export function PersonaCard({
       style={{
         gap: "var(--space-2)",
         padding: "var(--space-4)",
-        border: persona.isDefault
-          ? "1px solid var(--accent-teal)"
-          : "1px solid var(--line-strong)",
+        border: persona.isDefault ? "1px solid var(--accent-teal)" : "1px solid var(--line-strong)",
         borderRadius: "var(--radius-md)",
         background: persona.isDefault ? "var(--accent-teal-surface)" : "var(--bg-elev)",
       }}
     >
-      <header
-        className="flex items-baseline justify-between"
-        style={{ gap: "var(--space-2)" }}
-      >
+      <header className="flex items-baseline justify-between" style={{ gap: "var(--space-2)" }}>
         <span className="t-13 font-medium text-text">{persona.name}</span>
         {persona.isDefault && (
           <span className="t-11 font-medium text-(--accent-teal)">Par défaut</span>
         )}
       </header>
-      {persona.description && (
-        <p className="t-11 text-text-muted">{persona.description}</p>
-      )}
+      {persona.description && <p className="t-11 text-text-muted">{persona.description}</p>}
       <div className="flex flex-wrap" style={{ gap: "var(--space-2)" }}>
         {persona.tone && <Chip>{persona.tone}</Chip>}
         {persona.surface && <Chip>surface · {persona.surface}</Chip>}

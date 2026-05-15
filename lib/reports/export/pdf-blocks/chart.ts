@@ -6,8 +6,8 @@
  * surchargés. Inspiré de l'esthétique éditoriale (FT charts, NYT print).
  */
 
-import { COLORS, FONT_SIZES, SPACE, RULES, PAGE } from "../pdf-tokens";
 import { setFont } from "../pdf-fonts";
+import { COLORS, FONT_SIZES, PAGE, RULES, SPACE } from "../pdf-tokens";
 
 export interface ChartBox {
   x: number;
@@ -18,11 +18,7 @@ export interface ChartBox {
 }
 
 // ── Sparkline ─────────────────────────────────────────────
-export function renderSparkline(
-  doc: PDFKit.PDFDocument,
-  values: number[],
-  box: ChartBox,
-): void {
+export function renderSparkline(doc: PDFKit.PDFDocument, values: number[], box: ChartBox): void {
   if (values.length < 2) return;
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -51,16 +47,11 @@ export interface BarChartInput {
   embedded: boolean;
 }
 
-export function renderBarChart(
-  doc: PDFKit.PDFDocument,
-  input: BarChartInput,
-): void {
+export function renderBarChart(doc: PDFKit.PDFDocument, input: BarChartInput): void {
   const labelField = input.labelField ?? Object.keys(input.rows[0] ?? {})[0];
   const valueField =
     input.valueField ??
-    Object.keys(input.rows[0] ?? {}).find(
-      (k) => typeof input.rows[0]?.[k] === "number",
-    ) ??
+    Object.keys(input.rows[0] ?? {}).find((k) => typeof input.rows[0]?.[k] === "number") ??
     "";
 
   if (!labelField || !valueField || input.rows.length === 0) return;
@@ -86,21 +77,18 @@ export function renderBarChart(
 
     // Label gauche
     setFont(doc, "sans", input.embedded);
-    doc.fillColor(COLORS.ink).text(
-      String(row[labelField] ?? "—"),
-      x,
-      y + 4,
-      { width: labelWidth - SPACE.s2, lineBreak: false, ellipsis: true },
-    );
+    doc.fillColor(COLORS.ink).text(String(row[labelField] ?? "—"), x, y + 4, {
+      width: labelWidth - SPACE.s2,
+      lineBreak: false,
+      ellipsis: true,
+    });
 
     // Bar
     const barX = x + labelWidth;
     const barY = y + 6;
     doc.save();
     // Bar background (rule baseline)
-    doc
-      .rect(barX, barY + 4, barAreaWidth, 0.5)
-      .fill(COLORS.rule);
+    doc.rect(barX, barY + 4, barAreaWidth, 0.5).fill(COLORS.rule);
     // Bar fill
     doc.rect(barX, barY, barW, 8).fill(COLORS.accent);
     doc.restore();
@@ -127,10 +115,7 @@ export interface WaterfallInput {
   embedded: boolean;
 }
 
-export function renderWaterfall(
-  doc: PDFKit.PDFDocument,
-  input: WaterfallInput,
-): void {
+export function renderWaterfall(doc: PDFKit.PDFDocument, input: WaterfallInput): void {
   if (input.data.length === 0) return;
 
   const x = doc.x;
@@ -184,9 +169,7 @@ export function renderWaterfall(
       .fontSize(FONT_SIZES.small)
       .fillColor(COLORS.ink)
       .text(it.label, x, y, { width: labelW, lineBreak: false, ellipsis: true });
-    doc
-      .fillColor(typeColor)
-      .text(it.type, x + labelW, y, { width: typeW, lineBreak: false });
+    doc.fillColor(typeColor).text(it.type, x + labelW, y, { width: typeW, lineBreak: false });
     doc
       .fillColor(COLORS.ink)
       .text(
@@ -227,9 +210,7 @@ export function renderBullet(doc: PDFKit.PDFDocument, input: BulletInput): void 
 
     // Track baseline
     doc.save();
-    doc
-      .rect(x + labelW, y + 8, trackW, 6)
-      .fill(COLORS.rule);
+    doc.rect(x + labelW, y + 8, trackW, 6).fill(COLORS.rule);
     // Filled bar
     const barColor = ratio >= 1 ? COLORS.positive : ratio >= 0.7 ? COLORS.accent : COLORS.warn;
     doc.rect(x + labelW, y + 8, barW, 6).fill(barColor);

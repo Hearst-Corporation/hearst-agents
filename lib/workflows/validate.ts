@@ -115,10 +115,7 @@ function buildAdjacency(graph: WorkflowGraph): Map<string, string[]> {
   return adj;
 }
 
-function detectCycle(
-  start: string,
-  adj: Map<string, string[]>,
-): string[] | null {
+function detectCycle(start: string, adj: Map<string, string[]>): string[] | null {
   const WHITE = 0,
     GRAY = 1,
     BLACK = 2;
@@ -153,10 +150,7 @@ function detectCycle(
   return dfs(start);
 }
 
-function collectReachable(
-  start: string,
-  adj: Map<string, string[]>,
-): Set<string> {
+function collectReachable(start: string, adj: Map<string, string[]>): Set<string> {
   const seen = new Set<string>();
   const stack = [start];
   while (stack.length > 0) {

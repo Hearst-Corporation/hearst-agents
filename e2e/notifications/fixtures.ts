@@ -61,9 +61,28 @@ export function mockEmptyNotifications() {
 export function mockNotificationsWithUnread() {
   return {
     notifications: [
-      mockNotification({ id: NOTIF_ID_1, severity: "critical", title: "Runway < 6 mois", body: "Action requise.", read_at: null }),
-      mockNotification({ id: NOTIF_ID_2, severity: "warning", title: "Pipeline thin", body: "Pipeline deal < 80k€.", read_at: null }),
-      mockNotification({ id: NOTIF_ID_3, kind: "report_ready", severity: "info", title: "Rapport prêt", body: "Founder Cockpit généré.", read_at: new Date().toISOString() }),
+      mockNotification({
+        id: NOTIF_ID_1,
+        severity: "critical",
+        title: "Runway < 6 mois",
+        body: "Action requise.",
+        read_at: null,
+      }),
+      mockNotification({
+        id: NOTIF_ID_2,
+        severity: "warning",
+        title: "Pipeline thin",
+        body: "Pipeline deal < 80k€.",
+        read_at: null,
+      }),
+      mockNotification({
+        id: NOTIF_ID_3,
+        kind: "report_ready",
+        severity: "info",
+        title: "Rapport prêt",
+        body: "Founder Cockpit généré.",
+        read_at: new Date().toISOString(),
+      }),
     ],
     unreadCount: 2,
     total: 3,
@@ -95,7 +114,9 @@ export async function mountSession(page: Page) {
  */
 export async function interceptNotificationAPI(
   page: Page,
-  payload: ReturnType<typeof mockEmptyNotifications> | ReturnType<typeof mockNotificationsWithUnread> = mockEmptyNotifications(),
+  payload:
+    | ReturnType<typeof mockEmptyNotifications>
+    | ReturnType<typeof mockNotificationsWithUnread> = mockEmptyNotifications(),
 ) {
   await page.route("**/api/notifications*", (route) =>
     route.fulfill({

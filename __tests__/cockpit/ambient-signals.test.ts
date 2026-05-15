@@ -9,7 +9,7 @@
  *  - Format de sortie (id, kind, narration ≤140ch, detectedAt ISO, severity)
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks hoistés ─────────────────────────────────────────────
 
@@ -46,10 +46,7 @@ vi.mock("@/lib/platform/db/supabase", () => ({
   getServerSupabase: mocks.getServerSupabase,
 }));
 
-import {
-  getAmbientSignals,
-  _resetAmbientSignalsCache,
-} from "@/lib/cockpit/ambient-signals";
+import { _resetAmbientSignalsCache, getAmbientSignals } from "@/lib/cockpit/ambient-signals";
 
 const USER_ID = "user-1";
 const TENANT_ID = "tenant-1";
@@ -88,12 +85,7 @@ describe("getAmbientSignals", () => {
       },
     ]);
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "1h",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "1h");
 
     expect(signals).toHaveLength(1);
     expect(signals[0].kind).toBe("mission_failed");
@@ -159,12 +151,7 @@ describe("getAmbientSignals", () => {
       },
     ]);
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "1h",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "1h");
 
     expect(signals.length).toBeGreaterThanOrEqual(2);
     const t0 = Date.parse(signals[0].detectedAt);
@@ -216,12 +203,7 @@ describe("getAmbientSignals", () => {
       },
     ]);
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "1h",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "1h");
     expect(signals.some((s) => s.kind === "mission_failed")).toBe(true);
   });
 
@@ -240,12 +222,7 @@ describe("getAmbientSignals", () => {
       },
     ]);
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "1h",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "1h");
     // missions sources fail → ok ; oauth_expired doit remonter
     expect(signals.some((s) => s.kind === "oauth_expired")).toBe(true);
   });
@@ -277,12 +254,7 @@ describe("getAmbientSignals", () => {
       },
     ]);
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "1h",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "1h");
 
     expect(signals.length).toBeGreaterThan(0);
     for (const s of signals) {
@@ -304,12 +276,7 @@ describe("getAmbientSignals", () => {
       generatedAt: now - 8 * 60 * 60_000, // 8h
     });
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "all",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "all");
     expect(signals.some((s) => s.kind === "brief_stale")).toBe(true);
   });
 
@@ -331,12 +298,7 @@ describe("getAmbientSignals", () => {
       },
     ]);
 
-    const signals = await getAmbientSignals(
-      USER_ID,
-      TENANT_ID,
-      WORKSPACE_ID,
-      "all",
-    );
+    const signals = await getAmbientSignals(USER_ID, TENANT_ID, WORKSPACE_ID, "all");
     expect(signals.some((s) => s.kind === "mission_silent")).toBe(true);
   });
 });

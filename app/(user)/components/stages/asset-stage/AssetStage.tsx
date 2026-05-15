@@ -34,20 +34,20 @@
 import { useEffect, useState } from "react";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
+import { ConfirmModal } from "../../ConfirmModal";
 import { useOfflineStatus } from "../../use-offline-status";
 import { VariantCarousel } from "../../VariantCarousel";
-import { ConfirmModal } from "../../ConfirmModal";
 import type { StageAction } from "../StageActionBar";
+import { AssetBody } from "./AssetBody";
+import { AssetHeroImage } from "./AssetHeroImage";
+import { AssetMeta } from "./AssetMeta";
 import { AssetStageHeader } from "./AssetStageHeader";
 import { AssetStageToast } from "./AssetStageToast";
-import { OfflineBanner } from "./OfflineBanner";
-import { AssetMeta } from "./AssetMeta";
-import { AssetHeroImage } from "./AssetHeroImage";
-import { AssetBody } from "./AssetBody";
 import { GenerationPromptBlock } from "./GenerationPromptBlock";
+import { OfflineBanner } from "./OfflineBanner";
+import { useAssetActions } from "./use-asset-actions";
 import { useAssetFetch } from "./use-asset-fetch";
 import { useImageVariantPoll } from "./use-image-variant-poll";
-import { useAssetActions } from "./use-asset-actions";
 
 interface AssetStageProps {
   assetId: string;

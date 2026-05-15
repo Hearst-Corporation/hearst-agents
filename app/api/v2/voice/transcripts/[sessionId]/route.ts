@@ -9,14 +9,16 @@
  * RLS migration 0045 — l'user n'accède qu'à ses propres rows.
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getTranscript, linkTranscriptToThread } from "@/lib/voice/transcript-store";
 
-const transcriptPatchBodySchema = z.object({
-  threadId: z.string().min(1).max(200),
-}).strict();
+const transcriptPatchBodySchema = z
+  .object({
+    threadId: z.string().min(1).max(200),
+  })
+  .strict();
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

@@ -9,7 +9,7 @@
 
 import { create } from "zustand";
 import type { AssetVariant } from "@/lib/assets/variants";
-import type { KgNode, KgEdge } from "@/lib/memory/kg";
+import type { KgEdge, KgNode } from "@/lib/memory/kg";
 
 interface MeetingActionItem {
   action: string;
@@ -71,7 +71,12 @@ interface StageDataState {
 }
 
 const EMPTY_MEETING: MeetingSlice = { actionItems: [], transcript: "", status: "" };
-const EMPTY_SIMULATION: SimulationSlice = { scenario: "", variables: [], scenarios: [], phase: "idle" };
+const EMPTY_SIMULATION: SimulationSlice = {
+  scenario: "",
+  variables: [],
+  scenarios: [],
+  phase: "idle",
+};
 const EMPTY_ASSET: AssetSlice = { assetId: null, assetTitle: "", variants: [] };
 const EMPTY_KG: KgSlice = { graph: { nodes: [], edges: [] }, selectedNode: null };
 

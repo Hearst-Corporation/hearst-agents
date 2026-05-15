@@ -9,9 +9,9 @@
  * - Validation name non vide
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { createWebhookSchema, updateWebhookSchema } from "@/lib/webhooks/store";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CreateWebhookInput, UpdateWebhookPatch } from "@/lib/webhooks/store";
+import { createWebhookSchema, updateWebhookSchema } from "@/lib/webhooks/store";
 
 // ── Helpers ──────────────────────────────────────────────────
 
@@ -124,9 +124,7 @@ describe("createWebhookSchema", () => {
   });
 
   it("accepte un secret optionnel", () => {
-    const result = createWebhookSchema.safeParse(
-      makeInput({ secret: "my-secret-token" }),
-    );
+    const result = createWebhookSchema.safeParse(makeInput({ secret: "my-secret-token" }));
     expect(result.success).toBe(true);
     if (result.success) {
       expect(result.data.secret).toBe("my-secret-token");
@@ -141,7 +139,9 @@ describe("createWebhookSchema", () => {
 
 describe("updateWebhookSchema", () => {
   it("accepte un patch partiel (seulement name)", () => {
-    const result = updateWebhookSchema.safeParse({ name: "Nouveau nom" } satisfies UpdateWebhookPatch);
+    const result = updateWebhookSchema.safeParse({
+      name: "Nouveau nom",
+    } satisfies UpdateWebhookPatch);
     expect(result.success).toBe(true);
   });
 

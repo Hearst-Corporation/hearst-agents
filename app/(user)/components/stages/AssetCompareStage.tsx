@@ -21,9 +21,9 @@
  */
 
 import { useEffect, useState } from "react";
-import { useStageStore } from "@/stores/stage";
-import { useSelectionStore } from "@/stores/selection";
 import type { Asset } from "@/lib/assets/types";
+import { useSelectionStore } from "@/stores/selection";
+import { useStageStore } from "@/stores/stage";
 import { AssetLineage } from "../AssetLineage";
 import { StageActionBar } from "./StageActionBar";
 
@@ -55,7 +55,7 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
   const [diffError, setDiffError] = useState<string | null>(null);
   const [bestIndex, setBestIndex] = useState<number | null>(null);
 
-  const idsKey = ids.join("|");
+  const _idsKey = ids.join("|");
 
   useEffect(() => {
     let cancelled = false;
@@ -82,7 +82,9 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
           return;
         }
         if (missing > 0) {
-          setError(`${missing} asset${missing > 1 ? "s" : ""} introuvable${missing > 1 ? "s" : ""}`);
+          setError(
+            `${missing} asset${missing > 1 ? "s" : ""} introuvable${missing > 1 ? "s" : ""}`,
+          );
         }
         setAssets(loaded);
       })
@@ -98,7 +100,7 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
     };
     // idsKey capture la liste — ESLint ignore les deps ids/setters volontairement.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idsKey]);
+  }, [ids.map, ids.length]);
 
   const canDiff = count === 2;
 
@@ -134,8 +136,7 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
   };
 
   // Grille adaptative : 2 → 1×2, 3 → 1×3, 4 → 2×2.
-  const gridTemplate =
-    count === 4 ? "1fr 1fr" : count === 3 ? "1fr 1fr 1fr" : "1fr 1fr";
+  const gridTemplate = count === 4 ? "1fr 1fr" : count === 3 ? "1fr 1fr 1fr" : "1fr 1fr";
   const gridRows = count === 4 ? "repeat(2, minmax(0, 1fr))" : "minmax(0, 1fr)";
 
   const ctxLabel = `Comparer · ${count} variant${count > 1 ? "s" : ""}`;
@@ -144,9 +145,7 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
     <div className="flex-1 flex flex-col min-h-0" style={{ background: "var(--surface)" }}>
       <StageActionBar
         onBack={back}
-        context={
-          <span className="t-11 font-light text-text-muted">{ctxLabel}</span>
-        }
+        context={<span className="t-11 font-light text-text-muted">{ctxLabel}</span>}
         primary={
           canDiff
             ? {
@@ -175,17 +174,12 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
 
       {loading && (
         <div className="flex items-center justify-center" style={{ padding: "var(--space-12)" }}>
-          <span className="t-11 font-light text-text-faint">
-            Chargement…
-          </span>
+          <span className="t-11 font-light text-text-faint">Chargement…</span>
         </div>
       )}
 
       {!loading && (
-        <div
-          className="flex-1 overflow-y-auto"
-          style={{ padding: "var(--space-6)" }}
-        >
+        <div className="flex-1 overflow-y-auto" style={{ padding: "var(--space-6)" }}>
           <div
             className="grid"
             style={{
@@ -222,9 +216,7 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
                 marginBottom: "var(--space-6)",
               }}
             >
-              <p className="t-11 font-medium text-(--danger)">
-                {diffError}
-              </p>
+              <p className="t-11 font-medium text-(--danger)">{diffError}</p>
             </div>
           )}
 
@@ -245,10 +237,11 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
                   Différences · {diff.differences.length}
                 </span>
               </header>
-              <p className="t-13 font-light text-text leading-relaxed">
-                {diff.summary}
-              </p>
-              <ul className="flex flex-col" style={{ gap: "var(--space-2)", listStyle: "none", paddingLeft: 0 }}>
+              <p className="t-13 font-light text-text leading-relaxed">{diff.summary}</p>
+              <ul
+                className="flex flex-col"
+                style={{ gap: "var(--space-2)", listStyle: "none", paddingLeft: 0 }}
+              >
                 {diff.differences.map((d, i) => (
                   <li
                     key={i}
@@ -261,12 +254,8 @@ export function AssetCompareStage({ assetIds }: AssetCompareStageProps) {
                       borderRadius: "var(--radius-xs)",
                     }}
                   >
-                    <span className="t-11 font-medium text-(--accent-teal) shrink-0">
-                      {d.kind}
-                    </span>
-                    <span className="t-11 font-light text-text-soft">
-                      {d.description}
-                    </span>
+                    <span className="t-11 font-medium text-(--accent-teal) shrink-0">{d.kind}</span>
+                    <span className="t-11 font-light text-text-soft">{d.description}</span>
                   </li>
                 ))}
               </ul>
@@ -315,9 +304,7 @@ function ComparePane({
       }}
     >
       <header className="flex items-center justify-between" style={{ gap: "var(--space-2)" }}>
-        <span className="t-11 font-medium text-(--accent-teal)">
-          Variant {labelLetter}
-        </span>
+        <span className="t-11 font-medium text-(--accent-teal)">Variant {labelLetter}</span>
         {provider && (
           <span className="t-11 font-light text-text-muted truncate" style={{ maxWidth: "60%" }}>
             {provider}

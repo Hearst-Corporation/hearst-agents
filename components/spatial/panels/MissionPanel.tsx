@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import { useRuntimeStore } from '@/stores/runtime';
-import { useStageStore } from '@/stores/stage';
-import { BentoCard } from './BentoCard';
-import { MiniChart } from './MiniChart';
+import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+import { useRuntimeStore } from "@/stores/runtime";
+import { useStageStore } from "@/stores/stage";
+import { BentoCard } from "./BentoCard";
+import { MiniChart } from "./MiniChart";
 
 interface MissionPanelProps {
   show: boolean;
@@ -27,39 +27,39 @@ export function MissionPanel({ show }: MissionPanelProps) {
   const currentPlan = useRuntimeStore((s) => s.currentPlan);
   const coreState = useRuntimeStore((s) => s.coreState);
 
-  const running = currentPlan?.status === 'running' || coreState === 'streaming';
-  const awaiting = currentPlan?.status === 'awaiting_approval' || coreState === 'awaiting_approval';
+  const running = currentPlan?.status === "running" || coreState === "streaming";
+  const awaiting = currentPlan?.status === "awaiting_approval" || coreState === "awaiting_approval";
 
   const currentStepLabel = useMemo(() => {
     if (!currentPlan) return null;
     const runningStep = currentPlan.steps.find(
-      (s) => s.status === 'running' || s.status === 'awaiting_approval',
+      (s) => s.status === "running" || s.status === "awaiting_approval",
     );
     return runningStep?.label ?? null;
   }, [currentPlan]);
 
   const stepsCount = currentPlan?.steps.length ?? 0;
-  const doneCount = currentPlan?.steps.filter((s) => s.status === 'done').length ?? 0;
+  const doneCount = currentPlan?.steps.filter((s) => s.status === "done").length ?? 0;
 
   const chartHeights = useMemo(() => {
     if (!currentPlan) return undefined;
     const latencies = currentPlan.steps
-      .filter((s) => typeof s.latencyMs === 'number')
+      .filter((s) => typeof s.latencyMs === "number")
       .slice(-12)
       .map((s) => Math.min(100, ((s.latencyMs ?? 0) / MAX_LATENCY_MS) * 100));
     return latencies.length > 0 ? latencies : undefined;
   }, [currentPlan]);
 
   const headlineText = currentPlan
-    ? currentStepLabel ?? currentPlan.intent ?? 'Plan en cours'
+    ? (currentStepLabel ?? currentPlan.intent ?? "Plan en cours")
     : running
-      ? 'Analyse en cours'
-      : 'Aucune mission';
+      ? "Analyse en cours"
+      : "Aucune mission";
 
   function handleClick() {
     if (!currentPlan) return;
-    useStageStore.getState().setMode({ mode: 'mission', missionId: currentPlan.id });
-    router.push('/');
+    useStageStore.getState().setMode({ mode: "mission", missionId: currentPlan.id });
+    router.push("/");
   }
 
   const clickable = !!currentPlan;
@@ -67,12 +67,12 @@ export function MissionPanel({ show }: MissionPanelProps) {
   return (
     <BentoCard show={show} colSpan={1} rowSpan={2} delay={0.18}>
       <div
-        className={`flex h-full flex-col justify-between ${clickable ? 'cursor-pointer group' : ''}`}
+        className={`flex h-full flex-col justify-between ${clickable ? "cursor-pointer group" : ""}`}
         onClick={clickable ? handleClick : undefined}
-        role={clickable ? 'button' : undefined}
+        role={clickable ? "button" : undefined}
         tabIndex={clickable ? 0 : undefined}
         onKeyDown={(e) => {
-          if (clickable && (e.key === 'Enter' || e.key === ' ')) {
+          if (clickable && (e.key === "Enter" || e.key === " ")) {
             e.preventDefault();
             handleClick();
           }
@@ -99,31 +99,28 @@ export function MissionPanel({ show }: MissionPanelProps) {
           )}
         </div>
 
-        <MiniChart
-          bars={12}
-          intervalMs={running ? 1500 : 4000}
-          heights={chartHeights}
-        />
+        <MiniChart bars={12} intervalMs={running ? 1500 : 4000} heights={chartHeights} />
 
         <div className="flex items-center gap-3">
           <div
             className="h-1.5 w-1.5 rounded-full"
             style={{
-              background: running || awaiting ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)',
-              boxShadow: running || awaiting
-                ? '0 0 10px rgba(255,255,255,0.6)'
-                : '0 0 4px rgba(255,255,255,0.25)',
-              animation: running ? 'spatial-mission-pulse 2.4s ease-in-out infinite' : undefined,
+              background: running || awaiting ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.4)",
+              boxShadow:
+                running || awaiting
+                  ? "0 0 10px rgba(255,255,255,0.6)"
+                  : "0 0 4px rgba(255,255,255,0.25)",
+              animation: running ? "spatial-mission-pulse 2.4s ease-in-out infinite" : undefined,
             }}
           />
           <div className="text-spatial-sm font-light tracking-wide text-white/55">
             {awaiting
-              ? 'En attente de validation'
+              ? "En attente de validation"
               : running
-                ? 'Agents mobilisés'
+                ? "Agents mobilisés"
                 : currentPlan
-                  ? 'Plan terminé'
-                  : 'En attente'}
+                  ? "Plan terminé"
+                  : "En attente"}
           </div>
         </div>
       </div>

@@ -19,14 +19,10 @@
  *   tokenHash = sha256(token).hex stocké en DB (jamais le token raw)
  */
 
-import crypto from "node:crypto";
-import { randomUUID } from "node:crypto";
+import crypto, { randomUUID } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@supabase/supabase-js";
-import {
-  sendTransactionalEmail,
-  isTransactionalEmailEnabled,
-} from "@/lib/email/transactional";
+import { isTransactionalEmailEnabled, sendTransactionalEmail } from "@/lib/email/transactional";
 import type { ApprovalMode } from "@/lib/engine/runtime/missions/types";
 
 // ── Constantes ───────────────────────────────────────────────
@@ -141,8 +137,7 @@ let _warned = false;
  * dédié plus tard, on lira `MISSION_APPROVAL_SECRET` en priorité.
  */
 function getApprovalSecret(): string | null {
-  const secret =
-    process.env.MISSION_APPROVAL_SECRET ?? process.env.REPORT_SHARING_SECRET ?? "";
+  const secret = process.env.MISSION_APPROVAL_SECRET ?? process.env.REPORT_SHARING_SECRET ?? "";
   if (secret.length < SECRET_MIN_LENGTH) {
     if (!_warned) {
       console.warn(
@@ -246,10 +241,7 @@ export function verifyApprovalToken(token: string): VerifyApprovalTokenResult {
   } catch {
     return { ok: false, reason: "malformed" };
   }
-  if (
-    expected.length !== provided.length ||
-    !crypto.timingSafeEqual(expected, provided)
-  ) {
+  if (expected.length !== provided.length || !crypto.timingSafeEqual(expected, provided)) {
     return { ok: false, reason: "bad_signature" };
   }
 
@@ -280,20 +272,20 @@ export function verifyApprovalToken(token: string): VerifyApprovalTokenResult {
 // ── URL builder ──────────────────────────────────────────────
 
 export function buildApprovalUrl(token: string, baseUrl?: string): string {
-  const base =
-    baseUrl ??
-    process.env.NEXT_PUBLIC_APP_URL ??
-    process.env.NEXTAUTH_URL ??
-    "";
+  const base = baseUrl ?? process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXTAUTH_URL ?? "";
   const trimmed = base.replace(/\/+$/, "");
   return `${trimmed}/public/approvals/${encodeURIComponent(token)}`;
 }
 
 // ── Aggrégat de session ──────────────────────────────────────
 
-function evaluateSession(
-  rows: ReadonlyArray<ApprovalRow>,
-): { isApproved: boolean; isRejected: boolean; pending: number; approved: number; rejected: number } {
+function evaluateSession(rows: ReadonlyArray<ApprovalRow>): {
+  isApproved: boolean;
+  isRejected: boolean;
+  pending: number;
+  approved: number;
+  rejected: number;
+} {
   const total = rows.length;
   let approved = 0;
   let rejected = 0;
@@ -619,9 +611,7 @@ export async function recordVote(
  * si aucune session n'existe. Utilisé par l'UI cockpit pour afficher
  * "En attente — N/M votes".
  */
-export async function getApprovalState(
-  missionId: string,
-): Promise<ApprovalSessionState | null> {
+export async function getApprovalState(missionId: string): Promise<ApprovalSessionState | null> {
   const sb = db();
   if (!sb) return null;
 
@@ -649,9 +639,7 @@ export async function getApprovalState(
  * Lookup d'un row par tokenHash — utilisé par la page publique pour
  * afficher le contexte mission avant le vote.
  */
-export async function getApprovalByTokenHash(
-  tokenHash: string,
-): Promise<ApprovalRow | null> {
+export async function getApprovalByTokenHash(tokenHash: string): Promise<ApprovalRow | null> {
   const sb = db();
   if (!sb) return null;
   const { data, error } = await sb

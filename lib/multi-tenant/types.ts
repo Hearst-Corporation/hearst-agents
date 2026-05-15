@@ -53,9 +53,6 @@ export interface ScopedMetadata {
  * `DEFAULT_SPACE_ID`. À utiliser systématiquement côté query Phase 3
  * pour éviter de tester `scope.spaceId ?? "personal"` partout.
  */
-export function resolveSpaceId(
-  scope: Pick<TenantScope, "spaceId"> | null | undefined,
-): SpaceId {
+export function resolveSpaceId(scope: Pick<TenantScope, "spaceId"> | null | undefined): SpaceId {
   return scope?.spaceId ?? DEFAULT_SPACE_ID;
 }
-

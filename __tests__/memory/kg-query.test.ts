@@ -3,7 +3,7 @@
  * Mock embeddings + supabase pour tester les 2 happy paths + edge case empty.
  */
 
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/embeddings/store", () => ({
   searchEmbeddings: vi.fn(async (input: { queryText: string }) => {
@@ -111,10 +111,7 @@ describe("runKgQuery", () => {
 
   it("retourne empty result quand searchEmbeddings ne match rien", async () => {
     const { runKgQuery } = await import("@/lib/tools/native/kg-query");
-    const result = await runKgQuery(
-      { userId: "u", tenantId: "t" },
-      { question: "sujet inconnu" },
-    );
+    const result = await runKgQuery({ userId: "u", tenantId: "t" }, { question: "sujet inconnu" });
     expect(result.nodes).toEqual([]);
     expect(result.edges).toEqual([]);
     expect(result.narrative).toBeNull();

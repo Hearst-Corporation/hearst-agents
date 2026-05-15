@@ -2,7 +2,7 @@
  * retrieval-context — formatRetrievedItems + cap 1500 chars + cache 30s.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { searchEmbeddings } = vi.hoisted(() => ({
   searchEmbeddings: vi.fn(),
@@ -17,12 +17,12 @@ vi.mock("@/lib/platform/redis/client", () => ({
   getRedis: () => null,
 }));
 
-import {
-  getRetrievedMemoryForUser,
-  formatRetrievedItems,
-  __clearRetrievalCache,
-} from "@/lib/memory/retrieval-context";
 import type { RetrievedEmbedding } from "@/lib/embeddings/store";
+import {
+  __clearRetrievalCache,
+  formatRetrievedItems,
+  getRetrievedMemoryForUser,
+} from "@/lib/memory/retrieval-context";
 
 function item(p: Partial<RetrievedEmbedding> & { textExcerpt: string }): RetrievedEmbedding {
   return {
@@ -103,9 +103,7 @@ describe("getRetrievedMemoryForUser", () => {
   });
 
   it("cache hit pendant TTL — searchEmbeddings appelé une seule fois", async () => {
-    searchEmbeddings.mockResolvedValue([
-      item({ textExcerpt: "doc important" }),
-    ]);
+    searchEmbeddings.mockResolvedValue([item({ textExcerpt: "doc important" })]);
     const a = await getRetrievedMemoryForUser({
       userId: "u1",
       tenantId: "t1",

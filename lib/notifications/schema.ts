@@ -22,12 +22,7 @@ import { BUSINESS_SIGNAL_TYPES } from "@/lib/reports/signals/types";
 
 /** Liste de signaux : chaque entrée est un BusinessSignalType ou "*" (wildcard). */
 const signalFilterSchema = z
-  .array(
-    z.union([
-      z.enum(BUSINESS_SIGNAL_TYPES),
-      z.literal("*"),
-    ]),
-  )
+  .array(z.union([z.enum(BUSINESS_SIGNAL_TYPES), z.literal("*")]))
   .max(BUSINESS_SIGNAL_TYPES.length + 1);
 
 const webhookChannelSchema = z.object({
@@ -77,9 +72,7 @@ export const DEFAULT_ALERTING_PREFERENCES: AlertingPreferences = {
  * On choisit de logger silencieusement (warn) plutôt que de throw — un tenant
  * mal configuré ne doit pas casser le pipeline reports.
  */
-export function parseAlertingPreferences(
-  value: unknown,
-): AlertingPreferences {
+export function parseAlertingPreferences(value: unknown): AlertingPreferences {
   if (value == null) return DEFAULT_ALERTING_PREFERENCES;
   const result = alertingPreferencesSchema.safeParse(value);
   if (!result.success) {

@@ -42,8 +42,7 @@ export function buildProductAnalytics(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "Product Analytics",
-      summary:
-        "Funnel AARRR, cohortes de rétention, NPS, features les plus utilisées.",
+      summary: "Funnel AARRR, cohortes de rétention, NPS, features les plus utilisées.",
       domain: "growth",
       persona: "founder",
       cadence: "weekly",
@@ -355,9 +354,7 @@ export function buildProductAnalytics(scope: ReportSpec["scope"]): ReportSpec {
         // (cf cohortTrianglePropsSchema). Au runtime, le pipeline alimente
         // cohorts depuis le dataset cohort_triangle.
         props: {
-          cohorts: [
-            { label: "M0", values: [0] },
-          ],
+          cohorts: [{ label: "M0", values: [0] }],
           periodPrefix: "M",
           asPercent: true,
         },
@@ -422,8 +419,4 @@ export function buildProductAnalytics(scope: ReportSpec["scope"]): ReportSpec {
   };
 }
 
-export const PRODUCT_ANALYTICS_REQUIRED_APPS = [
-  "mixpanel",
-  "stripe",
-  "intercom",
-] as const;
+export const PRODUCT_ANALYTICS_REQUIRED_APPS = ["mixpanel", "stripe", "intercom"] as const;

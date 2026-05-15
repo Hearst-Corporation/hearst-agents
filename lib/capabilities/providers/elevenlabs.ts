@@ -17,10 +17,7 @@
  */
 
 import { Buffer } from "node:buffer";
-import {
-  resolveVoiceProfile,
-  type VoiceProfile,
-} from "./elevenlabs-voices";
+import { resolveVoiceProfile, type VoiceProfile } from "./elevenlabs-voices";
 
 const ELEVEN_API_BASE = "https://api.elevenlabs.io/v1";
 
@@ -56,9 +53,9 @@ export interface SynthesizeSpeechResult {
   voiceUsed: string;
 }
 
-const MULTILINGUAL_USD_PER_CHAR = 0.000167;     // Starter plan equivalent
-const TURBO_USD_PER_CHAR = 0.000110;            // Turbo cheaper
-const FLASH_USD_PER_CHAR = 0.000050;            // Flash cheapest
+const MULTILINGUAL_USD_PER_CHAR = 0.000167; // Starter plan equivalent
+const TURBO_USD_PER_CHAR = 0.00011; // Turbo cheaper
+const FLASH_USD_PER_CHAR = 0.00005; // Flash cheapest
 
 function priceFor(modelId: string, charCount: number): number {
   if (modelId.includes("flash")) return charCount * FLASH_USD_PER_CHAR;
@@ -95,7 +92,7 @@ export async function synthesizeSpeech(
     headers: {
       "xi-api-key": apiKey,
       "Content-Type": "application/json",
-      "Accept": "audio/mpeg",
+      Accept: "audio/mpeg",
       ...(input.idempotencyKey ? { "Idempotency-Key": input.idempotencyKey } : {}),
     },
     body: JSON.stringify({

@@ -6,8 +6,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { requireAdmin, isError } from "../_helpers";
 import { listWebhooks } from "@/lib/webhooks/store";
+import { isError, requireAdmin } from "../_helpers";
 
 export const dynamic = "force-dynamic";
 

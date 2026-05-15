@@ -29,9 +29,7 @@ export interface FetchComposioResult {
   errorCode?: string;
 }
 
-export async function fetchComposio(
-  input: FetchComposioInput,
-): Promise<FetchComposioResult> {
+export async function fetchComposio(input: FetchComposioInput): Promise<FetchComposioResult> {
   if (isWriteAction(input.action)) {
     return {
       rows: [],

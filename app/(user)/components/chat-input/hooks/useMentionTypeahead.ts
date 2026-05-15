@@ -37,10 +37,7 @@ export function useMentionTypeahead({
   // Close typeahead when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (
-        typeaheadRef.current &&
-        !typeaheadRef.current.contains(e.target as Node)
-      ) {
+      if (typeaheadRef.current && !typeaheadRef.current.contains(e.target as Node)) {
         setHideTypeahead(true);
       }
     }
@@ -71,23 +68,14 @@ export function useMentionTypeahead({
   const selectService = useCallback(
     (service: ServiceDefinition) => {
       const beforeAt = input.slice(0, lastAtIndex);
-      const afterQuery = input.slice(
-        lastAtIndex + 1 + typeaheadQuery.length,
-      );
+      const afterQuery = input.slice(lastAtIndex + 1 + typeaheadQuery.length);
       const newInput = `${beforeAt}@${service.id} ${afterQuery}`;
       setInput(newInput);
       setHideTypeahead(true);
       onProviderMention?.(service.id);
       inputRef.current?.focus();
     },
-    [
-      input,
-      lastAtIndex,
-      typeaheadQuery,
-      setInput,
-      onProviderMention,
-      inputRef,
-    ],
+    [input, lastAtIndex, typeaheadQuery, setInput, onProviderMention, inputRef],
   );
 
   /**
@@ -107,15 +95,7 @@ export function useMentionTypeahead({
       onProviderMention?.(service.id);
       inputRef.current?.focus();
     },
-    [
-      lastAtIndex,
-      hasSpace,
-      input,
-      selectService,
-      setInput,
-      onProviderMention,
-      inputRef,
-    ],
+    [lastAtIndex, hasSpace, input, selectService, setInput, onProviderMention, inputRef],
   );
 
   return {

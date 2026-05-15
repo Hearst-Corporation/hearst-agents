@@ -19,17 +19,13 @@
  *   503 signing_unavailable (REPORT_SHARING_SECRET absent)
  */
 
-import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
+import { createReportShareSchema } from "@/lib/contracts/reports";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import {
-  signToken,
-  buildShareUrl,
-  checkShareRateLimit,
-} from "@/lib/reports/sharing/signed-url";
+import { buildShareUrl, checkShareRateLimit, signToken } from "@/lib/reports/sharing/signed-url";
 import { createShareRow } from "@/lib/reports/sharing/store";
-import { createReportShareSchema } from "@/lib/contracts/reports";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -66,10 +62,7 @@ export async function POST(req: NextRequest) {
   // Vérifie que l'asset existe et appartient au caller (tenant + user).
   const sb = getServerSupabase();
   if (!sb) {
-    return NextResponse.json(
-      { error: "supabase_unavailable" },
-      { status: 503 },
-    );
+    return NextResponse.json({ error: "supabase_unavailable" }, { status: 503 });
   }
 
   const { data: asset, error: fetchErr } = await sb
@@ -84,10 +77,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "asset_not_found" }, { status: 404 });
   }
   const provenance = (asset.provenance ?? {}) as Record<string, unknown>;
-  if (
-    provenance.userId !== undefined &&
-    provenance.userId !== scope.userId
-  ) {
+  if (provenance.userId !== undefined && provenance.userId !== scope.userId) {
     return NextResponse.json({ error: "forbidden" }, { status: 403 });
   }
   if (asset.kind !== "report") {
@@ -101,14 +91,10 @@ export async function POST(req: NextRequest) {
     ttlHours: parsed.data.ttlHours,
   });
   if (!signed) {
-    return NextResponse.json(
-      { error: "signing_unavailable" },
-      { status: 503 },
-    );
+    return NextResponse.json({ error: "signing_unavailable" }, { status: 503 });
   }
 
-  const tenantId =
-    (provenance.tenantId as string | undefined) ?? scope.tenantId;
+  const tenantId = (provenance.tenantId as string | undefined) ?? scope.tenantId;
 
   const row = await createShareRow({
     shareId,
@@ -119,10 +105,7 @@ export async function POST(req: NextRequest) {
     createdBy: scope.userId,
   });
   if (!row) {
-    return NextResponse.json(
-      { error: "persistence_failed" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "persistence_failed" }, { status: 500 });
   }
 
   return NextResponse.json({

@@ -9,8 +9,8 @@
  * En preview, retourne le payload sans frapper Composio.
  */
 
-import type { WorkflowHandler } from "./types";
 import { executeComposioAction } from "@/lib/connectors/composio/client";
+import type { WorkflowHandler } from "./types";
 
 const ACTION = "SLACK_SEND_MESSAGE";
 

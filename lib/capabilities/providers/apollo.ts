@@ -72,9 +72,7 @@ export async function enrichPerson(input: { email: string }): Promise<ApolloPers
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(
-      `[Apollo] match status=${res.status} message=${body.slice(0, 200)}`,
-    );
+    throw new Error(`[Apollo] match status=${res.status} message=${body.slice(0, 200)}`);
   }
 
   const data = (await res.json()) as {

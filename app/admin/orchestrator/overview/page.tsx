@@ -1,26 +1,25 @@
 import Link from "next/link";
-import { HomShell, PageHeader, MetricCell, Card, StatusPill } from "../_components/Shell";
-import { latestScores, loadHistory } from "@/lib/hom/trust";
-import { loadDriftLog } from "@/lib/hom/drift";
 import { loadCC } from "@/lib/hom/cc-state";
-import { listRuns } from "@/lib/hom/registry";
-import { listQuarantined } from "@/lib/hom/quarantine";
+import { loadDriftLog } from "@/lib/hom/drift";
 import { quickHealthCheck } from "@/lib/hom/master";
+import { listQuarantined } from "@/lib/hom/quarantine";
+import { listRuns } from "@/lib/hom/registry";
+import { latestScores, loadHistory } from "@/lib/hom/trust";
+import { Card, HomShell, MetricCell, PageHeader, StatusPill } from "../_components/Shell";
 import { StartRunButton } from "../_components/StartRunButton";
 
 export const dynamic = "force-dynamic";
 
 export default async function OverviewPage() {
-  const [scores, history, drift, cc, runs, quarantined, health] =
-    await Promise.all([
-      latestScores(),
-      loadHistory(),
-      loadDriftLog(),
-      loadCC(),
-      listRuns(),
-      listQuarantined(),
-      quickHealthCheck(),
-    ]);
+  const [scores, history, drift, cc, runs, quarantined, health] = await Promise.all([
+    latestScores(),
+    loadHistory(),
+    loadDriftLog(),
+    loadCC(),
+    listRuns(),
+    listQuarantined(),
+    quickHealthCheck(),
+  ]);
 
   const lastTrust = history.at(-1);
   const recentRuns = runs.slice(0, 5);
@@ -38,7 +37,11 @@ export default async function OverviewPage() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-(--space-4) mb-(--space-6)">
         <MetricCell label="Trust min" value={trustMin} tone={trustTone} />
-        <MetricCell label="Drift findings" value={drift.length} tone={drift.length > 0 ? "warn" : "ok"} />
+        <MetricCell
+          label="Drift findings"
+          value={drift.length}
+          tone={drift.length > 0 ? "warn" : "ok"}
+        />
         <MetricCell label="Runs total" value={runs.length} />
         <MetricCell
           label="Quarantaine"

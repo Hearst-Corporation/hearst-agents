@@ -21,22 +21,10 @@ import { z } from "zod";
 // ── Helpers ──────────────────────────────────────────────────
 
 /** I-7 : enum closed — voir `lib/personas/types.ts#PERSONA_TONES`. */
-const personaToneSchema = z.enum([
-  "formal",
-  "casual",
-  "analytical",
-  "creative",
-  "direct",
-]);
+const personaToneSchema = z.enum(["formal", "casual", "analytical", "creative", "direct"]);
 
 /** Surface canonique d'application automatique (cf I-4). */
-const personaSurfaceSchema = z.enum([
-  "chat",
-  "inbox",
-  "simulation",
-  "voice",
-  "cockpit",
-]);
+const personaSurfaceSchema = z.enum(["chat", "inbox", "simulation", "voice", "cockpit"]);
 
 /**
  * I-8 : vocabulaire préféré/évité capé à 12 items chacun. Chaque entrée

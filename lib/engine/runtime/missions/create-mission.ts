@@ -3,7 +3,7 @@
  * Tenant scope is required — missions cannot be created without it.
  */
 
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
 import type { ScheduledMission } from "./types";
 
 export interface CreateScheduledMissionInput {
@@ -17,9 +17,7 @@ export interface CreateScheduledMissionInput {
   workflowGraph?: unknown;
 }
 
-export function createScheduledMission(
-  input: CreateScheduledMissionInput,
-): ScheduledMission {
+export function createScheduledMission(input: CreateScheduledMissionInput): ScheduledMission {
   return {
     id: randomUUID(),
     name: input.name,

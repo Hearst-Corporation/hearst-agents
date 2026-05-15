@@ -7,13 +7,7 @@
 
 import type { ReactNode } from "react";
 
-export function SectionHeader({
-  label,
-  action,
-}: {
-  label: string;
-  action?: ReactNode;
-}) {
+export function SectionHeader({ label, action }: { label: string; action?: ReactNode }) {
   return (
     <div className="flex items-center justify-between first:mt-0 mt-12 mb-6 px-3">
       <span
@@ -32,10 +26,7 @@ export function SectionHeader({
 
 export function EmptyHint({ children }: { children: ReactNode }) {
   return (
-    <p
-      className="t-11 font-light pl-3 py-2"
-      style={{ color: "var(--text-faint)" }}
-    >
+    <p className="t-11 font-light pl-3 py-2" style={{ color: "var(--text-faint)" }}>
       {children}
     </p>
   );

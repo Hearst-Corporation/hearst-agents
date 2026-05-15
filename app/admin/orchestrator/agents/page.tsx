@@ -1,16 +1,12 @@
-import { HomShell, PageHeader, Card, StatusPill } from "../_components/Shell";
-import { loadAllContracts } from "@/lib/hom/contracts";
 import { loadCC } from "@/lib/hom/cc-state";
+import { loadAllContracts } from "@/lib/hom/contracts";
 import { loadQuarantine } from "@/lib/hom/quarantine";
+import { Card, HomShell, PageHeader, StatusPill } from "../_components/Shell";
 
 export const dynamic = "force-dynamic";
 
 export default async function AgentsPage() {
-  const [contracts, cc, q] = await Promise.all([
-    loadAllContracts(),
-    loadCC(),
-    loadQuarantine(),
-  ]);
+  const [contracts, cc, q] = await Promise.all([loadAllContracts(), loadCC(), loadQuarantine()]);
 
   return (
     <HomShell current="/admin/orchestrator/agents">
@@ -22,9 +18,8 @@ export default async function AgentsPage() {
         {contracts.map((c) => {
           const live = cc.agents.find((a) => a.id === c.agent_id);
           const quarantine = q.agents[c.agent_id];
-          const effectiveStatus = quarantine.state === "quarantined"
-            ? "quarantined"
-            : live?.status ?? "stale";
+          const effectiveStatus =
+            quarantine.state === "quarantined" ? "quarantined" : (live?.status ?? "stale");
           return (
             <Card key={c.agent_id}>
               <div className="flex items-baseline justify-between mb-(--space-3)">
@@ -42,10 +37,7 @@ export default async function AgentsPage() {
                 <Row label="Runtime max" value={`${c.budgets.max_runtime_seconds}s`} />
                 <Row label="Memory" value={c.permissions.memory_access} />
                 <Row label="Release" value={c.permissions.release_permissions} />
-                <Row
-                  label="Anomaly score"
-                  value={quarantine.anomaly_score.toFixed(2)}
-                />
+                <Row label="Anomaly score" value={quarantine.anomaly_score.toFixed(2)} />
               </div>
 
               <details>

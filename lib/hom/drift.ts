@@ -11,8 +11,8 @@
  * Sortie : war-room/drift-log.json append-only.
  */
 import path from "node:path";
+import { nowIso, readJson, shortId, walkFiles, writeJson } from "./fs-utils";
 import { HOM } from "./paths";
-import { readJson, writeJson, walkFiles, nowIso, shortId } from "./fs-utils";
 import type { DriftFinding } from "./types";
 
 const HEX_COLOR = /#(?:[0-9a-fA-F]{3,4}){1,2}\b/g;
@@ -115,11 +115,7 @@ export async function scanDrift(ctx: ScanContext): Promise<DriftFinding[]> {
 
 function isComment(line: string): boolean {
   const trimmed = line.trim();
-  return (
-    trimmed.startsWith("//") ||
-    trimmed.startsWith("*") ||
-    trimmed.startsWith("/*")
-  );
+  return trimmed.startsWith("//") || trimmed.startsWith("*") || trimmed.startsWith("/*");
 }
 
 function makeFinding(
@@ -137,7 +133,7 @@ function makeFinding(
     type,
     file,
     line,
-    snippet: snippet.length > 240 ? snippet.slice(0, 240) + "…" : snippet,
+    snippet: snippet.length > 240 ? `${snippet.slice(0, 240)}…` : snippet,
     severity,
     agent: ctx.agent,
   };

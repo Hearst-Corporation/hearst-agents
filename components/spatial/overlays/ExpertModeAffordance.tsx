@@ -30,12 +30,8 @@ export function ExpertModeAffordance({ onClick, disabled = true }: ExpertModeAff
       aria-label="Mode expert (à venir)"
       aria-disabled={disabled}
     >
-      <div
-        className="w-1 h-1 rounded-full bg-white/35 group-hover:bg-white/60 transition-colors duration-500"
-      />
-      <span
-        className="text-white/30 group-hover:text-white/55 text-spatial-sm tracking-[0.34em] uppercase font-light transition-colors duration-500"
-      >
+      <div className="w-1 h-1 rounded-full bg-white/35 group-hover:bg-white/60 transition-colors duration-500" />
+      <span className="text-white/30 group-hover:text-white/55 text-spatial-sm tracking-[0.34em] uppercase font-light transition-colors duration-500">
         Mode expert
       </span>
     </motion.button>

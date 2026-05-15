@@ -7,8 +7,8 @@
  */
 
 import { serve } from "inngest/next";
-import { inngest } from "@/lib/jobs/inngest/client";
 import { assertInngestSigningKey } from "@/lib/jobs/inngest/check";
+import { inngest } from "@/lib/jobs/inngest/client";
 import { inngestFunctions } from "@/lib/jobs/inngest/functions";
 
 // Garde-fou F-007 : hard-throw au boot en prod si INNGEST_SIGNING_KEY absente

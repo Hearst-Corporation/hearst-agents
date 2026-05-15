@@ -7,24 +7,17 @@
  * au PATCH si un nouveau spec est fourni.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import {
-  loadTemplate,
-  deleteTemplate,
-  updateTemplate,
-} from "@/lib/reports/templates/store";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateReportTemplateSchema } from "@/lib/contracts/reports";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { deleteTemplate, loadTemplate, updateTemplate } from "@/lib/reports/templates/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 // ── GET ───────────────────────────────────────────────────────
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ specId: string }> },
-) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ specId: string }> }) {
   const { scope, error } = await requireScope({
     context: "GET /api/v2/reports/specs/[id]",
   });
@@ -51,10 +44,7 @@ export async function GET(
 
 // ── PATCH ─────────────────────────────────────────────────────
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: Promise<{ specId: string }> },
-) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ specId: string }> }) {
   const { scope, error } = await requireScope({
     context: "PATCH /api/v2/reports/specs/[id]",
   });
@@ -103,10 +93,7 @@ export async function PATCH(
   });
 
   if (!updated) {
-    return NextResponse.json(
-      { error: "update_failed_or_forbidden" },
-      { status: 404 },
-    );
+    return NextResponse.json({ error: "update_failed_or_forbidden" }, { status: 404 });
   }
 
   return NextResponse.json({ template: updated });

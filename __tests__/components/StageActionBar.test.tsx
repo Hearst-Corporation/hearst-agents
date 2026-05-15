@@ -4,8 +4,8 @@
  * StageActionBar — render + variants + click handlers + overflow menu.
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { StageActionBar } from "@/app/(user)/components/stages/StageActionBar";
 
 describe("StageActionBar", () => {
@@ -24,11 +24,7 @@ describe("StageActionBar", () => {
 
   it("renders primary action and calls onClick", () => {
     const onClick = vi.fn();
-    render(
-      <StageActionBar
-        primary={{ id: "rerun", label: "Re-run", onClick }}
-      />,
-    );
+    render(<StageActionBar primary={{ id: "rerun", label: "Re-run", onClick }} />);
     const btn = screen.getByTestId("stage-action-rerun");
     fireEvent.click(btn);
     expect(onClick).toHaveBeenCalledOnce();
@@ -37,9 +33,7 @@ describe("StageActionBar", () => {
   it("renders secondary actions and disables them when disabled flag is set", () => {
     const onClick = vi.fn();
     render(
-      <StageActionBar
-        secondary={[{ id: "edit", label: "Éditer", onClick, disabled: true }]}
-      />,
+      <StageActionBar secondary={[{ id: "edit", label: "Éditer", onClick, disabled: true }]} />,
     );
     const btn = screen.getByTestId("stage-action-edit") as HTMLButtonElement;
     expect(btn.disabled).toBe(true);
@@ -70,11 +64,7 @@ describe("StageActionBar", () => {
   });
 
   it("closes overflow menu on Escape", () => {
-    render(
-      <StageActionBar
-        overflow={[{ id: "dup", label: "Dupliquer", onClick: () => {} }]}
-      />,
-    );
+    render(<StageActionBar overflow={[{ id: "dup", label: "Dupliquer", onClick: () => {} }]} />);
     fireEvent.click(screen.getByTestId("stage-action-overflow-toggle"));
     expect(screen.getByTestId("stage-action-overflow-menu")).toBeTruthy();
     fireEvent.keyDown(document, { key: "Escape" });

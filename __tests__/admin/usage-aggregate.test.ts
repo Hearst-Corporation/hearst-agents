@@ -5,7 +5,7 @@
  * des fixtures par table. On vérifie que les agrégats par tenant et la time
  * series sont corrects.
  */
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 interface RunRowFixture {
   user_id: string | null;
@@ -51,9 +51,7 @@ vi.mock("@/lib/platform/db/supabase", () => ({
             return this;
           },
           eq(col: string, val: string) {
-            this._rows = this._rows.filter(
-              (r) => (r as Record<string, unknown>)[col] === val,
-            );
+            this._rows = this._rows.filter((r) => (r as Record<string, unknown>)[col] === val);
             return this;
           },
           then(resolve: (v: { data: unknown[]; error: null }) => void) {
@@ -77,9 +75,9 @@ vi.mock("@/lib/platform/db/supabase", () => ({
 
 import {
   getCrossTenantOverview,
-  getTopTenants,
-  getTenantUsage,
   getCrossTenantTimeSeries,
+  getTenantUsage,
+  getTopTenants,
 } from "@/lib/admin/usage/aggregate";
 
 const RANGE = {

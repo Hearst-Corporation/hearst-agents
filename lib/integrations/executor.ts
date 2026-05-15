@@ -12,9 +12,14 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database, Json } from "../database.types";
-import type { IntegrationAdapter, IntegrationCredentials, AdapterResult } from "./adapter";
-import { RunTracer } from "../engine/runtime/tracer";
-import { RuntimeError, withRetry, DEFAULT_RETRY, type RetryPolicy } from "../engine/runtime/lifecycle";
+import {
+  DEFAULT_RETRY,
+  type RetryPolicy,
+  RuntimeError,
+  withRetry,
+} from "../engine/runtime/lifecycle";
+import type { RunTracer } from "../engine/runtime/tracer";
+import type { AdapterResult, IntegrationAdapter, IntegrationCredentials } from "./adapter";
 import { HttpAdapter } from "./http-adapter";
 import { NotionAdapter } from "./notion-adapter";
 
@@ -69,11 +74,17 @@ export async function executeIntegration(
     .single();
 
   if (connErr || !connection) {
-    throw new RuntimeError("INVALID_INPUT", `Integration connection ${opts.connection_id} not found`);
+    throw new RuntimeError(
+      "INVALID_INPUT",
+      `Integration connection ${opts.connection_id} not found`,
+    );
   }
 
   if (connection.status !== "active") {
-    throw new RuntimeError("TOOL_DISABLED", `Integration "${connection.name}" is ${connection.status}`);
+    throw new RuntimeError(
+      "TOOL_DISABLED",
+      `Integration "${connection.name}" is ${connection.status}`,
+    );
   }
 
   const adapter = getAdapter(connection.provider);
@@ -97,9 +108,18 @@ export async function executeIntegration(
   const retryPolicy = opts.retry_policy ?? { ...DEFAULT_RETRY, max_retries: 1 };
 
   const doExecute = async (): Promise<AdapterResult> => {
-    const result = await adapter.execute(opts.action, opts.input, credentials, connection.config as Record<string, unknown>);
+    const result = await adapter.execute(
+      opts.action,
+      opts.input,
+      credentials,
+      connection.config as Record<string, unknown>,
+    );
     if (!result.success && result.status >= 500) {
-      throw new RuntimeError("STEP_FAILED", result.error ?? `Integration returned ${result.status}`, true);
+      throw new RuntimeError(
+        "STEP_FAILED",
+        result.error ?? `Integration returned ${result.status}`,
+        true,
+      );
     }
     return result;
   };
@@ -160,4 +180,3 @@ async function updateConnectionHealth(sb: DB, connectionId: string, success: boo
     })
     .eq("id", connectionId);
 }
-

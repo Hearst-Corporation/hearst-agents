@@ -12,18 +12,20 @@
  * If DB is unavailable (dev), assumes leader automatically.
  */
 
-import { startScheduler, stopScheduler, type SchedulerTriggerFn, type IsLeaderFn } from "./scheduler";
-import type { ScheduledMission } from "./types";
-import type { SchedulerMode } from "./ops-types";
-import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { orchestrate } from "@/lib/engine/orchestrator/index";
-import {
-  tryAcquireSchedulerLeadership,
-  renewSchedulerLeadership,
-} from "./leader-lease";
-import { cleanupExpiredSchedulerLeases } from "./cleanup-leases";
-import { INSTANCE_ID } from "../instance-id";
+import { requireServerSupabase } from "@/lib/platform/db/supabase";
 import { registerHMRCleanup } from "@/lib/runtime/hmr-cleanup";
+import { INSTANCE_ID } from "../instance-id";
+import { cleanupExpiredSchedulerLeases } from "./cleanup-leases";
+import { renewSchedulerLeadership, tryAcquireSchedulerLeadership } from "./leader-lease";
+import type { SchedulerMode } from "./ops-types";
+import {
+  type IsLeaderFn,
+  type SchedulerTriggerFn,
+  startScheduler,
+  stopScheduler,
+} from "./scheduler";
+import type { ScheduledMission } from "./types";
 
 const GLOBAL_KEY = "__hearst_scheduler_started__";
 const HEARTBEAT_INTERVAL_MS = 30_000;
@@ -93,11 +95,9 @@ async function heartbeat(): Promise<void> {
 
 function startHeartbeat(): void {
   const timer = setInterval(() => {
-    heartbeat().catch((e) =>
-      console.error("[Scheduler] Heartbeat error:", e),
-    );
+    heartbeat().catch((e) => console.error("[Scheduler] Heartbeat error:", e));
   }, HEARTBEAT_INTERVAL_MS);
-  
+
   // Register HMR cleanup to prevent timer leaks
   registerHMRCleanup(() => clearInterval(timer));
 }
@@ -166,9 +166,7 @@ function buildTrigger(): SchedulerTriggerFn {
     const { appendMissionMessage, updateMissionContextSummary } = await import(
       "@/lib/memory/mission-context"
     );
-    const { fireAndForgetIngestTurn } = await import(
-      "@/lib/memory/kg-ingest-pipeline"
-    );
+    const { fireAndForgetIngestTurn } = await import("@/lib/memory/kg-ingest-pipeline");
 
     void appendMissionMessage({
       missionId: mission.id,
@@ -214,10 +212,7 @@ function buildTrigger(): SchedulerTriggerFn {
             finalText,
           },
         }).catch((err) => {
-          console.warn(
-            `[Scheduler] updateMissionContextSummary failed for ${mission.id}:`,
-            err,
-          );
+          console.warn(`[Scheduler] updateMissionContextSummary failed for ${mission.id}:`, err);
         });
       }
 
@@ -267,7 +262,7 @@ export async function ensureSchedulerStarted(): Promise<void> {
   const trigger = buildTrigger();
   const isLeader = buildIsLeader();
   const stopSchedulerFn = startScheduler(trigger, isLeader);
-  
+
   // Register HMR cleanup for scheduler
   registerHMRCleanup(() => {
     console.log("[Scheduler] HMR cleanup triggered");
@@ -282,7 +277,10 @@ export async function ensureSchedulerStarted(): Promise<void> {
   // setInterval pour ne pas laisser le timer pendre après l'arrêt du
   // process. Sans ça → memory leak si le process est gardé en vie par
   // un autre handler (rare en Next, mais arrive en custom server).
-  if (typeof process !== "undefined" && !(process as unknown as { _hearstSigtermRegistered?: boolean })._hearstSigtermRegistered) {
+  if (
+    typeof process !== "undefined" &&
+    !(process as unknown as { _hearstSigtermRegistered?: boolean })._hearstSigtermRegistered
+  ) {
     (process as unknown as { _hearstSigtermRegistered?: boolean })._hearstSigtermRegistered = true;
     process.once("SIGTERM", () => {
       console.log("[Scheduler] SIGTERM received — stopping scheduler");

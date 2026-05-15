@@ -14,8 +14,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { requireAdmin, isError } from "../_helpers";
 import { getMetrics } from "@/lib/llm/metrics";
+import { isError, requireAdmin } from "../_helpers";
 
 export const dynamic = "force-dynamic";
 

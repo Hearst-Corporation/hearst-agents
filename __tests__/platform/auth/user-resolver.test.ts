@@ -44,9 +44,7 @@ describe("resolveOrCreateUserUuid", () => {
     mockRpc.mockResolvedValueOnce({ data: VALID_UUID, error: null });
     mockGetServerSupabase.mockReturnValue(makeSupabaseMock(mockRpc));
 
-    const { resolveOrCreateUserUuid } = await import(
-      "@/lib/platform/auth/user-resolver"
-    );
+    const { resolveOrCreateUserUuid } = await import("@/lib/platform/auth/user-resolver");
 
     const result = await resolveOrCreateUserUuid("existing@hearstcorporation.io");
 
@@ -66,9 +64,7 @@ describe("resolveOrCreateUserUuid", () => {
     mockRpc.mockResolvedValueOnce({ data: TENANT_UUID, error: null });
     mockGetServerSupabase.mockReturnValue(makeSupabaseMock(mockRpc));
 
-    const { resolveOrCreateUserUuid } = await import(
-      "@/lib/platform/auth/user-resolver"
-    );
+    const { resolveOrCreateUserUuid } = await import("@/lib/platform/auth/user-resolver");
 
     const result = await resolveOrCreateUserUuid("nouveau@hearstcorporation.io");
 
@@ -92,16 +88,14 @@ describe("resolveOrCreateUserUuid", () => {
     });
     mockGetServerSupabase.mockReturnValue(makeSupabaseMock(mockRpc));
 
-    const { resolveOrCreateUserUuid } = await import(
-      "@/lib/platform/auth/user-resolver"
-    );
+    const { resolveOrCreateUserUuid } = await import("@/lib/platform/auth/user-resolver");
 
     const result = await resolveOrCreateUserUuid("fail@hearstcorporation.io");
 
     expect(result).toBeNull();
     expect(consoleSpy).toHaveBeenCalledWith(
       expect.stringContaining("[UserResolver] rpc create_user_with_tenant failed:"),
-      "connection refused"
+      "connection refused",
     );
   });
 
@@ -111,9 +105,7 @@ describe("resolveOrCreateUserUuid", () => {
   it("retourne null immédiatement si email vide", async () => {
     mockGetServerSupabase.mockReturnValue(makeSupabaseMock(mockRpc));
 
-    const { resolveOrCreateUserUuid } = await import(
-      "@/lib/platform/auth/user-resolver"
-    );
+    const { resolveOrCreateUserUuid } = await import("@/lib/platform/auth/user-resolver");
 
     const result = await resolveOrCreateUserUuid("");
 
@@ -129,15 +121,13 @@ describe("resolveOrCreateUserUuid", () => {
     const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     mockGetServerSupabase.mockReturnValue(null);
 
-    const { resolveOrCreateUserUuid } = await import(
-      "@/lib/platform/auth/user-resolver"
-    );
+    const { resolveOrCreateUserUuid } = await import("@/lib/platform/auth/user-resolver");
 
     const result = await resolveOrCreateUserUuid("adrien@hearstcorporation.io");
 
     expect(result).toBeNull();
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("[UserResolver] Supabase service role not configured")
+      expect.stringContaining("[UserResolver] Supabase service role not configured"),
     );
     expect(mockRpc).not.toHaveBeenCalled();
   });
@@ -150,9 +140,7 @@ describe("resolveOrCreateUserUuid", () => {
     mockRpc.mockResolvedValueOnce({ data: null, error: null });
     mockGetServerSupabase.mockReturnValue(makeSupabaseMock(mockRpc));
 
-    const { resolveOrCreateUserUuid } = await import(
-      "@/lib/platform/auth/user-resolver"
-    );
+    const { resolveOrCreateUserUuid } = await import("@/lib/platform/auth/user-resolver");
 
     const result = await resolveOrCreateUserUuid("edge@hearstcorporation.io");
 

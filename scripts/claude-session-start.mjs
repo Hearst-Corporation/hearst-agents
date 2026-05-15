@@ -26,7 +26,7 @@
  * (le hook ne doit jamais bloquer le démarrage).
  */
 
-import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
@@ -95,9 +95,7 @@ if (agents.length > 0) {
     lines.push(`- **${a.name}** (${a.model}) — ${a.description}`);
   }
 } else {
-  lines.push(
-    "Agents custom : aucun (créer dans .claude/agents/<name>.md avec frontmatter)"
-  );
+  lines.push("Agents custom : aucun (créer dans .claude/agents/<name>.md avec frontmatter)");
 }
 lines.push("");
 
@@ -127,5 +125,5 @@ lines.push("- `/qa`        — audit QA UI/UX complet (alignements, spacing, coh
 lines.push("- `/flow`      — QA flows utilisateur (navigation, friction, logique UX, CTA)");
 lines.push("→ Chaque commande génère un rapport HTML qui s'ouvre dans Chrome.");
 
-process.stdout.write(lines.join("\n") + "\n");
+process.stdout.write(`${lines.join("\n")}\n`);
 process.exit(0);

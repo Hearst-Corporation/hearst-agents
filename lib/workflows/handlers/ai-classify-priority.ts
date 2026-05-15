@@ -46,7 +46,10 @@ export const aiClassifyPriority: WorkflowHandler = async (args) => {
   const type = typeof args.type === "string" ? args.type : null;
 
   if (!text) {
-    return { success: true, output: { priority: "normal" as Priority, degraded: true, reason: "empty_text" } };
+    return {
+      success: true,
+      output: { priority: "normal" as Priority, degraded: true, reason: "empty_text" },
+    };
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {

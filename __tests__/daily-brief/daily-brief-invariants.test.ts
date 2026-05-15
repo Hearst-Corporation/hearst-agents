@@ -7,7 +7,7 @@
  *  2. Fail-soft source Gmail : Gmail throw → brief continue, sources contient "gmail:error"
  */
 
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks communs ─────────────────────────────────────────────
 
@@ -41,7 +41,14 @@ describe("POST /api/v2/daily-brief/generate — idempotence", () => {
         summary: "5 signaux",
         createdAt: Date.now(),
         narration: { lead: "l", people: "p", decisions: "d", signals: "s", costUsd: 0.02 },
-        meta: { targetDate: "2026-05-08", totalItems: 5, sources: ["gmail"], pdfUrl: null, storageKey: null, pdfSizeBytes: null },
+        meta: {
+          targetDate: "2026-05-08",
+          totalItems: 5,
+          sources: ["gmail"],
+          pdfUrl: null,
+          storageKey: null,
+          pdfSizeBytes: null,
+        },
         counts: { emails: 5, slack: 0, calendar: 0, github: 0, linear: 0 },
         pdfUrl: null,
       }),
@@ -68,7 +75,7 @@ describe("POST /api/v2/daily-brief/generate — idempotence", () => {
     });
 
     const res = await POST(req);
-    const body = await res.json() as { status: string; assetId: string };
+    const body = (await res.json()) as { status: string; assetId: string };
 
     // Doit retourner l'asset existant
     expect(res.status).toBe(200);

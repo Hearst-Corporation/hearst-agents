@@ -1,16 +1,12 @@
 import { notFound } from "next/navigation";
-import { HomShell, PageHeader, Card, MetricCell, StatusPill } from "../../_components/Shell";
 import { readRunBundle } from "@/lib/hom/registry";
 import { readRunSpans } from "@/lib/hom/telemetry";
-import type { RunDecisionFile, RunIntake, ReplaySnapshot } from "@/lib/hom/types";
+import type { ReplaySnapshot, RunDecisionFile, RunIntake } from "@/lib/hom/types";
+import { Card, HomShell, MetricCell, PageHeader, StatusPill } from "../../_components/Shell";
 
 export const dynamic = "force-dynamic";
 
-export default async function RunDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function RunDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const [bundle, spans] = await Promise.all([readRunBundle(id), readRunSpans(id)]);
   if (!bundle.intake) notFound();
@@ -63,8 +59,8 @@ export default async function RunDetailPage({
             <Row label="Commit" value={snapshot.git.commit.slice(0, 12)} />
             <Row label="Dirty" value={String(snapshot.git.dirty)} />
             <Row label="Node" value={snapshot.node_version} />
-            <Row label="Policies hash" value={snapshot.policies_hash.slice(0, 12) + "…"} />
-            <Row label="Contracts hash" value={snapshot.contracts_hash.slice(0, 12) + "…"} />
+            <Row label="Policies hash" value={`${snapshot.policies_hash.slice(0, 12)}…`} />
+            <Row label="Contracts hash" value={`${snapshot.contracts_hash.slice(0, 12)}…`} />
           </Card>
         ) : null}
       </div>

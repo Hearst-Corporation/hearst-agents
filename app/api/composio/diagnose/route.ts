@@ -7,15 +7,15 @@
  * — the response pinpoints the cause.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { type NextRequest, NextResponse } from "next/server";
 import {
   getComposio,
   isComposioConfigured,
-  listConnections,
   listAvailableApps,
+  listConnections,
 } from "@/lib/connectors/composio";
 import { redactedError, withRoute } from "@/lib/observability/logger";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
 
 const log = withRoute("GET /api/composio/diagnose");
 
@@ -67,7 +67,9 @@ export async function GET(req: NextRequest) {
           const toolkit =
             typeof it.toolkit === "object" && it.toolkit
               ? (it.toolkit.slug ?? "")
-              : (typeof it.toolkit === "string" ? it.toolkit : "");
+              : typeof it.toolkit === "string"
+                ? it.toolkit
+                : "";
           return { id: it.id ?? it.nanoid ?? "", toolkit: toolkit.toLowerCase() };
         })
         .filter((it) => it.id && it.toolkit === slug);

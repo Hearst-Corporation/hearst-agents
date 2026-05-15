@@ -24,8 +24,8 @@ export function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: T
     <div
       onClick={onSelect}
       className={`group cursor-pointer py-2 px-3 transition-all duration-500 flex items-center gap-3 ${
-        isActive 
-          ? "bg-[rgba(255,255,255,0.06)] rounded-[12px] border border-[rgba(255,255,255,0.05)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]" 
+        isActive
+          ? "bg-[rgba(255,255,255,0.06)] rounded-[12px] border border-[rgba(255,255,255,0.05)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
           : "hover:bg-[rgba(255,255,255,0.03)] rounded-[12px] border border-transparent"
       }`}
       title={thread.name}
@@ -47,7 +47,9 @@ export function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: T
             height: "12px",
             borderRadius: "50%",
             background: isActive ? "var(--accent-llm)" : "rgba(255, 255, 255, 0.3)",
-            boxShadow: isActive ? "0 0 12px color-mix(in srgb, var(--accent-llm) 80%, transparent)" : "none",
+            boxShadow: isActive
+              ? "0 0 12px color-mix(in srgb, var(--accent-llm) 80%, transparent)"
+              : "none",
           }}
         />
       </span>

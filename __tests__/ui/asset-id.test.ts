@@ -3,7 +3,7 @@
  * CockpitInbox + AssetStage pour ne pas naviguer vers un asset bidon.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { isPlaceholderAssetId } from "@/lib/ui/asset-id";
 
 describe("isPlaceholderAssetId", () => {

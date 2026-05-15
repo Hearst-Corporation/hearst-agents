@@ -40,9 +40,7 @@ async function listEvents(
       endTime: end,
       description: event.description ?? undefined,
       location: event.location ?? undefined,
-      attendees: event.attendees
-        ?.map((a) => a.displayName ?? a.email ?? "")
-        .filter(Boolean),
+      attendees: event.attendees?.map((a) => a.displayName ?? a.email ?? "").filter(Boolean),
       isAllDay: !!event.start?.date,
     };
   });

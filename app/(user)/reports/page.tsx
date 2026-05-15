@@ -12,12 +12,12 @@
  * Tokens uniquement — conforme CLAUDE.md + lint:visual strict.
  */
 
-import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import type { ApplicableReport } from "@/lib/reports/catalog";
+import { useEffect, useMemo, useState } from "react";
+import { LibraryTabs } from "@/app/(user)/components/library/LibraryTabs";
 import { ReportCard, ReportCardSkeleton } from "@/app/(user)/components/reports/ReportCard";
 import { Action, EmptyState, ScreenShell } from "@/app/(user)/components/ui";
-import { LibraryTabs } from "@/app/(user)/components/library/LibraryTabs";
+import type { ApplicableReport } from "@/lib/reports/catalog";
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -28,7 +28,16 @@ type DomainFilter = "all" | string;
 
 function PlugIcon() {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M18 6L6 18" />
       <path d="M7 17H4a2 2 0 0 1-2-2v-1c0-1.1.9-2 2-2h4" />
       <path d="M11 12L9 10" />
@@ -41,23 +50,23 @@ function PlugIcon() {
 // ── Domain list ────────────────────────────────────────────────
 
 const ALL_DOMAINS = [
-  { value: "all",       label: "Tous" },
-  { value: "finance",   label: "Finance" },
-  { value: "crm",       label: "CRM" },
-  { value: "growth",    label: "Growth" },
-  { value: "founder",   label: "Founder" },
-  { value: "ops-eng",   label: "Eng" },
-  { value: "support",   label: "Support" },
-  { value: "people",    label: "People" },
+  { value: "all", label: "Tous" },
+  { value: "finance", label: "Finance" },
+  { value: "crm", label: "CRM" },
+  { value: "growth", label: "Growth" },
+  { value: "founder", label: "Founder" },
+  { value: "ops-eng", label: "Eng" },
+  { value: "support", label: "Support" },
+  { value: "people", label: "People" },
   { value: "marketing", label: "Marketing" },
-  { value: "ops",       label: "Ops" },
+  { value: "ops", label: "Ops" },
 ];
 
 const STATUS_FILTERS: { value: StatusFilter; label: string }[] = [
-  { value: "all",              label: "Tous" },
-  { value: "ready",            label: "Prêts" },
+  { value: "all", label: "Tous" },
+  { value: "ready", label: "Prêts" },
   { value: "needs-connection", label: "À connecter" },
-  { value: "custom",           label: "Personnalisés" },
+  { value: "custom", label: "Personnalisés" },
 ];
 
 // ── Skeleton grid ──────────────────────────────────────────────
@@ -122,7 +131,9 @@ export default function ReportsDiscoveryPage() {
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // ── Computed counts ─────────────────────────────────────────
@@ -132,17 +143,19 @@ export default function ReportsDiscoveryPage() {
       (r) => r.status === "partial" || r.status === "blocked",
     ).length;
     return {
-      ready:           reports.filter((r) => r.status === "ready").length,
+      ready: reports.filter((r) => r.status === "ready").length,
       needsConnection,
-      custom:          reports.filter((r) => r.source === "custom").length,
-      connected:       reports.filter((r) => r.status === "ready" && r.source === "catalog").length,
-      total:           reports.length,
+      custom: reports.filter((r) => r.source === "custom").length,
+      connected: reports.filter((r) => r.status === "ready" && r.source === "catalog").length,
+      total: reports.length,
     };
   }, [reports]);
 
   // Aucune app connectée si tous les rapports catalogue sont blocked
   const hasZeroConnectedApps = useMemo(
-    () => reports.length > 0 && reports.filter((r) => r.source === "catalog").every((r) => r.status === "blocked"),
+    () =>
+      reports.length > 0 &&
+      reports.filter((r) => r.source === "catalog").every((r) => r.status === "blocked"),
     [reports],
   );
 
@@ -159,10 +172,7 @@ export default function ReportsDiscoveryPage() {
   }, [reports, domainFilter, statusFilter]);
 
   // Liste séparée des custom specs (pour la section "Vos rapports").
-  const customReports = useMemo(
-    () => reports.filter((r) => r.source === "custom"),
-    [reports],
-  );
+  const customReports = useMemo(() => reports.filter((r) => r.source === "custom"), [reports]);
 
   // ── Subtitle text ────────────────────────────────────────────
 
@@ -191,8 +201,10 @@ export default function ReportsDiscoveryPage() {
       }
       stats={<LibraryTabs active="modeles" />}
     >
-      <div className="flex flex-col gap-8 w-full" style={{ maxWidth: "var(--width-center-max)", margin: "0 auto" }}>
-
+      <div
+        className="flex flex-col gap-8 w-full"
+        style={{ maxWidth: "var(--width-center-max)", margin: "0 auto" }}
+      >
         {/* ── Filters ────────────────────────────────────────── */}
         <div className="flex flex-col gap-4">
           {/* Status toggle */}
@@ -217,17 +229,26 @@ export default function ReportsDiscoveryPage() {
                 >
                   {label}
                   {value === "ready" && counts.ready > 0 && (
-                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}>
+                    <span
+                      className="ml-1.5 t-9 font-mono"
+                      style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}
+                    >
                       {counts.ready}
                     </span>
                   )}
                   {value === "needs-connection" && counts.needsConnection > 0 && (
-                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}>
+                    <span
+                      className="ml-1.5 t-9 font-mono"
+                      style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}
+                    >
                       {counts.needsConnection}
                     </span>
                   )}
                   {value === "custom" && counts.custom > 0 && (
-                    <span className="ml-1.5 t-9 font-mono" style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}>
+                    <span
+                      className="ml-1.5 t-9 font-mono"
+                      style={{ color: isActive ? "var(--accent-teal)" : "var(--text-ghost)" }}
+                    >
                       {counts.custom}
                     </span>
                   )}
@@ -275,7 +296,9 @@ export default function ReportsDiscoveryPage() {
             description={error}
             cta={{
               label: "Réessayer",
-              onClick: () => { void fetchReports(); },
+              onClick: () => {
+                void fetchReports();
+              },
             }}
           />
         )}
@@ -301,16 +324,11 @@ export default function ReportsDiscoveryPage() {
                 Connectez une première app pour activer ces rapports
               </p>
               <p className="t-13 font-light" style={{ color: "var(--text-muted)" }}>
-                Les rapports ci-dessous attendent qu&apos;au moins une app soit liée — explorez le catalogue, lisez les pré-requis, puis connectez les sources nécessaires.
+                Les rapports ci-dessous attendent qu&apos;au moins une app soit liée — explorez le
+                catalogue, lisez les pré-requis, puis connectez les sources nécessaires.
               </p>
             </div>
-            <Action
-              variant="primary"
-              tone="brand"
-              size="sm"
-              href="/apps"
-              className="shrink-0"
-            >
+            <Action variant="primary" tone="brand" size="sm" href="/apps" className="shrink-0">
               Connecter une app
             </Action>
           </div>
@@ -324,32 +342,39 @@ export default function ReportsDiscoveryPage() {
             description="Essaie une autre catégorie ou réinitialise les filtres."
             cta={{
               label: "Réinitialiser les filtres",
-              onClick: () => { setDomainFilter("all"); setStatusFilter("all"); },
+              onClick: () => {
+                setDomainFilter("all");
+                setStatusFilter("all");
+              },
             }}
           />
         )}
 
         {/* Section : Vos rapports (custom specs) */}
-        {!loading && !error && customReports.length > 0 && statusFilter !== "ready" && statusFilter !== "needs-connection" && (
-          <section className="flex flex-col gap-3" data-testid="reports-custom-section">
-            <h2 className="t-13 font-medium text-(--text-l1)">
-              Vos rapports
-            </h2>
-            <div
-              className="grid gap-4"
-              data-testid="reports-custom-grid"
-              style={{ gridTemplateColumns: "repeat(auto-fill, minmax(var(--card-min-width), 1fr))" }}
-            >
-              {customReports.map((report) => (
-                <ReportCard
-                  key={report.id}
-                  report={report}
-                  onLaunch={() => router.push(`/reports/studio?edit=${report.id}`)}
-                />
-              ))}
-            </div>
-          </section>
-        )}
+        {!loading &&
+          !error &&
+          customReports.length > 0 &&
+          statusFilter !== "ready" &&
+          statusFilter !== "needs-connection" && (
+            <section className="flex flex-col gap-3" data-testid="reports-custom-section">
+              <h2 className="t-13 font-medium text-(--text-l1)">Vos rapports</h2>
+              <div
+                className="grid gap-4"
+                data-testid="reports-custom-grid"
+                style={{
+                  gridTemplateColumns: "repeat(auto-fill, minmax(var(--card-min-width), 1fr))",
+                }}
+              >
+                {customReports.map((report) => (
+                  <ReportCard
+                    key={report.id}
+                    report={report}
+                    onLaunch={() => router.push(`/reports/studio?edit=${report.id}`)}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
 
         {/* Grid */}
         {!loading && !error && filtered.length > 0 && (
@@ -363,7 +388,6 @@ export default function ReportsDiscoveryPage() {
             ))}
           </div>
         )}
-
       </div>
     </ScreenShell>
   );

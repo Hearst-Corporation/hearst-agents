@@ -162,10 +162,7 @@ export class PlanStore {
     if (runStepId) update.run_step_id = runStepId;
     if (status === "completed") update.completed_at = new Date().toISOString();
 
-    const { error } = await this.db
-      .from("plan_steps")
-      .update(update)
-      .eq("id", stepId);
+    const { error } = await this.db.from("plan_steps").update(update).eq("id", stepId);
 
     if (error) {
       throw new Error(`Failed to update step: ${error.message}`);
@@ -176,10 +173,7 @@ export class PlanStore {
    * Mark plan as completed.
    */
   async completePlan(planId: string): Promise<void> {
-    const { error } = await this.db
-      .from("plans")
-      .update({ status: "completed" })
-      .eq("id", planId);
+    const { error } = await this.db.from("plans").update({ status: "completed" }).eq("id", planId);
 
     if (error) {
       throw new Error(`Failed to complete plan: ${error.message}`);
@@ -190,10 +184,7 @@ export class PlanStore {
    * Mark plan as abandoned.
    */
   async abandonPlan(planId: string): Promise<void> {
-    const { error } = await this.db
-      .from("plans")
-      .update({ status: "abandoned" })
-      .eq("id", planId);
+    const { error } = await this.db.from("plans").update({ status: "abandoned" }).eq("id", planId);
 
     if (error) {
       throw new Error(`Failed to abandon plan: ${error.message}`);
@@ -215,14 +206,8 @@ export class PlanStore {
   /**
    * Transition an action plan to a new status.
    */
-  async transitionActionPlan(
-    actionPlanId: string,
-    status: string,
-  ): Promise<void> {
-    const { error } = await this.db
-      .from("action_plans")
-      .update({ status })
-      .eq("id", actionPlanId);
+  async transitionActionPlan(actionPlanId: string, status: string): Promise<void> {
+    const { error } = await this.db.from("action_plans").update({ status }).eq("id", actionPlanId);
 
     if (error) {
       throw new Error(`Failed to transition action plan: ${error.message}`);

@@ -11,14 +11,11 @@
  * fire-and-forget.
  */
 
-import { jsonSchema } from "ai";
 import type { Tool } from "ai";
+import { jsonSchema } from "ai";
+import { type Asset, loadAssetsForScope, storeAsset } from "@/lib/assets/types";
+import { generateMeetingDebrief, type MeetingActionItem } from "@/lib/meetings/debrief";
 import type { TenantScope } from "@/lib/multi-tenant/types";
-import { loadAssetsForScope, storeAsset, type Asset } from "@/lib/assets/types";
-import {
-  generateMeetingDebrief,
-  type MeetingActionItem,
-} from "@/lib/meetings/debrief";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -47,11 +44,7 @@ export function parseMeetingContent(asset: Asset): MeetingContent | null {
 
 /** Normalize string for fuzzy matching (lowercase, no accents, trim). */
 export function normalize(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .trim();
+  return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
 }
 
 interface RequestMeetingDebriefArgs {
@@ -106,7 +99,7 @@ export function buildMeetingsTools(opts: BuildMeetingsToolsOpts): AiToolMap {
 
       // Sélection : query fuzzy match OU plus récent
       let target: Asset | undefined;
-      if (input.query && input.query.trim()) {
+      if (input.query?.trim()) {
         const q = normalize(input.query);
         const scored = meetings
           .map((a) => {
@@ -164,7 +157,7 @@ export function buildMeetingsTools(opts: BuildMeetingsToolsOpts): AiToolMap {
             const debrief = await generateMeetingDebrief({
               transcript: content.transcript!,
               actionItems: content.actionItems ?? [],
-              title: target!.title,
+              title: target?.title,
             });
             if (debrief) {
               await storeAsset({

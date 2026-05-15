@@ -5,17 +5,17 @@
  * It merges V1 auth (user_tokens) and V2 control-plane data.
  */
 
-import { NextRequest, NextResponse } from "next/server";
-import { getUnifiedConnectors } from "@/lib/connectors/unified/reconcile";
-import { getServiceDefinition } from "@/lib/integrations/catalog";
-import { getProviderIdForService, getAllServiceIds } from "@/lib/integrations/service-map";
-import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
-import { requireScope } from "@/lib/platform/auth/scope";
+import { type NextRequest, NextResponse } from "next/server";
 import {
   isComposioConfigured,
-  listConnections,
   listAvailableApps,
+  listConnections,
 } from "@/lib/connectors/composio";
+import { getUnifiedConnectors } from "@/lib/connectors/unified/reconcile";
+import { getServiceDefinition } from "@/lib/integrations/catalog";
+import { getAllServiceIds, getProviderIdForService } from "@/lib/integrations/service-map";
+import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { getApplicableReports } from "@/lib/reports/catalog";
 
 export const dynamic = "force-dynamic";
@@ -65,8 +65,6 @@ export async function GET(_req: NextRequest) {
           case "degraded":
             connectionStatus = "error";
             break;
-          case "disconnected":
-          case "coming_soon":
           default:
             connectionStatus = "disconnected";
         }
@@ -145,8 +143,7 @@ export async function GET(_req: NextRequest) {
               capabilities: [],
               isConnectable: true,
               connectionStatus: composioStatus,
-              accountLabel:
-                composioStatus === "error" ? "Composio (reconnect)" : "Composio",
+              accountLabel: composioStatus === "error" ? "Composio (reconnect)" : "Composio",
             });
             knownSlugs.add(slug);
           }
@@ -200,11 +197,7 @@ export async function GET(_req: NextRequest) {
       }
 
       const msMeta = await getTokenMeta(scope.userId, "microsoft").catch(() => null);
-      if (
-        msMeta &&
-        !msMeta.revoked &&
-        (msMeta.tokens.refreshToken || msMeta.tokens.accessToken)
-      ) {
+      if (msMeta && !msMeta.revoked && (msMeta.tokens.refreshToken || msMeta.tokens.accessToken)) {
         for (const slug of NATIVE_MICROSOFT) {
           const existing = services.find((s) => s.id === slug);
           if (existing) {
@@ -237,7 +230,9 @@ export async function GET(_req: NextRequest) {
 
     // Log for debugging
     const connectedCount = services.filter((s) => s.connectionStatus === "connected").length;
-    console.log(`[UserConnections] User ${scope.userId.slice(0, 8)}: ${connectedCount}/${services.length} connected`);
+    console.log(
+      `[UserConnections] User ${scope.userId.slice(0, 8)}: ${connectedCount}/${services.length} connected`,
+    );
 
     // Reports applicables au user vu ses connexions (ready/partial seulement).
     // Le RightPanel les transforme en suggestions dans la section Assets.
@@ -265,7 +260,7 @@ export async function GET(_req: NextRequest) {
     console.error("[UserConnections] Failed to fetch connections:", error);
     return NextResponse.json(
       { error: "internal_error", message: "Failed to fetch connections" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -9,12 +9,9 @@ export function AppLogo({ app, size = 16 }: { app: ComposioApp; size?: number })
     "shrink-0 inline-flex items-center justify-center overflow-hidden rounded-none";
   const inner = size >= 32 ? Math.round(size * 0.78) : size;
 
-  if (app.logo && app.logo.startsWith("http")) {
+  if (app.logo?.startsWith("http")) {
     return (
-      <span
-        className={wrapperClass}
-        style={{ width: size, height: size }}
-      >
+      <span className={wrapperClass} style={{ width: size, height: size }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={app.logo}

@@ -24,13 +24,8 @@
  */
 
 import { z } from "zod";
-
+import { TTL_DEFAULT_HOURS, TTL_MAX_HOURS, TTL_MIN_HOURS } from "@/lib/reports/sharing/signed-url";
 import { reportSpecSchema } from "@/lib/reports/spec/schema";
-import {
-  TTL_DEFAULT_HOURS,
-  TTL_MAX_HOURS,
-  TTL_MIN_HOURS,
-} from "@/lib/reports/sharing/signed-url";
 
 // ── Helpers ──────────────────────────────────────────────────
 
@@ -56,12 +51,7 @@ const VERSION_LIST_LIMIT_MAX = 200;
  */
 export const createReportShareSchema = z.object({
   assetId: z.string().min(1).max(200),
-  ttlHours: z
-    .number()
-    .int()
-    .min(TTL_MIN_HOURS)
-    .max(TTL_MAX_HOURS)
-    .default(TTL_DEFAULT_HOURS),
+  ttlHours: z.number().int().min(TTL_MIN_HOURS).max(TTL_MAX_HOURS).default(TTL_DEFAULT_HOURS),
 });
 
 export type CreateReportSharePayload = z.infer<typeof createReportShareSchema>;
@@ -127,9 +117,7 @@ export const createReportTemplateSchema = z.object({
   basedOnSpecId: z.string().min(1).max(200).optional(),
 });
 
-export type CreateReportTemplatePayload = z.infer<
-  typeof createReportTemplateSchema
->;
+export type CreateReportTemplatePayload = z.infer<typeof createReportTemplateSchema>;
 
 /**
  * Update partiel d'un template existant. Tous les champs sont
@@ -144,9 +132,7 @@ export const updateReportTemplateSchema = z.object({
   isPublic: z.boolean().optional(),
 });
 
-export type UpdateReportTemplatePayload = z.infer<
-  typeof updateReportTemplateSchema
->;
+export type UpdateReportTemplatePayload = z.infer<typeof updateReportTemplateSchema>;
 
 /**
  * Query string commune `GET /api/reports/templates` et
@@ -156,9 +142,7 @@ export const listReportTemplatesQuerySchema = z.object({
   domain: z.string().min(1).max(80).optional(),
 });
 
-export type ListReportTemplatesQuery = z.infer<
-  typeof listReportTemplatesQuerySchema
->;
+export type ListReportTemplatesQuery = z.infer<typeof listReportTemplatesQuerySchema>;
 
 // ── POST /api/v2/reports/specs/sample ────────────────────────
 
@@ -185,9 +169,7 @@ export const createReportCommentSchema = z.object({
   blockRef: z.string().min(1).max(120).optional(),
 });
 
-export type CreateReportCommentPayload = z.infer<
-  typeof createReportCommentSchema
->;
+export type CreateReportCommentPayload = z.infer<typeof createReportCommentSchema>;
 
 // ── GET /api/reports/[reportId]/versions ─────────────────────
 
@@ -203,9 +185,7 @@ export const listReportVersionsQuerySchema = z.object({
     .default(VERSION_LIST_LIMIT_DEFAULT),
 });
 
-export type ListReportVersionsQuery = z.infer<
-  typeof listReportVersionsQuerySchema
->;
+export type ListReportVersionsQuery = z.infer<typeof listReportVersionsQuerySchema>;
 
 // ── GET /api/reports/[reportId]/versions/diff ────────────────
 
@@ -219,9 +199,7 @@ export const diffReportVersionsQuerySchema = z.object({
   to: z.coerce.number().int().min(1),
 });
 
-export type DiffReportVersionsQuery = z.infer<
-  typeof diffReportVersionsQuerySchema
->;
+export type DiffReportVersionsQuery = z.infer<typeof diffReportVersionsQuerySchema>;
 
 // ── GET /POST /api/reports/[reportId]/versions/[n] ───────────
 

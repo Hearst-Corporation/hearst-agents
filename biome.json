@@ -1,0 +1,63 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!.next",
+      "!out",
+      "!build",
+      "!dist",
+      "!node_modules",
+      "!.vercel",
+      "!coverage",
+      "!playwright-report",
+      "!test-results",
+      "!**/__screenshots__",
+      "!docs/spatial/_BACKUP_*",
+      "!app/spatial-safe",
+      "!components/spatial-safe",
+      "!hooks/spatial-safe",
+      "!lib/spatial-safe",
+      "!providers/spatial-safe",
+      "!styles/spatial-safe",
+      "!pnpm-lock.yaml",
+      "!*.snap",
+      "!**/*.html",
+      "!**/*.css"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "correctness": {
+        "noUnusedVariables": "warn",
+        "noUnusedImports": "warn"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "all",
+      "semicolons": "always"
+    },
+    "globals": ["React"]
+  },
+  "json": {
+    "formatter": {
+      "enabled": true
+    }
+  }
+}

@@ -2,7 +2,7 @@
  * Asana preview formatters.
  */
 
-import { footer, header, line, preview, asArray } from "./shared";
+import { asArray, footer, header, line, preview } from "./shared";
 
 export function formatAsanaCreateTask(args: Record<string, unknown>): string {
   const name = String(args.name ?? args.title ?? "(sans titre)");

@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { scheduleDailyBriefing, getTodayBriefingKey } from "@/lib/engine/runtime/briefing-scheduler";
-import { getRedis } from "@/lib/platform/redis/client";
 import { getVariantsForAsset } from "@/lib/assets/variants";
-import { withRoute, redactedError } from "@/lib/observability/logger";
+import {
+  getTodayBriefingKey,
+  scheduleDailyBriefing,
+} from "@/lib/engine/runtime/briefing-scheduler";
+import { redactedError, withRoute } from "@/lib/observability/logger";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { getRedis } from "@/lib/platform/redis/client";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -13,7 +16,10 @@ const logPost = withRoute("POST /api/briefing");
 export async function POST() {
   const { scope, error: scopeError } = await requireScope({ context: "POST /api/briefing" });
   if (scopeError || !scope) {
-    return NextResponse.json({ error: scopeError?.message ?? "not_authenticated" }, { status: scopeError?.status ?? 401 });
+    return NextResponse.json(
+      { error: scopeError?.message ?? "not_authenticated" },
+      { status: scopeError?.status ?? 401 },
+    );
   }
 
   try {
@@ -33,7 +39,10 @@ export async function POST() {
 export async function GET() {
   const { scope, error: scopeError } = await requireScope({ context: "GET /api/briefing" });
   if (scopeError || !scope) {
-    return NextResponse.json({ error: scopeError?.message ?? "not_authenticated" }, { status: scopeError?.status ?? 401 });
+    return NextResponse.json(
+      { error: scopeError?.message ?? "not_authenticated" },
+      { status: scopeError?.status ?? 401 },
+    );
   }
 
   const redis = getRedis();
@@ -55,6 +64,7 @@ export async function GET() {
     return NextResponse.json({ status: "generating", assetId });
   }
 
-  const status = audio.status === "ready" ? "ready" : audio.status === "failed" ? "failed" : "generating";
+  const status =
+    audio.status === "ready" ? "ready" : audio.status === "failed" ? "failed" : "generating";
   return NextResponse.json({ status, assetId, variant: audio });
 }

@@ -4,7 +4,7 @@
  * Chat Context Store — chips add/remove/clear, persistence.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { useChatContext } from "@/stores/chat-context";
 
 const reset = () => useChatContext.setState({ chips: [] }, false);
@@ -23,9 +23,7 @@ describe("useChatContext store", () => {
   });
 
   it("ajoute une chip", () => {
-    useChatContext
-      .getState()
-      .addChip({ id: "btc", label: "bitcoin", kind: "topic" });
+    useChatContext.getState().addChip({ id: "btc", label: "bitcoin", kind: "topic" });
     expect(useChatContext.getState().chips).toHaveLength(1);
     expect(useChatContext.getState().chips[0].label).toBe("bitcoin");
   });

@@ -7,7 +7,7 @@
  *  - idempotence des opens consécutifs
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { useVideoQuickLaunchStore } from "@/stores/video-quick-launch";
 
 describe("useVideoQuickLaunchStore", () => {

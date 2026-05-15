@@ -19,10 +19,7 @@ export class ArtifactManager {
     _runId: string,
   ) {}
 
-  async create(
-    input: CreateArtifactInput,
-    runId: string,
-  ): Promise<Artifact> {
+  async create(input: CreateArtifactInput, runId: string): Promise<Artifact> {
     const { data, error } = await this.db
       .from("artifacts")
       .insert({
@@ -49,7 +46,7 @@ export class ArtifactManager {
 
     // Save v1 snapshot
     await this.db.from("artifact_versions").insert({
-      artifact_id: data!.id,
+      artifact_id: data?.id,
       version: 1,
       content: input.content,
       sections: input.sections ?? [],
@@ -59,10 +56,7 @@ export class ArtifactManager {
     return data as Artifact;
   }
 
-  async revise(
-    artifactId: string,
-    changes: ReviseArtifactInput,
-  ): Promise<Artifact> {
+  async revise(artifactId: string, changes: ReviseArtifactInput): Promise<Artifact> {
     const current = await this.load(artifactId);
     const newVersion = current.version + 1;
 
@@ -79,9 +73,7 @@ export class ArtifactManager {
           .join("\n\n");
     } else if (changes.section_id && changes.new_content) {
       newSections = newSections.map((s) =>
-        s.id === changes.section_id
-          ? { ...s, content: changes.new_content! }
-          : s,
+        s.id === changes.section_id ? { ...s, content: changes.new_content! } : s,
       );
       newContent = newSections
         .sort((a, b) => a.order - b.order)
@@ -118,11 +110,7 @@ export class ArtifactManager {
   }
 
   async load(artifactId: string): Promise<Artifact> {
-    const { data, error } = await this.db
-      .from("artifacts")
-      .select()
-      .eq("id", artifactId)
-      .single();
+    const { data, error } = await this.db.from("artifacts").select().eq("id", artifactId).single();
 
     if (error || !data) {
       throw new Error(`Artifact not found: ${artifactId}`);
@@ -132,18 +120,12 @@ export class ArtifactManager {
 
   async loadMany(ids: string[]): Promise<Artifact[]> {
     if (ids.length === 0) return [];
-    const { data } = await this.db
-      .from("artifacts")
-      .select()
-      .in("id", ids);
+    const { data } = await this.db.from("artifacts").select().in("id", ids);
     return (data ?? []) as Artifact[];
   }
 
   async listRefs(runId: string): Promise<ArtifactRef[]> {
-    const { data } = await this.db
-      .from("artifacts")
-      .select("id, type, title")
-      .eq("run_id", runId);
+    const { data } = await this.db.from("artifacts").select("id, type, title").eq("run_id", runId);
     return (data ?? []).map((d: { id: string; type: string; title: string }) => ({
       artifact_id: d.id,
       type: d.type as ArtifactRef["type"],

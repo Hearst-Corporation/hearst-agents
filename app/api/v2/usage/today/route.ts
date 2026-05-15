@@ -57,10 +57,7 @@ export async function GET() {
     }
 
     const rows = (data ?? []) as Array<{ cost_usd: number | null }>;
-    const usedUSD = rows.reduce(
-      (acc, r) => acc + Number(r.cost_usd ?? 0),
-      0,
-    );
+    const usedUSD = rows.reduce((acc, r) => acc + Number(r.cost_usd ?? 0), 0);
 
     const payload: UsageTodayResponse = {
       usedUSD: round2(usedUSD),
@@ -70,19 +67,14 @@ export async function GET() {
     };
     return NextResponse.json(payload);
   } catch (e) {
-    console.warn(
-      "[usage/today] fail-soft fallback:",
-      e instanceof Error ? e.message : String(e),
-    );
+    console.warn("[usage/today] fail-soft fallback:", e instanceof Error ? e.message : String(e));
     return NextResponse.json(emptyResponse(windowStart));
   }
 }
 
 function startOfTodayUtc(): string {
   const now = new Date();
-  const start = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
-  );
+  const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
   return start.toISOString();
 }
 

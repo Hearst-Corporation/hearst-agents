@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { motion, AnimatePresence, useTransform } from "framer-motion";
-import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
+import { AnimatePresence, motion, useTransform } from "framer-motion";
+import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
-import { useRuntimeStore } from "@/stores/runtime";
-import { useNavigationStore, type Message } from "@/stores/navigation";
 import { parseSSEChunk } from "@/lib/spatial/sse";
+import { useSpatialMouseContext } from "@/providers/spatial/SpatialMouseProvider";
+import { type Message, useNavigationStore } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
 
 interface CommandBarProps {
   show: boolean;
@@ -46,128 +46,121 @@ export function CommandBar({ show, autoFocus = true }: CommandBarProps) {
     }
   }, [show, autoFocus]);
 
-  const handleSubmit = useCallback(
-    async (text: string) => {
-      const runtime = useRuntimeStore.getState();
-      const navigation = useNavigationStore.getState();
+  const handleSubmit = useCallback(async (text: string) => {
+    const runtime = useRuntimeStore.getState();
+    const navigation = useNavigationStore.getState();
 
-      // 1. Crée ou récupère un thread
-      let threadId = navigation.activeThreadId;
-      if (!threadId) {
-        threadId = navigation.addThread(text.slice(0, 60), "home");
-        navigation.setActiveThread(threadId);
-      }
+    // 1. Crée ou récupère un thread
+    let threadId = navigation.activeThreadId;
+    if (!threadId) {
+      threadId = navigation.addThread(text.slice(0, 60), "home");
+      navigation.setActiveThread(threadId);
+    }
 
-      // 2. Push message user
-      const clientToken = `client-${Date.now()}`;
-      const userMessage: Message = {
-        id: `user-${Date.now()}`,
-        role: "user",
-        content: text,
-      };
-      navigation.addMessageToThread(threadId, userMessage);
+    // 2. Push message user
+    const clientToken = `client-${Date.now()}`;
+    const userMessage: Message = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: text,
+    };
+    navigation.addMessageToThread(threadId, userMessage);
 
-      // 3. Push placeholder assistant (sera updated par text_delta)
-      assistantBufferRef.current = "";
-      currentAssistantIdRef.current = `assistant-${Date.now()}`;
-      navigation.addMessageToThread(threadId, {
-        id: currentAssistantIdRef.current,
-        role: "assistant",
-        content: "",
+    // 3. Push placeholder assistant (sera updated par text_delta)
+    assistantBufferRef.current = "";
+    currentAssistantIdRef.current = `assistant-${Date.now()}`;
+    navigation.addMessageToThread(threadId, {
+      id: currentAssistantIdRef.current,
+      role: "assistant",
+      content: "",
+    });
+
+    // 4. Récupère history limité (10 dernières messages textuelles)
+    const recentMessages = (navigation.messages[threadId] ?? [])
+      .filter((m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0)
+      .slice(-10)
+      .map((m) => ({ role: m.role, content: m.content }));
+
+    // 5. Démarre le run + abort controller
+    runtime.startRun(clientToken);
+    const controller = new AbortController();
+    runtime.setAbortController(controller);
+
+    try {
+      const res = await fetch("/api/orchestrate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          surface: "home",
+          thread_id: threadId,
+          conversation_id: threadId,
+          history: recentMessages,
+          capability_mode: "general",
+        }),
+        signal: controller.signal,
       });
 
-      // 4. Récupère history limité (10 dernières messages textuelles)
-      const recentMessages = (navigation.messages[threadId] ?? [])
-        .filter(
-          (m) =>
-            (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0,
-        )
-        .slice(-10)
-        .map((m) => ({ role: m.role, content: m.content }));
-
-      // 5. Démarre le run + abort controller
-      runtime.startRun(clientToken);
-      const controller = new AbortController();
-      runtime.setAbortController(controller);
-
-      try {
-        const res = await fetch("/api/orchestrate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: text,
-            surface: "home",
-            thread_id: threadId,
-            conversation_id: threadId,
-            history: recentMessages,
-            capability_mode: "general",
-          }),
-          signal: controller.signal,
+      if (!res.ok) {
+        const errorMsg = `Erreur serveur: ${res.status}`;
+        runtime.addEvent({
+          type: "run_failed",
+          error: errorMsg,
+          run_id: clientToken,
+          client_token: clientToken,
         });
-
-        if (!res.ok) {
-          const errorMsg = `Erreur serveur: ${res.status}`;
-          runtime.addEvent({
-            type: "run_failed",
-            error: errorMsg,
-            run_id: clientToken,
-            client_token: clientToken,
-          });
-          return;
-        }
-
-        const reader = res.body?.getReader();
-        if (!reader) return;
-        const decoder = new TextDecoder();
-        let buffer = "";
-        let canonicalRunId: string | null = null;
-
-        while (true) {
-          if (controller.signal.aborted) break;
-          const { done, value: chunk } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(chunk, { stream: true });
-
-          const { events, rest } = parseSSEChunk(buffer);
-          buffer = rest;
-
-          for (const event of events) {
-            // Capture le run_id canonique (transition client- → run_)
-            if (event.type === "run_started" && typeof event.run_id === "string") {
-              canonicalRunId = event.run_id;
-            }
-
-            // Dispatch text_delta : update incrémentale du message assistant
-            if (event.type === "text_delta" && typeof event.delta === "string") {
-              assistantBufferRef.current += event.delta;
-              const id = currentAssistantIdRef.current;
-              if (id) {
-                useNavigationStore
-                  .getState()
-                  .updateMessageInThread(threadId, id, assistantBufferRef.current);
-              }
-            }
-
-            const eventRunId =
-              (event.run_id as string | undefined) ?? canonicalRunId ?? clientToken;
-            runtime.addEvent({ ...event, run_id: eventRunId });
-          }
-        }
-      } catch (err) {
-        const isAbort =
-          controller.signal.aborted ||
-          (err instanceof DOMException && err.name === "AbortError") ||
-          (err instanceof Error && err.name === "AbortError");
-        if (isAbort) return;
-
-        const errorMsg = err instanceof Error ? err.message : "Échec de la connexion";
-        runtime.addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
-      } finally {
-        useRuntimeStore.getState().setAbortController(null);
+        return;
       }
-    },
-    [],
-  );
+
+      const reader = res.body?.getReader();
+      if (!reader) return;
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let canonicalRunId: string | null = null;
+
+      while (true) {
+        if (controller.signal.aborted) break;
+        const { done, value: chunk } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(chunk, { stream: true });
+
+        const { events, rest } = parseSSEChunk(buffer);
+        buffer = rest;
+
+        for (const event of events) {
+          // Capture le run_id canonique (transition client- → run_)
+          if (event.type === "run_started" && typeof event.run_id === "string") {
+            canonicalRunId = event.run_id;
+          }
+
+          // Dispatch text_delta : update incrémentale du message assistant
+          if (event.type === "text_delta" && typeof event.delta === "string") {
+            assistantBufferRef.current += event.delta;
+            const id = currentAssistantIdRef.current;
+            if (id) {
+              useNavigationStore
+                .getState()
+                .updateMessageInThread(threadId, id, assistantBufferRef.current);
+            }
+          }
+
+          const eventRunId = (event.run_id as string | undefined) ?? canonicalRunId ?? clientToken;
+          runtime.addEvent({ ...event, run_id: eventRunId });
+        }
+      }
+    } catch (err) {
+      const isAbort =
+        controller.signal.aborted ||
+        (err instanceof DOMException && err.name === "AbortError") ||
+        (err instanceof Error && err.name === "AbortError");
+      if (isAbort) return;
+
+      const errorMsg = err instanceof Error ? err.message : "Échec de la connexion";
+      runtime.addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
+    } finally {
+      useRuntimeStore.getState().setAbortController(null);
+    }
+  }, []);
 
   function onFormSubmit(e?: FormEvent) {
     e?.preventDefault();
@@ -191,11 +184,17 @@ export function CommandBar({ show, autoFocus = true }: CommandBarProps) {
           <motion.div
             initial={{ opacity: 0, y: 32, scale: 0.96, filter: "blur(14px)" }}
             animate={{
-              opacity: 1, y: 0, scale: 1, filter: "blur(0px)",
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              filter: "blur(0px)",
               transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.45 },
             }}
             exit={{
-              opacity: 0, y: 16, scale: 0.97, filter: "blur(8px)",
+              opacity: 0,
+              y: 16,
+              scale: 0.97,
+              filter: "blur(8px)",
               transition: { duration: 0.6, ease: [0.4, 0, 1, 1] },
             }}
             style={{ rotateX, rotateY }}
@@ -209,7 +208,8 @@ export function CommandBar({ show, autoFocus = true }: CommandBarProps) {
                   backdropFilter: "blur(22px) saturate(130%)",
                   WebkitBackdropFilter: "blur(22px) saturate(130%)",
                   border: "1px solid rgba(255,255,255,0.10)",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 32px -16px rgba(0,0,0,0.5)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.05), 0 12px 32px -16px rgba(0,0,0,0.5)",
                 }}
               >
                 {/* Glyphe gauche */}

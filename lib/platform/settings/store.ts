@@ -5,7 +5,7 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { SystemSetting, SettingValue, SettingCategory } from "./types";
+import type { SettingCategory, SettingValue, SystemSetting } from "./types";
 
 const TABLE = "system_settings";
 
@@ -16,7 +16,7 @@ const TABLE = "system_settings";
 export async function getSetting(
   db: SupabaseClient,
   key: string,
-  tenantId: string | null = null
+  tenantId: string | null = null,
 ): Promise<SystemSetting | null> {
   // First, try to get tenant-specific setting
   if (tenantId) {
@@ -64,7 +64,7 @@ export async function setSetting(
     description?: string;
     isEncrypted?: boolean;
     updatedBy?: string;
-  }
+  },
 ): Promise<SystemSetting> {
   const row = {
     key,
@@ -93,7 +93,7 @@ export async function setSetting(
 export async function getAllSettings(
   db: SupabaseClient,
   category?: SettingCategory,
-  tenantId?: string | null
+  tenantId?: string | null,
 ): Promise<SystemSetting[]> {
   let query = db.from(TABLE).select("*");
 

@@ -5,24 +5,26 @@
  * Les modules @/lib/capabilities/* ne sont pas mockés.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { RunEvent } from "@/lib/events/types";
-
-import {
-  DOMAIN_TAXONOMY,
-  getValidAgentsForDomain,
-  isAgentValidForDomain,
-  type Domain,
-} from "@/lib/capabilities/taxonomy";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { capabilityGuard } from "@/lib/capabilities/guard";
 import {
   resolveCapabilityScope,
   resolveExecutionMode,
   scopeRequiresProviders,
 } from "@/lib/capabilities/router";
-import { capabilityGuard } from "@/lib/capabilities/guard";
-import { getRequiredProvidersForInput, getBlockedReasonForProviders } from "@/lib/engine/orchestrator/provider-requirements";
-import { isResearchIntent, isReportIntent } from "@/lib/engine/orchestrator/research-intent";
+import {
+  DOMAIN_TAXONOMY,
+  type Domain,
+  getValidAgentsForDomain,
+  isAgentValidForDomain,
+} from "@/lib/capabilities/taxonomy";
+import {
+  getBlockedReasonForProviders,
+  getRequiredProvidersForInput,
+} from "@/lib/engine/orchestrator/provider-requirements";
+import { isReportIntent, isResearchIntent } from "@/lib/engine/orchestrator/research-intent";
+import type { RunEvent } from "@/lib/events/types";
 
 const hoisted = vi.hoisted(() => ({
   messagesCreate: vi.fn(),
@@ -47,16 +49,14 @@ vi.mock("@/lib/platform/auth/tokens", () => ({
   getTokens: hoisted.getTokensMock,
 }));
 
-
 vi.mock("@/lib/engine/runtime/plans/store", () => ({
   PlanStore: class {
     createPlan = hoisted.createPlanSpy;
-    constructor(_db: unknown) {}
   },
 }));
 
-import { delegate } from "@/lib/engine/runtime/delegate/api";
 import { planFromIntent } from "@/lib/engine/orchestrator/planner";
+import { delegate } from "@/lib/engine/runtime/delegate/api";
 
 // ── A — Capability Router ───────────────────────────────────
 
@@ -77,7 +77,9 @@ const DOMAIN_SURFACES: Record<Domain, { surface?: string; message: string }> = {
 describe("A — Capability Router", () => {
   const domains = Object.keys(DOMAIN_TAXONOMY) as Domain[];
 
-  it.each(domains)("resolveCapabilityScope(%s) aligne domain, capabilities, tools, agents", (domain) => {
+  it.each(
+    domains,
+  )("resolveCapabilityScope(%s) aligne domain, capabilities, tools, agents", (domain) => {
     const { surface, message } = DOMAIN_SURFACES[domain];
     const scope = resolveCapabilityScope(message, surface);
     expect(scope.domain).toBe(domain);
@@ -105,7 +107,9 @@ describe("A — Capability Router", () => {
 
   it("scopeRequiresProviders: false pour general et research", () => {
     expect(scopeRequiresProviders(resolveCapabilityScope("bonjour", "home"))).toBe(false);
-    expect(scopeRequiresProviders(resolveCapabilityScope("veille sectorielle", "research"))).toBe(false);
+    expect(scopeRequiresProviders(resolveCapabilityScope("veille sectorielle", "research"))).toBe(
+      false,
+    );
   });
 
   it("scopeRequiresProviders: true pour communication / finance", () => {
@@ -134,8 +138,21 @@ describe("A — Capability Router", () => {
 
 // ── B — Capability Guard ─────────────────────────────────────
 
-const SPECIALIZED = ["FinanceAgent", "CRMAgent", "ProductivityAgent", "DesignAgent", "DeveloperAgent"] as const;
-const GENERIC = ["KnowledgeRetriever", "Analyst", "DocBuilder", "Communicator", "Operator", "Planner"] as const;
+const SPECIALIZED = [
+  "FinanceAgent",
+  "CRMAgent",
+  "ProductivityAgent",
+  "DesignAgent",
+  "DeveloperAgent",
+] as const;
+const GENERIC = [
+  "KnowledgeRetriever",
+  "Analyst",
+  "DocBuilder",
+  "Communicator",
+  "Operator",
+  "Planner",
+] as const;
 
 describe("B — Capability Guard", () => {
   it.each(SPECIALIZED)("spécialisé %s × 8 domaines (matrice)", (agent) => {
@@ -150,7 +167,9 @@ describe("B — Capability Guard", () => {
     }
   });
 
-  it.each(GENERIC)("générique %s × 8 domaines — génériques autorisés partout (taxonomie)", (agent) => {
+  it.each(
+    GENERIC,
+  )("générique %s × 8 domaines — génériques autorisés partout (taxonomie)", (agent) => {
     const domains = Object.keys(DOMAIN_TAXONOMY) as Domain[];
     for (const domain of domains) {
       const r = capabilityGuard({ agent, task: "x", domain });
@@ -228,7 +247,11 @@ describe("C — Planner validation (remapping agents)", () => {
     await planFromIntent(mockDb, mockEngine, "emails", [], undefined, "communication");
 
     expect(hoisted.createPlanSpy).toHaveBeenCalled();
-    const [, , steps] = hoisted.createPlanSpy.mock.calls[0] as [string, string, Array<{ agent: string }>];
+    const [, , steps] = hoisted.createPlanSpy.mock.calls[0] as [
+      string,
+      string,
+      Array<{ agent: string }>,
+    ];
     expect(steps[0].agent).toBe("KnowledgeRetriever");
   });
 
@@ -257,7 +280,11 @@ describe("C — Planner validation (remapping agents)", () => {
 
     await planFromIntent(mockDb, mockEngine, "stripe", [], undefined, "finance");
 
-    const [, , steps] = hoisted.createPlanSpy.mock.calls[0] as [string, string, Array<{ agent: string }>];
+    const [, , steps] = hoisted.createPlanSpy.mock.calls[0] as [
+      string,
+      string,
+      Array<{ agent: string }>,
+    ];
     expect(steps[0].agent).toBe("Analyst");
   });
 
@@ -336,13 +363,13 @@ describe("F — Provider requirements", () => {
   it("mes emails → google", () => {
     const r = getRequiredProvidersForInput("mes emails de hier");
     expect(r).not.toBeNull();
-    expect(r!.providers).toContain("google");
+    expect(r?.providers).toContain("google");
   });
 
   it("mon agenda → google", () => {
     const r = getRequiredProvidersForInput("mon agenda demain");
     expect(r).not.toBeNull();
-    expect(r!.providers).toContain("google");
+    expect(r?.providers).toContain("google");
   });
 
   it("stripe balance: pas de provider connectable dans le registry (comportement réel)", () => {
@@ -427,7 +454,7 @@ describe("I — Cross-cutting", () => {
       for (const k of [...fr, ...en]) {
         const key = k.toLowerCase();
         if (!kwToDomains.has(key)) kwToDomains.set(key, new Set());
-        kwToDomains.get(key)!.add(d);
+        kwToDomains.get(key)?.add(d);
       }
     }
     const violations: string[] = [];
@@ -446,8 +473,14 @@ describe("I — Cross-cutting", () => {
   });
 
   it("modes: Bonjour / emails / Analyse (cohérence router)", () => {
-    expect(resolveExecutionMode(resolveCapabilityScope("Bonjour", "home"), "Bonjour").mode).toBe("direct_answer");
-    expect(resolveExecutionMode(resolveCapabilityScope("Mes emails", "inbox"), "Mes emails").mode).toBe("workflow");
-    expect(resolveExecutionMode(resolveCapabilityScope("Analyse le Q4", "home"), "Analyse le Q4").mode).toBe("custom_agent");
+    expect(resolveExecutionMode(resolveCapabilityScope("Bonjour", "home"), "Bonjour").mode).toBe(
+      "direct_answer",
+    );
+    expect(
+      resolveExecutionMode(resolveCapabilityScope("Mes emails", "inbox"), "Mes emails").mode,
+    ).toBe("workflow");
+    expect(
+      resolveExecutionMode(resolveCapabilityScope("Analyse le Q4", "home"), "Analyse le Q4").mode,
+    ).toBe("custom_agent");
   });
 });

@@ -17,8 +17,8 @@
  *  - Cache de webhooks et préflight connectors.
  */
 
-import IoRedis from "ioredis";
 import { Redis as UpstashRedis } from "@upstash/redis";
+import IoRedis from "ioredis";
 
 interface RedisClient {
   get(key: string): Promise<string | null>;
@@ -38,12 +38,7 @@ class UpstashAdapter implements RedisClient {
     return result ?? null;
   }
 
-  async set(
-    key: string,
-    value: string,
-    mode?: "EX",
-    ttlSeconds?: number,
-  ): Promise<unknown> {
+  async set(key: string, value: string, mode?: "EX", ttlSeconds?: number): Promise<unknown> {
     if (mode === "EX" && ttlSeconds !== undefined) {
       return await this.client.set(key, value, { ex: ttlSeconds });
     }
@@ -100,7 +95,9 @@ export function getRedis(): RedisClient | null {
 
   const url = process.env.REDIS_URL;
   if (!url) {
-    console.warn("[Redis] No REDIS backend configured (Upstash REST or REDIS_URL) — running without WAL/cache layer");
+    console.warn(
+      "[Redis] No REDIS backend configured (Upstash REST or REDIS_URL) — running without WAL/cache layer",
+    );
     return null;
   }
 
@@ -121,4 +118,3 @@ export function getRedis(): RedisClient | null {
     return null;
   }
 }
-

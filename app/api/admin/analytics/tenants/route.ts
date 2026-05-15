@@ -7,14 +7,14 @@
  * Auth : admin (resource=metrics, action=read).
  */
 
-import { NextResponse, type NextRequest } from "next/server";
-import { requireAdmin, isError } from "../../_helpers";
+import { type NextRequest, NextResponse } from "next/server";
 import {
-  getTopTenants,
-  getTenantUsage,
-  defaultDateRange,
   type DateRange,
+  defaultDateRange,
+  getTenantUsage,
+  getTopTenants,
 } from "@/lib/admin/usage/aggregate";
+import { isError, requireAdmin } from "../../_helpers";
 
 export const dynamic = "force-dynamic";
 

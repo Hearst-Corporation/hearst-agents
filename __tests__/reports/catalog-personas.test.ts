@@ -12,16 +12,16 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  reportSpecSchema,
-  reportMetaSchema,
-  REPORT_PERSONAS,
-  REPORT_DOMAINS,
-} from "@/lib/reports/spec/schema";
-import {
   buildEngineeringVelocity,
-  buildMarketingAarrr,
   buildHrPeople,
+  buildMarketingAarrr,
 } from "@/lib/reports/catalog";
+import {
+  REPORT_DOMAINS,
+  REPORT_PERSONAS,
+  reportMetaSchema,
+  reportSpecSchema,
+} from "@/lib/reports/spec/schema";
 
 const SCOPE = {
   tenantId: "dev-tenant",

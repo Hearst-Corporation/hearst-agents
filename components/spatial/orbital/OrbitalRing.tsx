@@ -1,10 +1,10 @@
 // lint-visual-disable-file
 "use client";
 
-import { useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
 import { Sphere } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import * as THREE from "three";
 import { useOrbitalPosition } from "@/hooks/spatial/useSpatialR3F";
 
 interface OrbitalParticleConfig {
@@ -30,9 +30,33 @@ interface OrbitalRingProps {
  * Aucune traînée sci-fi, juste une présence silencieuse.
  */
 const DEFAULT_PARTICLES: OrbitalParticleConfig[] = [
-  { radiusX: 3.0, radiusZ: 2.6, speed: 0.32, phase: 0,                  size: 0.060, opacity: 0.95, verticalAmplitude: 0.25 },
-  { radiusX: 4.2, radiusZ: 3.6, speed: 0.22, phase: Math.PI * 0.66,     size: 0.048, opacity: 0.85, verticalAmplitude: 0.45 },
-  { radiusX: 3.6, radiusZ: 4.0, speed: 0.42, phase: Math.PI * 1.33,     size: 0.054, opacity: 0.90, verticalAmplitude: 0.30 },
+  {
+    radiusX: 3.0,
+    radiusZ: 2.6,
+    speed: 0.32,
+    phase: 0,
+    size: 0.06,
+    opacity: 0.95,
+    verticalAmplitude: 0.25,
+  },
+  {
+    radiusX: 4.2,
+    radiusZ: 3.6,
+    speed: 0.22,
+    phase: Math.PI * 0.66,
+    size: 0.048,
+    opacity: 0.85,
+    verticalAmplitude: 0.45,
+  },
+  {
+    radiusX: 3.6,
+    radiusZ: 4.0,
+    speed: 0.42,
+    phase: Math.PI * 1.33,
+    size: 0.054,
+    opacity: 0.9,
+    verticalAmplitude: 0.3,
+  },
 ];
 
 interface OrbitalParticleMaterial extends THREE.MeshStandardMaterial {
@@ -53,7 +77,7 @@ function OrbitalParticle({
     config.radiusZ,
     config.speed,
     config.phase,
-    config.verticalAmplitude
+    config.verticalAmplitude,
   );
 
   return (
@@ -119,11 +143,7 @@ export function OrbitalRing({
   return (
     <group ref={groupRef}>
       {particles.map((config, i) => (
-        <OrbitalParticle
-          key={i}
-          config={config}
-          onMaterialMount={handleMaterialMount}
-        />
+        <OrbitalParticle key={i} config={config} onMaterialMount={handleMaterialMount} />
       ))}
     </group>
   );

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Court-circuite useCallback pour pouvoir appeler le hook hors React et
 // récupérer la fonction de submit telle quelle.
@@ -122,9 +122,7 @@ describe("useSingleSubmit", () => {
   it("bascule en error si fetch throw", async () => {
     const single = makeSingle("idle");
 
-    (fetch as unknown as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
-      new Error("Network down"),
-    );
+    (fetch as unknown as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error("Network down"));
 
     const submit = useSingleSubmit({
       prompt: "Génère ma vidéo",

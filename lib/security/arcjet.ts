@@ -17,8 +17,8 @@
  *    (générer plusieurs assets en burst) tout en bloquant le DoS budgétaire.
  */
 
-import arcjet, { tokenBucket, detectBot, shield } from "@arcjet/next";
-import { NextResponse, type NextRequest } from "next/server";
+import arcjet, { detectBot, shield, tokenBucket } from "@arcjet/next";
+import { type NextRequest, NextResponse } from "next/server";
 
 const KEY = process.env.ARCJET_KEY;
 // En dev, le renderer Electron est flagué comme bot et casse NextAuth.
@@ -111,9 +111,7 @@ export const ajLlmJobs = KEY
  *
  * @returns NextResponse 429/403 si bloqué, null sinon (continuer le handler).
  */
-export async function protectLlmJob(
-  req: NextRequest,
-): Promise<NextResponse | null> {
+export async function protectLlmJob(req: NextRequest): Promise<NextResponse | null> {
   if (!ajLlmJobs) return null;
   const decision = await ajLlmJobs.protect(req, { requested: 1 });
   if (!decision.isDenied()) return null;

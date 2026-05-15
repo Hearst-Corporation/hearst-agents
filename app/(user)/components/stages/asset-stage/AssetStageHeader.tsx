@@ -1,7 +1,7 @@
 "use client";
 
 import type { Asset } from "@/lib/assets/types";
-import { StageActionBar, type StageAction } from "../StageActionBar";
+import { type StageAction, StageActionBar } from "../StageActionBar";
 
 interface AssetStageHeaderProps {
   asset: Asset | null;
@@ -53,10 +53,7 @@ export function AssetStageHeader({
           ← Retour <span className="t-9 font-mono tabular-nums opacity-60">⌘⌫</span>
         </button>
         {asset?.title && (
-          <span
-            className="t-11 font-light text-text-muted truncate"
-            title={asset.title}
-          >
+          <span className="t-11 font-light text-text-muted truncate" title={asset.title}>
             {asset.title}
           </span>
         )}

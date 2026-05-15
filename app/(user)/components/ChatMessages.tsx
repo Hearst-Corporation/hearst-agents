@@ -1,18 +1,18 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
-import { useRuntimeStore } from "@/stores/runtime";
-import { ChatToolStream } from "./ChatToolStream";
-import { ChatActionReceipts } from "./ChatActionReceipts";
-import { ChatRunReceipt } from "./ChatRunReceipt";
-import { ChatConnectInline } from "./ChatConnectInline";
-import { ChatMissionRunInline } from "./ChatMissionRunInline";
-import { ThinkingDisclosure } from "./ThinkingDisclosure";
-import { ChatAssetCard } from "./ChatAssetCard";
-import { Block, type BlockActionId } from "./chat/Block";
-import { Action } from "./ui";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { formatHHMM } from "@/lib/utils/date-format";
 import type { MessageAssetRef } from "@/stores/navigation";
+import { useRuntimeStore } from "@/stores/runtime";
+import { ChatActionReceipts } from "./ChatActionReceipts";
+import { ChatAssetCard } from "./ChatAssetCard";
+import { ChatConnectInline } from "./ChatConnectInline";
+import { ChatMissionRunInline } from "./ChatMissionRunInline";
+import { ChatRunReceipt } from "./ChatRunReceipt";
+import { ChatToolStream } from "./ChatToolStream";
+import { Block, type BlockActionId } from "./chat/Block";
+import { ThinkingDisclosure } from "./ThinkingDisclosure";
+import { Action } from "./ui";
 
 export interface Message {
   id: string;
@@ -51,12 +51,14 @@ function tsFromId(id: string): number | null {
 
 function MetaLine({ author, ts }: { author: string; ts: string }) {
   return (
-    <div
-      className="t-11 font-light text-text-faint"
-      style={{ marginBottom: "var(--space-2)" }}
-    >
+    <div className="t-11 font-light text-text-faint" style={{ marginBottom: "var(--space-2)" }}>
       <span>{author}</span>
-      <span className="text-text-ghost" style={{ marginLeft: "var(--space-2)", marginRight: "var(--space-2)" }}>·</span>
+      <span
+        className="text-text-ghost"
+        style={{ marginLeft: "var(--space-2)", marginRight: "var(--space-2)" }}
+      >
+        ·
+      </span>
       <span className="font-mono tabular-nums">{ts}</span>
     </div>
   );
@@ -64,8 +66,13 @@ function MetaLine({ author, ts }: { author: string; ts: string }) {
 
 function StreamShimmer() {
   return (
-    <p className="t-13 font-light text-text-faint tracking-tight" style={{ marginTop: "var(--space-2)" }}>
-      <span className="chat-typing-dots" aria-hidden>···</span>
+    <p
+      className="t-13 font-light text-text-faint tracking-tight"
+      style={{ marginTop: "var(--space-2)" }}
+    >
+      <span className="chat-typing-dots" aria-hidden>
+        ···
+      </span>
     </p>
   );
 }
@@ -89,33 +96,41 @@ function ConfirmActionChips({
   onCancel: () => void;
 }) {
   const checkIcon = (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <polyline points="20 6 9 17 4 12" />
     </svg>
   );
   const xIcon = (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <path d="M18 6L6 18M6 6l12 12" />
     </svg>
   );
   return (
     <div className="flex" style={{ gap: "var(--space-2)", marginTop: "var(--space-3)" }}>
-      <Action
-        variant="secondary"
-        tone="brand"
-        size="sm"
-        onClick={onConfirm}
-        iconRight={checkIcon}
-      >
+      <Action variant="secondary" tone="brand" size="sm" onClick={onConfirm} iconRight={checkIcon}>
         Confirmer
       </Action>
-      <Action
-        variant="ghost"
-        tone="danger"
-        size="sm"
-        onClick={onCancel}
-        iconRight={xIcon}
-      >
+      <Action variant="ghost" tone="danger" size="sm" onClick={onCancel} iconRight={xIcon}>
         Annuler
       </Action>
     </div>
@@ -140,7 +155,7 @@ export function ChatMessages({
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, []);
 
   const handleBlockAction = useCallback(
     (messageId: string, content: string, action: BlockActionId) => {
@@ -149,7 +164,11 @@ export function ChatMessages({
         // Contrat de payload : { id, title, content } — cf
         // app/(user)/components/chat/WorkingDocument.tsx::ExpandBlockDetail.
         if (typeof window !== "undefined") {
-          const title = content.split("\n")[0].replace(/^#+\s*/, "").slice(0, 80) || "Document";
+          const title =
+            content
+              .split("\n")[0]
+              .replace(/^#+\s*/, "")
+              .slice(0, 80) || "Document";
           window.dispatchEvent(
             new CustomEvent("chat:expand-block", {
               detail: { id: messageId, title, content },
@@ -177,7 +196,11 @@ export function ChatMessages({
         return;
       }
       if (action === "mission") {
-        const name = content.split("\n")[0].replace(/^#+\s*/, "").slice(0, 120) || "Mission depuis chat";
+        const name =
+          content
+            .split("\n")[0]
+            .replace(/^#+\s*/, "")
+            .slice(0, 120) || "Mission depuis chat";
         fetch("/api/v2/missions", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -248,35 +271,26 @@ export function ChatMessages({
               ) : message.assetRef ? (
                 <ChatAssetCard assetRef={message.assetRef} />
               ) : (
-                <>
-                  {(() => {
-                    const { thinking, main } = parseThinkingBlock(liveContent);
-                    return (
-                      <>
-                        {thinking && <ThinkingDisclosure thinking={thinking} />}
-                        <Block
-                          content={main}
-                          editable
-                          onSave={(updated) =>
-                            setEdits((prev) => ({ ...prev, [message.id]: updated }))
-                          }
-                          onAction={(action) =>
-                            handleBlockAction(message.id, main, action)
-                          }
-                        />
-                        {showCursor && flowLabel && (
-                          <FlowLabelBadge label={flowLabel} />
-                        )}
-                        {showCursor && (
-                          <span
-                            className="chat-caret inline-block align-text-bottom"
-                            aria-hidden
-                          />
-                        )}
-                      </>
-                    );
-                  })()}
-                </>
+                (() => {
+                  const { thinking, main } = parseThinkingBlock(liveContent);
+                  return (
+                    <>
+                      {thinking && <ThinkingDisclosure thinking={thinking} />}
+                      <Block
+                        content={main}
+                        editable
+                        onSave={(updated) =>
+                          setEdits((prev) => ({ ...prev, [message.id]: updated }))
+                        }
+                        onAction={(action) => handleBlockAction(message.id, main, action)}
+                      />
+                      {showCursor && flowLabel && <FlowLabelBadge label={flowLabel} />}
+                      {showCursor && (
+                        <span className="chat-caret inline-block align-text-bottom" aria-hidden />
+                      )}
+                    </>
+                  );
+                })()
               )}
 
               {isLastAssistant && !showShimmer && (
@@ -287,12 +301,15 @@ export function ChatMessages({
                   <ChatRunReceipt />
                 </>
               )}
-              {isLastAssistant && !showShimmer && hasPendingConfirmation(liveContent) && onQuickReply && (
-                <ConfirmActionChips
-                  onConfirm={() => onQuickReply("confirmer")}
-                  onCancel={() => onQuickReply("annuler")}
-                />
-              )}
+              {isLastAssistant &&
+                !showShimmer &&
+                hasPendingConfirmation(liveContent) &&
+                onQuickReply && (
+                  <ConfirmActionChips
+                    onConfirm={() => onQuickReply("confirmer")}
+                    onCancel={() => onQuickReply("annuler")}
+                  />
+                )}
             </div>
           );
         })}

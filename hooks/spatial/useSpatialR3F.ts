@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import * as THREE from "three";
 
 /**
@@ -16,13 +16,15 @@ export function useLerpedScale(initialScale = 1, lerpFactor = 0.08) {
     if (!meshRef.current) return;
     meshRef.current.scale.lerp(
       new THREE.Vector3(targetScale.current, targetScale.current, targetScale.current),
-      lerpFactor
+      lerpFactor,
     );
   });
 
   return {
     ref: meshRef,
-    setTargetScale: (s: number) => { targetScale.current = s; },
+    setTargetScale: (s: number) => {
+      targetScale.current = s;
+    },
   };
 }
 
@@ -34,7 +36,7 @@ export function useOrbitalPosition(
   radiusZ: number,
   speed: number,
   phase = 0,
-  verticalAmplitude = 0
+  verticalAmplitude = 0,
 ) {
   const meshRef = useRef<THREE.Mesh>(null);
 

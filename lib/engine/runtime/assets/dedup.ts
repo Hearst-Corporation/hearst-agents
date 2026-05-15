@@ -20,14 +20,11 @@ export function computeGenerationHash(params: Record<string, unknown>): string {
  * Retourne le storage_key si trouvé, null sinon.
  * Fail-soft : si la colonne generation_hash n'existe pas en DB, retourne null.
  */
-export async function findDuplicateAsset(
-  tenantId: string,
-  hash: string,
-): Promise<string | null> {
+export async function findDuplicateAsset(tenantId: string, hash: string): Promise<string | null> {
   const sb = getServerSupabase();
   if (!sb) return null;
-  const { data, error } = await rawDb(sb)!
-    .from("assets")
+  const { data, error } = await rawDb(sb)
+    ?.from("assets")
     .select("storage_key")
     .eq("tenant_id", tenantId)
     .eq("generation_hash", hash)

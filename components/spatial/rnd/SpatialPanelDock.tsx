@@ -1,7 +1,7 @@
 "use client";
 
-import { useSpatialPanelsStore } from "@/stores/spatial-panels";
 import type { SpatialPanelType } from "@/lib/spatial/panel-types";
+import { useSpatialPanelsStore } from "@/stores/spatial-panels";
 
 interface DockItem {
   type: SpatialPanelType;

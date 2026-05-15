@@ -132,4 +132,3 @@ const defaultVitalsStore = new WebVitalsStore();
 export function recordVital(record: Omit<VitalRecord, "recordedAt">): void {
   defaultVitalsStore.recordVital(record);
 }
-

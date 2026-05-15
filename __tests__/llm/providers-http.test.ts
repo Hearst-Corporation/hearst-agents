@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ComposerProvider } from "../../lib/llm/composer";
 import { GeminiProvider } from "../../lib/llm/gemini";
 

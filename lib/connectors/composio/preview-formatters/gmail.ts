@@ -3,7 +3,7 @@
  * Gmail destructives (SEND_EMAIL, SEND_EMAIL_REPLY).
  */
 
-import { footer, header, line, preview, asArray } from "./shared";
+import { asArray, footer, header, line, preview } from "./shared";
 
 export function formatGmailSendEmail(args: Record<string, unknown>): string {
   const to = asArray(args.to ?? args.recipient_email).join(", ");

@@ -9,8 +9,8 @@ import type { Page } from "@playwright/test";
 
 // ── IDs stables ─────────────────────────────────────────────────────────────
 
-export const SPEC_ID   = "00000000-0000-4000-8000-100000000001";
-export const ASSET_ID  = "00000000-0000-4000-8000-200000000001";
+export const SPEC_ID = "00000000-0000-4000-8000-100000000001";
+export const ASSET_ID = "00000000-0000-4000-8000-200000000001";
 export const THREAD_ID = "00000000-0000-4000-8000-300000000001";
 
 // ── Fixtures ─────────────────────────────────────────────────────────────────
@@ -61,10 +61,7 @@ export function mockRenderPayload() {
         label: "Tendance MRR",
         layout: { col: 2, row: 1 },
         props: { field: "mrr", height: 64, tone: "accent-teal" },
-        data: [
-          { mrr: 18000 }, { mrr: 19200 }, { mrr: 21000 },
-          { mrr: 22800 }, { mrr: 24500 },
-        ],
+        data: [{ mrr: 18000 }, { mrr: 19200 }, { mrr: 21000 }, { mrr: 22800 }, { mrr: 24500 }],
       },
       {
         id: "table_deals",
@@ -110,11 +107,46 @@ export function mockReportSpec() {
     sources: [],
     transforms: [],
     blocks: [
-      { id: "kpi_mrr",      type: "kpi",       label: "MRR",            layout: { col: 1, row: 0 }, dataRef: "stripe_mrr",   props: { format: "currency", currency: "EUR" } },
-      { id: "kpi_pipeline", type: "kpi",       label: "Pipeline ouvert", layout: { col: 1, row: 0 }, dataRef: "crm_pipeline", props: { format: "currency", currency: "EUR" } },
-      { id: "kpi_runway",   type: "kpi",       label: "Runway",          layout: { col: 1, row: 0 }, dataRef: "cashflow",     props: { suffix: "mois" } },
-      { id: "kpi_commits",  type: "kpi",       label: "Commits / sem.",  layout: { col: 1, row: 0 }, dataRef: "github_commits", props: {} },
-      { id: "table_deals",  type: "table",     label: "Deals en cours",  layout: { col: 4, row: 2 }, dataRef: "crm_deals",   props: { columns: ["nom", "valeur", "stage"], limit: 5 } },
+      {
+        id: "kpi_mrr",
+        type: "kpi",
+        label: "MRR",
+        layout: { col: 1, row: 0 },
+        dataRef: "stripe_mrr",
+        props: { format: "currency", currency: "EUR" },
+      },
+      {
+        id: "kpi_pipeline",
+        type: "kpi",
+        label: "Pipeline ouvert",
+        layout: { col: 1, row: 0 },
+        dataRef: "crm_pipeline",
+        props: { format: "currency", currency: "EUR" },
+      },
+      {
+        id: "kpi_runway",
+        type: "kpi",
+        label: "Runway",
+        layout: { col: 1, row: 0 },
+        dataRef: "cashflow",
+        props: { suffix: "mois" },
+      },
+      {
+        id: "kpi_commits",
+        type: "kpi",
+        label: "Commits / sem.",
+        layout: { col: 1, row: 0 },
+        dataRef: "github_commits",
+        props: {},
+      },
+      {
+        id: "table_deals",
+        type: "table",
+        label: "Deals en cours",
+        layout: { col: 4, row: 2 },
+        dataRef: "crm_deals",
+        props: { columns: ["nom", "valeur", "stage"], limit: 5 },
+      },
     ],
     cacheTTL: { transform: 300, render: 900 },
   };
@@ -255,7 +287,10 @@ function defaultRunResponse(payload: ReturnType<typeof mockRenderPayload>) {
     assetId: ASSET_ID,
     title: "Founder Cockpit",
     payload,
-    narration: "MRR en hausse de 8 % à 24 500 €. Pipeline solide à 180 k€. Runway confortable à 14,5 mois." as string | undefined,
+    narration:
+      "MRR en hausse de 8 % à 24 500 €. Pipeline solide à 180 k€. Runway confortable à 14,5 mois." as
+        | string
+        | undefined,
     signals: [{ type: "mrr_spike", severity: "info", value: 0.08, unit: "ratio" }],
     severity: "ok",
     cost: { inputTokens: 4800, outputTokens: 320, usd: 0.019, exceeded: false },

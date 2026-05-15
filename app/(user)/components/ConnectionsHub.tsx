@@ -57,10 +57,7 @@ export function ConnectionsHub() {
           onSelect={hub.openDrawer}
         />
       ) : (
-        <div
-          className="flex flex-col"
-          style={{ padding: "var(--space-4)", gap: "var(--space-4)" }}
-        >
+        <div className="flex flex-col" style={{ padding: "var(--space-4)", gap: "var(--space-4)" }}>
           {/* CONNECTÉS */}
           <div>
             <SectionLabel label="Connectés" count={hub.stats.connectedCount} />
@@ -127,14 +124,13 @@ export function ConnectionsHub() {
           actions={hub.drawerActions}
           loadingActions={hub.drawerLoadingActions}
           busy={
-            hub.busy === hub.liveDrawer.app.key ||
-            hub.busy === hub.liveDrawer.connectedAccount?.id
+            hub.busy === hub.liveDrawer.app.key || hub.busy === hub.liveDrawer.connectedAccount?.id
           }
           onClose={hub.closeDrawer}
-          onConnect={() => hub.handleConnect(hub.liveDrawer!.app)}
+          onConnect={() => hub.handleConnect(hub.liveDrawer?.app)}
           onDisconnect={
             hub.liveDrawer.connectedAccount
-              ? () => hub.handleDisconnect(hub.liveDrawer!.connectedAccount!)
+              ? () => hub.handleDisconnect(hub.liveDrawer?.connectedAccount!)
               : undefined
           }
         />
@@ -148,9 +144,7 @@ export function ConnectionsHub() {
 function DisabledState({ message }: { message: string | null }) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center gap-4 px-8 py-24">
-      <p className="t-15 font-medium text-text-muted">
-        Composio indisponible
-      </p>
+      <p className="t-15 font-medium text-text-muted">Composio indisponible</p>
       <p className="t-13 text-text-soft max-w-md text-center leading-relaxed">
         {message ?? "Composio n'est pas configuré."}
       </p>

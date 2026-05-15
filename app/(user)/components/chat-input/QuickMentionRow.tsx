@@ -15,10 +15,7 @@ interface QuickMentionRowProps {
  * Click logo → insertion `@<service.id>` dans le textarea via `onMention`.
  * Bouton "+" → redirige vers `/apps` pour connecter une nouvelle app.
  */
-export function QuickMentionRow({
-  connectedServices,
-  onMention,
-}: QuickMentionRowProps) {
+export function QuickMentionRow({ connectedServices, onMention }: QuickMentionRowProps) {
   const router = useRouter();
   if (connectedServices.length === 0) return null;
 
@@ -32,38 +29,28 @@ export function QuickMentionRow({
         className="flex items-center overflow-x-auto scrollbar-hide"
         style={{ gap: "var(--space-2)" }}
       >
-        {connectedServices.slice(0, QUICK_MENTION_VISIBLE_COUNT).map(
-          (service) => (
-            <button
-              key={service.id}
-              type="button"
-              onClick={() => onMention(service)}
-              title={`Mentionner @${service.id}`}
-              aria-label={`Mentionner ${service.name}`}
-              className="inline-flex items-center justify-center shrink-0 transition-opacity hover:opacity-100"
-              style={{
-                width: "var(--space-5)",
-                height: "var(--space-5)",
-                opacity: 0.7,
-              }}
-            >
-              {service.icon ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={service.icon}
-                  alt=""
-                  width={16}
-                  height={16}
-                  aria-hidden
-                />
-              ) : (
-                <span className="t-9 font-mono text-text-faint">
-                  {service.id.slice(0, 2)}
-                </span>
-              )}
-            </button>
-          ),
-        )}
+        {connectedServices.slice(0, QUICK_MENTION_VISIBLE_COUNT).map((service) => (
+          <button
+            key={service.id}
+            type="button"
+            onClick={() => onMention(service)}
+            title={`Mentionner @${service.id}`}
+            aria-label={`Mentionner ${service.name}`}
+            className="inline-flex items-center justify-center shrink-0 transition-opacity hover:opacity-100"
+            style={{
+              width: "var(--space-5)",
+              height: "var(--space-5)",
+              opacity: 0.7,
+            }}
+          >
+            {service.icon ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={service.icon} alt="" width={16} height={16} aria-hidden />
+            ) : (
+              <span className="t-9 font-mono text-text-faint">{service.id.slice(0, 2)}</span>
+            )}
+          </button>
+        ))}
         {connectedServices.length > QUICK_MENTION_VISIBLE_COUNT && (
           <span
             className="t-9 font-mono shrink-0"

@@ -4,7 +4,7 @@
  * Liste les simulation_runs précédentes du user (history sidebar SimulationStage).
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
@@ -58,14 +58,16 @@ export async function GET(req: NextRequest) {
       .limit(parsed.data.limit);
     if (error) throw new Error(error.message);
 
-    const runs: SimulationHistoryItem[] = ((data ?? []) as Array<{
-      id: string;
-      scenario_input: string;
-      status: string;
-      created_at: string;
-      completed_at: string | null;
-      asset_id: string | null;
-    }>).map((row) => ({
+    const runs: SimulationHistoryItem[] = (
+      (data ?? []) as Array<{
+        id: string;
+        scenario_input: string;
+        status: string;
+        created_at: string;
+        completed_at: string | null;
+        asset_id: string | null;
+      }>
+    ).map((row) => ({
       id: row.id,
       scenarioInput: row.scenario_input,
       status: row.status,

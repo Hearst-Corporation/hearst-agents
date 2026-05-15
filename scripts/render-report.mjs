@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // Render unifié des rapports slash commands.
 // Source unique de vérité visuelle. Aucun template HTML inline dans les .md.
 //
@@ -28,9 +29,9 @@
 //   "footer": "string?"
 // }
 
+import { execSync, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { execSync, spawnSync } from "node:child_process";
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => {
@@ -49,8 +50,7 @@ if (!dataPath) {
   process.exit(1);
 }
 
-const raw =
-  dataPath === "-" ? fs.readFileSync(0, "utf8") : fs.readFileSync(dataPath, "utf8");
+const raw = dataPath === "-" ? fs.readFileSync(0, "utf8") : fs.readFileSync(dataPath, "utf8");
 
 let data;
 try {
@@ -205,10 +205,7 @@ function render(type, data) {
   const ctx = gitContext();
   const date = new Date().toISOString().slice(0, 16).replace("T", " ");
   const k = data.kpis || {};
-  const totalFindings = (data.sections || []).reduce(
-    (n, s) => n + (s.findings?.length || 0),
-    0,
-  );
+  const totalFindings = (data.sections || []).reduce((n, s) => n + (s.findings?.length || 0), 0);
 
   return `<!doctype html>
 <html lang="fr">

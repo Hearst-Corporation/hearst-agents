@@ -9,7 +9,7 @@
  * cover both preview and execute paths without spinning up streamText.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { addMissionMock, persistMissionMock } = vi.hoisted(() => ({
   addMissionMock: vi.fn(),

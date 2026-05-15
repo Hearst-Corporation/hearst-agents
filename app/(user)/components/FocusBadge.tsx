@@ -36,7 +36,8 @@ export function FocusBadge() {
         border: "1px solid var(--line)",
         gap: "var(--space-2)",
         backdropFilter: "blur(8px)",
-        transition: "background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard)",
+        transition:
+          "background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard)",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.background = "var(--surface-2)";
@@ -55,7 +56,8 @@ export function FocusBadge() {
           borderRadius: "var(--radius-full)",
           background: "var(--accent-teal)",
           boxShadow: "var(--shadow-pulse-dot)",
-          animation: "pipeline-port-pulse var(--duration-slow) var(--ease-out-soft) infinite alternate",
+          animation:
+            "pipeline-port-pulse var(--duration-slow) var(--ease-out-soft) infinite alternate",
         }}
       />
       <span className="t-11 font-light">Mode focus actif · Échap</span>

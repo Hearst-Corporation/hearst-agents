@@ -17,18 +17,15 @@ import { EmailSection } from "./EmailSection";
 import { SaveHeader } from "./SaveHeader";
 import { SignalTypesSection } from "./SignalTypesSection";
 import { SlackSection } from "./SlackSection";
-import { WebhooksSection } from "./WebhooksSection";
 import { useAlertingPrefs } from "./useAlertingPrefs";
+import { WebhooksSection } from "./WebhooksSection";
 
 export function AlertingSettings() {
   const { state, dispatch, handleSave, testChannel } = useAlertingPrefs();
 
   if (state.loading) {
     return (
-      <div
-        className="flex items-center justify-center p-12"
-        style={{ color: "var(--text-faint)" }}
-      >
+      <div className="flex items-center justify-center p-12" style={{ color: "var(--text-faint)" }}>
         <span className="t-13">Chargement des préférences…</span>
       </div>
     );
@@ -37,10 +34,7 @@ export function AlertingSettings() {
   const { prefs } = state;
 
   return (
-    <div
-      className="flex flex-col gap-8 w-full"
-      style={{ maxWidth: "var(--width-center-max)" }}
-    >
+    <div className="flex flex-col gap-8 w-full" style={{ maxWidth: "var(--width-center-max)" }}>
       <SaveHeader
         saveStatus={state.saveStatus}
         saveError={state.saveError}

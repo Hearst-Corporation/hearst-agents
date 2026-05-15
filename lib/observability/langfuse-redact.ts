@@ -27,10 +27,7 @@ export function redactString(s: string): string {
       .replace(/[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, "[EMAIL]")
       // Téléphone — avec séparateurs obligatoires pour éviter les faux positifs
       // Format : +1 (555) 123-4567 ou +33 6 12 34 56 78 etc.
-      .replace(
-        /\+\d{1,3}[\s.-]\(?\d{1,4}\)?[\s.-]\d{1,4}[\s.-]\d{4,9}/g,
-        "[PHONE]",
-      )
+      .replace(/\+\d{1,3}[\s.-]\(?\d{1,4}\)?[\s.-]\d{1,4}[\s.-]\d{4,9}/g, "[PHONE]")
   );
 }
 

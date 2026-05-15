@@ -43,8 +43,7 @@ export function buildFinancialPnL(scope: ReportSpec["scope"]): ReportSpec {
     version: 1,
     meta: {
       title: "Financial P&L",
-      summary:
-        "P&L mensuel, cash position, runway et top expenses sur 12 mois.",
+      summary: "P&L mensuel, cash position, runway et top expenses sur 12 mois.",
       domain: "finance",
       persona: "founder",
       cadence: "monthly",
@@ -444,7 +443,4 @@ export function buildFinancialPnL(scope: ReportSpec["scope"]): ReportSpec {
   };
 }
 
-export const FINANCIAL_PNL_REQUIRED_APPS = [
-  "stripe",
-  "quickbooks",
-] as const;
+export const FINANCIAL_PNL_REQUIRED_APPS = ["stripe", "quickbooks"] as const;

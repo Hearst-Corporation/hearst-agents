@@ -4,10 +4,11 @@
  * healthy → suspect → quarantined selon seuils. Pas de recovery auto :
  * un agent quarantiné requiert action humaine via UI.
  */
+
+import { nowIso, readJson, writeJson } from "./fs-utils";
 import { HOM } from "./paths";
-import { readJson, writeJson, nowIso } from "./fs-utils";
-import { ALL_AGENTS } from "./types";
 import type { AgentId, AgentRunResult, QuarantineEntry } from "./types";
+import { ALL_AGENTS } from "./types";
 
 interface QuarantineState {
   agents: Record<AgentId, QuarantineEntry>;

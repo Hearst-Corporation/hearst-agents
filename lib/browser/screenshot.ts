@@ -16,11 +16,8 @@
 
 import { Buffer } from "node:buffer";
 import { randomUUID } from "node:crypto";
+import { createAsset, storeAsset } from "@/lib/engine/runtime/assets/create-asset";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
-import {
-  createAsset,
-  storeAsset,
-} from "@/lib/engine/runtime/assets/create-asset";
 import type { Asset } from "@/lib/engine/runtime/assets/types";
 
 const BB_API_BASE = "https://www.browserbase.com/v1";
@@ -48,22 +45,15 @@ function getApiKey(): string {
  * Récupère un screenshot PNG de la session via l'API Browserbase.
  * Lève sur erreur réseau / status >= 400.
  */
-async function fetchSessionScreenshot(
-  sessionId: string,
-): Promise<Buffer> {
-  const res = await fetch(
-    `${BB_API_BASE}/sessions/${encodeURIComponent(sessionId)}/screenshot`,
-    {
-      method: "GET",
-      headers: { "X-BB-API-Key": getApiKey() },
-    },
-  );
+async function fetchSessionScreenshot(sessionId: string): Promise<Buffer> {
+  const res = await fetch(`${BB_API_BASE}/sessions/${encodeURIComponent(sessionId)}/screenshot`, {
+    method: "GET",
+    headers: { "X-BB-API-Key": getApiKey() },
+  });
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(
-      `[Browserbase] screenshot status=${res.status} message=${body.slice(0, 200)}`,
-    );
+    throw new Error(`[Browserbase] screenshot status=${res.status} message=${body.slice(0, 200)}`);
   }
 
   const buf = Buffer.from(await res.arrayBuffer());

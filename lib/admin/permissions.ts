@@ -55,7 +55,7 @@ const PERMISSION_MATRIX: Record<Role, Record<string, string[]>> = {
  */
 export async function checkPermission(
   db: SupabaseClient,
-  check: PermissionCheck
+  check: PermissionCheck,
 ): Promise<boolean> {
   const role = await getUserRole(db, check.userId, check.tenantId);
   return hasPermission(role, check.resource, check.action);
@@ -64,11 +64,7 @@ export async function checkPermission(
 /**
  * Check permission synchronously (when role is already known)
  */
-function hasPermission(
-  role: Role,
-  resource: string,
-  action: PermissionCheck["action"]
-): boolean {
+function hasPermission(role: Role, resource: string, action: PermissionCheck["action"]): boolean {
   // Admin has all permissions
   if (role === "admin") return true;
 
@@ -96,7 +92,7 @@ function hasPermission(
 export async function getUserRole(
   db: SupabaseClient,
   userId: string,
-  tenantId?: string
+  tenantId?: string,
 ): Promise<Role> {
   // First check tenant-specific role assignment
   if (tenantId) {
@@ -113,10 +109,7 @@ export async function getUserRole(
   }
 
   // Fall back to global role from user metadata
-  const { data: user, error } = await db
-    .auth
-    .admin
-    .getUserById(userId);
+  const { data: user, error } = await db.auth.admin.getUserById(userId);
 
   if (error || !user) {
     console.warn("[Admin/Permissions] Could not fetch user, defaulting to guest:", error);
@@ -126,4 +119,3 @@ export async function getUserRole(
   const role = user.user?.user_metadata?.role as Role;
   return role || "guest";
 }
-

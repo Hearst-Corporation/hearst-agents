@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
+import crypto from "node:crypto";
+import { type NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { signOAuthState } from "@/lib/platform/auth/signed-state";
 import { aj } from "@/lib/security/arcjet";

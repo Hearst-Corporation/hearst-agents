@@ -28,9 +28,7 @@ export default function RefreshManifestButton() {
       >
         {busy ? "Régénération…" : "↻ Régénérer manifest"}
       </button>
-      {lastRefreshed && (
-        <span className="t-10 text-text-ghost">mis à jour à {lastRefreshed}</span>
-      )}
+      {lastRefreshed && <span className="t-10 text-text-ghost">mis à jour à {lastRefreshed}</span>}
     </div>
   );
 }

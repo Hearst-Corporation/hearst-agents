@@ -7,11 +7,11 @@
  * appelée au boot par tous les visiteurs via ThemeHydrator).
  */
 
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { NextRequest, NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
-import { isKnownTheme, DEFAULT_THEME } from "@/lib/themes";
+import { DEFAULT_THEME, isKnownTheme } from "@/lib/themes";
 
 const bodySchema = z.object({
   slug: z.string().min(1).max(80),

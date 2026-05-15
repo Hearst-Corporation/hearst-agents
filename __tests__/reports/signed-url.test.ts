@@ -2,17 +2,17 @@
  * Tests signed-url : signing, expiration, hash uniqueness, rate-limit.
  */
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
-  signToken,
-  verifyToken,
-  hashToken,
-  checkShareRateLimit,
   _resetShareRateLimit,
   buildShareUrl,
+  checkShareRateLimit,
+  hashToken,
+  SHARE_RATE_LIMIT_PER_HOUR,
+  signToken,
   TTL_MAX_HOURS,
   TTL_MIN_HOURS,
-  SHARE_RATE_LIMIT_PER_HOUR,
+  verifyToken,
 } from "@/lib/reports/sharing/signed-url";
 
 const VALID_SECRET = "x".repeat(64); // 64 chars > 32 min
@@ -138,9 +138,7 @@ describe("signed-url — rate limit", () => {
       checkShareRateLimit(userId, t0);
     }
     expect(checkShareRateLimit(userId, t0).ok).toBe(false);
-    expect(
-      checkShareRateLimit(userId, t0 + 3_600_001).ok,
-    ).toBe(true);
+    expect(checkShareRateLimit(userId, t0 + 3_600_001).ok).toBe(true);
   });
 });
 

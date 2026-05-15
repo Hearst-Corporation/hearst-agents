@@ -24,9 +24,7 @@ function buildSpec(): ReportSpec {
       confidentiality: "internal",
     },
     scope: { tenantId: "t", workspaceId: "w" },
-    sources: [
-      { id: "stripe", kind: "composio", spec: { action: "STRIPE_LIST", params: {} } },
-    ],
+    sources: [{ id: "stripe", kind: "composio", spec: { action: "STRIPE_LIST", params: {} } }],
     transforms: [
       {
         id: "totals",
@@ -164,8 +162,7 @@ describe("runReport — pipeline end-to-end avec mocks", () => {
       },
     ];
 
-    const sourceLoader: SourceLoader = async () =>
-      new Map([["stripe", [{ runway_months: 4 }]]]);
+    const sourceLoader: SourceLoader = async () => new Map([["stripe", [{ runway_months: 4 }]]]);
 
     const dispatcher = vi.fn(async () => ({
       dispatchedSignals: [],
@@ -250,8 +247,7 @@ describe("runReport — pipeline end-to-end avec mocks", () => {
       },
     ];
 
-    const sourceLoader: SourceLoader = async () =>
-      new Map([["stripe", [{ runway_months: 3 }]]]);
+    const sourceLoader: SourceLoader = async () => new Map([["stripe", [{ runway_months: 3 }]]]);
 
     const dispatcher = vi.fn(async () => {
       throw new Error("boom");
@@ -300,9 +296,7 @@ describe("runReport — budget guard maxBudgetUsd", () => {
       expect(result.narration).toBeNull();
       expect(result.payload.__reportPayload).toBe(true);
       // Le warn doit avoir été appelé une fois pour signaler le skip
-      expect(warnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("narration skippée"),
-      );
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining("narration skippée"));
     } finally {
       warnSpy.mockRestore();
     }
@@ -318,7 +312,7 @@ describe("runReport — budget guard maxBudgetUsd", () => {
     const result = await runReport(spec, {
       sourceLoader,
       noCache: true,
-      maxBudgetUsd: 0.20,
+      maxBudgetUsd: 0.2,
     });
     // Pas de narration spec → narration null, cost usd=0
     expect(result.narration).toBeNull();
@@ -331,18 +325,18 @@ describe("runReport — budget guard maxBudgetUsd", () => {
     // et que les 9 specs ont une narration dont le coût estimé est en dessous
     // du budget $0.20 (sinon leur narration serait systématiquement skippée).
     const PRICE_PER_M_OUTPUT = 15.0;
-    const MAX_BUDGET = 0.20;
+    const MAX_BUDGET = 0.2;
 
     const narrationMaxTokensList = [
-      700,   // founder-cockpit
-      600,   // customer-360
-      600,   // deal-to-cash
-      700,   // financial-pnl
-      700,   // product-analytics
-      600,   // support-health
-      700,   // engineering-velocity
-      700,   // marketing-aarrr
-      700,   // hr-people
+      700, // founder-cockpit
+      600, // customer-360
+      600, // deal-to-cash
+      700, // financial-pnl
+      700, // product-analytics
+      600, // support-health
+      700, // engineering-velocity
+      700, // marketing-aarrr
+      700, // hr-people
     ];
 
     for (const maxTokens of narrationMaxTokensList) {

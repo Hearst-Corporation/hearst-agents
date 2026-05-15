@@ -109,7 +109,10 @@ export function RailFooter({
             </div>
           </div>
           {/* Actions footer */}
-          <div className="flex items-center justify-between w-full" style={{ gap: "var(--space-2)" }}>
+          <div
+            className="flex items-center justify-between w-full"
+            style={{ gap: "var(--space-2)" }}
+          >
             <div className="flex items-center" style={{ gap: "var(--space-1)" }}>
               <Link
                 href="/admin"

@@ -9,10 +9,10 @@
  * - Fire-and-forget : jamais de throw vers le caller
  */
 
-import { createHmac } from "crypto";
-import { getActiveWebhooksForEvent, updateWebhookStatus } from "./store";
-import type { WebhookEvent, WebhookPayload, CustomWebhook } from "./types";
+import { createHmac } from "node:crypto";
 import { assertSafeUrl } from "@/lib/security/ssrf-guard";
+import { getActiveWebhooksForEvent, updateWebhookStatus } from "./store";
+import type { CustomWebhook, WebhookEvent, WebhookPayload } from "./types";
 
 /** Timeout HTTP strict (identique à lib/notifications/channels.ts). */
 const HTTP_TIMEOUT_MS = 5_000;
@@ -174,9 +174,7 @@ export function dispatchWebhookEvent(
         data,
       };
 
-      await Promise.allSettled(
-        webhooks.map((wh) => dispatchOne(wh, payload, fetcher ?? fetch)),
-      );
+      await Promise.allSettled(webhooks.map((wh) => dispatchOne(wh, payload, fetcher ?? fetch)));
     } catch (err) {
       console.error(
         `[WebhookDispatcher] Erreur non attendue pour event="${event}" tenant="${tenantId}":`,

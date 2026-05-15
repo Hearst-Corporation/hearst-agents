@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * SpatialRoot — composant racine client qui :
@@ -10,26 +10,26 @@
  * Vit sous SpatialLayout (providers) et au-dessus de la scène + overlays.
  */
 
-import dynamic from 'next/dynamic';
-import { useSplineApp } from '@/hooks/spatial/useSplineApp';
-import { useSplineVoiceBridge } from '@/hooks/spatial/useSplineVoiceBridge';
-import { useSplineStateBridge } from '@/hooks/spatial/useSplineStateBridge';
-import { useSplineToolBridge } from '@/hooks/spatial/useSplineToolBridge';
-import { useSplineIdleAmbient } from '@/hooks/spatial/useSplineIdleAmbient';
-import { SpatialScene } from './SpatialScene';
-import { SpatialLogoCore } from './SpatialLogoCore';
-import { SpatialOverlayManager } from '../overlays/SpatialOverlayManager';
-import { NotificationBellSpatial } from '../overlays/NotificationBellSpatial';
-import { VoicePill } from '../overlays/VoicePill';
-import { StageBreadcrumb } from '../overlays/StageBreadcrumb';
-import { KPIBento } from '../panels/KPIBento';
-import { SPATIAL_Z_LAYERS } from '@/lib/spatial/constants';
-import type { CockpitTodayPayload } from '@/lib/cockpit/today';
+import dynamic from "next/dynamic";
+import { useSplineApp } from "@/hooks/spatial/useSplineApp";
+import { useSplineIdleAmbient } from "@/hooks/spatial/useSplineIdleAmbient";
+import { useSplineStateBridge } from "@/hooks/spatial/useSplineStateBridge";
+import { useSplineToolBridge } from "@/hooks/spatial/useSplineToolBridge";
+import { useSplineVoiceBridge } from "@/hooks/spatial/useSplineVoiceBridge";
+import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { SPATIAL_Z_LAYERS } from "@/lib/spatial/constants";
+import { NotificationBellSpatial } from "../overlays/NotificationBellSpatial";
+import { SpatialOverlayManager } from "../overlays/SpatialOverlayManager";
+import { StageBreadcrumb } from "../overlays/StageBreadcrumb";
+import { VoicePill } from "../overlays/VoicePill";
+import { KPIBento } from "../panels/KPIBento";
+import { SpatialLogoCore } from "./SpatialLogoCore";
+import { SpatialScene } from "./SpatialScene";
 
 // VoicePulse vit dans app/(user) — on l'importe en dynamic ssr:false pour
 // éviter de rendre un composant dépendant de WebRTC pendant SSR.
 const VoicePulse = dynamic(
-  () => import('@/app/(user)/components/voice/VoicePulse').then((m) => m.VoicePulse),
+  () => import("@/app/(user)/components/voice/VoicePulse").then((m) => m.VoicePulse),
   { ssr: false },
 );
 
@@ -65,9 +65,9 @@ export function SpatialRoot({ initialCockpitData }: SpatialRootProps) {
           <div
             className="grid"
             style={{
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gridTemplateRows: '1fr',
-              perspective: '1200px',
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateRows: "1fr",
+              perspective: "1200px",
             }}
           >
             <KPIBento data={initialCockpitData ?? null} />

@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
-import { executeIntegration } from "@/lib/integrations/executor";
+import { describe, expect, it } from "vitest";
 import { RuntimeError } from "@/lib/engine/runtime/lifecycle";
 import { RunTracer } from "@/lib/engine/runtime/tracer";
+import { executeIntegration } from "@/lib/integrations/executor";
 import { createMockSupabase } from "../runtime/mock-supabase";
 
 function makeSb() {

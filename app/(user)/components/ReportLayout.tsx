@@ -5,5 +5,5 @@
  * Conserve l'API publique historique : `ReportLayout`, `isReportPayload`.
  */
 
-export { ReportLayout, isReportPayload } from "./report-layout";
 export type { ReportLayoutProps } from "./report-layout";
+export { isReportPayload, ReportLayout } from "./report-layout";

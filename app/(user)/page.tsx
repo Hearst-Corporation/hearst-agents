@@ -11,8 +11,8 @@
  * et le client retombe sur son fetch existant. Aucune régression.
  */
 
+import { type CockpitTodayPayload, getCockpitToday } from "@/lib/cockpit/today";
 import { requireScope } from "@/lib/platform/auth/scope";
-import { getCockpitToday, type CockpitTodayPayload } from "@/lib/cockpit/today";
 import HomePageClient from "./HomePageClient";
 
 export const dynamic = "force-dynamic";

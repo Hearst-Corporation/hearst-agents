@@ -13,36 +13,75 @@
  */
 
 const RESEARCH_PATTERNS = [
-  "recherche", "research", "cherche",
-  "actualité", "actualite", "news",
-  "rapport", "report",
-  "analyse", "analyze", "analysis",
-  "benchmark", "veille",
-  "bitcoin", "crypto", "ethereum", "blockchain",
-  "market", "marché", "marche",
-  "tendance", "trend",
-  "compare", "comparaison", "comparison",
-  "enquête", "enquete", "investigate",
-  "étude", "etude", "study",
-  "résumé de", "resume de", "summary",
-  "what is happening", "que se passe",
-  "dernières nouvelles", "latest",
+  "recherche",
+  "research",
+  "cherche",
+  "actualité",
+  "actualite",
+  "news",
+  "rapport",
+  "report",
+  "analyse",
+  "analyze",
+  "analysis",
+  "benchmark",
+  "veille",
+  "bitcoin",
+  "crypto",
+  "ethereum",
+  "blockchain",
+  "market",
+  "marché",
+  "marche",
+  "tendance",
+  "trend",
+  "compare",
+  "comparaison",
+  "comparison",
+  "enquête",
+  "enquete",
+  "investigate",
+  "étude",
+  "etude",
+  "study",
+  "résumé de",
+  "resume de",
+  "summary",
+  "what is happening",
+  "que se passe",
+  "dernières nouvelles",
+  "latest",
 ];
 
 const REPORT_PATTERNS = [
-  "rapport", "report",
-  "analyse", "analysis",
-  "étude", "etude", "study",
+  "rapport",
+  "report",
+  "analyse",
+  "analysis",
+  "étude",
+  "etude",
+  "study",
   "benchmark",
   "document",
-  "synthèse", "synthese", "synthesis",
-  "résumé", "resume", "summary",
-  "brief", "briefing",
+  "synthèse",
+  "synthese",
+  "synthesis",
+  "résumé",
+  "resume",
+  "summary",
+  "brief",
+  "briefing",
   "veille",
-  "fais-moi un", "fais moi un",
-  "génère", "genere", "generate",
-  "rédige", "redige", "write",
-  "prépare", "prepare",
+  "fais-moi un",
+  "fais moi un",
+  "génère",
+  "genere",
+  "generate",
+  "rédige",
+  "redige",
+  "write",
+  "prépare",
+  "prepare",
 ];
 
 export function isResearchIntent(input: string): boolean {
@@ -56,11 +95,16 @@ export function isReportIntent(input: string): boolean {
 }
 
 export function extractResearchQuery(input: string): string {
-  return input
-    .replace(/^(fais[- ]moi un (rapport|résumé|document|analyse)\s+(sur|de|du|des|à propos de)\s*)/i, "")
-    .replace(/^(recherche\s+(sur|de|du|des)\s*)/i, "")
-    .replace(/^(actualit[ée]s?\s+(sur|de|du|des)\s*)/i, "")
-    .trim() || input;
+  return (
+    input
+      .replace(
+        /^(fais[- ]moi un (rapport|résumé|document|analyse)\s+(sur|de|du|des|à propos de)\s*)/i,
+        "",
+      )
+      .replace(/^(recherche\s+(sur|de|du|des)\s*)/i, "")
+      .replace(/^(actualit[ée]s?\s+(sur|de|du|des)\s*)/i, "")
+      .trim() || input
+  );
 }
 
 // ── Catalogue templates ──────────────────────────────────────────────
@@ -69,17 +113,25 @@ export function extractResearchQuery(input: string): string {
 // cross-app) plutôt que `runResearchReport` (web-only).
 const CATALOGUE_REPORT_PATTERNS = [
   "founder cockpit",
-  "customer 360", "customer360",
-  "deal-to-cash", "deal to cash",
-  "financial p&l", "financial pnl", "financial p l",
+  "customer 360",
+  "customer360",
+  "deal-to-cash",
+  "deal to cash",
+  "financial p&l",
+  "financial pnl",
+  "financial p l",
   "product analytics",
   "support health",
   "engineering velocity",
   "marketing aarrr",
-  "hr/people", "hr people", "hr / people",
-  "hospitality revpar", "revpar",
+  "hr/people",
+  "hr people",
+  "hr / people",
+  "hospitality revpar",
+  "revpar",
   "guest satisfaction",
-  "hospitality daily brief", "daily brief hospitality",
+  "hospitality daily brief",
+  "daily brief hospitality",
 ];
 
 function isCatalogueReportRequest(input: string): boolean {

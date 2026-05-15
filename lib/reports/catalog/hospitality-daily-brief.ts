@@ -18,12 +18,11 @@ import type { ReportSpec } from "@/lib/reports/spec/schema";
 import {
   getMockArrivals,
   getMockDepartures,
-  getMockRevenueBySource,
   getMockKpiSnapshot,
+  getMockRevenueBySource,
 } from "@/lib/verticals/hospitality/mock-data";
 
-export const HOSPITALITY_DAILY_BRIEF_ID =
-  "00000000-0000-4000-8000-700000000001";
+export const HOSPITALITY_DAILY_BRIEF_ID = "00000000-0000-4000-8000-700000000001";
 
 export function buildHospitalityDailyBrief(scope: ReportSpec["scope"]): ReportSpec {
   const now = Date.now();
@@ -33,8 +32,7 @@ export function buildHospitalityDailyBrief(scope: ReportSpec["scope"]): ReportSp
     version: 1,
     meta: {
       title: "Daily Briefing — Hospitality",
-      summary:
-        "Occupancy, ADR/RevPAR, arrivals/departures du jour + VIP + service requests.",
+      summary: "Occupancy, ADR/RevPAR, arrivals/departures du jour + VIP + service requests.",
       domain: "ops",
       persona: "ops",
       cadence: "daily",

@@ -15,8 +15,8 @@
  *  - timezone : `Europe/Paris`
  */
 
-import type { WorkflowGraph } from "../types";
 import type { WeeklyDigestPayload } from "@/lib/cockpit/weekly-digest";
+import type { WorkflowGraph } from "../types";
 
 export const WEEKLY_DIGEST_DEFAULT_CHANNEL = "#hearst-digest";
 export const WEEKLY_DIGEST_DEFAULT_TZ = "Europe/Paris";

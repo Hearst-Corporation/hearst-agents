@@ -6,12 +6,12 @@
  * thread » (best-effort PATCH /api/v2/voice/transcripts/:sessionId).
  */
 
-import { useVoiceStore } from "@/stores/voice";
-import { useServicesStore } from "@/stores/services";
+import { VOICE_TOOL_LABELS, voiceToolDefs } from "@/lib/voice/tool-defs";
 import { useNavigationStore } from "@/stores/navigation";
-import { voiceToolDefs, VOICE_TOOL_LABELS } from "@/lib/voice/tool-defs";
+import { useServicesStore } from "@/stores/services";
+import { useVoiceStore } from "@/stores/voice";
 import { ProviderChip } from "../ProviderChip";
-import { Section, EmptyHint } from "./Section";
+import { EmptyHint, Section } from "./Section";
 
 export function ContextRailForVoice() {
   const transcript = useVoiceStore((s) => s.transcript);
@@ -45,9 +45,7 @@ export function ContextRailForVoice() {
       <Section label="Live transcript" count={transcript.length}>
         {transcript.length === 0 ? (
           <EmptyHint>
-            {phase === "idle"
-              ? "Activate voice mode to start"
-              : "Waiting for first exchange"}
+            {phase === "idle" ? "Activate voice mode to start" : "Waiting for first exchange"}
           </EmptyHint>
         ) : (
           <ul className="flex flex-col gap-4">
@@ -55,9 +53,7 @@ export function ContextRailForVoice() {
               if (entry.role === "tool_call") {
                 return (
                   <li key={entry.id} className="flex flex-col gap-1.5">
-                    <span className="t-9 font-medium text-(--warn)">
-                      TOOL CALL
-                    </span>
+                    <span className="t-9 font-medium text-(--warn)">TOOL CALL</span>
                     <div className="flex items-center gap-2">
                       <ProviderChip
                         providerId={entry.providerId ?? "composio"}
@@ -73,9 +69,7 @@ export function ContextRailForVoice() {
                   <li key={entry.id} className="flex flex-col gap-1.5">
                     <span
                       className={`t-9 font-medium ${
-                        entry.status === "error"
-                          ? "text-(--danger)"
-                          : "text-(--accent-teal)"
+                        entry.status === "error" ? "text-(--danger)" : "text-(--accent-teal)"
                       }`}
                     >
                       {entry.status === "error" ? "TOOL ERROR" : "TOOL RESULT"}
@@ -90,9 +84,7 @@ export function ContextRailForVoice() {
                 <li key={entry.id} className="flex flex-col gap-1.5">
                   <span
                     className={`t-9 font-medium ${
-                      entry.role === "user"
-                        ? "text-(--accent-teal)"
-                        : "text-text-ghost"
+                      entry.role === "user" ? "text-(--accent-teal)" : "text-text-ghost"
                     }`}
                   >
                     {entry.role === "user" ? "USER" : "AGENT"}
@@ -138,9 +130,8 @@ export function ContextRailForVoice() {
       </Section>
       <Section label="Voice settings">
         <p className="t-13 font-light text-text-faint leading-relaxed">
-          Model{" "}
-          <span className="text-(--accent-teal)">openai-realtime</span>, target
-          latency &lt; 500&nbsp;ms.
+          Model <span className="text-(--accent-teal)">openai-realtime</span>, target latency &lt;
+          500&nbsp;ms.
         </p>
       </Section>
     </div>

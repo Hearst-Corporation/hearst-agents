@@ -25,18 +25,18 @@ interface PaletteEntry {
 }
 
 const PALETTE: ReadonlyArray<PaletteEntry> = [
-  { kind: "kpi",             label: "KPI",          description: "Valeur scalaire + delta + sparkline", icon: "#" },
-  { kind: "sparkline",       label: "Sparkline",    description: "Mini-courbe d'évolution",             icon: "~" },
-  { kind: "bar",             label: "Bar Chart",    description: "Histogramme catégoriel",              icon: "▌" },
-  { kind: "table",           label: "Table",        description: "Tableau de lignes",                   icon: "≡" },
-  { kind: "funnel",          label: "Funnel",       description: "Étapes de conversion",                icon: "▽" },
-  { kind: "waterfall",       label: "Waterfall",    description: "Décomposition incrémentale",          icon: "↑↓" },
-  { kind: "cohort_triangle", label: "Cohortes",     description: "Triangle de rétention",               icon: "△" },
-  { kind: "heatmap",         label: "Heatmap",      description: "Matrice X/Y colorée",                 icon: "▦" },
-  { kind: "sankey",          label: "Sankey",       description: "Flux entre catégories",               icon: "≋" },
-  { kind: "bullet",          label: "Bullet",       description: "Atteinte d'un objectif",              icon: "●" },
-  { kind: "radar",           label: "Radar",        description: "Profil multi-axes",                   icon: "◈" },
-  { kind: "gantt",           label: "Gantt",        description: "Timeline de tâches",                  icon: "◫" },
+  { kind: "kpi", label: "KPI", description: "Valeur scalaire + delta + sparkline", icon: "#" },
+  { kind: "sparkline", label: "Sparkline", description: "Mini-courbe d'évolution", icon: "~" },
+  { kind: "bar", label: "Bar Chart", description: "Histogramme catégoriel", icon: "▌" },
+  { kind: "table", label: "Table", description: "Tableau de lignes", icon: "≡" },
+  { kind: "funnel", label: "Funnel", description: "Étapes de conversion", icon: "▽" },
+  { kind: "waterfall", label: "Waterfall", description: "Décomposition incrémentale", icon: "↑↓" },
+  { kind: "cohort_triangle", label: "Cohortes", description: "Triangle de rétention", icon: "△" },
+  { kind: "heatmap", label: "Heatmap", description: "Matrice X/Y colorée", icon: "▦" },
+  { kind: "sankey", label: "Sankey", description: "Flux entre catégories", icon: "≋" },
+  { kind: "bullet", label: "Bullet", description: "Atteinte d'un objectif", icon: "●" },
+  { kind: "radar", label: "Radar", description: "Profil multi-axes", icon: "◈" },
+  { kind: "gantt", label: "Gantt", description: "Timeline de tâches", icon: "◫" },
 ];
 
 export function BlockPalette({ onAdd }: BlockPaletteProps) {
@@ -51,12 +51,15 @@ export function BlockPalette({ onAdd }: BlockPaletteProps) {
         borderRight: "1px solid var(--border-subtle)",
       }}
     >
-      <header className="flex flex-col" style={{ gap: "var(--space-1)", marginBottom: "var(--space-2)" }}>
+      <header
+        className="flex flex-col"
+        style={{ gap: "var(--space-1)", marginBottom: "var(--space-2)" }}
+      >
         <h2
           className="t-9 font-mono uppercase"
           style={{
             color: "var(--text-muted)",
-                      }}
+          }}
         >
           Blocks
         </h2>

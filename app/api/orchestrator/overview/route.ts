@@ -1,16 +1,19 @@
 import { NextResponse } from "next/server";
-import { quickHealthCheck } from "@/lib/hom/master";
-import { latestScores, loadHistory } from "@/lib/hom/trust";
-import { loadDriftLog } from "@/lib/hom/drift";
+import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { loadCC } from "@/lib/hom/cc-state";
-import { listRuns } from "@/lib/hom/registry";
+import { loadDriftLog } from "@/lib/hom/drift";
+import { quickHealthCheck } from "@/lib/hom/master";
 import { listQuarantined } from "@/lib/hom/quarantine";
-import { requireAdmin, isError } from "@/app/api/admin/_helpers";
+import { listRuns } from "@/lib/hom/registry";
+import { latestScores, loadHistory } from "@/lib/hom/trust";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const guard = await requireAdmin("GET /api/orchestrator/overview", { resource: "settings", action: "read" });
+  const guard = await requireAdmin("GET /api/orchestrator/overview", {
+    resource: "settings",
+    action: "read",
+  });
   if (isError(guard)) return guard;
   const [health, scores, history, drift, cc, runs, quarantined] = await Promise.all([
     quickHealthCheck(),

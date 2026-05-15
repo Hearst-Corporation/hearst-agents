@@ -16,11 +16,7 @@ interface NodeConfigPanelProps {
   onDelete: () => void;
 }
 
-export function NodeConfigPanel({
-  node,
-  onChange,
-  onDelete,
-}: NodeConfigPanelProps) {
+export function NodeConfigPanel({ node, onChange, onDelete }: NodeConfigPanelProps) {
   // Reset state quand le node sélectionné change : on passe l'id en `key`
   // au composant interne pour forcer un remount propre. Évite les setState
   // synchrones dans un useEffect (react-hooks/set-state-in-effect).
@@ -34,11 +30,7 @@ export function NodeConfigPanel({
   );
 }
 
-function NodeConfigInner({
-  node,
-  onChange,
-  onDelete,
-}: NodeConfigPanelProps) {
+function NodeConfigInner({ node, onChange, onDelete }: NodeConfigPanelProps) {
   const initialArgsText = (() => {
     if (!node) return "";
     const args = node.config?.args ?? node.config?.payload;
@@ -49,13 +41,8 @@ function NodeConfigInner({
 
   if (!node) {
     return (
-      <div
-        className="flex flex-col"
-        style={{ padding: "var(--space-4)" }}
-      >
-        <p className="t-11 text-text-muted">
-          Sélectionne un node pour éditer sa configuration.
-        </p>
+      <div className="flex flex-col" style={{ padding: "var(--space-4)" }}>
+        <p className="t-11 text-text-muted">Sélectionne un node pour éditer sa configuration.</p>
       </div>
     );
   }
@@ -65,7 +52,7 @@ function NodeConfigInner({
   }
 
   function updateConfig(key: string, value: unknown) {
-    onChange({ config: { ...node!.config, [key]: value } });
+    onChange({ config: { ...node?.config, [key]: value } });
   }
 
   function commitArgs(text: string, key: "args" | "payload") {
@@ -104,9 +91,7 @@ function NodeConfigInner({
       </div>
 
       <Field label="Type">
-        <span className="t-11 font-light text-text-muted">
-          {node.kind}
-        </span>
+        <span className="t-11 font-light text-text-muted">{node.kind}</span>
       </Field>
 
       <Field label="Label">
@@ -180,15 +165,11 @@ function NodeConfigInner({
               className="w-full t-11 font-mono text-text bg-transparent rounded-md"
               style={{
                 padding: "var(--space-2) var(--space-3)",
-                border: argsError
-                  ? "1px solid var(--danger)"
-                  : "1px solid var(--border-soft)",
+                border: argsError ? "1px solid var(--danger)" : "1px solid var(--border-soft)",
               }}
               placeholder={'{ "to": "${nodeId.email}" }'}
             />
-            {argsError && (
-              <p className="t-9 text-(--danger)">{argsError}</p>
-            )}
+            {argsError && <p className="t-9 text-(--danger)">{argsError}</p>}
           </Field>
         </>
       )}
@@ -233,9 +214,7 @@ function NodeConfigInner({
             className="w-full t-11 font-mono text-text bg-transparent rounded-md"
             style={{
               padding: "var(--space-2) var(--space-3)",
-              border: argsError
-                ? "1px solid var(--danger)"
-                : "1px solid var(--border-soft)",
+              border: argsError ? "1px solid var(--danger)" : "1px solid var(--border-soft)",
             }}
           />
           {argsError && <p className="t-9 text-(--danger)">{argsError}</p>}
@@ -245,9 +224,7 @@ function NodeConfigInner({
       <Field label="Sur erreur">
         <select
           value={node.onError ?? "abort"}
-          onChange={(e) =>
-            update("onError", e.target.value as WorkflowNode["onError"])
-          }
+          onChange={(e) => update("onError", e.target.value as WorkflowNode["onError"])}
           className="w-full t-11 text-text bg-transparent rounded-md"
           style={{
             padding: "var(--space-2) var(--space-3)",
@@ -263,18 +240,10 @@ function NodeConfigInner({
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-      <span className="t-11 font-light text-text-faint">
-        {label}
-      </span>
+      <span className="t-11 font-light text-text-faint">{label}</span>
       {children}
     </div>
   );

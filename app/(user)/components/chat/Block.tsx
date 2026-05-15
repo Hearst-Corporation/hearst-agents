@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useCallback, type ReactNode } from "react";
-import type { BlockType, BlockActionId, BlockProps } from "./BlockTypes";
+import { type ReactNode, useCallback, useState } from "react";
 import { BlockActions } from "./BlockActions";
 import { BlockEditor } from "./BlockEditor";
+import type { BlockActionId, BlockProps, BlockType } from "./BlockTypes";
 
 /**
  * Block — unité de contenu structuré dans le Thinking Canvas.
@@ -16,7 +16,7 @@ import { BlockEditor } from "./BlockEditor";
  * Design tokens uniquement (cf CLAUDE.md) — pas de magic px / hex / rgba.
  */
 
-export type { BlockType, BlockActionId, BlockProps };
+export type { BlockActionId, BlockProps, BlockType };
 
 /**
  * Détecte le type primaire du block à partir du content brut.
@@ -60,8 +60,7 @@ function renderInline(text: string): ReactNode[] {
   let key = 0;
 
   // Combined regex with named groups via alternation.
-  const re =
-    /(`[^`\n]+`)|(\[[^\]]+\]\([^)\s]+\))|(\*\*[^*\n]+\*\*)|(\*[^*\n]+\*|_[^_\n]+_)/g;
+  const re = /(`[^`\n]+`)|(\[[^\]]+\]\([^)\s]+\))|(\*\*[^*\n]+\*\*)|(\*[^*\n]+\*|_[^_\n]+_)/g;
 
   let match: RegExpExecArray | null;
   while ((match = re.exec(text)) !== null) {
@@ -142,10 +141,7 @@ function ParagraphView({ text }: { text: string }) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--space-3)" }}>
       {paragraphs.map((p, i) => (
-        <p
-          key={i}
-          className="t-15 leading-relaxed font-light text-text-soft whitespace-pre-wrap"
-        >
+        <p key={i} className="t-15 leading-relaxed font-light text-text-soft whitespace-pre-wrap">
           {renderInline(p)}
         </p>
       ))}
@@ -227,10 +223,7 @@ function InsightView({ text }: { text: string }) {
   const labelMatch = text.match(/^\*\*(Insight|Recommandation)\*\*/i);
   const label = labelMatch ? labelMatch[1] : "Insight";
   return (
-    <div
-      className="border-l border-(--accent-teal)"
-      style={{ paddingLeft: "var(--space-4)" }}
-    >
+    <div className="border-l border-(--accent-teal)" style={{ paddingLeft: "var(--space-4)" }}>
       <div
         className="t-11 font-medium text-(--accent-teal)"
         style={{ marginBottom: "var(--space-2)" }}
@@ -248,13 +241,7 @@ function InsightView({ text }: { text: string }) {
  * Render le block selon son type détecté. Retourne `null` quand le content
  * est vide pour permettre au parent de gérer le shimmer / placeholder.
  */
-function BlockView({
-  type,
-  content,
-}: {
-  type: BlockType;
-  content: string;
-}) {
+function BlockView({ type, content }: { type: BlockType; content: string }) {
   if (!content.trim()) return null;
 
   switch (type) {
@@ -268,7 +255,6 @@ function BlockView({
       return <ListView text={content} />;
     case "action_items":
       return <ActionItemsView text={content} />;
-    case "paragraph":
     default:
       return <ParagraphView text={content} />;
   }
@@ -278,12 +264,7 @@ function BlockView({
  * Block — composant racine. Gère le mode édition local et délègue les
  * actions inline à `BlockActions` (visible au hover).
  */
-export function Block({
-  content,
-  editable = false,
-  onSave,
-  onAction,
-}: BlockProps) {
+export function Block({ content, editable = false, onSave, onAction }: BlockProps) {
   const [editing, setEditing] = useState(false);
 
   const handleAction = useCallback(
@@ -312,23 +293,13 @@ export function Block({
   const type = detectBlockType(content);
 
   return (
-    <div
-      className="group relative"
-      data-block-type={type}
-      data-testid="chat-block"
-    >
+    <div className="group relative" data-block-type={type} data-testid="chat-block">
       {editing ? (
-        <BlockEditor
-          initialValue={content}
-          onSave={handleSave}
-          onCancel={handleCancel}
-        />
+        <BlockEditor initialValue={content} onSave={handleSave} onCancel={handleCancel} />
       ) : (
         <BlockView type={type} content={content} />
       )}
-      {!editing && (
-        <BlockActions onAction={handleAction} editable={editable} />
-      )}
+      {!editing && <BlockActions onAction={handleAction} editable={editable} />}
     </div>
   );
 }

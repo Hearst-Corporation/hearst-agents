@@ -17,15 +17,11 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useStageData } from "@/stores/stage-data";
-import { useStageStore } from "@/stores/stage";
 import { useVariantReadyNotification } from "@/app/hooks/use-variant-ready-notification";
 import type { AssetVariant, AssetVariantKind } from "@/lib/assets/variants";
-import {
-  GENERATION_TIMEOUT_MS,
-  POLL_INTERVAL_MS,
-  VARIANT_LABELS,
-} from "../shared";
+import { useStageStore } from "@/stores/stage";
+import { useStageData } from "@/stores/stage-data";
+import { GENERATION_TIMEOUT_MS, POLL_INTERVAL_MS, VARIANT_LABELS } from "../shared";
 
 interface UseVariantPollingResult {
   variants: AssetVariant[];
@@ -39,23 +35,17 @@ interface UseVariantPollingResult {
 
 export function useVariantPolling(assetId: string): UseVariantPollingResult {
   const [variants, setVariants] = useState<AssetVariant[]>([]);
-  const [timedOutKinds, setTimedOutKinds] = useState<Set<AssetVariantKind>>(
-    new Set(),
-  );
+  const [timedOutKinds, setTimedOutKinds] = useState<Set<AssetVariantKind>>(new Set());
 
   // [WF5] Timestamp de début de génération par kind.
-  const generationStartedAt = useRef<Partial<Record<AssetVariantKind, number>>>(
-    {},
-  );
+  const generationStartedAt = useRef<Partial<Record<AssetVariantKind, number>>>({});
 
   // [S2-D] Notification desktop sur variant ready.
   const { notify } = useVariantReadyNotification();
   const setStageMode = useStageStore((s) => s.setMode);
   // Map kind → status précédent. Permet de détecter la transition
   // pending|generating → ready et déclencher la notification une seule fois.
-  const previousStatusByKind = useRef<
-    Map<AssetVariantKind, AssetVariant["status"]>
-  >(new Map());
+  const previousStatusByKind = useRef<Map<AssetVariantKind, AssetVariant["status"]>>(new Map());
 
   // Sync vers stage-data pour ContextRailForAsset (variants list).
   // currentAsset est lu via getState() pour ne pas re-déclencher l'effect
@@ -68,10 +58,9 @@ export function useVariantPolling(assetId: string): UseVariantPollingResult {
 
   const fetchVariants = useCallback(async () => {
     try {
-      const res = await fetch(
-        `/api/v2/assets/${encodeURIComponent(assetId)}/variants`,
-        { credentials: "include" },
-      );
+      const res = await fetch(`/api/v2/assets/${encodeURIComponent(assetId)}/variants`, {
+        credentials: "include",
+      });
       if (!res.ok) return;
       const data = await res.json();
       if (Array.isArray(data.variants)) {
@@ -90,9 +79,7 @@ export function useVariantPolling(assetId: string): UseVariantPollingResult {
 
   // Polling tant qu'un variant est en cours + [WF5] watchdog timeout.
   useEffect(() => {
-    const hasInProgress = variants.some(
-      (v) => v.status === "pending" || v.status === "generating",
-    );
+    const hasInProgress = variants.some((v) => v.status === "pending" || v.status === "generating");
     if (!hasInProgress) return;
 
     const timer = setInterval(() => {

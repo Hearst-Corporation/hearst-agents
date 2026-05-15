@@ -4,10 +4,10 @@
 
 import type { WorkflowGraph } from "../types";
 import { dailyStandupTemplate } from "./daily-standup";
-import { leadNurtureTemplate } from "./lead-nurture";
-import { weeklySlackDigestTemplate } from "./weekly-slack-digest";
 import { guestArrivalPrepTemplate } from "./hospitality/guest-arrival-prep";
 import { serviceRequestDispatchTemplate } from "./hospitality/service-request-dispatch";
+import { leadNurtureTemplate } from "./lead-nurture";
+import { weeklySlackDigestTemplate } from "./weekly-slack-digest";
 
 export interface WorkflowTemplateMeta {
   id: string;
@@ -22,16 +22,14 @@ export const WORKFLOW_TEMPLATES: WorkflowTemplateMeta[] = [
   {
     id: "daily-standup",
     name: "Daily standup",
-    description:
-      "Cron 9h → commits GitHub + updates Linear → synthèse → message Slack #standup",
+    description: "Cron 9h → commits GitHub + updates Linear → synthèse → message Slack #standup",
     vertical: "general",
     build: dailyStandupTemplate,
   },
   {
     id: "lead-nurture",
     name: "Lead nurture",
-    description:
-      "Webhook → HubSpot → branche selon stage → brouillon email → approval → envoi",
+    description: "Webhook → HubSpot → branche selon stage → brouillon email → approval → envoi",
     vertical: "general",
     build: leadNurtureTemplate,
   },

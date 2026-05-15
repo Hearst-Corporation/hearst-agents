@@ -29,7 +29,7 @@ export async function createSession(opts?: { proxied?: boolean }): Promise<{
     throw new Error(`[Browserbase] status=${res.status} message=${body.slice(0, 200)}`);
   }
 
-  const data = await res.json() as {
+  const data = (await res.json()) as {
     id: string;
     connectUrl: string;
     debugViewerUrl?: string;
@@ -58,7 +58,7 @@ export async function getSession(sessionId: string): Promise<{
     throw new Error(`[Browserbase] status=${res.status} message=${body.slice(0, 200)}`);
   }
 
-  const data = await res.json() as {
+  const data = (await res.json()) as {
     status: string;
     createdAt?: string;
     stoppedAt?: string;

@@ -7,7 +7,7 @@
  * partagée, preview studio, snapshots de test).
  */
 
-import { useSession, type SessionContextValue } from "next-auth/react";
+import { type SessionContextValue, useSession } from "next-auth/react";
 
 export function useSafeSession(): SessionContextValue["data"] {
   try {

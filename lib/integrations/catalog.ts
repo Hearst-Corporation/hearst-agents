@@ -9,18 +9,14 @@
  * The runtime layer (lib/providers/registry.ts) never uses this directly.
  */
 
-import {
-  SERVICE_MAP,
-  getAllServiceIds,
-  getProviderIdForService,
-} from "./service-map";
 import { getUnifiedConnectors } from "@/lib/connectors/unified/reconcile";
+import { getAllServiceIds, getProviderIdForService, SERVICE_MAP } from "./service-map";
 import type {
-  ServiceDefinition,
-  ServiceWithConnectionStatus,
   CatalogFilters,
   ServiceBundle,
+  ServiceDefinition,
   ServiceTier,
+  ServiceWithConnectionStatus,
 } from "./types";
 
 // ── Service Metadata (enrichment beyond service-map) ────────
@@ -197,7 +193,9 @@ export function getServiceDefinition(serviceId: string): ServiceDefinition | und
  * Get all service definitions.
  */
 export function getAllServices(): ServiceDefinition[] {
-  return getAllServiceIds().map((id) => getServiceDefinition(id)!).filter(Boolean);
+  return getAllServiceIds()
+    .map((id) => getServiceDefinition(id)!)
+    .filter(Boolean);
 }
 
 /**
@@ -235,9 +233,7 @@ export function filterServices(filters: CatalogFilters): ServiceDefinition[] {
   if (filters.search) {
     const q = filters.search.toLowerCase();
     results = results.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.description.toLowerCase().includes(q),
+      (s) => s.name.toLowerCase().includes(q) || s.description.toLowerCase().includes(q),
     );
   }
 
@@ -293,7 +289,9 @@ export async function enrichWithConnectionStatus(
   const tenantId = scope?.tenantId ?? process.env.HEARST_TENANT_ID ?? "";
   const workspaceId = scope?.workspaceId ?? process.env.HEARST_WORKSPACE_ID ?? "";
   if (!tenantId || !workspaceId) {
-    console.error("[Catalog] enrichWithConnectionStatus appelé sans scope — connections indisponibles");
+    console.error(
+      "[Catalog] enrichWithConnectionStatus appelé sans scope — connections indisponibles",
+    );
     return services.map((s) => ({ ...s, connectionStatus: "disconnected" as const }));
   }
   const connectors = await getUnifiedConnectors({
@@ -321,8 +319,6 @@ export async function enrichWithConnectionStatus(
         case "degraded":
           connectionStatus = "error";
           break;
-        case "disconnected":
-        case "coming_soon":
         default:
           connectionStatus = "disconnected";
       }

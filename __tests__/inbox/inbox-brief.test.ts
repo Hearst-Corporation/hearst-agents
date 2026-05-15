@@ -2,7 +2,7 @@
  * Inbox Brief Generator — vérifie merge sources, fail-soft, classify, cap.
  */
 
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
   getRecentEmails: vi.fn(),
@@ -86,8 +86,8 @@ describe("generateInboxBrief", () => {
     const brief = await generateInboxBrief("user-1", "tenant-1");
     const cal = brief.items.find((it) => it.kind === "calendar");
     expect(cal).toBeTruthy();
-    expect(cal!.title).toBe("Daily standup");
-    expect(cal!.suggestedActions.some((a) => a.kind === "schedule")).toBe(true);
+    expect(cal?.title).toBe("Daily standup");
+    expect(cal?.suggestedActions.some((a) => a.kind === "schedule")).toBe(true);
   });
 
   it("fail-soft : Gmail throw → marque source en erreur, autres sources continuent", async () => {

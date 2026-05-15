@@ -6,8 +6,8 @@
  */
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { StorageProvider } from "../storage/types";
 import { logger } from "@/lib/observability/logger";
+import type { StorageProvider } from "../storage/types";
 
 export interface CleanupConfig {
   /** Default retention period in days */
@@ -47,7 +47,7 @@ export interface CleanupResult {
 export async function runAssetCleanup(
   db: SupabaseClient,
   storage: StorageProvider,
-  config: CleanupConfig
+  config: CleanupConfig,
 ): Promise<CleanupResult> {
   const start = Date.now();
   const result: CleanupResult = {
@@ -71,7 +71,7 @@ export async function runAssetCleanup(
     if (config.dryRun) {
       logger.info(
         { expired_count: expiredAssets.length, orphan_count: orphanedFiles.length },
-        "[cleanup] dry-run: would delete assets and orphaned files"
+        "[cleanup] dry-run: would delete assets and orphaned files",
       );
       result.durationMs = Date.now() - start;
       return result;
@@ -112,8 +112,12 @@ export async function runAssetCleanup(
     }
 
     logger.info(
-      { assets_deleted: result.assetsDeleted, files_deleted: result.filesDeleted, errors: result.errors },
-      "[cleanup] run completed"
+      {
+        assets_deleted: result.assetsDeleted,
+        files_deleted: result.filesDeleted,
+        errors: result.errors,
+      },
+      "[cleanup] run completed",
     );
   } catch (err) {
     logger.error({ err }, "[cleanup] fatal error");
@@ -139,7 +143,7 @@ export async function runAssetCleanup(
  */
 async function findExpiredAssets(
   db: SupabaseClient,
-  config: CleanupConfig
+  config: CleanupConfig,
 ): Promise<
   Array<{
     id: string;
@@ -164,7 +168,7 @@ async function findExpiredAssets(
   const referencedIds = new Set(
     (referencedData ?? [])
       .map((r: { asset_id: string | null }) => r.asset_id)
-      .filter(Boolean) as string[]
+      .filter(Boolean) as string[],
   );
 
   const { data, error } = await db
@@ -183,34 +187,36 @@ async function findExpiredAssets(
     return [];
   }
 
-  return (data || [])
-    // Exclure côté JS les assets référencés par mission_artifacts
-    .filter((row: { id: string }) => !referencedIds.has(row.id))
-    .map((row: {
-      id: string;
-      content_ref: string;
-      created_at: string;
-      thread_id: string | null;
-      last_accessed_at: string | null;
-      pinned: boolean;
-    }) => {
-      const createdAt = new Date(row.created_at);
-      const ageDays = Math.floor(
-        (Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
-      );
+  return (
+    (data || [])
+      // Exclure côté JS les assets référencés par mission_artifacts
+      .filter((row: { id: string }) => !referencedIds.has(row.id))
+      .map(
+        (row: {
+          id: string;
+          content_ref: string;
+          created_at: string;
+          thread_id: string | null;
+          last_accessed_at: string | null;
+          pinned: boolean;
+        }) => {
+          const createdAt = new Date(row.created_at);
+          const ageDays = Math.floor((Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24));
 
-      // Check tenant-specific archive window
-      const tenantOverride = config.tenantOverrides?.[row.thread_id || "global"];
-      const effectiveArchive = tenantOverride?.archiveAfterDays || config.archiveAfterDays;
+          // Check tenant-specific archive window
+          const tenantOverride = config.tenantOverrides?.[row.thread_id || "global"];
+          const effectiveArchive = tenantOverride?.archiveAfterDays || config.archiveAfterDays;
 
-      return {
-        id: row.id,
-        storageKey: row.content_ref,
-        tenantId: row.thread_id ?? undefined,
-        ageDays,
-        shouldArchive: effectiveArchive > 0 && ageDays >= effectiveArchive,
-      };
-    });
+          return {
+            id: row.id,
+            storageKey: row.content_ref,
+            tenantId: row.thread_id ?? undefined,
+            ageDays,
+            shouldArchive: effectiveArchive > 0 && ageDays >= effectiveArchive,
+          };
+        },
+      )
+  );
 }
 
 /**
@@ -223,14 +229,17 @@ async function deleteAsset(
     id: string;
     storageKey: string;
     shouldArchive: boolean;
-  }
+  },
 ): Promise<void> {
   // Delete from storage first (idempotent)
   if (asset.storageKey) {
     try {
       await storage.delete(asset.storageKey);
     } catch (err) {
-      logger.warn({ err, assetId: asset.id }, "[cleanup] storage delete warning, file may already be gone");
+      logger.warn(
+        { err, assetId: asset.id },
+        "[cleanup] storage delete warning, file may already be gone",
+      );
     }
   }
 
@@ -256,7 +265,7 @@ async function deleteAsset(
  */
 export async function findOrphanedFiles(
   db: SupabaseClient,
-  storage: StorageProvider
+  storage: StorageProvider,
 ): Promise<Array<{ key: string; size: number; lastModified: Date }>> {
   const storageObjects = await storage.list("");
   if (storageObjects.length === 0) return [];

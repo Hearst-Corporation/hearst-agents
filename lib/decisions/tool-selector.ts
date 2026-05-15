@@ -40,7 +40,7 @@ export function selectTool(req: SelectionRequest): SelectionResult {
   }
 
   if (req.exclude && req.exclude.length > 0) {
-    pool = pool.filter((s) => !req.exclude!.includes(s.tool_name));
+    pool = pool.filter((s) => !req.exclude?.includes(s.tool_name));
   }
 
   const unstable = pool.filter((s) => s.reliability === "unstable").map((s) => s.tool_name);
@@ -52,9 +52,8 @@ export function selectTool(req: SelectionRequest): SelectionResult {
       score: 0,
       reliability: "unstable",
       fallbacks: [],
-      reason: pool.length === 0
-        ? "No tools match selection criteria"
-        : "All matching tools are unstable",
+      reason:
+        pool.length === 0 ? "No tools match selection criteria" : "All matching tools are unstable",
       excluded_unstable: unstable,
     };
   }
@@ -85,7 +84,8 @@ function sortByGoal(tools: ToolScore[], goal: SelectionGoal): ToolScore[] {
     case "speed":
       return [...tools].sort((a, b) => {
         if (a.flags.includes("high_p95_latency") && !b.flags.includes("high_p95_latency")) return 1;
-        if (!a.flags.includes("high_p95_latency") && b.flags.includes("high_p95_latency")) return -1;
+        if (!a.flags.includes("high_p95_latency") && b.flags.includes("high_p95_latency"))
+          return -1;
         return b.score - a.score;
       });
 
@@ -95,8 +95,6 @@ function sortByGoal(tools: ToolScore[], goal: SelectionGoal): ToolScore[] {
         if (!a.flags.includes("high_cost") && b.flags.includes("high_cost")) return -1;
         return b.score - a.score;
       });
-
-    case "balanced":
     default:
       return [...tools].sort((a, b) => b.score - a.score);
   }

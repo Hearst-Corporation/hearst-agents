@@ -8,8 +8,8 @@
  *   - SpecOutline : rend la liste, focus/move/remove, drop kind
  */
 
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { BlockPalette } from "@/app/(user)/components/reports/studio/BlockPalette";
 import { SpecOutline } from "@/app/(user)/components/reports/studio/SpecOutline";
 import type { BlockSpec } from "@/lib/reports/spec/schema";

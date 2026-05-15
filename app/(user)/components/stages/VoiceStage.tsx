@@ -12,7 +12,7 @@
 import { useMemo } from "react";
 import { useStageStore } from "@/stores/stage";
 import { useVoiceStore, type VoicePhase } from "@/stores/voice";
-import { StageActionBar, type StageAction } from "./StageActionBar";
+import { type StageAction, StageActionBar } from "./StageActionBar";
 
 interface VoiceStageProps {
   sessionId?: string;
@@ -78,10 +78,7 @@ export function VoiceStage(_props: VoiceStageProps) {
   };
 
   return (
-    <div
-      className="flex-1 flex flex-col min-h-0 relative"
-      style={{ background: "var(--surface)" }}
-    >
+    <div className="flex-1 flex flex-col min-h-0 relative" style={{ background: "var(--surface)" }}>
       <StageActionBar
         context={
           <>
@@ -89,9 +86,7 @@ export function VoiceStage(_props: VoiceStageProps) {
               className="rounded-pill bg-(--accent-teal)"
               style={{ width: "var(--space-2)", height: "var(--space-2)" }}
             />
-            <span className="t-11 font-medium text-(--accent-teal)">
-              VOICE
-            </span>
+            <span className="t-11 font-medium text-(--accent-teal)">VOICE</span>
             <span
               className="rounded-pill bg-[var(--text-ghost)]"
               style={{ width: "var(--space-1)", height: "var(--space-1)" }}
@@ -119,17 +114,10 @@ export function VoiceStage(_props: VoiceStageProps) {
         />
 
         <div className="mt-12 flex flex-col items-center gap-3">
-          <span
-            className="t-11 font-light"
-            style={{ color: phaseColor }}
-          >
+          <span className="t-11 font-light" style={{ color: phaseColor }}>
             {PHASE_LABEL[phase]}
           </span>
-          {error && (
-            <p className="t-11 font-medium text-(--danger)">
-              {error}
-            </p>
-          )}
+          {error && <p className="t-11 font-medium text-(--danger)">{error}</p>}
         </div>
       </div>
     </div>

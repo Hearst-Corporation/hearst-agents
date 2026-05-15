@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useState } from "react";
 import type { SpatialStage } from "@/lib/spatial/types";
 
 interface SpatialStageContextValue {
@@ -24,20 +24,26 @@ export function SpatialStageProvider({
   const [previousStage, setPreviousStage] = useState<SpatialStage | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const setStage = useCallback((next: SpatialStage) => {
-    setPreviousStage((prev) => (prev !== next ? stage : prev));
-    setStageState(next);
-  }, [stage]);
-
-  const transitionTo = useCallback((next: SpatialStage, delayMs = 0) => {
-    setIsTransitioning(true);
-    setStageState("transition");
-    setTimeout(() => {
-      setPreviousStage(stage);
+  const setStage = useCallback(
+    (next: SpatialStage) => {
+      setPreviousStage((prev) => (prev !== next ? stage : prev));
       setStageState(next);
-      setIsTransitioning(false);
-    }, delayMs);
-  }, [stage]);
+    },
+    [stage],
+  );
+
+  const transitionTo = useCallback(
+    (next: SpatialStage, delayMs = 0) => {
+      setIsTransitioning(true);
+      setStageState("transition");
+      setTimeout(() => {
+        setPreviousStage(stage);
+        setStageState(next);
+        setIsTransitioning(false);
+      }, delayMs);
+    },
+    [stage],
+  );
 
   return (
     <SpatialStageContext.Provider

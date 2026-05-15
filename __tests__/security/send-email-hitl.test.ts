@@ -8,7 +8,7 @@
  *   - ne peut pas être contourné par _preview:false sans token
  */
 
-import { describe, it, expect, beforeAll, vi } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
 beforeAll(() => {
   process.env.NEXTAUTH_SECRET = "test-secret-send-email-32bytes!!";
@@ -21,8 +21,6 @@ const mockSend = vi.fn().mockResolvedValue({ data: { id: "mock-email-id" }, erro
 vi.mock("resend", () => {
   class Resend {
     emails = { send: mockSend };
-     
-    constructor(_key: string) {}
   }
   return { Resend };
 });
@@ -58,7 +56,7 @@ describe("F-010 send_email — HITL HMAC token", () => {
 
     expect(result.kind).toBe("draft");
     expect(typeof result._confirmationToken).toBe("string");
-    expect(result._confirmationToken!.length).toBeGreaterThan(10);
+    expect(result._confirmationToken?.length).toBeGreaterThan(10);
   });
 
   it("retourne un draft même si _preview:false sans token (bypass LLM impossible)", async () => {
@@ -112,7 +110,11 @@ describe("F-010 send_email — HITL HMAC token", () => {
       userId: SCOPE.userId,
       tenantId: SCOPE.tenantId,
       toolSlug: "send_email",
-      argsHash: hashToolArgs({ to: "alice@example.com", subject: "Rapport", text: "Bonjour Alice" }),
+      argsHash: hashToolArgs({
+        to: "alice@example.com",
+        subject: "Rapport",
+        text: "Bonjour Alice",
+      }),
     });
 
     const tools = await getTools(SCOPE);

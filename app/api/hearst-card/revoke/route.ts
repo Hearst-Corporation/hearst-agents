@@ -10,8 +10,8 @@
 
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { verifyCardToken } from "@/lib/cockpit/monthly-card-token";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export const runtime = "nodejs";

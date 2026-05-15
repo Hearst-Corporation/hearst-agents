@@ -5,10 +5,10 @@
  * including associated connector packs.
  */
 
+import fs from "node:fs";
+import path from "node:path";
 import { NextResponse } from "next/server";
 import { requireScope } from "@/lib/platform/auth/scope";
-import fs from "fs";
-import path from "path";
 
 export const dynamic = "force-dynamic";
 
@@ -56,13 +56,7 @@ const AGENTS: AgentCapability[] = [
     id: "ProductivityAgent",
     name: "Productivity Agent",
     description: "Notion page management, database queries, and workspace search",
-    operations: [
-      "search_pages",
-      "get_page",
-      "create_page",
-      "query_database",
-      "list_databases",
-    ],
+    operations: ["search_pages", "get_page", "create_page", "query_database", "list_databases"],
     connectorPack: "productivity-pack",
     connectors: ["notion"],
   },
@@ -70,13 +64,7 @@ const AGENTS: AgentCapability[] = [
     id: "DesignAgent",
     name: "Design Agent",
     description: "Figma file management, component inspection, and design system access",
-    operations: [
-      "list_files",
-      "get_file",
-      "get_components",
-      "get_styles",
-      "export_assets",
-    ],
+    operations: ["list_files", "get_file", "get_components", "get_styles", "export_assets"],
     connectorPack: "design-pack",
     connectors: ["figma"],
   },

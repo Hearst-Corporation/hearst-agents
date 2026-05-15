@@ -21,19 +21,21 @@
  * tout le flow est atomique côté serveur.
  */
 
-import { z } from "zod";
 import { randomUUID } from "node:crypto";
-import { NextRequest, NextResponse } from "next/server";
-import { requireScope } from "@/lib/platform/auth/scope";
-import { createSession } from "@/lib/capabilities/providers/browserbase";
+import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { runBrowserTask } from "@/lib/browser/stagehand-executor";
+import { createSession } from "@/lib/capabilities/providers/browserbase";
+import { requireScope } from "@/lib/platform/auth/scope";
 import { requireServerSupabase } from "@/lib/platform/db/supabase";
 
-const browserStartBodySchema = z.object({
-  task: z.string().min(1).max(10_000),
-  startUrl: z.string().url().max(2048).optional(),
-  maxActions: z.number().int().min(1).max(100).optional(),
-}).strict();
+const browserStartBodySchema = z
+  .object({
+    task: z.string().min(1).max(10_000),
+    startUrl: z.string().url().max(2048).optional(),
+    maxActions: z.number().int().min(1).max(100).optional(),
+  })
+  .strict();
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -41,7 +43,10 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest) {
   const { scope, error } = await requireScope({ context: "POST /api/v2/browser/start" });
   if (error || !scope) {
-    return NextResponse.json({ error: error?.message ?? "not_authenticated" }, { status: error?.status ?? 401 });
+    return NextResponse.json(
+      { error: error?.message ?? "not_authenticated" },
+      { status: error?.status ?? 401 },
+    );
   }
 
   const raw = await req.json().catch(() => null);

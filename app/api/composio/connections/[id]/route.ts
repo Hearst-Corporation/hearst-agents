@@ -11,11 +11,11 @@
  */
 
 import { NextResponse } from "next/server";
-import { getUserId } from "@/lib/platform/auth/get-user-id";
-import { requireScope } from "@/lib/platform/auth/scope";
 import { disconnectAccount, isComposioConfigured } from "@/lib/connectors/composio";
 import { unregisterInboxRepeatable } from "@/lib/jobs/scheduled/inbox-cron";
 import { redactedError, withRoute } from "@/lib/observability/logger";
+import { getUserId } from "@/lib/platform/auth/get-user-id";
+import { requireScope } from "@/lib/platform/auth/scope";
 
 const log = withRoute("DELETE /api/composio/connections/[id]");
 
@@ -30,10 +30,7 @@ export async function DELETE(_req: Request, ctx: RouteContext) {
   }
 
   if (!isComposioConfigured()) {
-    return NextResponse.json(
-      { error: "composio_not_configured" },
-      { status: 503 },
-    );
+    return NextResponse.json({ error: "composio_not_configured" }, { status: 503 });
   }
 
   const { id } = await ctx.params;

@@ -2,12 +2,10 @@
  * Multi-tenant guards — assertion helpers for scope validation.
  */
 
-import type { TenantScope } from "./types";
 import { SYSTEM_CONFIG } from "@/lib/system/config";
+import type { TenantScope } from "./types";
 
-export function assertTenantScope(
-  scope: Partial<TenantScope>,
-): asserts scope is TenantScope {
+export function assertTenantScope(scope: Partial<TenantScope>): asserts scope is TenantScope {
   if (!scope?.tenantId || !scope?.workspaceId) {
     if (SYSTEM_CONFIG.requireTenantScopeForV2) {
       throw new Error("Missing required tenant scope (tenantId + workspaceId)");
@@ -15,4 +13,3 @@ export function assertTenantScope(
     console.warn("[TenantGuard] Missing tenant scope — dev fallback active");
   }
 }
-

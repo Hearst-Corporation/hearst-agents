@@ -67,8 +67,7 @@ export default defineConfig({
     {
       name: "visual-regression",
       testDir: "./e2e/visual",
-      snapshotPathTemplate:
-        "{testDir}/__screenshots__/{testFilePath}/{arg}{ext}",
+      snapshotPathTemplate: "{testDir}/__screenshots__/{testFilePath}/{arg}{ext}",
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1440, height: 900 },

@@ -3,7 +3,9 @@ import { resolveRetrievalMode } from "@/lib/capabilities/taxonomy";
 
 describe("provider routing helpers", () => {
   it("detects calendar requests as structured_data", () => {
-    expect(resolveRetrievalMode("Quels sont mes rendez-vous aujourd'hui ?")).toBe("structured_data");
+    expect(resolveRetrievalMode("Quels sont mes rendez-vous aujourd'hui ?")).toBe(
+      "structured_data",
+    );
     expect(resolveRetrievalMode("What meetings do I have this week?")).toBe("structured_data");
   });
 
