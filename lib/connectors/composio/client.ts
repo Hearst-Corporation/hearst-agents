@@ -161,6 +161,25 @@ const SLUG_ALIASES: Record<string, string> = {
   HUBSPOT_LIST_DEALS: "HUBSPOT_GET_ALL_DEALS",
 };
 
+/**
+ * Timeout strict par exécution Composio.
+ *
+ * P1-3 : un tool Composio lent ou hangé peut tenir un stream `/api/orchestrate`
+ * > 120s. Le user voit alors un spinner infini, puis 504. On cap chaque
+ * exécution individuelle à 30s pour borner la latence cumulée et permettre
+ * au modèle de réagir (essayer un autre tool, demander à l'utilisateur).
+ *
+ * Override possible via `COMPOSIO_TOOL_TIMEOUT_MS` (rare, à éviter en prod).
+ */
+const COMPOSIO_TOOL_TIMEOUT_MS = parseInt(process.env.COMPOSIO_TOOL_TIMEOUT_MS ?? "30000", 10);
+
+class ComposioTimeoutError extends Error {
+  constructor(slug: string, timeoutMs: number) {
+    super(`Composio action "${slug}" did not respond within ${timeoutMs}ms (provider timeout)`);
+    this.name = "ComposioTimeoutError";
+  }
+}
+
 export async function executeComposioAction(call: ComposioCallParams): Promise<ComposioResult> {
   const client = await getClient();
   if (!client) {
@@ -180,18 +199,39 @@ export async function executeComposioAction(call: ComposioCallParams): Promise<C
   }
 
   try {
-    const data = await client.tools.execute(resolvedAction, {
-      userId: call.entityId,
-      arguments: call.params,
-      // SDK 0.6+ throw ComposioToolVersionRequiredError si on n'a pas pinné
-      // de version par toolkit. On garde le comportement "latest" implicite
-      // d'avant en bypassant le check. À durcir en pinning par toolkit
-      // dans un sprint dédié si on veut éviter les régressions silencieuses
-      // côté Composio.
-      dangerouslySkipVersionCheck: true,
+    // P1-3 : Promise.race contre timeout. Le SDK Composio n'expose pas
+    // d'AbortSignal interne (v0.6) — on coupe au niveau de la promesse, le
+    // SDK continuera son fetch en arrière-plan mais on libère le flux LLM.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const data = await Promise.race<unknown>([
+      client.tools.execute(resolvedAction, {
+        userId: call.entityId,
+        arguments: call.params,
+        // SDK 0.6+ throw ComposioToolVersionRequiredError si on n'a pas pinné
+        // de version par toolkit. On garde le comportement "latest" implicite
+        // d'avant en bypassant le check. À durcir en pinning par toolkit
+        // dans un sprint dédié si on veut éviter les régressions silencieuses
+        // côté Composio.
+        dangerouslySkipVersionCheck: true,
+      }),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => {
+          reject(new ComposioTimeoutError(resolvedAction, COMPOSIO_TOOL_TIMEOUT_MS));
+        }, COMPOSIO_TOOL_TIMEOUT_MS);
+      }),
+    ]).finally(() => {
+      if (timer) clearTimeout(timer);
     });
     return { ok: true, data };
   } catch (err) {
+    if (err instanceof ComposioTimeoutError) {
+      console.warn(`[Composio] ${err.message}`);
+      return {
+        ok: false,
+        error: `Le service tiers a mis trop de temps à répondre (>${Math.round(COMPOSIO_TOOL_TIMEOUT_MS / 1000)}s). Réessaie plus tard ou utilise un autre service.`,
+        errorCode: "TIMEOUT",
+      };
+    }
     const msg = err instanceof Error ? err.message : String(err);
     const looksLikeAuth =
       /(connected.*account|not.*authoriz|missing.*connection|unauthorized|no.*active.*connection)/i.test(

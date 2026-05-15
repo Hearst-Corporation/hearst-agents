@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/nextjs";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getLangfuseClient } from "@/lib/observability/langfuse";
+import { flushLangfuse } from "@/lib/observability/langfuse";
 import { logger } from "@/lib/observability/logger";
 import { dispatchWebhookEvent } from "@/lib/webhooks/dispatcher";
 import type { Database, Json } from "../../database.types";
@@ -284,18 +284,23 @@ export class RunTracer {
     // Auto-flush Langfuse en fin de run (best-effort, ne fait jamais échouer endRun).
     // Garantit que les traces sont push même en environnement serverless (Vercel)
     // où le process peut être tué dès que la response HTTP est envoyée.
+    //
+    // P1-1 : flushLangfuse() applique un timeout strict (2s) pour éviter qu'un
+    // flush lent hange la fin du run. Les traces non-flushées dans cette
+    // fenêtre sont perdues — meilleur compromis qu'un run bloqué.
     try {
-      const langfuse = getLangfuseClient();
-      if (langfuse) {
-        await langfuse.flushAsync();
+      const flushed = await flushLangfuse(2000);
+      if (!flushed) {
+        // Compteur silencieux — pas d'exception Sentry car volontaire (timeout).
+        console.debug("[tracer] Langfuse flush skipped or timed out (fail-soft)");
       }
     } catch (err) {
-      // Log seulement — un flush raté ne doit pas casser le run.
+      // Cas improbable (flushLangfuse fail-soft) — capture pour observabilité.
       Sentry.captureException(err instanceof Error ? err : new Error(String(err)), {
         tags: { subsystem: "tracer", operation: "langfuse_flush" },
       });
       console.warn(
-        "[tracer] Langfuse flushAsync failed:",
+        "[tracer] flushLangfuse threw unexpectedly:",
         err instanceof Error ? err.message : String(err),
       );
     }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T07:18:16.002Z",
+  "generatedAt": "2026-05-15T07:21:36.677Z",
   "total": 41,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 410,
-    "testsExistants": 1731,
+    "testsExistants": 1736,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 309,
-    "cases": 2804,
+    "files": 311,
+    "cases": 2819,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -311,9 +311,9 @@
         "I-17. OAuth popup `window.open()` IMMÉDIAT au click",
         "I-18. `invalidateUserDiscovery` après OAuth + après disconnect"
       ],
-      "testsExistantsCount": 100,
-      "testsOnDisk": 100,
-      "testFilesOnDisk": 9,
+      "testsExistantsCount": 105,
+      "testsOnDisk": 105,
+      "testFilesOnDisk": 10,
       "testsDocExistants": 10,
       "testsManquantsCount": 24,
       "testGap": "moyen",

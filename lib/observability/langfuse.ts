@@ -94,3 +94,38 @@ export function assertLangfuseReady(): void {
   // getClient() throws en prod si clés absentes — comportement voulu
   getClient();
 }
+
+/**
+ * Flush des traces Langfuse avec timeout strict.
+ *
+ * P1-1 : sur Vercel serverless, le process est tué dès que la response HTTP
+ * est envoyée. `flushAsync()` natif peut hanger indéfiniment si le réseau
+ * vers Langfuse est lent — d'où ce wrapper qui force un cap.
+ *
+ * Comportement :
+ *  - Resolve `true` si flush terminé avant timeout
+ *  - Resolve `false` si timeout dépassé (les traces non-flushées sont perdues
+ *    mais le run termine proprement)
+ *  - Resolve `false` si Langfuse client est null (dev sans clés)
+ *  - Ne throw jamais — fail-soft pour ne pas casser le run.
+ */
+export async function flushLangfuse(timeoutMs = 2000): Promise<boolean> {
+  const client = getClient();
+  if (!client) return false;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const flushPromise = client.flushAsync().then(() => true);
+    const timeoutPromise = new Promise<boolean>((resolve) => {
+      timer = setTimeout(() => {
+        console.warn(`[langfuse] flush timeout after ${timeoutMs}ms — traces may be lost`);
+        resolve(false);
+      }, timeoutMs);
+    });
+    return await Promise.race([flushPromise, timeoutPromise]);
+  } catch (err) {
+    console.warn("[langfuse] flush error:", err instanceof Error ? err.message : String(err));
+    return false;
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}

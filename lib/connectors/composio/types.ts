@@ -25,6 +25,7 @@ export type ComposioErrorCode =
   | "AUTH_REQUIRED"
   | "ACTION_FAILED"
   | "UNKNOWN_SLUG"
+  | "TIMEOUT"
   | "UNKNOWN";
 
 export interface ComposioResult {
