@@ -18,6 +18,7 @@ import {
 } from "@/lib/capabilities/providers/fal-prompt-enricher";
 import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { computeGenerationHash, findDuplicateAsset } from "@/lib/engine/runtime/assets/dedup";
 import { settleCredits } from "@/lib/credits/client";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { ImageGenInput } from "@/lib/jobs/types";
@@ -52,6 +53,34 @@ export const imageGenFunction = inngest.createFunction(
     const enriched = enrichPrompt(payload.prompt, style);
     const fastRequested = isFastModeRequested(payload.prompt);
     const model = payload.modelHint ?? (fastRequested ? FAST_MODEL : FAL_DEFAULT_MODEL);
+
+    // Dedup — même (provider + model + prompt + params) = même asset en cache
+    const generationHash = computeGenerationHash({
+      provider: "fal",
+      model,
+      prompt: enriched.prompt,
+      negativePrompt: enriched.negative_prompt,
+      numInferenceSteps: enriched.params.num_inference_steps,
+      guidanceScale: enriched.params.guidance_scale,
+      imageSize: enriched.params.image_size,
+    });
+
+    if (payload.tenantId) {
+      const existingKey = await findDuplicateAsset(payload.tenantId, generationHash);
+      if (existingKey) {
+        console.info("[image-gen/Inngest] dedup hit — skipping generation", { existingKey, hash: generationHash });
+        return {
+          assetId: payload.assetId,
+          variantId,
+          storageKey: existingKey,
+          deduplicated: true,
+          actualCostUsd: 0,
+          providerUsed: "fal",
+          modelUsed: model,
+          metadata: { style, model, dedup: true },
+        };
+      }
+    }
 
     // Step 1 — fal.ai generation
     const images = await step.run("generate-image", async () => {
@@ -132,6 +161,8 @@ export const imageGenFunction = inngest.createFunction(
         sizeBytes: upload.size,
         generatedAt: Date.now(),
         provider: "fal",
+        // generation_hash stocké fail-soft : ignoré si colonne absente en DB
+        generationHash,
         metadata: {
           width: image.width,
           height: image.height,

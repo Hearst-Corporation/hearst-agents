@@ -79,6 +79,8 @@ interface UpdateVariantInput {
   provider?: string;
   error?: string;
   metadata?: Record<string, unknown>;
+  /** Dedup hash — fail-soft : ignoré si la colonne generation_hash n'existe pas en DB. */
+  generationHash?: string;
 }
 
 export async function updateVariant(
@@ -100,6 +102,7 @@ export async function updateVariant(
   if (patch.provider !== undefined) update.provider = patch.provider;
   if (patch.error !== undefined) update.error = patch.error;
   if (patch.metadata !== undefined) update.metadata = patch.metadata;
+  if (patch.generationHash !== undefined) update.generation_hash = patch.generationHash;
 
   const { error } = await rawDb(sb)!
     .from("asset_variants")

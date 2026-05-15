@@ -13,6 +13,7 @@ import { inngest } from "@/lib/jobs/inngest/client";
 import { synthesizeSpeech } from "@/lib/capabilities/providers/elevenlabs";
 import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { computeGenerationHash, findDuplicateAsset } from "@/lib/engine/runtime/assets/dedup";
 import { settleCredits } from "@/lib/credits/client";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { AudioGenInput } from "@/lib/jobs/types";
@@ -42,6 +43,32 @@ export const audioGenFunction = inngest.createFunction(
             }
           ).metadata?.variantId
         : undefined);
+
+    // Dedup — même (provider + voiceId + modelId + text) = même asset en cache
+    const generationHash = computeGenerationHash({
+      provider: "elevenlabs",
+      text: payload.text,
+      voiceId: payload.voiceId,
+      modelId: payload.modelId,
+      tone: payload.tone,
+    });
+
+    if (payload.tenantId) {
+      const existingKey = await findDuplicateAsset(payload.tenantId, generationHash);
+      if (existingKey) {
+        console.info("[audio-gen/Inngest] dedup hit — skipping generation", { existingKey, hash: generationHash });
+        return {
+          assetId: payload.assetId,
+          variantId,
+          storageKey: existingKey,
+          deduplicated: true,
+          actualCostUsd: 0,
+          providerUsed: "elevenlabs",
+          modelUsed: payload.modelId ?? "unknown",
+          metadata: { dedup: true },
+        };
+      }
+    }
 
     // Step 1 — ElevenLabs TTS + upload combinés dans un seul step.
     // Le Buffer audio ne peut pas traverser une frontière de step Inngest
@@ -104,6 +131,8 @@ export const audioGenFunction = inngest.createFunction(
         sizeBytes: upload.size,
         generatedAt: Date.now(),
         provider: "elevenlabs",
+        // generation_hash stocké fail-soft : ignoré si colonne absente en DB
+        generationHash,
         metadata: {
           voice: ttsResult.voiceUsed,
           model: ttsResult.modelUsed,
