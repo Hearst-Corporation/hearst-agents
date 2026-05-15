@@ -2,10 +2,12 @@ import { updateVariant } from "@/lib/assets/variants";
 import { heygenGenerateVideo, heygenGetStatus } from "@/lib/capabilities/providers/heygen";
 import { runwayGenerateVideo, runwayGetTask } from "@/lib/capabilities/providers/runway";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { endJobRun, startJobRun } from "@/lib/jobs/inngest/run-persistence";
 import type { JobResult, VideoGenInput } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { logger } from "@/lib/observability/logger";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 const POLL_INTERVAL_MS = 5_000;
 const POLL_MAX_ATTEMPTS = 60;
@@ -99,45 +101,81 @@ const handler: WorkerHandler<VideoGenInput> = {
         : undefined);
 
     const provider = payload.provider ?? "runway";
+    const sb = getServerSupabase();
 
-    await reportProgress(5, "Génération vidéo en cours");
+    // Créer la run au début — fail-soft si Supabase indisponible
+    const runId = sb
+      ? await startJobRun(sb, {
+          kind: "video_gen",
+          userId: payload.userId ?? null,
+          tenantId: payload.tenantId ?? null,
+          input: {
+            prompt: payload.prompt ?? null,
+            scriptText: payload.scriptText ?? null,
+            provider,
+            durationSeconds: payload.durationSeconds ?? null,
+            ratio: payload.ratio ?? null,
+            jobId,
+          },
+          eventId: jobId,
+        })
+      : null;
 
-    let videoUrl: string;
-    let providerUsed: string;
+    try {
+      await reportProgress(5, "Génération vidéo en cours");
 
-    if (provider === "heygen") {
-      videoUrl = await tryHeyGen({
-        scriptText: payload.scriptText ?? payload.prompt,
-        avatarId: payload.avatarId,
-        voiceId: payload.voiceId,
-        idempotencyKey: jobId,
-        progressMessage: "HeyGen",
-        reportProgress,
-      });
-      providerUsed = "heygen";
-    } else {
-      // Runway avec fallback HeyGen
-      const runwayOpen = defaultCircuitBreaker.isOpen("runway");
-      if (!runwayOpen) {
-        try {
-          const { taskId } = await runwayGenerateVideo({
-            promptText: payload.prompt,
-            duration: payload.durationSeconds === 10 ? 10 : 5,
-            ratio: payload.ratio ?? "1280:720",
-            idempotencyKey: jobId,
-          });
-          await reportProgress(20, `Runway: tâche ${taskId} soumise, polling…`);
-          videoUrl = await pollRunway(taskId);
-          defaultCircuitBreaker.recordSuccess("runway");
-          providerUsed = "runway";
-        } catch (runwayErr) {
-          defaultCircuitBreaker.recordFailure("runway", runwayErr as Error);
-          if (defaultCircuitBreaker.getState("runway") === "OPEN") {
-            logger.warn("[video-gen] Runway circuit OPEN — fallback HeyGen");
-          } else {
-            logger.warn({ err: runwayErr }, "[video-gen] Runway failed — falling back to HeyGen");
+      let videoUrl: string;
+      let providerUsed: string;
+
+      if (provider === "heygen") {
+        videoUrl = await tryHeyGen({
+          scriptText: payload.scriptText ?? payload.prompt,
+          avatarId: payload.avatarId,
+          voiceId: payload.voiceId,
+          idempotencyKey: jobId,
+          progressMessage: "HeyGen",
+          reportProgress,
+        });
+        providerUsed = "heygen";
+      } else {
+        // Runway avec fallback HeyGen
+        const runwayOpen = defaultCircuitBreaker.isOpen("runway");
+        if (!runwayOpen) {
+          try {
+            const { taskId } = await runwayGenerateVideo({
+              promptText: payload.prompt,
+              duration: payload.durationSeconds === 10 ? 10 : 5,
+              ratio: payload.ratio ?? "1280:720",
+              idempotencyKey: jobId,
+            });
+            await reportProgress(20, `Runway: tâche ${taskId} soumise, polling…`);
+            videoUrl = await pollRunway(taskId);
+            defaultCircuitBreaker.recordSuccess("runway");
+            providerUsed = "runway";
+          } catch (runwayErr) {
+            defaultCircuitBreaker.recordFailure("runway", runwayErr as Error);
+            if (defaultCircuitBreaker.getState("runway") === "OPEN") {
+              logger.warn("[video-gen] Runway circuit OPEN — fallback HeyGen");
+            } else {
+              logger.warn({ err: runwayErr }, "[video-gen] Runway failed — falling back to HeyGen");
+            }
+            // Fallback HeyGen
+            if (defaultCircuitBreaker.isOpen("heygen")) {
+              throw new Error("[video-gen] Both Runway and HeyGen circuit breakers are OPEN");
+            }
+            videoUrl = await tryHeyGen({
+              scriptText: payload.scriptText ?? payload.prompt,
+              avatarId: payload.avatarId,
+              voiceId: payload.voiceId,
+              idempotencyKey: `${jobId}-fallback`,
+              progressMessage: "HeyGen (fallback)",
+              reportProgress,
+            });
+            providerUsed = "heygen";
           }
-          // Fallback HeyGen
+        } else {
+          // Runway circuit ouvert → skip directement au fallback HeyGen
+          logger.warn("[video-gen] Runway circuit OPEN — skip direct vers HeyGen");
           if (defaultCircuitBreaker.isOpen("heygen")) {
             throw new Error("[video-gen] Both Runway and HeyGen circuit breakers are OPEN");
           }
@@ -146,80 +184,92 @@ const handler: WorkerHandler<VideoGenInput> = {
             avatarId: payload.avatarId,
             voiceId: payload.voiceId,
             idempotencyKey: `${jobId}-fallback`,
-            progressMessage: "HeyGen (fallback)",
+            progressMessage: "HeyGen (fallback Runway OPEN)",
             reportProgress,
           });
           providerUsed = "heygen";
         }
-      } else {
-        // Runway circuit ouvert → skip directement au fallback HeyGen
-        logger.warn("[video-gen] Runway circuit OPEN — skip direct vers HeyGen");
-        if (defaultCircuitBreaker.isOpen("heygen")) {
-          throw new Error("[video-gen] Both Runway and HeyGen circuit breakers are OPEN");
-        }
-        videoUrl = await tryHeyGen({
-          scriptText: payload.scriptText ?? payload.prompt,
-          avatarId: payload.avatarId,
-          voiceId: payload.voiceId,
-          idempotencyKey: `${jobId}-fallback`,
-          progressMessage: "HeyGen (fallback Runway OPEN)",
-          reportProgress,
-        });
-        providerUsed = "heygen";
       }
-    }
 
-    await reportProgress(80, "Vidéo prête, téléchargement…");
+      await reportProgress(80, "Vidéo prête, téléchargement…");
 
-    const videoRes = await fetch(videoUrl);
-    if (!videoRes.ok) {
-      throw new Error(`[video-gen] Téléchargement vidéo échoué: ${videoRes.status}`);
-    }
-    const videoBuffer = Buffer.from(await videoRes.arrayBuffer());
+      const videoRes = await fetch(videoUrl);
+      if (!videoRes.ok) {
+        throw new Error(`[video-gen] Téléchargement vidéo échoué: ${videoRes.status}`);
+      }
+      const videoBuffer = Buffer.from(await videoRes.arrayBuffer());
 
-    const storage = getGlobalStorage();
-    const variantKey = variantId ?? `video-${ctx.job.id}`;
-    const storageKey = `video/${payload.assetId ?? "orphan"}/${variantKey}.mp4`;
+      const storage = getGlobalStorage();
+      const variantKey = variantId ?? `video-${ctx.job.id}`;
+      const storageKey = `video/${payload.assetId ?? "orphan"}/${variantKey}.mp4`;
 
-    const upload = await storage.upload(storageKey, videoBuffer, {
-      contentType: "video/mp4",
-      tenantId: payload.tenantId,
-      metadata: {
-        userId: payload.userId,
-        provider: providerUsed,
-      },
-    });
+      const upload = await storage.upload(storageKey, videoBuffer, {
+        contentType: "video/mp4",
+        tenantId: payload.tenantId,
+        metadata: {
+          userId: payload.userId,
+          provider: providerUsed,
+        },
+      });
 
-    await reportProgress(90, "Upload terminé, persistance");
+      await reportProgress(90, "Upload terminé, persistance");
 
-    if (variantId) {
-      await updateVariant(variantId, {
-        status: "ready",
+      if (variantId) {
+        await updateVariant(variantId, {
+          status: "ready",
+          storageUrl: upload.url,
+          mimeType: "video/mp4",
+          sizeBytes: upload.size,
+          generatedAt: Date.now(),
+          provider: providerUsed,
+          metadata: {
+            sourceUrl: videoUrl,
+            provider: providerUsed,
+          },
+        });
+      }
+
+      await reportProgress(100, "Vidéo persistée");
+
+      const actualCostUsd = estimateVideoCostUsd(providerUsed, payload.durationSeconds ?? 5);
+
+      // Fermer la run avec coût réel — fail-soft
+      if (sb && runId) {
+        await endJobRun(sb, {
+          runId,
+          status: "completed",
+          costUsd: actualCostUsd,
+          output: {
+            assetId: payload.assetId ?? null,
+            variantId: variantId ?? null,
+            storageUrl: upload.url,
+            providerUsed,
+          },
+        });
+      }
+
+      return {
+        assetId: payload.assetId,
+        variantId,
         storageUrl: upload.url,
-        mimeType: "video/mp4",
-        sizeBytes: upload.size,
-        generatedAt: Date.now(),
-        provider: providerUsed,
+        actualCostUsd,
+        providerUsed,
         metadata: {
           sourceUrl: videoUrl,
           provider: providerUsed,
         },
-      });
+      };
+    } catch (err) {
+      // Sur throw final (Both circuit breakers OPEN, download échoué, etc.)
+      if (sb && runId) {
+        await endJobRun(sb, {
+          runId,
+          status: "failed",
+          error: err instanceof Error ? err.message : String(err),
+        });
+      }
+      throw err;
     }
-
-    await reportProgress(100, "Vidéo persistée");
-
-    return {
-      assetId: payload.assetId,
-      variantId,
-      storageUrl: upload.url,
-      actualCostUsd: estimateVideoCostUsd(providerUsed, payload.durationSeconds ?? 5),
-      providerUsed,
-      metadata: {
-        sourceUrl: videoUrl,
-        provider: providerUsed,
-      },
-    };
   },
 };
 
