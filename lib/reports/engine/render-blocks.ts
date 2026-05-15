@@ -30,6 +30,13 @@ export interface RenderedBlock {
   data: unknown;
   /** Props additionnels qui n'affectent pas la donnée mais le visuel. */
   props: Record<string, unknown>;
+  /**
+   * Signal explicite que le block a été tronqué à MAX_ROWS_PER_BLOCK.
+   * Présent uniquement si `original > max` (cf. audit P0-14). Permet aux
+   * exports (PDF/XLSX/CSV) et au client de surfacer un message clair plutôt
+   * que de laisser l'utilisateur croire qu'il voit le dataset complet.
+   */
+  truncated?: { original: number; shown: number };
 }
 
 /**
@@ -83,7 +90,9 @@ export function renderBlocks(
         `block '${block.id}' référence le dataset '${block.dataRef}' qui n'a pas été calculé`,
       );
     }
+    const originalLength = data.length;
     const trimmed = trimRows(data, block);
+    const wasTruncated = originalLength > trimmed.length;
     const rendered: RenderedBlock = {
       id: block.id,
       type: block.type,
@@ -91,6 +100,7 @@ export function renderBlocks(
       layout: block.layout,
       data: shapeData(block, trimmed),
       props: block.props ?? {},
+      ...(wasTruncated ? { truncated: { original: originalLength, shown: trimmed.length } } : {}),
     };
     blocks.push(rendered);
     extractScalars(block, trimmed, scalars);

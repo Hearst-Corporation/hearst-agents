@@ -431,7 +431,10 @@ export async function runAiPipeline(
   //   HubSpot, …).
   const [nativeGoogleTools, composioToolsRaw, briefingResult, kgContext, retrievedMemory] =
     await Promise.all([
-      buildNativeGoogleTools(input.userId).catch((err) => {
+      buildNativeGoogleTools(input.userId, {
+        userId: input.userId,
+        tenantId: resolvedTenantId,
+      }).catch((err) => {
         console.error("[AiPipeline] native Google discovery failed:", err);
         return {} as Record<string, unknown>;
       }),
@@ -491,7 +494,9 @@ export async function runAiPipeline(
     runId: engine.id,
   });
 
-  const enrichTools = buildEnrichTools();
+  // P0-6 : propage tenantId pour scoper les caches LRU Apollo/PDL et empêcher
+  // la fuite cross-tenant des données PII (nom, titre, company, firmographics).
+  const enrichTools = buildEnrichTools({ tenantId: resolvedTenantId });
   const webSearchTools = buildWebSearchTools();
   const marketDataTools = buildMarketDataTools();
   const extrasServicesTools = buildExtrasServicesTools(pipelineScope);

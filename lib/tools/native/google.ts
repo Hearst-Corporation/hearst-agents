@@ -21,6 +21,11 @@ import {
 import { getRecentFiles } from "@/lib/connectors/google/drive";
 import { getRecentEmails, sendEmail } from "@/lib/connectors/google/gmail";
 import { getTokens } from "@/lib/platform/auth/tokens";
+import {
+  hashToolArgs,
+  issueConfirmationToken,
+  verifyConfirmationToken,
+} from "@/lib/tools/hitl/confirmation-token";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -84,7 +89,10 @@ interface SendEmailArgs {
   body: string;
   cc?: string;
   bcc?: string;
+  /** Conservé pour compat — ignoré si _confirmationToken fourni. */
   _preview?: boolean;
+  /** P0-11 : token HMAC signé serveur. Requis pour exécution réelle. */
+  _confirmationToken?: string;
 }
 
 interface ListEventsArgs {
@@ -100,18 +108,34 @@ interface CreateEventArgs {
   description?: string;
   location?: string;
   attendees?: string[];
+  /** Conservé pour compat — ignoré si _confirmationToken fourni. */
   _preview?: boolean;
+  /** P0-11 : token HMAC signé serveur. Requis pour exécution réelle. */
+  _confirmationToken?: string;
 }
 
 interface ListFilesArgs {
   limit?: number;
 }
 
+const GMAIL_SEND_TOOL_SLUG = "gmail_send_email";
+const GCAL_CREATE_TOOL_SLUG = "googlecalendar_create_event";
+
 /**
  * Build the native Google tool map for a user. Returns `{}` if the user
  * isn't connected to Google via NextAuth (no access token in user_tokens).
+ *
+ * P0-11 : si `scope` (avec tenantId) est fourni, les write tools
+ * (gmail_send_email, googlecalendar_create_event) appliquent un gate HITL
+ * cryptographique identique à send_email Resend — sans _confirmationToken
+ * valide, le tool retourne un draft + token signé (jamais une exécution).
+ * Sans scope (chemin legacy), on retombe sur le `_preview: bool` historique
+ * (vulnérable au bypass LLM mais utilisé hors-pipeline).
  */
-export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap> {
+export async function buildNativeGoogleTools(
+  userId: string,
+  scope?: { userId: string; tenantId: string },
+): Promise<AiToolMap> {
   let hasGoogle = false;
   try {
     const tokens = await getTokens(userId, "google");
@@ -138,7 +162,7 @@ export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap>
 
   const sendEmailTool: Tool<SendEmailArgs, unknown> = {
     description:
-      "Send an email through the connected Google account. Two-step protocol: call first with `_preview: true` (default) to show a draft, then with `_preview: false` after the user explicitly confirms.",
+      "Send an email through the connected Google account. Two-step protocol: appelle TOUJOURS d'abord sans _confirmationToken pour obtenir un draft + token. Pour exécuter, refais l'appel avec le token HMAC fourni. Le LLM ne peut pas forger ce token.",
     inputSchema: jsonSchema<SendEmailArgs>({
       type: "object",
       required: ["to", "subject", "body"],
@@ -151,21 +175,61 @@ export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap>
         _preview: {
           type: "boolean",
           description:
-            "Set to true (default) to show a draft. Set to false ONLY after user confirmation.",
+            "Ignoré si _confirmationToken fourni. true (défaut) = retourne un draft sans envoyer.",
           default: true,
+        },
+        _confirmationToken: {
+          type: "string",
+          description:
+            "Token HMAC signé émis lors du draft précédent. Obligatoire pour déclencher l'envoi réel.",
         },
       },
     }),
     execute: async (args: SendEmailArgs) => {
-      const isPreview = args._preview !== false;
-      if (isPreview) return fmtSendDraft(args);
-      return sendEmail(userId, {
-        to: args.to,
-        subject: args.subject,
-        body: args.body,
-        cc: args.cc,
-        bcc: args.bcc,
-      });
+      // P0-11 : exécution uniquement si token HMAC valide. Sans scope on
+      // ne peut PAS vérifier — fail-closed, on retourne le draft.
+      if (args._confirmationToken) {
+        if (!scope) {
+          return "Erreur : contexte utilisateur manquant, impossible de vérifier le token de confirmation.";
+        }
+        const { _preview: _p, _confirmationToken: _t, ...execArgs } = args;
+        const argsHash = hashToolArgs(execArgs);
+        const result = verifyConfirmationToken(args._confirmationToken, {
+          userId: scope.userId,
+          tenantId: scope.tenantId,
+          toolSlug: GMAIL_SEND_TOOL_SLUG,
+          argsHash,
+        });
+        if (!result.ok) {
+          return `Envoi refusé : token de confirmation invalide (${result.reason}). Refais d'abord un draft pour obtenir un nouveau token.`;
+        }
+        return sendEmail(userId, {
+          to: args.to,
+          subject: args.subject,
+          body: args.body,
+          cc: args.cc,
+          bcc: args.bcc,
+        });
+      }
+
+      // Pas de token → draft + émission du token (si scope présent).
+      const { _preview: _p2, _confirmationToken: _t2, ...draftArgs } = args;
+      const confirmationToken = scope
+        ? issueConfirmationToken({
+            userId: scope.userId,
+            tenantId: scope.tenantId,
+            toolSlug: GMAIL_SEND_TOOL_SLUG,
+            argsHash: hashToolArgs(draftArgs),
+          })
+        : null;
+
+      return {
+        kind: "draft",
+        action: GMAIL_SEND_TOOL_SLUG,
+        preview: fmtSendDraft(args),
+        drafted_at: new Date().toISOString(),
+        _confirmationToken: confirmationToken,
+      };
     },
   };
 
@@ -193,7 +257,7 @@ export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap>
 
   const createEvent: Tool<CreateEventArgs, unknown> = {
     description:
-      "Create an event on the connected Google Calendar. Two-step protocol: call first with `_preview: true` (default), then `_preview: false` after user confirms.",
+      "Create an event on the connected Google Calendar. Two-step protocol: appelle TOUJOURS d'abord sans _confirmationToken pour obtenir un draft + token. Pour exécuter, refais l'appel avec le token HMAC fourni.",
     inputSchema: jsonSchema<CreateEventArgs>({
       type: "object",
       required: ["summary", "start", "end"],
@@ -205,19 +269,56 @@ export async function buildNativeGoogleTools(userId: string): Promise<AiToolMap>
         location: { type: "string" },
         attendees: { type: "array", items: { type: "string" } },
         _preview: { type: "boolean", default: true },
+        _confirmationToken: {
+          type: "string",
+          description: "Token HMAC signé. Obligatoire pour créer réellement l'événement.",
+        },
       },
     }),
     execute: async (args: CreateEventArgs) => {
-      const isPreview = args._preview !== false;
-      if (isPreview) return fmtEventDraft(args);
-      return createCalendarEvent(userId, {
-        summary: args.summary,
-        start: args.start,
-        end: args.end,
-        description: args.description,
-        location: args.location,
-        attendees: args.attendees,
-      });
+      // P0-11 : gate HITL crypto identique à gmail_send_email.
+      if (args._confirmationToken) {
+        if (!scope) {
+          return "Erreur : contexte utilisateur manquant, impossible de vérifier le token de confirmation.";
+        }
+        const { _preview: _p, _confirmationToken: _t, ...execArgs } = args;
+        const argsHash = hashToolArgs(execArgs);
+        const result = verifyConfirmationToken(args._confirmationToken, {
+          userId: scope.userId,
+          tenantId: scope.tenantId,
+          toolSlug: GCAL_CREATE_TOOL_SLUG,
+          argsHash,
+        });
+        if (!result.ok) {
+          return `Création refusée : token de confirmation invalide (${result.reason}). Refais d'abord un draft pour obtenir un nouveau token.`;
+        }
+        return createCalendarEvent(userId, {
+          summary: args.summary,
+          start: args.start,
+          end: args.end,
+          description: args.description,
+          location: args.location,
+          attendees: args.attendees,
+        });
+      }
+
+      const { _preview: _p2, _confirmationToken: _t2, ...draftArgs } = args;
+      const confirmationToken = scope
+        ? issueConfirmationToken({
+            userId: scope.userId,
+            tenantId: scope.tenantId,
+            toolSlug: GCAL_CREATE_TOOL_SLUG,
+            argsHash: hashToolArgs(draftArgs),
+          })
+        : null;
+
+      return {
+        kind: "draft",
+        action: GCAL_CREATE_TOOL_SLUG,
+        preview: fmtEventDraft(args),
+        drafted_at: new Date().toISOString(),
+        _confirmationToken: confirmationToken,
+      };
     },
   };
 

@@ -157,19 +157,57 @@ async function findExpiredAssets(
   cutoffDate.setDate(cutoffDate.getDate() - config.defaultTtlDays);
   const cutoffIso = cutoffDate.toISOString();
 
-  // Sous-requête : IDs des assets référencés par des mission_artifacts actifs.
-  // On charge les IDs pour les exclure côté JS (Supabase JS v2 ne supporte pas
-  // NOT IN avec sous-requête directe de manière type-safe).
-  const { data: referencedData } = await db
+  // Sous-requête : IDs des assets référencés par des mission_artifacts actifs
+  // OU par un run récent (runs.metadata.assets). On charge les IDs pour les
+  // exclure côté JS (Supabase JS v2 ne supporte pas NOT IN avec sous-requête
+  // directe de manière type-safe).
+  //
+  // P0-15 : alignement entre les deux sources de référence. La table
+  // mission_artifacts peut ne pas exister (migration absente, drift) — dans
+  // ce cas on log explicitement plutôt que silencieusement ignorer le check,
+  // et on bascule sur la source runs.metadata.assets pour préserver les
+  // assets in-use.
+  const referencedIds = new Set<string>();
+
+  const { data: missionRefs, error: missionRefsErr } = await db
     .from("mission_artifacts")
     .select("asset_id")
     .not("asset_id", "is", null);
 
-  const referencedIds = new Set(
-    (referencedData ?? [])
-      .map((r: { asset_id: string | null }) => r.asset_id)
-      .filter(Boolean) as string[],
-  );
+  if (missionRefsErr) {
+    logger.warn(
+      { err: missionRefsErr.message },
+      "[cleanup] mission_artifacts query failed — falling back to runs.metadata only (table peut être absente)",
+    );
+  } else {
+    for (const r of (missionRefs ?? []) as Array<{ asset_id: string | null }>) {
+      if (r.asset_id) referencedIds.add(r.asset_id);
+    }
+  }
+
+  // Source secondaire : assets référencés dans runs.metadata.assets[].
+  // Préserve les assets produits par un run récent (< cutoff) même si la
+  // table mission_artifacts est vide ou inaccessible.
+  const { data: runRefs, error: runRefsErr } = await db
+    .from("runs")
+    .select("metadata")
+    .gte("created_at", cutoffIso);
+
+  if (runRefsErr) {
+    logger.warn(
+      { err: runRefsErr.message },
+      "[cleanup] runs.metadata query failed — referenced assets may be deleted prematurely",
+    );
+  } else {
+    for (const row of (runRefs ?? []) as Array<{ metadata: unknown }>) {
+      const meta = row.metadata as { assets?: Array<{ id?: string } | string> } | null;
+      const assets = meta?.assets ?? [];
+      for (const a of assets) {
+        const id = typeof a === "string" ? a : a?.id;
+        if (id) referencedIds.add(id);
+      }
+    }
+  }
 
   const { data, error } = await db
     .from("assets")

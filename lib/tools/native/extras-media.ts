@@ -25,6 +25,7 @@ import type {
   JobKind,
   VideoGenInput,
 } from "@/lib/jobs/types";
+import { ensureContentAllowed } from "@/lib/moderation/openai";
 import type { TenantScope } from "@/lib/multi-tenant/types";
 
 /**
@@ -174,6 +175,10 @@ export function buildExtrasMediaTools(opts: {
     execute: async (args) => {
       const text = args.text.trim();
       if (!text) return "Erreur : text vide. Précise le contenu à lire.";
+
+      // P0-5 : content moderation AVANT crédit + enqueue.
+      const blocked = await ensureContentAllowed(text);
+      if (blocked) return blocked;
 
       const assetId = randomUUID();
       // Guard crédits avant tout side-effect (storeAsset/enqueue) — P0-4.
@@ -380,6 +385,11 @@ export function buildExtrasMediaTools(opts: {
           .filter(Boolean)
           .join("\n");
       }
+
+      // P0-5 : content moderation sur prompt + scriptText combinés.
+      const moderationText = [prompt, args.scriptText].filter(Boolean).join("\n");
+      const blocked = await ensureContentAllowed(moderationText);
+      if (blocked) return blocked;
 
       const assetId = randomUUID();
       const insufficient = await ensureCreditsOrMessage({

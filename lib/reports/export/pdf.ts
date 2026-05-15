@@ -49,6 +49,38 @@ function bufferFromDoc(doc: PDFKit.PDFDocument): Promise<Buffer> {
   });
 }
 
+/**
+ * Timeout strict pour la génération PDF. Au-delà, on rejette plutôt que
+ * laisser un payload dégénéré hanger une route HTTP (Vercel maxDuration)
+ * ou consommer la mémoire du worker indéfiniment (cf. audit P0-17).
+ * 60s couvre largement le rendu d'un rapport éditorial standard (12-20
+ * blocs, 200 rows/bloc max). Au-delà, c'est un signe que le payload est
+ * pathologique et doit être refusé en amont.
+ */
+const PDF_EXPORT_TIMEOUT_MS = 60_000;
+
+function withPdfTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(
+        new Error(
+          `[exportPdf] timeout après ${timeoutMs}ms — payload probablement trop volumineux ou block render hang`,
+        ),
+      );
+    }, timeoutMs);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (err) => {
+        clearTimeout(timer);
+        reject(err);
+      },
+    );
+  });
+}
+
 /** Helpers pagination — track la section + numéro de page courants. */
 interface ChromeState {
   pageNumber: number;
@@ -147,7 +179,11 @@ export async function exportPdf(input: ExportInput): Promise<ExportResult> {
   }
 
   doc.end();
-  const buffer = await bufferPromise;
+  // P0-17 : timeout strict 60s sur la concaténation du buffer (stream
+  // pdfkit). Couvre les cas où l'event "end" tarde (R2 stream buffering,
+  // GC pressure). Les boucles infinies sync à l'intérieur d'un renderXxx
+  // ne sont pas couvertes — défense par cap input (MAX_ROWS_PER_BLOCK=200).
+  const buffer = await withPdfTimeout(bufferPromise, PDF_EXPORT_TIMEOUT_MS);
 
   const safeBase = safeFileName(fileName ?? meta.title);
   return {

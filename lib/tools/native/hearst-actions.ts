@@ -180,6 +180,13 @@ export function buildHearstActionTools(opts: {
     }),
     execute: async (args) => {
       const fullPrompt = args.style ? `${args.prompt} — style: ${args.style}` : args.prompt;
+
+      // P0-5 : content moderation pré-enqueue (NSFW / violence / hate).
+      // Fail-soft : si OpenAI Moderation est indispo on laisse passer.
+      const { ensureContentAllowed } = await import("@/lib/moderation/openai");
+      const blocked = await ensureContentAllowed(fullPrompt);
+      if (blocked) return blocked;
+
       const assetId = randomUUID();
 
       // 1. Asset placeholder — apparaît dans la liste assets immédiatement

@@ -66,7 +66,14 @@ function formatContact(p: ApolloPerson): string {
   return lines.join("\n");
 }
 
-export function buildEnrichTools(): AiToolMap {
+/**
+ * Construit les tools d'enrichissement scopés au tenant du caller.
+ *
+ * Le `tenantId` est propagé jusqu'aux caches LRU Apollo/PDL pour empêcher
+ * la fuite de données PII entre tenants partageant le même worker Node
+ * (cf. audit P0-6).
+ */
+export function buildEnrichTools(opts: { tenantId?: string } = {}): AiToolMap {
   const enrichCompanyTool: Tool<EnrichCompanyArgs, string> = {
     description:
       "Enrichit une entreprise (PDL) à partir de son domaine principal. Use this when the user asks for company info, B2B intel, or 'enrichis cette entreprise'. Retourne secteur, taille, levée, HQ, LinkedIn quand disponibles.",
@@ -83,7 +90,7 @@ export function buildEnrichTools(): AiToolMap {
     }),
     execute: async (args) => {
       try {
-        const company = await enrichCompany({ domain: args.domain });
+        const company = await enrichCompany({ domain: args.domain, tenantId: opts.tenantId });
         return formatCompany(company);
       } catch (err) {
         if (err instanceof PdlUnavailableError) {
@@ -110,7 +117,7 @@ export function buildEnrichTools(): AiToolMap {
     }),
     execute: async (args) => {
       try {
-        const person = await enrichPerson({ email: args.email });
+        const person = await enrichPerson({ email: args.email, tenantId: opts.tenantId });
         return formatContact(person);
       } catch (err) {
         if (err instanceof ApolloUnavailableError) {

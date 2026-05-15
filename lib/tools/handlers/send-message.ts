@@ -108,13 +108,18 @@ async function sendViaGmail(input: SendMessageInput): Promise<SendMessageResult>
     };
   }
 
+  // P0-12 : pas de Composio configuré. On échoue explicitement plutôt que
+  // simuler un succès — les tests / dev runners voyaient un faux "sent" et
+  // n'attrapaient pas les régressions où la chaîne d'envoi est cassée.
   return {
-    success: true,
+    success: false,
     providerId: "google",
     channelRef: input.channelRef,
-    messageId: `gmail_stub_${Date.now()}`,
-    deliveryStatus: "sent",
+    messageId: null,
+    deliveryStatus: "failed",
     sentAt: Date.now(),
+    error:
+      "Gmail send non disponible — Composio n'est pas configuré (COMPOSIO_API_KEY manquant). Connecte Gmail via Composio pour activer cet envoi.",
   };
 }
 

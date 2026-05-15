@@ -50,8 +50,19 @@ const companyCache = new QuickLRU<string, PdlCompany>({
   maxAge: 24 * 60 * 60 * 1000,
 });
 
-/** Enrichit une entreprise via son domaine principal. */
-export async function enrichCompany(input: { domain: string }): Promise<PdlCompany> {
+/**
+ * Clé scopée par tenant pour empêcher la fuite cross-tenant des données
+ * firmographiques cachées (cf. audit P0-6).
+ */
+function cacheKey(tenantId: string | undefined, domain: string): string {
+  return `${tenantId ?? "tenant:none"}:${domain}`;
+}
+
+/** Enrichit une entreprise via son domaine principal, scopé au tenant. */
+export async function enrichCompany(input: {
+  domain: string;
+  tenantId?: string;
+}): Promise<PdlCompany> {
   const domain = input.domain
     .trim()
     .toLowerCase()
@@ -59,7 +70,8 @@ export async function enrichCompany(input: { domain: string }): Promise<PdlCompa
     .replace(/\/.*$/, "");
   if (!domain) throw new Error("[PDL] domain requis");
 
-  const cached = companyCache.get(domain);
+  const key = cacheKey(input.tenantId, domain);
+  const cached = companyCache.get(key);
   if (cached) return cached;
 
   const apiKey = getApiKey();
@@ -108,7 +120,7 @@ export async function enrichCompany(input: { domain: string }): Promise<PdlCompa
     raw: data,
   };
 
-  companyCache.set(domain, result);
+  companyCache.set(key, result);
   return result;
 }
 

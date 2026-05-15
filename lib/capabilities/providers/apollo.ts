@@ -50,12 +50,29 @@ const personCache = new QuickLRU<string, ApolloPerson>({
   maxAge: 24 * 60 * 60 * 1000,
 });
 
-/** Enrichit une personne via son email. */
-export async function enrichPerson(input: { email: string }): Promise<ApolloPerson> {
+/**
+ * Construit la clé de cache. `tenantId` est obligatoire pour empêcher la
+ * fuite cross-tenant : sans cette clé, deux tenants partageant le même worker
+ * Node verraient les données PII (nom, titre, company) de l'autre via cache
+ * hit sur le même email (cf. audit P0-6).
+ *
+ * Convention : `tenant:` (sentinelle réservée) si aucun tenant fourni — chemin
+ * réservé aux tests / appels admin orphelins, jamais à utiliser en prod-user.
+ */
+function cacheKey(tenantId: string | undefined, email: string): string {
+  return `${tenantId ?? "tenant:none"}:${email}`;
+}
+
+/** Enrichit une personne via son email, scopé au tenant. */
+export async function enrichPerson(input: {
+  email: string;
+  tenantId?: string;
+}): Promise<ApolloPerson> {
   const email = input.email.trim().toLowerCase();
   if (!email) throw new Error("[Apollo] email requis");
 
-  const cached = personCache.get(email);
+  const key = cacheKey(input.tenantId, email);
+  const cached = personCache.get(key);
   if (cached) return cached;
 
   const apiKey = getApiKey();
@@ -104,7 +121,7 @@ export async function enrichPerson(input: { email: string }): Promise<ApolloPers
     raw: p,
   };
 
-  personCache.set(email, result);
+  personCache.set(key, result);
   return result;
 }
 
