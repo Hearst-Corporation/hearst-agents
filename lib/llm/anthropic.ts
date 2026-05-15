@@ -5,6 +5,7 @@ import { startTrace } from "@/lib/observability/langfuse";
 import { redactForLangfuse } from "@/lib/observability/langfuse-redact";
 import { defaultRateLimiter } from "./rate-limiter";
 import { computeCostUsd } from "./pricing";
+import { logger } from "@/lib/observability/logger";
 
 /**
  * Headers rate-limit exposés par Anthropic sur chaque réponse HTTP.
@@ -20,13 +21,6 @@ const ANTHROPIC_RATE_LIMIT_HEADERS = [
   "retry-after",
 ] as const;
 
-let _recordHeadersWarnedMissing = false;
-
-/**
- * Extrait les headers rate-limit d'une `Response` Fetch et les transmet au
- * rate-limiter. Best-effort : si la méthode `recordHeaders` n'est pas encore
- * câblée (rollout en parallèle), log un warning au premier appel et continue.
- */
 function recordAnthropicRateHeaders(response: Response | undefined): void {
   if (!response?.headers) return;
   const headers: Record<string, string> = {};
@@ -34,19 +28,12 @@ function recordAnthropicRateHeaders(response: Response | undefined): void {
     const value = response.headers.get(key);
     if (value) headers[key] = value;
   }
-  if (Object.keys(headers).length === 0) return;
   try {
-    const limiter = defaultRateLimiter as unknown as {
-      recordHeaders?: (provider: string, headers: Record<string, string>) => void;
-    };
-    if (typeof limiter.recordHeaders === "function") {
-      limiter.recordHeaders("anthropic", headers);
-    } else if (!_recordHeadersWarnedMissing) {
-      console.warn("[anthropic] rateLimiter.recordHeaders() not yet wired — skipping rate-limit ingest");
-      _recordHeadersWarnedMissing = true;
+    if (Object.keys(headers).length > 0) {
+      defaultRateLimiter.recordHeaders("anthropic", headers);
     }
   } catch (err) {
-    console.warn("[anthropic] recordHeaders failed:", err instanceof Error ? err.message : err);
+    logger.warn({ err }, "[anthropic] recordHeaders failed");
   }
 }
 
@@ -168,9 +155,7 @@ export class AnthropicProvider implements LLMProvider {
 
     // Log cache metrics for observability
     if (result.cacheReadTokens > 0 || result.cacheCreationTokens > 0) {
-      console.log(
-        `[Anthropic] Cache metrics - read: ${result.cacheReadTokens}, created: ${result.cacheCreationTokens}, model: ${req.model}`
-      );
+      logger.debug({ cache_read: result.cacheReadTokens, cache_created: result.cacheCreationTokens, model: req.model }, "[anthropic] cache metrics");
     }
 
     return {
