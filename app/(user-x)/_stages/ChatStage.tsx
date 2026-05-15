@@ -8,6 +8,11 @@ import { useStageStore } from "@/stores/stage";
 
 const MSGS_MAX = 8;
 
+// Référence stable pour le fallback vide — évite une nouvelle référence array
+// à chaque render dans le sélecteur Zustand (React 18 detecte un snapshot
+// instable et throw "infinite loop" si le sélecteur retourne `?? []` inline).
+const EMPTY_MSGS: Message[] = [];
+
 const CONTAINER_VARIANTS: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
@@ -91,9 +96,10 @@ function MessageBubble({ msg }: { msg: Message }) {
 export function ChatStage({ mode }: { mode: string }) {
   const setMode = useStageStore((s) => s.setMode);
   const activeThreadId = useNavigationStore((s) => s.activeThreadId);
-  const msgs = useNavigationStore(
-    (s) => (s.activeThreadId ? s.messages[s.activeThreadId] : undefined) ?? [],
+  const rawMsgs = useNavigationStore((s) =>
+    s.activeThreadId ? s.messages[s.activeThreadId] : undefined,
   );
+  const msgs = rawMsgs ?? EMPTY_MSGS;
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
