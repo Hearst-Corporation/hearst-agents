@@ -14,8 +14,10 @@ import { parseDocument } from "@/lib/capabilities/providers/llamaparse";
 import { settleCredits } from "@/lib/credits/client";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
 import { inngest } from "@/lib/jobs/inngest/client";
+import { endJobRun, startJobRun } from "@/lib/jobs/inngest/run-persistence";
 import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { DocumentParseInput } from "@/lib/jobs/types";
+import { getServerSupabase } from "@/lib/platform/db/supabase";
 
 export const documentParseFunction = inngest.createFunction(
   {
@@ -31,6 +33,8 @@ export const documentParseFunction = inngest.createFunction(
       throw new PermanentJobError("document-parse: fileUrl is required");
     }
 
+    const sb = getServerSupabase();
+
     const variantId =
       (payload as DocumentParseInput & { variantId?: string }).variantId ??
       (typeof payload === "object" && payload !== null && "metadata" in payload
@@ -41,88 +45,135 @@ export const documentParseFunction = inngest.createFunction(
           ).metadata?.variantId
         : undefined);
 
-    // Step 1 — LlamaParse
-    const parsed = await step.run("parse-document", async () => {
-      try {
-        return await parseDocument({
-          fileUrl: payload.fileUrl,
-          mimeType: payload.mimeType,
-          idempotencyKey: `doc-${event.id}`,
-        });
-      } catch (err) {
-        const status = (err as { status?: number }).status;
-        if (status === 401 || status === 403) {
-          throw new PermanentJobError("LlamaParse auth failed", err);
-        }
-        if (status === 400) {
-          throw new PermanentJobError("Invalid LlamaParse request", err);
-        }
-        throw err;
-      }
-    });
-
-    // Step 2 — Upload Markdown to storage
-    const upload = await step.run("upload-markdown", async () => {
-      const storage = getGlobalStorage();
-      const variantKey = variantId ?? `doc-${event.id}`;
-      const storageKey = `documents/${payload.assetId ?? "orphan"}/${variantKey}.md`;
-
-      const mdBuffer = Buffer.from(parsed.markdown, "utf-8");
-      return await storage.upload(storageKey, mdBuffer, {
-        contentType: "text/markdown",
-        tenantId: payload.tenantId,
-        metadata: {
-          userId: payload.userId,
-          fileName: payload.fileName,
-          pages: String(parsed.pages),
-        },
-      });
-    });
-
-    // Step 3 — Update DB row asset_variants
-    await step.run("update-variant", async () => {
-      if (!variantId) return null;
-      return await updateVariant(variantId, {
-        status: "ready",
-        storageUrl: upload.url,
-        mimeType: "text/markdown",
-        sizeBytes: upload.size,
-        generatedAt: Date.now(),
-        provider: "llamaparse",
-        metadata: {
-          pages: parsed.pages,
-          sourceFile: payload.fileName,
-        },
-      });
-    });
-
-    // Step 4 — Settle credits
-    await step.run("settle-credits", async () => {
-      if (!payload.userId || !payload.tenantId) return null;
-      return await settleCredits({
+    // Step 0 — Créer la run au démarrage
+    const runId = await step.run("create-run", async () => {
+      if (!sb) return null;
+      return startJobRun(sb, {
+        kind: "doc_parse",
         userId: payload.userId,
         tenantId: payload.tenantId,
-        reservedUsd: payload.estimatedCostUsd,
-        actualUsd: 0,
-        jobId: event.id ?? "unknown",
-        jobKind: "document-parse",
-        description: `document-parse via llamaparse`,
-      }).catch((err) => {
-        console.error("[document-parse/Inngest] settle_credits failed:", err);
+        input: {
+          assetId: payload.assetId,
+          fileName: payload.fileName,
+          mimeType: payload.mimeType,
+          estimatedCostUsd: payload.estimatedCostUsd,
+        },
+        eventId: event.id ?? "unknown",
       });
     });
 
-    return {
-      assetId: payload.assetId,
-      variantId,
-      storageUrl: upload.url,
-      actualCostUsd: 0,
-      providerUsed: "llamaparse",
-      modelUsed: "llama-parse",
-      metadata: {
-        pages: parsed.pages,
-        chars: parsed.markdown.length,
-      },
-    };
+    try {
+      // Step 1 — LlamaParse
+      const parsed = await step.run("parse-document", async () => {
+        try {
+          return await parseDocument({
+            fileUrl: payload.fileUrl,
+            mimeType: payload.mimeType,
+            idempotencyKey: `doc-${event.id}`,
+          });
+        } catch (err) {
+          const status = (err as { status?: number }).status;
+          if (status === 401 || status === 403) {
+            throw new PermanentJobError("LlamaParse auth failed", err);
+          }
+          if (status === 400) {
+            throw new PermanentJobError("Invalid LlamaParse request", err);
+          }
+          throw err;
+        }
+      });
+
+      // Step 2 — Upload Markdown to storage
+      const upload = await step.run("upload-markdown", async () => {
+        const storage = getGlobalStorage();
+        const variantKey = variantId ?? `doc-${event.id}`;
+        const storageKey = `documents/${payload.assetId ?? "orphan"}/${variantKey}.md`;
+
+        const mdBuffer = Buffer.from(parsed.markdown, "utf-8");
+        return await storage.upload(storageKey, mdBuffer, {
+          contentType: "text/markdown",
+          tenantId: payload.tenantId,
+          metadata: {
+            userId: payload.userId,
+            fileName: payload.fileName,
+            pages: String(parsed.pages),
+          },
+        });
+      });
+
+      // Step 3 — Update DB row asset_variants
+      await step.run("update-variant", async () => {
+        if (!variantId) return null;
+        return await updateVariant(variantId, {
+          status: "ready",
+          storageUrl: upload.url,
+          mimeType: "text/markdown",
+          sizeBytes: upload.size,
+          generatedAt: Date.now(),
+          provider: "llamaparse",
+          metadata: {
+            pages: parsed.pages,
+            sourceFile: payload.fileName,
+          },
+        });
+      });
+
+      // Step 4 — Settle credits
+      // LlamaParse n'a pas de billing API — coût = 0 pour l'instant
+      await step.run("settle-credits", async () => {
+        if (!payload.userId || !payload.tenantId) return null;
+        return await settleCredits({
+          userId: payload.userId,
+          tenantId: payload.tenantId,
+          reservedUsd: payload.estimatedCostUsd,
+          actualUsd: 0,
+          jobId: event.id ?? "unknown",
+          jobKind: "document-parse",
+          description: `document-parse via llamaparse`,
+        }).catch((err) => {
+          console.error("[document-parse/Inngest] settle_credits failed:", err);
+        });
+      });
+
+      // Step 5 — Persister la run
+      await step.run("end-run", async () => {
+        if (!sb) return;
+        await endJobRun(sb, {
+          runId,
+          status: "completed",
+          costUsd: 0,
+          output: {
+            assetId: payload.assetId,
+            variantId,
+            storageUrl: upload.url,
+            pages: parsed.pages,
+            chars: parsed.markdown.length,
+          },
+        });
+      });
+
+      return {
+        assetId: payload.assetId,
+        variantId,
+        storageUrl: upload.url,
+        actualCostUsd: 0,
+        providerUsed: "llamaparse",
+        modelUsed: "llama-parse",
+        metadata: {
+          pages: parsed.pages,
+          chars: parsed.markdown.length,
+        },
+      };
+    } catch (err) {
+      // Marquer la run en failed — fail-soft, ne masque pas l'erreur originale
+      if (sb) {
+        await endJobRun(sb, {
+          runId,
+          status: "failed",
+          error: err instanceof Error ? err.message : String(err),
+        }).catch(() => {});
+      }
+      throw err;
+    }
   },
 );

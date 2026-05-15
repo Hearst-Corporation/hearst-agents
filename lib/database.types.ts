@@ -4537,7 +4537,16 @@ export type Database = {
         | "completed"
         | "failed"
         | "cancelled";
-      run_kind: "chat" | "workflow" | "evaluation" | "tool_test";
+      run_kind:
+        | "chat"
+        | "workflow"
+        | "evaluation"
+        | "tool_test"
+        | "audio_gen"
+        | "image_gen"
+        | "video_gen"
+        | "doc_parse"
+        | "code_exec";
       run_status:
         | "pending"
         | "running"
@@ -4696,7 +4705,17 @@ export const Constants = {
         "failed",
         "cancelled",
       ],
-      run_kind: ["chat", "workflow", "evaluation", "tool_test"],
+      run_kind: [
+        "chat",
+        "workflow",
+        "evaluation",
+        "tool_test",
+        "audio_gen",
+        "image_gen",
+        "video_gen",
+        "doc_parse",
+        "code_exec",
+      ],
       run_status: [
         "pending",
         "running",

@@ -34,7 +34,16 @@ export type IntegrationConnection = Tables["integration_connections"]["Row"];
 export type ImprovementSignal = Tables["improvement_signals"]["Row"];
 export type AppliedChange = Tables["applied_changes"]["Row"];
 
-export type RunKind = "chat" | "workflow" | "evaluation" | "tool_test";
+export type RunKind =
+  | "chat"
+  | "workflow"
+  | "evaluation"
+  | "tool_test"
+  | "audio_gen"
+  | "image_gen"
+  | "video_gen"
+  | "doc_parse"
+  | "code_exec";
 export type RunStatus = "pending" | "running" | "completed" | "failed" | "cancelled" | "timeout";
 export type TraceKind =
   | "llm_call"
