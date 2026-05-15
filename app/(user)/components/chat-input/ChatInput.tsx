@@ -3,6 +3,7 @@
 import { lazy, Suspense } from "react";
 import { useNavigationStore } from "@/stores/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
+import { useStageStore } from "@/stores/stage";
 import { ContextChips } from "../chat/ContextChips";
 import { AttachedAssetChips } from "./AttachedAssetChips";
 import { ComposerActions } from "./ComposerActions";
@@ -18,6 +19,31 @@ import { QuickMentionRow } from "./QuickMentionRow";
 import { StatusMessages } from "./StatusMessages";
 import type { ChatInputProps } from "./types";
 import { resolvePlaceholder } from "./utils/surfacePlaceholders";
+
+/**
+ * Placeholders du composer selon le mode stage actif.
+ * Remplace l'ancien système `surface` (navigation store) qui ne changeait
+ * jamais sur le shell visionOS.
+ */
+const MODE_PLACEHOLDERS: Record<string, string> = {
+  cockpit: "Demande quelque chose à Hearst…",
+  chat: "Pose ta question…",
+  asset: "Demande sur cet asset…",
+  asset_compare: "Compare ces assets…",
+  mission: "Donne des instructions pour la mission…",
+  browser: "Que veux-tu faire sur cette page ?",
+  meeting: "Résume ce meeting…",
+  kg: "Explore le graphe de connaissances…",
+  voice: "Parle à Hearst…",
+  simulation: "Lance un scénario de simulation…",
+  artifact: "Demande du code ou un artefact…",
+  signal: "Analyse les signaux…",
+};
+
+function resolveModePlaceholder(mode: string, surface: string, override?: string): string {
+  if (override) return override;
+  return MODE_PLACEHOLDERS[mode] || resolvePlaceholder(surface, undefined);
+}
 
 // Lazy-load : modal rendu uniquement à la première ouverture (gain bundle
 // initial du chat ~5-8 KB selon le contenu de DocumentParseModal).
@@ -46,6 +72,7 @@ export function ChatInput({
 }: ChatInputProps) {
   const isRunning = useRuntimeStore((s) => s.coreState !== "idle");
   const surface = useNavigationStore((s) => s.surface);
+  const stageMode = useStageStore((s) => s.current.mode);
 
   const { input, setInput, setInputFocused, inputRef, isExpanded } = useChatComposer();
 
@@ -189,7 +216,7 @@ export function ChatInput({
             aria-label="Tapez votre message"
             aria-multiline="true"
             aria-required="true"
-            placeholder={resolvePlaceholder(surface, placeholder)}
+            placeholder={resolveModePlaceholder(stageMode, surface, placeholder)}
             rows={1}
             className="block w-full bg-transparent t-18 font-light text-text placeholder:text-text-muted resize-none leading-relaxed min-h-input h-input-max px-4 py-3 focus:outline-none"
           />

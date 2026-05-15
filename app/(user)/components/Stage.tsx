@@ -1,5 +1,15 @@
 "use client";
 
+/**
+ * @deprecated Ce routeur legacy n'est plus monté dans l'app depuis le
+ * pivot shell visionOS (P4). Le routing des stages est désormais géré par
+ * `CockpitXClient` + `app/(user)/_stages/*` + `useStageStore`.
+ *
+ * Conservé temporairement pour compatibilité des tests legacy
+ * (`__tests__/stores/stage-routing.test.tsx`). Ne pas modifier — supprimer
+ * quand les tests auront migré vers le nouveau registry.
+ */
+
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import type { Message } from "@/lib/core/types";
 import { useStageStore } from "@/stores/stage";
