@@ -131,47 +131,55 @@ function isLlmJobPath(path: string): boolean {
   return ARCJET_LLM_JOB_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 }
 
+function arcjetDeniedResponse(decision: {
+  reason: { isRateLimit(): boolean; isBot(): boolean; isShield(): boolean };
+}): NextResponse {
+  if (decision.reason.isRateLimit())
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  if (decision.reason.isBot()) return NextResponse.json({ error: "bot_detected" }, { status: 403 });
+  if (decision.reason.isShield())
+    return NextResponse.json({ error: "request_blocked" }, { status: 403 });
+  return NextResponse.json({ error: "denied" }, { status: 403 });
+}
+
 async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
   if (!isArcjetEnabled()) return null;
   const path = req.nextUrl.pathname;
-  // Routing par coût :
-  //  - orchestrate (chat LLM streaming)        → ajOrchestrate (10 req/min/user)
-  //  - jobs IA externes + diff/ab-test         → ajLlmJobs    (20 req/min/user)
-  //  - reste (auth, missions, polling status)  → aj           (100 req/min/IP)
-  let instance: typeof aj;
-  const needsUserScopedLimit = path.startsWith("/api/orchestrate") || isLlmJobPath(path);
 
+  // P0-7 : pour les routes coûteuses (orchestrate + llm jobs), on extrait
+  // userId depuis le JWT pour créer un bucket distinct par user.
+  // Cela isole les users derrière un corp NAT/VPN (même IP, users différents).
+  // Le `aj` général (auth, missions) reste IP-only (moins critique).
+  //
+  // On appelle directement chaque instance (pas de variable partagée) pour
+  // préserver le typage TypeScript des CharacteristicProps génériques Arcjet.
   if (path.startsWith("/api/orchestrate")) {
-    instance = ajOrchestrate;
-  } else if (isLlmJobPath(path)) {
-    instance = ajLlmJobs;
-  } else {
-    instance = aj;
-  }
-  if (!instance) return null;
-
-  // P0-7 : pour les routes coûteuses (orchestrate + llm jobs), on passe userId
-  // pour créer un bucket distinct par user, pas par IP. Cela isole les users
-  // derrière un corp NAT/VPN. Le `aj` général (auth, missions) reste IP-only.
-  let userId: string | undefined;
-  if (needsUserScopedLimit) {
-    userId = await extractUserIdFromRequest(req);
+    if (!ajOrchestrate) return null;
+    const userId = await extractUserIdFromRequest(req);
+    // CharacteristicProps<["ip.src","userId"]> rend userId obligatoire dans le type.
+    // En pratique Arcjet accepte un userId absent → bascule sur ip.src.
+    // Le cast évite l'erreur TS sans changer le comportement runtime.
+    const props = { requested: 1, ...(userId && { userId }) } as Parameters<
+      typeof ajOrchestrate.protect
+    >[1];
+    const decision = await ajOrchestrate.protect(req, props);
+    return decision.isDenied() ? arcjetDeniedResponse(decision) : null;
   }
 
-  const decision = await instance.protect(req, { requested: 1, userId });
-  if (decision.isDenied()) {
-    if (decision.reason.isRateLimit()) {
-      return NextResponse.json({ error: "rate_limited" }, { status: 429 });
-    }
-    if (decision.reason.isBot()) {
-      return NextResponse.json({ error: "bot_detected" }, { status: 403 });
-    }
-    if (decision.reason.isShield()) {
-      return NextResponse.json({ error: "request_blocked" }, { status: 403 });
-    }
-    return NextResponse.json({ error: "denied" }, { status: 403 });
+  if (isLlmJobPath(path)) {
+    if (!ajLlmJobs) return null;
+    const userId = await extractUserIdFromRequest(req);
+    const props = { requested: 1, ...(userId && { userId }) } as Parameters<
+      typeof ajLlmJobs.protect
+    >[1];
+    const decision = await ajLlmJobs.protect(req, props);
+    return decision.isDenied() ? arcjetDeniedResponse(decision) : null;
   }
-  return null;
+
+  // Routes générales (auth, missions, polling) — bucket par IP uniquement.
+  if (!aj) return null;
+  const decision = await aj.protect(req, { requested: 1 });
+  return decision.isDenied() ? arcjetDeniedResponse(decision) : null;
 }
 
 let _envChecked = false;

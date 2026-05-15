@@ -142,7 +142,12 @@ export async function protectLlmJob(
   userId?: string,
 ): Promise<NextResponse | null> {
   if (!ajLlmJobs) return null;
-  const decision = await ajLlmJobs.protect(req, { requested: 1, userId });
+  // Arcjet CharacteristicProps<["userId"]> attend string | number | boolean — pas undefined.
+  // On omet la clé si userId absent pour que Arcjet bascule sur ip.src.
+  const props = { requested: 1, ...(userId && { userId }) } as Parameters<
+    typeof ajLlmJobs.protect
+  >[1];
+  const decision = await ajLlmJobs.protect(req, props);
   if (!decision.isDenied()) return null;
   if (decision.reason.isRateLimit()) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
