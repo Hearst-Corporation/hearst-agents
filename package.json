@@ -66,10 +66,10 @@
     "*.{ts,tsx,js,jsx}": [
       "biome check --write"
     ],
-    "*.{json,yml,yaml}": [
+    "*.json": [
       "biome format --write"
     ],
-    "*.{md,css}": []
+    "*.{md,css,yml,yaml}": []
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.71",
