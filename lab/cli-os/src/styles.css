@@ -105,13 +105,13 @@ body {
 @layer utilities {
   .vision-glass {
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(50px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(40px) saturate(180%) brightness(110%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      inset 0 0 20px rgba(255, 255, 255, 0.02),
-      0 40px 100px -20px rgba(0, 0, 0, 0.4),
-      0 10px 40px -10px rgba(0, 0, 0, 0.3);
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      inset 0 0 1px 1px rgba(255, 255, 255, 0.02),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+      0 20px 60px -20px rgba(0, 0, 0, 0.6);
   }
 
   .vision-btn-primary {
@@ -124,14 +124,16 @@ body {
   }
 
   .vision-btn-glass {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px) saturate(150%);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px) saturate(150%) brightness(110%);
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.2);
     color: rgba(255, 255, 255, 0.9);
   }
   .vision-btn-glass:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .vision-segmented-track {

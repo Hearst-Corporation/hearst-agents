@@ -58,16 +58,16 @@ export function CockpitScene() {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-screen w-screen bg-[#0a0a0a] text-white overflow-hidden perspective-scene"
+      className="relative flex h-screen w-screen bg-[#050505] text-white overflow-hidden perspective-scene"
     >
-      {/* Lumières ambiantes (Environnement Apple Spatial) */}
+      {/* Lumières ambiantes (Environnement Apple Spatial Night) */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-70"
         style={{
           background: `
-            radial-gradient(circle at 15% 30%, rgba(110, 130, 255, 0.22), transparent 45%),
-            radial-gradient(circle at 85% 30%, rgba(140, 100, 255, 0.22), transparent 50%),
-            radial-gradient(circle at 50% 100%, rgba(100, 220, 255, 0.15), transparent 65%)
+            radial-gradient(circle at 15% 30%, rgba(60, 80, 255, 0.25), transparent 50%),
+            radial-gradient(circle at 85% 20%, rgba(120, 70, 255, 0.2), transparent 50%),
+            radial-gradient(circle at 50% 100%, rgba(40, 180, 255, 0.15), transparent 65%)
           `,
           filter: "blur(80px)",
         }}
