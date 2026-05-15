@@ -104,7 +104,7 @@ function LoginContent() {
 
   if (status === "loading" || status === "authenticated") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="flex h-screen w-full items-center justify-center bg-black text-white">
         <div className="flex flex-col items-center gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--line-strong) border-t-(--text-faint)" />
           <p className="t-13 text-(--text-soft)">
@@ -116,7 +116,7 @@ function LoginContent() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6 py-8 sm:px-8 md:px-10 md:py-16">
+    <div className="flex h-screen w-full items-center justify-center overflow-hidden bg-black px-6 py-8 text-white sm:px-8 md:px-10 md:py-16">
       {/* glow removed — invariant: no blur, no shadow */}
 
       <div className="relative w-full max-w-[var(--width-login-card)]">
@@ -212,7 +212,7 @@ export default function LoginPage() {
     <SessionProvider>
       <Suspense
         fallback={
-          <div className="flex min-h-screen items-center justify-center bg-background">
+          <div className="flex h-screen w-full items-center justify-center overflow-hidden bg-black">
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--line-strong) border-t-(--text-faint)" />
           </div>
         }

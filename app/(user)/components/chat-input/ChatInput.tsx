@@ -123,10 +123,7 @@ export function ChatInput({
       }}
       className="relative z-20 w-full animate-[panel-slide-in-bottom_0.6s_ease-out] px-4 py-2"
       style={{
-        background: "var(--bg-gradient-linear-bottom-glow)",
-        backdropFilter: "blur(var(--blur-md))",
-        WebkitBackdropFilter: "blur(var(--blur-md))",
-        boxShadow: "var(--shadow-panel-lift)",
+        background: "transparent",
       }}
     >
       <div className="mx-auto relative max-w-input shell-input-pill-new">

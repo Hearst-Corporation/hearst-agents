@@ -10,7 +10,7 @@
  */
 
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Asset } from "@/lib/assets/types";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
@@ -459,12 +459,15 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
 // ── Composant principal ───────────────────────────────────────────────────────
 
 export function AssetCompareStage({ mode = "asset-compare" }: { mode?: string }) {
-  // Lecture assetIds depuis useStageStore
-  const assetIds = useStageStore((s) =>
-    s.current.mode === "asset_compare" && Array.isArray(s.current.assetIds)
-      ? (s.current.assetIds as string[]).slice(0, 2)
-      : ([] as string[]),
-  );
+  // Lecture assetIds depuis useStageStore — useMemo évite la boucle infinie
+  // (slice(0,2) et [] créent de nouvelles références à chaque render).
+  const stageCurrent = useStageStore((s) => s.current);
+  const assetIds = useMemo(() => {
+    if (stageCurrent.mode === "asset_compare" && Array.isArray(stageCurrent.assetIds)) {
+      return (stageCurrent.assetIds as string[]).slice(0, 2);
+    }
+    return [] as string[];
+  }, [stageCurrent]);
 
   const [assets, setAssets] = useState<[Asset | null, Asset | null]>([null, null]);
   const [loadingA, setLoadingA] = useState(false);

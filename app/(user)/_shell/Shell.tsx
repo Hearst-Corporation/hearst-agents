@@ -32,9 +32,8 @@
  */
 
 import type { ReactNode } from "react";
-import type { FooterConfig, RailItem } from "../_stages/types";
+import type { RailItem } from "../_stages/types";
 import { AmbientLayers } from "./AmbientLayers";
-import { FloatingFooter } from "./FloatingFooter";
 import { LeftRail } from "./LeftRail";
 import { RightRail } from "./RightRail";
 
@@ -42,11 +41,10 @@ export type ShellProps = {
   centerContent: ReactNode;
   railTitle: string;
   railItems: readonly RailItem[];
-  footer: FooterConfig;
   composer?: ReactNode;
 };
 
-export function Shell({ centerContent, railTitle, railItems, footer, composer }: ShellProps) {
+export function Shell({ centerContent, railTitle, railItems, composer }: ShellProps) {
   return (
     <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-black text-white">
       <AmbientLayers />
@@ -71,10 +69,21 @@ export function Shell({ centerContent, railTitle, railItems, footer, composer }:
             }}
           />
 
-          <FloatingFooter config={footer} />
-
-          {/* Composer chat — moteur SSE + input (Option 2, Temps 1) */}
-          {composer && <div className="absolute right-0 bottom-0 left-0 z-[25]">{composer}</div>}
+          {/* Composer chat — remplace le FloatingFooter (P8) */}
+          {composer && (
+            <div
+              className="absolute right-0 bottom-0 left-0 z-[25]"
+              style={{
+                background:
+                  "linear-gradient(to top, color-mix(in srgb, var(--accent-teal) 10%, rgba(0,0,0,0.75)) 0%, color-mix(in srgb, var(--accent-teal) 4%, rgba(0,0,0,0.35)) 50%, transparent 100%)",
+                backdropFilter: "blur(var(--blur-md))",
+                WebkitBackdropFilter: "blur(var(--blur-md))",
+                boxShadow: "0 -4px 24px color-mix(in srgb, var(--accent-teal) 12%, transparent)",
+              }}
+            >
+              {composer}
+            </div>
+          )}
         </div>
 
         <RightRail title={railTitle} items={railItems} />

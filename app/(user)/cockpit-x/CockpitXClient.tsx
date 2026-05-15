@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
-import { type RunState, useChatStageStore } from "@/stores/chat-stage";
+import { useChatStageStore } from "@/stores/chat-stage";
 import { useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { Shell } from "../_shell/Shell";
@@ -19,7 +19,7 @@ import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import { SignalStage } from "../_stages/SignalStage";
 import { SimulationStage } from "../_stages/SimulationStage";
-import type { FooterConfig, RailItem } from "../_stages/types";
+import type { RailItem } from "../_stages/types";
 import { VoiceStage } from "../_stages/VoiceStage";
 import { ChatDock } from "../components/ChatDock";
 
@@ -83,13 +83,12 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
   // Router de stages — cockpit mode avec data, autres avec leurs composants P5.
   if (mode === "cockpit") {
     const railItems = buildRailItems(data);
-    const footer = buildFooter(def.footer, data);
     return (
       <Shell
         centerContent={<CockpitContent data={data} onGoChat={() => setMode({ mode: "chat" })} />}
         railTitle={def.railTitle}
         railItems={railItems}
-        footer={footer}
+        composer={<ChatDock />}
       />
     );
   }
@@ -150,28 +149,9 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
       centerContent={stageContent}
       railTitle={stageRailTitle}
       railItems={stageRailItems}
-      footer={mode === "chat" ? buildChatFooter(def.footer, chatRunState) : def.footer}
       composer={<ChatDock />}
     />
   );
-}
-
-/**
- * Footer chat dynamique — reflète l'état du run conversationnel courant.
- * Lu depuis `useChatStageStore.runState`, alimenté par ChatDock via SSE.
- */
-function buildChatFooter(baseFooter: FooterConfig, runState: RunState): FooterConfig {
-  switch (runState) {
-    case "streaming":
-      return { ...baseFooter, status: "Streaming…", statusRunning: true };
-    case "done":
-      return { ...baseFooter, status: "Réponse prête", statusRunning: false };
-    case "error":
-      return { ...baseFooter, status: "Erreur réseau", statusRunning: false };
-    case "idle":
-    default:
-      return baseFooter;
-  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -503,25 +483,6 @@ function buildRailItems(data: CockpitTodayPayload | null): RailItem[] {
   }
 
   return items.slice(0, RAIL_MAX);
-}
-
-function buildFooter(base: FooterConfig, data: CockpitTodayPayload | null): FooterConfig {
-  if (!data) return base;
-  const runningCount = data.missionsRunning.filter((m) => m.status === "running").length;
-  const inboxCount = data.inbox.brief?.items.length ?? 0;
-  let status: string = base.status;
-  let statusRunning = false;
-  if (runningCount > 0) {
-    status = `${runningCount} mission${runningCount > 1 ? "s" : ""} en cours`;
-    statusRunning = true;
-  } else if (inboxCount > 0) {
-    status = `${inboxCount} signau${inboxCount > 1 ? "x" : ""} à examiner`;
-  } else if (data.agenda.length > 0) {
-    status = `${data.agenda.length} rendez-vous aujourd'hui`;
-  } else {
-    status = "Cockpit calme";
-  }
-  return { ...base, status, statusRunning };
 }
 
 function formatAgo(ts: number): string {
