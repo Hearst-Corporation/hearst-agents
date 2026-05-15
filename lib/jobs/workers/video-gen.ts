@@ -3,6 +3,7 @@ import { heygenGenerateVideo, heygenGetStatus } from "@/lib/capabilities/provide
 import { runwayGenerateVideo, runwayGetTask } from "@/lib/capabilities/providers/runway";
 import { updateVariant } from "@/lib/assets/variants";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
+import { logger } from "@/lib/observability/logger";
 import type { VideoGenInput, JobResult } from "@/lib/jobs/types";
 
 const POLL_INTERVAL_MS = 5_000;
@@ -64,14 +65,26 @@ const handler: WorkerHandler<VideoGenInput> = {
       videoUrl = await pollHeyGen(videoId);
       providerUsed = "heygen";
     } else {
-      const { taskId } = await runwayGenerateVideo({
-        promptText: payload.prompt,
-        duration: payload.durationSeconds === 10 ? 10 : 5,
-        ratio: payload.ratio ?? "1280:720",
-      });
-      await reportProgress(20, `Runway: tâche ${taskId} soumise, polling…`);
-      videoUrl = await pollRunway(taskId);
-      providerUsed = "runway";
+      try {
+        const { taskId } = await runwayGenerateVideo({
+          promptText: payload.prompt,
+          duration: payload.durationSeconds === 10 ? 10 : 5,
+          ratio: payload.ratio ?? "1280:720",
+        });
+        await reportProgress(20, `Runway: tâche ${taskId} soumise, polling…`);
+        videoUrl = await pollRunway(taskId);
+        providerUsed = "runway";
+      } catch (runwayErr) {
+        logger.warn({ err: runwayErr }, "[video-gen] Runway failed — falling back to HeyGen");
+        const { videoId } = await heygenGenerateVideo({
+          scriptText: payload.scriptText ?? payload.prompt,
+          avatarId: payload.avatarId,
+          voiceId: payload.voiceId,
+        });
+        await reportProgress(20, `HeyGen (fallback): job ${videoId} soumis, polling…`);
+        videoUrl = await pollHeyGen(videoId);
+        providerUsed = "heygen";
+      }
     }
 
     await reportProgress(80, "Vidéo prête, téléchargement…");
