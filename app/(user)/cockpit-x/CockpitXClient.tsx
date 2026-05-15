@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
+import { type RunState, useChatStageStore } from "@/stores/chat-stage";
 import { useStageStore } from "@/stores/stage";
+import { useStageData } from "@/stores/stage-data";
 import { Shell } from "../_shell/Shell";
 import { ArtifactStage } from "../_stages/ArtifactStage";
 import { AssetCompareStage } from "../_stages/AssetCompareStage";
@@ -50,6 +52,10 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
   const def = STAGE_REGISTRY[mode];
   const setMode = useStageStore((s) => s.setMode);
 
+  // Sources de vérité chat — alimentées par ChatStage (shellData) et ChatDock (runState).
+  const shellData = useStageData((s) => s.shellData);
+  const chatRunState = useChatStageStore((s) => s.runState);
+
   const [data, setData] = useState<CockpitTodayPayload | null>(initialCockpitData);
 
   // Client refetch au mount (I-7 cockpit v1.5) — l'initialData RSC sert au LCP,
@@ -88,31 +94,91 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
     );
   }
 
-  // Stages P5 branchés
+  // Stages P5 branchés — contenu + rail items par mode.
+  //
+  // Pattern data-bound (vague 1) : chaque Stage pousse son railTitle + railItems
+  // via `useStageData.setShellData(...)` au mount, clear au unmount. CockpitXClient
+  // ne fait que lire `shellData` du store et fallback registry si rien n'a été push.
+  // Cas couverts : chat (pilote), asset, signal, voice.
+  //
+  // Les autres cases (mission/browser/meeting/kg/artifact) gardent leurs literals
+  // hardcodés en attendant les vagues 2/3.
+  let stageRailTitle: string = shellData?.railTitle ?? def.railTitle;
+  let stageRailItems: RailItem[] = shellData?.railItems ? [...shellData.railItems] : [];
+
   const stageContent = (() => {
     switch (mode) {
-      case "signal":
-        return <SignalStage mode={mode} />;
-      case "voice":
-        return <VoiceStage mode={mode} />;
       case "chat":
         return <ChatStage mode={mode} />;
+
       case "mission":
+        stageRailTitle = "Mission · Gmail Triage";
+        stageRailItems = [
+          { t: "47 emails traités", s: "triage terminé", hot: true },
+          { t: "5 drafts rédigés", s: "approbation requise" },
+          { t: "3 contacts enrichis", s: "KG mis à jour" },
+          { t: "gmail.send", s: "en attente d'approbation" },
+        ];
         return <MissionStage mode={mode} />;
+
       case "asset":
+        // AssetStage push railTitle + railItems via useStageData.setShellData.
         return <AssetStage mode={mode} />;
+
+      case "browser":
+        stageRailTitle = "Browserbase · Live";
+        stageRailItems = [
+          { t: "booking.com/flights", s: "Session active", hot: true },
+          { t: "Étape 3/5", s: "Sélection date en cours" },
+          { t: "Stagehand", s: "12 champs détectés" },
+          { t: "Screenshot", s: "Dernière capture : 2s" },
+        ];
+        return <BrowserStage mode={mode} />;
+
+      case "voice":
+        // VoiceStage push railTitle + railItems via useStageData.setShellData.
+        return <VoiceStage mode={mode} />;
+
+      case "meeting":
+        stageRailTitle = "Meeting · Live";
+        stageRailItems = [
+          { t: "Zoom · EN DIRECT", s: "23:14 écoulées", hot: true },
+          { t: "3 speakers actifs", s: "Adrien · Léa · Thomas" },
+          { t: "Action items", s: "1 extrait · mode split" },
+          { t: "Recall.ai", s: "Transcription active" },
+        ];
+        return <MeetingStage mode={mode} />;
+
+      case "kg":
+        stageRailTitle = "Entités liées";
+        stageRailItems = [
+          { t: "Marie Dupont", s: "Nœud central · 12 liaisons", hot: true },
+          { t: "Atlante VC", s: "cluster atlante-q3" },
+          { t: "Term Sheet", s: "Document · en attente" },
+          { t: "Projet Hearst", s: "Lié · actif" },
+          { t: "Thomas Baret", s: "Contact · relié à Atlante" },
+        ];
+        return <KGStage mode={mode} />;
+
+      case "artifact":
+        stageRailTitle = "Artifact · E2B";
+        stageRailItems = [
+          { t: "HeroSection.tsx", s: "142 lignes · build OK", hot: true },
+          { t: "E2B sandbox", s: "Build en 1.2s · 0 erreur" },
+          { t: "Claude Opus 4.7", s: "Streaming terminé" },
+          { t: "Preview", s: "localhost:3000 · actif" },
+        ];
+        return <ArtifactStage mode={mode} />;
+
+      case "signal":
+        return <SignalStage mode={mode} />;
+
       case "asset_compare":
         return <AssetCompareStage mode={mode} />;
+
       case "simulation":
         return <SimulationStage mode={mode} />;
-      case "browser":
-        return <BrowserStage mode={mode} />;
-      case "meeting":
-        return <MeetingStage mode={mode} />;
-      case "kg":
-        return <KGStage mode={mode} />;
-      case "artifact":
-        return <ArtifactStage mode={mode} />;
+
       default:
         return <ModePlaceholder mode={mode} def={def} />;
     }
@@ -121,12 +187,30 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
   return (
     <Shell
       centerContent={stageContent}
-      railTitle={def.railTitle}
-      railItems={[]}
-      footer={def.footer}
+      railTitle={stageRailTitle}
+      railItems={stageRailItems}
+      footer={mode === "chat" ? buildChatFooter(def.footer, chatRunState) : def.footer}
       composer={<ChatDock />}
     />
   );
+}
+
+/**
+ * Footer chat dynamique — reflète l'état du run conversationnel courant.
+ * Lu depuis `useChatStageStore.runState`, alimenté par ChatDock via SSE.
+ */
+function buildChatFooter(baseFooter: FooterConfig, runState: RunState): FooterConfig {
+  switch (runState) {
+    case "streaming":
+      return { ...baseFooter, status: "Streaming…", statusRunning: true };
+    case "done":
+      return { ...baseFooter, status: "Réponse prête", statusRunning: false };
+    case "error":
+      return { ...baseFooter, status: "Erreur réseau", statusRunning: false };
+    case "idle":
+    default:
+      return baseFooter;
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -141,6 +225,7 @@ function CockpitContent({
   onGoChat: () => void;
 }) {
   const { data: session } = useSession();
+  const setMode = useStageStore((s) => s.setMode);
   const firstName = session?.user?.name?.split(" ")[0] ?? null;
   const todayLabel = new Date().toLocaleDateString("fr-FR", {
     weekday: "long",
@@ -150,7 +235,7 @@ function CockpitContent({
   });
 
   const summary = buildSummary(data);
-  const hero = buildHero(data);
+  const hero = buildHero(data, setMode);
   const activity = buildActivity(data);
 
   return (
@@ -163,18 +248,14 @@ function CockpitContent({
     >
       {/* Greeting */}
       <header className="flex flex-col gap-4">
-        <p className="text-base font-medium text-[rgba(255,255,255,0.5)] capitalize">
-          {todayLabel}
-        </p>
+        <p className="text-base font-medium text-[var(--text-faint)] capitalize">{todayLabel}</p>
         <h1
           className="font-medium leading-[1.1] tracking-tight text-white"
           style={{ fontSize: "var(--text-display)" }}
         >
           Bonjour{firstName ? `, ${firstName}` : ""}.
         </h1>
-        <p className="max-w-[640px] text-base leading-[1.5] text-[rgba(255,255,255,0.7)]">
-          {summary}
-        </p>
+        <p className="max-w-[640px] text-base leading-[1.5] text-[var(--text-muted)]">{summary}</p>
       </header>
 
       {/* Hero card — focus du jour */}
@@ -185,8 +266,8 @@ function CockpitContent({
         className="vision-glass preserve-3d relative flex flex-col gap-6 rounded-xl p-10 transition-transform duration-500 hover:-translate-y-1"
       >
         <div className="relative flex items-baseline justify-between">
-          <span className="text-sm font-medium text-[rgba(255,255,255,0.5)]">{hero.label}</span>
-          <span className="text-sm text-[rgba(255,255,255,0.5)]">{hero.meta}</span>
+          <span className="text-sm font-medium text-[var(--text-faint)]">{hero.label}</span>
+          <span className="text-sm text-[var(--text-faint)]">{hero.meta}</span>
         </div>
         <h2
           className="relative max-w-[600px] font-medium leading-[1.2] tracking-tight text-white"
@@ -194,7 +275,7 @@ function CockpitContent({
         >
           {hero.title}
         </h2>
-        <p className="relative max-w-[580px] text-base leading-[1.6] text-[rgba(255,255,255,0.7)]">
+        <p className="relative max-w-[580px] text-base leading-[1.6] text-[var(--text-muted)]">
           {hero.body}
         </p>
         <div className="relative flex items-center gap-4 pt-4">
@@ -227,7 +308,7 @@ function CockpitContent({
         className="flex flex-col gap-6"
       >
         <div className="flex items-center justify-between px-2">
-          <h2 className="text-md font-medium tracking-tight text-white">Activité du jour</h2>
+          <h2 className="text-base font-medium tracking-tight text-white">Activité du jour</h2>
         </div>
 
         {activity.length === 0 ? (
@@ -239,7 +320,12 @@ function CockpitContent({
             {activity.map((item) => (
               <li
                 key={item.id}
-                className="flex items-center gap-5 rounded-lg px-4 py-4 transition-colors hover:bg-[rgba(255,255,255,0.04)]"
+                onClick={() => {
+                  if (item.missionId) {
+                    setMode({ mode: "mission", missionId: item.missionId });
+                  }
+                }}
+                className={`flex items-center gap-5 rounded-lg px-4 py-4 transition-colors hover:bg-[var(--surface-2)] ${item.missionId ? "cursor-pointer" : ""}`}
               >
                 <span
                   aria-hidden
@@ -253,9 +339,9 @@ function CockpitContent({
                 />
                 <div className="flex flex-1 flex-col gap-1">
                   <span className="text-base font-medium text-white">{item.title}</span>
-                  <span className="text-sm text-[rgba(255,255,255,0.5)]">{item.meta}</span>
+                  <span className="text-sm text-[var(--text-faint)]">{item.meta}</span>
                 </div>
-                <span className="text-sm text-[rgba(255,255,255,0.4)]">{item.when}</span>
+                <span className="text-sm text-[var(--text-ghost)]">{item.when}</span>
               </li>
             ))}
           </ul>
@@ -296,7 +382,10 @@ type HeroContent = {
   ctaSecondary?: { label: string; onClick: () => void };
 };
 
-function buildHero(data: CockpitTodayPayload | null): HeroContent {
+function buildHero(
+  data: CockpitTodayPayload | null,
+  setMode: (p: import("@/stores/stage").StagePayload) => void,
+): HeroContent {
   if (!data) {
     return {
       label: "Cockpit",
@@ -328,6 +417,10 @@ function buildHero(data: CockpitTodayPayload | null): HeroContent {
       body: running.lastError
         ? `Dernière erreur : ${running.lastError}`
         : "Mission active. L'agent itère, tu peux suivre ses étapes en direct.",
+      ctaSecondary: {
+        label: "Ouvrir la mission",
+        onClick: () => setMode({ mode: "mission", missionId: running.id }),
+      },
     };
   }
 
@@ -372,6 +465,7 @@ type ActivityItem = {
   meta: string;
   when: string;
   tone: "hot" | "warm" | "cool";
+  missionId?: string;
 };
 
 function buildActivity(data: CockpitTodayPayload | null): ActivityItem[] {
@@ -381,6 +475,7 @@ function buildActivity(data: CockpitTodayPayload | null): ActivityItem[] {
   for (const m of data.missionsRunning) {
     out.push({
       id: `mission-${m.id}`,
+      missionId: m.id,
       title: m.name,
       meta:
         m.status === "running"

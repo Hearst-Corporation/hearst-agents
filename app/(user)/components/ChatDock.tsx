@@ -7,12 +7,66 @@ import type { Message } from "@/lib/core/types";
 import { getAllServices } from "@/lib/integrations/catalog";
 import type { ServiceWithConnectionStatus } from "@/lib/integrations/types";
 import { useChatContext } from "@/stores/chat-context";
+import { useChatStageStore } from "@/stores/chat-stage";
 import { useNavigationStore } from "@/stores/navigation";
 import { useRuntimeStore } from "@/stores/runtime";
 import { useServicesStore } from "@/stores/services";
 import { type StagePayload, useStageStore } from "@/stores/stage";
 import { useStageData } from "@/stores/stage-data";
 import { ChatInput } from "./ChatInput";
+
+/**
+ * Pousse un event SSE vers `useChatStageStore` en plus des écritures existantes
+ * dans `useNavigationStore` / `useRuntimeStore`. Side-effect hors render, lookup
+ * via `getState()` pour éviter de re-render ChatDock à chaque tick SSE.
+ *
+ * `assistantMessageId` est l'id stable du message assistant courant (créé au
+ * début du run), utilisé pour concaténer les `text_delta` dans le même message.
+ */
+function pushSseEventToChatStage(
+  event: { type?: string; delta?: string; step_id?: string; tool?: string; error?: string },
+  assistantMessageId: string,
+): void {
+  const store = useChatStageStore.getState();
+  switch (event.type) {
+    case "text_delta": {
+      if (typeof event.delta === "string" && event.delta.length > 0) {
+        store.appendAssistantDelta(event.delta, assistantMessageId);
+      }
+      return;
+    }
+    case "tool_call_started": {
+      if (event.step_id && event.tool) {
+        store.addToolCall({
+          id: event.step_id,
+          name: event.tool,
+          state: "running",
+        });
+      }
+      return;
+    }
+    case "tool_call_completed": {
+      if (event.step_id) {
+        store.updateToolCall(event.step_id, {
+          state: "done",
+          endedAt: Date.now(),
+        });
+      }
+      return;
+    }
+    case "run_completed": {
+      store.finalizeAssistantMessage(assistantMessageId);
+      store.setRunState("done");
+      return;
+    }
+    case "run_failed": {
+      store.setRunState("error", event.error);
+      return;
+    }
+    default:
+      return;
+  }
+}
 
 function trackAnalytics(
   type: "first_message_sent" | "run_completed" | "run_failed",
@@ -191,6 +245,14 @@ export function ChatDock() {
       };
       addMessageToThread(threadId, assistantMessage);
 
+      // Miroir vers useChatStageStore : reset + user message + état streaming.
+      // Le runId canonique du serveur arrivera plus tard via run_started ;
+      // on initialise avec clientToken pour ne pas perdre le tout début du run.
+      const chatStage = useChatStageStore.getState();
+      chatStage.resetForNewRun(clientToken);
+      chatStage.appendUserMessage(message, userMessage.id);
+      chatStage.setRunState("streaming");
+
       const recentMessages = messages
         .filter((m) => (m.role === "user" || m.role === "assistant") && m.content.trim().length > 0)
         .slice(-10)
@@ -236,6 +298,7 @@ export function ChatDock() {
             run_id: clientToken,
             client_token: clientToken,
           });
+          useChatStageStore.getState().setRunState("error", errorMsg);
           return true; // Ne pas retry sur erreur HTTP (4xx/5xx)
         }
         const reader = res.body?.getReader();
@@ -274,6 +337,12 @@ export function ChatDock() {
               }
               const eventRunId = (event.run_id as string) || canonicalRunId || clientToken;
               addEvent({ ...event, run_id: eventRunId });
+              // Miroir vers useChatStageStore (additif, ne casse pas l'existant).
+              // Couvre text_delta / tool_call_started / tool_call_completed /
+              // run_completed / run_failed. Les autres types sont ignorés.
+              if (currentAssistantIdRef.current) {
+                pushSseEventToChatStage(event, currentAssistantIdRef.current);
+              }
             } catch {}
           }
         }
@@ -314,18 +383,28 @@ export function ChatDock() {
           const errorMsg = "Connexion perdue après plusieurs tentatives. Réessaie.";
           toast.error("Connexion SSE perdue", errorMsg);
           addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
+          useChatStageStore.getState().setRunState("error", errorMsg);
           trackAnalytics("run_failed", { runId: clientToken, error: "sse_reconnect_exhausted" });
+        }
+
+        // Abort utilisateur : on retombe en idle côté chat-stage.
+        if (controller.signal.aborted) {
+          useChatStageStore.getState().setRunState("idle");
         }
       } catch (err) {
         const isAbort =
           controller.signal.aborted ||
           (err instanceof DOMException && err.name === "AbortError") ||
           (err instanceof Error && err.name === "AbortError");
-        if (isAbort) return;
+        if (isAbort) {
+          useChatStageStore.getState().setRunState("idle");
+          return;
+        }
 
         const errorMsg = err instanceof Error ? err.message : "Échec de la connexion";
         toast.error("Erreur de connexion", errorMsg);
         addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
+        useChatStageStore.getState().setRunState("error", errorMsg);
         trackAnalytics("run_failed", { runId: clientToken, error: errorMsg });
       } finally {
         setAbortController(null);

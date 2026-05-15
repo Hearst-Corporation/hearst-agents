@@ -8,6 +8,7 @@
  */
 
 import { create } from "zustand";
+import type { RailItem } from "@/app/(user)/_stages/types";
 import type { AssetVariant } from "@/lib/assets/variants";
 import type { KgEdge, KgNode } from "@/lib/memory/kg";
 
@@ -59,7 +60,18 @@ interface KgSlice {
   selectedNode: KgNode | null;
 }
 
-interface StageDataState {
+interface ShellData {
+  railTitle: string;
+  railItems: readonly RailItem[];
+}
+
+interface ShellDataSlice {
+  shellData: ShellData | null;
+  setShellData: (title: string, items: readonly RailItem[]) => void;
+  clearShellData: () => void;
+}
+
+interface StageDataState extends ShellDataSlice {
   meeting: MeetingSlice;
   simulation: SimulationSlice;
   asset: AssetSlice;
@@ -85,8 +97,11 @@ export const useStageData = create<StageDataState>((set) => ({
   simulation: EMPTY_SIMULATION,
   asset: EMPTY_ASSET,
   kg: EMPTY_KG,
+  shellData: null,
   setMeeting: (slice) => set({ meeting: slice }),
   setSimulation: (slice) => set({ simulation: slice }),
   setAsset: (slice) => set({ asset: slice }),
   setKg: (slice) => set({ kg: slice }),
+  setShellData: (title, items) => set({ shellData: { railTitle: title, railItems: items } }),
+  clearShellData: () => set({ shellData: null }),
 }));

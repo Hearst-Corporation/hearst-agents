@@ -1,41 +1,241 @@
 "use client";
 
+/**
+ * VoiceStage — consumer data-bound du run vocal.
+ *
+ * Pattern aligné sur ChatStage : pousse un snapshot du state local dans
+ * `useStageData.shellData` à chaque tick pour alimenter le ContextRail.
+ *
+ * Note WebRTC : l'intégration OpenAI Realtime arrive plus tard (cf.
+ * `stores/voice.ts` qui sert la session WebRTC pilotée par VoicePulse au
+ * root layout). En attendant, le Stage tourne en mode démo local avec un
+ * setInterval qui simule `audioLevel`. Le store voice n'est pas branché ici
+ * — on évite de muter une session WebRTC fantôme depuis un consumer visuel.
+ */
+
 import { motion } from "framer-motion";
-import type { VoicePhase } from "@/stores/voice";
-import { useVoiceStore } from "@/stores/voice";
+import { useEffect, useRef, useState } from "react";
+import { useStageData } from "@/stores/stage-data";
+import type { RailItem } from "./types";
+
+// ── Variants ─────────────────────────────────────────────────────────────────
+
+const VISION_EASE = [0.22, 1, 0.36, 1] as const;
 
 const SECTION_VARIANTS = {
   hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
-};
-
-const PHASE_LABELS: Record<VoicePhase, string> = {
-  idle: "Inactif",
-  connecting: "Connexion…",
-  listening: "En écoute",
-  processing: "Comprend…",
-  speaking: "Répond",
-  error: "Erreur",
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: VISION_EASE },
+  },
 };
 
 const BAR_COUNT = 9;
+const BAR_DELAYS = [0, 0.1, 0.2, 0.3, 0.4, 0.35, 0.25, 0.15, 0.05];
 
-function barBaseHeight(idx: number): number {
-  const center = (BAR_COUNT - 1) / 2;
-  const dist = Math.abs(idx - center) / center;
-  return 4 + (1 - dist) * 10;
+// ── Types ────────────────────────────────────────────────────────────────────
+
+type VoiceState = "idle" | "listening" | "processing" | "speaking" | "error";
+
+interface Exchange {
+  id: string;
+  role: "user" | "agent";
+  transcript: string;
+  ts: number;
 }
 
-type Props = { mode?: string };
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
-export function VoiceStage({ mode = "voice" }: Props) {
-  const phase = useVoiceStore((s) => s.phase);
-  const transcript = useVoiceStore((s) => s.transcript);
-  const audioLevel = useVoiceStore((s) => s.audioLevel);
+function stateLabel(state: VoiceState): string {
+  switch (state) {
+    case "listening":
+      return "En écoute";
+    case "speaking":
+      return "Réponse en cours";
+    case "processing":
+      return "Traitement";
+    case "error":
+      return "Erreur";
+    case "idle":
+    default:
+      return "Prêt";
+  }
+}
 
-  const lastFive = transcript.slice(-5);
-  const isListening = phase === "listening";
-  const isSpeaking = phase === "speaking";
+function sessionLabel(state: VoiceState): string {
+  if (state === "listening" || state === "speaking") return "Session active";
+  if (state === "processing") return "Traitement en cours";
+  if (state === "error") return "Erreur de session";
+  return "Inactif";
+}
+
+// ── Sub-composants ───────────────────────────────────────────────────────────
+
+function VoiceSphere({ state }: { state: VoiceState }) {
+  const isActive = state === "listening" || state === "speaking";
+  return (
+    <div className="voice-sphere" data-state={state} style={{ opacity: isActive ? 1 : 0.65 }}>
+      <div className="voice-ring" />
+      <div className="voice-ring r2" />
+      <div className="voice-ring r3" />
+      <div className="voice-core" />
+    </div>
+  );
+}
+
+function VoiceBars({ active }: { active: boolean }) {
+  return (
+    <div className="voice-bars" style={{ opacity: active ? 1 : 0.3 }}>
+      {Array.from({ length: BAR_COUNT }, (_, idx) => (
+        <div key={idx} className="voB" style={{ animationDelay: `${BAR_DELAYS[idx]}s` }} />
+      ))}
+    </div>
+  );
+}
+
+function EmptyVoiceState({ onActivate }: { onActivate: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: VISION_EASE }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "24px",
+        padding: "32px 0",
+        textAlign: "center",
+      }}
+    >
+      <p
+        className="t-15"
+        style={{
+          color: "rgba(255,255,255,0.45)",
+          maxWidth: "440px",
+          lineHeight: 1.6,
+        }}
+      >
+        Tape sur le bouton micro pour parler à l'agent.
+      </p>
+      <motion.button
+        type="button"
+        onClick={onActivate}
+        whileTap={{ scale: 0.96 }}
+        className="vision-btn-primary"
+        style={{
+          padding: "12px 28px",
+          borderRadius: "9999px",
+          fontSize: "13px",
+          fontWeight: 500,
+        }}
+      >
+        Activer le micro
+      </motion.button>
+    </motion.div>
+  );
+}
+
+function TranscriptList({ exchanges }: { exchanges: readonly Exchange[] }) {
+  return (
+    <div className="voice-transcript">
+      {exchanges.map((ex) => (
+        <span key={ex.id} className={ex.role === "agent" ? "agent" : undefined}>
+          {ex.role === "user" ? "Tu : " : "Agent : "}
+          {ex.transcript}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+// ── Composant principal ──────────────────────────────────────────────────────
+
+export function VoiceStage({ mode }: { mode: string }) {
+  const [voiceState, setVoiceState] = useState<VoiceState>("idle");
+  const [exchanges, setExchanges] = useState<Exchange[]>([]);
+  const [audioLevel, setAudioLevel] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const isActive = voiceState === "listening" || voiceState === "speaking";
+
+  // Pousse les railItems dans shellData → ContextRail miroir
+  useEffect(() => {
+    const items: RailItem[] = [
+      {
+        t: "OpenAI Realtime",
+        s: sessionLabel(voiceState),
+        hot: voiceState !== "idle" && voiceState !== "error",
+      },
+      {
+        t: stateLabel(voiceState),
+        s: `Niveau audio · ${Math.round(audioLevel * 100)}%`,
+      },
+      {
+        t: "Historique",
+        s: `${exchanges.length} échange${exchanges.length > 1 ? "s" : ""} dans la session`,
+      },
+    ];
+    useStageData.getState().setShellData("Voice · Realtime", items);
+    return () => {
+      useStageData.getState().clearShellData();
+    };
+  }, [voiceState, audioLevel, exchanges.length]);
+
+  // Démo : simule audioLevel oscillant quand listening/speaking
+  useEffect(() => {
+    if (!isActive) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      setAudioLevel(0);
+      return;
+    }
+    intervalRef.current = setInterval(() => {
+      setAudioLevel(0.2 + Math.random() * 0.6);
+    }, 200);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isActive]);
+
+  // Cleanup au unmount : retour idle + clear interval
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, []);
+
+  const handleActivate = () => {
+    setVoiceState("listening");
+    setExchanges([
+      {
+        id: `ex-${Date.now()}`,
+        role: "user",
+        transcript: "Lance le briefing demain à 8h.",
+        ts: Date.now(),
+      },
+      {
+        id: `ex-${Date.now() + 1}`,
+        role: "agent",
+        transcript:
+          "Briefing planifié pour demain matin à 8h. Je prépare le résumé actualités, pipeline commercial et réunions.",
+        ts: Date.now() + 1,
+      },
+    ]);
+  };
+
+  const handleStop = () => {
+    setVoiceState("idle");
+  };
 
   return (
     <motion.section
@@ -45,70 +245,52 @@ export function VoiceStage({ mode = "voice" }: Props) {
       animate="show"
       className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
     >
-      {/* Sphère + état */}
-      <div className="flex flex-col items-center gap-6">
-        <motion.div
-          animate={{ scale: isSpeaking ? 1.05 : 1 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className={`size-32 rounded-full ${isListening ? "animate-pulse" : ""}`}
+      <header style={{ textAlign: "center" }}>
+        <p
           style={{
-            background:
-              "radial-gradient(circle at 40% 35%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.04) 100%)",
-            boxShadow:
-              phase === "error"
-                ? "0 0 40px rgba(255,80,80,0.25)"
-                : isListening || isSpeaking
-                  ? "0 0 60px rgba(255,255,255,0.2), 0 0 120px rgba(255,255,255,0.08)"
-                  : "0 0 24px rgba(255,255,255,0.06)",
+            fontSize: "12px",
+            letterSpacing: ".04em",
+            color: "rgba(255,255,255,.45)",
           }}
-        />
+        >
+          Voice · OpenAI Realtime · {sessionLabel(voiceState)}
+        </p>
+      </header>
 
-        <p className="text-sm font-medium text-white/60">{PHASE_LABELS[phase]}</p>
-      </div>
+      <div className="voice-wrap">
+        <VoiceSphere state={voiceState} />
 
-      {/* Waveform */}
-      <div className="flex items-end justify-center gap-1.5" aria-hidden>
-        {Array.from({ length: BAR_COUNT }, (_, idx) => {
-          const active = audioLevel > 0;
-          const targetHeight = active
-            ? 4 + audioLevel * (barBaseHeight(idx) * 2)
-            : barBaseHeight(idx);
+        <div className="voice-state">
+          <strong>{stateLabel(voiceState)}</strong>
+          {voiceState === "listening" && <span> — vas-y, je t'entends.</span>}
+          {voiceState === "speaking" && <span> — réponse en cours de synthèse.</span>}
+          {voiceState === "processing" && <span> — l'agent analyse ta requête.</span>}
+        </div>
 
-          return (
-            <motion.div
-              key={idx}
-              animate={{ height: targetHeight }}
-              transition={{ duration: 0.1, ease: "linear" }}
-              className="w-1 rounded-full bg-white/30"
-              style={{ minHeight: 4 }}
-            />
-          );
-        })}
-      </div>
+        <VoiceBars active={isActive} />
 
-      {/* Transcript */}
-      <div className="flex flex-col gap-3">
-        {lastFive.length === 0 && phase === "idle" ? (
-          <p className="text-center text-sm text-white/35">Démarre une session vocale avec ⌘7.</p>
+        {exchanges.length === 0 ? (
+          <EmptyVoiceState onActivate={handleActivate} />
         ) : (
-          lastFive.map((entry) => {
-            const roleStyle =
-              entry.role === "user"
-                ? "text-white"
-                : entry.role === "assistant"
-                  ? "text-[rgba(255,255,255,0.7)]"
-                  : "text-[rgba(255,255,255,0.4)]";
-
-            const label =
-              entry.role === "tool_call" && entry.toolName ? `[${entry.toolName}]` : null;
-
-            return (
-              <div key={entry.id} className={`flex flex-col gap-0.5 text-sm ${roleStyle}`}>
-                {label && <span className="text-xs font-mono text-white/30">{label}</span>}
-                <span className="leading-relaxed">{entry.text}</span>
-              </div>
-            );
-          })
+          <>
+            <TranscriptList exchanges={exchanges} />
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "8px" }}>
+              <motion.button
+                type="button"
+                onClick={isActive ? handleStop : handleActivate}
+                whileTap={{ scale: 0.96 }}
+                className="vision-btn-primary"
+                style={{
+                  padding: "12px 28px",
+                  borderRadius: "9999px",
+                  fontSize: "13px",
+                  fontWeight: 500,
+                }}
+              >
+                {isActive ? "Arrêter" : "Reprendre"}
+              </motion.button>
+            </div>
+          </>
         )}
       </div>
     </motion.section>
