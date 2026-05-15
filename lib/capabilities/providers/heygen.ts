@@ -5,6 +5,7 @@ export async function heygenGenerateVideo(params: {
   avatarId?: string;
   voiceId?: string;
   dimension?: { width: number; height: number };
+  idempotencyKey?: string;
 }): Promise<{ videoId: string; status: "processing" | "completed"; videoUrl?: string }> {
   const apiKey = process.env.HEYGEN_API_KEY;
   if (!apiKey) throw new Error("HeyGen non configuré");
@@ -33,12 +34,18 @@ export async function heygenGenerateVideo(params: {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 30_000);
 
+  const extraHeaders: Record<string, string> = {};
+  if (params.idempotencyKey) {
+    extraHeaders["Idempotency-Key"] = params.idempotencyKey;
+  }
+
   try {
     const res = await fetch(`${HEYGEN_API_BASE}/video/generate`, {
       method: "POST",
       headers: {
         "X-Api-Key": apiKey,
         "Content-Type": "application/json",
+        ...extraHeaders,
       },
       body: JSON.stringify(body),
       signal: controller.signal,

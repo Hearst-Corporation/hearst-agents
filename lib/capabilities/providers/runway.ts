@@ -5,6 +5,7 @@ export async function runwayGenerateVideo(params: {
   promptText: string;
   duration?: 5 | 10;
   ratio?: "1280:720" | "720:1280";
+  idempotencyKey?: string;
 }): Promise<{ taskId: string; status: string }> {
   const apiKey = process.env.RUNWAY_API_KEY;
   if (!apiKey) throw new Error("Runway non configuré");
@@ -18,6 +19,11 @@ export async function runwayGenerateVideo(params: {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 30_000);
 
+  const extraHeaders: Record<string, string> = {};
+  if (params.idempotencyKey) {
+    extraHeaders["Idempotency-Key"] = params.idempotencyKey;
+  }
+
   try {
     const res = await fetch(`${RUNWAY_API_BASE}/image_to_video`, {
       method: "POST",
@@ -25,6 +31,7 @@ export async function runwayGenerateVideo(params: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "X-Runway-Version": RUNWAY_VERSION,
+        ...extraHeaders,
       },
       body: JSON.stringify(body),
       signal: controller.signal,
