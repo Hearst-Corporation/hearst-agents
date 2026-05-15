@@ -343,11 +343,7 @@ export function AssetStage({ mode }: { mode: string }) {
                 : `${total} asset${total > 1 ? "s" : ""} · ${readyCount} prêt${readyCount > 1 ? "s" : ""}`}
         </p>
         <h1 style={{ fontSize: "32px", fontWeight: 500, letterSpacing: "-0.02em" }}>
-          {loading
-            ? "Chargement des assets"
-            : total === 0
-              ? "Génération média"
-              : "Variants en cours"}
+          {loading ? "Chargement des assets" : total === 0 ? "Génération média" : "Assets"}
         </h1>
         {total > 0 && (
           <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>

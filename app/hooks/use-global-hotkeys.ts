@@ -134,13 +134,13 @@ export function useGlobalHotkeys() {
             break;
           }
           case "mission": {
-            // Même logique que "asset" : ré-ouvre la dernière mission
-            // ouverte. No-op si aucune mission n'a encore été ouverte —
-            // l'user passe alors par /missions ou le Commandeur.
+            // Ré-ouvre la dernière mission ouverte si disponible. Sinon on
+            // bascule quand même sur le mode mission (missionId vide) — le
+            // MissionStage rend un EmptyState explicite "Sélectionne une
+            // mission…". F-009 : éviter de laisser le Stage précédent
+            // (ex: AssetStage) visible alors que le rail montre Mission actif.
             const lastMissionId = useStageStore.getState().lastMissionId;
-            if (lastMissionId) {
-              setMode({ mode: "mission", missionId: lastMissionId });
-            }
+            setMode({ mode: "mission", missionId: lastMissionId ?? "" });
             break;
           }
           case "browser":

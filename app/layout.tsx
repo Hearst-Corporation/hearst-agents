@@ -41,10 +41,13 @@ export default async function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
           rel="stylesheet"
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        {/*
+         * Inter+Tight retiré 2026-05-15 — F-045/F-115 : la CSP `style-src` ne
+         * whitelist pas `fonts.googleapis.com` (seul fontshare l'est) et la
+         * police canonique de l'app est Satoshi Variable (`--font-satoshi`).
+         * Inter Tight n'est référencé que par le thème "robotflow" qui charge
+         * ses propres tokens.css — pas besoin d'un <link> global ici.
+         */}
       </head>
       <body className="h-full text-text overflow-hidden">
         <div className="ghost-bg" />

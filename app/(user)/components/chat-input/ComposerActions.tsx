@@ -214,6 +214,7 @@ export function ComposerActions({
         </div>
       ) : (
         <button
+          type="button"
           onClick={onSubmit}
           disabled={!input.trim()}
           aria-label="Envoyer"

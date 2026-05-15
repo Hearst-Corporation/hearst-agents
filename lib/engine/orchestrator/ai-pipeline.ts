@@ -14,7 +14,13 @@
 import { randomUUID } from "node:crypto";
 import { createOpenAI } from "@ai-sdk/openai";
 import type { ModelMessage, Tool } from "ai";
-import { jsonSchema, stepCountIs, streamText } from "ai";
+import {
+  extractReasoningMiddleware,
+  jsonSchema,
+  stepCountIs,
+  streamText,
+  wrapLanguageModel,
+} from "ai";
 import { z } from "zod";
 import { type Asset, type AssetKind, storeAsset } from "@/lib/assets/types";
 import { getToolsForUser } from "@/lib/connectors/composio/discovery";
@@ -109,6 +115,19 @@ const kimi = createOpenAI({
   apiKey: process.env.KIMI_API_KEY ?? "",
   baseURL: "https://api.hypercli.com/v1",
 });
+
+// Kimi K2.5/K2.6 via Hyperbolic streament leur chain-of-thought dans
+// `delta.content` entouré de balises `<think>...</think>` avant le vrai
+// contenu de la réponse. Sans middleware, le SDK Vercel AI consomme tout
+// dans le canal text et l'UI affiche soit le reasoning brut, soit rien
+// (parser qui filtre). `extractReasoningMiddleware` détoure le reasoning
+// dans un canal séparé (`reasoning`) et ne laisse passer que le vrai
+// contenu post-`</think>` dans le canal `text` consommé par l'UI.
+const kimiWithReasoning = (modelId: string) =>
+  wrapLanguageModel({
+    model: kimi(modelId),
+    middleware: extractReasoningMiddleware({ tagName: "think" }),
+  });
 
 /**
  * Builds the `request_connection` tool that lets the model surface an inline
@@ -760,7 +779,7 @@ export async function runAiPipeline(
   const forceScheduleTool = (input.scheduleDirective ?? false) && !priorHasScheduleToolCall;
   try {
     const result = streamText({
-      model: kimi(ORCHESTRATOR_MODEL),
+      model: kimiWithReasoning(ORCHESTRATOR_MODEL),
       // Kimi (Moonshot AI) n'a pas de cacheControl équivalent à Anthropic.
       // Le system prompt est passé directement sans option provider spécifique.
       system: systemPrompt,

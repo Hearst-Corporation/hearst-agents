@@ -122,9 +122,14 @@ export function Commandeur() {
 
   useEffect(() => {
     if (!isOpen) return;
+    // F-015/F-016 : capture phase pour intercepter Escape AVANT que le
+    // textarea ChatDock (focus précédent) ne consomme la touche. Sans
+    // capture, le focus restant sur le textarea bloque la fermeture du
+    // dialog tant que l'utilisateur n'a pas cliqué dans l'input.
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
+        e.stopPropagation();
         setOpen(false);
         return;
       }
@@ -144,15 +149,19 @@ export function Commandeur() {
         if (row && !row.disabled) row.perform();
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, { capture: true });
+    return () => window.removeEventListener("keydown", onKey, { capture: true });
   }, [isOpen, flatRows, activeIndex, setOpen]);
 
   // Hook a11y : focus trap + scroll lock body + restore focus.
+  // F-015 : `autoFocus: true` → le hook focus le premier focusable du dialog,
+  // qui est l'input de recherche (premier `<input>` rendu). Sans ça le focus
+  // reste sur l'élément précédent (ex: textarea ChatDock) et Escape ne ferme
+  // pas le dialog (cf. F-016) tant qu'on n'a pas cliqué dans l'input.
   const dialogRef = useModalA11y<HTMLDivElement>(isOpen, {
     onClose: () => setOpen(false),
     closeOnEscape: false,
-    autoFocus: false,
+    autoFocus: true,
   });
 
   const compareModal = (
