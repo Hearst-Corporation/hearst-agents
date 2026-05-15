@@ -11,6 +11,7 @@ import { CostLimitExceededError, RateLimitExceededError } from "./errors";
 import { defaultRateLimiter } from "./rate-limiter";
 import { defaultCircuitBreaker } from "./circuit-breaker";
 import { defaultMetrics } from "./metrics";
+import { logger } from "@/lib/observability/logger";
 
 const providers: Record<string, LLMProvider> = {};
 
@@ -139,7 +140,7 @@ export async function chatWithProfile(
 
   for (const profile of chain) {
     if (defaultCircuitBreaker.isOpen(profile.provider)) {
-      console.warn(`Circuit open for ${profile.provider}, skipping`);
+      logger.debug({ provider: profile.provider }, "[router] circuit open, skipping");
       continue;
     }
 
@@ -198,9 +199,9 @@ export async function chatWithProfile(
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
-      console.error(
-        `Provider ${profile.provider}/${profile.model} failed, trying fallback:`,
-        lastError.message,
+      logger.error(
+        { err: lastError, provider: profile.provider, model: profile.model },
+        "[router] provider failed, trying fallback",
       );
     }
   }
@@ -237,7 +238,7 @@ export async function* streamChatWithProfile(
 
   for (const profile of chain) {
     if (defaultCircuitBreaker.isOpen(profile.provider, tenantId)) {
-      console.warn(`Circuit open for ${profile.provider}, skipping`);
+      logger.debug({ provider: profile.provider }, "[router] circuit open, skipping");
       continue;
     }
 
@@ -278,9 +279,9 @@ export async function* streamChatWithProfile(
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: profile.provider, errorCode: errCode });
-      console.error(
-        `Stream ${profile.provider}/${profile.model} failed, trying fallback:`,
-        lastError.message,
+      logger.error(
+        { err: lastError, provider: profile.provider, model: profile.model },
+        "[router] stream failed, trying fallback",
       );
     }
   }
@@ -355,7 +356,7 @@ export async function smartChat(
 
   for (const attempt of chain) {
     if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
-      console.warn(`Circuit open for ${attempt.provider}, skipping`);
+      logger.debug({ provider: attempt.provider }, "[router] circuit open, skipping");
       attemptIndex++;
       continue;
     }
@@ -413,9 +414,9 @@ export async function smartChat(
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
-      console.error(
-        `smart-chat: ${attempt.provider}/${attempt.model} failed (attempt ${attemptIndex + 1}):`,
-        lastError.message,
+      logger.error(
+        { err: lastError, provider: attempt.provider, model: attempt.model, attempt: attemptIndex + 1 },
+        "[router] smart-chat failed, trying fallback",
       );
       attemptIndex++;
     }
@@ -456,7 +457,7 @@ export async function* smartStreamChat(
 
   for (const attempt of chain) {
     if (defaultCircuitBreaker.isOpen(attempt.provider, opts.tenantId)) {
-      console.warn(`Circuit open for ${attempt.provider}, skipping`);
+      logger.debug({ provider: attempt.provider }, "[router] circuit open, skipping");
       attemptIndex++;
       continue;
     }
@@ -502,9 +503,9 @@ export async function* smartStreamChat(
       }
       const errCode = (lastError as Error & { code?: string }).code ?? "UNKNOWN";
       defaultMetrics.recordError({ provider: attempt.provider, errorCode: errCode });
-      console.error(
-        `smart-stream: ${attempt.provider}/${attempt.model} failed (attempt ${attemptIndex + 1}):`,
-        lastError.message,
+      logger.error(
+        { err: lastError, provider: attempt.provider, model: attempt.model, attempt: attemptIndex + 1 },
+        "[router] smart-stream failed, trying fallback",
       );
       attemptIndex++;
     }
