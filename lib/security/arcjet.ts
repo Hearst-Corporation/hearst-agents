@@ -35,6 +35,10 @@ const baseRules = [
   }),
 ];
 
+// Routes générales (auth, missions, polling) — bucket par IP uniquement.
+// Ces routes ne consomment pas de ressources IA coûteuses, le rate-limit
+// par IP suffit. Pas de caractéristique userId pour éviter de complexifier
+// le bucket sur des endpoints peu critiques.
 export const aj = KEY
   ? arcjet({
       key: KEY,
@@ -52,16 +56,20 @@ export const aj = KEY
     })
   : null;
 
-// Instance dédiée pour /api/orchestrate — limite stricte (coût LLM)
+// Instance dédiée pour /api/orchestrate — limite stricte (coût LLM).
+// P0-7 : ajout de "userId" comme dimension de bucket pour isoler les users
+// derrière un corp NAT/VPN. Sans cette dimension, toute l'équipe sales (même
+// IP) partageait les 10 req/min. Avec userId, chaque user a son propre bucket.
+// Si userId est undefined (non authentifié), Arcjet utilise ip.src seul.
 export const ajOrchestrate = KEY
   ? arcjet({
       key: KEY,
-      characteristics: ["ip.src"],
+      characteristics: ["ip.src", "userId"],
       rules: [
         ...baseRules,
         tokenBucket({
           mode: MODE,
-          characteristics: ["ip.src"],
+          characteristics: ["ip.src", "userId"],
           refillRate: 10,
           interval: 60,
           capacity: 10,
@@ -70,19 +78,19 @@ export const ajOrchestrate = KEY
     })
   : null;
 
-// Instance dédiée pour les jobs IA externes — quota intermédiaire
-// (entre `aj` 100 req/min et `ajOrchestrate` 10 req/min).
+// Instance dédiée pour les jobs IA externes — quota intermédiaire.
+// Même logique P0-7 : bucket par (IP, userId) pour isoler les users.
 // Cible : routes qui déclenchent 1 appel provider payant par requête
 // (FAL, E2B, ElevenLabs, LlamaCloud, Anthropic hors orchestrate).
 export const ajLlmJobs = KEY
   ? arcjet({
       key: KEY,
-      characteristics: ["ip.src"],
+      characteristics: ["ip.src", "userId"],
       rules: [
         ...baseRules,
         tokenBucket({
           mode: MODE,
-          characteristics: ["ip.src"],
+          characteristics: ["ip.src", "userId"],
           refillRate: 20,
           interval: 60,
           capacity: 20,
@@ -111,9 +119,30 @@ export const ajLlmJobs = KEY
  *
  * @returns NextResponse 429/403 si bloqué, null sinon (continuer le handler).
  */
-export async function protectLlmJob(req: NextRequest): Promise<NextResponse | null> {
+/**
+ * Extrait l'userId depuis le JWT NextAuth pour le passer à Arcjet.
+ * Retourne undefined si secret absent, token manquant ou malformé —
+ * Arcjet bascule alors sur ip.src comme seule dimension de bucket.
+ */
+export async function extractUserIdFromRequest(req: NextRequest): Promise<string | undefined> {
+  const secret = process.env.NEXTAUTH_SECRET;
+  if (!secret) return undefined;
+  try {
+    const { getToken } = await import("next-auth/jwt");
+    const token = await getToken({ req, secret });
+    const sub = token?.sub ?? (token?.userId as string | undefined);
+    return typeof sub === "string" && sub.length > 0 ? sub : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export async function protectLlmJob(
+  req: NextRequest,
+  userId?: string,
+): Promise<NextResponse | null> {
   if (!ajLlmJobs) return null;
-  const decision = await ajLlmJobs.protect(req, { requested: 1 });
+  const decision = await ajLlmJobs.protect(req, { requested: 1, userId });
   if (!decision.isDenied()) return null;
   if (decision.reason.isRateLimit()) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });

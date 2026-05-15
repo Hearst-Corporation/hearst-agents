@@ -3,13 +3,15 @@ import { SCENES } from "./scenes/registry";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      {SCENES.map((s) => (
-        <Route key={s.path} path={s.path} element={<s.Component />} />
-      ))}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        {SCENES.map((s) => (
+          <Route key={s.path} path={s.path} element={<s.Component />} />
+        ))}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 

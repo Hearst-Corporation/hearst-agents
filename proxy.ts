@@ -17,7 +17,13 @@ import { timingSafeEqual } from "node:crypto";
 import { type NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isDevBypassEnabled } from "@/lib/platform/auth/dev-bypass";
-import { aj, ajLlmJobs, ajOrchestrate, isArcjetEnabled } from "@/lib/security/arcjet";
+import {
+  aj,
+  ajLlmJobs,
+  ajOrchestrate,
+  extractUserIdFromRequest,
+  isArcjetEnabled,
+} from "@/lib/security/arcjet";
 
 const PUBLIC_PATHS = [
   "/login",
@@ -129,10 +135,12 @@ async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
   if (!isArcjetEnabled()) return null;
   const path = req.nextUrl.pathname;
   // Routing par coût :
-  //  - orchestrate (chat LLM streaming)        → ajOrchestrate (10 req/min)
-  //  - jobs IA externes + diff/ab-test         → ajLlmJobs    (20 req/min)
-  //  - reste (auth, missions, polling status)  → aj           (100 req/min)
+  //  - orchestrate (chat LLM streaming)        → ajOrchestrate (10 req/min/user)
+  //  - jobs IA externes + diff/ab-test         → ajLlmJobs    (20 req/min/user)
+  //  - reste (auth, missions, polling status)  → aj           (100 req/min/IP)
   let instance: typeof aj;
+  const needsUserScopedLimit = path.startsWith("/api/orchestrate") || isLlmJobPath(path);
+
   if (path.startsWith("/api/orchestrate")) {
     instance = ajOrchestrate;
   } else if (isLlmJobPath(path)) {
@@ -141,7 +149,16 @@ async function applyArcjet(req: NextRequest): Promise<NextResponse | null> {
     instance = aj;
   }
   if (!instance) return null;
-  const decision = await instance.protect(req, { requested: 1 });
+
+  // P0-7 : pour les routes coûteuses (orchestrate + llm jobs), on passe userId
+  // pour créer un bucket distinct par user, pas par IP. Cela isole les users
+  // derrière un corp NAT/VPN. Le `aj` général (auth, missions) reste IP-only.
+  let userId: string | undefined;
+  if (needsUserScopedLimit) {
+    userId = await extractUserIdFromRequest(req);
+  }
+
+  const decision = await instance.protect(req, { requested: 1, userId });
   if (decision.isDenied()) {
     if (decision.reason.isRateLimit()) {
       return NextResponse.json({ error: "rate_limited" }, { status: 429 });
