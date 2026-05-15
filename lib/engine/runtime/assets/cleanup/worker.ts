@@ -7,6 +7,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { StorageProvider } from "../storage/types";
+import { logger } from "@/lib/observability/logger";
 
 export interface CleanupConfig {
   /** Default retention period in days */
@@ -64,29 +65,31 @@ export async function runAssetCleanup(
     const expiredAssets = await findExpiredAssets(db, config);
     result.assetsMarked = expiredAssets.length;
 
+    // 2. Find orphaned storage files (always — detection runs in dry-run too, only deletion is gated)
+    const orphanedFiles = await findOrphanedFiles(db, storage);
+
     if (config.dryRun) {
-      console.log(`[CleanupWorker] DRY RUN: Would delete ${expiredAssets.length} assets`);
-      for (const asset of expiredAssets.slice(0, 10)) {
-        console.log(`[CleanupWorker] Would delete: ${asset.id} (age: ${asset.ageDays} days)`);
-      }
+      logger.info(
+        { expired_count: expiredAssets.length, orphan_count: orphanedFiles.length },
+        "[cleanup] dry-run: would delete assets and orphaned files"
+      );
       result.durationMs = Date.now() - start;
       return result;
     }
 
-    // 2. Process deletions
+    // 3. Process expired asset deletions
     for (const asset of expiredAssets) {
       try {
         await deleteAsset(db, storage, asset);
         result.assetsDeleted++;
 
-        // Track by tenant
         const tenantKey = asset.tenantId || "global";
         if (!result.byTenant[tenantKey]) {
           result.byTenant[tenantKey] = { deleted: 0, archived: 0, errors: 0 };
         }
         result.byTenant[tenantKey].deleted++;
       } catch (err) {
-        console.error(`[CleanupWorker] Failed to delete asset ${asset.id}:`, err);
+        logger.error({ err, assetId: asset.id }, "[cleanup] failed to delete asset");
         result.errors++;
 
         const tenantKey = asset.tenantId || "global";
@@ -97,23 +100,23 @@ export async function runAssetCleanup(
       }
     }
 
-    // 3. Find orphaned storage files
-    const orphanedFiles = await findOrphanedFiles(db, storage);
-    if (!config.dryRun) {
-      for (const file of orphanedFiles) {
-        try {
-          await storage.delete?.(file.key);
-          result.filesDeleted++;
-        } catch (err) {
-          console.error(`[CleanupWorker] Failed to delete orphaned file ${file.key}:`, err);
-          result.errors++;
-        }
+    // 4. Delete orphaned storage files
+    for (const file of orphanedFiles) {
+      try {
+        await storage.delete(file.key);
+        result.filesDeleted++;
+      } catch (err) {
+        logger.error({ err, key: file.key }, "[cleanup] failed to delete orphaned file");
+        result.errors++;
       }
     }
 
-    console.log(`[CleanupWorker] Completed: ${result.assetsDeleted} assets, ${result.filesDeleted} orphaned files deleted`);
+    logger.info(
+      { assets_deleted: result.assetsDeleted, files_deleted: result.filesDeleted, errors: result.errors },
+      "[cleanup] run completed"
+    );
   } catch (err) {
-    console.error("[CleanupWorker] Fatal error:", err);
+    logger.error({ err }, "[cleanup] fatal error");
     result.errors++;
   }
 
@@ -176,7 +179,7 @@ async function findExpiredAssets(
     .limit(config.batchSize);
 
   if (error) {
-    console.error("[CleanupWorker] Failed to query expired assets:", error);
+    logger.error({ err: error }, "[cleanup] failed to query expired assets");
     return [];
   }
 
@@ -225,10 +228,9 @@ async function deleteAsset(
   // Delete from storage first (idempotent)
   if (asset.storageKey) {
     try {
-      await storage.delete?.(asset.storageKey);
+      await storage.delete(asset.storageKey);
     } catch (err) {
-      // Log but continue - file might already be gone
-      console.warn(`[CleanupWorker] Storage delete warning for ${asset.id}:`, err);
+      logger.warn({ err, assetId: asset.id }, "[cleanup] storage delete warning, file may already be gone");
     }
   }
 
@@ -241,14 +243,54 @@ async function deleteAsset(
 }
 
 /**
- * Find orphaned files in storage (not referenced in DB)
+ * Find orphaned files in storage (present in bucket but not referenced by any assets row).
+ *
+ * Algorithm — JS-side diff (suitable for < ~10k files, which covers the current fleet):
+ *  1. List all storage objects via storage.list("").
+ *  2. Load all content_ref values from the assets table, paged 1000 at a time.
+ *  3. Return storage objects whose key is absent from the assets set.
+ *
+ * Note: storage.list() is bounded by provider limits (~1000 for Supabase/R2).
+ * For buckets exceeding that, the StorageProvider interface would need cursor
+ * support — tracked as a future improvement.
  */
-async function findOrphanedFiles(
-  _db: SupabaseClient,
-  _storage: StorageProvider
+export async function findOrphanedFiles(
+  db: SupabaseClient,
+  storage: StorageProvider
 ): Promise<Array<{ key: string; size: number; lastModified: Date }>> {
-  // This is provider-specific and may require listing all storage files
-  // For now, return empty - implement per-provider
-  console.log("[CleanupWorker] Orphaned file detection not implemented for this storage provider");
-  return [];
+  const storageObjects = await storage.list("");
+  if (storageObjects.length === 0) return [];
+
+  // Page through assets table to build the set of known storage keys
+  const knownKeys = new Set<string>();
+  const PAGE_SIZE = 1000;
+  let offset = 0;
+
+  while (true) {
+    const { data, error } = await db
+      .from("assets")
+      .select("content_ref")
+      .not("content_ref", "is", null)
+      .range(offset, offset + PAGE_SIZE - 1);
+
+    if (error) {
+      logger.error({ err: error }, "[cleanup] failed to query assets for orphan detection");
+      return [];
+    }
+
+    for (const row of data ?? []) {
+      if (row.content_ref) knownKeys.add(row.content_ref as string);
+    }
+
+    if (!data || data.length < PAGE_SIZE) break;
+    offset += PAGE_SIZE;
+  }
+
+  const orphans = storageObjects
+    .filter((obj) => !knownKeys.has(obj.key))
+    .map((obj) => ({ key: obj.key, size: obj.size, lastModified: obj.lastModified }));
+
+  logger.info({ orphan_count: orphans.length }, "[cleanup] orphaned files detected");
+
+  return orphans;
 }

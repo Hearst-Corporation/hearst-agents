@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T00:19:01.858Z",
+  "generatedAt": "2026-05-15T00:20:11.849Z",
   "total": 41,
   "counts": {
     "verrouillé": 32,
@@ -10,13 +10,13 @@
   },
   "totals": {
     "invariants": 410,
-    "testsExistants": 1725,
+    "testsExistants": 1731,
     "testsManquants": 242,
     "orphans": 13
   },
   "actualTests": {
-    "files": 304,
-    "cases": 2761,
+    "files": 305,
+    "cases": 2764,
     "note": "Scan __tests__/**/*.test.ts(x) — reflète ce qui tourne vraiment"
   },
   "features": [
@@ -738,9 +738,9 @@
         "I-17. Ownership check sur les routes par-`[id]`",
         "I-18. Mission ID = UUID v4 (`randomUUID()`)"
       ],
-      "testsExistantsCount": 66,
-      "testsOnDisk": 66,
-      "testFilesOnDisk": 8,
+      "testsExistantsCount": 69,
+      "testsOnDisk": 69,
+      "testFilesOnDisk": 9,
       "testsDocExistants": 9,
       "testsManquantsCount": 21,
       "testGap": "moyen",
@@ -862,9 +862,9 @@
         "I-9. `planFromIntent` (LLM) utilise prompt caching sur le system prompt statique",
         "I-10. Deux stacks Plan doivent rester séparées et non-confondues"
       ],
-      "testsExistantsCount": 57,
-      "testsOnDisk": 57,
-      "testFilesOnDisk": 7,
+      "testsExistantsCount": 60,
+      "testsOnDisk": 60,
+      "testFilesOnDisk": 8,
       "testsDocExistants": 0,
       "testsManquantsCount": 0,
       "testGap": "aucun",
