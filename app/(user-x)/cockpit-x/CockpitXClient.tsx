@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { useStageStore } from "@/stores/stage";
 import { Shell } from "../_shell/Shell";

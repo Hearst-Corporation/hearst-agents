@@ -40,6 +40,7 @@ export function RightRail({ title, items }: RightRailProps) {
     >
       <h3 className="mb-4 pl-4 text-sm font-medium text-[rgba(255,255,255,0.5)]">{title}</h3>
       <motion.div
+        key={title}
         variants={RAIL_CONTAINER_VARIANTS}
         initial="hidden"
         animate="show"
@@ -52,7 +53,7 @@ export function RightRail({ title, items }: RightRailProps) {
             <motion.button
               variants={RAIL_ITEM_VARIANTS}
               whileTap={{ scale: 0.98 }}
-              key={`${item.t}-${idx}`}
+              key={idx}
               type="button"
               className={`group flex items-start gap-4 rounded-lg p-4 text-left text-base transition-colors ${
                 item.hot

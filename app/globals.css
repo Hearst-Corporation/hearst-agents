@@ -1394,10 +1394,10 @@
   --color-accent-llm: var(--accent-llm);
   --color-accent-agent: var(--accent-agent);
 
-  /* Shell visionOS (port lab/cli-os) — tailles texte spécifiques :
-   * `text-display` (44px) pour le H1 greeting, `text-vision-2xl` (32px)
-   * pour le hero title. On ne touche pas à `text-2xl` (24px Tailwind
-   * default) pour ne pas régresser le reste de l'app. */
+}
+
+/* === Shell visionOS — font-size tokens === */
+@theme {
   --text-display: 44px;
   --text-vision-2xl: 32px;
 }

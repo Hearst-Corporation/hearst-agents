@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FooterConfig } from "../_stages/types";
 
 type FloatingFooterProps = {
@@ -23,6 +23,11 @@ type FloatingFooterProps = {
 export function FloatingFooter({ config }: FloatingFooterProps) {
   const [activeAction, setActiveAction] = useState<string>(config.actions[0]);
   const [activeMode, setActiveMode] = useState<string>(config.modes[0]);
+
+  useEffect(() => {
+    setActiveAction(config.actions[0]);
+    setActiveMode(config.modes[0]);
+  }, [config]);
 
   return (
     <footer
