@@ -12,7 +12,7 @@
  */
 
 import { randomUUID } from "node:crypto";
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 import type { ModelMessage, Tool } from "ai";
 import { jsonSchema, stepCountIs, streamText } from "ai";
 import { z } from "zod";
@@ -105,7 +105,10 @@ export interface AiPipelineInput {
   missionId?: string;
 }
 
-const anthropic = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY ?? "" });
+const kimi = createOpenAI({
+  apiKey: process.env.KIMI_API_KEY ?? "",
+  baseURL: "https://api.moonshot.cn/v1",
+});
 
 /**
  * Builds the `request_connection` tool that lets the model surface an inline
@@ -757,16 +760,12 @@ export async function runAiPipeline(
   const forceScheduleTool = (input.scheduleDirective ?? false) && !priorHasScheduleToolCall;
   try {
     const result = streamText({
-      model: anthropic(ORCHESTRATOR_MODEL),
-      // System prompt marqué cache_control: ephemeral → Anthropic cache jusqu'à
-      // 5 min les tokens stables (system + tool descriptors qui y sont inlinés).
-      // Gain attendu : ~60-80% input tokens sur les tours suivants.
+      model: kimi(ORCHESTRATOR_MODEL),
+      // Kimi (Moonshot AI) n'a pas de cacheControl équivalent à Anthropic.
+      // Le system prompt est passé directement sans option provider spécifique.
       system: {
         role: "system" as const,
         content: systemPrompt,
-        providerOptions: {
-          anthropic: { cacheControl: { type: "ephemeral" } },
-        },
       },
       messages,
       tools: aiTools,
@@ -1049,7 +1048,7 @@ export async function runAiPipeline(
             const stepInputTokens = ev.usage.inputTokens ?? 0;
             const stepOutputTokens = ev.usage.outputTokens;
             const stepCacheRead = ev.usage.cacheReadInputTokens ?? 0;
-            const stepCostUsd = computeCostUsd("anthropic", ORCHESTRATOR_MODEL, {
+            const stepCostUsd = computeCostUsd("kimi", ORCHESTRATOR_MODEL, {
               input_tokens: stepInputTokens,
               output_tokens: stepOutputTokens,
               cache_read_input_tokens: stepCacheRead,

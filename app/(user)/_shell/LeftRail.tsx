@@ -228,7 +228,7 @@ export function LeftRail() {
       <div className="vision-glass vision-rail-left preserve-3d flex h-full w-full flex-col items-center gap-3 border-y-0 border-l-0 py-8">
         {/* Brand logo */}
         <div className="mb-6 flex size-8 items-center justify-center" aria-hidden>
-          <span className="text-lg font-bold text-white/80">H</span>
+          <img src="/hearst-h.svg" alt="" className="size-7 opacity-90" />
         </div>
 
         {LEFT_RAIL_ORDER.map((key) => {

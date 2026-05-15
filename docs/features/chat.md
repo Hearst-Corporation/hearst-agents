@@ -313,11 +313,18 @@ Ajouter, renommer ou retirer un type = update spec + sync reducer + sync handler
 
 Ces seuils sont figés. Tout assouplissement = update spec.
 
-### I-6. Modèle par défaut `claude-sonnet-4-6`
+### I-6. Modèle par défaut `kimi-k2-5`
 
-Modèle de l'orchestrator (planner + ai-pipeline) : **`claude-sonnet-4-6`**.
+> **Override 2026-05-15** — switch provider de Anthropic Claude Sonnet 4.6 vers Kimi (Moonshot AI) K2.5.
+> L'ancien invariant `claude-sonnet-4-6` est remplacé. Le provider est désormais configuré via
+> `@ai-sdk/openai` avec `baseURL: https://api.moonshot.cn/v1`.
+>
+> Le prompt caching Anthropic (`cacheControl: ephemeral`) n'est pas supporté par Kimi
+> et a été retiré du pipeline. Le cost tracking utilise le provider `"kimi"`.
 
-Changement de modèle (ex: Opus, Haiku, GPT) = update spec. Prompt caching (ephemeral 5min) sur les blocks statiques **doit** rester actif.
+Modèle de l'orchestrator (planner + ai-pipeline) : **`kimi-k2-5`**.
+
+Changement de modèle = update spec. Le provider est branché via `lib/llm/pricing.ts` pour le cost tracking.
 
 ### I-7. Tools assemblés — 12 catégories
 

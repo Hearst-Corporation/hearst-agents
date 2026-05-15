@@ -13,7 +13,7 @@
  */
 
 import { randomUUID } from "node:crypto";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { type Asset, storeAsset } from "@/lib/assets/types";
 import { composeEditorialPrompt } from "@/lib/editorial/charter";
 import { generatePdfArtifact } from "@/lib/engine/runtime/assets/generators/pdf";
@@ -89,8 +89,8 @@ export async function runResearchReport(input: ResearchReportInput): Promise<voi
   // ── 1. Web search ──────────────────────────────────────────
   let searchResult: WebSearchResult;
   try {
-    if (!process.env.ANTHROPIC_API_KEY) {
-      throw new Error("Web search provider unavailable — ANTHROPIC_API_KEY not configured");
+    if (!process.env.KIMI_API_KEY) {
+      throw new Error("Research synthesis unavailable — KIMI_API_KEY not configured");
     }
     searchResult = await searchWeb(query);
   } catch (err) {
@@ -309,18 +309,21 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     return search.summary;
   }
 
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
+  const client = new OpenAI({
+    apiKey: process.env.KIMI_API_KEY!,
+    baseURL: "https://api.moonshot.cn/v1",
+  });
 
   const sourcesContext = search.results
     .slice(0, 8)
     .map((r, i) => `[${i + 1}] ${r.title}\n${r.url}\n${r.snippet}`)
     .join("\n\n");
 
-  const response = await client.messages.create({
-    model: "claude-sonnet-4-6",
+  const response = await client.chat.completions.create({
+    model: "kimi-k2-5",
     max_tokens: 4096,
-    system: RESEARCH_REPORT_SYSTEM_PROMPT,
     messages: [
+      { role: "system", content: RESEARCH_REPORT_SYSTEM_PROMPT },
       {
         role: "user",
         content: `Rédige le rapport sur : "${query}"\n\nSources disponibles (cite par leur numéro quand factuel) :\n${sourcesContext}`,
@@ -328,10 +331,7 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
     ],
   });
 
-  return response.content
-    .filter((b): b is Anthropic.TextBlock => b.type === "text")
-    .map((b) => b.text)
-    .join("\n");
+  return response.choices[0]?.message?.content ?? "";
 }
 
 /**

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T17:11:39.626Z",
+  "generatedAt": "2026-05-15T18:19:02.542Z",
   "total": 41,
   "counts": {
     "verrouillé": 32,
@@ -198,7 +198,7 @@
         "I-3. SSE event types figés",
         "I-4. Safety gate pre-LLM obligatoire",
         "I-5. Mass action caps",
-        "I-6. Modèle par défaut `claude-sonnet-4-6`",
+        "I-6. Modèle par défaut `kimi-k2-5`",
         "I-7. Tools assemblés — 12 catégories",
         "I-8. Abort registry — pattern figé",
         "I-9. `runtime.events` cap 50, newest-first",

@@ -73,6 +73,7 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.71",
+    "@ai-sdk/openai": "^3.0.63",
     "@alloc/quick-lru": "^5.2.0",
     "@anthropic-ai/sdk": "^0.95.1",
     "@arcjet/next": "^1.4.0",

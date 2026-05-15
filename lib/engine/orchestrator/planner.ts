@@ -6,8 +6,8 @@
  * - A direct text response (simple tasks)
  */
 
-import Anthropic from "@anthropic-ai/sdk";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import OpenAI from "openai";
 import {
   type Domain,
   getValidAgentsForDomain,
@@ -76,9 +76,13 @@ export async function planFromIntent(
 
   const { surface, capabilityDomain, discoveredActions } = opts;
 
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
+  const client = new OpenAI({
+    apiKey: process.env.KIMI_API_KEY!,
+    baseURL: "https://api.moonshot.cn/v1",
+  });
 
-  const messages: Anthropic.MessageParam[] = [
+  const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+    { role: "system", content: ORCHESTRATOR_SYSTEM_PROMPT },
     ...conversationHistory.map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
@@ -89,47 +93,33 @@ export async function planFromIntent(
     },
   ];
 
-  // ── Prompt caching ─────────────────────────────────────────
-  // The static system prompt (~1500 tokens) and tool definitions (~500
-  // tokens) are identical across every planning call → cached with
-  // `ephemeral` (5-min TTL). The dynamic per-user block (Composio actions +
-  // draft-first rule) is appended as a SECOND system content block with no
-  // cache_control: it differs per user but is small (~300-1500 tokens), so
-  // we trade a tiny per-turn cost for full per-user awareness while the
-  // huge static prefix still hits cache.
-  const systemBlocks: Anthropic.MessageCreateParams["system"] = [
-    {
-      type: "text",
-      text: ORCHESTRATOR_SYSTEM_PROMPT,
-      cache_control: { type: "ephemeral" },
-    },
-  ];
-
   const dynamicSuffix = buildDynamicSystemSuffix(discoveredActions ?? []);
   if (dynamicSuffix) {
-    (systemBlocks as Anthropic.TextBlockParam[]).push({
-      type: "text",
-      text: dynamicSuffix,
-    });
+    messages.push({ role: "system", content: dynamicSuffix });
   }
-  const cachedSystem = systemBlocks;
 
-  // Cache_control on the last tool caches the entire tools array.
-  const cachedTools = [
+  // Convert Anthropic-style tools (input_schema) to OpenAI function tools
+  const tools: OpenAI.Chat.ChatCompletionTool[] = [
     PLAN_TOOL,
     RESPOND_TOOL,
-    { ...REQUEST_CONNECTION_TOOL, cache_control: { type: "ephemeral" } },
-  ] as unknown as Anthropic.Tool[];
+    REQUEST_CONNECTION_TOOL,
+  ].map((tool) => ({
+    type: "function",
+    function: {
+      name: tool.name,
+      description: tool.description,
+      parameters: tool.input_schema,
+    },
+  }));
 
-  let response: Anthropic.Message;
+  let response: OpenAI.Chat.Completions.ChatCompletion;
   try {
-    response = await client.messages.create({
+    response = await client.chat.completions.create({
       model: ORCHESTRATOR_MODEL,
       max_tokens: 4096,
-      system: cachedSystem,
       messages,
-      tools: cachedTools,
-      tool_choice: { type: "any" },
+      tools,
+      tool_choice: "auto",
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Unknown LLM error";
@@ -137,27 +127,26 @@ export async function planFromIntent(
     return { kind: "error", error: msg };
   }
 
+  const usage = response.usage;
   await engine.cost.track({
-    input_tokens: response.usage.input_tokens,
-    output_tokens: response.usage.output_tokens,
+    input_tokens: usage?.prompt_tokens ?? 0,
+    output_tokens: usage?.completion_tokens ?? 0,
     tool_calls: 0,
     latency_ms: 0,
-    cache_creation_input_tokens: response.usage.cache_creation_input_tokens ?? undefined,
-    cache_read_input_tokens: response.usage.cache_read_input_tokens ?? undefined,
   });
 
-  const toolUse = response.content.find((b): b is Anthropic.ToolUseBlock => b.type === "tool_use");
-  if (!toolUse) {
-    const text = response.content
-      .filter((b): b is Anthropic.TextBlock => b.type === "text")
-      .map((b) => b.text)
-      .join("");
-    return { kind: "direct_response", text: text || "OK" };
+  const message = response.choices[0]?.message;
+  const toolCall = message?.tool_calls?.[0] as
+    | { function: { name: string; arguments: string } }
+    | undefined;
+
+  if (!toolCall) {
+    return { kind: "direct_response", text: message?.content || "OK" };
   }
 
   // ── Inline app connect request ────────────────────────────
-  if (toolUse.name === "request_connection") {
-    const input = toolUse.input as { app: string; reason: string };
+  if (toolCall.function.name === "request_connection") {
+    const input = JSON.parse(toolCall.function.arguments) as { app: string; reason: string };
     return {
       kind: "request_connection",
       app: input.app.toLowerCase(),
@@ -166,14 +155,14 @@ export async function planFromIntent(
   }
 
   // ── Direct response ──────────────────────────────────────
-  if (toolUse.name === "text_response") {
-    const input = toolUse.input as { text: string };
+  if (toolCall.function.name === "text_response") {
+    const input = JSON.parse(toolCall.function.arguments) as { text: string };
     return { kind: "direct_response", text: input.text };
   }
 
   // ── Plan creation ────────────────────────────────────────
-  if (toolUse.name === "create_plan") {
-    const input = toolUse.input as {
+  if (toolCall.function.name === "create_plan") {
+    const input = JSON.parse(toolCall.function.arguments) as {
       reasoning: string;
       steps: PlanStepFromLLM[];
     };
@@ -220,7 +209,7 @@ export async function planFromIntent(
     return { kind: "plan", plan };
   }
 
-  return { kind: "error", error: `Unknown tool: ${toolUse.name}` };
+  return { kind: "error", error: `Unknown tool: ${toolCall.function.name}` };
 }
 
 function buildUserPrompt(message: string, surface?: string): string {
