@@ -3,6 +3,7 @@ import { heygenGenerateVideo, heygenGetStatus } from "@/lib/capabilities/provide
 import { runwayGenerateVideo, runwayGetTask } from "@/lib/capabilities/providers/runway";
 import { getGlobalStorage } from "@/lib/engine/runtime/assets/storage";
 import { endJobRun, startJobRun } from "@/lib/jobs/inngest/run-persistence";
+import { PermanentJobError } from "@/lib/jobs/permanent-error";
 import type { JobResult, VideoGenInput } from "@/lib/jobs/types";
 import { startWorker, type WorkerHandler } from "@/lib/jobs/worker-base";
 import { defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
@@ -88,6 +89,9 @@ const handler: WorkerHandler<VideoGenInput> = {
     }
     if (!payload.provider) {
       throw new Error("video-gen: provider requis (heygen | runway)");
+    }
+    if (!payload.assetId) {
+      throw new PermanentJobError("video-gen: assetId required (no orphan fallback)");
     }
   },
 
@@ -201,7 +205,7 @@ const handler: WorkerHandler<VideoGenInput> = {
 
       const storage = getGlobalStorage();
       const variantKey = variantId ?? `video-${ctx.job.id}`;
-      const storageKey = `video/${payload.assetId ?? "orphan"}/${variantKey}.mp4`;
+      const storageKey = `video/${payload.assetId}/${variantKey}.mp4`;
 
       const upload = await storage.upload(storageKey, videoBuffer, {
         contentType: "video/mp4",

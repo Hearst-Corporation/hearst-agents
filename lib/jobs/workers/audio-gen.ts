@@ -27,6 +27,12 @@ const handler: WorkerHandler<AudioGenInput> = {
     if (!payload.text || payload.text.trim().length === 0) {
       throw new Error("audio-gen: text is empty");
     }
+    if (!payload.assetId) {
+      // assetId est créé par le tool handler avant enqueue (cf. audit P1
+      // "asset orphan permanent"). Si absent, on refuse plutôt que d'uploader
+      // dans audio/orphan/* — fichier jamais lié à un asset.
+      throw new PermanentJobError("audio-gen: assetId required (no orphan fallback)");
+    }
   },
 
   async process(ctx): Promise<JobResult> {
@@ -64,7 +70,7 @@ const handler: WorkerHandler<AudioGenInput> = {
     // 2. Upload to storage
     const storage = getGlobalStorage();
     const variantKey = variantId ?? `audio-${ctx.job.id}`;
-    const storageKey = `audio/${payload.assetId ?? "orphan"}/${variantKey}.mp3`;
+    const storageKey = `audio/${payload.assetId}/${variantKey}.mp3`;
 
     const upload = await storage.upload(storageKey, result.audio, {
       contentType: "audio/mpeg",

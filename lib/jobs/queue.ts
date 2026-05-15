@@ -21,7 +21,10 @@ import type { JobKind, JobPayload } from "./types";
 // Sur Vercel : TOUS (liste complète). Sur Railway : uniquement ceux listés.
 // Pour ajouter un kind : créer la fonction Inngest dans
 // lib/jobs/inngest/functions/ et la registrer dans functions/index.ts.
-const INNGEST_JOB_KINDS = new Set<JobKind>([
+// Exporté pour permettre à workers/index.ts de skipper le démarrage du Worker
+// BullMQ correspondant (sinon Worker idle qui consomme RAM et brouille la
+// frontière BullMQ/Inngest — cf. audit P0-2 "double exécution").
+export const INNGEST_JOB_KINDS = new Set<JobKind>([
   "daily-brief",
   "audio-gen",
   "image-gen",

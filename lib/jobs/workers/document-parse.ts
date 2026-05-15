@@ -23,6 +23,9 @@ const handler: WorkerHandler<DocumentParseInput> = {
     if (!payload.fileUrl) {
       throw new Error("document-parse: fileUrl is required");
     }
+    if (!payload.assetId) {
+      throw new PermanentJobError("document-parse: assetId required (no orphan fallback)");
+    }
   },
 
   async process(ctx): Promise<JobResult> {
@@ -58,7 +61,7 @@ const handler: WorkerHandler<DocumentParseInput> = {
     // 2. Upload Markdown to storage
     const storage = getGlobalStorage();
     const variantKey = variantId ?? `doc-${ctx.job.id}`;
-    const storageKey = `documents/${payload.assetId ?? "orphan"}/${variantKey}.md`;
+    const storageKey = `documents/${payload.assetId}/${variantKey}.md`;
 
     const mdBuffer = Buffer.from(parsed.markdown, "utf-8");
     const upload = await storage.upload(storageKey, mdBuffer, {

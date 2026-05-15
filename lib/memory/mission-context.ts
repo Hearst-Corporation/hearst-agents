@@ -339,7 +339,9 @@ export function formatMissionContextBlock(ctx: MissionContext): string {
         m.role === "user" ? "Utilisateur" : m.role === "assistant" ? "Assistant" : "Système";
       // Cap chaque message à 240 chars + sanitize pour éviter injection
       const rawText = m.content.length > 240 ? `${m.content.slice(0, 239)}…` : m.content;
-      const text = sanitizeForFence(rawText);
+      // sanitizeForFence neutralise </untrusted_*> mais pas </mission_context> — escape ici
+      // pour empêcher un message user de break out du bloc et injecter des instructions système.
+      const text = sanitizeForFence(rawText).replace(/<\/mission_context/gi, "<\\/mission_context");
       return `- ${who}: ${text}`;
     });
     sections.push(`[Notes récentes (chronologique)]\n${lines.join("\n")}`);

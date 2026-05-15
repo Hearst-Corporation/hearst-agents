@@ -32,6 +32,9 @@ const handler: WorkerHandler<ImageGenInput> = {
     if (!payload.prompt || payload.prompt.trim().length === 0) {
       throw new Error("image-gen: prompt is empty");
     }
+    if (!payload.assetId) {
+      throw new PermanentJobError("image-gen: assetId required (no orphan fallback)");
+    }
   },
 
   async process(ctx): Promise<JobResult> {
@@ -105,7 +108,7 @@ const handler: WorkerHandler<ImageGenInput> = {
     // 5. Upload to storage
     const storage = getGlobalStorage();
     const variantKey = variantId ?? `image-${ctx.job.id}`;
-    const storageKey = `images/${payload.assetId ?? "orphan"}/${variantKey}.jpg`;
+    const storageKey = `images/${payload.assetId}/${variantKey}.jpg`;
 
     const upload = await storage.upload(storageKey, imgBuffer, {
       contentType: "image/jpeg",

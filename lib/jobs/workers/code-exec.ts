@@ -15,6 +15,9 @@ const handler: WorkerHandler<CodeExecInput> = {
     if (payload.runtime !== "python" && payload.runtime !== "node") {
       throw new Error(`code-exec: unsupported runtime "${payload.runtime}"`);
     }
+    if (!payload.assetId) {
+      throw new PermanentJobError("code-exec: assetId required (no orphan fallback)");
+    }
   },
 
   async process(ctx): Promise<JobResult> {
@@ -49,7 +52,7 @@ const handler: WorkerHandler<CodeExecInput> = {
 
     const storage = getGlobalStorage();
     const variantKey = variantId ?? `exec-${ctx.job.id}`;
-    const storageKey = `code-exec/${payload.assetId ?? "orphan"}/${variantKey}.json`;
+    const storageKey = `code-exec/${payload.assetId}/${variantKey}.json`;
 
     const resultJson = JSON.stringify(execResult, null, 2);
     const upload = await storage.upload(storageKey, Buffer.from(resultJson, "utf-8"), {

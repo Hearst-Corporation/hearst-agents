@@ -53,8 +53,12 @@ export function ApprovalInline({
     }
   };
 
+  const labelId = `approval-label-${stepId}`;
+
   return (
     <div
+      role="region"
+      aria-labelledby={labelId}
       className="border-l-2 border-(--accent-teal)"
       style={{
         background: "var(--accent-teal-surface)",
@@ -68,7 +72,9 @@ export function ApprovalInline({
         className="flex items-center"
         style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
       >
-        <span className="t-11 font-medium text-(--accent-teal)">Validation requise</span>
+        <span id={labelId} className="t-11 font-medium text-(--accent-teal)">
+          Validation requise
+        </span>
         <span
           className="rounded-pill bg-[var(--text-ghost)]"
           style={{ width: "var(--space-1)", height: "var(--space-1)" }}
@@ -101,6 +107,7 @@ export function ApprovalInline({
           disabled={pending !== null && pending !== "approve"}
           loading={pending === "approve"}
           testId="approval-approve"
+          aria-label={`Approuver l'action ${kind}`}
         >
           Approuver
         </Action>
@@ -111,6 +118,7 @@ export function ApprovalInline({
             disabled={pending !== null}
             className="ghost-btn-solid ghost-btn-ghost t-9"
             data-testid="approval-edit"
+            aria-label={`Modifier l'action ${kind} avant approbation`}
           >
             <span>Modifier</span>
           </button>
@@ -121,6 +129,7 @@ export function ApprovalInline({
           disabled={pending !== null}
           className="ghost-btn-solid ghost-btn-ghost t-9"
           data-testid="approval-skip"
+          aria-label={`Sauter l'action ${kind} sans l'exécuter`}
         >
           <span>{pending === "skip" ? "…" : "Sauter"}</span>
         </button>
