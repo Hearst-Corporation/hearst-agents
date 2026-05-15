@@ -9,6 +9,12 @@ export const dynamic = "force-dynamic";
 const log = withRoute("POST /api/admin/agent-lock");
 
 export async function GET() {
+  const guard = await requireAdmin("GET /api/admin/agent-lock", {
+    resource: "settings",
+    action: "read",
+  });
+  if (isError(guard)) return guard;
+
   const state = await getAgentLockState();
   return NextResponse.json(state);
 }

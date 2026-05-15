@@ -22,12 +22,13 @@
  * cache court pour permettre des appels haute fréquence.
  */
 
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { isError, requireAdmin } from "@/app/api/admin/_helpers";
 import { type CircuitState, defaultCircuitBreaker } from "@/lib/llm/circuit-breaker";
 import { defaultMetrics } from "@/lib/llm/metrics";
 import { defaultRateLimiter } from "@/lib/llm/rate-limiter";
 import { getLangfuseClient } from "@/lib/observability/langfuse";
+import { protectLlmJob } from "@/lib/security/arcjet";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 30;
@@ -183,7 +184,12 @@ function buildLangfuseHealth(): LangfuseHealth {
 // GET handler
 // ---------------------------------------------------------------------------
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  // Rate-limit défense en profondeur (polling abusif révèle circuit breaker state).
+  // No-op gracieux si ARCJET_KEY absente.
+  const denied = await protectLlmJob(req);
+  if (denied) return denied;
+
   const guard = await requireAdmin("GET /api/health/llm", {
     resource: "settings",
     action: "read",
