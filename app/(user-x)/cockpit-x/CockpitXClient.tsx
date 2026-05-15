@@ -6,8 +6,15 @@ import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { useStageStore } from "@/stores/stage";
 import { Shell } from "../_shell/Shell";
+import { AssetCompareStage } from "../_stages/AssetCompareStage";
+import { AssetStage } from "../_stages/AssetStage";
+import { ChatStage } from "../_stages/ChatStage";
+import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
+import { SignalStage } from "../_stages/SignalStage";
+import { SimulationStage } from "../_stages/SimulationStage";
 import type { FooterConfig, RailItem } from "../_stages/types";
+import { VoiceStage } from "../_stages/VoiceStage";
 
 /**
  * CockpitXClient — orchestrateur du shell visionOS (P4+).
@@ -62,7 +69,7 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
     };
   }, [mode]);
 
-  // Cockpit mode → carte hero + activité ; autres modes → placeholder.
+  // Router de stages — cockpit mode avec data, autres avec leurs composants P5.
   if (mode === "cockpit") {
     const railItems = buildRailItems(data);
     const footer = buildFooter(def.footer, data);
@@ -76,9 +83,31 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
     );
   }
 
+  // Stages P5 branchés
+  const stageContent = (() => {
+    switch (mode) {
+      case "signal":
+        return <SignalStage mode={mode} />;
+      case "voice":
+        return <VoiceStage mode={mode} />;
+      case "chat":
+        return <ChatStage mode={mode} />;
+      case "mission":
+        return <MissionStage mode={mode} />;
+      case "asset":
+        return <AssetStage mode={mode} />;
+      case "asset_compare":
+        return <AssetCompareStage mode={mode} />;
+      case "simulation":
+        return <SimulationStage mode={mode} />;
+      default:
+        return <ModePlaceholder mode={mode} def={def} />;
+    }
+  })();
+
   return (
     <Shell
-      centerContent={<ModePlaceholder mode={mode} def={def} />}
+      centerContent={stageContent}
       railTitle={def.railTitle}
       railItems={[]}
       footer={def.footer}
