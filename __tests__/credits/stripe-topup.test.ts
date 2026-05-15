@@ -2,7 +2,7 @@
  * P1-2 — Stripe top-up activation tests.
  */
 
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const fetchMock = vi.fn();
 
@@ -14,6 +14,8 @@ beforeEach(() => {
   delete process.env.STRIPE_PRICE_ID_20;
   delete process.env.STRIPE_PRICE_ID_50;
   delete process.env.STRIPE_WEBHOOK_SECRET;
+  delete process.env.OPENAI_API_KEY;
+  delete process.env.MODERATION_HARD_FAIL;
 });
 
 describe("Stripe top-up — configuration", () => {
@@ -80,7 +82,67 @@ describe("Grant credits", () => {
     const result = await grantCredits("user-1", 5, {
       source: "stripe_topup",
       sessionId: "sess_123",
+      tenantId: "tenant-1",
     });
     expect(result.success).toBe(false);
+  });
+
+  it("grantCredits accepte tenantId explicite", async () => {
+    const { grantCredits } = await import("@/lib/credits/grant");
+    const result = await grantCredits("user-1", 5, {
+      source: "stripe_topup",
+      sessionId: "sess_123",
+      tenantId: "tenant-abc",
+    });
+    // Sans DB, retourne error — mais le tenantId est passé
+    expect(result.success).toBe(false);
+  });
+});
+
+describe("Moderation hard fail mode", () => {
+  it("fail-soft par défaut (HARD_FAIL absent)", async () => {
+    delete process.env.MODERATION_HARD_FAIL;
+    delete process.env.OPENAI_API_KEY;
+    vi.resetModules();
+    const { moderateContent } = await import("@/lib/moderation/openai");
+    const result = await moderateContent("test");
+    // Sans OPENAI_API_KEY, retourne skipped (fail-soft)
+    expect(result.flagged).toBe(false);
+    expect(result.source).toBe("skipped");
+  });
+
+  it("HARD_FAIL bloque si modération indisponible", async () => {
+    process.env.MODERATION_HARD_FAIL = "true";
+    delete process.env.OPENAI_API_KEY;
+    vi.resetModules();
+    const { moderateContent } = await import("@/lib/moderation/openai");
+    const result = await moderateContent("test");
+    // Sans OPENAI_API_KEY + HARD_FAIL = contenu bloqué
+    expect(result.flagged).toBe(true);
+    expect(result.categories).toContain("moderation_unavailable");
+  });
+
+  it("HARD_FAIL bloque sur erreur HTTP", async () => {
+    process.env.MODERATION_HARD_FAIL = "true";
+    process.env.OPENAI_API_KEY = "sk-test";
+    fetchMock.mockResolvedValue({ ok: false, status: 503 } as Response);
+    vi.resetModules();
+    const { moderateContent } = await import("@/lib/moderation/openai");
+    const result = await moderateContent("test");
+    expect(result.flagged).toBe(true);
+    expect(result.categories).toContain("moderation_unavailable");
+    expect(result.reason).toContain("503");
+  });
+
+  it("fail-soft laisse passer sur erreur HTTP", async () => {
+    delete process.env.MODERATION_HARD_FAIL;
+    process.env.OPENAI_API_KEY = "sk-test";
+    fetchMock.mockResolvedValue({ ok: false, status: 503 } as Response);
+    vi.resetModules();
+    const { moderateContent } = await import("@/lib/moderation/openai");
+    const result = await moderateContent("test");
+    expect(result.flagged).toBe(false);
+    expect(result.source).toBe("error");
+    expect(result.reason).toContain("503");
   });
 });

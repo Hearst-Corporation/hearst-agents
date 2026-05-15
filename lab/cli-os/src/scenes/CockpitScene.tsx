@@ -99,10 +99,8 @@ function LeftRail({
   return (
     <aside aria-label="Navigation principale" className="relative z-20 h-full w-[88px] shrink-0">
       <div className="flex h-full w-full flex-col items-center gap-3 py-8 vision-glass preserve-3d vision-rail-left border-y-0 border-l-0">
-        {/* Brand slot top */}
-        <div className="mb-6 flex size-12 items-center justify-center rounded-xl bg-[rgba(255,255,255,0.1)] shadow-[0_8px_16px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.3)]">
-          <span className="block size-5 rounded-full bg-white" />
-        </div>
+        {/* Brand slot top — H mark Hearst */}
+        <img src="/hearst-h.svg" alt="Hearst" className="mb-6 block size-8" />
 
         {LEFT_RAIL_SLOTS.map((slot) => {
           const active = activeSlot === slot;

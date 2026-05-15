@@ -16,11 +16,14 @@ export interface GrantCreditsMeta {
   source: string;
   sessionId?: string;
   adminId?: string;
+  tenantId?: string;
 }
 
 /**
  * Ajoute des crédits au solde d'un user et trace dans le ledger.
  * Idempotent : même sessionId = même opération, pas de double-crédit.
+ * Le tenantId doit être fourni explicitement (webhook metadata) pour éviter
+ * le guess via SELECT sur user_credits.
  */
 export async function grantCredits(
   userId: string,
@@ -46,8 +49,9 @@ export async function grantCredits(
   }
 
   // Appel RPC pour créditer
-  const { error } = await sb.rpc("grant_credits", {
+  const { error } = await sb.rpc("grant_credits_v2", {
     p_user_id: userId,
+    p_tenant_id: meta.tenantId ?? "default",
     p_amount_usd: amountUsd,
     p_source: meta.source,
     p_description: `Credit grant via ${meta.source}${meta.sessionId ? ` (session: ${meta.sessionId})` : ""}`,

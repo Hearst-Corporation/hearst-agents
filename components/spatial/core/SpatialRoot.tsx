@@ -29,7 +29,7 @@ import { SpatialScene } from "./SpatialScene";
 // VoicePulse vit dans app/(user) — on l'importe en dynamic ssr:false pour
 // éviter de rendre un composant dépendant de WebRTC pendant SSR.
 const VoicePulse = dynamic(
-  () => import("@/app/(user)/components/voice/VoicePulse").then((m) => m.VoicePulse),
+  () => import("@/app/(user-legacy)/components/voice/VoicePulse").then((m) => m.VoicePulse),
   { ssr: false },
 );
 

@@ -36,19 +36,43 @@ export async function POST(req: Request) {
 
   const event = verified.event as import("stripe").Stripe.Event;
 
+  // Idempotence : vérifier si cet event Stripe a déjà été traité
+  const { getServerSupabase } = await import("@/lib/platform/db/supabase");
+  const sb = getServerSupabase();
+  if (sb) {
+    const { data: existing } = await sb
+      .from("stripe_events")
+      .select("id")
+      .eq("stripe_event_id", event.id)
+      .maybeSingle();
+    if (existing) {
+      return NextResponse.json({ received: true, processed: false, reason: "already_processed" });
+    }
+  }
+
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as import("stripe").Stripe.Checkout.Session;
     if (session.payment_status === "paid") {
       const userId = session.client_reference_id;
       const amountUsd = Number(session.metadata?.amountUsd);
+      const tenantId = session.metadata?.tenantId as string | undefined;
       if (userId && amountUsd > 0) {
         const { grantCredits } = await import("@/lib/credits/grant");
         await grantCredits(userId, amountUsd, {
           source: "stripe_topup",
           sessionId: session.id,
+          tenantId,
         });
       }
     }
+  }
+
+  // Tracer l'event pour idempotence
+  if (sb) {
+    await sb.from("stripe_events").upsert({
+      stripe_event_id: event.id,
+      processed_at: new Date().toISOString(),
+    });
   }
 
   return NextResponse.json({ received: true, processed: true });

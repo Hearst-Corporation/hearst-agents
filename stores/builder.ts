@@ -7,7 +7,7 @@
  */
 
 import { create } from "zustand";
-import type { PaletteEntry } from "@/app/(user)/components/missions/builder/NodePalette";
+import type { PaletteEntry } from "@/app/(user-legacy)/components/missions/builder/NodePalette";
 import type { WorkflowNode } from "@/lib/workflows/types";
 
 interface BuilderHandlers {

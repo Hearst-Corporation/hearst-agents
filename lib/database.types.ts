@@ -4288,6 +4288,33 @@ export type Database = {
           },
         ];
       };
+      stripe_events: {
+        Row: {
+          amount_usd: number | null;
+          created_at: string;
+          id: string;
+          processed_at: string;
+          stripe_event_id: string;
+          user_id: string | null;
+        };
+        Insert: {
+          amount_usd?: number | null;
+          created_at?: string;
+          id?: string;
+          processed_at?: string;
+          stripe_event_id: string;
+          user_id?: string | null;
+        };
+        Update: {
+          amount_usd?: number | null;
+          created_at?: string;
+          id?: string;
+          processed_at?: string;
+          stripe_event_id?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       clawd_users: {
@@ -4346,6 +4373,16 @@ export type Database = {
       _jwt_tenant_id: { Args: never; Returns: string };
       create_user_with_tenant: { Args: { p_email: string }; Returns: string };
       exec: { Args: { sql: string }; Returns: undefined };
+      grant_credits_v2: {
+        Args: {
+          p_amount_usd: number;
+          p_description: string;
+          p_source: string;
+          p_tenant_id: string;
+          p_user_id: string;
+        };
+        Returns: undefined;
+      };
       grant_trial_credits: {
         Args: { p_amount_usd?: number; p_tenant_id: string; p_user_id: string };
         Returns: undefined;

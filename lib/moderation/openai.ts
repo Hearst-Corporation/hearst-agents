@@ -9,15 +9,19 @@
  * (NSFW, violence, hate, self-harm) avant d'engager un coût provider et de
  * stocker un asset traçable côté tenant (cf. audit P0-5).
  *
- * Fail-soft : si `OPENAI_API_KEY` est absente ou si l'API est down, on
- * RETOURNE { flagged: false } pour ne pas bloquer un système qui marchait
- * sans modération. L'erreur est logguée, mais la production passe — c'est
- * une garde *additionnelle*, pas un gate hard.
+ * Fail-soft par défaut : si `OPENAI_API_KEY` est absente ou si l'API est down,
+ * on RETOURNE { flagged: false } pour ne pas bloquer un système qui marchait
+ * sans modération. L'erreur est logguée, mais la production passe.
+ *
+ * ⚠️ Pour les environnements à haute sensibilité, configurer
+ * `MODERATION_HARD_FAIL=true` — dans ce mode, toute indisponibilité de la
+ * modération bloque le contenu au lieu de le laisser passer.
  */
 
 const MODERATION_ENDPOINT = "https://api.openai.com/v1/moderations";
 const MODERATION_MODEL = "omni-moderation-latest";
 const MODERATION_TIMEOUT_MS = 5000;
+const HARD_FAIL = process.env.MODERATION_HARD_FAIL === "true";
 
 export interface ModerationResult {
   flagged: boolean;
@@ -56,6 +60,15 @@ interface OpenAIModerationResponse {
 export async function moderateContent(text: string): Promise<ModerationResult> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
+    if (HARD_FAIL) {
+      return {
+        flagged: true,
+        categories: ["moderation_unavailable"],
+        maxScore: 1,
+        source: "error",
+        reason: "no_api_key",
+      };
+    }
     return { ...OK_RESULT, reason: "no_api_key" };
   }
   const trimmed = text.trim();
@@ -75,7 +88,18 @@ export async function moderateContent(text: string): Promise<ModerationResult> {
     });
 
     if (!res.ok) {
-      console.warn(`[moderation] OpenAI HTTP ${res.status} — fail-soft, content allowed`);
+      console.warn(
+        `[moderation] OpenAI HTTP ${res.status} — ${HARD_FAIL ? "HARD FAIL" : "fail-soft, content allowed"}`,
+      );
+      if (HARD_FAIL) {
+        return {
+          flagged: true,
+          categories: ["moderation_unavailable"],
+          maxScore: 1,
+          source: "error",
+          reason: `http_${res.status}`,
+        };
+      }
       return { ...OK_RESULT, source: "error", reason: `http_${res.status}` };
     }
 
@@ -104,7 +128,18 @@ export async function moderateContent(text: string): Promise<ModerationResult> {
     };
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.warn(`[moderation] OpenAI call failed: ${msg} — fail-soft, content allowed`);
+    console.warn(
+      `[moderation] OpenAI call failed: ${msg} — ${HARD_FAIL ? "HARD FAIL" : "fail-soft, content allowed"}`,
+    );
+    if (HARD_FAIL) {
+      return {
+        flagged: true,
+        categories: ["moderation_unavailable"],
+        maxScore: 1,
+        source: "error",
+        reason: msg.slice(0, 100),
+      };
+    }
     return { ...OK_RESULT, source: "error", reason: msg.slice(0, 100) };
   }
 }

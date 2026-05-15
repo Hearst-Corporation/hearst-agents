@@ -88,7 +88,7 @@ export async function createCheckoutSession(args: {
     success_url: args.successUrl,
     cancel_url: args.cancelUrl,
     client_reference_id: args.userId,
-    metadata: { tenantId: args.tenantId, amountUsd: String(args.amountUsd) },
+    metadata: { tenantId: args.tenantId, amountUsd: String(args.amountUsd), userId: args.userId },
   });
 
   if (!session.url) {

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearst OS — Flow Navigation v5</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #05050a;
+  --glass: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.13);
+  --ink: #ededf0;
+  --muted: rgba(237,237,240,0.5);
+  --faint: rgba(237,237,240,0.22);
+  --teal: rgba(52,210,190,0.85);
+  --teal-glow: rgba(52,210,190,0.12);
+  --gold: rgba(255,188,58,0.9);
+  --gold-glow: rgba(255,188,58,0.1);
+  --red: rgba(255,90,90,0.85);
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+html, body { height: 100%; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased; overflow: hidden; }
+
+/* Aurora */
+.aurora { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.aurora::before { content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 12% 22%, rgba(55,75,255,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 38% at 82% 14%, rgba(120,55,255,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 55% at 52% 92%, rgba(28,155,255,0.12) 0%, transparent 60%);
+  filter: blur(70px); animation: aurora 9s ease-in-out infinite; }
+@keyframes aurora { 0%,100% { opacity:.65 } 50% { opacity:1 } }
+
+/* Shell */
+.shell { position: relative; z-index: 1; display: flex; height: 100vh; width: 100vw; overflow: hidden; }
+
+/* Agent orb */
+.orb { position: fixed; top: 22px; left: 22px; width: 30px; height: 30px;
+  border-radius: 50%; background: rgba(52,210,190,0.12); border: 1px solid rgba(52,210,190,0.22);
+  display: flex; align-items: center; justify-content: center; z-index: 100;
+  animation: orb-breath 3.2s ease-in-out infinite; cursor: default; }
+.orb::after { content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(52,210,190,0.9); animation: orb-core 3.2s ease-in-out infinite; }
+@keyframes orb-breath { 0%,100%{box-shadow:0 0 0 0 rgba(52,210,190,0)} 50%{box-shadow:0 0 18px 5px rgba(52,210,190,0.07)} }
+@keyframes orb-core { 0%,100%{opacity:.55;transform:scale(1)} 50%{opacity:1;transform:scale(1.18)} }
+
+/* Connector bar — sous l'orbe */
+.conbar { position: fixed; top: 62px; left: 22px; z-index: 100; display: flex; align-items: center; gap: 6px; }
+.conico { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; color: white; position: relative; cursor: pointer;
+  transition: all .2s var(--ease); border: 1px solid rgba(255,255,255,0.1); }
+.conico:hover { transform: scale(1.1); }
+.conico .cdot { position: absolute; bottom: -2px; right: -2px; width: 7px; height: 7px; border-radius: 50%; border: 2px solid var(--bg); }
+.conico .cdot.ok { background: var(--teal); }
+.conico .dots { background: var(--gold); }
+.conico .doterr { background: var(--red); animation: pulse-red 1.2s ease-in-out infinite; }
+@keyframes pulse-red { 0%,100%{opacity:1} 50%{opacity:.5} }
+.conmore { font-size: 10px; color: var(--faint); padding: 2px 5px; cursor: pointer; }
+
+/* Center */
+.center { flex: 1; position: relative; overflow: hidden; }
+
+/* Panel wrap */
+.pw { position: absolute; inset: 0; display: flex; justify-content: center;
+  overflow-y: auto; scrollbar-width: none; padding: 68px 28px 150px;
+  transition: opacity .28s var(--ease), transform .28s var(--ease);
+  pointer-events: none; opacity: 0; transform: translateY(10px); }
+.pw::-webkit-scrollbar { display: none; }
+.pw.in { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.pw.out { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+.pw > * { width: 100%; max-width: 740px; }
+
+/* Glass */
+.glass { background: var(--glass); border: 1px solid var(--border);
+  backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 20px 56px rgba(0,0,0,0.5); }
+
+/* Step indicator */
+.steps { position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; align-items: center; gap: 7px;
+  padding: 5px 14px; border-radius: 999px;
+  background: rgba(0,0,0,0.55); border: 1px solid var(--border);
+  backdrop-filter: blur(20px); font-size: 11px; color: var(--muted); }
+.sd { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.18); transition: all .3s; cursor: pointer; }
+.sd.on { background: var(--teal); box-shadow: 0 0 8px var(--teal-glow); }
+.sd:hover { background: rgba(255,255,255,0.35); }
+
+/* Hint */
+.hint { position: fixed; top: 18px; right: 22px; font-size: 11px; color: var(--faint);
+  z-index: 200; text-align: right; line-height: 1.7; max-width: 200px; }
+
+/* Right rail */
+.rail { width: 0; overflow: hidden; flex-shrink: 0;
+  border-left: 1px solid transparent;
+  transition: width .4s var(--ease), border-color .4s; }
+.rail.open { width: 268px; border-color: var(--border); background: rgba(255,255,255,0.015); }
+.rail-inner { padding: 52px 18px 24px; width: 268px; }
+.rail-title { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); margin-bottom: 14px; }
+.ri { padding: 11px 13px; border-radius: 14px; cursor: pointer; transition: background .15s; margin-bottom: 3px; }
+.ri:hover { background: rgba(255,255,255,0.05); }
+.ri.hot { background: rgba(255,255,255,0.07); }
+.ri-t { font-size: 13px; color: var(--ink); margin-bottom: 3px; font-weight: 500; }
+.ri-s { font-size: 11px; color: var(--faint); }
+
+/* Footer pill */
+.pill { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+  z-index: 100; display: flex; align-items: center; gap: 7px;
+  padding: 9px 9px 9px 16px; border-radius: 999px; min-width: 520px;
+  background: rgba(10,10,16,0.88); border: 1px solid var(--border-hi);
+  backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 28px rgba(0,0,0,0.55);
+  transition: box-shadow .4s; }
+.pill.lit { box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 8px 28px rgba(0,0,0,0.55), 0 0 48px 10px rgba(52,210,190,0.05); }
+.pdot { width: 7px; height: 7px; border-radius: 50%; background: rgba(52,210,190,0.65); flex-shrink: 0; transition: background .3s; }
+.pdot.pulse { animation: pdot-pulse .85s ease-in-out infinite; background: rgba(52,210,190,1); }
+.pdot.on { background: rgba(52,210,190,1); }
+.pdot.err { background: var(--red); animation: pdot-pulse .85s ease-in-out infinite; }
+@keyframes pdot-pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:.7} }
+.pstatus { font-size: 12px; color: var(--muted); white-space: nowrap; min-width: 110px; }
+.pinput { flex: 1; background: transparent; border: none; outline: none;
+  font-size: 14px; color: var(--ink); font-family: inherit; caret-color: var(--teal); }
+.pinput::placeholder { color: var(--faint); }
+.pbtns { display: flex; gap: 4px; }
+.pb { padding: 7px 13px; border-radius: 999px; font-size: 12px; font-weight: 500;
+  cursor: pointer; border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.65);
+  transition: all .18s; white-space: nowrap; }
+.pb:hover { background: rgba(255,255,255,0.1); color: white; }
+.pb.teal { background: rgba(52,210,190,0.12); border-color: rgba(52,210,190,0.25); color: var(--teal); }
+.pb.teal:hover { background: rgba(52,210,190,0.2); }
+.pb.gold { background: rgba(255,188,58,0.09); border-color: rgba(255,188,58,0.22); color: var(--gold); }
+.pb.gold:hover { background: rgba(255,188,58,0.16); }
+.pcmd { font-size: 11px; color: var(--faint); padding: 4px 9px; border-radius: 999px;
+  border: 1px solid var(--border); cursor: default; }
+
+/* Signal vignette */
+.vignette { position: fixed; inset: 0; pointer-events: none; z-index: 5; opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 35%, rgba(190,130,20,0.05) 100%);
+  box-shadow: inset 0 0 140px 60px rgba(185,125,15,0.04);
+  transition: opacity .9s; }
+.vignette.on { opacity: 1; }
+
+/* ========== ANIMATIONS GLOBALES ========== */
+@keyframes fu { from{opacity:0;transform:translateY(9px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fx { from{opacity:0;transform:translateX(12px)} to{opacity:1;transform:translateX(0)} }
+@keyframes lx { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes type { from{width:0} to{width:100%} }
+
+/* ========== HOME / COCKPIT ========== */
+.h-date { font-size: 12px; color: var(--muted); margin-bottom: 10px; letter-spacing: .02em; }
+.h-h1 { font-size: 44px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 10px; }
+.h-sub { font-size: 15px; color: rgba(237,237,240,.62); max-width: 540px; line-height: 1.65; margin-bottom: 38px; }
+.hcard { border-radius: 20px; padding: 30px 32px; margin-bottom: 44px; transition: transform .3s var(--ease); }
+.hcard:hover { transform: translateY(-2px); }
+.hlabel { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint);
+  margin-bottom: 14px; display: flex; justify-content: space-between; }
+.hh2 { font-size: 26px; font-weight: 500; letter-spacing: -.02em; line-height: 1.25; margin-bottom: 10px; }
+.hbody { font-size: 14px; color: rgba(237,237,240,.62); line-height: 1.65; max-width: 520px; margin-bottom: 22px; }
+.hbtns { display: flex; gap: 10px; }
+.btn-w { padding: 9px 20px; border-radius: 999px; background: white; color: black;
+  font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: opacity .18s; }
+.btn-w:hover { opacity: .85; }
+.btn-g { padding: 9px 20px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.11); background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,.78); transition: background .18s; }
+.btn-g:hover { background: rgba(255,255,255,0.09); }
+.ah { display: flex; align-items: center; justify-content: space-between; margin-bottom: 13px; }
+.at { font-size: 14px; font-weight: 500; }
+.afilter { display: flex; gap: 2px; background: rgba(0,0,0,.25); border-radius: 999px; padding: 3px; }
+.af { padding: 5px 13px; border-radius: 999px; font-size: 11px; cursor: pointer;
+  border: none; background: transparent; color: var(--faint); transition: all .18s; }
+.af.on { background: rgba(255,255,255,.07); color: white; }
+.arow { display: flex; align-items: center; gap: 13px; padding: 12px 13px;
+  border-radius: 14px; cursor: pointer; transition: background .15s; }
+.arow:hover { background: rgba(255,255,255,.04); }
+.aico { width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,.06);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.an { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.am { font-size: 11px; color: var(--faint); }
+.atm { font-size: 11px; color: var(--faint); }
+
+/* ========== CHAT ========== */
+.chat-doc { opacity: 0; animation: fu .4s var(--ease) .1s forwards; }
+.chat-q { font-size: 13px; color: var(--muted); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.chat-body { font-size: 15px; line-height: 1.75; color: rgba(237,237,240,.85); }
+.chat-body p { margin-bottom: 14px; }
+.chat-body strong { color: var(--ink); font-weight: 500; }
+.tool-card { margin: 18px 0; padding: 16px 18px; border-radius: 14px;
+  background: rgba(52,210,190,.04); border: 1px solid rgba(52,210,190,.12);
+  opacity: 0; animation: fx .35s var(--ease) forwards; }
+.tool-card .tool-h { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.tool-card .tool-ico { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700; color: white; }
+.tool-card .tool-n { font-size: 12px; font-weight: 600; color: var(--teal); }
+.tool-card .tool-res { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.tool-card .tool-meta { font-size: 10px; color: var(--faint); margin-top: 6px; }
+.cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--teal); vertical-align: text-bottom;
+  animation: blink 1s step-end infinite; margin-left: 2px; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ========== RAPPORT ========== */
+.rl { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint);
+  margin-bottom: 5px; opacity: 0; animation: fu .3s var(--ease) .1s forwards; }
+.rt { font-size: 38px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1;
+  margin-bottom: 7px; opacity: 0; animation: fu .4s var(--ease) .2s forwards; }
+.rdiv { height: 1px; background: var(--border); margin-bottom: 36px;
+  transform-origin: left; transform: scaleX(0); animation: lx .5s var(--ease) .5s forwards; }
+.rs { margin-bottom: 36px; opacity: 0; }
+.rs:nth-child(4){animation:fu .4s var(--ease) .7s forwards}
+.rs:nth-child(5){animation:fu .4s var(--ease) 1.3s forwards}
+.rs:nth-child(6){animation:fu .4s var(--ease) 2s forwards}
+.rst { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); margin-bottom: 12px; }
+.rtx { font-size: 14px; line-height: 1.72; color: rgba(237,237,240,.78); }
+.rkpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 11px; margin-top: 18px; }
+.rk { padding: 17px; border-radius: 14px; background: rgba(255,255,255,.03); border: 1px solid var(--border); }
+.rkv { font-size: 28px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 4px; }
+.rkl { font-size: 11px; color: var(--faint); }
+.rchart { margin-top: 18px; height: 120px; position: relative;
+  border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); }
+.cbars { display: flex; align-items: flex-end; gap: 7px; height: 100%; padding: 0 14px 0 7px; }
+.cbar { flex: 1; border-radius: 3px 3px 0 0; background: rgba(52,210,190,.22);
+  border: 1px solid rgba(52,210,190,.3); transform: scaleY(0); transform-origin: bottom;
+  transition: transform .6s var(--spring); }
+
+/* ========== MISSION ========== */
+.mhead { margin-bottom: 36px; opacity: 0; animation: fu .4s var(--ease) .1s forwards; }
+.mtt { font-size: 28px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 7px; }
+.msb { font-size: 13px; color: var(--muted); }
+.strack { display: flex; flex-direction: column; gap: 3px; }
+.si { display: flex; gap: 14px; padding: 14px 18px; border-radius: 14px;
+  transition: all .4s var(--ease); opacity: 0; position: relative; }
+.si:nth-child(1){animation:fu .3s var(--ease) .3s forwards}
+.si:nth-child(2){animation:fu .3s var(--ease) .5s forwards}
+.si:nth-child(3){animation:fu .3s var(--ease) .7s forwards}
+.si:nth-child(4){animation:fu .3s var(--ease) .9s forwards}
+.si:nth-child(5){animation:fu .3s var(--ease) 1.1s forwards}
+.si.done { opacity:1; }
+.si.active { background:rgba(52,210,190,.05); border:1px solid rgba(52,210,190,.11);
+  box-shadow:0 0 30px rgba(52,210,190,.04); opacity:1; }
+.si.pend { opacity:.35; }
+.snode { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,.14); font-size: 10px; color: var(--faint);
+  transition: all .4s; margin-top: 2px; }
+.snode.done { background:rgba(52,210,190,.18); border-color:rgba(52,210,190,.5); color:var(--teal); }
+.snode.active { background:rgba(52,210,190,.09); border-color:rgba(52,210,190,.55);
+  animation: snp 1.6s ease-in-out infinite; }
+@keyframes snp { 0%,100%{box-shadow:0 0 0 0 rgba(52,210,190,0)} 50%{box-shadow:0 0 0 7px rgba(52,210,190,0.07)} }
+.sct { flex: 1; }
+.sn { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.sd2 { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.stm { font-size: 11px; color: var(--faint); align-self: flex-start; margin-top: 3px; }
+.outs { margin-top: 28px; opacity: 0; animation: fu .4s var(--ease) 1.4s forwards; }
+.ott { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--faint); margin-bottom: 11px; }
+.ogrid { display: flex; flex-wrap: wrap; gap: 7px; }
+.ocard { padding: 11px 15px; border-radius: 13px; background: rgba(255,255,255,.03);
+  border: 1px solid var(--border); font-size: 12px;
+  opacity: 0; transform: translateX(10px); transition: all .28s var(--ease); }
+.ocard.vis { opacity: 1; transform: translateX(0); }
+.on2 { color: white; font-weight: 500; margin-bottom: 3px; }
+.om { color: var(--faint); }
+
+/* Approval inline */
+.approval { margin: 16px 0; padding: 14px 16px; border-radius: 12px;
+  border: 1px solid rgba(255,188,58,.25); background: rgba(255,188,58,.04);
+  display: flex; align-items: center; gap: 12px; opacity: 0; animation: fu .3s var(--ease) forwards; }
+.approval .ap-text { flex: 1; font-size: 12px; color: var(--muted); }
+.approval .ap-text strong { color: var(--gold); font-weight: 500; }
+.approval .ap-btns { display: flex; gap: 6px; }
+.ap-btn { padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 500; cursor: pointer;
+  border: none; transition: all .15s; }
+.ap-btn.ok { background: rgba(52,210,190,.15); color: var(--teal); }
+.ap-btn.ok:hover { background: rgba(52,210,190,.25); }
+.ap-btn.no { background: rgba(255,255,255,.06); color: var(--muted); }
+.ap-btn.no:hover { background: rgba(255,255,255,.1); color: white; }
+
+/* ========== ASSET ========== */
+.ahead { margin-bottom: 28px; opacity: 0; animation: fu .4s var(--ease) .1s forwards; }
+.att { font-size: 28px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 7px; }
+.asb { font-size: 13px; color: var(--muted); }
+.agrid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.aslot { aspect-ratio: 9/16; max-height: 300px; border-radius: 18px; overflow: hidden;
+  position: relative; background: rgba(255,255,255,.02); border: 1px solid var(--border);
+  opacity: 0; transition: all .4s var(--ease); cursor: pointer; }
+.aslot.loading { opacity: 1; }
+.aslot.loaded { opacity: 1; border-color: rgba(255,255,255,.09); }
+.aslot.sel { border-color: rgba(52,210,190,.5); box-shadow: 0 0 0 2px rgba(52,210,190,.14); }
+.abreath { position: absolute; inset: 0;
+  background: linear-gradient(180deg,rgba(52,210,190,0) 0%,rgba(52,210,190,.055) 50%,rgba(52,210,190,0) 100%);
+  animation: sweep 2.5s ease-in-out infinite; }
+.aslot:nth-child(2) .abreath{animation-delay:.6s}
+.aslot:nth-child(3) .abreath{animation-delay:1.2s}
+.aslot:nth-child(4) .abreath{animation-delay:1.8s}
+@keyframes sweep { 0%{transform:translateY(110%)} 100%{transform:translateY(-110%)} }
+.abg { position: absolute; inset: 0; opacity: 0; transition: opacity .8s; }
+.aslot.loaded .abg { opacity: 1; }
+.acap { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px;
+  background: linear-gradient(0deg,rgba(0,0,0,.55) 0%,transparent 100%);
+  opacity: 0; transition: opacity .5s; font-size: 11px; color: rgba(255,255,255,.7); }
+.aslot.loaded .acap { opacity: 1; }
+.astatus { margin-top: 16px; font-size: 12px; color: var(--faint); text-align: center; }
+
+/* ========== KNOWLEDGE GRAPH ========== */
+.kg-canvas { width: 100%; height: 420px; position: relative; border-radius: 20px;
+  background: rgba(255,255,255,.015); border: 1px solid var(--border); overflow: hidden; }
+.kg-node { position: absolute; width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; color: white;
+  border: 2px solid rgba(255,255,255,0.1);
+  opacity: 0; transform: scale(0); transition: all .5s var(--spring); cursor: pointer; }
+.kg-node.vis { opacity: 1; transform: scale(1); }
+.kg-node.sel { border-color: var(--teal); box-shadow: 0 0 20px var(--teal-glow); }
+.kg-edge { position: absolute; height: 1px; background: rgba(52,210,190,.15);
+  transform-origin: left center; opacity: 0; transition: opacity .6s; }
+.kg-edge.vis { opacity: 1; }
+.kg-entity-card { padding: 16px 18px; border-radius: 14px;
+  background: rgba(52,210,190,.04); border: 1px solid rgba(52,210,190,.1); margin-top: 16px;
+  opacity: 0; animation: fu .3s var(--ease) forwards; }
+.kg-entity-card .ke-t { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.kg-entity-card .ke-s { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ========== SIGNAL ========== */
+.sighead { opacity: 0; animation: fu .5s var(--ease) .3s forwards; margin-bottom: 28px; }
+.sigey { font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  color: rgba(255,188,58,.7); margin-bottom: 11px; }
+.sigh1 { font-size: 32px; font-weight: 400; letter-spacing: -.02em; line-height: 1.22; max-width: 580px; }
+.sigg { opacity: 0; animation: fu .4s var(--ease) .7s forwards; margin-bottom: 28px; }
+.sigg svg { width: 100%; height: 130px; overflow: visible; }
+.sigline { fill: none; stroke: rgba(52,210,190,.55); stroke-width: 1.8;
+  stroke-dasharray: 900; stroke-dashoffset: 900; animation: dl 2s var(--ease) 1s forwards; }
+.sigalert { fill: none; stroke: rgba(255,188,58,.8); stroke-width: 2.2;
+  stroke-dasharray: 280; stroke-dashoffset: 280; animation: dl .8s var(--ease) 2.6s forwards; }
+@keyframes dl { to{stroke-dashoffset:0} }
+.sigctx { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-bottom: 22px;
+  opacity: 0; animation: fu .4s var(--ease) 2s forwards; }
+.sigstat { padding: 15px; border-radius: 13px; background: rgba(255,255,255,.03); border: 1px solid var(--border); }
+.sigv { font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+.sigv.g { color: var(--gold); }
+.sigl { font-size: 11px; color: var(--faint); margin-top: 3px; }
+.sigacts { display: flex; gap: 7px; flex-wrap: wrap; opacity: 0; animation: fu .4s var(--ease) 2.9s forwards; }
+.schip { padding: 9px 17px; border-radius: 999px; font-size: 12px; cursor: pointer;
+  background: rgba(255,255,255,.04); border: 1px solid var(--border);
+  color: var(--ink); transition: all .18s; white-space: nowrap; }
+.schip:hover { background: rgba(255,255,255,.08); border-color: var(--border-hi); }
+.schip.g { background: rgba(255,188,58,.09); border-color: rgba(255,188,58,.24); color: var(--gold); }
+
+/* ========== CONNECTORS / APPS ========== */
+.apps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.app-card { padding: 16px 14px; border-radius: 14px; background: rgba(255,255,255,.025);
+  border: 1px solid var(--border); text-align: center; cursor: pointer;
+  transition: all .2s var(--ease); opacity: 0; animation: fu .3s var(--ease) forwards; }
+.app-card:hover { background: rgba(255,255,255,.06); border-color: var(--border-hi); transform: translateY(-2px); }
+.app-card .app-ico { width: 36px; height: 36px; border-radius: 10px; margin: 0 auto 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: white; position: relative; }
+.app-card .app-n { font-size: 12px; font-weight: 500; margin-bottom: 3px; }
+.app-card .app-s { font-size: 10px; color: var(--faint); }
+.app-card .app-dot { position: absolute; bottom: -3px; right: -3px; width: 10px; height: 10px;
+  border-radius: 50%; border: 2px solid var(--bg); }
+.app-dot.ok { background: var(--teal); }
+.app-dot.warn { background: var(--gold); }
+.app-dot.err { background: var(--red); animation: pulse-red 1.2s ease-in-out infinite; }
+.apps-sep { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--faint);
+  margin: 24px 0 12px; }
+
+/* ========== RUNS ========== */
+.runs-list { display: flex; flex-direction: column; gap: 6px; }
+.run-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px;
+  background: rgba(255,255,255,.02); border: 1px solid var(--border);
+  transition: all .15s; cursor: pointer; opacity: 0; animation: fu .25s var(--ease) forwards; }
+.run-row:hover { background: rgba(255,255,255,.05); }
+.run-ico { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; color: white; flex-shrink: 0; }
+.run-info { flex: 1; }
+.run-t { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.run-s { font-size: 11px; color: var(--faint); }
+.run-meta { text-align: right; }
+.run-cost { font-size: 12px; color: var(--muted); }
+.run-time { font-size: 10px; color: var(--faint); }
+.run-status { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-left: 6px; }
+.run-status.ok { background: var(--teal); }
+.run-status.err { background: var(--red); }
+.run-status.warn { background: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="vignette" id="vig"></div>
+<div class="orb" title="Agent actif"></div>
+
+<!-- Connector bar -->
+<div class="conbar" id="conbar">
+  <div class="conico" style="background:#EA4335" onclick="go('apps')" title="Gmail"><span>G</span><div class="cdot ok"></div></div>
+  <div class="conico" style="background:#4A154B" onclick="go('apps')" title="Slack"><span>S</span><div class="cdot ok"></div></div>
+  <div class="conico" style="background:#4285F4" onclick="go('apps')" title="Calendar"><span>C</span><div class="cdot ok"></div></div>
+  <div class="conico" style="background:#FF9900" onclick="go('apps')" title="Notion"><span>N</span><div class="cdot ok"></div></div>
+  <div class="conico" style="background:#00A4EF" onclick="go('apps')" title="HubSpot"><span>H</span><div class="cdot warn"></div></div>
+  <div class="conmore" onclick="go('apps')">+12</div>
+</div>
+
+<!-- Step dots -->
+<div class="steps">
+  <div class="sd on" id="d0" onclick="go('home')"></div>
+  <div class="sd" id="d1" onclick="go('chat')"></div>
+  <div class="sd" id="d2" onclick="go('mission')"></div>
+  <div class="sd" id="d3" onclick="go('asset')"></div>
+  <div class="sd" id="d4" onclick="go('kg')"></div>
+  <div class="sd" id="d5" onclick="go('rapport')"></div>
+  <div class="sd" id="d6" onclick="go('signal')"></div>
+  <div class="sd" id="d7" onclick="go('apps')"></div>
+  <span style="margin-left:8px" id="slabel">Cockpit</span>
+</div>
+
+<div class="hint" id="hint">← → pour naviguer · Esc pour revenir au cockpit<br>Clic sur les dots ou les boutons de la pill</div>
+
+<div class="shell">
+  <div class="center" id="ca">
+
+    <!-- ===== HOME / COCKPIT ===== -->
+    <div class="pw in" id="p-home">
+      <div>
+        <p class="h-date">Jeudi 15 mai 2026</p>
+        <h1 class="h-h1">Bonsoir, Adrien.</h1>
+        <p class="h-sub">47 emails traités, 3 réunions brifées, 2 missions tournées en autonomie. Rien n'attend ta décision sauf un point.</p>
+        <div class="glass hcard">
+          <div class="hlabel"><span>Action requise</span><span>Il y a 18 min</span></div>
+          <h2 class="hh2">47 emails non lus dans Gmail —<br>priorisation en attente</h2>
+          <p class="hbody">J'ai lu et classé. 3 nécessitent ta réponse aujourd'hui, 2 sont urgents. Je peux rédiger les drafts dans ta voix pour approbation.</p>
+          <div class="hbtns">
+            <button class="btn-w" onclick="go('mission')">Voir les priorités</button>
+            <button class="btn-g" onclick="go('rapport')">Rapport d'activité</button>
+          </div>
+        </div>
+        <div>
+          <div class="ah">
+            <span class="at">Activité de l'agent</span>
+            <div class="afilter">
+              <button class="af on" onclick="setF(this)">Tout</button>
+              <button class="af" onclick="setF(this)">Runs</button>
+              <button class="af" onclick="setF(this)">Connecteurs</button>
+            </div>
+          </div>
+          <div>
+            <div class="arow" onclick="go('mission')"><div class="aico" style="background:rgba(234,67,53,0.15)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="2" width="11" height="9" rx="2" stroke="#EA4335" stroke-width="1.2"/><path d="M1 5h11" stroke="#EA4335" stroke-width="1.2"/></svg></div><div style="flex:1"><div class="an">Gmail — 47 emails lus et triés</div><div class="am">Connecteur · Run complété · 3 drafts générés</div></div><span class="atm">14:32</span></div>
+            <div class="arow" onclick="go('asset')"><div class="aico" style="background:rgba(66,133,244,0.15)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="#4285F4" stroke-width="1.2"/><path d="M6.5 4v2.5l1.5 1.5" stroke="#4285F4" stroke-width="1.2" stroke-linecap="round"/></svg></div><div style="flex:1"><div class="an">Brief pré-réunion — 14h00 Investisseurs</div><div class="am">Mission auto · Calendar · Livré à 13h35</div></div><span class="atm">13:35</span></div>
+            <div class="arow" onclick="go('chat')"><div class="aico" style="background:rgba(74,21,75,0.15)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 9.5L5 6.5 7.5 9 11 4" stroke="#4A154B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="flex:1"><div class="an">Slack — 12 messages résumés</div><div class="am">Connecteur · #general #product · Résumé livré</div></div><span class="atm">11:20</span></div>
+            <div class="arow" onclick="go('rapport')"><div class="aico" style="background:rgba(52,210,190,0.15)"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--teal)" stroke-width="1.2"/><path d="M4.5 6.5h4M6.5 4.5v4" stroke="var(--teal)" stroke-width="1.2" stroke-linecap="round"/></svg></div><div style="flex:1"><div class="an">Briefing matinal généré</div><div class="am">PDF + Audio · Lu à 08:05</div></div><span class="atm">08:02</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CHAT ===== -->
+    <div class="pw" id="p-chat" style="display:none">
+      <div class="chat-doc">
+        <div class="chat-q">Adrien a demandé : <em>"Résume-moi les 3 points clés de mon activité aujourd'hui"</em></div>
+        <div class="chat-body" id="chat-body">
+          <p id="chat-p1"></p>
+        </div>
+        <div id="chat-tools"></div>
+      </div>
+    </div>
+
+    <!-- ===== RAPPORT ===== -->
+    <div class="pw" id="p-rapport" style="display:none">
+      <div>
+        <p class="rl">Rapport d'activité · Généré à 14h32</p>
+        <h1 class="rt">Agent Hearst OS<br>Aujourd'hui, 15 mai 2026</h1>
+        <div class="rdiv"></div>
+        <div class="rs">
+          <div class="rst">Résumé d'activité</div>
+          <p class="rtx">L'agent a traité 47 emails Gmail, résumé 12 messages Slack, brifé 3 réunions Calendar et généré 2 livrables. Temps d'exécution total : 4 min 12s. Coût tokens estimé : $0.38.</p>
+          <div class="rkpis">
+            <div class="rk"><div class="rkv" id="kv0">0</div><div class="rkl">Actions complétées</div></div>
+            <div class="rk"><div class="rkv" id="kv1">$0</div><div class="rkl">Coût tokens du jour</div></div>
+            <div class="rk"><div class="rkv" id="kv2">0s</div><div class="rkl">Temps moyen / run</div></div>
+          </div>
+        </div>
+        <div class="rs">
+          <div class="rst">Connecteurs actifs — Activité</div>
+          <p class="rtx">Gmail : 47 emails lus, 3 drafts générés, 0 erreur. Slack : 12 messages résumés sur 2 channels. Calendar : 3 briefs pré-réunion livrés à 25 min avant chaque événement.</p>
+          <div class="rchart"><div class="cbars" id="cbars">
+            <div class="cbar"></div><div class="cbar"></div><div class="cbar"></div>
+            <div class="cbar"></div><div class="cbar"></div><div class="cbar"></div><div class="cbar"></div>
+          </div></div>
+        </div>
+        <div class="rs">
+          <div class="rst">Recommandations système</div>
+          <p class="rtx">Connecteur LinkedIn non configuré — 3 missions en attente de ce connecteur. Budget tokens à 62% du plafond mensuel, au rythme actuel : dépassement estimé J+11. Recommandation : augmenter le plafond ou désactiver le résumé Slack daily.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MISSION ===== -->
+    <div class="pw" id="p-mission" style="display:none">
+      <div>
+        <div class="mhead"><h2 class="mtt">Mission en cours</h2><p class="msb">Triage Gmail — 47 emails · Drafts de réponse prioritaires</p></div>
+        <div class="strack">
+          <div class="si done"><div class="snode done">✓</div><div class="sct"><div class="sn">Connexion Gmail</div><div class="sd2">47 emails non lus récupérés via connecteur OAuth</div></div><span class="stm">0.4s</span></div>
+          <div class="si done"><div class="snode done">✓</div><div class="sct"><div class="sn">Lecture et classification</div><div class="sd2">Urgents : 2 · À traiter : 3 · FYI : 18 · Newsletters : 24</div></div><span class="stm">3.1s</span></div>
+          <div class="si active" id="step3"><div class="snode active" id="sn3"></div><div class="sct"><div class="sn">Rédaction des drafts</div><div class="sd2" id="sprog">Draft en cours — email 2 / 5 prioritaires…</div></div><span class="stm" id="stm3">—</span></div>
+          <div class="si pend" id="step4"><div class="snode" id="sn4">4</div><div class="sct"><div class="sn">Approbation</div><div class="sd2">5 drafts soumis pour relecture avant envoi</div></div><span class="stm">—</span></div>
+          <div class="si pend"><div class="snode">5</div><div class="sct"><div class="sn">Envoi via Gmail API</div><div class="sd2">Emails approuvés envoyés depuis ton compte</div></div><span class="stm">—</span></div>
+        </div>
+        <div class="outs"><div class="ott">Drafts générés</div><div class="ogrid" id="ogrid"></div></div>
+        <div id="approval-slot"></div>
+      </div>
+    </div>
+
+    <!-- ===== ASSET / VIDEO ===== -->
+    <div class="pw" id="p-asset" style="display:none">
+      <div>
+        <div class="ahead"><h2 class="att">Génération vidéo — Pitch Q3</h2><p class="asb">4 variants en cours · HeyGen · Durée cible 45s</p></div>
+        <div class="agrid">
+          <div class="aslot loading" id="sl0">
+            <div class="abreath"></div>
+            <div class="abg" style="background:linear-gradient(135deg,#1a0a2e 0%,#0d1b2a 100%)"></div>
+            <div class="acap">Variant A · Professional tone</div>
+          </div>
+          <div class="aslot loading" id="sl1">
+            <div class="abreath"></div>
+            <div class="abg" style="background:linear-gradient(135deg,#0d1b2a 0%,#1a0a2e 100%)"></div>
+            <div class="acap">Variant B · Casual tone</div>
+          </div>
+          <div class="aslot loading" id="sl2">
+            <div class="abreath"></div>
+            <div class="abg" style="background:linear-gradient(135deg,#2a0a1a 0%,#0d1b2a 100%)"></div>
+            <div class="acap">Variant C · Data-driven</div>
+          </div>
+          <div class="aslot loading" id="sl3">
+            <div class="abreath"></div>
+            <div class="abg" style="background:linear-gradient(135deg,#0a1a2e 0%,#1a0a2e 100%)"></div>
+            <div class="acap">Variant D · Storytelling</div>
+          </div>
+        </div>
+        <div class="astatus" id="ast">4 variants en génération…</div>
+      </div>
+    </div>
+
+    <!-- ===== KNOWLEDGE GRAPH ===== -->
+    <div class="pw" id="p-kg" style="display:none">
+      <div>
+        <div class="mhead"><h2 class="mtt">Knowledge Graph</h2><p class="msb">87 entités · 234 relations · Mis à jour il y a 12 min</p></div>
+        <div class="kg-canvas" id="kg-canvas">
+          <!-- Nodes injected by JS -->
+        </div>
+        <div id="kg-card"></div>
+      </div>
+    </div>
+
+    <!-- ===== SIGNAL ===== -->
+    <div class="pw" id="p-signal" style="display:none">
+      <div>
+        <div class="sighead">
+          <div class="sigey">Signal système · Il y a 4 min</div>
+          <h2 class="sigh1">Le connecteur Gmail a perdu<br>son token d'authentification.</h2>
+        </div>
+        <div class="sigg">
+          <svg viewBox="0 0 700 120" preserveAspectRatio="none">
+            <line x1="0" y1="30" x2="700" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="0" y1="60" x2="700" y2="60" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <line x1="0" y1="90" x2="700" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+            <path class="sigline" d="M0,85 C50,80 90,68 140,70 C190,72 230,60 280,56 C330,52 370,55 420,50 C460,46 490,50 520,78"/>
+            <path class="sigalert" d="M520,78 C545,95 565,107 600,110 C630,112 660,111 700,109"/>
+            <circle cx="520" cy="78" r="5" fill="rgba(255,188,58,0.9)">
+              <animate attributeName="r" values="5;10;5" dur=".9s" repeatCount="indefinite" begin="2.6s"/>
+              <animate attributeName="opacity" values="1;0.5;1" dur=".9s" repeatCount="indefinite" begin="2.6s"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="sigctx">
+          <div class="sigstat"><div class="sigv g">3</div><div class="sigl">Missions bloquées</div></div>
+          <div class="sigstat"><div class="sigv">Gmail</div><div class="sigl">Connecteur hors ligne</div></div>
+          <div class="sigstat"><div class="sigv g">OAuth</div><div class="sigl">Token expiré</div></div>
+        </div>
+        <div class="sigacts">
+          <button class="schip g" onclick="go('apps')">Reconnecter Gmail</button>
+          <button class="schip" onclick="go('mission')">Voir les missions impactées</button>
+          <button class="schip">Ignorer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONNECTORS / APPS ===== -->
+    <div class="pw" id="p-apps" style="display:none">
+      <div>
+        <div class="mhead"><h2 class="mtt">Connecteurs & Apps</h2><p class="msb">5 actifs · 1 en erreur · 2000+ disponibles via Composio</p></div>
+        <div class="apps-sep">Actifs</div>
+        <div class="apps-grid" id="apps-active">
+          <div class="app-card" style="animation-delay:.05s"><div class="app-ico" style="background:#EA4335"><span style="font-size:14px">G</span><div class="app-dot ok"></div></div><div class="app-n">Gmail</div><div class="app-s">47 emails aujourd'hui</div></div>
+          <div class="app-card" style="animation-delay:.1s"><div class="app-ico" style="background:#4A154B"><span style="font-size:14px">S</span><div class="app-dot ok"></div></div><div class="app-n">Slack</div><div class="app-s">2 channels</div></div>
+          <div class="app-card" style="animation-delay:.15s"><div class="app-ico" style="background:#4285F4"><span style="font-size:14px">C</span><div class="app-dot ok"></div></div><div class="app-n">Calendar</div><div class="app-s">3 réunions brifées</div></div>
+          <div class="app-card" style="animation-delay:.2s"><div class="app-ico" style="background:#FF9900"><span style="font-size:14px">N</span><div class="app-dot ok"></div></div><div class="app-n">Notion</div><div class="app-s">Dernière sync 11h</div></div>
+          <div class="app-card" style="animation-delay:.25s"><div class="app-ico" style="background:#00A4EF"><span style="font-size:14px">H</span><div class="app-dot warn"></div></div><div class="app-n">HubSpot</div><div class="app-s">Token à renouveler</div></div>
+        </div>
+        <div class="apps-sep">Disponibles — 2000+ apps</div>
+        <div class="apps-grid" id="apps-available">
+          <div class="app-card" style="animation-delay:.3s"><div class="app-ico" style="background:#0A66C2"><span style="font-size:14px">in</span></div><div class="app-n">LinkedIn</div><div class="app-s">Clique pour connecter</div></div>
+          <div class="app-card" style="animation-delay:.35s"><div class="app-ico" style="background:#000"><span style="font-size:14px">Gh</span></div><div class="app-n">GitHub</div><div class="app-s">Clique pour connecter</div></div>
+          <div class="app-card" style="animation-delay:.4s"><div class="app-ico" style="background:#635BFF"><span style="font-size:14px">St</span></div><div class="app-n">Stripe</div><div class="app-s">Clique pour connecter</div></div>
+          <div class="app-card" style="animation-delay:.45s"><div class="app-ico" style="background:#1DB954"><span style="font-size:14px">Z</span></div><div class="app-n">Zapier</div><div class="app-s">Clique pour connecter</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RUNS ===== -->
+    <div class="pw" id="p-runs" style="display:none">
+      <div>
+        <div class="mhead"><h2 class="mtt">Historique des runs</h2><p class="msb">12 runs aujourd'hui · $0.38 consommés · 4 min 12s total</p></div>
+        <div class="runs-list">
+          <div class="run-row" style="animation-delay:.05s"><div class="run-ico" style="background:rgba(234,67,53,0.2)"><span style="color:#EA4335;font-size:9px">G</span></div><div class="run-info"><div class="run-t">Gmail triage — 47 emails</div><div class="run-s">3 drafts générés · 0 erreur</div></div><div class="run-meta"><div class="run-cost">$0.12</div><div class="run-time">14:32</div></div><div class="run-status ok"></div></div>
+          <div class="run-row" style="animation-delay:.1s"><div class="run-ico" style="background:rgba(66,133,244,0.2)"><span style="color:#4285F4;font-size:9px">C</span></div><div class="run-info"><div class="run-t">Brief pré-réunion Investisseurs</div><div class="run-s">4 sections · Livré</div></div><div class="run-meta"><div class="run-cost">$0.08</div><div class="run-time">13:35</div></div><div class="run-status ok"></div></div>
+          <div class="run-row" style="animation-delay:.15s"><div class="run-ico" style="background:rgba(74,21,75,0.2)"><span style="color:#4A154B;font-size:9px">S</span></div><div class="run-info"><div class="run-t">Slack digest — #general #product</div><div class="run-s">12 messages résumés</div></div><div class="run-meta"><div class="run-cost">$0.05</div><div class="run-time">11:20</div></div><div class="run-status ok"></div></div>
+          <div class="run-row" style="animation-delay:.2s"><div class="run-ico" style="background:rgba(52,210,190,0.2)"><span style="color:var(--teal);font-size:9px">B</span></div><div class="run-info"><div class="run-t">Briefing matinal</div><div class="run-s">PDF + Audio générés</div></div><div class="run-meta"><div class="run-cost">$0.13</div><div class="run-time">08:02</div></div><div class="run-status ok"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right rail -->
+  <div class="rail" id="rail">
+    <div class="rail-inner">
+      <div class="rail-title" id="rtitle">Contexte</div>
+      <div id="rcontent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer pill -->
+<div class="pill" id="pill">
+  <div class="pdot" id="pdot"></div>
+  <span class="pstatus" id="pst">Actif</span>
+  <input class="pinput" placeholder="Demande, lance, génère…" id="pinput"/>
+  <div class="pbtns">
+    <button class="pb teal" onclick="go('chat')">Chat</button>
+    <button class="pb" onclick="go('mission')">Mission</button>
+    <button class="pb" onclick="go('asset')">Assets</button>
+    <button class="pb gold" onclick="go('signal')">Signal</button>
+    <button class="pb" onclick="go('apps')">Apps</button>
+  </div>
+  <div class="pcmd">⌘K</div>
+</div>
+
+<script>
+const STATES = ['home','chat','rapport','mission','asset','kg','signal','apps','runs'];
+const LABELS = ['Cockpit','Chat agent','Rapport','Mission Gmail','Génération vidéo','Knowledge Graph','Signal système','Connecteurs','Historique'];
+const HINTS = {
+  home: '← → pour naviguer · Esc pour revenir\nClic sur les dots ou la pill',
+  chat: 'Streaming réel · Tool cards inline\nConnecteurs visibles dans le chrome',
+  rapport: 'Sections progressives · Graphiques animés\nKPIs qui comptent depuis zéro',
+  mission: 'Timeline séquentielle · Outputs temps réel\nApproval gate intégré',
+  asset: '4 slots respirants → variants\nSélection par clic',
+  kg: 'Nœuds en stagger · Liens tracés\nClic = entity card',
+  signal: 'Courbe tracée · Anomalie pulsante\nActions contextuelles',
+  apps: 'Grille connecteurs · Statuts visibles\n2000+ apps disponibles',
+  runs: 'Historique chronologique · Coûts\nStatuts colorés'
+};
+const RAIL = {
+  home: null,
+  chat: { title:'Contexte conversation', items:[{t:'Run #842',s:'Gmail triage · 47 emails'},{t:'Token usage',s:'1,240 input · 890 output'},{t:'Connecteurs',s:'Gmail, Calendar actifs'}] },
+  rapport: { title:'Runs du jour', items:[{t:'Gmail triage',s:'47 emails · 4 min 12s'},{t:'Slack digest',s:'12 messages · 2 channels'},{t:'Brief 14h00',s:'Calendar · Livré à 13h35'}] },
+  mission: { title:'Drafts générés', items:[{t:'Re: Proposition Q3',s:'Priorité haute · En attente',hot:true},{t:'Fwd: Contrat Atlante',s:'Draft prêt · À valider'},{t:'Re: Onboarding Jules',s:'Draft prêt · À valider'}] },
+  asset: { title:'Variants', items:[{t:'Variant A',s:'Professional · 45s'},{t:'Variant B',s:'Casual · 45s'},{t:'Variant C',s:'Data-driven · 42s'},{t:'Variant D',s:'Storytelling · 48s'}] },
+  kg: { title:'Entités liées', items:[{t:'Marie Dupont',s:'CEO Atlante · 12 relations'},{t:'Atlante Capital',s:'Investisseur · Série A'},{t:'ARR Q1',s:'$1.2M · +34% MoM'}] },
+  signal: { title:'Impact', items:[{t:'Mission Gmail triage',s:'Bloquée · En attente',hot:true},{t:'Brief Calendar',s:'Dégradé · Partiel'},{t:'Digest Slack',s:'Non affecté'}] },
+  apps: { title:'Raccourcis', items:[{t:'Ajouter un connecteur',s:'OAuth flow'},{t:'Gérer les tokens',s:'Rotation & scopes'},{t:'Webhooks',s:'3 endpoints actifs'}] },
+  runs: { title:'Filtrer', items:[{t:'Aujourd\'hui',s:'12 runs · $0.38',hot:true},{t:'Cette semaine',s:'67 runs · $2.14'},{t:'Ce mois',s:'243 runs · $8.91'}] }
+};
+
+let cur = 'home', miv = null, atos = [], chatInterval = null, kgInit = false;
+
+function go(next) {
+  if (next === cur) return;
+  const prev = document.getElementById('p-' + cur);
+  const nx = document.getElementById('p-' + next);
+  prev.classList.remove('in');
+  prev.classList.add('out');
+  setTimeout(() => { prev.style.display = 'none'; prev.classList.remove('out'); }, 290);
+  nx.style.display = 'flex';
+  nx.classList.remove('in','out');
+  nx.offsetHeight;
+  setTimeout(() => nx.classList.add('in'), 16);
+  cur = next;
+  updateUI(next);
+  setTimeout(() => initS(next), 120);
+}
+
+function updateUI(s) {
+  STATES.forEach((x,i) => { const d = document.getElementById('d'+i); if(d) d.classList.toggle('on', x===s); });
+  document.getElementById('slabel').textContent = LABELS[STATES.indexOf(s)];
+  document.getElementById('hint').textContent = HINTS[s] || '';
+  const working = s !== 'home';
+  document.getElementById('pdot').className = 'pdot' + (working ? ' pulse' : '');
+  const psts = {home:'Actif',chat:'Streaming…',rapport:'Génération…',mission:'Mission active',asset:'Génération…',kg:'Analyse…',signal:'Signal actif',apps:'Apps',runs:'Historique'};
+  document.getElementById('pst').textContent = psts[s];
+  document.getElementById('pill').classList.toggle('lit', working);
+  document.getElementById('vig').classList.toggle('on', s === 'signal');
+
+  // Highlight connector based on state
+  document.querySelectorAll('.conico').forEach(c => c.style.opacity = '0.5');
+  if (s === 'mission' || s === 'chat') {
+    document.querySelectorAll('.conico')[0].style.opacity = '1'; // Gmail
+  } else if (s === 'signal') {
+    document.querySelectorAll('.conico')[0].style.opacity = '1'; // Gmail error
+  } else if (s === 'asset') {
+    document.querySelectorAll('.conico')[2].style.opacity = '1'; // Calendar
+  }
+  if (s === 'home') document.querySelectorAll('.conico').forEach(c => c.style.opacity = '1');
+
+  const r = RAIL[s];
+  const rail = document.getElementById('rail');
+  if (r) {
+    rail.classList.add('open');
+    document.getElementById('rtitle').textContent = r.title;
+    document.getElementById('rcontent').innerHTML = r.items.map((it,i) =>
+      `<div class="ri${it.hot?' hot':''}" style="opacity:0;animation:fu .3s ease ${.3+i*.1}s forwards"><div class="ri-t">${it.t}</div><div class="ri-s">${it.s}</div></div>`
+    ).join('');
+  } else {
+    rail.classList.remove('open');
+  }
+}
+
+function initS(s) {
+  if (miv) { clearInterval(miv); miv = null; }
+  if (chatInterval) { clearInterval(chatInterval); chatInterval = null; }
+  atos.forEach(clearTimeout); atos = [];
+  if (s === 'rapport') initRapport();
+  if (s === 'mission') initMission();
+  if (s === 'asset') initAsset();
+  if (s === 'chat') initChat();
+  if (s === 'kg') initKG();
+}
+
+function initChat() {
+  const p1 = document.getElementById('chat-p1');
+  const tools = document.getElementById('chat-tools');
+  p1.textContent = '';
+  tools.innerHTML = '';
+  const text = "Voici les 3 points clés de ton activité aujourd'hui :\n\n**1. Gmail — Triage complet**\nL'agent a lu et classé 47 emails. 3 nécessitent ta réponse aujourd'hui, dont 2 urgents. Les drafts sont prêts dans ta voix.\n\n**2. Réunion 14h00 — Brief prêt**\nLe brief pour la réunion avec Atlante Capital est généré : participants, contexte, questions probables. Connecteur Calendar actif.\n\n**3. Missions autonomes — 2 complétées**\nSlack digest (12 messages) et briefing matinal (PDF + audio) sont livrés. Coût total : $0.38.";
+  let i = 0;
+  chatInterval = setInterval(() => {
+    if (i >= text.length) {
+      clearInterval(chatInterval);
+      // Add tool card after text
+      const tc = document.createElement('div');
+      tc.className = 'tool-card';
+      tc.style.animationDelay = '0.2s';
+      tc.innerHTML = '<div class="tool-h"><div class="tool-ico" style="background:#4285F4">C</div><div class="tool-n">calendar_create_event</div></div><div class="tool-res">Rappel créé : "Réunion Atlante Capital" à 13h45 (15 min avant)</div><div class="tool-meta">Connecteur Google Calendar · 0.3s</div>';
+      tools.appendChild(tc);
+      return;
+    }
+    p1.textContent += text[i];
+    i++;
+  }, 12);
+}
+
+function initRapport() {
+  const heights = [65,75,55,88,70,82,94];
+  setTimeout(() => {
+    document.querySelectorAll('#cbars .cbar').forEach((b,i) => {
+      setTimeout(() => { b.style.transform = `scaleY(${heights[i]/100})`; }, i*70);
+    });
+  }, 1900);
+  const targets = [{el:'kv0',v:62,pre:'',suf:'',dec:0},{el:'kv1',v:0.38,pre:'$',suf:'',dec:2},{el:'kv2',v:4.1,pre:'',suf:'s',dec:1}];
+  targets.forEach(({el,v,pre,suf,dec}) => {
+    setTimeout(() => {
+      const node = document.getElementById(el);
+      const start = performance.now();
+      const dur = 1100;
+      (function tick(now) {
+        const p = Math.min((now-start)/dur,1);
+        const e = 1-Math.pow(1-p,3);
+        node.textContent = pre + (v*e).toFixed(dec) + suf;
+        if (p<1) requestAnimationFrame(tick);
+      })(performance.now());
+    }, 1000);
+  });
+}
+
+function initMission() {
+  let n = 3;
+  const grid = document.getElementById('ogrid');
+  const approvalSlot = document.getElementById('approval-slot');
+  grid.innerHTML = '';
+  approvalSlot.innerHTML = '';
+  function addOut(i) {
+    const c = document.createElement('div');
+    c.className = 'ocard';
+    const labels = ['','','Re: Proposition Q3','Fwd: Contrat Atlante','Re: Onboarding Jules','Re: Budget Q3'];
+    c.innerHTML = `<div class="on2">${labels[i] || 'Draft email '+i}</div><div class="om">Généré · en attente d'approbation</div>`;
+    grid.appendChild(c);
+    requestAnimationFrame(() => setTimeout(() => c.classList.add('vis'), 20));
+  }
+  addOut(1); addOut(2);
+  miv = setInterval(() => {
+    if (n > 5) {
+      clearInterval(miv); miv = null;
+      document.getElementById('sprog').textContent = '5 drafts générés — approbation requise';
+      document.getElementById('stm3').textContent = '8s';
+      document.getElementById('step3').classList.replace('active','done');
+      document.getElementById('sn3').className = 'snode done';
+      document.getElementById('sn3').textContent = '✓';
+      document.getElementById('step4').classList.replace('pend','active');
+      document.getElementById('sn4').className = 'snode active';
+      document.getElementById('pst').textContent = 'Approbation requise';
+      document.getElementById('pdot').className = 'pdot on';
+      // Show approval inline
+      const ap = document.createElement('div');
+      ap.className = 'approval';
+      ap.innerHTML = '<div class="ap-text"><strong>5 drafts Gmail</strong> prêts à envoyer. Approver l\'envoi ?</div><div class="ap-btns"><button class="ap-btn ok">Approuver</button><button class="ap-btn no">Rejeter</button></div>';
+      approvalSlot.appendChild(ap);
+      return;
+    }
+    document.getElementById('sprog').textContent = `Draft email ${n} / 5 en cours…`;
+    addOut(n); n++;
+  }, 650);
+}
+
+function initAsset() {
+  let rdy = 0;
+  [0,1,2,3].forEach((i) => {
+    const el = document.getElementById('sl'+i);
+    el.classList.remove('loaded','sel');
+    el.classList.add('loading');
+    const t = setTimeout(() => {
+      el.classList.replace('loading','loaded');
+      rdy++;
+      const st = document.getElementById('ast');
+      if (rdy < 4) {
+        st.textContent = `${rdy} / 4 variants prêts…`;
+        document.getElementById('pst').textContent = `${rdy} / 4 variants`;
+      } else {
+        st.textContent = '4 variants générés — clique pour sélectionner';
+        document.getElementById('pst').textContent = 'Assets prêts';
+        document.getElementById('pdot').className = 'pdot on';
+      }
+    }, [1400,2800,4200,5600][i]);
+    atos.push(t);
+  });
+  [0,1,2,3].forEach(i => {
+    const el = document.getElementById('sl'+i);
+    el.onclick = () => {
+      [0,1,2,3].forEach(j => document.getElementById('sl'+j).classList.remove('sel'));
+      el.classList.add('sel');
+    };
+  });
+}
+
+function initKG() {
+  if (kgInit) return;
+  kgInit = true;
+  const canvas = document.getElementById('kg-canvas');
+  const nodes = [
+    {id:'n1',x:50,y:50,label:'Adrien',color:'rgba(52,210,190,0.3)',border:'rgba(52,210,190,0.6)'},
+    {id:'n2',x:180,y:80,label:'Atlante',color:'rgba(120,55,255,0.25)',border:'rgba(120,55,255,0.5)'},
+    {id:'n3',x:120,y:180,label:'Marie',color:'rgba(255,90,90,0.2)',border:'rgba(255,90,90,0.5)'},
+    {id:'n4',x:280,y:140,label:'ARR',color:'rgba(52,210,190,0.2)',border:'rgba(52,210,190,0.4)'},
+    {id:'n5',x:80,y:260,label:'Gmail',color:'rgba(234,67,53,0.2)',border:'rgba(234,67,53,0.4)'},
+    {id:'n6',x:220,y:260,label:'Slack',color:'rgba(74,21,75,0.2)',border:'rgba(74,21,75,0.4)'},
+    {id:'n7',x:340,y:60,label:'Q3',color:'rgba(255,188,58,0.2)',border:'rgba(255,188,58,0.5)'},
+  ];
+  const edges = [
+    {from:'n1',to:'n2'},{from:'n1',to:'n3'},{from:'n2',to:'n3'},{from:'n2',to:'n4'},{from:'n1',to:'n5'},{from:'n1',to:'n6'},{from:'n2',to:'n7'}
+  ];
+
+  // Create edges
+  edges.forEach((e,i) => {
+    const from = nodes.find(n=>n.id===e.from);
+    const to = nodes.find(n=>n.id===e.to);
+    const el = document.createElement('div');
+    el.className = 'kg-edge';
+    const dx = to.x - from.x, dy = to.y - from.y;
+    const len = Math.sqrt(dx*dx+dy*dy);
+    const angle = Math.atan2(dy,dx)*180/Math.PI;
+    el.style.left = (from.x + 26) + 'px';
+    el.style.top = (from.y + 26) + 'px';
+    el.style.width = len + 'px';
+    el.style.transform = `rotate(${angle}deg)`;
+    canvas.appendChild(el);
+    setTimeout(() => el.classList.add('vis'), 300 + i*80);
+  });
+
+  // Create nodes
+  nodes.forEach((n,i) => {
+    const el = document.createElement('div');
+    el.className = 'kg-node';
+    el.style.left = n.x + 'px';
+    el.style.top = n.y + 'px';
+    el.style.background = n.color;
+    el.style.borderColor = n.border;
+    el.textContent = n.label;
+    el.onclick = () => showKGCard(n);
+    canvas.appendChild(el);
+    setTimeout(() => el.classList.add('vis'), i*120);
+  });
+}
+
+function showKGCard(node) {
+  const card = document.getElementById('kg-card');
+  const data = {
+    'Adrien': {t:'Adrien · Founder',s:'Hearst OS · 87 entités liées · 234 relations dans le KG'},
+    'Atlante': {t:'Atlante Capital',s:'Investisseur Série A · Fonds : $12M · Secteur : SaaS/AI'},
+    'Marie': {t:'Marie Dupont · CEO',s:'Atlante Capital · Dernier contact : Slack, 3j · ARR intéressée'},
+    'ARR': {t:'ARR Q1 2026',s:'$1.2M · +34% MoM · Objectif Série A : $3M ARR'},
+    'Gmail': {t:'Gmail Connector',s:'47 emails traités aujourd\'hui · 3 drafts en attente · Token valide'},
+    'Slack': {t:'Slack Connector',s:'2 channels actifs · 12 messages résumés · Dernière sync : 11h20'},
+    'Q3': {t:'Objectifs Q3 2026',s:'$3M ARR · 50 clients · Expansion EU · Levée Série A'},
+  };
+  const d = data[node.label] || {t:node.label,s:'Entité du Knowledge Graph'};
+  card.innerHTML = `<div class="kg-entity-card"><div class="ke-t">${d.t}</div><div class="ke-s">${d.s}</div></div>`;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') go('home');
+  if (e.key==='ArrowRight') { const i=STATES.indexOf(cur); if(i<STATES.length-1) go(STATES[i+1]); }
+  if (e.key==='ArrowLeft') { const i=STATES.indexOf(cur); if(i>0) go(STATES[i-1]); }
+});
+document.querySelectorAll('.af').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.af').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+}));
+
+// Reset chart on init
+document.querySelectorAll('#cbars .cbar').forEach(b => b.style.transform = 'scaleY(0)');
+</script>
+</body>
+</html>

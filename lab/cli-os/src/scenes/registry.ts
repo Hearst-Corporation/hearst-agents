@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { ChartsScene } from "./ChartsScene";
 import { CockpitScene } from "./CockpitScene";
 
 export interface Scene {
@@ -17,5 +18,10 @@ export const SCENES: Scene[] = [
     path: "/cockpit",
     label: "Cockpit — première vue",
     Component: CockpitScene,
+  },
+  {
+    path: "/charts",
+    label: "Data Viz Toolkit",
+    Component: ChartsScene,
   },
 ];

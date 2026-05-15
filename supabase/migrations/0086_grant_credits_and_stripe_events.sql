@@ -6,33 +6,21 @@
 --   2. Table stripe_events pour l'idempotence des webhooks Stripe
 -- ============================================================
 
--- ── grant_credits — crédite le solde d'un user ──────────────
+-- ── grant_credits_v2 — crédite le solde d'un user (tenant explicite) ──
 
-CREATE OR REPLACE FUNCTION public.grant_credits(
+CREATE OR REPLACE FUNCTION public.grant_credits_v2(
   p_user_id uuid,
+  p_tenant_id text,
   p_amount_usd numeric,
   p_source text,
   p_description text
 ) RETURNS void AS $$
 DECLARE
-  v_tenant_id text;
   v_new_balance numeric;
 BEGIN
-  -- Récupérer le tenant_id du user (premier trouvé)
-  SELECT tenant_id INTO v_tenant_id
-  FROM public.user_credits
-  WHERE user_id = p_user_id
-  LIMIT 1;
-
-  -- Si le user n'existe pas encore, on utilise un tenant par défaut
-  -- (le webhook Stripe n'a pas le tenant_id, seulement le userId)
-  IF v_tenant_id IS NULL THEN
-    v_tenant_id := 'default';
-  END IF;
-
   -- Upsert le solde (crée si absent, ajoute sinon)
   INSERT INTO public.user_credits (user_id, tenant_id, balance_usd, reserved_usd)
-  VALUES (p_user_id, v_tenant_id, p_amount_usd, 0)
+  VALUES (p_user_id, p_tenant_id, p_amount_usd, 0)
   ON CONFLICT (user_id, tenant_id) DO UPDATE
     SET balance_usd = public.user_credits.balance_usd + EXCLUDED.balance_usd,
         updated_at = now()
@@ -42,7 +30,7 @@ BEGIN
   INSERT INTO public.credit_ledger (
     user_id, tenant_id, operation, amount_usd, balance_after_usd, description
   ) VALUES (
-    p_user_id, v_tenant_id, 'purchase', p_amount_usd, v_new_balance, p_description
+    p_user_id, p_tenant_id, 'purchase', p_amount_usd, v_new_balance, p_description
   );
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
