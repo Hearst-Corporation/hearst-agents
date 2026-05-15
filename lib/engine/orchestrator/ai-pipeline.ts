@@ -27,6 +27,7 @@ import { addMission } from "@/lib/engine/runtime/missions/store";
 import { saveScheduledMission as persistMission } from "@/lib/engine/runtime/state/adapter";
 import type { RunEventBus } from "@/lib/events/bus";
 import { defaultMetrics as defaultLlmMetrics } from "@/lib/llm/metrics";
+import { computeCostUsd } from "@/lib/llm/pricing";
 import { generateBriefing } from "@/lib/memory/briefing";
 import { getKgContextForUser } from "@/lib/memory/kg-context";
 import { fireAndForgetIngestTurn } from "@/lib/memory/kg-ingest-pipeline";
@@ -833,6 +834,15 @@ export async function runAiPipeline(
     const MAX_CROSS_STEP_TOKENS = 35_000;
     const CROSS_STEP_WARNING = 25_000;
 
+    // P1 — cost cap USD par step. Accumulé à chaque "finish-step" depuis les
+    // tokens réels (input + output). Vérifié AVANT le dépassement, au moment
+    // de la borne warning et de l'arrêt. Configurable via ORCHESTRATE_COST_CAP_USD
+    // (défaut $0.50). Ferme l'audit P1 "cost cap post-run seulement".
+    const PRICE_CAP_USD = parseFloat(process.env.ORCHESTRATE_COST_CAP_USD ?? "0.50");
+    const PRICE_WARN_USD = PRICE_CAP_USD * 0.8; // Warn à 80% du cap
+    let runCostUsd = 0;
+    let runCostWarned = false;
+
     for await (const event of result.fullStream) {
       switch (event.type) {
         case "text-delta": {
@@ -994,10 +1004,57 @@ export async function runAiPipeline(
         // dispo (par step LLM), au lieu de garder l'estimate chars/3. Plus
         // précis en mid-stream sur les longs runs multi-step.
         case "finish-step": {
-          const ev = event as unknown as { usage?: { outputTokens?: number } };
+          const ev = event as unknown as {
+            usage?: {
+              inputTokens?: number;
+              outputTokens?: number;
+              cacheReadInputTokens?: number;
+            };
+          };
           if (typeof ev.usage?.outputTokens === "number") {
             streamingTokenCount = Math.max(streamingTokenCount, ev.usage.outputTokens);
             crossStepTokens += ev.usage.outputTokens;
+
+            // ── P1 : cost cap USD par step ───────────────────────────────────
+            // Calcule le coût en USD depuis les tokens du step (input + output)
+            // et stoppe le run si le cap configurable est dépassé.
+            const stepInputTokens = ev.usage.inputTokens ?? 0;
+            const stepOutputTokens = ev.usage.outputTokens;
+            const stepCacheRead = ev.usage.cacheReadInputTokens ?? 0;
+            const stepCostUsd = computeCostUsd("anthropic", ORCHESTRATOR_MODEL, {
+              input_tokens: stepInputTokens,
+              output_tokens: stepOutputTokens,
+              cache_read_input_tokens: stepCacheRead,
+            });
+            runCostUsd += stepCostUsd;
+
+            if (!runCostWarned && runCostUsd >= PRICE_WARN_USD) {
+              runCostWarned = true;
+              console.warn(
+                `[AiPipeline] Cost warning: $${runCostUsd.toFixed(4)} / $${PRICE_CAP_USD} cap. Run=${engine.id}`,
+              );
+              eventBus.emit({
+                type: "orchestrator_log",
+                run_id: engine.id,
+                message: `Attention : coût du run à $${runCostUsd.toFixed(3)} (cap $${PRICE_CAP_USD})`,
+              });
+            }
+
+            if (runCostUsd >= PRICE_CAP_USD) {
+              console.error(
+                `[AiPipeline] Cost cap exceeded: $${runCostUsd.toFixed(4)} >= $${PRICE_CAP_USD}. ` +
+                  `Aborting run ${engine.id}.`,
+              );
+              eventBus.emit({
+                type: "text_delta",
+                run_id: engine.id,
+                delta: `\n\n⚠️ Ce run a atteint la limite de $${PRICE_CAP_USD.toFixed(2)}. Arrêt. Réessaie avec une requête plus courte ou segmente en plusieurs messages.`,
+              });
+              throw new Error(
+                `Cost cap exceeded: $${runCostUsd.toFixed(4)} >= $${PRICE_CAP_USD} (ORCHESTRATE_COST_CAP_USD)`,
+              );
+            }
+            // ── fin cost cap USD ─────────────────────────────────────────────
 
             if (
               !crossStepWarned &&

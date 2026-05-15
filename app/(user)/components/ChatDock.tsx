@@ -200,21 +200,31 @@ export function ChatDock() {
       const controller = new AbortController();
       setAbortController(controller);
 
-      try {
+      // SSE reconnect — backoff exponentiel en cas de déconnexion prématurée.
+      // Max 3 tentatives supplémentaires (4 total). Chaque retry repart d'un
+      // nouveau run LLM (le serveur ne peut pas reprendre un stream SSE).
+      const MAX_RECONNECT_ATTEMPTS = 3;
+      const BASE_RECONNECT_DELAY_MS = 1000;
+      const requestBody = JSON.stringify({
+        message,
+        surface,
+        thread_id: threadId,
+        conversation_id: threadId,
+        history: recentMessages,
+        capability_mode: "general",
+        ...(opts?.attachedAssetIds && opts.attachedAssetIds.length > 0
+          ? { attached_asset_ids: opts.attachedAssetIds }
+          : {}),
+      });
+
+      // Tente un fetch SSE. Retourne true si le run s'est complété normalement,
+      // false si le stream s'est coupé prématurément (retry possible).
+      const attemptStream = async (): Promise<boolean> => {
+        let receivedCompletion = false;
         const res = await fetch("/api/orchestrate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message,
-            surface,
-            thread_id: threadId,
-            conversation_id: threadId,
-            history: recentMessages,
-            capability_mode: "general",
-            ...(opts?.attachedAssetIds && opts.attachedAssetIds.length > 0
-              ? { attached_asset_ids: opts.attachedAssetIds }
-              : {}),
-          }),
+          body: requestBody,
           signal: controller.signal,
         });
         if (!res.ok) {
@@ -226,16 +236,16 @@ export function ChatDock() {
             run_id: clientToken,
             client_token: clientToken,
           });
-          return;
+          return true; // Ne pas retry sur erreur HTTP (4xx/5xx)
         }
         const reader = res.body?.getReader();
-        if (!reader) return;
+        if (!reader) return true;
         const decoder = new TextDecoder();
         let buffer = "";
         let canonicalRunId: string | null = null;
 
         while (true) {
-          if (controller.signal.aborted) break;
+          if (controller.signal.aborted) return true; // Abandon user, pas de retry
           const { done, value } = await reader.read();
           if (done) break;
           buffer += decoder.decode(value, { stream: true });
@@ -247,6 +257,9 @@ export function ChatDock() {
               const event = JSON.parse(line.slice(6));
               if (event.type === "run_started" && event.run_id) {
                 canonicalRunId = event.run_id as string;
+              }
+              if (event.type === "run_completed" || event.type === "run_failed") {
+                receivedCompletion = true;
               }
               if (event.type === "text_delta" && event.delta) {
                 assistantBufferRef.current += event.delta;
@@ -265,12 +278,44 @@ export function ChatDock() {
           }
         }
 
-        if (controller.signal.aborted) return;
+        if (controller.signal.aborted) return true;
 
-        trackAnalytics("run_completed", {
-          runId: canonicalRunId || clientToken,
-          messageCount: messages.length,
-        });
+        if (receivedCompletion) {
+          trackAnalytics("run_completed", {
+            runId: canonicalRunId || clientToken,
+            messageCount: messages.length,
+          });
+        }
+        return receivedCompletion;
+      };
+
+      try {
+        let completed = false;
+        for (let attempt = 0; attempt <= MAX_RECONNECT_ATTEMPTS; attempt++) {
+          if (attempt > 0) {
+            // Backoff exponentiel : 1s, 2s, 4s
+            const delay = BASE_RECONNECT_DELAY_MS * Math.pow(2, attempt - 1);
+            addEvent({
+              type: "orchestrator_log",
+              run_id: clientToken,
+              message: `Reconnexion SSE (tentative ${attempt}/${MAX_RECONNECT_ATTEMPTS})…`,
+            });
+            await new Promise((resolve) => setTimeout(resolve, delay));
+            if (controller.signal.aborted) break;
+            // Reset le buffer pour le nouveau run (réponse repartira from scratch)
+            assistantBufferRef.current = "";
+          }
+
+          completed = await attemptStream();
+          if (completed || controller.signal.aborted) break;
+        }
+
+        if (!completed && !controller.signal.aborted) {
+          const errorMsg = "Connexion perdue après plusieurs tentatives. Réessaie.";
+          toast.error("Connexion SSE perdue", errorMsg);
+          addEvent({ type: "run_failed", error: errorMsg, run_id: clientToken });
+          trackAnalytics("run_failed", { runId: clientToken, error: "sse_reconnect_exhausted" });
+        }
       } catch (err) {
         const isAbort =
           controller.signal.aborted ||
