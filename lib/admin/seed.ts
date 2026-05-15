@@ -367,7 +367,8 @@ async function seedAgents(db: DB): Promise<SeedReport> {
       skipped += 1;
       continue;
     }
-    const { error } = await db.from("agents").insert(agent);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await db.from("agents").insert(agent as any);
     if (error) {
       errors.push(`${agent.slug}: ${error.message}`);
     } else {
@@ -391,7 +392,8 @@ async function seedTools(db: DB): Promise<SeedReport> {
       skipped += 1;
       continue;
     }
-    const { error } = await db.from("tools").insert(tool);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await db.from("tools").insert(tool as any);
     if (error) {
       errors.push(`${tool.slug}: ${error.message}`);
     } else {
@@ -415,7 +417,8 @@ async function seedSkills(db: DB): Promise<SeedReport> {
       skipped += 1;
       continue;
     }
-    const { error } = await db.from("skills").insert(skill);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await db.from("skills").insert(skill as any);
     if (error) {
       errors.push(`${skill.slug}: ${error.message}`);
     } else {

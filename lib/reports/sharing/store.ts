@@ -36,7 +36,8 @@ export async function createShareRow(
   const sb = client ?? getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (sb as any)
     .from("report_shares")
     .insert({
       id: input.shareId,
@@ -62,7 +63,8 @@ export async function findShareByTokenHash(
   const sb = client ?? getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (sb as any)
     .from("report_shares")
     .select("*")
     .eq("token_hash", tokenHash)
@@ -81,14 +83,16 @@ export async function incrementShareViewCount(
   const sb = client ?? getServerSupabase();
   if (!sb) return;
 
-  const { data, error: fetchErr } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error: fetchErr } = await (sb as any)
     .from("report_shares")
     .select("view_count")
     .eq("id", shareId)
     .single();
   if (fetchErr || !data) return;
 
-  await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (sb as any)
     .from("report_shares")
     .update({ view_count: (data.view_count ?? 0) + 1 })
     .eq("id", shareId);
@@ -98,7 +102,8 @@ export async function revokeShare(shareId: string, client?: SupabaseClient): Pro
   const sb = client ?? getServerSupabase();
   if (!sb) return false;
 
-  const { error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (sb as any)
     .from("report_shares")
     .update({ revoked_at: new Date().toISOString() })
     .eq("id", shareId);

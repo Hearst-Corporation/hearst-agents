@@ -53,7 +53,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "db_unavailable" }, { status: 503 });
   }
 
-  const { error: dbError } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error: dbError } = await (sb as any)
     .from("hearst_card_revoked")
     .upsert({ token_hash: tokenHash }, { onConflict: "token_hash" });
 
@@ -85,7 +86,8 @@ export async function DELETE(req: Request) {
   // (TTL naturelle du token = 7j, 8j = marge d'un jour après expiration)
   const cutoff = new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString();
 
-  const { error: dbError, count } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error: dbError, count } = await (sb as any)
     .from("hearst_card_revoked")
     .delete({ count: "exact" })
     .lt("revoked_at", cutoff);

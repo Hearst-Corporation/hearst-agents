@@ -96,7 +96,8 @@ export async function saveTemplate(
 
   const { tenantId, userId, name, description, spec, isPublic } = validated.data;
 
-  const { data, error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (sb as any)
     .from("report_templates")
     .insert({
       tenant_id: tenantId,
@@ -134,7 +135,8 @@ export async function loadTemplate(
 
   const { templateId, tenantId } = validated.data;
 
-  const { data, error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (sb as any)
     .from("report_templates")
     .select("*")
     .eq("id", templateId)
@@ -168,7 +170,8 @@ export async function listTemplates(
 
   const { tenantId, domain } = validated.data;
 
-  let query = sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let query = (sb as any)
     .from("report_templates")
     .select(
       "id, tenant_id, created_by, name, description, domain, is_public, created_at, updated_at",
@@ -186,7 +189,7 @@ export async function listTemplates(
     console.error("[templates] listTemplates error:", error.message);
     return [];
   }
-  return (data ?? []).map((row) => rowToSummary(row as TemplateRow));
+  return (data ?? []).map((row: unknown) => rowToSummary(row as TemplateRow));
 }
 
 // ── deleteTemplate ─────────────────────────────────────────────
@@ -206,7 +209,8 @@ export async function deleteTemplate(
 
   const { templateId, tenantId, userId } = validated.data;
 
-  const { error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (sb as any)
     .from("report_templates")
     .delete()
     .eq("id", templateId)
@@ -247,7 +251,8 @@ export async function updateTemplate(
     updatePayload.domain = patch.spec.meta.domain;
   }
 
-  const { data, error } = await sb
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (sb as any)
     .from("report_templates")
     .update(updatePayload)
     .eq("id", templateId)

@@ -63,8 +63,6 @@ let cachedChromium: ChromiumLike | null | undefined;
 async function loadChromium(): Promise<ChromiumLike | null> {
   if (cachedChromium !== undefined) return cachedChromium;
   try {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error — peer dep dynamique, types pas indispensables
     const mod: unknown = await import("playwright-core");
     const m = mod as { chromium?: ChromiumLike };
     cachedChromium = m.chromium ?? null;

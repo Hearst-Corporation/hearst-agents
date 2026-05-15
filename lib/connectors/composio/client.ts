@@ -96,8 +96,6 @@ async function getClient(): Promise<ComposioClient | null> {
   }
 
   try {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error — peer dep, may not be installed
     const mod: unknown = await import("@composio/core");
     const m = mod as {
       Composio?: new (config?: { apiKey?: string }) => ComposioClient;

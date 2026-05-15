@@ -2,13 +2,6 @@ import crypto from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
-/** Bypass Supabase typed schema pour les colonnes non générées. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | null {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return sb as unknown as SupabaseClient<any> | null;
-}
-
 /** Hash déterministe des paramètres de génération. */
 export function computeGenerationHash(params: Record<string, unknown>): string {
   const stable = JSON.stringify(params, Object.keys(params).sort());
@@ -23,8 +16,9 @@ export function computeGenerationHash(params: Record<string, unknown>): string {
 export async function findDuplicateAsset(tenantId: string, hash: string): Promise<string | null> {
   const sb = getServerSupabase();
   if (!sb) return null;
-  const { data, error } = await rawDb(sb)
-    ?.from("assets")
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (sb as any)
+    .from("assets")
     .select("storage_key")
     .eq("tenant_id", tenantId)
     .eq("generation_hash", hash)

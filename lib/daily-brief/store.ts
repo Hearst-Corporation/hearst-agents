@@ -41,10 +41,6 @@ interface AssetRow {
   created_at: string;
 }
 
-function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient | null {
-  return sb as unknown as SupabaseClient | null;
-}
-
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
@@ -65,8 +61,8 @@ export async function loadDailyBriefForDate(opts: {
 
   const targetDate = opts.targetDate ?? todayIso();
 
-  const { data, error } = await rawDb(sb)
-    ?.from("assets")
+  const { data, error } = await sb
+    .from("assets")
     .select("id, thread_id, kind, title, summary, content_ref, provenance, created_at")
     .eq("kind", "daily_brief")
     .order("created_at", { ascending: false })

@@ -148,12 +148,6 @@ export interface Action {
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | null {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return sb as unknown as SupabaseClient<any> | null;
-}
-
 const assetCache = new Map<string, Asset[]>();
 const actionCache = new Map<string, Action[]>();
 
@@ -216,20 +210,18 @@ export async function storeAsset(asset: Asset): Promise<void> {
   const sb = getServerSupabase();
   if (!sb) return;
 
-  const { error } = await rawDb(sb)
-    ?.from("assets")
-    .upsert({
-      id: asset.id,
-      thread_id: asset.threadId,
-      run_id: asset.runId ?? null,
-      kind: asset.kind,
-      title: cleanTitle,
-      summary: asset.summary ?? null,
-      content_ref: asset.contentRef ?? null,
-      output_tier: asset.outputTier ?? null,
-      provenance: asset.provenance as unknown as Record<string, unknown>,
-      created_at: new Date(asset.createdAt).toISOString(),
-    });
+  const { error } = await sb.from("assets").upsert({
+    id: asset.id,
+    thread_id: asset.threadId,
+    run_id: asset.runId ?? null,
+    kind: asset.kind,
+    title: cleanTitle,
+    summary: asset.summary ?? null,
+    content_ref: asset.contentRef ?? null,
+    output_tier: asset.outputTier ?? null,
+    provenance: asset.provenance as unknown as import("@/lib/database.types").Json,
+    created_at: new Date(asset.createdAt).toISOString(),
+  });
 
   if (error) {
     console.error("[AssetStore] DB write failed:", error.message);
@@ -275,8 +267,8 @@ export async function loadAssetsForScope({
   const sb = getServerSupabase();
   if (!sb) return [];
 
-  const { data, error } = await rawDb(sb)
-    ?.from("assets")
+  const { data, error } = await sb
+    .from("assets")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(limit);
@@ -318,7 +310,7 @@ export async function loadAssetById(
   const sb = getServerSupabase();
   if (!sb) return null;
 
-  const { data, error } = await rawDb(sb)?.from("assets").select("*").eq("id", id).maybeSingle();
+  const { data, error } = await sb.from("assets").select("*").eq("id", id).maybeSingle();
 
   if (error || !data) return null;
 
@@ -349,8 +341,7 @@ export function storeAction(action: Action): void {
 
   const sb = getServerSupabase();
   if (sb) {
-    rawDb(sb)
-      ?.from("actions")
+    sb.from("actions")
       .upsert({
         id: action.id,
         thread_id: action.threadId,
@@ -358,7 +349,7 @@ export function storeAction(action: Action): void {
         provider: action.provider,
         status: action.status,
         timestamp: new Date(action.timestamp).toISOString(),
-        metadata: action.metadata as unknown as Record<string, unknown>,
+        metadata: action.metadata as unknown as import("@/lib/database.types").Json,
         asset_id: action.assetId ?? null,
       })
       .then(({ error }) => {

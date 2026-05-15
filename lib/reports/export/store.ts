@@ -48,7 +48,8 @@ export async function persistExport(
   const sb = client ?? getServerSupabase();
   let exportRowId: string | null = null;
   if (sb) {
-    const { data, error } = await sb
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (sb as any)
       .from("report_exports")
       .insert({
         asset_id: input.assetId,

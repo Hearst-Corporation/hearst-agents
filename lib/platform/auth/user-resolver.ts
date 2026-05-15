@@ -21,12 +21,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getServerSupabase } from "@/lib/platform/db/supabase";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function rawDb(sb: ReturnType<typeof getServerSupabase>): SupabaseClient<any> | null {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return sb as unknown as SupabaseClient<any> | null;
-}
-
 export async function resolveOrCreateUserUuid(email: string): Promise<string | null> {
   if (!email) return null;
   const sb = getServerSupabase();
@@ -38,7 +32,7 @@ export async function resolveOrCreateUserUuid(email: string): Promise<string | n
   // RPC atomique : INSERT user + INSERT tenant (si besoin) + UPDATE user
   // dans une seule transaction Postgres. Élimine le risque d'user orphelin
   // (users.primary_tenant_id NOT NULL depuis migration 0070).
-  const { data, error } = await rawDb(sb)?.rpc("create_user_with_tenant", {
+  const { data, error } = await sb.rpc("create_user_with_tenant", {
     p_email: email,
   });
 
