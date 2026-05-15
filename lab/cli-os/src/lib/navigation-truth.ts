@@ -806,20 +806,7 @@ export const ROUTES: Route[] = [
     layout: "admin",
     file: "app/admin/agents/[id]/page.tsx",
   },
-  {
-    path: "/admin/agent-driven-dev",
-    label: "Gouvernance ADD (batch + fixer)",
-    tier: "admin",
-    layout: "admin",
-    file: "app/admin/agent-driven-dev/page.tsx",
-  },
-  {
-    path: "/admin/agent-driven-dev/[id]",
-    label: "Détail batch ADD",
-    tier: "admin",
-    layout: "admin",
-    file: "app/admin/agent-driven-dev/[id]/page.tsx",
-  },
+
   {
     path: "/admin/analytics",
     label: "Analytics (événements + cohortes)",

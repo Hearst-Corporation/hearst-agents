@@ -412,7 +412,7 @@ function OverlaySlider({ assetA, assetB }: { assetA: Asset | null; assetB: Asset
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
           <path
             d="M3 6H1M9 6H11M3 6L1.5 4.5M3 6L1.5 7.5M9 6L10.5 4.5M9 6L10.5 7.5"
-            stroke="#000"
+            stroke="black"
             strokeWidth="1.3"
             strokeLinecap="round"
           />

@@ -25,20 +25,19 @@ type RightRailProps = {
 /**
  * RightRail — 320px, contexte du stage actif.
  *
- * Port direct de `lab/cli-os/src/scenes/CockpitScene.tsx` (RightRail). Le
- * `title` est l'en-tête du rail (ex: "Aperçu du jour", "Connecteurs"…).
- * Les `items` sont une liste de petites cards `{t, s, hot?}` — un item
- * `hot` reçoit le background plus appuyé.
- *
- * Les items sont stagger-animés à l'apparition (variants framer-motion).
+ * Port enrichi de `lab/cli-os/src/components/RightRail.tsx` :
+ * - Bordure subtile sur chaque item (vision-glass)
+ * - Hover state progressif (bg + border)
+ * - Sous-label en monospace (10px, tracking légère)
+ * - Stagger animation conservée (framer-motion)
  */
 export function RightRail({ title, items }: RightRailProps) {
   return (
     <aside
       aria-label="Contexte"
-      className="vision-rail-right preserve-3d relative z-20 flex w-[320px] shrink-0 flex-col gap-2 border-l border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] px-8 py-14"
+      className="vision-rail-right preserve-3d relative z-20 flex w-[320px] shrink-0 flex-col gap-2 border-l border-[var(--line-strong)] bg-[var(--surface)] px-8 py-14"
     >
-      <h3 className="mb-4 pl-4 text-sm font-medium text-[rgba(255,255,255,0.5)]">{title}</h3>
+      <h3 className="mb-4 pl-4 text-sm font-medium text-[var(--text-faint)]">{title}</h3>
       <motion.div
         key={title}
         variants={RAIL_CONTAINER_VARIANTS}
@@ -47,32 +46,27 @@ export function RightRail({ title, items }: RightRailProps) {
         className="flex flex-col gap-2"
       >
         {items.length === 0 ? (
-          <p className="px-4 text-sm text-[rgba(255,255,255,0.35)]">Aucun signal pour l'instant.</p>
+          <p className="px-4 text-sm text-[var(--text-ghost)]">Aucun signal pour l&apos;instant.</p>
         ) : (
           items.map((item, idx) => (
-            <motion.button
+            <motion.div
               variants={RAIL_ITEM_VARIANTS}
-              whileTap={{ scale: 0.98 }}
               key={idx}
-              type="button"
-              className={`group flex items-start gap-4 rounded-lg p-4 text-left text-base transition-colors ${
+              className={`flex flex-col gap-1 rounded-lg border p-4 text-base transition-colors ${
                 item.hot
-                  ? "bg-[rgba(255,255,255,0.08)] text-white"
-                  : "text-[rgba(255,255,255,0.6)] hover:bg-[rgba(255,255,255,0.04)] hover:text-white"
+                  ? "border-[var(--line-strong)] bg-[var(--bg-elev)] text-white"
+                  : "border-transparent text-[var(--text-muted)]"
               }`}
             >
-              <span className="leading-snug">
-                {item.t}
-                <br />
-                <span
-                  className={`mt-1 block text-sm ${
-                    item.hot ? "text-[rgba(255,255,255,0.7)]" : "text-[rgba(255,255,255,0.4)]"
-                  }`}
-                >
-                  {item.s}
-                </span>
+              <span className="leading-snug">{item.t}</span>
+              <span
+                className={`t-10 block font-mono tracking-wide ${
+                  item.hot ? "text-[var(--text-muted)]" : "text-[var(--text-ghost)]"
+                }`}
+              >
+                {item.s}
               </span>
-            </motion.button>
+            </motion.div>
           ))
         )}
       </motion.div>

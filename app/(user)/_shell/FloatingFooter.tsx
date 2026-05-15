@@ -9,18 +9,20 @@ type FloatingFooterProps = {
 };
 
 /**
- * FloatingFooter — pill flottante 3 zones, ancrée bottom center.
+ * FloatingFooter — pill flottante bottom center.
  *
- * Zones (gauche → droite) :
- *   1. Status (label + icône, statique en P2 — animé selon `statusRunning` en P4+)
- *   2. Segmented control 3 actions (`config.actions`)
- *   3. Segmented control 2 modes (`config.modes`)
+ * Affiche :
+ *   1. Status (label + dot, data-bound depuis le stage)
+ *   2. Actions interactives (uniquement si `onActionClick` est fourni)
+ *   3. Modes interactifs (uniquement si `onModeClick` est fourni)
  *
- * Port direct de `lab/cli-os/src/scenes/CockpitScene.tsx` (FloatingFooter).
- * Les états `activeAction` et `activeMode` sont locaux en P2 — branchés
- * sur des handlers en P4+ quand chaque stage aura sa logique propre.
+ * Les zones 2 et 3 sont masquées quand aucun handler n'est défini —
+ * évite les boutons morts visibles par l'utilisateur.
  */
 export function FloatingFooter({ config }: FloatingFooterProps) {
+  const hasActions = Boolean(config.onActionClick);
+  const hasModes = Boolean(config.onModeClick);
+
   const [activeAction, setActiveAction] = useState<string>(config.actions[0]);
   const [activeMode, setActiveMode] = useState<string>(config.modes[0]);
 
@@ -47,49 +49,59 @@ export function FloatingFooter({ config }: FloatingFooterProps) {
         </div>
       </div>
 
-      {/* Zone 2 — Segmented control 3 actions */}
-      <div className="vision-segmented-track flex items-center gap-1 rounded-pill p-1.5">
-        {config.actions.map((label) => {
-          const active = activeAction === label;
-          return (
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              key={label}
-              type="button"
-              onClick={() => setActiveAction(label)}
-              aria-pressed={active}
-              className={`rounded-pill px-6 py-2 text-sm transition-colors ${
-                active
-                  ? "vision-btn-glass text-white"
-                  : "text-[rgba(255,255,255,0.5)] hover:text-white"
-              }`}
-            >
-              {label}
-            </motion.button>
-          );
-        })}
-      </div>
+      {/* Zone 2 — Actions (uniquement si handler défini) */}
+      {hasActions && (
+        <div className="vision-segmented-track flex items-center gap-1 rounded-pill p-1.5">
+          {config.actions.map((label) => {
+            const active = activeAction === label;
+            return (
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                key={label}
+                type="button"
+                onClick={() => {
+                  setActiveAction(label);
+                  config.onActionClick?.(label);
+                }}
+                aria-pressed={active}
+                className={`rounded-pill px-6 py-2 text-sm transition-colors ${
+                  active
+                    ? "vision-btn-glass text-white"
+                    : "text-[rgba(255,255,255,0.5)] hover:text-white"
+                }`}
+              >
+                {label}
+              </motion.button>
+            );
+          })}
+        </div>
+      )}
 
-      {/* Zone 3 — Segmented control 2 modes */}
-      <div className="vision-segmented-track flex items-center gap-1 rounded-pill p-1.5">
-        {config.modes.map((label) => {
-          const active = activeMode === label;
-          return (
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              key={label}
-              type="button"
-              onClick={() => setActiveMode(label)}
-              aria-pressed={active}
-              className={`rounded-pill px-6 py-2 text-sm font-medium transition-all ${
-                active ? "vision-btn-primary" : "text-[rgba(255,255,255,0.5)] hover:text-white"
-              }`}
-            >
-              {label}
-            </motion.button>
-          );
-        })}
-      </div>
+      {/* Zone 3 — Modes (uniquement si handler défini) */}
+      {hasModes && (
+        <div className="vision-segmented-track flex items-center gap-1 rounded-pill p-1.5">
+          {config.modes.map((label) => {
+            const active = activeMode === label;
+            return (
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                key={label}
+                type="button"
+                onClick={() => {
+                  setActiveMode(label);
+                  config.onModeClick?.(label);
+                }}
+                aria-pressed={active}
+                className={`rounded-pill px-6 py-2 text-sm font-medium transition-all ${
+                  active ? "vision-btn-primary" : "text-[rgba(255,255,255,0.5)] hover:text-white"
+                }`}
+              >
+                {label}
+              </motion.button>
+            );
+          })}
+        </div>
+      )}
     </footer>
   );
 }

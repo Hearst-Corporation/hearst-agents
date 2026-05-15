@@ -60,16 +60,8 @@ const STEP_VARIANTS = {
   }),
 };
 
-/** Étapes Stagehand simulées — hook réel à brancher sur un SSE futur. */
-const MOCK_STEPS: BrowserStep[] = [
-  { id: "s1", label: "Ouverture du navigateur cloud", status: "done" },
-  { id: "s2", label: "Navigation vers la page cible", status: "done" },
-  { id: "s3", label: "Analyse du DOM par Stagehand", status: "running" },
-  { id: "s4", label: "Extraction des données demandées", status: "pending" },
-  { id: "s5", label: "Retour résultat à l'agent", status: "pending" },
-];
-
-const MOCK_URL = "https://...";
+// Étapes Stagehand — alimentées par SSE futur (/api/v2/browser/[id]/steps).
+// En attendant, le tableau reste vide ; l'UI affiche un état "en attente".
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -251,7 +243,7 @@ function SessionFrame({
             whiteSpace: "nowrap",
           }}
         >
-          🔒 {url !== MOCK_URL ? url : `session:${sessionId.slice(0, 8)}…`}
+          🔒 {url || `session:${sessionId.slice(0, 8)}…`}
         </div>
 
         {/* Indicateur live */}
@@ -436,8 +428,8 @@ export function BrowserStage({ mode }: { mode: string }) {
   const [fetchState, setFetchState] = useState<FetchState>("idle");
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [steps, setSteps] = useState<BrowserStep[]>(MOCK_STEPS);
-  const [currentUrl, setCurrentUrl] = useState<string>(MOCK_URL);
+  const [steps, setSteps] = useState<BrowserStep[]>([]);
+  const [currentUrl, setCurrentUrl] = useState<string>("");
   const [autoMode, setAutoMode] = useState(true);
   const [captureTs, setCaptureTs] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -468,6 +460,7 @@ export function BrowserStage({ mode }: { mode: string }) {
       })
       .then((data) => {
         setSessionInfo(data);
+        setCurrentUrl(data.connectUrl ?? data.debugViewerUrl ?? "");
         setFetchState("ready");
         setCaptureTs(
           new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
@@ -482,8 +475,7 @@ export function BrowserStage({ mode }: { mode: string }) {
     return () => ctrl.abort();
   }, [sessionId]);
 
-  // TODO(future): brancher un SSE /api/v2/browser/[id]/steps pour remplacer le mock
-  // En attendant, le mock simule une progression via les MOCK_STEPS initiaux.
+  // Steps : en attente de SSE /api/v2/browser/[id]/steps.
 
   // Push ContextRail
   useEffect(() => {
@@ -499,7 +491,7 @@ export function BrowserStage({ mode }: { mode: string }) {
     const items: RailItem[] = [
       {
         t: "URL courante",
-        s: currentUrl !== MOCK_URL ? currentUrl : `session:${sessionId.slice(0, 12)}…`,
+        s: currentUrl || `session:${sessionId.slice(0, 12)}…`,
         hot: false,
       },
       {
@@ -588,13 +580,22 @@ export function BrowserStage({ mode }: { mode: string }) {
             letterSpacing: ".04em",
           }}
         >
-          Étapes Stagehand — {doneCount(steps)} / {steps.length}
+          {steps.length > 0
+            ? `Étapes Stagehand — ${doneCount(steps)} / ${steps.length}`
+            : "Étapes Stagehand — en attente de données"}
         </p>
-        <AnimatePresence initial={false}>
-          {steps.map((step, idx) => (
-            <StepRow key={step.id} step={step} index={idx} />
-          ))}
-        </AnimatePresence>
+        {steps.length > 0 ? (
+          <AnimatePresence initial={false}>
+            {steps.map((step, idx) => (
+              <StepRow key={step.id} step={step} index={idx} />
+            ))}
+          </AnimatePresence>
+        ) : (
+          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.25)", padding: "8px 0" }}>
+            Les étapes s&apos;afficheront ici quand la session Browserbase transmettra des
+            événements.
+          </p>
+        )}
       </div>
     </motion.section>
   );

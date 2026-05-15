@@ -95,22 +95,6 @@ function buildEdges(displayNodes: DisplayNode[], apiEdges: KgEdge[]): DisplayEdg
     const to = nodeMap.get(e.target_id);
     if (from && to) result.push({ id: e.id, fromId: from.id, toId: to.id, from, to, type: e.type });
   }
-  // Fallback auto-liens vers le centre si aucune arête
-  if (result.length === 0 && displayNodes.length > 1) {
-    const center = displayNodes.find((n) => n.center) ?? displayNodes[0];
-    if (center) {
-      displayNodes.slice(1).forEach((n, i) => {
-        result.push({
-          id: `e-auto-${i}`,
-          fromId: center.id,
-          toId: n.id,
-          from: center,
-          to: n,
-          type: "liée_à",
-        });
-      });
-    }
-  }
   return result;
 }
 

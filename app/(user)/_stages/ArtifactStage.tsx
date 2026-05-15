@@ -175,18 +175,12 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
 
 function PreviewPanel() {
   return (
-    <div className="flex-1 flex items-center justify-center" style={{ padding: "var(--space-6)" }}>
-      <div
-        className="bg-white rounded-xl h-full flex items-center justify-center"
-        style={{
-          width: "100%",
-          minHeight: "240px",
-          color: "var(--text-ghost)",
-          fontSize: "13px",
-          fontWeight: 500,
-        }}
-      >
-        Preview E2B
+    <div className="flex flex-1 items-center justify-center" style={{ padding: "var(--space-6)" }}>
+      <div className="vision-glass flex max-w-[360px] flex-col items-center gap-4 rounded-xl p-8 text-center">
+        <p className="text-base font-medium text-[var(--text-muted)]">Sandbox E2B</p>
+        <p className="text-sm text-[var(--text-ghost)]">
+          L&apos;exécution de code en sandbox n&apos;est pas encore disponible.
+        </p>
       </div>
     </div>
   );

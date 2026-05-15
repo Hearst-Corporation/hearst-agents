@@ -24,6 +24,10 @@ export type FooterConfig = {
   statusRunning?: boolean;
   actions: readonly [string, string, string];
   modes: readonly [string, string];
+  /** Handler optionnel — si absent, les actions ne sont pas rendues comme interactives. */
+  onActionClick?: (action: string) => void;
+  /** Handler optionnel — si absent, les modes ne sont pas rendus comme interactifs. */
+  onModeClick?: (mode: string) => void;
 };
 
 export type StageDef = {

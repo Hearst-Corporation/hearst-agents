@@ -1,394 +1,389 @@
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
 import { useState } from "react";
 
-/** Placeholder visible : tout ce qui est faux est wrappé. */
-function Ph({ children }: { children: ReactNode }) {
-  return (
-    <span className="italic opacity-50" style={{ color: "currentColor" }}>
-      [{children}]
-    </span>
-  );
-}
+const RAIL_ITEMS = [
+  {
+    id: "dashboard",
+    hotkey: "⌘1",
+    icon: <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />,
+  },
+  {
+    id: "missions",
+    hotkey: "⌘9",
+    icon: (
+      <>
+        <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7" />
+        <path d="M16 19h6" />
+        <path d="M19 16v6" />
+      </>
+    ),
+  },
+  {
+    id: "settings",
+    hotkey: "",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 16v-4" />
+        <path d="M12 8h.01" />
+      </>
+    ),
+  },
+];
 
-/** Carré abstrait pour figurer un emplacement icône — neutre, sans sémantique Hearst. */
-function IconSlot({ filled = false }: { filled?: boolean }) {
-  return (
-    <span
-      className={
-        filled
-          ? "block size-4 rounded-[3px] bg-current opacity-80"
-          : "block size-4 rounded-[3px] border border-current opacity-40"
-      }
-    />
-  );
-}
+const MISSIONS = [
+  { id: "MSN-041", label: "Analyse pipeline LLM — cluster Production", status: "RUNNING" },
+  { id: "MSN-038", label: "Rotation des clés API Composio", status: "COMPLETE" },
+  { id: "MSN-036", label: "Audit RLS Supabase — tables publiques", status: "IDLE" },
+];
 
-const LEFT_RAIL_SLOTS = Array.from({ length: 10 }, (_, i) => `slot-${i + 1}`);
-const TOGGLE_OPTIONS = ["filtre-1", "filtre-2"] as const;
+const SETTINGS = [
+  { label: "Auto_Diagnostics", value: "Activé" },
+  { label: "Rate_Limit_Guard", value: "1 000 req/min" },
+  { label: "Langfuse_Tracing", value: "Live" },
+  { label: "Circuit_Breaker", value: "Seuil 5 erreurs" },
+];
 
-const RAIL_CONTAINER_VARIANTS = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
-};
-const RAIL_ITEM_VARIANTS = {
-  hidden: { opacity: 0, x: 10 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const RIGHT_RAIL_ITEMS = [
-  { id: "feed-1", hot: false },
-  { id: "feed-2", hot: false },
-  { id: "feed-3", hot: true },
-  { id: "feed-4", hot: false },
-  { id: "feed-5", hot: false },
-] as const;
-
-const LIST_VARIANTS = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-const LIST_ITEM_VARIANTS = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+const STATUS_COLOR: Record<string, string> = {
+  RUNNING: "#4A8B86",
+  COMPLETE: "rgba(255,255,255,0.35)",
+  IDLE: "rgba(255,255,255,0.18)",
 };
 
-// --- Sous-composants ---
+export function CockpitScene() {
+  const [activeRail, setActiveRail] = useState("dashboard");
 
-function AmbientLayers() {
   return (
-    <>
-      {/* Ambient layer 1 — halo blanc doux centré sur la hero (auréole de focus) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 38% 32% at 50% 42%, rgba(255, 255, 255, 0.10), transparent 70%)",
-          filter: "blur(50px)",
-        }}
-      />
+    <div className="flex h-screen w-screen overflow-hidden bg-black text-[rgba(255,255,255,0.95)] font-sans">
+      {/* ── The Void (Background) ── */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(rgba(74, 139, 134, 0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 139, 134, 0.01) 1px, transparent 1px)",
+            backgroundSize: "100px 100px",
+            maskImage: "radial-gradient(circle at 50% 50%, black, transparent 80%)",
+            WebkitMaskImage: "radial-gradient(circle at 50% 50%, black, transparent 80%)",
+          }}
+        />
+      </div>
 
-      {/* Ambient layer 2 — pattern dots teal (signature Hearst), blurré = profondeur identitaire */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(94, 229, 195, 0.32) 0.8px, transparent 1.4px)",
-          backgroundSize: "26px 26px",
-          backgroundPosition: "0 0",
-          maskImage:
-            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, rgba(0,0,0,0.5) 50%, transparent 90%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, rgba(0,0,0,0.5) 50%, transparent 90%)",
-          opacity: 0.65,
-        }}
-      />
-    </>
-  );
-}
-
-function LeftRail({
-  activeSlot,
-  setActiveSlot,
-}: {
-  activeSlot: string;
-  setActiveSlot: (s: string) => void;
-}) {
-  return (
-    <aside aria-label="Navigation principale" className="relative z-20 h-full w-[88px] shrink-0">
-      <div className="flex h-full w-full flex-col items-center gap-3 py-8 vision-glass preserve-3d vision-rail-left border-y-0 border-l-0">
-        {/* Brand slot top — H mark Hearst */}
-        <img src="/hearst-h.svg" alt="Hearst" className="mb-6 block size-8" />
-
-        {LEFT_RAIL_SLOTS.map((slot) => {
-          const active = activeSlot === slot;
+      {/* ── Sidebar (The Rail) ── */}
+      <aside className="w-[72px] flex flex-col items-center py-10 gap-12 z-10 border-r border-[rgba(255,255,255,0.03)] bg-black">
+        {RAIL_ITEMS.map((item) => {
+          const isActive = activeRail === item.id;
+          const tooltip = item.hotkey ? `${item.id} ${item.hotkey}` : item.id;
           return (
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              key={slot}
-              type="button"
-              onClick={() => setActiveSlot(slot)}
-              aria-label={slot}
-              title={slot}
-              className={`group relative flex size-14 items-center justify-center rounded-xl transition-all duration-300 ${active ? "z-10 text-white vision-btn-glass" : "text-[rgba(255,255,255,0.5)] hover:bg-[rgba(255,255,255,0.06)] hover:text-white"}`}
+            <div
+              key={item.id}
+              title={tooltip}
+              onClick={() => setActiveRail(item.id)}
+              className={`w-10 h-10 flex items-center justify-center cursor-pointer transition-all duration-500 relative group ${isActive ? "text-[#4A8B86]" : "text-[rgba(255,255,255,0.25)] hover:text-[rgba(255,255,255,0.95)] hover:scale-110"}`}
             >
-              <IconSlot filled={active} />
-            </motion.button>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                {item.icon}
+              </svg>
+              {isActive && (
+                <motion.div
+                  className="absolute inset-[-4px] border border-[#4A8B86] rounded-full opacity-20"
+                  animate={{ scale: [1, 1.5], opacity: [0.2, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                />
+              )}
+            </div>
           );
         })}
 
-        <div className="flex-1" />
-
-        {/* User avatar bottom */}
-        <div className="mt-4 flex size-12 items-center justify-center rounded-full bg-[rgba(255,255,255,0.15)] text-base text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
-          <Ph>av</Ph>
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-function RightRail() {
-  return (
-    <aside
-      aria-label="Contexte"
-      className="relative z-20 flex w-[320px] shrink-0 flex-col gap-2 border-l border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] px-8 py-14 preserve-3d vision-rail-right"
-    >
-      <h3 className="mb-4 pl-4 text-sm font-medium text-[rgba(255,255,255,0.5)]">
-        <Ph>rail-droit-titre</Ph>
-      </h3>
-      <motion.div
-        variants={RAIL_CONTAINER_VARIANTS}
-        initial="hidden"
-        animate="show"
-        className="flex flex-col gap-2"
-      >
-        {RIGHT_RAIL_ITEMS.map((item) => (
-          <motion.button
-            variants={RAIL_ITEM_VARIANTS}
-            whileTap={{ scale: 0.98 }}
-            key={item.id}
-            type="button"
-            className={`group flex items-start gap-4 rounded-lg p-4 text-left text-base transition-colors ${item.hot ? "bg-[rgba(255,255,255,0.08)] text-white" : "text-[rgba(255,255,255,0.6)] hover:bg-[rgba(255,255,255,0.04)] hover:text-white"}`}
-          >
-            <span className="leading-snug">
-              <Ph>{item.id}-ligne-titre</Ph>
-              <br />
-              <span
-                className={`block mt-1 text-sm ${item.hot ? "text-[rgba(255,255,255,0.7)]" : "text-[rgba(255,255,255,0.4)]"}`}
-              >
-                <Ph>{item.id}-snippet</Ph>
-              </span>
-            </span>
-          </motion.button>
-        ))}
-      </motion.div>
-    </aside>
-  );
-}
-
-const FOOTER_ACTIONS = ["action-1", "action-2", "action-3"] as const;
-const FOOTER_MODES = ["mode-1", "mode-2"] as const;
-
-function FloatingFooter() {
-  const [activeAction, setActiveAction] = useState<string>("action-1");
-  const [activeMode, setActiveMode] = useState<string>("mode-1");
-
-  return (
-    <footer
-      aria-label="Actions cockpit"
-      className="absolute bottom-8 left-1/2 z-30 flex w-max items-center gap-12 rounded-pill px-8 py-5 vision-glass preserve-3d vision-footer-float"
-    >
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-3 text-base font-medium text-[rgba(255,255,255,0.7)]">
-          <IconSlot />
-          <span>
-            <Ph>footer-analysis</Ph>
-          </span>
-        </div>
-      </div>
-
-      {/* Segmented control central */}
-      <div className="flex items-center gap-1 rounded-pill p-1.5 vision-segmented-track">
-        {FOOTER_ACTIONS.map((id) => (
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            key={id}
-            type="button"
-            onClick={() => setActiveAction(id)}
-            aria-pressed={activeAction === id}
-            className={`flex items-center gap-2 rounded-pill px-6 py-2 text-sm transition-colors ${
-              activeAction === id
-                ? "text-white vision-btn-glass"
-                : "text-[rgba(255,255,255,0.5)] hover:text-white"
-            }`}
-          >
-            <IconSlot />
-            <Ph>{id}</Ph>
-          </motion.button>
-        ))}
-      </div>
-
-      {/* Segmented control droit */}
-      <div className="flex items-center gap-1 rounded-pill p-1.5 vision-segmented-track">
-        {FOOTER_MODES.map((id) => (
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            key={id}
-            type="button"
-            onClick={() => setActiveMode(id)}
-            aria-pressed={activeMode === id}
-            className={`flex items-center gap-2 rounded-pill px-6 py-2 text-sm font-medium transition-all ${
-              activeMode === id
-                ? "vision-btn-primary"
-                : "text-[rgba(255,255,255,0.5)] hover:text-white"
-            }`}
-          >
-            <IconSlot filled={activeMode === id} />
-            <Ph>{id}</Ph>
-          </motion.button>
-        ))}
-      </div>
-    </footer>
-  );
-}
-
-// --- Composant Principal ---
-
-export function CockpitScene() {
-  const [activeSlot, setActiveSlot] = useState("slot-1");
-  const [toggle, setToggle] = useState<(typeof TOGGLE_OPTIONS)[number]>("filtre-1");
-
-  return (
-    <div className="relative flex h-screen w-screen bg-[#050505] text-white overflow-hidden perspective-scene">
-      <AmbientLayers />
-      <LeftRail activeSlot={activeSlot} setActiveSlot={setActiveSlot} />
-
-      {/* Right Content Area (Center + Right Rail) */}
-      <div className="relative z-10 flex flex-1 overflow-hidden preserve-3d">
-        {/* Main Content Area (Scrollable + Floating Footer) */}
-        <div className="relative flex flex-1 flex-col overflow-hidden preserve-3d">
-          {/* Centre */}
-          <main className="flex flex-1 justify-center overflow-y-auto px-16 pt-20 pb-64 vision-content-depth preserve-3d">
-            <motion.section
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="flex w-full max-w-[760px] flex-col gap-16 preserve-3d"
+        <div className="mt-auto">
+          <div className="w-10 h-10 flex items-center justify-center text-[#ff3333] opacity-40 cursor-pointer transition-all hover:scale-110 hover:opacity-100">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
             >
-              {/* Greeting */}
-              <header className="flex flex-col gap-4">
-                <p className="text-base font-medium text-[rgba(255,255,255,0.5)] mix-blend-plus-lighter">
-                  <Ph>date-longue</Ph>
-                </p>
-                <h1 className="text-display font-medium leading-[1.1] tracking-tight text-white">
-                  <Ph>greeting</Ph>, <Ph>prenom-user</Ph>.
-                </h1>
-                <p className="max-w-[640px] text-md leading-[1.5] text-[rgba(255,255,255,0.7)]">
-                  <Ph>summary-jour-1</Ph> <Ph>summary-jour-2</Ph> <Ph>summary-jour-3</Ph>
-                </p>
-              </header>
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </div>
+        </div>
+      </aside>
 
-              {/* Hero — focus du jour */}
-              <motion.section
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="relative flex flex-col gap-6 rounded-xl p-10 vision-glass transition-transform duration-500 hover:-translate-y-1 preserve-3d"
-              >
-                <div className="relative flex items-baseline justify-between">
-                  <span className="text-sm font-medium text-[rgba(255,255,255,0.5)]">
-                    <Ph>hero-label</Ph>
+      {/* ── Main Canvas ── */}
+      <main className="flex-1 flex flex-col relative z-10 overflow-y-auto overflow-x-hidden">
+        {/* Header Bar */}
+        <header className="px-20 py-10 flex justify-between items-end shrink-0">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <span className="font-mono text-[10px] tracking-[0.8em] text-[#4A8B86] uppercase mb-6 block">
+              Protocol_Active
+            </span>
+            <h1 className="text-[140px] font-black tracking-[-0.08em] leading-[0.7] text-[rgba(255,255,255,0.25)] uppercase m-0 pointer-events-none select-none">
+              HEARST
+            </h1>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+            className="text-right"
+          >
+            <span className="font-mono text-[10px] text-[rgba(255,255,255,0.65)] uppercase tracking-[0.2em] block">
+              System_Load
+            </span>
+            <div className="text-lg font-light tracking-tight mt-2 text-white">0.042ms</div>
+          </motion.div>
+        </header>
+
+        {/* The Grid System */}
+        <div className="flex-1 grid grid-cols-[1fr_350px] gap-px bg-[rgba(255,255,255,0.03)] border-t border-[rgba(255,255,255,0.03)] min-h-0">
+          {/* Main Zone — switches on activeRail */}
+          <div className="bg-black p-20 flex flex-col gap-20 overflow-y-auto">
+            {activeRail === "dashboard" && (
+              <>
+                {/* Section: Intelligence Stream */}
+                <section>
+                  <span className="font-mono text-[11px] text-[rgba(255,255,255,0.65)] uppercase tracking-widest block mb-6 border-b border-[rgba(255,255,255,0.08)] pb-2">
+                    01 // Intelligence_Stream
                   </span>
-                  <span className="text-sm text-[rgba(255,255,255,0.5)]">
-                    <Ph>hero-meta</Ph>
-                  </span>
-                </div>
-                <h2 className="relative max-w-[600px] text-2xl font-medium leading-[1.2] tracking-tight text-white">
-                  <Ph>hero-title-ligne-1</Ph> <br />
-                  <Ph>hero-title-ligne-2</Ph>
-                </h2>
-                <p className="relative max-w-[580px] text-base leading-[1.6] text-[rgba(255,255,255,0.7)]">
-                  <Ph>hero-body-1</Ph> <Ph>hero-body-2</Ph>
-                </p>
-                <div className="relative flex items-center gap-4 pt-4">
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    type="button"
-                    className="rounded-pill px-6 py-3 text-base transition-opacity hover:opacity-90 vision-btn-primary"
-                  >
-                    <Ph>hero-cta-primaire</Ph>
-                  </motion.button>
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    type="button"
-                    className="rounded-pill px-6 py-3 text-base transition-colors hover:bg-[rgba(255,255,255,0.12)] vision-btn-glass"
-                  >
-                    <Ph>hero-cta-secondaire</Ph>
-                  </motion.button>
-                </div>
-              </motion.section>
-
-              {/* Activité — liste avec toggle filtre */}
-              <motion.section
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col gap-6"
-              >
-                <div className="flex items-center justify-between px-2">
-                  <h2 className="text-md font-medium tracking-tight text-white">
-                    <Ph>activite-title</Ph>
-                  </h2>
-                  <div className="flex items-center gap-1 rounded-pill vision-segmented-track p-1">
-                    {TOGGLE_OPTIONS.map((opt) => (
-                      <motion.button
-                        whileTap={{ scale: 0.95 }}
-                        key={opt}
-                        type="button"
-                        onClick={() => setToggle(opt)}
-                        aria-pressed={toggle === opt}
-                        className={
-                          toggle === opt
-                            ? "rounded-pill px-5 py-2 text-sm font-medium text-white transition-all vision-btn-glass"
-                            : "rounded-pill px-5 py-2 text-sm text-[rgba(255,255,255,0.5)] transition-colors hover:text-white"
-                        }
-                      >
-                        <Ph>{opt}</Ph>
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* TODO: filtrer activité par toggle */}
-                <motion.ul
-                  variants={LIST_VARIANTS}
-                  initial="hidden"
-                  animate="show"
-                  className="flex flex-col gap-2"
-                >
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <motion.li
-                      variants={LIST_ITEM_VARIANTS}
-                      key={i}
-                      className="flex items-center gap-5 rounded-lg px-4 py-4 hover:bg-[rgba(255,255,255,0.04)] transition-colors"
+                  <div className="flex flex-col gap-12 pt-4">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="grid grid-cols-[40px_1fr] gap-6"
                     >
-                      <IconSlot />
-                      <div className="flex flex-1 flex-col gap-1">
-                        <span className="text-base font-medium text-white">
-                          <Ph>activite-titre-{i}</Ph>
-                        </span>
-                        <span className="text-sm text-[rgba(255,255,255,0.5)]">
-                          <Ph>activite-meta-{i}</Ph>
-                        </span>
+                      <div className="font-mono text-[9px] text-[#4A8B86] opacity-80 pt-2">
+                        ADR_01
                       </div>
-                      <span className="text-sm text-[rgba(255,255,255,0.4)]">
-                        <Ph>ago-{i}</Ph>
+                      <div className="text-xl font-light leading-normal text-white">
+                        Analyser les performances du pipeline LLM sur le cluster Production.
+                      </div>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="grid grid-cols-[40px_1fr] gap-6"
+                    >
+                      <div className="font-mono text-[9px] text-[rgba(255,255,255,0.25)] pt-2">
+                        AI_CORE
+                      </div>
+                      <div className="text-xl font-light leading-normal text-[rgba(255,255,255,0.95)] opacity-80">
+                        Analyse lancée. 47 événements indexés. Latence p95 : 1.2ms. Aucune anomalie
+                        détectée.
+                      </div>
+                    </motion.div>
+                  </div>
+                </section>
+
+                {/* Section: Tactical Actions */}
+                <section>
+                  <span className="font-mono text-[11px] text-[rgba(255,255,255,0.65)] uppercase tracking-widest block mb-6 border-b border-[rgba(255,255,255,0.08)] pb-2">
+                    02 // Tactical_Actions
+                  </span>
+                  <div className="flex gap-16 pt-4">
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="flex flex-col gap-2"
+                    >
+                      <span className="font-mono text-[10px] text-[rgba(255,255,255,0.65)] uppercase tracking-[0.2em]">
+                        Success_Rate
                       </span>
-                    </motion.li>
+                      <span className="text-4xl font-extralight tracking-tight">99.8%</span>
+                      <span className="font-mono text-[10px] text-[#4A8B86]">
+                        +0.2% vs last_run
+                      </span>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7 }}
+                      className="flex flex-col gap-2"
+                    >
+                      <span className="font-mono text-[10px] text-[rgba(255,255,255,0.65)] uppercase tracking-[0.2em]">
+                        Active_Missions
+                      </span>
+                      <span className="text-4xl font-extralight tracking-tight">12</span>
+                      <span className="font-mono text-[10px] text-[#4A8B86]">All_Nominal</span>
+                    </motion.div>
+                  </div>
+                </section>
+              </>
+            )}
+
+            {activeRail === "missions" && (
+              <section>
+                <span className="font-mono text-[11px] text-[rgba(255,255,255,0.65)] uppercase tracking-widest block mb-6 border-b border-[rgba(255,255,255,0.08)] pb-2">
+                  03 // Mission_Queue
+                </span>
+                <div className="flex flex-col gap-[2px] pt-4">
+                  {MISSIONS.map((m, i) => (
+                    <motion.div
+                      key={m.id}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 * i }}
+                      className="grid grid-cols-[90px_1fr_90px] gap-6 items-center py-5 border-b border-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.02)] transition-colors cursor-pointer"
+                    >
+                      <span className="font-mono text-[10px] text-[rgba(255,255,255,0.35)]">
+                        {m.id}
+                      </span>
+                      <span className="text-sm font-light text-[rgba(255,255,255,0.85)]">
+                        {m.label}
+                      </span>
+                      <span
+                        className="font-mono text-[9px] tracking-[0.15em] text-right"
+                        style={{ color: STATUS_COLOR[m.status] }}
+                      >
+                        {m.status}
+                      </span>
+                    </motion.div>
                   ))}
-                </motion.ul>
-              </motion.section>
-            </motion.section>
-          </main>
+                </div>
+              </section>
+            )}
 
-          {/* Fade noir en bas — marche de respiration entre scroll et pill footer */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-60"
-            style={{
-              background:
-                "linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.45) 25%, rgba(5,5,5,0.92) 60%, #050505 85%)",
-            }}
-          />
+            {activeRail === "settings" && (
+              <section>
+                <span className="font-mono text-[11px] text-[rgba(255,255,255,0.65)] uppercase tracking-widest block mb-6 border-b border-[rgba(255,255,255,0.08)] pb-2">
+                  04 // System_Config
+                </span>
+                <div className="flex flex-col gap-[2px] pt-4">
+                  {SETTINGS.map((s, i) => (
+                    <motion.div
+                      key={s.label}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.12 * i }}
+                      className="flex items-center justify-between py-5 border-b border-[rgba(255,255,255,0.04)]"
+                    >
+                      <span className="font-mono text-[10px] text-[rgba(255,255,255,0.55)] uppercase tracking-[0.15em]">
+                        {s.label}
+                      </span>
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm font-light text-[rgba(255,255,255,0.75)]">
+                          {s.value}
+                        </span>
+                        <button className="font-mono text-[9px] text-[#4A8B86] border border-[rgba(74,139,134,0.3)] px-3 py-1 hover:border-[#4A8B86] transition-colors">
+                          Edit
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
 
-          <FloatingFooter />
+          {/* Side Zone */}
+          <div className="bg-black p-10 flex flex-col border-l border-[rgba(255,255,255,0.03)]">
+            <span className="font-mono text-[11px] text-[rgba(255,255,255,0.65)] uppercase tracking-widest block mb-6 border-b border-[rgba(255,255,255,0.08)] pb-2">
+              System_HUD
+            </span>
+
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <div className="flex-1">
+                <div className="font-mono text-[10px] text-[rgba(255,255,255,0.65)] uppercase tracking-[0.2em] mb-2">
+                  Neural_Engine
+                </div>
+                <div className="h-[2px] w-full bg-[rgba(255,255,255,0.08)] relative">
+                  <motion.div
+                    className="absolute inset-y-0 left-0 bg-[#4A8B86] shadow-[0_0_10px_#4A8B86]"
+                    initial={{ width: 0 }}
+                    animate={{ width: "75%" }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                  />
+                </div>
+              </div>
+              <span className="font-mono text-[10px] text-[rgba(255,255,255,0.95)] mt-4">75%</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex items-center gap-3 mb-16"
+            >
+              <div className="flex-1">
+                <div className="font-mono text-[10px] text-[rgba(255,255,255,0.65)] uppercase tracking-[0.2em] mb-2">
+                  Memory_Buffer
+                </div>
+                <div className="h-[2px] w-full bg-[rgba(255,255,255,0.08)] relative">
+                  <motion.div
+                    className="absolute inset-y-0 left-0 bg-[#4A8B86] shadow-[0_0_10px_#4A8B86]"
+                    initial={{ width: 0 }}
+                    animate={{ width: "32%" }}
+                    transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                  />
+                </div>
+              </div>
+              <span className="font-mono text-[10px] text-[rgba(255,255,255,0.95)] mt-4">32%</span>
+            </motion.div>
+
+            <span className="font-mono text-[11px] text-[rgba(255,255,255,0.65)] uppercase tracking-widest block mb-4 border-b border-[rgba(255,255,255,0.08)] pb-2">
+              Quick_Access
+            </span>
+
+            <div className="flex flex-col gap-[2px]">
+              {[
+                { label: "View_Logs", meta: "⌘L" },
+                { label: "Network_Map", meta: "⌘N" },
+                { label: "Security_Vault", meta: "⌘S" },
+                { label: "Terminal_Shell", meta: "⌘T" },
+              ].map((item, i) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                  key={item.label}
+                  className="flex justify-between items-center py-4 border-b border-[rgba(255,255,255,0.03)] cursor-pointer transition-all duration-300 hover:pl-3 hover:border-b-[#4A8B86] group"
+                >
+                  <span className="text-sm font-medium text-[rgba(255,255,255,0.65)] group-hover:text-white transition-colors">
+                    {item.label}
+                  </span>
+                  <span className="font-mono text-[10px] text-[rgba(255,255,255,0.25)] transition-colors">
+                    {item.meta}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <RightRail />
-      </div>
+        {/* ── Command Bar ── */}
+        <div className="sticky bottom-0 bg-linear-to-t from-black via-black/90 to-transparent pt-16 pb-10 px-20 z-20 shrink-0">
+          <div className="flex items-center gap-6 border-b border-[rgba(255,255,255,0.08)] pb-4">
+            <span className="font-mono text-xs text-[#4A8B86]">HEARST_OS &gt;</span>
+            <input
+              type="text"
+              className="bg-transparent border-none flex-1 text-[rgba(255,255,255,0.95)] text-2xl font-sans outline-none placeholder:text-[rgba(255,255,255,0.25)]"
+              placeholder="Enter_Command_"
+            />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
