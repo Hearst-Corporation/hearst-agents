@@ -25,7 +25,7 @@ interface AssetItem {
   title: string;
   type: AssetMediaType;
   status: AssetStatus;
-  thumbnail?: string;
+  thumbnail?: string | undefined;
   tag: string;
 }
 

@@ -94,7 +94,8 @@ const SPEAKER_PALETTE = [
 function speakerColor(name: string) {
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
-  return SPEAKER_PALETTE[Math.abs(hash) % SPEAKER_PALETTE.length];
+  const fallback = { bg: "rgba(255,255,255,.15)", color: "rgba(255,255,255,.9)" };
+  return SPEAKER_PALETTE[Math.abs(hash) % SPEAKER_PALETTE.length] ?? fallback;
 }
 
 function speakerInitial(name: string | number): string {

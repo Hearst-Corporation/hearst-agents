@@ -58,8 +58,8 @@ type ViewMode = "graph" | "list";
 // ── Helpers layout ────────────────────────────────────────────────────────────
 
 function layoutNodes(nodes: KgNode[]): DisplayNode[] {
-  if (nodes.length === 0) return [];
   const [center, ...rest] = nodes;
+  if (!center) return [];
   const result: DisplayNode[] = [
     {
       id: center.id,
@@ -98,16 +98,18 @@ function buildEdges(displayNodes: DisplayNode[], apiEdges: KgEdge[]): DisplayEdg
   // Fallback auto-liens vers le centre si aucune arête
   if (result.length === 0 && displayNodes.length > 1) {
     const center = displayNodes.find((n) => n.center) ?? displayNodes[0];
-    displayNodes.slice(1).forEach((n, i) => {
-      result.push({
-        id: `e-auto-${i}`,
-        fromId: center.id,
-        toId: n.id,
-        from: center,
-        to: n,
-        type: "liée_à",
+    if (center) {
+      displayNodes.slice(1).forEach((n, i) => {
+        result.push({
+          id: `e-auto-${i}`,
+          fromId: center.id,
+          toId: n.id,
+          from: center,
+          to: n,
+          type: "liée_à",
+        });
       });
-    });
+    }
   }
   return result;
 }

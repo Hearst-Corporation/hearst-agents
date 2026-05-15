@@ -157,6 +157,7 @@ function humanCron(cron: string): string {
   const parts = cron.trim().split(/\s+/);
   if (parts.length < 5) return cron;
   const [min, hour, , , dow] = parts;
+  if (!min || !hour) return cron;
   if (dow === "*" && min !== "*" && hour !== "*")
     return `Tous les jours à ${hour.padStart(2, "0")}h${min === "0" ? "" : min}`;
   if (min === "0" && hour === "*") return "Toutes les heures";

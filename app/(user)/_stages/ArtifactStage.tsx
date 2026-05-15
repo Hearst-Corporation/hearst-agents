@@ -42,17 +42,17 @@ type FetchState = "loading" | "ready" | "error" | "empty";
 type FooterTab = "apercu" | "code" | "versions";
 
 interface ArtifactMeta {
-  title?: string;
-  language?: string;
-  model?: string;
-  buildStatus?: string;
-  createdAt?: string;
+  title?: string | undefined;
+  language?: string | undefined;
+  model?: string | undefined;
+  buildStatus?: string | undefined;
+  createdAt?: string | undefined;
 }
 
 interface VersionRow {
   id: string;
   status: string;
-  createdAt?: string;
+  createdAt?: string | undefined;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

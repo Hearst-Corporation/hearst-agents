@@ -30,10 +30,10 @@ const SECTION_VARIANTS = {
 type ViewMode = "split" | "overlay";
 
 interface AssetMeta {
-  resolution?: string;
-  duration?: string;
-  size?: string;
-  model?: string;
+  resolution?: string | undefined;
+  duration?: string | undefined;
+  size?: string | undefined;
+  model?: string | undefined;
 }
 
 function extractMeta(asset: Asset | null): AssetMeta {
