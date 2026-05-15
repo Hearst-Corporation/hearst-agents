@@ -1,6 +1,6 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 /** Placeholder visible : tout ce qui est faux est wrappé. */
 function Ph({ children }: { children: ReactNode }) {
@@ -31,45 +31,33 @@ export function CockpitScene() {
   const [activeSlot, setActiveSlot] = useState("slot-1");
   const [toggle, setToggle] = useState<(typeof TOGGLE_OPTIONS)[number]>("filtre-1");
 
-  // Mouse tracking for 3D tilt and specular highlights
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-
-  // Smooth springs for the tilt
-  const springConfig = { damping: 30, stiffness: 120 };
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [2, -2]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-2, 2]), springConfig);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
-
   return (
-    <div
-      ref={containerRef}
-      className="relative flex h-screen w-screen bg-[#050505] text-white overflow-hidden perspective-scene"
-    >
-      {/* Lumières ambiantes (Environnement Apple Spatial Night) */}
+    <div className="relative flex h-screen w-screen bg-[#050505] text-white overflow-hidden perspective-scene">
+      {/* Ambient layer 1 — halo blanc doux centré sur la hero (auréole de focus) */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-70"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
-          background: `
-            radial-gradient(circle at 15% 30%, rgba(60, 80, 255, 0.25), transparent 50%),
-            radial-gradient(circle at 85% 20%, rgba(120, 70, 255, 0.2), transparent 50%),
-            radial-gradient(circle at 50% 100%, rgba(40, 180, 255, 0.15), transparent 65%)
-          `,
-          filter: "blur(80px)",
+          background:
+            "radial-gradient(ellipse 38% 32% at 50% 42%, rgba(255, 255, 255, 0.10), transparent 70%)",
+          filter: "blur(50px)",
+        }}
+      />
+
+      {/* Ambient layer 2 — pattern dots teal (signature Hearst), blurré = profondeur identitaire */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(94, 229, 195, 0.32) 0.8px, transparent 1.4px)",
+          backgroundSize: "26px 26px",
+          backgroundPosition: "0 0",
+          maskImage:
+            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, rgba(0,0,0,0.5) 50%, transparent 90%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 90% 80% at 50% 45%, black 0%, rgba(0,0,0,0.5) 50%, transparent 90%)",
+          opacity: 0.65,
         }}
       />
 
@@ -135,9 +123,8 @@ export function CockpitScene() {
                 </p>
               </header>
 
-              {/* Hero — focus du jour avec effet 3D réactif */}
+              {/* Hero — focus du jour */}
               <motion.section
-                style={{ rotateX, rotateY }}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
@@ -227,6 +214,16 @@ export function CockpitScene() {
               </motion.section>
             </motion.section>
           </main>
+
+          {/* Fade noir en bas — dissout le scroll avant la pill footer */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-40"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.6) 40%, #050505 80%)",
+            }}
+          />
 
           {/* Footer — Ornament flottant */}
           <footer className="absolute bottom-8 left-1/2 z-30 flex w-max -translate-x-1/2 items-center gap-12 rounded-[var(--radius-pill)] px-8 py-5 vision-glass preserve-3d vision-footer-float">
