@@ -2,6 +2,7 @@ import * as Sentry from "@sentry/nextjs";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getLangfuseClient } from "@/lib/observability/langfuse";
 import { logger } from "@/lib/observability/logger";
+import { dispatchWebhookEvent } from "@/lib/webhooks/dispatcher";
 import type { Database, Json } from "../../database.types";
 import type { RunKind, TraceKind } from "../../domain/types";
 import { type CostBudget, DEFAULT_COST_BUDGET, enforceCostBudget } from "./cost-sentinel";
@@ -79,9 +80,11 @@ export class RunTracer {
   private costBudget: CostBudget = DEFAULT_COST_BUDGET;
   private replayMode: ReplayMode = "live";
   private guardPolicy: AgentGuardPolicy | undefined;
+  private tenantId: string | null = null;
 
-  constructor(sb: DB) {
+  constructor(sb: DB, tenantId?: string | null) {
     this.sb = sb;
+    this.tenantId = tenantId ?? null;
     this.startTime = Date.now();
   }
 
@@ -211,6 +214,13 @@ export class RunTracer {
             budget_usd: this.costBudget.budget_usd,
           },
         });
+        if (this.tenantId) {
+          dispatchWebhookEvent("cost.exceeded", this.tenantId, {
+            run_id: this.runId,
+            cost_usd: this.totalCost,
+            budget_usd: this.costBudget.budget_usd,
+          });
+        }
       }
       throw costErr;
     }
@@ -336,6 +346,12 @@ export class RunTracer {
         },
         extra: data as Record<string, unknown>,
       });
+      if (this.tenantId) {
+        dispatchWebhookEvent("cost.warning", this.tenantId, {
+          run_id: this.runId,
+          ...data,
+        });
+      }
     }
     this.events.push({
       kind,

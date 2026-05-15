@@ -17,6 +17,8 @@ export const WEBHOOK_EVENTS = [
   "asset.deleted",
   "comment.added",
   "auth.token_expiring",
+  "cost.warning",
+  "cost.exceeded",
 ] as const;
 
 export type WebhookEvent = (typeof WEBHOOK_EVENTS)[number];

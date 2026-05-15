@@ -135,7 +135,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
   const guardPolicy = (agent.guard_policy as AgentGuardPolicy | null) ?? undefined;
 
-  const tracer = new RunTracer(sb);
+  const tracer = new RunTracer(sb, scope.tenantId);
   const runId = await tracer.startRun({
     kind: "chat",
     agent_id: id,
