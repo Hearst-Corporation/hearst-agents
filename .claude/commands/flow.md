@@ -1,212 +1,132 @@
 ---
-description: QA manuel ultra-avancé des flows utilisateur — navigation, logique UX, friction, cohérence. Senior QA produit + UX architect.
+description: QA flows utilisateur — navigation, friction, logique UX, CTA, cohérence. 3 agents parallèles.
+argument-hint: [flow-id] (vide = audit complet)
 ---
 
-# /flow — QA flows utilisateur complet
+# /flow — QA flows utilisateur
 
-Tu es Claude Code. Agis comme un senior QA produit + UX architect spécialisé Electron apps complexes.
+Audit manuel des flows réels comme un utilisateur exigeant. Read-only. Sortie : rapport HTML avec score UX /10.
 
-Objectif : tester manuellement tous les flows de l'application comme un vrai utilisateur exigeant et perfectionniste, détecter toutes les incohérences de navigation, de logique UX, de positionnement des actions, de retour utilisateur et optimiser les flows pour qu'ils soient fluides, intuitifs, cohérents et premium.
+## Pré-flight
 
-## Arguments optionnels
+!cat docs/AGENT-LOCK.json
 
-`$ARGUMENTS` — flow ciblé (ex: `onboarding`, `upload`, `admin`). Vide = audit complet de tous les flows.
+Si `locked: true` → audit autorisé, fixes non.
 
-## Perspectives utilisateur
+## Scope
 
-Tu dois penser comme :
+`$ARGUMENTS` — flow ciblé (ex: `onboarding`, `upload`, `admin`, `chat`). Vide = audit complet.
 
-- un utilisateur novice
-- un utilisateur avancé
-- un créatif qui produit beaucoup
-- un opérateur qui enchaîne rapidement les actions
-- un QA obsessif des détails UX
+## Exclusions
 
-## Mission — Flows à tester
+Idem `/qa` : `spatial-safe/**`, `spatial/**`, backups.
 
-Teste tous les flows réels :
+## Perspectives utilisateur (à tenir simultanément)
 
-- onboarding
-- création de projet
-- génération vidéo
-- génération Runway
-- édition
-- historique
-- settings
-- admin
-- upload
-- export
-- suppression
-- retry
-- erreurs
-- états offline
-- changements de provider
-- navigation entre pages
-- retour arrière
-- sauvegarde
-- fermeture/réouverture
-- modales
-- confirmations
-- raccourcis éventuels
-- multi-step flows
+- novice
+- avancé
+- créatif productif
+- opérateur rapide
+- QA obsessif détails UX
 
-## Inspection statique des flows
+## Flows réels à couvrir (audit complet)
 
-!find app/ -name "page.tsx" | sort | sed 's|app/||;s|/page.tsx||'
-!grep -rn "useRouter\|router\.push\|router\.back\|redirect" app/ --include="_.tsx" --include="_.ts" | grep -v node*modules | head -40
-!grep -rn "onClick\|onSubmit\|onConfirm" app/ --include="*.tsx" | grep -v node*modules | head -40
-!grep -rn "toast\|notify\|alert\|modal\|dialog" app/ --include="*.tsx" | grep -v node_modules | head -30
-!grep -rn "loading\|isLoading\|isPending" app/ --include="\*.tsx" | grep -v node_modules | head -30
+onboarding · création projet · génération · édition · historique · settings · admin · upload · export · suppression · retry · erreurs · offline · changement provider · navigation inter-pages · retour arrière · sauvegarde · fermeture/réouverture · modales · confirmations · raccourcis · multi-step.
 
-## Pour chaque flow, vérifie
+## Stratégie : 3 sous-agents en parallèle
 
-- logique de navigation
-- cohérence des boutons
-- position des CTA
-- présence des boutons retour
-- cohérence des actions primaires/secondaires
-- clarté des étapes
-- réduction du nombre de clics
-- feedback utilisateur
-- messages de succès/erreur
-- loaders
-- états bloqués
-- flows cassés
-- pages sans issue
-- actions ambiguës
-- transitions
-- perte de contexte
-- perte de données
-- flows trop longs
-- double actions
-- répétitions inutiles
-- comportement incohérent entre admin et app principale
-- différences de placement des boutons
-- confirmations inutiles ou manquantes
-- possibilité de revenir facilement en arrière
-- cohérence des raccourcis UX
+Spawn 3 Agents dans **un seul message** (subagent_type: `Explore`).
 
-## Détection avancée
+### Agent 1 — Navigation & Flow QA
 
-Tu dois aussi détecter :
+- Mapper tous chemins entre pages
+- Vérifier que chaque page a une issue claire
+- Identifier dead-ends (pages sans retour)
+- Cohérence "Annuler" / "Retour" / "Fermer"
+- Transitions logiques entre étapes
 
-- flows mentalement fatigants
-- UX non intuitive
-- étapes inutiles
-- boutons mal placés
-- actions importantes peu visibles
-- incohérences de wording
-- hiérarchie UX incorrecte
-- comportements différents selon les pages
-- logique produit incohérente
-- manque de feedback utilisateur
-- flows qui semblent "cheap" ou non premium
+Commandes :
+- `find app/ -name "page.tsx" | sort`
+- `grep -rEn "useRouter|router\.(push|back|replace)|redirect\(" app/ components/ --include="*.tsx" --include="*.ts"`
 
-## Sous-agents à déclencher
+### Agent 2 — Product Logic QA
 
-Spawn 3 sous-agents en parallèle :
+- Compter clics par flow critique
+- Étapes fusionnables / supprimables
+- Confirmations redondantes ou manquantes
+- Actions destructives sans confirmation
+- Flows où user peut perdre données
 
-### 1. Sous-agent Navigation & Flow QA
+Commandes :
+- `grep -rEn "onClick|onSubmit|onConfirm" app/ components/ --include="*.tsx"`
+- `grep -rEn "confirm\(|window\.confirm" app/ components/ --include="*.tsx"`
 
-Teste navigation, retour arrière, transitions, cohérence des CTA et logique de parcours.
+### Agent 3 — Interaction & Feedback QA
 
-- Mappe tous les chemins possibles entre pages
-- Vérifie que chaque page a une issue claire
-- Identifie les dead-ends (pages sans retour)
-- Contrôle la cohérence des boutons "Annuler" / "Retour" / "Fermer"
-- Vérifie que les transitions entre étapes sont logiques
+- Action async sans loader
+- Erreurs sans message actionnable
+- Succès sans confirmation visuelle
+- Modales : focus trap + Escape + restoration focus
+- Comportements offline / erreur réseau
 
-### 2. Sous-agent Product Logic QA
+Commandes :
+- `grep -rEn "loading|isLoading|isPending|isFetching" app/ components/ --include="*.tsx"`
+- `grep -rEn "toast|notify|sonner" app/ components/ --include="*.tsx"`
+- `grep -rEn "Dialog|Modal|Sheet|Popover" app/ components/ --include="*.tsx"`
 
-Détecte les incohérences métier, étapes inutiles, flows trop complexes et optimisations possibles.
+## Format finding
 
-- Compte le nombre de clics pour chaque flow critique
-- Identifie les étapes qui peuvent être fusionnées ou supprimées
-- Repère les confirmations redondantes
-- Vérifie que les actions destructives ont une confirmation
-- Identifie les flows où l'utilisateur peut perdre des données
-
-### 3. Sous-agent Interaction QA
-
-Teste états loading/error/success, feedback utilisateur, confirmations, modales et comportements dynamiques.
-
-- Vérifie que chaque action asynchrone a un loader
-- Contrôle que les erreurs sont toujours expliquées et actionnables
-- Vérifie que les succès sont confirmés visuellement
-- Teste les modales : ouverture, fermeture, focus trap, Escape
-- Vérifie les comportements en cas d'erreur réseau
-
-## Format des findings
-
-```
-[GRAVITÉ] Flow : NomDuFlow — Étape concernée
-  Fichier   : chemin/composant:ligne
-  Problème  : description précise du problème UX
-  Impact    : ce que ressent l'utilisateur
-  Correction: action concrète à appliquer
-  Clics     : avant N → après M (si applicable)
-  Statut    : appliqué ✅ | proposé ⏳ | risqué ⚠️
+```json
+{
+  "severity": "P0|P1|P2",
+  "path": "app/(user)/chat/page.tsx",
+  "line": 42,
+  "rule": "dead-end|missing-loader|destructive-no-confirm|...",
+  "title": "Description précise",
+  "current": "Comportement actuel",
+  "suggested": "Comportement attendu",
+  "why": "Impact ressenti utilisateur",
+  "status": "Clics avant: N → après: M"
+}
 ```
 
-**Gravité :**
+Sévérités :
+- **P0** — flow cassé, perte données, blocage utilisateur
+- **P1** — friction notable, confusion possible
+- **P2** — détail UX, wording, micro-interaction
 
-- `CRITIQUE` — flow cassé, perte de données, blocage utilisateur
-- `MOYEN` — friction notable, confusion possible, incohérence visible
-- `MINEUR` — détail UX, wording, micro-interaction
+## Score UX /10
 
-## Règles strictes
+- Base 10
+- −2 par P0, −0.5 par P1, −0.1 par P2 (plancher à 0)
 
-- Ne casse aucune fonctionnalité
-- Ne modifie pas les APIs sauf nécessité évidente
-- Simplifie les flows au maximum
-- Réduis la friction utilisateur
-- Harmonise les comportements dans toute l'application
-- Tous les flows doivent être prévisibles et cohérents
-- Si un changement est risqué, propose-le au lieu de l'appliquer
+## Agrégation → render-report
 
-## Critères d'acceptation
+```json
+{
+  "title": "QA Flows utilisateur",
+  "scope": "<arg ou 'complet'>",
+  "kpis": { "p0": N, "p1": N, "p2": N, "score": X },
+  "sections": [
+    { "name": "Navigation", "agent": "agent-1", "findings": [...] },
+    { "name": "Product Logic", "agent": "agent-2", "findings": [...] },
+    { "name": "Interaction & Feedback", "agent": "agent-3", "findings": [...] }
+  ],
+  "quickWins": [...],
+  "plan": [
+    { "name": "P0 — flows cassés", "items": ["..."] },
+    { "name": "P1 — friction notable", "items": ["..."] },
+    { "name": "P2 — polish UX", "items": ["..."] }
+  ]
+}
+```
 
-- Tous les flows sont fluides et intuitifs
-- Aucun écran sans issue claire
-- Les boutons importants sont toujours au bon endroit
-- Les CTA sont cohérents dans toute l'app
-- Les retours arrière sont toujours logiques
-- Aucun flow inutilement complexe
-- Aucun utilisateur ne peut se sentir perdu
-- Les actions critiques sont claires et sécurisées
-- L'expérience paraît premium, rapide et naturelle
+!node scripts/render-report.mjs --type=flow --data=/tmp/flow-data.json --open
 
-## Livrable final + Rapport HTML
+## Réponse finale (5 lignes max)
 
-Produis le rapport textuel :
-
-1. Flows testés (liste complète)
-2. Problèmes détectés (triés par gravité)
-3. Optimisations appliquées (avec fichiers modifiés)
-4. Optimisations proposées mais non appliquées
-5. Fichiers modifiés
-6. Risques restants
-7. Score final UX/product flow sur 10
-
-Puis génère un fichier HTML complet à `/tmp/rapport-flow.html` et ouvre-le dans Chrome.
-
-Le HTML doit :
-
-- Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
-- Header avec titre "QA Flows utilisateur", date/heure, scope analysé, score UX /10 en grand
-- Jauge score SVG arc coloré (rouge < 5, orange < 7, vert >= 8)
-- Carte par flow testé : statut global (✅ fluide / ⚠️ friction / 🚫 cassé), nombre de clics, problèmes trouvés
-- Section par sous-agent (Navigation / Product Logic / Interaction) avec ses findings
-- Chaque finding : badge gravité, flow concerné, fichier cliquable `vscode://file/...`, problème, correction, statut
-- Timeline visuelle des flows critiques : avant/après en nombre de clics
-- Section "Optimisations appliquées" : diff résumé par fichier
-- Section "Propositions" : roadmap UX priorisée avec effort estimé
-- Section "Risques restants" : ce qui n'a pas été touché et pourquoi
-- Footer : N flows testés, X problèmes trouvés, Y corrigés, date
-
-!node -e "
-const fs = require('fs');
-const html = \`CONTENU_HTML_GENERE\`;
-fs.writeFileSync('/tmp/rapport-flow.html', html);
-"
-!open -a 'Google Chrome' /tmp/rapport-flow.html
+```
+Flow <scope> · UX N/10 · P0:N P1:N P2:N
+Top friction : <description courte>
+Rapport : docs/audit/flow-YYYY-MM-DD.html
+```

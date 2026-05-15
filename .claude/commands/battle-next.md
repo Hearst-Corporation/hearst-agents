@@ -1,25 +1,31 @@
 ---
-description: Recommande le prochain batch à exécuter (deps satisfaites, ordre logique)
+description: Recommande le prochain batch à exécuter (deps satisfaites, ordre logique).
 ---
 
-# Battle Plan — Next batch
+# /battle-next — Prochain batch
 
 !node scripts/battle-next.mjs
 
-Lis l'output ci-dessus.
+## Synthèse à produire
 
-Présente :
+Sur la base de l'output ci-dessus :
 
-1. **Batch recommandé** : ID, titre, phase, sub-agent recommandé, effort estimé
-2. **Findings inclus** : liste compacte (F-XXX titre, severity)
-3. **Pre-conditions** : déjà satisfaites ou pas
-4. **Validation criteria** : ce qui devra être vérifié à la fin
-5. **Next action** : tape `/battle-exec <batch_id>` pour démarrer
+```
+Batch recommandé : <id> — <titre>
+  Phase : <nom>
+  Sub-agent : <auth-fixer | ssrf-fixer | ...>
+  Effort estimé : <XS|S|M|L>
+  Findings inclus : <F-XXX, F-YYY> (N total)
+  Pre-conditions : satisfaites | bloquées par <liste>
+  Validation criteria : <résumé>
+  blast_if_skipped : <oui/non — si oui, signaler en alerte>
 
-Si plusieurs batchs candidats (deps satisfaites mais pas ordre strict), propose le plus prioritaire selon :
+Action : /battle-exec <id>
+```
 
-- Phase la plus basse en priorité (P0 → P1 → P2 → ...)
-- Au sein de la phase, ordre du JSON (séquence logique)
-- Avertir si batch a un `blast_if_skipped` (montrer en rouge mental)
+Si plusieurs batchs candidats (deps satisfaites mais ordre non strict), prioriser :
+1. Phase la plus basse (P0 → P1 → P2)
+2. Au sein de la phase, ordre du JSON (séquence logique du Battle Plan)
+3. Signaler en premier ceux avec `blast_if_skipped: true`
 
-NE LANCE PAS l'exécution — l'utilisateur doit valider avec `/battle-exec`.
+**Ne lance pas l'exécution** — l'utilisateur valide avec `/battle-exec`.

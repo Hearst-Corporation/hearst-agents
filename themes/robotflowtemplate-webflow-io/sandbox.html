@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr" data-theme="robotflowtemplate-webflow-io">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Robotflow Theme — Sandbox</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-family);
+        background: var(--color-bg);
+        color: var(--color-fg-body);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-base);
+      }
+      .wrap { max-width: var(--container-max); margin: 0 auto; padding: var(--space-12) var(--space-8); }
+      h1, h2, h3, h4 { color: var(--color-fg); font-weight: var(--font-weight-medium); margin: 0 0 var(--space-4); line-height: var(--line-height-tight); }
+      h1 { font-size: var(--font-size-6xl); letter-spacing: -0.02em; }
+      h2 { font-size: var(--font-size-4xl); }
+      h3 { font-size: var(--font-size-2xl); }
+      h4 { font-size: var(--font-size-xl); }
+      p { margin: 0 0 var(--space-4); }
+
+      .badge { display: inline-block; padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); background: var(--color-accent-soft); color: var(--color-accent-hi); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); }
+
+      .section { padding: var(--space-16) 0; border-bottom: 1px solid var(--color-border-soft); }
+      .section h2 { margin-bottom: var(--space-2); }
+      .section .lead { color: var(--color-fg-muted); margin-bottom: var(--space-10); max-width: 60ch; }
+
+      /* Tabs comparatif */
+      .tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-6); }
+      .tab { padding: var(--space-2) var(--space-6); border-radius: var(--radius-pill); border: 1px solid var(--color-border); background: transparent; color: var(--color-fg-body); cursor: pointer; transition: all var(--duration-base) var(--ease-base); font-family: inherit; font-size: var(--font-size-sm); }
+      .tab.active { background: var(--color-fg); color: var(--color-on-fg); border-color: var(--color-fg); }
+      .tab:hover:not(.active) { border-color: var(--color-fg-muted); color: var(--color-fg); }
+
+      .compare { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border); background: var(--color-surface); }
+      .compare-pane { display: none; }
+      .compare-pane.active { display: block; }
+      .compare-pane img { width: 100%; display: block; }
+
+      /* Palette */
+      .palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--space-4); }
+      .swatch { background: var(--color-surface); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border-soft); }
+      .swatch-color { height: 80px; }
+      .swatch-meta { padding: var(--space-3); }
+      .swatch-meta .name { display: block; font-size: var(--font-size-xs); color: var(--color-fg); font-weight: var(--font-weight-medium); margin-bottom: 2px; }
+      .swatch-meta .hex { display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--color-fg-muted); }
+
+      /* Typo */
+      .type-row { display: grid; grid-template-columns: 100px 1fr; gap: var(--space-6); padding: var(--space-4) 0; border-bottom: 1px dashed var(--color-border-soft); align-items: baseline; }
+      .type-row:last-child { border-bottom: none; }
+      .type-row .label { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-fg-muted); }
+      .type-row .preview { color: var(--color-fg); }
+
+      /* Spacing bars */
+      .spacing-row { display: grid; grid-template-columns: 100px 1fr; gap: var(--space-4); padding: var(--space-2) 0; align-items: center; }
+      .spacing-row .label { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-fg-muted); }
+      .spacing-row .bar { height: 12px; background: var(--color-accent); border-radius: var(--radius-xs); }
+
+      /* Cards & radius */
+      .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-4); }
+      .card { background: var(--color-surface); padding: var(--space-10); border: 1px solid var(--color-border-soft); }
+      .card.radius-md { border-radius: var(--radius-md); }
+      .card.radius-lg { border-radius: var(--radius-lg); }
+      .card.radius-xl { border-radius: var(--radius-xl); }
+      .card.radius-2xl { border-radius: var(--radius-2xl); }
+      .card .label { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-fg-muted); display: block; margin-top: var(--space-3); }
+
+      /* Buttons */
+      .btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+      .btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-6); font-family: inherit; font-size: var(--font-size-base); font-weight: var(--font-weight-medium); border-radius: var(--radius-pill); cursor: pointer; transition: transform var(--duration-base) var(--ease-base); border: 1px solid transparent; }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary { background: var(--color-fg); color: var(--color-on-fg); border-color: var(--color-fg); }
+      .btn-secondary { background: transparent; color: var(--color-fg); border-color: var(--color-fg); }
+      .btn-accent { background: var(--color-accent); color: var(--color-on-accent); border-color: var(--color-accent); }
+      .btn-accent:hover { background: var(--color-accent-hi); border-color: var(--color-accent-hi); box-shadow: var(--shadow-glow); }
+      .btn-ghost { background: var(--color-surface); color: var(--color-fg-body); border-color: var(--color-border); }
+
+      /* Shadows */
+      .shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-6); }
+      .shadow-box { background: var(--color-surface); padding: var(--space-8); border-radius: var(--radius-lg); text-align: center; font-family: var(--font-family-mono); font-size: 11px; color: var(--color-fg-muted); }
+      .shadow-xs { box-shadow: var(--shadow-xs); }
+      .shadow-sm { box-shadow: var(--shadow-sm); }
+      .shadow-md { box-shadow: var(--shadow-md); }
+      .shadow-lg { box-shadow: var(--shadow-lg); }
+      .shadow-glow { box-shadow: var(--shadow-glow); }
+
+      /* Hero showcase */
+      .hero {
+        background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+        padding: var(--space-30) 0 var(--space-20);
+        text-align: center;
+        border-radius: var(--radius-2xl);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 500px; height: 500px;
+        background: radial-gradient(circle, var(--color-accent-soft) 0%, transparent 60%);
+        transform: translate(-50%, -50%);
+        z-index: 0;
+      }
+      .hero > * { position: relative; z-index: 1; }
+      .hero h1 { max-width: 16ch; margin: 0 auto var(--space-6); }
+      .hero .lead { color: var(--color-fg-body); max-width: 50ch; margin: 0 auto var(--space-10); font-size: var(--font-size-lg); }
+
+      .meta-bar { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-fg-muted); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border-soft); }
+      .meta-bar a { color: var(--color-accent-hi); text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="meta-bar">
+        Theme · <strong style="color:var(--color-fg)">robotflowtemplate-webflow-io</strong> · source <a href="https://robotflowtemplate.webflow.io/home-pages/home-v1" target="_blank" rel="noopener">robotflowtemplate.webflow.io</a> · capturé 2026-05-15
+      </div>
+
+      <!-- HERO showcase -->
+      <section class="section" style="border:none; padding-top: var(--space-16)">
+        <div class="hero">
+          <span class="badge">design system extrait</span>
+          <h1 style="margin-top: var(--space-6)">The revolution of the world is right here</h1>
+          <p class="lead">Esthétique tech dark futuriste — fond near-black, accent violet électrique, coins ultra-arrondis et typographie Inter Tight medium. Reproduction tokenisée du template Robotflow.</p>
+          <div class="btn-row" style="justify-content: center">
+            <button class="btn btn-primary">Reserve now →</button>
+            <button class="btn btn-secondary">Watch demo</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPARATIF -->
+      <section class="section">
+        <h2>Comparatif</h2>
+        <p class="lead">Sandbox tokenisé vs screenshot original.</p>
+        <div class="tabs">
+          <button class="tab active" data-pane="ref">Reference</button>
+          <button class="tab" data-pane="full">Reference (full page)</button>
+          <button class="tab" data-pane="logo">Logo</button>
+        </div>
+        <div class="compare">
+          <div class="compare-pane active" data-pane="ref"><img src="./reference.png" alt="Robotflow viewport" /></div>
+          <div class="compare-pane" data-pane="full"><img src="./reference-full.png" alt="Robotflow full page" /></div>
+          <div class="compare-pane" data-pane="logo" style="padding: var(--space-16); text-align: center; background: var(--color-bg-elevated)"><img src="./assets/logo.svg" alt="Robotflow logo" style="width: 120px; height: auto; filter: invert(1) brightness(2)" /></div>
+        </div>
+      </section>
+
+      <!-- PALETTE -->
+      <section class="section">
+        <h2>Palette</h2>
+        <p class="lead">15 couleurs uniques détectées · top 24 listées dans <code>raw.json</code>.</p>
+        <div class="palette">
+          <div class="swatch"><div class="swatch-color" style="background:#050607"></div><div class="swatch-meta"><span class="name">bg</span><span class="hex">#050607</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#090a0c"></div><div class="swatch-meta"><span class="name">bg-elevated</span><span class="hex">#090a0c</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#121418"></div><div class="swatch-meta"><span class="name">surface</span><span class="hex">#121418</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1a1d22"></div><div class="swatch-meta"><span class="name">surface-hi</span><span class="hex">#1a1d22</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#3b3e45"></div><div class="swatch-meta"><span class="name">border</span><span class="hex">#3b3e45</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#7c818d"></div><div class="swatch-meta"><span class="name">fg-muted</span><span class="hex">#7c818d</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#b6bcc9"></div><div class="swatch-meta"><span class="name">fg-body</span><span class="hex">#b6bcc9</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#ffffff"></div><div class="swatch-meta"><span class="name">fg</span><span class="hex">#ffffff</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#523ff5"></div><div class="swatch-meta"><span class="name">accent</span><span class="hex">#523ff5</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#6a55ff"></div><div class="swatch-meta"><span class="name">accent-hi</span><span class="hex">#6a55ff</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#74d184"></div><div class="swatch-meta"><span class="name">success</span><span class="hex">#74d184</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#efc42c"></div><div class="swatch-meta"><span class="name">warning</span><span class="hex">#efc42c</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#fe566b"></div><div class="swatch-meta"><span class="name">danger</span><span class="hex">#fe566b</span></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#64a7ff"></div><div class="swatch-meta"><span class="name">info</span><span class="hex">#64a7ff</span></div></div>
+        </div>
+      </section>
+
+      <!-- TYPO -->
+      <section class="section">
+        <h2>Typographie</h2>
+        <p class="lead">Inter Tight medium, échelle display 14 → 72px.</p>
+        <div class="type-row"><span class="label">--6xl 72px</span><div class="preview" style="font-size:72px; font-weight:500; line-height:1.115">Le brun renard saute</div></div>
+        <div class="type-row"><span class="label">--5xl 60px</span><div class="preview" style="font-size:60px; font-weight:500; line-height:1.115">Le brun renard saute</div></div>
+        <div class="type-row"><span class="label">--4xl 48px</span><div class="preview" style="font-size:48px; font-weight:500; line-height:1.25">Le brun renard saute par-dessus</div></div>
+        <div class="type-row"><span class="label">--3xl 36px</span><div class="preview" style="font-size:36px; font-weight:500; line-height:1.25">Le brun renard saute par-dessus le chien paresseux</div></div>
+        <div class="type-row"><span class="label">--2xl 30px</span><div class="preview" style="font-size:30px">Le brun renard saute par-dessus le chien paresseux</div></div>
+        <div class="type-row"><span class="label">--xl 24px</span><div class="preview" style="font-size:24px">Le brun renard saute par-dessus le chien paresseux</div></div>
+        <div class="type-row"><span class="label">--lg 20px</span><div class="preview" style="font-size:20px">Le brun renard saute par-dessus le chien paresseux</div></div>
+        <div class="type-row"><span class="label">--base 18px</span><div class="preview" style="font-size:18px">Le brun renard saute par-dessus le chien paresseux</div></div>
+        <div class="type-row"><span class="label">--sm 16px</span><div class="preview" style="font-size:16px">Le brun renard saute par-dessus le chien paresseux</div></div>
+        <div class="type-row"><span class="label">--xs 14px</span><div class="preview" style="font-size:14px">Le brun renard saute par-dessus le chien paresseux</div></div>
+      </section>
+
+      <!-- SPACING -->
+      <section class="section">
+        <h2>Spacing</h2>
+        <p class="lead">Échelle 4px → 200px (de --space-1 à --space-50).</p>
+        <div class="spacing-row"><span class="label">--space-1 4</span><div class="bar" style="width:4px"></div></div>
+        <div class="spacing-row"><span class="label">--space-2 8</span><div class="bar" style="width:8px"></div></div>
+        <div class="spacing-row"><span class="label">--space-4 16</span><div class="bar" style="width:16px"></div></div>
+        <div class="spacing-row"><span class="label">--space-6 24</span><div class="bar" style="width:24px"></div></div>
+        <div class="spacing-row"><span class="label">--space-8 32</span><div class="bar" style="width:32px"></div></div>
+        <div class="spacing-row"><span class="label">--space-12 48</span><div class="bar" style="width:48px"></div></div>
+        <div class="spacing-row"><span class="label">--space-16 64</span><div class="bar" style="width:64px"></div></div>
+        <div class="spacing-row"><span class="label">--space-20 80</span><div class="bar" style="width:80px"></div></div>
+        <div class="spacing-row"><span class="label">--space-30 120</span><div class="bar" style="width:120px"></div></div>
+        <div class="spacing-row"><span class="label">--space-40 160</span><div class="bar" style="width:160px"></div></div>
+        <div class="spacing-row"><span class="label">--space-50 200</span><div class="bar" style="width:200px"></div></div>
+      </section>
+
+      <!-- RADIUS / CARDS -->
+      <section class="section">
+        <h2>Radius & Cards</h2>
+        <p class="lead">Cards principales en 32px, sections en 64px, pill 200px pour les CTAs.</p>
+        <div class="card-grid">
+          <div class="card radius-md"><h4>radius-md</h4><span class="label">16px · inputs</span></div>
+          <div class="card radius-lg"><h4>radius-lg</h4><span class="label">32px · cards (15 occ.)</span></div>
+          <div class="card radius-xl"><h4>radius-xl</h4><span class="label">48px · large cards</span></div>
+          <div class="card radius-2xl"><h4>radius-2xl</h4><span class="label">64px · sections</span></div>
+        </div>
+      </section>
+
+      <!-- BUTTONS -->
+      <section class="section">
+        <h2>Buttons</h2>
+        <p class="lead">Pill 200px · padding 8/24 · transition transform 0.3s.</p>
+        <div class="btn-row">
+          <button class="btn btn-primary">Reserve now</button>
+          <button class="btn btn-secondary">Watch demo</button>
+          <button class="btn btn-accent">Join waitlist</button>
+          <button class="btn btn-ghost">Learn more</button>
+        </div>
+      </section>
+
+      <!-- SHADOWS -->
+      <section class="section">
+        <h2>Shadows</h2>
+        <p class="lead">Le site source utilise très peu d'ombres ; on dérive une échelle subtile + un glow accent pour les états actifs.</p>
+        <div class="shadow-grid">
+          <div class="shadow-box shadow-xs">--shadow-xs</div>
+          <div class="shadow-box shadow-sm">--shadow-sm</div>
+          <div class="shadow-box shadow-md">--shadow-md</div>
+          <div class="shadow-box shadow-lg">--shadow-lg</div>
+          <div class="shadow-box shadow-glow">--shadow-glow</div>
+        </div>
+      </section>
+
+      <!-- MOTION -->
+      <section class="section">
+        <h2>Motion</h2>
+        <p class="lead">Transitions 300ms / ease cubic-bezier(0.22, 1, 0.36, 1). Hover sur les boutons ci-dessus pour le tester.</p>
+        <div class="btn-row">
+          <button class="btn btn-accent">Hover-moi (translate + glow)</button>
+          <button class="btn btn-secondary">Hover-moi (border fade)</button>
+        </div>
+      </section>
+
+      <!-- INFOS -->
+      <section class="section" style="border:none">
+        <h2>Apply en 2 minutes</h2>
+        <p class="lead">Pour basculer toute l'app sur ce thème :</p>
+        <pre style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-md); overflow-x: auto; font-family: var(--font-family-mono); font-size: 13px; color: var(--color-fg-body); border: 1px solid var(--color-border-soft)">
+// 1. Importer le CSS dans globals.css
+@import "../themes/robotflowtemplate-webflow-io/tokens.css";
+
+// 2. Activer le data-attribute
+document.documentElement.dataset.theme = "robotflowtemplate-webflow-io";
+
+// 3. Ou côté Hearst OS, passe par Settings → Apparence (UI auto-générée par /skin)
+        </pre>
+      </section>
+    </div>
+
+    <script>
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const pane = tab.dataset.pane;
+          document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t === tab));
+          document.querySelectorAll(".compare-pane").forEach((p) => p.classList.toggle("active", p.dataset.pane === pane));
+        });
+      });
+    </script>
+  </body>
+</html>

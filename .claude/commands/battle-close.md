@@ -1,70 +1,72 @@
 ---
-description: Marque un batch comme done (manuellement) + close findings + régénère HTML. À utiliser uniquement si /battle-exec a partiellement échoué et que tu valides manuellement.
+description: Marque un batch comme done (manuel) + close findings + régénère HTML. Uniquement si /battle-exec a partiellement échoué.
 argument-hint: <batch-id>
 ---
 
-# Battle Plan — Close batch (manuel)
+# /battle-close — Close batch (manuel)
 
 Argument : **$ARGUMENTS**
 
-⚠ **À utiliser uniquement** si tu as validé manuellement le batch après que `/battle-exec` ait posé un blocker contournable.
+À utiliser uniquement si tu as validé manuellement le batch après que `/battle-exec` ait posé un blocker contournable. Usage normal : `/battle-exec` close automatiquement après re-audit OK.
 
-Pour usage normal : utiliser `/battle-exec` qui close automatiquement après re-audit OK.
-
-## Étape 1 — Vérification
+## Étape 1 — Pré-flight
 
 !cat docs/AGENT-LOCK.json
 
 Si `locked: true` → ABORT.
 
-Lis le batch courant :
-
 !node scripts/battle-status.mjs --batch=$ARGUMENTS
 
 Vérifier :
-
 - batch existe
-- status actuel = `in_progress` (sinon demander confirmation)
+- status actuel = `in_progress` → sinon demander confirmation
 
-Demande à l'utilisateur :
+## Étape 2 — Confirmation utilisateur
 
+Demander explicitement à Adrien :
 1. Quels findings sont VRAIMENT closed (peut être un sous-ensemble) ?
-2. Y a-t-il des régressions à ouvrir comme nouveaux findings F-XXX ?
-3. Confirmer : marquer `done` ?
+2. Régressions à ouvrir comme nouveaux findings F-XXX ?
+3. Confirmer le passage en `done` ?
 
-## Étape 2 — Apply
+Attendre `o` ou `oui`.
+
+## Étape 3 — Application
 
 Si confirmé :
 
 !node scripts/battle-mark.mjs --batch=$ARGUMENTS --status=done
 
-Et pour chaque finding closed :
+Pour chaque finding closed (remplacer F-XXX par la vraie liste) :
 
-!node scripts/battle-mark.mjs --finding=F-XXX --status=closed
+```bash
+node scripts/battle-mark.mjs --finding=F-XXX --status=closed
+```
 
-(Adapter F-XXX à la vraie liste retournée par l'utilisateur.)
+Pour chaque régression à ouvrir :
 
-## Étape 3 — Régénérer
+```bash
+node scripts/battle-mark.mjs --new-finding --batch=$ARGUMENTS --severity=<P0|P1|P2> --title="<titre>"
+```
+
+## Étape 4 — Régénérer HTML
 
 !npm run audit:render
 !npm run battle:render
 
-## Étape 4 — Suggérer commit
-
-Présente :
+## Étape 5 — Suggérer commit
 
 ```
-✅ Batch $ARGUMENTS marked DONE manually
-- Findings closed: <list>
-- HTML régénéré
-- Commit suggestion :
+Batch $ARGUMENTS marked DONE manually
+  Findings closed : <liste>
+  HTML régénéré
+  Commit suggestion :
 
-fix(security): close batch $ARGUMENTS — <description>
+  fix(security): close batch $ARGUMENTS — <description>
 
-Closes findings: F-XXX, F-YYY
-Manually closed after partial /battle-exec.
+  Closes findings: F-XXX, F-YYY
+  Manually closed after partial /battle-exec.
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+  Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
 ```
 
-NE COMMIT PAS toi-même.
+**Ne commit pas toi-même.** L'utilisateur lance `git commit` après revue.

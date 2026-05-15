@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropship Design System - Warw Effect</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Satoshi:wght@300;400;500;700&display=swap');
+
+        :root {
+            /* Couleurs de base de votre système */
+            --bg: #000000;
+            --text: #ffffff;
+            --text-soft: rgba(255, 255, 255, 0.88);
+            --text-muted: rgba(255, 255, 255, 0.65);
+            --text-faint: rgba(255, 255, 255, 0.45);
+            --cyan-accent: #4a8b86;
+            --accent-teal: #4a8b86;
+            --gold: #c8a961;
+
+            /* Tokens d'espacement */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+
+            /* Tokens de rayons */
+            --radius-xs: 4px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-pill: 9999px;
+
+            /* Ombres et lueurs */
+            --shadow-card: 0 4px 8px rgba(0, 0, 0, 0.5), 0 20px 40px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.6), 0 30px 60px rgba(74, 139, 134, 0.2), 0 40px 80px -20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            --input-glow-focus: 0 0 40px rgba(74, 139, 134, 0.22), 0 0 80px rgba(74, 139, 134, 0.1);
+            --neon-accent-teal: 0 0 10px rgba(74, 139, 134, 0.7), 0 0 20px rgba(74, 139, 134, 0.3);
+
+            /* Couleurs pour le thème clair (body) */
+            --main-bg-light: #ffffff;
+            --main-text-dark: #1a1a1a;
+            --card-bg-light: #f5f5f5;
+            --card-border-light: #e0e0e0;
+            --card-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+            --card-shadow-light-hover: 0 8px 24px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+            --text-light-muted: #666666;
+            --text-light-faint: #999999;
+            --border-default-light: #cccccc;
+        }
+
+        body {
+            font-family: var(--font-satoshi);
+            background-color: var(--main-bg-light);
+            color: var(--main-text-dark);
+            padding: var(--space-10);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); /* t-48 */
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+            color: var(--main-text-dark);
+            margin-bottom: var(--space-4);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem); /* t-28 */
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--main-text-dark);
+            margin-bottom: var(--space-3);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem); /* t-18 */
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--main-text-dark);
+            margin-bottom: var(--space-2);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-light-muted);
+            margin-bottom: var(--space-3);
+        }
+
+        .section-separator {
+            height: 1px;
+            background-color: var(--border-default-light);
+            margin: var(--space-10) 0;
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--text);
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        .color-swatch-light {
+            color: var(--main-text-dark);
+            text-shadow: none;
+        }
+
+        .token-display {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--card-border-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-3);
+            font-size: 0.875rem;
+            color: var(--main-text-dark);
+        }
+
+        .form-input {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--border-default-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-3);
+            color: var(--main-text-dark);
+            width: 100%;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-light-faint);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-teal) 20%, transparent);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-teal);
+            color: var(--text);
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-pill);
+            font-weight: 500;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .btn-primary:hover {
+            background-color: color-mix(in srgb, var(--accent-teal) 85%, black);
+            box-shadow: 0 0 15px rgba(74, 139, 134, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .kpi-card {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--card-border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            box-shadow: var(--card-shadow-light);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            width: 300px;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow-light-hover);
+            border-color: var(--accent-teal);
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--text-light-faint);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-2);
+        }
+
+        .kpi-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--main-text-dark);
+            line-height: 1;
+            margin-bottom: var(--space-1);
+        }
+
+        .kpi-description {
+            font-size: 0.875rem;
+            color: var(--text-light-muted);
+        }
+        .kpi-change {
+            font-size: 0.875rem;
+            color: var(--accent-teal);
+            font-weight: 500;
+            margin-top: var(--space-1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Design System - Warw Effect</h1>
+    <p>Une collection de composants essentiels pour une expérience utilisateur moderne et impactante.</p>
+
+    <div class="section-separator"></div>
+
+    <h2>Typographie</h2>
+
+    <h1 class="text-4xl">Headline 1 - Titre principal</h1>
+    <h2 class="text-3xl">Headline 2 - Sous-titre de section</h2>
+    <h3 class="text-2xl">Headline 3 - Éléments de contenu</h3>
+    <p>Ceci est un paragraphe de texte pour illustrer la typographie de base.</p>
+    <p style="color: var(--text-light-muted);">Texte muted pour des informations secondaires.</p>
+    <p style="color: var(--text-light-faint);">Texte faint pour des détails subtils ou des métadonnées.</p>
+
+    <div class="section-separator"></div>
+
+    <h2>Palette de Couleurs</h2>
+    <div class="flex gap-4 mb-4">
+        <div class="color-swatch" style="background-color: var(--main-bg-light); border: 1px solid var(--border-default-light); color: var(--main-text-dark);">Main BG</div>
+        <div class="color-swatch" style="background-color: var(--main-text-dark);">Main Text</div>
+        <div class="color-swatch" style="background-color: var(--cyan-accent);">Accent Teal</div>
+        <div class="color-swatch" style="background-color: var(--gold);">Gold Accent</div>
+    </div>
+    <div class="flex gap-4">
+        <div class="color-swatch" style="background-color: var(--bg); border: 1px solid var(--border-default-light);">Dark BG</div>
+        <div class="color-swatch" style="background-color: var(--card-bg-light); color: var(--main-text-dark);">Card BG</div>
+        <div class="color-swatch" style="background-color: var(--text-light-muted);">Muted Text</div>
+        <div class="color-swatch" style="background-color: var(--text-light-faint);">Faint Text</div>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2>Tokens de Design</h2>
+    <h3>Espacement</h3>
+    <div class="flex flex-wrap gap-4 mb-6">
+        <div class="token-display" style="width: var(--space-4); height: var(--space-4);">S4</div>
+        <div class="token-display" style="width: var(--space-8); height: var(--space-8);">S8</div>
+        <div class="token-display" style="width: var(--space-10); height: var(--space-10);">S10</div>
+    </div>
+    <h3>Rayons d'angle (Radius)</h3>
+    <div class="flex flex-wrap gap-4 mb-6">
+        <div class="token-display" style="border-radius: var(--radius-md);">Radius MD</div>
+        <div class="token-display" style="border-radius: var(--radius-lg);">Radius LG</div>
+        <div class="token-display" style="border-radius: var(--radius-pill);">Radius Pill</div>
+    </div>
+    <h3>Ombres (Shadows)</h3>
+    <div class="token-display" style="box-shadow: var(--card-shadow-light-hover); width: 250px;">Shadow Hover Effect</div>
+
+    <div class="section-separator"></div>
+
+    <h2>Formulaires</h2>
+    <div class="max-w-md space-y-4">
+        <input type="text" placeholder="Nom d'utilisateur" class="form-input">
+        <input type="password" placeholder="Mot de passe" class="form-input">
+        <button class="btn-primary">Se connecter</button>
+    </div>
+
+    <div class="section-separator"></div>
+
+    <h2>KPI - Carte de Performance</h2>
+    <div class="kpi-card">
+        <p class="kpi-label">Total Ventes du Mois</p>
+        <p class="kpi-value">12 500 €</p>
+        <p class="kpi-description">Cumul des ventes sur les 30 derniers jours.</p>
+        <p class="kpi-change">+15% par rapport au mois dernier</p>
+    </div>
+
+</body>
+</html>

@@ -1,101 +1,112 @@
 ---
-description: Audit transversal — sécurité, perf, architecture, dépendances. Sortie P0/P1/P2.
+description: Audit transversal — sécurité, perf, architecture, dépendances. Sortie P0/P1/P2 + rapport HTML.
+argument-hint: [security|perf|arch|deps] (vide = tous)
 ---
 
 # /audit — Audit transversal
 
-Audit multi-axe du codebase. Chaque finding reçoit une sévérité et un effort estimé. Opère en 4 axes.
+Audit multi-axe en read-only. Aucun fichier code n'est modifié. Sortie : rapport HTML via `scripts/render-report.mjs`.
 
-## Arguments optionnels
+## Pré-flight
 
-`$ARGUMENTS` — axe ciblé : `security` | `perf` | `arch` | `deps` | vide = tous les axes.
+!cat docs/AGENT-LOCK.json
 
-## Axe 1 — Sécurité (OWASP top 10)
+Si `locked: true` → écrire le rapport reste autorisé (audit only), pas de fix.
 
-!grep -rn "process\.env\." app/ --include="_.tsx" --include="_.ts" | grep -v "NEXT_PUBLIC" | head -30
+## Scope
 
-Vérifie :
+`$ARGUMENTS` — axe ciblé : `security` | `perf` | `arch` | `deps` | vide = tous.
 
-- Variables d'env exposées côté client sans préfixe `NEXT_PUBLIC_`
-- `eval()`, `dangerouslySetInnerHTML` sans sanitisation
-- SQL/NoSQL injection dans les routes API (`app/api/`)
-- Auth manquante sur des routes qui manipulent des données utilisateur
-- Secrets hardcodés (regex: `(password|secret|key|token)\s*=\s*["'][^"']{8,}`)
+## Stratégie : 4 sous-agents en parallèle
 
-!grep -rn "dangerouslySetInnerHTML" app/ --include="_.tsx" | head -20
-!grep -rn "eval(" app/ lib/ --include="_.ts" --include="_.tsx" | head -20
-!grep -rEn "(password|secret|apikey|api_key)\s_=\s*[\"'][^\"']{6,}" app/ lib/ --include="*.ts" | head -20
+Spawn 4 Agents dans **un seul message** (subagent_type: `Explore`) :
 
-## Axe 2 — Performance
+### Agent 1 — Sécurité (OWASP)
 
-!find app/ -name "\*.tsx" -exec wc -l {} + | sort -rn | head -20
+Vérifier :
+- `process.env.*` exposé côté client sans `NEXT_PUBLIC_`
+- `dangerouslySetInnerHTML` sans sanitisation
+- `eval(` dans `app/` ou `lib/`
+- Routes API `app/api/**` sans auth (`getServerSession`, `requireAuth`)
+- Secrets en dur : `(password|secret|api_key|token)\s*=\s*["'][^"']{8,}`
+- Inputs route handler sans validation zod
 
-Vérifie :
+Commandes utiles :
+- `grep -rn "process.env\." app/ --include="*.tsx" --include="*.ts" | grep -v NEXT_PUBLIC`
+- `grep -rn "dangerouslySetInnerHTML" app/ --include="*.tsx"`
+- `grep -rEn "eval\(" app/ lib/ --include="*.ts" --include="*.tsx"`
 
-- Composants > 300 lignes (candidats à la découpe)
-- `useEffect` sans dépendances stables (boucles infinies potentielles)
-- Images sans `next/image` ou sans `sizes`
-- `JSON.parse` / `JSON.stringify` dans des render loops
-- Imports barrel qui tirent tout un module pour un seul symbole
+Livrable : `{ findings: [{ severity, path, line, rule, title, current, suggested, why }] }`.
 
-!grep -rn "useEffect" app/ --include="_.tsx" | wc -l
-!grep -rn "<img " app/ --include="_.tsx" | grep -v "next/image" | head -20
+### Agent 2 — Performance
 
-## Axe 3 — Cohérence architecture (ADD)
+Vérifier :
+- Composants > 300 lignes (candidat découpe)
+- `useEffect` sans tableau de deps explicite
+- `<img>` sans `next/image`
+- `JSON.parse`/`JSON.stringify` dans render
+- Barrel imports tirant un module entier
 
-@docs/AGENT-DRIVEN-DEV.md
+Commandes utiles :
+- `find app/ -name "*.tsx" -exec wc -l {} + | sort -rn | head -20`
+- `grep -rn "<img " app/ --include="*.tsx" | grep -v "next/image"`
 
-Vérifie :
+### Agent 3 — Architecture (ADD)
 
-- Fichiers modifiés dans des zones verrouillées sans spec correspondante
-- Imports cross-feature qui violent l'isolation des modules
-- Stores Zustand avec état dupliqué entre plusieurs stores
-- Routes API sans typage des entrées/sorties (pas de `zod` ou équivalent)
+Vérifier :
+- Modifs dans zones verrouillées sans spec correspondante (cf `docs/AGENT-DRIVEN-DEV.md`)
+- Imports cross-feature qui violent isolation
+- Stores Zustand avec état dupliqué
+- Routes API sans typage entrée/sortie
 
-!node scripts/list-stores.mjs 2>/dev/null | head -40
-!node scripts/list-api-routes.mjs 2>/dev/null | head -40
+Commandes utiles :
+- `node scripts/list-stores.mjs 2>/dev/null`
+- `node scripts/list-api-routes.mjs 2>/dev/null`
+- Lire `docs/AGENT-DRIVEN-DEV.md`
 
-## Axe 4 — Dépendances
+### Agent 4 — Dépendances
 
-!npm audit --json 2>/dev/null | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8'));const v=d.vulnerabilities||{};Object.entries(v).forEach(([k,v])=>console.log('['+v.severity.toUpperCase()+'] '+k+' — '+v.via[0]?.title||'?'))" 2>/dev/null | head -30
-!npx depcheck --json 2>/dev/null | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8'));console.log('Unused:',d.dependencies.join(', '));console.log('Missing:',Object.keys(d.missing).join(', '))" 2>/dev/null
+Vérifier :
+- `npm audit` vulnérabilités haute/critique
+- `npx depcheck` deps inutilisées / manquantes
+- Lockfile désynchro
 
-## Rapport final
+Commandes utiles :
+- `npm audit --json 2>/dev/null`
+- `npx depcheck --json 2>/dev/null`
 
-Chaque finding :
+## Agrégation
+
+Merger les 4 livrables JSON dans la structure attendue par `render-report.mjs` :
+
+```json
+{
+  "title": "Audit transversal",
+  "scope": "<axe ou 'complet'>",
+  "kpis": { "p0": N, "p1": N, "p2": N },
+  "sections": [
+    { "name": "Sécurité", "agent": "OWASP", "findings": [...] },
+    { "name": "Performance", "agent": "perf", "findings": [...] },
+    { "name": "Architecture", "agent": "ADD", "findings": [...] },
+    { "name": "Dépendances", "agent": "deps", "findings": [...] }
+  ],
+  "quickWins": [ { "title", "path?", "effort?" } ],
+  "plan": [
+    { "name": "P0 critiques", "items": ["..."] },
+    { "name": "P1 cohérence", "items": ["..."] },
+    { "name": "P2 dettes", "items": ["..."] }
+  ]
+}
+```
+
+Écrire dans `/tmp/audit-data.json`, puis :
+
+!node scripts/render-report.mjs --type=audit --data=/tmp/audit-data.json --open
+
+## Réponse finale (5 lignes max)
 
 ```
-[P0|P1|P2] AXE — Titre court
-  Fichier  : chemin:ligne
-  Problème : description
-  Impact   : <ce qui casse si on ne corrige pas>
-  Fix      : <action concrète, 1 phrase>
-  Effort   : XS | S | M | L
+Audit <scope> · P0:N P1:N P2:N
+Quick wins : <top 3 titres>
+Rapport : docs/audit/audit-YYYY-MM-DD.html
 ```
-
-**P0** = bloquant prod / faille exploitable  
-**P1** = dégradation silencieuse / bug potentiel  
-**P2** = dette technique / opportunité d'amélioration
-
-Termine par un résumé : N findings, X P0, Y P1, Z P2.
-
-## Rapport HTML — ouverture automatique Chrome
-
-Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-audit.html` et ouvre-le dans Chrome.
-
-Le HTML doit :
-
-- Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
-- Header avec titre "Audit transversal", date/heure, axes analysés
-- Compteurs en haut : total findings, avec 3 jauges visuelles P0 / P1 / P2 (barres colorées rouge/orange/jaune)
-- Tableau par axe (Sécurité / Perf / Architecture / Dépendances) avec badge sévérité, fichier cliquable `vscode://file/...`, description du problème, fix recommandé, effort estimé
-- Les P0 apparaissent en premier, fond légèrement rouge, bordure gauche rouge vif
-- Section résumé exécutif en bas : quoi faire en priorité absolue cette semaine
-- Footer : date, commande lancée, axes couverts
-
-!node -e "
-const fs = require('fs');
-const html = \`CONTENU_HTML_GENERE\`;
-fs.writeFileSync('/tmp/rapport-audit.html', html);
-"
-!open -a 'Google Chrome' /tmp/rapport-audit.html

@@ -1,44 +1,83 @@
 ---
-description: Vérifie les invariants ADD des fichiers stagés avant commit
+description: Vérifie les invariants ADD des fichiers stagés avant commit (verrou, zones, specs).
 ---
 
-# ADD — Vérification invariants pré-commit
+# /add — Vérification invariants pré-commit
 
-Lance cette commande avant `git commit` quand tu as modifié des fichiers.
+Garde-fou avant `git commit`. Vérifie verrou agent + invariants des features touchées + manifest à jour.
 
-## Étape 1 — Verrou
+## Étape 1 — Verrou agent
 
 !cat docs/AGENT-LOCK.json
 
-Si `locked === true` : STOP, refuse le commit, informe l'utilisateur.
+Si `locked: true` → STOP. Refuser le commit. Informer l'utilisateur, citer la `reason`. Indiquer qu'il doit déverrouiller via `/admin/agent-driven-dev`.
 
 ## Étape 2 — Fichiers stagés
 
 !git diff --staged --name-only
 
-## Étape 3 — Features impactées
+Si zéro fichier stagé → rien à vérifier, indiquer "git add nécessaire d'abord".
 
-Pour chaque fichier stagé, identifie la feature concernée selon `docs/rules/locked-zones.md`. Pour chaque feature identifiée :
+## Étape 3 — Mapping fichier → feature
+
+Lire `docs/rules/locked-zones.md` :
 
 @docs/rules/locked-zones.md
 
-## Étape 4 — Analyse
+Pour chaque fichier stagé, déterminer quelle(s) feature(s) il touche via les patterns du fichier `locked-zones.md`. Construire la liste unique des features impactées.
 
-Pour chaque feature touchée, lis la spec :
-@docs/features/[ID_FEATURE].md
+## Étape 4 — Lecture des specs touchées
 
-Analyse ton changement vs les invariants de la section "Invariants verrouillés". 
+Pour chaque feature_id identifiée, ouvrir `docs/features/<feature_id>.md` via :
 
-## Étape 5 — Rapport
+```bash
+cat docs/features/<feature_id>.md
+```
 
-Produis un rapport :
-- ✅ Features touchées sans invariant concerné → OK
-- ⚠️ Features touchées avec invariants potentiellement impactés → LISTE les invariants et explique pourquoi
-- 🚫 Invariant clairement violé → STOP, explique, propose update spec
+Identifier :
+- statut (verrouillé v<n> ou autonomie)
+- section "Invariants verrouillés"
+- section "Évolutions autorisées"
 
-Si tout est ✅ : `git commit` est autorisé.
-Si ⚠️ ou 🚫 : attendre validation Adrien.
+## Étape 5 — Diff vs invariants
 
-## Note
-Régénère aussi le manifest si tu as modifié une spec :
+Pour chaque feature verrouillée touchée, comparer le diff staged avec les invariants :
+
+```bash
+git diff --staged -- <fichiers concernés>
+```
+
+Classer chaque finding :
+- ✅ Pas de contradiction avec invariants
+- ⚠ Possible impact sur invariant — demander revue avant commit
+- 🚫 Invariant clairement violé — STOP
+
+## Étape 6 — Manifest features
+
+Si un fichier `docs/features/*.md` est stagé :
+
 !npm run features:manifest
+
+Vérifier que `docs/features/_manifest.json` est aussi stagé. Sinon proposer :
+
+```bash
+git add docs/features/_manifest.json
+```
+
+## Étape 7 — Rapport
+
+```
+ADD pre-commit · N fichiers stagés
+Features touchées : <liste>
+  ✅ <feat-a> : aucun invariant impacté
+  ⚠ <feat-b> : section X.Y à revoir manuellement
+  🚫 <feat-c> : invariant Z violé — STOP
+Manifest : à jour | régénéré et stagé | nécessite git add
+```
+
+Verdict :
+- Tout ✅ et manifest OK → commit autorisé.
+- Au moins un ⚠ → afficher détail, demander confirmation utilisateur explicite.
+- Au moins un 🚫 → STOP, proposer update spec (incrémenter `version spec`) avant tout commit.
+
+**Ne commit jamais toi-même** — l'utilisateur lance `git commit` après ton OK.

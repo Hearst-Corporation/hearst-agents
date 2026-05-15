@@ -85,6 +85,7 @@ export function useDashboardCounts(): DashboardCounts {
 
       const next: Partial<DashboardCounts> = {};
       let liveMissions: Array<{ id: string; name?: string; status: string; schedule?: string | null; lastRunAt?: number; lastRunStatus?: string }> = [];
+      let fromFallback = false;
 
       if (todayRes) {
         const data = todayRes as {
@@ -112,16 +113,18 @@ export function useDashboardCounts(): DashboardCounts {
             schedule: m.schedule ?? null,
             lastRunAt: m.lastRunAt,
           }));
+        fromFallback = true;
         if (next.missionsTotal == null) {
           next.missionsTotal = missionsList.length;
         }
       }
 
-      const DONE_STATUSES = new Set(["completed", "success", "done", "succeeded", "terminé"]);
-      const live = liveMissions
-        .filter((m) => !DONE_STATUSES.has(m.status))
-        .slice(0, 5);
-      next.missionsActive = live.filter((m) => m.status === "running").length;
+      // cockpit/today retourne les missions "récemment actives" (running + lastRunAt),
+      // pas seulement les missions live. On n'écarte rien — on affiche toutes celles
+      // remontées, quelle que soit leur status.
+      const live = liveMissions.slice(0, 5);
+      void fromFallback; // utilisé pour la logique missionsTotal ci-dessus
+      next.missionsActive = liveMissions.filter((m) => m.status === "running").length;
       next.missionsLive = live.map((m) => ({
         id: m.id,
         name: m.name ?? m.id,

@@ -1,0 +1,142 @@
+/* Theme: robotflowtemplate-webflow-io
+ * Source: https://robotflowtemplate.webflow.io/home-pages/home-v1
+ * Generated: 2026-05-15
+ *
+ * Esthétique: tech dark futuriste — fond near-black, accent violet électrique,
+ * coins ultra-arrondis (32px cards / 200px buttons), typographie Inter Tight.
+ *
+ * Note: @import doit rester en tête (règle CSS) — les rules :root viennent après.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap");
+
+:root[data-theme="robotflowtemplate-webflow-io"] {
+  /* === Couleurs === */
+  --color-bg:           #050607;
+  --color-bg-elevated:  #090a0c;
+  --color-surface:      #121418;
+  --color-surface-hi:   #1a1d22;
+  --color-border:       #3b3e45;
+  --color-border-soft:  #1a1d22;
+
+  --color-fg:           #ffffff;
+  --color-fg-body:      #b6bcc9;
+  --color-fg-muted:     #7c818d;
+  --color-fg-dim:       #666977;
+
+  --color-accent:       #523ff5;
+  --color-accent-hi:    #6a55ff;
+  --color-accent-soft:  rgba(82, 63, 245, 0.18);
+
+  --color-success:      #74d184;
+  --color-warning:      #efc42c;
+  --color-danger:       #fe566b;
+  --color-info:         #64a7ff;
+
+  --color-on-accent:    #ffffff;
+  --color-on-fg:        #050607;
+
+  /* Aliases sémantiques (compat Hearst OS) */
+  --bg:        var(--color-bg);
+  --surface:   var(--color-surface);
+  --border:    var(--color-border);
+  --text:      var(--color-fg);
+  --text-muted: var(--color-fg-muted);
+  --accent:    var(--color-accent);
+
+  /* === Typographie === */
+  --font-family:        "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-family-mono:   "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  --font-size-xs:       14px;
+  --font-size-sm:       16px;
+  --font-size-base:     18px;
+  --font-size-lg:       20px;
+  --font-size-xl:       24px;
+  --font-size-2xl:      30px;
+  --font-size-3xl:      36px;
+  --font-size-4xl:      48px;
+  --font-size-5xl:      60px;
+  --font-size-6xl:      72px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:    700;
+
+  --line-height-tight:   1.115;
+  --line-height-base:    1.25;
+  --line-height-relaxed: 1.5;
+
+  --letter-spacing-base: normal;
+  --letter-spacing-tight: -0.01em;
+
+  /* === Spacing === */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-18: 72px;
+  --space-20: 80px;
+  --space-24: 100px;
+  --space-30: 120px;
+  --space-40: 160px;
+  --space-50: 200px;
+
+  /* === Radius === */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   32px;
+  --radius-xl:   48px;
+  --radius-2xl:  64px;
+  --radius-pill: 200px;
+  --radius-full: 9999px;
+
+  /* === Shadows === */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 1px 4px rgba(25, 33, 61, 0.18);
+  --shadow-md: 0 0.6px 0.8px rgba(0, 0, 0, 0.35), 0 3px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 32px rgba(82, 63, 245, 0.35);
+
+  /* === Motion === */
+  --duration-fast:   150ms;
+  --duration-base:   300ms;
+  --duration-slow:   500ms;
+  --ease-base:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out:        cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Layout === */
+  --container-max: 1280px;
+  --section-padding: 120px;
+}
+
+/* === Application des tokens quand le thème est actif === */
+:root[data-theme="robotflowtemplate-webflow-io"] body {
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-fg-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
+:root[data-theme="robotflowtemplate-webflow-io"] h1,
+:root[data-theme="robotflowtemplate-webflow-io"] h2,
+:root[data-theme="robotflowtemplate-webflow-io"] h3,
+:root[data-theme="robotflowtemplate-webflow-io"] h4,
+:root[data-theme="robotflowtemplate-webflow-io"] h5,
+:root[data-theme="robotflowtemplate-webflow-io"] h6 {
+  color: var(--color-fg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}

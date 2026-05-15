@@ -1,49 +1,70 @@
 ---
-description: Audit visuel d'un écran (magic numbers, hiérarchie, fidélité au design system)
-argument-hint: [chemin/vers/fichier.tsx ou rien pour l'écran courant]
+description: Audit visuel d'un écran (magic numbers, hiérarchie, fidélité au design system). Audit only.
+argument-hint: <chemin/vers/fichier.tsx>
 ---
 
-Audite l'UI de **$ARGUMENTS** (si vide, demande à Adrien quel écran auditer).
+# /ui — Audit visuel d'un écran
 
-## Étape 1 — Lecture des références
+Audit pixel-perfect d'**un seul fichier**. Read-only — aucune modification. Si tu veux fixer après revue, demande explicitement.
 
-Ouvre obligatoirement et garde en tête :
+## Scope
+
+`$ARGUMENTS` = chemin du fichier. Si vide → demander à Adrien quel écran auditer.
+
+## Étape 1 — Références canoniques
+
+Ouvrir et garder en tête :
 - [app/globals.css](app/globals.css) — tous les tokens disponibles
 - [HEARST-OS-DESIGN-SYSTEM.html](HEARST-OS-DESIGN-SYSTEM.html)
-- [hearst-ui-vision.html](hearst-ui-vision.html)
+- [hearst-ui-vision.html](hearst-ui-vision.html) si présent
 
-## Étape 2 — Tableau des magic numbers
+## Étape 2 — Lecture intégrale du fichier ciblé
 
-Lis le fichier ciblé. Construis un tableau markdown :
+Lire `$ARGUMENTS` ligne par ligne. Ne sauter aucun écart.
+
+## Étape 3 — Tableau des magic numbers
+
+Produire un tableau markdown exhaustif :
 
 | Ligne | Code actuel | Token correct | Note |
 |-------|-------------|---------------|------|
-| L42 | `px-12` | `var(--space-12)` ou class à créer | spacing horizontal |
-| L67 | `text-5xl` + `style={{ fontWeight: 700 }}` | `.halo-title-xl` | déjà existant, à réutiliser |
-| L89 | `rgba(45,212,191,0.3)` | `var(--cykan)` + opacity | couleur hardcodée |
+| L42 | `px-12` | `var(--space-12)` (déjà mappé via Tailwind) | OK si dans STRICT_PATHS — vérifier |
+| L67 | `style={{ fontWeight: 700 }}` | `.t-15-strong` | classe DS existante |
+| L89 | `rgba(45,212,191,0.3)` | `var(--cykan)` + opacity ou token `--cykan-12` | couleur hardcodée |
+| L122 | `rounded-[14px]` | `var(--radius-md)` | radius hors token |
 
-Liste **TOUS** les écarts. Ne saute aucune ligne.
+Catégoriser :
+- **spacing** (margin, padding, gap, width, height)
+- **typo** (font-size, font-weight, line-height, tracking)
+- **color** (hex, rgb, hsl)
+- **radius** (border-radius)
+- **shadow** (box-shadow)
+- **motion** (duration, easing)
+- **inline-style** (style={{ ... }})
 
-## Étape 3 — Screenshot de l'état actuel
+## Étape 4 — Diagnostic hiérarchie (3-5 bullets max)
 
-Si le dev server tourne déjà, prends un screenshot Playwright de la page concernée. Sinon dis-le, ne lance pas le serveur sans demander.
+- Équilibre : centrage, rythme vertical, alignements
+- Hiérarchie typographique : niveau manquant ou redondant ?
+- Densité : trop aéré / trop dense vs mock DS
+- Cohérence : ce composant vs ses voisins
+- Voix éditoriale : mono caps ? halo-on-hover sur chrome ?
 
-## Étape 4 — Diagnostic de hiérarchie visuelle
+## Étape 5 — Plan de correction (3 actions max, ordonnées par impact)
 
-En 3-5 bullets max, identifie :
-- Ce qui est déséquilibré (centrage, rythme vertical, alignements)
-- La hiérarchie typographique (manque-t-il un niveau ? trop de niveaux ?)
-- La densité (trop aéré, trop dense, par rapport au mock)
+Pour chaque action :
+- **Quoi** — token / classe DS à utiliser
+- **Justification** — pointer la section du mock DS qui la valide
+- **Effort** — 1 ligne / 5 lignes / refacto complet
+- **Risque** — faible / moyen / élevé
 
-## Étape 5 — Plan de correction
+## Étape 6 — Token manquant
 
-3 corrections concrètes, ordonnées par impact visuel. Pour chacune :
-- Quel token / classe utiliser
-- Quel mock dans `HEARST-OS-DESIGN-SYSTEM.html` ou `hearst-ui-vision.html` la justifie
-- Estimation : 1 ligne, 5 lignes, refacto complet ?
+Si un token nécessaire n'existe pas dans `globals.css` :
+- Le signaler explicitement avec valeur proposée et nom de token
+- **Ne pas** proposer de magic number temporaire
+- Suggérer : ajouter le token dans `globals.css` puis continuer
 
-## Règle d'or
+## Règle absolue
 
-**Ne modifie AUCUN code à cette étape.** Audit only. Adrien valide la direction, ensuite il te dira "applique".
-
-Si un token nécessaire manque dans `globals.css`, signale-le explicitement — ne propose pas de magic number "temporaire".
+**Aucune modification de code à cette étape.** Audit only. Adrien valide la direction → ensuite il te dit "applique".

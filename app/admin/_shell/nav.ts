@@ -91,6 +91,12 @@ export const NAV_SECTIONS: NavSection[] = [
           "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4",
       },
       {
+        href: "/admin/themes",
+        label: "Apparence",
+        iconPath:
+          "M12 22a10 10 0 1 1 0-20 10 10 0 0 1 6 18 1.5 1.5 0 0 1-1 .8 1.5 1.5 0 0 1-1.6-.7 2 2 0 0 0-1.7-1 2 2 0 0 0-1.7 1A1.7 1.7 0 0 1 12 22zM7.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM12 7.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM16.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17 15.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z",
+      },
+      {
         href: "/admin/settings",
         label: "Settings",
         iconPath:

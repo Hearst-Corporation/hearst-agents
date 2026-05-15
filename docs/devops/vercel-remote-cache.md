@@ -20,10 +20,10 @@ Pas de modification de code requise. Le build Next.js 15 honore directement `TUR
 
 Dans **Project Settings → Environment Variables**, ajouter pour toutes les environnements (Production, Preview, Development) :
 
-| Variable | Valeur |
-|---|---|
-| `TURBO_TOKEN` | le token généré ci-dessus |
-| `TURBO_TEAM` | le slug de l'équipe Vercel (ex : `mon-equipe`) ou l'ID utilisateur |
+| Variable      | Valeur                                                             |
+| ------------- | ------------------------------------------------------------------ |
+| `TURBO_TOKEN` | le token généré ci-dessus                                          |
+| `TURBO_TEAM`  | le slug de l'équipe Vercel (ex : `mon-equipe`) ou l'ID utilisateur |
 
 Le slug équipe se trouve dans **Team Settings → General → Team URL**.
 

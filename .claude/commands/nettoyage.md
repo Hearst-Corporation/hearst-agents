@@ -1,76 +1,98 @@
 ---
-description: Nettoie le codebase — dead code, exports orphelins, magic numbers, dettes lint
+description: Nettoie le codebase — dead code, exports orphelins, magic numbers, dettes lint. Rapport HTML.
+argument-hint: [chemin|glob] (vide = repo entier)
 ---
 
-# /clean — Nettoyage codebase
+# /nettoyage — Nettoyage codebase
 
-Analyse statique profonde du codebase pour identifier et supprimer ce qui est mort, redondant ou sale. Opère en 5 passes séquentielles.
+Analyse statique read-only. Aucune suppression automatique. Sortie : rapport HTML + plan de nettoyage en batches.
 
-## Arguments optionnels
+## Pré-flight
 
-`$ARGUMENTS` — chemin ou glob ciblé (ex: `app/` ou `components/missions/`). Si vide, scope = repo entier.
+!cat docs/AGENT-LOCK.json
 
-## Passe 1 — Exports orphelins
+Si `locked: true` → rapport autorisé, plan de batches affiché mais non exécuté.
 
-!npx knip --reporter json 2>/dev/null | head -200
+## Scope
 
-Identifie : exports non consommés, fichiers jamais importés, re-exports circulaires.
+`$ARGUMENTS` — chemin ou glob (ex: `app/` ou `components/missions/`). Vide = repo entier.
 
-## Passe 2 — Dead code TypeScript
+## Stratégie : 5 sous-agents en parallèle
 
-!npx ts-prune --error 2>/dev/null | head -100
+Spawn 5 Agents dans **un seul message** (subagent_type: `Explore`).
 
-Croise avec les résultats knip. Liste les symboles (fonctions, types, constantes) jamais référencés.
+### Agent 1 — Exports orphelins
 
-## Passe 3 — Magic numbers & inline styles
+Commande : `npx knip --reporter json 2>/dev/null`
 
-!grep -rn "style={{" app/ --include="_.tsx" | grep -v "var(--" | head -50
-!grep -rn "className=._#[0-9a-fA-F]\{3,6\}" app/ --include="_.tsx" | head -30
-!grep -rn "className=._\b\(px\|py\|p\|m\|gap\)-\[" app/ --include="\*.tsx" | head -30
+Identifie : exports non consommés, fichiers jamais importés, re-exports circulaires. Exclure `spatial-safe/`.
 
-Identifie les valeurs hardcodées qui devraient passer par un token `globals.css`.
+### Agent 2 — Dead code TypeScript
 
-## Passe 4 — Dettes lint
+Commande : `npx ts-prune --error 2>/dev/null`
 
-!npx eslint . --format json 2>/dev/null | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8'));d.forEach(f=>f.messages.forEach(m=>console.log(f.filePath+':'+m.line+' ['+m.severity+'] '+m.message)))" 2>/dev/null | head -80
+Lister symboles (fonctions, types, constantes) jamais référencés. Croiser avec Agent 1.
 
-## Passe 5 — TODO / FIXME obsolètes
+### Agent 3 — Magic numbers & inline styles
 
-!grep -rn "TODO\|FIXME\|HACK\|XXX" app/ lib/ --include="_.ts" --include="_.tsx" | grep -v node_modules | head -50
+Commandes :
+- `grep -rn "style={{" app/ components/ --include="*.tsx" | grep -v "var(--"`
+- `grep -rEn "#[0-9a-fA-F]{3,8}" app/ components/ --include="*.tsx" | grep -v globals.css`
+- `grep -rEn "(px|py|p|m|gap|w|h)-\[" app/ components/ --include="*.tsx"`
 
-## Rapport final
+Lister valeurs hardcodées qui devraient passer par token `globals.css`.
 
-Pour chaque finding, produis une entrée structurée :
+### Agent 4 — Dettes lint
+
+Commande : `npx eslint . --format json 2>/dev/null`
+
+Parser et lister par fichier:ligne avec sévérité.
+
+### Agent 5 — TODO/FIXME/HACK obsolètes
+
+Commande : `grep -rEn "(TODO|FIXME|HACK|XXX)" app/ lib/ components/ --include="*.ts" --include="*.tsx"`
+
+Vérifier âge git blame, marquer obsolète si > 90 jours sans contexte.
+
+## Règles de sécurité (jamais auto-supprimer)
+
+- Symboles marqués `@public`
+- Exports depuis `index.ts` racine
+- Fichiers dans `app/api/`
+- Tout fichier dans `spatial-safe/` ou `spatial/`
+
+Ces items nécessitent confirmation utilisateur explicite.
+
+## Agrégation → render-report
+
+JSON :
+
+```json
+{
+  "title": "Nettoyage codebase",
+  "scope": "<arg ou 'repo entier'>",
+  "kpis": { "p0": N, "p1": N, "p2": N },
+  "sections": [
+    { "name": "Exports orphelins", "findings": [...] },
+    { "name": "Dead code TS", "findings": [...] },
+    { "name": "Magic numbers", "findings": [...] },
+    { "name": "Dettes lint", "findings": [...] },
+    { "name": "TODO/FIXME obsolètes", "findings": [...] }
+  ],
+  "plan": [
+    { "name": "Batch 1 — Exports orphelins safe", "items": ["..."] },
+    { "name": "Batch 2 — Magic numbers → tokens", "items": ["..."] },
+    { "name": "Batch 3 — Dead code TS", "items": ["..."] }
+  ]
+}
+```
+
+!node scripts/render-report.mjs --type=nettoyage --data=/tmp/nettoyage-data.json --open
+
+## Réponse finale (5 lignes max)
 
 ```
-[TYPE] fichier:ligne
-  Problème : <description courte>
-  Action   : <supprimer / remplacer par token / migrer vers DS>
-  Risque   : faible | moyen | élevé
+Nettoyage <scope> · P0:N P1:N P2:N
+Plan : 3 batches proposés
+Rapport : docs/audit/nettoyage-YYYY-MM-DD.html
 ```
-
-Groupe par type. Trie par risque décroissant.
-
-**Règle de sécurité** : ne supprime jamais automatiquement un symbole marqué `@public`, un export depuis `index.ts` racine, ou un fichier dans `app/api/`. Ces items nécessitent confirmation.
-
-Après rapport, propose un plan de nettoyage en batches avec `git commit` par batch.
-
-## Rapport HTML — ouverture automatique Chrome
-
-Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-nettoyage.html` et ouvre-le dans Chrome.
-
-Le HTML doit :
-
-- Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
-- Header avec titre "Nettoyage codebase", date/heure, scope analysé
-- Compteurs visuels en haut : total findings, répartis par type (exports, dead code, magic numbers, lint, TODO)
-- Pour chaque finding : badge coloré par risque (rouge=élevé, orange=moyen, vert=faible), fichier cliquable `vscode://file/...`, description, action recommandée
-- Section "Plan de nettoyage" avec les batches proposés dans l'ordre
-- Footer : durée d'analyse, commande lancée
-
-!node -e "
-const fs = require('fs');
-const html = \`CONTENU_HTML_GENERE\`;
-fs.writeFileSync('/tmp/rapport-nettoyage.html', html);
-"
-!open -a 'Google Chrome' /tmp/rapport-nettoyage.html

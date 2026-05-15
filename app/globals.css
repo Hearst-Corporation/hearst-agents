@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* === Themes opt-in (skin via /admin/themes) ===
+ * Chaque thème scope ses tokens sous `:root[data-theme="<slug>"]`.
+ * Pas de data-theme = thème "default" (les tokens ci-dessous prennent effet).
+ * Auto-géré par /skin — ne pas éditer à la main. */
+@import "../themes/robotflowtemplate-webflow-io/tokens.css";
+
 /**
  * HEARST OS — Design Tokens v3 (Ghost Protocol).
  */

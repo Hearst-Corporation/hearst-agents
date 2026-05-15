@@ -1,177 +1,129 @@
 ---
-description: Audit QA UI/UX ultra-détaillé — alignements, spacing, cohérence, états, responsive. Senior QA Electron perfectionist.
+description: Audit QA UI/UX ultra-détaillé — alignements, spacing, cohérence, états, responsive. 3 agents parallèles.
+argument-hint: [chemin|module] (vide = app complète)
 ---
 
-# /qa — Audit QA UI/UX complet
+# /qa — Audit QA UI/UX
 
-Tu es Claude Code. Agis comme un senior QA UI/UX + frontend perfectionist spécialisé Electron desktop apps.
+Audit manuel ultra-détaillé. Read-only sauf demande explicite de fix. Sortie : rapport HTML avec score /10.
 
-Objectif : faire un audit manuel ultra-détaillé de toute l'interface pour détecter absolument tous les problèmes visuels, d'alignement, de cohérence, de responsive, de hiérarchie, de spacing, de superposition, de tailles et de qualité perçue.
+## Pré-flight
 
-Tu dois te comporter comme un QA obsessif du détail et considérer que tout défaut visuel est un bug.
+!cat docs/AGENT-LOCK.json
 
-## Arguments optionnels
+Si `locked: true` → audit autorisé, fixes non.
 
-`$ARGUMENTS` — scope ciblé (ex: `app/(admin)` pour l'admin seul, `components/missions/` pour un module). Vide = audit complet de toute l'interface.
+## Scope
 
-## Mission
+`$ARGUMENTS` — module ciblé (ex: `app/(admin)`, `components/missions/`). Vide = app complète.
 
-Parcours toute l'application écran par écran, composant par composant, état par état.
+## Exclusions strictes
 
-Vérifie :
+- `app/spatial-safe/**`, `components/spatial-safe/**`, `hooks/spatial-safe/**`, `lib/spatial-safe/**`, `styles/spatial-safe/**`, `providers/spatial-safe/**`
+- `docs/spatial/_BACKUP_SPATIAL_WORKING_*/**`
+- `app/spatial/**` (hors DS intentionnel)
 
-- alignements horizontaux et verticaux
-- espacements incohérents
-- marges/paddings différents
-- tailles de titres incohérentes
-- hauteurs de lignes
-- largeurs de containers
-- cartes mal alignées
-- boutons non homogènes
-- formulaires irréguliers
-- tableaux désalignés
-- problèmes de grille
-- chevauchements/superpositions
-- textes coupés
-- scrolls anormaux
-- double scroll
-- éléments collés
-- responsive desktop/tablette/fenêtres réduites
-- sidebar/topbar
-- modales
-- dropdowns
-- tooltips
-- z-index incorrects
-- ombres incohérentes
-- rayons de bordure différents
-- problèmes dark/light mode
-- états loading/error/empty
-- transitions et animations
-- densité visuelle
-- équilibre des layouts
-- cohérence admin vs app principale
-- éléments qui semblent "cassés" visuellement
-- éléments qui donnent une impression non premium
+## Stratégie : 3 sous-agents en parallèle
 
-Tu dois aussi détecter :
+Spawn 3 Agents dans **un seul message** (subagent_type: `Explore`).
 
-- composants dupliqués visuellement
-- styles contradictoires
-- pages qui ne respectent pas le design system
-- composants qui n'utilisent pas les bons wrappers/layouts
-- éléments qui changent de taille sans raison
-- comportements UI instables
-- problèmes de focus/clavier
-- zones cliquables incohérentes
+### Agent 1 — Layout & Alignment QA
 
-## Inspection statique du codebase
+Détecter alignements, spacing, tailles, grilles.
 
-!find app/ -name "_.tsx" | xargs grep -l "style={{" | grep -v node_modules | head -30
-!find app/ -name "_.tsx" | xargs grep -l "className=._\[" | grep -v node_modules | head -30
-!grep -rn "z-index\|z-\[" app/ --include="_.tsx" --include="_.css" | grep -v node_modules | head -30
-!grep -rn "overflow" app/ --include="_.tsx" --include="*.css" | grep -v node_modules | head -30
-!grep -rn "position.*absolute\|position._fixed" app/ --include="_.tsx" | grep -v node_modules | head -30
+- Magic numbers spacing hors tokens (`px-[N]`, `py-[N]`, valeurs `style={{ padding: ... }}` brutes)
+- Flex/grid incohérents
+- Hauteurs/largeurs hardcodées
+- Containers sans tokens `--space-*`
 
-## Sous-agents à déclencher
+Commandes :
+- `grep -rEn "(px|py|p|m|gap|w|h)-\[[0-9]+px\]" app/ components/ --include="*.tsx"`
+- `grep -rn "style={{" app/ components/ --include="*.tsx" | grep -v "var(--"`
 
-Spawn 3 sous-agents en parallèle :
+### Agent 2 — Interaction & States QA
 
-### 1. Sous-agent Layout & Alignment QA
+Tester hover, focus, loading, modales, dropdowns, scrolls.
 
-Détecte tous les problèmes d'alignement, spacing, tailles et grilles.
+- États manquants (loading sans skeleton, error sans message, empty sans fallback)
+- `hover:` / `focus-visible:` sur tous éléments interactifs
+- Modales sans focus trap / sans Escape
+- Scrolls imbriqués problématiques
+- Transitions cohérentes (`transition-*`, `duration-*` via tokens)
 
-- Scanne tous les composants dans `app/` et `components/`
-- Cherche les magic numbers de spacing (valeurs arbitraires hors token)
-- Identifie les flex/grid incohérents
-- Repère les hauteurs/largeurs hardcodées
-- Vérifie que les containers utilisent les bons tokens `--space-*`
+Commandes :
+- `grep -rn "loading\|isLoading\|isPending" app/ components/ --include="*.tsx"`
+- `grep -rn "overflow" app/ components/ --include="*.tsx" --include="*.css"`
+- `grep -rEn "position:\s*(absolute|fixed)" app/ components/ --include="*.tsx"`
 
-### 2. Sous-agent Interaction & States QA
+### Agent 3 — Visual Consistency QA
 
-Teste hover, focus, loading, modales, dropdowns, scrolls, responsive et comportements dynamiques.
+Vérifier typographie, couleurs, cartes, boutons, shadows, radius.
 
-- Cherche les états manquants (loading sans skeleton, error sans message, empty sans fallback)
-- Vérifie les `hover:` et `focus:` sur tous les éléments interactifs
-- Identifie les modales sans trap focus
-- Repère les scrolls imbriqués problématiques
-- Vérifie les transitions (`transition-*`, `duration-*`)
+- Comparer admin vs app principale
+- Vérifier boutons tous issus de la même primitive
+- Cohérence `--radius-*` sur cartes
+- Shadows via `--shadow-card` / `--shadow-card-hover`
+- Couleurs hardcodées hors palette `globals.css`
 
-### 3. Sous-agent Visual Consistency QA
+Commandes :
+- `grep -rEn "#[0-9a-fA-F]{3,8}" app/ components/ --include="*.tsx"`
+- `grep -rEn "rounded-\[" app/ components/ --include="*.tsx"`
 
-Vérifie typographie, couleurs, cartes, boutons, formulaires, shadows, radius et cohérence admin/app.
+## Format livrable agent
 
-- Compare les composants admin vs app principale
-- Vérifie que les boutons sont tous issus du même composant Button
-- Contrôle la cohérence des `--radius-*` sur les cartes
-- Vérifie les shadows (`--shadow-card`, `--shadow-card-hover`)
-- Repère les couleurs hardcodées hors palette `globals.css`
-
-## Pour chaque problème trouvé
-
-```
-[GRAVITÉ] Composant/Fichier:ligne
-  Problème  : description précise
-  Impact    : ce que l'utilisateur perçoit
-  Correction: action concrète
-  Statut    : appliqué | en attente
+```json
+{
+  "findings": [
+    {
+      "severity": "P0|P1|P2",
+      "path": "...",
+      "line": N,
+      "rule": "magic-spacing|missing-state|hardcoded-color|...",
+      "title": "Description courte",
+      "current": "<code>",
+      "suggested": "<token DS>",
+      "why": "Impact UX + raison"
+    }
+  ]
+}
 ```
 
-**Gravité :**
+Sévérités :
+- **P0** (critique) — chevauchement, illisible, crash visuel
+- **P1** (moyen) — incohérence notable, impression non premium
+- **P2** (mineur) — pixel off, détail imperceptible à froid
 
-- `CRITIQUE` — casse l'UX, illisible, chevauchement, crash visuel
-- `MOYEN` — incohérence notable, impression non premium
-- `MINEUR` — pixel off, détail imperceptible à froid
+## Agrégation + score
 
-## Règles strictes
+Calculer score /10 :
+- Base 10
+- −2 par P0, −0.5 par P1, −0.1 par P2 (plancher à 0)
 
-- Ne casse aucune logique métier
-- Ne modifie pas les APIs sauf nécessité absolue
-- Ne fais pas de redesign complet
-- Harmonise et perfectionne l'existant
-- Garde une cohérence premium et moderne
-- Priorité absolue : cohérence visuelle globale
-- Applique les corrections sûres directement (mineur/moyen sans risque)
-- Demande confirmation pour les corrections critiques qui touchent le layout global
+```json
+{
+  "title": "QA UI/UX",
+  "scope": "<arg ou 'app complète'>",
+  "kpis": { "p0": N, "p1": N, "p2": N, "score": X },
+  "sections": [
+    { "name": "Layout & Alignment", "agent": "agent-1", "findings": [...] },
+    { "name": "Interaction & States", "agent": "agent-2", "findings": [...] },
+    { "name": "Visual Consistency", "agent": "agent-3", "findings": [...] }
+  ],
+  "quickWins": [...],
+  "plan": [
+    { "name": "P0 — fixes critiques", "items": ["..."] },
+    { "name": "P1 — cohérence DS", "items": ["..."] },
+    { "name": "P2 — polish", "items": ["..."] }
+  ]
+}
+```
 
-## Critères d'acceptation
+!node scripts/render-report.mjs --type=qa --data=/tmp/qa-data.json --open
 
-- Aucun élément désaligné visible
-- Aucun chevauchement
-- Aucun spacing incohérent
-- Titres cohérents partout
-- Boutons uniformes
-- Cartes homogènes
-- Layout stable sur toutes les tailles de fenêtre
-- UI premium, propre et cohérente
-- Partie admin parfaitement intégrée visuellement au reste
-- Aucun composant "cheap", cassé ou incohérent visuellement
+## Réponse finale (5 lignes max)
 
-## Livrable final + Rapport HTML
-
-Produis le rapport textuel :
-
-1. Liste complète des problèmes trouvés (triés par gravité)
-2. Corrections appliquées (avec fichiers modifiés)
-3. Points restant à améliorer
-4. Score final de qualité UI/UX estimé sur 10
-
-Puis génère un fichier HTML complet à `/tmp/rapport-qa.html` et ouvre-le dans Chrome.
-
-Le HTML doit :
-
-- Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
-- Header avec titre "QA UI/UX Audit", date/heure, scope analysé, score /10 en grand
-- Jauge score visuelle : arc SVG coloré (rouge < 5, orange < 7, vert >= 8)
-- 3 colonnes de compteurs : CRITIQUE (rouge) / MOYEN (orange) / MINEUR (jaune)
-- Section par sous-agent (Layout / Interaction / Visual) avec ses findings
-- Chaque finding : badge gravité coloré, fichier cliquable `vscode://file/...`, problème, correction, statut (✅ appliqué / ⏳ en attente)
-- Section "Corrections appliquées" : liste des fichiers modifiés avec diff résumé
-- Section "Restant à faire" : roadmap priorisée
-- Footer : durée d'audit, composants inspectés, date
-
-!node -e "
-const fs = require('fs');
-const html = \`CONTENU_HTML_GENERE\`;
-fs.writeFileSync('/tmp/rapport-qa.html', html);
-"
-!open -a 'Google Chrome' /tmp/rapport-qa.html
+```
+QA <scope> · Score N/10 · P0:N P1:N P2:N
+Quick wins : <top 3>
+Rapport : docs/audit/qa-YYYY-MM-DD.html
+```

@@ -92,7 +92,7 @@ const NODE_DEFS: NodeDef[] = [
     label: "Agent Research",
     getSubInfo: (data) => {
       const running = data.missionsRunning.filter((m) => m.status === "running").length;
-      return running > 0 ? "En cours" : "En veille";
+      return running > 0 ? "En cours" : null;
     },
     getConnected: () => true,
   },

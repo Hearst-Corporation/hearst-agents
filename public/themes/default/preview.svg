@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F1115"/>
+      <stop offset="100%" stop-color="#16161B"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1A1D24"/>
+      <stop offset="100%" stop-color="#181B22"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="0" y="0" width="800" height="48" fill="url(#rail)"/>
+  <rect x="0" y="0" width="200" height="500" fill="url(#rail)" opacity="0.5"/>
+  <rect x="600" y="0" width="200" height="500" fill="url(#rail)" opacity="0.4"/>
+  <circle cx="100" cy="120" r="6" fill="#5EBDA8"/>
+  <rect x="120" y="116" width="60" height="8" rx="2" fill="#9BA3B5"/>
+  <rect x="240" y="80" width="320" height="180" rx="16" fill="#1F232C" stroke="#2A2F3A" stroke-width="1"/>
+  <rect x="240" y="280" width="320" height="120" rx="16" fill="#1F232C" stroke="#2A2F3A" stroke-width="1"/>
+  <rect x="260" y="100" width="160" height="14" rx="3" fill="#E8EAF0"/>
+  <rect x="260" y="130" width="220" height="8" rx="2" fill="#7C8294"/>
+  <rect x="260" y="150" width="180" height="8" rx="2" fill="#7C8294"/>
+  <rect x="260" y="220" width="80" height="28" rx="14" fill="#5EBDA8"/>
+  <rect x="350" y="220" width="80" height="28" rx="14" fill="transparent" stroke="#3A4050" stroke-width="1"/>
+  <text x="400" y="470" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#7C8294">Hearst OS — Ghost Protocol (default)</text>
+</svg>

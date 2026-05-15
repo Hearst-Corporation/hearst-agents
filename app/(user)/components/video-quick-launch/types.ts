@@ -62,6 +62,7 @@ export interface BatchVariantRun {
   phase: BatchVariantPhase;
   progress: number;
   errorMsg: string | null;
+  url: string | null;
 }
 
 /**

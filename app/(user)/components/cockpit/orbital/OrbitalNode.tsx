@@ -32,7 +32,7 @@ export function OrbitalNode({ node }: OrbitalNodeProps) {
       {/* Dot de connexion */}
       <div
         className={`absolute top-2 right-2 w-1.5 h-1.5 rounded-full transition-all duration-300 ease-in-out
-          ${node.connected ? "bg-accent-teal shadow-pulse-dot-md" : "bg-text-l3"}
+          ${node.connected ? "bg-accent-teal shadow-pulse-dot-md" : "bg-danger opacity-60"}
         `}
       />
 

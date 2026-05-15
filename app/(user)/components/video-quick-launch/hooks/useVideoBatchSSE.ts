@@ -90,8 +90,14 @@ export function useVideoBatchSSE(): UseVideoBatchSSEResult {
       }
     });
 
-    es.addEventListener("completed", () => {
-      updateRun({ progress: 100, phase: "done" });
+    es.addEventListener("completed", (ev) => {
+      let url: string | null = null;
+      try {
+        const data = JSON.parse((ev as MessageEvent<string>).data ?? "{}") as Record<string, unknown>;
+        if (typeof data.assetUrl === "string") url = data.assetUrl;
+        else if (typeof data.url === "string") url = data.url;
+      } catch { /* ignore */ }
+      updateRun({ progress: 100, phase: "done", url });
       es.close();
     });
 
@@ -138,6 +144,7 @@ export function useVideoBatchSSE(): UseVideoBatchSSEResult {
           phase: job ? "queued" : "error",
           progress: 0,
           errorMsg: job ? null : "Enqueue échoué",
+          url: null,
         };
       });
       setRuns(next);

@@ -1,19 +1,24 @@
 ---
-description: Affiche l'état du Battle Plan sécurité (progression par phase, batchs done/pending/blocked)
+description: État du Battle Plan sécurité (progression par phase, batchs done/pending/blocked).
 ---
 
-# Battle Plan — Status
+# /battle-status — État Battle Plan
 
 !node scripts/battle-status.mjs
 
-Lis l'output ci-dessus et présente un résumé clair :
+## Synthèse à produire
 
-- Total batchs done / pending / blocked / deferred
-- Phase courante (la première phase non complète)
-- Prochain batch recommandé (cf `/battle-next`)
-- 1-2 phrases sur le critical path (combien de jours estimé restants)
+Sur la base de l'output ci-dessus :
 
-Si l'utilisateur veut plus de détail, dis-lui :
+```
+Battle Plan · phase courante : <nom>
+Done : N · Pending : N · Blocked : N · Deferred : N
+Prochain batch recommandé : <id> — <titre court> (cf /battle-next)
+Critical path estimé : ~X jours restants
+```
 
-- Voir HTML : `open docs/audits/2026-05-10-security/BATTLE-PLAN.html`
-- Lancer `/battle-next` pour voir quel batch attaquer maintenant
+## Aller plus loin
+
+- Détails HTML : `open docs/audits/2026-05-10-security/BATTLE-PLAN.html`
+- Batch recommandé : `/battle-next`
+- Exécuter un batch : `/battle-exec <batch-id>`

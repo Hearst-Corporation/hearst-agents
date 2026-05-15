@@ -34,6 +34,11 @@
 /ARCHITECTURE-COMPLETE.pdf
 /docs/architecture/*.pdf
 
+# Themes scrapés via /heist /skin — on garde tokens.css/json/meta/sandbox/assets
+# mais pas les screenshots HD ni le dump brut (lourds).
+/themes/*/raw.json
+/themes/*/reference*.png
+
 # next.js
 /.next/
 /.next */
@@ -89,3 +94,5 @@ next-env.d.ts
 # Supabase CLI working directory (auto-managed cache)
 /supabase/.temp/
 /supabase/.branches/
+SERVICES.md
+docs/api-config/SERVICES.md

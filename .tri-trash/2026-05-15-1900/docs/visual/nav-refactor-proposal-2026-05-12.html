@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hearst OS — Refactor nav (chat-first, suppression rail droit)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: -apple-system, "SF Pro Display", "Helvetica Neue", "Segoe UI", sans-serif;
+      --mono: "SF Mono", "Fira Code", monospace;
+
+      --page-bg: #06060A;
+      --app-bg: #000000;
+      --bg-soft: rgba(255,255,255,0.02);
+      --surface-card: rgba(255,255,255,0.035);
+      --surface-card-hover: rgba(255,255,255,0.05);
+      --border-soft: rgba(255,255,255,0.06);
+      --border-hairline: rgba(255,255,255,0.04);
+
+      --text: rgba(255,255,255,0.92);
+      --text-secondary: rgba(255,255,255,0.78);
+      --text-muted: rgba(255,255,255,0.55);
+      --text-faint: rgba(255,255,255,0.32);
+
+      --accent: #4A8B86;
+      --accent-soft: rgba(74,139,134,0.14);
+      --accent-mute: rgba(74,139,134,0.06);
+      --gold: #c8a961;
+      --gold-soft: rgba(200,169,97,0.12);
+      --danger: #ff3333;
+
+      --radius-xs: 4px;
+      --radius-sm: 6px;
+      --radius: 10px;
+      --radius-lg: 14px;
+      --radius-pill: 999px;
+    }
+
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font);
+      background: var(--page-bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .page { max-width: 1440px; margin: 0 auto; padding: 56px 40px 96px; }
+
+    /* Header doc */
+    .doc-header { margin-bottom: 48px; }
+    .doc-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--accent); margin-bottom: 20px;
+    }
+    .doc-eyebrow::before {
+      content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--accent);
+    }
+    .doc-title {
+      font-size: 42px; font-weight: 600; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .doc-lede {
+      font-size: 16px; line-height: 1.6; color: var(--text-muted); max-width: 760px;
+    }
+    .doc-meta {
+      display: flex; gap: 32px; margin-top: 28px; padding-top: 24px;
+      border-top: 1px solid var(--border-hairline); flex-wrap: wrap;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; color: var(--text-faint); }
+    .meta-value { font-size: 13px; color: var(--text-secondary); font-family: var(--mono); }
+
+    /* Principe banner */
+    .principle {
+      background: var(--accent-mute);
+      border: 1px solid rgba(74,139,134,0.18);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin: 32px 0 48px;
+    }
+    .principle-label {
+      font-size: 11px; color: var(--accent); margin-bottom: 10px;
+    }
+    .principle-text {
+      font-size: 16px; line-height: 1.6; color: var(--text); max-width: 780px;
+    }
+    .principle-text strong { color: var(--accent); font-weight: 500; }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; flex-wrap: wrap; gap: 16px;
+    }
+    .toolbar-title { font-size: 13px; color: var(--text-faint); }
+    .switcher {
+      display: inline-flex; gap: 4px;
+      background: var(--bg-soft); padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-hairline);
+    }
+    .switcher button {
+      background: transparent; border: none;
+      color: var(--text-muted);
+      padding: 8px 18px; font-size: 13px; font-family: inherit;
+      border-radius: var(--radius-pill); cursor: pointer;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .switcher button:hover { color: var(--text); }
+    .switcher button.active {
+      background: var(--accent-soft); color: var(--accent);
+    }
+
+    /* Mockup app */
+    .mockup {
+      position: relative;
+      background: var(--app-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04) inset;
+    }
+
+    /* PulseBar */
+    .pulsebar {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 48px; padding: 0 16px;
+      background: rgba(255,255,255,0.015);
+      border-bottom: 1px solid var(--border-hairline);
+      gap: 16px;
+    }
+    .pulsebar-left {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 12px; color: var(--text-muted);
+    }
+    .pulse-dot {
+      width: 6px; height: 6px; border-radius: 999px; background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .pulse-meta {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+    }
+    .pulse-meta strong { color: var(--text-muted); font-weight: 500; }
+    .cmd-k {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; min-width: 280px;
+      background: var(--surface-card); border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-pill);
+      font-size: 12px; color: var(--text-faint);
+    }
+    .cmd-k .kbd {
+      margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--text-faint);
+      padding: 2px 6px; background: rgba(255,255,255,0.04); border-radius: 4px;
+    }
+    .pulsebar-right { display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-muted); }
+    .pulse-action {
+      padding: 4px 10px; border-radius: var(--radius-sm); cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .pulse-action:hover { background: var(--surface-card); color: var(--text); }
+    .pulse-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 18px; height: 18px; padding: 0 5px;
+      font-size: 10px; font-weight: 600;
+      background: var(--accent-soft); color: var(--accent); border-radius: 999px;
+    }
+    .pulse-badge.gold { background: var(--gold-soft); color: var(--gold); }
+
+    /* Shell */
+    .shell {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 760px;
+    }
+
+    /* LeftPanel — threads only */
+    .left {
+      background: var(--bg-soft);
+      border-right: 1px solid var(--border-hairline);
+      display: flex; flex-direction: column;
+      padding: 12px 8px 8px;
+    }
+    .left-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 8px 12px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 8px;
+    }
+    .left-logo {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; color: var(--text);
+      cursor: pointer;
+    }
+    .left-logo-mark {
+      width: 22px; height: 22px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent) 0%, #2d6b67 100%);
+      box-shadow: 0 0 12px rgba(74,139,134,0.4);
+    }
+    .new-thread {
+      width: 26px; height: 26px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--surface-card); color: var(--text-muted);
+      border-radius: var(--radius-sm); border: 1px solid var(--border-hairline);
+      cursor: pointer; font-size: 14px;
+    }
+    .new-thread:hover { background: var(--surface-card-hover); color: var(--text); }
+
+    .thread-section { margin-bottom: 8px; }
+    .thread-section-label {
+      font-size: 11px; color: var(--text-faint);
+      padding: 10px 12px 6px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .thread {
+      padding: 7px 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      position: relative;
+    }
+    .thread:hover { background: var(--surface-card); color: var(--text-secondary); }
+    .thread.active {
+      background: var(--accent-mute); color: var(--text);
+    }
+    .thread.active::before {
+      content: ""; position: absolute; left: -8px; top: 8px; bottom: 8px;
+      width: 2px; background: var(--accent); border-radius: 999px;
+    }
+    .thread-meta {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--text-faint); margin-left: 6px;
+    }
+
+    .left-footer {
+      margin-top: auto;
+      padding: 10px 8px 4px;
+      border-top: 1px solid var(--border-hairline);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .avatar {
+      display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+    }
+    .avatar-circle {
+      width: 26px; height: 26px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 500; color: var(--app-bg);
+    }
+    .avatar-name { font-size: 12px; color: var(--text-secondary); }
+    .footer-actions { display: flex; gap: 4px; }
+    .footer-actions button {
+      width: 24px; height: 24px;
+      background: transparent; border: none; color: var(--text-faint);
+      cursor: pointer; border-radius: var(--radius-xs); font-size: 13px;
+    }
+    .footer-actions button:hover { background: var(--surface-card); color: var(--text); }
+
+    /* Body central — chat-first */
+    .body {
+      display: flex; flex-direction: column;
+      min-width: 0;
+      background: var(--app-bg);
+    }
+
+    /* État Idle — greeting + chatinput dominant */
+    .stage-view { display: none; flex: 1; flex-direction: column; min-height: 0; }
+    .stage-view.active { display: flex; }
+
+    .idle-stage {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 64px 40px;
+      gap: 40px;
+    }
+    .greeting {
+      text-align: center;
+      max-width: 600px;
+    }
+    .greeting-eyebrow {
+      font-size: 11px; color: var(--text-faint); margin-bottom: 12px;
+      font-family: var(--mono);
+    }
+    .greeting-h1 {
+      font-size: 32px; font-weight: 400; line-height: 1.2;
+      letter-spacing: -0.01em; color: var(--text);
+      margin-bottom: 12px;
+    }
+    .greeting-h1 strong {
+      color: var(--accent); font-weight: 500;
+    }
+    .greeting-sub {
+      font-size: 14px; color: var(--text-muted); line-height: 1.6;
+    }
+
+    .idle-input {
+      width: 100%; max-width: 720px;
+    }
+    .chat-input {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-pill);
+      padding: 14px 20px 14px 24px;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .chat-input:focus-within {
+      border-color: rgba(74,139,134,0.4);
+      box-shadow: 0 0 0 3px var(--accent-mute);
+    }
+    .chat-text {
+      flex: 1; font-size: 14px; color: var(--text-faint);
+    }
+    .chat-actions {
+      display: flex; gap: 6px; color: var(--text-faint);
+    }
+    .chat-actions button {
+      width: 32px; height: 32px; border-radius: 999px;
+      background: transparent; border: none; cursor: pointer;
+      color: inherit; font-size: 14px;
+    }
+    .chat-actions button:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+    .chat-actions .send {
+      background: var(--accent); color: var(--app-bg);
+    }
+
+    /* Suggestions sous chat (idle) */
+    .suggestions {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+      max-width: 720px;
+    }
+    .suggestion {
+      font-size: 12px; padding: 6px 14px;
+      background: var(--bg-soft); color: var(--text-muted);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+    }
+    .suggestion:hover { background: var(--surface-card); color: var(--text); }
+
+    /* État Conversation */
+    .conv-stage {
+      flex: 1;
+      display: flex; flex-direction: column;
+      min-height: 0;
+    }
+    .conv-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px 40px;
+      display: flex; flex-direction: column; gap: 24px;
+      max-width: 880px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .msg {
+      display: flex; gap: 14px;
+      max-width: 100%;
+    }
+    .msg-avatar {
+      width: 28px; height: 28px; border-radius: 999px;
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--app-bg); font-weight: 500;
+    }
+    .msg-avatar.user {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+    }
+    .msg-avatar.agent {
+      background: linear-gradient(135deg, var(--accent) 0%, #2d6b67 100%);
+      color: var(--text);
+    }
+    .msg-body { flex: 1; min-width: 0; }
+    .msg-name {
+      font-size: 12px; color: var(--text-faint); margin-bottom: 6px;
+    }
+    .msg-text {
+      font-size: 14px; line-height: 1.6; color: var(--text-secondary);
+    }
+    .msg-text strong { color: var(--text); font-weight: 500; }
+    .msg-text em { color: var(--accent); font-style: normal; }
+
+    /* Inline card (focal compact dans la conv) */
+    .inline-card {
+      margin-top: 12px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .inline-card-left { display: flex; align-items: center; gap: 12px; }
+    .inline-card-icon {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background: var(--accent-mute);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--accent); font-size: 14px;
+    }
+    .inline-card-title { font-size: 13px; color: var(--text); font-weight: 500; }
+    .inline-card-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .inline-card-action {
+      padding: 6px 14px;
+      font-size: 12px;
+      background: var(--accent-soft); color: var(--accent);
+      border-radius: var(--radius-sm); border: none; cursor: pointer;
+    }
+
+    /* Approval inline */
+    .approval-card {
+      margin-top: 12px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(200,169,97,0.20);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .approval-title {
+      font-size: 12px; color: var(--gold); margin-bottom: 6px;
+    }
+    .approval-text {
+      font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 10px;
+    }
+    .approval-actions { display: flex; gap: 8px; }
+    .approval-actions button {
+      padding: 6px 14px; font-size: 12px;
+      border-radius: var(--radius-sm); border: 1px solid var(--border-hairline);
+      background: transparent; color: var(--text-muted);
+      cursor: pointer; font-family: inherit;
+    }
+    .approval-actions .primary {
+      background: var(--accent); color: var(--app-bg); border-color: transparent;
+    }
+
+    /* Chat input fixed at bottom of conv */
+    .chat-dock {
+      padding: 16px 40px 20px;
+      border-top: 1px solid var(--border-hairline);
+      background: rgba(255,255,255,0.012);
+    }
+    .chat-dock .chat-input { max-width: 880px; margin: 0 auto; }
+
+    /* État Focal — objet ouvert par l'agent */
+    .focal-stage {
+      flex: 1;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 0;
+    }
+    .focal-header {
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .focal-crumb {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--text-muted);
+    }
+    .focal-crumb .focal-mark {
+      width: 26px; height: 26px; border-radius: var(--radius-sm);
+      background: var(--accent-mute);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--accent); font-size: 13px;
+    }
+    .focal-title {
+      font-size: 14px; color: var(--text); font-weight: 500;
+    }
+    .focal-actions {
+      display: flex; gap: 8px;
+    }
+    .btn {
+      padding: 6px 14px; font-size: 12px; font-family: inherit;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-hairline);
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--surface-card); color: var(--text); }
+    .btn.primary {
+      background: var(--accent-soft); color: var(--accent); border-color: transparent;
+    }
+    .btn.ghost { border: none; color: var(--text-faint); }
+    .btn.ghost:hover { background: var(--surface-card); color: var(--text); }
+
+    .focal-body {
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+    .focal-content {
+      padding: 24px 32px;
+      overflow-y: auto;
+    }
+    .focal-doc {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .focal-doc h1 {
+      font-size: 24px; font-weight: 500; color: var(--text);
+      margin-bottom: 8px;
+    }
+    .focal-doc .focal-sub {
+      font-size: 12px; color: var(--text-muted);
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .focal-doc h2 {
+      font-size: 14px; font-weight: 500; color: var(--text);
+      margin: 24px 0 12px;
+    }
+    .focal-doc p {
+      font-size: 14px; line-height: 1.7; color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .focal-doc ul {
+      list-style: none; margin-bottom: 12px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .focal-doc ul li {
+      font-size: 13px; line-height: 1.6; color: var(--text-secondary);
+      padding-left: 18px; position: relative;
+    }
+    .focal-doc ul li::before {
+      content: "·"; position: absolute; left: 6px; top: 0;
+      color: var(--accent);
+    }
+
+    .focal-chatdock {
+      border-top: 1px solid var(--border-hairline);
+      padding: 14px 32px 18px;
+      background: rgba(255,255,255,0.012);
+    }
+    .focal-chatdock .chat-input {
+      max-width: 760px; margin: 0 auto;
+    }
+
+    /* StageFooter */
+    .stage-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 20px;
+      border-top: 1px solid var(--border-hairline);
+      font-size: 11px; color: var(--text-faint);
+      background: rgba(0,0,0,0.4);
+    }
+    .stage-footer-left, .stage-footer-right {
+      display: flex; gap: 16px; align-items: center;
+    }
+    .stage-footer .kbd {
+      font-family: var(--mono); padding: 1px 6px;
+      background: rgba(255,255,255,0.04); border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    /* Annotations */
+    .annotations {
+      margin-top: 80px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    .anno {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .anno-eyebrow { font-size: 11px; color: var(--accent); margin-bottom: 10px; }
+    .anno-title {
+      font-size: 18px; font-weight: 500; color: var(--text);
+      margin-bottom: 14px; letter-spacing: -0.01em;
+    }
+    .anno-body p {
+      font-size: 14px; line-height: 1.6; color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+    .anno-body p:last-child { margin-bottom: 0; }
+    .anno-body code {
+      font-family: var(--mono); font-size: 12px;
+      background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px;
+      color: var(--accent);
+    }
+    .anno-body ul {
+      list-style: none; margin-top: 8px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .anno-body li {
+      font-size: 13px; line-height: 1.5; color: var(--text-secondary);
+      padding-left: 18px; position: relative;
+    }
+    .anno-body li::before {
+      content: ""; position: absolute; left: 0; top: 9px;
+      width: 6px; height: 6px; border-radius: 999px; background: var(--accent);
+    }
+    .anno-body li.bad::before { background: var(--danger); }
+    .anno-body li.good::before { background: var(--accent); }
+
+    /* Compare */
+    .compare {
+      margin-top: 64px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .compare-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .compare-eyebrow { font-size: 11px; margin-bottom: 8px; }
+    .compare-card.before .compare-eyebrow { color: var(--danger); }
+    .compare-card.after .compare-eyebrow { color: var(--accent); }
+    .compare-title { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 16px; }
+    .compare-diagram {
+      font-family: var(--mono); font-size: 11px; line-height: 1.6;
+      color: var(--text-muted); white-space: pre; padding: 16px;
+      background: rgba(0,0,0,0.4); border-radius: var(--radius);
+      border: 1px solid var(--border-hairline);
+    }
+
+    .doc-footer {
+      margin-top: 64px; padding-top: 32px;
+      border-top: 1px solid var(--border-hairline);
+      font-size: 12px; color: var(--text-faint);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .annotations, .compare { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="doc-header">
+    <div class="doc-eyebrow">Proposition refactor nav · v2 · 2026-05-12</div>
+    <h1 class="doc-title">Suppression du rail droit,<br>retour à un layout chat-first pur</h1>
+    <p class="doc-lede">
+      Hearst OS n'est pas un SaaS — c'est un orchestrateur. Le user parle à l'agent, l'agent agit et ouvre des focals. Le RightPanel (PulseStrip + FocalCard + 4 tuiles + ContentView) est supprimé. Le LeftPanel reste la mémoire des threads. Le body central devient la surface chat-first canonique : conversation + focal au-dessus quand l'agent ouvre un objet.
+    </p>
+    <div class="doc-meta">
+      <div class="meta-item"><span class="meta-label">Auteur</span><span class="meta-value">Claude Opus 4.7</span></div>
+      <div class="meta-item"><span class="meta-label">Statut</span><span class="meta-value">proposition v2 — chat-first</span></div>
+      <div class="meta-item"><span class="meta-label">Erreur v1 corrigée</span><span class="meta-value">menu nav SaaS abandonné</span></div>
+      <div class="meta-item"><span class="meta-label">Features ADD impactées</span><span class="meta-value">cockpit · context-rail · timeline-rail</span></div>
+    </div>
+  </header>
+
+  <!-- Principe -->
+  <div class="principle">
+    <div class="principle-label">Principe directeur (rappel README + memory)</div>
+    <p class="principle-text">
+      « L'agent EST l'OS. <strong>User parle, agent ouvre/ferme features.</strong> Chat-first shell : ChatInput fixe en bas, conversation thread-scopée. Surface centrale = focal quand l'agent ouvre un objet. LeftPanel = mémoire des threads uniquement. Pas de nav GUI sur la première page. »
+    </p>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-title">3 états canoniques du body central</div>
+    <div class="switcher" id="stageSwitcher">
+      <button data-stage="idle" class="active">Idle · vide</button>
+      <button data-stage="conv">Conversation</button>
+      <button data-stage="focal">Focal ouvert</button>
+    </div>
+  </div>
+
+  <!-- Mockup -->
+  <div class="mockup">
+
+    <!-- PulseBar : absorbe ce qui restait du rail droit -->
+    <div class="pulsebar">
+      <div class="pulsebar-left">
+        <span class="pulse-dot"></span>
+        <span>Moteur · prêt</span>
+        <span style="color:var(--text-faint)">·</span>
+        <div class="pulse-meta">
+          <span><strong>4</strong> missions</span>
+          <span><strong>2</strong> à valider</span>
+          <span><strong>7</strong> connexions</span>
+        </div>
+      </div>
+      <div class="cmd-k">
+        <span>⌕</span>
+        <span>Demande, recherche, commande…</span>
+        <span class="kbd">⌘ K</span>
+      </div>
+      <div class="pulsebar-right">
+        <span class="pulse-action">Voix</span>
+        <span class="pulse-action">Notifs <span class="pulse-badge">3</span></span>
+        <span class="pulse-action">Focus <span class="kbd" style="font-family:var(--mono);font-size:10px;padding:1px 5px;background:rgba(255,255,255,0.04);border-radius:3px;">⌘ .</span></span>
+      </div>
+    </div>
+
+    <!-- Shell : 2 colonnes -->
+    <div class="shell">
+
+      <!-- LeftPanel — threads only (style ChatGPT) -->
+      <nav class="left">
+        <div class="left-header">
+          <div class="left-logo">
+            <span class="left-logo-mark"></span>
+            <span>Hearst</span>
+          </div>
+          <button class="new-thread" title="Nouvelle conversation">+</button>
+        </div>
+
+        <div class="thread-section">
+          <div class="thread-section-label">
+            <span>Aujourd'hui</span>
+          </div>
+          <div class="thread active">Préparation board Q2</div>
+          <div class="thread">Veille concurrence Anthropic</div>
+          <div class="thread">Brief campagne marque</div>
+        </div>
+
+        <div class="thread-section">
+          <div class="thread-section-label">
+            <span>Cette semaine</span>
+          </div>
+          <div class="thread">Pitch deck Mistral</div>
+          <div class="thread">Synthèse meeting CEO</div>
+          <div class="thread">Audit perf cockpit</div>
+          <div class="thread">Note stratégie 2026</div>
+        </div>
+
+        <div class="thread-section">
+          <div class="thread-section-label">
+            <span>Plus anciennes</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-faint);">42</span>
+          </div>
+          <div class="thread">Onboarding équipe</div>
+          <div class="thread">Setup OAuth Notion</div>
+        </div>
+
+        <div class="left-footer">
+          <div class="avatar">
+            <span class="avatar-circle">A</span>
+            <span class="avatar-name">Adrien</span>
+          </div>
+          <div class="footer-actions">
+            <button title="Réglages">⚙</button>
+            <button title="Déconnexion">↗</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Body central -->
+      <div class="body">
+
+        <!-- État Idle : greeting + chatinput au centre -->
+        <div class="stage-view active" data-view="idle">
+          <div class="idle-stage">
+            <div class="greeting">
+              <div class="greeting-eyebrow">2026-05-12 · 14:32</div>
+              <div class="greeting-h1">Bonjour <strong>Adrien</strong>.</div>
+              <div class="greeting-sub">4 missions tournent en arrière-plan. Que veux-tu faire ?</div>
+            </div>
+
+            <div class="idle-input">
+              <div class="chat-input">
+                <span class="chat-text">Demande-moi n'importe quoi…</span>
+                <div class="chat-actions">
+                  <button title="Joindre">⊕</button>
+                  <button title="Voix">⏺</button>
+                  <button class="send" title="Envoyer">↑</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="suggestions">
+              <span class="suggestion">Prépare mon board Q2</span>
+              <span class="suggestion">Résume mes notifs</span>
+              <span class="suggestion">Veille Anthropic cette semaine</span>
+              <span class="suggestion">Brief équipe pour vendredi</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- État Conversation : messages + chatinput bas -->
+        <div class="stage-view" data-view="conv">
+          <div class="conv-stage">
+            <div class="conv-messages">
+
+              <div class="msg">
+                <span class="msg-avatar user">A</span>
+                <div class="msg-body">
+                  <div class="msg-name">Adrien · 14:12</div>
+                  <div class="msg-text">Prépare mon brief pour le board Q2. Tu trouveras les KPI dans Linear et les engagements précédents dans Notion espace Stratégie.</div>
+                </div>
+              </div>
+
+              <div class="msg">
+                <span class="msg-avatar agent">H</span>
+                <div class="msg-body">
+                  <div class="msg-name">Hearst · 14:13</div>
+                  <div class="msg-text">
+                    J'ouvre la mission <em>Brief board Q2</em>. Je vais croiser les KPI Q2 (revenus, churn, NPS) avec tes engagements board précédents, puis proposer trois angles narratifs. Premier draft prévu pour 15:42.
+                  </div>
+                  <div class="inline-card">
+                    <div class="inline-card-left">
+                      <span class="inline-card-icon">◇</span>
+                      <div>
+                        <div class="inline-card-title">Brief board Q2</div>
+                        <div class="inline-card-sub">Mission lancée · agent strategist-v2 · échéance 16:00</div>
+                      </div>
+                    </div>
+                    <button class="inline-card-action">Ouvrir</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="msg">
+                <span class="msg-avatar agent">H</span>
+                <div class="msg-body">
+                  <div class="msg-name">Hearst · 14:31</div>
+                  <div class="msg-text">
+                    Récolte des sources finie · 32 documents indexés (Notion 14 · Linear 12 · Slack 6). Je commence la synthèse. Au passage : je dois envoyer un mail à 4 destinataires de ton équipe pour cadrer leur input — c'est sensible, je te demande de valider.
+                  </div>
+                  <div class="approval-card">
+                    <div class="approval-title">Validation requise</div>
+                    <div class="approval-text">Envoyer un mail de cadrage à 4 destinataires (équipe Stratégie). Objet : « Inputs board Q2 — réponse avant jeudi soir ».</div>
+                    <div class="approval-actions">
+                      <button>Voir le brouillon</button>
+                      <button>Refuser</button>
+                      <button class="primary">Valider</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="chat-dock">
+              <div class="chat-input">
+                <span class="chat-text">Réponds, redirige, demande des détails…</span>
+                <div class="chat-actions">
+                  <button title="Joindre">⊕</button>
+                  <button title="Voix">⏺</button>
+                  <button class="send" title="Envoyer">↑</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- État Focal : objet ouvert par l'agent (mission, asset, doc…) -->
+        <div class="stage-view" data-view="focal">
+          <div class="focal-stage">
+
+            <div class="focal-header">
+              <div class="focal-crumb">
+                <span class="focal-mark">◇</span>
+                <div>
+                  <div class="focal-title">Brief board Q2</div>
+                  <div style="font-size:11px;color:var(--text-faint);margin-top:2px;font-family:var(--mono);">mission · ouverte par Hearst à 14:13 · échéance 16:00</div>
+                </div>
+              </div>
+              <div class="focal-actions">
+                <button class="btn ghost">Mettre en pause</button>
+                <button class="btn">Journal</button>
+                <button class="btn primary">Voir le rapport</button>
+                <button class="btn ghost" title="Fermer le focal">×</button>
+              </div>
+            </div>
+
+            <div class="focal-body">
+              <div class="focal-content">
+                <div class="focal-doc">
+                  <h1>Brief board Q2 — synthèse</h1>
+                  <div class="focal-sub">Mission strategist-v2 · 32 sources · itération 3/5 · coût $0.84</div>
+
+                  <p>La période Q2 confirme le tournant entamé en mars : <strong>+18%</strong> sur le revenu récurrent, churn stabilisé à <strong>3.2%</strong>, NPS en hausse à <strong>62</strong>. Trois sujets dominent les discussions internes : la migration EU, le pricing enterprise, et la pression concurrentielle Anthropic / Mistral.</p>
+
+                  <h2>Angles narratifs proposés</h2>
+                  <ul>
+                    <li><strong>Stabilité retrouvée</strong> — la trajectoire revenue + NPS valide la stratégie de focus produit décidée au Q1.</li>
+                    <li><strong>Accélération sélective</strong> — pricing enterprise et EU comme deux paris distincts mais cumulatifs.</li>
+                    <li><strong>Position concurrentielle</strong> — différenciation par l'orchestration agentique vs assistants génériques.</li>
+                  </ul>
+
+                  <h2>Engagements précédents · suivi</h2>
+                  <p>Sur les 8 engagements pris au board de mars : 6 tenus (revenu, churn, NPS, hires clés, sécurité, EU compliance), 1 partiellement (intégrations natives, 5/7), 1 reporté (datacenter EU, glissement Q3).</p>
+
+                  <h2>Risques signalés à ne pas masquer</h2>
+                  <ul>
+                    <li>Burn-rate sur le squad Spatial — décisions arbitrage Q3.</li>
+                    <li>Dépendance Composio (write-guard à durcir).</li>
+                    <li>Recrutement Lead Eng EU encore ouvert.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="focal-chatdock">
+                <div class="chat-input">
+                  <span class="chat-text">Reformule l'angle 2, ajoute un slide, demande une variante…</span>
+                  <div class="chat-actions">
+                    <button title="Joindre">⊕</button>
+                    <button title="Voix">⏺</button>
+                    <button class="send" title="Envoyer">↑</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- StageFooter -->
+    <div class="stage-footer">
+      <div class="stage-footer-left">
+        <span>Tenant <strong style="color:var(--text-muted)">hearst-personal</strong></span>
+        <span>·</span>
+        <span>Thread <strong style="color:var(--text-muted)">Préparation board Q2</strong></span>
+      </div>
+      <div class="stage-footer-right">
+        <span>Commandeur <span class="kbd">⌘ K</span></span>
+        <span>Nouveau thread <span class="kbd">⌘ N</span></span>
+        <span>Focus <span class="kbd">⌘ .</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Annotations -->
+  <section class="annotations">
+
+    <div class="anno">
+      <div class="anno-eyebrow">Principe n°1 · chat-first préservé</div>
+      <h3 class="anno-title">Pas de menu nav. Le user parle.</h3>
+      <div class="anno-body">
+        <p>Le LeftPanel reste exactement ce que dit le README : <strong style="color:var(--text)">mémoire des threads uniquement</strong>. Aucune section Cockpit / Missions / Agents / Assets / KG / Apps. Si Adrien veut voir ses missions, il demande à l'agent ou tape <code>⌘ K</code> "missions". Pas d'icônes à scanner, pas de page admin déguisée.</p>
+        <ul>
+          <li class="bad">Refusé : nav SaaS classique en colonne gauche</li>
+          <li class="good">Conservé : threads (Aujourd'hui / Cette semaine / Plus anciennes)</li>
+          <li class="good">Conservé : avatar + settings + sign out en footer</li>
+          <li class="good">Toujours dispo : <code>⌘ K</code> Commandeur pour atteindre tout</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="anno">
+      <div class="anno-eyebrow">Principe n°2 · 3 états du body</div>
+      <h3 class="anno-title">Idle · Conversation · Focal</h3>
+      <div class="anno-body">
+        <p>Le body central n'est pas un dashboard, c'est une surface chat-first qui prend trois formes selon ce que l'agent fait :</p>
+        <ul>
+          <li><strong style="color:var(--text)">Idle</strong> — pas de thread actif, greeting + ChatInput grand au centre + 4 suggestions contextuelles</li>
+          <li><strong style="color:var(--text)">Conversation</strong> — ChatMessages au centre, ChatInput fixe en bas, inline-cards et approvals injectés par l'agent</li>
+          <li><strong style="color:var(--text)">Focal</strong> — l'agent ouvre un objet (mission, asset, doc, KG), il occupe le body, ChatInput reste sous le focal pour poursuivre la conversation contextuelle</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="anno">
+      <div class="anno-eyebrow">Principe n°3 · état global → PulseBar</div>
+      <h3 class="anno-title">Le moteur reste visible en haut</h3>
+      <div class="anno-body">
+        <p>Ce qui méritait de rester du RightPanel (état moteur, missions actives, à valider, notifs) remonte dans la PulseBar top. Compact, monoligne, scanable sans détourner du chat.</p>
+        <ul>
+          <li>Dot teal live + label "Moteur · prêt"</li>
+          <li>Compteurs inline : missions · à valider · connexions</li>
+          <li>Cmd+K central · Voix · Notifs · Focus mode</li>
+          <li>Cliquer sur "à valider" ouvre le focal validation, pas un panel droit</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="anno">
+      <div class="anno-eyebrow">Principe n°4 · approvals dans le chat</div>
+      <h3 class="anno-title">Pas de FocalCard de notifs</h3>
+      <div class="anno-body">
+        <p>Les approvals (validation HITL crypto Phase 3 du Battle Plan) ne s'affichent plus dans un panneau droit. Elles arrivent <strong style="color:var(--text)">dans la conversation</strong> au moment où l'agent les requiert, avec un encart gold-soft inline. Le user lit, décide, l'agent enchaîne. C'est cohérent avec l'agent orchestrateur.</p>
+        <p>Idem pour les notifs externes (email, message) : l'agent les évoque s'il y a action à prendre, sinon elles attendent dans <code>/notifications</code> accessible via <code>⌘ K</code> ou la PulseBar.</p>
+      </div>
+    </div>
+
+    <div class="anno">
+      <div class="anno-eyebrow">Principe n°5 · focal absorbe</div>
+      <h3 class="anno-title">Plus de 12 ContextRail polymorphes</h3>
+      <div class="anno-body">
+        <p>Les 12 variantes <code>ContextRailFor*</code> (Mission / Asset / Meeting / Voice / KG / Admin / etc.) sont supprimées. Quand l'agent ouvre un focal (mission par exemple), tout le contexte utile est <strong style="color:var(--text)">dans le focal</strong> : header crumb + actions + body lisible (doc, canvas KG, transcript, etc.) + ChatInput pour itérer.</p>
+        <p>Les métadonnées techniques (statut, agent, tokens, sources) restent accessibles via le bouton "Journal" du header focal — pas un rail permanent qui prend 22vw.</p>
+      </div>
+    </div>
+
+    <div class="anno">
+      <div class="anno-eyebrow">Impact ADD</div>
+      <h3 class="anno-title">3 specs verrouillées à update</h3>
+      <div class="anno-body">
+        <p>Cette refacto reste alignée avec la philosophie chat-first du README (Architecture UX section). Elle touche :</p>
+        <ul>
+          <li><code>F-02 cockpit</code> — supprime la structure « 4 strates RightPanel » au profit de l'état Idle du body central</li>
+          <li><code>F-18 context-rail</code> — déprécation totale (12 variantes supprimées)</li>
+          <li><code>F-17 timeline-rail</code> — confirme officiellement "threads only" (renforce le pivot 2026-05-10, ne l'annule pas comme dans la v1 erronée)</li>
+        </ul>
+        <p>Bump v1.1 sur chaque, validation Adrien, puis <code>npm run features:manifest</code>. <code>F-19 stage</code> reste plus ou moins inchangé : le dispatcher Stage devient le routeur Idle/Conv/Focal.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Avant / Après -->
+  <section class="compare">
+    <div class="compare-card before">
+      <div class="compare-eyebrow">Avant · 3 colonnes</div>
+      <div class="compare-title">LeftPanel · Stage · RightPanel</div>
+      <pre class="compare-diagram">┌──────────────────────────────────────┐
+│ PulseBar (top)                        │
+├────────┬───────────────────┬─────────┤
+│        │                   │ Pulse   │
+│Threads │  FocalStage       │ Strip   │
+│        │   ou              │ Focal   │
+│        │  ChatMessages     │ Card    │
+│        │                   │ 4 tiles │
+│        │  + ChatInput      │ Content │
+│        │                   │ View    │
+│        │                   │ Footer  │
+├────────┴───────────────────┴─────────┤
+│ StageFooter                           │
+└──────────────────────────────────────┘
+176-384px   flex (réduit)    280-440px</pre>
+    </div>
+
+    <div class="compare-card after">
+      <div class="compare-eyebrow">Après · 2 colonnes chat-first</div>
+      <div class="compare-title">Threads · Body chat-first</div>
+      <pre class="compare-diagram">┌──────────────────────────────────────┐
+│ PulseBar (moteur · compteurs · ⌘K)    │
+├────────┬─────────────────────────────┤
+│        │                             │
+│Threads │  Body chat-first            │
+│        │                             │
+│  only  │  · Idle (greeting + input)  │
+│        │  · Conv (messages + input)  │
+│        │  · Focal (objet ouvert)     │
+│        │                             │
+│        │  ChatInput permanent        │
+│        │                             │
+├────────┴─────────────────────────────┤
+│ StageFooter                           │
+└──────────────────────────────────────┘
+ 240px        flex (élargi de ~30%)</pre>
+    </div>
+  </section>
+
+  <!-- Footer doc -->
+  <footer class="doc-footer">
+    <span>Mockup standalone · aucune dépendance · ouvre dans Chrome</span>
+    <span>docs/visual/nav-refactor-proposal-2026-05-12.html</span>
+  </footer>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('#stageSwitcher button');
+  const views = document.querySelectorAll('.stage-view');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const stage = btn.dataset.stage;
+      views.forEach(v => v.classList.toggle('active', v.dataset.view === stage));
+    });
+  });
+
+  document.querySelectorAll('.suggestion').forEach(s => {
+    s.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.stage === 'conv'));
+      views.forEach(v => v.classList.toggle('active', v.dataset.view === 'conv'));
+    });
+  });
+
+  document.querySelectorAll('.inline-card-action').forEach(b => {
+    b.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.stage === 'focal'));
+      views.forEach(v => v.classList.toggle('active', v.dataset.view === 'focal'));
+    });
+  });
+</script>
+
+</body>
+</html>

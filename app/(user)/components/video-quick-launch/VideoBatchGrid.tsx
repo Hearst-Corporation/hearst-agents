@@ -137,7 +137,17 @@ function BatchRunCard({
           justifyContent: "center",
         }}
       >
-        {isDone && (
+        {isDone && run.url && (
+          <video
+            src={run.url}
+            muted
+            loop
+            playsInline
+            autoPlay
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "var(--radius-xs)" }}
+          />
+        )}
+        {isDone && !run.url && (
           <span
             aria-hidden
             className="text-(--accent-teal) font-light leading-none"

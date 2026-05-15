@@ -1,92 +1,85 @@
 ---
-description: Analyse les gaps de couverture et génère les specs de test prioritaires (Vitest + Playwright)
+description: Analyse couverture + génère specs prioritaires (Vitest + Playwright). Rapport HTML.
+argument-hint: [chemin|module] (vide = analyse complète)
 ---
 
 # /test — Couverture & gaps de tests
 
-Analyse l'état des tests existants, identifie les cas non couverts, et génère les specs prioritaires.
+Analyse read-only de l'état des tests + génération de specs prioritaires.
 
-## Arguments optionnels
+## Scope
 
-`$ARGUMENTS` — scope ciblé (ex: `app/api/` pour les routes, `components/missions/` pour un module UI, `e2e/` pour Playwright seul). Vide = analyse complète.
+`$ARGUMENTS` — chemin ciblé (ex: `app/api/`, `components/missions/`, `e2e/`). Vide = analyse complète.
 
-## Étape 1 — État des tests existants
+## Stratégie : 3 sous-agents en parallèle
 
-!find . -name "_.test.ts" -o -name "_.test.tsx" -o -name "_.spec.ts" -o -name "_.spec.tsx" | grep -v node_modules | sort
-!find e2e/ -name "\*.spec.ts" 2>/dev/null | sort
-!npx vitest run --reporter=verbose 2>/dev/null | tail -30
+Spawn 3 Agents dans **un seul message** (subagent_type: `Explore`).
 
-Compte : N tests unitaires, M tests e2e. Taux de succès.
+### Agent 1 — Inventaire tests existants
 
-## Étape 2 — Couverture par module
+Commandes :
+- `find . -type f \( -name "*.test.ts" -o -name "*.test.tsx" -o -name "*.spec.ts" -o -name "*.spec.tsx" \) -not -path "*/node_modules/*" | sort`
+- `find e2e/ -name "*.spec.ts" 2>/dev/null | sort`
+- `npx vitest run --reporter=verbose 2>/dev/null | tail -30`
 
-!npx vitest run --coverage --reporter=json 2>/dev/null | node -e "try{const d=JSON.parse(require('fs').readFileSync('coverage/coverage-summary.json','utf8'));Object.entries(d).forEach(([f,c])=>{if(f!=='total'&&c.lines.pct<80)console.log(c.lines.pct+'%\t'+f)})}catch(e){console.log('pas de rapport coverage')}" 2>/dev/null | sort -n | head -40
+Compter : N unit, M e2e, taux succès.
 
-Identifie les fichiers < 80% de couverture ligne.
+### Agent 2 — Couverture par fichier
 
-## Étape 3 — Zones sans aucun test
+Commande :
+- `npx vitest run --coverage --reporter=json 2>/dev/null`
 
-!find app/api/ -name "route.ts" | while read f; do base="${f%route.ts}"; if ! find . -name "*.test.ts" -path "*${base}\*" 2>/dev/null | grep -q .; then echo "SANS TEST: $f"; fi; done | head -30
+Parser `coverage/coverage-summary.json`. Lister tous fichiers < 80% couverture ligne avec %.
 
-!find app/ lib/ -name "_.ts" -not -name "_.test._" -not -path "_/node*modules/*" | while read f; do base=$(basename "$f" .ts); if ! grep -rq "$base" . --include="_.test._" --include="\_.spec.\*" 2>/dev/null; then echo "SANS TEST: $f"; fi; done | head -30
+### Agent 3 — Zones critiques sans test
 
-## Étape 4 — Analyse des cas manquants
+Identifier fichiers critiques (routes API, stores, lib core) sans `.test.*` adjacent.
 
-Pour chaque fichier identifié comme critique (routes API, stores, utilitaires core), liste les cas de test manquants :
+Commandes :
+- `find app/api -name "route.ts" | while read f; do base=$(dirname "$f"); if ! find . -path "*${base}*" -name "*.test.ts" 2>/dev/null | grep -q .; then echo "$f"; fi; done`
+- `find lib/ -name "*.ts" -not -name "*.test.*" -not -name "*.d.ts" | while read f; do name=$(basename "$f" .ts); if ! grep -rq "$name" . --include="*.test.ts" --include="*.spec.ts" 2>/dev/null; then echo "$f"; fi; done`
 
-- **Happy path** non couvert
-- **Edge cases** : valeurs limites, types inattendus, payloads vides
-- **Erreurs** : 400/401/403/404/500 sur les routes API
-- **Concurrence** : double submit, race conditions
-- **Auth** : accès sans session, session expirée, permissions insuffisantes
+Pour chaque fichier critique sans test, lister les cas manquants :
+- Happy path
+- Edge cases (limites, types inattendus, payloads vides)
+- Erreurs 400/401/403/404/500 sur routes API
+- Concurrence (double submit, races)
+- Auth (sans session, expirée, perms insuffisantes)
 
-## Rapport & specs générées
+## Génération de specs (top 5 gaps les plus critiques)
 
-Pour les 5 gaps les plus critiques, génère la spec complète :
+Pour chacun, produire la spec Vitest ou Playwright complète prête à coller. Format dans le rapport HTML : bloc `<pre>` avec TypeScript.
 
-**Tests unitaires Vitest :**
+Priorité : routes API sans test > stores critiques > composants logique métier > UI pure.
 
-```typescript
-// chemin/du/fichier.test.ts
-import { describe, it, expect, vi } from 'vitest'
+## Agrégation → render-report
 
-describe('NomModule', () => {
-  it('devrait ... (happy path)', async () => { ... })
-  it('devrait rejeter si ... (edge case)', async () => { ... })
-  it('devrait retourner 401 si non authentifié', async () => { ... })
-})
+```json
+{
+  "title": "Couverture & gaps de tests",
+  "scope": "<arg ou 'complet'>",
+  "kpis": { "p0": N_zones_critiques_sans_test, "p1": N_low_coverage, "p2": N_e2e_manquants, "score": coverage_global_pct },
+  "sections": [
+    { "name": "Inventaire", "summary": "N unit · M e2e · X% pass", "findings": [...] },
+    { "name": "Fichiers < 80% couverture", "findings": [...] },
+    { "name": "Zones critiques sans test", "findings": [...] },
+    { "name": "Specs générées (top 5)", "findings": [{ "title": "<fichier cible>", "suggested": "<spec complète>" }] }
+  ],
+  "plan": [
+    { "name": "Batch 1 — Routes API sans test", "items": ["..."] },
+    { "name": "Batch 2 — Stores critiques", "items": ["..."] },
+    { "name": "Batch 3 — Composants logique", "items": ["..."] }
+  ]
+}
 ```
 
-**Tests e2e Playwright :**
+!node scripts/render-report.mjs --type=tests --data=/tmp/tests-data.json --open
 
-```typescript
-// e2e/nom-feature.spec.ts
-import { test, expect } from '@playwright/test'
+## Réponse finale (5 lignes max)
 
-test('flux principal — ...', async ({ page }) => { ... })
-test('cas limite — ...', async ({ page }) => { ... })
 ```
-
-Priorise : routes API sans test > stores critiques > composants avec logique métier > UI pure.
-
-## Rapport HTML — ouverture automatique Chrome
-
-Une fois le rapport textuel produit, génère un fichier HTML complet à `/tmp/rapport-tests.html` et ouvre-le dans Chrome.
-
-Le HTML doit :
-
-- Fond sombre `#0a0a0a`, police `system-ui`, accent `#00e5cc` (cykan)
-- Header avec titre "Couverture & gaps de tests", date/heure, scope analysé
-- Jauge globale de couverture en % avec arc de cercle SVG (rouge < 50%, orange < 80%, vert >= 80%)
-- Tableau des fichiers < 80% couverture : barre de progression par fichier, colorée selon le % (rouge/orange/vert)
-- Section "Zones sans test" : liste des fichiers critiques non couverts, classés par priorité (API > stores > logique > UI)
-- Section "Specs générées" : les 5 specs prêtes à copier, dans des blocs `<pre>` avec syntaxe colorée (TypeScript)
-- Chaque fichier cliquable `vscode://file/...`
-- Footer : N tests existants, M gaps identifiés, date
-
-!node -e "
-const fs = require('fs');
-const html = \`CONTENU_HTML_GENERE\`;
-fs.writeFileSync('/tmp/rapport-tests.html', html);
-"
-!open -a 'Google Chrome' /tmp/rapport-tests.html
+Tests <scope> · Couverture X% · N unit · M e2e
+Zones critiques sans test : K
+Specs générées : 5 prêtes à coller
+Rapport : docs/audit/tests-YYYY-MM-DD.html
+```

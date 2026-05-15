@@ -1,71 +1,80 @@
 ---
-description: Briefing protocole Agent Driven Dev avant de bosser sur une feature
-argument-hint: [feature-id?]
+description: Briefing protocole Agent Driven Dev avant de bosser sur une feature.
+argument-hint: [feature-id] (vide = briefing général)
 ---
 
-# Protocole Agent Driven Dev — briefing
+# /feature — Briefing ADD
 
-Tu vas travailler sur une feature de Hearst OS. **Lis ce qui suit AVANT toute autre action.**
+Lecture obligatoire avant toute modification sur une feature. Garantit verrou + invariants + autonomie.
 
-## 1. Vérifie le verrou agent (étape 0, obligatoire)
+## Étape 1 — Verrou agent
 
 !cat docs/AGENT-LOCK.json
 
-Si `locked: true` ci-dessus :
-- **Refuse** toute écriture (Edit, Write, NotebookEdit) et action destructive (`rm`, `git commit`, `git push`, `mv`, drop DB, etc.)
-- Informe l'utilisateur, cite la `reason` si présente
-- Indique-lui qu'il doit déverrouiller depuis `/admin/agent-driven-dev`
-- Lecture (Read, Grep, Glob, Bash en lecture pure) → autorisée
+Si `locked: true` :
+- Refuser toute écriture (Edit, Write, NotebookEdit) et toute action destructive (`rm`, `git commit`, `git push`, `mv`, drop DB).
+- Citer la `reason` si présente.
+- Indiquer : déverrouiller via `/admin/agent-driven-dev`.
+- Lecture (Read, Grep, Glob, Bash read-only) reste autorisée.
 
-Si `locked: false` → continue.
+Si `locked: false` → continuer.
 
-## 2. Lis le rapport maître
+## Étape 2 — Rapport maître
 
 @docs/AGENT-DRIVEN-DEV.md
 
-Identifie :
-- Quelles features sont **verrouillées** (statut `verrouillé v<n>`)
-- Quel niveau (P0 = critique, P1 = important, P2 = standard)
-- Qui possède quels invariants
+Identifier :
+- Features verrouillées (statut `verrouillé v<n>`)
+- Niveau de criticité (P0 / P1 / P2)
+- Périmètres des invariants
 
-## 3. Si la feature est verrouillée → lis sa spec
+## Étape 3 — Spec ciblée
 
-Argument : **$ARGUMENTS**
+Si `$ARGUMENTS` non vide, lire la spec :
 
-Si `$ARGUMENTS` est non vide, ouvre `docs/features/$ARGUMENTS.md` :
+```bash
+cat docs/features/$ARGUMENTS.md
+```
+
+Et la rendre visible via :
 
 @docs/features/$ARGUMENTS.md
 
-Concentre-toi sur :
-- **Surface publique** (composants, endpoints API, stores) — ce que tu peux toucher
-- **Invariants verrouillés** — ce que tu **ne peux pas** modifier sans update spec
-- **Évolutions autorisées** — ce que tu peux changer librement
-- **Tests existants** — ce qui couvre déjà
-- **Code orphelin** — ce qui est code-ready mais non câblé
+Focaliser sur :
+- **Surface publique** — ce qui peut être modifié
+- **Invariants verrouillés** — interdits sans update spec
+- **Évolutions autorisées** — libres
+- **Tests existants** — couverture actuelle
+- **Code orphelin** — code-ready non câblé
 
-## 4. Règle absolue
+## Étape 4 — Règle d'or
 
-Si ton changement contredit un invariant :
-- **STOP**. Ne code pas.
-- Propose à Adrien un update de spec (incrémenter `version spec`, mettre à jour `dernière revue`)
-- Attends sa validation explicite avant de coder
-- Une fois validé : modifie la spec, puis le code, puis ajoute l'entrée dans `docs/rules/locked-zones.md` si nouvelle règle, puis régénère le manifest avec `npm run features:manifest`
+Si le changement envisagé contredit un invariant :
+1. STOP, ne pas coder.
+2. Proposer à Adrien un update de spec :
+   - Incrémenter `version spec`
+   - Mettre à jour `dernière revue`
+   - Documenter le changement d'invariant
+3. Attendre validation explicite.
+4. Une fois validé : modifier la spec → modifier le code → mettre à jour `docs/rules/locked-zones.md` si nouvelle règle → `npm run features:manifest`.
 
-## 5. Si la feature n'est pas encore verrouillée
+## Étape 5 — Si feature non verrouillée
 
-Mode autonomie standard CLAUDE.md. Tu décides, tu codes, tu commits, tu signales.
+Mode autonomie standard (CLAUDE.md). Décider, coder, commit, signaler.
 
-## 6. Quand tu finis
+## Étape 6 — Hygiène post-modif
 
-- Mets à jour `dernière revue` dans `docs/features/<id>.md` si tu as touché à des fichiers de la feature
-- Régénère le manifest si tu as modifié une spec : `npm run features:manifest`
-- Le tableau de bord `/admin/agent-driven-dev` se met à jour tout seul
+Si modification de fichiers de la feature :
+- Mettre à jour `dernière revue` dans `docs/features/<id>.md`
+- `npm run features:manifest` si spec touchée
+- Le dashboard `/admin/agent-driven-dev` se met à jour automatiquement
 
----
+## Récap (3 lignes max)
 
-**Récapitule à Adrien en 3 lignes** :
-1. Statut du verrou (libre / verrouillé)
-2. Statut de la feature ciblée (verrouillée v<n> ou autonomie)
-3. Quels invariants tu vas devoir respecter (si applicable)
+```
+Verrou : libre | verrouillé (reason : "...")
+Feature : <id> — <statut: autonomie | verrouillée v<n> P<niveau>>
+Invariants à respecter : <liste courte ou "aucun (autonomie)">
+```
 
-Puis attends son OK pour commencer.
+Attendre OK utilisateur avant de commencer.

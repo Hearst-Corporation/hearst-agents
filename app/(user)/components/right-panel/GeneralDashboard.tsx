@@ -207,7 +207,7 @@ function MissionsZone() {
 
   return (
     <RailSection
-      label="Missions en vie"
+      label="Missions"
       count={counts.missionsTotal ?? undefined}
       action={missions.length > 0 && (
         <Action variant="ghost" tone="neutral" size="sm" href="/missions">

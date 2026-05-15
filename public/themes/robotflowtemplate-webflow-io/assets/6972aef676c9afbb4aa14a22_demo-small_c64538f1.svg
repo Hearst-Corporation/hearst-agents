@@ -1,0 +1,32 @@
+<svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_5505_57495" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="1" y="2" width="46" height="45">
+<rect x="1.68066" y="2.34967" width="44.6131" height="44.6024" rx="22.3012" fill="#E3EFFF"/>
+</mask>
+<g mask="url(#mask0_5505_57495)">
+<line x1="32.8195" y1="0.500061" x2="32.8195" y2="50.5481" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="41.1271" y1="0.500061" x2="41.1271" y2="50.5481" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="24.5118" y1="0.500061" x2="24.5118" y2="50.5481" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="7.89661" y1="0.500061" x2="7.89661" y2="50.5481" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="16.2042" y1="0.500061" x2="16.2042" y2="50.5481" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="-1.02441" y1="16.7035" x2="49.0237" y2="16.7035" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="-1.02441" y1="8.39581" x2="49.0237" y2="8.39581" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="-1.02441" y1="25.0112" x2="49.0237" y2="25.0112" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="-1.02441" y1="41.6266" x2="49.0237" y2="41.6266" stroke="#FBE080" stroke-width="1.02564"/>
+<line x1="-1.02441" y1="33.319" x2="49.0237" y2="33.319" stroke="#FBE080" stroke-width="1.02564"/>
+<rect x="1.41211" y="2.03467" width="45.0024" height="44.9916" rx="10.7692" fill="url(#paint0_radial_5505_57495)"/>
+</g>
+<path d="M37.2899 21.3614V30.5828C37.2899 33.5636 34.8735 35.9799 31.8928 35.9799H16.1062C13.1255 35.9799 10.7091 33.5636 10.7091 30.5828V21.3614C10.7091 20.7331 11.0009 20.1405 11.4988 19.7573L22.7653 11.0884C23.4929 10.5286 24.5061 10.5286 25.2337 11.0884L36.5002 19.7573C36.9981 20.1405 37.2899 20.7331 37.2899 21.3614Z" fill="#FFFAE9" stroke="#FED133" stroke-width="1.01196"/>
+<mask id="mask1_5505_57495" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="10" y="20" width="28" height="17">
+<path d="M10.2031 20.0937H37.7959V33.9561C37.7959 35.3533 36.6632 36.486 35.266 36.486H12.733C11.3358 36.486 10.2031 35.3533 10.2031 33.9561V20.0937Z" fill="#E1E4ED"/>
+</mask>
+<g mask="url(#mask1_5505_57495)">
+<path d="M10.7091 33.9562V21.5969C10.7091 21.3354 10.9937 21.1734 11.2185 21.3068L35.9513 35.9801H12.733C11.6152 35.9801 10.7091 35.074 10.7091 33.9562Z" fill="white" stroke="#FED133" stroke-width="1.01196" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M37.2899 33.9561V21.5968C37.2899 21.3354 37.0053 21.1733 36.7805 21.3067L12.0477 35.98H35.266C36.3838 35.98 37.2899 35.0739 37.2899 33.9561Z" fill="white" stroke="#FED133" stroke-width="1.01196" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_5505_57495" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(23.9133 24.5305) rotate(90) scale(22.4958 22.5012)">
+<stop stop-color="#FFFAE9" stop-opacity="0.28"/>
+<stop offset="1" stop-color="#FFFAE9"/>
+</radialGradient>
+</defs>
+</svg>

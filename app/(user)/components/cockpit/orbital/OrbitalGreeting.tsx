@@ -12,7 +12,7 @@ export function OrbitalGreeting() {
       className="shrink-0 flex flex-col items-center pt-12 pb-4 gap-2 relative z-10 rounded-2xl overflow-hidden backdrop-blur-md bg-bg-gradient-radial-subtle bg-bg-gradient-linear-bottom-glow animate-fade-in-slide-up-subtle"
     >
       <h1
-        className="font-extralight t-48 tracking-editorial text-text-l0 leading-tight text-shadow-subtle-accent animate-fade-in-slide-up-subtle"
+        className="font-extralight t-32 text-text-l0 leading-tight text-shadow-subtle-accent animate-fade-in-slide-up-subtle"
       >
         {greeting}
       </h1>
