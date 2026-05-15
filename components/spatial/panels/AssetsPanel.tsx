@@ -41,7 +41,7 @@ export function AssetsPanel({ show }: AssetsPanelProps) {
     // pendant le render (rule react-hooks/purity).
     const messageRefs = (messages ?? []).filter((m) => !!m.assetRef).slice(-5);
     const fromMessages: AssetEntry[] = messageRefs.map((m, i) => ({
-      id: m.assetRef?.id,
+      id: m.assetRef!.id,
       label: m.assetRef?.title || "Asset",
       time: "récent",
       // Base 0 + i pour préserver l'ordre relatif sans Date.now()

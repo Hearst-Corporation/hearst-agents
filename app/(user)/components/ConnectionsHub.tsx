@@ -127,7 +127,7 @@ export function ConnectionsHub() {
             hub.busy === hub.liveDrawer.app.key || hub.busy === hub.liveDrawer.connectedAccount?.id
           }
           onClose={hub.closeDrawer}
-          onConnect={() => hub.handleConnect(hub.liveDrawer?.app)}
+          onConnect={() => hub.handleConnect(hub.liveDrawer!.app)}
           onDisconnect={
             hub.liveDrawer.connectedAccount
               ? () => hub.handleDisconnect(hub.liveDrawer?.connectedAccount!)

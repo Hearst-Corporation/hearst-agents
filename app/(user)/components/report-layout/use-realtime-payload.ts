@@ -52,7 +52,7 @@ export function useRealtimePayload(
     };
     // On surveille uniquement le generatedAt du livePayload
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [livePayload.generatedAt, payload.generatedAt, livePayload]);
+  }, [livePayload?.generatedAt, payload.generatedAt]);
 
   return { effectivePayload, showToast };
 }

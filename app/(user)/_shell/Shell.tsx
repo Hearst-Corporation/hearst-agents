@@ -43,9 +43,10 @@ export type ShellProps = {
   railTitle: string;
   railItems: readonly RailItem[];
   footer: FooterConfig;
+  composer?: ReactNode;
 };
 
-export function Shell({ centerContent, railTitle, railItems, footer }: ShellProps) {
+export function Shell({ centerContent, railTitle, railItems, footer, composer }: ShellProps) {
   return (
     <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-[#050505] text-white">
       <AmbientLayers />
@@ -71,6 +72,9 @@ export function Shell({ centerContent, railTitle, railItems, footer }: ShellProp
           />
 
           <FloatingFooter config={footer} />
+
+          {/* Composer chat — moteur SSE + input (Option 2, Temps 1) */}
+          {composer && <div className="absolute right-0 bottom-0 left-0 z-[25]">{composer}</div>}
         </div>
 
         <RightRail title={railTitle} items={railItems} />

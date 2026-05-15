@@ -19,6 +19,7 @@ import { SignalStage } from "../_stages/SignalStage";
 import { SimulationStage } from "../_stages/SimulationStage";
 import type { FooterConfig, RailItem } from "../_stages/types";
 import { VoiceStage } from "../_stages/VoiceStage";
+import { ChatDock } from "../components/ChatDock";
 
 /**
  * CockpitXClient — orchestrateur du shell visionOS (P4+).
@@ -123,6 +124,7 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
       railTitle={def.railTitle}
       railItems={[]}
       footer={def.footer}
+      composer={<ChatDock />}
     />
   );
 }
