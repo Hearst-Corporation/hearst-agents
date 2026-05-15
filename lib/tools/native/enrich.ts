@@ -8,9 +8,7 @@
  * vers AssetStage si besoin futur.
  *
  * Sprint suivant (post-Phase C, plan tu-prepare-le-plan-logical-meteor) :
- * remplit la promesse "B2B intel" de la vision. Voice-emotion (Hume) reste
- * orphelin pour l'instant (nécessite capture audio de la session voix +
- * upload — plumbing non trivial).
+ * remplit la promesse "B2B intel" de la vision.
  */
 
 import type { Tool } from "ai";

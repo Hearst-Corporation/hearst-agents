@@ -289,19 +289,6 @@ async function checkDeepgram(): Promise<CheckResult> {
   return result === 200 ? ok("Deepgram", cat, ms, "") : fail("Deepgram", cat, ms, `HTTP ${result}`);
 }
 
-async function checkHume(): Promise<CheckResult> {
-  const cat = "Voice/Emotion";
-  const key = process.env.HUME_API_KEY;
-  if (!key) return skip("Hume AI", cat);
-  const { result, ms, err } = await timed(() =>
-    head("https://api.hume.ai/v0/batch/jobs", { "X-Hume-Api-Key": key }, 5000),
-  );
-  if (err) return fail("Hume AI", cat, ms, err);
-  return result && result < 500
-    ? ok("Hume AI", cat, ms, `HTTP ${result}`)
-    : fail("Hume AI", cat, ms, `HTTP ${result}`);
-}
-
 async function checkApollo(): Promise<CheckResult> {
   const cat = "Lead";
   const key = process.env.APOLLO_API_KEY;
@@ -512,7 +499,6 @@ const checks: Array<() => Promise<CheckResult>> = [
   checkBrowserbase,
   checkRecall,
   checkDeepgram,
-  checkHume,
   checkApollo,
   checkPDL,
   checkComposio,
