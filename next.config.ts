@@ -10,7 +10,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.sentry.io https://cloud.langfuse.com https://unpkg.com",
       "worker-src 'self' blob:",
       "child-src 'self' blob:",
-      "style-src 'self' 'unsafe-inline' https://api.fontshare.com",
+      "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com",
       "img-src 'self' data: https: blob:",
       "media-src 'self' data: https: blob:",
       "font-src 'self' data: https://cdn.fontshare.com",
