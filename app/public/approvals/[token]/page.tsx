@@ -167,7 +167,7 @@ export default async function PublicApprovalPage({
         >
           <h1
             className="t-28"
-            style={{ fontWeight: 300, letterSpacing: "-0.02em", margin: 0 }}
+            style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)", margin: 0 }}
           >
             Approbation indisponible
           </h1>
@@ -204,7 +204,7 @@ export default async function PublicApprovalPage({
             style={{
               color: "var(--text-faint)",
               textTransform: "uppercase",
-              letterSpacing: "0.08em",
+              letterSpacing: "var(--tracking-caption)",
               margin: 0,
               marginBottom: "var(--space-2)",
             }}
@@ -215,7 +215,7 @@ export default async function PublicApprovalPage({
             className="t-28"
             style={{
               fontWeight: 400,
-              letterSpacing: "-0.02em",
+              letterSpacing: "var(--tracking-tight)",
               color: "var(--text)",
               margin: 0,
             }}
@@ -252,7 +252,7 @@ export default async function PublicApprovalPage({
               style={{
                 color: "var(--text-faint)",
                 textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: "var(--tracking-caption)",
                 margin: 0,
                 marginBottom: "var(--space-2)",
               }}
@@ -285,7 +285,7 @@ export default async function PublicApprovalPage({
               margin: 0,
               marginBottom: "var(--space-1)",
               textTransform: "uppercase",
-              letterSpacing: "0.08em",
+              letterSpacing: "var(--tracking-caption)",
             }}
           >
             Approbateur

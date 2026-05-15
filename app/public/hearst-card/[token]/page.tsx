@@ -152,7 +152,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
       >
         <h1
           className="t-28"
-          style={{ fontWeight: 300, letterSpacing: "-0.02em" }}
+          style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}
         >
           Carte indisponible
         </h1>
@@ -235,7 +235,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           className="t-11"
           style={{
             color: "var(--text-faint)",
-            letterSpacing: "0.08em",
+            letterSpacing: "var(--tracking-caption)",
             textTransform: "uppercase",
           }}
         >
@@ -328,7 +328,7 @@ export default async function PublicHearstCardPage({ params }: PageProps) {
           className="t-28"
           style={{
             fontWeight: 300,
-            letterSpacing: "-0.02em",
+            letterSpacing: "var(--tracking-tight)",
             margin: 0,
           }}
         >

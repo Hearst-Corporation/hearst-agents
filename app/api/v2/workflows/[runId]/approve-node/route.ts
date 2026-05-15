@@ -20,7 +20,7 @@
  *
  *   Une persistance Supabase (table `workflow_runs` avec colonne
  *   `awaiting_state JSONB`) sera ajoutée au prochain palier pour permettre
- *   une reprise transparente — TODO traqué dans /lib/workflows/executor.ts.
+ *   une reprise transparente (voir /lib/workflows/executor.ts).
  */
 
 import { z } from "zod";

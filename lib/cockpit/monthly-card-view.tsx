@@ -402,7 +402,3 @@ function NumberedRow({ number, label, value, accent = false }: NumberedRowProps)
   );
 }
 
-export const MONTHLY_CARD_DIMENSIONS = {
-  width: CARD_WIDTH,
-  height: CARD_HEIGHT,
-} as const;

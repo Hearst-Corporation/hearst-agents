@@ -20,8 +20,7 @@ export async function GET() {
     return NextResponse.json({ error: "not_authenticated" }, { status: 401 });
   }
 
-  // tenantId = userId en mono-tenant (Hearst OS V1).
-  // TODO: Charger le tenantId réel depuis la session quand multi-tenant.
+  // En mono-tenant V1, tenantId === userId. À adapter quand multi-tenant.
   const tenantId = userId;
 
   try {

@@ -41,6 +41,10 @@ export default async function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=satoshi-variable@900,700,500,400,300&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body className="h-full text-text overflow-hidden">
         <div className="ghost-bg" />

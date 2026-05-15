@@ -17,6 +17,7 @@ import { validateOutput, type OutputValidationResult } from "./output-validator"
 import type { AgentGuardPolicy } from "./prompt-guard";
 import { getLangfuseClient } from "@/lib/observability/langfuse";
 import { logger } from "@/lib/observability/logger";
+import * as Sentry from "@sentry/nextjs";
 
 type DB = SupabaseClient<Database>;
 type JsonRecord = Record<string, Json | undefined>;
@@ -261,7 +262,9 @@ export class RunTracer {
       }
     } catch (err) {
       // Log seulement — un flush raté ne doit pas casser le run.
-      // TODO: brancher Sentry.captureException() quand le SDK Sentry sera wrappé.
+      Sentry.captureException(err instanceof Error ? err : new Error(String(err)), {
+        tags: { subsystem: "tracer", operation: "langfuse_flush" },
+      });
       console.warn(
         "[tracer] Langfuse flushAsync failed:",
         err instanceof Error ? err.message : String(err),

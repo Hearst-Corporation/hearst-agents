@@ -8,77 +8,75 @@
  * Note: @import doit rester en tête (règle CSS) — les rules :root viennent après.
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap");
-
 :root[data-theme="robotflowtemplate-webflow-io"] {
   /* === Couleurs === */
-  --color-bg:           #050607;
-  --color-bg-elevated:  #090a0c;
-  --color-surface:      #121418;
-  --color-surface-hi:   #1a1d22;
-  --color-border:       #3b3e45;
-  --color-border-soft:  #1a1d22;
+  --color-bg: #050607;
+  --color-bg-elevated: #090a0c;
+  --color-surface: #121418;
+  --color-surface-hi: #1a1d22;
+  --color-border: #3b3e45;
+  --color-border-soft: #1a1d22;
 
-  --color-fg:           #ffffff;
-  --color-fg-body:      #b6bcc9;
-  --color-fg-muted:     #7c818d;
-  --color-fg-dim:       #666977;
+  --color-fg: #ffffff;
+  --color-fg-body: #b6bcc9;
+  --color-fg-muted: #7c818d;
+  --color-fg-dim: #666977;
 
-  --color-accent:       #523ff5;
-  --color-accent-hi:    #6a55ff;
-  --color-accent-soft:  rgba(82, 63, 245, 0.18);
+  --color-accent: #523ff5;
+  --color-accent-hi: #6a55ff;
+  --color-accent-soft: rgba(82, 63, 245, 0.18);
 
-  --color-success:      #74d184;
-  --color-warning:      #efc42c;
-  --color-danger:       #fe566b;
-  --color-info:         #64a7ff;
+  --color-success: #74d184;
+  --color-warning: #efc42c;
+  --color-danger: #fe566b;
+  --color-info: #64a7ff;
 
-  --color-on-accent:    #ffffff;
-  --color-on-fg:        #050607;
+  --color-on-accent: #ffffff;
+  --color-on-fg: #050607;
 
   /* Aliases sémantiques (compat Hearst OS) */
-  --bg:        var(--color-bg);
-  --surface:   var(--color-surface);
-  --border:    var(--color-border);
-  --text:      var(--color-fg);
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --border: var(--color-border);
+  --text: var(--color-fg);
   --text-muted: var(--color-fg-muted);
-  --accent:    var(--color-accent);
+  --accent: var(--color-accent);
 
   /* === Typographie === */
-  --font-family:        "Inter Tight", "Inter", system-ui, sans-serif;
-  --font-family-mono:   "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  --font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
 
-  --font-size-xs:       14px;
-  --font-size-sm:       16px;
-  --font-size-base:     18px;
-  --font-size-lg:       20px;
-  --font-size-xl:       24px;
-  --font-size-2xl:      30px;
-  --font-size-3xl:      36px;
-  --font-size-4xl:      48px;
-  --font-size-5xl:      60px;
-  --font-size-6xl:      72px;
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-base: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 30px;
+  --font-size-3xl: 36px;
+  --font-size-4xl: 48px;
+  --font-size-5xl: 60px;
+  --font-size-6xl: 72px;
 
   --font-weight-regular: 400;
-  --font-weight-medium:  500;
+  --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --font-weight-bold:    700;
+  --font-weight-bold: 700;
 
-  --line-height-tight:   1.115;
-  --line-height-base:    1.25;
+  --line-height-tight: 1.115;
+  --line-height-base: 1.25;
   --line-height-relaxed: 1.5;
 
   --letter-spacing-base: normal;
   --letter-spacing-tight: -0.01em;
 
   /* === Spacing === */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-5:  20px;
-  --space-6:  24px;
-  --space-8:  32px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-14: 56px;
@@ -91,12 +89,12 @@
   --space-50: 200px;
 
   /* === Radius === */
-  --radius-xs:   4px;
-  --radius-sm:   8px;
-  --radius-md:   16px;
-  --radius-lg:   32px;
-  --radius-xl:   48px;
-  --radius-2xl:  64px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  --radius-2xl: 64px;
   --radius-pill: 200px;
   --radius-full: 9999px;
 
@@ -108,12 +106,12 @@
   --shadow-glow: 0 0 32px rgba(82, 63, 245, 0.35);
 
   /* === Motion === */
-  --duration-fast:   150ms;
-  --duration-base:   300ms;
-  --duration-slow:   500ms;
-  --ease-base:       cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out:        cubic-bezier(0, 0, 0.2, 1);
-  --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --ease-base: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* === Layout === */
   --container-max: 1280px;

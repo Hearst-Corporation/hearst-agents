@@ -138,7 +138,7 @@ export function ApprovalVoteForm({ token, presetAction }: ApprovalVoteFormProps)
           display: "block",
           color: "var(--text-faint)",
           textTransform: "uppercase",
-          letterSpacing: "0.08em",
+          letterSpacing: "var(--tracking-caption)",
           marginBottom: "var(--space-2)",
         }}
       >

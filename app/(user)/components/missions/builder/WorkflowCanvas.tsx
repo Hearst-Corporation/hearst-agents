@@ -1,6 +1,49 @@
 "use client";
 // lint-visual-disable-file — stylesheet Cytoscape et SVG data URIs exigent des hex bruts (var(--token) non supporté par la lib)
 
+// ── Palette Cytoscape (source de vérité unique pour ce fichier) ──
+// Cytoscape ne peut pas consommer var(--token), donc les hex vivent ici.
+// Toute modification de couleur DS doit être répercutée ici aussi.
+const CY = {
+  // Fonds
+  bgBase:       "#16161B",   // --bg-base
+  bgSurface:    "#1B1B22",   // --bg-surface
+  bgTrigger:    "#0E1F1E",   // tint cykan foncé
+  bgCondition:  "#1C1A0E",   // tint gold foncé
+  bgApproval:   "#1C0E0E",   // tint danger foncé
+  bgRunning:    "#0E2F2E",   // tint cykan plus fort
+  bgSuccess:    "#0E1F14",   // tint green foncé
+  bgFailed:     "#1C0A0A",   // tint red foncé
+  bgAwaiting:   "#1C1A08",   // tint gold très foncé
+  // Bordures
+  borderBase:   "#2A2A35",   // --border
+  borderAlt:    "#3A3A48",   // --border-strong
+  borderEdge:   "#2A2A3A",   // bord edge neutre
+  borderEdgeArr:"#3A3A50",   // flèche edge neutre
+  // Tokens sémantiques
+  cykan:        "#4A8B86",   // --cykan
+  cykanA50:     "#4A8B8680", // --cykan @50%
+  cykanA60:     "#4A8B8660", // --cykan @60%
+  cykanText:    "#7DCFCA",   // --cykan-light (texte sur fond sombre)
+  gold:         "#FFCC00",   // --gold
+  goldA50:      "#FFCC0060", // --gold @60%
+  goldText:     "#FDE68A",   // --gold-light
+  danger:       "#FF3333",   // --danger
+  dangerA50:    "#FF333360", // --danger @60%
+  dangerText:   "#FCA5A5",   // --danger-light
+  green:        "#22C55E",   // --money / success
+  greenA50:     "#22C55E60", // --money @60%
+  greenText:    "#86EFAC",   // --money-light
+  // Texte
+  textPrimary:  "#E8E8EE",   // --text-primary
+  textMuted:    "#666680",   // --text-muted
+  // Fond canvas
+  canvasBg:     "#000000",
+  // Brand tiers (icônes apps — couleurs imposées par les marques)
+  googleBlue:   "#1A73E8",
+  googleSearch: "#5F6368",
+} as const;
+
 /**
  * WorkflowCanvas — rendu Cytoscape du WorkflowGraph.
  *
@@ -37,15 +80,15 @@ function fillSvg(inner: string, size = 24): string {
 // Triggers
 const ICON_MANUAL = strokeSvg(
   `<path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>`,
-  "#4A8B86",
+  CY.cykan,
 );
 const ICON_CRON = strokeSvg(
   `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
-  "#4A8B86",
+  CY.cykan,
 );
 const ICON_SIGNAL = strokeSvg(
   `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>`,
-  "#4A8B86",
+  CY.cykan,
 );
 
 // App actions (brand colors)
@@ -57,20 +100,20 @@ const ICON_SLACK = fillSvg(
 );
 const ICON_CALENDAR = strokeSvg(
   `<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>`,
-  "#1A73E8",
+  CY.googleBlue,
 );
 const ICON_DRIVE = fillSvg(
   `<path fill="#34A853" d="M4.433 22.396L1.987 18.028 8.381 7.019l2.449 4.372L4.433 22.396zm5.586-8.697l2.442 4.36H1.985l2.445-4.36h5.589zm.87-1.551L7.513 5.776h9.892l-6.516 6.372z"/>`,
 );
 const ICON_SEARCH = strokeSvg(
   `<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>`,
-  "#5F6368",
+  CY.googleSearch,
 );
 
 // Logic & outputs
 const ICON_CONDITION = strokeSvg(
   `<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>`,
-  "#FFCC00",
+  CY.gold,
 );
 const ICON_TRANSFORM = strokeSvg(
   `<polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>`,
@@ -78,11 +121,11 @@ const ICON_TRANSFORM = strokeSvg(
 );
 const ICON_APPROVAL = strokeSvg(
   `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
-  "#FF3333",
+  CY.danger,
 );
 const ICON_OUTPUT = strokeSvg(
   `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>`,
-  "#4A8B86",
+  CY.cykan,
 );
 
 // Maps tool id → icon data URI
@@ -199,9 +242,9 @@ export function WorkflowCanvas({
       {
         selector: "node",
         style: {
-          "background-color": "#16161B",
+          "background-color": CY.bgBase,
           "label": "data(label)",
-          "color": "#E8E8EE",
+          "color": CY.textPrimary,
           "font-size": 11,
           "font-weight": 500,
           "font-family": "var(--font-satoshi), -apple-system, sans-serif",
@@ -214,7 +257,7 @@ export function WorkflowCanvas({
           "height": 84,
           "shape": "round-rectangle",
           "border-width": 1,
-          "border-color": "#2A2A35",
+          "border-color": CY.borderBase,
           // Icon from node data
           "background-image": "data(icon)",
           "background-fit": "none",
@@ -225,7 +268,7 @@ export function WorkflowCanvas({
           "background-position-y": "30%",
           // Subtle shadow
           "shadow-blur": 12,
-          "shadow-color": "#000000",
+          "shadow-color": CY.canvasBg,
           "shadow-offset-x": 0,
           "shadow-offset-y": 4,
           "shadow-opacity": 0.5,
@@ -235,43 +278,43 @@ export function WorkflowCanvas({
       {
         selector: "node.wf-node-trigger",
         style: {
-          "border-color": "#4A8B8680",
-          "background-color": "#0E1F1E",
+          "border-color": CY.cykanA50,
+          "background-color": CY.bgTrigger,
         },
       },
       {
         selector: "node.wf-node-tool_call",
         style: {
-          "border-color": "#2A2A35",
-          "background-color": "#16161B",
+          "border-color": CY.borderBase,
+          "background-color": CY.bgBase,
         },
       },
       {
         selector: "node.wf-node-condition",
         style: {
-          "border-color": "#FFCC0060",
-          "background-color": "#1C1A0E",
+          "border-color": CY.goldA50,
+          "background-color": CY.bgCondition,
         },
       },
       {
         selector: "node.wf-node-approval",
         style: {
-          "border-color": "#FF333360",
-          "background-color": "#1C0E0E",
+          "border-color": CY.dangerA50,
+          "background-color": CY.bgApproval,
         },
       },
       {
         selector: "node.wf-node-output",
         style: {
-          "border-color": "#4A8B8660",
-          "background-color": "#0E1F1E",
+          "border-color": CY.cykanA60,
+          "background-color": CY.bgTrigger,
         },
       },
       {
         selector: "node.wf-node-transform",
         style: {
-          "border-color": "#3A3A48",
-          "background-color": "#1B1B22",
+          "border-color": CY.borderAlt,
+          "background-color": CY.bgSurface,
         },
       },
       // ── Selected ─────────────────────────────────────────────
@@ -279,10 +322,10 @@ export function WorkflowCanvas({
         selector: "node.wf-node-selected",
         style: {
           "border-width": 2,
-          "border-color": "#4A8B86",
-          "background-color": "#0E1F1E",
+          "border-color": CY.cykan,
+          "background-color": CY.bgTrigger,
           "shadow-blur": 20,
-          "shadow-color": "#4A8B86",
+          "shadow-color": CY.cykan,
           "shadow-opacity": 0.25,
         },
       },
@@ -291,7 +334,7 @@ export function WorkflowCanvas({
         selector: "node.wf-node-source",
         style: {
           "border-width": 2,
-          "border-color": "#FFCC00",
+          "border-color": CY.gold,
           "border-style": "dashed",
         },
       },
@@ -299,10 +342,10 @@ export function WorkflowCanvas({
       {
         selector: "node.wf-node-status-running",
         style: {
-          "border-color": "#4A8B86",
-          "background-color": "#0E2F2E",
-          "color": "#7DCFCA",
-          "shadow-color": "#4A8B86",
+          "border-color": CY.cykan,
+          "background-color": CY.bgRunning,
+          "color": CY.cykanText,
+          "shadow-color": CY.cykan,
           "shadow-opacity": 0.4,
           "shadow-blur": 16,
         },
@@ -310,25 +353,25 @@ export function WorkflowCanvas({
       {
         selector: "node.wf-node-status-completed",
         style: {
-          "border-color": "#22C55E60",
-          "background-color": "#0E1F14",
-          "color": "#86EFAC",
+          "border-color": CY.greenA50,
+          "background-color": CY.bgSuccess,
+          "color": CY.greenText,
         },
       },
       {
         selector: "node.wf-node-status-failed",
         style: {
-          "border-color": "#FF333360",
-          "background-color": "#1C0A0A",
-          "color": "#FCA5A5",
+          "border-color": CY.dangerA50,
+          "background-color": CY.bgFailed,
+          "color": CY.dangerText,
         },
       },
       {
         selector: "node.wf-node-status-awaiting_approval",
         style: {
-          "border-color": "#FFCC0060",
-          "background-color": "#1C1A08",
-          "color": "#FDE68A",
+          "border-color": CY.goldA50,
+          "background-color": CY.bgAwaiting,
+          "color": CY.goldText,
         },
       },
       {
@@ -340,8 +383,8 @@ export function WorkflowCanvas({
         selector: "edge",
         style: {
           "width": 1.5,
-          "line-color": "#2A2A3A",
-          "target-arrow-color": "#3A3A50",
+          "line-color": CY.borderEdge,
+          "target-arrow-color": CY.borderEdgeArr,
           "target-arrow-shape": "triangle",
           "arrow-scale": 0.8,
           "curve-style": "bezier",
@@ -349,8 +392,8 @@ export function WorkflowCanvas({
           "font-size": 9,
           "font-family": "var(--font-satoshi), -apple-system, sans-serif",
           "text-rotation": "autorotate",
-          "color": "#666680",
-          "text-background-color": "#16161B",
+          "color": CY.textMuted,
+          "text-background-color": CY.bgBase,
           "text-background-opacity": 1,
           "text-background-padding": 2,
         },
@@ -358,22 +401,22 @@ export function WorkflowCanvas({
       {
         selector: "edge.wf-edge-true",
         style: {
-          "line-color": "#22C55E60",
-          "target-arrow-color": "#22C55E",
+          "line-color": CY.greenA50,
+          "target-arrow-color": CY.green,
         },
       },
       {
         selector: "edge.wf-edge-false",
         style: {
-          "line-color": "#FF333360",
-          "target-arrow-color": "#FF3333",
+          "line-color": CY.dangerA50,
+          "target-arrow-color": CY.danger,
         },
       },
       {
         selector: "edge.wf-edge-error",
         style: {
-          "line-color": "#FFCC0060",
-          "target-arrow-color": "#FFCC00",
+          "line-color": CY.goldA50,
+          "target-arrow-color": CY.gold,
           "line-style": "dashed",
         },
       },
@@ -434,7 +477,7 @@ export function WorkflowCanvas({
     <div
       className="relative w-full h-full overflow-hidden"
       style={{
-        background: "#000000",
+        background: CY.canvasBg,
         backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)",
         backgroundSize: "22px 22px",
       }}
@@ -477,11 +520,11 @@ export function WorkflowCanvas({
               style={{
                 width: 48,
                 height: 48,
-                background: "rgba(74,139,134,0.12)",
-                border: "1px solid rgba(74,139,134,0.3)",
+                background: "rgba(74,139,134,0.12)",   // cykan tint — toléré ici (canvas)
+                border: "1px solid rgba(74,139,134,0.3)", // cykan tint — toléré ici (canvas)
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A8B86" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={CY.cykan} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
@@ -530,7 +573,7 @@ export function WorkflowCanvas({
               padding: "var(--space-2) var(--space-3)",
               background: pendingSource === selectedNodeId ? "rgba(255,204,0,0.15)" : "rgba(74,139,134,0.15)",
               border: `1px solid ${pendingSource === selectedNodeId ? "rgba(255,204,0,0.4)" : "rgba(74,139,134,0.4)"}`,
-              color: pendingSource === selectedNodeId ? "#FFCC00" : "#4A8B86",
+              color: pendingSource === selectedNodeId ? CY.gold : CY.cykan,
             }}
           >
             {pendingSource === selectedNodeId ? "Annuler" : "Relier →"}

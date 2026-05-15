@@ -221,7 +221,7 @@ function CtaFooter() {
           style={{
             fontWeight: 300,
             color: "var(--text)",
-            letterSpacing: "-0.02em",
+            letterSpacing: "var(--tracking-tight)",
             margin: 0,
           }}
         >
@@ -336,7 +336,7 @@ export default async function PublicReportPage({ params }: PageProps) {
         >
           <h1
             className="t-28"
-            style={{ fontWeight: 300, letterSpacing: "-0.02em" }}
+            style={{ fontWeight: 300, letterSpacing: "var(--tracking-tight)" }}
           >
             Lien indisponible
           </h1>
@@ -370,7 +370,7 @@ export default async function PublicReportPage({ params }: PageProps) {
             className="t-34"
             style={{
               fontWeight: 400,
-              letterSpacing: "-0.02em",
+              letterSpacing: "var(--tracking-tight)",
               color: "var(--text)",
               margin: 0,
             }}

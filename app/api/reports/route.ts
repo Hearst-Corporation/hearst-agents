@@ -15,6 +15,7 @@ import {
   type ApplicableReport,
 } from "@/lib/reports/catalog";
 import { listTemplates } from "@/lib/reports/templates/store";
+import { listConnections } from "@/lib/connectors/composio/connections";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -54,10 +55,11 @@ export async function GET(_req: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
 
-  // Charger les apps connectées depuis la session de scope
-  // En dev fallback, on retourne une liste vide → tous les rapports sont "needs-connection"
-  // TODO(phase-B): lire les apps connectées depuis le store tenant Supabase
-  const connectedApps: string[] = [];
+  // Charger les apps connectées depuis Composio (liste active seulement)
+  const connections = await listConnections(scope.userId, { includeInactive: false });
+  const connectedApps = connections
+    .filter((c) => c.status === "ACTIVE")
+    .map((c) => c.appName);
 
   // Charger les templates personnalisés du tenant
   const templates = await listTemplates({ tenantId: scope.tenantId });

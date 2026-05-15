@@ -35,20 +35,20 @@ export function ThreadRow({ thread, isActive, onSelect, onDelete, onArchive }: T
         style={{
           width: "24px",
           height: "24px",
-          background: isActive ? "rgba(167, 139, 250, 0.15)" : "transparent",
+          background: isActive ? "rgba(var(--accent-llm-rgb, 167 139 250) / 0.15)" : "transparent",
           borderRadius: "6px",
         }}
         aria-hidden
       >
-        <span 
-          style={{ 
+        <span
+          style={{
             display: "inline-block",
-            width: "12px", 
-            height: "12px", 
+            width: "12px",
+            height: "12px",
             borderRadius: "50%",
-            background: isActive ? "#a78bfa" : "rgba(255, 255, 255, 0.3)",
-            boxShadow: isActive ? "0 0 12px rgba(167, 139, 250, 0.8)" : "none",
-          }} 
+            background: isActive ? "var(--accent-llm)" : "rgba(255, 255, 255, 0.3)",
+            boxShadow: isActive ? "0 0 12px color-mix(in srgb, var(--accent-llm) 80%, transparent)" : "none",
+          }}
         />
       </span>
       <p

@@ -7,10 +7,10 @@
  * URL accessible (Drive public, S3 signed, etc.) ; le worker LlamaParse
  * télécharge et produit un asset document parsé.
  *
- * Phase B (TODO) : remplacer par un upload natif → R2 → fileUrl auto.
- * La route /api/v2/documents/upload existe mais retourne le markdown
- * parsé inline, pas une URL persistée. Ajouter un endpoint
- * /api/v2/uploads dédié quand l'infra storage tenant-scoped sera prête.
+ * Phase B : remplacer par un upload natif → R2 → fileUrl auto.
+ * La route /api/v2/documents/upload retourne le markdown parsé inline,
+ * pas une URL persistée. Prévu : endpoint /api/v2/uploads quand
+ * l'infra storage tenant-scoped sera prête.
  *
  * Tokens uniquement (CLAUDE.md §1).
  */

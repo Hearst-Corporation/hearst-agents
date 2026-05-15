@@ -159,7 +159,7 @@ function MoteurZone() {
 // ══════════════════════════════════════════════════════════════
 
 function ValiderZone() {
-  // TODO: câbler à un store de propositions d'agents autonomes
+  // Phase future : câbler au store de propositions d'agents autonomes (useAgentProposals)
   const pending: { agent: string; title: string } | null = null as { agent: string; title: string } | null;
 
   // Empty → section compacte (pas de flex), pour libérer la hauteur au profit
