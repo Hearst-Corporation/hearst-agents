@@ -199,6 +199,18 @@ export class RunTracer {
           { run_id: this.runId, cost_usd: this.totalCost, budget_usd: this.costBudget.budget_usd },
           "[cost-sentinel] budget exceeded",
         );
+        Sentry.captureMessage("[cost-sentinel] budget exceeded", {
+          level: "error",
+          tags: {
+            feature: "cost-sentinel",
+            run_id: this.runId ?? "unknown",
+            kind: "cost.exceeded",
+          },
+          extra: {
+            cost_usd: this.totalCost,
+            budget_usd: this.costBudget.budget_usd,
+          },
+        });
       }
       throw costErr;
     }
@@ -315,6 +327,15 @@ export class RunTracer {
   private emitEvent(kind: RunEventKind, data: Record<string, unknown>) {
     if (kind === "cost:warning") {
       logger.warn({ run_id: this.runId, ...data }, "[cost-sentinel] budget warning");
+      Sentry.captureMessage("[cost-sentinel] budget warning", {
+        level: "warning",
+        tags: {
+          feature: "cost-sentinel",
+          run_id: this.runId ?? "unknown",
+          kind: "cost.warning",
+        },
+        extra: data as Record<string, unknown>,
+      });
     }
     this.events.push({
       kind,
