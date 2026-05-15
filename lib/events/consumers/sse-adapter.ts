@@ -285,6 +285,17 @@ export class SSEAdapter {
           costUSD: event.costUSD,
         };
       }
+      case "tool_call_failed": {
+        const { providerId, providerLabel } = deriveProvider(event.tool, event.providerId);
+        return {
+          type: "tool_call_failed",
+          step_id: event.step_id,
+          tool: event.tool,
+          providerId,
+          providerLabel,
+          error: event.error,
+        };
+      }
 
       // ── Inline app connect (visible — renders connect card) ──
       case "app_connect_required":
@@ -513,6 +524,16 @@ export class SSEAdapter {
           assetId: event.assetId,
           totalCostUsd: event.totalCostUsd,
           totalLatencyMs: event.totalLatencyMs,
+        };
+
+      // ── Run cost summary (visible — ChatDock affiche le coût) ──
+      case "run_cost":
+        return {
+          type: "run_cost",
+          run_id: event.run_id,
+          input_tokens: event.input_tokens,
+          output_tokens: event.output_tokens,
+          cost_usd: event.cost_usd,
         };
 
       // ── Internal events NOT exposed to the UI ────────────

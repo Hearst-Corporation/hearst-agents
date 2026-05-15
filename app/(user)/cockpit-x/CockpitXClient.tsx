@@ -96,13 +96,10 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
 
   // Stages P5 branchés — contenu + rail items par mode.
   //
-  // Pattern data-bound (vague 1) : chaque Stage pousse son railTitle + railItems
-  // via `useStageData.setShellData(...)` au mount, clear au unmount. CockpitXClient
-  // ne fait que lire `shellData` du store et fallback registry si rien n'a été push.
-  // Cas couverts : chat (pilote), asset, signal, voice.
-  //
-  // Les autres cases (mission/browser/meeting/kg/artifact) gardent leurs literals
-  // hardcodés en attendant les vagues 2/3.
+  // Pattern data-bound (complet, vagues 1-3) : chaque Stage pousse son railTitle
+  // + railItems via `useStageData.setShellData(...)` au mount, clear au unmount.
+  // CockpitXClient lit `shellData` du store et fallback registry si rien n'a été push.
+  // Tous les 12 stages sont désormais data-bound — plus de hardcodes ici.
   let stageRailTitle: string = shellData?.railTitle ?? def.railTitle;
   let stageRailItems: RailItem[] = shellData?.railItems ? [...shellData.railItems] : [];
 
@@ -112,13 +109,6 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
         return <ChatStage mode={mode} />;
 
       case "mission":
-        stageRailTitle = "Mission · Gmail Triage";
-        stageRailItems = [
-          { t: "47 emails traités", s: "triage terminé", hot: true },
-          { t: "5 drafts rédigés", s: "approbation requise" },
-          { t: "3 contacts enrichis", s: "KG mis à jour" },
-          { t: "gmail.send", s: "en attente d'approbation" },
-        ];
         return <MissionStage mode={mode} />;
 
       case "asset":
@@ -126,13 +116,6 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
         return <AssetStage mode={mode} />;
 
       case "browser":
-        stageRailTitle = "Browserbase · Live";
-        stageRailItems = [
-          { t: "booking.com/flights", s: "Session active", hot: true },
-          { t: "Étape 3/5", s: "Sélection date en cours" },
-          { t: "Stagehand", s: "12 champs détectés" },
-          { t: "Screenshot", s: "Dernière capture : 2s" },
-        ];
         return <BrowserStage mode={mode} />;
 
       case "voice":
@@ -140,34 +123,12 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
         return <VoiceStage mode={mode} />;
 
       case "meeting":
-        stageRailTitle = "Meeting · Live";
-        stageRailItems = [
-          { t: "Zoom · EN DIRECT", s: "23:14 écoulées", hot: true },
-          { t: "3 speakers actifs", s: "Adrien · Léa · Thomas" },
-          { t: "Action items", s: "1 extrait · mode split" },
-          { t: "Recall.ai", s: "Transcription active" },
-        ];
         return <MeetingStage mode={mode} />;
 
       case "kg":
-        stageRailTitle = "Entités liées";
-        stageRailItems = [
-          { t: "Marie Dupont", s: "Nœud central · 12 liaisons", hot: true },
-          { t: "Atlante VC", s: "cluster atlante-q3" },
-          { t: "Term Sheet", s: "Document · en attente" },
-          { t: "Projet Hearst", s: "Lié · actif" },
-          { t: "Thomas Baret", s: "Contact · relié à Atlante" },
-        ];
         return <KGStage mode={mode} />;
 
       case "artifact":
-        stageRailTitle = "Artifact · E2B";
-        stageRailItems = [
-          { t: "HeroSection.tsx", s: "142 lignes · build OK", hot: true },
-          { t: "E2B sandbox", s: "Build en 1.2s · 0 erreur" },
-          { t: "Claude Opus 4.7", s: "Streaming terminé" },
-          { t: "Preview", s: "localhost:3000 · actif" },
-        ];
         return <ArtifactStage mode={mode} />;
 
       case "signal":

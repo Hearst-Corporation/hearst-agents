@@ -24,7 +24,16 @@ import { ChatInput } from "./ChatInput";
  * début du run), utilisé pour concaténer les `text_delta` dans le même message.
  */
 function pushSseEventToChatStage(
-  event: { type?: string; delta?: string; step_id?: string; tool?: string; error?: string },
+  event: {
+    type?: string;
+    delta?: string;
+    step_id?: string;
+    tool?: string;
+    error?: string;
+    input_tokens?: number;
+    output_tokens?: number;
+    cost_usd?: number;
+  },
   assistantMessageId: string,
 ): void {
   const store = useChatStageStore.getState();
@@ -54,6 +63,16 @@ function pushSseEventToChatStage(
       }
       return;
     }
+    case "tool_call_failed": {
+      if (event.step_id) {
+        store.updateToolCall(event.step_id, {
+          state: "error",
+          endedAt: Date.now(),
+          error: event.error,
+        });
+      }
+      return;
+    }
     case "run_completed": {
       store.finalizeAssistantMessage(assistantMessageId);
       store.setRunState("done");
@@ -61,6 +80,20 @@ function pushSseEventToChatStage(
     }
     case "run_failed": {
       store.setRunState("error", event.error);
+      return;
+    }
+    case "run_cost": {
+      if (
+        typeof event.input_tokens === "number" &&
+        typeof event.output_tokens === "number" &&
+        typeof event.cost_usd === "number"
+      ) {
+        store.setTokenEstimate({
+          input: event.input_tokens,
+          output: event.output_tokens,
+          cost: event.cost_usd,
+        });
+      }
       return;
     }
     default:

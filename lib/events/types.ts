@@ -42,6 +42,7 @@ export type RunEvent =
   // Tool calls
   | ToolCallStartedEvent
   | ToolCallCompletedEvent
+  | ToolCallFailedEvent
   // Inline app connect (Composio, per-user)
   | AppConnectRequiredEvent
   // Inline mission run confirm
@@ -87,7 +88,9 @@ export type RunEvent =
   | BrowserActionEvent
   | BrowserTaskCompletedEvent
   | BrowserTaskFailedEvent
-  | BrowserTakeOverEvent;
+  | BrowserTakeOverEvent
+  // Run cost summary (émis après run_completed)
+  | RunCostEvent;
 
 // ── Base ─────────────────────────────────────────────────
 
@@ -260,6 +263,23 @@ export interface ToolCallCompletedEvent extends BaseEvent {
   latencyMs?: number;
   /** Coût attribué au tool call en USD si trackable (LLM-only sinon). */
   costUSD?: number;
+}
+export interface ToolCallFailedEvent extends BaseEvent {
+  type: "tool_call_failed";
+  step_id: string;
+  tool: string;
+  providerId?: string;
+  error: string;
+}
+
+// ── Run cost summary ─────────────────────────────────────
+// Émis une fois après run_completed avec les métriques tokens/coût du run.
+
+export interface RunCostEvent extends BaseEvent {
+  type: "run_cost";
+  input_tokens: number;
+  output_tokens: number;
+  cost_usd: number;
 }
 
 // ── Inline app connect ───────────────────────────────────

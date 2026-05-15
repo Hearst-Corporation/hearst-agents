@@ -958,40 +958,68 @@ export async function runAiPipeline(
         case "tool-result": {
           if (skippedToolCalls.has(event.toolCallId)) break;
           const name = toolCallNames.get(event.toolCallId);
-          eventBus.emit({
-            type: "tool_call_completed",
-            run_id: engine.id,
-            step_id: event.toolCallId,
-            tool: name ?? event.toolCallId,
-            providerId: "composio",
-          });
 
           // Validate tool result with Zod schema for security
           const parseResult = ToolResultSchema.safeParse(event.output);
+
+          // Determine if the tool call resulted in an error before emitting
+          // the completion event. A failed result emits tool_call_failed AND
+          // skips tool_call_completed so ChatStage can show the "Échec" badge.
           if (!parseResult.success) {
             console.warn(
               `[AiPipeline] Invalid tool result format for ${name ?? event.toolCallId}:`,
               parseResult.error.issues,
             );
+            // Zod parse failure = malformed result — treat as failure
+            eventBus.emit({
+              type: "tool_call_failed",
+              run_id: engine.id,
+              step_id: event.toolCallId,
+              tool: name ?? event.toolCallId,
+              providerId: "composio",
+              error: "Résultat du tool invalide (format inattendu)",
+            });
             break;
           }
 
           const out = parseResult.data;
 
-          // Auto-trigger OAuth card on Composio AUTH_REQUIRED. The token has
-          // expired or was revoked — the model would otherwise just relay the
-          // raw error to the user. Surfacing the connect card here makes the
-          // recovery path one click instead of one chat turn.
-          if (out.ok === false && out.errorCode === "AUTH_REQUIRED" && name) {
-            const app = name.split("_")[0]?.toLowerCase();
-            if (app) {
-              eventBus.emit({
-                type: "app_connect_required",
-                run_id: engine.id,
-                app,
-                reason: `La connexion à ${app} a expiré ou été révoquée. Reconnecte-toi pour continuer.`,
-              });
+          if (out.ok === false) {
+            // Tool returned an explicit error — emit tool_call_failed
+            const errorMsg = out.error ?? out.errorCode ?? "Erreur inconnue";
+            eventBus.emit({
+              type: "tool_call_failed",
+              run_id: engine.id,
+              step_id: event.toolCallId,
+              tool: name ?? event.toolCallId,
+              providerId: "composio",
+              error: String(errorMsg),
+            });
+
+            // Auto-trigger OAuth card on Composio AUTH_REQUIRED. The token has
+            // expired or was revoked — the model would otherwise just relay the
+            // raw error to the user. Surfacing the connect card here makes the
+            // recovery path one click instead of one chat turn.
+            if (out.errorCode === "AUTH_REQUIRED" && name) {
+              const app = name.split("_")[0]?.toLowerCase();
+              if (app) {
+                eventBus.emit({
+                  type: "app_connect_required",
+                  run_id: engine.id,
+                  app,
+                  reason: `La connexion à ${app} a expiré ou été révoquée. Reconnecte-toi pour continuer.`,
+                });
+              }
             }
+          } else {
+            // Success path — emit the normal completion event
+            eventBus.emit({
+              type: "tool_call_completed",
+              run_id: engine.id,
+              step_id: event.toolCallId,
+              tool: name ?? event.toolCallId,
+              providerId: "composio",
+            });
           }
           break;
         }
@@ -1104,6 +1132,23 @@ export async function runAiPipeline(
         output_tokens: usage.outputTokens ?? 0,
         tool_calls: toolCallNames.size,
         latency_ms: 0,
+      });
+    }
+
+    // Émet run_cost après engine.complete() pour que ChatDock puisse appeler
+    // setTokenEstimate({ input, output, cost }). On utilise runCostUsd accumulé
+    // par les finish-step (plus précis que recalculer ici). Si usage total est
+    // disponible on peut le réconcilier, mais runCostUsd suffit pour l'UI.
+    if (usage) {
+      const totalInputTokens = usage.inputTokens ?? 0;
+      const totalOutputTokens = usage.outputTokens ?? 0;
+      // runCostUsd est déjà accumulé step par step — on l'utilise directement.
+      eventBus.emit({
+        type: "run_cost",
+        run_id: engine.id,
+        input_tokens: totalInputTokens,
+        output_tokens: totalOutputTokens,
+        cost_usd: runCostUsd,
       });
     }
 
