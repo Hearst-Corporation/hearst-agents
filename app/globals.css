@@ -1393,6 +1393,13 @@
   --color-gold: var(--gold);
   --color-accent-llm: var(--accent-llm);
   --color-accent-agent: var(--accent-agent);
+
+  /* Shell visionOS (port lab/cli-os) — tailles texte spécifiques :
+   * `text-display` (44px) pour le H1 greeting, `text-vision-2xl` (32px)
+   * pour le hero title. On ne touche pas à `text-2xl` (24px Tailwind
+   * default) pour ne pas régresser le reste de l'app. */
+  --text-display: 44px;
+  --text-vision-2xl: 32px;
 }
 
 *,
@@ -2789,5 +2796,90 @@ button:focus-visible:not(.ghost-btn-solid):not([data-no-fv-fallback]) {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* === visionOS shell — port depuis lab/cli-os (2026-05-15) ===
+ * Classes utilitaires pour le shell visionOS (route group (user-x)).
+ * Source : lab/cli-os/src/styles.css l.108-189. Aucun rename.
+ * Scope : utilisées uniquement dans app/(user-x)/**. */
+@layer utilities {
+  .vision-glass {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(60px) saturate(110%) brightness(105%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+      0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  }
+  .vision-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--background-image-noise, none);
+    background-blend-mode: overlay;
+    opacity: 0.03;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+  }
+
+  .vision-btn-primary {
+    background: #ffffff;
+    color: #000;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 4px 12px rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+  }
+
+  .vision-btn-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px) saturate(150%) brightness(110%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .vision-btn-glass:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .vision-segmented-track {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+  }
+
+  .vision-rail-left {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+  }
+
+  .vision-rail-right {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .vision-content-depth {
+    transform: translateZ(-15px);
+  }
+
+  .vision-footer-float {
+    transform: translateX(-50%) translateZ(20px);
+  }
+
+  .perspective-scene {
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
   }
 }

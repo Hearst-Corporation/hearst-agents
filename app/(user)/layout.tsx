@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import { Suspense, useEffect } from "react";
 import { ToastContainer } from "@/app/components/ToastContainer";
@@ -86,6 +87,11 @@ function NotificationsHydrate() {
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   useGlobalHotkeys();
   const focusMode = useFocusMode((s) => s.enabled);
+  // Pendant le port shell visionOS, le ChatDock legacy est masqué sur les
+  // routes (user-x) (futur shell). Conflit visuel avec FloatingFooter sinon.
+  // Retiré après bascule P8 quand legacy = supprimé.
+  const pathname = usePathname();
+  const isVisionOSRoute = pathname?.startsWith("/cockpit-x") ?? false;
 
   return (
     <SessionProvider>
@@ -154,10 +160,13 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                  — le signal vit dans le rail. */}
               <main className="flex-1 flex flex-col min-w-0 min-h-0 relative">{children}</main>
               {/* ChatDock utilise useSearchParams() — wrapper Suspense
-                  obligatoire pour le build static (Next.js 16). */}
-              <Suspense fallback={null}>
-                <ChatDock />
-              </Suspense>
+                  obligatoire pour le build static (Next.js 16).
+                  Masqué sur routes /cockpit-x (port shell visionOS WIP). */}
+              {!isVisionOSRoute && (
+                <Suspense fallback={null}>
+                  <ChatDock />
+                </Suspense>
+              )}
             </div>
 
             <div
