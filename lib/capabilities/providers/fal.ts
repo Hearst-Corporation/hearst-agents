@@ -18,6 +18,9 @@ export async function falGenerate(params: {
   numInferenceSteps?: number;
   /** Guidance scale — fidélité au prompt vs créativité. Plage 3-7. */
   guidanceScale?: number;
+  /** Clé d'idempotence transmise en header HTTP — évite les doubles charges
+   *  sur retry Inngest. Format : "image-<event.id>". */
+  idempotencyKey?: string;
 }): Promise<Array<FalResult>> {
   const apiKey = process.env.FAL_KEY;
   if (!apiKey) return [];
@@ -48,6 +51,7 @@ export async function falGenerate(params: {
       headers: {
         Authorization: `Key ${apiKey}`,
         "Content-Type": "application/json",
+        ...(params.idempotencyKey ? { "Idempotency-Key": params.idempotencyKey } : {}),
       },
       body: JSON.stringify(body),
       signal: controller.signal,

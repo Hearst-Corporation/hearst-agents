@@ -63,6 +63,7 @@ export const imageGenFunction = inngest.createFunction(
           numInferenceSteps: enriched.params.num_inference_steps,
           guidanceScale: enriched.params.guidance_scale,
           imageSize: enriched.params.image_size,
+          idempotencyKey: `image-${event.id}`,
         });
       } catch (err) {
         const status = (err as { status?: number }).status;

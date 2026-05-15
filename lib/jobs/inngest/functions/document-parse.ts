@@ -49,6 +49,7 @@ export const documentParseFunction = inngest.createFunction(
         return await parseDocument({
           fileUrl: payload.fileUrl,
           mimeType: payload.mimeType,
+          idempotencyKey: `doc-${event.id}`,
         });
       } catch (err) {
         const status = (err as { status?: number }).status;

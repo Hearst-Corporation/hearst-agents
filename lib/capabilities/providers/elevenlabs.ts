@@ -43,6 +43,9 @@ export interface SynthesizeSpeechInput {
   personaTone?: string;
   /** Profil voix pré-résolu (override total). */
   voiceProfile?: VoiceProfile;
+  /** Clé d'idempotence transmise en header HTTP — évite les doubles charges
+   *  sur retry Inngest. Format : "audio-<event.id>". */
+  idempotencyKey?: string;
 }
 
 export interface SynthesizeSpeechResult {
@@ -93,6 +96,7 @@ export async function synthesizeSpeech(
       "xi-api-key": apiKey,
       "Content-Type": "application/json",
       "Accept": "audio/mpeg",
+      ...(input.idempotencyKey ? { "Idempotency-Key": input.idempotencyKey } : {}),
     },
     body: JSON.stringify({
       text: input.text,

@@ -4,6 +4,9 @@ export async function executeCode(params: {
   code: string;
   language?: "python" | "javascript";
   timeoutMs?: number;
+  /** Clé d'idempotence — acceptée pour cohérence avec les autres providers.
+   *  Le SDK E2B ne supporte pas les headers HTTP custom, donc non transmise. */
+  idempotencyKey?: string;
 }): Promise<{
   stdout: string;
   stderr: string;

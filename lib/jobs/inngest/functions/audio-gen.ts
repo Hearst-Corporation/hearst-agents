@@ -55,6 +55,7 @@ export const audioGenFunction = inngest.createFunction(
           voiceId: payload.voiceId,
           modelId: payload.modelId,
           personaTone: payload.tone,
+          idempotencyKey: `audio-${event.id}`,
         });
       } catch (err) {
         const status = (err as { status?: number }).status;

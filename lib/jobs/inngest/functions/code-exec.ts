@@ -53,6 +53,7 @@ export const codeExecFunction = inngest.createFunction(
           code: payload.code,
           language: payload.runtime === "node" ? "javascript" : "python",
           timeoutMs: payload.timeoutMs,
+          idempotencyKey: `exec-${event.id}`,
         });
       } catch (err) {
         const status = (err as { status?: number }).status;

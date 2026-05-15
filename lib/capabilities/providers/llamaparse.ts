@@ -8,6 +8,9 @@ const FILE_FETCH_TIMEOUT_MS = 15_000;
 export async function parseDocument(params: {
   fileUrl: string;
   mimeType?: string;
+  /** Clé d'idempotence transmise en header HTTP sur l'upload — évite les
+   *  doubles soumissions sur retry Inngest. Format : "doc-<event.id>". */
+  idempotencyKey?: string;
 }): Promise<{ markdown: string; pages: number }> {
   const apiKey = process.env.LLAMA_CLOUD_API_KEY;
   if (!apiKey) {
@@ -39,7 +42,10 @@ export async function parseDocument(params: {
 
   const uploadRes = await fetch(`${API_BASE}/upload`, {
     method: "POST",
-    headers: authHeaders,
+    headers: {
+      ...authHeaders,
+      ...(params.idempotencyKey ? { "Idempotency-Key": params.idempotencyKey } : {}),
+    },
     body: form,
   });
 
