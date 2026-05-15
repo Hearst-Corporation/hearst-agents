@@ -48,7 +48,7 @@ export type ShellProps = {
 
 export function Shell({ centerContent, railTitle, railItems, footer, composer }: ShellProps) {
   return (
-    <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-[#050505] text-white">
+    <div className="perspective-scene relative flex h-screen w-screen overflow-hidden bg-black text-white">
       <AmbientLayers />
       <LeftRail />
 
@@ -67,7 +67,7 @@ export function Shell({ centerContent, railTitle, railItems, footer, composer }:
             className="pointer-events-none absolute right-0 bottom-0 left-0 z-20 h-60"
             style={{
               background:
-                "linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.45) 25%, rgba(5,5,5,0.92) 60%, #050505 85%)",
+                "linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--mat-200) 45%, transparent) 25%, color-mix(in srgb, var(--mat-200) 92%, transparent) 60%, var(--mat-200) 85%)",
             }}
           />
 

@@ -18,7 +18,7 @@ export default function UserXLayout({ children }: Readonly<{ children: React.Rea
   useGlobalHotkeys();
   return (
     <SessionProvider>
-      <div className="h-screen w-full overflow-hidden bg-[#050505] text-white antialiased">
+      <div className="h-screen w-full overflow-hidden bg-black text-white antialiased">
         {children}
         <Commandeur />
         <VideoQuickLaunch />
