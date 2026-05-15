@@ -36,6 +36,8 @@
   --text-md: 20px;
   --text-lg: 28px;
   --text-xl: 40px;
+  --text-2xl: 32px;
+  --text-display: 44px;
 
   /* Espacements */
   --spacing: 4px;
@@ -104,6 +106,7 @@ body {
 /* VisionOS Utility Classes */
 @layer utilities {
   .vision-glass {
+    position: relative;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(60px) saturate(110%) brightness(105%);
@@ -152,12 +155,24 @@ body {
 
 /* Les rails latéraux n'ont plus de translateZ pour éviter les décalages (marges cassées) au bord de l'écran */
 
+.vision-rail-left {
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.vision-rail-right {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
 .vision-content-depth {
   transform: translateZ(-15px);
 }
 
 .vision-footer-float {
-  transform: translateZ(20px);
+  transform: translateX(-50%) translateZ(20px);
 }
 
 /* Noise texture specifically for glass components */

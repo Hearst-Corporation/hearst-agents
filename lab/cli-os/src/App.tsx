@@ -38,7 +38,7 @@ function Index() {
               <li key={s.path}>
                 <Link
                   to={s.path}
-                  className="flex items-baseline justify-between py-3 border-b border-[var(--color-line)] hover:text-[var(--color-ink)] text-[var(--color-fg-dim)] transition-colors"
+                  className="flex items-baseline justify-between py-3 border-b border-[var(--color-border)] hover:text-[var(--color-ink)] text-[var(--color-fg-dim)] transition-colors"
                 >
                   <span>{s.label}</span>
                   <span className="text-xs">{s.path}</span>
