@@ -6,31 +6,6 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5";
   };
-  graphql_public: {
-    Tables: {
-      [_ in never]: never;
-    };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json;
-          operationName?: string;
-          query?: string;
-          variables?: Json;
-        };
-        Returns: Json;
-      };
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
   public: {
     Tables: {
       action_executions: {
@@ -1082,7 +1057,9 @@ export type Database = {
           created_at: string;
           id: string;
           kind: string;
+          last_accessed_at: string | null;
           output_tier: string | null;
+          pinned: boolean;
           provenance: Json;
           run_id: string | null;
           space_id: string;
@@ -1095,7 +1072,9 @@ export type Database = {
           created_at?: string;
           id: string;
           kind: string;
+          last_accessed_at?: string | null;
           output_tier?: string | null;
+          pinned?: boolean;
           provenance?: Json;
           run_id?: string | null;
           space_id?: string;
@@ -1108,7 +1087,9 @@ export type Database = {
           created_at?: string;
           id?: string;
           kind?: string;
+          last_accessed_at?: string | null;
           output_tier?: string | null;
+          pinned?: boolean;
           provenance?: Json;
           run_id?: string | null;
           space_id?: string;
@@ -1361,6 +1342,39 @@ export type Database = {
           job_id?: string | null;
           job_kind?: string | null;
           operation?: string;
+          tenant_id?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      credits_reservations: {
+        Row: {
+          amount: number;
+          created_at: string;
+          id: string;
+          idempotency_key: string;
+          settled_at: string | null;
+          status: string;
+          tenant_id: string;
+          user_id: string;
+        };
+        Insert: {
+          amount: number;
+          created_at?: string;
+          id?: string;
+          idempotency_key: string;
+          settled_at?: string | null;
+          status?: string;
+          tenant_id: string;
+          user_id: string;
+        };
+        Update: {
+          amount?: number;
+          created_at?: string;
+          id?: string;
+          idempotency_key?: string;
+          settled_at?: string | null;
+          status?: string;
           tenant_id?: string;
           user_id?: string;
         };
@@ -3497,6 +3511,57 @@ export type Database = {
           },
         ];
       };
+      theme_assets: {
+        Row: {
+          alt_text: string | null;
+          asset_type: string;
+          asset_url: string;
+          captured_at: string;
+          category: string;
+          file_size: number;
+          filename: string | null;
+          height: number;
+          id: string;
+          local_path: string | null;
+          mime_type: string | null;
+          source_page: string | null;
+          theme_slug: string;
+          width: number;
+        };
+        Insert: {
+          alt_text?: string | null;
+          asset_type?: string;
+          asset_url: string;
+          captured_at?: string;
+          category?: string;
+          file_size?: number;
+          filename?: string | null;
+          height?: number;
+          id?: string;
+          local_path?: string | null;
+          mime_type?: string | null;
+          source_page?: string | null;
+          theme_slug: string;
+          width?: number;
+        };
+        Update: {
+          alt_text?: string | null;
+          asset_type?: string;
+          asset_url?: string;
+          captured_at?: string;
+          category?: string;
+          file_size?: number;
+          filename?: string | null;
+          height?: number;
+          id?: string;
+          local_path?: string | null;
+          mime_type?: string | null;
+          source_page?: string | null;
+          theme_slug?: string;
+          width?: number;
+        };
+        Relationships: [];
+      };
       tools: {
         Row: {
           auth_config: Json;
@@ -3880,57 +3945,6 @@ export type Database = {
         };
         Relationships: [];
       };
-      theme_assets: {
-        Row: {
-          alt_text: string | null;
-          asset_type: string;
-          asset_url: string;
-          captured_at: string;
-          category: string;
-          file_size: number;
-          filename: string | null;
-          height: number;
-          id: string;
-          local_path: string | null;
-          mime_type: string | null;
-          source_page: string | null;
-          theme_slug: string;
-          width: number;
-        };
-        Insert: {
-          alt_text?: string | null;
-          asset_type?: string;
-          asset_url: string;
-          captured_at?: string;
-          category?: string;
-          file_size?: number;
-          filename?: string | null;
-          height?: number;
-          id?: string;
-          local_path?: string | null;
-          mime_type?: string | null;
-          source_page?: string | null;
-          theme_slug: string;
-          width?: number;
-        };
-        Update: {
-          alt_text?: string | null;
-          asset_type?: string;
-          asset_url?: string;
-          captured_at?: string;
-          category?: string;
-          file_size?: number;
-          filename?: string | null;
-          height?: number;
-          id?: string;
-          local_path?: string | null;
-          mime_type?: string | null;
-          source_page?: string | null;
-          theme_slug?: string;
-          width?: number;
-        };
-        Relationships: [];
-      };
       user_theme_preferences: {
         Row: {
           selected_at: string;
@@ -4274,155 +4288,6 @@ export type Database = {
           },
         ];
       };
-      hearst_card_revoked: {
-        Row: {
-          token_hash: string;
-          revoked_at: string;
-        };
-        Insert: {
-          token_hash: string;
-          revoked_at?: string;
-        };
-        Update: {
-          token_hash?: string;
-          revoked_at?: string;
-        };
-        Relationships: [];
-      };
-      report_exports: {
-        Row: {
-          asset_id: string;
-          created_at: string;
-          created_by: string | null;
-          format: string;
-          id: string;
-          mission_id: string | null;
-          size_bytes: number;
-          storage_key: string;
-          tenant_id: string;
-        };
-        Insert: {
-          asset_id: string;
-          created_at?: string;
-          created_by?: string | null;
-          format: string;
-          id?: string;
-          mission_id?: string | null;
-          size_bytes?: number;
-          storage_key: string;
-          tenant_id: string;
-        };
-        Update: {
-          asset_id?: string;
-          created_at?: string;
-          created_by?: string | null;
-          format?: string;
-          id?: string;
-          mission_id?: string | null;
-          size_bytes?: number;
-          storage_key?: string;
-          tenant_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "report_exports_asset_id_fkey";
-            columns: ["asset_id"];
-            isOneToOne: false;
-            referencedRelation: "assets";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "report_exports_mission_id_fkey";
-            columns: ["mission_id"];
-            isOneToOne: false;
-            referencedRelation: "missions";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      report_shares: {
-        Row: {
-          asset_id: string;
-          created_at: string;
-          created_by: string | null;
-          expires_at: string;
-          id: string;
-          revoked_at: string | null;
-          tenant_id: string;
-          token_hash: string;
-          view_count: number;
-        };
-        Insert: {
-          asset_id: string;
-          created_at?: string;
-          created_by?: string | null;
-          expires_at: string;
-          id?: string;
-          revoked_at?: string | null;
-          tenant_id: string;
-          token_hash: string;
-          view_count?: number;
-        };
-        Update: {
-          asset_id?: string;
-          created_at?: string;
-          created_by?: string | null;
-          expires_at?: string;
-          id?: string;
-          revoked_at?: string | null;
-          tenant_id?: string;
-          token_hash?: string;
-          view_count?: number;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "report_shares_asset_id_fkey";
-            columns: ["asset_id"];
-            isOneToOne: false;
-            referencedRelation: "assets";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      report_templates: {
-        Row: {
-          created_at: string;
-          created_by: string;
-          description: string | null;
-          domain: string;
-          id: string;
-          is_public: boolean;
-          name: string;
-          spec: Json;
-          tenant_id: string;
-          updated_at: string;
-        };
-        Insert: {
-          created_at?: string;
-          created_by: string;
-          description?: string | null;
-          domain: string;
-          id?: string;
-          is_public?: boolean;
-          name: string;
-          spec: Json;
-          tenant_id: string;
-          updated_at?: string;
-        };
-        Update: {
-          created_at?: string;
-          created_by?: string;
-          description?: string | null;
-          domain?: string;
-          id?: string;
-          is_public?: boolean;
-          name?: string;
-          spec?: Json;
-          tenant_id?: string;
-          updated_at?: string;
-        };
-        Relationships: [];
-      };
     };
     Views: {
       clawd_users: {
@@ -4513,6 +4378,15 @@ export type Database = {
           p_user_id: string;
         };
         Returns: boolean;
+      };
+      reserve_credits_atomic: {
+        Args: {
+          p_amount: number;
+          p_idempotency_key: string;
+          p_tenant_id: string;
+          p_user_id: string;
+        };
+        Returns: Json;
       };
       settle_credits: {
         Args: {
@@ -4690,9 +4564,6 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       dashboard_id: ["cloud"],
