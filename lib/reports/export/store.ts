@@ -75,7 +75,8 @@ export async function persistExport(
   };
 }
 
-const SIGNED_URL_DEFAULT_SECONDS = 3600;
+const SIGNED_URL_DEFAULT_SECONDS = Number(process.env.SIGNED_URL_TTL_DEFAULT ?? "3600");
+const SIGNED_URL_EXPORT_SECONDS = Number(process.env.SIGNED_URL_TTL_EXPORT ?? "14400");
 
 export async function getExportSignedUrl(
   storageKey: string,
@@ -83,7 +84,7 @@ export async function getExportSignedUrl(
 ): Promise<string> {
   const storage = getGlobalStorage();
   return storage.getSignedUrl(storageKey, "read", {
-    expiresInSeconds: options.expiresInSeconds ?? SIGNED_URL_DEFAULT_SECONDS,
+    expiresInSeconds: options.expiresInSeconds ?? SIGNED_URL_EXPORT_SECONDS,
     responseContentDisposition: options.downloadName
       ? `attachment; filename="${options.downloadName}"`
       : undefined,

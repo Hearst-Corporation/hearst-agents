@@ -27,10 +27,16 @@ interface PerplexityApiResponse {
   model?: string;
 }
 
-// Timeout dur 15s — sonar-pro met typiquement 5-12s, au-delà on bascule
+// Timeout dur 10s — sonar-pro met typiquement 5-12s, au-delà on bascule
 // sur le provider suivant (Tavily) plutôt que de bloquer le run. Audit
 // E2E 2026-05-08 2.2 a montré 47s de latence cumul → cap obligatoire.
-const PERPLEXITY_TIMEOUT_MS = 15_000;
+const PERPLEXITY_TIMEOUT_MS = 10_000;
+
+// Circuit breaker : 3 timeouts consécutifs → circuit ouvert 5min
+let _consecutiveTimeouts = 0;
+let _circuitOpenUntil = 0;
+const CIRCUIT_OPEN_MS = 5 * 60 * 1_000;
+const TIMEOUT_THRESHOLD = 3;
 
 export async function perplexitySearch(
   query: string,
@@ -43,6 +49,10 @@ export async function perplexitySearch(
   if (!apiKey) {
     console.warn("[Perplexity] PERPLEXITY_API_KEY not set — skipping search");
     return { answer: "", citations: [], model: "" };
+  }
+
+  if (Date.now() < _circuitOpenUntil) {
+    throw new Error("[Perplexity] circuit ouvert — fallback vers Tavily");
   }
 
   const model = options?.model ?? "sonar-pro";
@@ -79,6 +89,7 @@ export async function perplexitySearch(
 
     const data = (await res.json()) as PerplexityApiResponse;
 
+    _consecutiveTimeouts = 0;
     return {
       answer: data.choices?.[0]?.message?.content ?? "",
       citations: data.citations ?? [],
@@ -86,6 +97,12 @@ export async function perplexitySearch(
     };
   } catch (err) {
     if (err instanceof Error && err.name === "AbortError") {
+      _consecutiveTimeouts++;
+      if (_consecutiveTimeouts >= TIMEOUT_THRESHOLD) {
+        _circuitOpenUntil = Date.now() + CIRCUIT_OPEN_MS;
+        console.warn(`[Perplexity] circuit ouvert 5min après ${TIMEOUT_THRESHOLD} timeouts consécutifs`);
+        _consecutiveTimeouts = 0;
+      }
       throw new Error(`[Perplexity] Timeout after ${PERPLEXITY_TIMEOUT_MS}ms`);
     }
     throw err;
