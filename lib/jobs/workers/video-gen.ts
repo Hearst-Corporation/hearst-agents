@@ -46,6 +46,37 @@ async function pollRunway(taskId: string): Promise<string> {
   throw new Error("[Runway] Timeout polling tâche");
 }
 
+async function tryHeyGen(params: {
+  scriptText: string;
+  avatarId?: string;
+  voiceId?: string;
+  idempotencyKey: string;
+  progressMessage: string;
+  reportProgress: (pct: number, msg: string) => Promise<void>;
+}): Promise<string> {
+  if (defaultCircuitBreaker.isOpen("heygen")) {
+    throw new Error("[video-gen] HeyGen circuit breaker OPEN");
+  }
+  try {
+    const { videoId } = await heygenGenerateVideo({
+      scriptText: params.scriptText,
+      avatarId: params.avatarId,
+      voiceId: params.voiceId,
+      idempotencyKey: params.idempotencyKey,
+    });
+    await params.reportProgress(20, `${params.progressMessage}: job ${videoId} soumis, polling…`);
+    const videoUrl = await pollHeyGen(videoId);
+    defaultCircuitBreaker.recordSuccess("heygen");
+    return videoUrl;
+  } catch (heygenErr) {
+    defaultCircuitBreaker.recordFailure("heygen", heygenErr as Error);
+    if (defaultCircuitBreaker.getState("heygen") === "OPEN") {
+      logger.warn("[video-gen] HeyGen circuit OPEN");
+    }
+    throw heygenErr;
+  }
+}
+
 const handler: WorkerHandler<VideoGenInput> = {
   kind: "video-gen",
 
@@ -75,28 +106,15 @@ const handler: WorkerHandler<VideoGenInput> = {
     let providerUsed: string;
 
     if (provider === "heygen") {
-      // Circuit breaker check avant appel HeyGen direct
-      if (defaultCircuitBreaker.isOpen("heygen")) {
-        throw new Error("[video-gen] HeyGen circuit breaker OPEN — impossible de générer la vidéo");
-      }
-      try {
-        const { videoId } = await heygenGenerateVideo({
-          scriptText: payload.scriptText ?? payload.prompt,
-          avatarId: payload.avatarId,
-          voiceId: payload.voiceId,
-          idempotencyKey: jobId,
-        });
-        await reportProgress(20, `HeyGen: job ${videoId} soumis, polling…`);
-        videoUrl = await pollHeyGen(videoId);
-        defaultCircuitBreaker.recordSuccess("heygen");
-        providerUsed = "heygen";
-      } catch (heygenErr) {
-        defaultCircuitBreaker.recordFailure("heygen", heygenErr as Error);
-        if (defaultCircuitBreaker.getState("heygen") === "OPEN") {
-          logger.warn("[video-gen] HeyGen circuit OPEN");
-        }
-        throw heygenErr;
-      }
+      videoUrl = await tryHeyGen({
+        scriptText: payload.scriptText ?? payload.prompt,
+        avatarId: payload.avatarId,
+        voiceId: payload.voiceId,
+        idempotencyKey: jobId,
+        progressMessage: "HeyGen",
+        reportProgress,
+      });
+      providerUsed = "heygen";
     } else {
       // Runway avec fallback HeyGen
       const runwayOpen = defaultCircuitBreaker.isOpen("runway");
@@ -123,24 +141,15 @@ const handler: WorkerHandler<VideoGenInput> = {
           if (defaultCircuitBreaker.isOpen("heygen")) {
             throw new Error("[video-gen] Both Runway and HeyGen circuit breakers are OPEN");
           }
-          try {
-            const { videoId } = await heygenGenerateVideo({
-              scriptText: payload.scriptText ?? payload.prompt,
-              avatarId: payload.avatarId,
-              voiceId: payload.voiceId,
-              idempotencyKey: `${jobId}-fallback`,
-            });
-            await reportProgress(20, `HeyGen (fallback): job ${videoId} soumis, polling…`);
-            videoUrl = await pollHeyGen(videoId);
-            defaultCircuitBreaker.recordSuccess("heygen");
-            providerUsed = "heygen";
-          } catch (heygenErr) {
-            defaultCircuitBreaker.recordFailure("heygen", heygenErr as Error);
-            if (defaultCircuitBreaker.getState("heygen") === "OPEN") {
-              logger.warn("[video-gen] HeyGen circuit OPEN");
-            }
-            throw heygenErr;
-          }
+          videoUrl = await tryHeyGen({
+            scriptText: payload.scriptText ?? payload.prompt,
+            avatarId: payload.avatarId,
+            voiceId: payload.voiceId,
+            idempotencyKey: `${jobId}-fallback`,
+            progressMessage: "HeyGen (fallback)",
+            reportProgress,
+          });
+          providerUsed = "heygen";
         }
       } else {
         // Runway circuit ouvert → skip directement au fallback HeyGen
@@ -148,27 +157,15 @@ const handler: WorkerHandler<VideoGenInput> = {
         if (defaultCircuitBreaker.isOpen("heygen")) {
           throw new Error("[video-gen] Both Runway and HeyGen circuit breakers are OPEN");
         }
-        try {
-          const { videoId } = await heygenGenerateVideo({
-            scriptText: payload.scriptText ?? payload.prompt,
-            avatarId: payload.avatarId,
-            voiceId: payload.voiceId,
-            idempotencyKey: `${jobId}-fallback`,
-          });
-          await reportProgress(
-            20,
-            `HeyGen (fallback Runway OPEN): job ${videoId} soumis, polling…`,
-          );
-          videoUrl = await pollHeyGen(videoId);
-          defaultCircuitBreaker.recordSuccess("heygen");
-          providerUsed = "heygen";
-        } catch (heygenErr) {
-          defaultCircuitBreaker.recordFailure("heygen", heygenErr as Error);
-          if (defaultCircuitBreaker.getState("heygen") === "OPEN") {
-            logger.warn("[video-gen] HeyGen circuit OPEN");
-          }
-          throw heygenErr;
-        }
+        videoUrl = await tryHeyGen({
+          scriptText: payload.scriptText ?? payload.prompt,
+          avatarId: payload.avatarId,
+          voiceId: payload.voiceId,
+          idempotencyKey: `${jobId}-fallback`,
+          progressMessage: "HeyGen (fallback Runway OPEN)",
+          reportProgress,
+        });
+        providerUsed = "heygen";
       }
     }
 
