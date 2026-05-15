@@ -1,93 +1,38 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useStageStore } from "@/stores/stage";
-import { Shell } from "../_shell/Shell";
-import { STAGE_REGISTRY } from "../_stages/registry";
-import type { RailItem } from "../_stages/types";
-
 /**
- * Page de test P3 — `localhost:4102/cockpit-x`.
+ * CockpitX (page de test P4) — Server Component qui prefetch le cockpit
+ * payload et passe `initialCockpitData` à `<CockpitXClient />`.
  *
- * Lit le mode actif via `useStageStore` puis résout le `StageDef`
- * correspondant dans `STAGE_REGISTRY`. Le footer et le railTitle sont
- * désormais alimentés par le registry (preview du système qui sera
- * complet en P4+ quand chaque stage data-bound rendra son contenu).
+ * Pattern identique à [app/(user)/page.tsx](../../(user)/page.tsx) — c'est
+ * une exigence du verrou cockpit v1.5 I-7 : "RSC prefetch + client refetch
+ * obligatoires (KPIs à jour, ne pas s'appuyer uniquement sur SSR snapshot)".
  *
- * Le centre reste un placeholder en P3 — affiche juste le label + hotkey
- * du mode actif. En P4+ il deviendra `centerContent={<StageRouter />}`
- * qui rendra le composant Stage correspondant.
- *
- * Les `railItems` restent stub (registry ne fournit pas de data — chaque
- * stage en P4+ injecte ses propres items via la prop railItems).
+ * Auth fail-soft (idem layout actuel) : si `requireScope` échoue, on rend
+ * `initialCockpitData = null` et `<CockpitStage>` retombe sur son fetch
+ * useEffect.
  */
 
-const PLACEHOLDER_RAIL_ITEMS: readonly RailItem[] = [
-  { t: "Aucun signal", s: "Connecte un service pour démarrer" },
-  { t: "Aucun rendez-vous", s: "Agenda du jour vide" },
-  { t: "Aucune mission active", s: "Lance une mission depuis le chat" },
-];
+import { type CockpitTodayPayload, getCockpitToday } from "@/lib/cockpit/today";
+import { requireScope } from "@/lib/platform/auth/scope";
+import { CockpitXClient } from "./CockpitXClient";
 
-export default function CockpitXPage() {
-  const mode = useStageStore((s) => s.current.mode);
-  const def = STAGE_REGISTRY[mode];
+export const dynamic = "force-dynamic";
 
-  return (
-    <Shell
-      centerContent={
-        <motion.section
-          key={mode}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="preserve-3d flex w-full max-w-[760px] flex-col gap-16"
-        >
-          <header className="flex flex-col gap-4">
-            <p className="text-base font-medium text-[rgba(255,255,255,0.5)]">
-              Shell visionOS · P3 · Registry figé
-            </p>
-            <h1
-              className="font-medium leading-[1.1] tracking-tight text-white"
-              style={{ fontSize: "var(--text-display)" }}
-            >
-              {def.label}
-              {def.hotkey ? (
-                <span className="ml-4 text-base font-normal text-[rgba(255,255,255,0.4)]">
-                  {def.hotkey}
-                </span>
-              ) : null}
-            </h1>
-            <p className="max-w-[640px] text-base leading-[1.5] text-[rgba(255,255,255,0.7)]">
-              Mode <span className="text-white">{mode}</span> sélectionné. Footer + railTitle
-              alimentés par <code className="text-[rgba(255,255,255,0.85)]">STAGE_REGISTRY</code>.
-              Le contenu data-bound (greeting, hero, activité) arrive en P4+ avec le composant Stage
-              dédié.
-            </p>
-          </header>
+async function loadInitialCockpitData(): Promise<CockpitTodayPayload | null> {
+  const { scope, error } = await requireScope({ context: "RSC app/(user-x)/cockpit-x/page.tsx" });
+  if (error || !scope) return null;
+  try {
+    return await getCockpitToday({
+      userId: scope.userId,
+      tenantId: scope.tenantId,
+      workspaceId: scope.workspaceId,
+    });
+  } catch (err) {
+    console.error("[RSC CockpitX] getCockpitToday failed, falling back to client fetch:", err);
+    return null;
+  }
+}
 
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="vision-glass preserve-3d relative flex flex-col gap-4 rounded-xl p-10"
-          >
-            <span className="text-sm text-[rgba(255,255,255,0.5)]">Registry preview</span>
-            <dl className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
-              <dt className="text-[rgba(255,255,255,0.5)]">railTitle</dt>
-              <dd className="text-white">{def.railTitle}</dd>
-              <dt className="text-[rgba(255,255,255,0.5)]">footer.status</dt>
-              <dd className="text-white">{def.footer.status}</dd>
-              <dt className="text-[rgba(255,255,255,0.5)]">footer.actions</dt>
-              <dd className="text-white">{def.footer.actions.join(" · ")}</dd>
-              <dt className="text-[rgba(255,255,255,0.5)]">footer.modes</dt>
-              <dd className="text-white">{def.footer.modes.join(" · ")}</dd>
-            </dl>
-          </motion.div>
-        </motion.section>
-      }
-      railTitle={def.railTitle}
-      railItems={PLACEHOLDER_RAIL_ITEMS}
-      footer={def.footer}
-    />
-  );
+export default async function CockpitXPage() {
+  const initialCockpitData = await loadInitialCockpitData();
+  return <CockpitXClient initialCockpitData={initialCockpitData} />;
 }
