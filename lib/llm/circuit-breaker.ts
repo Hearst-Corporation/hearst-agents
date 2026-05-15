@@ -64,9 +64,26 @@ export class LLMCircuitBreaker {
     }
   }
 
-  recordFailure(provider: string, error: Error, tenantId?: string): void {
-    // Skip 4xx client errors (do not trip the breaker)
-    if (/\b4\d{2}\b/.test(error.message)) {
+  /**
+   * Enregistre un échec provider. Le breaker ne trip que sur des erreurs
+   * réellement transitoires côté serveur (5xx) ou network.
+   *
+   * Le `httpStatus` numérique (si fourni par l'appelant via `response.status`)
+   * est la source de vérité pour décider 4xx/5xx. La regex sur `error.message`
+   * reste un fallback pour les erreurs non-HTTP, mais sans précédence : un
+   * httpStatus 4xx skip systématiquement, indépendamment du message.
+   *
+   * Closes audit P0-9 "circuit breaker poisoning" : un attaquant ne peut plus
+   * faire trip le breaker en injectant "500" dans un message d'erreur app-layer.
+   */
+  recordFailure(provider: string, error: Error, tenantId?: string, httpStatus?: number): void {
+    // Source de vérité : status numérique si fourni
+    if (typeof httpStatus === "number") {
+      // 4xx client error → ne trip pas le breaker (problème côté input, pas provider)
+      if (httpStatus >= 400 && httpStatus < 500) return;
+      // 5xx ou network (0/undefined) → continue vers la logique de trip
+    } else if (/\b4\d{2}\b/.test(error.message)) {
+      // Fallback regex (legacy) — moins fiable, n'écrase pas httpStatus si fourni
       return;
     }
 

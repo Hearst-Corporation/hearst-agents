@@ -4,7 +4,7 @@ import { createVariant } from "@/lib/assets/variants";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type { AudioGenInput } from "@/lib/jobs/types";
 import { generateBriefing } from "@/lib/memory/briefing";
-import { getRedis } from "@/lib/platform/redis/client";
+import { getRedis, redisSetNxEx } from "@/lib/platform/redis/client";
 
 const BRIEFING_TTL_SECS = 24 * 60 * 60;
 
@@ -26,15 +26,19 @@ export async function scheduleDailyBriefing(params: {
   const { userId, tenantId, workspaceId } = params;
   const redis = getRedis();
   const key = briefingKey(userId);
+  const assetId = randomUUID();
 
+  // SET NX EX atomique : pose le verrou AVANT de générer le briefing pour
+  // empêcher deux appels concurrents de produire chacun un brief + audio.
+  // L'ancien pattern `get` puis `set` à la fin laissait une fenêtre de
+  // race condition (cf. audit P0-8). On stocke assetId comme valeur dès
+  // maintenant ; si Redis est down, on continue best-effort sans dédup.
   if (redis) {
-    const existing = await redis.get(key).catch(() => null);
-    if (existing) return;
+    const acquired = await redisSetNxEx(redis, key, assetId, BRIEFING_TTL_SECS).catch(() => false);
+    if (!acquired) return;
   }
 
   const briefing = await generateBriefing({ userId });
-
-  const assetId = randomUUID();
   const asset: Asset = {
     id: assetId,
     threadId: `briefing:${userId}`,
@@ -78,8 +82,6 @@ export async function scheduleDailyBriefing(params: {
       });
     }
   }
-
-  if (redis) {
-    await redis.set(key, assetId, "EX", BRIEFING_TTL_SECS).catch(() => {});
-  }
+  // Note : le verrou Redis a déjà été posé en début de fonction via SET NX EX.
+  // Pas besoin de SET final ici — l'idempotency est déjà garantie.
 }

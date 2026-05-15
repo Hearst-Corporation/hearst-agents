@@ -15,15 +15,46 @@ import type { Tool } from "ai";
 import { jsonSchema } from "ai";
 import { storeAsset } from "@/lib/assets/types";
 import { createVariant } from "@/lib/assets/variants";
+import { formatInsufficientCreditsMessage, requireCreditsForJob } from "@/lib/credits/middleware";
 import type { RunEventBus } from "@/lib/events/bus";
 import { enqueueJob } from "@/lib/jobs/queue";
 import type {
   AudioGenInput,
   CodeExecInput,
   DocumentParseInput,
+  JobKind,
   VideoGenInput,
 } from "@/lib/jobs/types";
 import type { TenantScope } from "@/lib/multi-tenant/types";
+
+/**
+ * Garde-fou crédits commun aux 4 tools média.
+ *
+ * Skip si userId absent (chemin "anonymous" en dev). Sinon, tente une
+ * réservation atomique avant l'enqueue : refuse net si solde insuffisant
+ * pour éviter d'enqueue un job qui ne peut être payé (cf. audit P0-4).
+ *
+ * Retourne `null` si OK (continue), un message user-facing sinon.
+ */
+async function ensureCreditsOrMessage(args: {
+  scope: TenantScope;
+  jobKind: JobKind;
+  estimatedCostUsd: number;
+  jobId: string;
+}): Promise<string | null> {
+  if (!args.scope.userId) return null;
+  const guard = await requireCreditsForJob({
+    userId: args.scope.userId,
+    tenantId: args.scope.tenantId,
+    jobKind: args.jobKind,
+    estimatedCostUsd: args.estimatedCostUsd,
+    jobId: args.jobId,
+  });
+  if (!guard.allowed) {
+    return formatInsufficientCreditsMessage(guard, args.jobKind);
+  }
+  return null;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AiToolMap = Record<string, Tool<any, any>>;
@@ -145,6 +176,15 @@ export function buildExtrasMediaTools(opts: {
       if (!text) return "Erreur : text vide. Précise le contenu à lire.";
 
       const assetId = randomUUID();
+      // Guard crédits avant tout side-effect (storeAsset/enqueue) — P0-4.
+      const insufficient = await ensureCreditsOrMessage({
+        scope,
+        jobKind: "audio-gen",
+        estimatedCostUsd: 0.01,
+        jobId: assetId,
+      });
+      if (insufficient) return insufficient;
+
       await storeAsset({
         id: assetId,
         threadId: threadOrWorkspace,
@@ -186,7 +226,7 @@ export function buildExtrasMediaTools(opts: {
         variantKind: "audio",
       };
       try {
-        await enqueueJob(payload);
+        await enqueueJob(payload, { idempotencyKey: assetId });
       } catch (err) {
         console.error("[generate_audio] enqueue failed:", err);
         return `Erreur enqueue : ${err instanceof Error ? err.message : "unknown"}`;
@@ -228,6 +268,14 @@ export function buildExtrasMediaTools(opts: {
       if (!url) return "Erreur : fileUrl vide.";
 
       const assetId = randomUUID();
+      const insufficient = await ensureCreditsOrMessage({
+        scope,
+        jobKind: "document-parse",
+        estimatedCostUsd: 0.005,
+        jobId: assetId,
+      });
+      if (insufficient) return insufficient;
+
       await storeAsset({
         id: assetId,
         threadId: threadOrWorkspace,
@@ -266,7 +314,7 @@ export function buildExtrasMediaTools(opts: {
         variantKind: "text",
       };
       try {
-        await enqueueJob(payload);
+        await enqueueJob(payload, { idempotencyKey: assetId });
       } catch (err) {
         console.error("[parse_document] enqueue failed:", err);
         return `Erreur enqueue : ${err instanceof Error ? err.message : "unknown"}`;
@@ -334,6 +382,14 @@ export function buildExtrasMediaTools(opts: {
       }
 
       const assetId = randomUUID();
+      const insufficient = await ensureCreditsOrMessage({
+        scope,
+        jobKind: "video-gen",
+        estimatedCostUsd: 0.5,
+        jobId: assetId,
+      });
+      if (insufficient) return insufficient;
+
       await storeAsset({
         id: assetId,
         threadId: threadOrWorkspace,
@@ -379,7 +435,7 @@ export function buildExtrasMediaTools(opts: {
         variantKind: "video",
       };
       try {
-        await enqueueJob(payload);
+        await enqueueJob(payload, { idempotencyKey: assetId });
       } catch (err) {
         console.error("[generate_video] enqueue failed:", err);
         return `Erreur enqueue : ${err instanceof Error ? err.message : "unknown"}`;
@@ -448,6 +504,14 @@ export function buildExtrasMediaTools(opts: {
       }
 
       const assetId = randomUUID();
+      const insufficient = await ensureCreditsOrMessage({
+        scope,
+        jobKind: "code-exec",
+        estimatedCostUsd: 0.001,
+        jobId: assetId,
+      });
+      if (insufficient) return insufficient;
+
       await storeAsset({
         id: assetId,
         threadId: threadOrWorkspace,
@@ -485,7 +549,7 @@ export function buildExtrasMediaTools(opts: {
         variantKind: "code",
       };
       try {
-        await enqueueJob(payload);
+        await enqueueJob(payload, { idempotencyKey: assetId });
       } catch (err) {
         console.error("[run_code] enqueue failed:", err);
         return `Erreur enqueue : ${err instanceof Error ? err.message : "unknown"}`;

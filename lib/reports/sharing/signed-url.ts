@@ -89,6 +89,27 @@ export function getSharingSecret(): string | null {
   return secret;
 }
 
+/**
+ * Liste ordonnée des secrets acceptés en VÉRIFICATION (signing utilise
+ * toujours `getSharingSecret()` = le primaire). Permet une rotation sans
+ * casser les tokens en circulation (cf. audit P0-16) :
+ *   - Le primaire `REPORT_SHARING_SECRET` est utilisé pour signer + vérifier
+ *   - Les secondaires `REPORT_SHARING_SECRET_PREVIOUS` (puis _N) sont
+ *     uniquement acceptés en vérification, pendant la fenêtre TTL_MAX_HOURS
+ *     (= 7 jours) pour laisser les anciens tokens expirer naturellement.
+ *
+ * Ordre du retour : primaire d'abord (chemin chaud), puis fallbacks.
+ */
+export function getSharingSecretsForVerify(): string[] {
+  const primary = getSharingSecret();
+  const secrets: string[] = primary ? [primary] : [];
+  const previous = process.env.REPORT_SHARING_SECRET_PREVIOUS ?? "";
+  if (previous.length >= SECRET_MIN_LENGTH && previous !== primary) {
+    secrets.push(previous);
+  }
+  return secrets;
+}
+
 // ── Encoding helpers ─────────────────────────────────────────
 
 function base64url(buf: Buffer | string): string {
@@ -143,26 +164,35 @@ export function verifyToken(
   token: string,
   options: { now?: number } = {},
 ): VerifyTokenResult | VerifyTokenError {
-  const secret = getSharingSecret();
-  if (!secret) return { ok: false, reason: "no_secret" };
+  const secrets = getSharingSecretsForVerify();
+  if (secrets.length === 0) return { ok: false, reason: "no_secret" };
 
   const parts = token.split(TOKEN_SEPARATOR);
   if (parts.length !== 2) return { ok: false, reason: "malformed" };
   const [payloadB64, sigB64] = parts;
   if (!payloadB64 || !sigB64) return { ok: false, reason: "malformed" };
 
-  // Recalcule la signature attendue
-  const expectedSig = crypto.createHmac(HMAC_ALG, secret).update(payloadB64).digest();
   let providedSig: Buffer;
   try {
     providedSig = fromBase64url(sigB64);
   } catch {
     return { ok: false, reason: "malformed" };
   }
-  if (
-    expectedSig.length !== providedSig.length ||
-    !crypto.timingSafeEqual(expectedSig, providedSig)
-  ) {
+
+  // Tente chaque secret accepté (primaire puis previous) — permet rotation
+  // sans invalider les tokens en circulation. Timing-safe sur chaque tentative.
+  let matched = false;
+  for (const secret of secrets) {
+    const expectedSig = crypto.createHmac(HMAC_ALG, secret).update(payloadB64).digest();
+    if (
+      expectedSig.length === providedSig.length &&
+      crypto.timingSafeEqual(expectedSig, providedSig)
+    ) {
+      matched = true;
+      break;
+    }
+  }
+  if (!matched) {
     return { ok: false, reason: "bad_signature" };
   }
 
