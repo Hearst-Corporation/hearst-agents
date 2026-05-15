@@ -16,6 +16,7 @@ import { enforceCostBudget, type CostBudget, DEFAULT_COST_BUDGET } from "./cost-
 import { validateOutput, type OutputValidationResult } from "./output-validator";
 import type { AgentGuardPolicy } from "./prompt-guard";
 import { getLangfuseClient } from "@/lib/observability/langfuse";
+import { logger } from "@/lib/observability/logger";
 
 type DB = SupabaseClient<Database>;
 type JsonRecord = Record<string, Json | undefined>;
@@ -188,7 +189,17 @@ export class RunTracer {
     if (error && traceStatus !== "timeout") throw new Error(error);
     if (traceStatus === "timeout") throw new RuntimeError("TIMEOUT", error!, false);
 
-    enforceCostBudget(this.totalCost, this.costBudget, this.emitEvent.bind(this));
+    try {
+      enforceCostBudget(this.totalCost, this.costBudget, this.emitEvent.bind(this));
+    } catch (costErr) {
+      if (costErr instanceof RuntimeError && costErr.code === "COST_LIMIT_EXCEEDED") {
+        logger.error(
+          { run_id: this.runId, cost_usd: this.totalCost, budget_usd: this.costBudget.budget_usd },
+          "[cost-sentinel] budget exceeded",
+        );
+      }
+      throw costErr;
+    }
 
     // Output validation for LLM traces
     let validation: OutputValidationResult | undefined;
@@ -292,6 +303,9 @@ export class RunTracer {
   }
 
   private emitEvent(kind: RunEventKind, data: Record<string, unknown>) {
+    if (kind === "cost:warning") {
+      logger.warn({ run_id: this.runId, ...data }, "[cost-sentinel] budget warning");
+    }
     this.events.push({
       kind,
       run_id: this.runId ?? "unknown",
