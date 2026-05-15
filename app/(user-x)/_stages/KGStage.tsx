@@ -111,7 +111,9 @@ const buildStylesheet = (highlightIds: Set<string> | null): CytoscapeStyleEntry[
   },
 ];
 
-const LAYOUT = { name: "cose", animate: true, animationDuration: 500 };
+// animate: false évite le crash cy.notify() si le composant est démonté
+// pendant l'animation cose (cas fréquent lors de la navigation entre stages).
+const LAYOUT = { name: "cose", animate: false };
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function KGStage({ mode }: KGStageProps) {
