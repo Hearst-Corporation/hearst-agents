@@ -27,7 +27,7 @@ export function OrbitalNode({ node }: OrbitalNodeProps) {
         ${hovered ? "bg-surface-2 border-border-strong scale-[1.03] shadow-card-deep glow-subtle-accent" : "bg-surface-1 border-border-soft"}
         ${node.connected ? "animate-[pulse-breath_2s_ease-in-out_infinite]" : ""}
       `}
-      style={{ width: 110, height: 80 }}
+      style={{ width: "var(--node-width)", height: "var(--node-height)" }}
     >
       {/* Dot de connexion */}
       <div

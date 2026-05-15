@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* Lab CLI-OS — tokens FROM SCRATCH (zéro héritage Hearst).
+ * Dérivés de la grammaire Dribbble George Railean (docs/visual/refs/dribbble-grammar.md).
+ * Modifiables librement — on itère jusqu'à validation.
+ */
+
+@theme {
+  /* Surfaces */
+  --color-bg: #000000;
+  --color-bg-elev-1: #141414;
+  --color-bg-elev-2: #1f1f1f;
+  --color-bg-elev-3: #2a2a2a;
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-soft: rgba(255, 255, 255, 0.04);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Inks */
+  --color-ink: #f5f5f5;
+  --color-ink-strong: #ffffff;
+  --color-fg-dim: rgba(245, 245, 245, 0.55);
+  --color-fg-mute: rgba(245, 245, 245, 0.28);
+  --color-fg-faint: rgba(245, 245, 245, 0.14);
+
+  /* Accent unique (Noir et blanc / Gris neutre) */
+  --color-accent: #ffffff;
+  --color-accent-mute: rgba(255, 255, 255, 0.15);
+  --color-accent-faint: rgba(255, 255, 255, 0.04);
+
+  /* Typo */
+  --font-sans: "Inter var", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Tailles */
+  --text-cap: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 20px;
+  --text-lg: 28px;
+  --text-xl: 40px;
+
+  /* Espacements */
+  --spacing: 4px;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 120ms;
+  --duration-base: 280ms;
+  --duration-slow: 400ms;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss03", "cv02";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: "Inter var", "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Scrollbar discrète */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.12);
+}

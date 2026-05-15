@@ -21,7 +21,7 @@ function QuickActionButton({ label, onClick }: { label: string; onClick: () => v
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        padding: "6px 14px",
+        padding: "var(--space-1-5) var(--space-3-5)",
         borderRadius: "var(--radius-pill)",
         fontWeight: 400,
         color: hovered ? "var(--mono-text-70)" : "var(--mono-text-35)",

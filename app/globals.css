@@ -134,8 +134,10 @@
   /* ─── Hearst Connect — Spacing scale (4px base) ─────────────── */
   --space-0: 0px;
   --space-1: 4px;
+  --space-1-5: 6px;
   --space-2: 8px;
   --space-3: 12px;
+  --space-3-5: 14px;
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
@@ -418,6 +420,10 @@
   --mono-text-70: var(--text-muted);
   --mono-line: rgba(255, 255, 255, 0.12);
   --mono-line-dim: var(--line-strong);
+
+  /* Orbital node card — dimensions fixes de chaque tuile de service */
+  --node-width: 110px;
+  --node-height: 80px;
 
   /* ─── Hearst Connect — Status colors ────────────────────────── */
   --color-success: #2dc558;

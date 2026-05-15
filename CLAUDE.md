@@ -138,6 +138,24 @@ règles tokens, voix éditoriale et lint visuel ne s'y appliquent pas. Toute
 modification du module doit rester confinée au module et ne pas propager ses
 patterns ailleurs.
 
+## Sandbox `lab/` — zone libre, hors DS, hors lint
+
+`lab/cli-os/` (et tout futur sous-dossier de `lab/`) est une **sandbox Vite+React
+totalement isolée** du cockpit Hearst. Elle existe pour prototyper UX/UI/Flow
+**from scratch** sans hériter du DS, des tokens, ni de la voix éditoriale.
+
+- Aucune règle CLAUDE.md (tokens, voix, primitives, lint visuel) ne s'applique à `lab/`
+- Aucune contrainte AGENT-LOCK
+- Aucun import depuis `app/`, `components/`, `hooks/`, `lib/`, `stores/` du repo principal
+- Stack identique (React 19 + Tailwind v4 + Framer Motion + TypeScript) pour
+  garantir un port back trivial : composant validé → copié dans
+  `app/(user)/components/<feature>/` avec swap d'imports
+- La navigation suit `lab/cli-os/src/lib/navigation-truth.ts` qui dérive du code
+  réel — quand on prototype, les Stages/stores/hotkeys référencés correspondent
+  bien aux surfaces de Hearst, juste re-skinnées
+
+Run : `cd lab/cli-os && pnpm install && pnpm dev` → `localhost:5173`.
+
 ## 🔒 INTERDICTION ABSOLUE — `/spatial-safe` (sauvegarde de référence)
 
 La route **`/spatial-safe`** et tous ses fichiers associés sont une **sauvegarde
