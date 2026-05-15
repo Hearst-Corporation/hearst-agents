@@ -1,6 +1,7 @@
 {
   "name": "hearst-os",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.11.0",
   "private": true,
   "main": "dist/electron/main.js",
   "scripts": {
