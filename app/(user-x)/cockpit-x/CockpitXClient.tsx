@@ -6,9 +6,13 @@ import { useEffect, useState } from "react";
 import type { CockpitTodayPayload } from "@/lib/cockpit/today";
 import { useStageStore } from "@/stores/stage";
 import { Shell } from "../_shell/Shell";
+import { ArtifactStage } from "../_stages/ArtifactStage";
 import { AssetCompareStage } from "../_stages/AssetCompareStage";
 import { AssetStage } from "../_stages/AssetStage";
+import { BrowserStage } from "../_stages/BrowserStage";
 import { ChatStage } from "../_stages/ChatStage";
+import { KGStage } from "../_stages/KGStage";
+import { MeetingStage } from "../_stages/MeetingStage";
 import { MissionStage } from "../_stages/MissionStage";
 import { STAGE_REGISTRY } from "../_stages/registry";
 import { SignalStage } from "../_stages/SignalStage";
@@ -100,6 +104,14 @@ export function CockpitXClient({ initialCockpitData }: CockpitXClientProps) {
         return <AssetCompareStage mode={mode} />;
       case "simulation":
         return <SimulationStage mode={mode} />;
+      case "browser":
+        return <BrowserStage mode={mode} />;
+      case "meeting":
+        return <MeetingStage mode={mode} />;
+      case "kg":
+        return <KGStage mode={mode} />;
+      case "artifact":
+        return <ArtifactStage mode={mode} />;
       default:
         return <ModePlaceholder mode={mode} def={def} />;
     }
