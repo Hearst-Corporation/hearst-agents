@@ -156,6 +156,8 @@ export class GeminiProvider implements LLMProvider {
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
+    let tokensIn = 0;
+    let tokensOut = 0;
 
     try {
       while (true) {
@@ -176,7 +178,16 @@ export class GeminiProvider implements LLMProvider {
           try {
             const obj = JSON.parse(jsonStr) as {
               candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+              usageMetadata?: {
+                promptTokenCount?: number;
+                candidatesTokenCount?: number;
+              };
             };
+            // Gemini retourne usageMetadata sur le dernier chunk
+            if (obj.usageMetadata) {
+              tokensIn = obj.usageMetadata.promptTokenCount ?? tokensIn;
+              tokensOut = obj.usageMetadata.candidatesTokenCount ?? tokensOut;
+            }
             const piece =
               obj.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
             if (piece) yield { delta: piece, done: false };
@@ -189,6 +200,10 @@ export class GeminiProvider implements LLMProvider {
       reader.releaseLock();
     }
 
-    yield { delta: "", done: true };
+    const cost_usd = computeCostUsd("gemini", req.model, {
+      input_tokens: tokensIn,
+      output_tokens: tokensOut,
+    });
+    yield { delta: "", done: true, cost_usd, tokens_in: tokensIn, tokens_out: tokensOut };
   }
 }

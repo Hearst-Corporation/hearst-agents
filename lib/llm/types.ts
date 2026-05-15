@@ -40,6 +40,12 @@ export interface ChatResponse {
 export interface StreamChunk {
   delta: string;
   done: boolean;
+  /** Présent sur le chunk final (done=true) seulement. */
+  cost_usd?: number;
+  tokens_in?: number;
+  tokens_out?: number;
+  cache_read_tokens?: number;
+  cache_creation_tokens?: number;
 }
 
 export interface LLMProvider {

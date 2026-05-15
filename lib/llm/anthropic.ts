@@ -216,6 +216,7 @@ export class AnthropicProvider implements LLMProvider {
     const stream = this.client.messages.stream(params as Anthropic.MessageStreamParams, { signal });
 
     let collectedText = "";
+    let streamStopped = false;
     try {
       for await (const event of stream) {
         if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
@@ -223,31 +224,56 @@ export class AnthropicProvider implements LLMProvider {
           yield { delta: event.delta.text, done: false };
         }
         if (event.type === "message_stop") {
-          yield { delta: "", done: true };
+          streamStopped = true;
         }
       }
 
       // Stream consumed — récupère les headers (rate-limit) et l'usage final.
       recordAnthropicRateHeaders(stream.response ?? undefined);
+
+      // Récupère usage final pour calculer cost_usd réel avant de yielder done.
+      let finalCostUsd = 0;
+      let finalTokensIn = 0;
+      let finalTokensOut = 0;
+      let finalCacheRead = 0;
+      let finalCacheCreation = 0;
       try {
         const final = await stream.finalMessage();
+        finalTokensIn = final.usage.input_tokens;
+        finalTokensOut = final.usage.output_tokens;
+        finalCacheRead = final.usage.cache_read_input_tokens ?? 0;
+        finalCacheCreation = final.usage.cache_creation_input_tokens ?? 0;
+        finalCostUsd = computeCostUsd("anthropic", req.model, {
+          input_tokens: finalTokensIn,
+          output_tokens: finalTokensOut,
+          cache_read_input_tokens: finalCacheRead,
+        });
         generation?.end({
           output: { text: collectedText },
           usage: {
-            input: final.usage.input_tokens,
-            output: final.usage.output_tokens,
+            input: finalTokensIn,
+            output: finalTokensOut,
             unit: "TOKENS",
-            totalCost: computeCostUsd("anthropic", req.model, {
-              input_tokens: final.usage.input_tokens,
-              output_tokens: final.usage.output_tokens,
-              cache_read_input_tokens: final.usage.cache_read_input_tokens ?? 0,
-            }),
+            totalCost: finalCostUsd,
           },
         });
       } catch {
         // finalMessage() peut throw si le stream a été interrompu — on ferme la
         // génération avec ce qu'on a sans casser le caller.
         generation?.end({ output: { text: collectedText } });
+      }
+
+      // Yield le chunk final avec usage uniquement si message_stop a été reçu.
+      if (streamStopped) {
+        yield {
+          delta: "",
+          done: true,
+          cost_usd: finalCostUsd,
+          tokens_in: finalTokensIn,
+          tokens_out: finalTokensOut,
+          cache_read_tokens: finalCacheRead,
+          cache_creation_tokens: finalCacheCreation,
+        };
       }
     } catch (err) {
       generation?.end({

@@ -77,6 +77,7 @@ export class OpenAIProvider implements LLMProvider {
           max_tokens: req.max_tokens,
           top_p: req.top_p,
           stream: true,
+          stream_options: { include_usage: true },
         },
         { signal },
       )
@@ -84,12 +85,35 @@ export class OpenAIProvider implements LLMProvider {
 
     this.recordRateLimitHeaders(response);
 
+    let tokensIn = 0;
+    let tokensOut = 0;
+    let pendingFinish = false;
+
     for await (const chunk of stream) {
-      const delta = chunk.choices[0]?.delta?.content ?? "";
-      const done = chunk.choices[0]?.finish_reason !== null;
-      if (delta || done) {
-        yield { delta, done };
+      // Avec stream_options.include_usage, le dernier chunk a choices vide
+      // + usage peuplé. Les chunks précédents ont usage null.
+      if (chunk.usage) {
+        tokensIn = chunk.usage.prompt_tokens ?? 0;
+        tokensOut = chunk.usage.completion_tokens ?? 0;
       }
+      const delta = chunk.choices[0]?.delta?.content ?? "";
+      const finishReason = chunk.choices[0]?.finish_reason;
+      if (delta) {
+        yield { delta, done: false };
+      }
+      if (finishReason !== null && finishReason !== undefined) {
+        pendingFinish = true;
+      }
+    }
+
+    // Yield done seulement après avoir consommé le chunk usage final
+    // (qui arrive APRÈS le chunk avec finish_reason).
+    if (pendingFinish) {
+      const cost_usd = computeCostUsd("openai", req.model, {
+        input_tokens: tokensIn,
+        output_tokens: tokensOut,
+      });
+      yield { delta: "", done: true, cost_usd, tokens_in: tokensIn, tokens_out: tokensOut };
     }
   }
 

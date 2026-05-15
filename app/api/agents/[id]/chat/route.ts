@@ -167,6 +167,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       let fullContent = "";
       let modelDecision: ModelDecision | undefined;
       let actualModelUsed = `${agent.model_provider}/${agent.model_name}`;
+      let finalCostUsd = 0;
+      let finalTokensIn = 0;
+      let finalTokensOut = 0;
 
       try {
         if (useSmartRouting) {
@@ -192,7 +195,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
                 `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
               ),
             );
-            if (chunk.done) break;
+            if (chunk.done) {
+              finalCostUsd = chunk.cost_usd ?? 0;
+              finalTokensIn = chunk.tokens_in ?? 0;
+              finalTokensOut = chunk.tokens_out ?? 0;
+              break;
+            }
           }
         } else {
           const provider = getProvider(agent.model_provider);
@@ -212,7 +220,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
                 `data: ${JSON.stringify({ delta: chunk.delta, done: chunk.done, run_id: runId })}\n\n`,
               ),
             );
-            if (chunk.done) break;
+            if (chunk.done) {
+              finalCostUsd = chunk.cost_usd ?? 0;
+              finalTokensIn = chunk.tokens_in ?? 0;
+              finalTokensOut = chunk.tokens_out ?? 0;
+              break;
+            }
           }
         }
       } catch (streamErr) {
@@ -254,9 +267,9 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
             string,
             Json
           >,
-          tokens_in: 0,
-          tokens_out: 0,
-          cost_usd: 0,
+          tokens_in: finalTokensIn,
+          tokens_out: finalTokensOut,
+          cost_usd: finalCostUsd,
           model_used: actualModelUsed,
         }),
       });
