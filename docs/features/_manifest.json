@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-15T18:46:54.247Z",
-  "total": 61,
+  "generatedAt": "2026-05-15T18:50:26.437Z",
+  "total": 62,
   "counts": {
     "verrouillé": 32,
     "in_progress": 9,
     "review": 0,
     "active": 0,
-    "autres": 20
+    "autres": 21
   },
   "totals": {
-    "invariants": 517,
+    "invariants": 524,
     "testsExistants": 1736,
     "testsManquants": 242,
     "orphans": 13
@@ -1023,6 +1023,34 @@
         "I-4. Signout côté client force redirect",
         "I-5. Page login : redirect immédiat si loggé",
         "I-6. Dev-bypass logué en boot"
+      ],
+      "testsExistantsCount": 0,
+      "testsOnDisk": 0,
+      "testFilesOnDisk": 0,
+      "testsDocExistants": 0,
+      "testsManquantsCount": 0,
+      "testGap": "aucun",
+      "orphansCount": 0
+    },
+    {
+      "id": "qa-chat-affordance-disabled",
+      "file": "qa-chat-affordance-disabled.md",
+      "href": "docs/features/qa-chat-affordance-disabled.md",
+      "statut": "draft",
+      "statutRaw": "draft",
+      "version": "1.0",
+      "owner": "Adrien",
+      "derniereRevue": "2026-05-15",
+      "niveau": "P1",
+      "invariantsCount": 7,
+      "invariantsTitles": [
+        "I-1. Tout bouton disabled a une raison textuelle",
+        "I-2. Tooltip apparaît au hover et au focus",
+        "I-3. Voix régulière FR pour les tooltips",
+        "I-4. Bouton \"Retirer Mission\" conditionnel",
+        "I-5. Tooltips primitive DS",
+        "I-6. Cohérence : disabled vs hidden",
+        "I-7. Pas de duplication mono caps"
       ],
       "testsExistantsCount": 0,
       "testsOnDisk": 0,

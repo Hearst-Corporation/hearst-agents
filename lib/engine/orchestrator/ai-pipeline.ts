@@ -763,10 +763,7 @@ export async function runAiPipeline(
       model: kimi(ORCHESTRATOR_MODEL),
       // Kimi (Moonshot AI) n'a pas de cacheControl équivalent à Anthropic.
       // Le system prompt est passé directement sans option provider spécifique.
-      system: {
-        role: "system" as const,
-        content: systemPrompt,
-      },
+      system: systemPrompt,
       messages,
       tools: aiTools,
       // Allow up to 10 tool-call → result cycles before forcing a stop
