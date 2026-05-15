@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useStageStore } from "@/stores/stage";
+import { LEFT_RAIL_ORDER, STAGE_REGISTRY } from "../_stages/registry";
 import type { StageKey } from "../_stages/types";
-import { LEFT_RAIL_ORDER, STAGE_LABELS } from "../_stages/types";
 
 /**
  * LeftRail visionOS — 88px de large, glass, 12 slots cliquables.
@@ -73,7 +73,8 @@ export function LeftRail() {
 
         {LEFT_RAIL_ORDER.map((key) => {
           const active = activeMode === key;
-          const label = STAGE_LABELS[key];
+          const def = STAGE_REGISTRY[key];
+          const label = def.hotkey ? `${def.label} (${def.hotkey})` : def.label;
           return (
             <motion.button
               whileTap={{ scale: 0.9 }}
