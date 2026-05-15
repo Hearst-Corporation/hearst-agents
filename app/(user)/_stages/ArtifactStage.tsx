@@ -2,8 +2,8 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { CodeEditor } from "@/app/(user-legacy)/components/artifact/CodeEditor";
-import { type ExecResult, PreviewPane } from "@/app/(user-legacy)/components/artifact/PreviewPane";
+import { CodeEditor } from "@/app/(user)/components/artifact/CodeEditor";
+import { type ExecResult, PreviewPane } from "@/app/(user)/components/artifact/PreviewPane";
 import { useStageStore } from "@/stores/stage";
 
 // ---------------------------------------------------------------------------

@@ -6,7 +6,7 @@ import {
   GhostIconCheck,
   GhostIconInfo,
   GhostIconX,
-} from "@/app/(user-legacy)/components/ghost-icons";
+} from "@/app/(user)/components/ghost-icons";
 
 export type ToastType = "info" | "success" | "error" | "warning";
 

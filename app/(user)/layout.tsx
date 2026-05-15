@@ -1,10 +1,10 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
-import { Commandeur } from "@/app/(user-legacy)/components/Commandeur";
-import { FocusBadge } from "@/app/(user-legacy)/components/FocusBadge";
-import { VideoQuickLaunch } from "@/app/(user-legacy)/components/VideoQuickLaunch";
-import { VoicePulse } from "@/app/(user-legacy)/components/voice/VoicePulse";
+import { Commandeur } from "@/app/(user)/components/Commandeur";
+import { FocusBadge } from "@/app/(user)/components/FocusBadge";
+import { VideoQuickLaunch } from "@/app/(user)/components/VideoQuickLaunch";
+import { VoicePulse } from "@/app/(user)/components/voice/VoicePulse";
 import { useGlobalHotkeys } from "@/app/hooks/use-global-hotkeys";
 import { useVoiceStore } from "@/stores/voice";
 

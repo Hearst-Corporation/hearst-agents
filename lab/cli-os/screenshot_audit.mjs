@@ -14,7 +14,7 @@ import path from 'path';
   await page.waitForTimeout(3000);
   
   // Ensure the directory exists
-  const outputPath = path.resolve('../../docs/visual/refs/lab-cockpit-broken-audit.jpeg');
+  const outputPath = path.resolve('../../docs/visual/refs/lab-cockpit-4202-recheck.jpeg');
   
   await page.screenshot({ path: outputPath, type: 'jpeg', quality: 90 });
   await browser.close();
