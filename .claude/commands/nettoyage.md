@@ -36,6 +36,7 @@ Lister symboles (fonctions, types, constantes) jamais référencés. Croiser ave
 ### Agent 3 — Magic numbers & inline styles
 
 Commandes :
+
 - `grep -rn "style={{" app/ components/ --include="*.tsx" | grep -v "var(--"`
 - `grep -rEn "#[0-9a-fA-F]{3,8}" app/ components/ --include="*.tsx" | grep -v globals.css`
 - `grep -rEn "(px|py|p|m|gap|w|h)-\[" app/ components/ --include="*.tsx"`

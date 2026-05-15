@@ -24,6 +24,7 @@ Spawn 4 Agents dans **un seul message** (subagent_type: `Explore`) :
 ### Agent 1 — Sécurité (OWASP)
 
 Vérifier :
+
 - `process.env.*` exposé côté client sans `NEXT_PUBLIC_`
 - `dangerouslySetInnerHTML` sans sanitisation
 - `eval(` dans `app/` ou `lib/`
@@ -32,6 +33,7 @@ Vérifier :
 - Inputs route handler sans validation zod
 
 Commandes utiles :
+
 - `grep -rn "process.env\." app/ --include="*.tsx" --include="*.ts" | grep -v NEXT_PUBLIC`
 - `grep -rn "dangerouslySetInnerHTML" app/ --include="*.tsx"`
 - `grep -rEn "eval\(" app/ lib/ --include="*.ts" --include="*.tsx"`
@@ -41,6 +43,7 @@ Livrable : `{ findings: [{ severity, path, line, rule, title, current, suggested
 ### Agent 2 — Performance
 
 Vérifier :
+
 - Composants > 300 lignes (candidat découpe)
 - `useEffect` sans tableau de deps explicite
 - `<img>` sans `next/image`
@@ -48,18 +51,21 @@ Vérifier :
 - Barrel imports tirant un module entier
 
 Commandes utiles :
+
 - `find app/ -name "*.tsx" -exec wc -l {} + | sort -rn | head -20`
 - `grep -rn "<img " app/ --include="*.tsx" | grep -v "next/image"`
 
 ### Agent 3 — Architecture (ADD)
 
 Vérifier :
+
 - Modifs dans zones verrouillées sans spec correspondante (cf `docs/AGENT-DRIVEN-DEV.md`)
 - Imports cross-feature qui violent isolation
 - Stores Zustand avec état dupliqué
 - Routes API sans typage entrée/sortie
 
 Commandes utiles :
+
 - `node scripts/list-stores.mjs 2>/dev/null`
 - `node scripts/list-api-routes.mjs 2>/dev/null`
 - Lire `docs/AGENT-DRIVEN-DEV.md`
@@ -67,11 +73,13 @@ Commandes utiles :
 ### Agent 4 — Dépendances
 
 Vérifier :
+
 - `npm audit` vulnérabilités haute/critique
 - `npx depcheck` deps inutilisées / manquantes
 - Lockfile désynchro
 
 Commandes utiles :
+
 - `npm audit --json 2>/dev/null`
 - `npx depcheck --json 2>/dev/null`
 

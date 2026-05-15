@@ -20,6 +20,7 @@ Si `locked: true` → ABORT. Refuser l'exécution. Indiquer déverrouillage via 
 !node scripts/battle-status.mjs --batch=$ARGUMENTS
 
 Vérifier :
+
 - batch existe → sinon ABORT message clair
 - `pre_conditions` satisfaites → sinon ABORT avec liste batchs requis
 - batch n'est pas déjà `done` → sinon demander confirmation (idempotency check)
@@ -27,10 +28,12 @@ Vérifier :
 ## Étape 2 — Spawn battle-orchestrator
 
 Spawner le sub-agent `battle-orchestrator` (subagent_type: `battle-orchestrator`) avec en input :
+
 - `batch_id`: $ARGUMENTS
 - Mission : exécuter le batch de bout en bout selon son workflow standard
 
 Le `battle-orchestrator` va lui-même piloter :
+
 1. Le fixer approprié (`auth-fixer`, `ssrf-fixer`, etc.) selon `sub_agent_recommended` du batch
 2. L'agent `validator` pour `npm run validate`
 3. L'agent `reauditer` pour vérification post-fix
@@ -51,6 +54,7 @@ Batch $ARGUMENTS — DONE | PARTIAL | FAILED
 ## Étape 4 — Suggérer next
 
 Lancer mentalement `/battle-next` et proposer :
+
 - Prochain batch recommandé
 - Si phase complète : féliciter + indiquer phase suivante
 - Si arrivé à GO-LIVE : annoncer la fin du Battle Plan

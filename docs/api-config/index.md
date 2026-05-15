@@ -4,10 +4,10 @@ Source de vérité pour tous les services, APIs et tokens du projet.
 
 ## Fichiers
 
-| Fichier | Contenu |
-|---------|---------|
-| [SERVICES.md](./SERVICES.md) | Catalogue complet — clés actives, statuts REQ/OPT, providers |
-| [docs/features/connections.md](../features/connections.md) | Spec technique — Composio, write-guard, OAuth, discovery |
+| Fichier                                                    | Contenu                                                      |
+| ---------------------------------------------------------- | ------------------------------------------------------------ |
+| [SERVICES.md](./SERVICES.md)                               | Catalogue complet — clés actives, statuts REQ/OPT, providers |
+| [docs/features/connections.md](../features/connections.md) | Spec technique — Composio, write-guard, OAuth, discovery     |
 
 ## Services opérationnels (~25)
 

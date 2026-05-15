@@ -33,11 +33,12 @@ Pour chaque port hors whitelist : PID, chemin binaire, parent vivant ou non. **P
 
 ## Passe 4 — Caches & node_modules orphelins
 
-!du -sh ~/.npm/_npx 2>/dev/null
-!du -sh ~/.npm/_cacache 2>/dev/null
+!du -sh ~/.npm/\_npx 2>/dev/null
+!du -sh ~/.npm/\_cacache 2>/dev/null
 !find /Users/adrienbeyondcrypto/Dev -name "node_modules" -maxdepth 3 -type d 2>/dev/null | while read d; do parent=$(dirname "$d"); if [ ! -f "$parent/package.json" ]; then echo "ORPHELIN: $(du -sh "$d" | cut -f1) $d"; fi; done
 
 **Proposer** :
+
 - `npm cache clean --force` si cache > 500 Mo
 - Supprimer `node_modules` orphelins listés ci-dessus
 
@@ -45,9 +46,9 @@ Attendre `o` pour chaque action.
 
 ## Passe 5 — Logs lourds
 
-!find /tmp -maxdepth 2 -name "*.log" -size +10M 2>/dev/null | head -10
-!find ~/Library/Logs -name "*.log" -size +50M 2>/dev/null | head -10
-!find /Users/adrienbeyondcrypto/Dev -name "*.log" -size +5M -not -path "*/node_modules/*" 2>/dev/null | head -10
+!find /tmp -maxdepth 2 -name "_.log" -size +10M 2>/dev/null | head -10
+!find ~/Library/Logs -name "_.log" -size +50M 2>/dev/null | head -10
+!find /Users/adrienbeyondcrypto/Dev -name "_.log" -size +5M -not -path "_/node_modules/\*" 2>/dev/null | head -10
 
 **Proposer** suppression. Attendre `o` pour chaque.
 

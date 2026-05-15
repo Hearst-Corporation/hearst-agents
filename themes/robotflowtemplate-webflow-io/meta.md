@@ -17,23 +17,23 @@
 
 ## Tokens clés
 
-| Token | Valeur | Usage observé |
-|-------|--------|---------------|
-| `--color-bg` | `#050607` | Body background |
-| `--color-surface` | `#121418` | Cards (`[class*='card']`) |
-| `--color-accent` | `#523ff5` | Liens violets, focus |
-| `--font-family` | Inter Tight | 519 occurrences en 18px |
-| `--font-size-6xl` | 72px | H1 hero |
-| `--font-size-4xl` | 48px | H2 sections |
-| `--radius-lg` | 32px | Cards (15 occ) |
-| `--radius-pill` | 200px | Boutons CTA (9 occ) |
-| `--space-30` | 120px | Section padding standard |
-| `--container-max` | 1280px | Wrapper principal |
+| Token             | Valeur      | Usage observé             |
+| ----------------- | ----------- | ------------------------- |
+| `--color-bg`      | `#050607`   | Body background           |
+| `--color-surface` | `#121418`   | Cards (`[class*='card']`) |
+| `--color-accent`  | `#523ff5`   | Liens violets, focus      |
+| `--font-family`   | Inter Tight | 519 occurrences en 18px   |
+| `--font-size-6xl` | 72px        | H1 hero                   |
+| `--font-size-4xl` | 48px        | H2 sections               |
+| `--radius-lg`     | 32px        | Cards (15 occ)            |
+| `--radius-pill`   | 200px       | Boutons CTA (9 occ)       |
+| `--space-30`      | 120px       | Section padding standard  |
+| `--container-max` | 1280px      | Wrapper principal         |
 
 ## Quick apply
 
 ```html
-<html data-theme="robotflowtemplate-webflow-io">
+<html data-theme="robotflowtemplate-webflow-io"></html>
 ```
 
 ou via JS :

@@ -6,6 +6,7 @@ argument-hint: [sandbox|sonnet|gemini] (vide = flow complet)
 # /design — Mode design
 
 Trois temps :
+
 1. **Audit** — état réel du design system (tokens, gaps, hardcoding)
 2. **Sandbox** — HTML interactif standalone pour explorer les directions visuelles
 3. **Prompt** — selon la direction validée : Sonnet (nettoyage/tokens) ou Gemini Pro (3D/avancé)
@@ -36,6 +37,7 @@ Lire en parallèle (subagent_type: `Explore`) :
 Lire [app/globals.css](app/globals.css) intégralement.
 
 Cartographier :
+
 - **Couleurs** : `--cykan`, `--accent-teal`, `--text-*`, `--surface-*`, `--border-*`, etc.
 - **Spacing** : `--space-*` (lister toutes les valeurs)
 - **Typographie** : classes `.t-*`, `--font-*`
@@ -48,14 +50,16 @@ Identifier les **trous** : tokens manquants utilisés dans le code mais non déf
 ### Agent B — Hardcoding scan
 
 Grep ciblé sur les 10 fichiers les plus modifiés récemment :
+
 - `git diff --name-only HEAD~10 | head -10`
 - Pour chacun : couleurs hex/rgb, px bruts, radius hardcodés
 
-Quantifier : N valeurs hardcodées vs N tokens utilisés → **taux de conformité DS %.
+Quantifier : N valeurs hardcodées vs N tokens utilisés → \*\*taux de conformité DS %.
 
 ### Agent C — Composants primitifs
 
 Lister les primitives DS existantes :
+
 - `grep -rEn "export.*function|export const" app/(user)/components/ui/ components/ --include="*.tsx" 2>/dev/null | head -40`
 
 Cartographier : quels composants existent, lesquels manquent, quels patterns sont dupliqués 3+ fois sans primitive.
@@ -82,8 +86,8 @@ Le sandbox doit être **premium et utilisable** : pas un doc de référence ennu
 
 ```html
 <!-- Structure générale -->
-<header>  Hearst OS Design Sandbox · date · version </header>
-<nav sticky>  Palette · Typo · Spacing · Radius/Shadow · Motion · Composants · Explorer  </nav>
+<header>Hearst OS Design Sandbox · date · version</header>
+<nav sticky>Palette · Typo · Spacing · Radius/Shadow · Motion · Composants · Explorer</nav>
 
 <!-- Section Palette -->
 <!-- Toutes les couleurs du DS en swatches cliquables -->

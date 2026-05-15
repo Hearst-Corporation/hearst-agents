@@ -37,6 +37,7 @@ Détecter alignements, spacing, tailles, grilles.
 - Containers sans tokens `--space-*`
 
 Commandes :
+
 - `grep -rEn "(px|py|p|m|gap|w|h)-\[[0-9]+px\]" app/ components/ --include="*.tsx"`
 - `grep -rn "style={{" app/ components/ --include="*.tsx" | grep -v "var(--"`
 
@@ -51,6 +52,7 @@ Tester hover, focus, loading, modales, dropdowns, scrolls.
 - Transitions cohérentes (`transition-*`, `duration-*` via tokens)
 
 Commandes :
+
 - `grep -rn "loading\|isLoading\|isPending" app/ components/ --include="*.tsx"`
 - `grep -rn "overflow" app/ components/ --include="*.tsx" --include="*.css"`
 - `grep -rEn "position:\s*(absolute|fixed)" app/ components/ --include="*.tsx"`
@@ -66,6 +68,7 @@ Vérifier typographie, couleurs, cartes, boutons, shadows, radius.
 - Couleurs hardcodées hors palette `globals.css`
 
 Commandes :
+
 - `grep -rEn "#[0-9a-fA-F]{3,8}" app/ components/ --include="*.tsx"`
 - `grep -rEn "rounded-\[" app/ components/ --include="*.tsx"`
 
@@ -89,6 +92,7 @@ Commandes :
 ```
 
 Sévérités :
+
 - **P0** (critique) — chevauchement, illisible, crash visuel
 - **P1** (moyen) — incohérence notable, impression non premium
 - **P2** (mineur) — pixel off, détail imperceptible à froid
@@ -96,6 +100,7 @@ Sévérités :
 ## Agrégation + score
 
 Calculer score /10 :
+
 - Base 10
 - −2 par P0, −0.5 par P1, −0.1 par P2 (plancher à 0)
 

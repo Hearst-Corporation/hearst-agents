@@ -24,6 +24,7 @@ Action : /battle-exec <id>
 ```
 
 Si plusieurs batchs candidats (deps satisfaites mais ordre non strict), prioriser :
+
 1. Phase la plus basse (P0 → P1 → P2)
 2. Au sein de la phase, ordre du JSON (séquence logique du Battle Plan)
 3. Signaler en premier ceux avec `blast_if_skipped: true`

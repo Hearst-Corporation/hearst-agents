@@ -3886,6 +3886,75 @@ export type Database = {
         }
         Relationships: []
       }
+      theme_assets: {
+        Row: {
+          alt_text: string | null
+          asset_type: string
+          asset_url: string
+          captured_at: string
+          category: string
+          file_size: number
+          filename: string | null
+          height: number
+          id: string
+          local_path: string | null
+          mime_type: string | null
+          source_page: string | null
+          theme_slug: string
+          width: number
+        }
+        Insert: {
+          alt_text?: string | null
+          asset_type?: string
+          asset_url: string
+          captured_at?: string
+          category?: string
+          file_size?: number
+          filename?: string | null
+          height?: number
+          id?: string
+          local_path?: string | null
+          mime_type?: string | null
+          source_page?: string | null
+          theme_slug: string
+          width?: number
+        }
+        Update: {
+          alt_text?: string | null
+          asset_type?: string
+          asset_url?: string
+          captured_at?: string
+          category?: string
+          file_size?: number
+          filename?: string | null
+          height?: number
+          id?: string
+          local_path?: string | null
+          mime_type?: string | null
+          source_page?: string | null
+          theme_slug?: string
+          width?: number
+        }
+        Relationships: []
+      }
+      user_theme_preferences: {
+        Row: {
+          selected_at: string
+          theme_slug: string
+          user_id: string
+        }
+        Insert: {
+          selected_at?: string
+          theme_slug?: string
+          user_id: string
+        }
+        Update: {
+          selected_at?: string
+          theme_slug?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_tokens: {
         Row: {
           access_token_enc: string | null

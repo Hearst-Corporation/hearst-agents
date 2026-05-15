@@ -2,9 +2,9 @@
 
 Géré par `/heist` (scrape) + `/skin` (intégration admin).
 
-| Slug | Source | Date | Sandbox |
-|------|--------|------|---------|
-| default | (Hearst OS canonique — `app/globals.css`) | — | — |
+| Slug                         | Source                                                  | Date       | Sandbox                                                |
+| ---------------------------- | ------------------------------------------------------- | ---------- | ------------------------------------------------------ |
+| default                      | (Hearst OS canonique — `app/globals.css`)               | —          | —                                                      |
 | robotflowtemplate-webflow-io | https://robotflowtemplate.webflow.io/home-pages/home-v1 | 2026-05-15 | [sandbox](./robotflowtemplate-webflow-io/sandbox.html) |
 
 ## Activer un thème

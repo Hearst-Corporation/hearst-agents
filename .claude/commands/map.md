@@ -18,11 +18,13 @@ Spawn 4 Agents (subagent_type: `Explore`) dans **un seul message**.
 ### Agent 1 — Routes Next.js (UI + API)
 
 Commandes :
+
 - `node scripts/list-api-routes.mjs 2>/dev/null`
 - `find app/ -name "page.tsx" | sort | sed 's|app/||;s|/page.tsx||'`
 - `find app/api -name "route.ts" | sort`
 
 Pour chaque route, identifier :
+
 - Méthode HTTP (GET/POST/PUT/DELETE/PATCH)
 - Auth requise (`getServerSession`, `requireAuth`, middleware)
 - Type de réponse (JSON, stream, redirect)
@@ -30,6 +32,7 @@ Pour chaque route, identifier :
 ### Agent 2 — Stores Zustand
 
 Commandes :
+
 - `node scripts/list-stores.mjs 2>/dev/null`
 - `grep -rn "create(" app/ lib/ --include="*.ts" --include="*.tsx" | grep -iE "(store|zustand)"`
 - `grep -rEn "use[A-Z][a-zA-Z]+Store" app/ components/ --include="*.tsx"`
@@ -39,9 +42,11 @@ Pour chaque store : nom, slices d'état, actions exposées, composants consommat
 ### Agent 3 — Dépendances inter-modules
 
 Commandes :
+
 - `grep -rh "from '@/" app/ lib/ components/ --include="*.ts" --include="*.tsx" | sed -E "s|.*from '@/([^']+)'.*|\\1|" | sort | uniq -c | sort -rn | head -40`
 
 Identifier :
+
 - Top 10 modules les plus importés (hubs critiques)
 - Imports circulaires potentiels (croiser via madge si dispo : `npx madge --circular --extensions ts,tsx app/`)
 - Couplage fort entre features qui devraient être isolées
@@ -49,6 +54,7 @@ Identifier :
 ### Agent 4 — Surface API publique
 
 Commandes :
+
 - `grep -rEn "export (async )?function|export const" app/api/ lib/api/ --include="*.ts" 2>/dev/null`
 - `grep -rEn "(fetch|axios|ky)\(" app/ components/ --include="*.tsx" --include="*.ts"`
 

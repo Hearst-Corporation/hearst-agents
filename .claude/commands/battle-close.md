@@ -18,12 +18,14 @@ Si `locked: true` → ABORT.
 !node scripts/battle-status.mjs --batch=$ARGUMENTS
 
 Vérifier :
+
 - batch existe
 - status actuel = `in_progress` → sinon demander confirmation
 
 ## Étape 2 — Confirmation utilisateur
 
 Demander explicitement à Adrien :
+
 1. Quels findings sont VRAIMENT closed (peut être un sous-ensemble) ?
 2. Régressions à ouvrir comme nouveaux findings F-XXX ?
 3. Confirmer le passage en `done` ?

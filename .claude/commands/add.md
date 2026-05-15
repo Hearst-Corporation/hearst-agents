@@ -35,6 +35,7 @@ cat docs/features/<feature_id>.md
 ```
 
 Identifier :
+
 - statut (verrouillé v<n> ou autonomie)
 - section "Invariants verrouillés"
 - section "Évolutions autorisées"
@@ -48,6 +49,7 @@ git diff --staged -- <fichiers concernés>
 ```
 
 Classer chaque finding :
+
 - ✅ Pas de contradiction avec invariants
 - ⚠ Possible impact sur invariant — demander revue avant commit
 - 🚫 Invariant clairement violé — STOP
@@ -76,6 +78,7 @@ Manifest : à jour | régénéré et stagé | nécessite git add
 ```
 
 Verdict :
+
 - Tout ✅ et manifest OK → commit autorisé.
 - Au moins un ⚠ → afficher détail, demander confirmation utilisateur explicite.
 - Au moins un 🚫 → STOP, proposer update spec (incrémenter `version spec`) avant tout commit.

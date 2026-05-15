@@ -46,6 +46,7 @@ Spawn 3 Agents dans **un seul message** (subagent_type: `Explore`).
 - Transitions logiques entre étapes
 
 Commandes :
+
 - `find app/ -name "page.tsx" | sort`
 - `grep -rEn "useRouter|router\.(push|back|replace)|redirect\(" app/ components/ --include="*.tsx" --include="*.ts"`
 
@@ -58,6 +59,7 @@ Commandes :
 - Flows où user peut perdre données
 
 Commandes :
+
 - `grep -rEn "onClick|onSubmit|onConfirm" app/ components/ --include="*.tsx"`
 - `grep -rEn "confirm\(|window\.confirm" app/ components/ --include="*.tsx"`
 
@@ -70,6 +72,7 @@ Commandes :
 - Comportements offline / erreur réseau
 
 Commandes :
+
 - `grep -rEn "loading|isLoading|isPending|isFetching" app/ components/ --include="*.tsx"`
 - `grep -rEn "toast|notify|sonner" app/ components/ --include="*.tsx"`
 - `grep -rEn "Dialog|Modal|Sheet|Popover" app/ components/ --include="*.tsx"`
@@ -91,6 +94,7 @@ Commandes :
 ```
 
 Sévérités :
+
 - **P0** — flow cassé, perte données, blocage utilisateur
 - **P1** — friction notable, confusion possible
 - **P2** — détail UX, wording, micro-interaction

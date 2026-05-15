@@ -12,6 +12,7 @@ Lecture obligatoire avant toute modification sur une feature. Garantit verrou + 
 !cat docs/AGENT-LOCK.json
 
 Si `locked: true` :
+
 - Refuser toute écriture (Edit, Write, NotebookEdit) et toute action destructive (`rm`, `git commit`, `git push`, `mv`, drop DB).
 - Citer la `reason` si présente.
 - Indiquer : déverrouiller via `/admin/agent-driven-dev`.
@@ -24,6 +25,7 @@ Si `locked: false` → continuer.
 @docs/AGENT-DRIVEN-DEV.md
 
 Identifier :
+
 - Features verrouillées (statut `verrouillé v<n>`)
 - Niveau de criticité (P0 / P1 / P2)
 - Périmètres des invariants
@@ -41,6 +43,7 @@ Et la rendre visible via :
 @docs/features/$ARGUMENTS.md
 
 Focaliser sur :
+
 - **Surface publique** — ce qui peut être modifié
 - **Invariants verrouillés** — interdits sans update spec
 - **Évolutions autorisées** — libres
@@ -50,6 +53,7 @@ Focaliser sur :
 ## Étape 4 — Règle d'or
 
 Si le changement envisagé contredit un invariant :
+
 1. STOP, ne pas coder.
 2. Proposer à Adrien un update de spec :
    - Incrémenter `version spec`
@@ -65,6 +69,7 @@ Mode autonomie standard (CLAUDE.md). Décider, coder, commit, signaler.
 ## Étape 6 — Hygiène post-modif
 
 Si modification de fichiers de la feature :
+
 - Mettre à jour `dernière revue` dans `docs/features/<id>.md`
 - `npm run features:manifest` si spec touchée
 - Le dashboard `/admin/agent-driven-dev` se met à jour automatiquement

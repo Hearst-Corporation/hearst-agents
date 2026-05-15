@@ -18,6 +18,7 @@ Spawn 3 Agents dans **un seul message** (subagent_type: `Explore`).
 ### Agent 1 — Inventaire tests existants
 
 Commandes :
+
 - `find . -type f \( -name "*.test.ts" -o -name "*.test.tsx" -o -name "*.spec.ts" -o -name "*.spec.tsx" \) -not -path "*/node_modules/*" | sort`
 - `find e2e/ -name "*.spec.ts" 2>/dev/null | sort`
 - `npx vitest run --reporter=verbose 2>/dev/null | tail -30`
@@ -27,6 +28,7 @@ Compter : N unit, M e2e, taux succès.
 ### Agent 2 — Couverture par fichier
 
 Commande :
+
 - `npx vitest run --coverage --reporter=json 2>/dev/null`
 
 Parser `coverage/coverage-summary.json`. Lister tous fichiers < 80% couverture ligne avec %.
@@ -36,10 +38,12 @@ Parser `coverage/coverage-summary.json`. Lister tous fichiers < 80% couverture l
 Identifier fichiers critiques (routes API, stores, lib core) sans `.test.*` adjacent.
 
 Commandes :
+
 - `find app/api -name "route.ts" | while read f; do base=$(dirname "$f"); if ! find . -path "*${base}*" -name "*.test.ts" 2>/dev/null | grep -q .; then echo "$f"; fi; done`
 - `find lib/ -name "*.ts" -not -name "*.test.*" -not -name "*.d.ts" | while read f; do name=$(basename "$f" .ts); if ! grep -rq "$name" . --include="*.test.ts" --include="*.spec.ts" 2>/dev/null; then echo "$f"; fi; done`
 
 Pour chaque fichier critique sans test, lister les cas manquants :
+
 - Happy path
 - Edge cases (limites, types inattendus, payloads vides)
 - Erreurs 400/401/403/404/500 sur routes API

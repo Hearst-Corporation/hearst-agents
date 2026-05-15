@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Nettoyage codebase — Hearst OS</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --surface-hi: #1a1a1a;
+    --border: #222;
+    --fg: #e8e8e8;
+    --fg-muted: #8a8a8a;
+    --accent: #00e5cc;
+    --p0: #ff4d6d;
+    --p1: #ffb347;
+    --p2: #eedd66;
+    --radius: 10px;
+    --space: 16px;
+    --space-sm: 8px;
+    --space-lg: 24px;
+    --duration: 180ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-lg); }
+  header { padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); margin-bottom: var(--space-lg); }
+  h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 var(--space-sm); }
+  h2 { font-size: 16px; font-weight: 600; margin: var(--space-lg) 0 var(--space); color: var(--fg); }
+  h3 { font-size: 13px; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--accent); }
+  .meta { color: var(--fg-muted); font-size: 12px; display: flex; gap: var(--space); flex-wrap: wrap; }
+  .meta b { color: var(--fg); font-weight: 500; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space); margin: var(--space-lg) 0; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .kpi-value { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); margin-top: 4px; }
+  .kpi.p0 .kpi-value { color: var(--p0); }
+  .kpi.p1 .kpi-value { color: var(--p1); }
+  .kpi.p2 .kpi-value { color: var(--p2); }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .block { margin: var(--space-lg) 0; }
+  .section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: var(--space); overflow: hidden; }
+  .section > summary { padding: var(--space); cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space); transition: background var(--duration) var(--ease); }
+  .section > summary:hover { background: var(--surface-hi); }
+  .section > summary::-webkit-details-marker { display: none; }
+  .section-name { font-weight: 600; flex: 0 0 auto; }
+  .section-agent { color: var(--fg-muted); font-size: 12px; }
+  .section-counts { margin-left: auto; display: flex; gap: 6px; }
+  .section-summary { padding: 0 var(--space) var(--space-sm); color: var(--fg-muted); font-size: 13px; margin: 0; }
+  .findings { padding: 0 var(--space) var(--space); display: grid; gap: var(--space-sm); }
+  .finding { background: var(--surface-hi); border: 1px solid var(--border); border-left-width: 3px; border-radius: 6px; padding: var(--space-sm) var(--space); }
+  .finding.sev-p0 { border-left-color: var(--p0); }
+  .finding.sev-p1 { border-left-color: var(--p1); }
+  .finding.sev-p2 { border-left-color: var(--p2); }
+  .finding-head { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .finding-title { font-weight: 500; }
+  .finding-path { margin-top: 4px; font-size: 12px; }
+  .finding-row { display: flex; gap: var(--space-sm); margin-top: 4px; font-size: 12px; align-items: baseline; }
+  .finding-row .k { color: var(--fg-muted); flex: 0 0 64px; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; }
+  .finding-row code { background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge-p0 { background: rgba(255,77,109,0.15); color: var(--p0); }
+  .badge-p1 { background: rgba(255,179,71,0.15); color: var(--p1); }
+  .badge-p2 { background: rgba(238,221,102,0.15); color: var(--p2); }
+  .status { margin-left: auto; color: var(--fg-muted); font-size: 11px; }
+  .fp { color: var(--accent); text-decoration: none; font-family: ui-monospace, monospace; font-size: 11px; }
+  .fp:hover { text-decoration: underline; }
+  .empty { color: var(--fg-muted); font-style: italic; padding: var(--space); text-align: center; }
+  .quick-wins { padding-left: var(--space-lg); margin: 0; display: grid; gap: 6px; }
+  .quick-wins li { display: flex; gap: var(--space); align-items: baseline; }
+  .qw-title { font-weight: 500; }
+  .qw-effort { color: var(--fg-muted); font-size: 11px; margin-left: auto; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space); }
+  .plan-batch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space); }
+  .plan-batch ul { padding-left: var(--space); margin: 0; }
+  .plan-batch li { margin-bottom: 4px; }
+  footer { margin-top: var(--space-lg); padding-top: var(--space); border-top: 1px solid var(--border); color: var(--fg-muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Nettoyage codebase</h1>
+    <div class="meta">
+      <span><b>Date</b> 2026-05-15 00:25</span>
+      <span><b>Branche</b> main</span>
+      <span><b>Commit</b> d2460b2</span>
+      <span><b>Scope</b> repo entier</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi accent"><div class="kpi-value">43</div><div class="kpi-label">Findings</div></div>
+    <div class="kpi p0"><div class="kpi-value">3</div><div class="kpi-label">P0 — critique</div></div>
+    <div class="kpi p1"><div class="kpi-value">18</div><div class="kpi-label">P1 — important</div></div>
+    <div class="kpi p2"><div class="kpi-value">47</div><div class="kpi-label">P2 — dette</div></div>
+    
+  </section>
+
+  
+
+  <section class="block">
+    <h2>Détails par section</h2>
+    
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Exports orphelins (knip)</span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">5</span>
+          <span class="badge badge-p2">5</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dead code TypeScript (ts-prune)</span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">7</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Magic numbers &amp; inline styles</span>
+        
+        <span class="section-counts">
+          <span class="badge badge-p0">2</span>
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">4</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p0">
+      <div class="finding-head">
+        <span class="badge badge-p0">P0</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">Dettes lint</span>
+        
+        <span class="section-counts">
+          
+          
+          <span class="badge badge-p2">3</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+    <details class="section" open>
+      <summary>
+        <span class="section-name">TODO/FIXME obsolètes</span>
+        
+        <span class="section-counts">
+          
+          <span class="badge badge-p1">6</span>
+          <span class="badge badge-p2">1</span>
+        </span>
+      </summary>
+      
+      <div class="findings">
+        
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p1">
+      <div class="finding-head">
+        <span class="badge badge-p1">P1</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+    <div class="finding sev-p2">
+      <div class="finding-head">
+        <span class="badge badge-p2">P2</span>
+        <span class="finding-title">—</span>
+        
+      </div>
+      
+      
+      
+      
+    </div>
+      </div>
+    </details>
+  </section>
+
+  
+    <section class="block">
+      <h2>Plan de remédiation</h2>
+      <div class="plan-grid">
+        <div class="plan-batch">
+              <h3>Batch 1 — Magic numbers WorkflowCanvas (P0 critique)</h3>
+              <ul><li>app/(user)/components/missions/builder/WorkflowCanvas.tsx — Extraire les 60+ hex en objet CYTOSCAPE_THEME constants avec références aux tokens CSS (--cykan, --danger, --gold, --bg-surface, --border)</li><li>app/(user)/components/timeline-rail/ThreadRow.tsx:49 — Remplacer #a78bfa par var(--accent-purple) ou couleur systémique</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 2 — Exports orphelins lib/contracts + lib/analytics (P1)</h3>
+              <ul><li>lib/contracts/jobs.ts — Vérifier si ImageGenPayload/AudioGenPayload/CodeExecPayload/DocumentParsePayload sont utilisés dans les workers ; supprimer si vrais orphelins</li><li>lib/contracts/missions.ts — Idem pour les 6 payload types orphelins</li><li>lib/analytics/metrics.ts — Supprimer computeToolMetrics si non branché</li><li>lib/cockpit/monthly-card-view.tsx — Supprimer MONTHLY_CARD_DIMENSIONS si non consommé</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 3 — TODO critiques : multi-tenant + Sentry (P1)</h3>
+              <ul><li>app/api/connections/expiring/route.ts:24 — Brancher tenantId depuis session auth (critique multi-tenant)</li><li>lib/engine/runtime/tracer.ts:264 — Brancher Sentry.captureException() via le SDK wrappé existant</li><li>lib/engine/runtime/missions/export-job.ts:142 — Brancher sur lib/engine/runtime/assets/</li><li>app/api/reports/route.ts:59 — Câbler apps connectées depuis store Supabase (phase-B)</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 4 — Inline styles pages publiques (P1)</h3>
+              <ul><li>app/public/hearst-card/[token]/page.tsx — Tokeniser fontWeight/letterSpacing via classes DS ou var(--)</li><li>app/public/approvals/[token]/page.tsx + vote-form.tsx — Idem</li><li>app/public/reports/[token]/page.tsx — Idem</li><li>app/admin/analytics/page.tsx:377 — Remplacer inline style par classes Tailwind</li></ul>
+            </div><div class="plan-batch">
+              <h3>Batch 5 — Dépendances unlisted + dotenv scripts (P2)</h3>
+              <ul><li>Ajouter dotenv aux devDependencies dans package.json pour scripts/ping-providers.mjs et scripts/purge-malformed-tokens.mjs</li><li>Vérifier si @splinetool/runtime doit être dans dependencies ou si déjà présent sous un alias</li></ul>
+            </div>
+      </div>
+    </section>
+
+  <footer>
+    Hearst OS · 2026-05-15 00:25
+  </footer>
+</div>
+</body>
+</html>
