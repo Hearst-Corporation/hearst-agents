@@ -24,8 +24,9 @@ export const MODEL_PRICING: Record<string, { input: number; output: number; cach
   "gpt-4o-mini": { input: 0.15, output: 0.6, cacheRead: 0.075 },
   "gpt-4-turbo": { input: 10.0, output: 30.0, cacheRead: 5.0 },
   "gpt-4": { input: 30.0, output: 60.0, cacheRead: 15.0 },
-  // Kimi (Moonshot AI) — tarifs approximatifs, à vérifier sur platform.moonshot.cn
-  "kimi-k2-5": { input: 2.0, output: 8.0, cacheRead: 0 },
+  // Kimi (Moonshot AI via hypercli) — tarifs approximatifs
+  "kimi-k2.6": { input: 2.0, output: 8.0, cacheRead: 0 },
+  "kimi-k2.5": { input: 2.0, output: 8.0, cacheRead: 0 },
   "kimi-k2": { input: 2.0, output: 8.0, cacheRead: 0 },
   // Google Gemini
   "gemini-2.0-flash": { input: 0.1, output: 0.4, cacheRead: 0.025 },

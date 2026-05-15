@@ -311,7 +311,7 @@ async function synthesizeReport(query: string, search: WebSearchResult): Promise
 
   const client = new OpenAI({
     apiKey: process.env.KIMI_API_KEY!,
-    baseURL: "https://api.moonshot.cn/v1",
+    baseURL: "https://api.hypercli.com/v1",
   });
 
   const sourcesContext = search.results

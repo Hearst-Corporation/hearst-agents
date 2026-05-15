@@ -107,7 +107,7 @@ export interface AiPipelineInput {
 
 const kimi = createOpenAI({
   apiKey: process.env.KIMI_API_KEY ?? "",
-  baseURL: "https://api.moonshot.cn/v1",
+  baseURL: "https://api.hypercli.com/v1",
 });
 
 /**
